@@ -603,7 +603,8 @@ function drawScores() {
     for (let i = 0; i < opponentLives; i++) {
         ctx.beginPath();
         ctx.arc(
-            (WIDTH * 0.75) - ((lifeRadius * 2 + lifeSpacing) * (opponentLives - 1) / 2) + ((lifeRadius * 2 + lifeSpacing) * i),
+            (WIDTH * 0.75) - ((lifeRadius * 2 + lifeSpacing)
+                * (opponentLives - 1) / 2) + ((lifeRadius * 2 + lifeSpacing) * i),
             lifeIndicatorY, lifeRadius, 0, Math.PI * 2);
         ctx.fill();
     }
