@@ -103,13 +103,13 @@ const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const gameStatus = document.getElementById('gameStatus');
 const PLAYER_PADDLE_HEIGHT_RATIO = 1/6, OPPONENT_PADDLE_HEIGHT_RATIO = 1/10, PADDLE_WIDTH_RATIO = 1/60, BALL_RADIUS_RATIO = 1/80;
-const NUM_REFLECTING_PADDLES = 4, MAX_PENALTY_POINTS = 60, INITIAL_LIVES = 3;
+const NUM_REFLECTING_PADDLES = 4, INITIAL_SCORE = 60, INITIAL_LIVES = 3;
 const BASE_BALL_SPEED = 10, AI_SPEED = 8;
 let showTrivia = false; // enable/disable trivia
 
 // Game variables
 let WIDTH, HEIGHT, SCALE, playerPos, opponentPos, ballX, ballY, ballDX, ballDY = [];
-let paused, playerPenalty, opponentPenalty, playerLives, opponentLives, lastTouch, reflectingPaddles = [];
+let paused, playerScore, opponentScore, playerLives, opponentLives, lastTouch, reflectingPaddles = [];
 let predictedY = { player: null, opponent: null };
 let lastTapTime = 0;
 let isGameOver = false;
@@ -244,7 +244,7 @@ function resetGame() {
     ballX = WIDTH / 2;
     ballY = HEIGHT / 2;
     resetBallSpeed();
-    playerPenalty = opponentPenalty = 0;
+    playerScore = opponentScore = INITIAL_SCORE;
     playerLives = opponentLives = INITIAL_LIVES;
     lastTouch = "player";
     paused = false;
@@ -327,7 +327,7 @@ function handleKeyPress(e) {
 
 function handleGameOverKeyPress(e) {
     if (e.key === 'Enter' && (playerLives <= 0 || opponentLives <= 0
-    || playerPenalty >= MAX_PENALTY_POINTS || opponentPenalty >= MAX_PENALTY_POINTS)) {
+    || playerScore >= INITIAL_SCORE || opponentScore >= INITIAL_SCORE)) {
         if (showTrivia) closeTriviaPopup();
         restartGame();
     }
@@ -450,19 +450,25 @@ function moveBall() {
                                  paddle.x + PADDLE_WIDTH_RATIO * WIDTH + BALL_RADIUS_RATIO * HEIGHT;
             ballDX = -ballDX;
             adjustBallAngle(paddle.y, paddle.height / HEIGHT);
-            if (lastTouch === "player") { opponentPenalty++; playSound(1.0, 0.8) }
-            else {playerPenalty++; playSound(1.0, 1.0) }
+            if (lastTouch === "player") {
+                opponentScore = Math.max(0, opponentScore - 1);
+                playSound(1.0, 0.8);
+            }
+            else {
+                playerScore = Math.max(0, playerScore - 1);
+                playSound(1.0, 1.0);
+            }
             break;
         }
     }
 
   if (ballX < 0 || ballX >= WIDTH) {
         if (ballX < 0) { 
-            playerPenalty += 10; 
+            playerScore -= 10; 
             playerLives--; 
             lastTouch = "player"; 
         } else { 
-            opponentPenalty += 10; 
+            opponentScore -= 10; 
             opponentLives--; 
             lastTouch = "opponent"; 
         }
@@ -546,8 +552,8 @@ function drawScores() {
     ctx.textAlign = 'center';
     
     // Player + opponent score
-    ctx.fillText(`${playerPenalty}`, WIDTH * 0.25, HEIGHT * 0.1);
-    ctx.fillText(`${opponentPenalty}`, WIDTH * 0.75, HEIGHT * 0.1);
+    ctx.fillText(`${playerScore}`, WIDTH * 0.25, HEIGHT * 0.1);
+    ctx.fillText(`${opponentScore}`, WIDTH * 0.75, HEIGHT * 0.1);
 
     // Draw circles for lives
     const lifeRadius = 8 * SCALE;
@@ -652,11 +658,11 @@ function gameLoop() {
         reflectingPaddles.forEach(paddle => paddle.move());
         draw();
         
-        if (playerLives > 0 && opponentLives > 0 && playerPenalty < MAX_PENALTY_POINTS && opponentPenalty < MAX_PENALTY_POINTS) {
+        if (playerLives > 0 && opponentLives > 0 && playerScore > 0 && opponentScore > 0 ) {
             requestAnimationFrame(gameLoop);
         } else {
             isGameOver = true;
-            gameStatus.innerHTML = `${playerLives <= 0 || playerPenalty >= MAX_PENALTY_POINTS ?
+            gameStatus.innerHTML = `${playerLives <= 0 || playerScore >= INITIAL_SCORE ?
                 "Opponent wins!" : "You win!"}<br>Press Enter to restart.`;
             gameStatus.style.display = 'block';
             if (showTrivia) {showTriviaPopup();} // show trivia at end of game
