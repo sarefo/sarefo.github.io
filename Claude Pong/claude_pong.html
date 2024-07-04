@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width,
+                            initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="mobile-web-app-capable" content="yes">
     <title>Claude Pong Game</title>
     <style>
@@ -102,14 +103,16 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const gameStatus = document.getElementById('gameStatus');
-const PLAYER_PADDLE_HEIGHT_RATIO = 1/6, OPPONENT_PADDLE_HEIGHT_RATIO = 1/10, PADDLE_WIDTH_RATIO = 1/60, BALL_RADIUS_RATIO = 1/80;
+const PLAYER_PADDLE_HEIGHT_RATIO = 1/6, OPPONENT_PADDLE_HEIGHT_RATIO = 1/10,
+      PADDLE_WIDTH_RATIO = 1/60, BALL_RADIUS_RATIO = 1/80;
 const NUM_REFLECTING_PADDLES = 4, INITIAL_SCORE = 60, INITIAL_LIVES = 3;
 const BASE_BALL_SPEED = 10, AI_SPEED = 8;
 let showTrivia = false; // enable/disable trivia
 
 // Game variables
 let WIDTH, HEIGHT, SCALE, playerPos, opponentPos, ballX, ballY, ballDX, ballDY = [];
-let paused, playerScore, opponentScore, playerLives, opponentLives, lastTouch, reflectingPaddles = [];
+let paused, playerScore, opponentScore, playerLives, opponentLives,
+    lastTouch, reflectingPaddles = [];
 let predictedY = { player: null, opponent: null };
 let lastTapTime = 0;
 let isGameOver = false;
@@ -224,7 +227,8 @@ function resetBallSpeed() {
     ballDY = BASE_BALL_SPEED * Math.sin(angle);
 }
 
-// necessary to load the sound (browser needs interaction before playing sound for security reasons)
+// necessary to load the sound
+// (browser needs interaction before playing sound for security reasons)
 function waitForClick() {
     gameStatus.innerHTML = "Click if you're ready to play <b>PONG</b> !!";
     gameStatus.style.display = 'block';
@@ -250,7 +254,9 @@ function resetGame() {
     gameStatus.style.display = 'none';
 //    togglePause();
     if (showTrivia) fetchTrivia();
-    reflectingPaddles = Array(NUM_REFLECTING_PADDLES).fill().map((_, i) => new ReflectingPaddle((i + 1) * (WIDTH / (NUM_REFLECTING_PADDLES + 1))));
+    reflectingPaddles =
+        Array(NUM_REFLECTING_PADDLES).fill().map((_, i) => new ReflectingPaddle((i + 1)
+            * (WIDTH / (NUM_REFLECTING_PADDLES + 1))));
 }
 
 // Restart the game after game over
@@ -291,7 +297,8 @@ function playSound(volume = 1.0, pitch = 1.0) {
 
     try {
         // Get an available source from the pool or create a new one
-        let source = soundPool.find(s => s.buffer === null) || audioContext.createBufferSource();
+        let source = soundPool.find(s => s.buffer === null)
+            || audioContext.createBufferSource();
         source.buffer = audioBuffer;
         
         const gainNode = audioContext.createGain();
@@ -316,7 +323,9 @@ function playSound(volume = 1.0, pitch = 1.0) {
 
 function handleKeyPress(e) {
     if (e.key === 'w' || e.key === 'ArrowUp') playerPos = Math.max(playerPos - 160 * SCALE, 0);
-    else if (e.key === 's' || e.key === 'ArrowDown') playerPos = Math.min(playerPos + 160 * SCALE, HEIGHT - PLAYER_PADDLE_HEIGHT_RATIO * HEIGHT);
+    else if (e.key === 's' || e.key === 'ArrowDown')
+        playerPos = Math.min(playerPos + 160 * SCALE,
+                HEIGHT - PLAYER_PADDLE_HEIGHT_RATIO * HEIGHT);
     else if (e.key === ' ') togglePause();
     else if (e.key === 'a') {
         isPlayerAI = !isPlayerAI;
@@ -359,7 +368,8 @@ function handleMouseMove(e) {
     let newPaddlePos = mouseY - (PLAYER_PADDLE_HEIGHT_RATIO * HEIGHT) / 2;
     
     // Clamp the paddle position to keep it within the canvas
-    playerPos = Math.max(0, Math.min(newPaddlePos, HEIGHT - PLAYER_PADDLE_HEIGHT_RATIO * HEIGHT));
+    playerPos = Math.max(0,
+            Math.min(newPaddlePos, HEIGHT - PLAYER_PADDLE_HEIGHT_RATIO * HEIGHT));
 }
 
 let touchStartY;
@@ -372,7 +382,8 @@ function handleTouchStart(e) {
         return;
     }
     let rect = canvas.getBoundingClientRect();
-    touchStartY = window.innerWidth < window.innerHeight ? WIDTH - (e.touches[0].clientX - rect.left) : e.touches[0].clientY - rect.top;
+    touchStartY = window.innerWidth < window.innerHeight
+        ? WIDTH - (e.touches[0].clientX - rect.left) : e.touches[0].clientY - rect.top;
 
     const currentTime = new Date().getTime();
     const tapLength = currentTime - lastTapTime;
@@ -395,9 +406,12 @@ function handleTouchMove(e) {
     clearTimeout(doubleTapTimer);  // Clear the double tap timer on move
 
     let rect = canvas.getBoundingClientRect();
-    let touchY = window.innerWidth < window.innerHeight ? WIDTH - (e.touches[0].clientX - rect.left) : e.touches[0].clientY - rect.top;
+    let touchY = window.innerWidth < window.innerHeight
+        ? WIDTH - (e.touches[0].clientX - rect.left) : e.touches[0].clientY - rect.top;
     const touchDiff = touchStartY - touchY;
-    playerPos = Math.max(0, Math.min(HEIGHT - PLAYER_PADDLE_HEIGHT_RATIO * HEIGHT, playerPos - (touchDiff / HEIGHT) * HEIGHT));
+    playerPos = Math.max(0,
+            Math.min(HEIGHT - PLAYER_PADDLE_HEIGHT_RATIO
+                * HEIGHT, playerPos - (touchDiff / HEIGHT) * HEIGHT));
     touchStartY = touchY;
 }
 
@@ -427,7 +441,8 @@ function moveBall() {
         ballDX = (ballDX / speed) * BASE_BALL_SPEED;
         ballDY = (ballDY / speed) * BASE_BALL_SPEED;
         // Ensure the ball is within bounds
-        ballY = Math.max(BALL_RADIUS_RATIO * HEIGHT, Math.min(ballY, HEIGHT - BALL_RADIUS_RATIO * HEIGHT));
+        ballY = Math.max(BALL_RADIUS_RATIO * HEIGHT,
+                Math.min(ballY, HEIGHT - BALL_RADIUS_RATIO * HEIGHT));
     }
 
     if (ballX <= PADDLE_WIDTH_RATIO * WIDTH + BALL_RADIUS_RATIO * HEIGHT && 
@@ -439,7 +454,8 @@ function moveBall() {
         playSound(1.0, 0.6);
     } 
     else if (ballX >= WIDTH - PADDLE_WIDTH_RATIO * WIDTH - BALL_RADIUS_RATIO * HEIGHT && 
-             opponentPos <= ballY && ballY < opponentPos + OPPONENT_PADDLE_HEIGHT_RATIO * HEIGHT) {
+             opponentPos <= ballY && ballY
+             < opponentPos + OPPONENT_PADDLE_HEIGHT_RATIO * HEIGHT) {
         ballX = WIDTH - PADDLE_WIDTH_RATIO * WIDTH - BALL_RADIUS_RATIO * HEIGHT;
         ballDX = -Math.abs(ballDX);
         adjustBallAngle(opponentPos, OPPONENT_PADDLE_HEIGHT_RATIO);
@@ -452,8 +468,9 @@ function moveBall() {
             ballX - BALL_RADIUS_RATIO * HEIGHT <= paddle.x + PADDLE_WIDTH_RATIO * WIDTH &&
             ballY + BALL_RADIUS_RATIO * HEIGHT >= paddle.y && 
             ballY - BALL_RADIUS_RATIO * HEIGHT <= paddle.y + paddle.height) {
-            ballX = ballDX > 0 ? paddle.x - BALL_RADIUS_RATIO * HEIGHT : 
-                                 paddle.x + PADDLE_WIDTH_RATIO * WIDTH + BALL_RADIUS_RATIO * HEIGHT;
+            ballX = ballDX > 0
+                ? paddle.x - BALL_RADIUS_RATIO * HEIGHT
+                : paddle.x + PADDLE_WIDTH_RATIO * WIDTH + BALL_RADIUS_RATIO * HEIGHT;
             ballDX = -ballDX;
             adjustBallAngle(paddle.y, paddle.height / HEIGHT);
             if (lastTouch === "player") {
@@ -493,7 +510,8 @@ function moveBall() {
 
 function adjustBallAngle(paddlePos, paddleHeightRatio) {
     const relativeIntersectY = (paddlePos + (paddleHeightRatio * HEIGHT) / 2) - ballY;
-    const normalizedRelativeIntersectionY = relativeIntersectY / ((paddleHeightRatio * HEIGHT) / 2);
+    const normalizedRelativeIntersectionY = relativeIntersectY
+        / ((paddleHeightRatio * HEIGHT) / 2);
     const bounceAngle = normalizedRelativeIntersectionY * (Math.PI / 4);
 
     const originalSpeed = Math.sqrt(ballDX * ballDX + ballDY * ballDY);
@@ -510,12 +528,15 @@ function moveOpponent() {
     if (ballDX > 0) {
         predictedY.opponent = predictBallPosition(WIDTH);
         let targetY = predictedY.opponent - (OPPONENT_PADDLE_HEIGHT_RATIO * HEIGHT) / 2;
-        opponentPos += (targetY > opponentPos ? 1.2 : -1.2) * Math.min(Math.abs(targetY - opponentPos), AI_SPEED * SCALE);
+        opponentPos += (targetY > opponentPos ? 1.2 : -1.2)
+            * Math.min(Math.abs(targetY - opponentPos), AI_SPEED * SCALE);
     } else {
         let centerY = HEIGHT / 2 - (OPPONENT_PADDLE_HEIGHT_RATIO * HEIGHT) / 2;
-        opponentPos += Math.abs(opponentPos - centerY) > AI_SPEED * SCALE ? (opponentPos < centerY ? AI_SPEED * SCALE : -AI_SPEED * SCALE) : 0;
+        opponentPos += Math.abs(opponentPos - centerY) > AI_SPEED * SCALE
+            ? (opponentPos < centerY ? AI_SPEED * SCALE : -AI_SPEED * SCALE) : 0;
     }
-    opponentPos = Math.max(0, Math.min(opponentPos, HEIGHT - OPPONENT_PADDLE_HEIGHT_RATIO * HEIGHT));
+    opponentPos = Math.max(0,
+            Math.min(opponentPos, HEIGHT - OPPONENT_PADDLE_HEIGHT_RATIO * HEIGHT));
     predictedY.player = ballDX < 0 ? predictBallPosition(0) : null;
     predictedY.opponent = ballDX > 0 ? predictBallPosition(WIDTH) : null;
 }
@@ -523,10 +544,12 @@ function moveOpponent() {
 function movePlayerAI() {
     if (ballDX < 0) {
         let targetY = predictedY.player - (PLAYER_PADDLE_HEIGHT_RATIO * HEIGHT) / 2;
-        playerPos += (targetY > playerPos ? 1 : -1) * Math.min(Math.abs(targetY - playerPos), AI_SPEED * SCALE);
+        playerPos += (targetY > playerPos ? 1 : -1)
+            * Math.min(Math.abs(targetY - playerPos), AI_SPEED * SCALE);
     } else {
         let centerY = HEIGHT / 2 - (PLAYER_PADDLE_HEIGHT_RATIO * HEIGHT) / 2;
-        playerPos += Math.abs(playerPos - centerY) > AI_SPEED * SCALE ? (playerPos < centerY ? AI_SPEED * SCALE : -AI_SPEED * SCALE) : 0;
+        playerPos += Math.abs(playerPos - centerY) > AI_SPEED * SCALE
+            ? (playerPos < centerY ? AI_SPEED * SCALE : -AI_SPEED * SCALE) : 0;
     }
     playerPos = Math.max(0, Math.min(playerPos, HEIGHT - PLAYER_PADDLE_HEIGHT_RATIO * HEIGHT));
 }
@@ -572,23 +595,16 @@ function drawScores() {
     for (let i = 0; i < playerLives; i++) {
         ctx.beginPath();
         ctx.arc(
-            (WIDTH * 0.25) - ((lifeRadius * 2 + lifeSpacing) * (playerLives - 1) / 2) + ((lifeRadius * 2 + lifeSpacing) * i),
-            lifeIndicatorY,
-            lifeRadius,
-            0,
-            Math.PI * 2
-        );
+            (WIDTH * 0.25) - ((lifeRadius * 2 + lifeSpacing)
+                * (playerLives - 1) / 2) + ((lifeRadius * 2 + lifeSpacing) * i),
+            lifeIndicatorY, lifeRadius, 0, Math.PI * 2);
         ctx.fill();
     }
     for (let i = 0; i < opponentLives; i++) {
         ctx.beginPath();
         ctx.arc(
             (WIDTH * 0.75) - ((lifeRadius * 2 + lifeSpacing) * (opponentLives - 1) / 2) + ((lifeRadius * 2 + lifeSpacing) * i),
-            lifeIndicatorY,
-            lifeRadius,
-            0,
-            Math.PI * 2
-        );
+            lifeIndicatorY, lifeRadius, 0, Math.PI * 2);
         ctx.fill();
     }
 }
@@ -600,9 +616,11 @@ function draw() {
 
     // player + opponent paddles
     ctx.fillStyle = '#b94580';
-    roundedRect(0, playerPos, PADDLE_WIDTH_RATIO * WIDTH, PLAYER_PADDLE_HEIGHT_RATIO * HEIGHT, 5 * SCALE);
+    roundedRect(0, playerPos, PADDLE_WIDTH_RATIO * WIDTH,
+            PLAYER_PADDLE_HEIGHT_RATIO * HEIGHT, 5 * SCALE);
     ctx.fillStyle = '#FF9800';
-    roundedRect(WIDTH - PADDLE_WIDTH_RATIO * WIDTH, opponentPos, PADDLE_WIDTH_RATIO * WIDTH, OPPONENT_PADDLE_HEIGHT_RATIO * HEIGHT, 5 * SCALE);
+    roundedRect(WIDTH - PADDLE_WIDTH_RATIO * WIDTH, opponentPos,
+            PADDLE_WIDTH_RATIO * WIDTH, OPPONENT_PADDLE_HEIGHT_RATIO * HEIGHT, 5 * SCALE);
     
     reflectingPaddles.forEach(paddle => paddle.draw());
     
@@ -618,7 +636,8 @@ function draw() {
         roundedRect(0, predictedY.player - 4 * SCALE, 5 * SCALE, 8 * SCALE, 2 * SCALE);
     }
     if (predictedY.opponent !== null) {
-        roundedRect(WIDTH - 5 * SCALE, predictedY.opponent - 4 * SCALE, 5 * SCALE, 8 * SCALE, 2 * SCALE);
+        roundedRect(WIDTH - 5 * SCALE, predictedY.opponent - 4 * SCALE,
+                5 * SCALE, 8 * SCALE, 2 * SCALE);
     }
 
    drawScores(); 
@@ -691,7 +710,8 @@ async function fetchTrivia() {
         document.getElementById('triviaText').innerHTML = trivia;
     } catch (error) {
         console.error('Error fetching trivia:', error);
-        document.getElementById('triviaText').innerHTML = 'Failed to load trivia. Please try again.';
+        document.getElementById('triviaText').innerHTML
+            = 'Failed to load trivia. Please try again.';
     }
 }
 
