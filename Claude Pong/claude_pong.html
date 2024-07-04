@@ -234,7 +234,7 @@ function resetBallSpeed() {
 // (browser needs interaction before playing sound for security reasons)
 function waitForClick() {
     let text = "Click if you're ready to play <b>PONG</b> !!";
-    if (window.innerWidth < window.innerHeight) text += "<br>Change to landscape on phone";
+    if (window.innerWidth < window.innerHeight) text += "<br>(Change to landscape first)";
     gameStatus.innerHTML = text;
     gameStatus.style.display = 'block';
     return new Promise(resolve => {
