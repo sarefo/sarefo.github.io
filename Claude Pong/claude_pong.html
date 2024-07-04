@@ -42,42 +42,38 @@
             left: 0; 
         }
 
-        #gameStatus, #instructions {
+        #gameStatus, #instructions, #triviaPopup {
             pointer-events: none;
             position: absolute; 
             left: 50%; 
             text-align: center; 
-            color: #eef; 
+            color: #aab; 
+            text-align: center;
             z-index: 10; 
         }
         #gameStatus { 
-            top: 50%; 
+            top: 45%; 
             transform: translate(-50%, -50%);
             font-size: 36px; 
-            background-color: rgba(0, 0, 0, 0.7);
+            line-height: 1.5;
+            background-color: #112;
             padding: 20px; 
             border-radius: 10px; 
             display: none; 
+        }
+        #triviaPopup {
+            top: 20%;
+            transform: translate(-50%, -50%);
+            background-color: #112;
+            font-size: 24px;
+            padding: 20px;
+            border-radius: 10px;
         }
         #instructions { 
             bottom: 60px; 
             transform: translateX(-50%); 
             font-size: 14px; 
             width: 100%; 
-        }
-
-        #triviaPopup {
-            position: absolute;
-            top: 20%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 1.0);
-            color: #fff;
-            font-size: 24px;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            z-index: 20;
         }
 
     </style>
@@ -88,9 +84,8 @@
         <canvas id="gameCanvas"></canvas>
         <div id="gameStatus"></div>
         <div id="instructions">
-            <p>Up/Down: W/S • Arrows • Mouse • Swipe</p>
-            <p>A to toggle AI</p>
-            <p>Pause: Spacebar / Click</p>
+            <p><b>Up/Down</b>: W/S • Arrows • Mouse • Swipe</p>
+            <p>A to <b>toggle AI</b> • <b>Pause</b>: Spacebar / Click</p>
         </div>
     </div>
 
@@ -115,7 +110,7 @@ let showTrivia = false; // enable/disable trivia
 // Game variables
 let WIDTH, HEIGHT, SCALE, playerPos, opponentPos, ballX, ballY, ballDX, ballDY = [];
 let paused, playerPenalty, opponentPenalty, playerLives, opponentLives, lastTouch, reflectingPaddles = [];
-let predictedY = { player: null, opponent: null }, lastMouseY;
+let predictedY = { player: null, opponent: null };
 let lastTapTime = 0;
 let isGameOver = false;
 let isPlayerAI = false;
@@ -151,7 +146,6 @@ async function init() {
     togglePause();
     resetGame();
     initAudio();
-    //preloadSounds();
     document.addEventListener('keydown', handleKeyPress);
     document.addEventListener('keydown', handleGameOverKeyPress);
     canvas.addEventListener('mousemove', handleMouseMove);
@@ -211,8 +205,6 @@ function resizeCanvas() {
     container.style.position = 'fixed';
     container.style.top = '0';
     container.style.left = '0';
-    
-    //resetGame();
 }
 
 // Toggle fullscreen mode
@@ -222,18 +214,6 @@ function goFullScreen() {
         elem.requestFullscreen();
     } else if (elem.webkitRequestFullscreen) { /* Safari */
         elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) { /* IE11 */
-        elem.msRequestFullscreen();
-    }
-}
-
-function toggleFullScreen() {
-    if (!document.fullscreenElement) {
-        goFullScreen();
-    } else {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        }
     }
 }
 
@@ -244,14 +224,16 @@ function resetBallSpeed() {
     ballDY = BASE_BALL_SPEED * Math.sin(angle);
 }
 
+// necessary to load the sound (browser needs interaction before playing sound for security reasons)
 function waitForClick() {
-    gameStatus.innerHTML = "Click to start game!";
+    gameStatus.innerHTML = "Click if you're ready to play <b>PONG</b> !!";
     gameStatus.style.display = 'block';
     return new Promise(resolve => {
-        document.addEventListener('click', function onClick(event) {
-            document.removeEventListener('click', onClick); // Remove the event listener after the first click
-            resolve(event); // Resolve the promise with the event object
-        });
+        const onClick = () => {
+            document.removeEventListener('click', onClick);
+            resolve();
+        };
+        document.addEventListener('click', onClick);
     });
 }
 
@@ -562,34 +544,38 @@ function draw() {
     ctx.fillStyle = '#16213e';
     ctx.fillRect(0, 0, WIDTH, HEIGHT);
 
-    ctx.fillStyle = '#b94580';  // Set fill color for player paddle
+    // player paddle
+    ctx.fillStyle = '#b94580';
     roundedRect(0, playerPos, PADDLE_WIDTH_RATIO * WIDTH, PLAYER_PADDLE_HEIGHT_RATIO * HEIGHT, 5 * SCALE);
     
+    // opponent paddle
     ctx.fillStyle = '#FF9800';
     roundedRect(WIDTH - PADDLE_WIDTH_RATIO * WIDTH, opponentPos, PADDLE_WIDTH_RATIO * WIDTH, OPPONENT_PADDLE_HEIGHT_RATIO * HEIGHT, 5 * SCALE);
     
     reflectingPaddles.forEach(paddle => paddle.draw());
     
-    ctx.fillStyle = '#ffffff';
+    // draw ball
+    ctx.fillStyle = '#eef';
     ctx.beginPath();
     ctx.arc(ballX, ballY, BALL_RADIUS_RATIO * HEIGHT, 0, Math.PI * 2);
     ctx.fill();
     
+    // draw prediction dots
+    ctx.fillStyle = '#3cf311';
     if (predictedY.player !== null) {
-        ctx.fillStyle = '#3cf311';
         roundedRect(0, predictedY.player - 4 * SCALE, 5 * SCALE, 8 * SCALE, 2 * SCALE);
     }
-    
     if (predictedY.opponent !== null) {
-        ctx.fillStyle = '#3cf311';
         roundedRect(WIDTH - 5 * SCALE, predictedY.opponent - 4 * SCALE, 5 * SCALE, 8 * SCALE, 2 * SCALE);
     }
     
+    // draw score board
     ctx.fillStyle = '#dfdfff';
     ctx.font = `bold ${32 * SCALE}px Arial`;
     ctx.textAlign = 'center';
     ctx.fillText(`${playerPenalty} (${playerLives}❤️)  •  ${opponentPenalty} (${opponentLives}❤️)`, WIDTH / 2, 30 * SCALE);
-    if (isPlayerAI) {
+
+    if (isPlayerAI) { // draw 'AI on' hint
         ctx.fillStyle = '#fca311';
         ctx.font = `bold ${24 * SCALE}px Arial`;
         ctx.fillText('AI', 40 * SCALE, HEIGHT - 20 * SCALE);
