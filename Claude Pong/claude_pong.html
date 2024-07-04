@@ -41,54 +41,44 @@
             top: 0; 
             left: 0; 
         }
-        
-        /* Game status message styling */
-        #gameStatus { 
+
+        #gameStatus, #instructions {
+            pointer-events: none;
             position: absolute; 
-            top: 50%; 
             left: 50%; 
+            text-align: center; 
+            color: #eef; 
+            z-index: 10; 
+        }
+        #gameStatus { 
+            top: 50%; 
             transform: translate(-50%, -50%);
             font-size: 36px; 
-            color: #fff; 
-            text-align: center; 
-            z-index: 10; 
             background-color: rgba(0, 0, 0, 0.7);
             padding: 20px; 
             border-radius: 10px; 
             display: none; 
         }
-        
-        /* Instructions styling */
         #instructions { 
-            position: absolute; 
             bottom: 60px; 
-            left: 50%; 
             transform: translateX(-50%); 
-            color: #fff; 
-            text-align: center; 
             font-size: 14px; 
-            z-index: 10; 
             width: 100%; 
         }
-        #gameStatus, #instructions {
-            pointer-events: none;
-        }
 
-#triviaPopup {
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 1.0);
-    color: #fff;
-    font-size: 24px;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    z-index: 20;
-}
-#triviaText {
-}
+        #triviaPopup {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 1.0);
+            color: #fff;
+            font-size: 24px;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            z-index: 20;
+        }
 
     </style>
 </head>
@@ -155,8 +145,8 @@ class ReflectingPaddle {
 
 // Initialize the game
 async function init() {
-    resizeCanvas();
     await waitForClick();
+    resizeCanvas();
     goFullScreen();
     togglePause();
     resetGame();
@@ -256,6 +246,7 @@ function resetBallSpeed() {
 
 function waitForClick() {
     gameStatus.innerHTML = "Click to start game!";
+    gameStatus.style.display = 'block';
     return new Promise(resolve => {
         document.addEventListener('click', function onClick(event) {
             document.removeEventListener('click', onClick); // Remove the event listener after the first click
