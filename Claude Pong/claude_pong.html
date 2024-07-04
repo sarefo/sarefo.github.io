@@ -1,3 +1,6 @@
+<!-- TODO
++ display "use landscape mode" when screen is long
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -230,7 +233,9 @@ function resetBallSpeed() {
 // necessary to load the sound
 // (browser needs interaction before playing sound for security reasons)
 function waitForClick() {
-    gameStatus.innerHTML = "Click if you're ready to play <b>PONG</b> !!";
+    let text = "Click if you're ready to play <b>PONG</b> !!";
+    if (window.innerWidth < window.innerHeight) text += "<br>Change to landscape on phone";
+    gameStatus.innerHTML = text;
     gameStatus.style.display = 'block';
     return new Promise(resolve => {
         const onClick = () => {
@@ -360,7 +365,7 @@ function handleMouseMove(e) {
         // For portrait mode (rotated canvas)
         mouseY = WIDTH - (e.clientX - rect.left);
     } else {
-        // For landscape mode
+        // for landscape mode
         mouseY = e.clientY - rect.top;
     }
     
