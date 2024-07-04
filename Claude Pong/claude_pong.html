@@ -103,7 +103,7 @@ const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const gameStatus = document.getElementById('gameStatus');
 const PLAYER_PADDLE_HEIGHT_RATIO = 1/6, OPPONENT_PADDLE_HEIGHT_RATIO = 1/10, PADDLE_WIDTH_RATIO = 1/60, BALL_RADIUS_RATIO = 1/80;
-const NUM_REFLECTING_PADDLES = 4, INITIAL_SCORE = 60, INITIAL_LIVES = 3;
+const NUM_REFLECTING_PADDLES = 4, INITIAL_SCORE = 60, INITIAL_LIVES = 1;
 const BASE_BALL_SPEED = 10, AI_SPEED = 8;
 let showTrivia = false; // enable/disable trivia
 
@@ -143,7 +143,7 @@ async function init() {
     await waitForClick();
     resizeCanvas();
     goFullScreen();
-    togglePause();
+//    togglePause();
     resetGame();
     initAudio();
     document.addEventListener('keydown', handleKeyPress);
@@ -247,9 +247,9 @@ function resetGame() {
     playerScore = opponentScore = INITIAL_SCORE;
     playerLives = opponentLives = INITIAL_LIVES;
     lastTouch = "player";
-    paused = false;
-    togglePause();
-    if (showTrivia) {fetchTrivia();}
+    gameStatus.style.display = 'none';
+//    togglePause();
+    if (showTrivia) fetchTrivia();
     reflectingPaddles = Array(NUM_REFLECTING_PADDLES).fill().map((_, i) => new ReflectingPaddle((i + 1) * (WIDTH / (NUM_REFLECTING_PADDLES + 1))));
 }
 
@@ -335,7 +335,11 @@ function handleGameOverKeyPress(e) {
 
 function handleClick(e) {
     if (e.button === 0) { // Check if it's the left mouse button
-        togglePause();
+        if (isGameOver) {
+            restartGame();
+        } else {
+            togglePause();
+        }
     }
 }
 
@@ -667,7 +671,7 @@ function gameLoop() {
         } else {
             isGameOver = true;
             gameStatus.innerHTML = `${playerLives <= 0 || playerScore >= INITIAL_SCORE ?
-                "Opponent wins!" : "You win!"}<br>Press Enter to restart.`;
+                "Opponent wins!" : "You win!"}<br>Press Enter or click to restart.`;
             gameStatus.style.display = 'block';
             if (showTrivia) {showTriviaPopup();} // show trivia at end of game
         }
