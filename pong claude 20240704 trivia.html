@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Claude Pong Game</title>
+    <style>
+        /* Reset default margins and paddings */
+        body, html { 
+            margin: 0; 
+            padding: 0; 
+            width: 100%; 
+            height: 100%; 
+            overflow: hidden; 
+            position: fixed; 
+        }
+        
+        /* Center the game container and set background */
+        body { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            background-color: #1a1a2e; 
+            font-family: Arial, sans-serif; 
+            color: #e94560; 
+        }
+        
+        #gameContainer { 
+            position: relative; 
+            width: 100%; 
+            height: 100%; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+        }
+        
+        /* Canvas positioning */
+        #gameCanvas { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+        }
+        
+        /* Game status message styling */
+        #gameStatus { 
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%);
+            font-size: 36px; 
+            color: #fff; 
+            text-align: center; 
+            z-index: 10; 
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px; 
+            border-radius: 10px; 
+            display: none; 
+        }
+        
+        /* Instructions styling */
+        #instructions { 
+            position: absolute; 
+            bottom: 60px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            color: #fff; 
+            text-align: center; 
+            font-size: 14px; 
+            z-index: 10; 
+            width: 100%; 
+        }
+        #gameStatus, #instructions {
+            pointer-events: none;
+        }
+
+#triviaPopup {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 1.0);
+    color: #fff;
+    font-size: 24px;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 20;
+}
+#triviaText {
+}
+
+    </style>
+</head>
+
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
+        <div id="gameStatus"></div>
+        <div id="instructions">
+            <p>Up/Down: W/S • Arrows • Mouse • Swipe</p>
+            <p>A to toggle AI</p>
+            <p>Pause: Spacebar / Click</p>
+        </div>
+    </div>
+
+<div id="triviaPopup" style="display: none;">
+    <p id="triviaText"></p>
+</div>
+
+<!-- Preload audio for game sounds -->
+<audio id="hitSound" src="data:audio/wav;base64,UklGRmQEAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YUAEAAAHAP7/ngCf/QT64/Wx8UruouuX6RfoDOeg5vvmGOjT6dzr5u3l72ny2vUK+nX+RwK4BXAJig2NEG8SGBffGrYbvx2/IEkiqCKnIrgh5B8CHkgcIhrOFhcSiQy5BnoBVPwf98vx2OzG6MrlxuOn4h3iLOLT4p7k4+dr7IHxt/bm+7UBMwj+DmUV2BpLH7YiNCXUJo8n4yacJIggRhtoFW0P5Qi7AQf6bPKa6xzmHOJm38Ld/twP3WTeguFu5t/sAvR/+1QDnwvmE8MbcSJxJ2QqYSuIKjcocyQKH7sXBA+PBSn8PvPb6knjoNxd1+fTtNLr02/XsdwQ4zjqZ/Kb+5EFrg87GYEhFCiBLMIu3S6oLNgnfSACFz0MCgH69YPrCeLp2ZHTdc8NznfPmdPO2anh2Ooz9UgAfwsUFlMfryauKzguUi4cLHMnVSAOFy8MnQA59Z7qTeGH2bLT0M9gzozPn9Mo2tLi0ezR9zgDhw4bGU4ihCn4LYEv7S2UKdEi2BkhDw4DdPYq6uDeoNWizo3KMsnTyl/Pv9ab4ELs6viuBcARZxwhJYArSi82MPgttyiYIFIWgArR/fzwtOSt2XjQyMkmxu7FEclcz0DYV+Pq72f99grQFwAj7iuzMUY0aDNiLzYoYB5IEsAElvbA6CfcgtGIyW7EjMLiw6HIb9D32oDnPPVYA94QBR08J7suQjMmNI0xaStaIt8WwQnO++jtzeBK1RfM/sU8wx/EX8jOz9LZ5+U58xEBlA7bGhUllSz+MAAy1y99KmQiAhjXC7n+b/Hj5NPZBNHfyr7H0scKy2HRM9oy5WnxLf6aCt8Vdx+rJi8rlSziKhwmph7tFMgJw/3M8XDmd9xq1PHOPcykzN7Pz9X13cjnu/IK/jIJZxMCHIAiXyaIJ+MlmiEEG40SsggY/m3zaenT4Bjaq9Wf0y/UGddD3D3jrevq9FP+Sgc+D8UVdBohHZYd4hsvGKwS2wspBDH8aPRL7Uvnr+Le39ze3t+Z4grnouwe8/350QA8B9EMMREoFHgVKxVFE/oPmAtjBroA8/p39Zjwuuz26aLokejo6WPs2+8j9N/4yv2QAswGXArlDG4Oyg4XDkkMqAlBBmwCWv5r+sn2wvOA8RLwou8d8HPxqPNn9pT57vw6AEoD4gXxBz8J2AmfCbgIIgcVBbQCJwCo/VT7WfnT9+H2h/bW9rH3GvnS+t78+P4aAQYDswT4BcIGAwfHBgQG5QRtA88BDwBY/sv8gfuO+gX65vkz+tz62/sU/X7+9f9iAa4CvgOVBAQFNgUDBZIE2gPxAucB2gDU//D+O/7A/YL9jP3T/VH+Bv/S/8gApwGOAkMD3AM+BGkEYAQdBK8DGwN2ArsBFgF3APv/oP9u/2n/kP/l/1YA4AB+AQsCnAIQA3ADqQPGA68DgAMqA8MCTgLUAWcB/QC1AIQAeQCRAA==" preload="auto"></audio>
+
+
+<script>
+// Game constants
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+const gameStatus = document.getElementById('gameStatus');
+const PLAYER_PADDLE_HEIGHT_RATIO = 1/6, OPPONENT_PADDLE_HEIGHT_RATIO = 1/10, PADDLE_WIDTH_RATIO = 1/60, BALL_RADIUS_RATIO = 1/80;
+const NUM_REFLECTING_PADDLES = 4, MAX_PENALTY_POINTS = 60, INITIAL_LIVES = 3;
+const BASE_BALL_SPEED = 10, AI_SPEED = 8;
+let showTrivia = false; // enable/disable trivia
+
+// Game variables
+let WIDTH, HEIGHT, SCALE, playerPos, opponentPos, ballX, ballY, ballDX, ballDY = [];
+let paused, playerPenalty, opponentPenalty, playerLives, opponentLives, lastTouch, reflectingPaddles = [];
+let predictedY = { player: null, opponent: null }, lastMouseY;
+let lastTapTime = 0;
+let isGameOver = false;
+let isPlayerAI = false;
+
+// ReflectingPaddle class definition
+class ReflectingPaddle {
+    constructor(x) {
+        this.x = x;
+        this.y = Math.random() * (HEIGHT - HEIGHT/4) + HEIGHT/8;
+        this.height = Math.random() * (HEIGHT/6) + HEIGHT/6;
+        this.direction = Math.random() < 0.5 ? -1 : 1;
+    }
+    
+    // Move the paddle
+    move() {
+        this.y += this.direction * SCALE * 4;
+        if (this.y <= 0 || this.y + this.height >= HEIGHT) this.direction *= -1;
+        this.y = Math.max(0, Math.min(this.y, HEIGHT - this.height));
+    }
+    
+    // Draw the paddle
+    draw() {
+        ctx.fillStyle = 'rgba(16, 132, 172, 0.7)';
+        roundedRect(this.x, this.y, PADDLE_WIDTH_RATIO * WIDTH, this.height, 5 * SCALE);
+    }
+}
+
+// Initialize the game
+async function init() {
+    resizeCanvas();
+    await waitForClick();
+    goFullScreen();
+    togglePause();
+    resetGame();
+    initAudio();
+    //preloadSounds();
+    document.addEventListener('keydown', handleKeyPress);
+    document.addEventListener('keydown', handleGameOverKeyPress);
+    canvas.addEventListener('mousemove', handleMouseMove);
+    canvas.addEventListener('click', handleClick);
+    canvas.addEventListener('touchstart', handleTouchStart);
+    canvas.addEventListener('touchmove', handleTouchMove);
+    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('orientationchange', function() {
+        setTimeout(resizeCanvas, 100);  // Short delay to allow orientation change to complete
+    });
+    document.addEventListener('fullscreenchange', resizeCanvas);
+    document.addEventListener('webkitfullscreenchange', resizeCanvas);
+    document.addEventListener('mozfullscreenchange', resizeCanvas);
+    document.addEventListener('MSFullscreenChange', resizeCanvas);
+    if (screen.orientation) {
+        screen.orientation.addEventListener('change', resizeCanvas);
+        screen.orientation.lock('landscape').catch(console.error);
+    }
+    //document.body.addEventListener('click', goFullScreen, { once: true });
+    gameLoop();
+}
+
+// Resize the canvas to fit the screen
+function resizeCanvas() {
+    const container = document.getElementById('gameContainer');
+    
+    // Use the minimum of screen dimensions and window dimensions
+    WIDTH = Math.min(window.screen.width, window.innerWidth);
+    HEIGHT = Math.min(window.screen.height, window.innerHeight);
+    
+    if (WIDTH < HEIGHT) [WIDTH, HEIGHT] = [HEIGHT, WIDTH];
+    
+    SCALE = Math.min(WIDTH / 1920, HEIGHT / 1080);
+    canvas.width = WIDTH;
+    canvas.height = HEIGHT;
+    
+    canvas.style.width = `${WIDTH}px`;
+    canvas.style.height = `${HEIGHT}px`;
+    
+    // Handle rotation for portrait mode
+    if (window.innerWidth < window.innerHeight) {
+        canvas.style.transform = 'rotate(90deg)';
+        canvas.style.transformOrigin = 'top left';
+        canvas.style.position = 'absolute';
+        canvas.style.top = '0';
+        canvas.style.left = `${window.innerWidth}px`;
+    } else {
+        canvas.style.transform = 'none';
+        canvas.style.position = 'fixed';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+    }
+    
+    // Ensure the container also covers the full screen
+    container.style.width = `${window.innerWidth}px`;
+    container.style.height = `${window.innerHeight}px`;
+    container.style.position = 'fixed';
+    container.style.top = '0';
+    container.style.left = '0';
+    
+    resetGame();
+}
+
+// Toggle fullscreen mode
+function goFullScreen() {
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+    }
+}
+
+function toggleFullScreen() {
+    if (!document.fullscreenElement) {
+        goFullScreen();
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        }
+    }
+}
+
+// Reset ball speed to initial values
+function resetBallSpeed() {
+    const angle = Math.PI / 4;
+    ballDX = BASE_BALL_SPEED * Math.cos(angle);
+    ballDY = BASE_BALL_SPEED * Math.sin(angle);
+}
+
+function waitForClick() {
+    gameStatus.innerHTML = "Click to start game!";
+    return new Promise(resolve => {
+        document.addEventListener('click', function onClick(event) {
+            document.removeEventListener('click', onClick); // Remove the event listener after the first click
+            resolve(event); // Resolve the promise with the event object
+        });
+    });
+}
+
+// Reset the game state
+function resetGame() {
+    playerPos = HEIGHT / 2 - (PLAYER_PADDLE_HEIGHT_RATIO * HEIGHT) / 2;
+    opponentPos = HEIGHT / 2 - (OPPONENT_PADDLE_HEIGHT_RATIO * HEIGHT) / 2;
+    ballX = WIDTH / 2;
+    ballY = HEIGHT / 2;
+    resetBallSpeed();
+    playerPenalty = opponentPenalty = 0;
+    playerLives = opponentLives = INITIAL_LIVES;
+    lastTouch = "player";
+    paused = false;
+    togglePause();
+    if (showTrivia) {fetchTrivia();}
+    reflectingPaddles = Array(NUM_REFLECTING_PADDLES).fill().map((_, i) => new ReflectingPaddle((i + 1) * (WIDTH / (NUM_REFLECTING_PADDLES + 1))));
+}
+
+// Restart the game after game over
+function restartGame() {
+    isGameOver = false;
+    resetGame();
+    gameStatus.style.display = 'none';
+    requestAnimationFrame(gameLoop);
+}
+
+// Initialize audio context and buffer
+let audioContext;
+let audioBuffer;
+const MAX_SOUNDS = 10;
+const soundPool = [];
+
+async function initAudio() {
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    try {
+        const response = await fetch(document.getElementById('hitSound').src);
+        const arrayBuffer = await response.arrayBuffer();
+        audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+        
+        // Initialize sound pool
+        for (let i = 0; i < MAX_SOUNDS; i++) {
+            const source = audioContext.createBufferSource();
+            source.buffer = audioBuffer;
+            soundPool.push(source);
+        }
+    } catch (error) {
+        console.error('Error initializing audio:', error);
+    }
+}
+
+// Play a sound with given volume and pitch
+function playSound(volume = 1.0, pitch = 1.0) {
+    if (!audioContext || !audioBuffer) return;
+
+    try {
+        // Get an available source from the pool or create a new one
+        let source = soundPool.find(s => s.buffer === null) || audioContext.createBufferSource();
+        source.buffer = audioBuffer;
+        
+        const gainNode = audioContext.createGain();
+        gainNode.gain.setValueAtTime(volume, audioContext.currentTime);
+        
+        source.playbackRate.setValueAtTime(pitch, audioContext.currentTime);
+        
+        source.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        source.onended = () => {
+            source.disconnect();
+            gainNode.disconnect();
+            source.buffer = null; // Mark as available in the pool
+        };
+        
+        source.start(0);
+    } catch (error) {
+        console.error('Error playing sound:', error);
+    }
+}
+
+function handleKeyPress(e) {
+    if (e.key === 'w' || e.key === 'ArrowUp') playerPos = Math.max(playerPos - 160 * SCALE, 0);
+    else if (e.key === 's' || e.key === 'ArrowDown') playerPos = Math.min(playerPos + 160 * SCALE, HEIGHT - PLAYER_PADDLE_HEIGHT_RATIO * HEIGHT);
+    else if (e.key === ' ') togglePause();
+    else if (e.key === 'a') {
+        isPlayerAI = !isPlayerAI;
+        // Optionally, you can add a visual indicator or sound to show the mode change
+        console.log(isPlayerAI ? "Player AI activated" : "Player AI deactivated");
+    }
+}
+
+function handleGameOverKeyPress(e) {
+    if (e.key === 'Enter' && (playerLives <= 0 || opponentLives <= 0
+    || playerPenalty >= MAX_PENALTY_POINTS || opponentPenalty >= MAX_PENALTY_POINTS)) {
+        if (showTrivia) closeTriviaPopup();
+        restartGame();
+    }
+}
+
+function handleClick(e) {
+    if (e.button === 0) { // Check if it's the left mouse button
+        togglePause();
+    }
+}
+
+function handleMouseMove(e) {
+    let rect = canvas.getBoundingClientRect();
+    let mouseY;
+    
+    if (window.innerWidth < window.innerHeight) {
+        // For portrait mode (rotated canvas)
+        mouseY = WIDTH - (e.clientX - rect.left);
+    } else {
+        // For landscape mode
+        mouseY = e.clientY - rect.top;
+    }
+    
+    // Calculate the new paddle position
+    let newPaddlePos = mouseY - (PLAYER_PADDLE_HEIGHT_RATIO * HEIGHT) / 2;
+    
+    // Clamp the paddle position to keep it within the canvas
+    playerPos = Math.max(0, Math.min(newPaddlePos, HEIGHT - PLAYER_PADDLE_HEIGHT_RATIO * HEIGHT));
+}
+
+let touchStartY;
+let doubleTapTimer = null;
+
+function handleTouchStart(e) {
+    if (isGameOver) {
+        e.preventDefault();
+        restartGame();
+        return;
+    }
+    let rect = canvas.getBoundingClientRect();
+    touchStartY = window.innerWidth < window.innerHeight ? WIDTH - (e.touches[0].clientX - rect.left) : e.touches[0].clientY - rect.top;
+
+    const currentTime = new Date().getTime();
+    const tapLength = currentTime - lastTapTime;
+    
+    if (tapLength < 300 && tapLength > 0) {
+        clearTimeout(doubleTapTimer);
+        e.preventDefault();
+        togglePause();
+    } else {
+        doubleTapTimer = setTimeout(function() {
+            // Single tap behavior here, if any
+        }, 300);
+    }
+    
+    lastTapTime = currentTime;
+}
+
+function handleTouchMove(e) {
+    e.preventDefault();
+    clearTimeout(doubleTapTimer);  // Clear the double tap timer on move
+
+    let rect = canvas.getBoundingClientRect();
+    let touchY = window.innerWidth < window.innerHeight ? WIDTH - (e.touches[0].clientX - rect.left) : e.touches[0].clientY - rect.top;
+    const touchDiff = touchStartY - touchY;
+    playerPos = Math.max(0, Math.min(HEIGHT - PLAYER_PADDLE_HEIGHT_RATIO * HEIGHT, playerPos - (touchDiff / HEIGHT) * HEIGHT));
+    touchStartY = touchY;
+}
+
+function togglePause() {
+    if (!isGameOver) {
+        paused = !paused;
+        if (paused) {
+            gameStatus.innerHTML = "Game is paused!<br>Press SPACE or click to continue.";
+            gameStatus.style.display = 'block';
+        } else {
+            gameStatus.style.display = 'none';
+            gameStatus.textContent = '';
+        }
+    }
+}
+
+function moveBall() {
+    ballX += ballDX;
+    ballY += ballDY;
+
+    if (ballY <= BALL_RADIUS_RATIO * HEIGHT || ballY >= HEIGHT - BALL_RADIUS_RATIO * HEIGHT) {
+        ballDY = -ballDY;
+        // Add a small random vertical component
+        ballDY += (Math.random() - 0.5) * 0.5;
+        // Normalize the speed
+        const speed = Math.sqrt(ballDX * ballDX + ballDY * ballDY);
+        ballDX = (ballDX / speed) * BASE_BALL_SPEED;
+        ballDY = (ballDY / speed) * BASE_BALL_SPEED;
+    }
+
+    if (ballX <= PADDLE_WIDTH_RATIO * WIDTH + BALL_RADIUS_RATIO * HEIGHT && 
+        playerPos <= ballY && ballY < playerPos + PLAYER_PADDLE_HEIGHT_RATIO * HEIGHT) {
+        ballX = PADDLE_WIDTH_RATIO * WIDTH + BALL_RADIUS_RATIO * HEIGHT;
+        ballDX = Math.abs(ballDX);
+        adjustBallAngle(playerPos, PLAYER_PADDLE_HEIGHT_RATIO);
+        lastTouch = "player";
+        playSound(1.0, 0.6);
+    } 
+    else if (ballX >= WIDTH - PADDLE_WIDTH_RATIO * WIDTH - BALL_RADIUS_RATIO * HEIGHT && 
+             opponentPos <= ballY && ballY < opponentPos + OPPONENT_PADDLE_HEIGHT_RATIO * HEIGHT) {
+        ballX = WIDTH - PADDLE_WIDTH_RATIO * WIDTH - BALL_RADIUS_RATIO * HEIGHT;
+        ballDX = -Math.abs(ballDX);
+        adjustBallAngle(opponentPos, OPPONENT_PADDLE_HEIGHT_RATIO);
+        lastTouch = "opponent";
+        playSound(1.0, 1.2);
+    }
+
+    for (let paddle of reflectingPaddles) {
+        if (ballX + BALL_RADIUS_RATIO * HEIGHT >= paddle.x && 
+            ballX - BALL_RADIUS_RATIO * HEIGHT <= paddle.x + PADDLE_WIDTH_RATIO * WIDTH &&
+            ballY + BALL_RADIUS_RATIO * HEIGHT >= paddle.y && 
+            ballY - BALL_RADIUS_RATIO * HEIGHT <= paddle.y + paddle.height) {
+            ballX = ballDX > 0 ? paddle.x - BALL_RADIUS_RATIO * HEIGHT : 
+                                 paddle.x + PADDLE_WIDTH_RATIO * WIDTH + BALL_RADIUS_RATIO * HEIGHT;
+            ballDX = -ballDX;
+            adjustBallAngle(paddle.y, paddle.height / HEIGHT);
+            if (lastTouch === "player") { opponentPenalty++; playSound(1.0, 0.8) }
+            else {playerPenalty++; playSound(1.0, 1.0) }
+            break;
+        }
+    }
+
+  if (ballX < 0 || ballX >= WIDTH) {
+        if (ballX < 0) { 
+            playerPenalty += 10; 
+            playerLives--; 
+            lastTouch = "player"; 
+        } else { 
+            opponentPenalty += 10; 
+            opponentLives--; 
+            lastTouch = "opponent"; 
+        }
+        flashScreen();
+
+        // Reset ball position
+        ballX = WIDTH / 2;
+        ballY = HEIGHT / 2;
+        resetBallSpeed();
+
+        // Remove any existing game status message
+        gameStatus.style.display = 'none';
+        gameStatus.textContent = '';
+    }
+}
+
+function adjustBallAngle(paddlePos, paddleHeightRatio) {
+    const relativeIntersectY = (paddlePos + (paddleHeightRatio * HEIGHT) / 2) - ballY;
+    const normalizedRelativeIntersectionY = relativeIntersectY / ((paddleHeightRatio * HEIGHT) / 2);
+    const bounceAngle = normalizedRelativeIntersectionY * (Math.PI / 4);
+
+    const originalSpeed = Math.sqrt(ballDX * ballDX + ballDY * ballDY);
+    ballDX = Math.sign(ballDX) * originalSpeed * Math.cos(bounceAngle);
+    ballDY = originalSpeed * -Math.sin(bounceAngle);
+
+    // Normalize speed
+    const currentSpeed = Math.sqrt(ballDX * ballDX + ballDY * ballDY);
+    ballDX = (ballDX / currentSpeed) * BASE_BALL_SPEED;
+    ballDY = (ballDY / currentSpeed) * BASE_BALL_SPEED;
+}
+
+function moveOpponent() {
+    if (ballDX > 0) {
+        predictedY.opponent = predictBallPosition(WIDTH);
+        let targetY = predictedY.opponent - (OPPONENT_PADDLE_HEIGHT_RATIO * HEIGHT) / 2;
+        opponentPos += (targetY > opponentPos ? 1.2 : -1.2) * Math.min(Math.abs(targetY - opponentPos), AI_SPEED * SCALE);
+    } else {
+        let centerY = HEIGHT / 2 - (OPPONENT_PADDLE_HEIGHT_RATIO * HEIGHT) / 2;
+        opponentPos += Math.abs(opponentPos - centerY) > AI_SPEED * SCALE ? (opponentPos < centerY ? AI_SPEED * SCALE : -AI_SPEED * SCALE) : 0;
+    }
+    opponentPos = Math.max(0, Math.min(opponentPos, HEIGHT - OPPONENT_PADDLE_HEIGHT_RATIO * HEIGHT));
+    predictedY.player = ballDX < 0 ? predictBallPosition(0) : null;
+    predictedY.opponent = ballDX > 0 ? predictBallPosition(WIDTH) : null;
+}
+
+function movePlayerAI() {
+    if (ballDX < 0) {
+        let targetY = predictedY.player - (PLAYER_PADDLE_HEIGHT_RATIO * HEIGHT) / 2;
+        playerPos += (targetY > playerPos ? 1 : -1) * Math.min(Math.abs(targetY - playerPos), AI_SPEED * SCALE);
+    } else {
+        let centerY = HEIGHT / 2 - (PLAYER_PADDLE_HEIGHT_RATIO * HEIGHT) / 2;
+        playerPos += Math.abs(playerPos - centerY) > AI_SPEED * SCALE ? (playerPos < centerY ? AI_SPEED * SCALE : -AI_SPEED * SCALE) : 0;
+    }
+    playerPos = Math.max(0, Math.min(playerPos, HEIGHT - PLAYER_PADDLE_HEIGHT_RATIO * HEIGHT));
+}
+
+function predictBallPosition(targetX) {
+    let time = Math.abs(targetX - ballX) / Math.abs(ballDX);
+    let predictedY = ballY + ballDY * time
+    while (predictedY < 0 || predictedY >= HEIGHT) {
+        predictedY = predictedY < 0 ? -predictedY : 2 * (HEIGHT - 1) - predictedY;
+    }
+    return predictedY;
+}
+
+function roundedRect(x, y, width, height, radius) {
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.arcTo(x + width, y, x + width, y + height, radius);
+    ctx.arcTo(x + width, y + height, x, y + height, radius);
+    ctx.arcTo(x, y + height, x, y, radius);
+    ctx.arcTo(x, y, x + width, y, radius);
+    ctx.closePath();
+    ctx.fill();
+}
+
+function draw() {
+    ctx.clearRect(0, 0, WIDTH, HEIGHT);
+    ctx.fillStyle = '#16213e';
+    ctx.fillRect(0, 0, WIDTH, HEIGHT);
+
+    ctx.fillStyle = '#b94580';  // Set fill color for player paddle
+    roundedRect(0, playerPos, PADDLE_WIDTH_RATIO * WIDTH, PLAYER_PADDLE_HEIGHT_RATIO * HEIGHT, 5 * SCALE);
+    
+    ctx.fillStyle = '#FF9800';
+    roundedRect(WIDTH - PADDLE_WIDTH_RATIO * WIDTH, opponentPos, PADDLE_WIDTH_RATIO * WIDTH, OPPONENT_PADDLE_HEIGHT_RATIO * HEIGHT, 5 * SCALE);
+    
+    reflectingPaddles.forEach(paddle => paddle.draw());
+    
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.arc(ballX, ballY, BALL_RADIUS_RATIO * HEIGHT, 0, Math.PI * 2);
+    ctx.fill();
+    
+    if (predictedY.player !== null) {
+        ctx.fillStyle = '#3cf311';
+        roundedRect(0, predictedY.player - 4 * SCALE, 5 * SCALE, 8 * SCALE, 2 * SCALE);
+    }
+    
+    if (predictedY.opponent !== null) {
+        ctx.fillStyle = '#3cf311';
+        roundedRect(WIDTH - 5 * SCALE, predictedY.opponent - 4 * SCALE, 5 * SCALE, 8 * SCALE, 2 * SCALE);
+    }
+    
+    ctx.fillStyle = '#dfdfff';
+    ctx.font = `bold ${32 * SCALE}px Arial`;
+    ctx.textAlign = 'center';
+    ctx.fillText(`${playerPenalty} (${playerLives}❤️)  •  ${opponentPenalty} (${opponentLives}❤️)`, WIDTH / 2, 30 * SCALE);
+    if (isPlayerAI) {
+        ctx.fillStyle = '#fca311';
+        ctx.font = `bold ${24 * SCALE}px Arial`;
+        ctx.fillText('AI', 40 * SCALE, HEIGHT - 20 * SCALE);
+    }
+    drawFlash();
+}
+
+let isFlashing = false;
+let flashCount = 0;
+function flashScreen() {
+    isFlashing = true;
+    flashCount = 0;
+    
+    function doFlash() {
+        if (flashCount >= 6) {  // 3 full flashes (on and off)
+            isFlashing = false;
+            return;
+        }
+        flashCount++;
+        setTimeout(doFlash, 100);  // Schedule next flash
+    }
+    
+    doFlash();
+    playSound(1.0, 2.0);
+    playSound(1.0, 3.0);
+    playSound(1.0, 2.0);
+}
+
+// Add this to your draw function
+function drawFlash() {
+    if (isFlashing && flashCount % 2 === 0) {
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+        ctx.fillRect(0, 0, WIDTH, HEIGHT);
+    }
+}
+
+function gameLoop() {
+    if (!paused) {
+        moveBall();
+        moveOpponent();
+        if (isPlayerAI) {
+            movePlayerAI();
+        }
+        reflectingPaddles.forEach(paddle => paddle.move());
+        draw();
+        
+        if (playerLives > 0 && opponentLives > 0 && playerPenalty < MAX_PENALTY_POINTS && opponentPenalty < MAX_PENALTY_POINTS) {
+            requestAnimationFrame(gameLoop);
+        } else {
+            isGameOver = true;
+            gameStatus.innerHTML = `${playerLives <= 0 || playerPenalty >= MAX_PENALTY_POINTS ?
+                "Opponent wins!" : "You win!"}<br>Press Enter to restart.`;
+            gameStatus.style.display = 'block';
+            if (showTrivia) {showTriviaPopup();} // show trivia at end of game
+        }
+    } else {
+        draw();
+        requestAnimationFrame(gameLoop);
+    }
+}
+
+async function fetchTrivia() {
+    try {
+        const response = await fetch('https://opentdb.com/api.php?amount=1&type=boolean');
+        const data = await response.json();
+        const trivia = data.results[0].question;
+        document.getElementById('triviaText').innerHTML = trivia;
+    } catch (error) {
+        console.error('Error fetching trivia:', error);
+        document.getElementById('triviaText').innerHTML = 'Failed to load trivia. Please try again.';
+    }
+}
+
+// Function to show the trivia popup
+function showTriviaPopup() {
+    document.getElementById('triviaPopup').style.display = 'block';
+}
+
+// Function to close the trivia popup
+function closeTriviaPopup() {
+    document.getElementById('triviaPopup').style.display = 'none';
+}
+
+window.onload = init;
+
+</script>
+</body>
+</html>
