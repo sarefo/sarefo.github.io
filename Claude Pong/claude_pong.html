@@ -103,7 +103,7 @@ const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const gameStatus = document.getElementById('gameStatus');
 const PLAYER_PADDLE_HEIGHT_RATIO = 1/6, OPPONENT_PADDLE_HEIGHT_RATIO = 1/10, PADDLE_WIDTH_RATIO = 1/60, BALL_RADIUS_RATIO = 1/80;
-const NUM_REFLECTING_PADDLES = 4, INITIAL_SCORE = 60, INITIAL_LIVES = 1;
+const NUM_REFLECTING_PADDLES = 4, INITIAL_SCORE = 60, INITIAL_LIVES = 3;
 const BASE_BALL_SPEED = 10, AI_SPEED = 8;
 let showTrivia = false; // enable/disable trivia
 
@@ -426,6 +426,8 @@ function moveBall() {
         const speed = Math.sqrt(ballDX * ballDX + ballDY * ballDY);
         ballDX = (ballDX / speed) * BASE_BALL_SPEED;
         ballDY = (ballDY / speed) * BASE_BALL_SPEED;
+        // Ensure the ball is within bounds
+        ballY = Math.max(BALL_RADIUS_RATIO * HEIGHT, Math.min(ballY, HEIGHT - BALL_RADIUS_RATIO * HEIGHT));
     }
 
     if (ballX <= PADDLE_WIDTH_RATIO * WIDTH + BALL_RADIUS_RATIO * HEIGHT && 
