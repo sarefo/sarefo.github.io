@@ -552,6 +552,9 @@ function drawScores() {
     ctx.textAlign = 'center';
     
     // Player + opponent score
+    const scoreY = HEIGHT * 0.1;
+    const lifeIndicatorY = scoreY + 30 * SCALE;
+
     ctx.fillText(`${playerScore}`, WIDTH * 0.25, HEIGHT * 0.1);
     ctx.fillText(`${opponentScore}`, WIDTH * 0.75, HEIGHT * 0.1);
 
@@ -563,17 +566,23 @@ function drawScores() {
     for (let i = 0; i < playerLives; i++) {
         ctx.beginPath();
         ctx.arc(
-            (WIDTH * 0.25) - ((lifeRadius * 2 + lifeSpacing)
-                * (playerLives - 1) / 2) + ((lifeRadius * 2 + lifeSpacing) * i),
-            HEIGHT * 0.18, lifeRadius, 0, Math.PI * 2);
+            (WIDTH * 0.25) - ((lifeRadius * 2 + lifeSpacing) * (playerLives - 1) / 2) + ((lifeRadius * 2 + lifeSpacing) * i),
+            lifeIndicatorY,
+            lifeRadius,
+            0,
+            Math.PI * 2
+        );
         ctx.fill();
     }
     for (let i = 0; i < opponentLives; i++) {
         ctx.beginPath();
         ctx.arc(
-            (WIDTH * 0.75) - ((lifeRadius * 2 + lifeSpacing)
-                * (opponentLives - 1) / 2) + ((lifeRadius * 2 + lifeSpacing) * i),
-            HEIGHT * 0.18, lifeRadius, 0, Math.PI * 2);
+            (WIDTH * 0.75) - ((lifeRadius * 2 + lifeSpacing) * (opponentLives - 1) / 2) + ((lifeRadius * 2 + lifeSpacing) * i),
+            lifeIndicatorY,
+            lifeRadius,
+            0,
+            Math.PI * 2
+        );
         ctx.fill();
     }
 }
@@ -583,11 +592,9 @@ function draw() {
     ctx.fillStyle = '#16213e';
     ctx.fillRect(0, 0, WIDTH, HEIGHT);
 
-    // player paddle
+    // player + opponent paddles
     ctx.fillStyle = '#b94580';
     roundedRect(0, playerPos, PADDLE_WIDTH_RATIO * WIDTH, PLAYER_PADDLE_HEIGHT_RATIO * HEIGHT, 5 * SCALE);
-    
-    // opponent paddle
     ctx.fillStyle = '#FF9800';
     roundedRect(WIDTH - PADDLE_WIDTH_RATIO * WIDTH, opponentPos, PADDLE_WIDTH_RATIO * WIDTH, OPPONENT_PADDLE_HEIGHT_RATIO * HEIGHT, 5 * SCALE);
     
@@ -635,12 +642,9 @@ function flashScreen() {
     }
     
     doFlash();
-    playSound(1.0, 2.0);
-    playSound(1.0, 3.0);
-    playSound(1.0, 2.0);
+    playSound(1.0, 2.0); playSound(1.0, 3.0); playSound(1.0, 2.0);
 }
 
-// Add this to your draw function
 function drawFlash() {
     if (isFlashing && flashCount % 2 === 0) {
         ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
