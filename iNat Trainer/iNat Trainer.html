@@ -1,4 +1,14 @@
 <!DOCTYPE html>
+<!-- TODO
++ user selects species pair
++ works on mobile
++ create button to switch taxon/vernacular display
+++ show other name in hover hint (via alt text)
++ get images via iNat API
++ simple persistent user management
++ remember hit/miss per species per user
++ list of actively practicing species per user
+-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -32,26 +42,26 @@ body {
 }
 
 img {
-    width: 300px;
-    height: 200px;
+    width: 300px; height: 200px;
     object-fit: cover;
     border-radius: 5px;
 }
 
 .draggable {
     cursor: move;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 5px;
-    margin: 10px;
+    background-color: #4CAF50; color: white;
+    padding: 10px; margin: 10px; border-radius: 5px;
     display: inline-block;
 }
 
 #result {
     margin-top: 20px;
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 24px; font-weight: bold;
+}
+
+#home-link {
+    text-decoration: none;
+    color:gray;
 }
 
 #new-pair-button {
@@ -68,27 +78,15 @@ img {
     border-radius: 5px;
     transition: background-color 0.3s ease;
 }
-
-#new-pair-button:hover {
-    background-color: #45a049;
-}
-
-#new-pair-button:active {
-    background-color: #3e8e41;
-}
-
-#new-pair-button:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.5);
-}
+#new-pair-button:hover { background-color: #45a049; }
+#new-pair-button:active { background-color: #3e8e41; }
+#new-pair-button:focus { outline: none; box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.5); }
 
 #version-id {
     position: fixed;
-    bottom: 5px;
-    right: 5px;
-    font-size: 14px;
-    color: #444;
-    opacity: 0.7;
+    bottom: 5px; right: 5px;
+    font-size: 14px; color: #444;
+}
 </style>
 </head>
 
@@ -112,6 +110,8 @@ img {
 
     <button id="new-pair-button">New species pair</button>
 
+    <div><a id="home-link" href="../index.html">Home</a></div>
+
     <div id="version-id"></div>
 
 <script>
@@ -122,22 +122,30 @@ const nameLeft = document.getElementById('name_left');
 const nameRight = document.getElementById('name_right');
 const result = document.getElementById('result');
 
+let useTaxon = true; // uses vernacular name if false
+
 var species_pairs = []; // scope
 if (debug) {
 species_pairs = [
-    { species_1: 'Panthera_onca', species_2: 'Crocodylus_acutus' },
-    { species_1: 'Crocodylus_porosus', species_2: 'Panthera_pardus'}
+    {species_1: 'Panthera_onca', species_2: 'Crocodylus_acutus'},
+    {species_1: 'Crocodylus_porosus', species_2: 'Panthera_pardus'}
     ]} else {
 species_pairs = [
-    { species_1: 'Panthera_onca', species_2: 'Panthera_pardus' },
-    { species_1: 'Crocodylus_porosus', species_2: 'Crocodylus_acutus'}
+    { species_1: 'Panthera onca', species_2: 'Panthera pardus' },
+    { species_1: 'Crocodylus porosus', species_2: 'Crocodylus acutus'},
+    { species_1: 'Lissachatina immaculata', species_2: 'Lissachatina fulica'},
 ]}
 
-let correctLeft, correctRight;
+const vernacular_lookup = [
+    {taxon: 'Panthera onca', vernacular: 'Jaguar'},
+    {taxon: 'Panthera pardus', vernacular: 'Leopard'},
+    {taxon: 'Crocodylus acutus', vernacular: 'American Crocodile'},
+    {taxon: 'Crocodylus porosus', vernacular: 'Saltwater Crocodile'},
+    {taxon: 'Lissachatina immaculata', vernacular: 'Giant Blonde Snail'},
+    {taxon: 'Lissachatina fulica', vernacular: 'African Giant Snail'},
+];
 
-async function getFileCount(species) {
-    return 3; // no PHP on github.io
-}
+let correctLeft, correctRight;
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -161,22 +169,21 @@ async function setupGame(newPair = false)  {
     correctLeft = isFirstSpeciesLeft ? currentPair.species_1 : currentPair.species_2;
     correctRight = isFirstSpeciesLeft ? currentPair.species_2 : currentPair.species_1;
 
-    // Get file counts for each species
-    const leftFileCount = await getFileCount(correctLeft);
-    const rightFileCount = await getFileCount(correctRight);
+    leftImage.src = await fetchRandomImage(correctLeft);
+    rightImage.src = await fetchRandomImage(correctRight);
 
-    // Get random image for each species
-    const leftImageNumber = getRandomInt(leftFileCount) + 1;
-    const rightImageNumber = getRandomInt(rightFileCount) + 1;
-
-    leftImage.src = `images/${correctLeft}/${leftImageNumber}.jpg`;
-    rightImage.src = `images/${correctRight}/${rightImageNumber}.jpg`;
-
-    // Set the draggable name tags
-    nameLeft.textContent = correctLeft.replace('_', ' ');
-    nameRight.textContent = correctRight.replace('_', ' ');
+    // TODO switch/display taxon/vernacular
+    if (useTaxon) {
+        nameLeft.textContent = correctLeft;
+        // TODO define alt text as vernacular
+        // nameLeft.
+        nameRight.textContent = correctRight;
+    } else { // use vernacular
+        
+    }
 
     result.textContent = '';
+
 }
 
 function dragStart(e) {
@@ -186,10 +193,6 @@ function dragStart(e) {
 function dragOver(e) {
     e.preventDefault();
 }
-
-document.getElementById('new-pair-button').addEventListener('click', () => {
-    setupGame(true);
-});
 
 function drop(e) {
     e.preventDefault();
@@ -232,7 +235,7 @@ function checkAnswer(droppedZoneId) {
             } else {
                 leftDrop.appendChild(document.getElementById('name_left'));
             }
-            result.textContent = 'Correct! You win!';
+            result.textContent = 'Correct!';
             result.style.color = 'green';
             setTimeout(() => setupGame(false), 2000); // Start a new game after 2 seconds
         } else {
@@ -269,8 +272,54 @@ document.querySelectorAll('.image-container').forEach(element => {
     element.addEventListener('drop', drop);
 });
 
-setupGame();
+document.getElementById('new-pair-button').addEventListener('click', () => {
+    setupGame(true);
+});
+
 document.getElementById('version-id').textContent = 'Last modified: ' + document.lastModified;
+
+setupGame();
+
+// GPT: fetch random image of taxon from iNat (not tested yet!)
+async function fetchRandomImage(taxonName) {
+    try {
+        // Step 1: Search for the taxon
+        const searchResponse = await fetch(`https://api.inaturalist.org/v1/taxa?q=${taxonName}`);
+        const searchData = await searchResponse.json();
+        
+        if (searchData.results.length === 0) {
+            throw new Error('Taxon not found');
+        }
+
+        const taxonId = searchData.results[0].id;
+
+        // Step 2: Get the taxon details
+        const taxonResponse = await fetch(`https://api.inaturalist.org/v1/taxa/${taxonId}`);
+        const taxonData = await taxonResponse.json();
+
+        if (taxonData.results.length === 0) {
+            throw new Error('No details found for the taxon');
+        }
+
+        const taxon = taxonData.results[0];
+        var image_size = 'small'; //small, medium, large
+        const images = taxon.taxon_photos.map(photo => photo.photo.url.replace('square', image_size));
+
+        if (images.length === 0) {
+            throw new Error('No images found for the taxon');
+        }
+
+        // Step 3: Select a random image
+        const randomImage = images[Math.floor(Math.random() * images.length)];
+        return randomImage;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
+
+
+
 </script>
 </body>
 </html>
