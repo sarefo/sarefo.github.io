@@ -49,103 +49,142 @@
         }
     </style>
 </head>
+
 <body>
     <h1>iNaturalist Taxonomy Trainer</h1>
     <div class="game-container">
         <div class="image-container" id="left-container">
-            <img src="/api/placeholder/300/200" alt="Left species" id="left-image">
+            <img src="" alt="Left species" id="left-image">
             <div id="left-drop" class="droppable"></div>
         </div>
         <div class="image-container" id="right-container">
-            <img src="/api/placeholder/300/200" alt="Right species" id="right-image">
+            <img src="" alt="Right species" id="right-image">
             <div id="right-drop" class="droppable"></div>
         </div>
     </div>
     <div id="names-container">
-        <div id="name1" class="draggable" draggable="true">Panthera leo</div>
-        <div id="name2" class="draggable" draggable="true">Panthera tigris</div>
+        <div id="name_left" class="draggable" draggable="true"></div>
+        <div id="name_right" class="draggable" draggable="true"></div>
     </div>
     <div id="result"></div>
 
-    <script>
-        const leftImage = document.getElementById('left-image');
-        const rightImage = document.getElementById('right-image');
-        const name1 = document.getElementById('name1');
-        const name2 = document.getElementById('name2');
-        const result = document.getElementById('result');
+<script>
+const leftImage = document.getElementById('left-image');
+const rightImage = document.getElementById('right-image');
+const nameLeft = document.getElementById('name_left');
+const nameRight = document.getElementById('name_right');
+const result = document.getElementById('result');
 
-        const species = [
-            { name: 'Panthera leo', image: '/api/placeholder/300/200' },
-            { name: 'Panthera tigris', image: '/api/placeholder/300/200' }
-        ];
+const species_pairs = [
+    { species_1: 'Panthera_onca', species_2: 'Crocodylus_acutus' },
+    { species_1: 'Crocodylus_porosus', species_2: 'Panthera_pardus'}
+];
+    // { species_1: 'Panthera_onca', species_2: 'Panthera_pardus' },
+    //{ species_1: 'Crocodylus_porosus', species_2: 'Crocodylus_acutus'}
 
-        let correctLeft, correctRight;
+let correctLeft, correctRight;
 
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
+
+function setupGame() {
+    resetDraggables();
+    // Randomly select a species pair
+    const selectedPair = species_pairs[getRandomInt(species_pairs.length)];
+    
+    // Randomly decide which species goes left and right
+    const isFirstSpeciesLeft = Math.random() < 0.5;
+    correctLeft = isFirstSpeciesLeft ? selectedPair.species_1 : selectedPair.species_2;
+    correctRight = isFirstSpeciesLeft ? selectedPair.species_2 : selectedPair.species_1;
+
+    // Get random image for each species
+    // TODO determine actual number of files in each folder, use this instead of "3"
+    const leftImageNumber = getRandomInt(3) + 1;
+    const rightImageNumber = getRandomInt(3) + 1;
+
+    leftImage.src = `images/${correctLeft}/${leftImageNumber}.jpg`;
+    rightImage.src = `images/${correctRight}/${rightImageNumber}.jpg`;
+
+    // Set the draggable name tags
+    nameLeft.textContent = correctLeft.replace('_', ' ');
+    nameRight.textContent = correctRight.replace('_', ' ');
+
+    result.textContent = '';
+}
+
+function dragStart(e) {
+    e.dataTransfer.setData('text/plain', e.target.id);
+}
+
+function dragOver(e) {
+    e.preventDefault();
+}
+
+function drop(e) {
+    e.preventDefault();
+    const data = e.dataTransfer.getData('text');
+    const draggedElement = document.getElementById(data);
+    
+    let dropZone;
+    if (e.target.classList.contains('image-container')) {
+        dropZone = e.target.querySelector('div[id$="-drop"]');
+    } else if (e.target.tagName === 'IMG') {
+        dropZone = e.target.nextElementSibling;
+    } else {
+        return; // Drop on an invalid target
+    }
+    
+    dropZone.innerHTML = ''; // Clear any existing content
+    dropZone.appendChild(draggedElement);
+    checkAnswer();
+}
+
+
+function checkAnswer() {
+    const leftDrop = document.getElementById('left-drop');
+    const rightDrop = document.getElementById('right-drop');
+
+    if (leftDrop.children.length && rightDrop.children.length) {
+        const leftAnswer = leftDrop.children[0].textContent;
+        const rightAnswer = rightDrop.children[0].textContent;
+        
+        if (leftAnswer === correctLeft.replace('_', ' ') && 
+            rightAnswer === correctRight.replace('_', ' ')) {
+            result.textContent = 'Correct! You win!';
+            result.style.color = 'green';
+            setTimeout(setupGame, 2000); // Start a new game after 2 seconds
+        } else {
+            result.textContent = 'Wrong! Try again.';
+            result.style.color = 'red';
         }
+    }
+}
 
-        function setupGame() {
-            shuffleArray(species);
-            correctLeft = species[0].name;
-            correctRight = species[1].name;
+function resetDraggables() {
+    const namesContainer = document.getElementById('names-container');
+    const leftDrop = document.getElementById('left-drop');
+    const rightDrop = document.getElementById('right-drop');
+    
+    // Move draggables back to the names container
+    namesContainer.appendChild(nameLeft);
+    namesContainer.appendChild(nameRight);
+    
+    // Clear drop zones
+    leftDrop.innerHTML = '';
+    rightDrop.innerHTML = '';
+}
 
-            leftImage.src = species[0].image;
-            rightImage.src = species[1].image;
-            name1.textContent = species[0].name;
-            name2.textContent = species[1].name;
+document.querySelectorAll('.draggable').forEach(element => {
+    element.addEventListener('dragstart', dragStart);
+});
 
-            result.textContent = '';
-        }
+document.querySelectorAll('.image-container').forEach(element => {
+    element.addEventListener('dragover', dragOver);
+    element.addEventListener('drop', drop);
+});
 
-        function dragStart(e) {
-            e.dataTransfer.setData('text/plain', e.target.id);
-        }
-
-        function dragOver(e) {
-            e.preventDefault();
-        }
-
-        function drop(e) {
-            e.preventDefault();
-            const data = e.dataTransfer.getData('text');
-            const draggedElement = document.getElementById(data);
-            
-            if (e.target.id === 'left-drop' || e.target.id === 'right-drop') {
-                e.target.appendChild(draggedElement);
-                checkAnswer();
-            }
-        }
-
-        function checkAnswer() {
-            const leftDrop = document.getElementById('left-drop');
-            const rightDrop = document.getElementById('right-drop');
-
-            if (leftDrop.children.length && rightDrop.children.length) {
-                if (leftDrop.children[0].textContent === correctLeft && 
-                    rightDrop.children[0].textContent === correctRight) {
-                    result.textContent = 'Correct! You win!';
-                    result.style.color = 'green';
-                } else {
-                    result.textContent = 'Wrong! Try again.';
-                    result.style.color = 'red';
-                }
-            }
-        }
-
-        document.querySelectorAll('.draggable').forEach(element => {
-            element.addEventListener('dragstart', dragStart);
-        });
-
-        document.querySelectorAll('.droppable').forEach(element => {
-            element.addEventListener('dragover', dragOver);
-            element.addEventListener('drop', drop);
-        });
-
-        setupGame();
-    </script>
+setupGame();
+</script>
 </body>
 </html>
