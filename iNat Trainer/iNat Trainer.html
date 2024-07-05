@@ -137,26 +137,41 @@ function drop(e) {
     
     dropZone.innerHTML = ''; // Clear any existing content
     dropZone.appendChild(draggedElement);
-    checkAnswer();
+    checkAnswer(dropZone.id);
 }
 
-
-function checkAnswer() {
+function checkAnswer(droppedZoneId) {
     const leftDrop = document.getElementById('left-drop');
     const rightDrop = document.getElementById('right-drop');
 
-    if (leftDrop.children.length && rightDrop.children.length) {
-        const leftAnswer = leftDrop.children[0].textContent;
-        const rightAnswer = rightDrop.children[0].textContent;
-        
-        if (leftAnswer === correctLeft.replace('_', ' ') && 
-            rightAnswer === correctRight.replace('_', ' ')) {
+    const leftAnswer = leftDrop.children[0]?.textContent;
+    const rightAnswer = rightDrop.children[0]?.textContent;
+
+    if (leftAnswer || rightAnswer) {
+        let isCorrect = false;
+        if (droppedZoneId === 'left-drop') {
+            isCorrect = leftAnswer === correctLeft.replace('_', ' ');
+        } else {
+            isCorrect = rightAnswer === correctRight.replace('_', ' ');
+        }
+
+        if (isCorrect) {
+            // If the first drop is correct, automatically move the other name
+            if (droppedZoneId === 'left-drop') {
+                rightDrop.appendChild(document.getElementById('name_right'));
+            } else {
+                leftDrop.appendChild(document.getElementById('name_left'));
+            }
             result.textContent = 'Correct! You win!';
             result.style.color = 'green';
             setTimeout(setupGame, 2000); // Start a new game after 2 seconds
         } else {
             result.textContent = 'Wrong! Try again.';
             result.style.color = 'red';
+            setTimeout(() => {
+                resetDraggables();
+                result.textContent = '';
+            }, 2000); // Reset after 1 second if wrong
         }
     }
 }
@@ -167,8 +182,8 @@ function resetDraggables() {
     const rightDrop = document.getElementById('right-drop');
     
     // Move draggables back to the names container
-    namesContainer.appendChild(nameLeft);
-    namesContainer.appendChild(nameRight);
+    namesContainer.appendChild(document.getElementById('name_left'));
+    namesContainer.appendChild(document.getElementById('name_right'));
     
     // Clear drop zones
     leftDrop.innerHTML = '';
