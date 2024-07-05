@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iNaturalist Taxonomy Trainer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .game-container {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 800px;
+        }
+        .image-container {
+            text-align: center;
+            background-color: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .draggable {
+            cursor: move;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            margin: 10px;
+            display: inline-block;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>iNaturalist Taxonomy Trainer</h1>
+    <div class="game-container">
+        <div class="image-container" id="left-container">
+            <img src="/api/placeholder/300/200" alt="Left species" id="left-image">
+            <div id="left-drop" class="droppable"></div>
+        </div>
+        <div class="image-container" id="right-container">
+            <img src="/api/placeholder/300/200" alt="Right species" id="right-image">
+            <div id="right-drop" class="droppable"></div>
+        </div>
+    </div>
+    <div id="names-container">
+        <div id="name1" class="draggable" draggable="true">Panthera leo</div>
+        <div id="name2" class="draggable" draggable="true">Panthera tigris</div>
+    </div>
+    <div id="result"></div>
+
+    <script>
+        const leftImage = document.getElementById('left-image');
+        const rightImage = document.getElementById('right-image');
+        const name1 = document.getElementById('name1');
+        const name2 = document.getElementById('name2');
+        const result = document.getElementById('result');
+
+        const species = [
+            { name: 'Panthera leo', image: '/api/placeholder/300/200' },
+            { name: 'Panthera tigris', image: '/api/placeholder/300/200' }
+        ];
+
+        let correctLeft, correctRight;
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function setupGame() {
+            shuffleArray(species);
+            correctLeft = species[0].name;
+            correctRight = species[1].name;
+
+            leftImage.src = species[0].image;
+            rightImage.src = species[1].image;
+            name1.textContent = species[0].name;
+            name2.textContent = species[1].name;
+
+            result.textContent = '';
+        }
+
+        function dragStart(e) {
+            e.dataTransfer.setData('text/plain', e.target.id);
+        }
+
+        function dragOver(e) {
+            e.preventDefault();
+        }
+
+        function drop(e) {
+            e.preventDefault();
+            const data = e.dataTransfer.getData('text');
+            const draggedElement = document.getElementById(data);
+            
+            if (e.target.id === 'left-drop' || e.target.id === 'right-drop') {
+                e.target.appendChild(draggedElement);
+                checkAnswer();
+            }
+        }
+
+        function checkAnswer() {
+            const leftDrop = document.getElementById('left-drop');
+            const rightDrop = document.getElementById('right-drop');
+
+            if (leftDrop.children.length && rightDrop.children.length) {
+                if (leftDrop.children[0].textContent === correctLeft && 
+                    rightDrop.children[0].textContent === correctRight) {
+                    result.textContent = 'Correct! You win!';
+                    result.style.color = 'green';
+                } else {
+                    result.textContent = 'Wrong! Try again.';
+                    result.style.color = 'red';
+                }
+            }
+        }
+
+        document.querySelectorAll('.draggable').forEach(element => {
+            element.addEventListener('dragstart', dragStart);
+        });
+
+        document.querySelectorAll('.droppable').forEach(element => {
+            element.addEventListener('dragover', dragOver);
+            element.addEventListener('drop', drop);
+        });
+
+        setupGame();
+    </script>
+</body>
+</html>
