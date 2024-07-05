@@ -31,6 +31,8 @@ body {
     background-color: #f0f0f0;
 }
 
+/*table,td,th { border: 1px solid black; }*/ /*DEBUG*/
+
 .game-container {
     display: flex;
     justify-content: space-around;
@@ -60,6 +62,9 @@ img {
 #name_left, #name_right {
     text-align: center;
     line-height: 2em;
+}
+#left-name-container, #right-name-container {
+    text-align: center;
 }
 
 #result {
@@ -100,20 +105,28 @@ img {
 
 <body>
     <h1>iNaturalist Taxonomy Trainer</h1>
-    <div class="game-container">
-        <div class="image-container" id="left-container">
-            <img src="" alt="Left species" id="left-image">
-            <div id="left-drop" class="droppable"></div>
-        </div>
-        <div class="image-container" id="right-container">
-            <img src="" alt="Right species" id="right-image">
-            <div id="right-drop" class="droppable"></div>
-        </div>
-    </div>
-    <div id="names-container">
-        <div id="name_left" class="draggable" draggable="true" title=""></div>
-        <div id="name_right" class="draggable" draggable="true" title=""></div>
-    </div>
+
+    <table class="game-container">
+      <tr>
+        <td class="image-container" id="left-container">
+          <img src="" alt="Left species" id="left-image">
+          <div id="left-drop" class="droppable"></div>
+        </td>
+        <td class="image-container" id="right-container">
+          <img src="" alt="Right species" id="right-image">
+          <div id="right-drop" class="droppable"></div>
+        </td>
+      </tr>
+      <tr>
+        <td id="left-name-container">
+          <div id="name_left" class="draggable" draggable="true" title=""></div>
+        </td>
+        <td id="right-name-container">
+          <div id="name_right" class="draggable" draggable="true" title=""></div>
+        </td>
+      </tr>
+    </table>
+
     <div id="result"></div>
 
     <button id="new-pair-button">New species pair</button>
@@ -275,13 +288,14 @@ function checkAnswer(droppedZoneId) {
 }
 
 function resetDraggables() {
-    const namesContainer = document.getElementById('names-container');
+    const leftNameContainer = document.getElementById('left-name-container');
+    const rightNameContainer = document.getElementById('right-name-container');
     const leftDrop = document.getElementById('left-drop');
     const rightDrop = document.getElementById('right-drop');
     
     // Move draggables back to the names container
-    namesContainer.appendChild(document.getElementById('name_left'));
-    namesContainer.appendChild(document.getElementById('name_right'));
+    leftNameContainer.appendChild(document.getElementById('name_left'));
+    rightNameContainer.appendChild(document.getElementById('name_right'));
     
     // Clear drop zones
     leftDrop.innerHTML = '';
