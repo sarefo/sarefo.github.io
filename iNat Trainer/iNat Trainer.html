@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <!-- TODO
++ create button to switch taxon/vernacular display
 + user selects species pair
 + works on mobile
-+ create button to switch taxon/vernacular display
++ have drag buttons centered below each of the two pictures (better symmetry)
++ BUG: result wrong if button text not taxon
++ load cleanly (preload images, then only reload game contents)
++ new species pair button: make sure not same species as before
 ++ show other name in hover hint (via alt text)
 + get images via iNat API
 + simple persistent user management
@@ -52,6 +56,10 @@ img {
     background-color: #4CAF50; color: white;
     padding: 10px; margin: 10px; border-radius: 5px;
     display: inline-block;
+}
+#name_left, #name_right {
+    text-align: center;
+    line-height: 2em;
 }
 
 #result {
@@ -103,8 +111,8 @@ img {
         </div>
     </div>
     <div id="names-container">
-        <div id="name_left" class="draggable" draggable="true"></div>
-        <div id="name_right" class="draggable" draggable="true"></div>
+        <div id="name_left" class="draggable" draggable="true" title=""></div>
+        <div id="name_right" class="draggable" draggable="true" title=""></div>
     </div>
     <div id="result"></div>
 
@@ -122,7 +130,7 @@ const nameLeft = document.getElementById('name_left');
 const nameRight = document.getElementById('name_right');
 const result = document.getElementById('result');
 
-let useTaxon = true; // uses vernacular name if false
+let displayName = "taxon"; // taxon, vernacular, both
 
 var species_pairs = []; // scope
 if (debug) {
@@ -155,6 +163,11 @@ function selectRandomSpeciesPair() {
     return species_pairs[getRandomInt(species_pairs.length)];
 }
 
+function getVernacular(taxon) {
+    const entry = vernacular_lookup.find(item => item.taxon === taxon);
+    return entry ? entry.vernacular : null;
+}
+
 let currentPair;
 async function setupGame(newPair = false)  {
     resetDraggables();
@@ -172,14 +185,26 @@ async function setupGame(newPair = false)  {
     leftImage.src = await fetchRandomImage(correctLeft);
     rightImage.src = await fetchRandomImage(correctRight);
 
+    leftVernacular = getVernacular(correctLeft);
+    rightVernacular = getVernacular(correctRight);
+
+// TODO other code evaluates buttons always wrong if textContent is not taxon
+    nameLeft.textContent = correctLeft; 
+    nameRight.textContent = correctRight;
     // TODO switch/display taxon/vernacular
-    if (useTaxon) {
-        nameLeft.textContent = correctLeft;
-        // TODO define alt text as vernacular
-        // nameLeft.
-        nameRight.textContent = correctRight;
-    } else { // use vernacular
-        
+    if (displayName == "taxon") {
+        nameLeft.innerHTML = "<i>" + correctLeft + "</i>";
+        nameLeft.title = leftVernacular;
+        nameRight.innerHTML = "<i>" + correctRight + "</i>";
+        nameRight.title = rightVernacular;
+    } else if (displayName == "vernacular") { // use vernacular
+        nameLeft.innerHTML = leftVernacular;
+        nameLeft.title = correctLeft;
+        nameRight.innerHTML = rightVernacular;
+        nameRight.title = correctRight;
+    } else { // show both taxon and vernacular
+        nameLeft.innerHTML = "<i>" + correctLeft + "</i><br>(" + leftVernacular + ")";
+        nameRight.innerHTML = "<i>" + correctRight + "</i><br>(" + rightVernacular + ")";
     }
 
     result.textContent = '';
@@ -241,10 +266,7 @@ function checkAnswer(droppedZoneId) {
         } else {
             result.textContent = 'Wrong! Try again.';
             result.style.color = 'red';
-            setTimeout(() => {
-                resetDraggables();
-                result.textContent = '';
-            }, 2000); // Reset if wrong
+            setTimeout(() => { resetDraggables(); result.textContent = ''; }, 2000); // Reset if wrong
         }
     }
 }
