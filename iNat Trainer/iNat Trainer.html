@@ -77,7 +77,7 @@
     <div id="version-id"></div>
 
 <script>
-const debug = true; // uses debugging dataset if true
+const debug = false; // uses debugging dataset if true
 const leftImage = document.getElementById('left-image');
 const rightImage = document.getElementById('right-image');
 const nameLeft = document.getElementById('name_left');
@@ -140,7 +140,6 @@ async function setupGame() {
 
     result.textContent = '';
 }
-
 
 function dragStart(e) {
     e.dataTransfer.setData('text/plain', e.target.id);
