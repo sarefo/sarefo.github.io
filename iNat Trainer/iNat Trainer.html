@@ -4,57 +4,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iNaturalist Taxonomy Trainer</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
-        .game-container {
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-            max-width: 800px;
-        }
-        .image-container {
-            text-align: center;
-            background-color: white;
-            padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        img {
-            width: 300px;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 5px;
-        }
-        .draggable {
-            cursor: move;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border-radius: 5px;
-            margin: 10px;
-            display: inline-block;
-        }
-        #result {
-            margin-top: 20px;
-            font-size: 24px;
-            font-weight: bold;
-        }
-       #version-id {
-            position: fixed;
-            bottom: 5px;
-            right: 5px;
-            font-size: 14px;
-            color: #444;
-            opacity: 0.7;
-    </style>
+
+<style>
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.game-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 800px;
+}
+.image-container {
+    text-align: center;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+img {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.draggable {
+    cursor: move;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    margin: 10px;
+    display: inline-block;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#new-pair-button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 20px 0;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#new-pair-button:hover {
+    background-color: #45a049;
+}
+
+#new-pair-button:active {
+    background-color: #3e8e41;
+}
+
+#new-pair-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.5);
+}
+
+#version-id {
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+    font-size: 14px;
+    color: #444;
+    opacity: 0.7;
+</style>
 </head>
 
 <body>
@@ -74,6 +109,9 @@
         <div id="name_right" class="draggable" draggable="true"></div>
     </div>
     <div id="result"></div>
+
+    <button id="new-pair-button">New species pair</button>
+
     <div id="version-id"></div>
 
 <script>
@@ -97,23 +135,31 @@ species_pairs = [
 
 let correctLeft, correctRight;
 
-function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
-}
-
 async function getFileCount(species) {
     return 3; // no PHP on github.io
 }
 
-async function setupGame() {
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
+
+function selectRandomSpeciesPair() {
+    return species_pairs[getRandomInt(species_pairs.length)];
+}
+
+let currentPair;
+async function setupGame(newPair = false)  {
     resetDraggables();
-    // Randomly select a species pair
-    const selectedPair = species_pairs[getRandomInt(species_pairs.length)];
-    
+
+    // Only select a new pair if newPair is true or currentPair is undefined
+    if (newPair || !currentPair) {
+        currentPair = selectRandomSpeciesPair();
+    }
+
     // Randomly decide which species goes left and right
     const isFirstSpeciesLeft = Math.random() < 0.5;
-    correctLeft = isFirstSpeciesLeft ? selectedPair.species_1 : selectedPair.species_2;
-    correctRight = isFirstSpeciesLeft ? selectedPair.species_2 : selectedPair.species_1;
+    correctLeft = isFirstSpeciesLeft ? currentPair.species_1 : currentPair.species_2;
+    correctRight = isFirstSpeciesLeft ? currentPair.species_2 : currentPair.species_1;
 
     // Get file counts for each species
     const leftFileCount = await getFileCount(correctLeft);
@@ -140,6 +186,10 @@ function dragStart(e) {
 function dragOver(e) {
     e.preventDefault();
 }
+
+document.getElementById('new-pair-button').addEventListener('click', () => {
+    setupGame(true);
+});
 
 function drop(e) {
     e.preventDefault();
@@ -184,14 +234,14 @@ function checkAnswer(droppedZoneId) {
             }
             result.textContent = 'Correct! You win!';
             result.style.color = 'green';
-            setTimeout(setupGame, 2000); // Start a new game after 2 seconds
+            setTimeout(() => setupGame(false), 2000); // Start a new game after 2 seconds
         } else {
             result.textContent = 'Wrong! Try again.';
             result.style.color = 'red';
             setTimeout(() => {
                 resetDraggables();
                 result.textContent = '';
-            }, 2000); // Reset after 1 second if wrong
+            }, 2000); // Reset if wrong
         }
     }
 }
