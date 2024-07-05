@@ -1,5 +1,5 @@
 <!-- TODO
-+ touchscreen: tap on AI sign to toggle (change color to activate)
++ 
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -151,17 +151,13 @@ async function init() {
     await waitForClick();
     resizeCanvas();
     goFullScreen();
-//    togglePause();
     resetGame();
     initAudio();
     initAIButton();
     document.addEventListener('keydown', handleKeyPress);
     document.addEventListener('keydown', handleGameOverKeyPress);
     canvas.addEventListener('mousemove', handleMouseMove);
-    canvas.addEventListener('click', handleClick);
-    //canvas.addEventListener('click', handleCanvasClick);
     canvas.addEventListener('click', handleCanvasClick, true);  // Use capture phase
-    document.addEventListener('click', handleDocumentClick); // for AI button
     canvas.addEventListener('touchstart', handleTouchStart);
     canvas.addEventListener('touchmove', handleTouchMove);
     window.addEventListener('resize', resizeCanvas);
@@ -176,7 +172,6 @@ async function init() {
         screen.orientation.addEventListener('change', resizeCanvas);
         screen.orientation.lock('landscape').catch(console.error);
     }
-    //document.body.addEventListener('click', goFullScreen, { once: true });
     gameLoop();
 }
 
@@ -263,7 +258,6 @@ function resetGame() {
     playerLives = opponentLives = INITIAL_LIVES;
     lastTouch = "player";
     gameStatus.style.display = 'none';
-//    togglePause();
     if (showTrivia) fetchTrivia();
     reflectingPaddles =
         Array(NUM_REFLECTING_PADDLES).fill().map((_, i) => new ReflectingPaddle((i + 1)
@@ -274,7 +268,6 @@ function resetGame() {
 function restartGame() {
     isGameOver = false;
     resetGame();
- //   gameStatus.style.display = 'none';
     requestAnimationFrame(gameLoop);
 }
 
@@ -351,17 +344,6 @@ function handleGameOverKeyPress(e) {
     }
 }
 
-function handleClick(e) {
-    if (e.button === 0) { // Check if it's the left mouse button
-        if (isGameOver) {
-            restartGame();
-        } else { //if (!isClickOnAIButton) {
-            togglePause();
-        }
-    }
-//    isClickOnAIButton = false; // Reset the flag
-}
-
 // for AI button
 function handleCanvasClick(e) {
     const rect = canvas.getBoundingClientRect();
@@ -379,21 +361,17 @@ function handleCanvasClick(e) {
     
     // Check if the click is within the AI button area
     if (Math.abs(clickX - aiButtonX) <= 20 * SCALE && Math.abs(clickY - aiButtonY) <= 12 * SCALE) {
-//        isClickOnAIButton = true;
         togglePlayerAI();
         e.stopPropagation();  // Stop the event from bubbling up
-        e.preventDefault();   // Prevent default behavior
-    } // else { isClickOnAIButton = false; }
-}
-
-function handleDocumentClick(e) {
-    if (e.target === canvas) {
-        if (isGameOver) {
-            restartGame();
-        } else {
+    } else {
+        // If not on AI button, toggle pause
+        if (!isGameOver) {
             togglePause();
+        } else {
+            restartGame();
         }
     }
+    e.preventDefault();   // Prevent default behavior
 }
 
 function togglePlayerAI() {
