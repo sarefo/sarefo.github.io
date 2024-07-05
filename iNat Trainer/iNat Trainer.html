@@ -3,8 +3,10 @@
 + create button to switch taxon/vernacular display
 + user selects species pair
 + works on mobile
-+ have drag buttons centered below each of the two pictures (better symmetry)
++ move "Correct" display: overlay?
++ enable "Select species pair" button
 + BUG: result wrong if button text not taxon
++ BUG: correct answer now always under correct picture
 + load cleanly (preload images, then only reload game contents)
 + new species pair button: make sure not same species as before
 ++ show other name in hover hint (via alt text)
@@ -77,7 +79,7 @@ img {
     color:gray;
 }
 
-#new-pair-button {
+#new-pair-button, #select-pair-button {
     background-color: #4CAF50;
     border: none;
     color: white;
@@ -86,7 +88,7 @@ img {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 20px 0;
+    margin: 10px 0;
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s ease;
@@ -130,6 +132,7 @@ img {
     <div id="result"></div>
 
     <button id="new-pair-button">New species pair</button>
+    <button id="select-pair-button">Select species pair</button>
 
     <div><a id="home-link" href="../index.html">Home</a></div>
 
