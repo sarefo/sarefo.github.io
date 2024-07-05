@@ -102,15 +102,7 @@ function getRandomInt(max) {
 }
 
 async function getFileCount(species) {
-    try {
-        const response = await fetch(`count_files.php?species=${species}`);
-        const data = await response.json();
-console.log(data.count); // DEBUG
-        return data.count;
-    } catch (error) {
-        console.error('Error fetching file count:', error);
-        return 3; // Fallback to 3 if there's an error
-    }
+    return 3; // no PHP on github.io
 }
 
 async function setupGame() {
