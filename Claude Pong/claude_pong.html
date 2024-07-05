@@ -1,5 +1,5 @@
 <!-- TODO
-+ display "use landscape mode" when screen is long
++ touchscreen: tap on AI sign to toggle (change color to activate)
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -100,7 +100,6 @@
 <!-- Preload audio for game sounds -->
 <audio id="hitSound" src="data:audio/wav;base64,UklGRmQEAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YUAEAAAHAP7/ngCf/QT64/Wx8UruouuX6RfoDOeg5vvmGOjT6dzr5u3l72ny2vUK+nX+RwK4BXAJig2NEG8SGBffGrYbvx2/IEkiqCKnIrgh5B8CHkgcIhrOFhcSiQy5BnoBVPwf98vx2OzG6MrlxuOn4h3iLOLT4p7k4+dr7IHxt/bm+7UBMwj+DmUV2BpLH7YiNCXUJo8n4yacJIggRhtoFW0P5Qi7AQf6bPKa6xzmHOJm38Ld/twP3WTeguFu5t/sAvR/+1QDnwvmE8MbcSJxJ2QqYSuIKjcocyQKH7sXBA+PBSn8PvPb6knjoNxd1+fTtNLr02/XsdwQ4zjqZ/Kb+5EFrg87GYEhFCiBLMIu3S6oLNgnfSACFz0MCgH69YPrCeLp2ZHTdc8NznfPmdPO2anh2Ooz9UgAfwsUFlMfryauKzguUi4cLHMnVSAOFy8MnQA59Z7qTeGH2bLT0M9gzozPn9Mo2tLi0ezR9zgDhw4bGU4ihCn4LYEv7S2UKdEi2BkhDw4DdPYq6uDeoNWizo3KMsnTyl/Pv9ab4ELs6viuBcARZxwhJYArSi82MPgttyiYIFIWgArR/fzwtOSt2XjQyMkmxu7FEclcz0DYV+Pq72f99grQFwAj7iuzMUY0aDNiLzYoYB5IEsAElvbA6CfcgtGIyW7EjMLiw6HIb9D32oDnPPVYA94QBR08J7suQjMmNI0xaStaIt8WwQnO++jtzeBK1RfM/sU8wx/EX8jOz9LZ5+U58xEBlA7bGhUllSz+MAAy1y99KmQiAhjXC7n+b/Hj5NPZBNHfyr7H0scKy2HRM9oy5WnxLf6aCt8Vdx+rJi8rlSziKhwmph7tFMgJw/3M8XDmd9xq1PHOPcykzN7Pz9X13cjnu/IK/jIJZxMCHIAiXyaIJ+MlmiEEG40SsggY/m3zaenT4Bjaq9Wf0y/UGddD3D3jrevq9FP+Sgc+D8UVdBohHZYd4hsvGKwS2wspBDH8aPRL7Uvnr+Le39ze3t+Z4grnouwe8/350QA8B9EMMREoFHgVKxVFE/oPmAtjBroA8/p39Zjwuuz26aLokejo6WPs2+8j9N/4yv2QAswGXArlDG4Oyg4XDkkMqAlBBmwCWv5r+sn2wvOA8RLwou8d8HPxqPNn9pT57vw6AEoD4gXxBz8J2AmfCbgIIgcVBbQCJwCo/VT7WfnT9+H2h/bW9rH3GvnS+t78+P4aAQYDswT4BcIGAwfHBgQG5QRtA88BDwBY/sv8gfuO+gX65vkz+tz62/sU/X7+9f9iAa4CvgOVBAQFNgUDBZIE2gPxAucB2gDU//D+O/7A/YL9jP3T/VH+Bv/S/8gApwGOAkMD3AM+BGkEYAQdBK8DGwN2ArsBFgF3APv/oP9u/2n/kP/l/1YA4AB+AQsCnAIQA3ADqQPGA68DgAMqA8MCTgLUAWcB/QC1AIQAeQCRAA==" preload="auto"></audio>
 
-
 <script>
 // Game constants
 const canvas = document.getElementById('gameCanvas');
@@ -119,7 +118,10 @@ let paused, playerScore, opponentScore, playerLives, opponentLives,
 let predictedY = { player: null, opponent: null };
 let lastTapTime = 0;
 let isGameOver = false;
+
+let aiButtonX, aiButtonY, aiButtonRadius;
 let isPlayerAI = false;
+let isClickOnAIButton = false;
 
 // ReflectingPaddle class definition
 class ReflectingPaddle {
@@ -152,10 +154,14 @@ async function init() {
 //    togglePause();
     resetGame();
     initAudio();
+    initAIButton();
     document.addEventListener('keydown', handleKeyPress);
     document.addEventListener('keydown', handleGameOverKeyPress);
     canvas.addEventListener('mousemove', handleMouseMove);
     canvas.addEventListener('click', handleClick);
+    //canvas.addEventListener('click', handleCanvasClick);
+    canvas.addEventListener('click', handleCanvasClick, true);  // Use capture phase
+    document.addEventListener('click', handleDocumentClick); // for AI button
     canvas.addEventListener('touchstart', handleTouchStart);
     canvas.addEventListener('touchmove', handleTouchMove);
     window.addEventListener('resize', resizeCanvas);
@@ -333,9 +339,7 @@ function handleKeyPress(e) {
                 HEIGHT - PLAYER_PADDLE_HEIGHT_RATIO * HEIGHT);
     else if (e.key === ' ') togglePause();
     else if (e.key === 'a') {
-        isPlayerAI = !isPlayerAI;
-        // Optionally, you can add a visual indicator or sound to show the mode change
-        console.log(isPlayerAI ? "Player AI activated" : "Player AI deactivated");
+        togglePlayerAI();
     }
 }
 
@@ -351,10 +355,50 @@ function handleClick(e) {
     if (e.button === 0) { // Check if it's the left mouse button
         if (isGameOver) {
             restartGame();
+        } else { //if (!isClickOnAIButton) {
+            togglePause();
+        }
+    }
+//    isClickOnAIButton = false; // Reset the flag
+}
+
+// for AI button
+function handleCanvasClick(e) {
+    const rect = canvas.getBoundingClientRect();
+    let clickX, clickY;
+    
+    if (window.innerWidth < window.innerHeight) {
+        // For portrait mode (rotated canvas)
+        clickX = WIDTH - (e.clientY - rect.top);
+        clickY = e.clientX - rect.left;
+    } else {
+        // For landscape mode
+        clickX = e.clientX - rect.left;
+        clickY = e.clientY - rect.top;
+    }
+    
+    // Check if the click is within the AI button area
+    if (Math.abs(clickX - aiButtonX) <= 20 * SCALE && Math.abs(clickY - aiButtonY) <= 12 * SCALE) {
+//        isClickOnAIButton = true;
+        togglePlayerAI();
+        e.stopPropagation();  // Stop the event from bubbling up
+        e.preventDefault();   // Prevent default behavior
+    } // else { isClickOnAIButton = false; }
+}
+
+function handleDocumentClick(e) {
+    if (e.target === canvas) {
+        if (isGameOver) {
+            restartGame();
         } else {
             togglePause();
         }
     }
+}
+
+function togglePlayerAI() {
+    isPlayerAI = !isPlayerAI;
+    console.log(isPlayerAI ? "Player AI activated" : "Player AI deactivated");
 }
 
 function handleMouseMove(e) {
@@ -559,6 +603,11 @@ function movePlayerAI() {
     playerPos = Math.max(0, Math.min(playerPos, HEIGHT - PLAYER_PADDLE_HEIGHT_RATIO * HEIGHT));
 }
 
+function initAIButton() {
+    aiButtonX = 40 * SCALE;
+    aiButtonY = HEIGHT - 20 * SCALE;
+}
+
 function predictBallPosition(targetX) {
     let time = Math.abs(targetX - ballX) / Math.abs(ballDX);
     let predictedY = ballY + ballDY * time
@@ -648,11 +697,12 @@ function draw() {
 
    drawScores(); 
 
-    if (isPlayerAI) { // draw 'AI on' hint
-        ctx.fillStyle = '#fca311';
-        ctx.font = `bold ${24 * SCALE}px Arial`;
-        ctx.fillText('AI', 40 * SCALE, HEIGHT - 20 * SCALE);
-    }
+    // Draw AI button
+    ctx.fillStyle = isPlayerAI ? '#fca311' : '#555555';
+    ctx.font = `bold ${24 * SCALE}px Arial`;
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'bottom';
+    ctx.fillText('AI', aiButtonX, aiButtonY);
 
     drawFlash();
 }
