@@ -77,18 +77,23 @@
     <div id="version-id"></div>
 
 <script>
+const debug = true; // uses debugging dataset if true
 const leftImage = document.getElementById('left-image');
 const rightImage = document.getElementById('right-image');
 const nameLeft = document.getElementById('name_left');
 const nameRight = document.getElementById('name_right');
 const result = document.getElementById('result');
 
-const species_pairs = [
+var species_pairs = []; // scope
+if (debug) {
+species_pairs = [
     { species_1: 'Panthera_onca', species_2: 'Crocodylus_acutus' },
     { species_1: 'Crocodylus_porosus', species_2: 'Panthera_pardus'}
-];
-    // { species_1: 'Panthera_onca', species_2: 'Panthera_pardus' },
-    //{ species_1: 'Crocodylus_porosus', species_2: 'Crocodylus_acutus'}
+    ]} else {
+species_pairs = [
+    { species_1: 'Panthera_onca', species_2: 'Panthera_pardus' },
+    { species_1: 'Crocodylus_porosus', species_2: 'Crocodylus_acutus'}
+]}
 
 let correctLeft, correctRight;
 
@@ -96,7 +101,19 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
-function setupGame() {
+async function getFileCount(species) {
+    try {
+        const response = await fetch(`count_files.php?species=${species}`);
+        const data = await response.json();
+console.log(data.count); // DEBUG
+        return data.count;
+    } catch (error) {
+        console.error('Error fetching file count:', error);
+        return 3; // Fallback to 3 if there's an error
+    }
+}
+
+async function setupGame() {
     resetDraggables();
     // Randomly select a species pair
     const selectedPair = species_pairs[getRandomInt(species_pairs.length)];
@@ -106,10 +123,13 @@ function setupGame() {
     correctLeft = isFirstSpeciesLeft ? selectedPair.species_1 : selectedPair.species_2;
     correctRight = isFirstSpeciesLeft ? selectedPair.species_2 : selectedPair.species_1;
 
+    // Get file counts for each species
+    const leftFileCount = await getFileCount(correctLeft);
+    const rightFileCount = await getFileCount(correctRight);
+
     // Get random image for each species
-    // TODO determine actual number of files in each folder, use this instead of "3"
-    const leftImageNumber = getRandomInt(3) + 1;
-    const rightImageNumber = getRandomInt(3) + 1;
+    const leftImageNumber = getRandomInt(leftFileCount) + 1;
+    const rightImageNumber = getRandomInt(rightFileCount) + 1;
 
     leftImage.src = `images/${correctLeft}/${leftImageNumber}.jpg`;
     rightImage.src = `images/${correctRight}/${rightImageNumber}.jpg`;
@@ -120,6 +140,7 @@ function setupGame() {
 
     result.textContent = '';
 }
+
 
 function dragStart(e) {
     e.dataTransfer.setData('text/plain', e.target.id);
