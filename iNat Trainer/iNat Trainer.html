@@ -2,6 +2,7 @@
 <!-- TODO
 + works on mobile
 + tiles should auto-appear under right image when chosen correctly
++ mobile: name tiles between images, not under
 + nicer correct/wrong display
 + BUG: CSS elements redundant right now
 + BUG: some images not high enough: crop square
@@ -270,6 +271,8 @@ species_pairs = [
     {species_1: 'Crocodylus porosus', species_2: 'Crocodylus acutus'},
     {species_1: 'Lissachatina immaculata', species_2: 'Lissachatina fulica'},
     {species_1: 'Caeneressa diaphana', species_2: 'Amata huebneri'},
+    {species_1: 'Fromia monilis', species_2: 'Fromia heffernani'},
+    {species_1: 'Formicidae', species_2: 'Myrmarachnini'},
 ]}
 
 const vernacular_lookup = [
@@ -281,6 +284,10 @@ const vernacular_lookup = [
     {taxon: 'Lissachatina fulica', vernacular: 'African Giant Snail'},
     {taxon: 'Caeneressa diaphana', vernacular: 'Caeneressa diaphana'},
     {taxon: 'Amata huebneri', vernacular: 'Hübner\'s Wasp Moth'},
+    {taxon: 'Fromia monilis', vernacular: 'Tiled Sea Star'},
+    {taxon: 'Fromia heffernani', vernacular: 'Pebbled Sea Star'},
+    {taxon: 'Formicidae', vernacular: 'Ants'},
+    {taxon: 'Myrmarachnini', vernacular: 'Ant-like Jumping Spiders'},
 ];
 
 let correctLeft, correctRight;
@@ -306,7 +313,7 @@ async function setupGame(newPair = false)  {
     if (newPair || !currentPair) {
         currentPair = selectRandomSpeciesPair();
     }
-
+    currentPair = species_pairs[species_pairs.length - 1]; // TODO DEBUG ONLY
     // Randomly decide which species goes left and right
     const isFirstSpeciesLeft = Math.random() < 0.5;
     correctLeft = isFirstSpeciesLeft ? currentPair.species_1 : currentPair.species_2;
