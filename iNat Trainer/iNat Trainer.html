@@ -1,19 +1,16 @@
 <!DOCTYPE html>
 <!-- TODO
-+ tiles should auto-appear under right image when chosen correctly
 + mobile: name tiles between images, not under
 + nicer correct/wrong display
-+ BUG: CSS elements redundant right now
-+ BUG: some images not high enough: crop square
+++ move "Correct" display: overlay?
 + load cleanly (preload images, then only reload game contents)
 + create button to switch taxon/vernacular display
+++ BUG: result wrong if button text not taxon
 + able to fetch any two taxa from iNat
 ++ fetch taxon + vernacular
 + BUG: when fetching images of a specific user, error if user has no images of chosen taxon
 + user selects taxon pair
-+ move "Correct" display: overlay?
 + enable "Select taxon pair" button
-+ BUG: result wrong if button text not taxon
 + new taxon pair button: make sure not same taxon as before
 + simple persistent user management
 + remember hit/miss per taxon per user
@@ -132,7 +129,7 @@ img {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.3);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -219,7 +216,7 @@ const rightImage = document.getElementById('right-image');
 const nameLeft = document.getElementById('name-left');
 const nameRight = document.getElementById('name-right');
 const result = document.getElementById('result');
-const colorCorrect = "#33cc33", colorWrong = "#cc0000";
+const colorCorrect = "rgba(0, 200, 0, 0.5)", colorWrong = "rgba(200, 0, 0, 0.5)";
 
 let displayName = "taxon"; // taxon, vernacular, both
 
@@ -368,7 +365,7 @@ async function setupGame(newPair = false)  {
     if (Math.random() < 0.5) { [nameLeft.textContent, nameRight.textContent] = [correctRight, correctLeft];
     } else { [nameLeft.textContent, nameRight.textContent] = [correctLeft, correctRight]; }
 
-    showResultOverlay(); // TODO flaky hack to notify pictures still loading
+    showResultOverlay("Loading…", color="rgba(100, 100, 100, 0.8"); // TODO flaky hack to notify pictures still loading
     leftImage.src = await fetchRandomImage(correctLeft,iNatUser);
     rightImage.src = await fetchRandomImage(correctRight,iNatUser);
 
@@ -454,8 +451,9 @@ function checkAnswer(droppedZoneId) {
 function showResultOverlay(message="", color) {
     const overlay = document.getElementById('result-overlay');
     const messageElement = document.getElementById('result-message');
+    const overlayBackground = document.getElementById('result-overlay');
     messageElement.innerHTML = message;
-    messageElement.style.color = color;
+    overlayBackground.style.backgroundColor = color;
     overlay.classList.add('show');
 }
 
