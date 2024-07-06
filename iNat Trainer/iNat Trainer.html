@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <!-- TODO
++ works on mobile
++ tiles should auto-appear under right image when chosen correctly
++ nicer correct/wrong display
 + BUG: CSS elements redundant right now
 + BUG: some images not high enough: crop square
++ load cleanly (preload images, then only reload game contents)
 + create button to switch taxon/vernacular display
 + user selects species pair
-+ works on mobile
 + move "Correct" display: overlay?
 + enable "Select species pair" button
 + BUG: result wrong if button text not taxon
-+ load cleanly (preload images, then only reload game contents)
 + new species pair button: make sure not same species as before
-++ show other name in hover hint (via alt text)
-+ get images via iNat API
 + simple persistent user management
 + remember hit/miss per species per user
 + list of actively practicing species per user
@@ -50,11 +50,19 @@ body {
     flex: 1 1 300px;
     margin: 10px;
     max-width: 400px;
+    position: relative;
+    width: 100%;
+    height: 300px;
+    padding-top: 100%; /* Creates a 1:1 aspect ratio */
 }
 
 img {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 300px;
+    height: 100%;
+    /*height: 300px;*/
     object-fit: cover;
     object-position: center;
     border-radius: 5px;
@@ -219,6 +227,7 @@ const rightImage = document.getElementById('right-image');
 const nameLeft = document.getElementById('name-left');
 const nameRight = document.getElementById('name-right');
 const result = document.getElementById('result');
+const colorCorrect = "#33cc33", colorWrong = "#cc0000";
 
 let displayName = "taxon"; // taxon, vernacular, both
 
@@ -342,9 +351,9 @@ function checkAnswer(droppedZoneId) {
     if (leftAnswer || rightAnswer) {
         let isCorrect = false;
         if (droppedZoneId === 'left-drop') {
-            isCorrect = leftAnswer === correctLeft.replace('_', ' ');
+            isCorrect = leftAnswer === correctLeft;
         } else {
-            isCorrect = rightAnswer === correctRight.replace('_', ' ');
+            isCorrect = rightAnswer === correctRight;
         }
 
         if (isCorrect) {
@@ -354,10 +363,10 @@ function checkAnswer(droppedZoneId) {
             } else {
                 leftDrop.appendChild(document.getElementById('name-left'));
             }
-            showResultOverlay('Correct!', 'green');
+            showResultOverlay('Correct!', colorCorrect);
             setTimeout(() => {hideResultOverlay(); setupGame(false); }, 2000); // Start a new game after 2 seconds
         } else {
-            showResultOverlay('Wrong! Try again.', 'red');
+            showResultOverlay('Wrong! Try again.', colorWrong);
             setTimeout(() => { resetDraggables(); hideResultOverlay(); }, 2000); // Reset if wrong
         }
     }
@@ -431,10 +440,8 @@ async function fetchRandomImage(taxonName) {
 
         const taxon = taxonData.results[0];
 
-    var image_size = window.innerWidth <= 600 ? 'small' : 'medium';
+    var image_size = 'medium';
     const images = taxon.taxon_photos.map(photo => photo.photo.url.replace('square', image_size));
-    //    var image_size = 'small'; //small, medium, large
-    //    const images = taxon.taxon_photos.map(photo => photo.photo.url.replace('square', image_size));
 
         if (images.length === 0) {
             throw new Error('No images found for the taxon');
