@@ -8,6 +8,8 @@
 + BUG: some images not high enough: crop square
 + load cleanly (preload images, then only reload game contents)
 + create button to switch taxon/vernacular display
++ able to fetch any two taxa from iNat
+++ fetch taxon + vernacular
 + user selects species pair
 + move "Correct" display: overlay?
 + enable "Select species pair" button
@@ -194,6 +196,29 @@ img {
     border-radius: 10px;
 }
 
+.image-container {
+    position: relative;
+}
+
+.droppable {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 90%;
+    text-align: center;
+}
+
+.droppable .draggable {
+    background-color: rgba(76, 175, 80, 0.8);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
 </style>
 </head>
 
@@ -386,6 +411,14 @@ function drop(e) {
     
     dropZone.innerHTML = ''; // Clear any existing content
     dropZone.appendChild(draggedElement);
+
+    // Automatically move the other name
+    const otherNameId = data === 'name-left' ? 'name-right' : 'name-left';
+    const otherName = document.getElementById(otherNameId);
+    const otherDropZone = document.getElementById(dropZone.id === 'left-drop' ? 'right-drop' : 'left-drop');
+    otherDropZone.innerHTML = '';
+    otherDropZone.appendChild(otherName);
+
     checkAnswer(dropZone.id);
 }
 
@@ -406,11 +439,6 @@ function checkAnswer(droppedZoneId) {
 
         if (isCorrect) {
             // If the first drop is correct, automatically move the other name TODO does not work
-            if (droppedZoneId === 'left-drop') {
-                rightDrop.appendChild(document.getElementById('name-right'));
-            } else {
-                leftDrop.appendChild(document.getElementById('name-left'));
-            }
             showResultOverlay('Correct!', colorCorrect);
             // Start a new game after 2 seconds
             setTimeout(() => {hideResultOverlay(); setupGame(false); }, 2000);
