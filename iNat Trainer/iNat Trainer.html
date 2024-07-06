@@ -207,7 +207,7 @@ img {
 </div>
 
 <button id="new-pair-button">New taxon pair</button>
-<button id="select-pair-button">Select taxon pair</button>
+<!-- TODO <button id="select-pair-button">Select taxon pair</button> -->
 
 <div><a id="home-link" href="../index.html">Home</a></div>
 
@@ -233,6 +233,7 @@ var taxon_pairs = [
 var taxon_pairs = [
     {taxon1: 'Panthera onca', taxon2: 'Panthera pardus' },
     {taxon1: 'Crocodylus porosus', taxon2: 'Crocodylus acutus'},
+    {taxon1: 'Crocodylidae', taxon2: 'Alligatoridae'},
     {taxon1: 'Lissachatina immaculata', taxon2: 'Lissachatina fulica'},
     {taxon1: 'Caeneressa diaphana', taxon2: 'Amata huebneri'},
     {taxon1: 'Fromia monilis', taxon2: 'Fromia heffernani'},
@@ -250,6 +251,8 @@ const vernacular_lookup = [
     {taxon: 'Panthera pardus', vernacular: 'Leopard'},
     {taxon: 'Crocodylus acutus', vernacular: 'American Crocodile'},
     {taxon: 'Crocodylus porosus', vernacular: 'Saltwater Crocodile'},
+    {taxon: 'Crocodylidae', vernacular: 'Crocodiles'},
+    {taxon: 'Alligatoridae', vernacular: 'Alligators'},
     {taxon: 'Lissachatina immaculata', vernacular: 'Giant Blonde Snail'},
     {taxon: 'Lissachatina fulica', vernacular: 'African Giant Snail'},
     {taxon: 'Caeneressa diaphana', vernacular: 'Caeneressa diaphana'},
@@ -499,6 +502,8 @@ document.getElementById('new-pair-button').addEventListener('click', () => { set
 
 document.getElementById('version-id').textContent = 'Last modified: ' + document.lastModified;
 
+// all this just to move the name buttons between the images on narrow screens :P
+// there's probably an easier way, such as just providing to sets of html?
 function rearrangeElements() {
     const gameContainer = document.querySelector('.game-container');
     const imagePair = document.querySelector('.image-pair');
@@ -525,7 +530,6 @@ function rearrangeElements() {
         gameContainer.appendChild(namePair);
     }
 }
-
 // Debounce function to limit how often rearrangeElements is called
 function debounce(func, wait) {
     let timeout;
@@ -538,14 +542,11 @@ function debounce(func, wait) {
         timeout = setTimeout(later, wait);
     };
 }
-
 // Use the debounced version of rearrangeElements
 const debouncedRearrange = debounce(rearrangeElements, 250);
-
 // Call the function on load and resize
 window.addEventListener('load', rearrangeElements);
 window.addEventListener('resize', debouncedRearrange);
-
 
 setupGame(newPair = true);
 
