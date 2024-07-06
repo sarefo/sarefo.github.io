@@ -90,8 +90,8 @@ img {
 }
 
 #left-name-container, #right-name-container {
-    width: 50%;
-    max-width: 200px;
+    /*width: 50%; max-width: 200px;*/
+    width: 200px;
     margin: 4px 4px;
 }
 
@@ -394,6 +394,9 @@ async function setupGame(newPair = false)  {
         nameRight.innerHTML = "<i>" + nameRight.textContent + "</i><br>(" + getVernacular(nameRight.textContent) + ")";
     }
     hideResultOverlay(); // TODO remove later
+    // Call rearrangeElements after setting up the game
+    // Use setTimeout to ensure images have loaded
+    setTimeout(rearrangeElements, 100);
 }
 
 function dragStart(e) { e.dataTransfer.setData('text/plain', e.target.id); }
@@ -495,6 +498,54 @@ document.querySelectorAll('.image-container').forEach(element => {
 document.getElementById('new-pair-button').addEventListener('click', () => { setupGame(true); });
 
 document.getElementById('version-id').textContent = 'Last modified: ' + document.lastModified;
+
+function rearrangeElements() {
+    const gameContainer = document.querySelector('.game-container');
+    const imagePair = document.querySelector('.image-pair');
+    const namePair = document.querySelector('.name-pair');
+    const leftContainer = document.getElementById('left-container');
+    const rightContainer = document.getElementById('right-container');
+
+    // Check if the images are stacked vertically
+    const isVertical = leftContainer.getBoundingClientRect().bottom <= rightContainer.getBoundingClientRect().top;
+
+    if (isVertical) {
+        // Vertical layout
+        gameContainer.innerHTML = '';
+        gameContainer.appendChild(leftContainer);
+        gameContainer.appendChild(namePair);
+        gameContainer.appendChild(rightContainer);
+    } else {
+        // Horizontal layout
+        gameContainer.innerHTML = '';
+        imagePair.innerHTML = '';
+        imagePair.appendChild(leftContainer);
+        imagePair.appendChild(rightContainer);
+        gameContainer.appendChild(imagePair);
+        gameContainer.appendChild(namePair);
+    }
+}
+
+// Debounce function to limit how often rearrangeElements is called
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Use the debounced version of rearrangeElements
+const debouncedRearrange = debounce(rearrangeElements, 250);
+
+// Call the function on load and resize
+window.addEventListener('load', rearrangeElements);
+window.addEventListener('resize', debouncedRearrange);
+
 
 setupGame(newPair = true);
 
