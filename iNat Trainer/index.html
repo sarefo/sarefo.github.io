@@ -298,11 +298,6 @@ function selectRandomTaxonPair() {
     return taxon_pairs[getRandomInt(taxon_pairs.length)];
 }
 
-function getVernacular(taxon) {
-    const entry = vernacular_lookup.find(item => item.taxon === taxon);
-    return entry ? entry.vernacular : null;
-}
-
 // GPT: fetch random image of taxon from iNat
 async function fetchRandomImage(taxonName, username = null) {
     try {
@@ -353,6 +348,35 @@ async function fetchRandomImage(taxonName, username = null) {
     } catch (error) {
         console.error(error);
         return null;
+    }
+}
+
+function getVernacular(taxon) {
+    const entry = vernacular_lookup.find(item => item.taxon === taxon);
+//fetchVernacularName(taxon).then(name => console.log(name)); // TODO
+    return entry ? entry.vernacular : null;
+}
+
+async function fetchVernacularName(taxonName) {
+    const baseUrl = 'https://api.inaturalist.org/v1/taxa';
+    
+    try {
+        const response = await fetch(`${baseUrl}?q=${encodeURIComponent(taxonName)}`);
+        const data = await response.json();
+        
+        if (data.results && data.results.length > 0) {
+            const taxon = data.results[0];
+            if (taxon && taxon.preferred_common_name) {
+                return taxon.preferred_common_name;
+            } else {
+                return 'No vernacular name found for this taxon.';
+            }
+        } else {
+            return 'Taxon not found.';
+        }
+    } catch (error) {
+        console.error('Error fetching vernacular name:', error);
+        return 'An error occurred while fetching the vernacular name.';
     }
 }
 
