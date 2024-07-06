@@ -235,6 +235,7 @@ var species_pairs = [
     {species1: 'Platax teira', species2: 'Platax orbicularis'},
     {species1: 'Plerogyra sinuosa', species2: 'Physogyra lichtensteini'},
     {species1: 'Platygyra', species2: 'Lobophyllia'},
+    {species1: 'Chelonia mydas', species2: 'Eretmochelys imbricata'},
 ]}
 
 const vernacular_lookup = [
@@ -258,6 +259,8 @@ const vernacular_lookup = [
     {taxon: 'Physogyra lichtensteini', vernacular: 'Pearl Bubble Coral'},
     {taxon: 'Platygyra', vernacular: 'Greater Maze Corals'},
     {taxon: 'Lobophyllia', vernacular: 'Open Brain Corals'},
+    {taxon: 'Chelonia mydas', vernacular: 'Green Sea Turtle'},
+    {taxon: 'Eretmochelys imbricata', vernacular: 'Hawksbill Sea Turtle'},
 ];
 
 // optionally get pair of species from URL
@@ -330,6 +333,7 @@ async function setupGame(newPair = false)  {
     if (Math.random() < 0.5) { [nameLeft.textContent, nameRight.textContent] = [correctRight, correctLeft];
     } else { [nameLeft.textContent, nameRight.textContent] = [correctLeft, correctRight]; }
 
+    showResultOverlay(); // TODO flaky hack to notify pictures still loading
     leftImage.src = await fetchRandomImage(correctLeft);
     rightImage.src = await fetchRandomImage(correctRight);
 
@@ -352,6 +356,7 @@ async function setupGame(newPair = false)  {
         nameLeft.innerHTML = "<i>" + nameLeft.textContent + "</i><br>(" + getVernacular(nameLeft.textContent) + ")";
         nameRight.innerHTML = "<i>" + nameRight.textContent + "</i><br>(" + getVernacular(nameRight.textContent) + ")";
     }
+    hideResultOverlay(); // TODO remove later
 }
 
 function dragStart(e) { e.dataTransfer.setData('text/plain', e.target.id); }
@@ -411,7 +416,7 @@ function checkAnswer(droppedZoneId) {
     }
 }
 
-function showResultOverlay(message, color) {
+function showResultOverlay(message="", color) {
     const overlay = document.getElementById('result-overlay');
     const messageElement = document.getElementById('result-message');
     messageElement.innerHTML = message;
