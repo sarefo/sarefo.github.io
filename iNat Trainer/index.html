@@ -37,15 +37,19 @@ body {
     flex-direction: column;
     height: 100vh;
     margin: 0;
-    padding: 4px;
+    padding: 2px;
+    overflow: hidden;
 }
 
 h1 { font-size: 16px; }
 
 .game-container {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
     align-items: center;
     width: 100%;
     max-width: 800px;
@@ -232,7 +236,6 @@ var taxon_pairs = [
     ]} else {
 var taxon_pairs = [
     {taxon1: 'Panthera onca', taxon2: 'Panthera pardus' },
-    {taxon1: 'Crocodylus porosus', taxon2: 'Crocodylus acutus'},
     {taxon1: 'Crocodylidae', taxon2: 'Alligatoridae'},
     {taxon1: 'Lissachatina immaculata', taxon2: 'Lissachatina fulica'},
     {taxon1: 'Caeneressa diaphana', taxon2: 'Amata huebneri'},
