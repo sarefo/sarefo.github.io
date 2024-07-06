@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <!-- TODO
-+ works on mobile
 + tiles should auto-appear under right image when chosen correctly
 + mobile: name tiles between images, not under
 + nicer correct/wrong display
@@ -39,8 +38,16 @@ body {
     box-sizing: border-box;
 }
 
-h1 {
-    font-size: 16px;
+h1 { font-size: 16px; }
+
+.game-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 800px;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
 }
 
 .image-pair, .name-pair {
@@ -54,11 +61,16 @@ h1 {
 .image-container {
     flex: 1 1 300px;
     margin: 4px;
+    padding: 10px;
     max-width: 400px;
     height: 300px;
     position: relative;
     overflow: hidden;
     width: calc(100% - 20px); /* Account for margins */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
+    border-radius: 10px;
+    background-color: white;
 }
 
 img {
@@ -78,9 +90,31 @@ img {
     max-width: 200px;
 }
 
-.draggable {
+.droppable .draggable {
+    background-color: rgba(76, 175, 80, 0.8);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 0;
     width: 100%;
     box-sizing: border-box;
+}
+
+.draggable {
+    cursor: move;
+    background-color: #4CAF50; color: white;
+    padding: 10px; margin: 10px; border-radius: 5px;
+    display: inline-block;
+}
+
+.droppable {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 90%;
+    text-align: center;
 }
 
 @media (max-width: 600px) {
@@ -112,35 +146,7 @@ img {
         margin: 4px 4px;
     }
 
-    #new-pair-button, #select-pair-button {
-        padding: 10px 20px;
-        font-size: 14px;
-    }
 } /*media*/
-
-.game-container {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    max-width: 800px;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 auto;
-}
-.image-container {
-    text-align: center;
-    background-color: white;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-.draggable {
-    cursor: move;
-    background-color: #4CAF50; color: white;
-    padding: 10px; margin: 10px; border-radius: 5px;
-    display: inline-block;
-}
 #name-left, #name-right {
     text-align: center;
 }
@@ -162,12 +168,6 @@ img {
 #new-pair-button:hover { background-color: #45a049; }
 #new-pair-button:active { background-color: #3e8e41; }
 #new-pair-button:focus { outline: none; box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.5); }
-
-#version-id {
-    position: fixed;
-    bottom: 5px; right: 5px;
-    font-size: 14px; color: #444;
-}
 
 #result-overlay {
     position: fixed;
@@ -196,29 +196,12 @@ img {
     border-radius: 10px;
 }
 
-.image-container {
-    position: relative;
+#version-id {
+    position: fixed;
+    bottom: 5px; right: 5px;
+    font-size: 14px; color: #444;
 }
 
-.droppable {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-    width: 90%;
-    text-align: center;
-}
-
-.droppable .draggable {
-    background-color: rgba(76, 175, 80, 0.8);
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    margin: 0;
-    width: 100%;
-    box-sizing: border-box;
-}
 </style>
 </head>
 
@@ -438,13 +421,13 @@ function checkAnswer(droppedZoneId) {
         }
 
         if (isCorrect) {
-            // If the first drop is correct, automatically move the other name TODO does not work
             showResultOverlay('Correct!', colorCorrect);
             // Start a new game after 2 seconds
             setTimeout(() => {hideResultOverlay(); setupGame(false); }, 2000);
         } else {
+            resetDraggables(); // remove tiles immediately
             showResultOverlay('Wrong!<br>Try again.', colorWrong);
-            setTimeout(() => { resetDraggables(); hideResultOverlay(); }, 2000); // Reset if wrong
+            setTimeout(() => { hideResultOverlay(); }, 2000); // Reset if wrong
         }
     }
 }
