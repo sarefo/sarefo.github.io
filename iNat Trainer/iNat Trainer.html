@@ -274,6 +274,7 @@ species_pairs = [
     {species_1: 'Caeneressa diaphana', species_2: 'Amata huebneri'},
     {species_1: 'Fromia monilis', species_2: 'Fromia heffernani'},
     {species_1: 'Formicidae', species_2: 'Myrmarachnini'},
+    {species_1: 'Coradion chrysozonus', species_2: 'Chelmon rostratus'},
 ]}
 
 const vernacular_lookup = [
@@ -289,6 +290,8 @@ const vernacular_lookup = [
     {taxon: 'Fromia heffernani', vernacular: 'Pebbled Sea Star'},
     {taxon: 'Formicidae', vernacular: 'Ants'},
     {taxon: 'Myrmarachnini', vernacular: 'Ant-like Jumping Spiders'},
+    {taxon: 'Chelmon rostratus', vernacular: 'Copperband Butterflyfish'},
+    {taxon: 'Coradion chrysozonus', vernacular: 'Orangebanded Coralfish'},
 ];
 
 let correctLeft, correctRight;
@@ -314,7 +317,7 @@ async function setupGame(newPair = false)  {
     if (newPair || !currentPair) {
         currentPair = selectRandomSpeciesPair();
     }
-    currentPair = species_pairs[species_pairs.length - 1]; // TODO DEBUG ONLY
+    currentPair = species_pairs[species_pairs.length - 1]; // TODO DEBUG ONLY - specify in URL instead
     // Randomly decide which species goes left and right
     const isFirstSpeciesLeft = Math.random() < 0.5;
     correctLeft = isFirstSpeciesLeft ? currentPair.species_1 : currentPair.species_2;
