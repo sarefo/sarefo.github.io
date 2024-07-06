@@ -307,10 +307,13 @@ async function setupGame(newPair = false)  {
     const { species1, species2 } = getURLParameters();
 
     // get random pair, or specified in URL
-    if (newPair) {
-        if (!currentPair) { currentPair = getURLParameters(); 
+    if (newPair) { // select new species pair
+        if (!currentPair) { // first round, no pair previously selected
+            currentPair = getURLParameters(); 
+            if (currentPair.species1==null) { currentPair = selectRandomSpeciesPair(); }
         } else { currentPair = selectRandomSpeciesPair(); }
     }
+console.log(currentPair);
     // Randomly decide which species goes left and right
     const isFirstSpeciesLeft = Math.random() < 0.5;
     correctLeft = isFirstSpeciesLeft ? currentPair.species1 : currentPair.species2;
@@ -441,7 +444,7 @@ document.getElementById('new-pair-button').addEventListener('click', () => { set
 
 document.getElementById('version-id').textContent = 'Last modified: ' + document.lastModified;
 
-setupGame(true);
+setupGame(newPair = true);
 
 </script>
 </body>
