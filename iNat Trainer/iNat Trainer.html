@@ -284,7 +284,7 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
-function selectRandomSpeciesPair() {
+function selectRandomTaxonPair() {
     return taxon_pairs[getRandomInt(taxon_pairs.length)];
 }
 
@@ -357,13 +357,13 @@ async function setupGame(newPair = false)  {
     if (newPair) { // select new taxon pair
         if (!currentPair) { // first round, no pair previously selected
             currentPair = getURLParameters(); 
-            if (currentPair.taxon1==null) { currentPair = selectRandomSpeciesPair(); }
-        } else { currentPair = selectRandomSpeciesPair(); }
+            if (currentPair.taxon1==null) { currentPair = selectRandomTaxonPair(); }
+        } else { currentPair = selectRandomTaxonPair(); }
     }
     // Randomly decide which taxon goes left and right
-    const isFirstSpeciesLeft = Math.random() < 0.5;
-    correctLeft = isFirstSpeciesLeft ? currentPair.taxon1 : currentPair.taxon2;
-    correctRight = isFirstSpeciesLeft ? currentPair.taxon2 : currentPair.taxon1;
+    const isFirstTaxonLeft = Math.random() < 0.5;
+    correctLeft = isFirstTaxonLeft ? currentPair.taxon1 : currentPair.taxon2;
+    correctRight = isFirstTaxonLeft ? currentPair.taxon2 : currentPair.taxon1;
 
     if (Math.random() < 0.5) { [nameLeft.textContent, nameRight.textContent] = [correctRight, correctLeft];
     } else { [nameLeft.textContent, nameRight.textContent] = [correctLeft, correctRight]; }
