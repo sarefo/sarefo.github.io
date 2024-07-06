@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <!-- TODO
+-- easier --
 + mobile: name tiles between images, not under
 + nicer correct/wrong display
 ++ move "Correct" display: overlay?
+++ font is not nice now
 + load cleanly (preload images, then only reload game contents)
 + create button to switch taxon/vernacular display
 ++ BUG: result wrong if button text not taxon
++ BUG: when fetching images of a specific user, error if user has no images of chosen taxon
+-- harder --
 + able to fetch any two taxa from iNat
 ++ fetch taxon + vernacular
-+ BUG: when fetching images of a specific user, error if user has no images of chosen taxon
 + user selects taxon pair
 + enable "Select taxon pair" button
 + new taxon pair button: make sure not same taxon as before
@@ -144,9 +147,11 @@ img {
 #result-message {
     font-size: 48px;
     font-weight: bold;
-    color: white;
+    color: #ffffff; /* White text for better contrast */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add a subtle shadow for better readability */
     padding: 20px;
     border-radius: 10px;
+    font-family: 'Arial', sans-serif; /* Use a clean, sans-serif font */
 }
 
 #new-pair-button, #select-pair-button {
@@ -453,6 +458,7 @@ function showResultOverlay(message="", color) {
     const messageElement = document.getElementById('result-message');
     const overlayBackground = document.getElementById('result-overlay');
     messageElement.innerHTML = message;
+    // messageElement.style.color = "green";
     overlayBackground.style.backgroundColor = color;
     overlay.classList.add('show');
 }
