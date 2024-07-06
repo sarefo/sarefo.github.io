@@ -337,7 +337,7 @@ async function setupGame(newPair = false)  {
         nameRight.innerHTML = "<i>" + nameRight.textContent + "</i><br>(" + getVernacular(nameRight.textContent) + ")";
     }
 
-    result.textContent = '';
+    //result.textContent = '';
 
 }
 
@@ -393,7 +393,7 @@ function checkAnswer(droppedZoneId) {
             showResultOverlay('Correct!', colorCorrect);
             setTimeout(() => {hideResultOverlay(); setupGame(false); }, 2000); // Start a new game after 2 seconds
         } else {
-            showResultOverlay('Wrong! Try again.', colorWrong);
+            showResultOverlay('Wrong!<br>Try again.', colorWrong);
             setTimeout(() => { resetDraggables(); hideResultOverlay(); }, 2000); // Reset if wrong
         }
     }
@@ -402,7 +402,7 @@ function checkAnswer(droppedZoneId) {
 function showResultOverlay(message, color) {
     const overlay = document.getElementById('result-overlay');
     const messageElement = document.getElementById('result-message');
-    messageElement.textContent = message;
+    messageElement.innerHTML = message;
     messageElement.style.color = color;
     overlay.classList.add('show');
 }
