@@ -10,14 +10,14 @@
 + able to fetch any two taxa from iNat
 ++ fetch taxon + vernacular
 + BUG: when fetching images of a specific user, error if user has no images of chosen taxon
-+ user selects species pair
++ user selects taxon pair
 + move "Correct" display: overlay?
-+ enable "Select species pair" button
++ enable "Select taxon pair" button
 + BUG: result wrong if button text not taxon
-+ new species pair button: make sure not same species as before
++ new taxon pair button: make sure not same taxon as before
 + simple persistent user management
-+ remember hit/miss per species per user
-+ list of actively practicing species per user
++ remember hit/miss per taxon per user
++ list of actively practicing taxa per user
 -->
 <html lang="en">
 <head>
@@ -182,11 +182,11 @@ img {
 <div class="game-container">
   <div class="image-pair">
     <div class="image-container" id="left-container">
-      <img src="" alt="Left species" id="left-image">
+      <img src="" alt="Left taxon" id="left-image">
       <div id="left-drop" class="droppable"></div>
     </div>
     <div class="image-container" id="right-container">
-      <img src="" alt="Right species" id="right-image">
+      <img src="" alt="Right taxon" id="right-image">
       <div id="right-drop" class="droppable"></div>
     </div>
   </div>
@@ -204,8 +204,8 @@ img {
     <div id="result-message"></div>
 </div>
 
-<button id="new-pair-button">New species pair</button>
-<button id="select-pair-button">Select species pair</button>
+<button id="new-pair-button">New taxon pair</button>
+<button id="select-pair-button">Select taxon pair</button>
 
 <div><a id="home-link" href="../index.html">Home</a></div>
 
@@ -224,22 +224,23 @@ const colorCorrect = "#33cc33", colorWrong = "#cc0000";
 let displayName = "taxon"; // taxon, vernacular, both
 
 if (debug) {
-var species_pairs = [
-    {species1: 'Panthera onca', species2: 'Crocodylus acutus'},
-    {species1: 'Crocodylus porosus', species2: 'Panthera pardus'}
+var taxon_pairs = [
+    {taxon1: 'Panthera onca', taxon2: 'Crocodylus acutus'},
+    {taxon1: 'Crocodylus porosus', taxon2: 'Panthera pardus'}
     ]} else {
-var species_pairs = [
-    {species1: 'Panthera onca', species2: 'Panthera pardus' },
-    {species1: 'Crocodylus porosus', species2: 'Crocodylus acutus'},
-    {species1: 'Lissachatina immaculata', species2: 'Lissachatina fulica'},
-    {species1: 'Caeneressa diaphana', species2: 'Amata huebneri'},
-    {species1: 'Fromia monilis', species2: 'Fromia heffernani'},
-    {species1: 'Formicidae', species2: 'Myrmarachnini'},
-    {species1: 'Coradion chrysozonus', species2: 'Chelmon rostratus'},
-    {species1: 'Platax teira', species2: 'Platax orbicularis'},
-    {species1: 'Plerogyra sinuosa', species2: 'Physogyra lichtensteini'},
-    {species1: 'Platygyra', species2: 'Lobophyllia'},
-    {species1: 'Chelonia mydas', species2: 'Eretmochelys imbricata'},
+var taxon_pairs = [
+    {taxon1: 'Panthera onca', taxon2: 'Panthera pardus' },
+    {taxon1: 'Crocodylus porosus', taxon2: 'Crocodylus acutus'},
+    {taxon1: 'Lissachatina immaculata', taxon2: 'Lissachatina fulica'},
+    {taxon1: 'Caeneressa diaphana', taxon2: 'Amata huebneri'},
+    {taxon1: 'Fromia monilis', taxon2: 'Fromia heffernani'},
+    {taxon1: 'Formicidae', taxon2: 'Myrmarachnini'},
+    {taxon1: 'Coradion chrysozonus', taxon2: 'Chelmon rostratus'},
+    {taxon1: 'Platax teira', taxon2: 'Platax orbicularis'},
+    {taxon1: 'Plerogyra sinuosa', taxon2: 'Physogyra lichtensteini'},
+    {taxon1: 'Platygyra', taxon2: 'Lobophyllia'},
+    {taxon1: 'Chelonia mydas', taxon2: 'Eretmochelys imbricata'},
+    {taxon1: 'Pocillopora', taxon2:'Millepora'},
 ]}
 
 const vernacular_lookup = [
@@ -265,14 +266,16 @@ const vernacular_lookup = [
     {taxon: 'Lobophyllia', vernacular: 'Open Brain Corals'},
     {taxon: 'Chelonia mydas', vernacular: 'Green Sea Turtle'},
     {taxon: 'Eretmochelys imbricata', vernacular: 'Hawksbill Sea Turtle'},
+    {taxon: 'Pocillopora', vernacular: 'Cauliflower Corals'},
+    {taxon: 'Millepora', vernacular: 'Fire Corals'},
 ];
 
-// optionally get pair of species from URL
+// optionally get pair of taxa from URL
 function getURLParameters() {
     const params = new URLSearchParams(window.location.search);
-    const species1 = params.get('species1');
-    const species2 = params.get('species2');
-    return { species1, species2 };
+    const taxon1 = params.get('taxon1');
+    const taxon2 = params.get('taxon2');
+    return { taxon1, taxon2 };
 }
 
 let correctLeft, correctRight;
@@ -282,7 +285,7 @@ function getRandomInt(max) {
 }
 
 function selectRandomSpeciesPair() {
-    return species_pairs[getRandomInt(species_pairs.length)];
+    return taxon_pairs[getRandomInt(taxon_pairs.length)];
 }
 
 function getVernacular(taxon) {
@@ -348,19 +351,19 @@ async function setupGame(newPair = false)  {
     resetDraggables();
 
     // Check for URL parameters
-    const { species1, species2 } = getURLParameters();
+    const { taxon1, taxon2 } = getURLParameters();
 
     // get random pair, or specified in URL
-    if (newPair) { // select new species pair
+    if (newPair) { // select new taxon pair
         if (!currentPair) { // first round, no pair previously selected
             currentPair = getURLParameters(); 
-            if (currentPair.species1==null) { currentPair = selectRandomSpeciesPair(); }
+            if (currentPair.taxon1==null) { currentPair = selectRandomSpeciesPair(); }
         } else { currentPair = selectRandomSpeciesPair(); }
     }
-    // Randomly decide which species goes left and right
+    // Randomly decide which taxon goes left and right
     const isFirstSpeciesLeft = Math.random() < 0.5;
-    correctLeft = isFirstSpeciesLeft ? currentPair.species1 : currentPair.species2;
-    correctRight = isFirstSpeciesLeft ? currentPair.species2 : currentPair.species1;
+    correctLeft = isFirstSpeciesLeft ? currentPair.taxon1 : currentPair.taxon2;
+    correctRight = isFirstSpeciesLeft ? currentPair.taxon2 : currentPair.taxon1;
 
     if (Math.random() < 0.5) { [nameLeft.textContent, nameRight.textContent] = [correctRight, correctLeft];
     } else { [nameLeft.textContent, nameRight.textContent] = [correctLeft, correctRight]; }
