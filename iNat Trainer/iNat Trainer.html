@@ -9,6 +9,7 @@
 + create button to switch taxon/vernacular display
 + able to fetch any two taxa from iNat
 ++ fetch taxon + vernacular
++ BUG: when fetching images of a specific user, error if user has no images of chosen taxon
 + user selects species pair
 + move "Correct" display: overlay?
 + enable "Select species pair" button
@@ -210,6 +211,7 @@ img {
 
 <script>
 const debug = false; // uses debugging dataset if true
+const iNatUser = null // change to user name to include only images by that user
 const leftImage = document.getElementById('left-image');
 const rightImage = document.getElementById('right-image');
 const nameLeft = document.getElementById('name-left');
@@ -287,28 +289,56 @@ function getVernacular(taxon) {
 }
 
 // GPT: fetch random image of taxon from iNat
-async function fetchRandomImage(taxonName) {
+async function fetchRandomImage(taxonName, username = null) {
     try {
         // Search for the taxon
         const searchResponse = await fetch(`https://api.inaturalist.org/v1/taxa?q=${taxonName}`);
         const searchData = await searchResponse.json();
-        if (searchData.results.length === 0) { throw new Error('Taxon not found'); }
+        if (searchData.results.length === 0) {
+            throw new Error('Taxon not found');
+        }
         const taxonId = searchData.results[0].id;
 
-        // Get the taxon details
-        const taxonResponse = await fetch(`https://api.inaturalist.org/v1/taxa/${taxonId}`);
-        const taxonData = await taxonResponse.json();
-        if (taxonData.results.length === 0) { throw new Error('No details found for the taxon'); }
-        const taxon = taxonData.results[0];
-         // square (75x75), small (max 240), medium (max 500), large (max 1024), original
-        var image_size = 'medium';
-        const images = taxon.taxon_photos.map(photo => photo.photo.url.replace('square', image_size));
-        if (images.length === 0) { throw new Error('No images found for the taxon'); }
+        let images = [];
+        
+        if (username) {
+            // Fetch observations by the specified user for the given taxon
+            const observationsResponse = await fetch(`https://api.inaturalist.org/v1/observations?user_login=${username}&taxon_id=${taxonId}`);
+            const observationsData = await observationsResponse.json();
+            if (observationsData.results.length === 0) {
+                throw new Error('No observations found for the specified user and taxon');
+            }
+
+            // Extract images from the observations
+            observationsData.results.forEach(observation => {
+                observation.photos.forEach(photo => {
+                    images.push(photo.url.replace('square', 'medium')); // You can change 'medium' to your desired size
+                });
+            });
+        } else {
+            // Get the taxon details
+            const taxonResponse = await fetch(`https://api.inaturalist.org/v1/taxa/${taxonId}`);
+            const taxonData = await taxonResponse.json();
+            if (taxonData.results.length === 0) {
+                throw new Error('No details found for the taxon');
+            }
+            const taxon = taxonData.results[0];
+            
+            // Extract images from taxon photos
+            images = taxon.taxon_photos.map(photo => photo.photo.url.replace('square', 'medium'));
+        }
+
+        if (images.length === 0) {
+            throw new Error('No images found');
+        }
 
         // Select a random image
         const randomImage = images[Math.floor(Math.random() * images.length)];
         return randomImage;
-    } catch (error) { console.error(error); return null; }
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
 }
 
 let currentPair;
@@ -334,8 +364,8 @@ async function setupGame(newPair = false)  {
     } else { [nameLeft.textContent, nameRight.textContent] = [correctLeft, correctRight]; }
 
     showResultOverlay(); // TODO flaky hack to notify pictures still loading
-    leftImage.src = await fetchRandomImage(correctLeft);
-    rightImage.src = await fetchRandomImage(correctRight);
+    leftImage.src = await fetchRandomImage(correctLeft,iNatUser);
+    rightImage.src = await fetchRandomImage(correctRight,iNatUser);
 
     leftVernacular = getVernacular(correctLeft);
     rightVernacular = getVernacular(correctRight);
