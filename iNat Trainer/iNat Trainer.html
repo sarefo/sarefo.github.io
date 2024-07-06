@@ -4,7 +4,6 @@
 + tiles should auto-appear under right image when chosen correctly
 + mobile: name tiles between images, not under
 + nicer correct/wrong display
-+ specify starting pair in URL
 + BUG: CSS elements redundant right now
 + BUG: some images not high enough: crop square
 + load cleanly (preload images, then only reload game contents)
@@ -22,7 +21,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iNaturalist Taxonomy Trainer</title>
+    <title>iNat Taxonomy Trainer</title>
 
 <style>
 
@@ -66,7 +65,6 @@ img {
     left: 0;
     width: 100%;
     height: 100%;
-    /*height: 300px;*/
     object-fit: cover;
     object-position: center;
     border-radius: 5px;
@@ -112,27 +110,11 @@ img {
         margin: 4px 4px;
     }
 
-/*
-    .image-pair, .name-pair {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .image-container, #left-name-container, #right-name-container {
-        width: 100%;
-        max-width: none;
-    }
-
-    img {
-        max-height: 200px;
-    }
-*/
-
     #new-pair-button, #select-pair-button {
         padding: 10px 20px;
         font-size: 14px;
     }
-}
+} /*media*/
 
 .game-container {
     display: flex;
@@ -216,7 +198,7 @@ img {
 </head>
 
 <body>
-    <h1>iNaturalist Taxonomy Trainer</h1>
+    <h1>iNat Taxonomy Trainer</h1>
 
 <div class="game-container">
   <div class="image-pair">
@@ -239,16 +221,16 @@ img {
   </div>
 </div>
 
-    <div id="result-overlay">
-        <div id="result-message"></div>
-    </div>
+<div id="result-overlay">
+    <div id="result-message"></div>
+</div>
 
-    <button id="new-pair-button">New species pair</button>
-    <button id="select-pair-button">Select species pair</button>
+<button id="new-pair-button">New species pair</button>
+<button id="select-pair-button">Select species pair</button>
 
-    <div><a id="home-link" href="../index.html">Home</a></div>
+<div><a id="home-link" href="../index.html">Home</a></div>
 
-    <div id="version-id"></div>
+<div id="version-id"></div>
 
 <script>
 const debug = false; // uses debugging dataset if true
@@ -261,20 +243,19 @@ const colorCorrect = "#33cc33", colorWrong = "#cc0000";
 
 let displayName = "taxon"; // taxon, vernacular, both
 
-var species_pairs = []; // scope
 if (debug) {
-species_pairs = [
-    {species_1: 'Panthera onca', species_2: 'Crocodylus acutus'},
-    {species_1: 'Crocodylus porosus', species_2: 'Panthera pardus'}
+var species_pairs = [
+    {species1: 'Panthera onca', species2: 'Crocodylus acutus'},
+    {species1: 'Crocodylus porosus', species2: 'Panthera pardus'}
     ]} else {
-species_pairs = [
-    {species_1: 'Panthera onca', species_2: 'Panthera pardus' },
-    {species_1: 'Crocodylus porosus', species_2: 'Crocodylus acutus'},
-    {species_1: 'Lissachatina immaculata', species_2: 'Lissachatina fulica'},
-    {species_1: 'Caeneressa diaphana', species_2: 'Amata huebneri'},
-    {species_1: 'Fromia monilis', species_2: 'Fromia heffernani'},
-    {species_1: 'Formicidae', species_2: 'Myrmarachnini'},
-    {species_1: 'Coradion chrysozonus', species_2: 'Chelmon rostratus'},
+var species_pairs = [
+    {species1: 'Panthera onca', species2: 'Panthera pardus' },
+    {species1: 'Crocodylus porosus', species2: 'Crocodylus acutus'},
+    {species1: 'Lissachatina immaculata', species2: 'Lissachatina fulica'},
+    {species1: 'Caeneressa diaphana', species2: 'Amata huebneri'},
+    {species1: 'Fromia monilis', species2: 'Fromia heffernani'},
+    {species1: 'Formicidae', species2: 'Myrmarachnini'},
+    {species1: 'Coradion chrysozonus', species2: 'Chelmon rostratus'},
 ]}
 
 const vernacular_lookup = [
@@ -294,6 +275,14 @@ const vernacular_lookup = [
     {taxon: 'Coradion chrysozonus', vernacular: 'Orangebanded Coralfish'},
 ];
 
+// optionally get pair of species from URL
+function getURLParameters() {
+    const params = new URLSearchParams(window.location.search);
+    const species1 = params.get('species1');
+    const species2 = params.get('species2');
+    return { species1, species2 };
+}
+
 let correctLeft, correctRight;
 
 function getRandomInt(max) {
@@ -309,19 +298,47 @@ function getVernacular(taxon) {
     return entry ? entry.vernacular : null;
 }
 
+// GPT: fetch random image of taxon from iNat
+async function fetchRandomImage(taxonName) {
+    try {
+        // Search for the taxon
+        const searchResponse = await fetch(`https://api.inaturalist.org/v1/taxa?q=${taxonName}`);
+        const searchData = await searchResponse.json();
+        if (searchData.results.length === 0) { throw new Error('Taxon not found'); }
+        const taxonId = searchData.results[0].id;
+
+        // Get the taxon details
+        const taxonResponse = await fetch(`https://api.inaturalist.org/v1/taxa/${taxonId}`);
+        const taxonData = await taxonResponse.json();
+        if (taxonData.results.length === 0) { throw new Error('No details found for the taxon'); }
+        const taxon = taxonData.results[0];
+         // square (75x75), small (max 240), medium (max 500), large (max 1024), original
+        var image_size = 'medium';
+        const images = taxon.taxon_photos.map(photo => photo.photo.url.replace('square', image_size));
+        if (images.length === 0) { throw new Error('No images found for the taxon'); }
+
+        // Select a random image
+        const randomImage = images[Math.floor(Math.random() * images.length)];
+        return randomImage;
+    } catch (error) { console.error(error); return null; }
+}
+
 let currentPair;
 async function setupGame(newPair = false)  {
     resetDraggables();
 
-    // Only select a new pair if newPair is true or currentPair is undefined
-    if (newPair || !currentPair) {
-        currentPair = selectRandomSpeciesPair();
+    // Check for URL parameters
+    const { species1, species2 } = getURLParameters();
+
+    // get random pair, or specified in URL
+    if (newPair) {
+        if (!currentPair) { currentPair = getURLParameters(); 
+        } else { currentPair = selectRandomSpeciesPair(); }
     }
-    currentPair = species_pairs[species_pairs.length - 1]; // TODO DEBUG ONLY - specify in URL instead
     // Randomly decide which species goes left and right
     const isFirstSpeciesLeft = Math.random() < 0.5;
-    correctLeft = isFirstSpeciesLeft ? currentPair.species_1 : currentPair.species_2;
-    correctRight = isFirstSpeciesLeft ? currentPair.species_2 : currentPair.species_1;
+    correctLeft = isFirstSpeciesLeft ? currentPair.species1 : currentPair.species2;
+    correctRight = isFirstSpeciesLeft ? currentPair.species2 : currentPair.species1;
 
     if (Math.random() < 0.5) { [nameLeft.textContent, nameRight.textContent] = [correctRight, correctLeft];
     } else { [nameLeft.textContent, nameRight.textContent] = [correctLeft, correctRight]; }
@@ -348,18 +365,10 @@ async function setupGame(newPair = false)  {
         nameLeft.innerHTML = "<i>" + nameLeft.textContent + "</i><br>(" + getVernacular(nameLeft.textContent) + ")";
         nameRight.innerHTML = "<i>" + nameRight.textContent + "</i><br>(" + getVernacular(nameRight.textContent) + ")";
     }
-
-    //result.textContent = '';
-
 }
 
-function dragStart(e) {
-    e.dataTransfer.setData('text/plain', e.target.id);
-}
-
-function dragOver(e) {
-    e.preventDefault();
-}
+function dragStart(e) { e.dataTransfer.setData('text/plain', e.target.id); }
+function dragOver(e) { e.preventDefault(); }
 
 function drop(e) {
     e.preventDefault();
@@ -396,14 +405,15 @@ function checkAnswer(droppedZoneId) {
         }
 
         if (isCorrect) {
-            // If the first drop is correct, automatically move the other name
+            // If the first drop is correct, automatically move the other name TODO does not work
             if (droppedZoneId === 'left-drop') {
                 rightDrop.appendChild(document.getElementById('name-right'));
             } else {
                 leftDrop.appendChild(document.getElementById('name-left'));
             }
             showResultOverlay('Correct!', colorCorrect);
-            setTimeout(() => {hideResultOverlay(); setupGame(false); }, 2000); // Start a new game after 2 seconds
+            // Start a new game after 2 seconds
+            setTimeout(() => {hideResultOverlay(); setupGame(false); }, 2000);
         } else {
             showResultOverlay('Wrong!<br>Try again.', colorWrong);
             setTimeout(() => { resetDraggables(); hideResultOverlay(); }, 2000); // Reset if wrong
@@ -448,54 +458,11 @@ document.querySelectorAll('.image-container').forEach(element => {
     element.addEventListener('drop', drop);
 });
 
-document.getElementById('new-pair-button').addEventListener('click', () => {
-    setupGame(true);
-});
+document.getElementById('new-pair-button').addEventListener('click', () => { setupGame(true); });
 
 document.getElementById('version-id').textContent = 'Last modified: ' + document.lastModified;
 
-setupGame();
-
-// GPT: fetch random image of taxon from iNat (not tested yet!)
-async function fetchRandomImage(taxonName) {
-    try {
-        // Step 1: Search for the taxon
-        const searchResponse = await fetch(`https://api.inaturalist.org/v1/taxa?q=${taxonName}`);
-        const searchData = await searchResponse.json();
-        
-        if (searchData.results.length === 0) {
-            throw new Error('Taxon not found');
-        }
-
-        const taxonId = searchData.results[0].id;
-
-        // Step 2: Get the taxon details
-        const taxonResponse = await fetch(`https://api.inaturalist.org/v1/taxa/${taxonId}`);
-        const taxonData = await taxonResponse.json();
-
-        if (taxonData.results.length === 0) {
-            throw new Error('No details found for the taxon');
-        }
-
-        const taxon = taxonData.results[0];
-
-    var image_size = 'medium';
-    const images = taxon.taxon_photos.map(photo => photo.photo.url.replace('square', image_size));
-
-        if (images.length === 0) {
-            throw new Error('No images found for the taxon');
-        }
-
-        // Step 3: Select a random image
-        const randomImage = images[Math.floor(Math.random() * images.length)];
-        return randomImage;
-    } catch (error) {
-        console.error(error);
-        return null;
-    }
-}
-
-
+setupGame(true);
 
 </script>
 </body>
