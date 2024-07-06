@@ -139,7 +139,7 @@ img {
     <div id="version-id"></div>
 
 <script>
-const debug = false; // uses debugging dataset if true
+const debug = true; // uses debugging dataset if true
 const leftImage = document.getElementById('left-image');
 const rightImage = document.getElementById('right-image');
 const nameLeft = document.getElementById('name_left');
@@ -151,8 +151,8 @@ let displayName = "taxon"; // taxon, vernacular, both
 var species_pairs = []; // scope
 if (debug) {
 species_pairs = [
-    {species_1: 'Panthera_onca', species_2: 'Crocodylus_acutus'},
-    {species_1: 'Crocodylus_porosus', species_2: 'Panthera_pardus'}
+    {species_1: 'Panthera onca', species_2: 'Crocodylus acutus'},
+    {species_1: 'Crocodylus porosus', species_2: 'Panthera pardus'}
     ]} else {
 species_pairs = [
     {species_1: 'Panthera onca', species_2: 'Panthera pardus' },
@@ -201,29 +201,30 @@ async function setupGame(newPair = false)  {
     correctLeft = isFirstSpeciesLeft ? currentPair.species_1 : currentPair.species_2;
     correctRight = isFirstSpeciesLeft ? currentPair.species_2 : currentPair.species_1;
 
+    if (Math.random() < 0.5) { [nameLeft.textContent, nameRight.textContent] = [correctRight, correctLeft];
+    } else { [nameLeft.textContent, nameRight.textContent] = [correctLeft, correctRight]; }
+
     leftImage.src = await fetchRandomImage(correctLeft);
     rightImage.src = await fetchRandomImage(correctRight);
 
     leftVernacular = getVernacular(correctLeft);
     rightVernacular = getVernacular(correctRight);
 
-// TODO other code evaluates buttons always wrong if textContent is not taxon
-    nameLeft.textContent = correctLeft; 
-    nameRight.textContent = correctRight;
+    // TODO other code evaluates buttons always wrong if textContent is not taxon
     // TODO switch/display taxon/vernacular
     if (displayName == "taxon") {
-        nameLeft.innerHTML = "<i>" + correctLeft + "</i>";
-        nameLeft.title = leftVernacular;
-        nameRight.innerHTML = "<i>" + correctRight + "</i>";
-        nameRight.title = rightVernacular;
-    } else if (displayName == "vernacular") { // use vernacular
-        nameLeft.innerHTML = leftVernacular;
-        nameLeft.title = correctLeft;
-        nameRight.innerHTML = rightVernacular;
-        nameRight.title = correctRight;
-    } else { // show both taxon and vernacular
-        nameLeft.innerHTML = "<i>" + correctLeft + "</i><br>(" + leftVernacular + ")";
-        nameRight.innerHTML = "<i>" + correctRight + "</i><br>(" + rightVernacular + ")";
+        nameLeft.innerHTML = "<i>" + nameLeft.textContent + "</i>";
+        nameLeft.title = getVernacular(nameLeft.textContent);
+        nameRight.innerHTML = "<i>" + nameRight.textContent + "</i>";
+        nameRight.title = getVernacular(nameRight.textContent);
+    } else if (displayName == "vernacular") {
+        nameLeft.innerHTML = getVernacular(nameLeft.textContent);
+        nameLeft.title = nameLeft.textContent;
+        nameRight.innerHTML = getVernacular(nameRight.textContent);
+        nameRight.title = nameRight.textContent;
+    } else {
+        nameLeft.innerHTML = "<i>" + nameLeft.textContent + "</i><br>(" + getVernacular(nameLeft.textContent) + ")";
+        nameRight.innerHTML = "<i>" + nameRight.textContent + "</i><br>(" + getVernacular(nameRight.textContent) + ")";
     }
 
     result.textContent = '';
