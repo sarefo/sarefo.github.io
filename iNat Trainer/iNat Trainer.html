@@ -232,6 +232,9 @@ var species_pairs = [
     {species1: 'Fromia monilis', species2: 'Fromia heffernani'},
     {species1: 'Formicidae', species2: 'Myrmarachnini'},
     {species1: 'Coradion chrysozonus', species2: 'Chelmon rostratus'},
+    {species1: 'Platax teira', species2: 'Platax orbicularis'},
+    {species1: 'Plerogyra sinuosa', species2: 'Physogyra lichtensteini'},
+    {species1: 'Platygyra', species2: 'Lobophyllia'},
 ]}
 
 const vernacular_lookup = [
@@ -249,6 +252,12 @@ const vernacular_lookup = [
     {taxon: 'Myrmarachnini', vernacular: 'Ant-like Jumping Spiders'},
     {taxon: 'Chelmon rostratus', vernacular: 'Copperband Butterflyfish'},
     {taxon: 'Coradion chrysozonus', vernacular: 'Orangebanded Coralfish'},
+    {taxon: 'Platax teira', vernacular: 'Longfin Batfish'},
+    {taxon: 'Platax orbicularis', vernacular: 'Round Batfish'},
+    {taxon: 'Plerogyra sinuosa', vernacular: 'Bubble Coral'},
+    {taxon: 'Physogyra lichtensteini', vernacular: 'Pearl Bubble Coral'},
+    {taxon: 'Platygyra', vernacular: 'Greater Maze Corals'},
+    {taxon: 'Lobophyllia', vernacular: 'Open Brain Corals'},
 ];
 
 // optionally get pair of species from URL
@@ -313,7 +322,6 @@ async function setupGame(newPair = false)  {
             if (currentPair.species1==null) { currentPair = selectRandomSpeciesPair(); }
         } else { currentPair = selectRandomSpeciesPair(); }
     }
-console.log(currentPair);
     // Randomly decide which species goes left and right
     const isFirstSpeciesLeft = Math.random() < 0.5;
     correctLeft = isFirstSpeciesLeft ? currentPair.species1 : currentPair.species2;
