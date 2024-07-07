@@ -6,6 +6,9 @@
 
 + load cleanly (preload images, then only reload game contents)
 
++ move function buttons on bottom to hamburger menu overlay on top
+++ opens an overlay with the function buttons
+
 + load in fullscreen on Android
 ++ maybe use PWA (progressive web app) for that
 
@@ -65,10 +68,11 @@ h1 { font-size: 16px; }
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    justify-content: center;
     align-items: center;
     width: 100%;
-    height:98vh; /* TODO change to 100 if fullscreen on Android possible*/
-    margin: 0 auto;
+    height:100vh; /* TODO change to 100 if fullscreen on Android possible*/
+    margin: 0 0;
     overflow: hidden;
     padding: 0px;
     box-sizing: border-box;
@@ -85,8 +89,8 @@ h1 { font-size: 16px; }
 
 .image-container {
     flex: 1 1 100%;
-    margin: 4px;
-    padding: 10px;
+    margin: 2px;
+    padding: 2px;
     width: calc(100% - 8px);
     max-width: 500px;
     aspect-ratio: 1/1;
