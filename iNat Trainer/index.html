@@ -288,7 +288,7 @@ function getURLParameters() {
     return { taxon1, taxon2 };
 }
 
-let correctLeft, correctRight;
+let leftTaxon, rightTaxon;
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -353,11 +353,11 @@ async function fetchRandomImage(taxonName, username = null) {
 
 function getVernacular(taxon) {
     const entry = vernacular_lookup.find(item => item.taxon === taxon);
-//fetchVernacularName(taxon).then(name => console.log(name)); // TODO
+//fetchVernacular(taxon).then(name => console.log(name)); // TODO
     return entry ? entry.vernacular : null;
 }
 
-async function fetchVernacularName(taxonName) {
+async function fetchVernacular(taxonName) {
     const baseUrl = 'https://api.inaturalist.org/v1/taxa';
     
     try {
@@ -396,34 +396,33 @@ async function setupGame(newPair = false)  {
     }
     // Randomly decide which taxon goes left and right
     const isFirstTaxonLeft = Math.random() < 0.5;
-    correctLeft = isFirstTaxonLeft ? currentPair.taxon1 : currentPair.taxon2;
-    correctRight = isFirstTaxonLeft ? currentPair.taxon2 : currentPair.taxon1;
+    leftTaxon = isFirstTaxonLeft ? currentPair.taxon1 : currentPair.taxon2;
+    rightTaxon = isFirstTaxonLeft ? currentPair.taxon2 : currentPair.taxon1;
 
-    if (Math.random() < 0.5) { [nameLeft.textContent, nameRight.textContent] = [correctRight, correctLeft];
-    } else { [nameLeft.textContent, nameRight.textContent] = [correctLeft, correctRight]; }
+    if (Math.random() < 0.5) { [nameLeft.textContent, nameRight.textContent] = [rightTaxon, leftTaxon];
+    } else { [nameLeft.textContent, nameRight.textContent] = [leftTaxon, rightTaxon]; }
 
     showResultOverlay("Loading…", color="rgba(100, 100, 100, 0.8"); // TODO flaky hack to notify pictures still loading
-    leftImage.src = await fetchRandomImage(correctLeft,iNatUser);
-    rightImage.src = await fetchRandomImage(correctRight,iNatUser);
+    leftImage.src = await fetchRandomImage(leftTaxon,iNatUser);
+    rightImage.src = await fetchRandomImage(rightTaxon,iNatUser);
 
-    leftVernacular = getVernacular(correctLeft);
-    rightVernacular = getVernacular(correctRight);
-
+    leftVernacular = await fetchVernacular(leftTaxon)
+    rightVernacular = await fetchVernacular(rightTaxon);
     // TODO other code evaluates buttons always wrong if textContent is not taxon
     // TODO switch/display taxon/vernacular
-    if (displayName == "taxon") {
+    if (displayName === "taxon") {
         nameLeft.innerHTML = "<i>" + nameLeft.textContent + "</i>";
-        nameLeft.title = getVernacular(nameLeft.textContent);
+        nameLeft.title = leftVernacular;
         nameRight.innerHTML = "<i>" + nameRight.textContent + "</i>";
-        nameRight.title = getVernacular(nameRight.textContent);
-    } else if (displayName == "vernacular") {
-        nameLeft.innerHTML = getVernacular(nameLeft.textContent);
+        nameRight.title = rightVernacular;
+    } else if (displayName === "vernacular") {
+        nameLeft.innerHTML = leftVernacular;
         nameLeft.title = nameLeft.textContent;
-        nameRight.innerHTML = getVernacular(nameRight.textContent);
+        nameRight.innerHTML = rightVernacular;
         nameRight.title = nameRight.textContent;
     } else {
-        nameLeft.innerHTML = "<i>" + nameLeft.textContent + "</i><br>(" + getVernacular(nameLeft.textContent) + ")";
-        nameRight.innerHTML = "<i>" + nameRight.textContent + "</i><br>(" + getVernacular(nameRight.textContent) + ")";
+        nameLeft.innerHTML = "<i>" + nameLeft.textContent + "</i><br>(" + leftVernacular + ")";
+        nameRight.innerHTML = "<i>" + nameRight.textContent + "</i><br>(" + rightVernacular + ")";
     }
     hideResultOverlay(); // TODO remove later
     // Call rearrangeElements after setting up the game
@@ -471,9 +470,9 @@ function checkAnswer(droppedZoneId) {
     if (leftAnswer || rightAnswer) {
         let isCorrect = false;
         if (droppedZoneId === 'left-drop') {
-            isCorrect = leftAnswer === correctLeft;
+            isCorrect = leftAnswer === leftTaxon;
         } else {
-            isCorrect = rightAnswer === correctRight;
+            isCorrect = rightAnswer === rightTaxon;
         }
 
         if (isCorrect) {
