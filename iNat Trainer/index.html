@@ -9,8 +9,11 @@
 + in Select pair list:
 ++ optionally display vernacular names
 
++ remove complex reordering code
+++ always vertical alignment, even on big screens
+++ then move result overlay text to empty space of dragged tiles
+
 + tap to drag tiles is sluggish; possible to speed up?
-+ keep the layout when dragging tiles (don't remove the space of their original position)
 + on small screens: allow for moving/zooming image areas
 
 -- harder --
@@ -44,10 +47,9 @@ body * {
     font-family: 'Open Sans', Arial, sans-serif;
 }
 
-.main-container {
+.button-container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
     overflow: hidden;
     align-items: center;
     box-sizing: border-box;
@@ -62,10 +64,10 @@ h1 { font-size: 16px; }
     justify-content: space-around;
     align-items: center;
     width: 100%;
-    height:100%;
+    height:100vh;
     margin: 0 auto;
     overflow: hidden;
-    padding: 2px;
+    padding: 0px;
     box-sizing: border-box;
 }
 
@@ -229,7 +231,6 @@ h1 { font-size: 16px; }
 </head>
 <!-- HTML -->
 <body>
-<div class="main-container">
 
 <button id="share-button" title="Share this pair">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -262,12 +263,13 @@ h1 { font-size: 16px; }
     <div id="overlay-message"></div>
 </div>
 
+<div class="button-container">
 <button id="random-pair-button">Random pair</button>
 <button id="select-pair-button">Select pair</button>
+</div>
 
 <div><a id="home-link" href="../index.html">Home</a></div>
 <div id="version-id"></div>
-</div> <!-- main-container -->
 
 <!-- Javascript -->
 <script>
