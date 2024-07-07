@@ -208,17 +208,22 @@ img {
 <div id="version-id"></div>
 
 <script>
+// global handles for image and name HTML elements
 const leftImage = document.getElementById('left-image');
 const rightImage = document.getElementById('right-image');
 const leftName = document.getElementById('left-name');
 const rightName = document.getElementById('right-name');
+
+// global variables for image and name data
+let leftImageTaxon, rightImageTaxon;
+let leftNameTaxon, rightNameTaxon;
 
 // debugging section
 const debug = false;
 let displayName = "both"; // taxon, vernacular, both
 const iNatUser = null // change to user name to include only images by that user
 
-var taxon_pairs = [
+var taxonPairs = [
     {taxon1: 'Panthera onca', taxon2: 'Panthera pardus' },
     {taxon1: 'Crocodylidae', taxon2: 'Alligatoridae'},
     {taxon1: 'Lissachatina immaculata', taxon2: 'Lissachatina fulica'},
@@ -274,20 +279,13 @@ var taxon_pairs = [
 // optionally get pair of taxa from URL
 function getURLParameters() {
     const params = new URLSearchParams(window.location.search);
-    const taxon1 = params.get('taxon1');
-    const taxon2 = params.get('taxon2');
+    const [taxon1, taxon2] = [params.get('taxon1'), params.get('taxon2')];
     return (taxon1 !== null && taxon2 !== null) ? { taxon1, taxon2 } : null;
 }
 
-let leftImageTaxon, rightImageTaxon;
-let leftNameTaxon, rightNameTaxon;
-
-function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
-}
-
-function selectRandomTaxonPair() {
-    return taxon_pairs[getRandomInt(taxon_pairs.length)];
+//return random taxon pair by default, or one with given index
+function selectTaxonPair(index = null) {
+    return !index ? taxonPairs[Math.floor(Math.random() * taxonPairs.length)] : taxonPairs[index];
 }
 
 // GPT: fetch random image of taxon from iNat
@@ -343,11 +341,11 @@ async function fetchRandomImage(taxonName, username = null) {
     }
 }
 
-function getVernacular(taxon) {
+/* function getVernacular(taxon) {
     const entry = vernacular_lookup.find(item => item.taxon === taxon);
 //fetchVernacular(taxon).then(name => console.log(name)); // TODO
     return entry ? entry.vernacular : null;
-}
+}*/
 
 async function fetchVernacular(taxonName) {
     const baseUrl = 'https://api.inaturalist.org/v1/taxa';
@@ -379,9 +377,9 @@ async function setupGame(newPair = false)  {
     if (newPair) { // select new taxon pair
         if (!currentPair) { // first round, no pair previously selected
             // try to fetch taxon pair from URL, use random from local array otherwise
-            if (!(currentPair = getURLParameters())) { currentPair = selectRandomTaxonPair(); }
+            if (!(currentPair = getURLParameters())) { currentPair = selectTaxonPair(); }
         // not the first round: get random from local array
-        } else { currentPair = selectRandomTaxonPair(); }
+        } else { currentPair = selectTaxonPair(); }
     }
 
     // Randomly decide which taxon goes left and right (images)
