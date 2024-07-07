@@ -223,7 +223,7 @@ const rightName = document.getElementById('right-name');
 const result = document.getElementById('result');
 const colorCorrect = "rgba(0, 200, 0, 0.5)", colorWrong = "rgba(200, 0, 0, 0.5)";
 
-let displayName = "taxon"; // taxon, vernacular, both
+let displayName = "both"; // taxon, vernacular, both
 
 if (debug) {
 var taxon_pairs = [
@@ -419,7 +419,10 @@ async function setupGame(newPair = false)  {
         ? [rightImageTaxon, rightImageVernacular, leftImageTaxon, leftImageVernacular]
             : [leftImageTaxon, leftImageVernacular, rightImageTaxon, rightImageVernacular];
 
-    // TODO other code evaluates buttons always wrong if textContent is not taxon
+    // use extra attributes to track taxon ID on name tiles
+    leftName.setAttribute('data-taxon', leftNameTaxon);
+    rightName.setAttribute('data-taxon', rightNameTaxon);
+
     // TODO switch/display taxon/vernacular
     if (displayName === "taxon") {
         leftName.innerHTML = "<i>" + leftNameTaxon + "</i>";
@@ -427,14 +430,15 @@ async function setupGame(newPair = false)  {
         rightName.innerHTML = "<i>" + rightNameTaxon + "</i>";
         rightName.title = rightNameVernacular;
     } else if (displayName === "vernacular") {
-        leftName.innerHTML = leftNameVernacular;
-        leftName.title = leftName.textContent;
-        rightName.innerHTML = rightNameVernacular;
-        rightName.title = rightName.textContent;
-    } else {
-        leftName.innerHTML = "<i>" + leftName.textContent + "</i><br>(" + leftNameVernacular + ")";
-        rightName.innerHTML = "<i>" + rightName.textContent + "</i><br>(" + rightNameVernacular + ")";
+        leftName.textContent = leftNameVernacular;
+        leftName.title = leftNameTaxon;
+        rightName.textContent = rightNameVernacular;
+        rightName.title = rightNameTaxon;
+    } else if (displayName === "both") {
+        leftName.innerHTML = `<i>${leftNameTaxon}</i><br>(${leftNameVernacular})`;
+        rightName.innerHTML = `<i>${rightNameTaxon}</i><br>(${rightNameVernacular})`;
     }
+
     hideResultOverlay(); // TODO remove later
     // Call rearrangeElements after setting up the game
     // Use setTimeout to ensure images have loaded
@@ -476,9 +480,11 @@ function checkAnswer(droppedZoneId) {
     const leftDrop = document.getElementById('left-drop');
     const rightDrop = document.getElementById('right-drop');
 
-    // Get the text content of the elements dropped in the left and right drop zones
-    const leftAnswer = leftDrop.children[0]?.textContent;
-    const rightAnswer = rightDrop.children[0]?.textContent;
+    // Get the taxon attribute of the elements dropped in the left and right drop zones
+//    const leftAnswer = leftDrop.children[0]?.textContent;
+//    const rightAnswer = rightDrop.children[0]?.textContent;
+    const leftAnswer = leftDrop.children[0]?.getAttribute('data-taxon');
+    const rightAnswer = rightDrop.children[0]?.getAttribute('data-taxon');
 
     // Check if there are any answers in the drop zones
     if (leftAnswer || rightAnswer) {
