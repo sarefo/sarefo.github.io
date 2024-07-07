@@ -402,7 +402,7 @@ async function setupGame(newPair = false)  {
         ? [currentPair.taxon1, currentPair.taxon2]
             : [currentPair.taxon2, currentPair.taxon1];
 
-    showResultOverlay("Loading…", color="rgba(100, 100, 100, 0.8"); // TODO flaky hack to notify pictures still loading
+    showOverlay("Loading…", color="rgba(100, 100, 100, 0.8"); // TODO flaky hack to notify pictures still loading
 
     // fetch images and vernacular names
     const [leftImageURL, rightImageURL, leftImageVernacular, rightImageVernacular] = await Promise.all([
@@ -439,7 +439,7 @@ async function setupGame(newPair = false)  {
         rightName.innerHTML = `<i>${rightNameTaxon}</i><br>(${rightNameVernacular})`;
     }
 
-    hideResultOverlay(); // TODO remove later
+    hideOverlay(); // TODO remove later
     // Call rearrangeElements after setting up the game
     // Use setTimeout to ensure images have loaded
     setTimeout(rearrangeElements, 100);
@@ -498,18 +498,18 @@ function checkAnswer(droppedZoneId) {
         }
 
         if (isCorrect) {
-            showResultOverlay('Correct!', colorCorrect);
+            showOverlay('Correct!', colorCorrect);
             // Start a new game after 2 seconds
-            setTimeout(() => {hideResultOverlay(); setupGame(false); }, 2000);
+            setTimeout(() => {hideOverlay(); setupGame(false); }, 2000);
         } else {
             resetDraggables(); // remove tiles immediately
-            showResultOverlay('Wrong!<br>Try again.', colorWrong);
-            setTimeout(() => { hideResultOverlay(); }, 2000); // Reset if wrong
+            showOverlay('Wrong!<br>Try again.', colorWrong);
+            setTimeout(() => { hideOverlay(); }, 2000); // Reset if wrong
         }
     }
 }
 
-function showResultOverlay(message="", color) {
+function showOverlay(message="", color) {
     const overlay = document.getElementById('result-overlay');
     const messageElement = document.getElementById('result-message');
     const overlayBackground = document.getElementById('result-overlay');
@@ -519,7 +519,7 @@ function showResultOverlay(message="", color) {
     overlay.classList.add('show');
 }
 
-function hideResultOverlay() {
+function hideOverlay() {
     const overlay = document.getElementById('result-overlay');
     overlay.classList.remove('show');
 }
