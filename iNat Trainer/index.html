@@ -194,10 +194,10 @@ img {
   </div>
   <div class="name-pair">
     <div id="left-name-container">
-      <div id="name-left" class="draggable" draggable="true" title=""></div>
+      <div id="left-name" class="draggable" draggable="true" title=""></div>
     </div>
     <div id="right-name-container">
-      <div id="name-right" class="draggable" draggable="true" title=""></div>
+      <div id="right-name" class="draggable" draggable="true" title=""></div>
     </div>
   </div>
 </div>
@@ -218,8 +218,8 @@ const debug = false; // uses debugging dataset if true
 const iNatUser = null // change to user name to include only images by that user
 const leftImage = document.getElementById('left-image');
 const rightImage = document.getElementById('right-image');
-const nameLeft = document.getElementById('name-left');
-const nameRight = document.getElementById('name-right');
+const leftName = document.getElementById('left-name');
+const rightName = document.getElementById('right-name');
 const result = document.getElementById('result');
 const colorCorrect = "rgba(0, 200, 0, 0.5)", colorWrong = "rgba(200, 0, 0, 0.5)";
 
@@ -245,8 +245,9 @@ var taxon_pairs = [
     {taxon1: 'Pocillopora', taxon2: 'Millepora'},
     {taxon1: 'Ostracion meleagris', taxon2: 'Ostracion solorense'},
     {taxon1: 'Chaetodon vagabundus', taxon2: 'Chaetodon lunulatus'},
+    {taxon1: 'Magnoliopsida', taxon2: 'Liliopsida'},
 ]}
-
+/*
 const vernacular_lookup = [
     {taxon: 'Panthera onca', vernacular: 'Jaguar'},
     {taxon: 'Panthera pardus', vernacular: 'Leopard'},
@@ -279,6 +280,7 @@ const vernacular_lookup = [
     {taxon: 'Ostracion meleagris', vernacular: 'Spotted Boxfish'},
     {taxon: 'Ostracion solorense', vernacular: 'Striped Boxfish'},
 ];
+*/
 
 // optionally get pair of taxa from URL
 function getURLParameters() {
@@ -394,35 +396,40 @@ async function setupGame(newPair = false)  {
             if (currentPair.taxon1==null) { currentPair = selectRandomTaxonPair(); }
         } else { currentPair = selectRandomTaxonPair(); }
     }
-    // Randomly decide which taxon goes left and right
-    const isFirstTaxonLeft = Math.random() < 0.5;
-    leftTaxon = isFirstTaxonLeft ? currentPair.taxon1 : currentPair.taxon2;
-    rightTaxon = isFirstTaxonLeft ? currentPair.taxon2 : currentPair.taxon1;
 
-    if (Math.random() < 0.5) { [nameLeft.textContent, nameRight.textContent] = [rightTaxon, leftTaxon];
-    } else { [nameLeft.textContent, nameRight.textContent] = [leftTaxon, rightTaxon]; }
+    // Randomly decide which taxon goes left and right (images)
+    [leftTaxon, rightTaxon] = Math.random() < 0.5
+        ? [currentPair.taxon1, currentPair.taxon2]
+        : [currentPair.taxon2, currentPair.taxon1];
+    // Randomly decide placement of taxon names (name tiles)
+    if (Math.random() < 0.5) { [leftName.textContent, rightName.textContent] = [rightTaxon, leftTaxon];
+    } else { [leftName.textContent, rightName.textContent] = [leftTaxon, rightTaxon]; }
 
     showResultOverlay("Loading…", color="rgba(100, 100, 100, 0.8"); // TODO flaky hack to notify pictures still loading
-    leftImage.src = await fetchRandomImage(leftTaxon,iNatUser);
-    rightImage.src = await fetchRandomImage(rightTaxon,iNatUser);
 
-    leftVernacular = await fetchVernacular(leftTaxon)
-    rightVernacular = await fetchVernacular(rightTaxon);
+    const [leftImageURL, rightImageURL, leftVernacular, rightVernacular] = await Promise.all([
+        fetchRandomImage(leftTaxon, iNatUser),
+        fetchRandomImage(rightTaxon, iNatUser),
+        fetchVernacular(leftTaxon),
+        fetchVernacular(rightTaxon)
+    ]);
+    [leftImage.src, rightImage.src] = [leftImageURL, rightImageURL];
+
     // TODO other code evaluates buttons always wrong if textContent is not taxon
     // TODO switch/display taxon/vernacular
     if (displayName === "taxon") {
-        nameLeft.innerHTML = "<i>" + nameLeft.textContent + "</i>";
-        nameLeft.title = leftVernacular;
-        nameRight.innerHTML = "<i>" + nameRight.textContent + "</i>";
-        nameRight.title = rightVernacular;
+        leftName.innerHTML = "<i>" + leftName.textContent + "</i>";
+        leftName.title = leftVernacular;
+        rightName.innerHTML = "<i>" + rightName.textContent + "</i>";
+        rightName.title = rightVernacular;
     } else if (displayName === "vernacular") {
-        nameLeft.innerHTML = leftVernacular;
-        nameLeft.title = nameLeft.textContent;
-        nameRight.innerHTML = rightVernacular;
-        nameRight.title = nameRight.textContent;
+        leftName.innerHTML = leftVernacular;
+        leftName.title = leftName.textContent;
+        rightName.innerHTML = rightVernacular;
+        rightName.title = rightName.textContent;
     } else {
-        nameLeft.innerHTML = "<i>" + nameLeft.textContent + "</i><br>(" + leftVernacular + ")";
-        nameRight.innerHTML = "<i>" + nameRight.textContent + "</i><br>(" + rightVernacular + ")";
+        leftName.innerHTML = "<i>" + leftName.textContent + "</i><br>(" + leftVernacular + ")";
+        rightName.innerHTML = "<i>" + rightName.textContent + "</i><br>(" + rightVernacular + ")";
     }
     hideResultOverlay(); // TODO remove later
     // Call rearrangeElements after setting up the game
@@ -451,7 +458,7 @@ function drop(e) {
     dropZone.appendChild(draggedElement);
 
     // Automatically move the other name
-    const otherNameId = data === 'name-left' ? 'name-right' : 'name-left';
+    const otherNameId = data === 'left-name' ? 'right-name' : 'left-name';
     const otherName = document.getElementById(otherNameId);
     const otherDropZone = document.getElementById(dropZone.id === 'left-drop' ? 'right-drop' : 'left-drop');
     otherDropZone.innerHTML = '';
@@ -461,16 +468,21 @@ function drop(e) {
 }
 
 function checkAnswer(droppedZoneId) {
+    // Get references to the left and right drop zones
     const leftDrop = document.getElementById('left-drop');
     const rightDrop = document.getElementById('right-drop');
 
+    // Get the text content of the elements dropped in the left and right drop zones
     const leftAnswer = leftDrop.children[0]?.textContent;
     const rightAnswer = rightDrop.children[0]?.textContent;
 
+    // Check if there are any answers in the drop zones
     if (leftAnswer || rightAnswer) {
         let isCorrect = false;
+        // Check if the answer dropped in the left drop zone is correct
         if (droppedZoneId === 'left-drop') {
             isCorrect = leftAnswer === leftTaxon;
+        // Check if the answer dropped in the right drop zone is correct
         } else {
             isCorrect = rightAnswer === rightTaxon;
         }
@@ -509,8 +521,8 @@ function resetDraggables() {
     const rightDrop = document.getElementById('right-drop');
     
     // Move draggables back to the names container
-    leftNameContainer.appendChild(document.getElementById('name-left'));
-    rightNameContainer.appendChild(document.getElementById('name-right'));
+    leftNameContainer.appendChild(document.getElementById('left-name'));
+    rightNameContainer.appendChild(document.getElementById('right-name'));
     
     // Clear drop zones
     leftDrop.innerHTML = '';
