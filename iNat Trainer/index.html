@@ -246,6 +246,8 @@ var taxon_pairs = [
     {taxon1: 'Ostracion meleagris', taxon2: 'Ostracion solorense'},
     {taxon1: 'Chaetodon vagabundus', taxon2: 'Chaetodon lunulatus'},
     {taxon1: 'Magnoliopsida', taxon2: 'Liliopsida'},
+    {taxon1: 'Eumalacostraca', taxon2: 'Hoplocarida'},
+    {taxon1: 'Eucarida', taxon2: 'Peracarida'},
 ]}
 /*
 const vernacular_lookup = [
@@ -287,10 +289,11 @@ function getURLParameters() {
     const params = new URLSearchParams(window.location.search);
     const taxon1 = params.get('taxon1');
     const taxon2 = params.get('taxon2');
-    return { taxon1, taxon2 };
+    return (taxon1 !== null && taxon2 !== null) ? { taxon1, taxon2 } : null;
 }
 
-let leftTaxon, rightTaxon;
+let leftImageTaxon, rightImageTaxon;
+let leftNameTaxon, rightNameTaxon;
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -386,51 +389,53 @@ let currentPair;
 async function setupGame(newPair = false)  {
     resetDraggables();
 
-    // Check for URL parameters
-    const { taxon1, taxon2 } = getURLParameters();
-
-    // get random pair, or specified in URL
     if (newPair) { // select new taxon pair
         if (!currentPair) { // first round, no pair previously selected
-            currentPair = getURLParameters(); 
-            if (currentPair.taxon1==null) { currentPair = selectRandomTaxonPair(); }
+            // try to fetch taxon pair from URL, use random from local array otherwise
+            if (!(currentPair = getURLParameters())) { currentPair = selectRandomTaxonPair(); }
+        // not the first round: get random from local array
         } else { currentPair = selectRandomTaxonPair(); }
     }
 
     // Randomly decide which taxon goes left and right (images)
-    [leftTaxon, rightTaxon] = Math.random() < 0.5
+    [leftImageTaxon, rightImageTaxon] = Math.random() < 0.5
         ? [currentPair.taxon1, currentPair.taxon2]
-        : [currentPair.taxon2, currentPair.taxon1];
-    // Randomly decide placement of taxon names (name tiles)
-    if (Math.random() < 0.5) { [leftName.textContent, rightName.textContent] = [rightTaxon, leftTaxon];
-    } else { [leftName.textContent, rightName.textContent] = [leftTaxon, rightTaxon]; }
+            : [currentPair.taxon2, currentPair.taxon1];
 
     showResultOverlay("Loading…", color="rgba(100, 100, 100, 0.8"); // TODO flaky hack to notify pictures still loading
 
-    const [leftImageURL, rightImageURL, leftVernacular, rightVernacular] = await Promise.all([
-        fetchRandomImage(leftTaxon, iNatUser),
-        fetchRandomImage(rightTaxon, iNatUser),
-        fetchVernacular(leftTaxon),
-        fetchVernacular(rightTaxon)
+    // fetch images and vernacular names
+    const [leftImageURL, rightImageURL, leftImageVernacular, rightImageVernacular] = await Promise.all([
+        fetchRandomImage(leftImageTaxon, iNatUser),
+        fetchRandomImage(rightImageTaxon, iNatUser),
+        fetchVernacular(leftImageTaxon),
+        fetchVernacular(rightImageTaxon)
     ]);
+    // place images
     [leftImage.src, rightImage.src] = [leftImageURL, rightImageURL];
+
+    // Randomly decide placement of taxon names (name tiles)
+    [leftNameTaxon, leftNameVernacular, rightNameTaxon, rightNameVernacular] = Math.random() < 0.5
+        ? [rightImageTaxon, rightImageVernacular, leftImageTaxon, leftImageVernacular]
+            : [leftImageTaxon, leftImageVernacular, rightImageTaxon, rightImageVernacular];
 
     // TODO other code evaluates buttons always wrong if textContent is not taxon
     // TODO switch/display taxon/vernacular
     if (displayName === "taxon") {
-        leftName.innerHTML = "<i>" + leftName.textContent + "</i>";
-        leftName.title = leftVernacular;
-        rightName.innerHTML = "<i>" + rightName.textContent + "</i>";
-        rightName.title = rightVernacular;
+        leftName.innerHTML = "<i>" + leftNameTaxon + "</i>";
+        leftName.title = leftNameVernacular;
+        rightName.innerHTML = "<i>" + rightNameTaxon + "</i>";
+        rightName.title = rightNameVernacular;
     } else if (displayName === "vernacular") {
-        leftName.innerHTML = leftVernacular;
+        leftName.innerHTML = leftNameVernacular;
         leftName.title = leftName.textContent;
-        rightName.innerHTML = rightVernacular;
+        rightName.innerHTML = rightNameVernacular;
         rightName.title = rightName.textContent;
     } else {
-        leftName.innerHTML = "<i>" + leftName.textContent + "</i><br>(" + leftVernacular + ")";
-        rightName.innerHTML = "<i>" + rightName.textContent + "</i><br>(" + rightVernacular + ")";
+        leftName.innerHTML = "<i>" + leftName.textContent + "</i><br>(" + leftNameVernacular + ")";
+        rightName.innerHTML = "<i>" + rightName.textContent + "</i><br>(" + rightNameVernacular + ")";
     }
+console.log(leftName.textContent);
     hideResultOverlay(); // TODO remove later
     // Call rearrangeElements after setting up the game
     // Use setTimeout to ensure images have loaded
@@ -481,10 +486,10 @@ function checkAnswer(droppedZoneId) {
         let isCorrect = false;
         // Check if the answer dropped in the left drop zone is correct
         if (droppedZoneId === 'left-drop') {
-            isCorrect = leftAnswer === leftTaxon;
+            isCorrect = leftAnswer === leftImageTaxon;
         // Check if the answer dropped in the right drop zone is correct
         } else {
-            isCorrect = rightAnswer === rightTaxon;
+            isCorrect = rightAnswer === rightImageTaxon;
         }
 
         if (isCorrect) {
