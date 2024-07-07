@@ -6,28 +6,35 @@
 
 + load cleanly (preload images, then only reload game contents)
 
++ move taxonPairs to its own file, for easier programmatic manipulation
+
 + move function buttons on bottom to hamburger menu overlay on top
 ++ opens an overlay with the function buttons
 
 + load in fullscreen on Android
 ++ maybe use PWA (progressive web app) for that
 
-+ in Select pair list:
-++ optionally display vernacular names
-
 + remove complex reordering code
 ++ always vertical alignment, even on big screens
 ++ then move result overlay text to empty space of dragged tiles
 
 + tap to drag tiles is sluggish; possible to speed up?
+
 + on small screens: allow for moving/zooming image areas
 
 -- harder --
-+ BUG: when fetching images of a specific user, error if user has no images of chosen taxon
 + new taxon pair button: make sure not same taxon as before
+
 + simple persistent user management
-+ remember hit/miss per taxon per user
+++ remember hit/miss per taxon per user
+
++ in Select pair list:
+++ optionally display vernacular names
+
 + list of actively practicing taxa per user
+
++ BUG: when fetching images of a specific user, error if user has no images of chosen taxon
+
 + handle paraphyletic groups, eg. moths vs. butterflies
 ++ generally handle taxonomic entities not on iNat
 -->
@@ -35,6 +42,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon_iNat.png" type="image/png">
     <title>iNat Taxonomy Trainer</title>
 
 <style>
@@ -328,6 +336,7 @@ var taxonPairs = [
     {taxon1: 'Brachycera', taxon2: 'Nematocera'},
     {taxon1: 'Cyclorrhapha', taxon2: 'Orthorrhapha'},
     {taxon1: 'Acalyptratae', taxon2: 'Calyptratae'},
+    {taxon1: 'Cheilomenes sexmaculata', taxon2: 'Coccinella transversalis'},
 ]
 /*
     {taxon1: '', taxon2: ''},
