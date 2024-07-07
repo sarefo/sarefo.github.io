@@ -3,7 +3,6 @@
 -- easier --
 + fit all essential elements on phone screen
 ++ have small magnetic threshold when scrolling up/down
-+ image width up to 240px (medium)
 
 + load cleanly (preload images, then only reload game contents)
 
@@ -76,18 +75,20 @@ h1 { font-size: 16px; }
 }
 
 .image-container {
-    flex: 1 1 240px;
+    flex: 1 1 100%;
     margin: 4px;
     padding: 10px;
-    width: 100%;
+    width: calc(100% - 8px);
+    max-width: 500px;
     aspect-ratio: 1/1;
-    height: auto;
+    height: auto; 
     position: relative;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     text-align: center;
-    border-radius: 10px;
+    border-radius: 8px;
     background-color: white;
+    box-sizing: border-box;
 }
 
 img {
@@ -98,7 +99,7 @@ img {
     height: 100%;
     object-fit: cover;
     object-position: center;
-    border-radius: 5px;
+    border-radius: 8px;
 }
 
 #left-name-container, #right-name-container {
@@ -314,6 +315,7 @@ var taxonPairs = [
     {taxon1: 'Tettigoniidae', taxon2: 'Acridoidea'},
     {taxon1: 'Brachycera', taxon2: 'Nematocera'},
     {taxon1: 'Cyclorrhapha', taxon2: 'Orthorrhapha'},
+    {taxon1: 'Acalyptratae', taxon2: 'Calyptratae'},
 ]
 /*
     {taxon1: '', taxon2: ''},
