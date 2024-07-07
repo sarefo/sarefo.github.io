@@ -3,6 +3,7 @@
 -- easier --
 + fit all essential elements on phone screen
 ++ have small magnetic threshold when scrolling up/down
++ image width up to 240px (medium)
 
 + load cleanly (preload images, then only reload game contents)
 
@@ -11,6 +12,7 @@
 
 + tap to drag tiles is sluggish; possible to speed up?
 + keep the layout when dragging tiles (don't remove the space of their original position)
++ on small screens: allow for moving/zooming image areas
 
 -- harder --
 + BUG: when fetching images of a specific user, error if user has no images of chosen taxon
@@ -32,38 +34,36 @@
 body {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     height: 100vh;
     margin: 0;
-    padding: 2px;
+    padding: 0;
+    overflow: hidden;
     box-sizing: border-box;
-    background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
-    text-align: center;
 }
 
 .main-container {
     display: flex;
     flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
     align-items: center;
-    width: 100%;
-    max-width: 800px;
-    padding: 0px;
     box-sizing: border-box;
 }
 
 h1 { font-size: 16px; }
 
 .game-container {
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     width: 100%;
-    max-width: 800px;
+    height:100%;
     margin: 0 auto;
-    margin-bottom: 6px;
+    overflow: hidden;
+    padding: 2px;
+    box-sizing: border-box;
 }
 
 .image-pair, .name-pair {
@@ -139,6 +139,17 @@ img {
     z-index: 10;
     width: 90%;
 }
+
+.scrollable-area {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.scrollable-area::-webkit-scrollbar { display: none; }
+.scroll-sensitive-area { height: 33.33vh; }
+.non-scroll-area { height: 33.33vh; }
 
 #overlay {
     position: fixed;
@@ -413,6 +424,7 @@ async function fetchRandomImage(taxonName, username = null) {
             }
 
             // Extract images from the observations
+            // square 75px • small 240px • medium 500px • large 1024px
             observationsData.results.forEach(observation => {
                 observation.photos.forEach(photo => {
                     images.push(photo.url.replace('square', 'medium')); // You can change 'medium' to your desired size
