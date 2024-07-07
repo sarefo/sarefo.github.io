@@ -1,17 +1,11 @@
 <!DOCTYPE html>
 <!-- TODO
 -- easier --
-+ mobile: name tiles between images, not under
-+ nicer correct/wrong display
-++ move "Correct" display: overlay?
-++ font is not nice now
++ move "Correct" display: overlay?
 + load cleanly (preload images, then only reload game contents)
 + create button to switch taxon/vernacular display
-++ BUG: result wrong if button text not taxon
 + BUG: when fetching images of a specific user, error if user has no images of chosen taxon
 -- harder --
-+ able to fetch any two taxa from iNat
-++ fetch taxon + vernacular
 + user selects taxon pair
 + enable "Select taxon pair" button
 + new taxon pair button: make sure not same taxon as before
@@ -151,10 +145,10 @@ img {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add a subtle shadow for better readability */
     padding: 20px;
     border-radius: 10px;
-    font-family: 'Arial', sans-serif; /* Use a clean, sans-serif font */
+    font-family: 'Arial', sans-serif;
 }
 
-#new-pair-button, #select-pair-button {
+#random-pair-button, #select-pair-button {
     background-color: #2C8F30;
     color: white;
     font-size: 16px;
@@ -206,30 +200,24 @@ img {
     <div id="overlay-message"></div>
 </div>
 
-<button id="new-pair-button">New taxon pair</button>
-<!-- TODO <button id="select-pair-button">Select taxon pair</button> -->
+<button id="random-pair-button">Random pair</button>
+<button id="select-pair-button">Select pair</button>
 
 <div><a id="home-link" href="../index.html">Home</a></div>
 
 <div id="version-id"></div>
 
 <script>
-const debug = false; // uses debugging dataset if true
-const iNatUser = null // change to user name to include only images by that user
 const leftImage = document.getElementById('left-image');
 const rightImage = document.getElementById('right-image');
 const leftName = document.getElementById('left-name');
 const rightName = document.getElementById('right-name');
-const result = document.getElementById('result');
-const colorCorrect = "rgba(0, 200, 0, 0.5)", colorWrong = "rgba(200, 0, 0, 0.5)";
 
+// debugging section
+const debug = false;
 let displayName = "both"; // taxon, vernacular, both
+const iNatUser = null // change to user name to include only images by that user
 
-if (debug) {
-var taxon_pairs = [
-    {taxon1: 'Panthera onca', taxon2: 'Crocodylus acutus'},
-    {taxon1: 'Crocodylus porosus', taxon2: 'Panthera pardus'}
-    ]} else {
 var taxon_pairs = [
     {taxon1: 'Panthera onca', taxon2: 'Panthera pardus' },
     {taxon1: 'Crocodylidae', taxon2: 'Alligatoridae'},
@@ -248,9 +236,9 @@ var taxon_pairs = [
     {taxon1: 'Magnoliopsida', taxon2: 'Liliopsida'},
     {taxon1: 'Eumalacostraca', taxon2: 'Hoplocarida'},
     {taxon1: 'Eucarida', taxon2: 'Peracarida'},
-]}
-/*
-const vernacular_lookup = [
+]
+
+/* const vernacular_lookup = [
     {taxon: 'Panthera onca', vernacular: 'Jaguar'},
     {taxon: 'Panthera pardus', vernacular: 'Leopard'},
     {taxon: 'Crocodylus acutus', vernacular: 'American Crocodile'},
@@ -281,8 +269,7 @@ const vernacular_lookup = [
     {taxon: 'Millepora', vernacular: 'Fire Corals'},
     {taxon: 'Ostracion meleagris', vernacular: 'Spotted Boxfish'},
     {taxon: 'Ostracion solorense', vernacular: 'Striped Boxfish'},
-];
-*/
+]; */
 
 // optionally get pair of taxa from URL
 function getURLParameters() {
@@ -479,6 +466,7 @@ function checkAnswer(droppedZoneId) {
     // Get references to the left and right drop zones
     const leftDrop = document.getElementById('left-drop');
     const rightDrop = document.getElementById('right-drop');
+    const colorCorrect = "rgba(0, 200, 0, 0.5)", colorWrong = "rgba(200, 0, 0, 0.5)";
 
     // Get the taxon attribute of the elements dropped in the left and right drop zones
 //    const leftAnswer = leftDrop.children[0]?.textContent;
@@ -518,7 +506,6 @@ function showOverlay(message="", color) {
     overlayBackground.style.backgroundColor = color;
     overlay.classList.add('show');
 }
-
 function hideOverlay() {
     const overlay = document.getElementById('overlay');
     overlay.classList.remove('show');
@@ -548,7 +535,7 @@ document.querySelectorAll('.image-container').forEach(element => {
     element.addEventListener('drop', drop);
 });
 
-document.getElementById('new-pair-button').addEventListener('click', () => { setupGame(true); });
+document.getElementById('random-pair-button').addEventListener('click', () => { setupGame(true); });
 
 document.getElementById('version-id').textContent = 'Last modified: ' + document.lastModified;
 
