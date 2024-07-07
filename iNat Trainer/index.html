@@ -320,8 +320,7 @@ function shareCurrentPair() {
     let shareUrl = currentUrl.toString();
 
     // Copy to clipboard
-    navigator.clipboard.writeText(shareUrl).then(() => {
-    }).catch(err => {
+    navigator.clipboard.writeText(shareUrl).then(() => { }).catch(err => {
         console.error('Failed to copy: ', err);
         alert('Failed to copy link. Please try again.');
     });
