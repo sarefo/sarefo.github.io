@@ -5,6 +5,7 @@
 + load cleanly (preload images, then only reload game contents)
 + BUG: when fetching images of a specific user, error if user has no images of chosen taxon
 + tap to drag tiles is sluggish; possible to speed up?
++ keep the layout when dragging tiles (don't remove the space of their original position)
 -- harder --
 + user selects taxon pair
 ++ clicking on button opens list of pairs from local array
@@ -257,6 +258,7 @@ const rightName = document.getElementById('right-name');
 // global variables for image and name data
 let leftImageTaxon, rightImageTaxon;
 let leftNameTaxon, rightNameTaxon;
+let currentPair;
 
 // debugging section
 const debug = false;
@@ -281,40 +283,11 @@ var taxonPairs = [
     {taxon1: 'Magnoliopsida', taxon2: 'Liliopsida'},
     {taxon1: 'Eumalacostraca', taxon2: 'Hoplocarida'},
     {taxon1: 'Eucarida', taxon2: 'Peracarida'},
+    {taxon1: 'Heniochus varius', taxon2: 'Heniochus chrysostomus'},
+    {taxon1: 'Heniochus macrolepidotus', taxon2: 'Heniochus diphreutes'},
+    {taxon1: 'Nephila pilipes', taxon2: 'Trichonephila clavata'},
+    {taxon1: 'Anoplolepis gracilipes', taxon2: 'Solenopsis invicta'},
 ]
-
-/* const vernacular_lookup = [
-    {taxon: 'Panthera onca', vernacular: 'Jaguar'},
-    {taxon: 'Panthera pardus', vernacular: 'Leopard'},
-    {taxon: 'Crocodylus acutus', vernacular: 'American Crocodile'},
-    {taxon: 'Crocodylus porosus', vernacular: 'Saltwater Crocodile'},
-    {taxon: 'Crocodylidae', vernacular: 'Crocodiles'},
-    {taxon: 'Alligatoridae', vernacular: 'Alligators'},
-    {taxon: 'Lissachatina immaculata', vernacular: 'Giant Blonde Snail'},
-    {taxon: 'Lissachatina fulica', vernacular: 'African Giant Snail'},
-    {taxon: 'Caeneressa diaphana', vernacular: 'Caeneressa diaphana'},
-    {taxon: 'Amata huebneri', vernacular: 'Hübner\'s Wasp Moth'},
-    {taxon: 'Fromia monilis', vernacular: 'Tiled Sea Star'},
-    {taxon: 'Fromia heffernani', vernacular: 'Pebbled Sea Star'},
-    {taxon: 'Formicidae', vernacular: 'Ants'},
-    {taxon: 'Myrmarachnini', vernacular: 'Ant-like Jumping Spiders'},
-    {taxon: 'Chelmon rostratus', vernacular: 'Copperband Butterflyfish'},
-    {taxon: 'Coradion chrysozonus', vernacular: 'Orangebanded Coralfish'},
-    {taxon: 'Chaetodon vagabundus', vernacular: 'Vagabond Butterflyfish'},
-    {taxon: 'Chaetodon lunulatus', vernacular: 'Redfin Butterflyfish'},
-    {taxon: 'Platax teira', vernacular: 'Longfin Batfish'},
-    {taxon: 'Platax orbicularis', vernacular: 'Round Batfish'},
-    {taxon: 'Plerogyra sinuosa', vernacular: 'Bubble Coral'},
-    {taxon: 'Physogyra lichtensteini', vernacular: 'Pearl Bubble Coral'},
-    {taxon: 'Platygyra', vernacular: 'Greater Maze Corals'},
-    {taxon: 'Lobophyllia', vernacular: 'Open Brain Corals'},
-    {taxon: 'Chelonia mydas', vernacular: 'Green Sea Turtle'},
-    {taxon: 'Eretmochelys imbricata', vernacular: 'Hawksbill Sea Turtle'},
-    {taxon: 'Pocillopora', vernacular: 'Cauliflower Corals'},
-    {taxon: 'Millepora', vernacular: 'Fire Corals'},
-    {taxon: 'Ostracion meleagris', vernacular: 'Spotted Boxfish'},
-    {taxon: 'Ostracion solorense', vernacular: 'Striped Boxfish'},
-]; */
 
 // optionally get pair of taxa from URL
 function getURLParameters() {
@@ -354,15 +327,13 @@ function selectTaxonPair(index = null) {
     return !index ? taxonPairs[Math.floor(Math.random() * taxonPairs.length)] : taxonPairs[index];
 }
 
-// GPT: fetch random image of taxon from iNat
+// fetch random image of taxon from iNat
 async function fetchRandomImage(taxonName, username = null) {
     try {
         // Search for the taxon
         const searchResponse = await fetch(`https://api.inaturalist.org/v1/taxa?q=${taxonName}`);
         const searchData = await searchResponse.json();
-        if (searchData.results.length === 0) {
-            throw new Error('Taxon not found');
-        }
+        if (searchData.results.length === 0) { throw new Error('Taxon not found'); }
         const taxonId = searchData.results[0].id;
 
         let images = [];
@@ -385,34 +356,22 @@ async function fetchRandomImage(taxonName, username = null) {
             // Get the taxon details
             const taxonResponse = await fetch(`https://api.inaturalist.org/v1/taxa/${taxonId}`);
             const taxonData = await taxonResponse.json();
-            if (taxonData.results.length === 0) {
-                throw new Error('No details found for the taxon');
-            }
+            if (taxonData.results.length === 0) { throw new Error('No details found for the taxon'); }
             const taxon = taxonData.results[0];
             
             // Extract images from taxon photos
             images = taxon.taxon_photos.map(photo => photo.photo.url.replace('square', 'medium'));
         }
 
-        if (images.length === 0) {
-            throw new Error('No images found');
-        }
+        if (images.length === 0) { throw new Error('No images found'); }
 
         // Select a random image
         const randomImage = images[Math.floor(Math.random() * images.length)];
         return randomImage;
-    } catch (error) {
-        console.error(error);
-        return null;
-    }
+    } catch (error) { console.error(error); return null; }
 }
 
-/* function getVernacular(taxon) {
-    const entry = vernacular_lookup.find(item => item.taxon === taxon);
-//fetchVernacular(taxon).then(name => console.log(name)); // TODO
-    return entry ? entry.vernacular : null;
-}*/
-
+// fetch vernacular name of taxon from iNat
 async function fetchVernacular(taxonName) {
     const baseUrl = 'https://api.inaturalist.org/v1/taxa';
     
@@ -424,19 +383,11 @@ async function fetchVernacular(taxonName) {
             const taxon = data.results[0];
             if (taxon && taxon.preferred_common_name) {
                 return taxon.preferred_common_name;
-            } else {
-                return 'No vernacular name found for this taxon.';
-            }
-        } else {
-            return 'Taxon not found.';
-        }
-    } catch (error) {
-        console.error('Error fetching vernacular name:', error);
-        return 'An error occurred while fetching the vernacular name.';
-    }
+            } else { return 'No vernacular name found for this taxon.'; }
+        } else { return 'Taxon not found.'; }
+    } catch (error) { console.error('Error fetching vernacular name:', error); return ""; }
 }
 
-let currentPair;
 async function setupGame(newPair = false)  {
     resetDraggables();
 
@@ -474,7 +425,6 @@ async function setupGame(newPair = false)  {
     leftName.setAttribute('data-taxon', leftNameTaxon);
     rightName.setAttribute('data-taxon', rightNameTaxon);
 
-    // TODO switch/display taxon/vernacular
     if (displayName === "taxon") {
         leftName.innerHTML = "<i>" + leftNameTaxon + "</i>";
         leftName.title = leftNameVernacular;
@@ -490,10 +440,9 @@ async function setupGame(newPair = false)  {
         rightName.innerHTML = `<i>${rightNameTaxon}</i><br>(${rightNameVernacular})`;
     }
 
-    hideOverlay(); // TODO remove later
+    hideOverlay(); // TODO remove later, see above
     // Call rearrangeElements after setting up the game
-    // Use setTimeout to ensure images have loaded
-    setTimeout(rearrangeElements, 100);
+    setTimeout(rearrangeElements, 100); // Use setTimeout to ensure images have loaded
 }
 
 function dragStart(e) { e.dataTransfer.setData('text/plain', e.target.id); }
@@ -532,9 +481,6 @@ function checkAnswer(droppedZoneId) {
     const rightDrop = document.getElementById('right-drop');
     const colorCorrect = "rgba(0, 200, 0, 0.5)", colorWrong = "rgba(200, 0, 0, 0.5)";
 
-    // Get the taxon attribute of the elements dropped in the left and right drop zones
-//    const leftAnswer = leftDrop.children[0]?.textContent;
-//    const rightAnswer = rightDrop.children[0]?.textContent;
     const leftAnswer = leftDrop.children[0]?.getAttribute('data-taxon');
     const rightAnswer = rightDrop.children[0]?.getAttribute('data-taxon');
 
@@ -545,9 +491,7 @@ function checkAnswer(droppedZoneId) {
         if (droppedZoneId === 'left-drop') {
             isCorrect = leftAnswer === leftImageTaxon;
         // Check if the answer dropped in the right drop zone is correct
-        } else {
-            isCorrect = rightAnswer === rightImageTaxon;
-        }
+        } else { isCorrect = rightAnswer === rightImageTaxon; }
 
         if (isCorrect) {
             showOverlay('Correct!', colorCorrect);
@@ -566,7 +510,6 @@ function showOverlay(message="", color) {
     const messageElement = document.getElementById('overlay-message');
     const overlayBackground = document.getElementById('overlay');
     messageElement.innerHTML = message;
-    // messageElement.style.color = "green";
     overlayBackground.style.backgroundColor = color;
     overlay.classList.add('show');
 }
@@ -604,7 +547,7 @@ document.getElementById('random-pair-button').addEventListener('click', () => { 
 document.getElementById('version-id').textContent = 'Last modified: ' + document.lastModified;
 
 // all this just to move the name buttons between the images on narrow screens :P
-// there's probably an easier way, such as just providing to sets of html?
+// there's probably an easier way, such as just providing two sets of html?
 function rearrangeElements() {
     const gameContainer = document.querySelector('.game-container');
     const imagePair = document.querySelector('.image-pair');
