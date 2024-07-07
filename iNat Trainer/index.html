@@ -190,8 +190,8 @@ h1 { font-size: 16px; }
     padding: 20px;
     border-radius: 10px;
     text-align: center;
-    position: absolute;
-    top: 10%; /* Adjust this value to position in the top third of the screen */
+    position: relative;
+    /*top: 10%; *//* Adjust this value to position in the top third of the screen */
 }
 
 #random-pair-button, #select-pair-button {
@@ -257,6 +257,9 @@ h1 { font-size: 16px; }
     </div>
   </div>
   <div class="name-pair">
+<div id="overlay">
+    <div id="overlay-message"></div>
+</div>
     <div id="left-name-container">
       <div id="left-name" class="draggable" draggable="true" title=""></div>
     </div>
@@ -266,9 +269,6 @@ h1 { font-size: 16px; }
   </div>
 </div>
 
-<div id="overlay">
-    <div id="overlay-message"></div>
-</div>
 
 <div class="button-container">
 <button id="random-pair-button">Random pair</button>
