@@ -13,6 +13,8 @@
 + simple persistent user management
 + remember hit/miss per taxon per user
 + list of actively practicing taxa per user
++ handle paraphyletic groups, eg. moths vs. butterflies
+++ generally handle taxonomic entities not on iNat
 -->
 <html lang="en">
 <head>
@@ -287,8 +289,12 @@ var taxonPairs = [
     {taxon1: 'Heniochus macrolepidotus', taxon2: 'Heniochus diphreutes'},
     {taxon1: 'Nephila pilipes', taxon2: 'Trichonephila clavata'},
     {taxon1: 'Anoplolepis gracilipes', taxon2: 'Solenopsis invicta'},
+    {taxon1: 'Papilionoidea', taxon2: 'Geometroidea'},
+    {taxon1: 'Papilionoidea', taxon2: 'Bombycoidea '},
 ]
-
+/*
+    {taxon1: '', taxon2: ''},
+*/
 // optionally get pair of taxa from URL
 function getURLParameters() {
     const params = new URLSearchParams(window.location.search);
@@ -315,7 +321,6 @@ function shareCurrentPair() {
 
     // Copy to clipboard
     navigator.clipboard.writeText(shareUrl).then(() => {
-        alert('Link for current pair copied to clipboard!');
     }).catch(err => {
         console.error('Failed to copy: ', err);
         alert('Failed to copy link. Please try again.');
