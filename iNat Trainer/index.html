@@ -126,7 +126,7 @@ img {
     width: 90%;
 }
 
-#result-overlay {
+#overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -141,10 +141,10 @@ img {
     pointer-events: none;
     transition: opacity 0.3s ease;
 }
-#result-overlay.show {
+#overlay.show {
     opacity: 1;
 }
-#result-message {
+#overlay-message {
     font-size: 48px;
     font-weight: bold;
     color: #ffffff; /* White text for better contrast */
@@ -202,8 +202,8 @@ img {
   </div>
 </div>
 
-<div id="result-overlay">
-    <div id="result-message"></div>
+<div id="overlay">
+    <div id="overlay-message"></div>
 </div>
 
 <button id="new-pair-button">New taxon pair</button>
@@ -510,9 +510,9 @@ function checkAnswer(droppedZoneId) {
 }
 
 function showOverlay(message="", color) {
-    const overlay = document.getElementById('result-overlay');
-    const messageElement = document.getElementById('result-message');
-    const overlayBackground = document.getElementById('result-overlay');
+    const overlay = document.getElementById('overlay');
+    const messageElement = document.getElementById('overlay-message');
+    const overlayBackground = document.getElementById('overlay');
     messageElement.innerHTML = message;
     // messageElement.style.color = "green";
     overlayBackground.style.backgroundColor = color;
@@ -520,7 +520,7 @@ function showOverlay(message="", color) {
 }
 
 function hideOverlay() {
-    const overlay = document.getElementById('result-overlay');
+    const overlay = document.getElementById('overlay');
     overlay.classList.remove('show');
 }
 
