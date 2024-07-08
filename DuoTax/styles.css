@@ -114,6 +114,7 @@ body * { text-align: center; }
     transform: translateX(-50%);
     z-index: 10;
     width: 90%;
+    pointer-events: none;
 }
 
 #image-container-1 .droppable {
@@ -256,9 +257,6 @@ body * { text-align: center; }
     justify-content: space-between;
     margin-top: 20px;
 }
-
-
-
 
 .droppable {
     position: absolute;

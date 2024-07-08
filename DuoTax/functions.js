@@ -445,17 +445,14 @@ let draggedElement = null;
 let touchOffset = { x: 0, y: 0 };
 
 function touchStart(e) {
-    console.log('touchStart triggered');
     e.preventDefault();
     draggedElement = e.target.closest('.draggable');
-    console.log('Dragged element:', draggedElement?.id);
     if (!draggedElement) return;
     
     const touch = e.touches[0];
     const rect = draggedElement.getBoundingClientRect();
     touchOffset.x = touch.clientX - rect.left;
     touchOffset.y = touch.clientY - rect.top;
-    console.log('Touch offset:', touchOffset);
     
     draggedElement.style.zIndex = '1000';
     draggedElement.style.position = 'fixed';
@@ -463,76 +460,55 @@ function touchStart(e) {
 }
 
 function touchMove(e) {
-    console.log('touchMove triggered');
     e.preventDefault();
     if (draggedElement) {
         const touch = e.touches[0];
         updateElementPosition(touch);
-        console.log('Element position updated');
     }
 }
 
 function touchEnd(e) {
-    console.log('touchEnd triggered');
     e.preventDefault();
     if (draggedElement) {
-        console.log('Dragged element exists');
         const dropZone = getDropZone(e);
-        console.log('Drop zone:', dropZone?.id);
         if (dropZone) {
-            console.log('Calling handleDrop');
             handleDrop(dropZone);
         } else {
-            console.log('Resetting dragged element');
             resetDraggedElement();
         }
         draggedElement.style.zIndex = '';
         draggedElement.style.position = '';
         draggedElement = null;
-    } else {
-        console.log('No dragged element on touchEnd');
     }
 }
 
 function updateElementPosition(touch) {
     draggedElement.style.left = `${touch.clientX - touchOffset.x}px`;
     draggedElement.style.top = `${touch.clientY - touchOffset.y}px`;
-    console.log('Element position:', draggedElement.style.left, draggedElement.style.top);
 }
 
 function getDropZone(e) {
-    console.log('getDropZone called');
-    const touch = e.changedTouches[0];
-    const dropZones = document.querySelectorAll('.droppable');
-    console.log('Number of drop zones:', dropZones.length);
-    for (let dropZone of dropZones) {
-        const rect = dropZone.getBoundingClientRect();
-        console.log('Drop zone rect:', rect);
-        console.log('Touch position:', touch.clientX, touch.clientY);
+    const touch = e.changedTouches ? e.changedTouches[0] : e;
+    const imageContainers = document.querySelectorAll('.image-container');
+    for (let container of imageContainers) {
+        const rect = container.getBoundingClientRect();
         if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
             touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
-            console.log('Drop zone found:', dropZone.id);
-            return dropZone;
+            return container.querySelector('.droppable');
         }
     }
-    console.log('No drop zone found');
     return null;
 }
 
 function handleDrop(dropZone) {
-    console.log('handleDrop called');
-    if (!draggedElement) {
-        console.log('No dragged element in handleDrop');
-        return;
-    }
-
-    console.log('Dropping element:', draggedElement.id, 'into zone:', dropZone.id);
+    if (!draggedElement) return;
 
     dropZone.innerHTML = '';
     dropZone.appendChild(draggedElement);
-    draggedElement.style.position = '';
+    draggedElement.style.position = 'static'; // Reset position to static
     draggedElement.style.left = '';
     draggedElement.style.top = '';
+    draggedElement.style.width = '100%'; // Ensure the dragged element fills the drop zone width
 
     const otherNameId = draggedElement.id === 'left-name' ? 'right-name' : 'left-name';
     const otherName = document.getElementById(otherNameId);
@@ -540,7 +516,6 @@ function handleDrop(dropZone) {
     otherDropZone.innerHTML = '';
     otherDropZone.appendChild(otherName);
 
-    console.log('Calling checkAnswer');
     checkAnswer(dropZone.id);
 }
 
