@@ -343,7 +343,7 @@ console.log('checkAnswer called with:', droppedZoneId);
             showOverlay('Correct!', colorCorrect);
             setTimeout(() => {
                 hideOverlay();
-                setupGame(true);
+                setupGame(false);
             }, 2400);
         } else {
             resetDraggables();
