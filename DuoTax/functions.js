@@ -1,7 +1,7 @@
 // global handles for image and name html elements
 const elements = {
-    leftImage: document.getElementById('image-1'),
-    rightImage: document.getElementById('image-2'),
+    imageOne: document.getElementById('image-1'),
+    imageTwo: document.getElementById('image-2'),
     leftName: document.getElementById('left-name'),
     rightName: document.getElementById('right-name'),
     overlay: document.getElementById('overlay'),
@@ -10,8 +10,8 @@ const elements = {
 
 // overlay colors
 const overlayColors = {
-    green: "rgba(76, 175, 80, 0.8)",
-    red: "rgba(200, 0, 0, 0.8)",
+    green: "rgba(76, 175, 80, 1.0)",
+    red: "rgba(200, 0, 0, 1.0)",
     gray: "rgba(100, 100, 100, 0.8"
 };
 
@@ -172,11 +172,9 @@ async function setupGame(newPair = false)  {
     resetDraggables();
 
     if (newPair) { // select new taxon pair
-        if (!currentPair) { // first round, no pair previously selected
             // try to fetch taxon pair from URL, use random from local array otherwise
-            if (!(currentPair = getURLParameters())) { currentPair = await selectTaxonPair(); }
-        // not the first round: get random from local array
-        } else if (newPair === true) { currentPair = await selectTaxonPair(); }
+            // not the first round: get random from local array
+        currentPair = !currentPair ? (getURLParameters() || await selectTaxonPair()) : await selectTaxonPair();
     }
 
     // Randomly decide which taxon goes left and right (images)
@@ -192,7 +190,7 @@ async function setupGame(newPair = false)  {
         }, 1200);
 
     // fetch images and vernacular names
-    const [leftImageURL, rightImageURL, leftImageVernacular, rightImageVernacular] = await Promise.all([
+    const [imageOneURL, imageTwoURL, imageOneVernacular, imageTwoVernacular] = await Promise.all([
         fetchRandomImage(taxonImageOne),
         fetchRandomImage(taxonImageTwo),
         fetchVernacular(taxonImageOne),
@@ -200,12 +198,12 @@ async function setupGame(newPair = false)  {
     ]);
 
     // place images
-    [elements.leftImage.src, elements.rightImage.src] = [leftImageURL, rightImageURL];
+    [elements.imageOne.src, elements.imageTwo.src] = [imageOneURL, imageTwoURL];
 
     // Randomly decide placement of taxon names (name tiles)
     [taxonLeftName, leftNameVernacular, taxonRightName, rightNameVernacular] = Math.random() < 0.5
-        ? [taxonImageTwo, rightImageVernacular, taxonImageOne, leftImageVernacular]
-            : [taxonImageOne, leftImageVernacular, taxonImageTwo, rightImageVernacular];
+        ? [taxonImageTwo, imageTwoVernacular, taxonImageOne, imageOneVernacular]
+            : [taxonImageOne, imageOneVernacular, taxonImageTwo, imageTwoVernacular];
 
     // use extra attributes to track taxon ID on name tiles
     elements.leftName.setAttribute('data-taxon', taxonLeftName);
