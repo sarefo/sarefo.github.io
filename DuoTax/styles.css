@@ -1,6 +1,7 @@
 /* custom properties */
 :root {
-    --primary-color: #74ac00; /*#2C8F30;*/
+    --primary-color: #74ac00; /*before: #2C8F30;*/
+    --primary-counter-color: #ac0028; /* aka "red" */
     --text-color: #333;
     --background-color: #ffffff;
     --shadow-color: rgba(0, 0, 0, 0.1);
@@ -31,7 +32,7 @@ body * { text-align: center; }
 #share-button svg {
     width: 24px;
     height: 24px;
-    fill: var(--primary-color);
+    fill: var(--primary-counter-color);
 }
 
 .game-container {
