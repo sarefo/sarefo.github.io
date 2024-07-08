@@ -370,7 +370,7 @@ document.querySelectorAll('.image-container').forEach(element => {
     element.addEventListener('drop', drop);
 });
 
-//new
+//begin new
 function addTouchListeners() {
     const draggables = document.querySelectorAll('.draggable');
     draggables.forEach(draggable => {
@@ -384,9 +384,10 @@ function touchStart(e) {
     e.preventDefault();
     this.classList.add('dragging');
     const touch = e.touches[0];
-    this.startX = touch.clientX - this.offsetLeft;
-    this.startY = touch.clientY - this.offsetTop;
-    this.style.zIndex = '1000'; // Ensure dragged element is on top
+    const rect = this.getBoundingClientRect();
+    this.startX = touch.clientX - rect.left;
+    this.startY = touch.clientY - rect.top;
+    this.style.zIndex = '1000';
 }
 
 function touchMove(e) {
@@ -395,7 +396,7 @@ function touchMove(e) {
     const touch = e.touches[0];
     const newX = touch.clientX - this.startX;
     const newY = touch.clientY - this.startY;
-    //this.style.position = 'fixed'; // Change to 'fixed' positioning
+    this.style.position = 'absolute'; // Change to 'absolute' positioning
     this.style.left = `${newX}px`;
     this.style.top = `${newY}px`;
 }
