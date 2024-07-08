@@ -247,8 +247,8 @@ function resetDraggables() {
 
 function checkAnswer(droppedZoneId) {
     // Get references to the left and right drop zones
-    const dropOne = document.getElementById('drop-2');
-    const dropTwo = document.getElementById('drop-1');
+    const dropOne = document.getElementById('drop-1');
+    const dropTwo = document.getElementById('drop-2');
     const colorCorrect = "rgba(0, 200, 0, 0.5)", colorWrong = "rgba(200, 0, 0, 0.5)";
 
     const leftAnswer = dropOne.children[0]?.getAttribute('data-taxon');
