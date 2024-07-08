@@ -389,16 +389,12 @@ document.getElementById('surprise-button').addEventListener('click', () => {
 });
 
 function surprise() {
-    // URL of the fart sound
-    const fartSoundUrl = './sound/fart.mp3';
-    
+    // placeholder
+    const soundUrl = './sound/fart.mp3';
     // Create a new Audio object
-    const audio = new Audio(fartSoundUrl);
-    
+    const audio = new Audio(soundUrl);
     // Play the sound
-    audio.play().catch(error => {
-        console.error('Error playing the sound:', error);
-    });
+    audio.play().catch(error => { console.error('Error playing the fart:', error); });
 }
 
 // start
