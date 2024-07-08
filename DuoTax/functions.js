@@ -2,6 +2,7 @@
 const elements = {
     imageOne: document.getElementById('image-1'),
     imageTwo: document.getElementById('image-2'),
+    namePair: document.querySelector('.name-pair'),
     leftName: document.getElementById('left-name'),
     rightName: document.getElementById('right-name'),
     overlay: document.getElementById('overlay'),
@@ -397,18 +398,9 @@ function surprise() {
     audio.play().catch(error => { console.error('Error playing the fart:', error); });
 }
 
-    // Prevent scrolling in the name-pair area
-    const namePair = document.querySelector('.name-pair');
-
-    namePair.addEventListener('touchmove', function(event) {
-        event.preventDefault();
-    }, { passive: false });
-
-    namePair.addEventListener('wheel', function(event) {
-        event.preventDefault();
-    }, { passive: false });
+// Prevent scrolling in the name-pair area
+elements.namePair.addEventListener('touchmove', function(event) { event.preventDefault(); }, { passive: false });
+elements.namePair.addEventListener('wheel', function(event) { event.preventDefault(); }, { passive: false });
 
 // start
-(async function() {
-    await setupGame(newPair = true);
-})();
+(async function() { await setupGame(newPair = true); })();
