@@ -180,13 +180,12 @@ async function setupGame(newPair = false)  {
         ? [currentPair.taxon1, currentPair.taxon2]
             : [currentPair.taxon2, currentPair.taxon1];
 
-    if (isFirstLoad) {
-        showOverlay("Drag the names!", overGreen);
+    var startMessage = isFirstLoad ? "Drag the names!" : startMessage = "Loading…";
+        showOverlay(startMessage, overGreen);
         setTimeout(() => {
             hideOverlay();
             isFirstLoad = false;
-        }, 3000);
-    } else { showOverlay("Loading…", color=overGreen); } // TODO flaky hack to notify pictures still loading
+        }, 2000);
 
     // fetch images and vernacular names
     const [leftImageURL, rightImageURL, leftImageVernacular, rightImageVernacular] = await Promise.all([
@@ -211,8 +210,6 @@ async function setupGame(newPair = false)  {
     // display names on tiles
     leftName.innerHTML = `<i>${leftNameTaxon}</i><br>(${leftNameVernacular})`;
     rightName.innerHTML = `<i>${rightNameTaxon}</i><br>(${rightNameVernacular})`;
-
-    hideOverlay(); // TODO remove later, see above
 
 }
 
