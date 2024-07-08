@@ -444,7 +444,7 @@ elements.buttons.forEach(button => { button.addEventListener('click', () => { wi
 let draggedElement = null;
 let touchOffset = { x: 0, y: 0 };
 
-unction touchStart(e) {
+function touchStart(e) {
     console.log('touchStart triggered');
     e.preventDefault();
     draggedElement = e.target.closest('.draggable');
