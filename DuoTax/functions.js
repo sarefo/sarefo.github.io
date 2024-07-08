@@ -1,25 +1,29 @@
 // global handles for image and name html elements
-const leftImage = document.getElementById('image-1');
-const rightImage = document.getElementById('image-2');
-const leftName = document.getElementById('left-name');
-const rightName = document.getElementById('right-name');
+const elements = {
+    leftImage: document.getElementById('image-1'),
+    rightImage: document.getElementById('image-2'),
+    leftName: document.getElementById('left-name'),
+    rightName: document.getElementById('right-name'),
+    overlay: document.getElementById('overlay'),
+    overlayMessage: document.getElementById('overlay-message')
+};
 
 // overlay colors
-const overGreen = "rgba(76, 175, 80, 0.8)";
-const overRed = "rgba(200, 0, 0, 0.8)";
-const overGray = "rgba(100, 100, 100, 0.8";
+const overlayColors = {
+    green: "rgba(76, 175, 80, 0.8)",
+    red: "rgba(200, 0, 0, 0.8)",
+    gray: "rgba(100, 100, 100, 0.8"
+};
 
 let isFirstLoad = true;
+let currentPair;
 
 // global variables for image and name data
-let leftImageTaxon, rightImageTaxon;
-let leftNameTaxon, rightNameTaxon;
-let currentPair;
+let taxonImageOne, taxonImageTwo;
+let taxonLeftName, taxonRightName;
 
 // debugging section
 const debug = false;
-let displayName = "both"; // taxon, vernacular, both
-const iNatUser = null // change to user name to include only images by that user
 
 // fetch from JSON file
 async function fetchTaxonPairs() {
@@ -99,8 +103,8 @@ function shareCurrentPair() {
     currentUrl.searchParams.delete('taxon2');
 
     // Add new taxon1 and taxon2 parameters
-    currentUrl.searchParams.set('taxon1', leftImageTaxon);
-    currentUrl.searchParams.set('taxon2', rightImageTaxon);
+    currentUrl.searchParams.set('taxon1', taxonImageOne);
+    currentUrl.searchParams.set('taxon2', taxonImageTwo);
 
     // Create the new URL string
     let shareUrl = currentUrl.toString();
@@ -123,7 +127,7 @@ async function selectTaxonPair(index = null) {
 }
 
 // fetch random image of taxon from iNat
-async function fetchRandomImage(taxonName, username = null) {
+async function fetchRandomImage(taxonName) {
     try {
         // Search for the taxon
         const searchResponse = await fetch(`https://api.inaturalist.org/v1/taxa?q=${taxonName}`);
@@ -176,40 +180,40 @@ async function setupGame(newPair = false)  {
     }
 
     // Randomly decide which taxon goes left and right (images)
-    [leftImageTaxon, rightImageTaxon] = Math.random() < 0.5
+    [taxonImageOne, taxonImageTwo] = Math.random() < 0.5
         ? [currentPair.taxon1, currentPair.taxon2]
             : [currentPair.taxon2, currentPair.taxon1];
 
     var startMessage = isFirstLoad ? "Drag the names!" : startMessage = "Loading…";
-        showOverlay(startMessage, overGreen);
+        showOverlay(startMessage, overlayColors.green);
         setTimeout(() => {
             hideOverlay();
             isFirstLoad = false;
-        }, 2000);
+        }, 1200);
 
     // fetch images and vernacular names
     const [leftImageURL, rightImageURL, leftImageVernacular, rightImageVernacular] = await Promise.all([
-        fetchRandomImage(leftImageTaxon, iNatUser),
-        fetchRandomImage(rightImageTaxon, iNatUser),
-        fetchVernacular(leftImageTaxon),
-        fetchVernacular(rightImageTaxon)
+        fetchRandomImage(taxonImageOne),
+        fetchRandomImage(taxonImageTwo),
+        fetchVernacular(taxonImageOne),
+        fetchVernacular(taxonImageTwo)
     ]);
 
     // place images
-    [leftImage.src, rightImage.src] = [leftImageURL, rightImageURL];
+    [elements.leftImage.src, elements.rightImage.src] = [leftImageURL, rightImageURL];
 
     // Randomly decide placement of taxon names (name tiles)
-    [leftNameTaxon, leftNameVernacular, rightNameTaxon, rightNameVernacular] = Math.random() < 0.5
-        ? [rightImageTaxon, rightImageVernacular, leftImageTaxon, leftImageVernacular]
-            : [leftImageTaxon, leftImageVernacular, rightImageTaxon, rightImageVernacular];
+    [taxonLeftName, leftNameVernacular, taxonRightName, rightNameVernacular] = Math.random() < 0.5
+        ? [taxonImageTwo, rightImageVernacular, taxonImageOne, leftImageVernacular]
+            : [taxonImageOne, leftImageVernacular, taxonImageTwo, rightImageVernacular];
 
     // use extra attributes to track taxon ID on name tiles
-    leftName.setAttribute('data-taxon', leftNameTaxon);
-    rightName.setAttribute('data-taxon', rightNameTaxon);
+    elements.leftName.setAttribute('data-taxon', taxonLeftName);
+    elements.rightName.setAttribute('data-taxon', taxonRightName);
 
     // display names on tiles
-    leftName.innerHTML = `<i>${leftNameTaxon}</i><br>(${leftNameVernacular})`;
-    rightName.innerHTML = `<i>${rightNameTaxon}</i><br>(${rightNameVernacular})`;
+    elements.leftName.innerHTML = `<i>${taxonLeftName}</i><br>(${leftNameVernacular})`;
+    elements.rightName.innerHTML = `<i>${taxonRightName}</i><br>(${rightNameVernacular})`;
 
 }
 
@@ -258,7 +262,7 @@ function checkAnswer(droppedZoneId) {
     // Get references to the left and right drop zones
     const dropOne = document.getElementById('drop-1');
     const dropTwo = document.getElementById('drop-2');
-    const colorCorrect = overGreen, colorWrong = overRed;
+    const colorCorrect = overlayColors.green, colorWrong = overlayColors.red;
 
     const leftAnswer = dropOne.children[0]?.getAttribute('data-taxon');
     const rightAnswer = dropTwo.children[0]?.getAttribute('data-taxon');
@@ -268,9 +272,9 @@ function checkAnswer(droppedZoneId) {
         let isCorrect = false;
         // Check if the answer dropped in the first drop zone is correct
         if (droppedZoneId === 'drop-1') {
-            isCorrect = leftAnswer === leftImageTaxon;
+            isCorrect = leftAnswer === taxonImageOne;
         // Check if the answer dropped in the other drop zone is correct
-        } else { isCorrect = rightAnswer === rightImageTaxon; }
+        } else { isCorrect = rightAnswer === taxonImageTwo; }
 
         if (isCorrect) {
             showOverlay('Correct!', colorCorrect);
@@ -286,15 +290,12 @@ function checkAnswer(droppedZoneId) {
 
 // overlay for result and loading
 function showOverlay(message="", color) {
-    const overlay = document.getElementById('overlay');
-    const messageElement = document.getElementById('overlay-message');
-    messageElement.innerHTML = message;
-    overlay.style.backgroundColor = color;
-    overlay.classList.add('show');
+    elements.overlayMessage.innerHTML = message;
+    elements.overlay.style.backgroundColor = color;
+    elements.overlay.classList.add('show');
 }
 function hideOverlay() {
-    const overlay = document.getElementById('overlay');
-    overlay.classList.remove('show');
+    elements.overlay.classList.remove('show');
 }
 
 document.getElementById('version-id').textContent = 'Last modified: ' + document.lastModified;
