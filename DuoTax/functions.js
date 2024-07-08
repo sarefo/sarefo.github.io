@@ -370,6 +370,39 @@ document.querySelectorAll('.image-container').forEach(element => {
     element.addEventListener('drop', drop);
 });
 
+
+// by GPT while driving blind, probably best to replace with Claude + code input
+document.addEventListener('DOMContentLoaded', (event) => {
+    const draggableElement = document.getElementById('draggableElement');
+    let touchStartX, touchStartY;
+    let elementStartX, elementStartY;
+
+    draggableElement.addEventListener('touchstart', (e) => {
+        const touch = e.touches[0];
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+        elementStartX = draggableElement.offsetLeft;
+        elementStartY = draggableElement.offsetTop;
+    });
+
+    draggableElement.addEventListener('touchmove', (e) => {
+        if (touchStartX !== undefined && touchStartY !== undefined) {
+            const touch = e.touches[0];
+            const offsetX = touch.clientX - touchStartX;
+            const offsetY = touch.clientY - touchStartY;
+            draggableElement.style.left = (elementStartX + offsetX) + 'px';
+            draggableElement.style.top = (elementStartY + offsetY) + 'px';
+        }
+    });
+
+    draggableElement.addEventListener('touchend', (e) => {
+        touchStartX = undefined;
+        touchStartY = undefined;
+    });
+});
+
+
+
 document.getElementById('share-button').addEventListener('click', shareCurrentPair);
 document.getElementById('random-pair-button').addEventListener('click', async () => { await setupGame(true); });
 document.getElementById('select-pair-button').addEventListener('click', showTaxonPairList);
