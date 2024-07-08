@@ -397,6 +397,17 @@ function surprise() {
     audio.play().catch(error => { console.error('Error playing the fart:', error); });
 }
 
+    // Prevent scrolling in the name-pair area
+    const namePair = document.querySelector('.name-pair');
+
+    namePair.addEventListener('touchmove', function(event) {
+        event.preventDefault();
+    }, { passive: false });
+
+    namePair.addEventListener('wheel', function(event) {
+        event.preventDefault();
+    }, { passive: false });
+
 // start
 (async function() {
     await setupGame(newPair = true);
