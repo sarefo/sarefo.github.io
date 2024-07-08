@@ -51,9 +51,9 @@ async function showTaxonPairList() {
 
     const list = document.createElement('div');
     list.style.cssText = `
-        background-color: white;
+        background-color: var(--background-color);
         padding: 20px;
-        border-radius: 10px;
+        border-radius: var(--border-radius);
         max-width: 80%;
         max-height: 80%;
         overflow-y: auto;`;
@@ -61,13 +61,14 @@ async function showTaxonPairList() {
     // list pairs
     taxonPairs.forEach((pair, index) => {
         const button = document.createElement('button');
-        button.innerHTML = `<i>${pair.taxon1}</i> <span style="color: gray;">vs</span> <i>${pair.taxon2}</i>`;
+        button.innerHTML = `<i>${pair.taxon1}</i> <span style="color: #666;">vs</span> <i>${pair.taxon2}</i>`;
         button.style.cssText = `
             display: block;
             width: 100%;
             padding: 10px;
             margin: 5px 0;
-            background-color: #f0f0f0;
+            color: var(--background-color);
+            background-color: var(--primary-color);
             border: none;
             border-radius: 5px;
             cursor: pointer;`;
@@ -83,6 +84,61 @@ async function showTaxonPairList() {
     document.body.appendChild(modal);
 
     modal.onclick = (e) => { if (e.target === modal) { document.body.removeChild(modal); } };
+}
+
+// for user input of new taxon pairs
+async function validateTaxon(taxonName) {
+    try {
+        const response = await fetch(`https://api.inaturalist.org/v1/taxa?q=${encodeURIComponent(taxonName)}`);
+        const data = await response.json();
+        return data.results.length > 0 ? data.results[0] : null;
+    } catch (error) {
+        console.error('Error validating taxon:', error);
+        return null;
+    }
+}
+async function handleNewPairSubmit(event) {
+    event.preventDefault();
+    const taxon1 = document.getElementById('taxon1').value;
+    const taxon2 = document.getElementById('taxon2').value;
+    const dialogMessage = document.getElementById('dialog-message');
+
+    dialogMessage.textContent = 'Validating taxa...';
+
+    const [validatedTaxon1, validatedTaxon2] = await Promise.all([
+        validateTaxon(taxon1),
+        validateTaxon(taxon2)
+    ]);
+
+    if (validatedTaxon1 && validatedTaxon2) {
+        const newPair = {
+            taxon1: validatedTaxon1.name,
+            taxon2: validatedTaxon2.name
+        };
+
+        try {
+            const response = await fetch('./data/taxonPairs.json');
+            const taxonPairs = await response.json();
+            taxonPairs.push(newPair);
+
+            await fetch('./data/taxonPairs.json', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(taxonPairs),
+            });
+
+            currentPair = newPair;
+            setupGame(false);
+            document.getElementById('new-pair-dialog').close();
+        } catch (error) {
+            console.error('Error updating taxonPairs.json:', error);
+            dialogMessage.textContent = 'Error saving new pair. Please try again.';
+        }
+    } else {
+        dialogMessage.textContent = 'One or both taxa are invalid. Please check and try again.';
+    }
 }
 
 // optionally get pair of taxa from URL
@@ -309,7 +365,15 @@ document.querySelectorAll('.image-container').forEach(element => {
 document.getElementById('share-button').addEventListener('click', shareCurrentPair);
 document.getElementById('random-pair-button').addEventListener('click', async () => { await setupGame(true); });
 document.getElementById('select-pair-button').addEventListener('click', showTaxonPairList);
+document.getElementById('new-pair-button').addEventListener('click', () => {
+    document.getElementById('new-pair-dialog').showModal();
+});
 
+document.getElementById('close-dialog').addEventListener('click', () => {
+    document.getElementById('new-pair-dialog').close();
+});
+
+document.querySelector('#new-pair-dialog form').addEventListener('submit', handleNewPairSubmit);
 // start
 (async function() {
     await setupGame(newPair = true);

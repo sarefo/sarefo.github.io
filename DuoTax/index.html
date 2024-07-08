@@ -57,7 +57,7 @@
                 <button class="bottom-button" id="select-pair-button">Select pair</button>
             </div>
             <div class="button-row">
-                <button class="bottom-button" id="new-pair-button">New Pair</button>
+                <button class="bottom-button" id="new-pair-button">Enter pair</button>
                 <button class="bottom-button" id="surprise-button">Surprise</button>
             </div>
         </div>
@@ -68,6 +68,23 @@
     </div>
 
     <script src="functions.js" defer></script>
+
+    <dialog id="new-pair-dialog">
+        <form method="dialog">
+            <h2>Enter New Taxon Pair</h2>
+            <div>
+                <label for="taxon1">Taxon 1:</label>
+                <input type="text" id="taxon1" required>
+            </div>
+            <div>
+                <label for="taxon2">Taxon 2:</label>
+                <input type="text" id="taxon2" required>
+            </div>
+            <div id="dialog-message"></div>
+            <button type="submit">Submit</button>
+            <button type="button" id="close-dialog">Cancel</button>
+        </form>
+    </dialog>
 
 </body>
 </html>
