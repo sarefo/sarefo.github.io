@@ -370,7 +370,7 @@ document.querySelectorAll('.image-container').forEach(element => {
     element.addEventListener('drop', drop);
 });
 
-
+//new
 function addTouchListeners() {
     const draggables = document.querySelectorAll('.draggable');
     draggables.forEach(draggable => {
@@ -386,6 +386,7 @@ function touchStart(e) {
     const touch = e.touches[0];
     this.startX = touch.clientX - this.offsetLeft;
     this.startY = touch.clientY - this.offsetTop;
+    this.style.zIndex = '1000'; // Ensure dragged element is on top
 }
 
 function touchMove(e) {
@@ -394,21 +395,30 @@ function touchMove(e) {
     const touch = e.touches[0];
     const newX = touch.clientX - this.startX;
     const newY = touch.clientY - this.startY;
-    this.style.position = 'absolute';
+    this.style.position = 'fixed'; // Change to 'fixed' positioning
     this.style.left = `${newX}px`;
     this.style.top = `${newY}px`;
 }
 
 function touchEnd(e) {
     this.classList.remove('dragging');
+    this.style.zIndex = ''; // Reset z-index
     const dropZones = document.querySelectorAll('.droppable');
+    let dropped = false;
     dropZones.forEach(zone => {
         if (isOverlapping(this, zone)) {
             zone.innerHTML = '';
             zone.appendChild(this);
             checkAnswer(zone.id);
+            dropped = true;
         }
     });
+    if (!dropped) {
+        // If not dropped in a zone, return to original position
+        this.style.position = '';
+        this.style.left = '';
+        this.style.top = '';
+    }
     this.style.position = '';
     this.style.left = '';
     this.style.top = '';
@@ -425,8 +435,7 @@ function isOverlapping(elem1, elem2) {
 
 // Call this function after the DOM is loaded
 document.addEventListener('DOMContentLoaded', addTouchListeners);
-
-
+// end new
 
 document.getElementById('share-button').addEventListener('click', shareCurrentPair);
 document.getElementById('random-pair-button').addEventListener('click', async () => { await setupGame(true); });
