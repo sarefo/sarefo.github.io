@@ -401,6 +401,62 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 });
 */
+// Add these functions to your existing code
+function addTouchListeners() {
+    const draggables = document.querySelectorAll('.draggable');
+    draggables.forEach(draggable => {
+        draggable.addEventListener('touchstart', touchStart, { passive: false });
+        draggable.addEventListener('touchmove', touchMove, { passive: false });
+        draggable.addEventListener('touchend', touchEnd);
+    });
+}
+
+function touchStart(e) {
+    e.preventDefault();
+    this.classList.add('dragging');
+    const touch = e.touches[0];
+    this.startX = touch.clientX - this.offsetLeft;
+    this.startY = touch.clientY - this.offsetTop;
+}
+
+function touchMove(e) {
+    e.preventDefault();
+    if (!this.classList.contains('dragging')) return;
+    const touch = e.touches[0];
+    const newX = touch.clientX - this.startX;
+    const newY = touch.clientY - this.startY;
+    this.style.position = 'absolute';
+    this.style.left = `${newX}px`;
+    this.style.top = `${newY}px`;
+}
+
+function touchEnd(e) {
+    this.classList.remove('dragging');
+    const dropZones = document.querySelectorAll('.droppable');
+    dropZones.forEach(zone => {
+        if (isOverlapping(this, zone)) {
+            zone.innerHTML = '';
+            zone.appendChild(this);
+            checkAnswer(zone.id);
+        }
+    });
+    this.style.position = '';
+    this.style.left = '';
+    this.style.top = '';
+}
+
+function isOverlapping(elem1, elem2) {
+    const rect1 = elem1.getBoundingClientRect();
+    const rect2 = elem2.getBoundingClientRect();
+    return !(rect1.right < rect2.left || 
+             rect1.left > rect2.right || 
+             rect1.bottom < rect2.top || 
+             rect1.top > rect2.bottom);
+}
+
+// Call this function after the DOM is loaded
+document.addEventListener('DOMContentLoaded', addTouchListeners);
+
 
 
 document.getElementById('share-button').addEventListener('click', shareCurrentPair);

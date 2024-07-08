@@ -91,6 +91,11 @@ body * { text-align: center; }
     height: 60px;
 }
 
+.dragging {
+    opacity: 0.5;
+    cursor: grabbing;
+}
+
 .draggable, .droppable .draggable {
     background-color: var(--primary-color);
     opacity: 0.8;
