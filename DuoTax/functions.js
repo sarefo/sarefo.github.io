@@ -4,6 +4,8 @@ const rightImage = document.getElementById('image-2');
 const leftName = document.getElementById('left-name');
 const rightName = document.getElementById('right-name');
 
+let isFirstLoad = true;
+
 // global variables for image and name data
 let leftImageTaxon, rightImageTaxon;
 let leftNameTaxon, rightNameTaxon;
@@ -173,7 +175,13 @@ async function setupGame(newPair = false)  {
         ? [currentPair.taxon1, currentPair.taxon2]
             : [currentPair.taxon2, currentPair.taxon1];
 
-    showOverlay("Loading…", color="rgba(100, 100, 100, 0.8"); // TODO flaky hack to notify pictures still loading
+    if (isFirstLoad) {
+        showOverlay("Drag the names!", "rgba(100, 100, 100, 0.8)");
+        setTimeout(() => {
+            hideOverlay();
+            isFirstLoad = false;
+        }, 3000);
+    } else { showOverlay("Loading…", color="rgba(100, 100, 100, 0.8"); } // TODO flaky hack to notify pictures still loading
 
     // fetch images and vernacular names
     const [leftImageURL, rightImageURL, leftImageVernacular, rightImageVernacular] = await Promise.all([
@@ -200,8 +208,7 @@ async function setupGame(newPair = false)  {
     rightName.innerHTML = `<i>${rightNameTaxon}</i><br>(${rightNameVernacular})`;
 
     hideOverlay(); // TODO remove later, see above
-    // Call rearrangeElements after setting up the game
-//    setTimeout(rearrangeElements, 100); // Use setTimeout to ensure images have loaded
+
 }
 
 // drag and drop name tile onto image
