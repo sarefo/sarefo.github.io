@@ -104,11 +104,18 @@ body * { text-align: center; }
 
 .droppable {
     position: absolute;
-    bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
     width: 90%;
+}
+
+#image-container-1 .droppable {
+    bottom: 10%;
+}
+
+#image-container-2 .droppable {
+    top: 10%;
 }
 
 #overlay {
