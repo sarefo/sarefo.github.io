@@ -58,11 +58,9 @@ position: relative;
     aspect-ratio: 1/1;
     height: auto; 
     position: relative;
-    overflow: hidden;
+/*    overflow: hidden; */
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    text-align: center;
     border-radius: 8px;
-    background-color: white;
     box-sizing: border-box;
 }
 .image-container img {
