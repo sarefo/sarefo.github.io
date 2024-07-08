@@ -44,7 +44,7 @@ body * { text-align: center; }
 .name-pair { position: relative; }
 
 .image-container {
-    flex: 1 1 100%;
+    flex: 1 1 300px;
     margin: 4px;
     padding: 4px;
     width: calc(100% - 8px);
