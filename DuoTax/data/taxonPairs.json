@@ -35,5 +35,6 @@
     {"taxon1": "Hierodula patellifera", "taxon2": "Tropidomantis gressitti"},
     {"taxon1": "Auchenorrhyncha", "taxon2": "Sternorrhyncha"},
     {"taxon1": "Pygopodidae", "taxon2": "Serpentes"},
-    {"taxon1": "Zenaida", "taxon2": "Columba"}
+    {"taxon1": "Zenaida", "taxon2": "Columba"},
+    {"taxon1": "Lethrinidae", "taxon2":"Lutjanidae"}
 ]

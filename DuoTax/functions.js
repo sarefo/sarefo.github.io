@@ -125,7 +125,6 @@ async function fetchRandomImage(taxonName, username = null) {
         const taxonId = searchData.results[0].id;
 
         let images = [];
-        
         // Get the taxon details
         const taxonResponse = await fetch(`https://api.inaturalist.org/v1/taxa/${taxonId}`);
         const taxonData = await taxonResponse.json();
@@ -135,7 +134,6 @@ async function fetchRandomImage(taxonName, username = null) {
         // Extract images from taxon photos
         // square 75px • small 240px • medium 500px • large 1024px
         images = taxon.taxon_photos.map(photo => photo.photo.url.replace('square', 'medium'));
-
         if (images.length === 0) { throw new Error('No images found'); }
 
         // Select a random image
@@ -147,11 +145,9 @@ async function fetchRandomImage(taxonName, username = null) {
 // fetch vernacular name of taxon from iNat
 async function fetchVernacular(taxonName) {
     const baseUrl = 'https://api.inaturalist.org/v1/taxa';
-    
     try {
         const response = await fetch(`${baseUrl}?q=${encodeURIComponent(taxonName)}`);
         const data = await response.json();
-        
         if (data.results && data.results.length > 0) {
             const taxon = data.results[0];
             if (taxon && taxon.preferred_common_name) {
@@ -163,16 +159,6 @@ async function fetchVernacular(taxonName) {
 
 async function setupGame(newPair = false)  {
     resetDraggables();
-
-    if (newPair) {
-        if (!currentPair) {
-            if (!(currentPair = getURLParameters())) {
-                currentPair = await selectTaxonPair();
-            }
-        } else if (newPair === true) {
-            currentPair = await selectTaxonPair();
-        }
-    }
 
     if (newPair) { // select new taxon pair
         if (!currentPair) { // first round, no pair previously selected
@@ -196,6 +182,7 @@ async function setupGame(newPair = false)  {
         fetchVernacular(leftImageTaxon),
         fetchVernacular(rightImageTaxon)
     ]);
+
     // place images
     [leftImage.src, rightImage.src] = [leftImageURL, rightImageURL];
 
@@ -208,29 +195,18 @@ async function setupGame(newPair = false)  {
     leftName.setAttribute('data-taxon', leftNameTaxon);
     rightName.setAttribute('data-taxon', rightNameTaxon);
 
-    if (displayName === "taxon") {
-        leftName.innerHTML = "<i>" + leftNameTaxon + "</i>";
-        leftName.title = leftNameVernacular;
-        rightName.innerHTML = "<i>" + rightNameTaxon + "</i>";
-        rightName.title = rightNameVernacular;
-    } else if (displayName === "vernacular") {
-        leftName.textContent = leftNameVernacular;
-        leftName.title = leftNameTaxon;
-        rightName.textContent = rightNameVernacular;
-        rightName.title = rightNameTaxon;
-    } else if (displayName === "both") {
-        leftName.innerHTML = `<i>${leftNameTaxon}</i><br>(${leftNameVernacular})`;
-        rightName.innerHTML = `<i>${rightNameTaxon}</i><br>(${rightNameVernacular})`;
-    }
+    // display names on tiles
+    leftName.innerHTML = `<i>${leftNameTaxon}</i><br>(${leftNameVernacular})`;
+    rightName.innerHTML = `<i>${rightNameTaxon}</i><br>(${rightNameVernacular})`;
 
     hideOverlay(); // TODO remove later, see above
     // Call rearrangeElements after setting up the game
     setTimeout(rearrangeElements, 100); // Use setTimeout to ensure images have loaded
 }
 
+// drag and drop name tile onto image
 function dragStart(e) { e.dataTransfer.setData('text/plain', e.target.id); }
 function dragOver(e) { e.preventDefault(); }
-
 function drop(e) {
     e.preventDefault();
     const data = e.dataTransfer.getData('text');
@@ -241,10 +217,8 @@ function drop(e) {
         dropZone = e.target.querySelector('div[id$="-drop"]');
     } else if (e.target.tagName === 'IMG') {
         dropZone = e.target.nextElementSibling;
-    } else {
-        return; // Drop on an invalid target
-    }
-    
+    } else { return; } // Drop on an invalid target
+
     dropZone.innerHTML = ''; // Clear any existing content
     dropZone.appendChild(draggedElement);
 
@@ -256,6 +230,19 @@ function drop(e) {
     otherDropZone.appendChild(otherName);
 
     checkAnswer(dropZone.id);
+}
+function resetDraggables() {
+    const leftNameContainer = document.getElementById('left-name-container');
+    const rightNameContainer = document.getElementById('right-name-container');
+    const leftDrop = document.getElementById('left-drop');
+    const rightDrop = document.getElementById('right-drop');
+    
+    // Move draggables back to the names container
+    leftNameContainer.appendChild(document.getElementById('left-name'));
+    rightNameContainer.appendChild(document.getElementById('right-name'));
+    
+    // Clear drop zones
+    leftDrop.innerHTML = ''; rightDrop.innerHTML = '';
 }
 
 function checkAnswer(droppedZoneId) {
@@ -288,6 +275,7 @@ function checkAnswer(droppedZoneId) {
     }
 }
 
+// overlay for result and loading
 function showOverlay(message="", color) {
     const overlay = document.getElementById('overlay');
     const messageElement = document.getElementById('overlay-message');
@@ -301,25 +289,12 @@ function hideOverlay() {
     overlay.classList.remove('show');
 }
 
-function resetDraggables() {
-    const leftNameContainer = document.getElementById('left-name-container');
-    const rightNameContainer = document.getElementById('right-name-container');
-    const leftDrop = document.getElementById('left-drop');
-    const rightDrop = document.getElementById('right-drop');
-    
-    // Move draggables back to the names container
-    leftNameContainer.appendChild(document.getElementById('left-name'));
-    rightNameContainer.appendChild(document.getElementById('right-name'));
-    
-    // Clear drop zones
-    leftDrop.innerHTML = '';
-    rightDrop.innerHTML = '';
-}
+document.getElementById('version-id').textContent = 'Last modified: ' + document.lastModified;
 
+// Event listeners
 document.querySelectorAll('.draggable').forEach(element => {
     element.addEventListener('dragstart', dragStart);
 });
-
 document.querySelectorAll('.image-container').forEach(element => {
     element.addEventListener('dragover', dragOver);
     element.addEventListener('drop', drop);
@@ -327,8 +302,6 @@ document.querySelectorAll('.image-container').forEach(element => {
 
 document.getElementById('random-pair-button').addEventListener('click', async () => { await setupGame(true); });
 document.getElementById('select-pair-button').addEventListener('click', showTaxonPairList);
-
-document.getElementById('version-id').textContent = 'Last modified: ' + document.lastModified;
 
 // all this just to move the name buttons between the images on narrow screens :P
 // there's probably an easier way, such as just providing two sets of html?
