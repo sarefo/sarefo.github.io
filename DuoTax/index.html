@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>iNat Taxonomy Trainer</title>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="icon" href="favicon_iNat.png" type="image/png">
-    <title>iNat Taxonomy Trainer</title>
     <link rel="stylesheet" href="./styles.css">
+
     <script src="functions.js" defer></script>
+
 </head>
 
 <body>
@@ -18,32 +22,38 @@
 </button>
 
 <div class="game-container">
-  <div class="image-pair">
+
     <div class="image-container" id="left-container">
-      <img src="" alt="Left taxon" id="left-image">
-      <div id="left-drop" class="droppable"></div>
+        <img src="" alt="Left taxon" id="left-image">
+        <div id="left-drop" class="droppable"></div>
     </div>
+
+    <div class="name-pair">
+
+        <div id="left-name-container">
+            <div id="left-name" class="draggable" draggable="true" title=""></div>
+        </div>
+
+        <div id="right-name-container">
+            <div id="right-name" class="draggable" draggable="true" title=""></div>
+        </div>
+  
+    </div>
+
     <div class="image-container" id="right-container">
-      <img src="" alt="Right taxon" id="right-image">
-      <div id="right-drop" class="droppable"></div>
+        <img src="" alt="Right taxon" id="right-image">
+        <div id="right-drop" class="droppable"></div>
     </div>
-  </div>
-  <div class="name-pair">
-<div id="overlay">
-    <div id="overlay-message"></div>
-</div>
-    <div id="left-name-container">
-      <div id="left-name" class="draggable" draggable="true" title=""></div>
-    </div>
-    <div id="right-name-container">
-      <div id="right-name" class="draggable" draggable="true" title=""></div>
-    </div>
-  </div>
-</div>
+
+</div> <!-- game-container -->
+
+        <div id="overlay">
+            <div id="overlay-message"></div>
+        </div>
 
 <div class="button-container">
-<button id="random-pair-button">Random pair</button>
-<button id="select-pair-button">Select pair</button>
+    <button id="random-pair-button">Random pair</button>
+    <button id="select-pair-button">Select pair</button>
 </div>
 
 <div><a id="home-link" href="../index.html">Home</a></div>

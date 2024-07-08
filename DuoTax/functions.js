@@ -201,7 +201,7 @@ async function setupGame(newPair = false)  {
 
     hideOverlay(); // TODO remove later, see above
     // Call rearrangeElements after setting up the game
-    setTimeout(rearrangeElements, 100); // Use setTimeout to ensure images have loaded
+//    setTimeout(rearrangeElements, 100); // Use setTimeout to ensure images have loaded
 }
 
 // drag and drop name tile onto image
@@ -266,11 +266,11 @@ function checkAnswer(droppedZoneId) {
         if (isCorrect) {
             showOverlay('Correct!', colorCorrect);
             // Start a new game after 2 seconds
-            setTimeout(() => {hideOverlay(); setupGame(false); }, 2000);
+            setTimeout(() => {hideOverlay(); setupGame(false); }, 2400);
         } else {
             resetDraggables(); // remove tiles immediately
             showOverlay('Wrong!<br>Try again.', colorWrong);
-            setTimeout(() => { hideOverlay(); }, 2000); // Reset if wrong
+            setTimeout(() => { hideOverlay(); }, 800); // Reset if wrong
         }
     }
 }
@@ -302,52 +302,6 @@ document.querySelectorAll('.image-container').forEach(element => {
 
 document.getElementById('random-pair-button').addEventListener('click', async () => { await setupGame(true); });
 document.getElementById('select-pair-button').addEventListener('click', showTaxonPairList);
-
-// all this just to move the name buttons between the images on narrow screens :P
-// there's probably an easier way, such as just providing two sets of html?
-function rearrangeElements() {
-    const gameContainer = document.querySelector('.game-container');
-    const imagePair = document.querySelector('.image-pair');
-    const namePair = document.querySelector('.name-pair');
-    const leftContainer = document.getElementById('left-container');
-    const rightContainer = document.getElementById('right-container');
-
-    // Check if the images are stacked vertically
-    const isVertical = leftContainer.getBoundingClientRect().bottom <= rightContainer.getBoundingClientRect().top;
-
-    if (isVertical) {
-        // Vertical layout
-        gameContainer.innerHTML = '';
-        gameContainer.appendChild(leftContainer);
-        gameContainer.appendChild(namePair);
-        gameContainer.appendChild(rightContainer);
-    } else {
-        // Horizontal layout
-        gameContainer.innerHTML = '';
-        imagePair.innerHTML = '';
-        imagePair.appendChild(leftContainer);
-        imagePair.appendChild(rightContainer);
-        gameContainer.appendChild(imagePair);
-        gameContainer.appendChild(namePair);
-    }
-}
-// Debounce function to limit how often rearrangeElements is called
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-// Use the debounced version of rearrangeElements
-const debouncedRearrange = debounce(rearrangeElements, 250);
-// Call the function on load and resize
-window.addEventListener('load', rearrangeElements);
-window.addEventListener('resize', debouncedRearrange);
 
 (async function() {
     await setupGame(newPair = true);
