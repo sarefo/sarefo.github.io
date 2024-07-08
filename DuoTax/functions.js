@@ -400,6 +400,17 @@ function surprise() {
     audio.play().catch(error => { console.error('Error playing the fart:', error); });
 }
 
+// keyboard shortcuts
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'r' || event.key === 'R') { document.getElementById('random-pair-button').click(); }
+        if (event.key === 's' || event.key === 'S') { document.getElementById('select-pair-button').click(); }
+        if (event.key === 'e' || event.key === 'E') { document.getElementById('enter-pair-button').click(); }
+        if (event.key === 'p' || event.key === 'P') { document.getElementById('surprise-button').click(); }
+        if (event.key === 'f' || event.key === 'F') { document.getElementById('surprise-button').click(); }
+    });
+});
+
 // Prevent scrolling in the name-pair area
 elements.namePair.addEventListener('touchmove', function(event) { event.preventDefault(); }, { passive: false });
 elements.namePair.addEventListener('wheel', function(event) { event.preventDefault(); }, { passive: false });
