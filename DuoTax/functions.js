@@ -383,6 +383,24 @@ document.querySelector('#enter-pair-dialog form').addEventListener('submit', asy
     await handleNewPairSubmit(event);
 });
 
+document.getElementById('surprise-button').addEventListener('click', () => {
+    clearDialogInputs();
+    surprise();
+});
+
+function surprise() {
+    // URL of the fart sound
+    const fartSoundUrl = './sound/fart.mp3';
+    
+    // Create a new Audio object
+    const audio = new Audio(fartSoundUrl);
+    
+    // Play the sound
+    audio.play().catch(error => {
+        console.error('Error playing the sound:', error);
+    });
+}
+
 // start
 (async function() {
     await setupGame(newPair = true);
