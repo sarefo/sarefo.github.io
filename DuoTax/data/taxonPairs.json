@@ -42,5 +42,6 @@
     {"taxon1": "Synanthedon", "taxon2": "Vespoidea"},
     {"taxon1": "Formicinae", "taxon2": "Myrmicinae"},
     {"taxon1": "Dolichoderinae", "taxon2": "Camponotus"},
+    {"taxon1": "Ponerinae", "taxon2": "Camponotus"},
     {"taxon1": "Lethrinidae", "taxon2":"Lutjanidae"}
 ]
