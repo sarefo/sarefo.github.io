@@ -4,6 +4,11 @@ const rightImage = document.getElementById('image-2');
 const leftName = document.getElementById('left-name');
 const rightName = document.getElementById('right-name');
 
+// overlay colors
+const overGreen = "rgba(76, 175, 80, 0.8)";
+const overRed = "rgba(200, 0, 0, 0.8)";
+const overGray = "rgba(100, 100, 100, 0.8";
+
 let isFirstLoad = true;
 
 // global variables for image and name data
@@ -176,12 +181,12 @@ async function setupGame(newPair = false)  {
             : [currentPair.taxon2, currentPair.taxon1];
 
     if (isFirstLoad) {
-        showOverlay("Drag the names!", "rgba(100, 100, 100, 0.8)");
+        showOverlay("Drag the names!", overGreen);
         setTimeout(() => {
             hideOverlay();
             isFirstLoad = false;
         }, 3000);
-    } else { showOverlay("Loading…", color="rgba(100, 100, 100, 0.8"); } // TODO flaky hack to notify pictures still loading
+    } else { showOverlay("Loading…", color=overGreen); } // TODO flaky hack to notify pictures still loading
 
     // fetch images and vernacular names
     const [leftImageURL, rightImageURL, leftImageVernacular, rightImageVernacular] = await Promise.all([
@@ -256,7 +261,7 @@ function checkAnswer(droppedZoneId) {
     // Get references to the left and right drop zones
     const dropOne = document.getElementById('drop-1');
     const dropTwo = document.getElementById('drop-2');
-    const colorCorrect = "rgba(0, 200, 0, 0.5)", colorWrong = "rgba(200, 0, 0, 0.5)";
+    const colorCorrect = overGreen, colorWrong = overRed;
 
     const leftAnswer = dropOne.children[0]?.getAttribute('data-taxon');
     const rightAnswer = dropTwo.children[0]?.getAttribute('data-taxon');
