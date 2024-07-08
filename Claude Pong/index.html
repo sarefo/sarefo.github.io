@@ -49,7 +49,7 @@
         }
 
         #gameStatus, #instructions, #triviaPopup {
-            pointer-events: none;
+            /*pointer-events: none;*/
             position: absolute; 
             left: 50%; 
             text-align: center; 
@@ -81,7 +81,12 @@
             font-size: 14px; 
             width: 100%; 
         }
-
+        .home-link {
+          font-size: 12px;
+          color: #fff;
+          opacity: 0.7;
+          text-decoration: none;
+        }
     </style>
 </head>
 
@@ -92,6 +97,7 @@
         <div id="instructions">
             <p><b>Up/Down</b>: W/S • Arrows • Mouse • Swipe</p>
             <p>A to <b>toggle AI</b> • <b>Pause</b>: Spacebar / Click</p>
+            <p> <a href="../index.html" class="home-link">Home</a></p> 
         </div>
     </div>
 
