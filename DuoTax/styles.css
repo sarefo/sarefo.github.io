@@ -118,8 +118,23 @@ body * { text-align: center; }
     text-shadow: 2px 2px 4px var(--shadow-color);
     padding: 20px;
 }
+/*
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    max-width: 420px;
+    margin: 0 auto;
+}
 
-#random-pair-button, #select-pair-button {
+.button-row {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+*/
+.bottom-button {
     background-color: var(--primary-color);
     color: var(--background-color);
     font-size: 16px;
