@@ -214,7 +214,7 @@ function drop(e) {
     
     let dropZone;
     if (e.target.classList.contains('image-container')) {
-        dropZone = e.target.querySelector('div[id$="-drop"]');
+        dropZone = e.target.querySelector('div[id^="drop-"]');
     } else if (e.target.tagName === 'IMG') {
         dropZone = e.target.nextElementSibling;
     } else { return; } // Drop on an invalid target
@@ -234,33 +234,33 @@ function drop(e) {
 function resetDraggables() {
     const leftNameContainer = document.getElementById('left-name-container');
     const rightNameContainer = document.getElementById('right-name-container');
-    const leftDrop = document.getElementById('drop-1');
-    const rightDrop = document.getElementById('drop-2');
+    const dropOne = document.getElementById('drop-1');
+    const dropTwo = document.getElementById('drop-2');
     
     // Move draggables back to the names container
     leftNameContainer.appendChild(document.getElementById('left-name'));
     rightNameContainer.appendChild(document.getElementById('right-name'));
     
     // Clear drop zones
-    leftDrop.innerHTML = ''; rightDrop.innerHTML = '';
+    dropOne.innerHTML = ''; dropTwo.innerHTML = '';
 }
 
 function checkAnswer(droppedZoneId) {
     // Get references to the left and right drop zones
-    const leftDrop = document.getElementById('left-drop');
-    const rightDrop = document.getElementById('right-drop');
+    const dropOne = document.getElementById('drop-2');
+    const dropTwo = document.getElementById('drop-1');
     const colorCorrect = "rgba(0, 200, 0, 0.5)", colorWrong = "rgba(200, 0, 0, 0.5)";
 
-    const leftAnswer = leftDrop.children[0]?.getAttribute('data-taxon');
-    const rightAnswer = rightDrop.children[0]?.getAttribute('data-taxon');
+    const leftAnswer = dropOne.children[0]?.getAttribute('data-taxon');
+    const rightAnswer = dropTwo.children[0]?.getAttribute('data-taxon');
 
     // Check if there are any answers in the drop zones
     if (leftAnswer || rightAnswer) {
         let isCorrect = false;
-        // Check if the answer dropped in the left drop zone is correct
-        if (droppedZoneId === 'left-drop') {
+        // Check if the answer dropped in the first drop zone is correct
+        if (droppedZoneId === 'drop-1') {
             isCorrect = leftAnswer === leftImageTaxon;
-        // Check if the answer dropped in the right drop zone is correct
+        // Check if the answer dropped in the other drop zone is correct
         } else { isCorrect = rightAnswer === rightImageTaxon; }
 
         if (isCorrect) {
