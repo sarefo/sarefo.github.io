@@ -279,9 +279,8 @@ function checkAnswer(droppedZoneId) {
 function showOverlay(message="", color) {
     const overlay = document.getElementById('overlay');
     const messageElement = document.getElementById('overlay-message');
-    const overlayBackground = document.getElementById('overlay');
     messageElement.innerHTML = message;
-    overlayBackground.style.backgroundColor = color;
+    overlay.style.backgroundColor = color;
     overlay.classList.add('show');
 }
 function hideOverlay() {
@@ -303,6 +302,7 @@ document.querySelectorAll('.image-container').forEach(element => {
 document.getElementById('random-pair-button').addEventListener('click', async () => { await setupGame(true); });
 document.getElementById('select-pair-button').addEventListener('click', showTaxonPairList);
 
+// start
 (async function() {
     await setupGame(newPair = true);
 })();
