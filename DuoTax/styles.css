@@ -2,8 +2,7 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    margin: 0;
-    padding: 0;
+    margin: 0; padding: 0;
     overflow: auto;
     box-sizing: border-box;
 }
@@ -23,15 +22,14 @@ body * {
 h1 { font-size: 16px; }
 
 .game-container {
-    flex: 1;
+    flex: none;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    justify-content: center;
     align-items: center;
     width: 100%;
-    height:100vh; /* TODO change to 100 if fullscreen on Android possible*/
-    margin: 0 0;
+    height:100vh;
+    margin: 0; padding: 0;
     overflow: hidden;
     padding: 0px;
     box-sizing: border-box;
@@ -118,16 +116,11 @@ position: relative;
     width: 90%;
 }
 
-.scrollable-area {
-    flex: 1;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+.scrollable-content {
+    width:100%;
+    padding: 20px;
+    box-sizing: border-box;
 }
-.scrollable-area::-webkit-scrollbar { display: none; }
-.scroll-sensitive-area { height: 33.33vh; }
-.non-scroll-area { height: 33.33vh; }
 
 #overlay {
     position: absolute;
