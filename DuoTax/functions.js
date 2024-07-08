@@ -93,7 +93,6 @@ function getURLParameters() {
 }
 
 // implement sharing current pair URL
-document.getElementById('share-button').addEventListener('click', shareCurrentPair);
 function shareCurrentPair() {
     // Get the current URL
     let currentUrl = new URL(window.location.href);
@@ -307,6 +306,7 @@ document.querySelectorAll('.image-container').forEach(element => {
     element.addEventListener('drop', drop);
 });
 
+document.getElementById('share-button').addEventListener('click', shareCurrentPair);
 document.getElementById('random-pair-button').addEventListener('click', async () => { await setupGame(true); });
 document.getElementById('select-pair-button').addEventListener('click', showTaxonPairList);
 
