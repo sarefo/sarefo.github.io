@@ -179,11 +179,12 @@ position: relative;
 }
 
 #home-link {
-    font-size: 80%;
+    font-size: 14px;
+    color: #333;
+    text-decoration: none;
 }
 
 #version-id {
-    position: fixed;
-    bottom: 5px; right: 5px;
-    font-size: 14px; color: #444;
+    padding-top: 8px;
+    font-size: 14px; color: #333;
 }
