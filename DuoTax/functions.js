@@ -6,7 +6,8 @@ const elements = {
     leftName: document.getElementById('left-name'),
     rightName: document.getElementById('right-name'),
     overlay: document.getElementById('overlay'),
-    overlayMessage: document.getElementById('overlay-message')
+    overlayMessage: document.getElementById('overlay-message'),
+    buttons: document.querySelectorAll('.bottom-button')
 };
 
 // overlay colors
@@ -401,6 +402,9 @@ function surprise() {
 // Prevent scrolling in the name-pair area
 elements.namePair.addEventListener('touchmove', function(event) { event.preventDefault(); }, { passive: false });
 elements.namePair.addEventListener('wheel', function(event) { event.preventDefault(); }, { passive: false });
+
+// Scroll to top when a button is clicked
+elements.buttons.forEach(button => { button.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); }); });
 
 // start
 (async function() { await setupGame(newPair = true); })();
