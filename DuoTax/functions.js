@@ -322,31 +322,34 @@ function resetDraggables() {
 }
 
 function checkAnswer(droppedZoneId) {
-    // Get references to the left and right drop zones
     const dropOne = document.getElementById('drop-1');
     const dropTwo = document.getElementById('drop-2');
-    const colorCorrect = overlayColors.green, colorWrong = overlayColors.red;
+    const colorCorrect = overlayColors.green;
+    const colorWrong = overlayColors.red;
 
     const leftAnswer = dropOne.children[0]?.getAttribute('data-taxon');
     const rightAnswer = dropTwo.children[0]?.getAttribute('data-taxon');
 
-    // Check if there are any answers in the drop zones
-    if (leftAnswer || rightAnswer) {
+    if (leftAnswer && rightAnswer) {
         let isCorrect = false;
-        // Check if the answer dropped in the first drop zone is correct
         if (droppedZoneId === 'drop-1') {
             isCorrect = leftAnswer === taxonImageOne;
-        // Check if the answer dropped in the other drop zone is correct
-        } else { isCorrect = rightAnswer === taxonImageTwo; }
+        } else {
+            isCorrect = rightAnswer === taxonImageTwo;
+        }
 
         if (isCorrect) {
             showOverlay('Correct!', colorCorrect);
-            // Start a new game after 2 seconds
-            setTimeout(() => {hideOverlay(); setupGame(false); }, 2400);
+            setTimeout(() => {
+                hideOverlay();
+                setupGame(true);
+            }, 2400);
         } else {
-            resetDraggables(); // remove tiles immediately
+            resetDraggables();
             showOverlay('Wrong!<br>Try again.', colorWrong);
-            setTimeout(() => { hideOverlay(); }, 800); // Reset if wrong
+            setTimeout(() => {
+                hideOverlay();
+            }, 800);
         }
     }
 }
@@ -492,6 +495,10 @@ function getDropZone(e) {
 }
 
 function handleDrop(dropZone) {
+    if (!draggedElement) return;
+
+    console.log('Dropping element:', draggedElement.id, 'into zone:', dropZone.id);
+
     dropZone.innerHTML = '';
     dropZone.appendChild(draggedElement);
     draggedElement.style.position = '';
@@ -506,7 +513,7 @@ function handleDrop(dropZone) {
 
     checkAnswer(dropZone.id);
 }
-    
+
 function resetDraggedElement() {
     const originalContainer = draggedElement.id === 'left-name' ? 'left-name-container' : 'right-name-container';
     document.getElementById(originalContainer).appendChild(draggedElement);
