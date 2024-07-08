@@ -232,6 +232,7 @@ async function fetchVernacular(taxonName) {
 
 async function setupGame(newPair = false)  {
     resetDraggables();
+window.scrollTo({ top: 0, behavior: 'smooth' });
 
     if (newPair) { // select new taxon pair
             // try to fetch taxon pair from URL, use random from local array otherwise
