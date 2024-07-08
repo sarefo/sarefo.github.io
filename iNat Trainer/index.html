@@ -304,50 +304,18 @@ const debug = false;
 let displayName = "both"; // taxon, vernacular, both
 const iNatUser = null // change to user name to include only images by that user
 
-var taxonPairs = [
-    {taxon1: 'Panthera onca', taxon2: 'Panthera pardus' },
-    {taxon1: 'Crocodylidae', taxon2: 'Alligatoridae'},
-    {taxon1: 'Lissachatina immaculata', taxon2: 'Lissachatina fulica'},
-    {taxon1: 'Caeneressa diaphana', taxon2: 'Amata huebneri'},
-    {taxon1: 'Fromia monilis', taxon2: 'Fromia heffernani'},
-    {taxon1: 'Formicidae', taxon2: 'Myrmarachnini'},
-    {taxon1: 'Coradion chrysozonus', taxon2: 'Chelmon rostratus'},
-    {taxon1: 'Platax teira', taxon2: 'Platax orbicularis'},
-    {taxon1: 'Plerogyra sinuosa', taxon2: 'Physogyra lichtensteini'},
-    {taxon1: 'Platygyra', taxon2: 'Lobophyllia'},
-    {taxon1: 'Chelonia mydas', taxon2: 'Eretmochelys imbricata'},
-    {taxon1: 'Pocillopora', taxon2: 'Millepora'},
-    {taxon1: 'Ostracion meleagris', taxon2: 'Ostracion solorense'},
-    {taxon1: 'Chaetodon vagabundus', taxon2: 'Chaetodon lunulatus'},
-    {taxon1: 'Magnoliopsida', taxon2: 'Liliopsida'},
-    {taxon1: 'Eumalacostraca', taxon2: 'Hoplocarida'},
-    {taxon1: 'Eucarida', taxon2: 'Peracarida'},
-    {taxon1: 'Heniochus varius', taxon2: 'Heniochus chrysostomus'},
-    {taxon1: 'Heniochus macrolepidotus', taxon2: 'Heniochus diphreutes'},
-    {taxon1: 'Nephila pilipes', taxon2: 'Trichonephila clavata'},
-    {taxon1: 'Anoplolepis gracilipes', taxon2: 'Solenopsis invicta'},
-    {taxon1: 'Papilionoidea', taxon2: 'Geometroidea'},
-    {taxon1: 'Papilionoidea', taxon2: 'Bombycoidea '},
-    {taxon1: 'Psychidae', taxon2: 'Tineidae'},
-    {taxon1: 'Tortricidae', taxon2: 'Zygaenidae'},
-    {taxon1: 'Zygaenidae', taxon2: 'Limacodidae'},
-    {taxon1: 'Caelifera', taxon2: 'Ensifera'},
-    {taxon1: 'Tettigoniidae', taxon2: 'Acridoidea'},
-    {taxon1: 'Brachycera', taxon2: 'Nematocera'},
-    {taxon1: 'Cyclorrhapha', taxon2: 'Orthorrhapha'},
-    {taxon1: 'Acalyptratae', taxon2: 'Calyptratae'},
-    {taxon1: 'Cheilomenes sexmaculata', taxon2: 'Coccinella transversalis'},
-    {taxon1: 'Anisoptera', taxon2: 'Zygoptera'},
-    {taxon1: 'Hierodula patellifera', taxon2: 'Tropidomantis gressitti'},
-    {taxon1: 'Auchenorrhyncha', taxon2: 'Sternorrhyncha'},
-    {taxon1: 'Pygopodidae', taxon2: 'Serpentes'},
-    {taxon1: 'Zenaida', taxon2: 'Columba'},
-]
-/*
-    {taxon1: '', taxon2: ''},
-*/
 
-function showTaxonPairList() {
+async function fetchTaxonPairs() {
+    try {
+        const response = await fetch('./data/taxonPairs.json');
+        if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); }
+        return await response.json();
+    } catch (error) { console.error("Could not fetch taxon pairs:", error); return []; }
+}
+
+async function showTaxonPairList() {
+    const taxonPairs = await fetchTaxonPairs();
+    if (taxonPairs.length === 0) { console.error("No taxon pairs available"); return; }
     const modal = document.createElement('div');
     modal.style.cssText = `
         position: fixed;
@@ -433,9 +401,17 @@ function shareCurrentPair() {
 }
 
 //return random taxon pair by default, or one with given index
-function selectTaxonPair(index = null) {
+async function selectTaxonPair(index = null) {
+    const taxonPairs = await fetchTaxonPairs();
+    if (taxonPairs.length === 0) {
+        console.error("No taxon pairs available");
+        return null;
+    }
     return !index ? taxonPairs[Math.floor(Math.random() * taxonPairs.length)] : taxonPairs[index];
 }
+/*function selectTaxonPair(index = null) {
+    return !index ? taxonPairs[Math.floor(Math.random() * taxonPairs.length)] : taxonPairs[index];
+}*/
 
 // fetch random image of taxon from iNat
 async function fetchRandomImage(taxonName, username = null) {
@@ -502,12 +478,22 @@ async function fetchVernacular(taxonName) {
 async function setupGame(newPair = false)  {
     resetDraggables();
 
+    if (newPair) {
+        if (!currentPair) {
+            if (!(currentPair = getURLParameters())) {
+                currentPair = await selectTaxonPair();
+            }
+        } else if (newPair === true) {
+            currentPair = await selectTaxonPair();
+        }
+    }
+
     if (newPair) { // select new taxon pair
         if (!currentPair) { // first round, no pair previously selected
             // try to fetch taxon pair from URL, use random from local array otherwise
-            if (!(currentPair = getURLParameters())) { currentPair = selectTaxonPair(); }
+            if (!(currentPair = getURLParameters())) { currentPair = await selectTaxonPair(); }
         // not the first round: get random from local array
-        } else if (newPair === true) { currentPair = selectTaxonPair(); }
+        } else if (newPair === true) { currentPair = await selectTaxonPair(); }
     }
 
     // Randomly decide which taxon goes left and right (images)
@@ -653,7 +639,7 @@ document.querySelectorAll('.image-container').forEach(element => {
     element.addEventListener('drop', drop);
 });
 
-document.getElementById('random-pair-button').addEventListener('click', () => { setupGame(true); });
+document.getElementById('random-pair-button').addEventListener('click', async () => { await setupGame(true); });
 document.getElementById('select-pair-button').addEventListener('click', showTaxonPairList);
 
 document.getElementById('version-id').textContent = 'Last modified: ' + document.lastModified;
@@ -704,7 +690,9 @@ const debouncedRearrange = debounce(rearrangeElements, 250);
 window.addEventListener('load', rearrangeElements);
 window.addEventListener('resize', debouncedRearrange);
 
-setupGame(newPair = true);
+(async function() {
+    await setupGame(newPair = true);
+})();
 
 </script>
 </body>
