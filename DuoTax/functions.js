@@ -322,6 +322,7 @@ function resetDraggables() {
 }
 
 function checkAnswer(droppedZoneId) {
+console.log('checkAnswer called with:', droppedZoneId);
     const dropOne = document.getElementById('drop-1');
     const dropTwo = document.getElementById('drop-2');
     const colorCorrect = overlayColors.green;
@@ -443,59 +444,87 @@ elements.buttons.forEach(button => { button.addEventListener('click', () => { wi
 let draggedElement = null;
 let touchOffset = { x: 0, y: 0 };
 
-function touchStart(e) {
+unction touchStart(e) {
+    console.log('touchStart triggered');
     e.preventDefault();
     draggedElement = e.target.closest('.draggable');
+    console.log('Dragged element:', draggedElement?.id);
+    if (!draggedElement) return;
+    
     const touch = e.touches[0];
     const rect = draggedElement.getBoundingClientRect();
     touchOffset.x = touch.clientX - rect.left;
     touchOffset.y = touch.clientY - rect.top;
+    console.log('Touch offset:', touchOffset);
+    
     draggedElement.style.zIndex = '1000';
     draggedElement.style.position = 'fixed';
     updateElementPosition(touch);
 }
 
 function touchMove(e) {
+    console.log('touchMove triggered');
     e.preventDefault();
     if (draggedElement) {
         const touch = e.touches[0];
         updateElementPosition(touch);
+        console.log('Element position updated');
     }
 }
 
 function touchEnd(e) {
+    console.log('touchEnd triggered');
     e.preventDefault();
     if (draggedElement) {
+        console.log('Dragged element exists');
         const dropZone = getDropZone(e);
+        console.log('Drop zone:', dropZone?.id);
         if (dropZone) {
+            console.log('Calling handleDrop');
             handleDrop(dropZone);
         } else {
+            console.log('Resetting dragged element');
             resetDraggedElement();
         }
         draggedElement.style.zIndex = '';
         draggedElement.style.position = '';
         draggedElement = null;
+    } else {
+        console.log('No dragged element on touchEnd');
     }
 }
+
 function updateElementPosition(touch) {
     draggedElement.style.left = `${touch.clientX - touchOffset.x}px`;
     draggedElement.style.top = `${touch.clientY - touchOffset.y}px`;
+    console.log('Element position:', draggedElement.style.left, draggedElement.style.top);
 }
+
 function getDropZone(e) {
+    console.log('getDropZone called');
     const touch = e.changedTouches[0];
     const dropZones = document.querySelectorAll('.droppable');
+    console.log('Number of drop zones:', dropZones.length);
     for (let dropZone of dropZones) {
         const rect = dropZone.getBoundingClientRect();
+        console.log('Drop zone rect:', rect);
+        console.log('Touch position:', touch.clientX, touch.clientY);
         if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
             touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+            console.log('Drop zone found:', dropZone.id);
             return dropZone;
         }
     }
+    console.log('No drop zone found');
     return null;
 }
 
 function handleDrop(dropZone) {
-    if (!draggedElement) return;
+    console.log('handleDrop called');
+    if (!draggedElement) {
+        console.log('No dragged element in handleDrop');
+        return;
+    }
 
     console.log('Dropping element:', draggedElement.id, 'into zone:', dropZone.id);
 
@@ -511,10 +540,12 @@ function handleDrop(dropZone) {
     otherDropZone.innerHTML = '';
     otherDropZone.appendChild(otherName);
 
+    console.log('Calling checkAnswer');
     checkAnswer(dropZone.id);
 }
 
 function resetDraggedElement() {
+    console.log('resetDraggedElement called');
     const originalContainer = draggedElement.id === 'left-name' ? 'left-name-container' : 'right-name-container';
     document.getElementById(originalContainer).appendChild(draggedElement);
     draggedElement.style.position = '';

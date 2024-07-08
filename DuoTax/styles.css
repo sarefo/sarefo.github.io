@@ -257,3 +257,24 @@ body * { text-align: center; }
     margin-top: 20px;
 }
 
+
+
+
+.droppable {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 90%;
+    height: 60px; /* Add a fixed height */
+    background-color: rgba(255, 255, 255, 0.2); /* Add a semi-transparent background */
+    border: 2px dashed #74ac00; /* Add a dashed border */
+}
+
+#image-container-1 .droppable {
+    bottom: 10%;
+}
+
+#image-container-2 .droppable {
+    top: 10%;
+}
