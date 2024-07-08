@@ -14,7 +14,7 @@ const debug = false;
 let displayName = "both"; // taxon, vernacular, both
 const iNatUser = null // change to user name to include only images by that user
 
-
+// fetch from JSON file
 async function fetchTaxonPairs() {
     try {
         const response = await fetch('./data/taxonPairs.json');
@@ -23,22 +23,20 @@ async function fetchTaxonPairs() {
     } catch (error) { console.error("Could not fetch taxon pairs:", error); return []; }
 }
 
+// display pair list for selection
 async function showTaxonPairList() {
     const taxonPairs = await fetchTaxonPairs();
     if (taxonPairs.length === 0) { console.error("No taxon pairs available"); return; }
     const modal = document.createElement('div');
     modal.style.cssText = `
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
         background-color: rgba(0, 0, 0, 0.5);
         display: flex;
         justify-content: center;
         align-items: center;
-        z-index: 1000;
-    `;
+        z-index: 1000;`;
 
     const list = document.createElement('div');
     list.style.cssText = `
@@ -47,9 +45,9 @@ async function showTaxonPairList() {
         border-radius: 10px;
         max-width: 80%;
         max-height: 80%;
-        overflow-y: auto;
-    `;
+        overflow-y: auto;`;
 
+    // list pairs
     taxonPairs.forEach((pair, index) => {
         const button = document.createElement('button');
         button.innerHTML = `<i>${pair.taxon1}</i> <span style="color: gray;">vs</span> <i>${pair.taxon2}</i>`;
@@ -61,8 +59,7 @@ async function showTaxonPairList() {
             background-color: #f0f0f0;
             border: none;
             border-radius: 5px;
-            cursor: pointer;
-        `;
+            cursor: pointer;`;
         button.onclick = () => {
             currentPair = pair;
             setupGame(false);
@@ -117,9 +114,6 @@ async function selectTaxonPair(index = null) {
     }
     return !index ? taxonPairs[Math.floor(Math.random() * taxonPairs.length)] : taxonPairs[index];
 }
-/*function selectTaxonPair(index = null) {
-    return !index ? taxonPairs[Math.floor(Math.random() * taxonPairs.length)] : taxonPairs[index];
-}*/
 
 // fetch random image of taxon from iNat
 async function fetchRandomImage(taxonName, username = null) {
@@ -132,31 +126,15 @@ async function fetchRandomImage(taxonName, username = null) {
 
         let images = [];
         
-        if (username) {
-            // Fetch observations by the specified user for the given taxon
-            const observationsResponse = await fetch(`https://api.inaturalist.org/v1/observations?user_login=${username}&taxon_id=${taxonId}`);
-            const observationsData = await observationsResponse.json();
-            if (observationsData.results.length === 0) {
-                throw new Error('No observations found for the specified user and taxon');
-            }
-
-            // Extract images from the observations
-            // square 75px • small 240px • medium 500px • large 1024px
-            observationsData.results.forEach(observation => {
-                observation.photos.forEach(photo => {
-                    images.push(photo.url.replace('square', 'medium')); // You can change 'medium' to your desired size
-                });
-            });
-        } else {
-            // Get the taxon details
-            const taxonResponse = await fetch(`https://api.inaturalist.org/v1/taxa/${taxonId}`);
-            const taxonData = await taxonResponse.json();
-            if (taxonData.results.length === 0) { throw new Error('No details found for the taxon'); }
-            const taxon = taxonData.results[0];
-            
-            // Extract images from taxon photos
-            images = taxon.taxon_photos.map(photo => photo.photo.url.replace('square', 'medium'));
-        }
+        // Get the taxon details
+        const taxonResponse = await fetch(`https://api.inaturalist.org/v1/taxa/${taxonId}`);
+        const taxonData = await taxonResponse.json();
+        if (taxonData.results.length === 0) { throw new Error('No details found for the taxon'); }
+        const taxon = taxonData.results[0];
+        
+        // Extract images from taxon photos
+        // square 75px • small 240px • medium 500px • large 1024px
+        images = taxon.taxon_photos.map(photo => photo.photo.url.replace('square', 'medium'));
 
         if (images.length === 0) { throw new Error('No images found'); }
 
