@@ -10,8 +10,8 @@ const elements = {
 
 // overlay colors
 const overlayColors = {
-    green: "rgba(76, 175, 80, 1.0)",
-    red: "rgba(200, 0, 0, 1.0)",
+    green: "rgba(116,172,0,1.0)", /* iNat green; before rgba(76, 175, 80, 1.0)"*/
+    red: "rgba(172, 0, 40, 1.0)",
     gray: "rgba(100, 100, 100, 0.8"
 };
 
