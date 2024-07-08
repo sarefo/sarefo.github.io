@@ -131,7 +131,7 @@ async function handleNewPairSubmit(event) {
 
             currentPair = newPair;
             setupGame(false);
-            document.getElementById('new-pair-dialog').close();
+            document.getElementById('enter-pair-dialog').close();
         } catch (error) {
             console.error('Error updating taxonPairs.json:', error);
             dialogMessage.textContent = 'Error saving new pair. Please try again.';
@@ -370,15 +370,15 @@ document.querySelectorAll('.image-container').forEach(element => {
 document.getElementById('share-button').addEventListener('click', shareCurrentPair);
 document.getElementById('random-pair-button').addEventListener('click', async () => { await setupGame(true); });
 document.getElementById('select-pair-button').addEventListener('click', showTaxonPairList);
-document.getElementById('new-pair-button').addEventListener('click', () => {
+document.getElementById('enter-pair-button').addEventListener('click', () => {
     clearDialogInputs();
-    document.getElementById('new-pair-dialog').showModal();
+    document.getElementById('enter-pair-dialog').showModal();
 });
 
 document.getElementById('close-dialog').addEventListener('click', () => {
-    document.getElementById('new-pair-dialog').close();
+    document.getElementById('enter-pair-dialog').close();
 });
-document.querySelector('#new-pair-dialog form').addEventListener('submit', async (event) => {
+document.querySelector('#enter-pair-dialog form').addEventListener('submit', async (event) => {
     event.preventDefault();
     await handleNewPairSubmit(event);
 });

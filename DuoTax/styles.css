@@ -179,7 +179,7 @@ body * { text-align: center; }
 }
 
 /* for enter pair dialog */
-#new-pair-dialog {
+#enter-pair-dialog {
     padding: 20px;
     border-radius: var(--border-radius);
     border: none;
@@ -188,18 +188,18 @@ body * { text-align: center; }
     width: 90%;
 }
 
-#new-pair-dialog h2 {
+#enter-pair-dialog h2 {
     color: var(--primary-color);
     margin-bottom: 20px;
 }
 
-#new-pair-dialog form {
+#enter-pair-dialog form {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-#new-pair-dialog label {
+#enter-pair-dialog label {
     display: inline-block;
     width: 80px;
     text-align: right;
@@ -207,7 +207,7 @@ body * { text-align: center; }
     font-weight: bold;
 }
 
-#new-pair-dialog input {
+#enter-pair-dialog input {
     width: calc(100% - 90px);
     padding: 8px;
     border: 1px solid #ccc;
@@ -215,7 +215,7 @@ body * { text-align: center; }
     font-size: 16px;
 }
 
-#new-pair-dialog button {
+#enter-pair-dialog button {
     background-color: var(--primary-color);
     color: var(--background-color);
     border: none;
@@ -226,7 +226,7 @@ body * { text-align: center; }
     transition: background-color 0.3s ease;
 }
 
-#new-pair-dialog button:hover {
+#enter-pair-dialog button:hover {
     background-color: #5c8a00;
 }
 
