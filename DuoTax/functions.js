@@ -395,7 +395,7 @@ function touchMove(e) {
     const touch = e.touches[0];
     const newX = touch.clientX - this.startX;
     const newY = touch.clientY - this.startY;
-    this.style.position = 'fixed'; // Change to 'fixed' positioning
+    //this.style.position = 'fixed'; // Change to 'fixed' positioning
     this.style.left = `${newX}px`;
     this.style.top = `${newY}px`;
 }
