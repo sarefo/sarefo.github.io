@@ -135,7 +135,7 @@ body * { text-align: center; }
 #overlay.show { opacity: 1; }
 
 #overlay-message {
-    font-size: 36px;
+    font-size: clamp(14px, 28px, 36px); /* not sure this is functional */
     font-weight: bold;
     color: var(--background-color);
     text-shadow: 2px 2px 4px var(--shadow-color);

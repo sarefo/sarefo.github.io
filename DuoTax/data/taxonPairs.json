@@ -38,5 +38,7 @@
     {"taxon1": "Zenaida", "taxon2": "Columba"},
     {"taxon1": "Rhodophyta", "taxon2": "Phaeophyceae"},
     {"taxon1": "Chlorophyta", "taxon2": "Phaeophyceae"},
+    {"taxon1": "Syrphidae", "taxon2": "Vespoidea"},
+    {"taxon1": "Synanthedon", "taxon2": "Vespoidea"},
     {"taxon1": "Lethrinidae", "taxon2":"Lutjanidae"}
 ]
