@@ -370,7 +370,7 @@ document.querySelectorAll('.image-container').forEach(element => {
     element.addEventListener('drop', drop);
 });
 
-
+/*
 // by GPT while driving blind, probably best to replace with Claude + code input
 document.addEventListener('DOMContentLoaded', (event) => {
     const draggableElement = document.getElementById('draggableElement');
@@ -400,7 +400,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         touchStartY = undefined;
     });
 });
-
+*/
 
 
 document.getElementById('share-button').addEventListener('click', shareCurrentPair);
