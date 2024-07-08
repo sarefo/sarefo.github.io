@@ -181,6 +181,13 @@ body * { text-align: center; }
     border-radius: var(--border-radius);
     border: none;
     box-shadow: 0 0 10px var(--shadow-color);
+    max-width: 400px;
+    width: 90%;
+}
+
+#new-pair-dialog h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
 }
 
 #new-pair-dialog form {
@@ -189,23 +196,47 @@ body * { text-align: center; }
     gap: 15px;
 }
 
+#new-pair-dialog label {
+    display: inline-block;
+    width: 80px;
+    text-align: right;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
 #new-pair-dialog input {
-    width: 100%;
+    width: calc(100% - 90px);
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 16px;
 }
 
 #new-pair-dialog button {
     background-color: var(--primary-color);
     color: var(--background-color);
     border: none;
-    padding: 10px;
-    border-radius: 4px;
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
     cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+#new-pair-dialog button:hover {
+    background-color: #5c8a00;
 }
 
 #dialog-message {
     color: var(--text-color);
     font-style: italic;
+    margin-top: 10px;
 }
+
+/* Add this new style for the button container */
+.dialog-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
