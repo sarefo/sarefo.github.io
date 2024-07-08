@@ -376,6 +376,7 @@ document.querySelectorAll('.image-container').forEach(element => {
     element.addEventListener('drop', drop);
 });
 // end
+
 /*
 // Event listeners
 document.querySelectorAll('.draggable').forEach(element => {
@@ -441,21 +442,21 @@ let touchOffset = { x: 0, y: 0 };
 
 function touchStart(e) {
     e.preventDefault();
-    draggedElement = e.target;
+    draggedElement = e.target.closest('.draggable');
     const touch = e.touches[0];
     const rect = draggedElement.getBoundingClientRect();
     touchOffset.x = touch.clientX - rect.left;
     touchOffset.y = touch.clientY - rect.top;
     draggedElement.style.zIndex = '1000';
+    draggedElement.style.position = 'fixed';
+    updateElementPosition(touch);
 }
 
 function touchMove(e) {
     e.preventDefault();
     if (draggedElement) {
         const touch = e.touches[0];
-        draggedElement.style.position = 'absolute';
-        draggedElement.style.left = `${touch.clientX - touchOffset.x}px`;
-        draggedElement.style.top = `${touch.clientY - touchOffset.y}px`;
+        updateElementPosition(touch);
     }
 }
 
@@ -469,14 +470,25 @@ function touchEnd(e) {
             resetDraggedElement();
         }
         draggedElement.style.zIndex = '';
+        draggedElement.style.position = '';
         draggedElement = null;
     }
 }
-
+function updateElementPosition(touch) {
+    draggedElement.style.left = `${touch.clientX - touchOffset.x}px`;
+    draggedElement.style.top = `${touch.clientY - touchOffset.y}px`;
+}
 function getDropZone(e) {
     const touch = e.changedTouches[0];
-    const elements = document.elementsFromPoint(touch.clientX, touch.clientY);
-    return elements.find(el => el.classList.contains('droppable'));
+    const dropZones = document.querySelectorAll('.droppable');
+    for (let dropZone of dropZones) {
+        const rect = dropZone.getBoundingClientRect();
+        if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
+            touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+            return dropZone;
+        }
+    }
+    return null;
 }
 
 function handleDrop(dropZone) {
@@ -494,7 +506,7 @@ function handleDrop(dropZone) {
 
     checkAnswer(dropZone.id);
 }
-
+    
 function resetDraggedElement() {
     const originalContainer = draggedElement.id === 'left-name' ? 'left-name-container' : 'right-name-container';
     document.getElementById(originalContainer).appendChild(draggedElement);

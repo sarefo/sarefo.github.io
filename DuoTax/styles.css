@@ -101,11 +101,11 @@ body * { text-align: center; }
     width: 100%;
     box-sizing: border-box;
 }
-
 .draggable {
     cursor: grab;
     position: relative;
     z-index: 10;
+    touch-action: none;
 }
 
 .droppable {
