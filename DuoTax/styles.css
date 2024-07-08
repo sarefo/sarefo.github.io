@@ -54,6 +54,7 @@ body * { text-align: center; }
     box-shadow: 0 0 10px var(--shadow-color);
     border-radius: var(--border-radius);
     box-sizing: border-box;
+    overflow: hidden;
 }
 .image-container img {
     position: absolute;
