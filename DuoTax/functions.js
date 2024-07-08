@@ -387,6 +387,8 @@ function touchStart(e) {
     const rect = this.getBoundingClientRect();
     this.startX = touch.clientX - rect.left;
     this.startY = touch.clientY - rect.top;
+    this.initialLeft = rect.left;
+    this.initialTop = rect.top;
     this.style.zIndex = '1000';
 }
 
@@ -396,33 +398,32 @@ function touchMove(e) {
     const touch = e.touches[0];
     const newX = touch.clientX - this.startX;
     const newY = touch.clientY - this.startY;
-    this.style.position = 'absolute'; // Change to 'absolute' positioning
+    this.style.position = 'absolute';
     this.style.left = `${newX}px`;
     this.style.top = `${newY}px`;
 }
 
 function touchEnd(e) {
     this.classList.remove('dragging');
-    this.style.zIndex = ''; // Reset z-index
+    this.style.zIndex = '';
     const dropZones = document.querySelectorAll('.droppable');
     let dropped = false;
     dropZones.forEach(zone => {
         if (isOverlapping(this, zone)) {
             zone.innerHTML = '';
             zone.appendChild(this);
+            this.style.position = '';
+            this.style.left = '';
+            this.style.top = '';
             checkAnswer(zone.id);
             dropped = true;
         }
     });
     if (!dropped) {
-        // If not dropped in a zone, return to original position
         this.style.position = '';
-        this.style.left = '';
-        this.style.top = '';
+        this.style.left = `${this.initialLeft}px`;
+        this.style.top = `${this.initialTop}px`;
     }
-    this.style.position = '';
-    this.style.left = '';
-    this.style.top = '';
 }
 
 function isOverlapping(elem1, elem2) {
