@@ -140,6 +140,11 @@ async function handleNewPairSubmit(event) {
         dialogMessage.textContent = 'One or both taxa are invalid. Please check and try again.';
     }
 }
+function clearDialogInputs() {
+    document.getElementById('taxon1').value = '';
+    document.getElementById('taxon2').value = '';
+    document.getElementById('dialog-message').textContent = '';
+}
 
 // optionally get pair of taxa from URL
 function getURLParameters() {
@@ -366,14 +371,18 @@ document.getElementById('share-button').addEventListener('click', shareCurrentPa
 document.getElementById('random-pair-button').addEventListener('click', async () => { await setupGame(true); });
 document.getElementById('select-pair-button').addEventListener('click', showTaxonPairList);
 document.getElementById('new-pair-button').addEventListener('click', () => {
+    clearDialogInputs();
     document.getElementById('new-pair-dialog').showModal();
 });
 
 document.getElementById('close-dialog').addEventListener('click', () => {
     document.getElementById('new-pair-dialog').close();
 });
+document.querySelector('#new-pair-dialog form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    await handleNewPairSubmit(event);
+});
 
-document.querySelector('#new-pair-dialog form').addEventListener('submit', handleNewPairSubmit);
 // start
 (async function() {
     await setupGame(newPair = true);

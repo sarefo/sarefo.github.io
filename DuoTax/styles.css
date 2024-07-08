@@ -19,6 +19,21 @@ body {
 }
 body * { text-align: center; }
 
+#share-button {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+}
+#share-button svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--primary-color);
+}
+
 .game-container {
     flex: none;
     display: flex;
@@ -119,6 +134,7 @@ body * { text-align: center; }
     text-shadow: 2px 2px 4px var(--shadow-color);
     padding: 20px;
 }
+
 /*
 .button-container {
     display: flex;
@@ -135,6 +151,7 @@ body * { text-align: center; }
     width: 100%;
 }
 */
+
 .bottom-button {
     background-color: var(--primary-color);
     color: var(--background-color);
@@ -149,21 +166,6 @@ body * { text-align: center; }
     transition: background-color 0.3s ease;
 }
 
-#share-button {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    z-index: 1000;
-}
-#share-button svg {
-    width: 24px;
-    height: 24px;
-    fill: var(--primary-color);
-}
-
 #home-link {
     font-size: 14px;
     color: var(--text-color);
@@ -176,6 +178,7 @@ body * { text-align: center; }
     color: var(--text-color);
 }
 
+/* for enter pair dialog */
 #new-pair-dialog {
     padding: 20px;
     border-radius: var(--border-radius);
