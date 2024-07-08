@@ -110,7 +110,8 @@ body * { text-align: center; }
 
 .draggable {
     cursor: grab;
-    z-index: 2;
+    position: relative;
+    z-index: 10;
 }
 
 .droppable {

@@ -271,6 +271,8 @@ window.scrollTo({ top: 0, behavior: 'smooth' });
     // use extra attributes to track taxon ID on name tiles
     elements.leftName.setAttribute('data-taxon', taxonLeftName);
     elements.rightName.setAttribute('data-taxon', taxonRightName);
+    elements.leftName.style.zIndex = '10'; // weird Claude suggestion
+    elements.rightName.style.zIndex = '10';
 
     // display names on tiles
     elements.leftName.innerHTML = `<i>${taxonLeftName}</i><br>(${leftNameVernacular})`;
@@ -361,6 +363,20 @@ function hideOverlay() {
 
 document.getElementById('version-id').textContent = 'Last modified: ' + document.lastModified;
 
+// new drag listeners
+document.querySelectorAll('.draggable').forEach(element => {
+    element.addEventListener('dragstart', dragStart);
+    element.addEventListener('touchstart', touchStart, { passive: false });
+    element.addEventListener('touchmove', touchMove, { passive: false });
+    element.addEventListener('touchend', touchEnd, { passive: false });
+});
+
+document.querySelectorAll('.image-container').forEach(element => {
+    element.addEventListener('dragover', dragOver);
+    element.addEventListener('drop', drop);
+});
+// end
+/*
 // Event listeners
 document.querySelectorAll('.draggable').forEach(element => {
     element.addEventListener('dragstart', dragStart);
@@ -369,6 +385,7 @@ document.querySelectorAll('.image-container').forEach(element => {
     element.addEventListener('dragover', dragOver);
     element.addEventListener('drop', drop);
 });
+*/
 
 document.getElementById('share-button').addEventListener('click', shareCurrentPair);
 document.getElementById('random-pair-button').addEventListener('click', async () => { await setupGame(true); });
@@ -417,6 +434,75 @@ elements.namePair.addEventListener('wheel', function(event) { event.preventDefau
 
 // Scroll to top when a button is clicked
 elements.buttons.forEach(button => { button.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); }); });
+
+// begin new
+let draggedElement = null;
+let touchOffset = { x: 0, y: 0 };
+
+function touchStart(e) {
+    e.preventDefault();
+    draggedElement = e.target;
+    const touch = e.touches[0];
+    const rect = draggedElement.getBoundingClientRect();
+    touchOffset.x = touch.clientX - rect.left;
+    touchOffset.y = touch.clientY - rect.top;
+    draggedElement.style.zIndex = '1000';
+}
+
+function touchMove(e) {
+    e.preventDefault();
+    if (draggedElement) {
+        const touch = e.touches[0];
+        draggedElement.style.position = 'absolute';
+        draggedElement.style.left = `${touch.clientX - touchOffset.x}px`;
+        draggedElement.style.top = `${touch.clientY - touchOffset.y}px`;
+    }
+}
+
+function touchEnd(e) {
+    e.preventDefault();
+    if (draggedElement) {
+        const dropZone = getDropZone(e);
+        if (dropZone) {
+            handleDrop(dropZone);
+        } else {
+            resetDraggedElement();
+        }
+        draggedElement.style.zIndex = '';
+        draggedElement = null;
+    }
+}
+
+function getDropZone(e) {
+    const touch = e.changedTouches[0];
+    const elements = document.elementsFromPoint(touch.clientX, touch.clientY);
+    return elements.find(el => el.classList.contains('droppable'));
+}
+
+function handleDrop(dropZone) {
+    dropZone.innerHTML = '';
+    dropZone.appendChild(draggedElement);
+    draggedElement.style.position = '';
+    draggedElement.style.left = '';
+    draggedElement.style.top = '';
+
+    const otherNameId = draggedElement.id === 'left-name' ? 'right-name' : 'left-name';
+    const otherName = document.getElementById(otherNameId);
+    const otherDropZone = document.getElementById(dropZone.id === 'drop-1' ? 'drop-2' : 'drop-1');
+    otherDropZone.innerHTML = '';
+    otherDropZone.appendChild(otherName);
+
+    checkAnswer(dropZone.id);
+}
+
+function resetDraggedElement() {
+    const originalContainer = draggedElement.id === 'left-name' ? 'left-name-container' : 'right-name-container';
+    document.getElementById(originalContainer).appendChild(draggedElement);
+    draggedElement.style.position = '';
+    draggedElement.style.left = '';
+    draggedElement.style.top = '';
+}
+// end new
 
 // start
 (async function() { await setupGame(newPair = true); })();
