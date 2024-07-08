@@ -1,0 +1,194 @@
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+body * {
+    text-align: center;
+    font-family: 'Open Sans', Arial, sans-serif;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+h1 { font-size: 16px; }
+
+.game-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height:100vh; /* TODO change to 100 if fullscreen on Android possible*/
+    margin: 0 0;
+    overflow: hidden;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.image-pair, .name-pair {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    text-align: center;
+    align-items: center;
+    width: 100%;
+}
+
+.image-container {
+    flex: 1 1 100%;
+    margin: 4px;
+    padding: 4px;
+    width: calc(100% - 8px);
+    max-width: 500px;
+    aspect-ratio: 1/1;
+    height: auto; 
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
+    border-radius: 8px;
+    background-color: white;
+    box-sizing: border-box;
+}
+.image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 8px;
+    pointer-events: none; /* Prevents the image from interfering with dragging */
+}
+
+#left-name-container, #right-name-container {
+    /*width: 50%; max-width: 200px;*/
+    width: 400px;
+    margin: 4px 4px;
+    height: 60px;
+}
+
+.droppable .draggable {
+    background-color: rgba(76, 175, 80, 0.8);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.draggable {
+    cursor: grab;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+}
+.draggable:active { background-color: blue;}
+
+.droppable {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 90%;
+}
+
+.scrollable-area {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.scrollable-area::-webkit-scrollbar { display: none; }
+.scroll-sensitive-area { height: 33.33vh; }
+.non-scroll-area { height: 33.33vh; }
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+#overlay.show {
+    opacity: 1;
+}
+#overlay-message {
+    font-size: 48px;
+    font-weight: bold;
+    color: #ffffff; /* White text for better contrast */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add a subtle shadow for better readability */
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    /*top: 10%; *//* Adjust this value to position in the top third of the screen */
+}
+
+#random-pair-button, #select-pair-button {
+    background-color: #2C8F30;
+    color: white;
+    font-size: 16px;
+    border: none;
+    padding: 15px 32px;
+    border-radius: 5px;
+    margin: 4px 0;
+    width: 100%;
+    max-width: 200px;
+    display: inline-block;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#share-button {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+}
+#share-button svg {
+    width: 24px;
+    height: 24px;
+    fill: #2C8F30;
+}
+
+#home-link {
+    font-size: 80%;
+}
+
+#version-id {
+    position: fixed;
+    bottom: 5px; right: 5px;
+    font-size: 14px; color: #444;
+}
