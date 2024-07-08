@@ -1,3 +1,13 @@
+/* custom properties */
+:root {
+    --primary-color: #2C8F30;
+    --text-color: #333;
+    --background-color: #ffffff;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --overlay-color: rgba(0, 0, 0, 0.3);
+    --border-radius: 8px;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -5,21 +15,9 @@ body {
     margin: 0; padding: 0;
     overflow: auto;
     box-sizing: border-box;
-}
-body * {
-    text-align: center;
     font-family: 'Open Sans', Arial, sans-serif;
 }
-
-.button-container {
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    align-items: center;
-    box-sizing: border-box;
-}
-
-h1 { font-size: 16px; }
+body * { text-align: center; }
 
 .game-container {
     flex: none;
@@ -29,7 +27,7 @@ h1 { font-size: 16px; }
     align-items: center;
     width: 100%;
     height:100vh;
-    margin: 0; padding: 0;
+    padding: 0;
     overflow: hidden;
     padding: 0px;
     box-sizing: border-box;
@@ -39,15 +37,11 @@ h1 { font-size: 16px; }
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    text-align: center;
     align-items: center;
     width: 100%;
 }
 
-
-.name-pair {
-position: relative;
-}
+.name-pair { position: relative; }
 
 .image-container {
     flex: 1 1 100%;
@@ -56,11 +50,9 @@ position: relative;
     width: calc(100% - 8px);
     max-width: 500px;
     aspect-ratio: 1/1;
-    height: auto; 
     position: relative;
-/*    overflow: hidden; */
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    border-radius: 8px;
+    box-shadow: 0 0 10px var(--shadow-color);
+    border-radius: var(--border-radius);
     box-sizing: border-box;
 }
 .image-container img {
@@ -71,38 +63,26 @@ position: relative;
     height: 100%;
     object-fit: cover;
     object-position: center;
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     pointer-events: none; /* Prevents the image from interfering with dragging */
 }
 
 #left-name-container, #right-name-container {
-    /*width: 50%; max-width: 200px;*/
     width: 400px;
-    margin: 4px 4px;
+    margin: 4px;
     height: 60px;
 }
 
-.droppable .draggable {
-    background-color: rgba(76, 175, 80, 0.8);
-    color: white;
+.draggable, .droppable .draggable {
+    background-color: var(--primary-color);
+    color: var(--background-color);
     padding: 10px;
-    border-radius: 8px;
-    margin: 0;
+    border-radius: var(--border-radius);
     width: 100%;
     box-sizing: border-box;
 }
 
-.draggable {
-    cursor: grab;
-    width: 100%;
-    box-sizing: border-box;
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-    border-radius: 8px;
-    display: inline-block;
-}
-.draggable:active { background-color: blue;}
+.draggable { cursor: grab; }
 
 .droppable {
     position: absolute;
@@ -113,18 +93,12 @@ position: relative;
     width: 90%;
 }
 
-.scrollable-content {
-    width:100%;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
 #overlay {
     position: absolute;
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     width: 98vw;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: var(--overlay-color);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -133,29 +107,26 @@ position: relative;
     pointer-events: none;
     transition: opacity 0.3s ease;
 }
-#overlay.show {
-    opacity: 1;
-}
+#overlay.show { opacity: 1; }
+
 #overlay-message {
     font-size: 36px;
     font-weight: bold;
-    color: #ffffff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: var(--background-color);
+    text-shadow: 2px 2px 4px var(--shadow-color);
     padding: 20px;
-    position: relative;
 }
 
 #random-pair-button, #select-pair-button {
-    background-color: #2C8F30;
-    color: white;
+    background-color: var(--primary-color);
+    color: var(--background-color);
     font-size: 16px;
     border: none;
     padding: 15px 32px;
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     margin: 4px 0;
     width: 100%;
     max-width: 200px;
-    display: inline-block;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -172,16 +143,17 @@ position: relative;
 #share-button svg {
     width: 24px;
     height: 24px;
-    fill: #2C8F30;
+    fill: var(--primary-color);
 }
 
 #home-link {
     font-size: 14px;
-    color: #333;
+    color: var(--text-color);
     text-decoration: none;
 }
 
 #version-id {
     padding-top: 8px;
-    font-size: 14px; color: #333;
+    font-size: 14px;
+    color: var(--text-color);
 }
