@@ -1,6 +1,6 @@
 // global handles for image and name html elements
-const leftImage = document.getElementById('left-image');
-const rightImage = document.getElementById('right-image');
+const leftImage = document.getElementById('image-1');
+const rightImage = document.getElementById('image-2');
 const leftName = document.getElementById('left-name');
 const rightName = document.getElementById('right-name');
 
@@ -225,7 +225,7 @@ function drop(e) {
     // Automatically move the other name
     const otherNameId = data === 'left-name' ? 'right-name' : 'left-name';
     const otherName = document.getElementById(otherNameId);
-    const otherDropZone = document.getElementById(dropZone.id === 'left-drop' ? 'right-drop' : 'left-drop');
+    const otherDropZone = document.getElementById(dropZone.id === 'drop-1' ? 'drop-2' : 'drop-1');
     otherDropZone.innerHTML = '';
     otherDropZone.appendChild(otherName);
 
@@ -234,8 +234,8 @@ function drop(e) {
 function resetDraggables() {
     const leftNameContainer = document.getElementById('left-name-container');
     const rightNameContainer = document.getElementById('right-name-container');
-    const leftDrop = document.getElementById('left-drop');
-    const rightDrop = document.getElementById('right-drop');
+    const leftDrop = document.getElementById('drop-1');
+    const rightDrop = document.getElementById('drop-2');
     
     // Move draggables back to the names container
     leftNameContainer.appendChild(document.getElementById('left-name'));
