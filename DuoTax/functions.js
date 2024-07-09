@@ -2,6 +2,8 @@
 const elements = {
     imageOne: document.getElementById('image-1'),
     imageTwo: document.getElementById('image-2'),
+    imageOneContainer: document.getElementById('image-container-1'),
+    imageTwoContainer: document.getElementById('image-container-2'),
     namePair: document.querySelector('.name-pair'),
     leftName: document.getElementById('left-name'),
     rightName: document.getElementById('right-name'),
@@ -368,30 +370,31 @@ function hideOverlay() {
 
 document.getElementById('version-id').textContent = 'Last modified: ' + document.lastModified;
 
-// new drag listeners
+// swipe left on top image for new random pair
+let touchStartX = 0;
+let touchEndX = 0;
+function handleSwipe(e) {
+    touchEndX = e.changedTouches[0].screenX;
+    if (touchStartX - touchEndX > 50) {  // Swipe left
+        setupGame(true);
+    }
+}
+
+elements.imageOneContainer.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].screenX;
+}, { passive: true });
+elements.imageOneContainer.addEventListener('touchend', handleSwipe, { passive: true });
+
 document.querySelectorAll('.draggable').forEach(element => {
     element.addEventListener('dragstart', dragStart);
     element.addEventListener('touchstart', touchStart, { passive: false });
     element.addEventListener('touchmove', touchMove, { passive: false });
     element.addEventListener('touchend', touchEnd, { passive: false });
 });
-
 document.querySelectorAll('.image-container').forEach(element => {
     element.addEventListener('dragover', dragOver);
     element.addEventListener('drop', drop);
 });
-// end
-
-/*
-// Event listeners
-document.querySelectorAll('.draggable').forEach(element => {
-    element.addEventListener('dragstart', dragStart);
-});
-document.querySelectorAll('.image-container').forEach(element => {
-    element.addEventListener('dragover', dragOver);
-    element.addEventListener('drop', drop);
-});
-*/
 
 document.getElementById('share-button').addEventListener('click', shareCurrentPair);
 document.getElementById('random-pair-button').addEventListener('click', async () => { await setupGame(true); });
