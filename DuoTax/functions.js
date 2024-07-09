@@ -21,6 +21,7 @@ const overlayColors = {
 
 let isFirstLoad = true;
 let currentPair;
+let preloadedPair;
 
 // global variables for image and name data
 let taxonImageOne, taxonImageTwo;
@@ -40,6 +41,15 @@ function requestFullscreen() {
     }
 }
 
+// preload images for one taxon pair
+async function preloadPair() {
+    const pair = await selectTaxonPair();
+    const [imageOneURL, imageTwoURL] = await Promise.all([
+        fetchRandomImage(pair.taxon1),
+        fetchRandomImage(pair.taxon2)
+    ]);
+    return { pair, imageOneURL, imageTwoURL };
+}
 
 // fetch from JSON file
 async function fetchTaxonPairs() {
@@ -255,11 +265,29 @@ async function setupGame(newPair = false)  {
     showOverlay(startMessage, overlayColors.green);
     isFirstLoad = false;
 
+    if (newPair) {
+        if (preloadedPair) {
+            currentPair = preloadedPair.pair;
+            elements.imageOne.src = preloadedPair.imageOneURL;
+            elements.imageTwo.src = preloadedPair.imageTwoURL;
+        } else {
+            // Fallback to current behavior if no preloaded pair
+            currentPair = await selectTaxonPair();
+            const [imageOneURL, imageTwoURL] = await Promise.all([
+                fetchRandomImage(currentPair.taxon1),
+                fetchRandomImage(currentPair.taxon2)
+            ]);
+            elements.imageOne.src = imageOneURL;
+            elements.imageTwo.src = imageTwoURL;
+        }
+    }
+/*
     if (newPair) { // select new taxon pair
             // try to fetch taxon pair from URL, use random from local array otherwise
             // not the first round: get random from local array
         currentPair = !currentPair ? (getURLParameters() || await selectTaxonPair()) : await selectTaxonPair();
     }
+*/
 
     // Randomly decide which taxon goes left and right (images)
     [taxonImageOne, taxonImageTwo] = Math.random() < 0.5
@@ -314,6 +342,8 @@ async function setupGame(newPair = false)  {
     elements.leftName.innerHTML = `<i>${taxonLeftName}</i><br>(${leftNameVernacular})`;
     elements.rightName.innerHTML = `<i>${taxonRightName}</i><br>(${rightNameVernacular})`;
 
+    // Preload next pair for future use
+    preloadedPair = await preloadPair();
 }
 function loadImage(imgElement, src) {
     return new Promise((resolve, reject) => {
@@ -662,6 +692,7 @@ function surprise() {
 // start
 (async function() {
     await setupGame(newPair = true);
+    preloadedPair = await preloadPair();
     
     // Request fullscreen mode
     document.addEventListener('click', requestFullscreen, { once: true });
