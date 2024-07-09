@@ -8,10 +8,12 @@
     <meta http-equiv="Cache-Control" content="no-cache">
 
     <link rel="icon" href="favicon_iNat.png" type="image/png">
-    <link rel="stylesheet" href="./styles.css">
+    <!-- append fake version no. to bust cache (css/javascript file) -->
+    <link rel="stylesheet" href="./styles.css?v=1.0.1">
 </head>
 
 <body>
+<script src="functions.js?v=1.0.1" defer></script>
 
 <button id="share-button" title="Share this pair">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -87,7 +89,6 @@
         </form>
     </dialog>
 
-    <script src="functions.js" defer></script>
 
 </body>
 </html>
