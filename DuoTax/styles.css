@@ -131,6 +131,21 @@ body * { text-align: center; }
     top: 10%;
 }
 
+/* for swipe on top image */
+@keyframes swipeOutLeft {
+    from {
+        transform: rotate(0deg);
+        opacity: 1;
+    }
+    to {
+        transform: rotate(-5deg) translateX(-100%);
+        opacity: 0;
+    }
+}
+.swipe-out-left {
+    animation: swipeOutLeft 0.5s ease-out forwards;
+}
+
 #overlay {
     position: absolute;
     border-radius: var(--border-radius);
