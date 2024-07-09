@@ -374,44 +374,70 @@ document.getElementById('version-id').textContent = 'Last modified: ' + document
 let startX = 0;
 let endX = 0;
 let isDragging = false;
+let gameContainer;
 
 function handleSwipeOrDrag(e) {
     if (!isDragging) return;
     
     endX = e.type.includes('touch') ? e.changedTouches[0].screenX : e.screenX;
-    if (startX - endX > 50) {  // Swipe/drag left
-        const gameContainer = document.querySelector('.game-container');
+    const dragDistance = startX - endX;
+    
+    if (dragDistance > 50) {  // Swipe/drag left threshold
         gameContainer.classList.add('swipe-out-left');
         
         setTimeout(() => {
-            gameContainer.classList.remove('swipe-out-left');
+            gameContainer.classList.remove('swiping-left', 'swipe-out-left');
+            gameContainer.style.transform = '';
+            gameContainer.style.opacity = '';
             setupGame(true);
         }, 500); // Match this with the animation duration
+    } else {
+        // Reset if not swiped far enough
+        gameContainer.style.transform = '';
+        gameContainer.style.opacity = '';
     }
+    
     isDragging = false;
 }
 
-// Touch events
+function handleDragMove(e) {
+    if (!isDragging) return;
+    
+    const currentX = e.type.includes('touch') ? e.touches[0].screenX : e.screenX;
+    const dragDistance = startX - currentX;
+    
+    if (dragDistance > 0) {
+        const progress = Math.min(dragDistance / 100, 1);
+        const rotation = progress * -5;
+        const opacity = 1 - progress * 0.5;
+        
+        gameContainer.style.transform = `rotate(${rotation}deg) translateX(${-dragDistance}px)`;
+        gameContainer.style.opacity = opacity;
+    }
+}
+
+// touch events
 elements.imageOneContainer.addEventListener('touchstart', (e) => {
     startX = e.touches[0].screenX;
     isDragging = true;
+    gameContainer = document.querySelector('.game-container');
+    gameContainer.classList.add('swiping-left');
 }, { passive: true });
+
+elements.imageOneContainer.addEventListener('touchmove', handleDragMove, { passive: true });
 elements.imageOneContainer.addEventListener('touchend', handleSwipeOrDrag, { passive: true });
 
 // Mouse events
 elements.imageOneContainer.addEventListener('mousedown', (e) => {
     startX = e.screenX;
     isDragging = true;
+    gameContainer = document.querySelector('.game-container');
+    gameContainer.classList.add('swiping-left');
 });
-elements.imageOneContainer.addEventListener('mouseup', handleSwipeOrDrag);
 
-// Prevent dragging conflicts
-elements.imageOneContainer.addEventListener('dragstart', (e) => {
-    e.preventDefault();
-});
-elements.imageOneContainer.addEventListener('mouseleave', () => {
-    isDragging = false;
-});
+elements.imageOneContainer.addEventListener('mousemove', handleDragMove);
+elements.imageOneContainer.addEventListener('mouseup', handleSwipeOrDrag);
+elements.imageOneContainer.addEventListener('mouseleave', handleSwipeOrDrag);
 
 // tile dragging listeners
 document.querySelectorAll('.draggable').forEach(element => {

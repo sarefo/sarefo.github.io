@@ -133,15 +133,16 @@ body * { text-align: center; }
 
 /* for swipe on top image */
 @keyframes swipeOutLeft {
-    from {
-        transform: rotate(0deg);
-        opacity: 1;
-    }
     to {
         transform: rotate(-5deg) translateX(-100%);
         opacity: 0;
     }
 }
+
+.swiping-left {
+    transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+}
+
 .swipe-out-left {
     animation: swipeOutLeft 0.5s ease-out forwards;
 }
