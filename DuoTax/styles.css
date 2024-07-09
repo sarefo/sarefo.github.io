@@ -32,7 +32,8 @@ body * { text-align: center; } /* percolate to child elements */
 #share-button svg {
     width: 24px;
     height: 24px;
-    fill: var(--primary-counter-color);
+    fill: blue;
+/*    fill: var(--primary-counter-color);*/
 }
 
 .game-container {
