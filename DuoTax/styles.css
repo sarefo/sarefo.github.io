@@ -32,8 +32,7 @@ body * { text-align: center; } /* percolate to child elements */
 #share-button svg {
     width: 24px;
     height: 24px;
-/*    fill: var(--primary-counter-color);*/
-fill: white;
+    fill: var(--primary-counter-color);
 }
 
 .game-container {
@@ -88,7 +87,7 @@ fill: white;
     transition: opacity 0.3s ease;
 }
 .image-container img.loading {
-    opacity: 1;
+    opacity: 0.7;
     transition: opacity 0s;    
 }
 

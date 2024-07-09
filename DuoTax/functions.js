@@ -241,6 +241,7 @@ async function setupGame(newPair = false)  {
     elements.imageTwo.classList.add('loading');
     var startMessage = isFirstLoad ? "Drag the names!" : startMessage = "Loading…";
     showOverlay(startMessage, overlayColors.green);
+    isFirstLoad = false;
 
     if (newPair) { // select new taxon pair
             // try to fetch taxon pair from URL, use random from local array otherwise
@@ -261,17 +262,26 @@ async function setupGame(newPair = false)  {
         fetchVernacular(taxonImageTwo)
     ]);
 
-    // Start loading new images
-    elements.imageOne.onloadstart = () => elements.imageOne.classList.remove('loading');
-    elements.imageTwo.onloadstart = () => elements.imageTwo.classList.remove('loading');
+    // Function to load image and remove 'loading' class
+    const loadImage = (imgElement, src) => {
+        return new Promise((resolve) => {
+            imgElement.onload = () => {
+                imgElement.classList.remove('loading');
+                resolve();
+            };
+            imgElement.src = src;
+            // Remove 'loading' class immediately if the image is cached
+            if (imgElement.complete) {
+                imgElement.classList.remove('loading');
+                resolve();
+            }
+        });
+    };
 
-    elements.imageOne.src = imageOneURL;
-    elements.imageTwo.src = imageTwoURL;
-
-    // Wait for both images to fully load
+    // Load new images
     await Promise.all([
-        new Promise(resolve => elements.imageOne.onload = resolve),
-        new Promise(resolve => elements.imageTwo.onload = resolve)
+        loadImage(elements.imageOne, imageOneURL),
+        loadImage(elements.imageTwo, imageTwoURL)
     ]);
 
     // Hide loading overlay
@@ -299,6 +309,17 @@ function loadImage(imgElement, src) {
         imgElement.onerror = reject;
         imgElement.src = src;
     });
+}
+
+//TODO DEBUG only
+// Function to create a delay
+function delay(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+// Async function to pause execution
+async function pauseExecution() {
+  console.log('Starting...');
+  // Pause execution for 10 seconds
+  await delay(100000);
+  console.log('100 seconds later...');
 }
 
 // drag and drop name tile onto image
@@ -362,6 +383,9 @@ function checkAnswer(droppedZoneId) {
         }
 
         if (isCorrect) {
+
+    elements.imageOne.classList.add('loading');
+    elements.imageTwo.classList.add('loading');
             showOverlay('Correct!', colorCorrect);
             setTimeout(() => {
                 hideOverlay();
