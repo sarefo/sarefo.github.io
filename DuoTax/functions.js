@@ -236,6 +236,12 @@ async function setupGame(newPair = false)  {
     resetDraggables();
     scrollToTop();
 
+    // Fade out current images and show loading overlay
+    elements.imageOne.classList.add('loading');
+    elements.imageTwo.classList.add('loading');
+    var startMessage = isFirstLoad ? "Drag the names!" : startMessage = "Loading…";
+    showOverlay(startMessage, overlayColors.green);
+
     if (newPair) { // select new taxon pair
             // try to fetch taxon pair from URL, use random from local array otherwise
             // not the first round: get random from local array
@@ -247,13 +253,6 @@ async function setupGame(newPair = false)  {
         ? [currentPair.taxon1, currentPair.taxon2]
             : [currentPair.taxon2, currentPair.taxon1];
 
-    var startMessage = isFirstLoad ? "Drag the names!" : startMessage = "Loading…";
-        showOverlay(startMessage, overlayColors.green);
-        setTimeout(() => {
-            hideOverlay();
-            isFirstLoad = false;
-        }, 1200);
-
     // fetch images and vernacular names
     const [imageOneURL, imageTwoURL, imageOneVernacular, imageTwoVernacular] = await Promise.all([
         fetchRandomImage(taxonImageOne),
@@ -262,8 +261,19 @@ async function setupGame(newPair = false)  {
         fetchVernacular(taxonImageTwo)
     ]);
 
+    // Load new images
+    await Promise.all([
+        loadImage(elements.imageOne, imageOneURL),
+        loadImage(elements.imageTwo, imageTwoURL)
+    ]);
+
+    // Hide loading overlay and fade in new images
+    hideOverlay();
+    elements.imageOne.classList.remove('loading');
+    elements.imageTwo.classList.remove('loading');
+
     // place images
-    [elements.imageOne.src, elements.imageTwo.src] = [imageOneURL, imageTwoURL];
+    //[elements.imageOne.src, elements.imageTwo.src] = [imageOneURL, imageTwoURL];
 
     // Randomly decide placement of taxon names (name tiles)
     [taxonLeftName, leftNameVernacular, taxonRightName, rightNameVernacular] = Math.random() < 0.5
@@ -280,6 +290,13 @@ async function setupGame(newPair = false)  {
     elements.leftName.innerHTML = `<i>${taxonLeftName}</i><br>(${leftNameVernacular})`;
     elements.rightName.innerHTML = `<i>${taxonRightName}</i><br>(${rightNameVernacular})`;
 
+}
+function loadImage(imgElement, src) {
+    return new Promise((resolve, reject) => {
+        imgElement.onload = resolve;
+        imgElement.onerror = reject;
+        imgElement.src = src;
+    });
 }
 
 // drag and drop name tile onto image

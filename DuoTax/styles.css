@@ -32,8 +32,7 @@ body * { text-align: center; } /* percolate to child elements */
 #share-button svg {
     width: 24px;
     height: 24px;
-    fill: blue;
-/*    fill: var(--primary-counter-color);*/
+    fill: var(--primary-counter-color);
 }
 
 .game-container {
@@ -85,7 +84,9 @@ body * { text-align: center; } /* percolate to child elements */
     object-position: center;
     border-radius: var(--border-radius);
     pointer-events: none; /* Prevents the image from interfering with dragging */
+    transition: opacity 0.3s ease;
 }
+.image-container img.loading { opacity: 0.3; }
 
 #left-name-container, #right-name-container {
     width: 400px;

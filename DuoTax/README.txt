@@ -8,3 +8,6 @@ http://127.0.0.1:8080/DuoTax/
 http://172.29.203.110:8080/DuoTax/
 
 tried to use no-ip.com to get a Dynamic DNS, but didn't work. I have a sarefo account though.
+
+
++ need to increase version number of CSS and JavaScript files in index.html to bust cache
