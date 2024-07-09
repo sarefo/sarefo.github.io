@@ -261,19 +261,21 @@ async function setupGame(newPair = false)  {
         fetchVernacular(taxonImageTwo)
     ]);
 
-    // Load new images
+    // Start loading new images
+    elements.imageOne.onloadstart = () => elements.imageOne.classList.remove('loading');
+    elements.imageTwo.onloadstart = () => elements.imageTwo.classList.remove('loading');
+
+    elements.imageOne.src = imageOneURL;
+    elements.imageTwo.src = imageTwoURL;
+
+    // Wait for both images to fully load
     await Promise.all([
-        loadImage(elements.imageOne, imageOneURL),
-        loadImage(elements.imageTwo, imageTwoURL)
+        new Promise(resolve => elements.imageOne.onload = resolve),
+        new Promise(resolve => elements.imageTwo.onload = resolve)
     ]);
 
-    // Hide loading overlay and fade in new images
+    // Hide loading overlay
     hideOverlay();
-    elements.imageOne.classList.remove('loading');
-    elements.imageTwo.classList.remove('loading');
-
-    // place images
-    //[elements.imageOne.src, elements.imageTwo.src] = [imageOneURL, imageTwoURL];
 
     // Randomly decide placement of taxon names (name tiles)
     [taxonLeftName, leftNameVernacular, taxonRightName, rightNameVernacular] = Math.random() < 0.5
