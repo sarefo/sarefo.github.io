@@ -258,9 +258,13 @@ async function setupGame(newPair = false)  {
     resetDraggables();
     scrollToTop();
 
-    // Fade out current images and show loading overlay
-    elements.imageOne.classList.add('loading');
-    elements.imageTwo.classList.add('loading');
+    // Immediately set images to transitioning state
+    elements.imageOne.classList.add('transitioning');
+    elements.imageTwo.classList.add('transitioning');
+    // Remove loading class if it's there
+    elements.imageOne.classList.remove('loading');
+    elements.imageTwo.classList.remove('loading');
+
     var startMessage = isFirstLoad ? "Drag the names!" : startMessage = "Loading…";
     showOverlay(startMessage, overlayColors.green);
     isFirstLoad = false;
@@ -302,17 +306,17 @@ async function setupGame(newPair = false)  {
         fetchVernacular(taxonImageTwo)
     ]);
 
-    // Function to load image and remove 'loading' class
+    // Modify the image loading part:
     const loadImage = (imgElement, src) => {
         return new Promise((resolve) => {
             imgElement.onload = () => {
-                imgElement.classList.remove('loading');
+                imgElement.classList.remove('transitioning');
                 resolve();
             };
             imgElement.src = src;
-            // Remove 'loading' class immediately if the image is cached
+            // Remove 'transitioning' class immediately if the image is cached
             if (imgElement.complete) {
-                imgElement.classList.remove('loading');
+                imgElement.classList.remove('transitioning');
                 resolve();
             }
         });
@@ -320,8 +324,8 @@ async function setupGame(newPair = false)  {
 
     // Load new images
     await Promise.all([
-        loadImage(elements.imageOne, imageOneURL),
-        loadImage(elements.imageTwo, imageTwoURL)
+        loadImage(elements.imageOne, elements.imageOne.src),
+        loadImage(elements.imageTwo, elements.imageTwo.src)
     ]);
 
     // Hide loading overlay
@@ -474,7 +478,7 @@ function handleSwipeOrDrag(e) {
             gameContainer.classList.remove('swiping-left', 'swipe-out-left');
             resetGameContainerStyle();
             setupGame(true);
-        }, 500); // Match this with the animation duration
+        }, 300); // Reduced from 500ms to make transition faster
     } else {
         // Reset if not swiped far enough
         resetGameContainerStyle();

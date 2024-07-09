@@ -91,6 +91,10 @@ body * { text-align: center; } /* percolate to child elements */
     opacity: 0.7;
     transition: opacity 0s;    
 }
+.image-container img.transitioning {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
 
 #left-name-container, #right-name-container {
     width: 400px;
@@ -141,17 +145,6 @@ body * { text-align: center; } /* percolate to child elements */
     animation: dropAnimation 0.3s ease-out forwards;
 }
 
-/* for swipe on top image */
-/*@keyframes swipeOutLeft {
-    to {
-        transform: rotate(-5deg) translateX(-100%);
-        opacity: 0;
-    }
-}
-.swiping-left .image-container { transition: transform 0.1s ease-out, opacity 0.1s ease-out; }
-.swipe-out-left .image-container { animation: swipeOutLeft 0.5s ease-out forwards; }
-
-*/
 .swipe-out-left { animation: swipeOutLeft 0.5s ease-out forwards; }
 
 @keyframes swipeOutLeft {
