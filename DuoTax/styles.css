@@ -202,12 +202,11 @@ body * { text-align: center; } /* percolate to child elements */
 
 /* for enter pair dialog */
 #enter-pair-dialog {
-    padding: 20px;
+    padding: 4px;
     border-radius: var(--border-radius);
     border: none;
     box-shadow: 0 0 10px var(--shadow-color);
-    max-width: 400px;
-    width: 90%;
+    width: 100vw;
 }
 #enter-pair-dialog h2 {
     color: var(--primary-color);

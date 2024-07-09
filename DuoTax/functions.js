@@ -83,10 +83,10 @@ async function showTaxonPairList() {
     const list = document.createElement('div');
     list.style.cssText = `
         background-color: var(--background-color);
-        padding: 20px;
+        padding: 4px;
         border-radius: var(--border-radius);
-        max-width: 80%;
-        max-height: 80%;
+        max-width: 98%;
+        max-height: 98%;
         overflow-y: auto;`;
 
     // list pairs
