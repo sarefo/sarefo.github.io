@@ -226,13 +226,13 @@ async function fetchVernacular(taxonName) {
             if (taxon && taxon.preferred_common_name) {
                 return taxon.preferred_common_name;
             } else { return 'No vernacular name'; }
-        } else { return 'Taxon not found.'; }
+        } else { return 'Taxon not found'; }
     } catch (error) { console.error('Error fetching vernacular name:', error); return ""; }
 }
 
 async function setupGame(newPair = false)  {
     resetDraggables();
-window.scrollTo({ top: 0, behavior: 'smooth' });
+    scrollToTop();
 
     if (newPair) { // select new taxon pair
             // try to fetch taxon pair from URL, use random from local array otherwise
@@ -322,7 +322,6 @@ function resetDraggables() {
 }
 
 function checkAnswer(droppedZoneId) {
-console.log('checkAnswer called with:', droppedZoneId);
     const dropOne = document.getElementById('drop-1');
     const dropTwo = document.getElementById('drop-2');
     const colorCorrect = overlayColors.green;
@@ -330,6 +329,8 @@ console.log('checkAnswer called with:', droppedZoneId);
 
     const leftAnswer = dropOne.children[0]?.getAttribute('data-taxon');
     const rightAnswer = dropTwo.children[0]?.getAttribute('data-taxon');
+
+    scrollToTop();
 
     if (leftAnswer && rightAnswer) {
         let isCorrect = false;
@@ -438,7 +439,11 @@ elements.namePair.addEventListener('touchmove', function(event) { event.preventD
 elements.namePair.addEventListener('wheel', function(event) { event.preventDefault(); }, { passive: false });
 
 // Scroll to top when a button is clicked
-elements.buttons.forEach(button => { button.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); }); });
+elements.buttons.forEach(button => { button.addEventListener('click', () => { scrollToTop() }); });
+
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
 // begin new
 let draggedElement = null;
@@ -520,7 +525,6 @@ function handleDrop(dropZone) {
 }
 
 function resetDraggedElement() {
-    console.log('resetDraggedElement called');
     const originalContainer = draggedElement.id === 'left-name' ? 'left-name-container' : 'right-name-container';
     document.getElementById(originalContainer).appendChild(draggedElement);
     draggedElement.style.position = '';
