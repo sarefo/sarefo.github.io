@@ -27,6 +27,7 @@ body * { text-align: center; } /* percolate to child elements */
 
 @media (hover: none) {
     border-radius: var(--border-radius);
+    background-color: green; /*debug*/
 }
 
 #share-button {
