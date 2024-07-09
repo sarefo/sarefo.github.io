@@ -371,20 +371,43 @@ function hideOverlay() {
 document.getElementById('version-id').textContent = 'Last modified: ' + document.lastModified;
 
 // swipe left on top image for new random pair
-let touchStartX = 0;
-let touchEndX = 0;
-function handleSwipe(e) {
-    touchEndX = e.changedTouches[0].screenX;
-    if (touchStartX - touchEndX > 50) {  // Swipe left
+let startX = 0;
+let endX = 0;
+let isDragging = false;
+
+function handleSwipeOrDrag(e) {
+    if (!isDragging) return;
+    
+    endX = e.type.includes('touch') ? e.changedTouches[0].screenX : e.screenX;
+    if (startX - endX > 50) {  // Swipe/drag left
         setupGame(true);
     }
+    isDragging = false;
 }
 
+// Touch events
 elements.imageOneContainer.addEventListener('touchstart', (e) => {
-    touchStartX = e.touches[0].screenX;
+    startX = e.touches[0].screenX;
+    isDragging = true;
 }, { passive: true });
-elements.imageOneContainer.addEventListener('touchend', handleSwipe, { passive: true });
+elements.imageOneContainer.addEventListener('touchend', handleSwipeOrDrag, { passive: true });
 
+// Mouse events
+elements.imageOneContainer.addEventListener('mousedown', (e) => {
+    startX = e.screenX;
+    isDragging = true;
+});
+elements.imageOneContainer.addEventListener('mouseup', handleSwipeOrDrag);
+
+// Prevent dragging conflicts
+elements.imageOneContainer.addEventListener('dragstart', (e) => {
+    e.preventDefault();
+});
+elements.imageOneContainer.addEventListener('mouseleave', () => {
+    isDragging = false;
+});
+
+// tile dragging listeners
 document.querySelectorAll('.draggable').forEach(element => {
     element.addEventListener('dragstart', dragStart);
     element.addEventListener('touchstart', touchStart, { passive: false });
@@ -396,14 +419,15 @@ document.querySelectorAll('.image-container').forEach(element => {
     element.addEventListener('drop', drop);
 });
 
+// button listeners
 document.getElementById('share-button').addEventListener('click', shareCurrentPair);
 document.getElementById('random-pair-button').addEventListener('click', async () => { await setupGame(true); });
 document.getElementById('select-pair-button').addEventListener('click', showTaxonPairList);
+
 document.getElementById('enter-pair-button').addEventListener('click', () => {
     clearDialogInputs();
     document.getElementById('enter-pair-dialog').showModal();
 });
-
 document.getElementById('close-dialog').addEventListener('click', () => {
     document.getElementById('enter-pair-dialog').close();
 });
@@ -411,20 +435,10 @@ document.querySelector('#enter-pair-dialog form').addEventListener('submit', asy
     event.preventDefault();
     await handleNewPairSubmit(event);
 });
-
 document.getElementById('surprise-button').addEventListener('click', () => {
     clearDialogInputs();
     surprise();
 });
-
-function surprise() {
-    // placeholder
-    const soundUrl = './sound/fart.mp3';
-    // Create a new Audio object
-    const audio = new Audio(soundUrl);
-    // Play the sound
-    audio.play().catch(error => { console.error('Error playing the fart:', error); });
-}
 
 // keyboard shortcuts
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -448,10 +462,9 @@ function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// begin new
+// tile dragging stuff
 let draggedElement = null;
 let touchOffset = { x: 0, y: 0 };
-
 function touchStart(e) {
     e.preventDefault();
     draggedElement = e.target.closest('.draggable');
@@ -466,7 +479,6 @@ function touchStart(e) {
     draggedElement.style.position = 'fixed';
     updateElementPosition(touch);
 }
-
 function touchMove(e) {
     e.preventDefault();
     if (draggedElement) {
@@ -474,7 +486,6 @@ function touchMove(e) {
         updateElementPosition(touch);
     }
 }
-
 function touchEnd(e) {
     e.preventDefault();
     if (draggedElement) {
@@ -489,12 +500,10 @@ function touchEnd(e) {
         draggedElement = null;
     }
 }
-
 function updateElementPosition(touch) {
     draggedElement.style.left = `${touch.clientX - touchOffset.x}px`;
     draggedElement.style.top = `${touch.clientY - touchOffset.y}px`;
 }
-
 function getDropZone(e) {
     const touch = e.changedTouches ? e.changedTouches[0] : e;
     const imageContainers = document.querySelectorAll('.image-container');
@@ -507,7 +516,6 @@ function getDropZone(e) {
     }
     return null;
 }
-
 function handleDrop(dropZone) {
     if (!draggedElement) return;
 
@@ -534,7 +542,15 @@ function resetDraggedElement() {
     draggedElement.style.left = '';
     draggedElement.style.top = '';
 }
-// end new
+
+function surprise() {
+    // placeholder
+    const soundUrl = './sound/fart.mp3';
+    // Create a new Audio object
+    const audio = new Audio(soundUrl);
+    // Play the sound
+    audio.play().catch(error => { console.error('Error playing the fart:', error); });
+}
 
 // start
 (async function() { await setupGame(newPair = true); })();
