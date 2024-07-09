@@ -528,6 +528,7 @@ function touchEnd(e) {
             resetDraggedElement();
         }
         draggedElement.style.zIndex = '';
+        draggedElement.style.position = '';
         draggedElement = null;
     }
 }
@@ -550,44 +551,20 @@ function getDropZone(e) {
 function handleDrop(dropZone) {
     if (!draggedElement) return;
 
-    const rect = dropZone.getBoundingClientRect();
-    const draggedRect = draggedElement.getBoundingClientRect();
+    dropZone.innerHTML = '';
+    dropZone.appendChild(draggedElement);
+    draggedElement.style.position = 'static'; // Reset position to static
+    draggedElement.style.left = '';
+    draggedElement.style.top = '';
+    draggedElement.style.width = '100%'; // Ensure the dragged element fills the drop zone width
 
-    // Calculate the distance to move
-    const deltaX = rect.left - draggedRect.left + (rect.width - draggedRect.width) / 2;
-    const deltaY = rect.top - draggedRect.top;
+    const otherNameId = draggedElement.id === 'left-name' ? 'right-name' : 'left-name';
+    const otherName = document.getElementById(otherNameId);
+    const otherDropZone = document.getElementById(dropZone.id === 'drop-1' ? 'drop-2' : 'drop-1');
+    otherDropZone.innerHTML = '';
+    otherDropZone.appendChild(otherName);
 
-    // Animate the movement
-    draggedElement.style.transition = 'transform 0.3s ease-out';
-    draggedElement.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-
-    // After the movement animation, add it to the drop zone
-    setTimeout(() => {
-        dropZone.innerHTML = '';
-        dropZone.appendChild(draggedElement);
-        draggedElement.style.transition = '';
-        draggedElement.style.transform = '';
-        draggedElement.style.position = 'static';
-        draggedElement.style.left = '';
-        draggedElement.style.top = '';
-        draggedElement.style.width = '100%';
-        
-        // Add drop animation
-        draggedElement.classList.add('drop-animation');
-        
-        // Remove the animation class after it's done
-        setTimeout(() => {
-            draggedElement.classList.remove('drop-animation');
-        }, 300);
-
-        const otherNameId = draggedElement.id === 'left-name' ? 'right-name' : 'left-name';
-        const otherName = document.getElementById(otherNameId);
-        const otherDropZone = document.getElementById(dropZone.id === 'drop-1' ? 'drop-2' : 'drop-1');
-        otherDropZone.innerHTML = '';
-        otherDropZone.appendChild(otherName);
-
-        checkAnswer(dropZone.id);
-    }, 300);
+    checkAnswer(dropZone.id);
 }
 
 function resetDraggedElement() {

@@ -85,6 +85,7 @@ body * { text-align: center; } /* percolate to child elements */
     border-radius: var(--border-radius);
     pointer-events: none; /* Prevents the image from interfering with dragging */
 }
+
 #left-name-container, #right-name-container {
     width: 400px;
     margin: 4px;
@@ -130,7 +131,9 @@ body * { text-align: center; } /* percolate to child elements */
         transform: scale(1);
     }
 }
-.drop-animation { animation: dropAnimation 0.3s ease-out forwards; }
+.drop-animation {
+    animation: dropAnimation 0.3s ease-out forwards;
+}
 
 /* for swipe on top image */
 @keyframes swipeOutLeft {
