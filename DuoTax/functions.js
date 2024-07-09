@@ -380,7 +380,13 @@ function handleSwipeOrDrag(e) {
     
     endX = e.type.includes('touch') ? e.changedTouches[0].screenX : e.screenX;
     if (startX - endX > 50) {  // Swipe/drag left
-        setupGame(true);
+        const gameContainer = document.querySelector('.game-container');
+        gameContainer.classList.add('swipe-out-left');
+        
+        setTimeout(() => {
+            gameContainer.classList.remove('swipe-out-left');
+            setupGame(true);
+        }, 500); // Match this with the animation duration
     }
     isDragging = false;
 }
