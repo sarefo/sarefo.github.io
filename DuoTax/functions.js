@@ -29,6 +29,18 @@ let taxonLeftName, taxonRightName;
 // debugging section
 const debug = false;
 
+function requestFullscreen() {
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+    }
+}
+
+
 // fetch from JSON file
 async function fetchTaxonPairs() {
     try {
@@ -205,7 +217,6 @@ async function fetchRandomImage(taxonName) {
         const taxonData = await taxonResponse.json();
         if (taxonData.results.length === 0) { throw new Error('No details found for the taxon'); }
         const taxon = taxonData.results[0];
-        console.log(taxon);
         
         // Extract images from taxon photos
         // square 75px • small 240px • medium 500px • large 1024px
@@ -533,6 +544,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 });
 
+// part of fullscreen mode
+function hideAddressBar() {
+    if (document.documentElement.scrollHeight < window.outerHeight / window.devicePixelRatio) {
+        document.documentElement.style.height = (window.outerHeight / window.devicePixelRatio) + 'px';
+    }
+    setTimeout(window.scrollTo(1, 1), 0);
+}
+// Call this function when the page loads and on orientation change
+window.addEventListener("load", hideAddressBar);
+window.addEventListener("orientationchange", hideAddressBar);
+
 // Prevent scrolling in the name-pair area
 elements.namePair.addEventListener('touchmove', function(event) { event.preventDefault(); }, { passive: false });
 elements.namePair.addEventListener('wheel', function(event) { event.preventDefault(); }, { passive: false });
@@ -635,4 +657,9 @@ function surprise() {
 }
 
 // start
-(async function() { await setupGame(newPair = true); })();
+(async function() {
+    await setupGame(newPair = true);
+    
+    // Request fullscreen mode
+    document.addEventListener('click', requestFullscreen, { once: true });
+})();
