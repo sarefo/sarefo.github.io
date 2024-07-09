@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Internal testing tools</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+<script>
+const taxaList = [
+    "Felidae"]; /*, "Canidae", "Panthera onca", "Panthera pardus", "Crocodylidae", 
+    "Alligatoridae", "Pygopodidae", "Colubridae", "Chelonia mydas", 
+    "Eretmochelys imbricata", "Zenaida", "Columba", "Platax teira", 
+    "Platax orbicularis", "Ostracion meleagris", "Ostracion solorense", 
+    "Coradion chrysozonus", "Chelmon rostratus", "Chaetodon vagabundus", 
+    "Chaetodon lunulatus", "Heniochus varius", "Heniochus chrysostomus", 
+    "Heniochus macrolepidotus", "Heniochus diphreutes", "Lethrinidae", 
+    "Lutjanidae", "Caeneressa diaphana", "Amata huebneri", "Cicadellidae", 
+    "Fulgoroidea", "Hierodula patellifera", "Tropidomantis gressitti", 
+    "Auchenorrhyncha", "Sternorrhyncha", "Papilionoidea", "Geometroidea", 
+    "Bombycoidea", "Psychidae", "Tineidae", "Tortricidae", "Zygaenidae", 
+    "Limacodidae", "Caelifera", "Ensifera", "Tettigoniidae", "Acridoidea", 
+    "Brachycera", "Nematocera", "Cyclorrhapha", "Orthorrhapha", "Acalyptratae", 
+    "Calyptratae", "Cheilomenes sexmaculata", "Coccinella transversalis", 
+    "Anisoptera", "Zygoptera", "Syrphidae", "Vespoidea", "Synanthedon", 
+    "Formicidae", "Myrmarachnini", "Formicinae", "Myrmicinae", "Myrmeciinae", 
+    "Dolichoderinae", "Camponotus", "Ponerinae", "Paraponerinae", 
+    "Anoplolepis gracilipes", "Solenopsis invicta", "Nephila pilipes", 
+    "Trichonephila clavata", "Hasarius adansoni", "Chinattus tibialis", 
+    "Menemerus bivittatus", "Menemerus nigli", "Menemerus semilimbatus", 
+    "Rhene flavicomans", "Irura bidenticulata", "Thiania bhamoensis", 
+    "Thiania suboppressa", "Carrhotus sannio", "Carrhotus viduus", 
+    "Telamonia caprina", "Telamonia festiva", "Epocilla calcarata", 
+    "Epocilla blairei", "Pancorius crassipes", "Portia orientalis", 
+    "Portia labiata", "Phintelloides versicolor", "Phintella bifurcilinea", 
+    "Siler collingwoodi", "Siler semiglaucus", "Eucarida", "Peracarida", 
+    "Eumalacostraca", "Hoplocarida", "Octocorallia", "Hexacorallia", 
+    "Plerogyra sinuosa", "Physogyra lichtensteini", "Platygyra", "Lobophyllia", 
+    "Pocillopora", "Millepora", "Octopus", "Hapalochlaena", "Sepiida", 
+    "Myopsida", "Neritimorpha", "Heterobranchia", "Vetigastropoda", 
+    "Caenogastropoda", "Patellogastropoda", "Lissachatina immaculata", 
+    "Lissachatina fulica", "Nudibranchia", "Polycladida", "Fromia monilis", 
+    "Fromia heffernani", "Magnoliopsida", "Liliopsida", "Psychotria serpens", 
+    "Ficus pumila", "Lemmaphyllum microphyllum", "Rhodophyta", "Phaeophyceae", 
+    "Chlorophyta"
+];*/
+
+async function getTaxonPhotoCount(taxon) {
+        const searchResponse = await fetch(`https://api.inaturalist.org/v1/taxa?q=${taxon}`);
+        const searchData = await searchResponse.json();
+        if (searchData.results.length === 0) { throw new Error('Taxon not found'); }
+        const taxonId = searchData.results[0].id;
+
+        let images = [];
+        // Get the taxon details
+        const taxonResponse = await fetch(`https://api.inaturalist.org/v1/taxa/${taxonId}`);
+        const taxonData = await taxonResponse.json();
+        if (taxonData.results.length === 0) { throw new Error('No details found for the taxon'); }
+        const thistaxon = taxonData.results[0];
+        images = thistaxon.taxon_photos.count(); 
+        console.log("test" + images);
+
+        return 0;
+    }
+//    return 0;
+//}
+
+async function getAllTaxaPhotoCounts(taxaList) {
+    const results = {};
+    for (const taxon of taxaList) {
+        const count = await getTaxonPhotoCount(taxon);
+        results[taxon] = count;
+        console.log(`Taxon: ${taxon}, Photo Count: ${count}`);
+    }
+    return results;
+}
+
+getAllTaxaPhotoCounts(taxaList).then(results => {
+    console.log(results);
+});
+
+</script>
+</body>
+</html>

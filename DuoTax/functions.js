@@ -205,6 +205,7 @@ async function fetchRandomImage(taxonName) {
         const taxonData = await taxonResponse.json();
         if (taxonData.results.length === 0) { throw new Error('No details found for the taxon'); }
         const taxon = taxonData.results[0];
+        console.log(taxon);
         
         // Extract images from taxon photos
         // square 75px • small 240px • medium 500px • large 1024px
@@ -393,7 +394,7 @@ function checkAnswer(droppedZoneId) {
             }, 2400);
         } else {
             resetDraggables();
-            showOverlay('Wrong!<br>Try again.', colorWrong);
+            showOverlay('Try again!', colorWrong);
             setTimeout(() => {
                 hideOverlay();
             }, 800);

@@ -113,7 +113,7 @@ body * { text-align: center; } /* percolate to child elements */
     touch-action: none;
 }
 .droppable .draggable {
-    box-shadow: 0 0 0 3px white;/*, 0 0 10px 3px rgba(255, 255, 255, 0.7);*/
+    box-shadow: 0 0 0 2px white;/*, 0 0 10px 3px rgba(255, 255, 255, 0.7);*/
     transition: box-shadow 0.3s ease;
 }
 .droppable {
