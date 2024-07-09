@@ -431,14 +431,18 @@ function handleSwipeOrDrag(e) {
         
         setTimeout(() => {
             gameContainer.classList.remove('swiping-left', 'swipe-out-left');
-            gameContainer.style.transform = '';
-            gameContainer.style.opacity = '';
+            document.querySelectorAll('.image-container').forEach(container => {
+                container.style.transform = '';
+                container.style.opacity = '';
+            });
             setupGame(true);
         }, 500); // Match this with the animation duration
     } else {
         // Reset if not swiped far enough
-        gameContainer.style.transform = '';
-        gameContainer.style.opacity = '';
+        document.querySelectorAll('.image-container').forEach(container => {
+            container.style.transform = '';
+            container.style.opacity = '';
+        });
     }
     
     isDragging = false;
@@ -461,27 +465,29 @@ function handleDragMove(e) {
 }
 
 // touch events
-elements.imageOneContainer.addEventListener('touchstart', (e) => {
-    startX = e.touches[0].screenX;
-    isDragging = true;
-    gameContainer = document.querySelector('.game-container');
-    gameContainer.classList.add('swiping-left');
-}, { passive: true });
+[elements.imageOneContainer, elements.imageTwoContainer].forEach(container => {
+    container.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].screenX;
+        isDragging = true;
+        gameContainer = document.querySelector('.game-container');
+        gameContainer.classList.add('swiping-left');
+    }, { passive: true });
 
-elements.imageOneContainer.addEventListener('touchmove', handleDragMove, { passive: true });
-elements.imageOneContainer.addEventListener('touchend', handleSwipeOrDrag, { passive: true });
+    container.addEventListener('touchmove', handleDragMove, { passive: true });
+    container.addEventListener('touchend', handleSwipeOrDrag, { passive: true });
 
-// Mouse events
-elements.imageOneContainer.addEventListener('mousedown', (e) => {
-    startX = e.screenX;
-    isDragging = true;
-    gameContainer = document.querySelector('.game-container');
-    gameContainer.classList.add('swiping-left');
+    // Mouse events
+    container.addEventListener('mousedown', (e) => {
+        startX = e.screenX;
+        isDragging = true;
+        gameContainer = document.querySelector('.game-container');
+        gameContainer.classList.add('swiping-left');
+    });
+
+    container.addEventListener('mousemove', handleDragMove);
+    container.addEventListener('mouseup', handleSwipeOrDrag);
+    container.addEventListener('mouseleave', handleSwipeOrDrag);
 });
-
-elements.imageOneContainer.addEventListener('mousemove', handleDragMove);
-elements.imageOneContainer.addEventListener('mouseup', handleSwipeOrDrag);
-elements.imageOneContainer.addEventListener('mouseleave', handleSwipeOrDrag);
 
 // tile dragging listeners
 document.querySelectorAll('.draggable').forEach(element => {

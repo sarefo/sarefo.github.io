@@ -147,8 +147,8 @@ body * { text-align: center; } /* percolate to child elements */
         opacity: 0;
     }
 }
-.swiping-left { transition: transform 0.1s ease-out, opacity 0.1s ease-out; }
-.swipe-out-left { animation: swipeOutLeft 0.5s ease-out forwards; }
+.swiping-left .image-container { transition: transform 0.1s ease-out, opacity 0.1s ease-out; }
+.swipe-out-left .image-container { animation: swipeOutLeft 0.5s ease-out forwards; }
 
 #overlay {
     position: absolute;
