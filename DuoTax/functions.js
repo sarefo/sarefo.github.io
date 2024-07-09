@@ -26,12 +26,9 @@ let isDragging = false;
 let gameContainer;
 
 let isFirstLoad = true;
-let currentPair;
-let preloadedPair;
-
+let currentPair, preloadedPair;
 // global variables for image and name data
-let taxonImageOne, taxonImageTwo;
-let taxonLeftName, taxonRightName;
+let taxonImageOne, taxonImageTwo, taxonLeftName, taxonRightName;
 
 // debugging section
 const debug = false;
