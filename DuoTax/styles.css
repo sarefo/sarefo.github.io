@@ -17,18 +17,8 @@ body {
     overflow: auto;
     box-sizing: border-box;
     font-family: 'Open Sans', Arial, sans-serif;
-    background-color: black;
 }
 body * { text-align: center; } /* percolate to child elements */
-
-#all-container {
-    background-color: var(--background-color);
-}
-
-@media (hover: none) {
-    border-radius: var(--border-radius);
-    background-color: green; /*debug*/
-}
 
 #share-button {
     position: fixed;
