@@ -567,7 +567,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.addEventListener('keydown', function(event) {
         if (event.key === 'r' || event.key === 'R') { document.getElementById('random-pair-button').click(); }
         if (event.key === 's' || event.key === 'S') { document.getElementById('select-pair-button').click(); }
-        if (event.key === 'e' || event.key === 'E') { document.getElementById('enter-pair-button').click(); }
+        if (event.key === 'e' || event.key === 'E') { 
+        document.getElementById('enter-pair-button').click();
+        // Clear the input field
+        setTimeout(() => {
+            document.getElementById('taxon1').value = '';
+            document.getElementById('taxon1').focus();
+        }, 0);
+
+
+        }
         if (event.key === 'p' || event.key === 'P') { document.getElementById('surprise-button').click(); }
         if (event.key === 'f' || event.key === 'F') { document.getElementById('surprise-button').click(); }
     });
