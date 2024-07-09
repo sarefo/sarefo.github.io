@@ -19,6 +19,12 @@ const overlayColors = {
     gray: "rgba(100, 100, 100, 0.8"
 };
 
+// global variables for swiping left
+let startX = 0;
+let endX = 0;
+let isDragging = false;
+let gameContainer;
+
 let isFirstLoad = true;
 let currentPair;
 let preloadedPair;
@@ -29,6 +35,8 @@ let taxonLeftName, taxonRightName;
 
 // debugging section
 const debug = false;
+
+// functions
 
 function requestFullscreen() {
     const elem = document.documentElement;
@@ -281,13 +289,6 @@ async function setupGame(newPair = false)  {
             elements.imageTwo.src = imageTwoURL;
         }
     }
-/*
-    if (newPair) { // select new taxon pair
-            // try to fetch taxon pair from URL, use random from local array otherwise
-            // not the first round: get random from local array
-        currentPair = !currentPair ? (getURLParameters() || await selectTaxonPair()) : await selectTaxonPair();
-    }
-*/
 
     // Randomly decide which taxon goes left and right (images)
     [taxonImageOne, taxonImageTwo] = Math.random() < 0.5
@@ -351,17 +352,6 @@ function loadImage(imgElement, src) {
         imgElement.onerror = reject;
         imgElement.src = src;
     });
-}
-
-//TODO DEBUG only
-// Function to create a delay
-function delay(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
-// Async function to pause execution
-async function pauseExecution() {
-  console.log('Starting...');
-  // Pause execution for 10 seconds
-  await delay(100000);
-  console.log('100 seconds later...');
 }
 
 // drag and drop name tile onto image
@@ -456,11 +446,6 @@ function hideOverlay() {
 document.getElementById('version-id').textContent = 'Last modified: ' + document.lastModified;
 
 // swipe left on top image for new random pair
-let startX = 0;
-let endX = 0;
-let isDragging = false;
-let gameContainer;
-
 function handleSwipeOrDrag(e) {
     if (!isDragging) return;
     
