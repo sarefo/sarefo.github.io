@@ -25,6 +25,11 @@ let endX = 0;
 let isDragging = false;
 let gameContainer;
 
+let touchStartX = 0;
+let touchStartY = 0;
+let touchEndX = 0;
+let touchEndY = 0;
+
 let isFirstLoad = true;
 let currentPair, preloadedPair;
 // global variables for image and name data
@@ -35,14 +40,23 @@ const debug = false;
 
 // functions
 
-function requestFullscreen() {
-    const elem = document.documentElement;
-    if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-    } else if (elem.webkitRequestFullscreen) { /* Safari */
-        elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) { /* IE11 */
-        elem.msRequestFullscreen();
+function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+        if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen();
+        } else if (document.documentElement.webkitRequestFullscreen) { /* Safari */
+            document.documentElement.webkitRequestFullscreen();
+        } else if (document.documentElement.msRequestFullscreen) { /* IE11 */
+            document.documentElement.msRequestFullscreen();
+        }
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) { /* Safari */
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE11 */
+            document.msExitFullscreen();
+        }
     }
 }
 
@@ -559,6 +573,47 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 });
 
+function handleTouchStart(event) {
+    touchStartX = event.touches[0].clientX;
+    touchStartY = event.touches[0].clientY;
+}
+
+function handleTouchEnd(event) {
+    touchEndX = event.changedTouches[0].clientX;
+    touchEndY = event.changedTouches[0].clientY;
+    handleImageInteraction();
+}
+
+function handleMouseDown(event) {
+    touchStartX = event.clientX;
+    touchStartY = event.clientY;
+}
+
+function handleMouseUp(event) {
+    touchEndX = event.clientX;
+    touchEndY = event.clientY;
+    handleImageInteraction();
+}
+
+function handleImageInteraction() {
+    const diffX = Math.abs(touchStartX - touchEndX);
+    const diffY = Math.abs(touchStartY - touchEndY);
+
+    // If the touch/click moved less than 10 pixels, consider it a tap/click
+    if (diffX < 10 && diffY < 10) {
+        toggleFullscreen();
+    }
+}
+
+
+//const elements = ['image-container-1', 'image-container-2'];
+const events = ['touchstart', 'touchend', 'mousedown', 'mouseup'];
+const handlers = [handleTouchStart, handleTouchEnd, handleMouseDown, handleMouseUp];
+
+// touch + mouse event handlers for image containers
+[elements.imageOneContainer, elements.imageTwoContainer].forEach(id => { const element = id;
+  events.forEach((event, index) => { element.addEventListener(event, handlers[index]); }); });
+
 // part of fullscreen mode
 function hideAddressBar() {
     if (document.documentElement.scrollHeight < window.outerHeight / window.devicePixelRatio) {
@@ -676,6 +731,4 @@ function surprise() {
     await setupGame(newPair = true);
     preloadedPair = await preloadPair();
     
-    // Request fullscreen mode
-    document.addEventListener('click', requestFullscreen, { once: true });
 })();
