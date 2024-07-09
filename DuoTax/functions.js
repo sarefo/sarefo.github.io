@@ -442,21 +442,24 @@ function handleSwipeOrDrag(e) {
         
         setTimeout(() => {
             gameContainer.classList.remove('swiping-left', 'swipe-out-left');
-            document.querySelectorAll('.image-container').forEach(container => {
-                container.style.transform = '';
-                container.style.opacity = '';
-            });
+            resetGameContainerStyle();
             setupGame(true);
         }, 500); // Match this with the animation duration
     } else {
         // Reset if not swiped far enough
-        document.querySelectorAll('.image-container').forEach(container => {
-            container.style.transform = '';
-            container.style.opacity = '';
-        });
+        resetGameContainerStyle();
     }
     
     isDragging = false;
+}
+
+function resetGameContainerStyle() {
+    gameContainer.style.transform = '';
+    gameContainer.style.opacity = '';
+    document.querySelectorAll('.image-container').forEach(container => {
+        container.style.transform = '';
+        container.style.opacity = '';
+    });
 }
 
 function handleDragMove(e) {
