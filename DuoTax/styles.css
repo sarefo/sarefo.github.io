@@ -18,7 +18,7 @@ body {
     box-sizing: border-box;
     font-family: 'Open Sans', Arial, sans-serif;
 }
-body * { text-align: center; }
+body * { text-align: center; } /* percolate to child elements */
 
 #share-button {
     position: fixed;
@@ -85,7 +85,6 @@ body * { text-align: center; }
     border-radius: var(--border-radius);
     pointer-events: none; /* Prevents the image from interfering with dragging */
 }
-
 #left-name-container, #right-name-container {
     width: 400px;
     margin: 4px;
@@ -120,9 +119,18 @@ body * { text-align: center; }
     pointer-events: none;
     height: 60px; /* Add a fixed height */
 }
-
 #image-container-1 .droppable { bottom: 10%; }
 #image-container-2 .droppable { top: 10%; }
+
+@keyframes dropAnimation {
+    0% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+.drop-animation { animation: dropAnimation 0.3s ease-out forwards; }
 
 /* for swipe on top image */
 @keyframes swipeOutLeft {
