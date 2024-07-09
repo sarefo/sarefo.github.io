@@ -88,7 +88,7 @@ fill: white;
     transition: opacity 0.3s ease;
 }
 .image-container img.loading {
-    opacity: 0.5;
+    opacity: 1;
     transition: opacity 0s;    
 }
 
