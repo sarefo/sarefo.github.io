@@ -81,6 +81,20 @@
 
     {"taxon1":"Eucarida", "taxon2":"Peracarida"},
     {"taxon1":"Eumalacostraca", "taxon2":"Hoplocarida"},
+    {"taxon1":"Dardanus lagopodes", "taxon2":"Dardanus megistos"},
+    {"taxon1":"Clibanarius infraspinatus", "taxon2":"Clibanarius longitarsus"},
+    {"taxon1":"Portunus pelagicus", "taxon2":"Portunus sanguinolentus"},
+    {"taxon1":"Atergatis floridus", "taxon2":"Atergatis integerrimus"},
+    {"taxon1":"Urocaridella antonbruunii", "taxon2":"Urocaridella pulchella"},
+    {"taxon1":"Stichopus chloronotus", "taxon2":"Holothuria leucospilota"},
+
+    {"taxon1":"Ctenophora", "taxon2":"Scyphozoa"},
+    {"taxon1":"Tridacna crocea", "taxon2":"Tridacna maxima"},
+    {"taxon1":"Tridacna maxima", "taxon2":"Tridacna squamosa"},
+    {"taxon1":"Acanthosepion pharaonis", "taxon2":"Sepia latimanus"},
+    {"taxon1":"Cypraea tigris", "taxon2":"Mauritia arabica"},
+    {"taxon1":"Unidentia aliciae", "taxon2":"Unidentia angelvaldesi"},
+    {"taxon1":"Armina scotti", "taxon2":"Armina semperi"},
 
     {"taxon1":"Octocorallia", "taxon2":"Hexacorallia"},
     {"taxon1":"Plerogyra sinuosa", "taxon2":"Physogyra lichtensteini"},
