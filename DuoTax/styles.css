@@ -265,3 +265,8 @@ body * { text-align: center; } /* percolate to child elements */
     margin-top: 20px;
 }
 
+// select pair dialog
+.cancel-button {
+    background-color: var(--primary-counter-color) !important;
+    margin-top: 20px !important;
+}

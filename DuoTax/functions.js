@@ -97,11 +97,28 @@ async function showTaxonPairList() {
     const list = document.createElement('div');
     list.style.cssText = `
         background-color: var(--background-color);
-        padding: 4px;
+        padding: 20px;
         border-radius: var(--border-radius);
-        max-width: 98%;
-        max-height: 98%;
+        max-width: 90%;
+        max-height: 95%;
         overflow-y: auto;`;
+
+    // Add a cancel button
+    const cancelButton = document.createElement('button');
+    cancelButton.textContent = 'Cancel';
+    cancelButton.style.cssText = `
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        color: var(--background-color);
+        background-color: var(--primary-counter-color);
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;`;
+    cancelButton.onclick = () => {
+        document.body.removeChild(modal);
+    };
 
     // list pairs
     taxonPairs.forEach((pair, index) => {
@@ -124,6 +141,10 @@ async function showTaxonPairList() {
         };
         list.appendChild(button);
     });
+
+    // Add the cancel button to the list
+    //list.appendChild(cancelButton);
+    list.insertBefore(cancelButton, list.firstChild);
 
     modal.appendChild(list);
     document.body.appendChild(modal);
