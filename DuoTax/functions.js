@@ -29,6 +29,7 @@ let touchStartX = 0;
 let touchStartY = 0;
 let touchEndX = 0;
 let touchEndY = 0;
+let isFullscreen = false;
 
 let isFirstLoad = true;
 let currentPair, preloadedPair;
@@ -40,21 +41,35 @@ const debug = false;
 
 // functions
 
+// Debounce function to prevent rapid toggling
+function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+}
+// Function to toggle fullscreen
 function toggleFullscreen() {
-    if (!document.fullscreenElement) {
+    if (!isFullscreen) {
         if (document.documentElement.requestFullscreen) {
             document.documentElement.requestFullscreen();
         } else if (document.documentElement.webkitRequestFullscreen) { /* Safari */
             document.documentElement.webkitRequestFullscreen();
         }
+        isFullscreen = true;
     } else {
         if (document.exitFullscreen) {
             document.exitFullscreen();
         } else if (document.webkitExitFullscreen) { /* Safari */
             document.webkitExitFullscreen();
         }
+        isFullscreen = false;
     }
+    scrollToTop();
 }
+// Debounced version of toggleFullscreen
+const debouncedToggleFullscreen = debounce(toggleFullscreen, 300);
 
 // preload images for one taxon pair
 async function preloadPair() {
@@ -495,26 +510,18 @@ function handleDragMove(e) {
 // touch events
 [elements.imageOneContainer, elements.imageTwoContainer].forEach(container => {
     container.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].screenX;
-        isDragging = true;
-        gameContainer = document.querySelector('.game-container');
-        gameContainer.classList.add('swiping-left');
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
     }, { passive: true });
 
-    container.addEventListener('touchmove', handleDragMove, { passive: true });
-    container.addEventListener('touchend', handleSwipeOrDrag, { passive: true });
+    container.addEventListener('touchend', handleImageInteraction);
 
-    // Mouse events
     container.addEventListener('mousedown', (e) => {
-        startX = e.screenX;
-        isDragging = true;
-        gameContainer = document.querySelector('.game-container');
-        gameContainer.classList.add('swiping-left');
+        touchStartX = e.clientX;
+        touchStartY = e.clientY;
     });
 
-    container.addEventListener('mousemove', handleDragMove);
-    container.addEventListener('mouseup', handleSwipeOrDrag);
-    container.addEventListener('mouseleave', handleSwipeOrDrag);
+    container.addEventListener('mouseup', handleImageInteraction);
 });
 
 // tile dragging listeners
@@ -592,16 +599,15 @@ function handleMouseUp(event) {
     handleImageInteraction();
 }
 
-function handleImageInteraction() {
-    const diffX = Math.abs(touchStartX - touchEndX);
-    const diffY = Math.abs(touchStartY - touchEndY);
+function handleImageInteraction(event) {
+    const diffX = Math.abs(touchStartX - (event.clientX || event.changedTouches[0].clientX));
+    const diffY = Math.abs(touchStartY - (event.clientY || event.changedTouches[0].clientY));
 
     // If the touch/click moved less than 10 pixels, consider it a tap/click
     if (diffX < 10 && diffY < 10) {
-        toggleFullscreen();
+        debouncedToggleFullscreen();
     }
 }
-
 
 //const elements = ['image-container-1', 'image-container-2'];
 const events = ['touchstart', 'touchend', 'mousedown', 'mouseup'];
@@ -621,6 +627,9 @@ function hideAddressBar() {
 // Call this function when the page loads and on orientation change
 window.addEventListener("load", hideAddressBar);
 window.addEventListener("orientationchange", hideAddressBar);
+// Listen for fullscreen change events
+document.addEventListener('fullscreenchange', () => { isFullscreen = !!document.fullscreenElement; });
+document.addEventListener('webkitfullscreenchange', () => { isFullscreen = !!document.webkitFullscreenElement; });
 
 // Prevent scrolling in the name-pair area
 elements.namePair.addEventListener('touchmove', function(event) { event.preventDefault(); }, { passive: false });
