@@ -557,23 +557,32 @@ document.getElementById('surprise-button').addEventListener('click', () => {
     surprise();
 });
 
-// keyboard shortcuts
+// Keyboard shortcuts
 document.addEventListener('DOMContentLoaded', (event) => {
     document.addEventListener('keydown', function(event) {
-        if (event.key === 'r' || event.key === 'R') { document.getElementById('random-pair-button').click(); }
-        if (event.key === 's' || event.key === 'S') { document.getElementById('select-pair-button').click(); }
-        if (event.key === 'e' || event.key === 'E') { 
-        document.getElementById('enter-pair-button').click();
-        // Clear the input field
-        setTimeout(() => {
-            document.getElementById('taxon1').value = '';
-            document.getElementById('taxon1').focus();
-        }, 0);
-
-
+        // Check if the enter pair dialog is open
+        const isDialogOpen = document.getElementById('enter-pair-dialog').open;
+        
+        // Only process shortcuts if the dialog is not open
+        if (!isDialogOpen) {
+            if (event.key === 'r' || event.key === 'R') {
+                document.getElementById('random-pair-button').click();
+            }
+            if (event.key === 's' || event.key === 'S') {
+                document.getElementById('select-pair-button').click();
+            }
+            if (event.key === 'e' || event.key === 'E') {
+                document.getElementById('enter-pair-button').click();
+                // Clear the input field
+                setTimeout(() => {
+                    document.getElementById('taxon1').value = '';
+                    document.getElementById('taxon1').focus();
+                }, 0);
+            }
+            if (event.key === 'p' || event.key === 'P' || event.key === 'f' || event.key === 'F') {
+                document.getElementById('surprise-button').click();
+            }
         }
-        if (event.key === 'p' || event.key === 'P') { document.getElementById('surprise-button').click(); }
-        if (event.key === 'f' || event.key === 'F') { document.getElementById('surprise-button').click(); }
     });
 });
 
