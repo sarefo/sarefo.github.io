@@ -265,8 +265,48 @@ body * { text-align: center; } /* percolate to child elements */
     margin-top: 20px;
 }
 
-// select pair dialog
-.cancel-button {
-    background-color: var(--primary-counter-color) !important;
-    margin-top: 20px !important;
+/* Styles for the select taxon pair list dialog */
+.taxon-pair-modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
+.taxon-pair-list {
+    background-color: var(--background-color);
+    padding: 8px;
+    border-radius: var(--border-radius);
+    max-width: 90%;
+    max-height: 95%;
+    overflow-y: auto;
+}
+.taxon-pair-button {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin: 4px 0;
+    color: var(--background-color);
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.taxon-pair-versus {
+    color: #666;
+}
+.taxon-pair-cancel-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    color: var(--background-color);
+    background-color: var(--primary-counter-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+

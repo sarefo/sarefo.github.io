@@ -82,58 +82,27 @@ async function fetchTaxonPairs() {
 // display pair list for selection
 async function showTaxonPairList() {
     const taxonPairs = await fetchTaxonPairs();
-    if (taxonPairs.length === 0) { console.error("No taxon pairs available"); return; }
+    if (taxonPairs.length === 0) {
+        console.error("No taxon pairs available");
+        return;
+    }
     const modal = document.createElement('div');
-    modal.style.cssText = `
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;`;
+    modal.className = 'taxon-pair-modal';
 
     const list = document.createElement('div');
-    list.style.cssText = `
-        background-color: var(--background-color);
-        padding: 20px;
-        border-radius: var(--border-radius);
-        max-width: 90%;
-        max-height: 95%;
-        overflow-y: auto;`;
+    list.className = 'taxon-pair-list';
 
-    // Add a cancel button
     const cancelButton = document.createElement('button');
     cancelButton.textContent = 'Cancel';
-    cancelButton.style.cssText = `
-        display: block;
-        width: 100%;
-        padding: 10px;
-        margin: 10px 0;
-        color: var(--background-color);
-        background-color: var(--primary-counter-color);
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;`;
+    cancelButton.className = 'taxon-pair-cancel-button';
     cancelButton.onclick = () => {
         document.body.removeChild(modal);
     };
 
-    // list pairs
     taxonPairs.forEach((pair, index) => {
         const button = document.createElement('button');
-        button.innerHTML = `<i>${pair.taxon1}</i> <span style="color: #666;">vs</span> <i>${pair.taxon2}</i>`;
-        button.style.cssText = `
-            display: block;
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            color: var(--background-color);
-            background-color: var(--primary-color);
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;`;
+        button.innerHTML = `<i>${pair.taxon1}</i> <span class="taxon-pair-versus">vs</span> <i>${pair.taxon2}</i>`;
+        button.className = 'taxon-pair-button';
         button.onclick = () => {
             currentPair = pair;
             setupGame(false);
@@ -142,14 +111,16 @@ async function showTaxonPairList() {
         list.appendChild(button);
     });
 
-    // Add the cancel button to the list
-    //list.appendChild(cancelButton);
     list.insertBefore(cancelButton, list.firstChild);
 
     modal.appendChild(list);
     document.body.appendChild(modal);
 
-    modal.onclick = (e) => { if (e.target === modal) { document.body.removeChild(modal); } };
+    modal.onclick = (e) => {
+        if (e.target === modal) {
+            document.body.removeChild(modal);
+        }
+    };
 }
 
 // for user input of new taxon pairs
