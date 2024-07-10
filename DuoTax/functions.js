@@ -722,9 +722,14 @@ function surprise() {
     // placeholder
     const soundUrl = './sound/fart.mp3';
     // Create a new Audio object
-    const audio = new Audio(soundUrl);
+
+const audio = new Audio(soundUrl);
+audio.play({ playbackMode: 'background' }) .then(() => { // Audio started playing successfully
+        }).catch(error => { console.error('Error playing the fart:', error); });
+
+/*    const audio = new Audio(soundUrl);
     // Play the sound
-    audio.play().catch(error => { console.error('Error playing the fart:', error); });
+    audio.play().catch(error => { console.error('Error playing the fart:', error); });*/
 }
 
 // start
