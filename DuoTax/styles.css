@@ -3,7 +3,7 @@
     --primary-color: #74ac00; /*before: #2C8F30;*/
     --primary-counter-color: #ac0028; /* aka "red" */
     --text-color: #333;
-    --background-color: black; /*#ffffff;*/
+    --background-color: #ffffff;
     --text-color: #ffffff;
     --shadow-color: rgba(0, 0, 0, 0.1);
     --overlay-color: rgba(0, 0, 0, 0.3);
@@ -12,7 +12,6 @@
 
 body {
     display: flex;
-             background-color: black;
     flex-direction: column;
     height: 100vh;
     margin: 0; padding: 0;
