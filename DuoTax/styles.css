@@ -3,7 +3,8 @@
     --primary-color: #74ac00; /*before: #2C8F30;*/
     --primary-counter-color: #ac0028; /* aka "red" */
     --text-color: #333;
-    --background-color: #ffffff;
+    --background-color: black; /*#ffffff;*/
+    --text-color: #ffffff;
     --shadow-color: rgba(0, 0, 0, 0.1);
     --overlay-color: rgba(0, 0, 0, 0.3);
     --border-radius: 8px;
@@ -11,6 +12,7 @@
 
 body {
     display: flex;
+             background-color: black;
     flex-direction: column;
     height: 100vh;
     margin: 0; padding: 0;
@@ -110,7 +112,7 @@ body * { text-align: center; } /* percolate to child elements */
 .draggable, .droppable .draggable {
     background-color: var(--primary-color);
     opacity: 0.8;
-    color: var(--background-color);
+    color: var(--text-color);
     padding: 10px;
     border-radius: var(--border-radius);
     width: 100%;
@@ -178,14 +180,14 @@ body * { text-align: center; } /* percolate to child elements */
     font-size: 36px;
 /*    font-size: clamp(14px, 5vw, 36px);  not sure this is functional */
     font-weight: bold;
-    color: var(--background-color);
+    color: var(--text-color);
     text-shadow: 2px 2px 4px var(--shadow-color);
     padding: 20px;
 }
 
 .bottom-button {
     background-color: var(--primary-color);
-    color: var(--background-color);
+    color: var(--text-color);
     font-size: 16px;
     border: none;
     padding: 15px 32px;
@@ -243,7 +245,7 @@ body * { text-align: center; } /* percolate to child elements */
 }
 #enter-pair-dialog button {
     background-color: var(--primary-color);
-    color: var(--background-color);
+    color: var(--text-color);
     border: none;
     padding: 10px 15px;
     border-radius: var(--border-radius);
@@ -289,7 +291,7 @@ body * { text-align: center; } /* percolate to child elements */
     width: 100%;
     padding: 8px;
     margin: 4px 0;
-    color: var(--background-color);
+    color: var(--text-color);
     background-color: var(--primary-color);
     border: none;
     border-radius: 5px;
@@ -303,7 +305,7 @@ body * { text-align: center; } /* percolate to child elements */
     width: 100%;
     padding: 10px;
     margin: 10px 0;
-    color: var(--background-color);
+    color: var(--text-color);
     background-color: var(--primary-counter-color);
     border: none;
     border-radius: 5px;
