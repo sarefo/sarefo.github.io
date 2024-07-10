@@ -46,16 +46,12 @@ function toggleFullscreen() {
             document.documentElement.requestFullscreen();
         } else if (document.documentElement.webkitRequestFullscreen) { /* Safari */
             document.documentElement.webkitRequestFullscreen();
-        } else if (document.documentElement.msRequestFullscreen) { /* IE11 */
-            document.documentElement.msRequestFullscreen();
         }
     } else {
         if (document.exitFullscreen) {
             document.exitFullscreen();
         } else if (document.webkitExitFullscreen) { /* Safari */
             document.webkitExitFullscreen();
-        } else if (document.msExitFullscreen) { /* IE11 */
-            document.msExitFullscreen();
         }
     }
 }
@@ -724,8 +720,9 @@ function surprise() {
     // Create a new Audio object
 
 const audio = new Audio(soundUrl);
-audio.play({ playbackMode: 'background' }) .then(() => { // Audio started playing successfully
-        }).catch(error => { console.error('Error playing the fart:', error); });
+    audio.play({ playbackMode: 'background' })
+      .then(() => { /* Audio started playing successfully*/ }).catch(error => { console.error('Error playing the fart:', error); });
+}
 
 // start
 (async function() {
