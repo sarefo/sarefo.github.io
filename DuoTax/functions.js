@@ -727,11 +727,6 @@ const audio = new Audio(soundUrl);
 audio.play({ playbackMode: 'background' }) .then(() => { // Audio started playing successfully
         }).catch(error => { console.error('Error playing the fart:', error); });
 
-/*    const audio = new Audio(soundUrl);
-    // Play the sound
-    audio.play().catch(error => { console.error('Error playing the fart:', error); });*/
-}
-
 // start
 (async function() {
     await setupGame(newPair = true);
