@@ -196,6 +196,7 @@ body * { text-align: center; } /* percolate to child elements */
     max-width: 200px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    outline: none;
 }
 
 #home-link {

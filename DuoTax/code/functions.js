@@ -287,12 +287,11 @@ async function setupGame(newPair = false)  {
     elements.imageTwo.classList.add('loading');
     var startMessage = isFirstLoad ? "Drag the names!" : startMessage = "Loading…";
     showOverlay(startMessage, overlayColors.green);
-    isFirstLoad = false;
 
     if (newPair) {
-        const urlParams = getURLParameters();
-        if (urlParams) {
-            currentPair = urlParams;
+        if (isFirstLoad) {
+            const urlParams = getURLParameters();
+            if (urlParams) { currentPair = urlParams; }// else { urlParams = false; }
         } else if (preloadedPair) {
             currentPair = preloadedPair.pair;
             elements.imageOne.src = preloadedPair.imageOneURL;
@@ -302,6 +301,7 @@ async function setupGame(newPair = false)  {
             currentPair = await selectTaxonPair();
         }
     }
+    isFirstLoad = false;
 
 /*    if (newPair) {
         if (preloadedPair) {

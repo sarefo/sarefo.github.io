@@ -36,6 +36,7 @@
     {"taxon1":"Scarus rivulatus", "taxon2":"Scarus hypselopterus"},
     {"taxon1":"Parapercis xanthozona", "taxon2":"Parapercis hexophthalma"},
     {"taxon1":"Pterois volitans", "taxon2":"Pterois antennata"},
+    {"taxon1":"Gnatholepis cauerensis", "taxon2":"Gnatholepis anjerensis"},
 
     {"taxon1":"Caeneressa diaphana", "taxon2":"Amata huebneri"},
     {"taxon1":"Cicadellidae", "taxon2":"Fulgoroidea"},
@@ -111,7 +112,9 @@
     {"taxon1":"Nudibranchia", "taxon2":"Polycladida"},
 
     {"taxon1":"Fromia monilis", "taxon2":"Fromia heffernani"},
+
     {"taxon1":"Magnoliopsida", "taxon2":"Liliopsida"},
+    {"taxon1":"Solanum nigrum", "taxon2":"Solanum americanum"},
     {"taxon1":"Psychotria serpens", "taxon2":"Ficus pumila"},
     {"taxon1":"Psychotria serpens", "taxon2":"Lemmaphyllum microphyllum"},
     {"taxon1":"Ficus pumila", "taxon2":"Lemmaphyllum microphyllum"},
