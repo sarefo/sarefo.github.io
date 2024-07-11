@@ -61,7 +61,7 @@ body * { text-align: center; } /* percolate to child elements */
     transition: transform 0.1 ease-out, opacity 0.1 ease-out;
 }
 
-.image-pair, .name-pair {
+.image-pair {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -69,7 +69,14 @@ body * { text-align: center; } /* percolate to child elements */
     width: 100%;
 }
 
-.name-pair { position: relative; }
+.name-pair {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
 
 .image-container {
     flex: 1 1 300px;
