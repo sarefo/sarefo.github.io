@@ -387,7 +387,7 @@ body * { text-align: center; } /* percolate to child elements */
     text-align: left;
 }
 
-#more-help-dialog, #close-help-dialog {
+#more-help-dialog, #discord-help-dialog, #close-help-dialog {
     background-color: var(--primary-color);
     color: var(--text-color);
     border: none;

@@ -793,6 +793,9 @@ const audio = new Audio(soundUrl);
             window.open('https://google.com', '_blank');
         });
         */
+        document.getElementById('discord-help-dialog').addEventListener('click', () => {
+            window.open('https://discord.gg/DcWrhYHmeM', '_blank');
+        });
         document.getElementById('close-help-dialog').addEventListener('click', () => {
             document.getElementById('help-dialog').close();
         });
