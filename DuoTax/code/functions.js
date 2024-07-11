@@ -262,7 +262,6 @@ async function setupGame(newPair = false)  {
 
 
     //document.getElementById('inat-down-dialog').close();
-    console.log("closing modal");
   if (!await isINaturalistReachable()) {
       //showINatDownDialog();
     return;
