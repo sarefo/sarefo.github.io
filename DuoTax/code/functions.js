@@ -1,464 +1,289 @@
-// DOM elements
-const elements = {
-    imageOne: document.getElementById('image-1'),
-    imageTwo: document.getElementById('image-2'),
-    imageOneContainer: document.getElementById('image-container-1'),
-    imageTwoContainer: document.getElementById('image-container-2'),
-    namePair: document.querySelector('.name-pair'),
-    leftName: document.getElementById('left-name'),
-    rightName: document.getElementById('right-name'),
-    overlay: document.getElementById('overlay'),
-    overlayMessage: document.getElementById('overlay-message'),
-    buttons: document.querySelectorAll('.bottom-button')
-};
+import api from './api.js';
 
-// Configuration
-const config = {
-// overlay colors
-    overlayColors: {
-        green: "rgba(116,172,0,1.0)", /* iNat green */
-        red: "rgba(172, 0, 40, 1.0)",
-        gray: "rgba(100, 100, 100, 0.8"
-    },
-    debug: false
-};
+(function() {
 
-// Game state
-let gameState = {
-    isFirstLoad: true,
-    currentPair: null,
-    preloadedPair: null,
-    taxonImageOne: null,
-    taxonImageTwo: null,
-    taxonLeftName: null,
-    taxonRightName: null,
-};
+    // DOM elements
+    const elements = {
+        imageOne: document.getElementById('image-1'),
+        imageTwo: document.getElementById('image-2'),
+        imageOneContainer: document.getElementById('image-container-1'),
+        imageTwoContainer: document.getElementById('image-container-2'),
+        namePair: document.querySelector('.name-pair'),
+        leftName: document.getElementById('left-name'),
+        rightName: document.getElementById('right-name'),
+        overlay: document.getElementById('overlay'),
+        overlayMessage: document.getElementById('overlay-message'),
+        buttons: document.querySelectorAll('.bottom-button')
+    };
+
+    // Configuration
+    const config = {
+    // overlay colors
+        overlayColors: {
+            green: "rgba(116,172,0,1.0)", /* iNat green */
+            red: "rgba(172, 0, 40, 1.0)",
+            gray: "rgba(100, 100, 100, 0.8"
+        },
+        debug: false
+    };
+
+    // Game state
+    let gameState = {
+        isFirstLoad: true,
+        currentPair: null,
+        preloadedPair: null,
+        taxonImageOne: null,
+        taxonImageTwo: null,
+        taxonLeftName: null,
+        taxonRightName: null,
+    };
 
 // TODO BEGIN unsorted stuff
 
-// global variables for swiping left
-let startX = 0;
+    // global variables for swiping left
+    let startX = 0;
+    let endX = 0;
+    let isDragging = false;
+    let gameContainer;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
 
-let endX = 0;
-let isDragging = false;
-let gameContainer;
-
-let touchStartX = 0;
-let touchStartY = 0;
-let touchEndX = 0;
-let touchEndY = 0;
-
-async function handleNewPairSubmit(event) {
-    event.preventDefault();
-    const taxon1 = document.getElementById('taxon1').value;
-    const taxon2 = document.getElementById('taxon2').value;
-    const dialogMessage = document.getElementById('dialog-message');
-
-    dialogMessage.textContent = 'Validating taxa...';
-
-    const [validatedTaxon1, validatedTaxon2] = await Promise.all([
-        api.validateTaxon(taxon1),
-        api.validateTaxon(taxon2)
-    ]);
-
-    if (validatedTaxon1 && validatedTaxon2) {
-        const newPair = {
-            taxon1: validatedTaxon1.name,
-            taxon2: validatedTaxon2.name
-        };
-
-        try {
-            const response = await fetch('./data/taxonPairs.json');
-            const taxonPairs = await response.json();
-            taxonPairs.push(newPair);
-
-            gameState.currentPair = newPair;
-            game.setupGame(false);
-            document.getElementById('enter-pair-dialog').close();
-        } catch (error) {
-            console.error('Error updating taxonPairs.json:', error);
-            dialogMessage.textContent = 'Error saving new pair. Please try again.';
-        }
-    } else {
-        dialogMessage.textContent = 'One or both taxa are invalid. Please check and try again.';
-    }
-}
-
-function clearDialogInputs() {
-    document.getElementById('taxon1').value = '';
-    document.getElementById('taxon2').value = '';
-    document.getElementById('dialog-message').textContent = '';
-}
-
-function loadImage(imgElement, src) {
-    return new Promise((resolve, reject) => {
-        imgElement.onload = resolve;
-        imgElement.onerror = reject;
-        imgElement.src = src;
-    });
-}
-
-document.getElementById('version-id').textContent = `Modified: ${document.lastModified}`;
-
-function resetGameContainerStyle() {
-    gameContainer.style.transform = '';
-    gameContainer.style.opacity = '';
-    document.querySelectorAll('.image-container').forEach(container => {
-        container.style.transform = '';
-        container.style.opacity = '';
-    });
-}
-
-// touch events
-[elements.imageOneContainer, elements.imageTwoContainer].forEach(container => {
-    container.addEventListener('touchstart', (e) => {
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-    }, { passive: true });
-
-    container.addEventListener('touchend', handleImageInteraction);
-
-    container.addEventListener('mousedown', (e) => {
-        touchStartX = e.clientX;
-        touchStartY = e.clientY;
-    });
-
-    container.addEventListener('mouseup', handleImageInteraction);
-});
-
-// tile dragging listeners
-document.querySelectorAll('.draggable').forEach(element => {
-    element.addEventListener('dragstart', dragStart);
-    element.addEventListener('touchstart', touchStart, { passive: false });
-    element.addEventListener('touchmove', touchMove, { passive: false });
-    element.addEventListener('touchend', touchEnd, { passive: false });
-});
-document.querySelectorAll('.image-container').forEach(element => {
-    element.addEventListener('dragover', dragOver);
-    element.addEventListener('dragleave', dragLeave);
-    element.addEventListener('drop', drop);
-});
-
-// button listeners
-document.getElementById('share-button').addEventListener('click', shareCurrentPair);
-document.getElementById('random-pair-button').addEventListener('click', async () => { await game.setupGame(true); });
-document.getElementById('select-pair-button').addEventListener('click', showTaxonPairList);
-
-document.getElementById('enter-pair-button').addEventListener('click', () => {
-    clearDialogInputs();
-    document.getElementById('enter-pair-dialog').showModal();
-});
-document.getElementById('close-dialog').addEventListener('click', () => {
-    document.getElementById('enter-pair-dialog').close();
-});
-document.querySelector('#enter-pair-dialog form').addEventListener('submit', async (event) => {
-    event.preventDefault();
-    await handleNewPairSubmit(event);
-});
-document.getElementById('surprise-button').addEventListener('click', () => {
-    clearDialogInputs();
-    utils.surprise();
-});
-
-// Keyboard shortcuts
-document.addEventListener('DOMContentLoaded', (event) => {
-    document.addEventListener('keydown', function(event) {
-        // Check if the enter pair dialog is open
-        const isDialogOpen = document.getElementById('enter-pair-dialog').open;
+    async function handleNewPairSubmit(event) {
+        event.preventDefault();
+        const taxon1 = document.getElementById('taxon1').value;
+        const taxon2 = document.getElementById('taxon2').value;
+        const dialogMessage = document.getElementById('dialog-message');
         
-        // Only process shortcuts if the dialog is not open
-        if (!isDialogOpen) {
-            if (event.key === 'r' || event.key === 'R') {
-                document.getElementById('random-pair-button').click();
+        dialogMessage.textContent = 'Validating taxa...';
+        
+        const [validatedTaxon1, validatedTaxon2] = await Promise.all([
+            api.validateTaxon(taxon1),
+            api.validateTaxon(taxon2)
+        ]);
+        
+        if (validatedTaxon1 && validatedTaxon2) {
+            const newPair = {
+                taxon1: validatedTaxon1.name,
+                taxon2: validatedTaxon2.name
+            };
+        
+            try {
+                const response = await fetch('./data/taxonPairs.json');
+                const taxonPairs = await response.json();
+                taxonPairs.push(newPair);
+        
+                gameState.currentPair = newPair;
+                game.setupGame(false);
+                document.getElementById('enter-pair-dialog').close();
+            } catch (error) {
+                console.error('Error updating taxonPairs.json:', error);
+                dialogMessage.textContent = 'Error saving new pair. Please try again.';
             }
-            if (event.key === 's' || event.key === 'S') {
-                document.getElementById('select-pair-button').click();
-            }
-            if (event.key === 'h' || event.key === 'H') {
-                document.getElementById('help-button').click();
-            }
-            if (event.key === 'e' || event.key === 'E') {
-                document.getElementById('enter-pair-button').click();
-                // Clear the input field
-                setTimeout(() => {
-                    document.getElementById('taxon1').value = '';
-                    document.getElementById('taxon1').focus();
-                }, 0);
-            }
-            if (event.key === 'p' || event.key === 'P' || event.key === 'f' || event.key === 'F') {
-                document.getElementById('surprise-button').click();
-            }
+        } else {
+            dialogMessage.textContent = 'One or both taxa are invalid. Please check and try again.';
         }
-    });
-});
-
-// Help button functionality
-document.getElementById('help-button').addEventListener('click', () => {
-    document.getElementById('help-dialog').showModal();
-});
-/*
-document.getElementById('more-help-dialog').addEventListener('click', () => {
-    window.open('https://google.com', '_blank');
-});
-*/
-document.getElementById('close-help-dialog').addEventListener('click', () => {
-    document.getElementById('help-dialog').close();
-});
-
-function handleTouchStart(event) {
-    touchStartX = event.touches[0].clientX;
-    touchStartY = event.touches[0].clientY;
-}
-
-function handleTouchEnd(event) {
-    touchEndX = event.changedTouches[0].clientX;
-    touchEndY = event.changedTouches[0].clientY;
-    handleImageInteraction();
-}
-
-function handleMouseDown(event) {
-    touchStartX = event.clientX;
-    touchStartY = event.clientY;
-}
-
-function handleMouseUp(event) {
-    touchEndX = event.clientX;
-    touchEndY = event.clientY;
-    handleImageInteraction();
-}
-
-function handleImageInteraction(event) {
-    const diffX = Math.abs(touchStartX - (event.clientX || event.changedTouches[0].clientX));
-    const diffY = Math.abs(touchStartY - (event.clientY || event.changedTouches[0].clientY));
-
-}
-
-//const elements = ['image-container-1', 'image-container-2'];
-const events = ['touchstart', 'touchend', 'mousedown', 'mouseup'];
-const handlers = [handleTouchStart, handleTouchEnd, handleMouseDown, handleMouseUp];
-
-// touch + mouse event handlers for image containers
-[elements.imageOneContainer, elements.imageTwoContainer].forEach(id => { const element = id;
-  events.forEach((event, index) => { element.addEventListener(event, handlers[index]); }); });
-
-// Prevent scrolling in the name-pair area
-elements.namePair.addEventListener('touchmove', function(event) { event.preventDefault(); }, { passive: false });
-elements.namePair.addEventListener('wheel', function(event) { event.preventDefault(); }, { passive: false });
-
-// Scroll to top when a button is clicked
-elements.buttons.forEach(button => { button.addEventListener('click', () => { ui.scrollToTop() }); });
-
-function initializeSwipeFunctionality() {
-    gameContainer = document.querySelector('.game-container');
-    if (!gameContainer) {
-        console.error('Game container not found');
-        return;
     }
 
-    const namePairElement = document.querySelector('.name-pair');
+    function clearDialogInputs() {
+        document.getElementById('taxon1').value = '';
+        document.getElementById('taxon2').value = '';
+        document.getElementById('dialog-message').textContent = '';
+    }
 
-    gameContainer.addEventListener('mousedown', (e) => {
-        if (!namePairElement.contains(e.target)) {
-            startX = e.screenX;
-            isDragging = true;
+    function loadImage(imgElement, src) {
+        return new Promise((resolve, reject) => {
+            imgElement.onload = resolve;
+            imgElement.onerror = reject;
+            imgElement.src = src;
+        });
+    }
+
+    document.getElementById('version-id').textContent = `Modified: ${document.lastModified}`;
+
+    function resetGameContainerStyle() {
+        gameContainer.style.transform = '';
+        gameContainer.style.opacity = '';
+        document.querySelectorAll('.image-container').forEach(container => {
+            container.style.transform = '';
+            container.style.opacity = '';
+        });
+    }
+
+    function handleTouchStart(event) {
+        touchStartX = event.touches[0].clientX;
+        touchStartY = event.touches[0].clientY;
+    }
+
+    function handleTouchEnd(event) {
+        touchEndX = event.changedTouches[0].clientX;
+        touchEndY = event.changedTouches[0].clientY;
+        handleImageInteraction();
+    }
+
+    function handleMouseDown(event) {
+        touchStartX = event.clientX;
+        touchStartY = event.clientY;
+    }
+
+    function handleMouseUp(event) {
+        touchEndX = event.clientX;
+        touchEndY = event.clientY;
+        handleImageInteraction();
+    }
+
+    function handleImageInteraction(event) {
+        const diffX = Math.abs(touchStartX - (event.clientX || event.changedTouches[0].clientX));
+        const diffY = Math.abs(touchStartY - (event.clientY || event.changedTouches[0].clientY));
+    }
+
+    //const elements = ['image-container-1', 'image-container-2'];
+    const events = ['touchstart', 'touchend', 'mousedown', 'mouseup'];
+    const handlers = [handleTouchStart, handleTouchEnd, handleMouseDown, handleMouseUp];
+
+    // touch + mouse event handlers for image containers
+    [elements.imageOneContainer, elements.imageTwoContainer].forEach(id => { const element = id;
+      events.forEach((event, index) => { element.addEventListener(event, handlers[index]); }); });
+
+    // Prevent scrolling in the name-pair area
+    elements.namePair.addEventListener('touchmove', function(event) { event.preventDefault(); }, { passive: false });
+    elements.namePair.addEventListener('wheel', function(event) { event.preventDefault(); }, { passive: false });
+
+    // Scroll to top when a button is clicked
+    elements.buttons.forEach(button => { button.addEventListener('click', () => { ui.scrollToTop() }); });
+
+    function initializeSwipeFunctionality() {
+        gameContainer = document.querySelector('.game-container');
+        if (!gameContainer) {
+            console.error('Game container not found');
+            return;
         }
-    });
+        
+        const namePairElement = document.querySelector('.name-pair');
+        
+        gameContainer.addEventListener('mousedown', (e) => {
+            if (!namePairElement.contains(e.target)) {
+                startX = e.screenX;
+                isDragging = true;
+            }
+        });
+        
+        gameContainer.addEventListener('touchstart', (e) => {
+            if (!namePairElement.contains(e.target)) {
+                startX = e.touches[0].screenX;
+                isDragging = true;
+            }
+        }, { passive: true });
+        
+        gameContainer.addEventListener('mousemove', (e) => {
+            if (!namePairElement.contains(e.target)) {
+                eventHandlers.handleDragMove(e);
+            }
+        });
+        
+        gameContainer.addEventListener('touchmove', (e) => {
+            if (!namePairElement.contains(e.target)) {
+                eventHandlers.handleDragMove(e);
+            }
+        }, { passive: true });
+        
+        gameContainer.addEventListener('mouseup', eventHandlers.handleSwipeOrDrag);
+        gameContainer.addEventListener('touchend', eventHandlers.handleSwipeOrDrag);
+    }
 
-    gameContainer.addEventListener('touchstart', (e) => {
-        if (!namePairElement.contains(e.target)) {
-            startX = e.touches[0].screenX;
-            isDragging = true;
-        }
-    }, { passive: true });
+    // BEGIN Drag and Drop functionality
 
-    gameContainer.addEventListener('mousemove', (e) => {
-        if (!namePairElement.contains(e.target)) {
-            eventHandlers.handleDragMove(e);
-        }
-    });
+    // tile dragging stuff
+    let draggedElement = null;
+    let touchOffset = { x: 0, y: 0 };
 
-    gameContainer.addEventListener('touchmove', (e) => {
-        if (!namePairElement.contains(e.target)) {
-            eventHandlers.handleDragMove(e);
-        }
-    }, { passive: true });
-
-    gameContainer.addEventListener('mouseup', eventHandlers.handleSwipeOrDrag);
-    gameContainer.addEventListener('touchend', eventHandlers.handleSwipeOrDrag);
-}
-
-// BEGIN Drag and Drop functionality
-
-// tile dragging stuff
-let draggedElement = null;
-let touchOffset = { x: 0, y: 0 };
-
-function touchStart(e) {
-    e.preventDefault();
-    draggedElement = e.target.closest('.draggable');
-    if (!draggedElement) return;
-    
-    const touch = e.touches[0];
-    const rect = draggedElement.getBoundingClientRect();
-    touchOffset.x = touch.clientX - rect.left;
-    touchOffset.y = touch.clientY - rect.top;
-    
-    draggedElement.style.zIndex = '1000';
-    draggedElement.style.position = 'fixed';
-    updateElementPosition(touch);
-}
-
-function touchMove(e) {
-    e.preventDefault();
-    if (draggedElement) {
+    function touchStart(e) {
+        e.preventDefault();
+        draggedElement = e.target.closest('.draggable');
+        if (!draggedElement) return;
+        
         const touch = e.touches[0];
+        const rect = draggedElement.getBoundingClientRect();
+        touchOffset.x = touch.clientX - rect.left;
+        touchOffset.y = touch.clientY - rect.top;
+        
+        draggedElement.style.zIndex = '1000';
+        draggedElement.style.position = 'fixed';
         updateElementPosition(touch);
     }
-}
 
-function touchEnd(e) {
-    e.preventDefault();
-    if (draggedElement) {
-        const dropZone = getDropZone(e);
-        if (dropZone) {
-            handleDrop(dropZone);
-        } else {
-            resetDraggedElement();
+    function touchMove(e) {
+        e.preventDefault();
+        if (draggedElement) {
+            const touch = e.touches[0];
+            updateElementPosition(touch);
         }
-        draggedElement.style.zIndex = '';
+    }
+
+    function touchEnd(e) {
+        e.preventDefault();
+        if (draggedElement) {
+            const dropZone = getDropZone(e);
+            if (dropZone) {
+                handleDrop(dropZone);
+            } else {
+                resetDraggedElement();
+            }
+            draggedElement.style.zIndex = '';
+            draggedElement.style.position = '';
+            draggedElement = null;
+        }
+    }
+
+    function updateElementPosition(touch) {
+        draggedElement.style.left = `${touch.clientX - touchOffset.x}px`;
+        draggedElement.style.top = `${touch.clientY - touchOffset.y}px`;
+    }
+
+    function getDropZone(e) {
+        const touch = e.changedTouches ? e.changedTouches[0] : e;
+        const imageContainers = document.querySelectorAll('.image-container');
+        for (let container of imageContainers) {
+            const rect = container.getBoundingClientRect();
+            if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
+                touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+                return container.querySelector('.droppable');
+            }
+        }
+        return null;
+    }
+
+    function handleDrop(dropZone) {
+        if (!draggedElement) return;
+        
+        dropZone.innerHTML = '';
+        dropZone.appendChild(draggedElement);
+        draggedElement.style.position = 'static'; // Reset position to static
+        draggedElement.style.left = '';
+        draggedElement.style.top = '';
+        draggedElement.style.width = '100%'; // Ensure the dragged element fills the drop zone width
+        
+        const otherNameId = draggedElement.id === 'left-name' ? 'right-name' : 'left-name';
+        const otherName = document.getElementById(otherNameId);
+        const otherDropZone = document.getElementById(dropZone.id === 'drop-1' ? 'drop-2' : 'drop-1');
+        otherDropZone.innerHTML = '';
+        otherDropZone.appendChild(otherName);
+        
+        game.checkAnswer(dropZone.id);
+    }
+
+    function resetDraggedElement() {
+        const originalContainer = draggedElement.id === 'left-name' ? 'left-name-container' : 'right-name-container';
+        document.getElementById(originalContainer).appendChild(draggedElement);
         draggedElement.style.position = '';
-        draggedElement = null;
+        draggedElement.style.left = '';
+        draggedElement.style.top = '';
     }
-}
-
-function updateElementPosition(touch) {
-    draggedElement.style.left = `${touch.clientX - touchOffset.x}px`;
-    draggedElement.style.top = `${touch.clientY - touchOffset.y}px`;
-}
-
-function getDropZone(e) {
-    const touch = e.changedTouches ? e.changedTouches[0] : e;
-    const imageContainers = document.querySelectorAll('.image-container');
-    for (let container of imageContainers) {
-        const rect = container.getBoundingClientRect();
-        if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
-            touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
-            return container.querySelector('.droppable');
-        }
-    }
-    return null;
-}
-
-function handleDrop(dropZone) {
-    if (!draggedElement) return;
-
-    dropZone.innerHTML = '';
-    dropZone.appendChild(draggedElement);
-    draggedElement.style.position = 'static'; // Reset position to static
-    draggedElement.style.left = '';
-    draggedElement.style.top = '';
-    draggedElement.style.width = '100%'; // Ensure the dragged element fills the drop zone width
-
-    const otherNameId = draggedElement.id === 'left-name' ? 'right-name' : 'left-name';
-    const otherName = document.getElementById(otherNameId);
-    const otherDropZone = document.getElementById(dropZone.id === 'drop-1' ? 'drop-2' : 'drop-1');
-    otherDropZone.innerHTML = '';
-    otherDropZone.appendChild(otherName);
-
-    game.checkAnswer(dropZone.id);
-}
-
-function resetDraggedElement() {
-    const originalContainer = draggedElement.id === 'left-name' ? 'left-name-container' : 'right-name-container';
-    document.getElementById(originalContainer).appendChild(draggedElement);
-    draggedElement.style.position = '';
-    draggedElement.style.left = '';
-    draggedElement.style.top = '';
-}
 
 // END Drag and Drop functionality
 
 // END unsorted stuff
-
-
-const api = {
-
-// fetch from JSON file
-fetchTaxonPairs: async function () {
-    try {
-        const response = await fetch('./data/taxonPairs.json');
-        if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); }
-        return await response.json();
-    } catch (error) { console.error("Could not fetch taxon pairs:", error); return []; }
-},
-
-// for user input of new taxon pairs
-validateTaxon: async function (taxonName) {
-    try {
-        const response = await fetch(`https://api.inaturalist.org/v1/taxa?q=${encodeURIComponent(taxonName)}`);
-        const data = await response.json();
-        return data.results.length > 0 ? data.results[0] : null;
-    } catch (error) {
-        console.error('Error validating taxon:', error);
-        return null;
-    }
-},
-
-// fetch random image of taxon from iNat
-fetchRandomImage: async function (taxonName) {
-    try {
-        // Search for the taxon
-        const searchResponse = await fetch(`https://api.inaturalist.org/v1/taxa?q=${taxonName}`);
-        const searchData = await searchResponse.json();
-        if (searchData.results.length === 0) { throw new Error('Taxon not found'); }
-        const taxonId = searchData.results[0].id;
-
-        let images = [];
-        // Get the taxon details
-        const taxonResponse = await fetch(`https://api.inaturalist.org/v1/taxa/${taxonId}`);
-        const taxonData = await taxonResponse.json();
-        if (taxonData.results.length === 0) { throw new Error('No details found for the taxon'); }
-        const taxon = taxonData.results[0];
-        
-        // Extract images from taxon photos
-        // square 75px • small 240px • medium 500px • large 1024px
-        images = taxon.taxon_photos.map(photo => photo.photo.url.replace('square', 'medium'));
-        console.log(`number of images for taxon ${taxonName}: ${images.length}`); // debug
-        if (images.length === 0) { throw new Error('No images found'); }
-
-        // Select a random image
-        const randomImage = images[Math.floor(Math.random() * images.length)];
-        return randomImage;
-    } catch (error) { console.error(error); return null; }
-},
-
-// fetch vernacular name of taxon from iNat
-fetchVernacular: async function (taxonName) {
-    const baseUrl = 'https://api.inaturalist.org/v1/taxa';
-    try {
-        const response = await fetch(`${baseUrl}?q=${encodeURIComponent(taxonName)}`);
-        const data = await response.json();
-        if (data.results && data.results.length > 0) {
-            const taxon = data.results[0];
-            if (taxon && taxon.preferred_common_name) {
-                return taxon.preferred_common_name;
-            } else { return 'No vernacular name'; }
-        } else { return 'Taxon not found'; }
-    } catch (error) { console.error('Error fetching vernacular name:', error); return ""; }
-},
-
-// function to check if iNaturalist API is reachable
-isINaturalistReachable: async function () {
-  try {
-    const response = await fetch('https://api.inaturalist.org/v1/taxa?q=test');
-    return response.ok;
-  } catch (error) {
-    console.error('Error pinging iNaturalist API:', error);
-    return false;
-  }
-},
-
-}; // const api
 
 const game = {
 
@@ -466,7 +291,6 @@ setupGame: async function (newPair = false) {
     resetDraggables();
     ui.scrollToTop();
 
-    //document.getElementById('inat-down-dialog').close();
   if (!await api.isINaturalistReachable()) {
       //ui.showINatDownDialog();
     return;
@@ -475,7 +299,7 @@ setupGame: async function (newPair = false) {
     // Fade out current images and show loading overlay
     elements.imageOne.classList.add('loading');
     elements.imageTwo.classList.add('loading');
-    var startMessage = gameState.isFirstLoad ? "Drag the names!" : startMessage = "Loading…";
+    var startMessage = gameState.isFirstLoad ? "Drag the names!" : startMessage = "Loading...";
     ui.showOverlay(startMessage, config.overlayColors.green);
 
     if (newPair) {
@@ -534,10 +358,26 @@ setupGame: async function (newPair = false) {
     // Hide loading overlay
     ui.hideOverlay();
 
+
     // Randomly decide placement of taxon names (name tiles)
-    [gameState.taxonLeftName, leftNameVernacular, gameState.taxonRightName, rightNameVernacular] = Math.random() < 0.5
-        ? [gameState.taxonImageTwo, imageTwoVernacular, gameState.taxonImageOne, imageOneVernacular]
-            : [gameState.taxonImageOne, imageOneVernacular, gameState.taxonImageTwo, imageTwoVernacular];
+    let taxonLeftName, leftNameVernacular, taxonRightName, rightNameVernacular;
+//    [gameState.taxonLeftName, leftNameVernacular, gameState.taxonRightName, rightNameVernacular] = Math.random() < 0.5
+//        ? [gameState.taxonImageTwo, imageTwoVernacular, gameState.taxonImageOne, imageOneVernacular]
+//            : [gameState.taxonImageOne, imageOneVernacular, gameState.taxonImageTwo, imageTwoVernacular];
+    if (Math.random() < 0.5) {
+        taxonLeftName = gameState.taxonImageTwo;
+        leftNameVernacular = imageTwoVernacular;
+        taxonRightName = gameState.taxonImageOne;
+        rightNameVernacular = imageOneVernacular;
+    } else {
+        taxonLeftName = gameState.taxonImageOne;
+        leftNameVernacular = imageOneVernacular;
+        taxonRightName = gameState.taxonImageTwo;
+        rightNameVernacular = imageTwoVernacular;
+    }
+
+    gameState.taxonLeftName = taxonLeftName;
+    gameState.taxonRightName = taxonRightName;
 
     // use extra attributes to track taxon ID on name tiles
     elements.leftName.setAttribute('data-taxon', gameState.taxonLeftName);
@@ -651,112 +491,112 @@ showINatDownDialog: function () {
 
 }; // const ui
 
-// TODO move to "const ui" > eventhandler trouble?
-// display pair list for selection
-async function showTaxonPairList() {
-    const taxonPairs = await api.fetchTaxonPairs();
-    if (taxonPairs.length === 0) {
-        console.error("No taxon pairs available");
-        return;
-    }
-    const modal = document.createElement('div');
-    modal.className = 'taxon-pair-modal';
-
-    const list = document.createElement('div');
-    list.className = 'taxon-pair-list';
-
-    const cancelButton = document.createElement('button');
-    cancelButton.textContent = 'Cancel';
-    cancelButton.className = 'taxon-pair-cancel-button';
-    cancelButton.onclick = () => {
-        document.body.removeChild(modal);
-    };
-
-    taxonPairs.forEach((pair, index) => {
-        const button = document.createElement('button');
-        button.innerHTML = `<i>${pair.taxon1}</i> <span class="taxon-pair-versus">vs</span> <i>${pair.taxon2}</i>`;
-        button.className = 'taxon-pair-button';
-        button.onclick = () => {
-            gameState.currentPair = pair;
-            game.setupGame(false);
+    // TODO move to "const ui" > eventhandler trouble?
+    // display pair list for selection
+    async function showTaxonPairList() {
+        const taxonPairs = await api.fetchTaxonPairs();
+        if (taxonPairs.length === 0) {
+            console.error("No taxon pairs available");
+            return;
+        }
+        const modal = document.createElement('div');
+        modal.className = 'taxon-pair-modal';
+        
+        const list = document.createElement('div');
+        list.className = 'taxon-pair-list';
+        
+        const cancelButton = document.createElement('button');
+        cancelButton.textContent = 'Cancel';
+        cancelButton.className = 'taxon-pair-cancel-button';
+        cancelButton.onclick = () => {
             document.body.removeChild(modal);
         };
-        list.appendChild(button);
-    });
-
-    list.insertBefore(cancelButton, list.firstChild);
-
-    modal.appendChild(list);
-    document.body.appendChild(modal);
-
-    modal.onclick = (e) => {
-        if (e.target === modal) {
-            document.body.removeChild(modal);
-        }
-    };
-}
+        
+        taxonPairs.forEach((pair, index) => {
+            const button = document.createElement('button');
+            button.innerHTML = `<i>${pair.taxon1}</i> <span class="taxon-pair-versus">vs</span> <i>${pair.taxon2}</i>`;
+            button.className = 'taxon-pair-button';
+            button.onclick = () => {
+                gameState.currentPair = pair;
+                game.setupGame(false);
+                document.body.removeChild(modal);
+            };
+            list.appendChild(button);
+        });
+        
+        list.insertBefore(cancelButton, list.firstChild);
+        
+        modal.appendChild(list);
+        document.body.appendChild(modal);
+        
+        modal.onclick = (e) => {
+            if (e.target === modal) {
+                document.body.removeChild(modal);
+            }
+        };
+    }
 
 const dragAndDrop = {
 
 }; // const dragAndDrop
 
-function resetDraggables() {
-    const leftNameContainer = document.getElementById('left-name-container');
-    const rightNameContainer = document.getElementById('right-name-container');
-    const dropOne = document.getElementById('drop-1');
-    const dropTwo = document.getElementById('drop-2');
-    
-    // Move draggables back to the names container
-    leftNameContainer.appendChild(document.getElementById('left-name'));
-    rightNameContainer.appendChild(document.getElementById('right-name'));
-    
-    // Clear drop zones
-    dropOne.innerHTML = ''; dropTwo.innerHTML = '';
-}
-// TODO put into const above
-// drag and drop name tile onto image
-function dragStart(e) {
-    e.dataTransfer.setData('text/plain', e.target.id);
-}
-
-function dragOver(e) {
-    e.preventDefault();
-    if (e.target.classList.contains('image-container')) {
-        e.target.classList.add('drag-over');
+    function resetDraggables() {
+        const leftNameContainer = document.getElementById('left-name-container');
+        const rightNameContainer = document.getElementById('right-name-container');
+        const dropOne = document.getElementById('drop-1');
+        const dropTwo = document.getElementById('drop-2');
+        
+        // Move draggables back to the names container
+        leftNameContainer.appendChild(document.getElementById('left-name'));
+        rightNameContainer.appendChild(document.getElementById('right-name'));
+        
+        // Clear drop zones
+        dropOne.innerHTML = ''; dropTwo.innerHTML = '';
     }
-}
-
-function dragLeave(e) {
-    if (e.target.classList.contains('image-container')) {
-        e.target.classList.remove('drag-over');
+    // TODO put into const above
+    // drag and drop name tile onto image
+    function dragStart(e) {
+        e.dataTransfer.setData('text/plain', e.target.id);
     }
-}
 
-function drop(e) {
-    e.preventDefault();
-    const data = e.dataTransfer.getData('text');
-    const draggedElement = document.getElementById(data);
-    
-    let dropZone;
-    if (e.target.classList.contains('image-container')) {
-        e.target.classList.remove('drag-over');
-        dropZone = e.target.querySelector('div[id^="drop-"]');
-    } else if (e.target.tagName === 'IMG') {
-        e.target.parentElement.classList.remove('drag-over');
-        dropZone = e.target.nextElementSibling;
-    } else { return; } // Drop on an invalid target
-    dropZone.innerHTML = ''; // Clear any existing content
-    dropZone.appendChild(draggedElement);
+    function dragOver(e) {
+        e.preventDefault();
+        if (e.target.classList.contains('image-container')) {
+            e.target.classList.add('drag-over');
+        }
+    }
 
-    // Automatically move the other name
-    const otherNameId = data === 'left-name' ? 'right-name' : 'left-name';
-    const otherName = document.getElementById(otherNameId);
-    const otherDropZone = document.getElementById(dropZone.id === 'drop-1' ? 'drop-2' : 'drop-1');
-    otherDropZone.innerHTML = '';
-    otherDropZone.appendChild(otherName);
+    function dragLeave(e) {
+        if (e.target.classList.contains('image-container')) {
+            e.target.classList.remove('drag-over');
+        }
+    }
 
-    game.checkAnswer(dropZone.id);
-}
+    function drop(e) {
+        e.preventDefault();
+        const data = e.dataTransfer.getData('text');
+        const draggedElement = document.getElementById(data);
+        
+        let dropZone;
+        if (e.target.classList.contains('image-container')) {
+            e.target.classList.remove('drag-over');
+            dropZone = e.target.querySelector('div[id^="drop-"]');
+        } else if (e.target.tagName === 'IMG') {
+            e.target.parentElement.classList.remove('drag-over');
+            dropZone = e.target.nextElementSibling;
+        } else { return; } // Drop on an invalid target
+        dropZone.innerHTML = ''; // Clear any existing content
+        dropZone.appendChild(draggedElement);
+        
+        // Automatically move the other name
+        const otherNameId = data === 'left-name' ? 'right-name' : 'left-name';
+        const otherName = document.getElementById(otherNameId);
+        const otherDropZone = document.getElementById(dropZone.id === 'drop-1' ? 'drop-2' : 'drop-1');
+        otherDropZone.innerHTML = '';
+        otherDropZone.appendChild(otherName);
+        
+        game.checkAnswer(dropZone.id);
+    }
 
 const eventHandlers = {
 
@@ -806,10 +646,7 @@ handleDragMove: function (e) {
 },
 
     initializeEventListeners: function() {
-
-                              }
-
-    
+    }
 
 }; // const eventHandlers
 
@@ -834,49 +671,148 @@ const audio = new Audio(soundUrl);
 
 }; // const utils
 
-// TODO add to utils (eventHandlers problem)
-// implement sharing current pair URL
-function shareCurrentPair() {
-    // Get the current URL
-    let currentUrl = new URL(window.location.href);
+    // TODO add to utils (eventHandlers problem)
+    // implement sharing current pair URL
+    function shareCurrentPair() {
+        // Get the current URL
+        let currentUrl = new URL(window.location.href);
+        
+        // Remove existing taxon1 and taxon2 parameters
+        currentUrl.searchParams.delete('taxon1');
+        currentUrl.searchParams.delete('taxon2');
+        
+        // Add new taxon1 and taxon2 parameters
+        currentUrl.searchParams.set('taxon1', gameState.taxonImageOne);
+        currentUrl.searchParams.set('taxon2', gameState.taxonImageTwo);
+        
+        // Create the new URL string
+        let shareUrl = currentUrl.toString();
+        
+        // Copy to clipboard
+        navigator.clipboard.writeText(shareUrl).then(() => { }).catch(err => {
+            console.error('Failed to copy: ', err);
+            alert('Failed to copy link. Please try again.');
+        });
+    }
 
-    // Remove existing taxon1 and taxon2 parameters
-    currentUrl.searchParams.delete('taxon1');
-    currentUrl.searchParams.delete('taxon2');
-
-    // Add new taxon1 and taxon2 parameters
-    currentUrl.searchParams.set('taxon1', gameState.taxonImageOne);
-    currentUrl.searchParams.set('taxon2', gameState.taxonImageTwo);
-
-    // Create the new URL string
-    let shareUrl = currentUrl.toString();
-
-    // Copy to clipboard
-    navigator.clipboard.writeText(shareUrl).then(() => { }).catch(err => {
-        console.error('Failed to copy: ', err);
-        alert('Failed to copy link. Please try again.');
-    });
-}
-
-function initializeAllEventListeners() {
-//    dragAndDrop.initializeEventListeners();
-    eventHandlers.initializeEventListeners();
+    function initializeAllEventListeners() {
     
-    // Other event listeners
-    document.getElementById('share-button').addEventListener('click', utils.shareCurrentPair);
-    document.getElementById('random-pair-button').addEventListener('click', async () => { await game.setupGame(true); });
-    document.getElementById('select-pair-button').addEventListener('click', ui.showTaxonPairList);
-    // ... and so on for other event listeners ...
-}
+    //    dragAndDrop.initializeEventListeners();
+        eventHandlers.initializeEventListeners();
+        
+        // button listeners
+        document.getElementById('share-button').addEventListener('click', window.shareCurrentPair);
+        document.getElementById('random-pair-button').addEventListener('click', async () => { await game.setupGame(true); });
+        document.getElementById('select-pair-button').addEventListener('click', window.showTaxonPairList);
+    
+        // touch events
+        [elements.imageOneContainer, elements.imageTwoContainer].forEach(container => {
+            container.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+            }, { passive: true });
+    
+            container.addEventListener('touchend', handleImageInteraction);
+    
+            container.addEventListener('mousedown', (e) => {
+                touchStartX = e.clientX;
+                touchStartY = e.clientY;
+            });
+    
+            container.addEventListener('mouseup', handleImageInteraction);
+        });
 
+        // tile dragging listeners
+        document.querySelectorAll('.draggable').forEach(element => {
+            element.addEventListener('dragstart', dragStart);
+            element.addEventListener('touchstart', touchStart, { passive: false });
+            element.addEventListener('touchmove', touchMove, { passive: false });
+            element.addEventListener('touchend', touchEnd, { passive: false });
+        });
+        document.querySelectorAll('.image-container').forEach(element => {
+            element.addEventListener('dragover', dragOver);
+            element.addEventListener('dragleave', dragLeave);
+            element.addEventListener('drop', drop);
+        });
 
+        document.getElementById('enter-pair-button').addEventListener('click', () => {
+            clearDialogInputs();
+            document.getElementById('enter-pair-dialog').showModal();
+        });
+        document.getElementById('close-dialog').addEventListener('click', () => {
+            document.getElementById('enter-pair-dialog').close();
+        });
+        document.querySelector('#enter-pair-dialog form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            await window.handleNewPairSubmit(event);
+        });
+        document.getElementById('surprise-button').addEventListener('click', () => {
+            clearDialogInputs();
+            utils.surprise();
+        });
 
-function initializeApp() {
-    game.setupGame(newPair = true);
-    gameState.preloadedPair = game.preloadPair();
-    initializeSwipeFunctionality();
-    initializeAllEventListeners();
-}
+        // Keyboard shortcuts
+            document.addEventListener('keydown', function(event) {
+                // Check if the enter pair dialog is open
+                const isDialogOpen = document.getElementById('enter-pair-dialog').open;
+                
+                // Only process shortcuts if the dialog is not open
+                if (!isDialogOpen) {
+                    if (event.key === 'r' || event.key === 'R') {
+                        document.getElementById('random-pair-button').click();
+                    }
+                    if (event.key === 's' || event.key === 'S') {
+                        document.getElementById('select-pair-button').click();
+                    }
+                    if (event.key === 'h' || event.key === 'H') {
+                        document.getElementById('help-button').click();
+                    }
+                    if (event.key === 'e' || event.key === 'E') {
+                        document.getElementById('enter-pair-button').click();
+                        // Clear the input field
+                        setTimeout(() => {
+                            document.getElementById('taxon1').value = '';
+                            document.getElementById('taxon1').focus();
+                        }, 0);
+                    }
+                    if (event.key === 'p' || event.key === 'P' || event.key === 'f' || event.key === 'F') {
+                        document.getElementById('surprise-button').click();
+                    }
+                }
+            });
 
-// Call initialization function
-initializeApp();
+        // Help button functionality
+        document.getElementById('help-button').addEventListener('click', () => {
+            document.getElementById('help-dialog').showModal();
+        });
+
+        /*
+        document.getElementById('more-help-dialog').addEventListener('click', () => {
+            window.open('https://google.com', '_blank');
+        });
+        */
+        document.getElementById('close-help-dialog').addEventListener('click', () => {
+            document.getElementById('help-dialog').close();
+        });
+    }
+
+    function initializeApp() {
+        game.setupGame(true);
+        gameState.preloadedPair = game.preloadPair();
+        initializeSwipeFunctionality();
+        initializeAllEventListeners();
+    }
+
+    // Expose initializeApp to the global scope
+    window.initializeApp = initializeApp;
+    window.showTaxonPairList = showTaxonPairList;
+    window.handleNewPairSubmit = handleNewPairSubmit;
+    window.shareCurrentPair = shareCurrentPair;
+
+    // You might want to expose other functions or objects if they're used elsewhere
+
+    // Call initialization function
+    window.addEventListener('DOMContentLoaded', (event) => {
+        window.initializeApp();
+    });
+})();
