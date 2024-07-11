@@ -14,20 +14,8 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#74ac00">
 
-    <!-- append fake version no. to bust cache (css/javascript file) -->
-    <script> <!-- hard to move to external file -->
-        // Define the version number
-        const version = '1.1.6';
-        // Function to update the version in the URLs
-        function updateVersion() {
-            const noCacheFiles = document.querySelectorAll('link[rel="stylesheet"], link[rel="preload"], script[src], link[rel="manifest"]');
-            noCacheFiles.forEach(element => {
-                const url = new URL(element.href || element.src); url.searchParams.set('v', version);
-                if (element.href) { element.href = url.toString(); } else { element.src = url.toString(); } });
-        }
-        // Call the function to update the version after the DOM has loaded
-        document.addEventListener('DOMContentLoaded', updateVersion);
-    </script>
+    <!-- cache busting by appending version code. change code in script!-->
+    <script src="./code/version.js" defer></script>
 
     <link rel="manifest" href="./manifest.json">
     <script src="./code/functions.js" defer></script>

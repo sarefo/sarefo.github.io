@@ -262,7 +262,6 @@ async function setupGame(newPair = false)  {
 
   if (!await isINaturalistReachable()) {
       showINatDownDialog();
-      console.log("DOWN");
     //window.location.href = 'https://downforeveryoneorjustme.com/inaturalist.org'; // Redirect to your desired URL
     return;
   }
@@ -404,7 +403,7 @@ function hideOverlay() {
     elements.overlay.classList.remove('show');
 }
 
-document.getElementById('version-id').textContent = `Modified: ${document.lastModified} (${version})`;
+document.getElementById('version-id').textContent = `Modified: ${document.lastModified}`;
 
 // swipe left on top image for new random pair
 function handleSwipeOrDrag(e) {

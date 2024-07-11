@@ -1,13 +1,14 @@
 /* custom properties */
 :root {
     --primary-color: #74ac00; /* iNat green */
-    --primary-counter-color: #ac0028; /* aka "red" */
+    --primary-counter-color: #ac0028; /* red */
     --background-color: #ffffff;
     --text-color: #ffffff;
     --counter-text-color: #444;
     --shadow-color: rgba(0, 0, 0, 0.1);
     --overlay-color: rgba(0, 0, 0, 0.3);
     --border-radius: 8px;
+    --transition-speed: 0.3s;
 }
 
 body {
@@ -35,14 +36,14 @@ body * { text-align: center; } /* percolate to child elements */
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background-color 0.3s ease;
+    transition: background-color var(--transition-speed) ease;
 }
 
 #share-button svg {
     width: 24px;
     height: 24px;
     fill: var(--primary-counter-color);
-    transition: fill 0.3s ease;
+    transition: fill var(--transition-speed) ease;
 }
 
 .game-container {
@@ -57,7 +58,7 @@ body * { text-align: center; } /* percolate to child elements */
     overflow: hidden;
     padding: 0px;
     box-sizing: border-box;
-    transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+    transition: transform 0.1 ease-out, opacity 0.1 ease-out;
 }
 
 .image-pair, .name-pair {
@@ -100,7 +101,7 @@ body * { text-align: center; } /* percolate to child elements */
     object-position: center;
     border-radius: var(--border-radius);
     pointer-events: none; /* Prevents the image from interfering with dragging */
-    transition: opacity 0.3s ease;
+    transition: opacity var(--transition-speed) ease;
 }
 .image-container img.loading {
     opacity: 0.7;
@@ -133,7 +134,7 @@ body * { text-align: center; } /* percolate to child elements */
 }
 .droppable .draggable {
     box-shadow: 0 0 0 2px white;/*, 0 0 10px 3px rgba(255, 255, 255, 0.7);*/
-    transition: box-shadow 0.3s ease;
+    transition: box-shadow var(--transition-speed) ease;
 }
 .droppable {
     position: absolute;
@@ -180,7 +181,7 @@ body * { text-align: center; } /* percolate to child elements */
     z-index: 1000;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.3s ease;
+    transition: opacity var(--transition-speed) ease;
 }
 #overlay.show { opacity: 1; }
 #overlay-message {
@@ -203,7 +204,7 @@ body * { text-align: center; } /* percolate to child elements */
     width: 100%;
     max-width: 200px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color var(--transition-speed) ease;
     outline: none;
 }
 
@@ -261,7 +262,7 @@ body * { text-align: center; } /* percolate to child elements */
     border-radius: var(--border-radius);
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s ease;
+    transition: background-color var(--transition-speed) ease;
 }
 #enter-pair-dialog button:hover {
     background-color: #5c8a00;
@@ -379,7 +380,7 @@ body * { text-align: center; } /* percolate to child elements */
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
-    transition: background-color 0.3s ease, transform 0.1s ease;
+    transition: background-color var(--transition-speed) ease, transform 0.1s ease;
     margin-top: 24px;
     width: 100%;
 }
@@ -407,14 +408,14 @@ body * { text-align: center; } /* percolate to child elements */
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background-color 0.3s ease;
+    transition: background-color var(--transition-speed) ease;
 }
 
 #help-button svg {
     width: 24px;
     height: 24px;
     fill: var(--primary-counter-color);
-    transition: fill 0.3s ease;
+    transition: fill var(--transition-speed) ease;
 }
 
 #tell-me-more-button {
@@ -426,7 +427,7 @@ body * { text-align: center; } /* percolate to child elements */
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
-    transition: background-color 0.3s ease, transform 0.1s ease;
+    transition: background-color --var(--transition-speed) ease, transform 0.1s ease;
     margin-top: 24px;
     width: 100%;
     text-align: center;
@@ -490,7 +491,7 @@ body * { text-align: center; } /* percolate to child elements */
   cursor: pointer;
   font-size: 1rem;
   margin: 0.5rem;
-  transition: background-color 0.3s ease;
+  transition: background-color var(--transition-speed) ease;
 }
 
 .dialog-content button:hover {
