@@ -702,9 +702,34 @@ const audio = new Audio(soundUrl);
       .then(() => { /* Audio started playing successfully*/ }).catch(error => { console.error('Error playing the fart:', error); });
 }
 
+function initializeSwipeFunctionality() {
+    gameContainer = document.querySelector('.game-container');
+    if (!gameContainer) {
+        console.error('Game container not found');
+        return;
+    }
+
+    gameContainer.addEventListener('mousedown', (e) => {
+        startX = e.screenX;
+        isDragging = true;
+    });
+
+    gameContainer.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].screenX;
+        isDragging = true;
+    }, { passive: true });
+
+    gameContainer.addEventListener('mousemove', handleDragMove);
+    gameContainer.addEventListener('touchmove', handleDragMove, { passive: true });
+
+    gameContainer.addEventListener('mouseup', handleSwipeOrDrag);
+    gameContainer.addEventListener('touchend', handleSwipeOrDrag);
+}
+
 // start
 (async function() {
     await setupGame(newPair = true);
     preloadedPair = await preloadPair();
+    initializeSwipeFunctionality();  // Add this line
     
 })();
