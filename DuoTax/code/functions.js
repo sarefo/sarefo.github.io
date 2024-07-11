@@ -148,6 +148,7 @@ async function handleNewPairSubmit(event) {
             const taxonPairs = await response.json();
             taxonPairs.push(newPair);
 
+            /* doesn't work w/o server-side functionality
             await fetch('./data/taxonPairs.json', {
                 method: 'PUT',
                 headers: {
@@ -155,7 +156,7 @@ async function handleNewPairSubmit(event) {
                 },
                 body: JSON.stringify(taxonPairs),
             });
-
+*/
             currentPair = newPair;
             setupGame(false);
             document.getElementById('enter-pair-dialog').close();
