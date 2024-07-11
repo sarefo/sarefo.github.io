@@ -288,6 +288,20 @@ async function setupGame(newPair = false)  {
     isFirstLoad = false;
 
     if (newPair) {
+        const urlParams = getURLParameters();
+        if (urlParams) {
+            currentPair = urlParams;
+        } else if (preloadedPair) {
+            currentPair = preloadedPair.pair;
+            elements.imageOne.src = preloadedPair.imageOneURL;
+            elements.imageTwo.src = preloadedPair.imageTwoURL;
+        } else {
+            // Fallback to current behavior if no preloaded pair
+            currentPair = await selectTaxonPair();
+        }
+    }
+
+/*    if (newPair) {
         if (preloadedPair) {
             currentPair = preloadedPair.pair;
             elements.imageOne.src = preloadedPair.imageOneURL;
@@ -303,7 +317,7 @@ async function setupGame(newPair = false)  {
             elements.imageTwo.src = imageTwoURL;
         }
     }
-
+*/
     // Randomly decide which taxon goes left and right (images)
     [taxonImageOne, taxonImageTwo] = Math.random() < 0.5
         ? [currentPair.taxon1, currentPair.taxon2]
