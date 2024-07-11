@@ -260,9 +260,11 @@ async function setupGame(newPair = false)  {
     resetDraggables();
     scrollToTop();
 
+
+    //document.getElementById('inat-down-dialog').close();
+    console.log("closing modal");
   if (!await isINaturalistReachable()) {
-      showINatDownDialog();
-    //window.location.href = 'https://downforeveryoneorjustme.com/inaturalist.org'; // Redirect to your desired URL
+      //showINatDownDialog();
     return;
   }
 
