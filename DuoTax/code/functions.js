@@ -433,7 +433,7 @@ function hideOverlay() {
     elements.overlay.classList.remove('show');
 }
 
-document.getElementById('version-id').textContent = 'Last modified: ' + document.lastModified;
+document.getElementById('version-id').textContent = `Modified: ${document.lastModified} (${version})`;
 
 // swipe left on top image for new random pair
 function handleSwipeOrDrag(e) {

@@ -2,9 +2,9 @@
 :root {
     --primary-color: #74ac00; /*before: #2C8F30;*/
     --primary-counter-color: #ac0028; /* aka "red" */
-    --text-color: #333;
     --background-color: #ffffff;
     --text-color: #ffffff;
+    --counter-text-color: #333;
     --shadow-color: rgba(0, 0, 0, 0.1);
     --overlay-color: rgba(0, 0, 0, 0.3);
     --border-radius: 8px;
@@ -201,14 +201,14 @@ body * { text-align: center; } /* percolate to child elements */
 
 #home-link {
     font-size: 14px;
-    color: var(--text-color);
+    color: var(--counter-text-color);
     text-decoration: none;
 }
 
 #version-id {
     padding-top: 8px;
     font-size: 14px;
-    color: var(--text-color);
+    color: var(--counter-text-color);
 }
 
 /* for enter pair dialog */
