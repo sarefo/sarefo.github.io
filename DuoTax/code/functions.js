@@ -233,6 +233,7 @@ async function fetchRandomImage(taxonName) {
         // Extract images from taxon photos
         // square 75px • small 240px • medium 500px • large 1024px
         images = taxon.taxon_photos.map(photo => photo.photo.url.replace('square', 'medium'));
+        console.log(`number of images for taxon ${taxonName}: ${images.length}`); // debug
         if (images.length === 0) { throw new Error('No images found'); }
 
         // Select a random image
