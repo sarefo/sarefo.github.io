@@ -1,10 +1,10 @@
 /* custom properties */
 :root {
-    --primary-color: #74ac00; /*before: #2C8F30;*/
+    --primary-color: #74ac00; /* iNat green */
     --primary-counter-color: #ac0028; /* aka "red" */
     --background-color: #ffffff;
     --text-color: #ffffff;
-    --counter-text-color: #333;
+    --counter-text-color: #444;
     --shadow-color: rgba(0, 0, 0, 0.1);
     --overlay-color: rgba(0, 0, 0, 0.3);
     --border-radius: 8px;
@@ -235,6 +235,7 @@ body * { text-align: center; } /* percolate to child elements */
     text-align: right;
     margin-right: 10px;
     font-weight: bold;
+    color: var(--counter-text-color);
 }
 #enter-pair-dialog input {
     width: calc(100% - 90px);
@@ -242,6 +243,7 @@ body * { text-align: center; } /* percolate to child elements */
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
+    color: var(--counter-text-color);
 }
 #enter-pair-dialog button {
     background-color: var(--primary-color);
