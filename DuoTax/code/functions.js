@@ -463,7 +463,7 @@ isINaturalistReachable: async function () {
 const game = {
 
 setupGame: async function (newPair = false) {
-    dragAndDrop.resetDraggables();
+    resetDraggables();
     ui.scrollToTop();
 
     //document.getElementById('inat-down-dialog').close();
@@ -592,7 +592,7 @@ checkAnswer: function(droppedZoneId) {
                 game.setupGame(false);
             }, 2400);
         } else {
-            dragAndDrop.resetDraggables();
+            resetDraggables();
             ui.showOverlay('Try again!', colorWrong);
             setTimeout(() => {
                 ui.hideOverlay();
@@ -698,7 +698,9 @@ async function showTaxonPairList() {
 
 const dragAndDrop = {
 
-resetDraggables: function () {
+};
+
+function resetDraggables() {
     const leftNameContainer = document.getElementById('left-name-container');
     const rightNameContainer = document.getElementById('right-name-container');
     const dropOne = document.getElementById('drop-1');
@@ -711,8 +713,6 @@ resetDraggables: function () {
     // Clear drop zones
     dropOne.innerHTML = ''; dropTwo.innerHTML = '';
 }
-
-};
 // TODO put into const above
 // drag and drop name tile onto image
 function dragStart(e) {
