@@ -638,9 +638,14 @@ resetDraggables: function () {
 },
 
 // drag and drop name tile onto image
-dragStart: function (e) {
-    e.dataTransfer.setData('text/plain', e.target.id);
-},
+
+    dragStart: function (e) {
+        if (e.type === 'touchstart') {
+            e.preventDefault();
+            e.target.dataset.dragging = 'true';
+        }
+        e.dataTransfer?.setData('text/plain', e.target.id);
+    },
 
 dragOver: function (e) {
     e.preventDefault();
@@ -655,46 +660,50 @@ dragLeave: function (e) {
     }
 },
 
-drop: function (e) {
-    e.preventDefault();
-    const data = e.dataTransfer.getData('text');
-    const draggedElement = document.getElementById(data);
-    
-    let dropZone;
-    if (e.target.classList.contains('image-container')) {
-        e.target.classList.remove('drag-over');
-        dropZone = e.target.querySelector('div[id^="drop-"]');
-    } else if (e.target.tagName === 'IMG') {
-        e.target.parentElement.classList.remove('drag-over');
-        dropZone = e.target.nextElementSibling;
-    } else { return; } // Drop on an invalid target
-    dropZone.innerHTML = ''; // Clear any existing content
-    dropZone.appendChild(draggedElement);
+    drop: function (e) {
+        e.preventDefault();
+        let draggedElement;
+        if (e.type === 'touchend') {
+            draggedElement = document.querySelector('[data-dragging="true"]');
+            draggedElement.dataset.dragging = 'false';
+        } else {
+            const data = e.dataTransfer.getData('text');
+            draggedElement = document.getElementById(data);
+        }
+        
+        let dropZone;
+        if (e.target.classList.contains('image-container')) {
+            e.target.classList.remove('drag-over');
+            dropZone = e.target.querySelector('div[id^="drop-"]');
+        } else if (e.target.tagName === 'IMG') {
+            e.target.parentElement.classList.remove('drag-over');
+            dropZone = e.target.nextElementSibling;
+        } else { return; } // Drop on an invalid target
+        dropZone.innerHTML = ''; // Clear any existing content
+        dropZone.appendChild(draggedElement);
 
-    // Automatically move the other name
-    const otherNameId = data === 'left-name' ? 'right-name' : 'left-name';
-    const otherName = document.getElementById(otherNameId);
-    const otherDropZone = document.getElementById(dropZone.id === 'drop-1' ? 'drop-2' : 'drop-1');
-    otherDropZone.innerHTML = '';
-    otherDropZone.appendChild(otherName);
+        // Automatically move the other name
+        const otherNameId = draggedElement.id === 'left-name' ? 'right-name' : 'left-name';
+        const otherName = document.getElementById(otherNameId);
+        const otherDropZone = document.getElementById(dropZone.id === 'drop-1' ? 'drop-2' : 'drop-1');
+        otherDropZone.innerHTML = '';
+        otherDropZone.appendChild(otherName);
 
-    game.checkAnswer(dropZone.id);
-},
+        game.checkAnswer(dropZone.id);
+    },
 
-initializeEventListeners: function () {
-    // tile dragging listeners
-    document.querySelectorAll('.draggable').forEach(element => {
-        element.addEventListener('dragstart', this.dragStart);
-        element.addEventListener('touchstart', this.touchStart, { passive: false });
-        element.addEventListener('touchmove', this.touchMove, { passive: false });
-        element.addEventListener('touchend', this.touchEnd, { passive: false });
-    });
-    document.querySelectorAll('.image-container').forEach(element => {
-        element.addEventListener('dragover', this.dragOver);
-        element.addEventListener('dragleave', this.dragLeave);
-        element.addEventListener('drop', this.drop);
-    });
-}
+    initializeEventListeners: function () {
+        document.querySelectorAll('.draggable').forEach(element => {
+            element.addEventListener('dragstart', this.dragStart);
+            element.addEventListener('touchstart', this.dragStart);
+        });
+        document.querySelectorAll('.image-container').forEach(element => {
+            element.addEventListener('dragover', this.dragOver);
+            element.addEventListener('dragleave', this.dragLeave);
+            element.addEventListener('drop', this.drop);
+            element.addEventListener('touchend', this.drop);
+        });
+    }
 
 };
 
