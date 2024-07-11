@@ -180,6 +180,7 @@ body * { text-align: center; } /* percolate to child elements */
     position: absolute;
     border-radius: var(--border-radius);
     width: 98vw;
+    max-width:98%;
     height: 100%;
     background-color: var(--overlay-color);
     display: flex;
