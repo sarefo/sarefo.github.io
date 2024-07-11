@@ -569,6 +569,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
 document.getElementById('help-button').addEventListener('click', () => {
     document.getElementById('help-dialog').showModal();
 });
+/*
+document.getElementById('more-help-dialog').addEventListener('click', () => {
+    window.open('https://google.com', '_blank');
+});
+*/
 document.getElementById('close-help-dialog').addEventListener('click', () => {
     document.getElementById('help-dialog').close();
 });

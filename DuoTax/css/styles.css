@@ -362,7 +362,7 @@ body * { text-align: center; } /* percolate to child elements */
     text-align: left;
 }
 
-#close-help-dialog {
+#more-help-dialog, #close-help-dialog {
     background-color: var(--primary-color);
     color: var(--text-color);
     border: none;
@@ -376,12 +376,13 @@ body * { text-align: center; } /* percolate to child elements */
     width: 100%;
 }
 
-#close-help-dialog:hover {
+#more-help-dialog:hover, #close-help-dialog:hover {
     background-color: #5c8a00;
 }
 
-#close-help-dialog:active {
+#more-help-dialog:active, #close-help-dialog:active {
     transform: scale(0.98);
+    margin-top: 12px;
 }
 
 #help-button {
@@ -407,3 +408,29 @@ body * { text-align: center; } /* percolate to child elements */
     fill: var(--primary-counter-color);
     transition: fill 0.3s ease;
 }
+
+#tell-me-more-button {
+    background-color: var(--primary-counter-color);
+    color: var(--text-color);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 24px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    margin-top: 24px;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+}
+
+#tell-me-more-button:hover {
+    background-color: #8a0020;
+}
+
+#tell-me-more-button:active {
+    transform: scale(0.98);
+}
+
