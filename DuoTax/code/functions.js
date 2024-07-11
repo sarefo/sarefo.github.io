@@ -14,7 +14,7 @@ const elements = {
 
 // overlay colors
 const overlayColors = {
-    green: "rgba(116,172,0,1.0)", /* iNat green; before rgba(76, 175, 80, 1.0)"*/
+    green: "rgba(116,172,0,1.0)", /* iNat green */
     red: "rgba(172, 0, 40, 1.0)",
     gray: "rgba(100, 100, 100, 0.8"
 };
@@ -49,29 +49,6 @@ function debounce(func, wait) {
         timeout = setTimeout(() => func.apply(this, args), wait);
     };
 }
-/*
-// Function to toggle fullscreen
-function toggleFullscreen() {
-    if (!isFullscreen) {
-        if (document.documentElement.requestFullscreen) {
-            document.documentElement.requestFullscreen();
-        } else if (document.documentElement.webkitRequestFullscreen) { 
-            document.documentElement.webkitRequestFullscreen();
-        }
-        isFullscreen = true;
-    } else {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) { 
-            document.webkitExitFullscreen();
-        }
-        isFullscreen = false;
-    }
-    scrollToTop();
-}
-// Debounced version of toggleFullscreen
-const debouncedToggleFullscreen = debounce(toggleFullscreen, 300);
-*/
 
 // preload images for one taxon pair
 async function preloadPair() {
@@ -303,23 +280,6 @@ async function setupGame(newPair = false)  {
     }
     isFirstLoad = false;
 
-/*    if (newPair) {
-        if (preloadedPair) {
-            currentPair = preloadedPair.pair;
-            elements.imageOne.src = preloadedPair.imageOneURL;
-            elements.imageTwo.src = preloadedPair.imageTwoURL;
-        } else {
-            // Fallback to current behavior if no preloaded pair
-            currentPair = await selectTaxonPair();
-            const [imageOneURL, imageTwoURL] = await Promise.all([
-                fetchRandomImage(currentPair.taxon1),
-                fetchRandomImage(currentPair.taxon2)
-            ]);
-            elements.imageOne.src = imageOneURL;
-            elements.imageTwo.src = imageTwoURL;
-        }
-    }
-*/
     // Randomly decide which taxon goes left and right (images)
     [taxonImageOne, taxonImageTwo] = Math.random() < 0.5
         ? [currentPair.taxon1, currentPair.taxon2]
@@ -639,22 +599,6 @@ const handlers = [handleTouchStart, handleTouchEnd, handleMouseDown, handleMouse
 // touch + mouse event handlers for image containers
 [elements.imageOneContainer, elements.imageTwoContainer].forEach(id => { const element = id;
   events.forEach((event, index) => { element.addEventListener(event, handlers[index]); }); });
-
-/*
-// part of fullscreen mode
-function hideAddressBar() {
-    if (document.documentElement.scrollHeight < window.outerHeight / window.devicePixelRatio) {
-        document.documentElement.style.height = (window.outerHeight / window.devicePixelRatio) + 'px';
-    }
-    setTimeout(window.scrollTo(1, 1), 0);
-}
-// Call this function when the page loads and on orientation change
-window.addEventListener("load", hideAddressBar);
-window.addEventListener("orientationchange", hideAddressBar);
-// Listen for fullscreen change events
-document.addEventListener('fullscreenchange', () => { isFullscreen = !!document.fullscreenElement; });
-document.addEventListener('webkitfullscreenchange', () => { isFullscreen = !!document.webkitFullscreenElement; });
-*/
 
 // Prevent scrolling in the name-pair area
 elements.namePair.addEventListener('touchmove', function(event) { event.preventDefault(); }, { passive: false });
