@@ -760,7 +760,7 @@ const audio = new Audio(soundUrl);
                 
                 // Only process shortcuts if the dialog is not open
                 if (!isDialogOpen) {
-                    if (event.key === 'r' || event.key === 'R') {
+                    if (event.key === 'r' || event.key === 'R' || event.key === 'ArrowLeft') {
                         document.getElementById('random-pair-button').click();
                     }
                     if (event.key === 's' || event.key === 'S') {
