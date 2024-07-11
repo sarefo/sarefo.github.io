@@ -489,7 +489,7 @@ checkAnswer: function(droppedZoneId) {
                 game.setupGame(false);
             }, 2400);
         } else {
-            resetDraggables();
+            dragAndDrop.resetDraggables();
             ui.showOverlay('Try again!', colorWrong);
             setTimeout(() => {
                 ui.hideOverlay();
@@ -692,6 +692,57 @@ dragLeave: function (e) {
         game.checkAnswer(dropZone.id);
     },
 
+
+
+    touchDragStart: function(e) {
+        const touch = e.touches[0];
+        const draggedElement = e.target.closest('.draggable');
+        if (!draggedElement) return;
+
+        draggedElement.style.position = 'fixed';
+        draggedElement.style.zIndex = 1000;
+
+        function moveAt(pageX, pageY) {
+            draggedElement.style.left = pageX - draggedElement.offsetWidth / 2 + 'px';
+            draggedElement.style.top = pageY - draggedElement.offsetHeight / 2 + 'px';
+        }
+
+        moveAt(touch.pageX, touch.pageY);
+
+        function onTouchMove(e) {
+            moveAt(e.touches[0].pageX, e.touches[0].pageY);
+        }
+
+        document.addEventListener('touchmove', onTouchMove);
+
+        draggedElement.onTouchEnd = function() {
+            document.removeEventListener('touchmove', onTouchMove);
+            draggedElement.onTouchEnd = null;
+            
+            const dropZone = document.elementFromPoint(touch.clientX, touch.clientY).closest('.image-container');
+            if (dropZone) {
+                const targetDrop = dropZone.querySelector('div[id^="drop-"]');
+                targetDrop.innerHTML = '';
+                targetDrop.appendChild(draggedElement);
+                
+                // Move the other name
+                const otherNameId = draggedElement.id === 'left-name' ? 'right-name' : 'left-name';
+                const otherName = document.getElementById(otherNameId);
+                const otherDropZone = document.getElementById(targetDrop.id === 'drop-1' ? 'drop-2' : 'drop-1');
+                otherDropZone.innerHTML = '';
+                otherDropZone.appendChild(otherName);
+
+                game.checkAnswer(targetDrop.id);
+            } else {
+                // Reset position if not dropped on a valid zone
+                draggedElement.style.position = '';
+                draggedElement.style.zIndex = '';
+                draggedElement.style.left = '';
+                draggedElement.style.top = '';
+            }
+        };
+    },
+
     initializeEventListeners: function () {
         document.querySelectorAll('.draggable').forEach(element => {
             element.addEventListener('dragstart', this.dragStart);
@@ -702,6 +753,16 @@ dragLeave: function (e) {
             element.addEventListener('dragleave', this.dragLeave);
             element.addEventListener('drop', this.drop);
             element.addEventListener('touchend', this.drop);
+        });
+        document.querySelectorAll('.draggable').forEach(element => {
+            element.addEventListener('touchstart', this.touchDragStart, {passive: false});
+        });
+
+        document.addEventListener('touchend', function(e) {
+            const draggedElement = document.querySelector('.draggable[style*="position: fixed"]');
+            if (draggedElement && draggedElement.onTouchEnd) {
+                draggedElement.onTouchEnd();
+            }
         });
     }
 
