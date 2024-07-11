@@ -271,7 +271,6 @@ async function setupGame(newPair = false)  {
             if (urlParams) { currentPair = urlParams;
             } else {
                 currentPair = await selectTaxonPair();
-                console.log(currentPair);
             }
         } else if (preloadedPair) {
             currentPair = preloadedPair.pair;
@@ -350,7 +349,17 @@ function loadImage(imgElement, src) {
 
 // drag and drop name tile onto image
 function dragStart(e) { e.dataTransfer.setData('text/plain', e.target.id); }
-function dragOver(e) { e.preventDefault(); }
+function dragOver(e) {
+    e.preventDefault();
+    if (e.target.classList.contains('image-container')) {
+        e.target.classList.add('drag-over');
+    }
+}
+function dragLeave(e) {
+    if (e.target.classList.contains('image-container')) {
+        e.target.classList.remove('drag-over');
+    }
+}
 function drop(e) {
     e.preventDefault();
     const data = e.dataTransfer.getData('text');
@@ -358,11 +367,19 @@ function drop(e) {
     
     let dropZone;
     if (e.target.classList.contains('image-container')) {
+        e.target.classList.remove('drag-over');
+        dropZone = e.target.querySelector('div[id^="drop-"]');
+    } else if (e.target.tagName === 'IMG') {
+        e.target.parentElement.classList.remove('drag-over');
+        dropZone = e.target.nextElementSibling;
+    } else { return; } // Drop on an invalid target
+/*    let dropZone;
+    if (e.target.classList.contains('image-container')) {
         dropZone = e.target.querySelector('div[id^="drop-"]');
     } else if (e.target.tagName === 'IMG') {
         dropZone = e.target.nextElementSibling;
     } else { return; } // Drop on an invalid target
-
+*/
     dropZone.innerHTML = ''; // Clear any existing content
     dropZone.appendChild(draggedElement);
 
@@ -443,6 +460,12 @@ document.getElementById('version-id').textContent = `Modified: ${document.lastMo
 function handleSwipeOrDrag(e) {
     if (!isDragging) return;
     
+    const namePairElement = document.querySelector('.name-pair');
+    if (namePairElement.contains(e.target)) {
+        isDragging = false;
+        return;
+    }
+    
     endX = e.type.includes('touch') ? e.changedTouches[0].screenX : e.screenX;
     const dragDistance = startX - endX;
     
@@ -513,6 +536,7 @@ document.querySelectorAll('.draggable').forEach(element => {
 });
 document.querySelectorAll('.image-container').forEach(element => {
     element.addEventListener('dragover', dragOver);
+    element.addEventListener('dragleave', dragLeave);
     element.addEventListener('drop', drop);
 });
 
@@ -729,18 +753,33 @@ function initializeSwipeFunctionality() {
         return;
     }
 
+    const namePairElement = document.querySelector('.name-pair');
+
     gameContainer.addEventListener('mousedown', (e) => {
-        startX = e.screenX;
-        isDragging = true;
+        if (!namePairElement.contains(e.target)) {
+            startX = e.screenX;
+            isDragging = true;
+        }
     });
 
     gameContainer.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].screenX;
-        isDragging = true;
+        if (!namePairElement.contains(e.target)) {
+            startX = e.touches[0].screenX;
+            isDragging = true;
+        }
     }, { passive: true });
 
-    gameContainer.addEventListener('mousemove', handleDragMove);
-    gameContainer.addEventListener('touchmove', handleDragMove, { passive: true });
+    gameContainer.addEventListener('mousemove', (e) => {
+        if (!namePairElement.contains(e.target)) {
+            handleDragMove(e);
+        }
+    });
+
+    gameContainer.addEventListener('touchmove', (e) => {
+        if (!namePairElement.contains(e.target)) {
+            handleDragMove(e);
+        }
+    }, { passive: true });
 
     gameContainer.addEventListener('mouseup', handleSwipeOrDrag);
     gameContainer.addEventListener('touchend', handleSwipeOrDrag);

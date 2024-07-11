@@ -83,7 +83,12 @@ body * { text-align: center; } /* percolate to child elements */
     box-sizing: border-box;
     overflow: hidden;
     z-index: 1;
+    cursor: default;
 }
+.image-container.drag-over {
+    cursor: copy;
+}
+
 .image-container img {
     position: absolute;
     top: 50%;
@@ -122,6 +127,9 @@ body * { text-align: center; } /* percolate to child elements */
     position: relative;
     z-index: 10;
     touch-action: none;
+}
+.draggable:active {
+    cursor: grabbing;
 }
 .droppable .draggable {
     box-shadow: 0 0 0 2px white;/*, 0 0 10px 3px rgba(255, 255, 255, 0.7);*/
