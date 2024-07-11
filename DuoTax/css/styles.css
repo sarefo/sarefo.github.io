@@ -314,3 +314,96 @@ body * { text-align: center; } /* percolate to child elements */
     cursor: pointer;
 }
 
+#help-dialog {
+    padding: 24px;
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    max-width: 400px;
+    width: 80%;
+    background-color: #f9f9f9;
+}
+
+#help-dialog h2 {
+    color: var(--primary-color);
+    margin-bottom: 24px;
+    font-size: 24px;
+    text-align: center;
+}
+
+.help-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.help-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background-color: white;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.help-item svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--primary-color);
+    flex-shrink: 0;
+}
+
+.help-item p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.4;
+    color: #333;
+    text-align: left;
+}
+
+#close-help-dialog {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 24px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    margin-top: 24px;
+    width: 100%;
+}
+
+#close-help-dialog:hover {
+    background-color: #5c8a00;
+}
+
+#close-help-dialog:active {
+    transform: scale(0.98);
+}
+
+#help-button {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.4);
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+#help-button svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--primary-counter-color);
+    transition: fill 0.3s ease;
+}

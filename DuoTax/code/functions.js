@@ -547,6 +547,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
             if (event.key === 's' || event.key === 'S') {
                 document.getElementById('select-pair-button').click();
             }
+            if (event.key === 'h' || event.key === 'H') {
+                document.getElementById('help-button').click();
+            }
             if (event.key === 'e' || event.key === 'E') {
                 document.getElementById('enter-pair-button').click();
                 // Clear the input field
@@ -560,6 +563,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
         }
     });
+});
+
+// Help button functionality
+document.getElementById('help-button').addEventListener('click', () => {
+    document.getElementById('help-dialog').showModal();
+});
+document.getElementById('close-help-dialog').addEventListener('click', () => {
+    document.getElementById('help-dialog').close();
 });
 
 function handleTouchStart(event) {
