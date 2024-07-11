@@ -290,7 +290,7 @@ const game = {
 setupGame: async function (newPair = false) {
     resetDraggables();
     ui.scrollToTop();
-
+console.log(`in setupGame(): newPair=${newPair} • `);
   if (!await api.isINaturalistReachable()) {
       //ui.showINatDownDialog();
     return;
@@ -317,6 +317,7 @@ setupGame: async function (newPair = false) {
             // Fallback to current behavior if no preloaded pair
             gameState.currentPair = await game.selectTaxonPair();
         }
+        gameState.preloadedPair = await game.preloadPair();
     }
     gameState.isFirstLoad = false;
 
@@ -390,7 +391,7 @@ setupGame: async function (newPair = false) {
     elements.rightName.innerHTML = `<i>${gameState.taxonRightName}</i><br>(${rightNameVernacular})`;
 
     // Preload next pair for future use
-    gameState.preloadedPair = await game.preloadPair();
+    // TODO only if newPair !
 },
 
 //return random taxon pair by default, or one with given index
@@ -443,6 +444,7 @@ checkAnswer: function(droppedZoneId) {
 
 // preload images for one taxon pair
 preloadPair: async function () {
+console.log("preloading images:");
     const pair = await game.selectTaxonPair();
     const [imageOneURL, imageTwoURL] = await Promise.all([
         api.fetchRandomImage(pair.taxon1),
@@ -798,7 +800,7 @@ const audio = new Audio(soundUrl);
 
     function initializeApp() {
         game.setupGame(true);
-        gameState.preloadedPair = game.preloadPair();
+//        gameState.preloadedPair = game.preloadPair();
         initializeSwipeFunctionality();
         initializeAllEventListeners();
     }
