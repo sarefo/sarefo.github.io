@@ -458,7 +458,7 @@ isINaturalistReachable: async function () {
   }
 },
 
-};
+}; // const api
 
 const game = {
 
@@ -698,7 +698,7 @@ async function showTaxonPairList() {
 
 const dragAndDrop = {
 
-};
+}; // const dragAndDrop
 
 function resetDraggables() {
     const leftNameContainer = document.getElementById('left-name-container');
@@ -805,7 +805,13 @@ handleDragMove: function (e) {
     }
 },
 
-};
+    initializeEventListeners: function() {
+
+                              }
+
+    
+
+}; // const eventHandlers
 
 const utils = {
 
@@ -826,7 +832,7 @@ const audio = new Audio(soundUrl);
       .then(() => { /* Audio started playing successfully*/ }).catch(error => { console.error('Error playing the fart:', error); });
 },
 
-};
+}; // const utils
 
 // TODO add to utils (eventHandlers problem)
 // implement sharing current pair URL
@@ -852,12 +858,24 @@ function shareCurrentPair() {
     });
 }
 
+function initializeAllEventListeners() {
+//    dragAndDrop.initializeEventListeners();
+    eventHandlers.initializeEventListeners();
+    
+    // Other event listeners
+    document.getElementById('share-button').addEventListener('click', utils.shareCurrentPair);
+    document.getElementById('random-pair-button').addEventListener('click', async () => { await game.setupGame(true); });
+    document.getElementById('select-pair-button').addEventListener('click', ui.showTaxonPairList);
+    // ... and so on for other event listeners ...
+}
+
 
 
 function initializeApp() {
     game.setupGame(newPair = true);
     gameState.preloadedPair = game.preloadPair();
     initializeSwipeFunctionality();
+    initializeAllEventListeners();
 }
 
 // Call initialization function
