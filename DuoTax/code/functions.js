@@ -260,6 +260,12 @@ async function setupGame(newPair = false)  {
     resetDraggables();
     scrollToTop();
 
+  if (!await isINaturalistReachable()) {
+    console.warn('iNaturalist API unreachable, loading example.com');
+    window.location.href = 'https://downforeveryoneorjustme.com/inaturalist.org'; // Redirect to your desired URL
+    return;
+  }
+
     // Fade out current images and show loading overlay
     elements.imageOne.classList.add('loading');
     elements.imageTwo.classList.add('loading');
@@ -795,6 +801,17 @@ function resetDraggedElement() {
 }
 
 // END Drag and Drop functionality
+
+// function to check if iNaturalist API is reachable
+async function isINaturalistReachable() {
+  try {
+    const response = await fetch('https://api.inaturalist.org/v1/taxa?q=test');
+    return response.ok;
+  } catch (error) {
+    console.error('Error pinging iNaturalist API:', error);
+    return false;
+  }
+}
 
 // start
 (async function() {
