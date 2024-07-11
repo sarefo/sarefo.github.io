@@ -29,7 +29,7 @@ let touchStartX = 0;
 let touchStartY = 0;
 let touchEndX = 0;
 let touchEndY = 0;
-let isFullscreen = false;
+//let isFullscreen = false;
 
 let isFirstLoad = true;
 let currentPair, preloadedPair;
@@ -49,19 +49,20 @@ function debounce(func, wait) {
         timeout = setTimeout(() => func.apply(this, args), wait);
     };
 }
+/*
 // Function to toggle fullscreen
 function toggleFullscreen() {
     if (!isFullscreen) {
         if (document.documentElement.requestFullscreen) {
             document.documentElement.requestFullscreen();
-        } else if (document.documentElement.webkitRequestFullscreen) { /* Safari */
+        } else if (document.documentElement.webkitRequestFullscreen) { 
             document.documentElement.webkitRequestFullscreen();
         }
         isFullscreen = true;
     } else {
         if (document.exitFullscreen) {
             document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) { /* Safari */
+        } else if (document.webkitExitFullscreen) { 
             document.webkitExitFullscreen();
         }
         isFullscreen = false;
@@ -70,6 +71,7 @@ function toggleFullscreen() {
 }
 // Debounced version of toggleFullscreen
 const debouncedToggleFullscreen = debounce(toggleFullscreen, 300);
+*/
 
 // preload images for one taxon pair
 async function preloadPair() {
@@ -627,9 +629,7 @@ function handleImageInteraction(event) {
     const diffY = Math.abs(touchStartY - (event.clientY || event.changedTouches[0].clientY));
 
     // If the touch/click moved less than 10 pixels, consider it a tap/click
-    if (diffX < 10 && diffY < 10) {
-        debouncedToggleFullscreen();
-    }
+//    if (diffX < 10 && diffY < 10) { debouncedToggleFullscreen(); }
 }
 
 //const elements = ['image-container-1', 'image-container-2'];
@@ -640,6 +640,7 @@ const handlers = [handleTouchStart, handleTouchEnd, handleMouseDown, handleMouse
 [elements.imageOneContainer, elements.imageTwoContainer].forEach(id => { const element = id;
   events.forEach((event, index) => { element.addEventListener(event, handlers[index]); }); });
 
+/*
 // part of fullscreen mode
 function hideAddressBar() {
     if (document.documentElement.scrollHeight < window.outerHeight / window.devicePixelRatio) {
@@ -653,6 +654,7 @@ window.addEventListener("orientationchange", hideAddressBar);
 // Listen for fullscreen change events
 document.addEventListener('fullscreenchange', () => { isFullscreen = !!document.fullscreenElement; });
 document.addEventListener('webkitfullscreenchange', () => { isFullscreen = !!document.webkitFullscreenElement; });
+*/
 
 // Prevent scrolling in the name-pair area
 elements.namePair.addEventListener('touchmove', function(event) { event.preventDefault(); }, { passive: false });
