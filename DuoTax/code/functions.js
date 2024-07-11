@@ -261,8 +261,9 @@ async function setupGame(newPair = false)  {
     scrollToTop();
 
   if (!await isINaturalistReachable()) {
-    console.warn('iNaturalist API unreachable, loading example.com');
-    window.location.href = 'https://downforeveryoneorjustme.com/inaturalist.org'; // Redirect to your desired URL
+      showINatDownDialog();
+      console.log("DOWN");
+    //window.location.href = 'https://downforeveryoneorjustme.com/inaturalist.org'; // Redirect to your desired URL
     return;
   }
 
@@ -813,6 +814,23 @@ async function isINaturalistReachable() {
   }
 }
 
+function showINatDownDialog() {
+    const dialog = document.getElementById('inat-down-dialog');
+    dialog.showModal();
+
+    document.getElementById('check-inat-status').addEventListener('click', () => {
+        window.open('https://inaturalist.org', '_blank');
+    });
+
+    document.getElementById('retry-connection').addEventListener('click', async () => {
+        dialog.close();
+        if (await isINaturalistReachable()) {
+            setupGame(true);
+        } else {
+            showINatDownDialog();
+        }
+    });
+}
 // start
 (async function() {
     await setupGame(newPair = true);
