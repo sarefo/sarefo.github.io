@@ -268,7 +268,11 @@ async function setupGame(newPair = false)  {
     if (newPair) {
         if (isFirstLoad) {
             const urlParams = getURLParameters();
-            if (urlParams) { currentPair = urlParams; }// else { urlParams = false; }
+            if (urlParams) { currentPair = urlParams;
+            } else {
+                currentPair = await selectTaxonPair();
+                console.log(currentPair);
+            }
         } else if (preloadedPair) {
             currentPair = preloadedPair.pair;
             elements.imageOne.src = preloadedPair.imageOneURL;
