@@ -7,6 +7,7 @@
     {"taxon1":"Catarrhini", "taxon2":"Platyrrhini"},
     {"taxon1":"Hominoidea", "taxon2":"Cercopithecidae"},
     {"taxon1":"Elephas", "taxon2":"Loxodonta"},
+    {"taxon1":"Loxodonta africana", "taxon2":"Loxodonta cyclotis"},
     {"taxon1":"Laurasiatheria", "taxon2":"Euarchontoglires"},
     {"taxon1":"Xenarthra", "taxon2":"Afrotheria"},
     {"taxon1":"Afrotheria", "taxon2":"Laurasiatheria"},
