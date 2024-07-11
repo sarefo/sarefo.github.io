@@ -348,64 +348,6 @@ function loadImage(imgElement, src) {
     });
 }
 
-// drag and drop name tile onto image
-function dragStart(e) { e.dataTransfer.setData('text/plain', e.target.id); }
-function dragOver(e) {
-    e.preventDefault();
-    if (e.target.classList.contains('image-container')) {
-        e.target.classList.add('drag-over');
-    }
-}
-function dragLeave(e) {
-    if (e.target.classList.contains('image-container')) {
-        e.target.classList.remove('drag-over');
-    }
-}
-function drop(e) {
-    e.preventDefault();
-    const data = e.dataTransfer.getData('text');
-    const draggedElement = document.getElementById(data);
-    
-    let dropZone;
-    if (e.target.classList.contains('image-container')) {
-        e.target.classList.remove('drag-over');
-        dropZone = e.target.querySelector('div[id^="drop-"]');
-    } else if (e.target.tagName === 'IMG') {
-        e.target.parentElement.classList.remove('drag-over');
-        dropZone = e.target.nextElementSibling;
-    } else { return; } // Drop on an invalid target
-/*    let dropZone;
-    if (e.target.classList.contains('image-container')) {
-        dropZone = e.target.querySelector('div[id^="drop-"]');
-    } else if (e.target.tagName === 'IMG') {
-        dropZone = e.target.nextElementSibling;
-    } else { return; } // Drop on an invalid target
-*/
-    dropZone.innerHTML = ''; // Clear any existing content
-    dropZone.appendChild(draggedElement);
-
-    // Automatically move the other name
-    const otherNameId = data === 'left-name' ? 'right-name' : 'left-name';
-    const otherName = document.getElementById(otherNameId);
-    const otherDropZone = document.getElementById(dropZone.id === 'drop-1' ? 'drop-2' : 'drop-1');
-    otherDropZone.innerHTML = '';
-    otherDropZone.appendChild(otherName);
-
-    checkAnswer(dropZone.id);
-}
-function resetDraggables() {
-    const leftNameContainer = document.getElementById('left-name-container');
-    const rightNameContainer = document.getElementById('right-name-container');
-    const dropOne = document.getElementById('drop-1');
-    const dropTwo = document.getElementById('drop-2');
-    
-    // Move draggables back to the names container
-    leftNameContainer.appendChild(document.getElementById('left-name'));
-    rightNameContainer.appendChild(document.getElementById('right-name'));
-    
-    // Clear drop zones
-    dropOne.innerHTML = ''; dropTwo.innerHTML = '';
-}
 
 function checkAnswer(droppedZoneId) {
     const dropOne = document.getElementById('drop-1');
@@ -656,87 +598,6 @@ function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// tile dragging stuff
-let draggedElement = null;
-let touchOffset = { x: 0, y: 0 };
-function touchStart(e) {
-    e.preventDefault();
-    draggedElement = e.target.closest('.draggable');
-    if (!draggedElement) return;
-    
-    const touch = e.touches[0];
-    const rect = draggedElement.getBoundingClientRect();
-    touchOffset.x = touch.clientX - rect.left;
-    touchOffset.y = touch.clientY - rect.top;
-    
-    draggedElement.style.zIndex = '1000';
-    draggedElement.style.position = 'fixed';
-    updateElementPosition(touch);
-}
-function touchMove(e) {
-    e.preventDefault();
-    if (draggedElement) {
-        const touch = e.touches[0];
-        updateElementPosition(touch);
-    }
-}
-function touchEnd(e) {
-    e.preventDefault();
-    if (draggedElement) {
-        const dropZone = getDropZone(e);
-        if (dropZone) {
-            handleDrop(dropZone);
-        } else {
-            resetDraggedElement();
-        }
-        draggedElement.style.zIndex = '';
-        draggedElement.style.position = '';
-        draggedElement = null;
-    }
-}
-function updateElementPosition(touch) {
-    draggedElement.style.left = `${touch.clientX - touchOffset.x}px`;
-    draggedElement.style.top = `${touch.clientY - touchOffset.y}px`;
-}
-function getDropZone(e) {
-    const touch = e.changedTouches ? e.changedTouches[0] : e;
-    const imageContainers = document.querySelectorAll('.image-container');
-    for (let container of imageContainers) {
-        const rect = container.getBoundingClientRect();
-        if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
-            touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
-            return container.querySelector('.droppable');
-        }
-    }
-    return null;
-}
-function handleDrop(dropZone) {
-    if (!draggedElement) return;
-
-    dropZone.innerHTML = '';
-    dropZone.appendChild(draggedElement);
-    draggedElement.style.position = 'static'; // Reset position to static
-    draggedElement.style.left = '';
-    draggedElement.style.top = '';
-    draggedElement.style.width = '100%'; // Ensure the dragged element fills the drop zone width
-
-    const otherNameId = draggedElement.id === 'left-name' ? 'right-name' : 'left-name';
-    const otherName = document.getElementById(otherNameId);
-    const otherDropZone = document.getElementById(dropZone.id === 'drop-1' ? 'drop-2' : 'drop-1');
-    otherDropZone.innerHTML = '';
-    otherDropZone.appendChild(otherName);
-
-    checkAnswer(dropZone.id);
-}
-
-function resetDraggedElement() {
-    const originalContainer = draggedElement.id === 'left-name' ? 'left-name-container' : 'right-name-container';
-    document.getElementById(originalContainer).appendChild(draggedElement);
-    draggedElement.style.position = '';
-    draggedElement.style.left = '';
-    draggedElement.style.top = '';
-}
-
 function surprise() {
     // placeholder
     const soundUrl = './sound/fart.mp3';
@@ -785,6 +646,155 @@ function initializeSwipeFunctionality() {
     gameContainer.addEventListener('mouseup', handleSwipeOrDrag);
     gameContainer.addEventListener('touchend', handleSwipeOrDrag);
 }
+
+// BEGIN Drag and Drop functionality
+
+// drag and drop name tile onto image
+function dragStart(e) {
+    e.dataTransfer.setData('text/plain', e.target.id);
+}
+
+function dragOver(e) {
+    e.preventDefault();
+    if (e.target.classList.contains('image-container')) {
+        e.target.classList.add('drag-over');
+    }
+}
+
+function dragLeave(e) {
+    if (e.target.classList.contains('image-container')) {
+        e.target.classList.remove('drag-over');
+    }
+}
+
+function drop(e) {
+    e.preventDefault();
+    const data = e.dataTransfer.getData('text');
+    const draggedElement = document.getElementById(data);
+    
+    let dropZone;
+    if (e.target.classList.contains('image-container')) {
+        e.target.classList.remove('drag-over');
+        dropZone = e.target.querySelector('div[id^="drop-"]');
+    } else if (e.target.tagName === 'IMG') {
+        e.target.parentElement.classList.remove('drag-over');
+        dropZone = e.target.nextElementSibling;
+    } else { return; } // Drop on an invalid target
+    dropZone.innerHTML = ''; // Clear any existing content
+    dropZone.appendChild(draggedElement);
+
+    // Automatically move the other name
+    const otherNameId = data === 'left-name' ? 'right-name' : 'left-name';
+    const otherName = document.getElementById(otherNameId);
+    const otherDropZone = document.getElementById(dropZone.id === 'drop-1' ? 'drop-2' : 'drop-1');
+    otherDropZone.innerHTML = '';
+    otherDropZone.appendChild(otherName);
+
+    checkAnswer(dropZone.id);
+}
+
+function resetDraggables() {
+    const leftNameContainer = document.getElementById('left-name-container');
+    const rightNameContainer = document.getElementById('right-name-container');
+    const dropOne = document.getElementById('drop-1');
+    const dropTwo = document.getElementById('drop-2');
+    
+    // Move draggables back to the names container
+    leftNameContainer.appendChild(document.getElementById('left-name'));
+    rightNameContainer.appendChild(document.getElementById('right-name'));
+    
+    // Clear drop zones
+    dropOne.innerHTML = ''; dropTwo.innerHTML = '';
+}
+
+// tile dragging stuff
+let draggedElement = null;
+let touchOffset = { x: 0, y: 0 };
+
+function touchStart(e) {
+    e.preventDefault();
+    draggedElement = e.target.closest('.draggable');
+    if (!draggedElement) return;
+    
+    const touch = e.touches[0];
+    const rect = draggedElement.getBoundingClientRect();
+    touchOffset.x = touch.clientX - rect.left;
+    touchOffset.y = touch.clientY - rect.top;
+    
+    draggedElement.style.zIndex = '1000';
+    draggedElement.style.position = 'fixed';
+    updateElementPosition(touch);
+}
+
+function touchMove(e) {
+    e.preventDefault();
+    if (draggedElement) {
+        const touch = e.touches[0];
+        updateElementPosition(touch);
+    }
+}
+
+function touchEnd(e) {
+    e.preventDefault();
+    if (draggedElement) {
+        const dropZone = getDropZone(e);
+        if (dropZone) {
+            handleDrop(dropZone);
+        } else {
+            resetDraggedElement();
+        }
+        draggedElement.style.zIndex = '';
+        draggedElement.style.position = '';
+        draggedElement = null;
+    }
+}
+
+function updateElementPosition(touch) {
+    draggedElement.style.left = `${touch.clientX - touchOffset.x}px`;
+    draggedElement.style.top = `${touch.clientY - touchOffset.y}px`;
+}
+
+function getDropZone(e) {
+    const touch = e.changedTouches ? e.changedTouches[0] : e;
+    const imageContainers = document.querySelectorAll('.image-container');
+    for (let container of imageContainers) {
+        const rect = container.getBoundingClientRect();
+        if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
+            touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+            return container.querySelector('.droppable');
+        }
+    }
+    return null;
+}
+
+function handleDrop(dropZone) {
+    if (!draggedElement) return;
+
+    dropZone.innerHTML = '';
+    dropZone.appendChild(draggedElement);
+    draggedElement.style.position = 'static'; // Reset position to static
+    draggedElement.style.left = '';
+    draggedElement.style.top = '';
+    draggedElement.style.width = '100%'; // Ensure the dragged element fills the drop zone width
+
+    const otherNameId = draggedElement.id === 'left-name' ? 'right-name' : 'left-name';
+    const otherName = document.getElementById(otherNameId);
+    const otherDropZone = document.getElementById(dropZone.id === 'drop-1' ? 'drop-2' : 'drop-1');
+    otherDropZone.innerHTML = '';
+    otherDropZone.appendChild(otherName);
+
+    checkAnswer(dropZone.id);
+}
+
+function resetDraggedElement() {
+    const originalContainer = draggedElement.id === 'left-name' ? 'left-name-container' : 'right-name-container';
+    document.getElementById(originalContainer).appendChild(draggedElement);
+    draggedElement.style.position = '';
+    draggedElement.style.left = '';
+    draggedElement.style.top = '';
+}
+
+// END Drag and Drop functionality
 
 // start
 (async function() {
