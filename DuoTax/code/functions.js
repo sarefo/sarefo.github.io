@@ -84,6 +84,12 @@ async function handleNewPairSubmit(event) {
     }
 }
 
+function clearDialogInputs() {
+    document.getElementById('taxon1').value = '';
+    document.getElementById('taxon2').value = '';
+    document.getElementById('dialog-message').textContent = '';
+}
+
 function loadImage(imgElement, src) {
     return new Promise((resolve, reject) => {
         imgElement.onload = resolve;
@@ -102,6 +108,102 @@ function resetGameContainerStyle() {
         container.style.opacity = '';
     });
 }
+
+// touch events
+[elements.imageOneContainer, elements.imageTwoContainer].forEach(container => {
+    container.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    container.addEventListener('touchend', handleImageInteraction);
+
+    container.addEventListener('mousedown', (e) => {
+        touchStartX = e.clientX;
+        touchStartY = e.clientY;
+    });
+
+    container.addEventListener('mouseup', handleImageInteraction);
+});
+
+// tile dragging listeners
+document.querySelectorAll('.draggable').forEach(element => {
+    element.addEventListener('dragstart', dragStart);
+    element.addEventListener('touchstart', touchStart, { passive: false });
+    element.addEventListener('touchmove', touchMove, { passive: false });
+    element.addEventListener('touchend', touchEnd, { passive: false });
+});
+document.querySelectorAll('.image-container').forEach(element => {
+    element.addEventListener('dragover', dragOver);
+    element.addEventListener('dragleave', dragLeave);
+    element.addEventListener('drop', drop);
+});
+
+// button listeners
+document.getElementById('share-button').addEventListener('click', shareCurrentPair);
+document.getElementById('random-pair-button').addEventListener('click', async () => { await game.setupGame(true); });
+document.getElementById('select-pair-button').addEventListener('click', showTaxonPairList);
+
+document.getElementById('enter-pair-button').addEventListener('click', () => {
+    clearDialogInputs();
+    document.getElementById('enter-pair-dialog').showModal();
+});
+document.getElementById('close-dialog').addEventListener('click', () => {
+    document.getElementById('enter-pair-dialog').close();
+});
+document.querySelector('#enter-pair-dialog form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    await handleNewPairSubmit(event);
+});
+document.getElementById('surprise-button').addEventListener('click', () => {
+    clearDialogInputs();
+    utils.surprise();
+});
+
+// Keyboard shortcuts
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.addEventListener('keydown', function(event) {
+        // Check if the enter pair dialog is open
+        const isDialogOpen = document.getElementById('enter-pair-dialog').open;
+        
+        // Only process shortcuts if the dialog is not open
+        if (!isDialogOpen) {
+            if (event.key === 'r' || event.key === 'R') {
+                document.getElementById('random-pair-button').click();
+            }
+            if (event.key === 's' || event.key === 'S') {
+                document.getElementById('select-pair-button').click();
+            }
+            if (event.key === 'h' || event.key === 'H') {
+                document.getElementById('help-button').click();
+            }
+            if (event.key === 'e' || event.key === 'E') {
+                document.getElementById('enter-pair-button').click();
+                // Clear the input field
+                setTimeout(() => {
+                    document.getElementById('taxon1').value = '';
+                    document.getElementById('taxon1').focus();
+                }, 0);
+            }
+            if (event.key === 'p' || event.key === 'P' || event.key === 'f' || event.key === 'F') {
+                document.getElementById('surprise-button').click();
+            }
+        }
+    });
+});
+
+// Help button functionality
+document.getElementById('help-button').addEventListener('click', () => {
+    document.getElementById('help-dialog').showModal();
+});
+/*
+document.getElementById('more-help-dialog').addEventListener('click', () => {
+    window.open('https://google.com', '_blank');
+});
+*/
+document.getElementById('close-help-dialog').addEventListener('click', () => {
+    document.getElementById('help-dialog').close();
+});
 
 function handleTouchStart(event) {
     touchStartX = event.touches[0].clientX;
@@ -277,6 +379,7 @@ function resetDraggedElement() {
 // END Drag and Drop functionality
 
 // END unsorted stuff
+
 
 const api = {
 
@@ -544,10 +647,13 @@ showINatDownDialog: function () {
             showINatDownDialog();
         }
     });
-},
+}
 
+}; // const ui
+
+// TODO move to "const ui" > eventhandler trouble?
 // display pair list for selection
-showTaxonPairList: async function () {
+async function showTaxonPairList() {
     const taxonPairs = await api.fetchTaxonPairs();
     if (taxonPairs.length === 0) {
         console.error("No taxon pairs available");
@@ -588,39 +694,8 @@ showTaxonPairList: async function () {
             document.body.removeChild(modal);
         }
     };
-},
-
-clearDialogInputs: function () {
-    document.getElementById('taxon1').value = '';
-    document.getElementById('taxon2').value = '';
-    document.getElementById('dialog-message').textContent = '';
-},
-
-initializeEventListeners: function () {
-    // button listeners
-    document.getElementById('random-pair-button').addEventListener('click', async () => { await game.setupGame(true); });
-    document.getElementById('select-pair-button').addEventListener('click', this.showTaxonPairList);
-
-    document.getElementById('enter-pair-button').addEventListener('click', () => {
-        this.clearDialogInputs();
-        document.getElementById('enter-pair-dialog').showModal();
-    });
-    document.getElementById('close-dialog').addEventListener('click', () => {
-        document.getElementById('enter-pair-dialog').close();
-    });
-    document.querySelector('#enter-pair-dialog form').addEventListener('submit', async (event) => {
-        event.preventDefault();
-        await handleNewPairSubmit(event);
-    });
-    document.getElementById('surprise-button').addEventListener('click', () => {
-        clearDialogInputs();
-        utils.surprise();
-    });
 }
 
-}; // const ui
-
-// TODO move to "const ui" > eventhandler trouble?
 const dragAndDrop = {
 
 resetDraggables: function () {
@@ -635,138 +710,53 @@ resetDraggables: function () {
     
     // Clear drop zones
     dropOne.innerHTML = ''; dropTwo.innerHTML = '';
-},
+}
 
+};
+// TODO put into const above
 // drag and drop name tile onto image
+function dragStart(e) {
+    e.dataTransfer.setData('text/plain', e.target.id);
+}
 
-    dragStart: function (e) {
-        if (e.type === 'touchstart') {
-            e.preventDefault();
-            e.target.dataset.dragging = 'true';
-        }
-        e.dataTransfer?.setData('text/plain', e.target.id);
-    },
-
-dragOver: function (e) {
+function dragOver(e) {
     e.preventDefault();
     if (e.target.classList.contains('image-container')) {
         e.target.classList.add('drag-over');
     }
-},
+}
 
-dragLeave: function (e) {
+function dragLeave(e) {
     if (e.target.classList.contains('image-container')) {
         e.target.classList.remove('drag-over');
     }
-},
+}
 
-    drop: function (e) {
-        e.preventDefault();
-        let draggedElement;
-        if (e.type === 'touchend') {
-            draggedElement = document.querySelector('[data-dragging="true"]');
-            draggedElement.dataset.dragging = 'false';
-        } else {
-            const data = e.dataTransfer.getData('text');
-            draggedElement = document.getElementById(data);
-        }
-        
-        let dropZone;
-        if (e.target.classList.contains('image-container')) {
-            e.target.classList.remove('drag-over');
-            dropZone = e.target.querySelector('div[id^="drop-"]');
-        } else if (e.target.tagName === 'IMG') {
-            e.target.parentElement.classList.remove('drag-over');
-            dropZone = e.target.nextElementSibling;
-        } else { return; } // Drop on an invalid target
-        dropZone.innerHTML = ''; // Clear any existing content
-        dropZone.appendChild(draggedElement);
+function drop(e) {
+    e.preventDefault();
+    const data = e.dataTransfer.getData('text');
+    const draggedElement = document.getElementById(data);
+    
+    let dropZone;
+    if (e.target.classList.contains('image-container')) {
+        e.target.classList.remove('drag-over');
+        dropZone = e.target.querySelector('div[id^="drop-"]');
+    } else if (e.target.tagName === 'IMG') {
+        e.target.parentElement.classList.remove('drag-over');
+        dropZone = e.target.nextElementSibling;
+    } else { return; } // Drop on an invalid target
+    dropZone.innerHTML = ''; // Clear any existing content
+    dropZone.appendChild(draggedElement);
 
-        // Automatically move the other name
-        const otherNameId = draggedElement.id === 'left-name' ? 'right-name' : 'left-name';
-        const otherName = document.getElementById(otherNameId);
-        const otherDropZone = document.getElementById(dropZone.id === 'drop-1' ? 'drop-2' : 'drop-1');
-        otherDropZone.innerHTML = '';
-        otherDropZone.appendChild(otherName);
+    // Automatically move the other name
+    const otherNameId = data === 'left-name' ? 'right-name' : 'left-name';
+    const otherName = document.getElementById(otherNameId);
+    const otherDropZone = document.getElementById(dropZone.id === 'drop-1' ? 'drop-2' : 'drop-1');
+    otherDropZone.innerHTML = '';
+    otherDropZone.appendChild(otherName);
 
-        game.checkAnswer(dropZone.id);
-    },
-
-
-
-    touchDragStart: function(e) {
-        const touch = e.touches[0];
-        const draggedElement = e.target.closest('.draggable');
-        if (!draggedElement) return;
-
-        draggedElement.style.position = 'fixed';
-        draggedElement.style.zIndex = 1000;
-
-        function moveAt(pageX, pageY) {
-            draggedElement.style.left = pageX - draggedElement.offsetWidth / 2 + 'px';
-            draggedElement.style.top = pageY - draggedElement.offsetHeight / 2 + 'px';
-        }
-
-        moveAt(touch.pageX, touch.pageY);
-
-        function onTouchMove(e) {
-            moveAt(e.touches[0].pageX, e.touches[0].pageY);
-        }
-
-        document.addEventListener('touchmove', onTouchMove);
-
-        draggedElement.onTouchEnd = function() {
-            document.removeEventListener('touchmove', onTouchMove);
-            draggedElement.onTouchEnd = null;
-            
-            const dropZone = document.elementFromPoint(touch.clientX, touch.clientY).closest('.image-container');
-            if (dropZone) {
-                const targetDrop = dropZone.querySelector('div[id^="drop-"]');
-                targetDrop.innerHTML = '';
-                targetDrop.appendChild(draggedElement);
-                
-                // Move the other name
-                const otherNameId = draggedElement.id === 'left-name' ? 'right-name' : 'left-name';
-                const otherName = document.getElementById(otherNameId);
-                const otherDropZone = document.getElementById(targetDrop.id === 'drop-1' ? 'drop-2' : 'drop-1');
-                otherDropZone.innerHTML = '';
-                otherDropZone.appendChild(otherName);
-
-                game.checkAnswer(targetDrop.id);
-            } else {
-                // Reset position if not dropped on a valid zone
-                draggedElement.style.position = '';
-                draggedElement.style.zIndex = '';
-                draggedElement.style.left = '';
-                draggedElement.style.top = '';
-            }
-        };
-    },
-
-    initializeEventListeners: function () {
-        document.querySelectorAll('.draggable').forEach(element => {
-            element.addEventListener('dragstart', this.dragStart);
-            element.addEventListener('touchstart', this.dragStart);
-        });
-        document.querySelectorAll('.image-container').forEach(element => {
-            element.addEventListener('dragover', this.dragOver);
-            element.addEventListener('dragleave', this.dragLeave);
-            element.addEventListener('drop', this.drop);
-            element.addEventListener('touchend', this.drop);
-        });
-        document.querySelectorAll('.draggable').forEach(element => {
-            element.addEventListener('touchstart', this.touchDragStart, {passive: false});
-        });
-
-        document.addEventListener('touchend', function(e) {
-            const draggedElement = document.querySelector('.draggable[style*="position: fixed"]');
-            if (draggedElement && draggedElement.onTouchEnd) {
-                draggedElement.onTouchEnd();
-            }
-        });
-    }
-
-};
+    game.checkAnswer(dropZone.id);
+}
 
 const eventHandlers = {
 
@@ -815,73 +805,6 @@ handleDragMove: function (e) {
     }
 },
 
-initializeEventListeners: function() {
-// touch events
-[elements.imageOneContainer, elements.imageTwoContainer].forEach(container => {
-    container.addEventListener('touchstart', (e) => {
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-    }, { passive: true });
-
-    container.addEventListener('touchend', handleImageInteraction);
-
-    container.addEventListener('mousedown', (e) => {
-        touchStartX = e.clientX;
-        touchStartY = e.clientY;
-    });
-
-    container.addEventListener('mouseup', handleImageInteraction);
-});
-
-
-// Keyboard shortcuts
-document.addEventListener('DOMContentLoaded', (event) => {
-    document.addEventListener('keydown', function(event) {
-        // Check if the enter pair dialog is open
-        const isDialogOpen = document.getElementById('enter-pair-dialog').open;
-        
-        // Only process shortcuts if the dialog is not open
-        if (!isDialogOpen) {
-            if (event.key === 'r' || event.key === 'R') {
-                document.getElementById('random-pair-button').click();
-            }
-            if (event.key === 's' || event.key === 'S') {
-                document.getElementById('select-pair-button').click();
-            }
-            if (event.key === 'h' || event.key === 'H') {
-                document.getElementById('help-button').click();
-            }
-            if (event.key === 'e' || event.key === 'E') {
-                document.getElementById('enter-pair-button').click();
-                // Clear the input field
-                setTimeout(() => {
-                    document.getElementById('taxon1').value = '';
-                    document.getElementById('taxon1').focus();
-                }, 0);
-            }
-            if (event.key === 'p' || event.key === 'P' || event.key === 'f' || event.key === 'F') {
-                document.getElementById('surprise-button').click();
-            }
-        }
-    });
-});
-
-// Help button functionality
-document.getElementById('help-button').addEventListener('click', () => {
-    document.getElementById('help-dialog').showModal();
-});
-/*
-document.getElementById('more-help-dialog').addEventListener('click', () => {
-    window.open('https://google.com', '_blank');
-});
-*/
-document.getElementById('close-help-dialog').addEventListener('click', () => {
-    document.getElementById('help-dialog').close();
-});
-
-
-},
-
 };
 
 const utils = {
@@ -903,8 +826,11 @@ const audio = new Audio(soundUrl);
       .then(() => { /* Audio started playing successfully*/ }).catch(error => { console.error('Error playing the fart:', error); });
 },
 
+};
+
+// TODO add to utils (eventHandlers problem)
 // implement sharing current pair URL
-shareCurrentPair: function () {
+function shareCurrentPair() {
     // Get the current URL
     let currentUrl = new URL(window.location.href);
 
@@ -924,27 +850,14 @@ shareCurrentPair: function () {
         console.error('Failed to copy: ', err);
         alert('Failed to copy link. Please try again.');
     });
-},
-
-    initializeEventListeners: function () {
-        document.getElementById('share-button').addEventListener('click', this.shareCurrentPair);
-    }
-
-}; // const utils
-
-
-function initializeAllEventListeners() {
-    ui.initializeEventListeners();
-    dragAndDrop.initializeEventListeners();
-    eventHandlers.initializeEventListeners();
-    utils.initializeEventListeners();
 }
+
+
 
 function initializeApp() {
     game.setupGame(newPair = true);
     gameState.preloadedPair = game.preloadPair();
     initializeSwipeFunctionality();
-    initializeAllEventListeners(); 
 }
 
 // Call initialization function
