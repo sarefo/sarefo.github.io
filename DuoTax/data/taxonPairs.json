@@ -1,6 +1,16 @@
 [
     {"taxon1":"Felidae", "taxon2":"Canidae"},
     {"taxon1":"Panthera onca", "taxon2":"Panthera pardus"},
+    {"taxon1":"Otariidae", "taxon2":"Phocidae"},
+    {"taxon1":"Mysticeti", "taxon2":"Odontoceti"},
+    {"taxon1":"Haplorhini", "taxon2":"Strepsirrhini"},
+    {"taxon1":"Catarrhini", "taxon2":"Platyrrhini"},
+    {"taxon1":"Hominoidea", "taxon2":"Cercopithecidae"},
+    {"taxon1":"Elephas", "taxon2":"Loxodonta"},
+    {"taxon1":"Laurasiatheria", "taxon2":"Euarchontoglires"},
+    {"taxon1":"Xenarthra", "taxon2":"Afrotheria"},
+    {"taxon1":"Afrotheria", "taxon2":"Laurasiatheria"},
+    {"taxon1":"", "taxon2":""},
 
     {"taxon1":"Crocodylidae", "taxon2":"Alligatoridae"},
     {"taxon1":"Pygopodidae", "taxon2":"Colubridae"},
