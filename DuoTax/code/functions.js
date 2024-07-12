@@ -287,15 +287,50 @@ import api from './api.js';
 
 const game = {
     // Initialization and setup
-    setupGame: async function (newPair = false) {
+setupGame:    async function (newPair = false) {
         if (!await this.checkINaturalistReachability()) {
             return;
         }
 
         this.prepareUIForLoading();
-        await this.loadNewTaxonPair(newPair);
-        const { imageData, randomizeImages } = await this.setupImages();
-        this.setupNameTiles(imageData, randomizeImages);
+
+        if (newPair || !gameState.currentPair) {
+            if (gameState.preloadedPair) {
+                // Use the preloaded pair
+                gameState.currentPair = gameState.preloadedPair.pair;
+                const imageOneURL = gameState.preloadedPair.imageOneURL;
+                const imageTwoURL = gameState.preloadedPair.imageTwoURL;
+
+                // Load the preloaded images
+                await this.loadImages(imageOneURL, imageTwoURL);
+
+                // Setup the rest of the game with these images
+                const imageData = {
+                    imageOneVernacular: await api.fetchVernacular(gameState.currentPair.taxon1),
+                    imageTwoVernacular: await api.fetchVernacular(gameState.currentPair.taxon2),
+                    imageOneURL,
+                    imageTwoURL
+                };
+                const randomizeImages = Math.random() < 0.5;
+                this.setupNameTiles(imageData, randomizeImages);
+
+                // Start preloading the next pair immediately
+                gameState.preloadedPair = await this.preloadPair();
+            } else {
+                // If no preloaded pair, load a new one
+                gameState.currentPair = await this.selectTaxonPair();
+                const { imageData, randomizeImages } = await this.setupImages();
+                this.setupNameTiles(imageData, randomizeImages);
+                
+                // Preload the next pair
+                gameState.preloadedPair = await this.preloadPair();
+            }
+        } else {
+            // Use the current pair but get new images
+            const { imageData, randomizeImages } = await this.setupImages();
+            this.setupNameTiles(imageData, randomizeImages);
+        }
+
         this.finishSetup();
     },
 
@@ -458,13 +493,30 @@ const game = {
         return !index ? taxonPairs[Math.floor(Math.random() * taxonPairs.length)] : taxonPairs[index];
     },
 
-    preloadPair: async function () {
-        console.log("preloading images:");
-        const pair = await game.selectTaxonPair();
+preloadPair:    async function () {
+        console.log("Preloading images...");
+        const pair = await this.selectTaxonPair();
         const [imageOneURL, imageTwoURL] = await Promise.all([
             api.fetchRandomImage(pair.taxon1),
             api.fetchRandomImage(pair.taxon2)
         ]);
+
+        // Preload images
+        await Promise.all([
+            new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = resolve;
+                img.onerror = reject;
+                img.src = imageOneURL;
+            }),
+            new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = resolve;
+                img.onerror = reject;
+                img.src = imageTwoURL;
+            })
+        ]);
+
         return { pair, imageOneURL, imageTwoURL };
     }
 };
@@ -814,12 +866,15 @@ const audio = new Audio(soundUrl);
         });
     }
 
-    function initializeApp() {
-        game.setupGame(true);
-//        gameState.preloadedPair = game.preloadPair();
-        initializeSwipeFunctionality();
-        initializeAllEventListeners();
-    }
+function initializeApp() {
+    game.setupGame(true);
+    // Start preloading the next pair immediately
+    game.preloadPair().then(preloadedPair => {
+        gameState.preloadedPair = preloadedPair;
+    });
+    initializeSwipeFunctionality();
+    initializeAllEventListeners();
+}
 
     // Expose initializeApp to the global scope
     window.initializeApp = initializeApp;
