@@ -1,3 +1,4 @@
+// this snapshot is rather stable, but will always load the first preloaded pair as a random new pair
 // Game functions
 
 import api from './api.js';
@@ -16,49 +17,61 @@ const game = {
         imageTwoVernacular: null,
         randomized: false
     },
+    preloadedPair: null,
+    isPreloadingPair: false,
 
-setupGame: async function (newPair = false) {
-    if (!await this.checkINaturalistReachability()) {
-        return;
-    }
-
-    this.prepareUIForLoading();
-
-    try {
-        if (this.nextSelectedPair) {
-            // Use the pair selected from the dialog or specified in URL
-            this.currentRound = {
-                pair: this.nextSelectedPair,
-                imageOneURLs: [],
-                imageTwoURLs: [],
-                imageOneVernacular: null,
-                imageTwoVernacular: null,
-                randomized: Math.random() < 0.5
-            };
-            this.nextSelectedPair = null; // Clear the selected pair
-            await this.fetchRoundData();
-            [this.currentRound.imageOneVernacular, this.currentRound.imageTwoVernacular] = await Promise.all([
-                api.fetchVernacular(this.currentRound.pair.taxon1),
-                api.fetchVernacular(this.currentRound.pair.taxon2)
-            ]);
-        } else if (newPair || !this.currentRound.pair) {
-            await this.prepareRound(newPair);
-        } else {
-            // If we're not changing pairs, just refresh the current round
-            this.currentRound.randomized = Math.random() < 0.5;
-            await this.fetchRoundData();
+    setupGame: async function (newPair = false) {
+        if (!await this.checkINaturalistReachability()) {
+            return;
         }
-        
-        await this.renderCurrentRound();
-        this.finishSetup();
 
-        // Start preloading the next pair in the background
-        this.preloadNextPair();
-    } catch (error) {
-        console.error("Error setting up game:", error);
-        ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
-    }
-},
+        this.prepareUIForLoading();
+
+        try {
+            if (this.nextSelectedPair) {
+                // Use the pair selected from the dialog or specified in URL
+                await this.loadSelectedPair();
+            } else if (newPair && this.preloadedPair) {
+                // Use the preloaded pair
+                this.currentRound = this.preloadedPair;
+                this.preloadedPair = null;
+            } else if (newPair || !this.currentRound.pair) {
+                // Fetch a new pair if we don't have one
+                await this.fetchNewPair();
+            } else {
+                // If we're not changing pairs, just refresh the current round
+                this.currentRound.randomized = Math.random() < 0.5;
+            }
+            
+            await this.renderCurrentRound();
+            this.finishSetup();
+
+            // Start preloading the next pair in the background if we don't have one
+            if (!this.preloadedPair && !this.isPreloadingPair) {
+                this.preloadNextPair();
+            }
+        } catch (error) {
+            console.error("Error setting up game:", error);
+            ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
+        }
+    },
+
+    loadSelectedPair: async function() {
+        this.currentRound = {
+            pair: this.nextSelectedPair,
+            imageOneURLs: [],
+            imageTwoURLs: [],
+            imageOneVernacular: null,
+            imageTwoVernacular: null,
+            randomized: Math.random() < 0.5
+        };
+        this.nextSelectedPair = null; // Clear the selected pair
+        await this.fetchRoundData();
+        [this.currentRound.imageOneVernacular, this.currentRound.imageTwoVernacular] = await Promise.all([
+            api.fetchVernacular(this.currentRound.pair.taxon1),
+            api.fetchVernacular(this.currentRound.pair.taxon2)
+        ]);
+    },
 
     prepareRound: async function(newPair) {
         console.log("Preparing new round, newPair:", newPair);
@@ -103,17 +116,24 @@ setupGame: async function (newPair = false) {
     },
 
     fetchRoundData: async function () {
-        const { taxon1, taxon2 } = this.currentRound.pair;
-        const [imageOneURLs, imageTwoURLs] = await Promise.all([
-            api.fetchMultipleImages(taxon1),
-            api.fetchMultipleImages(taxon2)
-        ]);
+        if (this.currentRound.imageOneURLs.length === 0 || this.currentRound.imageTwoURLs.length === 0) {
+            const { taxon1, taxon2 } = this.currentRound.pair;
+            const [imageOneURLs, imageTwoURLs, imageOneVernacular, imageTwoVernacular] = await Promise.all([
+                api.fetchMultipleImages(taxon1),
+                api.fetchMultipleImages(taxon2),
+                api.fetchVernacular(taxon1),
+                api.fetchVernacular(taxon2)
+            ]);
 
-        this.currentRound.imageOneURLs = imageOneURLs;
-        this.currentRound.imageTwoURLs = imageTwoURLs;
+            this.currentRound.imageOneURLs = imageOneURLs;
+            this.currentRound.imageTwoURLs = imageTwoURLs;
+            this.currentRound.imageOneVernacular = imageOneVernacular;
+            this.currentRound.imageTwoVernacular = imageTwoVernacular;
 
-        await this.preloadImages(imageOneURLs.concat(imageTwoURLs));
+            await this.preloadImages(imageOneURLs.concat(imageTwoURLs));
+        }
     },
+
 
 preloadImages: async function(urls) {
     console.log(`Starting to preload ${urls.length} images`);
@@ -135,47 +155,54 @@ preloadImages: async function(urls) {
     console.log("Finished preloading all images");
 },
 
-renderCurrentRound: async function () {
-    console.log("Rendering current round");
-    const { pair, imageOneURLs, imageTwoURLs, imageOneVernacular, imageTwoVernacular, randomized } = this.currentRound;
+    renderCurrentRound: async function () {
+        console.log("Rendering current round");
+        const { pair, imageOneURLs, imageTwoURLs, imageOneVernacular, imageTwoVernacular, randomized } = this.currentRound;
 
-    // Select random images from preloaded arrays
-    let leftImageSrc, rightImageSrc;
+        // Select random images from preloaded arrays
+        let leftImageSrc = randomized ? 
+            imageOneURLs[Math.floor(Math.random() * imageOneURLs.length)] :
+            imageTwoURLs[Math.floor(Math.random() * imageTwoURLs.length)];
+        let rightImageSrc = randomized ?
+            imageTwoURLs[Math.floor(Math.random() * imageTwoURLs.length)] :
+            imageOneURLs[Math.floor(Math.random() * imageOneURLs.length)];
 
-    if (randomized) {
-        leftImageSrc = imageOneURLs[Math.floor(Math.random() * imageOneURLs.length)];
-        rightImageSrc = imageTwoURLs[Math.floor(Math.random() * imageTwoURLs.length)];
-    } else {
-        leftImageSrc = imageTwoURLs[Math.floor(Math.random() * imageTwoURLs.length)];
-        rightImageSrc = imageOneURLs[Math.floor(Math.random() * imageOneURLs.length)];
-    }
+        console.log("Selected images:", { leftImageSrc, rightImageSrc });
 
-    console.log("Selected images:", { leftImageSrc, rightImageSrc });
+        // Set image sources without displaying them yet
+        elements.imageOne.src = '';
+        elements.imageTwo.src = '';
 
-    // Set image sources without displaying them yet
-    elements.imageOne.src = '';
-    elements.imageTwo.src = '';
+        const leftName = randomized ? pair.taxon1 : pair.taxon2;
+        const rightName = randomized ? pair.taxon2 : pair.taxon1;
+        const leftVernacular = randomized ? imageOneVernacular : imageTwoVernacular;
+        const rightVernacular = randomized ? imageTwoVernacular : imageOneVernacular;
 
-    const leftName = randomized ? pair.taxon1 : pair.taxon2;
-    const rightName = randomized ? pair.taxon2 : pair.taxon1;
-    const leftVernacular = randomized ? imageOneVernacular : imageTwoVernacular;
-    const rightVernacular = randomized ? imageTwoVernacular : imageOneVernacular;
+        this.setupNameTilesUI(leftName, rightName, leftVernacular, rightVernacular);
 
-    this.setupNameTilesUI(leftName, rightName, leftVernacular, rightVernacular);
+        gameState.taxonImageOne = randomized ? pair.taxon1 : pair.taxon2;
+        gameState.taxonImageTwo = randomized ? pair.taxon2 : pair.taxon1;
+        gameState.taxonLeftName = leftName;
+        gameState.taxonRightName = rightName;
 
-    gameState.taxonImageOne = randomized ? pair.taxon1 : pair.taxon2;
-    gameState.taxonImageTwo = randomized ? pair.taxon2 : pair.taxon1;
-    gameState.taxonLeftName = leftName;
-    gameState.taxonRightName = rightName;
-
-    // Load images without changing their positions
-    await this.loadImages(leftImageSrc, rightImageSrc);
-    console.log("Finished rendering current round");
-},
+        // Load images without changing their positions
+        await this.loadImages(leftImageSrc, rightImageSrc);
+        console.log("Finished rendering current round");
+    },
 
     preloadNextPair: async function() {
+        if (this.isPreloadingPair) return;
+        
+        this.isPreloadingPair = true;
         console.log("Starting to preload next pair in the background");
-        gameState.preloadedPair = await this.preloadPair();
+        try {
+            this.preloadedPair = await this.preloadPair();
+            console.log("Finished preloading next pair");
+        } catch (error) {
+            console.error("Error preloading next pair:", error);
+        } finally {
+            this.isPreloadingPair = false;
+        }
     },
 
     preloadPair: async function () {
@@ -194,7 +221,7 @@ renderCurrentRound: async function () {
         await this.preloadImages(imageOneURLs.concat(imageTwoURLs));
         console.log("Finished preloading images for next pair");
 
-        return { pair, imageOneURLs, imageTwoURLs, imageOneVernacular, imageTwoVernacular };
+        return { pair, imageOneURLs, imageTwoURLs, imageOneVernacular, imageTwoVernacular, randomized: Math.random() < 0.5 };
     },
 
     loadNewRound: async function () {
