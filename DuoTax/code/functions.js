@@ -286,188 +286,188 @@ import api from './api.js';
 // END unsorted stuff
 
 const game = {
-
-setupGame: async function (newPair = false) {
-    let imageOneURL, imageTwoURL;
-    resetDraggables();
-    ui.scrollToTop();
-    console.log(`in setupGame(): newPair=${newPair} • `);
-    if (!await api.isINaturalistReachable()) {
-        // ui.showINatDownDialog();
-        return; // Exit the function if iNaturalist is not reachable
-    }
-
-    // Fade out current images and show loading overlay
-    elements.imageOne.classList.add('loading');
-    elements.imageTwo.classList.add('loading');
-    var startMessage = gameState.isFirstLoad ? "Drag the names!" : startMessage = "Loading...";
-    ui.showOverlay(startMessage, config.overlayColors.green);
-
-    // Loading new taxon pair
-    if (newPair) {
-        // First round of the session, nothing preloaded
-        if (gameState.isFirstLoad) {
-            const urlParams = utils.getURLParameters();
-            if (urlParams) { 
-                gameState.currentPair = urlParams; // Use URL parameters if available
-            } else {
-                gameState.currentPair = await game.selectTaxonPair(); // Select a new taxon pair
-            }
-        // Use preloaded taxon pair
-        } else if (gameState.preloadedPair) {
-            gameState.currentPair = gameState.preloadedPair.pair; // Use the preloaded pair
-            imageOneURL = gameState.preloadedPair.imageOneURL;
-            imageTwoURL = gameState.preloadedPair.imageTwoURL;
-        // Fallback to current behavior if no preloaded pair
-        // Not sure when this might happen
-        } else {
-            gameState.currentPair = await game.selectTaxonPair(); // Select a new taxon pair
+    // Initialization and setup
+    setupGame: async function (newPair = false) {
+        if (!await this.checkINaturalistReachability()) {
+            return;
         }
-        // Preload the random pair for the next possible round
-        gameState.preloadedPair = await game.preloadPair();
-    }
-    gameState.isFirstLoad = false;
 
-    // TODO BUG here! if random pair loaded, only 50% chance of correct assignment image / name
-    // Randomly decide which taxon goes left and right (images)
-    [gameState.taxonImageOne, gameState.taxonImageTwo] = Math.random() < 0.5
-        ? [gameState.currentPair.taxon1, gameState.currentPair.taxon2]
-        : [gameState.currentPair.taxon2, gameState.currentPair.taxon1];
+        this.prepareUIForLoading();
+        await this.loadNewTaxonPair(newPair);
+        const { imageData, randomizeImages } = await this.setupImages();
+        this.setupNameTiles(imageData, randomizeImages);
+        this.finishSetup();
+    },
 
-    // Fetch images and vernacular names
-    const [imageOneVernacular, imageTwoVernacular] = await Promise.all([
-        api.fetchVernacular(gameState.taxonImageOne),
-        api.fetchVernacular(gameState.taxonImageTwo)
-    ]);
+    checkINaturalistReachability: async function() {
+        if (!await api.isINaturalistReachable()) {
+            ui.showINatDownDialog();
+            return false;
+        }
+        return true;
+    },
 
-    if (!imageOneURL || !imageTwoURL) {
-        [imageOneURL, imageTwoURL] = await Promise.all([
+    prepareUIForLoading: function() {
+        resetDraggables();
+        ui.scrollToTop();
+        elements.imageOne.classList.add('loading');
+        elements.imageTwo.classList.add('loading');
+        var startMessage = gameState.isFirstLoad ? "Drag the names!" : "Loading...";
+        ui.showOverlay(startMessage, config.overlayColors.green);
+    },
+
+    loadNewTaxonPair: async function(newPair) {
+        if (newPair || !gameState.currentPair) {
+            if (gameState.isFirstLoad) {
+                const urlParams = utils.getURLParameters();
+                gameState.currentPair = urlParams || await this.selectTaxonPair();
+            } else if (gameState.preloadedPair) {
+                gameState.currentPair = gameState.preloadedPair.pair;
+            } else {
+                gameState.currentPair = await this.selectTaxonPair();
+            }
+            gameState.preloadedPair = await this.preloadPair();
+        }
+        gameState.isFirstLoad = false;
+    },
+
+    // Core gameplay functions
+    setupImages: async function() {
+        let randomizeImages = Math.random() < 0.5;
+        gameState.taxonImageOne = randomizeImages ? gameState.currentPair.taxon1 : gameState.currentPair.taxon2;
+        gameState.taxonImageTwo = randomizeImages ? gameState.currentPair.taxon2 : gameState.currentPair.taxon1;
+
+        const [imageOneVernacular, imageTwoVernacular] = await Promise.all([
+            api.fetchVernacular(gameState.taxonImageOne),
+            api.fetchVernacular(gameState.taxonImageTwo)
+        ]);
+
+        const [imageOneURL, imageTwoURL] = await Promise.all([
             api.fetchRandomImage(gameState.taxonImageOne),
             api.fetchRandomImage(gameState.taxonImageTwo)
         ]);
-    }
 
-    // Function to load image and remove 'loading' class
-    const loadImage = (imgElement, src) => {
+        await this.loadImages(imageOneURL, imageTwoURL);
+
+        return {
+            imageData: {
+                imageOneVernacular,
+                imageTwoVernacular,
+                imageOneURL,
+                imageTwoURL
+            },
+            randomizeImages
+        };
+    },
+
+    setupNameTiles: function(imageData, randomizeImages) {
+        gameState.taxonLeftName = randomizeImages ? gameState.taxonImageOne : gameState.taxonImageTwo;
+        gameState.taxonRightName = randomizeImages ? gameState.taxonImageTwo : gameState.taxonImageOne;
+
+        let leftNameVernacular = randomizeImages ? imageData.imageOneVernacular : imageData.imageTwoVernacular;
+        let rightNameVernacular = randomizeImages ? imageData.imageTwoVernacular : imageData.imageOneVernacular;
+
+        this.setupNameTilesUI(gameState.taxonLeftName, gameState.taxonRightName, leftNameVernacular, rightNameVernacular);
+    },
+
+    checkAnswer: function(droppedZoneId) {
+        const dropOne = document.getElementById('drop-1');
+        const dropTwo = document.getElementById('drop-2');
+        const colorCorrect = config.overlayColors.green;
+        const colorWrong = config.overlayColors.red;
+
+        const leftAnswer = dropOne.children[0]?.getAttribute('data-taxon');
+        const rightAnswer = dropTwo.children[0]?.getAttribute('data-taxon');
+
+        ui.scrollToTop();
+
+        if (leftAnswer && rightAnswer) {
+            let isCorrect = false;
+            if (droppedZoneId === 'drop-1') {
+                isCorrect = leftAnswer === gameState.taxonImageOne;
+            } else {
+                isCorrect = rightAnswer === gameState.taxonImageTwo;
+            }
+
+            if (isCorrect) {
+                elements.imageOne.classList.add('loading');
+                elements.imageTwo.classList.add('loading');
+                ui.showOverlay('Correct!', colorCorrect);
+                setTimeout(() => {
+                    ui.hideOverlay();
+                    game.setupGame(false);
+                }, 2400);
+            } else {
+                resetDraggables();
+                ui.showOverlay('Try again!', colorWrong);
+                setTimeout(() => {
+                    ui.hideOverlay();
+                }, 800);
+            }
+        }
+    },
+
+    // Helper functions
+    loadImages: async function(imageOneURL, imageTwoURL) {
+        await Promise.all([
+            this.loadImageAndRemoveLoadingClass(elements.imageOne, imageOneURL),
+            this.loadImageAndRemoveLoadingClass(elements.imageTwo, imageTwoURL)
+        ]);
+    },
+
+    loadImageAndRemoveLoadingClass: function(imgElement, src) {
         return new Promise((resolve) => {
             imgElement.onload = () => {
                 imgElement.classList.remove('loading');
                 resolve();
             };
             imgElement.src = src;
-            // Remove 'loading' class immediately if the image is cached
             if (imgElement.complete) {
                 imgElement.classList.remove('loading');
                 resolve();
             }
         });
-    };
+    },
 
-    // Load new images
-    await Promise.all([
-        loadImage(elements.imageOne, imageOneURL),
-        loadImage(elements.imageTwo, imageTwoURL)
-    ]);
+    setupNameTilesUI: function(leftName, rightName, leftNameVernacular, rightNameVernacular) {
+        elements.leftName.setAttribute('data-taxon', leftName);
+        elements.rightName.setAttribute('data-taxon', rightName);
+        elements.leftName.style.zIndex = '10';
+        elements.rightName.style.zIndex = '10';
 
-    // Hide loading overlay
-    ui.hideOverlay();
+        elements.leftName.innerHTML = `<i>${leftName}</i><br>(${leftNameVernacular})`;
+        elements.rightName.innerHTML = `<i>${rightName}</i><br>(${rightNameVernacular})`;
+    },
 
-    // TODO bug may also be here?
-    // Randomly decide placement of taxon names (name tiles)
-    let taxonLeftName, leftNameVernacular, taxonRightName, rightNameVernacular;
-    //    [gameState.taxonLeftName, leftNameVernacular, gameState.taxonRightName, rightNameVernacular] = Math.random() < 0.5
-    //        ? [gameState.taxonImageTwo, imageTwoVernacular, gameState.taxonImageOne, imageOneVernacular]
-    //            : [gameState.taxonImageOne, imageOneVernacular, gameState.taxonImageTwo, imageTwoVernacular];
-    if (Math.random() < 0.5) {
-        taxonLeftName = gameState.taxonImageTwo;
-        leftNameVernacular = imageTwoVernacular;
-        taxonRightName = gameState.taxonImageOne;
-        rightNameVernacular = imageOneVernacular;
-    } else {
-        taxonLeftName = gameState.taxonImageOne;
-        leftNameVernacular = imageOneVernacular;
-        taxonRightName = gameState.taxonImageTwo;
-        rightNameVernacular = imageTwoVernacular;
-    }
+    finishSetup: function() {
+        ui.hideOverlay();
+        console.log('Setup complete:', {
+            taxonImageOne: gameState.taxonImageOne,
+            taxonImageTwo: gameState.taxonImageTwo,
+            taxonLeftName: gameState.taxonLeftName,
+            taxonRightName: gameState.taxonRightName
+        });
+    },
 
-    gameState.taxonLeftName = taxonLeftName;
-    gameState.taxonRightName = taxonRightName;
-
-    // Use extra attributes to track taxon ID on name tiles
-    elements.leftName.setAttribute('data-taxon', gameState.taxonLeftName);
-    elements.rightName.setAttribute('data-taxon', gameState.taxonRightName);
-    elements.leftName.style.zIndex = '10'; // Weird Claude suggestion
-    elements.rightName.style.zIndex = '10';
-
-    // Display names on tiles
-    elements.leftName.innerHTML = `<i>${gameState.taxonLeftName}</i><br>(${leftNameVernacular})`;
-    elements.rightName.innerHTML = `<i>${gameState.taxonRightName}</i><br>(${rightNameVernacular})`;
-
-    // Preload next pair for future use
-    // TODO only if newPair !
-},
-
-//return random taxon pair by default, or one with given index
-selectTaxonPair: async function (index = null) {
-    const taxonPairs = await api.fetchTaxonPairs();
-    if (taxonPairs.length === 0) {
-        console.error("No taxon pairs available");
-        return null;
-    }
-    return !index ? taxonPairs[Math.floor(Math.random() * taxonPairs.length)] : taxonPairs[index];
-},
-
-checkAnswer: function(droppedZoneId) {
-    const dropOne = document.getElementById('drop-1');
-    const dropTwo = document.getElementById('drop-2');
-    const colorCorrect = config.overlayColors.green;
-    const colorWrong = config.overlayColors.red;
-
-    const leftAnswer = dropOne.children[0]?.getAttribute('data-taxon');
-    const rightAnswer = dropTwo.children[0]?.getAttribute('data-taxon');
-
-    ui.scrollToTop();
-
-    if (leftAnswer && rightAnswer) {
-        let isCorrect = false;
-        if (droppedZoneId === 'drop-1') {
-            isCorrect = leftAnswer === gameState.taxonImageOne;
-        } else {
-            isCorrect = rightAnswer === gameState.taxonImageTwo;
+    selectTaxonPair: async function (index = null) {
+        const taxonPairs = await api.fetchTaxonPairs();
+        if (taxonPairs.length === 0) {
+            console.error("No taxon pairs available");
+            return null;
         }
+        return !index ? taxonPairs[Math.floor(Math.random() * taxonPairs.length)] : taxonPairs[index];
+    },
 
-        if (isCorrect) {
-
-    elements.imageOne.classList.add('loading');
-    elements.imageTwo.classList.add('loading');
-            ui.showOverlay('Correct!', colorCorrect);
-            setTimeout(() => {
-                ui.hideOverlay();
-                game.setupGame(false);
-            }, 2400);
-        } else {
-            resetDraggables();
-            ui.showOverlay('Try again!', colorWrong);
-            setTimeout(() => {
-                ui.hideOverlay();
-            }, 800);
-        }
+    preloadPair: async function () {
+        console.log("preloading images:");
+        const pair = await game.selectTaxonPair();
+        const [imageOneURL, imageTwoURL] = await Promise.all([
+            api.fetchRandomImage(pair.taxon1),
+            api.fetchRandomImage(pair.taxon2)
+        ]);
+        return { pair, imageOneURL, imageTwoURL };
     }
-},
-
-// preload images for one taxon pair
-preloadPair: async function () {
-console.log("preloading images:");
-    const pair = await game.selectTaxonPair();
-    const [imageOneURL, imageTwoURL] = await Promise.all([
-        api.fetchRandomImage(pair.taxon1),
-        api.fetchRandomImage(pair.taxon2)
-    ]);
-    return { pair, imageOneURL, imageTwoURL };
-}
-
-} // const game
-
+};
 // UI functions
 const ui = {
 
