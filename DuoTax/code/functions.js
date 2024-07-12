@@ -288,6 +288,7 @@ import api from './api.js';
 const game = {
 
 setupGame: async function (newPair = false) {
+    let imageOneURL, imageTwoURL;
     resetDraggables();
     ui.scrollToTop();
 console.log(`in setupGame(): newPair=${newPair} • `);
@@ -311,8 +312,8 @@ console.log(`in setupGame(): newPair=${newPair} • `);
             }
         } else if (gameState.preloadedPair) {
             gameState.currentPair = gameState.preloadedPair.pair;
-            elements.imageOne.src = gameState.preloadedPair.imageOneURL;
-            elements.imageTwo.src = gameState.preloadedPair.imageTwoURL;
+            imageOneURL = gameState.preloadedPair.imageOneURL;
+            imageTwoURL = gameState.preloadedPair.imageTwoURL;
         } else {
             // Fallback to current behavior if no preloaded pair
             gameState.currentPair = await game.selectTaxonPair();
@@ -327,13 +328,17 @@ console.log(`in setupGame(): newPair=${newPair} • `);
             : [gameState.currentPair.taxon2, gameState.currentPair.taxon1];
 
     // fetch images and vernacular names
-    const [imageOneURL, imageTwoURL, imageOneVernacular, imageTwoVernacular] = await Promise.all([
-        api.fetchRandomImage(gameState.taxonImageOne),
-        api.fetchRandomImage(gameState.taxonImageTwo),
+    const [imageOneVernacular, imageTwoVernacular] = await Promise.all([
         api.fetchVernacular(gameState.taxonImageOne),
         api.fetchVernacular(gameState.taxonImageTwo)
     ]);
 
+if (!imageOneURL || !imageTwoURL) {
+    [imageOneURL, imageTwoURL] = await Promise.all([
+        api.fetchRandomImage(gameState.taxonImageOne),
+        api.fetchRandomImage(gameState.taxonImageTwo)
+    ]);
+}
     // Function to load image and remove 'loading' class
     const loadImage = (imgElement, src) => {
         return new Promise((resolve) => {
