@@ -291,11 +291,11 @@ setupGame: async function (newPair = false) {
     let imageOneURL, imageTwoURL;
     resetDraggables();
     ui.scrollToTop();
-console.log(`in setupGame(): newPair=${newPair} • `);
-  if (!await api.isINaturalistReachable()) {
-      //ui.showINatDownDialog();
-    return;
-  }
+    console.log(`in setupGame(): newPair=${newPair} • `);
+    if (!await api.isINaturalistReachable()) {
+        // ui.showINatDownDialog();
+        return; // Exit the function if iNaturalist is not reachable
+    }
 
     // Fade out current images and show loading overlay
     elements.imageOne.classList.add('loading');
@@ -303,42 +303,50 @@ console.log(`in setupGame(): newPair=${newPair} • `);
     var startMessage = gameState.isFirstLoad ? "Drag the names!" : startMessage = "Loading...";
     ui.showOverlay(startMessage, config.overlayColors.green);
 
+    // Loading new taxon pair
     if (newPair) {
+        // First round of the session, nothing preloaded
         if (gameState.isFirstLoad) {
             const urlParams = utils.getURLParameters();
-            if (urlParams) { gameState.currentPair = urlParams;
+            if (urlParams) { 
+                gameState.currentPair = urlParams; // Use URL parameters if available
             } else {
-                gameState.currentPair = await game.selectTaxonPair();
+                gameState.currentPair = await game.selectTaxonPair(); // Select a new taxon pair
             }
+        // Use preloaded taxon pair
         } else if (gameState.preloadedPair) {
-            gameState.currentPair = gameState.preloadedPair.pair;
+            gameState.currentPair = gameState.preloadedPair.pair; // Use the preloaded pair
             imageOneURL = gameState.preloadedPair.imageOneURL;
             imageTwoURL = gameState.preloadedPair.imageTwoURL;
+        // Fallback to current behavior if no preloaded pair
+        // Not sure when this might happen
         } else {
-            // Fallback to current behavior if no preloaded pair
-            gameState.currentPair = await game.selectTaxonPair();
+            gameState.currentPair = await game.selectTaxonPair(); // Select a new taxon pair
         }
+        // Preload the random pair for the next possible round
         gameState.preloadedPair = await game.preloadPair();
     }
     gameState.isFirstLoad = false;
 
+    // TODO BUG here! if random pair loaded, only 50% chance of correct assignment image / name
     // Randomly decide which taxon goes left and right (images)
     [gameState.taxonImageOne, gameState.taxonImageTwo] = Math.random() < 0.5
         ? [gameState.currentPair.taxon1, gameState.currentPair.taxon2]
-            : [gameState.currentPair.taxon2, gameState.currentPair.taxon1];
+        : [gameState.currentPair.taxon2, gameState.currentPair.taxon1];
 
-    // fetch images and vernacular names
+    // Fetch images and vernacular names
     const [imageOneVernacular, imageTwoVernacular] = await Promise.all([
         api.fetchVernacular(gameState.taxonImageOne),
         api.fetchVernacular(gameState.taxonImageTwo)
     ]);
 
-if (!imageOneURL || !imageTwoURL) {
-    [imageOneURL, imageTwoURL] = await Promise.all([
-        api.fetchRandomImage(gameState.taxonImageOne),
-        api.fetchRandomImage(gameState.taxonImageTwo)
-    ]);
-}
+    if (!imageOneURL || !imageTwoURL) {
+        [imageOneURL, imageTwoURL] = await Promise.all([
+            api.fetchRandomImage(gameState.taxonImageOne),
+            api.fetchRandomImage(gameState.taxonImageTwo)
+        ]);
+    }
+
     // Function to load image and remove 'loading' class
     const loadImage = (imgElement, src) => {
         return new Promise((resolve) => {
@@ -364,12 +372,12 @@ if (!imageOneURL || !imageTwoURL) {
     // Hide loading overlay
     ui.hideOverlay();
 
-
+    // TODO bug may also be here?
     // Randomly decide placement of taxon names (name tiles)
     let taxonLeftName, leftNameVernacular, taxonRightName, rightNameVernacular;
-//    [gameState.taxonLeftName, leftNameVernacular, gameState.taxonRightName, rightNameVernacular] = Math.random() < 0.5
-//        ? [gameState.taxonImageTwo, imageTwoVernacular, gameState.taxonImageOne, imageOneVernacular]
-//            : [gameState.taxonImageOne, imageOneVernacular, gameState.taxonImageTwo, imageTwoVernacular];
+    //    [gameState.taxonLeftName, leftNameVernacular, gameState.taxonRightName, rightNameVernacular] = Math.random() < 0.5
+    //        ? [gameState.taxonImageTwo, imageTwoVernacular, gameState.taxonImageOne, imageOneVernacular]
+    //            : [gameState.taxonImageOne, imageOneVernacular, gameState.taxonImageTwo, imageTwoVernacular];
     if (Math.random() < 0.5) {
         taxonLeftName = gameState.taxonImageTwo;
         leftNameVernacular = imageTwoVernacular;
@@ -385,13 +393,13 @@ if (!imageOneURL || !imageTwoURL) {
     gameState.taxonLeftName = taxonLeftName;
     gameState.taxonRightName = taxonRightName;
 
-    // use extra attributes to track taxon ID on name tiles
+    // Use extra attributes to track taxon ID on name tiles
     elements.leftName.setAttribute('data-taxon', gameState.taxonLeftName);
     elements.rightName.setAttribute('data-taxon', gameState.taxonRightName);
-    elements.leftName.style.zIndex = '10'; // weird Claude suggestion
+    elements.leftName.style.zIndex = '10'; // Weird Claude suggestion
     elements.rightName.style.zIndex = '10';
 
-    // display names on tiles
+    // Display names on tiles
     elements.leftName.innerHTML = `<i>${gameState.taxonLeftName}</i><br>(${leftNameVernacular})`;
     elements.rightName.innerHTML = `<i>${gameState.taxonRightName}</i><br>(${rightNameVernacular})`;
 
