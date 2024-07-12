@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Icon Test</title>
+    <style>
+        .icon {
+            width: 24px;
+            height: 24px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            padding: 5px;
+        }
+        .icon-container {
+            display: inline-block;
+            text-align: center;
+            margin: 10px;
+        }
+        #results {
+            margin-top: 20px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Enhanced Icon Test</h1>
+    
+    <div id="icon-test-area">
+        <!-- We'll dynamically add icons here -->
+    </div>
+
+    <div id="results"></div>
+
+    <script>
+        const icons = ['help', 'share', 'drag', 'left', 'down', 'right', 'up', 'heart', 'info', 'search', 'user', 'menu', 'delete', 'settings', 'report'];
+        const iconTestArea = document.getElementById('icon-test-area');
+        const results = document.getElementById('results');
+
+        icons.forEach(icon => {
+            const container = document.createElement('div');
+            container.className = 'icon-container';
+            container.innerHTML = `
+                <svg class="icon"><use href="../images/icons.svg#icon-${icon}"></use></svg>
+                <div>${icon}</div>
+            `;
+            iconTestArea.appendChild(container);
+        });
+
+        function checkIcons() {
+            let output = '';
+            icons.forEach(icon => {
+                const iconElement = document.querySelector(`[href$="#icon-${icon}"]`);
+                output += `icon-${icon}:\n`;
+                output += `  Present in DOM: ${iconElement !== null}\n`;
+                if (iconElement) {
+                    const svgElement = iconElement.closest('svg');
+                    output += `  SVG dimensions: ${svgElement.width.baseVal.value}x${svgElement.height.baseVal.value}\n`;
+                    output += `  Visible: ${window.getComputedStyle(svgElement).display !== 'none'}\n`;
+                    output += `  Dimensions: ${window.getComputedStyle(svgElement).width} x ${window.getComputedStyle(svgElement).height}\n`;
+                }
+                output += '\n';
+            });
+            results.textContent = output;
+        }
+
+        // Run the check after a short delay to ensure everything has loaded
+        setTimeout(checkIcons, 100);
+    </script>
+</body>
+</html>
