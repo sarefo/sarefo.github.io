@@ -8,8 +8,8 @@ const config = {
         red: "rgba(172, 0, 40, 1.0)",
         gray: "rgba(100, 100, 100, 0.8"
     },
-    debug: false
-
+    debug: false,
+    enablePreloading: false // Set to false to disable preloading
     };
 
 export default config;
