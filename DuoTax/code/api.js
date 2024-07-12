@@ -1,3 +1,4 @@
+// iNat API
 
 const api = (() => {
     return {
@@ -25,30 +26,30 @@ const api = (() => {
 
         // fetch random image of taxon from iNat
         fetchRandomImage: async function (taxonName) {
+            const images = await this.fetchMultipleImages(taxonName, 1);
+            return images.length > 0 ? images[0] : null;
+        },
+
+        fetchMultipleImages: async function (taxonName, count = 12) {
             try {
-                // Search for the taxon
                 const searchResponse = await fetch(`https://api.inaturalist.org/v1/taxa?q=${taxonName}`);
                 const searchData = await searchResponse.json();
                 if (searchData.results.length === 0) { throw new Error('Taxon not found'); }
                 const taxonId = searchData.results[0].id;
                 
-                let images = [];
-                // Get the taxon details
                 const taxonResponse = await fetch(`https://api.inaturalist.org/v1/taxa/${taxonId}`);
                 const taxonData = await taxonResponse.json();
                 if (taxonData.results.length === 0) { throw new Error('No details found for the taxon'); }
                 const taxon = taxonData.results[0];
                 
-                // Extract images from taxon photos
-                // square 75px • small 240px • medium 500px • large 1024px
-                images = taxon.taxon_photos.map(photo => photo.photo.url.replace('square', 'medium'));
-                console.log(`number of images for taxon ${taxonName}: ${images.length}`); // debug
-                if (images.length === 0) { throw new Error('No images found'); }
+                let images = taxon.taxon_photos.map(photo => photo.photo.url.replace('square', 'medium'));
                 
-                // Select a random image
-                const randomImage = images[Math.floor(Math.random() * images.length)];
-                return randomImage;
-            } catch (error) { console.error(error); return null; }
+                // If we don't have enough images, we'll just return what we have
+                return images.slice(0, Math.min(count, images.length));
+            } catch (error) {
+                console.error(error);
+                return [];
+            }
         },
 
         // fetch vernacular name of taxon from iNat
