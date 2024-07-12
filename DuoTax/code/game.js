@@ -1,4 +1,4 @@
-// this snapshot is rather stable, but will always load the first preloaded pair as a random new pair
+// this snapshot is rather stable, but will take quite long at startup because it loads the whole image set.
 // Game functions
 
 import api from './api.js';
@@ -19,6 +19,8 @@ const game = {
     },
     preloadedPair: null,
     isPreloadingPair: false,
+    isInitialLoad: true,
+    hasLoadedFullSet: false,
 
     setupGame: async function (newPair = false) {
         if (!await this.checkINaturalistReachability()) {
@@ -29,24 +31,31 @@ const game = {
 
         try {
             if (this.nextSelectedPair) {
-                // Use the pair selected from the dialog or specified in URL
                 await this.loadSelectedPair();
+                this.hasLoadedFullSet = false;
             } else if (newPair && this.preloadedPair) {
-                // Use the preloaded pair
                 this.currentRound = this.preloadedPair;
                 this.preloadedPair = null;
+                this.hasLoadedFullSet = true;
             } else if (newPair || !this.currentRound.pair) {
-                // Fetch a new pair if we don't have one
                 await this.fetchNewPair();
+                this.hasLoadedFullSet = false;
             } else {
-                // If we're not changing pairs, just refresh the current round
                 this.currentRound.randomized = Math.random() < 0.5;
             }
             
+            if (this.isInitialLoad || !this.hasLoadedFullSet) {
+                await this.fetchInitialImages();
+                this.isInitialLoad = false;
+            }
+
             await this.renderCurrentRound();
             this.finishSetup();
 
-            // Start preloading the next pair in the background if we don't have one
+            if (!this.hasLoadedFullSet) {
+                this.loadFullImageSet();
+            }
+
             if (!this.preloadedPair && !this.isPreloadingPair) {
                 this.preloadNextPair();
             }
@@ -54,6 +63,39 @@ const game = {
             console.error("Error setting up game:", error);
             ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
         }
+    },
+
+    loadFullImageSet: async function() {
+        console.log("Loading full image set for current pair");
+        const { taxon1, taxon2 } = this.currentRound.pair;
+        const [imageOneURLs, imageTwoURLs] = await Promise.all([
+            api.fetchMultipleImages(taxon1),
+            api.fetchMultipleImages(taxon2)
+        ]);
+
+        this.currentRound.imageOneURLs = imageOneURLs;
+        this.currentRound.imageTwoURLs = imageTwoURLs;
+
+        await this.preloadImages(imageOneURLs.concat(imageTwoURLs));
+        this.hasLoadedFullSet = true;
+        console.log("Finished loading full image set");
+    },
+
+    fetchInitialImages: async function() {
+        const { taxon1, taxon2 } = this.currentRound.pair;
+        const [imageOne, imageTwo, imageOneVernacular, imageTwoVernacular] = await Promise.all([
+            api.fetchRandomImage(taxon1),
+            api.fetchRandomImage(taxon2),
+            api.fetchVernacular(taxon1),
+            api.fetchVernacular(taxon2)
+        ]);
+
+        this.currentRound.imageOneURLs = [imageOne];
+        this.currentRound.imageTwoURLs = [imageTwo];
+        this.currentRound.imageOneVernacular = imageOneVernacular;
+        this.currentRound.imageTwoVernacular = imageTwoVernacular;
+
+        await this.preloadImages([imageOne, imageTwo]);
     },
 
     loadSelectedPair: async function() {
@@ -135,25 +177,25 @@ const game = {
     },
 
 
-preloadImages: async function(urls) {
-    console.log(`Starting to preload ${urls.length} images`);
-    const preloadPromises = urls.map(url => {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.onload = () => {
-                console.log(`Preloaded image: ${url}`);
-                resolve();
-            };
-            img.onerror = () => {
-                console.error(`Failed to preload image: ${url}`);
-                reject();
-            };
-            img.src = url;
+    preloadImages: async function(urls) {
+        console.log(`Starting to preload ${urls.length} images`);
+        const preloadPromises = urls.map(url => {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => {
+                    console.log(`Preloaded image: ${url}`);
+                    resolve();
+                };
+                img.onerror = () => {
+                    console.error(`Failed to preload image: ${url}`);
+                    reject();
+                };
+                img.src = url;
+            });
         });
-    });
-    await Promise.all(preloadPromises);
-    console.log("Finished preloading all images");
-},
+        await Promise.all(preloadPromises);
+        console.log("Finished preloading all images");
+    },
 
     renderCurrentRound: async function () {
         console.log("Rendering current round");
