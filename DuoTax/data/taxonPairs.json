@@ -131,6 +131,7 @@
     {"taxon1":"Plerogyra sinuosa", "taxon2":"Physogyra lichtensteini"},
     {"taxon1":"Platygyra", "taxon2":"Lobophyllia"},
     {"taxon1":"Pocillopora", "taxon2":"Millepora"},
+    {"taxon1":"Dendronephthya", "taxon2":"Scleroonephthya"},
     {"taxon1":"Acropora millepora", "taxon2":"Acropora hyacinthus"},
     {"taxon1":"Acropora muricata", "taxon2":"Acropora intermedia"},
     {"taxon1":"Montipora digitata", "taxon2":"Montipora verrucosa"},
