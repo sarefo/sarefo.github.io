@@ -24,7 +24,9 @@ const game = {
     },
 
     async setupGame(newSession = false) {
-        if (this.currentState !== GameState.IDLE && this.currentState !== GameState.READY) {
+        if (this.currentState !== GameState.IDLE && 
+            this.currentState !== GameState.READY && 
+            this.currentState !== GameState.CHECKING) {  // Allow transition from CHECKING
             console.log("Game is not in a state to start a new session");
             return;
         }
@@ -443,49 +445,50 @@ const game = {
         this.setupNameTilesUI(gameState.taxonLeftName, gameState.taxonRightName, leftNameVernacular, rightNameVernacular);
     },
 
-    async checkAnswer(droppedZoneId) {
+async checkAnswer(droppedZoneId) {
+    if (this.currentState !== GameState.PLAYING) {
+        console.log("Cannot check answer when not in PLAYING state");
+        return;
+    }
 
-        if (this.currentState !== GameState.PLAYING) {
-            console.log("Cannot check answer when not in PLAYING state");
-            return;
+    this.setState(GameState.CHECKING);
+
+    const dropOne = document.getElementById('drop-1');
+    const dropTwo = document.getElementById('drop-2');
+    const colorCorrect = config.overlayColors.green;
+    const colorWrong = config.overlayColors.red;
+
+    const leftAnswer = dropOne.children[0]?.getAttribute('data-taxon');
+    const rightAnswer = dropTwo.children[0]?.getAttribute('data-taxon');
+
+    ui.scrollToTop();
+
+    if (leftAnswer && rightAnswer) {
+        let isCorrect = false;
+        if (droppedZoneId === 'drop-1') {
+            isCorrect = leftAnswer === gameState.taxonImageOne;
+        } else {
+            isCorrect = rightAnswer === gameState.taxonImageTwo;
         }
 
-        this.setState(GameState.CHECKING);
-
-        const dropOne = document.getElementById('drop-1');
-        const dropTwo = document.getElementById('drop-2');
-        const colorCorrect = config.overlayColors.green;
-        const colorWrong = config.overlayColors.red;
-
-        const leftAnswer = dropOne.children[0]?.getAttribute('data-taxon');
-        const rightAnswer = dropTwo.children[0]?.getAttribute('data-taxon');
-
-        ui.scrollToTop();
-
-        if (leftAnswer && rightAnswer) {
-            let isCorrect = false;
-            if (droppedZoneId === 'drop-1') {
-                isCorrect = leftAnswer === gameState.taxonImageOne;
-            } else {
-                isCorrect = rightAnswer === gameState.taxonImageTwo;
-            }
-
-            if (isCorrect) {
-                elements.imageOne.classList.add('loading');
-                elements.imageTwo.classList.add('loading');
-                ui.showOverlay('Correct!', colorCorrect);
-                await utils.sleep(2400);
-                ui.hideOverlay();
-                this.setState(GameState.LOADING);
-                await this.setupGame(false);  // Start a new round with the same taxon pair
-            } else {
-                utils.resetDraggables();
-                ui.showOverlay('Try again!', colorWrong);
-                await utils.sleep(800);
-                ui.hideOverlay();
-            }
+        if (isCorrect) {
+            elements.imageOne.classList.add('loading');
+            elements.imageTwo.classList.add('loading');
+            ui.showOverlay('Correct!', colorCorrect);
+            await utils.sleep(2400);
+            ui.hideOverlay();
+            await this.setupGame(false);  // Start a new round with the same taxon pair
+        } else {
+            utils.resetDraggables();
+            ui.showOverlay('Try again!', colorWrong);
+            await utils.sleep(800);
+            ui.hideOverlay();
+            this.setState(GameState.PLAYING);  // Return to PLAYING state for incorrect answers
         }
-    },
+    } else {
+        this.setState(GameState.PLAYING);  // Return to PLAYING state if no answer was provided
+    }
+},
 
     setupNameTilesUI: function(leftName, rightName, leftNameVernacular, rightNameVernacular) {
         // Randomize the position of the name tiles
