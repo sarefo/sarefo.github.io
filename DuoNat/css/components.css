@@ -1,0 +1,369 @@
+/* Styles for dialogs mostly */
+
+/* Styles for share button on main page */
+#share-button {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.4);
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color var(--transition-speed) ease;
+}
+
+#share-button svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--primary-counter-color);
+    transition: fill var(--transition-speed) ease;
+}
+
+/* Styles for info buttons on images */
+.info-button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.7);
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index: 10;
+}
+
+.info-button:hover {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.info-button .icon {
+    width: 20px;
+    height: 20px;
+    fill: var(--primary-color);
+}
+
+/* Styles for enter pair dialog */
+#enter-pair-dialog {
+    padding: 20px;
+    border-radius: var(--border-radius);
+    border: none;
+    box-shadow: 0 0 10px var(--shadow-color);
+    max-width: 400px;
+    width: 80%;
+}
+#enter-pair-dialog h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+#enter-pair-dialog form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+#enter-pair-dialog label {
+    display: inline-block;
+    width: 80px;
+    text-align: right;
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 18px;
+    color: var(--counter-text-color);
+}
+#enter-pair-dialog input {
+    width: calc(100% - 90px);
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 18px;
+    color: var(--counter-text-color);
+}
+#enter-pair-dialog button {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background-color var(--transition-speed) ease;
+}
+#enter-pair-dialog button:hover {
+    background-color: #5c8a00;
+}
+#enter-pair-dialog #close-dialog {
+    background-color: var(--primary-counter-color)
+}
+
+#dialog-message {
+    color: var(--text-color);
+    font-style: italic;
+    margin-top: 10px;
+}
+.dialog-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Styles for select taxon pair list dialog */
+.taxon-pair-modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.taxon-pair-list {
+    background-color: var(--background-color);
+    padding: 8px;
+    border-radius: var(--border-radius);
+    max-width: 90%;
+    max-height: 95%;
+    overflow-y: auto;
+}
+.taxon-pair-button {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin: 4px 0;
+    color: var(--text-color);
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+            font-size: 20px;
+}
+.taxon-pair-versus {
+    color: #666;
+}
+.taxon-pair-cancel-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    color: var(--text-color);
+    background-color: var(--primary-counter-color);
+    border: none;
+    border-radius: 5px;
+    font-size:22px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Styles for help button */
+#help-button {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.4);
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color var(--transition-speed) ease;
+}
+
+#help-button svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--primary-counter-color);
+    transition: fill var(--transition-speed) ease;
+}
+
+/* Styles for help dialog */
+#help-dialog {
+    padding: 80px 24px 24px;
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    max-width: 400px;
+    width: 80%;
+    background-color: #f9f9f9;
+}
+
+#help-dialog .background-logo {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20%;
+  height: 20%;
+  opacity: 0.8;
+  z-index: 0;
+}
+
+#help-dialog h2 {
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 24px;
+    font-size: 24px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.help-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.help-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background-color: white;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.help-item svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--primary-color);
+    flex-shrink: 0;
+}
+
+.help-item p {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.4;
+    color: #333;
+    text-align: left;
+}
+
+#more-help-dialog, #discord-help-dialog, #close-help-dialog {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 24px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    transition: background-color var(--transition-speed) ease, transform 0.1s ease;
+    margin-top: 24px;
+    width: 100%;
+}
+#close-help-dialog {
+    background-color: var(--primary-counter-color);
+}
+
+#more-help-dialog:hover {
+    background-color: #5c8a00;
+}
+
+#more-help-dialog:active, #close-help-dialog:active {
+    transform: scale(0.98);
+    margin-top: 12px;
+}
+
+#tell-me-more-button {
+    background-color: var(--primary-counter-color);
+    color: var(--text-color);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 24px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color --var(--transition-speed) ease, transform 0.1s ease;
+    margin-top: 24px;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+}
+
+#tell-me-more-button:hover {
+    background-color: #8a0020;
+}
+
+#tell-me-more-button:active {
+    transform: scale(0.98);
+}
+
+/* Styles for iNaturalist Down Dialog */
+.fullscreen-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  border: none;
+}
+
+.fullscreen-dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.dialog-content {
+  background-color: white;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  max-width: 90%;
+  width: 400px;
+  text-align: center;
+}
+
+.dialog-content h2 {
+  color: var(--primary-counter-color);
+  margin-bottom: 1rem;
+}
+
+.dialog-content p {
+  margin-bottom: 1rem;
+  color: var(--counter-text-color);
+}
+
+.dialog-content button {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 0.5rem;
+  transition: background-color var(--transition-speed) ease;
+}
+
+.dialog-content button:hover {
+  background-color: #5c8a00;
+}
+
+#check-inat-status {
+  background-color: var(--primary-color);
+}
+
+#check-inat-status:hover {
+  background-color: #8a0020;
+}
+
+

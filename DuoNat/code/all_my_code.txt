@@ -20,7 +20,11 @@
 
     <link rel="manifest" href="./manifest.json">
     <script type="module" src="./code/functions.js" defer></script>
-    <link rel="stylesheet" href="./css/styles.css">
+
+    <link rel="stylesheet" href="./css/styles.css"> <!-- remove once fully replaced -->
+<link rel="stylesheet" href="./css/base.css">
+<!--        <link rel="stylesheet" href="./css/components.css">-->
+
     <link rel="icon" href="./images/favicon.png" type="image/png">
   <!--  <link rel="preload" href="./images/icons.svg" as="image" type="image/svg+xml"> -->
 </head>
@@ -166,6 +170,13 @@
 </body>
 </html>
 \n==> CSS <==\n
+/* CSS reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 /* custom properties */
 :root {
     --primary-color: #74ac00; /* iNat green */
@@ -244,7 +255,7 @@ body * { text-align: center; } /* percolate to child elements */
 .image-container {
     position: relative;
     flex: 1 1 300px;
-    margin: 4px;
+    margin: 0px 0px;
     padding: 4px;
     aspect-ratio: 1/1;
     position: relative;
@@ -258,6 +269,14 @@ body * { text-align: center; } /* percolate to child elements */
 }
 .image-container.drag-over {
     cursor: copy;
+}
+
+/* TODO this will be a problem when switching to side-by-side on desktop, keep in mind */
+#image-container-1 {
+    margin-top: 4px;
+}
+#image-container-2 {
+    margin-bottom: 4px;
 }
 .image-container img {
     position: absolute;
@@ -1459,7 +1478,7 @@ const game = {
             
             await this.setupRound();
             this.finishSetup();
-            ui.initializeDraggables(); // for dragging name tiles
+  //          ui.initializeDraggables(); // for dragging name tiles
             this.setState(GameState.PLAYING);
             console.log("Game setup complete. Current state:", this.currentState);
 
@@ -2260,109 +2279,88 @@ const ui = {
         });
     },
 
-    initializeDraggables: function() {
-        const draggables = document.querySelectorAll('.draggable');
-        let draggedElement = null;
-        let originalRect = null;
-        let offsetX, offsetY;
+    initializeDraggables: function () {
+            const draggables = document.querySelectorAll('.draggable');
+            const dropzones = document.querySelectorAll('.dropzone');
 
-        draggables.forEach(draggable => {
-            draggable.addEventListener('mousedown', startDragging);
-            draggable.addEventListener('touchstart', startDragging, { passive: false });
-        });
-
-        document.addEventListener('mousemove', drag);
-        document.addEventListener('touchmove', drag, { passive: false });
-        document.addEventListener('mouseup', stopDragging);
-        document.addEventListener('touchend', stopDragging);
-
-        function startDragging(e) {
-            e.preventDefault();
-            draggedElement = this;
-            draggedElement.classList.add('dragging');
-            
-            originalRect = draggedElement.getBoundingClientRect();
-            
-            const event = e.type.startsWith('touch') ? e.touches[0] : e;
-            
-            offsetX = event.clientX - originalRect.left;
-            offsetY = event.clientY - originalRect.top;
-            
-            draggedElement.style.position = 'fixed';
-            draggedElement.style.zIndex = '1000';
-            draggedElement.style.width = `${originalRect.width}px`;
-            draggedElement.style.height = `${originalRect.height}px`;
-            
-            updatePosition(event);
-        }
-
-        function drag(e) {
-            if (!draggedElement) return;
-            e.preventDefault();
-            const event = e.type.startsWith('touch') ? e.touches[0] : e;
-            updatePosition(event);
-        }
-
-        function updatePosition(event) {
-            const x = event.clientX - offsetX;
-            const y = event.clientY - offsetY;
-            draggedElement.style.left = `${x}px`;
-            draggedElement.style.top = `${y}px`;
-        }
-
-        function stopDragging(e) {
-            if (!draggedElement) return;
-
-            const dropZones = document.querySelectorAll('.image-container');
-            let droppedInZone = false;
-            let droppedZoneId = null;
-
-            dropZones.forEach(zone => {
-                const rect = zone.getBoundingClientRect();
-                const event = e.type.startsWith('touch') ? e.changedTouches[0] : e;
-                
-                if (event.clientX >= rect.left && event.clientX <= rect.right &&
-                    event.clientY >= rect.top && event.clientY <= rect.bottom) {
-                    const dropZone = zone.querySelector('div[id^="drop-"]');
-                    if (dropZone) {
-                        dropZone.innerHTML = '';
-                        dropZone.appendChild(draggedElement);
-                        droppedInZone = true;
-                        droppedZoneId = dropZone.id;
-                    }
-                }
+            draggables.forEach(draggable => {
+                draggable.addEventListener('mousedown', dragStart);
+                draggable.addEventListener('touchstart', dragStart, { passive: false });
             });
 
-            if (!droppedInZone) {
-                // Return to original container if not dropped in a valid zone
-                const originalContainer = draggedElement.id === 'left-name' ? 'left-name-container' : 'right-name-container';
-                document.getElementById(originalContainer).appendChild(draggedElement);
-            } else {
-                // If dropped in a zone, move the other draggable to the other zone
-                const otherDraggableId = draggedElement.id === 'left-name' ? 'right-name' : 'left-name';
-                const otherDraggable = document.getElementById(otherDraggableId);
-                const otherDropZone = document.querySelector(`.image-container div[id^="drop-"]:not(#${droppedZoneId})`);
-                if (otherDropZone) {
-                    otherDropZone.innerHTML = '';
-                    otherDropZone.appendChild(otherDraggable);
+            function dragStart(e) {
+                e.preventDefault();
+                if (e.type === 'touchstart') {
+                    initialX = e.touches[0].clientX - this.getBoundingClientRect().left;
+                    initialY = e.touches[0].clientY - this.getBoundingClientRect().top;
+                } else {
+                    initialX = e.clientX - this.getBoundingClientRect().left;
+                    initialY = e.clientY - this.getBoundingClientRect().top;
                 }
 
-                // Call checkAnswer immediately after dropping
-                game.checkAnswer(droppedZoneId);
+                this.classList.add('dragging');
+                document.addEventListener('mousemove', drag);
+                document.addEventListener('touchmove', drag, { passive: false });
+                document.addEventListener('mouseup', dragEnd);
+                document.addEventListener('touchend', dragEnd);
             }
 
-            draggedElement.classList.remove('dragging');
-            draggedElement.style.position = '';
-            draggedElement.style.zIndex = '';
-            draggedElement.style.width = '';
-            draggedElement.style.height = '';
-            draggedElement.style.left = '';
-            draggedElement.style.top = '';
-            
-            draggedElement = null;
-            originalRect = null;
+            function drag(e) {
+                e.preventDefault();
+                const currentDraggable = document.querySelector('.dragging');
+                if (!currentDraggable) return;
+
+                let currentX, currentY;
+                if (e.type === 'touchmove') {
+                    currentX = e.touches[0].clientX - initialX;
+                    currentY = e.touches[0].clientY - initialY;
+                } else {
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                }
+
+                currentDraggable.style.transform = `translate(${currentX}px, ${currentY}px)`;
+            }
+
+            function dragEnd(e) {
+                const currentDraggable = document.querySelector('.dragging');
+                if (!currentDraggable) return;
+
+                document.removeEventListener('mousemove', drag);
+                document.removeEventListener('touchmove', drag);
+                document.removeEventListener('mouseup', dragEnd);
+                document.removeEventListener('touchend', dragEnd);
+
+                currentDraggable.classList.remove('dragging');
+
+                let dropzone = null;
+                dropzones.forEach(zone => {
+                    const rect = zone.getBoundingClientRect();
+                    const draggableRect = currentDraggable.getBoundingClientRect();
+                    if (
+                        draggableRect.left + draggableRect.width / 2 > rect.left &&
+                        draggableRect.left + draggableRect.width / 2 < rect.right &&
+                        draggableRect.top + draggableRect.height / 2 > rect.top &&
+                        draggableRect.top + draggableRect.height / 2 < rect.bottom
+                    ) {
+                        dropzone = zone;
+                    }
+                });
+
+                if (dropzone) {
+                    dropzone.appendChild(currentDraggable);
+                    currentDraggable.style.transform = 'none';
+                    checkAnswer();
+                } else {
+                    // If not dropped in a valid dropzone, revert to original position
+                    currentDraggable.style.transition = 'transform 0.3s ease-out';
+                    currentDraggable.style.transform = 'translate(0, 0)';
+                    setTimeout(() => {
+                        currentDraggable.style.transition = '';
+                    }, 300);
+                }
+            }
         }
-    },
 
 }; // const ui
 
@@ -2430,7 +2428,7 @@ export default utils;
 
 ==> ./version.js <==
 // version.js
-const version = '1.3.29';
+const version = '1.3.32';
 
 function updateVersion() {
     const noCacheFiles = document.querySelectorAll('link[rel="stylesheet"], link[rel="preload"], script[src], link[rel="manifest"]');
