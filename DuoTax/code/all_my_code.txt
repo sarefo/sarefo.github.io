@@ -1,3 +1,690 @@
+\n==> index.html <==\n
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>DuoTax • iNat Taxonomy Trainer</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta http-equiv="Cache-Control" content="no-cache">
+
+    <!-- For iOS devices -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- For Android devices -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#74ac00">
+
+    <!-- cache busting by appending version code. change code in script!-->
+    <script src="./code/version.js" defer></script>
+
+    <link rel="manifest" href="./manifest.json">
+    <script type="module" src="./code/functions.js" defer></script>
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="icon" href="./images/favicon.png" type="image/png">
+  <!--  <link rel="preload" href="./images/icons.svg" as="image" type="image/svg+xml"> -->
+</head>
+
+<body>
+
+<button id="share-button" title="Share this pair">
+<!-- no idea why some svg don't load, temporary workaround -->
+         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+             <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+         </svg>
+<!--    <svg class="icon"><use href="./images/icons.svg#icon-share"/></svg>-->
+</button>
+
+<button id="help-button" title="Help">
+    <svg class="icon"> <use href="./images/icons.svg#icon-help"/></svg>
+</button>
+
+<dialog id="help-dialog">
+    <h2>DuoTax<br>iNat Taxonomy Trainer</h2>
+    <div class="help-content">
+
+        <div class="help-item">
+<!--            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"> <path d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74zm9.84 4.63l-4.54-2.26c-.17-.07-.35-.11-.54-.11H13v-6c0-.83-.67-1.5-1.5-1.5S10 6.67 10 7.5v10.74l-3.43-.72c-.08-.01-.15-.03-.23-.03-.31 0-.59.13-.79.33l-.79.8 4.94 4.94c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.75-5.27c.01-.07.02-.14.02-.2 0-.62-.38-1.16-.91-1.38z"></path> </svg>-->
+            <svg class="icon"><use href="./images/icons.svg#icon-drag"/></svg>
+            <p>Drag name to image</p>
+        </div>
+
+        <div class="help-item">
+            <svg class="icon"> <use href="./images/icons.svg#icon-left"/></svg>
+            <p>Swipe left for new taxon pair</p>
+        </div>
+
+        <div class="help-item">
+         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/>
+         </svg>
+         <!--   <svg class="icon"> <use href="./images/icons.svg#icon-up"/></svg>-->
+            <p>Scroll down for more</p>
+        </div>
+
+        <div class="help-item">
+         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+             <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+         </svg>
+         <!--   <svg class="icon"> <use href="./images/icons.svg#icon-share"/></svg>-->
+            <p>Share current taxon pair</p>
+        </div>
+        <button id="discord-help-dialog">Join us on Discord</button>
+
+    </div>
+<!-- enable 'more-help-dialog' event listener when activated! 
+<button id="more-help-dialog">Tell me more!</button> -->
+    <button id="close-help-dialog">I'm good!</button>
+</dialog>
+
+<div class="game-container">
+
+    <div class="image-container" id="image-container-1">
+        <img src="" alt="Taxon 1" id="image-1">
+        <div id="drop-1" class="droppable"></div>
+    </div>
+
+    <div class="name-pair">
+
+        <div id="left-name-container">
+            <div id="left-name" class="draggable" draggable="true" title=""></div>
+        </div>
+
+        <div id="right-name-container">
+            <div id="right-name" class="draggable" draggable="true" title=""></div>
+        </div>
+
+        <div id="overlay">
+            <div id="overlay-message"></div>
+        </div>
+  
+    </div>
+
+    <div class="image-container" id="image-container-2">
+        <img src="" alt="Taxon 2" id="image-2">
+        <div id="drop-2" class="droppable"></div>
+    </div>
+
+</div> <!-- game-container -->
+
+    <div class="scrollable-content">
+
+        <div class="button-container">
+            <div class="button-row">
+                <button class="bottom-button" id="random-pair-button">Random pair</button>
+                <button class="bottom-button" id="select-pair-button">Select pair</button>
+            </div>
+            <div class="button-row">
+                <button class="bottom-button" id="enter-pair-button">Enter pair</button>
+                <button class="bottom-button" id="surprise-button">Surprise</button>
+            </div>
+        </div>
+
+      <!--  <div><a id="home-link" href="../index.html">Home</a></div> -->
+        <div id="version-id"></div>
+
+    </div>
+
+    <!-- only visible when opened in app-->
+    <dialog id="enter-pair-dialog">
+        <form method="dialog">
+            <h2>Enter New Taxon Pair</h2>
+            <div>
+                <label for="taxon1">Taxon 1:</label>
+                <input type="text" id="taxon1" required>
+            </div>
+            <div>
+                <label for="taxon2">Taxon 2:</label>
+                <input type="text" id="taxon2" required>
+            </div>
+            <div id="dialog-message"></div>
+            <div class="dialog-buttons">
+                <button type="button" id="close-dialog">Cancel</button>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </dialog>
+
+    <!--
+    <dialog id="inat-down-dialog" class="fullscreen-dialog">
+      <div class="dialog-content">
+        <h2>iNaturalist Unavailable</h2>
+        <p>We're having trouble connecting to iNaturalist. This could be due to maintenance or temporary issues.</p>
+        <p>Please try again later or check the iNaturalist status page for updates.</p>
+        <button id="check-inat-status">Check iNaturalist Status</button>
+        <button id="retry-connection">Retry Connection</button>
+      </div>
+    </dialog>
+-->
+</body>
+</html>
+\n==> CSS <==\n
+/* custom properties */
+:root {
+    --primary-color: #74ac00; /* iNat green */
+    --primary-counter-color: #ac0028; /* red */
+    --background-color: #ffffff;
+    --text-color: #ffffff;
+    --counter-text-color: #444;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --overlay-color: rgba(0, 0, 0, 0.3);
+    --border-radius: 8px;
+/*    --transition-speed: 0.3s;*/
+    --transition-speed: 0.3s;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0; padding: 0;
+    overflow: auto;
+    box-sizing: border-box;
+    font-family: 'Open Sans', Arial, sans-serif;
+}
+body * { text-align: center; } /* percolate to child elements */
+
+#share-button {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.4);
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color var(--transition-speed) ease;
+}
+
+#share-button svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--primary-counter-color);
+    transition: fill var(--transition-speed) ease;
+}
+
+.game-container {
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height:100vh;
+    padding: 0;
+    overflow: hidden;
+    padding: 0px;
+    box-sizing: border-box;
+    transition: transform 0.1 ease-out, opacity 0.1 ease-out;
+}
+
+.image-pair {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.name-pair {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
+
+.image-container {
+    flex: 1 1 300px;
+    margin: 4px;
+    padding: 4px;
+    width: calc(100% - 8px);
+    max-width: 500px;
+    aspect-ratio: 1/1;
+    position: relative;
+    background-color: var(--counter-text-color);
+    box-shadow: 0 0 10px var(--shadow-color);
+    border-radius: var(--border-radius);
+    box-sizing: border-box;
+    overflow: hidden;
+    z-index: 1;
+    cursor: default;
+}
+.image-container.drag-over {
+    cursor: copy;
+}
+.image-container img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    background-color: #f0f0f0;
+    color: var(--primary-color);
+    font-size: 36px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--border-radius);
+    pointer-events: none; /* Prevents the image from interfering with dragging */
+    transition: opacity var(--transition-speed) ease-in-out;
+}
+.image-container img.loading {
+    opacity: 0.5;
+    transition: opacity var(--transition-speed) ease-in-out;    
+}
+
+#left-name-container, #right-name-container {
+    width: 400px;
+    margin: 4px;
+    min-height: 60px;
+}
+
+.draggable, .droppable .draggable {
+    background-color: var(--primary-color);
+    opacity: 0.8;
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: var(--border-radius);
+    width: 100%;
+    box-sizing: border-box;
+}
+.draggable {
+    cursor: grab;
+    position: relative;
+    z-index: 10;
+    touch-action: none;
+}
+.draggable:active {
+    cursor: grabbing;
+}
+.droppable .draggable {
+    box-shadow: 0 0 0 2px white;/*, 0 0 10px 3px rgba(255, 255, 255, 0.7);*/
+    transition: box-shadow var(--transition-speed) ease;
+}
+.droppable {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 90%;
+    pointer-events: none;
+    height: 60px; /* Add a fixed height */
+}
+#image-container-1 .droppable { bottom: 10%; }
+#image-container-2 .droppable { top: 10%; }
+
+@keyframes dropAnimation {
+    0% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+.drop-animation {
+    animation: dropAnimation 0.3s ease-out forwards;
+}
+
+.swipe-out-left { animation: swipeOutLeft 0.5s ease-out forwards; }
+
+@keyframes swipeOutLeft {
+    to {
+        transform: rotate(-5deg) translateX(-100%);
+        opacity: 0;
+    }
+}
+
+#overlay {
+    position: absolute;
+    border-radius: var(--border-radius);
+    width: 98vw;
+    max-width:98%;
+    height: 100%;
+    background-color: var(--overlay-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    /*transition: opacity var(--transition-speed) ease;*/
+    transition: opacity var(--transition-speed) ease, background-color var(--transition-speed) ease;
+}
+#overlay.show { opacity: 1; }
+#overlay-message {
+    font-size: 36px;
+/*    font-size: clamp(14px, 5vw, 36px);  not sure this is functional */
+    font-weight: bold;
+    color: var(--text-color);
+    text-shadow: 2px 2px 4px var(--shadow-color);
+    padding: 20px;
+    transition: opacity var(--transition-speed) ease;
+}
+
+.bottom-button {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    font-size: 16px;
+    border: none;
+    padding: 15px 32px;
+    border-radius: var(--border-radius);
+    margin: 4px 0;
+    width: 100%;
+    max-width: 200px;
+    cursor: pointer;
+    transition: background-color var(--transition-speed) ease;
+    outline: none;
+}
+
+#home-link {
+    font-size: 14px;
+    color: var(--counter-text-color);
+    text-decoration: none;
+}
+
+#version-id {
+    padding-top: 8px;
+    font-size: 14px;
+    color: var(--counter-text-color);
+}
+
+/* for enter pair dialog */
+#enter-pair-dialog {
+    padding: 20px;
+    border-radius: var(--border-radius);
+    border: none;
+    box-shadow: 0 0 10px var(--shadow-color);
+    max-width: 400px;
+    width: 80%;
+}
+#enter-pair-dialog h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+#enter-pair-dialog form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+#enter-pair-dialog label {
+    display: inline-block;
+    width: 80px;
+    text-align: right;
+    margin-right: 10px;
+    font-weight: bold;
+    color: var(--counter-text-color);
+}
+#enter-pair-dialog input {
+    width: calc(100% - 90px);
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    color: var(--counter-text-color);
+}
+#enter-pair-dialog button {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color var(--transition-speed) ease;
+}
+#enter-pair-dialog button:hover {
+    background-color: #5c8a00;
+}
+#dialog-message {
+    color: var(--text-color);
+    font-style: italic;
+    margin-top: 10px;
+}
+.dialog-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Styles for the select taxon pair list dialog */
+.taxon-pair-modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.taxon-pair-list {
+    background-color: var(--background-color);
+    padding: 8px;
+    border-radius: var(--border-radius);
+    max-width: 90%;
+    max-height: 95%;
+    overflow-y: auto;
+}
+.taxon-pair-button {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin: 4px 0;
+    color: var(--text-color);
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.taxon-pair-versus {
+    color: #666;
+}
+.taxon-pair-cancel-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    color: var(--text-color);
+    background-color: var(--primary-counter-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#help-dialog {
+    padding: 24px;
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    max-width: 400px;
+    width: 80%;
+    background-color: #f9f9f9;
+}
+
+#help-dialog h2 {
+    color: var(--primary-color);
+    margin-bottom: 24px;
+    font-size: 24px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.help-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.help-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background-color: white;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.help-item svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--primary-color);
+    flex-shrink: 0;
+}
+
+.help-item p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.4;
+    color: #333;
+    text-align: left;
+}
+
+#more-help-dialog, #discord-help-dialog, #close-help-dialog {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 24px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color var(--transition-speed) ease, transform 0.1s ease;
+    margin-top: 24px;
+    width: 100%;
+}
+
+#more-help-dialog:hover, #close-help-dialog:hover {
+    background-color: #5c8a00;
+}
+
+#more-help-dialog:active, #close-help-dialog:active {
+    transform: scale(0.98);
+    margin-top: 12px;
+}
+
+#help-button {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.4);
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color var(--transition-speed) ease;
+}
+
+#help-button svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--primary-counter-color);
+    transition: fill var(--transition-speed) ease;
+}
+
+#tell-me-more-button {
+    background-color: var(--primary-counter-color);
+    color: var(--text-color);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 24px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color --var(--transition-speed) ease, transform 0.1s ease;
+    margin-top: 24px;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+}
+
+#tell-me-more-button:hover {
+    background-color: #8a0020;
+}
+
+#tell-me-more-button:active {
+    transform: scale(0.98);
+}
+
+/* Styles for iNaturalist Down Dialog */
+.fullscreen-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  border: none;
+}
+
+.fullscreen-dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.dialog-content {
+  background-color: white;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  max-width: 90%;
+  width: 400px;
+  text-align: center;
+}
+
+.dialog-content h2 {
+  color: var(--primary-counter-color);
+  margin-bottom: 1rem;
+}
+
+.dialog-content p {
+  margin-bottom: 1rem;
+  color: var(--counter-text-color);
+}
+
+.dialog-content button {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 0.5rem;
+  transition: background-color var(--transition-speed) ease;
+}
+
+.dialog-content button:hover {
+  background-color: #5c8a00;
+}
+
+#check-inat-status {
+  background-color: var(--primary-color);
+}
+
+#check-inat-status:hover {
+  background-color: #8a0020;
+}
 
 ==> ./api.js <==
 // iNat API
@@ -1464,7 +2151,7 @@ export default utils;
 
 ==> ./version.js <==
 // version.js
-const version = '1.3.16';
+const version = '1.3.17';
 
 function updateVersion() {
     const noCacheFiles = document.querySelectorAll('link[rel="stylesheet"], link[rel="preload"], script[src], link[rel="manifest"]');

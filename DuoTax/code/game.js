@@ -576,10 +576,11 @@ const game = {
                 ui.updateOverlayMessage('Loading...'); // Update message without changing color
                 await this.setupGame(false);  // Start a new round with the same taxon pair
             } else {
+                // Immediately reset draggables before showing the "Try again!" message
+                utils.resetDraggables();
                 await ui.showOverlay('Try again!', colorWrong);
                 await utils.sleep(800);
                 ui.hideOverlay();
-                utils.resetDraggables();
                 this.setState(GameState.PLAYING);
             }
         } else {
