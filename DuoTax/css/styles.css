@@ -118,8 +118,8 @@ body * { text-align: center; } /* percolate to child elements */
     transition: opacity var(--transition-speed) ease;
 }
 .image-container img.loading {
-    opacity: 0.7;
-    transition: opacity 0s;    
+    opacity: 0.6;
+    transition: opacity var(--transition-speed) ease;    
 }
 
 #left-name-container, #right-name-container {
