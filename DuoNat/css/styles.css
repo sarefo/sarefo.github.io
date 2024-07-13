@@ -76,7 +76,7 @@ body * { text-align: center; } /* percolate to child elements */
 .image-container {
     position: relative;
     flex: 1 1 300px;
-    margin: 4px;
+    margin: 0px 0px;
     padding: 4px;
     aspect-ratio: 1/1;
     position: relative;
@@ -90,6 +90,14 @@ body * { text-align: center; } /* percolate to child elements */
 }
 .image-container.drag-over {
     cursor: copy;
+}
+
+/* TODO this will be a problem when switching to side-by-side on desktop, keep in mind */
+#image-container-1 {
+    margin-top: 4px;
+}
+#image-container-2 {
+    margin-bottom: 4px;
 }
 .image-container img {
     position: absolute;
