@@ -16,12 +16,33 @@ export const elements = {
 
 
 // Game state
-export const gameState = {
-    isFirstLoad: true,
+/*export const gameState = {
     currentPair: null,
     preloadedPair: null,
+};*/
+
+export const gameState = {
+    isFirstLoad: true,
+    isInitialLoad: true,
+    hasLoadedFullSet: false,
+    isPreloading: false,
+    currentRound: {
+        pair: null,
+        imageOneURLs: [],
+        imageTwoURLs: [],
+        imageOneVernacular: null,
+        imageTwoVernacular: null,
+        randomized: false
+    },
+    preloadedTaxonImageCollection: null,
+    currentTaxonImageCollection: null,
     taxonImageOne: null,
     taxonImageTwo: null,
     taxonLeftName: null,
-    taxonRightName: null,
+    taxonRightName: null
 };
+
+// Function to update game state
+export function updateGameState(newState) {
+    Object.assign(gameState, newState);
+}
