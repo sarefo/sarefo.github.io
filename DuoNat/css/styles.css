@@ -1,3 +1,10 @@
+/* CSS reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 /* custom properties */
 :root {
     --primary-color: #74ac00; /* iNat green */
