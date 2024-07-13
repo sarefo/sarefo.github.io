@@ -192,12 +192,11 @@ body * { text-align: center; } /* percolate to child elements */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* this doesn't seem to work */
+/* this doesn't seem to work: only recognized on iOS */
 .draggable:active {
     cursor: grabbing;
     max-width: calc(var(--max-image-width)-50px);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-color: red; /*test*/
 }
 
 .droppable .draggable {
