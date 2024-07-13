@@ -23,8 +23,11 @@ const utils = {
           .then(() => { /* Audio started playing successfully*/ }).catch(error => { console.error('Error playing the fart:', error); });
     },
 
+    sleep: function(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    },
 
-resetDraggables: function () {
+    resetDraggables: function () {
         const leftNameContainer = document.getElementById('left-name-container');
         const rightNameContainer = document.getElementById('right-name-container');
         const dropOne = document.getElementById('drop-1');

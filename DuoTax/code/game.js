@@ -22,35 +22,35 @@ const game = {
     isInitialLoad: true,
     hasLoadedFullSet: false,
 
-    setupGame: async function (newSession = false) {
-        if (!await this.checkINaturalistReachability()) {
-            return;
+async setupGame(newSession = false) {
+    if (!await this.checkINaturalistReachability()) {
+        return;
+    }
+
+    this.prepareUIForLoading();
+
+    try {
+        if (newSession || !this.currentTaxonImageCollection) {
+            if (this.preloadedTaxonImageCollection) {
+                this.currentTaxonImageCollection = this.preloadedTaxonImageCollection;
+                this.preloadedTaxonImageCollection = null;
+            } else {
+                await this.loadNewTaxonPair();
+            }
+            await this.loadCurrentTaxonImageCollection();
         }
 
-        this.prepareUIForLoading();
+        await this.setupRound();
+        this.finishSetup();
 
-        try {
-            if (newSession || !this.currentTaxonImageCollection) {
-                if (this.preloadedTaxonImageCollection) {
-                    this.currentTaxonImageCollection = this.preloadedTaxonImageCollection;
-                    this.preloadedTaxonImageCollection = null;
-                } else {
-                    await this.loadNewTaxonPair();
-                }
-                await this.loadCurrentTaxonImageCollection();
-            }
-
-            await this.setupRound();
-            this.finishSetup();
-
-            if (!this.preloadedTaxonImageCollection && !this.isPreloading) {
-                this.preloadNextTaxonPair();
-            }
-        } catch (error) {
-            console.error("Error setting up game:", error);
-            ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
+        if (!this.preloadedTaxonImageCollection && !this.isPreloading) {
+            await this.preloadNextTaxonPair();
         }
-    },
+    } catch (error) {
+        console.error("Error setting up game:", error);
+        ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
+    }
+},
 
     loadCurrentTaxonImageCollection: async function() {
         const { taxon1, taxon2 } = this.currentTaxonImageCollection.pair;
@@ -93,7 +93,7 @@ const game = {
         gameState.taxonImageTwo = randomized ? pair.taxon2 : pair.taxon1;
     },
 
-    preloadNextTaxonPair: async function() {
+    async preloadNextTaxonPair() {
         if (this.isPreloading) return;
         
         this.isPreloading = true;
@@ -306,7 +306,7 @@ const game = {
         console.log("Finished loading images");
     },
 
-    loadImageAndRemoveLoadingClass: function(imgElement, src) {
+    async loadImageAndRemoveLoadingClass(imgElement, src) {
         return new Promise((resolve) => {
             const img = new Image();
             img.onload = () => {
@@ -391,7 +391,7 @@ const game = {
         this.setupNameTilesUI(gameState.taxonLeftName, gameState.taxonRightName, leftNameVernacular, rightNameVernacular);
     },
 
-    checkAnswer: function(droppedZoneId) {
+    async checkAnswer(droppedZoneId) {
         const dropOne = document.getElementById('drop-1');
         const dropTwo = document.getElementById('drop-2');
         const colorCorrect = config.overlayColors.green;
@@ -414,16 +414,14 @@ const game = {
                 elements.imageOne.classList.add('loading');
                 elements.imageTwo.classList.add('loading');
                 ui.showOverlay('Correct!', colorCorrect);
-                setTimeout(() => {
-                    ui.hideOverlay();
-                    this.setupGame(false);  // Start a new round with the same taxon pair
-                }, 2400);
+                await utils.sleep(2400);
+                ui.hideOverlay();
+                await this.setupGame(false);  // Start a new round with the same taxon pair
             } else {
                 utils.resetDraggables();
                 ui.showOverlay('Try again!', colorWrong);
-                setTimeout(() => {
-                    ui.hideOverlay();
-                }, 800);
+                await utils.sleep(800);
+                ui.hideOverlay();
             }
         }
     },
