@@ -14,11 +14,16 @@ export const elements = {
     buttons: document.querySelectorAll('.bottom-button')
 };
 
-
-// Game state
-/*export const gameState = {
-    currentPair: null,
-};*/
+// Game State enum
+export const GameState = {
+    IDLE: 'IDLE',
+    LOADING: 'LOADING',
+    READY: 'READY',
+    PLAYING: 'PLAYING',
+    CHECKING: 'CHECKING',
+    PRELOADING: 'PRELOADING',
+    PRELOADING_BACKGROUND: 'PRELOADING_BACKGROUND'
+};
 
 export const gameState = {
     isFirstLoad: true,
@@ -39,7 +44,8 @@ export const gameState = {
     taxonImageOne: null,
     taxonImageTwo: null,
     taxonLeftName: null,
-    taxonRightName: null
+    taxonRightName: null,
+    currentState: GameState.IDLE  // track the current game state
 };
 
 // Function to update game state

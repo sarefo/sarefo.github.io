@@ -2,19 +2,9 @@
 
 import api from './api.js';
 import config from './config.js';
-import {elements, gameState, updateGameState} from './state.js';
+import {elements, gameState, updateGameState, GameState} from './state.js';
 import ui from './ui.js';
 import utils from './utils.js';
-
-const GameState = {
-    IDLE: 'IDLE',
-    LOADING: 'LOADING',
-    READY: 'READY',
-    PLAYING: 'PLAYING',
-    CHECKING: 'CHECKING',
-    PRELOADING: 'PRELOADING',
-    PRELOADING_BACKGROUND: 'PRELOADING_BACKGROUND'
-};
 
 const game = {
     nextSelectedPair: null,
@@ -69,49 +59,7 @@ const game = {
         this.prepareUIForLoading();
 
         try {
-            if (newSession || !gameState.currentTaxonImageCollection) {
-                if (this.nextSelectedPair) {
-                    console.log("Using selected pair:", this.nextSelectedPair);
-                    updateGameState({
-                        currentTaxonImageCollection: {
-                            pair: this.nextSelectedPair,
-                            imageOneURLs: [],
-                            imageTwoURLs: [],
-                            imageOneVernacular: null,
-                            imageTwoVernacular: null
-                        }
-                    });
-                    this.nextSelectedPair = null; // Clear the selected pair
-                } else if (gameState.isInitialLoad) {
-                    console.log("Performing quick load for initial session");
-                    const quickLoadData = await this.quickLoadInitialImages();
-                    updateGameState({
-                        currentTaxonImageCollection: {
-                            pair: quickLoadData.initialPair,
-                            imageOneURLs: [quickLoadData.imageOneURL],
-                            imageTwoURLs: [quickLoadData.imageTwoURL],
-                            imageOneVernacular: null,
-                            imageTwoVernacular: null
-                        },
-                        isInitialLoad: false
-                    });
-                } else if (gameState.preloadedTaxonImageCollection) {
-                    updateGameState({
-                        currentTaxonImageCollection: gameState.preloadedTaxonImageCollection,
-                        preloadedTaxonImageCollection: null
-                    });
-                } else {
-                    await this.loadNewTaxonPair();
-                }
-
-                if (!gameState.currentTaxonImageCollection) {
-                    console.error("Failed to initialize currentTaxonImageCollection");
-                    ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
-                    this.setState(GameState.IDLE);
-                    return;
-                }
-                await this.loadCurrentTaxonImageCollection();
-            }
+            await this.initializeOrUpdateTaxonImageCollection(newSession);
             
             await this.setupRound();
             this.finishSetup();
@@ -129,6 +77,50 @@ const game = {
             console.error("Error setting up game:", error);
             ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
             this.setState(GameState.IDLE);
+        }
+    },
+
+    async initializeOrUpdateTaxonImageCollection(newSession) {
+        if (newSession || !gameState.currentTaxonImageCollection) {
+            if (this.nextSelectedPair) {
+                console.log("Using selected pair:", this.nextSelectedPair);
+                updateGameState({
+                    currentTaxonImageCollection: {
+                        pair: this.nextSelectedPair,
+                        imageOneURLs: [],
+                        imageTwoURLs: [],
+                        imageOneVernacular: null,
+                        imageTwoVernacular: null
+                    }
+                });
+                this.nextSelectedPair = null; // Clear the selected pair
+            } else if (gameState.isInitialLoad) {
+                console.log("Performing quick load for initial session");
+                const quickLoadData = await this.quickLoadInitialImages();
+                updateGameState({
+                    currentTaxonImageCollection: {
+                        pair: quickLoadData.initialPair,
+                        imageOneURLs: [quickLoadData.imageOneURL],
+                        imageTwoURLs: [quickLoadData.imageTwoURL],
+                        imageOneVernacular: null,
+                        imageTwoVernacular: null
+                    },
+                    isInitialLoad: false
+                });
+            } else if (gameState.preloadedTaxonImageCollection) {
+                updateGameState({
+                    currentTaxonImageCollection: gameState.preloadedTaxonImageCollection,
+                    preloadedTaxonImageCollection: null
+                });
+            } else {
+                await this.loadNewTaxonPair();
+            }
+
+            if (!gameState.currentTaxonImageCollection) {
+                console.error("Failed to initialize currentTaxonImageCollection");
+                throw new Error("Failed to initialize currentTaxonImageCollection");
+            }
+            await this.loadCurrentTaxonImageCollection();
         }
     },
 
@@ -647,6 +639,7 @@ const game = {
         return index !== null ? taxonPairs[index] : taxonPairs[Math.floor(Math.random() * taxonPairs.length)];
     },
 
+// TODO for now only gives photo page
     getObservationURLFromImageURL(imageURL) {
         const match = imageURL.match(/\/photos\/(\d+)\//);
         if (match && match[1]) {

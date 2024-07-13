@@ -25,7 +25,6 @@ const ui = {
         elements.imageTwoContainer.style.opacity = '';
     },
 
-    // TODO move to "const ui" > eventhandler trouble?
     // display pair list for selection
     showTaxonPairList: function () {
         api.fetchTaxonPairs().then(taxonPairs => {
@@ -42,9 +41,7 @@ const ui = {
             const cancelButton = document.createElement('button');
             cancelButton.textContent = 'Cancel';
             cancelButton.className = 'taxon-pair-cancel-button';
-            cancelButton.onclick = () => {
-                document.body.removeChild(modal);
-            };
+            cancelButton.onclick = closeModal;
             
             taxonPairs.forEach((pair, index) => {
                 const button = document.createElement('button');
@@ -55,7 +52,7 @@ const ui = {
                     game.nextSelectedPair = pair;
                     
                     // Close the modal
-                    document.body.removeChild(modal);
+                    closeModal();
                     
                     // Set up the game with the new pair
                     game.setupGame(true);
@@ -70,9 +67,24 @@ const ui = {
             
             modal.onclick = (e) => {
                 if (e.target === modal) {
-                    document.body.removeChild(modal);
+                    closeModal();
                 }
             };
+
+            // Add event listener for the Escape key
+            const handleEscapeKey = (e) => {
+                if (e.key === 'Escape') {
+                    closeModal();
+                }
+            };
+
+            document.addEventListener('keydown', handleEscapeKey);
+
+            // Function to close the modal
+            function closeModal() {
+                document.body.removeChild(modal);
+                document.removeEventListener('keydown', handleEscapeKey);
+            }
         });
     },
 
