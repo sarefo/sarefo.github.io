@@ -16,6 +16,7 @@ const GameState = {
 };
 
 const game = {
+    nextSelectedPair: null,
     currentState: GameState.IDLE,
 
     setState(newState) {
@@ -24,9 +25,12 @@ const game = {
     },
 
     async setupGame(newSession = false) {
-        if (this.currentState !== GameState.IDLE && 
-            this.currentState !== GameState.READY && 
-            this.currentState !== GameState.CHECKING) {  // Allow transition from CHECKING
+        if (newSession) {
+            console.log("Starting new session, resetting state");
+            this.setState(GameState.IDLE);
+        } else if (this.currentState !== GameState.IDLE && 
+                   this.currentState !== GameState.READY && 
+                   this.currentState !== GameState.CHECKING) {
             console.log("Game is not in a state to start a new session");
             return;
         }
@@ -42,7 +46,19 @@ const game = {
 
         try {
             if (newSession || !gameState.currentTaxonImageCollection) {
-                if (gameState.preloadedTaxonImageCollection) {
+                if (this.nextSelectedPair) {
+                    // Use the selected pair if available
+                    updateGameState({
+                        currentTaxonImageCollection: {
+                            pair: this.nextSelectedPair,
+                            imageOneURLs: [],
+                            imageTwoURLs: [],
+                            imageOneVernacular: null,
+                            imageTwoVernacular: null
+                        }
+                    });
+                    this.nextSelectedPair = null; // Clear the selected pair
+                } else if (gameState.preloadedTaxonImageCollection) {
                     updateGameState({
                         currentTaxonImageCollection: gameState.preloadedTaxonImageCollection,
                         preloadedTaxonImageCollection: null
@@ -70,6 +86,7 @@ const game = {
                 await this.preloadNextTaxonPair();
                 this.setState(GameState.PLAYING);
             }
+
         } catch (error) {
             console.error("Error setting up game:", error);
             ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
