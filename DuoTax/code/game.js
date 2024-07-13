@@ -24,6 +24,22 @@ const game = {
         this.currentState = newState;
     },
 
+    async quickLoadInitialImages() {
+        try {
+            console.log("Starting quick load of initial images");
+            const initialPair = await this.selectTaxonPair();
+            const [imageOneURL, imageTwoURL] = await Promise.all([
+                api.fetchRandomImage(initialPair.taxon1),
+                api.fetchRandomImage(initialPair.taxon2)
+            ]);
+            console.log("Quick load completed successfully");
+            return { initialPair, imageOneURL, imageTwoURL };
+        } catch (error) {
+            console.error("Error during quick load of initial images:", error);
+            throw error;
+        }
+    },
+
     async setupGame(newSession = false) {
         if (newSession) {
             console.log("Starting new session, resetting state");
@@ -47,7 +63,8 @@ const game = {
         try {
             if (newSession || !gameState.currentTaxonImageCollection) {
                 if (this.nextSelectedPair) {
-                    // Use the selected pair if available
+                    // Use the selected pair if available (from URL parameters or user selection)
+                    console.log("Using selected pair:", this.nextSelectedPair);
                     updateGameState({
                         currentTaxonImageCollection: {
                             pair: this.nextSelectedPair,
@@ -58,6 +75,19 @@ const game = {
                         }
                     });
                     this.nextSelectedPair = null; // Clear the selected pair
+                } else if (gameState.isInitialLoad) {
+                    console.log("Performing quick load for initial session");
+                    const quickLoadData = await this.quickLoadInitialImages();
+                    updateGameState({
+                        currentTaxonImageCollection: {
+                            pair: quickLoadData.initialPair,
+                            imageOneURLs: [quickLoadData.imageOneURL],
+                            imageTwoURLs: [quickLoadData.imageTwoURL],
+                            imageOneVernacular: null,
+                            imageTwoVernacular: null
+                        },
+                        isInitialLoad: false
+                    });
                 } else if (gameState.preloadedTaxonImageCollection) {
                     updateGameState({
                         currentTaxonImageCollection: gameState.preloadedTaxonImageCollection,
@@ -86,7 +116,6 @@ const game = {
                 await this.preloadNextTaxonPair();
                 this.setState(GameState.PLAYING);
             }
-
         } catch (error) {
             console.error("Error setting up game:", error);
             ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
