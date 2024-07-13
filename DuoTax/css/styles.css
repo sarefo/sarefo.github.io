@@ -197,7 +197,8 @@ body * { text-align: center; } /* percolate to child elements */
     z-index: 1000;
     opacity: 0;
     pointer-events: none;
-    transition: opacity var(--transition-speed) ease;
+    /*transition: opacity var(--transition-speed) ease;*/
+    transition: opacity var(--transition-speed) ease, background-color var(--transition-speed) ease;
 }
 #overlay.show { opacity: 1; }
 #overlay-message {
@@ -207,6 +208,7 @@ body * { text-align: center; } /* percolate to child elements */
     color: var(--text-color);
     text-shadow: 2px 2px 4px var(--shadow-color);
     padding: 20px;
+    transition: opacity var(--transition-speed) ease;
 }
 
 .bottom-button {

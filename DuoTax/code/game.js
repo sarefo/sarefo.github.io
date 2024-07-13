@@ -42,7 +42,7 @@ const game = {
     },
 
     async setupGame(newSession = false) {
-      if (newSession) {
+       if (newSession) {
             console.log("Starting new session, resetting state");
             this.setState(GameState.IDLE);
         }
@@ -107,7 +107,6 @@ const game = {
                 this.setState(GameState.IDLE);
                 return;
             }
-
             await this.loadCurrentTaxonImageCollection();
             await this.setupRound();
             this.finishSetup();
@@ -115,8 +114,8 @@ const game = {
             this.setState(GameState.PLAYING);
             console.log("Game setup complete. Current state:", this.currentState);
 
-            // Ensure overlay is hidden when entering PLAYING state
-            await ui.hideOverlay();
+            ui.hideOverlay();  // Hide overlay when setup is complete
+
             if (!gameState.preloadedTaxonImageCollection && this.currentState === GameState.PLAYING) {
                 this.setState(GameState.PRELOADING_BACKGROUND);
                 await this.preloadNextTaxonPair();
@@ -126,7 +125,7 @@ const game = {
             }
         } catch (error) {
             console.error("Error setting up game:", error);
-            await ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
+            ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
             this.setState(GameState.IDLE);
         }
     },
@@ -541,17 +540,17 @@ const game = {
             }
 
             if (isCorrect) {
+                await ui.showOverlay('Correct!', colorCorrect);
                 elements.imageOne.classList.add('loading');
                 elements.imageTwo.classList.add('loading');
-                await ui.showOverlay('Correct!', colorCorrect);
-                await utils.sleep(2400);
-                await ui.hideOverlay();
+                await utils.sleep(1000); // Show "Correct!" for 1 second
+                ui.updateOverlayMessage('Loading...'); // Update message without changing color
                 await this.setupGame(false);  // Start a new round with the same taxon pair
             } else {
-                utils.resetDraggables();
                 await ui.showOverlay('Try again!', colorWrong);
                 await utils.sleep(800);
-                await ui.hideOverlay();
+                ui.hideOverlay();
+                utils.resetDraggables();
                 this.setState(GameState.PLAYING);
             }
         } else {
