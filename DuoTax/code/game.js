@@ -12,7 +12,8 @@ const GameState = {
     READY: 'READY',
     PLAYING: 'PLAYING',
     CHECKING: 'CHECKING',
-    PRELOADING: 'PRELOADING'
+    PRELOADING: 'PRELOADING',
+    PRELOADING_BACKGROUND: 'PRELOADING_BACKGROUND'
 };
 
 const game = {
@@ -114,10 +115,14 @@ const game = {
             this.setState(GameState.PLAYING);
             console.log("Game setup complete. Current state:", this.currentState);
 
-            if (!gameState.preloadedTaxonImageCollection && this.currentState !== GameState.PRELOADING) {
-                this.setState(GameState.PRELOADING);
+            // Ensure overlay is hidden when entering PLAYING state
+            await ui.hideOverlay();
+            if (!gameState.preloadedTaxonImageCollection && this.currentState === GameState.PLAYING) {
+                this.setState(GameState.PRELOADING_BACKGROUND);
                 await this.preloadNextTaxonPair();
-                this.setState(GameState.PLAYING);
+                if (this.currentState === GameState.PRELOADING_BACKGROUND) {
+                    this.setState(GameState.PLAYING);
+                }
             }
         } catch (error) {
             console.error("Error setting up game:", error);
@@ -188,14 +193,16 @@ const game = {
     },
 
     async preloadNextTaxonPair() {
-        if (this.currentState !== GameState.PRELOADING) {
+        if (this.currentState !== GameState.PRELOADING_BACKGROUND) {
             console.log("Not in correct state to preload");
             return;
         }
+
         if (gameState.isPreloading) return;
         
         updateGameState({ isPreloading: true });
         console.log("Starting to preload next pair in the background");
+
         try {
             const newPair = await this.selectTaxonPair();
             console.log(`Preloading images for taxon pair: ${newPair.taxon1} and ${newPair.taxon2}`);
@@ -223,7 +230,9 @@ const game = {
         } finally {
             updateGameState({ isPreloading: false });
         }
-        this.setState(GameState.PLAYING);
+        if (this.currentState === GameState.PRELOADING_BACKGROUND) {
+            this.setState(GameState.PLAYING);
+        }
     },
 
     prepareRound: async function(newPair) {
@@ -501,6 +510,11 @@ const game = {
     async checkAnswer(droppedZoneId) {
         console.log("Checking answer. Current state:", this.currentState);
         
+        if (this.currentState === GameState.PRELOADING_BACKGROUND) {
+            console.log("Game is preloading, waiting for completion before checking answer");
+            await this.waitForPreloadingComplete();
+        }
+
         if (this.currentState !== GameState.PLAYING) {
             console.log("Cannot check answer when not in PLAYING state");
             return;
@@ -538,11 +552,17 @@ const game = {
                 await ui.showOverlay('Try again!', colorWrong);
                 await utils.sleep(800);
                 await ui.hideOverlay();
-                this.setState(GameState.PLAYING);  // Return to PLAYING state for incorrect answers
+                this.setState(GameState.PLAYING);
             }
         } else {
             console.log("Incomplete answer. Returning to PLAYING state.");
-            this.setState(GameState.PLAYING);  // Return to PLAYING state if no answer was provided
+            this.setState(GameState.PLAYING);
+        }
+    },
+
+    async waitForPreloadingComplete() {
+        while (this.currentState === GameState.PRELOADING_BACKGROUND) {
+            await utils.sleep(100);
         }
     },
 

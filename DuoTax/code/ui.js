@@ -78,14 +78,27 @@ const ui = {
 
 
     // overlay for result and loading
-    showOverlay: function (message="", color) {
-        elements.overlayMessage.innerHTML = message;
-        elements.overlay.style.backgroundColor = color;
-        elements.overlay.classList.add('show');
+    showOverlay: async function (message="", color) {
+        return new Promise(resolve => {
+            elements.overlayMessage.innerHTML = message;
+            elements.overlay.style.backgroundColor = color;
+            elements.overlay.classList.add('show');
+            // Use requestAnimationFrame to ensure the overlay is visible before resolving
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    resolve();
+                });
+            });
+        });
     },
 
-    hideOverlay: function () {
-        elements.overlay.classList.remove('show');
+    hideOverlay: async function () {
+        return new Promise(resolve => {
+            elements.overlay.classList.remove('show');
+            elements.overlay.addEventListener('transitionend', () => {
+                resolve();
+            }, { once: true });
+        });
     },
 
     scrollToTop: function () {
