@@ -614,7 +614,7 @@ const game = {
     },
 
     async setupGame(newSession = false) {
-      if (newSession) {
+       if (newSession) {
             console.log("Starting new session, resetting state");
             this.setState(GameState.IDLE);
         }
@@ -679,7 +679,6 @@ const game = {
                 this.setState(GameState.IDLE);
                 return;
             }
-
             await this.loadCurrentTaxonImageCollection();
             await this.setupRound();
             this.finishSetup();
@@ -687,8 +686,8 @@ const game = {
             this.setState(GameState.PLAYING);
             console.log("Game setup complete. Current state:", this.currentState);
 
-            // Ensure overlay is hidden when entering PLAYING state
-            await ui.hideOverlay();
+            ui.hideOverlay();  // Hide overlay when setup is complete
+
             if (!gameState.preloadedTaxonImageCollection && this.currentState === GameState.PLAYING) {
                 this.setState(GameState.PRELOADING_BACKGROUND);
                 await this.preloadNextTaxonPair();
@@ -698,7 +697,7 @@ const game = {
             }
         } catch (error) {
             console.error("Error setting up game:", error);
-            await ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
+            ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
             this.setState(GameState.IDLE);
         }
     },
@@ -1113,17 +1112,17 @@ const game = {
             }
 
             if (isCorrect) {
+                await ui.showOverlay('Correct!', colorCorrect);
                 elements.imageOne.classList.add('loading');
                 elements.imageTwo.classList.add('loading');
-                await ui.showOverlay('Correct!', colorCorrect);
-                await utils.sleep(2400);
-                await ui.hideOverlay();
+                await utils.sleep(1000); // Show "Correct!" for 1 second
+                ui.updateOverlayMessage('Loading...'); // Update message without changing color
                 await this.setupGame(false);  // Start a new round with the same taxon pair
             } else {
-                utils.resetDraggables();
                 await ui.showOverlay('Try again!', colorWrong);
                 await utils.sleep(800);
-                await ui.hideOverlay();
+                ui.hideOverlay();
+                utils.resetDraggables();
                 this.setState(GameState.PLAYING);
             }
         } else {
@@ -1311,8 +1310,20 @@ const ui = {
         });
     },
 
+    showOverlay: function (message="", color) {
+        elements.overlayMessage.innerHTML = message;
+        elements.overlay.style.backgroundColor = color;
+        elements.overlay.classList.add('show');
+    },
 
-    // overlay for result and loading
+    updateOverlayMessage: function (message) {
+        elements.overlayMessage.innerHTML = message;
+    },
+
+    hideOverlay: function () {
+        elements.overlay.classList.remove('show');
+    },
+/*    // overlay for result and loading
     showOverlay: async function (message="", color) {
         return new Promise(resolve => {
             elements.overlayMessage.innerHTML = message;
@@ -1325,7 +1336,7 @@ const ui = {
                 });
             });
         });
-    },
+    }, 
 
     hideOverlay: async function () {
         return new Promise(resolve => {
@@ -1334,7 +1345,7 @@ const ui = {
                 resolve();
             }, { once: true });
         });
-    },
+    },*/
 
     scrollToTop: function () {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1424,7 +1435,7 @@ export default utils;
 
 ==> ./version.js <==
 // version.js
-const version = '1.3.13';
+const version = '1.3.15';
 
 function updateVersion() {
     const noCacheFiles = document.querySelectorAll('link[rel="stylesheet"], link[rel="preload"], script[src], link[rel="manifest"]');

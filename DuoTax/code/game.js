@@ -42,7 +42,7 @@ const game = {
     },
 
     async setupGame(newSession = false) {
-       if (newSession) {
+        if (newSession) {
             console.log("Starting new session, resetting state");
             this.setState(GameState.IDLE);
         }
@@ -66,7 +66,6 @@ const game = {
         try {
             if (newSession || !gameState.currentTaxonImageCollection) {
                 if (this.nextSelectedPair) {
-                    // Use the selected pair if available (from URL parameters or user selection)
                     console.log("Using selected pair:", this.nextSelectedPair);
                     updateGameState({
                         currentTaxonImageCollection: {
@@ -116,17 +115,52 @@ const game = {
 
             ui.hideOverlay();  // Hide overlay when setup is complete
 
-            if (!gameState.preloadedTaxonImageCollection && this.currentState === GameState.PLAYING) {
-                this.setState(GameState.PRELOADING_BACKGROUND);
-                await this.preloadNextTaxonPair();
-                if (this.currentState === GameState.PRELOADING_BACKGROUND) {
-                    this.setState(GameState.PLAYING);
-                }
-            }
+            // Start preloading the next pair in the background
+            this.preloadNextTaxonPairInBackground();
         } catch (error) {
             console.error("Error setting up game:", error);
             ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
             this.setState(GameState.IDLE);
+        }
+    },
+
+    async preloadNextTaxonPairInBackground() {
+        if (this.currentState !== GameState.PLAYING) {
+            console.log("Not in correct state to preload");
+            return;
+        }
+
+        if (gameState.isPreloading) return;
+        
+        updateGameState({ isPreloading: true });
+        console.log("Starting to preload next pair in the background");
+
+        try {
+            const newPair = await this.selectTaxonPair();
+            console.log(`Preloading images for taxon pair: ${newPair.taxon1} and ${newPair.taxon2}`);
+            const [imageOneURLs, imageTwoURLs, imageOneVernacular, imageTwoVernacular] = await Promise.all([
+                api.fetchMultipleImages(newPair.taxon1),
+                api.fetchMultipleImages(newPair.taxon2),
+                api.fetchVernacular(newPair.taxon1),
+                api.fetchVernacular(newPair.taxon2)
+            ]);
+
+            updateGameState({
+                preloadedTaxonImageCollection: {
+                    pair: newPair,
+                    imageOneURLs,
+                    imageTwoURLs,
+                    imageOneVernacular,
+                    imageTwoVernacular
+                }
+            });
+
+            await this.preloadImages(imageOneURLs.concat(imageTwoURLs));
+            console.log("Finished preloading next pair");
+        } catch (error) {
+            console.error("Error preloading next pair:", error);
+        } finally {
+            updateGameState({ isPreloading: false });
         }
     },
 
@@ -509,11 +543,6 @@ const game = {
     async checkAnswer(droppedZoneId) {
         console.log("Checking answer. Current state:", this.currentState);
         
-        if (this.currentState === GameState.PRELOADING_BACKGROUND) {
-            console.log("Game is preloading, waiting for completion before checking answer");
-            await this.waitForPreloadingComplete();
-        }
-
         if (this.currentState !== GameState.PLAYING) {
             console.log("Cannot check answer when not in PLAYING state");
             return;
