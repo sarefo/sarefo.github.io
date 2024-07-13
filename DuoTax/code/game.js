@@ -439,13 +439,25 @@ loadImages: async function(leftImageSrc, rightImageSrc) {
     },
 
     setupNameTilesUI: function(leftName, rightName, leftNameVernacular, rightNameVernacular) {
-        elements.leftName.setAttribute('data-taxon', leftName);
-        elements.rightName.setAttribute('data-taxon', rightName);
+        // Randomize the position of the name tiles
+        const shouldSwap = Math.random() < 0.5;
+        
+        const nameOne = shouldSwap ? rightName : leftName;
+        const nameTwo = shouldSwap ? leftName : rightName;
+        const vernacularOne = shouldSwap ? rightNameVernacular : leftNameVernacular;
+        const vernacularTwo = shouldSwap ? leftNameVernacular : rightNameVernacular;
+
+        elements.leftName.setAttribute('data-taxon', nameOne);
+        elements.rightName.setAttribute('data-taxon', nameTwo);
         elements.leftName.style.zIndex = '10';
         elements.rightName.style.zIndex = '10';
 
-        elements.leftName.innerHTML = `<i>${leftName}</i><br>(${leftNameVernacular})`;
-        elements.rightName.innerHTML = `<i>${rightName}</i><br>(${rightNameVernacular})`;
+        elements.leftName.innerHTML = `<i>${nameOne}</i><br>(${vernacularOne})`;
+        elements.rightName.innerHTML = `<i>${nameTwo}</i><br>(${vernacularTwo})`;
+
+        // Update gameState to reflect the new positions
+        gameState.taxonLeftName = nameOne;
+        gameState.taxonRightName = nameTwo;
     },
 
     finishSetup: function() {
