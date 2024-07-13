@@ -616,8 +616,12 @@ const game = {
         elements.leftName.style.zIndex = '10';
         elements.rightName.style.zIndex = '10';
 
-        elements.leftName.innerHTML = `<i>${nameOne}</i><br>(${vernacularOne})`;
-        elements.rightName.innerHTML = `<i>${nameTwo}</i><br>(${vernacularTwo})`;
+        elements.leftName.innerHTML = vernacularOne 
+            ? `<i>${nameOne}</i><br>(${vernacularOne})`
+            : `<i>${nameOne}</i>`;
+        elements.rightName.innerHTML = vernacularTwo
+            ? `<i>${nameTwo}</i><br>(${vernacularTwo})`
+            : `<i>${nameTwo}</i>`;
 
         gameState.taxonLeftName = nameOne;
         gameState.taxonRightName = nameTwo;

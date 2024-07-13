@@ -60,11 +60,14 @@ const api = (() => {
                 const data = await response.json();
                 if (data.results && data.results.length > 0) {
                     const taxon = data.results[0];
-                    if (taxon && taxon.preferred_common_name) {
-                        return taxon.preferred_common_name;
-                    } else { return 'No vernacular name'; }
-                } else { return 'Taxon not found'; }
-            } catch (error) { console.error('Error fetching vernacular name:', error); return ""; }
+                    return taxon.preferred_common_name || null;
+                } else {
+                    return null;
+                }
+            } catch (error) {
+                console.error('Error fetching vernacular name:', error);
+                return null;
+            }
         },
 
         // function to check if iNaturalist API is reachable
