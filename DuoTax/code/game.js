@@ -171,6 +171,9 @@ const game = {
         }
 
         const { taxon1, taxon2 } = gameState.currentTaxonImageCollection.pair;
+        // TODO not sure if for one or both pairs? one taxon should not have more than 12 images
+        const MAX_IMAGES = 24; // Adjust this number as needed
+
         const [imageOneURLs, imageTwoURLs, imageOneVernacular, imageTwoVernacular] = await Promise.all([
             api.fetchMultipleImages(taxon1),
             api.fetchMultipleImages(taxon2),
@@ -181,14 +184,14 @@ const game = {
         updateGameState({
             currentTaxonImageCollection: {
                 ...gameState.currentTaxonImageCollection,
-                imageOneURLs,
-                imageTwoURLs,
+                imageOneURLs: imageOneURLs.slice(0, MAX_IMAGES),
+                imageTwoURLs: imageTwoURLs.slice(0, MAX_IMAGES),
                 imageOneVernacular,
                 imageTwoVernacular
             }
         });
 
-        await this.preloadImages(imageOneURLs.concat(imageTwoURLs));
+        await this.preloadImages(imageOneURLs.slice(0, MAX_IMAGES).concat(imageTwoURLs.slice(0, MAX_IMAGES)));
     },
 
     async setupRound() {
