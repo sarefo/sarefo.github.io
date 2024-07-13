@@ -1,6 +1,6 @@
 {
-  "name": "DuoTax",
-  "short_name": "DuoTax",
+  "name": "DuoNat - iNaturalist Taxon Trainer",
+  "short_name": "DuoNat",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
