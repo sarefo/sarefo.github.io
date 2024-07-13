@@ -149,15 +149,19 @@ initializeDraggables: function() {
         
         // Set initial position
         const event = e.type.startsWith('touch') ? e.touches[0] : e;
-        const offsetX = event.clientX - originalRect.left;
-        const offsetY = event.clientY - originalRect.top;
+        
+        // Calculate offsets to center the element under the cursor/finger
+        const offsetX = originalRect.width / 2;
+        const offsetY = originalRect.height / 2;
         
         draggedElement.style.position = 'fixed';
         draggedElement.style.zIndex = '1000';
         draggedElement.style.width = `${originalRect.width}px`;
         draggedElement.style.height = `${originalRect.height}px`;
-        draggedElement.style.left = `${originalRect.left}px`;
-        draggedElement.style.top = `${originalRect.top}px`;
+        
+        // Position the element centered under the cursor/finger
+        draggedElement.style.left = `${event.clientX - offsetX}px`;
+        draggedElement.style.top = `${event.clientY - offsetY}px`;
 
         // Store offset for drag calculations
         draggedElement.dataset.offsetX = offsetX;
@@ -169,6 +173,8 @@ initializeDraggables: function() {
         e.preventDefault();
 
         const event = e.type.startsWith('touch') ? e.touches[0] : e;
+        
+        // Use the stored offsets to keep the element centered
         const x = event.clientX - draggedElement.dataset.offsetX;
         const y = event.clientY - draggedElement.dataset.offsetY;
 
