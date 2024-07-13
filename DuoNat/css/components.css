@@ -40,7 +40,10 @@ dialog {
     background-color: rgba(255, 255, 255, 1);
 }
 
-#share-button, #heart-button {
+#share-button, #help-button {
+    fill: var(--dark-neutral-color);
+}
+#like-button {
     fill: var(--primary-color);
 }
 #trash-button {
@@ -74,7 +77,6 @@ dialog {
 #help-button svg {
     width: 24px;
     height: 24px;
-    fill: var(--primary-color);
     transition: fill var(--transition-speed) ease;
 }
 
