@@ -11,7 +11,7 @@
     --max-image-width: 500px;
 /*    --transition-speed: 0.3s;*/
     --transition-speed: 0.3s;
-    --center-min-height: 78px; /* consider relative to screen */
+    --center-min-height: 80px; /* consider relative to screen */
 }
 
 body {
