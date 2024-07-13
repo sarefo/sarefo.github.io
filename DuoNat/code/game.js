@@ -63,7 +63,7 @@ const game = {
             
             await this.setupRound();
             this.finishSetup();
-            ui.initializeDraggables(); // for dragging name tiles
+  //          ui.initializeDraggables(); // for dragging name tiles
             this.setState(GameState.PLAYING);
             console.log("Game setup complete. Current state:", this.currentState);
 
