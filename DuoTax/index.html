@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirect Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+:root {
+    --primary-color: #74ac00; /* iNat green */
+    --primary-counter-color: #ac0028; /* red */
+    --background-color: #ffffff;
+    --text-color: #ffffff;
+    --counter-text-color: #444;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --overlay-color: rgba(0, 0, 0, 0.3);
+    --border-radius: 8px;
+    --max-image-width: 500px;
+/*    --transition-speed: 0.3s;*/
+    --transition-speed: 0.3s;
+}
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: var(--background-color);
+            color: var(--primary-color);
+    font-family: 'Open Sans', Arial, sans-serif;
+        }
+
+        .redirect-message {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .redirect-button {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            font-size: 1.5rem;
+            padding: 15px 30px;
+            border: none;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            transition: background-color var(--transition-speed) ease;
+        }
+
+        .redirect-button:hover {
+            background-color: #5c8a00;
+        }
+    </style>
+</head>
+<body>
+    <div class="redirect-message">DuoTax is now DuoNat.</div>
+    <a class="redirect-button" href="../DuoNat/index.html">Go to DuoNat</a>
+</body>
+</html>
