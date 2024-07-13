@@ -11,7 +11,7 @@
     --max-image-width: 500px;
 /*    --transition-speed: 0.3s;*/
     --transition-speed: 0.3s;
-    --center-min-height: 80px;
+    --center-min-height: 72px; /* consider relative to screen */
 }
 
 body {
@@ -191,11 +191,12 @@ body * { text-align: center; } /* percolate to child elements */
     padding: 10px;
     border-radius: var(--border-radius);
     width: 100%;
+    max-width: var(--max-image-width);
+    min-height: var(--center-min-height);
     color: var(--text-color);
     background-color: var(--primary-color);
     opacity: 0.8;
     font-size: 22px;
-    max-width: var(--max-image-width);
     position: relative;
     z-index: 10;
     touch-action: none;
@@ -207,7 +208,6 @@ body * { text-align: center; } /* percolate to child elements */
     hyphens: auto;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     cursor: grab;
-    min-height: var(--center-min-height);
     /* transition: all var(--transition-speed) ease;
     max-width: calc(var(--max-image-width) - 50px); */
 }
