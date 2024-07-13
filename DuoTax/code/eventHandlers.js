@@ -100,7 +100,7 @@ const eventHandlers = {
     },
 
     handleMouseDown(e) {
-        if (!e.target.closest('.image-container')) return;
+        if (!e.target.closest('.image-container') || e.target.closest('.info-button')) return;
         if (e.target.closest('.draggable')) return; // Ignore draggable elements
         this.startX = e.clientX;
         this.startY = e.clientY;
@@ -108,7 +108,7 @@ const eventHandlers = {
     },
 
     handleTouchStart(e) {
-        if (!e.target.closest('.image-container')) return;
+        if (!e.target.closest('.image-container') || e.target.closest('.info-button')) return;
         this.startX = e.touches[0].clientX;
         this.startY = e.touches[0].clientY;
         this.isDragging = true;

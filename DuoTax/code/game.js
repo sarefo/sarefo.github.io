@@ -20,6 +20,11 @@ const game = {
     nextSelectedPair: null,
     currentState: GameState.IDLE,
 
+    currentObservationURLs: {
+        imageOne: null,
+        imageTwo: null
+    },
+
     setState(newState) {
         console.log(`Game state changing from ${this.currentState} to ${newState}`);
         this.currentState = newState;
@@ -206,6 +211,10 @@ const game = {
             imageOneURLs[Math.floor(Math.random() * imageOneURLs.length)];
 
         await this.loadImages(leftImageSrc, rightImageSrc);
+
+        // Set the observation URLs
+        this.currentObservationURLs.imageOne = this.getObservationURLFromImageURL(leftImageSrc);
+        this.currentObservationURLs.imageTwo = this.getObservationURLFromImageURL(rightImageSrc);
 
         const leftName = randomized ? pair.taxon1 : pair.taxon2;
         const rightName = randomized ? pair.taxon2 : pair.taxon1;
@@ -638,6 +647,33 @@ const game = {
         return index !== null ? taxonPairs[index] : taxonPairs[Math.floor(Math.random() * taxonPairs.length)];
     },
 
+    getObservationURLFromImageURL(imageURL) {
+        const match = imageURL.match(/\/photos\/(\d+)\//);
+        if (match && match[1]) {
+            return `https://www.inaturalist.org/photos/${match[1]}`;
+        }
+        return null;
+    },
+
+    initializeInfoButtons() {
+        const infoButton1 = document.getElementById('info-button-1');
+        const infoButton2 = document.getElementById('info-button-2');
+
+        infoButton1.addEventListener('click', () => this.openObservationURL(this.currentObservationURLs.imageOne));
+        infoButton2.addEventListener('click', () => this.openObservationURL(this.currentObservationURLs.imageTwo));
+    },
+
+    openObservationURL(url) {
+        if (url) {
+            window.open(url, '_blank');
+        } else {
+            console.error('Observation URL not available');
+        }
+    },
+
 };
+
+// Initialize info buttons
+game.initializeInfoButtons();
 
 export default game;
