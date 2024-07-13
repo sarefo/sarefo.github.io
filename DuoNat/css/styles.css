@@ -209,6 +209,7 @@ body * { text-align: center; } /* percolate to child elements */
     hyphens: auto;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     cursor: grab;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     /* transition: all var(--transition-speed) ease;
     max-width: calc(var(--max-image-width) - 50px); */
 }
@@ -236,14 +237,23 @@ body * { text-align: center; } /* percolate to child elements */
     color: rgba(255, 255, 255, 0.8);
 }
 
-/* this doesn't seem to work: only recognized on iOS */
 .draggable:active {
     cursor: grabbing;
-    max-width: calc(var(--max-image-width)-50px);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transform: scale(1.05);
+/*    max-width: calc(var(--max-image-width)-50px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);*/
 }
 
-.droppable .draggable {
+.draggable.dragging {
+opacity: 0.8;
+    pointer-events: none;
+    box-shadow: 0 0 0 2px white, 0 0 10px 3px rgba(255, 255, 255, 0.7);
+    width: 60%;
+/*    z-index: 1000;*/
+}
+
+.droppable .draggable,
+.draggable.dragging {
     box-shadow: 0 0 0 2px white;/*, 0 0 10px 3px rgba(255, 255, 255, 0.7);*/
     transition: box-shadow var(--transition-speed) ease;
     max-width: var(--max-image-width);

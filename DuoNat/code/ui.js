@@ -122,7 +122,75 @@ const ui = {
                 showINatDownDialog();
             }
         });
+    },
+
+initializeDraggables: function() {
+    const draggables = document.querySelectorAll('.draggable');
+    let draggedElement = null;
+    let originalRect = null;
+
+    draggables.forEach(draggable => {
+        draggable.addEventListener('mousedown', startDragging);
+        draggable.addEventListener('touchstart', startDragging, { passive: false });
+    });
+
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('touchmove', drag, { passive: false });
+    document.addEventListener('mouseup', stopDragging);
+    document.addEventListener('touchend', stopDragging);
+
+    function startDragging(e) {
+        e.preventDefault(); // Prevent default to disable text selection
+        draggedElement = this;
+        draggedElement.classList.add('dragging');
+        
+        // Store the original position and size
+        originalRect = draggedElement.getBoundingClientRect();
+        
+        // Set initial position
+        const event = e.type.startsWith('touch') ? e.touches[0] : e;
+        const offsetX = event.clientX - originalRect.left;
+        const offsetY = event.clientY - originalRect.top;
+        
+        draggedElement.style.position = 'fixed';
+        draggedElement.style.zIndex = '1000';
+        draggedElement.style.width = `${originalRect.width}px`;
+        draggedElement.style.height = `${originalRect.height}px`;
+        draggedElement.style.left = `${originalRect.left}px`;
+        draggedElement.style.top = `${originalRect.top}px`;
+
+        // Store offset for drag calculations
+        draggedElement.dataset.offsetX = offsetX;
+        draggedElement.dataset.offsetY = offsetY;
     }
+
+    function drag(e) {
+        if (!draggedElement) return;
+        e.preventDefault();
+
+        const event = e.type.startsWith('touch') ? e.touches[0] : e;
+        const x = event.clientX - draggedElement.dataset.offsetX;
+        const y = event.clientY - draggedElement.dataset.offsetY;
+
+        draggedElement.style.left = `${x}px`;
+        draggedElement.style.top = `${y}px`;
+    }
+
+    function stopDragging() {
+        if (!draggedElement) return;
+
+        draggedElement.classList.remove('dragging');
+        draggedElement.style.position = '';
+        draggedElement.style.zIndex = '';
+        draggedElement.style.width = '';
+        draggedElement.style.height = '';
+        draggedElement.style.left = '';
+        draggedElement.style.top = '';
+        
+        draggedElement = null;
+        originalRect = null;
+    }
+},
 
 }; // const ui
 
