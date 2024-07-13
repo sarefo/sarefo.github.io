@@ -1,5 +1,5 @@
 // version.js
-const version = '1.3.17';
+const version = '1.3.18';
 
 function updateVersion() {
     const noCacheFiles = document.querySelectorAll('link[rel="stylesheet"], link[rel="preload"], script[src], link[rel="manifest"]');

@@ -98,15 +98,16 @@ const game = {
                 } else {
                     await this.loadNewTaxonPair();
                 }
-            }
 
-            if (!gameState.currentTaxonImageCollection) {
-                console.error("Failed to initialize currentTaxonImageCollection");
-                ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
-                this.setState(GameState.IDLE);
-                return;
+                if (!gameState.currentTaxonImageCollection) {
+                    console.error("Failed to initialize currentTaxonImageCollection");
+                    ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
+                    this.setState(GameState.IDLE);
+                    return;
+                }
+                await this.loadCurrentTaxonImageCollection();
             }
-            await this.loadCurrentTaxonImageCollection();
+            
             await this.setupRound();
             this.finishSetup();
 
@@ -115,8 +116,10 @@ const game = {
 
             ui.hideOverlay();  // Hide overlay when setup is complete
 
-            // Start preloading the next pair in the background
-            this.preloadNextTaxonPairInBackground();
+            // Start preloading the next pair in the background only for new sessions
+            if (newSession) {
+                this.preloadNextTaxonPairInBackground();
+            }
         } catch (error) {
             console.error("Error setting up game:", error);
             ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);

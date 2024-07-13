@@ -146,16 +146,16 @@
     </dialog>
 
     <!--
-    <dialog id="inat-down-dialog" class="fullscreen-dialog">
-      <div class="dialog-content">
-        <h2>iNaturalist Unavailable</h2>
-        <p>We're having trouble connecting to iNaturalist. This could be due to maintenance or temporary issues.</p>
-        <p>Please try again later or check the iNaturalist status page for updates.</p>
-        <button id="check-inat-status">Check iNaturalist Status</button>
-        <button id="retry-connection">Retry Connection</button>
-      </div>
-    </dialog>
--->
+<dialog id="inat-down-dialog" class="fullscreen-dialog">
+  <div class="dialog-content">
+    <h2>iNaturalist Unavailable</h2>
+    <p>We're having trouble connecting to iNaturalist. This could be due to maintenance or temporary issues.</p>
+    <p>Please try again later or check the iNaturalist status page for updates.</p>
+    <button id="check-inat-status">Check iNaturalist Status</button>
+    <button id="retry-connection">Retry Connection</button>
+  </div>
+  -->
+
 </body>
 </html>
 \n==> CSS <==\n
@@ -1374,8 +1374,10 @@ const game = {
 
             ui.hideOverlay();  // Hide overlay when setup is complete
 
-            // Start preloading the next pair in the background
-            this.preloadNextTaxonPairInBackground();
+            // Start preloading the next pair in the background only for new sessions
+            if (newSession) {
+                this.preloadNextTaxonPairInBackground();
+            }
         } catch (error) {
             console.error("Error setting up game:", error);
             ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
@@ -1835,10 +1837,11 @@ const game = {
                 ui.updateOverlayMessage('Loading...'); // Update message without changing color
                 await this.setupGame(false);  // Start a new round with the same taxon pair
             } else {
+                // Immediately reset draggables before showing the "Try again!" message
+                utils.resetDraggables();
                 await ui.showOverlay('Try again!', colorWrong);
                 await utils.sleep(800);
                 ui.hideOverlay();
-                utils.resetDraggables();
                 this.setState(GameState.PLAYING);
             }
         } else {
@@ -2039,29 +2042,6 @@ const ui = {
     hideOverlay: function () {
         elements.overlay.classList.remove('show');
     },
-/*    // overlay for result and loading
-    showOverlay: async function (message="", color) {
-        return new Promise(resolve => {
-            elements.overlayMessage.innerHTML = message;
-            elements.overlay.style.backgroundColor = color;
-            elements.overlay.classList.add('show');
-            // Use requestAnimationFrame to ensure the overlay is visible before resolving
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    resolve();
-                });
-            });
-        });
-    }, 
-
-    hideOverlay: async function () {
-        return new Promise(resolve => {
-            elements.overlay.classList.remove('show');
-            elements.overlay.addEventListener('transitionend', () => {
-                resolve();
-            }, { once: true });
-        });
-    },*/
 
     scrollToTop: function () {
         window.scrollTo({ top: 0, behavior: 'smooth' });
