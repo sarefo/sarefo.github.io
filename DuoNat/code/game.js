@@ -616,12 +616,15 @@ const game = {
         elements.leftName.style.zIndex = '10';
         elements.rightName.style.zIndex = '10';
 
-        elements.leftName.innerHTML = vernacularOne 
-            ? `<i>${nameOne}</i><br>(${vernacularOne})`
-            : `<i>${nameOne}</i>`;
-        elements.rightName.innerHTML = vernacularTwo
-            ? `<i>${nameTwo}</i><br>(${vernacularTwo})`
-            : `<i>${nameTwo}</i>`;
+        // Create a span for the taxon name and a span for the vernacular name
+        elements.leftName.innerHTML = `
+            <span class="taxon-name">${nameOne}</span>
+            ${vernacularOne ? `<span class="vernacular-name">${vernacularOne}</span>` : ''}
+        `;
+        elements.rightName.innerHTML = `
+            <span class="taxon-name">${nameTwo}</span>
+            ${vernacularTwo ? `<span class="vernacular-name">${vernacularTwo}</span>` : ''}
+        `;
 
         gameState.taxonLeftName = nameOne;
         gameState.taxonRightName = nameTwo;

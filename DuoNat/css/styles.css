@@ -71,17 +71,6 @@ body * { text-align: center; } /* percolate to child elements */
     width: 100%;
 }
 
-.name-pair {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-    max-width: var(--max-image-width);
-    position: relative;
-    margin: 4px auto;
-}
-
 .image-container {
     position: relative;
     flex: 1 1 300px;
@@ -153,13 +142,31 @@ body * { text-align: center; } /* percolate to child elements */
     height: 20px;
     fill: var(--primary-color);
 }
+
+.name-pair {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    width: 98%;
+    max-width: var(--max-image-width);
+    margin: 4px auto;
+    gap: 4px;
+}
+
 #left-name-container, #right-name-container {
-    width: var(--max-image-width);
-    margin: 4px;
+    display: flex;
+             flex-basis: 100%;
+    flex: 1 1 calc(50% - 4px);
+    min-width: 200px; /*adjust as needed for horizontal/vertical flip*/
+/*    width: var(--max-image-width);*/
+    margin: 0px;
     min-height: 60px;
 }
 
-.draggable, .droppable .draggable {
+/* what is this? */
+.droppable .draggable {
     background-color: var(--primary-color);
     opacity: 0.8;
     color: var(--text-color);
@@ -170,17 +177,23 @@ body * { text-align: center; } /* percolate to child elements */
 }
 
 .draggable {
-    /*
-    opacity: 0.8;
+    flex: 1;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
     padding: 10px;
     border-radius: var(--border-radius);
     width: 100%;
-    box-sizing: border-box;
-    touch-action: none;
+    /*
     transition: all var(--transition-speed) ease;
+    max-width: calc(var(--max-image-width) - 50px);
                 */
-    cursor: grab;
-    /*max-width: calc(var(--max-image-width) - 50px);*/
+    color: var(--text-color);
+    background-color: var(--primary-color);
+    opacity: 0.8;
+    font-size: 22px;
     max-width: var(--max-image-width);
     position: relative;
     z-index: 10;
@@ -189,7 +202,29 @@ body * { text-align: center; } /* percolate to child elements */
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    word-break: break-word;
+    hyphens: auto;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    cursor: grab;
+}
+
+.draggable .taxon-name,
+.draggable .vernacular-name {
+    width: 100%;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.draggable .taxon-name {
+    font-style: italic;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.draggable .vernacular-name {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.8);
 }
 
 /* this doesn't seem to work: only recognized on iOS */
