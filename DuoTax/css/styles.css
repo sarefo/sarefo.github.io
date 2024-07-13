@@ -76,7 +76,9 @@ body * { text-align: center; } /* percolate to child elements */
     justify-content: space-around;
     align-items: center;
     width: 100%;
+    max-width: 500px; /* same as .image-container */
     position: relative;
+    margin: 4px auto;
 }
 
 .image-container {
@@ -151,7 +153,7 @@ body * { text-align: center; } /* percolate to child elements */
     fill: var(--primary-color);
 }
 #left-name-container, #right-name-container {
-    width: 400px;
+    width: 500px;
     margin: 4px;
     min-height: 60px;
 }
@@ -241,7 +243,7 @@ body * { text-align: center; } /* percolate to child elements */
 .bottom-button {
     background-color: var(--primary-color);
     color: var(--text-color);
-    font-size: 16px;
+    font-size: 20px;
     border: none;
     padding: 15px 32px;
     border-radius: var(--border-radius);
@@ -289,6 +291,7 @@ body * { text-align: center; } /* percolate to child elements */
     text-align: right;
     margin-right: 10px;
     font-weight: bold;
+    font-size: 18px;
     color: var(--counter-text-color);
 }
 #enter-pair-dialog input {
@@ -296,7 +299,7 @@ body * { text-align: center; } /* percolate to child elements */
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: 18px;
     color: var(--counter-text-color);
 }
 #enter-pair-dialog button {
@@ -306,12 +309,17 @@ body * { text-align: center; } /* percolate to child elements */
     padding: 10px 15px;
     border-radius: var(--border-radius);
     cursor: pointer;
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: bold;
     transition: background-color var(--transition-speed) ease;
 }
 #enter-pair-dialog button:hover {
     background-color: #5c8a00;
 }
+#enter-pair-dialog #close-dialog {
+    background-color: var(--primary-counter-color)
+}
+
 #dialog-message {
     color: var(--text-color);
     font-style: italic;
@@ -365,6 +373,8 @@ body * { text-align: center; } /* percolate to child elements */
     background-color: var(--primary-counter-color);
     border: none;
     border-radius: 5px;
+    font-size:16px;
+    font-weight: bold;
     cursor: pointer;
 }
 
@@ -411,7 +421,7 @@ body * { text-align: center; } /* percolate to child elements */
 
 .help-item p {
     margin: 0;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1.4;
     color: #333;
     text-align: left;
@@ -424,14 +434,17 @@ body * { text-align: center; } /* percolate to child elements */
     padding: 12px 24px;
     border-radius: 24px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
     transition: background-color var(--transition-speed) ease, transform 0.1s ease;
     margin-top: 24px;
     width: 100%;
 }
+#close-help-dialog {
+    background-color: var(--primary-counter-color);
+}
 
-#more-help-dialog:hover, #close-help-dialog:hover {
+#more-help-dialog:hover {
     background-color: #5c8a00;
 }
 
