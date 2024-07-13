@@ -18,7 +18,6 @@ export const elements = {
 // Game state
 /*export const gameState = {
     currentPair: null,
-    preloadedPair: null,
 };*/
 
 export const gameState = {
@@ -26,6 +25,7 @@ export const gameState = {
     isInitialLoad: true,
     hasLoadedFullSet: false,
     isPreloading: false,
+    preloadedPair: null,
     currentRound: {
         pair: null,
         imageOneURLs: [],

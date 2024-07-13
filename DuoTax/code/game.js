@@ -1,4 +1,3 @@
-// this snapshot is rather stable, but will take quite long at startup because it loads the whole image set.
 // Game functions
 
 import api from './api.js';
@@ -7,23 +6,33 @@ import {elements, gameState, updateGameState} from './state.js';
 import ui from './ui.js';
 import utils from './utils.js';
 
+const GameState = {
+    IDLE: 'IDLE',
+    LOADING: 'LOADING',
+    READY: 'READY',
+    PLAYING: 'PLAYING',
+    CHECKING: 'CHECKING',
+    PRELOADING: 'PRELOADING'
+};
+
 const game = {
-    nextSelectedPair: null,
-    currentRound: {
-        pair: null,
-        imageOneURLs: [],
-        imageTwoURLs: [],
-        imageOneVernacular: null,
-        imageTwoVernacular: null,
-        randomized: false
+    currentState: GameState.IDLE,
+
+    setState(newState) {
+        console.log(`Game state changing from ${this.currentState} to ${newState}`);
+        this.currentState = newState;
     },
-    preloadedPair: null,
-    isPreloadingPair: false,
-    isInitialLoad: true,
-    hasLoadedFullSet: false,
 
     async setupGame(newSession = false) {
+        if (this.currentState !== GameState.IDLE && this.currentState !== GameState.READY) {
+            console.log("Game is not in a state to start a new session");
+            return;
+        }
+
+        this.setState(GameState.LOADING);
+
         if (!await this.checkINaturalistReachability()) {
+            this.setState(GameState.IDLE);
             return;
         }
 
@@ -44,6 +53,7 @@ const game = {
             if (!gameState.currentTaxonImageCollection) {
                 console.error("Failed to initialize currentTaxonImageCollection");
                 ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
+                this.setState(GameState.IDLE);
                 return;
             }
 
@@ -51,12 +61,17 @@ const game = {
             await this.setupRound();
             this.finishSetup();
 
-            if (!gameState.preloadedTaxonImageCollection && !gameState.isPreloading) {
+            this.setState(GameState.PLAYING);
+
+            if (!gameState.preloadedTaxonImageCollection && this.currentState !== GameState.PRELOADING) {
+                this.setState(GameState.PRELOADING);
                 await this.preloadNextTaxonPair();
+                this.setState(GameState.PLAYING);
             }
         } catch (error) {
             console.error("Error setting up game:", error);
             ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
+            this.setState(GameState.IDLE);
         }
     },
 
@@ -122,6 +137,10 @@ const game = {
     },
 
     async preloadNextTaxonPair() {
+        if (this.currentState !== GameState.PRELOADING) {
+            console.log("Not in correct state to preload");
+            return;
+        }
         if (gameState.isPreloading) return;
         
         updateGameState({ isPreloading: true });
@@ -153,6 +172,7 @@ const game = {
         } finally {
             updateGameState({ isPreloading: false });
         }
+        this.setState(GameState.PLAYING);
     },
 
     prepareRound: async function(newPair) {
@@ -424,6 +444,14 @@ const game = {
     },
 
     async checkAnswer(droppedZoneId) {
+
+        if (this.currentState !== GameState.PLAYING) {
+            console.log("Cannot check answer when not in PLAYING state");
+            return;
+        }
+
+        this.setState(GameState.CHECKING);
+
         const dropOne = document.getElementById('drop-1');
         const dropTwo = document.getElementById('drop-2');
         const colorCorrect = config.overlayColors.green;
@@ -448,6 +476,7 @@ const game = {
                 ui.showOverlay('Correct!', colorCorrect);
                 await utils.sleep(2400);
                 ui.hideOverlay();
+                this.setState(GameState.LOADING);
                 await this.setupGame(false);  // Start a new round with the same taxon pair
             } else {
                 utils.resetDraggables();
