@@ -175,6 +175,7 @@
     --shadow-color: rgba(0, 0, 0, 0.1);
     --overlay-color: rgba(0, 0, 0, 0.3);
     --border-radius: 8px;
+    --max-image-width: 500px;
 /*    --transition-speed: 0.3s;*/
     --transition-speed: 0.3s;
 }
@@ -243,7 +244,9 @@ body * { text-align: center; } /* percolate to child elements */
     justify-content: space-around;
     align-items: center;
     width: 100%;
+    max-width: var(--max-image-width);
     position: relative;
+    margin: 4px auto;
 }
 
 .image-container {
@@ -252,7 +255,7 @@ body * { text-align: center; } /* percolate to child elements */
     margin: 4px;
     padding: 4px;
     width: calc(100% - 8px);
-    max-width: 500px;
+    max-width: var(--max-image-width);
     aspect-ratio: 1/1;
     position: relative;
     background-color: var(--counter-text-color);
@@ -318,7 +321,7 @@ body * { text-align: center; } /* percolate to child elements */
     fill: var(--primary-color);
 }
 #left-name-container, #right-name-container {
-    width: 400px;
+    width: var(--max-image-width);
     margin: 4px;
     min-height: 60px;
 }
@@ -337,9 +340,14 @@ body * { text-align: center; } /* percolate to child elements */
     position: relative;
     z-index: 10;
     touch-action: none;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .draggable:active {
     cursor: grabbing;
+    max-width: calc(var(--max-image-width)-50px);
 }
 .droppable .draggable {
     box-shadow: 0 0 0 2px white;/*, 0 0 10px 3px rgba(255, 255, 255, 0.7);*/
@@ -350,7 +358,8 @@ body * { text-align: center; } /* percolate to child elements */
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
-    width: 90%;
+    width: 80%;
+    max-width: calc(var(--max-image-width)-50px);
     pointer-events: none;
     height: 60px; /* Add a fixed height */
 }
@@ -2226,7 +2235,7 @@ export default utils;
 
 ==> ./version.js <==
 // version.js
-const version = '1.3.20';
+const version = '1.3.21';
 
 function updateVersion() {
     const noCacheFiles = document.querySelectorAll('link[rel="stylesheet"], link[rel="preload"], script[src], link[rel="manifest"]');
