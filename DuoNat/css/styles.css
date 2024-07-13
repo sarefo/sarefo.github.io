@@ -256,8 +256,8 @@ body * { text-align: center; } /* percolate to child elements */
     z-index: 10;
     width: 60%;
     max-width: calc(var(--max-image-width)-50px);
-    pointer-events: none;
     height: 60px; /* Add a fixed height */
+    pointer-events: none;
 }
 #image-container-1 .droppable { bottom: 10%; }
 #image-container-2 .droppable { top: 10%; }
@@ -295,7 +295,7 @@ body * { text-align: center; } /* percolate to child elements */
 #overlay.show { opacity: 1; }
 
 #overlay-message {
-    font-size: 36px;
+    font-size: 3em;
 /*    font-size: clamp(14px, 5vw, 36px);  not sure this is functional */
     font-weight: bold;
     color: var(--text-color);
