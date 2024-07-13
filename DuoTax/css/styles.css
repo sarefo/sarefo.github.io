@@ -8,7 +8,8 @@
     --shadow-color: rgba(0, 0, 0, 0.1);
     --overlay-color: rgba(0, 0, 0, 0.3);
     --border-radius: 8px;
-    --transition-speed: 0.3s;
+/*    --transition-speed: 0.3s;*/
+    --transition-speed: 0.6s;
 }
 
 body {
@@ -118,7 +119,7 @@ body * { text-align: center; } /* percolate to child elements */
     transition: opacity var(--transition-speed) ease;
 }
 .image-container img.loading {
-    opacity: 0.6;
+    opacity: 0.5;
     transition: opacity var(--transition-speed) ease;    
 }
 

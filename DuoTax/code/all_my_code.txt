@@ -634,7 +634,20 @@ const game = {
 
         try {
             if (newSession || !gameState.currentTaxonImageCollection) {
-                if (gameState.isInitialLoad) {
+                if (this.nextSelectedPair) {
+                    // Use the selected pair if available (from URL parameters or user selection)
+                    console.log("Using selected pair:", this.nextSelectedPair);
+                    updateGameState({
+                        currentTaxonImageCollection: {
+                            pair: this.nextSelectedPair,
+                            imageOneURLs: [],
+                            imageTwoURLs: [],
+                            imageOneVernacular: null,
+                            imageTwoVernacular: null
+                        }
+                    });
+                    this.nextSelectedPair = null; // Clear the selected pair
+                } else if (gameState.isInitialLoad) {
                     console.log("Performing quick load for initial session");
                     const quickLoadData = await this.quickLoadInitialImages();
                     updateGameState({
@@ -647,18 +660,6 @@ const game = {
                         },
                         isInitialLoad: false
                     });
-                } else if (this.nextSelectedPair) {
-                    // Use the selected pair if available
-                    updateGameState({
-                        currentTaxonImageCollection: {
-                            pair: this.nextSelectedPair,
-                            imageOneURLs: [],
-                            imageTwoURLs: [],
-                            imageOneVernacular: null,
-                            imageTwoVernacular: null
-                        }
-                    });
-                    this.nextSelectedPair = null; // Clear the selected pair
                 } else if (gameState.preloadedTaxonImageCollection) {
                     updateGameState({
                         currentTaxonImageCollection: gameState.preloadedTaxonImageCollection,

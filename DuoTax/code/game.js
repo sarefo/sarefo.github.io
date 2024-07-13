@@ -410,7 +410,11 @@ const game = {
             img.onload = () => {
                 imgElement.src = src;
                 imgElement.classList.remove('loading');
-                resolve();
+                // Add a slight delay before adding the 'loaded' class
+                setTimeout(() => {
+                    imgElement.classList.add('loaded');
+                    resolve();
+                }, 50); // 50ms delay to ensure the browser has time to apply the new src
             };
             img.src = src;
         });
