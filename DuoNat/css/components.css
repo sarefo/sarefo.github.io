@@ -258,7 +258,7 @@ dialog {
 
 #help-dialog .background-logo {
   position: absolute;
-  top: -18px;
+  top: -24px;
   left: 50%;
   transform: translateX(-50%);
   width: 20%;
@@ -295,7 +295,8 @@ dialog {
 .help-item svg {
     width: 24px;
     height: 24px;
-    fill: var(--primary-color);
+/*    fill: var(--primary-color); */
+    fill: var(--dark-neutral-color);
     flex-shrink: 0;
 }
 
@@ -303,8 +304,8 @@ dialog {
     margin: 0;
     font-size: 18px;
     line-height: 1.4;
-    color: #333;
-    text-align: left;
+    color: var(--dark-neutral-color);
+    text-align: center; /* TODO doesn't work */
 }
 
 #more-help-dialog, #discord-help-dialog, #close-help-dialog {
