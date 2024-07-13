@@ -11,6 +11,7 @@
     --max-image-width: 500px;
 /*    --transition-speed: 0.3s;*/
     --transition-speed: 0.3s;
+    /* images wobble when <80px */
     --center-min-height: 80px; /* consider relative to screen */
 }
 
@@ -423,6 +424,7 @@ body * { text-align: center; } /* percolate to child elements */
     border: none;
     border-radius: 5px;
     cursor: pointer;
+            font-size: 20px;
 }
 .taxon-pair-versus {
     color: #666;
@@ -436,7 +438,7 @@ body * { text-align: center; } /* percolate to child elements */
     background-color: var(--primary-counter-color);
     border: none;
     border-radius: 5px;
-    font-size:16px;
+    font-size:22px;
     font-weight: bold;
     cursor: pointer;
 }
