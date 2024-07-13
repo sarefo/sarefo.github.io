@@ -10,8 +10,76 @@ dialog {
   margin: 0;
 }
 
+/* Styles for button column on left main screen */
+.button-column {
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+}
+
+/* Remove the transform property */
+
+.button-column button, #help-button {
+    background-color: rgba(255, 255, 255, 0.6);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color var(--transition-speed) ease;
+}
+
+.button-column button:hover {
+    background-color: rgba(255, 255, 255, 1);
+}
+
+#share-button, #heart-button {
+    fill: var(--primary-color);
+}
+#trash-button {
+    fill: var(--primary-counter-color);
+}
+
+.button-column .icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* Add some responsiveness for smaller screens */
+@media (max-height: 400px) {
+    .button-column {
+        flex-direction: row;
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        justify-content: flex-end;
+    }
+}
+
+/* Styles for help button */
+#help-button {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+}
+
+#help-button svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--primary-color);
+    transition: fill var(--transition-speed) ease;
+}
+
 /* Styles for share button on main page */
-#share-button {
+/*#share-button {
     position: fixed;
     top: 10px;
     right: 10px;
@@ -33,7 +101,7 @@ dialog {
     height: 24px;
     fill: var(--primary-counter-color);
     transition: fill var(--transition-speed) ease;
-}
+}*/
 
 /* Styles for info buttons on images */
 .info-button {
@@ -173,31 +241,6 @@ dialog {
     font-size:22px;
     font-weight: bold;
     cursor: pointer;
-}
-
-/* Styles for help button */
-#help-button {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    background: rgba(255, 255, 255, 0.4);
-    border: none;
-    cursor: pointer;
-    z-index: 1000;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color var(--transition-speed) ease;
-}
-
-#help-button svg {
-    width: 24px;
-    height: 24px;
-    fill: var(--primary-counter-color);
-    transition: fill var(--transition-speed) ease;
 }
 
 /* Styles for help dialog */
