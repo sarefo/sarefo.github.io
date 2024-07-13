@@ -124,79 +124,79 @@ const ui = {
         });
     },
 
-initializeDraggables: function() {
-    const draggables = document.querySelectorAll('.draggable');
-    let draggedElement = null;
-    let originalRect = null;
+    initializeDraggables: function() {
+        const draggables = document.querySelectorAll('.draggable');
+        let draggedElement = null;
+        let originalRect = null;
 
-    draggables.forEach(draggable => {
-        draggable.addEventListener('mousedown', startDragging);
-        draggable.addEventListener('touchstart', startDragging, { passive: false });
-    });
+        draggables.forEach(draggable => {
+            draggable.addEventListener('mousedown', startDragging);
+            draggable.addEventListener('touchstart', startDragging, { passive: false });
+        });
 
-    document.addEventListener('mousemove', drag);
-    document.addEventListener('touchmove', drag, { passive: false });
-    document.addEventListener('mouseup', stopDragging);
-    document.addEventListener('touchend', stopDragging);
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('touchmove', drag, { passive: false });
+        document.addEventListener('mouseup', stopDragging);
+        document.addEventListener('touchend', stopDragging);
 
-    function startDragging(e) {
-        e.preventDefault(); // Prevent default to disable text selection
-        draggedElement = this;
-        draggedElement.classList.add('dragging');
-        
-        // Store the original position and size
-        originalRect = draggedElement.getBoundingClientRect();
-        
-        // Set initial position
-        const event = e.type.startsWith('touch') ? e.touches[0] : e;
-        
-        // Calculate offsets to center the element under the cursor/finger
-        const offsetX = originalRect.width / 2;
-        const offsetY = originalRect.height / 2;
-        
-        draggedElement.style.position = 'fixed';
-        draggedElement.style.zIndex = '1000';
-        draggedElement.style.width = `${originalRect.width}px`;
-        draggedElement.style.height = `${originalRect.height}px`;
-        
-        // Position the element centered under the cursor/finger
-        draggedElement.style.left = `${event.clientX - offsetX}px`;
-        draggedElement.style.top = `${event.clientY - offsetY}px`;
+        function startDragging(e) {
+            e.preventDefault(); // Prevent default to disable text selection
+            draggedElement = this;
+            draggedElement.classList.add('dragging');
+            
+            // Store the original position and size
+            originalRect = draggedElement.getBoundingClientRect();
+            
+            // Set initial position
+            const event = e.type.startsWith('touch') ? e.touches[0] : e;
+            
+            // Calculate offsets to center the element under the cursor/finger
+            const offsetX = originalRect.width / 2;
+            const offsetY = originalRect.height / 2;
+            
+            draggedElement.style.position = 'fixed';
+            draggedElement.style.zIndex = '1000';
+            draggedElement.style.width = `${originalRect.width}px`;
+            draggedElement.style.height = `${originalRect.height}px`;
+            
+            // Position the element centered under the cursor/finger
+            draggedElement.style.left = `${event.clientX - offsetX}px`;
+            draggedElement.style.top = `${event.clientY - offsetY}px`;
 
-        // Store offset for drag calculations
-        draggedElement.dataset.offsetX = offsetX;
-        draggedElement.dataset.offsetY = offsetY;
-    }
+            // Store offset for drag calculations
+            draggedElement.dataset.offsetX = offsetX;
+            draggedElement.dataset.offsetY = offsetY;
+        }
 
-    function drag(e) {
-        if (!draggedElement) return;
-        e.preventDefault();
+        function drag(e) {
+            if (!draggedElement) return;
+            e.preventDefault();
 
-        const event = e.type.startsWith('touch') ? e.touches[0] : e;
-        
-        // Use the stored offsets to keep the element centered
-        const x = event.clientX - draggedElement.dataset.offsetX;
-        const y = event.clientY - draggedElement.dataset.offsetY;
+            const event = e.type.startsWith('touch') ? e.touches[0] : e;
+            
+            // Use the stored offsets to keep the element centered
+            const x = event.clientX - draggedElement.dataset.offsetX;
+            const y = event.clientY - draggedElement.dataset.offsetY;
 
-        draggedElement.style.left = `${x}px`;
-        draggedElement.style.top = `${y}px`;
-    }
+            draggedElement.style.left = `${x}px`;
+            draggedElement.style.top = `${y}px`;
+        }
 
-    function stopDragging() {
-        if (!draggedElement) return;
+        function stopDragging() {
+            if (!draggedElement) return;
 
-        draggedElement.classList.remove('dragging');
-        draggedElement.style.position = '';
-        draggedElement.style.zIndex = '';
-        draggedElement.style.width = '';
-        draggedElement.style.height = '';
-        draggedElement.style.left = '';
-        draggedElement.style.top = '';
-        
-        draggedElement = null;
-        originalRect = null;
-    }
-},
+            draggedElement.classList.remove('dragging');
+            draggedElement.style.position = '';
+            draggedElement.style.zIndex = '';
+            draggedElement.style.width = '';
+            draggedElement.style.height = '';
+            draggedElement.style.left = '';
+            draggedElement.style.top = '';
+            
+            draggedElement = null;
+            originalRect = null;
+        }
+    },
 
 }; // const ui
 
