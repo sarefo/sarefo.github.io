@@ -124,79 +124,88 @@ const ui = {
         });
     },
 
-    initializeDraggables: function() {
+initializeDraggables: function () {
         const draggables = document.querySelectorAll('.draggable');
-        let draggedElement = null;
-        let originalRect = null;
+        const dropzones = document.querySelectorAll('.dropzone');
 
         draggables.forEach(draggable => {
-            draggable.addEventListener('mousedown', startDragging);
-            draggable.addEventListener('touchstart', startDragging, { passive: false });
+            draggable.addEventListener('mousedown', dragStart);
+            draggable.addEventListener('touchstart', dragStart, { passive: false });
         });
 
-        document.addEventListener('mousemove', drag);
-        document.addEventListener('touchmove', drag, { passive: false });
-        document.addEventListener('mouseup', stopDragging);
-        document.addEventListener('touchend', stopDragging);
+        function dragStart(e) {
+            e.preventDefault();
+            if (e.type === 'touchstart') {
+                initialX = e.touches[0].clientX - this.getBoundingClientRect().left;
+                initialY = e.touches[0].clientY - this.getBoundingClientRect().top;
+            } else {
+                initialX = e.clientX - this.getBoundingClientRect().left;
+                initialY = e.clientY - this.getBoundingClientRect().top;
+            }
 
-        function startDragging(e) {
-            e.preventDefault(); // Prevent default to disable text selection
-            draggedElement = this;
-            draggedElement.classList.add('dragging');
-            
-            // Store the original position and size
-            originalRect = draggedElement.getBoundingClientRect();
-            
-            // Set initial position
-            const event = e.type.startsWith('touch') ? e.touches[0] : e;
-            
-            // Calculate offsets to center the element under the cursor/finger
-            const offsetX = originalRect.width / 2;
-            const offsetY = originalRect.height / 2;
-            
-            draggedElement.style.position = 'fixed';
-            draggedElement.style.zIndex = '1000';
-            draggedElement.style.width = `${originalRect.width}px`;
-            draggedElement.style.height = `${originalRect.height}px`;
-            
-            // Position the element centered under the cursor/finger
-            draggedElement.style.left = `${event.clientX - offsetX}px`;
-            draggedElement.style.top = `${event.clientY - offsetY}px`;
-
-            // Store offset for drag calculations
-            draggedElement.dataset.offsetX = offsetX;
-            draggedElement.dataset.offsetY = offsetY;
+            this.classList.add('dragging');
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('touchmove', drag, { passive: false });
+            document.addEventListener('mouseup', dragEnd);
+            document.addEventListener('touchend', dragEnd);
         }
 
         function drag(e) {
-            if (!draggedElement) return;
             e.preventDefault();
+            const currentDraggable = document.querySelector('.dragging');
+            if (!currentDraggable) return;
 
-            const event = e.type.startsWith('touch') ? e.touches[0] : e;
-            
-            // Use the stored offsets to keep the element centered
-            const x = event.clientX - draggedElement.dataset.offsetX;
-            const y = event.clientY - draggedElement.dataset.offsetY;
+            let currentX, currentY;
+            if (e.type === 'touchmove') {
+                currentX = e.touches[0].clientX - initialX;
+                currentY = e.touches[0].clientY - initialY;
+            } else {
+                currentX = e.clientX - initialX;
+                currentY = e.clientY - initialY;
+            }
 
-            draggedElement.style.left = `${x}px`;
-            draggedElement.style.top = `${y}px`;
+            currentDraggable.style.transform = `translate(${currentX}px, ${currentY}px)`;
         }
 
-        function stopDragging() {
-            if (!draggedElement) return;
+        function dragEnd(e) {
+            const currentDraggable = document.querySelector('.dragging');
+            if (!currentDraggable) return;
 
-            draggedElement.classList.remove('dragging');
-            draggedElement.style.position = '';
-            draggedElement.style.zIndex = '';
-            draggedElement.style.width = '';
-            draggedElement.style.height = '';
-            draggedElement.style.left = '';
-            draggedElement.style.top = '';
-            
-            draggedElement = null;
-            originalRect = null;
+            document.removeEventListener('mousemove', drag);
+            document.removeEventListener('touchmove', drag);
+            document.removeEventListener('mouseup', dragEnd);
+            document.removeEventListener('touchend', dragEnd);
+
+            currentDraggable.classList.remove('dragging');
+
+            let dropzone = null;
+            dropzones.forEach(zone => {
+                const rect = zone.getBoundingClientRect();
+                const draggableRect = currentDraggable.getBoundingClientRect();
+                if (
+                    draggableRect.left + draggableRect.width / 2 > rect.left &&
+                    draggableRect.left + draggableRect.width / 2 < rect.right &&
+                    draggableRect.top + draggableRect.height / 2 > rect.top &&
+                    draggableRect.top + draggableRect.height / 2 < rect.bottom
+                ) {
+                    dropzone = zone;
+                }
+            });
+
+            if (dropzone) {
+                dropzone.appendChild(currentDraggable);
+                currentDraggable.style.transform = 'none';
+                checkAnswer();
+            } else {
+                // If not dropped in a valid dropzone, revert to original position
+                currentDraggable.style.transition = 'transform 0.3s ease-out';
+                currentDraggable.style.transform = 'translate(0, 0)';
+                setTimeout(() => {
+                    currentDraggable.style.transition = '';
+                }, 300);
+            }
         }
-    },
+    }
 
 }; // const ui
 

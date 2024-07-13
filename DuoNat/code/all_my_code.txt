@@ -2260,79 +2260,109 @@ const ui = {
         });
     },
 
-initializeDraggables: function() {
-    const draggables = document.querySelectorAll('.draggable');
-    let draggedElement = null;
-    let originalRect = null;
+    initializeDraggables: function() {
+        const draggables = document.querySelectorAll('.draggable');
+        let draggedElement = null;
+        let originalRect = null;
+        let offsetX, offsetY;
 
-    draggables.forEach(draggable => {
-        draggable.addEventListener('mousedown', startDragging);
-        draggable.addEventListener('touchstart', startDragging, { passive: false });
-    });
+        draggables.forEach(draggable => {
+            draggable.addEventListener('mousedown', startDragging);
+            draggable.addEventListener('touchstart', startDragging, { passive: false });
+        });
 
-    document.addEventListener('mousemove', drag);
-    document.addEventListener('touchmove', drag, { passive: false });
-    document.addEventListener('mouseup', stopDragging);
-    document.addEventListener('touchend', stopDragging);
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('touchmove', drag, { passive: false });
+        document.addEventListener('mouseup', stopDragging);
+        document.addEventListener('touchend', stopDragging);
 
-    function startDragging(e) {
-        e.preventDefault(); // Prevent default to disable text selection
-        draggedElement = this;
-        draggedElement.classList.add('dragging');
-        
-        // Store the original position and size
-        originalRect = draggedElement.getBoundingClientRect();
-        
-        // Set initial position
-        const event = e.type.startsWith('touch') ? e.touches[0] : e;
-        
-        // Calculate offsets to center the element under the cursor/finger
-        const offsetX = originalRect.width / 2;
-        const offsetY = originalRect.height / 2;
-        
-        draggedElement.style.position = 'fixed';
-        draggedElement.style.zIndex = '1000';
-        draggedElement.style.width = `${originalRect.width}px`;
-        draggedElement.style.height = `${originalRect.height}px`;
-        
-        // Position the element centered under the cursor/finger
-        draggedElement.style.left = `${event.clientX - offsetX}px`;
-        draggedElement.style.top = `${event.clientY - offsetY}px`;
+        function startDragging(e) {
+            e.preventDefault();
+            draggedElement = this;
+            draggedElement.classList.add('dragging');
+            
+            originalRect = draggedElement.getBoundingClientRect();
+            
+            const event = e.type.startsWith('touch') ? e.touches[0] : e;
+            
+            offsetX = event.clientX - originalRect.left;
+            offsetY = event.clientY - originalRect.top;
+            
+            draggedElement.style.position = 'fixed';
+            draggedElement.style.zIndex = '1000';
+            draggedElement.style.width = `${originalRect.width}px`;
+            draggedElement.style.height = `${originalRect.height}px`;
+            
+            updatePosition(event);
+        }
 
-        // Store offset for drag calculations
-        draggedElement.dataset.offsetX = offsetX;
-        draggedElement.dataset.offsetY = offsetY;
-    }
+        function drag(e) {
+            if (!draggedElement) return;
+            e.preventDefault();
+            const event = e.type.startsWith('touch') ? e.touches[0] : e;
+            updatePosition(event);
+        }
 
-    function drag(e) {
-        if (!draggedElement) return;
-        e.preventDefault();
+        function updatePosition(event) {
+            const x = event.clientX - offsetX;
+            const y = event.clientY - offsetY;
+            draggedElement.style.left = `${x}px`;
+            draggedElement.style.top = `${y}px`;
+        }
 
-        const event = e.type.startsWith('touch') ? e.touches[0] : e;
-        
-        // Use the stored offsets to keep the element centered
-        const x = event.clientX - draggedElement.dataset.offsetX;
-        const y = event.clientY - draggedElement.dataset.offsetY;
+        function stopDragging(e) {
+            if (!draggedElement) return;
 
-        draggedElement.style.left = `${x}px`;
-        draggedElement.style.top = `${y}px`;
-    }
+            const dropZones = document.querySelectorAll('.image-container');
+            let droppedInZone = false;
+            let droppedZoneId = null;
 
-    function stopDragging() {
-        if (!draggedElement) return;
+            dropZones.forEach(zone => {
+                const rect = zone.getBoundingClientRect();
+                const event = e.type.startsWith('touch') ? e.changedTouches[0] : e;
+                
+                if (event.clientX >= rect.left && event.clientX <= rect.right &&
+                    event.clientY >= rect.top && event.clientY <= rect.bottom) {
+                    const dropZone = zone.querySelector('div[id^="drop-"]');
+                    if (dropZone) {
+                        dropZone.innerHTML = '';
+                        dropZone.appendChild(draggedElement);
+                        droppedInZone = true;
+                        droppedZoneId = dropZone.id;
+                    }
+                }
+            });
 
-        draggedElement.classList.remove('dragging');
-        draggedElement.style.position = '';
-        draggedElement.style.zIndex = '';
-        draggedElement.style.width = '';
-        draggedElement.style.height = '';
-        draggedElement.style.left = '';
-        draggedElement.style.top = '';
-        
-        draggedElement = null;
-        originalRect = null;
-    }
-},
+            if (!droppedInZone) {
+                // Return to original container if not dropped in a valid zone
+                const originalContainer = draggedElement.id === 'left-name' ? 'left-name-container' : 'right-name-container';
+                document.getElementById(originalContainer).appendChild(draggedElement);
+            } else {
+                // If dropped in a zone, move the other draggable to the other zone
+                const otherDraggableId = draggedElement.id === 'left-name' ? 'right-name' : 'left-name';
+                const otherDraggable = document.getElementById(otherDraggableId);
+                const otherDropZone = document.querySelector(`.image-container div[id^="drop-"]:not(#${droppedZoneId})`);
+                if (otherDropZone) {
+                    otherDropZone.innerHTML = '';
+                    otherDropZone.appendChild(otherDraggable);
+                }
+
+                // Call checkAnswer immediately after dropping
+                game.checkAnswer(droppedZoneId);
+            }
+
+            draggedElement.classList.remove('dragging');
+            draggedElement.style.position = '';
+            draggedElement.style.zIndex = '';
+            draggedElement.style.width = '';
+            draggedElement.style.height = '';
+            draggedElement.style.left = '';
+            draggedElement.style.top = '';
+            
+            draggedElement = null;
+            originalRect = null;
+        }
+    },
 
 }; // const ui
 
@@ -2400,7 +2430,7 @@ export default utils;
 
 ==> ./version.js <==
 // version.js
-const version = '1.3.28';
+const version = '1.3.29';
 
 function updateVersion() {
     const noCacheFiles = document.querySelectorAll('link[rel="stylesheet"], link[rel="preload"], script[src], link[rel="manifest"]');
