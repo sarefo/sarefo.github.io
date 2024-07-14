@@ -1,3 +1,4 @@
+// DEBUG revert to here
 // iNat API
 
 const api = (() => {
@@ -24,33 +25,43 @@ const api = (() => {
             }
         },
 
-        // fetch random image of taxon from iNat
-        fetchRandomImage: async function (taxonName) {
-            const images = await this.fetchMultipleImages(taxonName, 1);
-            return images.length > 0 ? images[0] : null;
-        },
+    fetchRandomImage: async function (taxonName) {
+        console.log(`Fetching random image for ${taxonName}`);
+        const images = await this.fetchMultipleImages(taxonName, 12); // Fetch 12 images instead of 1
+        if (images.length === 0) {
+            console.error(`No images found for ${taxonName}`);
+            return null;
+        }
+        const randomIndex = Math.floor(Math.random() * images.length);
+        const result = images[randomIndex];
+        console.log(`Fetched random image for ${taxonName}: ${result}`);
+        return result;
+    },
 
-        fetchMultipleImages: async function (taxonName, count = 12) {
-            try {
-                const searchResponse = await fetch(`https://api.inaturalist.org/v1/taxa?q=${taxonName}`);
-                const searchData = await searchResponse.json();
-                if (searchData.results.length === 0) { throw new Error('Taxon not found'); }
-                const taxonId = searchData.results[0].id;
-                
-                const taxonResponse = await fetch(`https://api.inaturalist.org/v1/taxa/${taxonId}`);
-                const taxonData = await taxonResponse.json();
-                if (taxonData.results.length === 0) { throw new Error('No details found for the taxon'); }
-                const taxon = taxonData.results[0];
-                
-                let images = taxon.taxon_photos.map(photo => photo.photo.url.replace('square', 'medium'));
-                
-                // If we don't have enough images, we'll just return what we have
-                return images.slice(0, Math.min(count, images.length));
-            } catch (error) {
-                console.error(error);
-                return [];
-            }
-        },
+    fetchMultipleImages: async function (taxonName, count = 12) {
+        console.log(`Fetching ${count} images for ${taxonName}`);
+        try {
+            const searchResponse = await fetch(`https://api.inaturalist.org/v1/taxa?q=${taxonName}`);
+            const searchData = await searchResponse.json();
+            if (searchData.results.length === 0) { throw new Error('Taxon not found'); }
+            const taxonId = searchData.results[0].id;
+            
+            const taxonResponse = await fetch(`https://api.inaturalist.org/v1/taxa/${taxonId}`);
+            const taxonData = await taxonResponse.json();
+            if (taxonData.results.length === 0) { throw new Error('No details found for the taxon'); }
+            const taxon = taxonData.results[0];
+            
+            let images = taxon.taxon_photos.map(photo => photo.photo.url.replace('square', 'medium'));
+            
+            // If we don't have enough images, we'll just return what we have
+            const result = images.slice(0, Math.min(count, images.length));
+            console.log(`Fetched ${result.length} images for ${taxonName}`);
+            return result;
+        } catch (error) {
+            console.error(`Error fetching images for ${taxonName}:`, error);
+            return [];
+        }
+    },
 
         // fetch vernacular name of taxon from iNat
         fetchVernacular: async function (taxonName) {
