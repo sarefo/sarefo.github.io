@@ -68,6 +68,9 @@
     {"taxon1":"Anisoptera", "taxon2":"Zygoptera"},
     {"taxon1":"Syrphidae", "taxon2":"Vespoidea"},
     {"taxon1":"Synanthedon", "taxon2":"Vespoidea"},
+    {"taxon1":"Erthesina fullo", "taxon2":"Halyomorpha halys"},
+    {"taxon1":"Halyomorpha halys", "taxon2":"Rhaphigaster nebulosa"},
+    {"taxon1":"Dindymus sanguineus", "taxon2":"Antilochus nigripes"},
 
     {"taxon1":"Formicidae", "taxon2":"Myrmarachnini"},
     {"taxon1":"Formicinae", "taxon2":"Myrmicinae"},
