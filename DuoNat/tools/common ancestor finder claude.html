@@ -117,27 +117,27 @@
             const links = [];
 
             async function addTaxonToGraph(taxon, ancestorIds) {
-                let currentId = taxon.id;
-                nodes.set(currentId, { id: currentId, name: taxon.name, rank: taxon.rank });
-                
-                for (let i = ancestorIds.length - 1; i >= 0; i--) {
-                    const parentId = ancestorIds[i];
-                    if (parentId === commonAncestorId) {
-                        if (!nodes.has(parentId)) {
-                            const parentData = await fetchTaxonData(parentId);
-                            nodes.set(parentId, { id: parentId, name: parentData.name, rank: parentData.rank });
-                        }
-                        links.push({ source: parentId, target: currentId });
-                        break;
-                    }
-                    if (!nodes.has(parentId)) {
-                        const parentData = await fetchTaxonData(parentId);
-                        nodes.set(parentId, { id: parentId, name: parentData.name, rank: parentData.rank });
-                    }
-                    links.push({ source: parentId, target: currentId });
-                    currentId = parentId;
-                }
+    let currentId = taxon.id;
+    nodes.set(currentId, { id: currentId, name: taxon.name, rank: taxon.rank });
+    
+    for (let i = ancestorIds.length - 1; i >= 0; i--) {
+        const parentId = ancestorIds[i];
+        if (parentId === commonAncestorId) {
+            if (!nodes.has(parentId)) {
+                const parentData = await fetchTaxonData(parentId);
+                nodes.set(parentId, { id: parentId, name: parentData.name, rank: parentData.rank });
             }
+            links.push({ source: parentId, target: currentId });
+            break;  // Stop here, don't go further up the hierarchy
+        }
+        if (!nodes.has(parentId)) {
+            const parentData = await fetchTaxonData(parentId);
+            nodes.set(parentId, { id: parentId, name: parentData.name, rank: parentData.rank });
+        }
+        links.push({ source: parentId, target: currentId });
+        currentId = parentId;
+    }
+}
 
             await addTaxonToGraph(taxon1, taxon1.ancestor_ids);
             await addTaxonToGraph(taxon2, taxon2.ancestor_ids);
