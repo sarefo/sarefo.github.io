@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taxa Common Ancestor Finder</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/graphlib/2.1.8/graphlib.min.js"></script>
+    <style>
+        .node circle {
+            fill: #999;
+        }
+
+        .node text {
+            font: 10px sans-serif;
+            text-anchor: middle;
+        }
+
+        .link {
+            fill: none;
+            stroke: #555;
+            stroke-width: 1.5px;
+        }
+
+        svg {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Taxa Common Ancestor Finder</h1>
+    <input type="text" id="taxon1" placeholder="Enter first taxon ID or name">
+    <input type="text" id="taxon2" placeholder="Enter second taxon ID or name">
+    <button onclick="findCommonAncestor()">Find Common Ancestor</button>
+
+    <div id="result"></div>
+    <svg width="960" height="600"></svg>
+
+    <script>
+        async function getTaxonHierarchy(taxonInput) {
+            // Fetch taxon information
+            let taxonResponse = await fetch(`https://api.inaturalist.org/v1/taxa?q=${encodeURIComponent(taxonInput)}`);
+            let taxonData = await taxonResponse.json();
+
+            if (!taxonData.results || taxonData.results.length === 0) {
+                throw new Error(`Taxon ${taxonInput} not found.`);
+            }
+
+            let taxon = taxonData.results[0];
+            let ancestryIds = taxon.ancestry.split('/');
+            let hierarchy = [];
+
+            // Fetch each ancestor in the ancestry
+            for (let id of ancestryIds) {
+                let ancestorResponse = await fetch(`https://api.inaturalist.org/v1/taxa/${id}`);
+                let ancestorData = await ancestorResponse.json();
+                hierarchy.push(ancestorData.results[0]);
+            }
+
+            hierarchy.push(taxon);  // Add the original taxon at the end of the hierarchy
+            return hierarchy;
+        }
+
+        function findCommonAncestor() {
+            let taxon1Input = document.getElementById('taxon1').value;
+            let taxon2Input = document.getElementById('taxon2').value;
+
+            Promise.all([getTaxonHierarchy(taxon1Input), getTaxonHierarchy(taxon2Input)])
+                .then(([hierarchy1, hierarchy2]) => {
+                    let commonAncestor = null;
+                    for (let taxon1 of hierarchy1) {
+                        for (let taxon2 of hierarchy2) {
+                            if (taxon1.id === taxon2.id) {
+                                commonAncestor = taxon1;
+                                break;
+                            }
+                        }
+                        if (commonAncestor) break;
+                    }
+
+                    let resultDiv = document.getElementById('result');
+                    if (commonAncestor) {
+                        resultDiv.innerHTML = `Common Ancestor: ${commonAncestor.name} (${commonAncestor.rank})`;
+                    } else {
+                        resultDiv.innerHTML = 'No common ancestor found.';
+                    }
+
+                    visualizeHierarchy(hierarchy1, hierarchy2, commonAncestor);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function visualizeHierarchy(hierarchy1, hierarchy2, commonAncestor) {
+            const svg = d3.select("svg"),
+                  width = +svg.attr("width"),
+                  height = +svg.attr("height");
+
+            svg.selectAll("*").remove(); // Clear previous visualization
+
+            const graph = new graphlib.Graph();
+
+            const addHierarchyToGraph = (hierarchy, className) => {
+                for (let i = 0; i < hierarchy.length; i++) {
+                    const node = hierarchy[i];
+                    graph.setNode(node.id, { label: node.name, className });
+                    if (i > 0) {
+                        graph.setEdge(hierarchy[i - 1].id, node.id);
+                    }
+                }
+            };
+
+            addHierarchyToGraph(hierarchy1, 'taxon1');
+            addHierarchyToGraph(hierarchy2, 'taxon2');
+
+            if (commonAncestor) {
+                graph.setNode(commonAncestor.id, { label: commonAncestor.name, className: 'common' });
+            }
+
+            const layout = d3.layout.tree().size([width, height]);
+            const nodes = layout.nodes(graph);
+            const links = layout.links(nodes);
+
+            const link = svg.selectAll(".link")
+                .data(links)
+                .enter().append("line")
+                .attr("class", "link")
+                .attr("x1", d => d.source.x)
+                .attr("y1", d => d.source.y)
+                .attr("x2", d => d.target.x)
+                .attr("y2", d => d.target.y);
+
+            const node = svg.selectAll(".node")
+                .data(nodes)
+                .enter().append("g")
+                .attr("class", d => `node ${d.className}`)
+                .attr("transform", d => `translate(${d.x},${d.y})`);
+
+            node.append("circle").attr("r", 5);
+            node.append("text").attr("dy", ".35em").text(d => d.label);
+        }
+    </script>
+</body>
+</html>
