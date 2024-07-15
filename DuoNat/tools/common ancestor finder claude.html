@@ -25,14 +25,7 @@
             width: 800px;
             height: 600px;
             border: 2px solid #ccc;
-            background-color: #f0f0f0;
-        }
-        .node text {
-            font-size: 12px;
-        }
-        .link {
-            stroke: #999;
-            stroke-opacity: 0.6;
+            background-color: #f9f9f9;
         }
     </style>
 </head>
@@ -117,27 +110,27 @@
             const links = [];
 
             async function addTaxonToGraph(taxon, ancestorIds) {
-    let currentId = taxon.id;
-    nodes.set(currentId, { id: currentId, name: taxon.name, rank: taxon.rank });
-    
-    for (let i = ancestorIds.length - 1; i >= 0; i--) {
-        const parentId = ancestorIds[i];
-        if (parentId === commonAncestorId) {
-            if (!nodes.has(parentId)) {
-                const parentData = await fetchTaxonData(parentId);
-                nodes.set(parentId, { id: parentId, name: parentData.name, rank: parentData.rank });
+                let currentId = taxon.id;
+                nodes.set(currentId, { id: currentId, name: taxon.name, rank: taxon.rank });
+                
+                for (let i = ancestorIds.length - 1; i >= 0; i--) {
+                    const parentId = ancestorIds[i];
+                    if (parentId === commonAncestorId) {
+                        links.push({ source: parentId, target: currentId });
+                        if (!nodes.has(parentId)) {
+                            const parentData = await fetchTaxonData(parentId);
+                            nodes.set(parentId, { id: parentId, name: parentData.name, rank: parentData.rank });
+                        }
+                        break;
+                    }
+                    if (!nodes.has(parentId)) {
+                        const parentData = await fetchTaxonData(parentId);
+                        nodes.set(parentId, { id: parentId, name: parentData.name, rank: parentData.rank });
+                    }
+                    links.push({ source: parentId, target: currentId });
+                    currentId = parentId;
+                }
             }
-            links.push({ source: parentId, target: currentId });
-            break;  // Stop here, don't go further up the hierarchy
-        }
-        if (!nodes.has(parentId)) {
-            const parentData = await fetchTaxonData(parentId);
-            nodes.set(parentId, { id: parentId, name: parentData.name, rank: parentData.rank });
-        }
-        links.push({ source: parentId, target: currentId });
-        currentId = parentId;
-    }
-}
 
             await addTaxonToGraph(taxon1, taxon1.ancestor_ids);
             await addTaxonToGraph(taxon2, taxon2.ancestor_ids);
@@ -168,18 +161,17 @@
                 .force("y", d3.forceY(height / 2).strength(0.1));
 
             const link = svg.append("g")
-                .attr("class", "links")
                 .selectAll("line")
                 .data(graph.links)
                 .enter().append("line")
-                .attr("class", "link");
+                .attr("stroke", "#999")
+                .attr("stroke-opacity", 0.6)
+                .attr("stroke-width", 2);
 
             const node = svg.append("g")
-                .attr("class", "nodes")
                 .selectAll("g")
                 .data(graph.nodes)
                 .enter().append("g")
-                .attr("class", "node")
                 .call(d3.drag()
                     .on("start", dragstarted)
                     .on("drag", dragged)
@@ -190,9 +182,10 @@
                 .attr("fill", d => d.id === graph.nodes[0].id || d.id === graph.nodes[1].id ? "#ff7f0e" : "#1f77b4");
 
             node.append("text")
-                .attr("dy", -10)
-                .attr("text-anchor", "middle")
-                .text(d => d.name);
+                .text(d => d.name)
+                .attr('x', 8)
+                .attr('y', 3)
+                .style("font-size", "12px");
 
             simulation.on("tick", () => {
                 link
@@ -224,7 +217,7 @@
 
             // Zoom functionality
             const zoom = d3.zoom()
-                .scaleExtent([0.1, 4])
+                .scaleExtent([0.1, 10])
                 .on("zoom", zoomed);
 
             svg.call(zoom);

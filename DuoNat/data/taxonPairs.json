@@ -156,6 +156,9 @@
 
     {"taxon1":"Fromia monilis", "taxon2":"Fromia heffernani"},
 
+    {"taxon1":"Amanita virosa", "taxon2":"Agaricus campestris"},
+    {"taxon1":"Gyromitra ", "taxon2":"Morchella esculenta"},
+
     {"taxon1":"Magnoliopsida", "taxon2":"Liliopsida"},
     {"taxon1":"Solanum nigrum", "taxon2":"Solanum americanum"},
     {"taxon1":"Psychotria serpens", "taxon2":"Ficus pumila"},
