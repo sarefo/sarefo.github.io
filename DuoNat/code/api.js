@@ -38,6 +38,43 @@ const api = (() => {
         return result;
     },
 
+    fetchImageMetadata: async function (taxonName, count = 12) {
+        console.log(`Fetching metadata for ${count} images of ${taxonName}`);
+        try {
+            const searchResponse = await fetch(`https://api.inaturalist.org/v1/taxa?q=${taxonName}`);
+            const searchData = await searchResponse.json();
+            if (searchData.results.length === 0) { throw new Error('Taxon not found'); }
+            const taxonId = searchData.results[0].id;
+            
+            const taxonResponse = await fetch(`https://api.inaturalist.org/v1/taxa/${taxonId}`);
+            const taxonData = await taxonResponse.json();
+            if (taxonData.results.length === 0) { throw new Error('No details found for the taxon'); }
+            const taxon = taxonData.results[0];
+            
+            let images = taxon.taxon_photos.map(photo => photo.photo.url.replace('square', 'medium'));
+            
+            const result = images.slice(0, Math.min(count, images.length));
+            console.log(`Fetched metadata for ${result.length} images of ${taxonName}`);
+            return result;
+        } catch (error) {
+            console.error(`Error fetching image metadata for ${taxonName}:`, error);
+            return [];
+        }
+    },
+
+    fetchRandomImageMetadata: async function (taxonName) {
+        console.log(`Fetching random image metadata for ${taxonName}`);
+        const images = await this.fetchImageMetadata(taxonName, 12); // Fetch metadata for 12 images
+        if (images.length === 0) {
+            console.error(`No image metadata found for ${taxonName}`);
+            return null;
+        }
+        const randomIndex = Math.floor(Math.random() * images.length);
+        const result = images[randomIndex];
+        console.log(`Selected random image metadata for ${taxonName}: ${result}`);
+        return result;
+    },
+
     fetchMultipleImages: async function (taxonName, count = 12) {
         console.log(`Fetching ${count} images for ${taxonName}`);
         try {

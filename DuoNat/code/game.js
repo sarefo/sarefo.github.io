@@ -221,14 +221,14 @@ const game = {
 
         // Use preloaded images if available, otherwise fetch new ones
         if (this.preloadedImages.taxon1.length > 0 && this.preloadedImages.taxon2.length > 0) {
-            console.log("Using preloaded images for current round");
+            console.log("Using preloaded image metadata for current round");
             imageOneURL = this.preloadedImages.taxon1.pop();
             imageTwoURL = this.preloadedImages.taxon2.pop();
         } else {
-            console.log("Fetching new random images for current round");
+            console.log("Fetching new random image metadata for current round");
             [imageOneURL, imageTwoURL] = await Promise.all([
-                api.fetchRandomImage(pair.taxon1),
-                api.fetchRandomImage(pair.taxon2)
+                api.fetchRandomImageMetadata(pair.taxon1),
+                api.fetchRandomImageMetadata(pair.taxon2)
             ]);
         }
 
@@ -236,7 +236,6 @@ const game = {
         const rightImageSrc = randomized ? imageTwoURL : imageOneURL;
 
         await this.loadImages(leftImageSrc, rightImageSrc);
-
         // Set the observation URLs
         this.currentObservationURLs.imageOne = this.getObservationURLFromImageURL(leftImageSrc);
         this.currentObservationURLs.imageTwo = this.getObservationURLFromImageURL(rightImageSrc);
@@ -272,44 +271,44 @@ const game = {
         this.preloadImagesForCurrentPair();
     },
 
-    async preloadImagesForCurrentPair() {
-      const { pair } = gameState.currentTaxonImageCollection;
-      console.log("Starting to preload images for next round");
-      
-      try {
+async preloadImagesForCurrentPair() {
+    const { pair } = gameState.currentTaxonImageCollection;
+    console.log("Starting to preload images for next round");
+    
+    try {
         const [newImageOneURL, newImageTwoURL] = await Promise.all([
-          api.fetchRandomImage(pair.taxon1),
-          api.fetchRandomImage(pair.taxon2)
+            api.fetchRandomImageMetadata(pair.taxon1),
+            api.fetchRandomImageMetadata(pair.taxon2)
         ]);
         
         await Promise.all([
-          this.preloadImage(newImageOneURL),
-          this.preloadImage(newImageTwoURL)
+            this.preloadImage(newImageOneURL),
+            this.preloadImage(newImageTwoURL)
         ]);
         
         this.preloadedImages.taxon1 = [newImageOneURL];
         this.preloadedImages.taxon2 = [newImageTwoURL];
         
         console.log("Finished preloading images for next round");
-      } catch (error) {
+    } catch (error) {
         console.error("Error preloading images:", error);
-      }
-    },
+    }
+},
 
-    preloadImage: function (url) {
-      return new Promise((resolve, reject) => {
+preloadImage(url) {
+    return new Promise((resolve, reject) => {
         const img = new Image();
         img.onload = () => {
-          console.log(`Image fully loaded: ${url}`);
-          resolve(url);
+            console.log(`Image fully loaded: ${url}`);
+            resolve(url);
         };
         img.onerror = () => {
-          console.error(`Failed to load image: ${url}`);
-          reject(url);
+            console.error(`Failed to load image: ${url}`);
+            reject(url);
         };
         img.src = url;
-      });
-    },
+    });
+},
 
     async preloadNextTaxonPair() {
         if (this.currentState !== GameState.PRELOADING_BACKGROUND) {
