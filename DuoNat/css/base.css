@@ -136,30 +136,33 @@ body * { text-align: center; } /* percolate to child elements */
 
 /* Styles for draggable name tiles */
 .draggable {
+    position: relative;
+    box-sizing: border-box;
+    z-index: 10;
+
     flex: 1;
-    flex-direction: column;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    padding: 10px;
+    padding: 2px;
     border-radius: var(--border-radius);
     width: 100%;
-    max-width: var(--max-image-width);
+/*    max-width: var(--max-image-width);*/
     min-height: var(--center-min-height);
+
     color: var(--text-color);
     background-color: var(--primary-color);
     opacity: 0.8;
     font-size: 22px;
-    position: relative;
-    z-index: 10;
     touch-action: none;
-    box-sizing: border-box;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     word-break: break-word;
     hyphens: auto;
+
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     cursor: grab;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -179,11 +182,9 @@ body * { text-align: center; } /* percolate to child elements */
     font-style: italic;
     font-weight: bold;
     margin-bottom: 4px;
+    font-size: 0.9em;
 }
 
-.draggable .taxon-name {
-    font-size: 1em;
-}
 .draggable .vernacular-name {
     font-size: 20px;
     font-size: 0.8em;
@@ -298,3 +299,25 @@ opacity: 0.8;
     color: var(--counter-text-color);
 }
 
+@media (max-width: 320px) {
+    .name-pair {
+        flex-direction: column;
+    }
+
+    #left-name-container, #right-name-container {
+        flex-basis: 100%;
+    }
+
+    .draggable {
+        padding: 4px;
+        min-height: 60px;
+    }
+
+    .draggable .taxon-name {
+        font-size: 0.8em;
+    }
+
+    .draggable .vernacular-name {
+        font-size: 0.7em;
+    }
+}
