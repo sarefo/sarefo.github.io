@@ -20,6 +20,8 @@
     {"taxon1":"Columbidae", "taxon2":"Corvidae"},
 
     {"taxon1":"Platax teira", "taxon2":"Platax orbicularis"},
+    {"taxon1":"Platax boersii", "taxon2":"Platax orbicularis"},
+    {"taxon1":"Platax teira", "taxon2":"Platax boersii"},
     {"taxon1":"Ostracion meleagris", "taxon2":"Ostracion solorense"},
     {"taxon1":"Coradion chrysozonus", "taxon2":"Chelmon rostratus"},
     {"taxon1":"Chaetodon vagabundus", "taxon2":"Chaetodon lunulatus"},
@@ -157,7 +159,7 @@
     {"taxon1":"Fromia monilis", "taxon2":"Fromia heffernani"},
 
     {"taxon1":"Amanita virosa", "taxon2":"Agaricus campestris"},
-    {"taxon1":"Gyromitra ", "taxon2":"Morchella esculenta"},
+    {"taxon1":"Gyromitra ", "taxon2":"Morchella"},
 
     {"taxon1":"Magnoliopsida", "taxon2":"Liliopsida"},
     {"taxon1":"Solanum nigrum", "taxon2":"Solanum americanum"},

@@ -4,6 +4,7 @@
 import api from './api.js';
 import config from './config.js';
 import {elements, gameState, updateGameState, GameState} from './state.js';
+import preloader from './preloader.js';
 import ui from './ui.js';
 import utils from './utils.js';
 
@@ -83,7 +84,7 @@ const game = {
             ui.hideOverlay();
 
             // Start preloading for the next session
-            this.preloadForNextRoundOrSession();
+            preloader.preloadNextPair();
         } catch (error) {
             console.error("Error setting up game:", error);
             ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
@@ -117,30 +118,6 @@ const game = {
         ]);
         
         return { newImageOneURL, newImageTwoURL };
-    },
-
-    async preloadForNextRoundOrSession() {
-        if (!gameState.preloadedTaxonImageCollection) {
-            console.log("Preloading for next session");
-            const newPair = await this.selectTaxonPair();
-            console.log(`Selected new pair for preloading: ${newPair.taxon1}, ${newPair.taxon2}`);
-            const [imageOneURL, imageTwoURL] = await Promise.all([
-                api.fetchRandomImage(newPair.taxon1),
-                api.fetchRandomImage(newPair.taxon2)
-            ]);
-            
-            console.log(`Preloaded images for next session: ${imageOneURL}, ${imageTwoURL}`);
-            
-            updateGameState({
-                preloadedTaxonImageCollection: {
-                    pair: newPair,
-                    imageOneURLs: [imageOneURL],
-                    imageTwoURLs: [imageTwoURL],
-                    imageOneVernacular: null,
-                    imageTwoVernacular: null
-                }
-            });
-        }
     },
 
     async initializeOrUpdateTaxonImageCollection(newSession) {
@@ -187,46 +164,6 @@ const game = {
         }
     },
 
-    async preloadNextTaxonPairInBackground() {
-        if (this.currentState !== GameState.PLAYING) {
-            console.log("Not in correct state to preload");
-            return;
-        }
-
-        if (gameState.isPreloading) return;
-        
-        updateGameState({ isPreloading: true });
-        console.log("Starting to preload next pair in the background");
-
-        try {
-            const newPair = await this.selectTaxonPair();
-            console.log(`Preloading images for taxon pair: ${newPair.taxon1} and ${newPair.taxon2}`);
-            const [imageOneURLs, imageTwoURLs, imageOneVernacular, imageTwoVernacular] = await Promise.all([
-                api.fetchMultipleImages(newPair.taxon1),
-                api.fetchMultipleImages(newPair.taxon2),
-                api.fetchVernacular(newPair.taxon1),
-                api.fetchVernacular(newPair.taxon2)
-            ]);
-
-            updateGameState({
-                preloadedTaxonImageCollection: {
-                    pair: newPair,
-                    imageOneURLs,
-                    imageTwoURLs,
-                    imageOneVernacular,
-                    imageTwoVernacular
-                }
-            });
-
-            await this.preloadImages(imageOneURLs.concat(imageTwoURLs));
-            console.log("Finished preloading next pair");
-        } catch (error) {
-            console.error("Error preloading next pair:", error);
-        } finally {
-            updateGameState({ isPreloading: false });
-        }
-    },
-
     async loadCurrentTaxonImageCollection() {
         if (!gameState.currentTaxonImageCollection || !gameState.currentTaxonImageCollection.pair) {
             console.error("currentTaxonImageCollection or its pair is null");
@@ -254,7 +191,7 @@ const game = {
             }
         });
 
-        await this.preloadImages(imageOneURLs.slice(0, MAX_IMAGES).concat(imageTwoURLs.slice(0, MAX_IMAGES)));
+        await preloader.preloadImages(imageOneURLs.slice(0, MAX_IMAGES).concat(imageTwoURLs.slice(0, MAX_IMAGES)));
     },
 
     async setupRound() {
@@ -336,7 +273,7 @@ const game = {
                 }
             });
 
-            await this.preloadImages(imageOneURLs.concat(imageTwoURLs));
+            await preloader.preloadImages(imageOneURLs.concat(imageTwoURLs));
             console.log("Finished preloading next pair");
         } catch (error) {
             console.error("Error preloading next pair:", error);
@@ -405,28 +342,8 @@ const game = {
             this.currentRound.imageOneVernacular = imageOneVernacular;
             this.currentRound.imageTwoVernacular = imageTwoVernacular;
 
-            await this.preloadImages(imageOneURLs.concat(imageTwoURLs));
+            await preloader.preloadImages(imageOneURLs.concat(imageTwoURLs));
         }
-    },
-
-    preloadImages: async function(urls) {
-        console.log(`Starting to preload ${urls.length} images`);
-        const preloadPromises = urls.map(url => {
-            return new Promise((resolve, reject) => {
-                const img = new Image();
-                img.onload = () => {
-                    console.log(`Preloaded image: ${url}`);
-                    resolve();
-                };
-                img.onerror = () => {
-                    console.error(`Failed to preload image: ${url}`);
-                    reject();
-                };
-                img.src = url;
-            });
-        });
-        await Promise.all(preloadPromises);
-        console.log("Finished preloading all images");
     },
 
     renderCurrentRound: async function () {
@@ -476,7 +393,7 @@ const game = {
         console.log(`Fetched ${imageOneURLs.length} images for ${pair.taxon1} and ${imageTwoURLs.length} images for ${pair.taxon2}`);
 
         // Preload all fetched images
-        await this.preloadImages(imageOneURLs.concat(imageTwoURLs));
+        await preloader.preloadImages(imageOneURLs.concat(imageTwoURLs));
         console.log("in preloadPair: Finished preloading images for next pair");
 
         return { pair, imageOneURLs, imageTwoURLs, imageOneVernacular, imageTwoVernacular, randomized: Math.random() < 0.5 };
