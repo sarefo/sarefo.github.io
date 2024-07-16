@@ -179,15 +179,13 @@ Also, this is a long-term project. Whenever you notice that something would make
 ### Main screen layout
 + currently, the main screen is optimized for Pixel 6a phones. It should also display cleanly on smaller phones, such as iPhone 7. There should be a different display mode for widescreen displays, which ranges from laptop screens to small phone screens. During widescreen display, the images should be on the left and the right, with the name tiles between them, one above the other.
 + the text on the taxon name buttons should be nicely layouted and fully visible. There's always a taxon name, and often there's a vernacular name too. If there is no vernacular name, the taxon name should use the whole space available for both of them.
++ here's a problem I'm currently struggling with: I want the name buttons to be in the center between the top and bottom image. when the space allows, I want the two buttons next to each other. The text on both should ideally be fully visible. After the screen size gets small enough, I want the left button to be on top of the right one. This is kind of the already existing behavior, but it's not working properly. how can we design a robust CSS system that does this elegantly?
 
 ### Cache problems
 + I currently have some functionality at the beginning of index.html to increase the version number, for cache busting
 + however, the version number needs to be manually incremented for this to work. not a big deal, but I sometimes forget, and then need to push to github again just for this
 + I kind of suspect that cache problems might be to blame for SVG icons not always loading properly from the ./images/icons.svg file
     + I checked the file, and it's fine. I could not figure out what the problem with the loading was, also not with the help of Claude.
-
-### Ugly startup
-+ Right now, when the app starts up, especially on slower connections, the app looks like a skeleton of a web page. For example there are empty image containers with that ugly little html placeholder image and so on. It would be better to have a clean startup display that lasts until the main screen is fully loaded.
 
 ### Dragging not pretty
 + The name tiles look different on different systems (Windows, Android). Also the layout should be roughly the same when resting, being dragged, and after being dropped. The dragging behavior is the problem here. I tried to improve it using Claude, but the Javascript code that seems to be necessary lead to super-buggy behavior.
