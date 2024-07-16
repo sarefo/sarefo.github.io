@@ -102,8 +102,8 @@ const ui = {
         elements.overlay.classList.remove('show');
     },
 
-    scrollToTop: function () {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    scrollToTop: () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     },
 
     showINatDownDialog: function () {

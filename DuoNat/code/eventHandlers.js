@@ -173,8 +173,8 @@ const eventHandlers = {
 
     handleImageInteraction(event) {
         if (!event) return;  // handle cases where event is undefined
-        const diffX = Math.abs(this.touchStartX - (event.clientX || event.changedTouches[0].clientX));
-        const diffY = Math.abs(this.touchStartY - (event.clientY || event.changedTouches[0].clientY));
+//        const diffX = Math.abs(this.touchStartX - (event.clientX || event.changedTouches[0].clientX));
+//        const diffY = Math.abs(this.touchStartY - (event.clientY || event.changedTouches[0].clientY));
         // Add any specific image interaction logic here
     },
 
