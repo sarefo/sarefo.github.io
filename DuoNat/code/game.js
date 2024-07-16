@@ -11,6 +11,11 @@ import utils from './utils.js';
 const game = {
     nextSelectedPair: null,
     currentState: GameState.IDLE,
+    preloadedPair: null,
+    preloadedImages: {
+        taxon1: [],
+        taxon2: []
+    },
 
     currentObservationURLs: {
         imageOne: null,
@@ -40,6 +45,9 @@ const game = {
 
     async setupGame(newSession = false) {
         if (newSession) {
+            this.preloadedImages = { taxon1: [], taxon2: [] };
+        }
+        if (newSession) {
             console.log("Starting new session, resetting state");
             this.setState(GameState.IDLE);
         }
@@ -61,19 +69,24 @@ const game = {
         this.prepareUIForLoading();
 
         try {
+            let newTaxonImageCollection;
             if (newSession || !gameState.currentTaxonImageCollection) {
                 if (this.nextSelectedPair) {
                     console.log("Using selected pair:", this.nextSelectedPair);
-                    await this.initializeNewTaxonPair(this.nextSelectedPair);
+                    newTaxonImageCollection = await this.initializeNewTaxonPair(this.nextSelectedPair);
                     this.nextSelectedPair = null;
-                } else if (gameState.preloadedTaxonImageCollection) {
-                    updateGameState({
-                        currentTaxonImageCollection: gameState.preloadedTaxonImageCollection,
-                        preloadedTaxonImageCollection: null
-                    });
+                } else if (this.preloadedPair) {
+                    console.log("Using preloaded pair");
+                    newTaxonImageCollection = this.preloadedPair;
+                    this.preloadedPair = null;
                 } else {
-                    await this.initializeNewTaxonPair();
+                    newTaxonImageCollection = await this.initializeNewTaxonPair();
                 }
+                
+                // Update the gameState with the new collection
+                updateGameState({
+                    currentTaxonImageCollection: newTaxonImageCollection
+                });
             }
             
             await this.setupRound();
@@ -84,12 +97,20 @@ const game = {
             ui.hideOverlay();
 
             // Start preloading for the next session
-            preloader.preloadNextPair();
+            this.preloadNextPair();
         } catch (error) {
             console.error("Error setting up game:", error);
             ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
             this.setState(GameState.IDLE);
         }
+    },
+
+    async preloadNextPair() {
+        if (this.preloadedPair) return; // Don't preload if we already have a preloaded pair
+
+        console.log("Starting to preload next pair");
+        this.preloadedPair = await this.initializeNewTaxonPair();
+        console.log("Finished preloading next pair");
     },
 
     async initializeNewTaxonPair(pair = null) {
@@ -99,15 +120,13 @@ const game = {
             api.fetchRandomImage(newPair.taxon2)
         ]);
         
-        updateGameState({
-            currentTaxonImageCollection: {
-                pair: newPair,
-                imageOneURLs: [imageOneURL],
-                imageTwoURLs: [imageTwoURL],
-                imageOneVernacular: null,
-                imageTwoVernacular: null
-            }
-        });
+        return {
+            pair: newPair,
+            imageOneURL,
+            imageTwoURL,
+            imageOneVernacular: null,
+            imageTwoVernacular: null
+        };
     },
 
     async getNewRandomImagesForCurrentPair() {
@@ -198,15 +217,23 @@ const game = {
         const { pair } = gameState.currentTaxonImageCollection;
         const randomized = Math.random() < 0.5;
 
-        // Fetch new random images for this round
-        console.log("Fetching new random images for current round");
-        const [newImageOneURL, newImageTwoURL] = await Promise.all([
-            api.fetchRandomImage(pair.taxon1),
-            api.fetchRandomImage(pair.taxon2)
-        ]);
+        let imageOneURL, imageTwoURL;
 
-        const leftImageSrc = randomized ? newImageOneURL : newImageTwoURL;
-        const rightImageSrc = randomized ? newImageTwoURL : newImageOneURL;
+        // Use preloaded images if available, otherwise fetch new ones
+        if (this.preloadedImages.taxon1.length > 0 && this.preloadedImages.taxon2.length > 0) {
+            console.log("Using preloaded images for current round");
+            imageOneURL = this.preloadedImages.taxon1.pop();
+            imageTwoURL = this.preloadedImages.taxon2.pop();
+        } else {
+            console.log("Fetching new random images for current round");
+            [imageOneURL, imageTwoURL] = await Promise.all([
+                api.fetchRandomImage(pair.taxon1),
+                api.fetchRandomImage(pair.taxon2)
+            ]);
+        }
+
+        const leftImageSrc = randomized ? imageOneURL : imageTwoURL;
+        const rightImageSrc = randomized ? imageTwoURL : imageOneURL;
 
         await this.loadImages(leftImageSrc, rightImageSrc);
 
@@ -231,15 +258,57 @@ const game = {
             taxonImageTwo: randomized ? pair.taxon2 : pair.taxon1,
             currentRound: {
                 pair,
-                imageOneURL: newImageOneURL,
-                imageTwoURL: newImageTwoURL,
+                imageOneURL,
+                imageTwoURL,
                 imageOneVernacular: leftVernacular,
                 imageTwoVernacular: rightVernacular,
                 randomized
             }
         });
 
-        console.log(`New images for this round: ${newImageOneURL}, ${newImageTwoURL}`);
+        console.log(`Images for this round: ${imageOneURL}, ${imageTwoURL}`);
+
+        // Preload images for the next round
+        this.preloadImagesForCurrentPair();
+    },
+
+    async preloadImagesForCurrentPair() {
+      const { pair } = gameState.currentTaxonImageCollection;
+      console.log("Starting to preload images for next round");
+      
+      try {
+        const [newImageOneURL, newImageTwoURL] = await Promise.all([
+          api.fetchRandomImage(pair.taxon1),
+          api.fetchRandomImage(pair.taxon2)
+        ]);
+        
+        await Promise.all([
+          this.preloadImage(newImageOneURL),
+          this.preloadImage(newImageTwoURL)
+        ]);
+        
+        this.preloadedImages.taxon1 = [newImageOneURL];
+        this.preloadedImages.taxon2 = [newImageTwoURL];
+        
+        console.log("Finished preloading images for next round");
+      } catch (error) {
+        console.error("Error preloading images:", error);
+      }
+    },
+
+    preloadImage: function (url) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => {
+          console.log(`Image fully loaded: ${url}`);
+          resolve(url);
+        };
+        img.onerror = () => {
+          console.error(`Failed to load image: ${url}`);
+          reject(url);
+        };
+        img.src = url;
+      });
     },
 
     async preloadNextTaxonPair() {

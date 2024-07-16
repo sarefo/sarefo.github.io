@@ -69,6 +69,7 @@ const preloader = {
         await Promise.all(preloadPromises);
         console.log("Finished preloading all images");
     }
+
 };
 
 export default preloader;
