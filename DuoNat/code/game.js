@@ -1,4 +1,3 @@
-// DEBUG revert to here 15:00
 // Game functions
 
 import api from './api.js';
@@ -27,20 +26,12 @@ const game = {
         this.currentState = newState;
     },
 
-    async quickLoadInitialImages() {
-        try {
-            console.log("Starting quick load of initial images");
-            const initialPair = await this.selectTaxonPair();
-            const [imageOneURL, imageTwoURL] = await Promise.all([
-                api.fetchRandomImage(initialPair.taxon1),
-                api.fetchRandomImage(initialPair.taxon2)
-            ]);
-            console.log("Quick load completed successfully");
-            return { initialPair, imageOneURL, imageTwoURL };
-        } catch (error) {
-            console.error("Error during quick load of initial images:", error);
-            throw error;
-        }
+    showLoadingScreen: function() {
+        document.getElementById('loading-screen').style.display = 'flex';
+    },
+
+    hideLoadingScreen: function() {
+        document.getElementById('loading-screen').style.display = 'none';
     },
 
     async setupGame(newSession = false) {
@@ -91,6 +82,15 @@ const game = {
             
             await this.setupRound();
             this.finishSetup();
+
+            if (gameState.isInitialLoad) {
+                this.hideLoadingScreen();
+                updateGameState({ isInitialLoad: false });
+            }
+
+            this.setState(GameState.PLAYING);
+            console.log("Game setup complete. Current state:", this.currentState);
+
             this.setState(GameState.PLAYING);
             console.log("Game setup complete. Current state:", this.currentState);
 
@@ -102,6 +102,10 @@ const game = {
             console.error("Error setting up game:", error);
             ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
             this.setState(GameState.IDLE);
+            if (gameState.isInitialLoad) {
+                this.hideLoadingScreen();
+                updateGameState({ isInitialLoad: false });
+            }
         }
     },
 
@@ -137,50 +141,6 @@ const game = {
         ]);
         
         return { newImageOneURL, newImageTwoURL };
-    },
-
-    async initializeOrUpdateTaxonImageCollection(newSession) {
-        if (newSession || !gameState.currentTaxonImageCollection) {
-            if (this.nextSelectedPair) {
-                console.log("Using selected pair:", this.nextSelectedPair);
-                updateGameState({
-                    currentTaxonImageCollection: {
-                        pair: this.nextSelectedPair,
-                        imageOneURLs: [],
-                        imageTwoURLs: [],
-                        imageOneVernacular: null,
-                        imageTwoVernacular: null
-                    }
-                });
-                this.nextSelectedPair = null; // Clear the selected pair
-            } else if (gameState.isInitialLoad) {
-                console.log("Performing quick load for initial session");
-                const quickLoadData = await this.quickLoadInitialImages();
-                updateGameState({
-                    currentTaxonImageCollection: {
-                        pair: quickLoadData.initialPair,
-                        imageOneURLs: [quickLoadData.imageOneURL],
-                        imageTwoURLs: [quickLoadData.imageTwoURL],
-                        imageOneVernacular: null,
-                        imageTwoVernacular: null
-                    },
-                    isInitialLoad: false
-                });
-            } else if (gameState.preloadedTaxonImageCollection) {
-                updateGameState({
-                    currentTaxonImageCollection: gameState.preloadedTaxonImageCollection,
-                    preloadedTaxonImageCollection: null
-                });
-            } else {
-                await this.loadNewTaxonPair();
-            }
-
-            if (!gameState.currentTaxonImageCollection) {
-                console.error("Failed to initialize currentTaxonImageCollection");
-                throw new Error("Failed to initialize currentTaxonImageCollection");
-            }
-            await this.loadCurrentTaxonImageCollection();
-        }
     },
 
     async loadCurrentTaxonImageCollection() {
@@ -271,238 +231,43 @@ const game = {
         this.preloadImagesForCurrentPair();
     },
 
-async preloadImagesForCurrentPair() {
-    const { pair } = gameState.currentTaxonImageCollection;
-    console.log("Starting to preload images for next round");
-    
-    try {
-        const [newImageOneURL, newImageTwoURL] = await Promise.all([
-            api.fetchRandomImageMetadata(pair.taxon1),
-            api.fetchRandomImageMetadata(pair.taxon2)
-        ]);
+    async preloadImagesForCurrentPair() {
+        const { pair } = gameState.currentTaxonImageCollection;
+        console.log("Starting to preload images for next round");
         
-        await Promise.all([
-            this.preloadImage(newImageOneURL),
-            this.preloadImage(newImageTwoURL)
-        ]);
-        
-        this.preloadedImages.taxon1 = [newImageOneURL];
-        this.preloadedImages.taxon2 = [newImageTwoURL];
-        
-        console.log("Finished preloading images for next round");
-    } catch (error) {
-        console.error("Error preloading images:", error);
-    }
-},
-
-preloadImage(url) {
-    return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.onload = () => {
-            console.log(`Image fully loaded: ${url}`);
-            resolve(url);
-        };
-        img.onerror = () => {
-            console.error(`Failed to load image: ${url}`);
-            reject(url);
-        };
-        img.src = url;
-    });
-},
-
-    async preloadNextTaxonPair() {
-        if (this.currentState !== GameState.PRELOADING_BACKGROUND) {
-            console.log("Not in correct state to preload");
-            return;
-        }
-
-        if (gameState.isPreloading) return;
-        
-        updateGameState({ isPreloading: true });
-        console.log("Starting to preload next pair in the background");
-
         try {
-            const newPair = await this.selectTaxonPair();
-            console.log(`Preloading images for taxon pair: ${newPair.taxon1} and ${newPair.taxon2}`);
-            const [imageOneURLs, imageTwoURLs, imageOneVernacular, imageTwoVernacular] = await Promise.all([
-                api.fetchMultipleImages(newPair.taxon1),
-                api.fetchMultipleImages(newPair.taxon2),
-                api.fetchVernacular(newPair.taxon1),
-                api.fetchVernacular(newPair.taxon2)
+            const [newImageOneURL, newImageTwoURL] = await Promise.all([
+                api.fetchRandomImageMetadata(pair.taxon1),
+                api.fetchRandomImageMetadata(pair.taxon2)
             ]);
-
-            updateGameState({
-                preloadedTaxonImageCollection: {
-                    pair: newPair,
-                    imageOneURLs,
-                    imageTwoURLs,
-                    imageOneVernacular,
-                    imageTwoVernacular
-                }
-            });
-
-            await preloader.preloadImages(imageOneURLs.concat(imageTwoURLs));
-            console.log("Finished preloading next pair");
+            
+            await Promise.all([
+                this.preloadImage(newImageOneURL),
+                this.preloadImage(newImageTwoURL)
+            ]);
+            
+            this.preloadedImages.taxon1 = [newImageOneURL];
+            this.preloadedImages.taxon2 = [newImageTwoURL];
+            
+            console.log("Finished preloading images for next round");
         } catch (error) {
-            console.error("Error preloading next pair:", error);
-        } finally {
-            updateGameState({ isPreloading: false });
-        }
-        if (this.currentState === GameState.PRELOADING_BACKGROUND) {
-            this.setState(GameState.PLAYING);
+            console.error("Error preloading images:", error);
         }
     },
 
-    prepareRound: async function(newPair) {
-        console.log("Preparing new round, newPair:", newPair);
-        if (newPair || !this.currentRound.pair) {
-            if (gameState.preloadedPair) {
-                console.log("Using preloaded pair");
-                this.currentRound = gameState.preloadedPair;
-                this.currentRound.randomized = Math.random() < 0.5;
-            } else {
-                console.log("No preloaded pair available, fetching new pair");
-                await this.fetchNewPair();
-            }
-
-            // Fetch vernacular names if they're not already preloaded
-            if (!this.currentRound.imageOneVernacular || !this.currentRound.imageTwoVernacular) {
-                console.log("Fetching vernacular names for current pair");
-                [this.currentRound.imageOneVernacular, this.currentRound.imageTwoVernacular] = await Promise.all([
-                    api.fetchVernacular(this.currentRound.pair.taxon1),
-                    api.fetchVernacular(this.currentRound.pair.taxon2)
-                ]);
-            }
-        } else {
-            console.log("Reusing current pair with new randomization");
-            this.currentRound.randomized = Math.random() < 0.5;
-        }
-        console.log("Round preparation complete", this.currentRound);
-    },
-
-    fetchNewPair: async function() {
-        const newPair = await this.selectTaxonPair();
-        this.currentRound = {
-            pair: newPair,
-            imageOneURLs: [],
-            imageTwoURLs: [],
-            imageOneVernacular: null,
-            imageTwoVernacular: null,
-            randomized: Math.random() < 0.5
-        };
-        
-        console.log("Fetching images for new pair");
-        await this.fetchRoundData();
-    },
-
-    fetchRoundData: async function () {
-        if (this.currentRound.imageOneURLs.length === 0 || this.currentRound.imageTwoURLs.length === 0) {
-            const { taxon1, taxon2 } = this.currentRound.pair;
-            const [imageOneURLs, imageTwoURLs, imageOneVernacular, imageTwoVernacular] = await Promise.all([
-                api.fetchMultipleImages(taxon1),
-                api.fetchMultipleImages(taxon2),
-                api.fetchVernacular(taxon1),
-                api.fetchVernacular(taxon2)
-            ]);
-
-            this.currentRound.imageOneURLs = imageOneURLs;
-            this.currentRound.imageTwoURLs = imageTwoURLs;
-            this.currentRound.imageOneVernacular = imageOneVernacular;
-            this.currentRound.imageTwoVernacular = imageTwoVernacular;
-
-            await preloader.preloadImages(imageOneURLs.concat(imageTwoURLs));
-        }
-    },
-
-    renderCurrentRound: async function () {
-        console.log("Rendering current round");
-        const { pair, imageOneURLs, imageTwoURLs, imageOneVernacular, imageTwoVernacular, randomized } = this.currentRound;
-
-        // Select random images from preloaded arrays
-        let leftImageSrc = randomized ? 
-            imageOneURLs[Math.floor(Math.random() * imageOneURLs.length)] :
-            imageTwoURLs[Math.floor(Math.random() * imageTwoURLs.length)];
-        let rightImageSrc = randomized ?
-            imageTwoURLs[Math.floor(Math.random() * imageTwoURLs.length)] :
-            imageOneURLs[Math.floor(Math.random() * imageOneURLs.length)];
-
-        console.log("Selected images:", { leftImageSrc, rightImageSrc });
-
-        // Set image sources without displaying them yet
-        elements.imageOne.src = '';
-        elements.imageTwo.src = '';
-
-        const leftName = randomized ? pair.taxon1 : pair.taxon2;
-        const rightName = randomized ? pair.taxon2 : pair.taxon1;
-        const leftVernacular = randomized ? imageOneVernacular : imageTwoVernacular;
-        const rightVernacular = randomized ? imageTwoVernacular : imageOneVernacular;
-
-        this.setupNameTilesUI(leftName, rightName, leftVernacular, rightVernacular);
-
-        gameState.taxonImageOne = randomized ? pair.taxon1 : pair.taxon2;
-        gameState.taxonImageTwo = randomized ? pair.taxon2 : pair.taxon1;
-        gameState.taxonLeftName = leftName;
-        gameState.taxonRightName = rightName;
-
-        // Load images without changing their positions
-        await this.loadImages(leftImageSrc, rightImageSrc);
-        console.log("Finished rendering current round");
-    },
-
-    preloadPair: async function () {
-        const pair = await this.selectTaxonPair();
-        console.log("in preloadPair: Selected next pair for preloading:", pair);
-        const [imageOneURLs, imageTwoURLs, imageOneVernacular, imageTwoVernacular] = await Promise.all([
-            api.fetchMultipleImages(pair.taxon1),
-            api.fetchMultipleImages(pair.taxon2),
-            api.fetchVernacular(pair.taxon1),
-            api.fetchVernacular(pair.taxon2)
-        ]);
-        console.log(`Fetched ${imageOneURLs.length} images for ${pair.taxon1} and ${imageTwoURLs.length} images for ${pair.taxon2}`);
-
-        // Preload all fetched images
-        await preloader.preloadImages(imageOneURLs.concat(imageTwoURLs));
-        console.log("in preloadPair: Finished preloading images for next pair");
-
-        return { pair, imageOneURLs, imageTwoURLs, imageOneVernacular, imageTwoVernacular, randomized: Math.random() < 0.5 };
-    },
-
-    loadNewRound: async function () {
-        if (gameState.preloadedPair) {
-            this.currentRound = {
-                pair: gameState.preloadedPair.pair,
-                imageOneURL: gameState.preloadedPair.imageOneURL,
-                imageTwoURL: gameState.preloadedPair.imageTwoURL,
-                imageOneVernacular: null,
-                imageTwoVernacular: null,
-                randomized: Math.random() < 0.5
+    preloadImage(url) {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = () => {
+                console.log(`Image fully loaded: ${url}`);
+                resolve(url);
             };
-        } else {
-            const newPair = await this.selectTaxonPair();
-            this.currentRound = {
-                pair: newPair,
-                imageOneURL: null,
-                imageTwoURL: null,
-                imageOneVernacular: null,
-                imageTwoVernacular: null,
-                randomized: Math.random() < 0.5
+            img.onerror = () => {
+                console.error(`Failed to load image: ${url}`);
+                reject(url);
             };
-            await this.fetchRoundData();
-        }
-
-        // Fetch vernacular names
-        [this.currentRound.imageOneVernacular, this.currentRound.imageTwoVernacular] = await Promise.all([
-            api.fetchVernacular(this.currentRound.pair.taxon1),
-            api.fetchVernacular(this.currentRound.pair.taxon2)
-        ]);
-
-        // Start preloading the next pair
-        gameState.preloadedPair = await this.preloadPair();
-    },
-
-    refreshCurrentRound: async function () {
-        this.currentRound.randomized = Math.random() < 0.5;
-        await this.fetchRoundData();
+            img.src = url;
+        });
     },
 
     loadImages: async function(leftImageSrc, rightImageSrc) {
@@ -561,50 +326,6 @@ preloadImage(url) {
         });
     },
 
-    // Core gameplay functions
-    setupImages: async function() {
-        let randomizeImages = Math.random() < 0.5;
-        gameState.taxonImageOne = randomizeImages ? gameState.currentPair.taxon1 : gameState.currentPair.taxon2;
-        gameState.taxonImageTwo = randomizeImages ? gameState.currentPair.taxon2 : gameState.currentPair.taxon1;
-
-        const [imageOneVernacular, imageTwoVernacular] = await Promise.all([
-            api.fetchVernacular(gameState.taxonImageOne),
-            api.fetchVernacular(gameState.taxonImageTwo)
-        ]);
-
-        const [imageOneURL, imageTwoURL] = await Promise.all([
-            api.fetchRandomImage(gameState.taxonImageOne),
-            api.fetchRandomImage(gameState.taxonImageTwo)
-        ]);
-
-        await this.loadImages(imageOneURL, imageTwoURL);
-
-        return {
-            imageData: {
-                imageOneVernacular,
-                imageTwoVernacular,
-                imageOneURL,
-                imageTwoURL
-            },
-            randomizeImages
-        };
-    },
-
-    setupNameTiles: function(imageData, randomizeImages) {
-        const { taxon1, taxon2 } = gameState.currentPair;
-        
-        gameState.taxonImageOne = randomizeImages ? taxon1 : taxon2;
-        gameState.taxonImageTwo = randomizeImages ? taxon2 : taxon1;
-        
-        gameState.taxonLeftName = randomizeImages ? taxon1 : taxon2;
-        gameState.taxonRightName = randomizeImages ? taxon2 : taxon1;
-
-        let leftNameVernacular = randomizeImages ? imageData.imageOneVernacular : imageData.imageTwoVernacular;
-        let rightNameVernacular = randomizeImages ? imageData.imageTwoVernacular : imageData.imageOneVernacular;
-
-        this.setupNameTilesUI(gameState.taxonLeftName, gameState.taxonRightName, leftNameVernacular, rightNameVernacular);
-    },
-
     async checkAnswer(droppedZoneId) {
         console.log("Checking answer. Current state:", this.currentState);
         
@@ -651,12 +372,6 @@ preloadImage(url) {
         } else {
             console.log("Incomplete answer. Returning to PLAYING state.");
             this.setState(GameState.PLAYING);
-        }
-    },
-
-    async waitForPreloadingComplete() {
-        while (this.currentState === GameState.PRELOADING_BACKGROUND) {
-            await utils.sleep(100);
         }
     },
 
