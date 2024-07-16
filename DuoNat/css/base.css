@@ -21,7 +21,7 @@
     --max-image-width: 500px;
     --transition-speed: 0.3s;
     /* images wobble when <80px */
-    --center-min-height: 80px; /* consider relative to screen */
+    --center-min-height: 60px; /* consider relative to screen */
 }
 
 /* Main containers */
@@ -128,6 +128,7 @@ body * { text-align: center; } /* percolate to child elements */
     display: flex;
     flex-basis: 100%;
     flex: 1 1 calc(50% - 4px);
+    max-width: 100%;
     min-width: 200px; /*adjust as needed for horizontal/vertical flip*/
 /*    width: var(--max-image-width);*/
     margin: 0px;
@@ -146,7 +147,7 @@ body * { text-align: center; } /* percolate to child elements */
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    padding: 2px;
+    padding: 6px;
     border-radius: var(--border-radius);
     width: 100%;
 /*    max-width: var(--max-image-width);*/
@@ -182,12 +183,12 @@ body * { text-align: center; } /* percolate to child elements */
     font-style: italic;
     font-weight: bold;
     margin-bottom: 4px;
-    font-size: 0.9em;
+    font-size: 0.85em;
 }
 
 .draggable .vernacular-name {
     font-size: 20px;
-    font-size: 0.8em;
+    font-size: 0.75em;
     color: rgba(255, 255, 255, 0.8);
 }
 
@@ -299,25 +300,3 @@ opacity: 0.8;
     color: var(--counter-text-color);
 }
 
-@media (max-width: 320px) {
-    .name-pair {
-        flex-direction: column;
-    }
-
-    #left-name-container, #right-name-container {
-        flex-basis: 100%;
-    }
-
-    .draggable {
-        padding: 4px;
-        min-height: 60px;
-    }
-
-    .draggable .taxon-name {
-        font-size: 0.8em;
-    }
-
-    .draggable .vernacular-name {
-        font-size: 0.7em;
-    }
-}
