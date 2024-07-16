@@ -106,22 +106,42 @@ const ui = {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     },
 
-    showINatDownDialog: function () {
+showINatDownDialog: function () {
+    const loadingScreen = document.getElementById('loading-screen');
+    if (loadingScreen) {
+        loadingScreen.style.display = 'none';
+    }
+
+    const dialog = document.getElementById('inat-down-dialog');
+    dialog.showModal();
+    
+    const checkStatusBtn = document.getElementById('check-inat-status');
+    const retryConnectionBtn = document.getElementById('retry-connection');
+    
+    const checkStatusHandler = () => {
+        window.open('https://inaturalist.org', '_blank');
+    };
+    
+    const retryConnectionHandler = async () => {
+        dialog.close();
+        if (await api.isINaturalistReachable()) {
+            game.setupGame(true);
+        } else {
+            this.showINatDownDialog();
+        }
+    };
+    
+    checkStatusBtn.addEventListener('click', checkStatusHandler);
+    retryConnectionBtn.addEventListener('click', retryConnectionHandler);
+    
+    dialog.addEventListener('close', () => {
+        checkStatusBtn.removeEventListener('click', checkStatusHandler);
+        retryConnectionBtn.removeEventListener('click', retryConnectionHandler);
+    });
+},
+    hideINatDownDialog: function () {
         const dialog = document.getElementById('inat-down-dialog');
-        dialog.showModal();
-        
-        document.getElementById('check-inat-status').addEventListener('click', () => {
-            window.open('https://inaturalist.org', '_blank');
-        });
-        
-        document.getElementById('retry-connection').addEventListener('click', async () => {
-            dialog.close();
-            if (await api.isINaturalistReachable()) {
-                game.setupGame(true);
-            } else {
-                showINatDownDialog();
-            }
-        });
+        dialog.close();
     },
 
     initializeDraggables: function () {

@@ -246,7 +246,7 @@ opacity: 0.8;
 #overlay.show { opacity: 1; }
 
 #overlay-message {
-    font-size: 3em;
+    font-size: 2.4em;
 /*    font-size: clamp(14px, 5vw, 36px);  not sure this is functional */
     font-weight: bold;
     color: var(--text-color);

@@ -53,8 +53,9 @@ const game = {
         this.setState(GameState.LOADING);
 
         if (!await this.checkINaturalistReachability()) {
+            console.log("iNaturalist is not reachable. Showing dialog.");
             this.setState(GameState.IDLE);
-            return;
+            return; // Exit setupGame if iNaturalist is not reachable
         }
 
         this.prepareUIForLoading();
@@ -297,9 +298,10 @@ const game = {
 
     checkINaturalistReachability: async function() {
         if (!await api.isINaturalistReachable()) {
-            ui.showINatDownDialog();
-            return false;
+          ui.showINatDownDialog();
+          return false;
         }
+        ui.hideINatDownDialog(); // Hide the dialog if it was previously shown
         return true;
     },
 
