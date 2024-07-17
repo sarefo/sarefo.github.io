@@ -65,6 +65,7 @@ Here are some ideas I have regarding future functionality:
 ## Expand taxon pairs into taxon sets
 + currently, the system only allows fair taxon pairs: two different taxa that are compared in the quiz
 + it would be nice to expand on that: having taxon sets instead, which can consist of two or more taxa. If more than two taxa are in a set, the app would create random pairs out of it for use in a session.
++ although a taxon set can contain more than two taxa, in each game session, only the same two taxa from this set would be compared to each other! otherwise it would become confusing and hard to figure out the identification traits, I think.
 
 ## Linking to iNaturalist
 + currently, the information buttons on the images link to their respective image page. It would be nice to instead present the user with a dialog giving the following selection of options:
