@@ -29,7 +29,7 @@ const utils = {
 
     const audio = new Audio(soundUrl);
         audio.play({ playbackMode: 'background' })
-          .then(() => { /* Audio started playing successfully*/ }).catch(error => { console.error('Error playing the fart:', error); });
+          .then(() => { console.log("Everybody plays their fart."); /* Audio started playing successfully*/ }).catch(error => { console.error('Could not play my fart:', error); });
     },
 
     debounce(func, wait) {
