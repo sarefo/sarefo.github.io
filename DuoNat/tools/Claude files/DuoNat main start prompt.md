@@ -1,13 +1,23 @@
-This file gives some context about what the app is about, what I'm trying to achieve and so on. Please take its content into account when answering a prompt.
+This file gives some context about what the DuoNat app is about, what I'm trying to achieve and so on. Please take its content into account when answering a prompt.
 
 # App overview
 ## Main workflow
-The web app DuoNat has the following functions:
-1) provide a simple, elegant main screen, where the user is presented with two images of two taxa from iNaturalist.
+The web app DuoNat has the following goals:
+1. provide a simple, elegant main screen, where the user is presented with two images of two taxa from iNaturalist.
+2. help the user learn to distinguish the two presented taxa, based on visual clues
+3. be engaging and addictive, helping the user to explore biodiversity, and become better at identifying taxa
 
-The structure of the game is like this: one "session" consists of an arbitrary number of "rounds". During a session, the two taxa don't change.
+The nomenclature for the game is like this:
++ the whole time from starting up the app to closing it is called a "run". It can have one or more "sessions", which in turn can have one or more "rounds"
++ during one session, the same two taxa are presented throughout.
++ each round, a different pair of images from those two taxa are presented, and the user needs to guess which one is which.
 
-A session can get its two taxa either randomly from a list of taxon pairs (in taxonPairs.json), or defined by the user. The latter can happen by providing the two taxa in the URL as optional parameters, or by defining them inside the app using the "Enter pair" dialog. If no URL parameters are provided, the first session after the app starts up loads a random pair from the taxon pair list. Other options are accessed via the "Random pair" (loads a random pair from the taxon pair list) or "Select pair" (let's the user select a pair from the taxon pair list) options.
+A session can get its two taxa either randomly from a list of taxon pairs (in taxonPairs.json), or defined by the user. The latter can happen by:
++ providing the two taxa in the URL as optional parameters, or
++ by defining them inside the app using the "Enter pair" dialog.
+If no URL parameters are provided, the first session after the app starts up loads a random pair from the taxon pair list. Other options are accessed via
++ the "Random pair" (loads a random pair from the taxon pair list) or
++ "Select pair" (let's the user select a pair from the taxon pair list) options.
 
 ## Sharing
 + the user can easily share the currently active taxon pair by tapping on the "Share" icon. This creates a link to the app with the two taxa encoded in the URL.
@@ -66,6 +76,10 @@ Here are some ideas I have regarding future functionality:
 + currently, the system only allows fair taxon pairs: two different taxa that are compared in the quiz
 + it would be nice to expand on that: having taxon sets instead, which can consist of two or more taxa. If more than two taxa are in a set, the app would create random pairs out of it for use in a session.
 + although a taxon set can contain more than two taxa, in each game session, only the same two taxa from this set would be compared to each other! otherwise it would become confusing and hard to figure out the identification traits, I think.
+
+## Update taxon set structure
++ there should be a taxon set title, of course the list of taxa in this set, and also a taxon set identifier, and tags
++ there should be an extra array where for every taxon, the ancestry hierarchy, the vernacular name, identification tips, and maybe tags and comments should be included
 
 ## Linking to iNaturalist
 + currently, the information buttons on the images link to their respective image page. It would be nice to instead present the user with a dialog giving the following selection of options:
