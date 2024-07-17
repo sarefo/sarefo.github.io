@@ -81,19 +81,21 @@ async renderGraph(taxon1, taxon2, commonAncestorId) {
     const ancestorDetails = await this.fetchAncestorDetails(allAncestorIds);
 
     const addNodeAndEdges = (taxon, parentId) => {
-        const vernacularName = taxon.preferred_common_name ? `\n(${taxon.preferred_common_name})` : "";
+        var vernacularName = taxon.preferred_common_name ? `\n(${taxon.preferred_common_name})` : "";
         const isSpecificTaxon = taxon.id === taxon1.id || taxon.id === taxon2.id;
+
         var taxonRank = taxon.rank.charAt(0).toUpperCase() + taxon.rank.slice(1);
-/*        if (taxonRank==="Species") { vernacularName = ""; }*/ /* no idea why this throws an error… */
+        if (taxonRank==="Species" || taxonRank==="Stateofmatter") { vernacularName = ""; }
         if (taxonRank==="Species" || taxonRank==="Genus" || taxonRank==="Stateofmatter"){ taxonRank = ""; }
+
+        // doesn't work
+        const labelFont = (taxon.rank === "genus" || taxon.rank === "species") ? "italic" : "";
+
         if (!nodes.get(taxon.id)) {
             nodes.add({ 
                 id: taxon.id, 
                 label: `${taxonRank} ${taxon.name}${vernacularName}`,
                 color: isSpecificTaxon ? '#ffa500' : '#74ac00', // Alternate color for specific taxa
-                font: {
-                    italic: (taxon.rank ==="Genus" || taxon.rank === "Species")
-                }
             });
             if (parentId) edges.add({ from: parentId, to: taxon.id });
         }
@@ -149,7 +151,7 @@ async renderGraph(taxon1, taxon2, commonAncestorId) {
 },
 
   logTaxonData(taxon) {
-    console.log('Taxon data:', JSON.stringify(taxon, null, 2));
+  //  console.log('Taxon data:', JSON.stringify(taxon, null, 2));
   }
 };
 
