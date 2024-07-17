@@ -1,5 +1,3 @@
-// taxaRelationshipViewer.js
-
 const taxaRelationshipViewer = {
   container: null,
   network: null,
@@ -25,7 +23,7 @@ const taxaRelationshipViewer = {
     });
   },
 
-async findRelationship(taxonName1, taxonName2) {
+  async findRelationship(taxonName1, taxonName2) {
     if (!this.initialized) {
       throw new Error('Viewer not initialized. Call initialize() first.');
     }
@@ -76,73 +74,72 @@ async findRelationship(taxonName1, taxonName2) {
   },
 
 async renderGraph(taxon1, taxon2, commonAncestorId) {
-  const nodes = new vis.DataSet();
-  const edges = new vis.DataSet();
+    const nodes = new vis.DataSet();
+    const edges = new vis.DataSet();
 
-  const allAncestorIds = new Set([...taxon1.ancestor_ids, ...taxon2.ancestor_ids]);
-  const ancestorDetails = await this.fetchAncestorDetails(allAncestorIds);
+    const allAncestorIds = new Set([...taxon1.ancestor_ids, ...taxon2.ancestor_ids]);
+    const ancestorDetails = await this.fetchAncestorDetails(allAncestorIds);
 
-  const addNodeAndEdges = (taxon, parentId, isSpecificTaxon = false) => {
-    if (!nodes.get(taxon.id)) {
-      nodes.add({ 
-        id: taxon.id, 
-        label: taxon.name,
-/*        color: isSpecificTaxon ? '#FFA500' : '#4FADFF'*/
-        color: isSpecificTaxon ? '#ac0028' : '#74ac00'
-      });
-      if (parentId) edges.add({ from: parentId, to: taxon.id });
-    }
-  };
+    const addNodeAndEdges = (taxon, parentId) => {
+        const isSpecificTaxon = taxon.id === taxon1.id || taxon.id === taxon2.id;
+        if (!nodes.get(taxon.id)) {
+            nodes.add({ 
+                id: taxon.id, 
+                label: taxon.name,
+                color: isSpecificTaxon ? '#ffa500' : '#74ac00' // Alternate color for specific taxa
+            });
+            if (parentId) edges.add({ from: parentId, to: taxon.id });
+        }
+    };
 
-  const processAncestry = (taxon, isSpecificTaxon = false) => {
-    const ancestorIds = taxon.ancestor_ids || [];
-    const reversedAncestors = ancestorIds.slice().reverse();
-    
-    // Add all ancestors
-    reversedAncestors.forEach((ancestorId, index, array) => {
-      const parentId = array[index + 1] || null;
-      const ancestorTaxon = ancestorDetails.get(ancestorId) || { id: ancestorId, name: `Unknown Taxon ${ancestorId}` };
-      addNodeAndEdges(ancestorTaxon, parentId);
-      if (ancestorId === commonAncestorId) return false;
-    });
+    const processAncestry = (taxon) => {
+        const ancestorIds = taxon.ancestor_ids || [];
+        const reversedAncestors = ancestorIds.slice().reverse();
+        
+        // Add all ancestors
+        reversedAncestors.forEach((ancestorId, index, array) => {
+            const parentId = array[index + 1] || null;
+            const ancestorTaxon = ancestorDetails.get(ancestorId) || { id: ancestorId, name: `Unknown Taxon ${ancestorId}` };
+            addNodeAndEdges(ancestorTaxon, parentId);
+            if (ancestorId === commonAncestorId) return false;
+        });
 
-    // Add the specific taxon as a leaf node
-    if (isSpecificTaxon) {
-      const immediateParentId = reversedAncestors[0];
-      addNodeAndEdges(taxon, immediateParentId, true);
-    }
-  };
+        // Add the specific taxon as a leaf node
+        const immediateParentId = reversedAncestors[0];
+        addNodeAndEdges(taxon, immediateParentId);
+    };
 
-  processAncestry(taxon1, true);
-  processAncestry(taxon2, true);
+    // Ensure both taxa are processed and marked as specific taxa
+    processAncestry(taxon1);
+    processAncestry(taxon2);
 
     const data = { nodes, edges };
     const options = {
-      layout: {
-        hierarchical: {
-          direction: 'UD',
-          sortMethod: 'directed',
-          levelSeparation: 100,
-          nodeSpacing: 200
+        layout: {
+            hierarchical: {
+                direction: 'UD',
+                sortMethod: 'directed',
+                levelSeparation: 100,
+                nodeSpacing: 200
+            }
+        },
+        nodes: {
+            shape: 'box',
+            font: {
+                size: 16
+            }
+        },
+        edges: {
+            arrows: 'to',
+            smooth: {
+                type: 'cubicBezier',
+                forceDirection: 'vertical'
+            }
         }
-      },
-      nodes: {
-        shape: 'box',
-        font: {
-          size: 16
-        }
-      },
-      edges: {
-        arrows: 'to',
-        smooth: {
-          type: 'cubicBezier',
-          forceDirection: 'vertical'
-        }
-      }
     };
 
     this.network = new vis.Network(this.container, data, options);
-  },
+},
 
   logTaxonData(taxon) {
     console.log('Taxon data:', JSON.stringify(taxon, null, 2));
@@ -150,3 +147,4 @@ async renderGraph(taxon1, taxon2, commonAncestorId) {
 };
 
 export default taxaRelationshipViewer;
+
