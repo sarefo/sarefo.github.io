@@ -142,7 +142,7 @@ async renderGraph(taxon1, taxon2, commonAncestorId) {
 },
 
   logTaxonData(taxon) {
-    console.log('Taxon data:', JSON.stringify(taxon, null, 2));
+    //console.log('Taxon data:', JSON.stringify(taxon, null, 2));
   }
 };
 

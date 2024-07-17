@@ -17,8 +17,9 @@ const utils = {
 
     // trying out things button
     surprise: function () {
-        console.log("surprise");
+        console.log("Surprise!");
         game.showTaxaRelationship();
+//        fart();
     },
 
     fart: function () {
