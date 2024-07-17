@@ -515,6 +515,21 @@ dialog {
     height: calc(100% - 50px);  /* Adjust based on close button height */
 }
 
+#taxa-relationship-container button {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background-color var(--transition-speed) ease;
+}
+#taxa-relationship-container button:hover {
+    background-color: #5c8a00;
+}
+
 #close-relationship-button {
     position: absolute;
     top: 10px;

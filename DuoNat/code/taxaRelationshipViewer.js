@@ -87,7 +87,8 @@ async renderGraph(taxon1, taxon2, commonAncestorId) {
       nodes.add({ 
         id: taxon.id, 
         label: taxon.name,
-        color: isSpecificTaxon ? '#FFA500' : '#4FADFF'
+/*        color: isSpecificTaxon ? '#FFA500' : '#4FADFF'*/
+        color: isSpecificTaxon ? '#ac0028' : '#74ac00'
       });
       if (parentId) edges.add({ from: parentId, to: taxon.id });
     }
