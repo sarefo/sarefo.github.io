@@ -1,5 +1,7 @@
 // Utility functions
 
+import game from './game.js';
+
 const utils = {
 
     // optionally get pair of taxa from URL
@@ -13,7 +15,13 @@ const utils = {
         return null;
     },
 
+    // trying out things button
     surprise: function () {
+        console.log("surprise");
+        game.showTaxaRelationship();
+    },
+
+    fart: function () {
         // placeholder
         const soundUrl = './sound/fart.mp3';
         // Create a new Audio object

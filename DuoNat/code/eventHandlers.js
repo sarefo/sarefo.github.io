@@ -73,8 +73,11 @@ const eventHandlers = {
         });
         document.querySelector('#enter-pair-dialog form').addEventListener('submit', this.handleNewPairSubmit);
         document.getElementById('surprise-button').addEventListener('click', () => {
-            ui.clearDialogInputs();
+/*            ui.clearDialogInputs();*/
             utils.surprise();
+        });
+        document.getElementById('close-relationship-button').addEventListener('click', () => {
+            game.hideTaxaRelationship();
         });
 
         // Keyboard shortcuts

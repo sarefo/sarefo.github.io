@@ -68,6 +68,10 @@ If you provide code, please either provide whole functions, or exactly tell me w
     + implementing a CSS methodology for structure and maintainable CSS (you mentioned BEM earlier, never heard of it)
     + add a decent amount of comments
     + you also mentioned adding unit tests, to ensure the code doesn't break when modified
+    + implement a consistent naming convention:
+        + camelCase for variables and functions
+        + PascalCase for classes
+        + UPPER_CASE for constants
 
 # Functions to implement in the future
 Here are some ideas I have regarding future functionality:
@@ -109,6 +113,9 @@ Here are some ideas I have regarding future functionality:
 ## Long-press information
 + show information on what buttons do when long-pressed (on touch devices), or hover (on mouse devices), or whatever the best practice to get this information is nowadays
 
+## Optional vernicular names
++ there could be an option to only show taxon names. this makes it easier to focus on getting the taxa right, gives them more screen space, and makes it a bit harder by not showing possibly descriptive names
+
 ## Night mode
 + it would be nice to have a night mode at some point, although because a big part of the screen estate are photographs, that will probably have a limited effect
 
@@ -143,6 +150,10 @@ Currently, the code is running on github.io, so there's no server-side functiona
 
 ### Stats
 + there might be user stats, showing which taxa are hard/easy or so
+
+### Difficulty levels
++ taxon pairs with high failure rates might get a "hard" rating, with low failure rate "easy"
++ this might be assessed on a global level, taking in data from all users
 
 ### Spaced repitition, learning sets
 + it would be awesome for the app to have a system to feed the user the taxon sets that are right for them at the moment, for example according to the following criteria:
@@ -217,3 +228,5 @@ Also, this is a long-term project. Whenever you notice that something would make
 + iNaturalist and its API for taxon information
 + Discord for community management (currently, there aren't any community members apart from me)
 + Photoshop at times for icon design etc.
+
+And please don't start every answer with "Certainly!" :)

@@ -128,6 +128,35 @@ const api = (() => {
           }
         },
 
+        fetchTaxonId: async function(taxonName) {
+            console.log(`Fetching taxon ID for ${taxonName}`);
+            const response = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${encodeURIComponent(taxonName)}&per_page=1`);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const data = await response.json();
+            if (data.results.length === 0) throw new Error(`Taxon not found: ${taxonName}`);
+            console.log(`Taxon ID for ${taxonName}:`, data.results[0].id);
+            return data.results[0].id;
+        },
+
+        fetchTaxonAncestry: async function(taxonName) {
+            console.log(`Fetching ancestry for ${taxonName}`);
+            try {
+                const taxonId = await this.fetchTaxonId(taxonName);
+                const response = await fetch(`https://api.inaturalist.org/v1/taxa/${taxonId}`);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                const data = await response.json();
+                console.log(`API response for ${taxonName}:`, data);
+                if (data.results.length === 0) throw new Error(`Taxon details not found: ${taxonName}`);
+                const ancestry = data.results[0].ancestors || [];
+                ancestry.push(data.results[0]); // Include the taxon itself in the ancestry
+                console.log(`Ancestry for ${taxonName}:`, ancestry);
+                return ancestry;
+            } catch (error) {
+                console.error("Error fetching taxon ancestry:", error);
+                return [];
+            }
+        },
+
     }; 
 
 })();

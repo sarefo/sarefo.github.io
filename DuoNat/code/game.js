@@ -4,6 +4,7 @@ import api from './api.js';
 import config from './config.js';
 import {elements, gameState, updateGameState, GameState} from './state.js';
 import preloader from './preloader.js';
+import taxaRelationshipViewer from './taxaRelationshipViewer.js';
 import ui from './ui.js';
 import utils from './utils.js';
 
@@ -295,6 +296,40 @@ const game = {
             img.src = src;
         });
     },
+
+  async showTaxaRelationship() {
+    const { taxonImageOne, taxonImageTwo } = gameState;
+    const container = document.getElementById('taxa-relationship-graph');
+    const containerWrapper = document.getElementById('taxa-relationship-container');
+    
+    if (!taxonImageOne || !taxonImageTwo) {
+      console.error('Taxon names not available');
+      alert('Unable to show relationship. Please try again after starting a new game.');
+      return;
+    }
+    
+    containerWrapper.classList.remove('hidden');
+    
+    try {
+      await taxaRelationshipViewer.initialize(container);
+      const [taxon1, taxon2] = await Promise.all([
+        taxaRelationshipViewer.fetchTaxonData(taxonImageOne),
+        taxaRelationshipViewer.fetchTaxonData(taxonImageTwo)
+      ]);
+      taxaRelationshipViewer.logTaxonData(taxon1);
+      taxaRelationshipViewer.logTaxonData(taxon2);
+      await taxaRelationshipViewer.findRelationship(taxonImageOne, taxonImageTwo);
+    } catch (error) {
+      console.error('Error showing taxa relationship:', error);
+      alert('Failed to load the relationship graph. Please try again later.');
+      this.hideTaxaRelationship();
+    }
+  },
+
+  hideTaxaRelationship() {
+    const containerWrapper = document.getElementById('taxa-relationship-container');
+    containerWrapper.classList.add('hidden');
+  },
 
     checkINaturalistReachability: async function() {
         if (!await api.isINaturalistReachable()) {

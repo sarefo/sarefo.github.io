@@ -1,0 +1,14 @@
+{
+  "name": "duonat",
+  "version": "1.0.0",
+  "description": "DuoNat - iNat Taxonomy Trainer",
+  "main": "index.html",
+  "dependencies": {
+    "vis-network": "^9.1.2"
+  },
+  "scripts": {
+    "start": "echo 'Add a start script if needed'"
+  },
+  "author": "Stefan Obenauer",
+  "license": "ISC"
+}
