@@ -85,8 +85,9 @@ async renderGraph(taxon1, taxon2, commonAncestorId) {
         const isSpecificTaxon = taxon.id === taxon1.id || taxon.id === taxon2.id;
 
         var taxonRank = taxon.rank.charAt(0).toUpperCase() + taxon.rank.slice(1);
-        if (taxonRank==="Species" || taxonRank==="Stateofmatter") { vernacularName = ""; }
-        if (taxonRank==="Species" || taxonRank==="Genus" || taxonRank==="Stateofmatter"){ taxonRank = ""; }
+        // undecided whether to include vernacular in genus
+        if (taxonRank==="Species" || taxonRank==="Genus" || taxonRank==="Stateofmatter") { vernacularName = ""; }
+        if (taxonRank==="Species" || taxonRank==="Genus" || taxonRank==="Stateofmatter") { taxonRank = ""; }
 
         // doesn't work
         const labelFont = (taxon.rank === "genus" || taxon.rank === "species") ? "italic" : "";

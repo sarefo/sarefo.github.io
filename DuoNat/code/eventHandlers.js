@@ -269,6 +269,12 @@ const eventHandlers = {
             if (event.key === 'p' || event.key === 'P' || event.key === 'f' || event.key === 'F') {
                 document.getElementById('surprise-button').click();
             }
+            if (event.key === 'i' || event.key === 'I') {
+                document.getElementById('info-button-1').click();
+            }
+            if (event.key === 'o' || event.key === 'O') {
+                document.getElementById('info-button-2').click();
+            }
         }
     }
 };

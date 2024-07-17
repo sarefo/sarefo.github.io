@@ -51,6 +51,8 @@ I want the code to contain ample console logging, so I can figure out what happe
 
 If you provide code, please either provide whole functions, or exactly tell me which lines to change, as otherwise it's sometimes confusing and time-consuming to figure this out from partial function with ellipses. I especially don't like it if you provide part of a function, then write "…other code", then provide another part of the same function. that's super confusing!
 
+Indentation is four spaces.
+
 # Architectural changes
 + you suggested some big changes in the past, and I'm willing to tackle them, if it helps me later to build a better app.
 + for example, you suggested using TypeScript for this kind of app. I don't know how feasible that is for me, a single not very smart or well-trained hobby programmer

@@ -309,7 +309,14 @@ const game = {
     }
     
     containerWrapper.classList.remove('hidden');
-    
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Escape') {
+            this.hideTaxaRelationship();
+    }
+  }; 
+  document.addEventListener('keydown', handleKeyDown);
+
     try {
       await taxaRelationshipViewer.initialize(container);
       const [taxon1, taxon2] = await Promise.all([
@@ -469,21 +476,64 @@ const game = {
     },
 
     initializeInfoButtons() {
+      const infoButton1 = document.getElementById('info-button-1');
+      const infoButton2 = document.getElementById('info-button-2');
+
+      infoButton1.addEventListener('click', () => this.showInfoDialog(this.currentObservationURLs.imageOne));
+      infoButton2.addEventListener('click', () => this.showInfoDialog(this.currentObservationURLs.imageTwo));
+    },
+/*    initializeInfoButtons() {
         const infoButton1 = document.getElementById('info-button-1');
         const infoButton2 = document.getElementById('info-button-2');
 
         infoButton1.addEventListener('click', () => this.openObservationURL(this.currentObservationURLs.imageOne));
         infoButton2.addEventListener('click', () => this.openObservationURL(this.currentObservationURLs.imageTwo));
-    },
+    },*/
 
     openObservationURL(url) {
-        if (url) {
-            window.open(url, '_blank');
-        } else {
-            console.error('Observation URL not available');
-        }
+      if (url) {
+        this.showInfoDialog(url);
+      } else {
+        console.error('Observation URL not available');
+      }
     },
 
+    showInfoDialog(url) {
+      const dialog = document.getElementById('info-dialog');
+      const photoButton = document.getElementById('photo-button');
+      const observationButton = document.getElementById('observation-button');
+      const taxonButton = document.getElementById('taxon-button');
+      const relationshipButton = document.getElementById('relationship-button');
+      const closeButton = document.getElementById('close-info-dialog');
+
+      photoButton.onclick = () => {
+        window.open(url, '_blank');
+        dialog.close();
+      };
+
+      observationButton.onclick = () => {
+        console.log("Observation button clicked");
+        // Implement observation functionality here
+      };
+
+      taxonButton.onclick = () => {
+        console.log("Taxon button clicked");
+        // Implement taxon functionality here
+      };
+
+      relationshipButton.onclick = () => {
+        console.log("Relationship button clicked");
+        // Implement relationship functionality here
+        dialog.close();
+        this.showTaxaRelationship();
+      };
+
+      closeButton.onclick = () => {
+        dialog.close();
+      };
+
+      dialog.showModal();
+    },
 };
 
 // Initialize info buttons

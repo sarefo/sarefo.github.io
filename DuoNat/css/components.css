@@ -537,3 +537,55 @@ dialog {
     z-index: 1001;
 }
 
+/* Styles info dialog */
+.info-dialog {
+  background-color: var(--background-color);
+  border-radius: var(--border-radius);
+  padding: 20px;
+  max-width: 90%;
+  width: 300px;
+}
+
+.info-dialog h2 {
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.info-dialog-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.info-dialog-button {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border: none;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color var(--transition-speed) ease;
+}
+
+.info-dialog-button:hover {
+  background-color: #5c8a00;
+}
+
+.close-dialog-button {
+  background-color: var(--primary-counter-color);
+  color: var(--text-color);
+  border: none;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  width: 100%;
+  transition: background-color var(--transition-speed) ease;
+}
+
+.close-dialog-button:hover {
+  background-color: #8a0020;
+}
