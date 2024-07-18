@@ -203,8 +203,8 @@ const game = {
         this.currentObservationURLs.imageTwo = this.getObservationURLFromImageURL(rightImageSrc);
 
         const [leftVernacular, rightVernacular] = await Promise.all([
-            api.fetchVernacular(randomized ? pair.taxon1 : pair.taxon2),
-            api.fetchVernacular(randomized ? pair.taxon2 : pair.taxon1)
+            utils.capitalizeFirstLetter(await api.fetchVernacular(randomized ? pair.taxon1 : pair.taxon2)),
+            utils.capitalizeFirstLetter(await api.fetchVernacular(randomized ? pair.taxon2 : pair.taxon1))
         ]);
 
         this.setupNameTilesUI(
@@ -311,20 +311,14 @@ const game = {
     containerWrapper.classList.remove('hidden');
 
     const handleKeyDown = (e) => {
-        if (e.key === 'Escape') {
-            this.hideTaxaRelationship();
-    }
-  }; 
-  document.addEventListener('keydown', handleKeyDown);
+      if (e.key === 'Escape') {
+        this.hideTaxaRelationship();
+      }
+    }; 
+    document.addEventListener('keydown', handleKeyDown);
 
     try {
       await taxaRelationshipViewer.initialize(container);
-      const [taxon1, taxon2] = await Promise.all([
-        taxaRelationshipViewer.fetchTaxonData(taxonImageOne),
-        taxaRelationshipViewer.fetchTaxonData(taxonImageTwo)
-      ]);
-      taxaRelationshipViewer.logTaxonData(taxon1);
-      taxaRelationshipViewer.logTaxonData(taxon2);
       await taxaRelationshipViewer.findRelationship(taxonImageOne, taxonImageTwo);
     } catch (error) {
       console.error('Error showing taxa relationship:', error);

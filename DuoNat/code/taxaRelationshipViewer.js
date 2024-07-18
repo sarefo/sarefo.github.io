@@ -1,11 +1,15 @@
+import utils from './utils.js';
+
 const taxaRelationshipViewer = {
   container: null,
   network: null,
   initialized: false,
+  loadingIndicator: null,
 
   async initialize(container) {
     this.container = container;
     await this.loadVisJs();
+    this.createLoadingIndicator();
     this.initialized = true;
   },
 
@@ -23,10 +27,32 @@ const taxaRelationshipViewer = {
     });
   },
 
+  createLoadingIndicator() {
+    this.loadingIndicator = document.createElement('div');
+    this.loadingIndicator.className = 'loading-indicator';
+    this.loadingIndicator.textContent = 'Building relationship graph...';
+    this.loadingIndicator.style.display = 'none';
+    this.container.appendChild(this.loadingIndicator);
+  },
+
+  showLoadingIndicator() {
+    if (this.loadingIndicator) {
+      this.loadingIndicator.style.display = 'block';
+    }
+  },
+
+  hideLoadingIndicator() {
+    if (this.loadingIndicator) {
+      this.loadingIndicator.style.display = 'none';
+    }
+  },
+
   async findRelationship(taxonName1, taxonName2) {
     if (!this.initialized) {
       throw new Error('Viewer not initialized. Call initialize() first.');
     }
+
+    this.showLoadingIndicator();
 
     try {
       const [taxon1, taxon2] = await Promise.all([
@@ -39,6 +65,8 @@ const taxaRelationshipViewer = {
     } catch (error) {
       console.error('Error finding relationship:', error);
       throw error;
+    } finally {
+      this.hideLoadingIndicator();
     }
   },
 
@@ -84,7 +112,8 @@ async renderGraph(taxon1, taxon2, commonAncestorId) {
         var vernacularName = taxon.preferred_common_name ? `\n(${taxon.preferred_common_name})` : "";
         const isSpecificTaxon = taxon.id === taxon1.id || taxon.id === taxon2.id;
 
-        var taxonRank = taxon.rank.charAt(0).toUpperCase() + taxon.rank.slice(1);
+//        var taxonRank = taxon.rank.charAt(0).toUpperCase() + taxon.rank.slice(1);
+        var taxonRank = utils.capitalizeFirstLetter(taxon.rank);
         // undecided whether to include vernacular in genus
         if (taxonRank==="Species" || taxonRank==="Genus" || taxonRank==="Stateofmatter") { vernacularName = ""; }
         if (taxonRank==="Species" || taxonRank==="Genus" || taxonRank==="Stateofmatter") { taxonRank = ""; }
