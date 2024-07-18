@@ -362,7 +362,7 @@ dialog {
     font-size: 18px;
     line-height: 1.4;
     color: var(--dark-neutral-color);
-    text-align: center; /* TODO doesn't work */
+    text-align: left; /* TODO doesn't work */
 }
 
 #more-help-dialog, #discord-help-dialog, #close-help-dialog {
