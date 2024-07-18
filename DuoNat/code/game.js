@@ -38,10 +38,7 @@ const game = {
 
     async setupGame(newSession = false) {
         if (newSession) {
-            this.preloadedImages = { taxon1: [], taxon2: [] };
-        }
-
-        if (newSession) {
+          this.preloadedImages = { taxon1: [], taxon2: [] };
           console.log("Starting new session, resetting state");
           this.setState(GameState.IDLE);
           this.currentGraphTaxa = null; // Clear the current graph taxa
@@ -301,47 +298,47 @@ const game = {
         });
     },
 
-  async showTaxaRelationship() {
-    const { taxonImageOne, taxonImageTwo } = gameState;
-    const container = document.getElementById('taxa-relationship-graph');
-    const containerWrapper = document.getElementById('taxa-relationship-container');
-    
-    if (!taxonImageOne || !taxonImageTwo) {
-      console.error('Taxon names not available');
-      alert('Unable to show relationship. Please try again after starting a new game.');
-      return;
-    }
-    
-    containerWrapper.classList.remove('hidden');
+    async showTaxaRelationship() {
+        const { taxonImageOne, taxonImageTwo } = gameState;
+        const container = document.getElementById('taxa-relationship-graph');
+        const containerWrapper = document.getElementById('taxa-relationship-container');
+        
+        if (!taxonImageOne || !taxonImageTwo) {
+            console.error('Taxon names not available');
+            alert('Unable to show relationship. Please try again after starting a new game.');
+            return;
+        }
+        
+        containerWrapper.classList.remove('hidden');
 
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape') {
-        this.hideTaxaRelationship();
-      }
-    }; 
-    document.addEventListener('keydown', handleKeyDown);
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape') {
+                this.hideTaxaRelationship();
+            }
+        }; 
+        document.addEventListener('keydown', handleKeyDown);
 
-    try {
-      await taxaRelationshipViewer.initialize(container);
+        try {
+            await taxaRelationshipViewer.initialize(container);
 
-      // Check if we're showing the same taxa pair
-      if (this.currentGraphTaxa &&
-          this.currentGraphTaxa[0] === taxonImageOne &&
-          this.currentGraphTaxa[1] === taxonImageTwo) {
-        // Just show the existing graph
-        taxaRelationshipViewer.showExistingGraph();
-      } else {
-        // Clear existing graph and create a new one
-        taxaRelationshipViewer.clearGraph();
-        await taxaRelationshipViewer.findRelationship(taxonImageOne, taxonImageTwo);
-        this.currentGraphTaxa = [taxonImageOne, taxonImageTwo];
-      }
-    } catch (error) {
-      console.error('Error showing taxa relationship:', error);
-      alert('Failed to load the relationship graph. Please try again later.');
-      this.hideTaxaRelationship();
-    }
-  },
+            // Check if we're showing the same taxa pair
+            if (this.currentGraphTaxa &&
+                this.currentGraphTaxa[0] === taxonImageOne &&
+                this.currentGraphTaxa[1] === taxonImageTwo) {
+                console.log("Showing existing graph for the same taxa pair");
+                taxaRelationshipViewer.showExistingGraph();
+            } else {
+                console.log("Creating new graph for a different taxa pair");
+                taxaRelationshipViewer.clearGraph();
+                await taxaRelationshipViewer.findRelationship(taxonImageOne, taxonImageTwo);
+                this.currentGraphTaxa = [taxonImageOne, taxonImageTwo];
+            }
+        } catch (error) {
+            console.error('Error showing taxa relationship:', error);
+            alert('Failed to load the relationship graph. Please try again later.');
+            this.hideTaxaRelationship();
+        }
+    },
 
   hideTaxaRelationship() {
     const containerWrapper = document.getElementById('taxa-relationship-container');
