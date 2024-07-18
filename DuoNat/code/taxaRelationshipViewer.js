@@ -5,11 +5,14 @@ const taxaRelationshipViewer = {
   network: null,
   initialized: false,
   loadingIndicator: null,
+  currentData: null,
 
   async initialize(container) {
     this.container = container;
     await this.loadVisJs();
-    this.createLoadingIndicator();
+    if (this.container) {
+      this.createLoadingIndicator();
+    }
     this.initialized = true;
   },
 
@@ -28,6 +31,7 @@ const taxaRelationshipViewer = {
   },
 
   createLoadingIndicator() {
+    if (!this.container) return;
     this.loadingIndicator = document.createElement('div');
     this.loadingIndicator.className = 'loading-indicator';
     this.loadingIndicator.textContent = 'Building relationship graph...';
@@ -47,6 +51,21 @@ const taxaRelationshipViewer = {
     }
   },
 
+  showExistingGraph() {
+    if (this.currentData && this.container) {
+      console.log("Showing existing graph");
+      if (this.network) {
+        // If the network already exists, just fit the view
+        this.network.fit();
+      } else {
+        // If the network doesn't exist (e.g., if the container was cleared), recreate it
+        this.renderGraph(this.currentData.taxon1, this.currentData.taxon2, this.currentData.commonAncestor);
+      }
+    } else {
+      console.error("No existing graph data to show");
+    }
+  },
+
   async findRelationship(taxonName1, taxonName2) {
     if (!this.initialized) {
       throw new Error('Viewer not initialized. Call initialize() first.');
@@ -61,12 +80,25 @@ const taxaRelationshipViewer = {
       ]);
       
       const commonAncestor = this.findCommonAncestor(taxon1, taxon2);
+      this.currentData = { taxon1, taxon2, commonAncestor };
       await this.renderGraph(taxon1, taxon2, commonAncestor);
     } catch (error) {
       console.error('Error finding relationship:', error);
       throw error;
     } finally {
       this.hideLoadingIndicator();
+    }
+  },
+
+  clearGraph() {
+    if (this.network) {
+      this.network.destroy();
+      this.network = null;
+    }
+    this.currentData = null;
+    if (this.container) {
+      this.container.innerHTML = '';
+      this.createLoadingIndicator(); // Recreate the loading indicator
     }
   },
 
@@ -102,6 +134,10 @@ const taxaRelationshipViewer = {
   },
 
 async renderGraph(taxon1, taxon2, commonAncestorId) {
+    // Clear any existing graph
+    if (this.network) {
+      this.network.destroy();
+    }
     const nodes = new vis.DataSet();
     const edges = new vis.DataSet();
 
@@ -112,19 +148,20 @@ async renderGraph(taxon1, taxon2, commonAncestorId) {
         var vernacularName = taxon.preferred_common_name ? `\n(${taxon.preferred_common_name})` : "";
         const isSpecificTaxon = taxon.id === taxon1.id || taxon.id === taxon2.id;
 
-//        var taxonRank = taxon.rank.charAt(0).toUpperCase() + taxon.rank.slice(1);
+        var taxonName = taxon.name;
         var taxonRank = utils.capitalizeFirstLetter(taxon.rank);
         // undecided whether to include vernacular in genus
         if (taxonRank==="Species" || taxonRank==="Genus" || taxonRank==="Stateofmatter") { vernacularName = ""; }
+        if (taxonRank==="Species") { taxonName = utils.shortenSpeciesName(taxon.name); }
         if (taxonRank==="Species" || taxonRank==="Genus" || taxonRank==="Stateofmatter") { taxonRank = ""; }
 
         // doesn't work
-        const labelFont = (taxon.rank === "genus" || taxon.rank === "species") ? "italic" : "";
+        //const labelFont = (taxon.rank === "genus" || taxon.rank === "species") ? "italic" : "";
 
         if (!nodes.get(taxon.id)) {
             nodes.add({ 
                 id: taxon.id, 
-                label: `${taxonRank} ${taxon.name}${vernacularName}`,
+                label: `${taxonRank} ${taxonName}${vernacularName}`,
                 color: isSpecificTaxon ? '#ffa500' : '#74ac00', // Alternate color for specific taxa
             });
             if (parentId) edges.add({ from: parentId, to: taxon.id });

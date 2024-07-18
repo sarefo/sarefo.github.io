@@ -11,6 +11,7 @@ import utils from './utils.js';
 const game = {
     nextSelectedPair: null,
     currentState: GameState.IDLE,
+    currentGraphTaxa: null,
     preloadedPair: null,
     preloadedImages: {
         taxon1: [],
@@ -39,9 +40,12 @@ const game = {
         if (newSession) {
             this.preloadedImages = { taxon1: [], taxon2: [] };
         }
+
         if (newSession) {
-            console.log("Starting new session, resetting state");
-            this.setState(GameState.IDLE);
+          console.log("Starting new session, resetting state");
+          this.setState(GameState.IDLE);
+          this.currentGraphTaxa = null; // Clear the current graph taxa
+          taxaRelationshipViewer.clearGraph(); // Clear the existing graph
         }
 
         if (this.currentState !== GameState.IDLE && 
@@ -319,7 +323,19 @@ const game = {
 
     try {
       await taxaRelationshipViewer.initialize(container);
-      await taxaRelationshipViewer.findRelationship(taxonImageOne, taxonImageTwo);
+
+      // Check if we're showing the same taxa pair
+      if (this.currentGraphTaxa &&
+          this.currentGraphTaxa[0] === taxonImageOne &&
+          this.currentGraphTaxa[1] === taxonImageTwo) {
+        // Just show the existing graph
+        taxaRelationshipViewer.showExistingGraph();
+      } else {
+        // Clear existing graph and create a new one
+        taxaRelationshipViewer.clearGraph();
+        await taxaRelationshipViewer.findRelationship(taxonImageOne, taxonImageTwo);
+        this.currentGraphTaxa = [taxonImageOne, taxonImageTwo];
+      }
     } catch (error) {
       console.error('Error showing taxa relationship:', error);
       alert('Failed to load the relationship graph. Please try again later.');
@@ -330,6 +346,7 @@ const game = {
   hideTaxaRelationship() {
     const containerWrapper = document.getElementById('taxa-relationship-container');
     containerWrapper.classList.add('hidden');
+    // We don't clear the graph here, as we might want to show it again
   },
 
     checkINaturalistReachability: async function() {

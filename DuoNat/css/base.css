@@ -17,6 +17,8 @@
     --counter-text-color: #444;
     --shadow-color: rgba(0, 0, 0, 0.1);
     --overlay-color: rgba(0, 0, 0, 0.3);
+
+    --normal-font-size: 18px;
     --border-radius: 8px;
     --max-image-width: 500px;
     --transition-speed: 0.3s;
@@ -283,7 +285,7 @@ width: 100%;
     transition: background-color var(--transition-speed) ease;
     outline: none;
     border: none;
-    font-size: 18px;
+    font-size: var(--normal-font-size);
     padding: 15px 8px;
     cursor: pointer;
 }

@@ -67,6 +67,20 @@ const utils = {
         } else { return string.charAt(0).toUpperCase() + string.slice(1); }
     },
 
+    shortenSpeciesName: function(string) {
+        if (!string) { return ''; }
+        
+        let parts = string.split(' ');
+        if (parts.length < 2) {
+            return string; // Return the original string if it doesn't contain at least two parts
+        }
+        
+        let genusInitial = parts[0].charAt(0).toUpperCase() + '.';
+        let species = parts.slice(1).join(' '); // Join the remaining parts in case the species name has multiple words
+
+        return genusInitial + ' ' + species;
+    }
+
 }; // const utils
 
 export default utils;
