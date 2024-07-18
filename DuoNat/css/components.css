@@ -166,6 +166,52 @@ dialog {
     position: absolute;
     bottom: 10px;
     right: 10px;
+    background: rgba(255, 255, 255, 0.6);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.info-button:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: scale(1.1);
+}
+
+.info-button:active {
+    transform: scale(0.95);
+}
+
+.info-button .icon {
+    width: 26px;
+    height: 26px;
+    fill: var(--dark-neutral-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .info-button {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .info-button .icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+/*
+.info-button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
     background: rgba(255, 255, 255, 0.7);
     border: none;
     border-radius: 50%;
@@ -189,6 +235,7 @@ dialog {
     height: 20px;
     fill: var(--primary-color);
 }
+*/
 
 /* Styles for enter pair dialog */
 #enter-pair-dialog {
