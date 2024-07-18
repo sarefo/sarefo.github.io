@@ -1,6 +1,7 @@
 // UI functions
 
 import api from './api.js';
+import config from './config.js';
 import {elements, gameState} from './state.js';
 import game from './game.js';
 import logger from './logger.js';
@@ -226,7 +227,40 @@ showINatDownDialog: function () {
                     }, 300);
                 }
             }
-        }
+        },
+
+    showTutorial: function() {
+        const steps = [
+            "Welcome to DuoNat!<br>Let's learn how to play.",
+            "You'll see two images of different taxa.",
+            "Drag the name tags in the center<br>to match them with the correct images.",
+            "If you're correct,<br>you'll move to the next round.",
+            "Swipe left for a new set of species.",
+            "Share your favorite pairs<br>with the share buttom on top.",
+            "Scroll down for more functions.",
+            "Ready to start? Let's go!"
+        ];
+
+        let currentStep = 0;
+
+        const showStep = () => {
+            if (currentStep < steps.length) {
+                this.showOverlay(steps[currentStep], config.overlayColors.green);
+                currentStep++;
+                setTimeout(() => {
+                    this.hideOverlay();
+                    setTimeout(showStep, 800); // Short pause between steps
+                }, 4000); // Show each step for 3 seconds
+            } else {
+                this.hideOverlay();
+                //game.setupGame(true); // Start a new game after the tutorial
+            }
+        };
+
+        // Close the help dialog before starting the tutorial
+        document.getElementById('help-dialog').close();
+        showStep();
+    },
 
 }; // const ui
 

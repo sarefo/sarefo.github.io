@@ -88,6 +88,9 @@ const eventHandlers = {
         document.getElementById('help-button').addEventListener('click', () => {
             document.getElementById('help-dialog').showModal();
         });
+        document.getElementById('start-tutorial-button').addEventListener('click', () => {
+            ui.showTutorial();
+        });
         document.getElementById('discord-help-dialog').addEventListener('click', () => {
             window.open('https://discord.gg/DcWrhYHmeM', '_blank');
         });

@@ -248,13 +248,22 @@ opacity: 0.8;
 #overlay.show { opacity: 1; }
 
 #overlay-message {
+    font-size: 1.2em; /* Reduced from 2.4em */
+    font-weight: bold;
+    color: var(--text-color);
+    text-shadow: 1px 1px 2px var(--shadow-color);
+    padding: 15px;
+    max-width: 80%;
+    line-height: 1.4;
+}
+/*#overlay-message {
     font-size: 2.4em;
     font-weight: bold;
     color: var(--text-color);
     text-shadow: 2px 2px 4px var(--shadow-color);
     padding: 20px;
     transition: opacity var(--transition-speed) ease;
-}
+}*/
 
 /* Styles for buttons on main page bottom */
 .button-container {

@@ -365,7 +365,7 @@ dialog {
     text-align: left; /* TODO doesn't work */
 }
 
-#more-help-dialog, #discord-help-dialog, #close-help-dialog {
+#more-help-dialog, #start-tutorial-button, #discord-help-dialog, #close-help-dialog {
     background-color: var(--primary-color);
     color: var(--text-color);
     border: none;
