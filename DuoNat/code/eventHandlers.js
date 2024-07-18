@@ -2,6 +2,7 @@
 
 import api from './api.js';
 import game from './game.js';
+import logger from './logger.js';
 import ui from './ui.js';
 import utils from './utils.js';
 import dragAndDrop from './dragAndDrop.js';
@@ -30,7 +31,7 @@ const eventHandlers = {
     initializeSwipeFunctionality() {
         this.gameContainer = document.querySelector('.game-container');
         if (!this.gameContainer) {
-            console.error('Game container not found');
+            logger.error('Game container not found');
             return;
         }
         
@@ -214,7 +215,7 @@ const eventHandlers = {
                 // Set up the game with the new pair
                 game.setupGame(true);
             } catch (error) {
-                console.error('Error updating taxonPairs.json:', error);
+                logger.error('Error updating taxonPairs.json:', error);
                 dialogMessage.textContent = 'Error saving new pair. Please try again.';
             }
         } else {
@@ -241,7 +242,7 @@ const eventHandlers = {
         let shareUrl = currentUrl.toString();
         
         navigator.clipboard.writeText(shareUrl).then(() => { }).catch(err => {
-            console.error('Failed to copy: ', err);
+            logger.error('Failed to copy: ', err);
             alert('Failed to copy link. Please try again.');
         });
     },

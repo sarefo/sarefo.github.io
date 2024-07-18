@@ -1,6 +1,7 @@
 // preloader.js
 import api from './api.js';
 import { gameState, updateGameState } from './state.js';
+import logger from './logger.js';
 
 const preloader = {
     isPreloading: false,
@@ -9,11 +10,11 @@ const preloader = {
         if (this.isPreloading) return;
         
         this.isPreloading = true;
-        console.log("Starting to preload next pair");
+        logger.debug("Starting to preload next pair");
 
         try {
             const newPair = await this.selectTaxonPair();
-            console.log(`Preloading images for taxon pair: ${newPair.taxon1} and ${newPair.taxon2}`);
+            logger.debug(`Preloading images for taxon pair: ${newPair.taxon1} and ${newPair.taxon2}`);
             
             const [imageOneURLs, imageTwoURLs, imageOneVernacular, imageTwoVernacular] = await Promise.all([
                 api.fetchMultipleImages(newPair.taxon1),
@@ -33,9 +34,9 @@ const preloader = {
             });
 
             await this.preloadImages(imageOneURLs.concat(imageTwoURLs));
-            console.log("Finished preloading next pair");
+            logger.debug("Finished preloading next pair");
         } catch (error) {
-            console.error("Error preloading next pair:", error);
+            logger.error("Error preloading next pair:", error);
         } finally {
             this.isPreloading = false;
         }
@@ -44,30 +45,30 @@ const preloader = {
     async selectTaxonPair() {
         const taxonPairs = await api.fetchTaxonPairs();
         if (taxonPairs.length === 0) {
-            console.error("No taxon pairs available");
+            logger.error("No taxon pairs available");
             return null;
         }
         return taxonPairs[Math.floor(Math.random() * taxonPairs.length)];
     },
 
     async preloadImages(urls) {
-        console.log(`Starting to preload ${urls.length} images`);
+        logger.debug(`Starting to preload ${urls.length} images`);
         const preloadPromises = urls.map(url => {
             return new Promise((resolve, reject) => {
                 const img = new Image();
                 img.onload = () => {
-                    console.log(`Preloaded image: ${url}`);
+                    logger.debug(`Preloaded image: ${url}`);
                     resolve();
                 };
                 img.onerror = () => {
-                    console.error(`Failed to preload image: ${url}`);
+                    logger.error(`Failed to preload image: ${url}`);
                     reject();
                 };
                 img.src = url;
             });
         });
         await Promise.all(preloadPromises);
-        console.log("Finished preloading all images");
+        logger.debug("Finished preloading all images");
     }
 
 };

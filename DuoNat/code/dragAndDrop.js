@@ -1,6 +1,7 @@
 // Drag and drop functionality
 
 import game from './game.js';
+import logger from './logger.js';
 
 const dragAndDrop = {
 

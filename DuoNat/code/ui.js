@@ -3,6 +3,7 @@
 import api from './api.js';
 import {elements, gameState} from './state.js';
 import game from './game.js';
+import logger from './logger.js';
 
 const ui = {
 
@@ -29,7 +30,7 @@ const ui = {
     showTaxonPairList: function () {
         api.fetchTaxonPairs().then(taxonPairs => {
             if (taxonPairs.length === 0) {
-                console.error("No taxon pairs available");
+                logger.error("No taxon pairs available");
                 return;
             }
             const modal = document.createElement('div');

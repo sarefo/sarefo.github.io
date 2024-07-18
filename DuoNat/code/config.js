@@ -8,7 +8,7 @@ const config = {
         red: "rgba(172, 0, 40, 1.0)",
         gray: "rgba(100, 100, 100, 0.8"
     },
-    debug: false,
+    debug: true, // set to false for less console output
     enablePreloading: false // Set to false to disable preloading
     };
 

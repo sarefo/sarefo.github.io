@@ -1,3 +1,4 @@
+import logger from './logger.js';
 import utils from './utils.js';
 
 const taxaRelationshipViewer = {
@@ -53,7 +54,7 @@ const taxaRelationshipViewer = {
 
   showExistingGraph() {
     if (this.currentData && this.container) {
-      console.log("Showing existing graph");
+      logger.debug("Showing existing graph");
       if (this.network) {
         // If the network already exists, just fit the view
         this.network.fit();
@@ -62,7 +63,7 @@ const taxaRelationshipViewer = {
         this.renderGraph(this.currentData.taxon1, this.currentData.taxon2, this.currentData.commonAncestor);
       }
     } else {
-      console.error("No existing graph data to show");
+      logger.error("No existing graph data to show");
     }
   },
 
@@ -83,7 +84,7 @@ const taxaRelationshipViewer = {
       this.currentData = { taxon1, taxon2, commonAncestor };
       await this.renderGraph(taxon1, taxon2, commonAncestor);
     } catch (error) {
-      console.error('Error finding relationship:', error);
+      logger.error('Error finding relationship:', error);
       throw error;
     } finally {
       this.hideLoadingIndicator();
@@ -218,7 +219,7 @@ async renderGraph(taxon1, taxon2, commonAncestorId) {
 },
 
   logTaxonData(taxon) {
-  //  console.log('Taxon data:', JSON.stringify(taxon, null, 2));
+  //  logger.debug('Taxon data:', JSON.stringify(taxon, null, 2));
   }
 };
 

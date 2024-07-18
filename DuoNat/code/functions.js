@@ -4,26 +4,33 @@ import config from './config.js';
 import {elements, gameState} from './state.js';
 import eventHandlers from './eventHandlers.js';
 import game from './game.js';
+import logger, { LogLevel } from './logger.js';
 import ui from './ui.js';
 import utils from './utils.js';
 
 (function() {
 
+    // Set the log level based on your config
+    logger.setLevel(config.debug ? LogLevel.DEBUG : LogLevel.INFO);
     document.getElementById('version-id').textContent = `Modified: ${document.lastModified}`;
 
     function initializeApp() {
-        console.log("Initializing app");
+        logger.info("Initializing app");
         
         // Check for URL parameters
         const urlParams = utils.getURLParameters();
         if (urlParams) {
-            console.log("URL parameters found:", urlParams);
+            logger.debug("URL parameters found:", urlParams);
             game.nextSelectedPair = urlParams;
         }
         
         game.setupGame(true);
         eventHandlers.initialize();
-        console.log("App initialization complete");
+        logger.info("App initialization complete");
+
+        // Example of changing log level at runtime
+        // Uncomment this line to test changing log level
+        // logger.changeLogLevel(LogLevel.WARN);
     }
 
     // Expose initializeApp to the global scope

@@ -1,6 +1,7 @@
 // Utility functions
 
 import game from './game.js';
+import logger from './logger.js';
 
 const utils = {
 
@@ -17,7 +18,7 @@ const utils = {
 
     // trying out things button
     surprise: function () {
-        console.log("Surprise!");
+        logger.debug("Surprise!");
         game.showTaxaRelationship();
 //        fart();
     },
@@ -29,7 +30,7 @@ const utils = {
 
     const audio = new Audio(soundUrl);
         audio.play({ playbackMode: 'background' })
-          .then(() => { console.log("Everybody plays their fart."); /* Audio started playing successfully*/ }).catch(error => { console.error('Could not play my fart:', error); });
+          .then(() => { logger.info("Everybody plays their fart."); /* Audio started playing successfully*/ }).catch(error => { logger.error('Could not play my fart:', error); });
     },
 
     debounce(func, wait) {
