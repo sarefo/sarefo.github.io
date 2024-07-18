@@ -579,7 +579,7 @@ dialog {
   padding: 10px;
   border-radius: var(--border-radius);
   cursor: pointer;
-  font-size: 16px;
+  font-size: larger;
   transition: background-color var(--transition-speed) ease;
 }
 

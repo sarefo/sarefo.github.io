@@ -81,8 +81,11 @@
         <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
     </symbol>
 
-    <symbol id="icon-graph" viewBox="0 0 24 24">
+    <symbol id="icon-stats" viewBox="0 0 24 24">
         <path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/>
+    </symbol>
+    <symbol id="icon-graph" viewBox="0 0 24 24">
+        <path d="M12 2v4m0 0v12m0-12h-4v3m4-3h4v3m-8 5h4m4-5v5h-4m-4 4h4m4-4v4h-4m-8-9v5h4m-4 4v3"/>
     </symbol>
     <symbol id="icon-camera" viewBox="0 0 24 24">
         <path d="M9 3L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2h-3.17L15 3H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>

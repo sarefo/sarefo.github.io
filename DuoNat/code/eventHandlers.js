@@ -266,7 +266,7 @@ const eventHandlers = {
                     document.getElementById('taxon1').focus();
                 }, 0);
             }
-            if (event.key === 'p' || event.key === 'P' || event.key === 'f' || event.key === 'F') {
+            if (event.key === 'g' || event.key === 'p' || event.key === 'P' || event.key === 'f' || event.key === 'F') {
                 document.getElementById('surprise-button').click();
             }
             if (event.key === 'i' || event.key === 'I') {
