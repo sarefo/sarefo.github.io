@@ -54,11 +54,11 @@ body * { text-align: center; } /* percolate to child elements */
 /* Styles common to all main containers */
 .image-container,
 .name-pair,
-#overlay {
+#overlay,
+.button-container {
     width: 98vw;
     max-width: var(--max-image-width);
-    /*width: calc(100% - 8px);*/
-    }
+}
 
 /* Image container and components */
 .image-container {
@@ -247,7 +247,6 @@ opacity: 0.8;
 
 #overlay-message {
     font-size: 2.4em;
-/*    font-size: clamp(14px, 5vw, 36px);  not sure this is functional */
     font-weight: bold;
     color: var(--text-color);
     text-shadow: 2px 2px 4px var(--shadow-color);
@@ -256,19 +255,37 @@ opacity: 0.8;
 }
 
 /* Styles for buttons on main page bottom */
-.bottom-button {
+.button-container {
+width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 4px;
+    margin: 0 auto;
+}
+
+.button-row {
+    display: flex;
+    width: 100%;
+    gap: 4px;
+}
+
+.button-row button {
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     background-color: var(--primary-color);
     color: var(--text-color);
-    font-size: 20px;
-    border: none;
-    padding: 15px 32px;
     border-radius: var(--border-radius);
-    margin: 4px 0;
-    width: 100%;
-    max-width: 200px;
-    cursor: pointer;
     transition: background-color var(--transition-speed) ease;
     outline: none;
+    border: none;
+    font-size: 18px;
+    padding: 15px 8px;
+    cursor: pointer;
 }
 
 /* Animation keyframes etc. */
