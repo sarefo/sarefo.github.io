@@ -157,8 +157,11 @@ body * { text-align: center; } /* percolate to child elements */
 
     color: var(--text-color);
     background-color: var(--primary-color);
-    opacity: 0.8;
+    opacity: 1;
     font-size: 22px;
+
+    text-shadow: 1px 1px 2px var(--shadow-color);
+
     touch-action: none;
     overflow: hidden;
     text-overflow: ellipsis;
