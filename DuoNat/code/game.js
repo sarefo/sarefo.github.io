@@ -108,13 +108,12 @@ const game = {
             this.setState(GameState.PLAYING);
             logger.debug("Game setup complete. Current state:", this.currentState);
 
-            this.setState(GameState.PLAYING);
-            logger.debug("Game setup complete. Current state:", this.currentState);
-
             ui.hideOverlay();
 
-            // Start preloading for the next session
-            this.preloadNextPair();
+            // Only preload for the next session if we're starting a new one
+            if (newSession) {
+                this.preloadNextPair();
+            }
         } catch (error) {
             logger.error("Error setting up game:", error);
             ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
