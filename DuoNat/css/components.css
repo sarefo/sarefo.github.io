@@ -470,7 +470,7 @@ dialog {
     box-shadow: 0 0 0 4px rgba(172, 0, 40, 0.5); /* var(--primary-counter-color); */
     pointer-events: none;
     z-index: 10000;
-    animation: pulse 2s infinite;
+    animation: pulse 1s infinite;
 }
 
 @keyframes pulse {

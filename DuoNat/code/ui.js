@@ -2,6 +2,7 @@
 
 import api from './api.js';
 import config from './config.js';
+import dialogManager from './dialogManager.js';
 import {elements, gameState} from './state.js';
 import game from './game.js';
 import logger from './logger.js';
@@ -115,42 +116,36 @@ const ui = {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     },
 
-showINatDownDialog: function () {
-    const loadingScreen = document.getElementById('loading-screen');
-    if (loadingScreen) {
-        loadingScreen.style.display = 'none';
-    }
-
-    const dialog = document.getElementById('inat-down-dialog');
-    dialog.showModal();
-    
-    const checkStatusBtn = document.getElementById('check-inat-status');
-    const retryConnectionBtn = document.getElementById('retry-connection');
-    
-    const checkStatusHandler = () => {
-        window.open('https://inaturalist.org', '_blank');
-    };
-    
-    const retryConnectionHandler = async () => {
-        dialog.close();
-        if (await api.isINaturalistReachable()) {
-            game.setupGame(true);
-        } else {
-            this.showINatDownDialog();
+    showINatDownDialog: function () {
+        const loadingScreen = document.getElementById('loading-screen');
+        if (loadingScreen) {
+            loadingScreen.style.display = 'none';
         }
-    };
-    
-    checkStatusBtn.addEventListener('click', checkStatusHandler);
-    retryConnectionBtn.addEventListener('click', retryConnectionHandler);
-    
-    dialog.addEventListener('close', () => {
-        checkStatusBtn.removeEventListener('click', checkStatusHandler);
-        retryConnectionBtn.removeEventListener('click', retryConnectionHandler);
-    });
-},
+
+        dialogManager.openDialog('inat-down-dialog');
+        
+        const checkStatusBtn = document.getElementById('check-inat-status');
+        const retryConnectionBtn = document.getElementById('retry-connection');
+        
+        const checkStatusHandler = () => {
+            window.open('https://inaturalist.org', '_blank');
+        };
+        
+        const retryConnectionHandler = async () => {
+            dialogManager.closeDialog();
+            if (await api.isINaturalistReachable()) {
+                game.setupGame(true);
+            } else {
+                this.showINatDownDialog();
+            }
+        };
+        
+        checkStatusBtn.addEventListener('click', checkStatusHandler);
+        retryConnectionBtn.addEventListener('click', retryConnectionHandler);
+    },
+
     hideINatDownDialog: function () {
-        const dialog = document.getElementById('inat-down-dialog');
-        dialog.close();
+        dialogManager.closeDialog();
     },
 
     showTutorial: function() {

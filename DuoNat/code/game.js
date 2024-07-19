@@ -2,6 +2,7 @@
 
 import api from './api.js';
 import config from './config.js';
+import dialogManager from './dialogManager.js';
 import {elements, gameState, updateGameState, GameState} from './state.js';
 import logger from './logger.js';
 import preloader from './preloader.js';
@@ -420,14 +421,8 @@ const game = {
             return;
         }
         
-        containerWrapper.classList.remove('hidden');
-
-        const handleKeyDown = (e) => {
-            if (e.key === 'Escape') {
-                this.hideTaxaRelationship();
-            }
-        }; 
-        document.addEventListener('keydown', handleKeyDown);
+        dialogManager.openDialog('taxa-relationship-container');
+//        containerWrapper.classList.remove('hidden');
 
         try {
             await taxaRelationshipViewer.initialize(container);
@@ -451,11 +446,12 @@ const game = {
         }
     },
 
-  hideTaxaRelationship() {
-    const containerWrapper = document.getElementById('taxa-relationship-container');
-    containerWrapper.classList.add('hidden');
-    // We don't clear the graph here, as we might want to show it again
-  },
+    hideTaxaRelationship: function() {
+        dialogManager.closeDialog();
+//        const containerWrapper = document.getElementById('taxa-relationship-container');
+//        containerWrapper.classList.add('hidden');
+        // We don't clear the graph here, as we might want to show it again
+     },
 
     prepareUIForLoading: function() {
         utils.resetDraggables();
@@ -604,7 +600,6 @@ const game = {
       const photoButton = document.getElementById('photo-button');
       const observationButton = document.getElementById('observation-button');
       const taxonButton = document.getElementById('taxon-button');
-      const relationshipButton = document.getElementById('relationship-button');
       const closeButton = document.getElementById('close-info-dialog');
 
       photoButton.onclick = () => {
@@ -620,13 +615,6 @@ const game = {
       taxonButton.onclick = () => {
         logger.debug("Taxon button clicked");
         // Implement taxon functionality here
-      };
-
-      relationshipButton.onclick = () => {
-        logger.debug("Relationship button clicked");
-        // Implement relationship functionality here
-        dialog.close();
-        this.showTaxaRelationship();
       };
 
       closeButton.onclick = () => {

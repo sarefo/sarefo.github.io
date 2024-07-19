@@ -20,8 +20,8 @@ const utils = {
     // trying out things button
     surprise: function () {
         logger.debug("Surprise!");
-        game.showTaxaRelationship();
-//        fart();
+//        game.showTaxaRelationship();
+        this.fart();
     },
 
     fart: function () {

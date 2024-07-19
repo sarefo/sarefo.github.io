@@ -1,6 +1,7 @@
 // Event handlers
 
 import api from './api.js';
+import dialogManager from './dialogManager.js';
 import game from './game.js';
 import logger from './logger.js';
 import ui from './ui.js';
@@ -53,6 +54,7 @@ const eventHandlers = {
         
         // button listeners
         document.getElementById('share-button').addEventListener('click', this.shareCurrentPair);
+        document.getElementById('phylogeny-button').addEventListener('click', game.showTaxaRelationship);
         document.getElementById('random-pair-button').addEventListener('click', async () => { await game.setupGame(true); });
         document.getElementById('select-pair-button').addEventListener('click', this.showTaxonPairList);
     
@@ -67,7 +69,8 @@ const eventHandlers = {
         // dialog events
         document.getElementById('enter-pair-button').addEventListener('click', () => {
             ui.clearDialogInputs();
-            document.getElementById('enter-pair-dialog').showModal();
+            dialogManager.openDialog('enter-pair-dialog');
+//            document.getElementById('enter-pair-dialog').showModal();
         });
         document.getElementById('close-dialog').addEventListener('click', () => {
             document.getElementById('enter-pair-dialog').close();
@@ -78,7 +81,8 @@ const eventHandlers = {
             utils.surprise();
         });
         document.getElementById('close-relationship-button').addEventListener('click', () => {
-            game.hideTaxaRelationship();
+            dialogManager.closeDialog();
+//            game.hideTaxaRelationship();
         });
 
         // Keyboard shortcuts
@@ -86,7 +90,8 @@ const eventHandlers = {
 
         // Help button functionality
         document.getElementById('help-button').addEventListener('click', () => {
-            document.getElementById('help-dialog').showModal();
+            dialogManager.openDialog('help-dialog');
+ //           document.getElementById('help-dialog').showModal();
         });
         document.getElementById('start-tutorial-button').addEventListener('click', () => {
             ui.showTutorial();
@@ -251,33 +256,38 @@ const eventHandlers = {
     },
 
     handleKeyboardShortcuts(event) {
-        const isDialogOpen = document.getElementById('enter-pair-dialog').open;
-        
-        if (!isDialogOpen) {
-            if (event.key === 'r' || event.key === 'R' || event.key === 'ArrowLeft') {
-                document.getElementById('random-pair-button').click();
-            }
-            if (event.key === 's' || event.key === 'S') {
-                document.getElementById('select-pair-button').click();
-            }
-            if (event.key === 'h' || event.key === 'H') {
-                document.getElementById('help-button').click();
-            }
-            if (event.key === 'e' || event.key === 'E') {
-                document.getElementById('enter-pair-button').click();
-                setTimeout(() => {
-                    document.getElementById('taxon1').value = '';
-                    document.getElementById('taxon1').focus();
-                }, 0);
-            }
-            if (event.key === 'g' || event.key === 'p' || event.key === 'P' || event.key === 'f' || event.key === 'F') {
-                document.getElementById('surprise-button').click();
-            }
-            if (event.key === 'i' || event.key === 'I') {
-                document.getElementById('info-button-1').click();
-            }
-            if (event.key === 'o' || event.key === 'O') {
-                document.getElementById('info-button-2').click();
+        if (!dialogManager.activeDialog) {
+            const isDialogOpen = document.getElementById('enter-pair-dialog').open;
+            
+            if (!isDialogOpen) {
+                if (event.key === 'r' || event.key === 'R' || event.key === 'ArrowLeft') {
+                    document.getElementById('random-pair-button').click();
+                }
+                if (event.key === 's' || event.key === 'S') {
+                    document.getElementById('select-pair-button').click();
+                }
+                if (event.key === 'h' || event.key === 'H') {
+                    document.getElementById('help-button').click();
+                }
+                if (event.key === 'e' || event.key === 'E') {
+                    document.getElementById('enter-pair-button').click();
+                    setTimeout(() => {
+                        document.getElementById('taxon1').value = '';
+                        document.getElementById('taxon1').focus();
+                    }, 0);
+                }
+                if (event.key === 'p' || event.key === 'P' || event.key === 'f' || event.key === 'F') {
+                    document.getElementById('surprise-button').click();
+                }
+                if (event.key === 'g' || event.key === 'G') {
+                    document.getElementById('phylogeny-button').click();
+                }
+                if (event.key === 'i' || event.key === 'I') {
+                    document.getElementById('info-button-1').click();
+                }
+                if (event.key === 'o' || event.key === 'O') {
+                    document.getElementById('info-button-2').click();
+                }
             }
         }
     }
