@@ -355,6 +355,16 @@ showINatDownDialog: function () {
         }
     },
 
+restoreOriginalImages: function() {
+    if (this.originalImages) {
+        const imageOne = document.getElementById('image-1');
+        const imageTwo = document.getElementById('image-2');
+        imageOne.src = this.originalImages.one;
+        imageTwo.src = this.originalImages.two;
+        this.originalImages = null;
+    }
+},
+
     createHighlight: function(targetSelector) {
         const target = document.querySelector(targetSelector);
         if (!target) {
