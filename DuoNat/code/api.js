@@ -27,11 +27,11 @@ const api = (() => {
     },
 
     fetchRandomImage: async function (taxonName) {
-       logger.debug(`Fetching random image for ${taxonName}`);
-        const images = await this.fetchMultipleImages(taxonName, 12); // Fetch 12 images instead of 1
+        logger.debug(`Fetching random image for ${taxonName}`);
+        const images = await this.fetchMultipleImages(taxonName, 12);
         if (images.length === 0) {
             logger.error(`No images found for ${taxonName}`);
-            return null;
+            throw new Error(`No images found for ${taxonName}`);
         }
         const randomIndex = Math.floor(Math.random() * images.length);
         const result = images[randomIndex];

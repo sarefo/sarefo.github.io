@@ -94,6 +94,13 @@ const ui = {
         elements.overlayMessage.innerHTML = message;
         elements.overlay.style.backgroundColor = color;
         elements.overlay.classList.add('show');
+        
+        // Adjust font size for longer messages
+        if (message.length > 50) {
+            elements.overlayMessage.style.fontSize = '1em';
+        } else {
+            elements.overlayMessage.style.fontSize = '1.2em';
+        }
     },
 
     updateOverlayMessage: function (message) {

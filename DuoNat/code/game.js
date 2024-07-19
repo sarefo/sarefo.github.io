@@ -38,78 +38,139 @@ const game = {
     },
 
     async setupGame(newSession = false) {
-        if (newSession) {
-          this.preloadedImages = { taxon1: [], taxon2: [] };
-          logger.debug("Starting new session, resetting state");
-          this.setState(GameState.IDLE);
-          this.currentGraphTaxa = null; // Clear the current graph taxa
-          taxaRelationshipViewer.clearGraph(); // Clear the existing graph
-        }
-
-        if (this.currentState !== GameState.IDLE && 
-            this.currentState !== GameState.READY && 
-            this.currentState !== GameState.CHECKING) {
-            logger.debug("Game is not in a state to start a new session");
+        if (!this.canStartNewSession(newSession)) {
             return;
         }
 
         this.setState(GameState.LOADING);
 
         if (!await this.checkINaturalistReachability()) {
-            logger.error("iNaturalist is not reachable. Showing dialog.");
-            this.setState(GameState.IDLE);
-            return; // Exit setupGame if iNaturalist is not reachable
+            return;
         }
 
         this.prepareUIForLoading();
 
         try {
-            let newTaxonImageCollection;
-            if (newSession || !gameState.currentTaxonImageCollection) {
-                if (this.nextSelectedPair) {
-                    logger.debug("Using selected pair:", this.nextSelectedPair);
-                    newTaxonImageCollection = await this.initializeNewTaxonPair(this.nextSelectedPair);
-                    this.nextSelectedPair = null;
-                } else if (this.preloadedPair) {
-                    logger.debug("Using preloaded pair");
-                    newTaxonImageCollection = this.preloadedPair;
-                    this.preloadedPair = null;
-                } else {
-                    newTaxonImageCollection = await this.initializeNewTaxonPair();
-                }
-                
-                // Update the gameState with the new collection
-                updateGameState({
-                    currentTaxonImageCollection: newTaxonImageCollection
-                });
-            }
+            const newTaxonImageCollection = await this.fetchTaxonImageCollection(newSession);
+            
+            updateGameState({
+                currentTaxonImageCollection: newTaxonImageCollection
+            });
             
             await this.setupRound();
             this.finishSetup();
 
-            if (gameState.isInitialLoad) {
-                this.hideLoadingScreen();
-                updateGameState({ isInitialLoad: false });
-            }
-
-            this.setState(GameState.PLAYING);
-            logger.debug("Game setup complete. Current state:", this.currentState);
+            this.handleInitialLoad();
 
             this.setState(GameState.PLAYING);
             logger.debug("Game setup complete. Current state:", this.currentState);
 
             ui.hideOverlay();
 
-            // Start preloading for the next session
             this.preloadNextPair();
         } catch (error) {
-            logger.error("Error setting up game:", error);
-            ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
+            this.handleSetupError(error);
+        }
+    },
+
+    canStartNewSession(newSession) {
+        if (newSession) {
+            this.resetSessionState();
+        }
+
+        if (![GameState.IDLE, GameState.READY, GameState.CHECKING].includes(this.currentState)) {
+            logger.debug("Game is not in a state to start a new session");
+            return false;
+        }
+
+        return true;
+    },
+
+    resetSessionState() {
+        this.preloadedImages = { taxon1: [], taxon2: [] };
+        logger.debug("Starting new session, resetting state");
+        this.setState(GameState.IDLE);
+        this.currentGraphTaxa = null;
+        taxaRelationshipViewer.clearGraph();
+    },
+
+    async checkINaturalistReachability() {
+        if (!await api.isINaturalistReachable()) {
+            logger.error("iNaturalist is not reachable. Showing dialog.");
+            ui.showINatDownDialog();
             this.setState(GameState.IDLE);
-            if (gameState.isInitialLoad) {
-                this.hideLoadingScreen();
-                updateGameState({ isInitialLoad: false });
+            return false;
+        }
+        ui.hideINatDownDialog();
+        return true;
+    },
+
+    async fetchTaxonImageCollection(newSession) {
+        let attempts = 0;
+        const maxAttempts = 3;
+
+        while (attempts < maxAttempts) {
+            try {
+                return await this.attemptFetchTaxonImageCollection(newSession);
+            } catch (error) {
+                attempts++;
+                if (this.shouldRetryFetch(error, attempts, maxAttempts)) {
+                    await this.handleFetchError(error);
+                } else {
+                    throw error;
+                }
             }
+        }
+
+        throw new Error("Failed to load images after multiple attempts");
+    },
+
+    async attemptFetchTaxonImageCollection(newSession) {
+        if (newSession || !gameState.currentTaxonImageCollection) {
+            if (this.nextSelectedPair) {
+                logger.debug("Using selected pair:", this.nextSelectedPair);
+                const collection = await this.initializeNewTaxonPair(this.nextSelectedPair);
+                this.nextSelectedPair = null;
+                return collection;
+            } else if (this.preloadedPair) {
+                logger.debug("Using preloaded pair");
+                const collection = this.preloadedPair;
+                this.preloadedPair = null;
+                return collection;
+            } else {
+                return await this.initializeNewTaxonPair();
+            }
+        }
+        return gameState.currentTaxonImageCollection;
+    },
+
+    shouldRetryFetch(error, attempts, maxAttempts) {
+        return attempts < maxAttempts && error.message.includes("No images found");
+    },
+
+    async handleFetchError(error) {
+        if (error.message.includes("No images found")) {
+            const taxonName = error.message.split("No images found for ")[1];
+            ui.showOverlay(`Warning: No images found for ${taxonName}. Trying another pair...`, config.overlayColors.red);
+            await utils.sleep(2000);
+            this.nextSelectedPair = null;
+        }
+    },
+
+    handleInitialLoad() {
+        if (gameState.isInitialLoad) {
+            this.hideLoadingScreen();
+            updateGameState({ isInitialLoad: false });
+        }
+    },
+
+    handleSetupError(error) {
+        logger.error("Error setting up game:", error);
+        ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
+        this.setState(GameState.IDLE);
+        if (gameState.isInitialLoad) {
+            this.hideLoadingScreen();
+            updateGameState({ isInitialLoad: false });
         }
     },
 
@@ -346,15 +407,6 @@ const game = {
     containerWrapper.classList.add('hidden');
     // We don't clear the graph here, as we might want to show it again
   },
-
-    checkINaturalistReachability: async function() {
-        if (!await api.isINaturalistReachable()) {
-          ui.showINatDownDialog();
-          return false;
-        }
-        ui.hideINatDownDialog(); // Hide the dialog if it was previously shown
-        return true;
-    },
 
     prepareUIForLoading: function() {
         utils.resetDraggables();
