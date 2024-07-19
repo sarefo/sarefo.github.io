@@ -15,8 +15,14 @@ const game = {
     currentGraphTaxa: null,
     preloadedPair: null,
     preloadedImages: {
-        taxon1: [],
-        taxon2: []
+        current: {
+            taxon1: [],
+            taxon2: []
+        },
+        next: {
+            taxon1: [],
+            taxon2: []
+        }
     },
 
     currentObservationURLs: {
@@ -38,52 +44,85 @@ const game = {
     },
 
     async setupGame(newSession = false) {
-        if (!this.canStartNewSession(newSession)) { return; }
+        if (newSession) {
+            this.preloadedImages = { 
+                current: { taxon1: [], taxon2: [] },
+                next: { taxon1: [], taxon2: [] }
+            };
+            logger.debug("Starting new session, resetting state");
+            this.setState(GameState.IDLE);
+            this.currentGraphTaxa = null; // Clear the current graph taxa
+            taxaRelationshipViewer.clearGraph(); // Clear the existing graph
+        }
+
+        if (this.currentState !== GameState.IDLE && 
+            this.currentState !== GameState.READY && 
+            this.currentState !== GameState.CHECKING) {
+            logger.debug("Game is not in a state to start a new session");
+            return;
+        }
 
         this.setState(GameState.LOADING);
 
-        if (!await this.checkINaturalistReachability()) { return; }
+        if (!await this.checkINaturalistReachability()) {
+            logger.error("iNaturalist is not reachable. Showing dialog.");
+            this.setState(GameState.IDLE);
+            return; // Exit setupGame if iNaturalist is not reachable
+        }
 
         this.prepareUIForLoading();
 
         try {
-            const newTaxonImageCollection = await this.fetchTaxonImageCollection(newSession);
-            
-            updateGameState({
-                currentTaxonImageCollection: newTaxonImageCollection
-            });
+            let newTaxonImageCollection;
+            if (newSession || !gameState.currentTaxonImageCollection) {
+                if (this.nextSelectedPair) {
+                    logger.debug("Using selected pair:", this.nextSelectedPair);
+                    newTaxonImageCollection = await this.initializeNewTaxonPair(this.nextSelectedPair);
+                    this.nextSelectedPair = null;
+                } else if (this.preloadedPair) {
+                    logger.debug("Using preloaded pair");
+                    newTaxonImageCollection = this.preloadedPair;
+                    this.preloadedPair = null;
+                    // Move preloaded images for the next session to the current session
+                    this.preloadedImages.current = this.preloadedImages.next;
+                    this.preloadedImages.next = { taxon1: [], taxon2: [] };
+                } else {
+                    newTaxonImageCollection = await this.initializeNewTaxonPair();
+                }
+                
+                // Update the gameState with the new collection
+                updateGameState({
+                    currentTaxonImageCollection: newTaxonImageCollection
+                });
+            }
             
             await this.setupRound();
             this.finishSetup();
 
-            this.handleInitialLoad();
+            if (gameState.isInitialLoad) {
+                this.hideLoadingScreen();
+                updateGameState({ isInitialLoad: false });
+            }
+
+            this.setState(GameState.PLAYING);
+            logger.debug("Game setup complete. Current state:", this.currentState);
 
             this.setState(GameState.PLAYING);
             logger.debug("Game setup complete. Current state:", this.currentState);
 
             ui.hideOverlay();
 
+            // Start preloading for the next session
             this.preloadNextPair();
-        } catch (error) { this.handleSetupError(error); }
-    },
-
-    canStartNewSession(newSession) {
-        if (newSession) { this.resetSessionState(); }
-
-        if (![GameState.IDLE, GameState.READY, GameState.CHECKING].includes(this.currentState)) {
-            logger.debug("Game is not in a state to start a new session");
-            return false;
+        } catch (error) {
+            logger.error("Error setting up game:", error);
+            ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
+            this.setState(GameState.IDLE);
+            if (gameState.isInitialLoad) {
+                this.hideLoadingScreen();
+                updateGameState({ isInitialLoad: false });
+            }
         }
-
-        return true;
-    },
-
-    resetSessionState() {
-        this.preloadedImages = { taxon1: [], taxon2: [] };
-        logger.debug("Starting new session, resetting state");
-        this.setState(GameState.IDLE);
-        this.currentGraphTaxa = null;
-        taxaRelationshipViewer.clearGraph();
     },
 
     async checkINaturalistReachability() {
@@ -169,13 +208,31 @@ const game = {
     async preloadNextPair() {
         if (this.preloadedPair) return; // Don't preload if we already have a preloaded pair
 
-        logger.debug("Starting to preload next pair");
+        logger.debug("Starting to preload next pair for a new session");
         this.preloadedPair = await this.initializeNewTaxonPair();
-        logger.debug("Finished preloading next pair");
+        
+        try {
+            const [newImageOneURL, newImageTwoURL] = await Promise.all([
+                api.fetchRandomImageMetadata(this.preloadedPair.pair.taxon1),
+                api.fetchRandomImageMetadata(this.preloadedPair.pair.taxon2)
+            ]);
+            
+            await Promise.all([
+                this.preloadImage(newImageOneURL),
+                this.preloadImage(newImageTwoURL)
+            ]);
+            
+            this.preloadedImages.next.taxon1 = [newImageOneURL];
+            this.preloadedImages.next.taxon2 = [newImageTwoURL];
+            
+            logger.debug("Finished preloading next pair for a new session");
+        } catch (error) {
+            logger.error("Error preloading images for next session:", error);
+        }
     },
 
     async initializeNewTaxonPair(pair = null) {
-        const newPair = pair || await this.selectTaxonPair();
+        const newPair = pair || await utils.selectTaxonPair();
         const [imageOneURL, imageTwoURL] = await Promise.all([
             api.fetchRandomImage(newPair.taxon1),
             api.fetchRandomImage(newPair.taxon2)
@@ -236,11 +293,11 @@ const game = {
 
         let imageOneURL, imageTwoURL;
 
-        // Use preloaded images if available, otherwise fetch new ones
-        if (this.preloadedImages.taxon1.length > 0 && this.preloadedImages.taxon2.length > 0) {
+        // Use preloaded images for the current session if available
+        if (this.preloadedImages.current.taxon1.length > 0 && this.preloadedImages.current.taxon2.length > 0) {
             logger.debug("Using preloaded image metadata for current round");
-            imageOneURL = this.preloadedImages.taxon1.pop();
-            imageTwoURL = this.preloadedImages.taxon2.pop();
+            imageOneURL = this.preloadedImages.current.taxon1.pop();
+            imageTwoURL = this.preloadedImages.current.taxon2.pop();
         } else {
             logger.debug("Fetching new random image metadata for current round");
             [imageOneURL, imageTwoURL] = await Promise.all([
@@ -284,13 +341,13 @@ const game = {
 
         logger.debug(`Images for this round: ${imageOneURL}, ${imageTwoURL}`);
 
-        // Preload images for the next round
+        // Preload images for the next round of the current session
         this.preloadImagesForCurrentPair();
     },
 
     async preloadImagesForCurrentPair() {
         const { pair } = gameState.currentTaxonImageCollection;
-        logger.debug("Starting to preload images for next round");
+        logger.debug("Starting to preload images for next round of current session");
         
         try {
             const [newImageOneURL, newImageTwoURL] = await Promise.all([
@@ -303,12 +360,12 @@ const game = {
                 this.preloadImage(newImageTwoURL)
             ]);
             
-            this.preloadedImages.taxon1 = [newImageOneURL];
-            this.preloadedImages.taxon2 = [newImageTwoURL];
+            this.preloadedImages.current.taxon1.push(newImageOneURL);
+            this.preloadedImages.current.taxon2.push(newImageTwoURL);
             
-            logger.debug("Finished preloading images for next round");
+            logger.debug("Finished preloading images for next round of current session");
         } catch (error) {
-            logger.error("Error preloading images:", error);
+            logger.error("Error preloading images for current session:", error);
         }
     },
 
@@ -411,7 +468,7 @@ const game = {
     },
 
     async loadNewTaxonPair() {
-        const newPair = await this.selectTaxonPair();
+        const newPair = await utils.selectTaxonPair();
         updateGameState({
             currentTaxonImageCollection: {
                 pair: newPair,
@@ -508,15 +565,6 @@ const game = {
             taxonLeftName: gameState.taxonLeftName,
             taxonRightName: gameState.taxonRightName
         });
-    },
-
-    selectTaxonPair: async function (index = null) {
-        const taxonPairs = await api.fetchTaxonPairs();
-        if (taxonPairs.length === 0) {
-            logger.error("No taxon pairs available");
-            return null;
-        }
-        return index !== null ? taxonPairs[index] : taxonPairs[Math.floor(Math.random() * taxonPairs.length)];
     },
 
 // TODO for now only gives photo page

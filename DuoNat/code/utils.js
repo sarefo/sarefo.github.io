@@ -1,5 +1,6 @@
 // Utility functions
 
+import api from './api.js';
 import game from './game.js';
 import logger from './logger.js';
 
@@ -80,7 +81,16 @@ const utils = {
         let species = parts.slice(1).join(' '); // Join the remaining parts in case the species name has multiple words
 
         return genusInitial + ' ' + species;
-    }
+    },
+
+    selectTaxonPair: async function (index = null) {
+        const taxonPairs = await api.fetchTaxonPairs();
+        if (taxonPairs.length === 0) {
+            logger.error("No taxon pairs available");
+            return null;
+        }
+        return index !== null ? taxonPairs[index] : taxonPairs[Math.floor(Math.random() * taxonPairs.length)];
+    },
 
 }; // const utils
 
