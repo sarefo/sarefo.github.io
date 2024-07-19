@@ -96,10 +96,10 @@ const ui = {
         elements.overlay.classList.add('show');
         
         // Adjust font size for longer messages
-        if (message.length > 50) {
-            elements.overlayMessage.style.fontSize = '1em';
-        } else {
+        if (message.length > 20) {
             elements.overlayMessage.style.fontSize = '1.2em';
+        } else {
+            elements.overlayMessage.style.fontSize = '2.4em';
         }
     },
 
