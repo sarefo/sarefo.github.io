@@ -38,15 +38,11 @@ const game = {
     },
 
     async setupGame(newSession = false) {
-        if (!this.canStartNewSession(newSession)) {
-            return;
-        }
+        if (!this.canStartNewSession(newSession)) { return; }
 
         this.setState(GameState.LOADING);
 
-        if (!await this.checkINaturalistReachability()) {
-            return;
-        }
+        if (!await this.checkINaturalistReachability()) { return; }
 
         this.prepareUIForLoading();
 
@@ -68,15 +64,11 @@ const game = {
             ui.hideOverlay();
 
             this.preloadNextPair();
-        } catch (error) {
-            this.handleSetupError(error);
-        }
+        } catch (error) { this.handleSetupError(error); }
     },
 
     canStartNewSession(newSession) {
-        if (newSession) {
-            this.resetSessionState();
-        }
+        if (newSession) { this.resetSessionState(); }
 
         if (![GameState.IDLE, GameState.READY, GameState.CHECKING].includes(this.currentState)) {
             logger.debug("Game is not in a state to start a new session");
