@@ -599,6 +599,7 @@ const game = {
       const photoButton = document.getElementById('photo-button');
       const observationButton = document.getElementById('observation-button');
       const taxonButton = document.getElementById('taxon-button');
+      const hintsButton = document.getElementById('hints-button');
       const closeButton = document.getElementById('close-info-dialog');
 
       photoButton.onclick = () => {
@@ -614,6 +615,11 @@ const game = {
       taxonButton.onclick = () => {
         logger.debug("Taxon button clicked");
         // Implement taxon functionality here
+      };
+
+      hintsButton.onclick = () => {
+        logger.debug("Taxon hints button clicked");
+        // Implement taxon hints functionality here
       };
 
       closeButton.onclick = () => {

@@ -53,6 +53,10 @@ body * { text-align: center; } /* percolate to child elements */
     transition: transform 0.1 ease-out, opacity 0.1 ease-out;
 }
 
+  .underline {
+    text-decoration: underline;
+  }
+
 /* Styles common to all main containers */
 .image-container,
 .name-pair,
