@@ -67,23 +67,11 @@ const eventHandlers = {
         });
 
         // dialog events
-/*        document.getElementById('enter-pair-button').addEventListener('click', () => {
-            ui.clearDialogInputs();
-            dialogManager.openDialog('enter-pair-dialog');
-//            document.getElementById('enter-pair-dialog').showModal();
-        });
-        document.getElementById('close-dialog').addEventListener('click', () => {
-            document.getElementById('enter-pair-dialog').close();
-        });
-        document.querySelector('#enter-pair-dialog form').addEventListener('submit', this.handleNewPairSubmit);
-        */
         document.getElementById('surprise-button').addEventListener('click', () => {
-/*            ui.clearDialogInputs();*/
             utils.surprise();
         });
         document.getElementById('close-relationship-button').addEventListener('click', () => {
             dialogManager.closeDialog();
-//            game.hideTaxaRelationship();
         });
 
         // Keyboard shortcuts

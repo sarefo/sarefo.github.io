@@ -291,7 +291,7 @@ dialog {
 }
 
 #dialog-message {
-    color: var(--text-color);
+    color: var(--counter-text-color);
     font-style: italic;
     margin-top: 10px;
 }

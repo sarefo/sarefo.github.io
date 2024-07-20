@@ -9,13 +9,6 @@ import logger from './logger.js';
 
 const ui = {
 
-    // Enter pair dialog 
-    clearDialogInputs: function () {
-            document.getElementById('taxon1').value = '';
-            document.getElementById('taxon2').value = '';
-            document.getElementById('dialog-message').textContent = '';
-        },
-
     resetGameContainerStyle: function () {
         const gameContainer = document.querySelector('.game-container');
         if (gameContainer) {
