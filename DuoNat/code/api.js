@@ -159,6 +159,33 @@ const api = (() => {
             }
         },
 
+        fetchTaxonDetails: async function(name) {
+            try {
+                const response = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${encodeURIComponent(name)}&per_page=1&all_names=true`);
+                const data = await response.json();
+                if (data.results.length === 0) throw new Error(`Taxon not found: ${name}`);
+                return data.results[0];
+            } catch (error) {
+                logger.error('Error fetching taxon details:', error);
+                throw error;
+            }
+        },
+
+        fetchAncestorDetails: async function(ancestorIds) {
+            const ancestorDetails = new Map();
+            for (const id of ancestorIds) {
+                try {
+                    const response = await fetch(`https://api.inaturalist.org/v1/taxa/${id}`);
+                    const data = await response.json();
+                    if (data.results.length > 0) {
+                        ancestorDetails.set(id, data.results[0]);
+                    }
+                } catch (error) {
+                    logger.error(`Error fetching ancestor details for ID ${id}:`, error);
+                }
+            }
+            return ancestorDetails;
+        }
     }; 
 
 })();

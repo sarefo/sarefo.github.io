@@ -1,3 +1,4 @@
+import api from './api.js';
 import logger from './logger.js';
 import utils from './utils.js';
 
@@ -104,47 +105,36 @@ const taxaRelationshipViewer = {
     }
   },
 
-  clearGraph() {
-    if (this.network) {
-      this.network.destroy();
-      this.network = null;
-    }
-    this.currentData = null;
-    if (this.container) {
-      this.container.innerHTML = '';
-      this.createLoadingIndicator(); // Recreate the loading indicator
-    }
-  },
+      clearGraph() {
+        if (this.network) {
+          this.network.destroy();
+          this.network = null;
+        }
+        this.currentData = null;
+        if (this.container) {
+          this.container.innerHTML = '';
+          this.createLoadingIndicator(); // Recreate the loading indicator
+        }
+      },
 
-  async fetchTaxonData(name) {
-    const response = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${encodeURIComponent(name)}&per_page=1&all_names=true`);
-    const data = await response.json();
-    if (data.results.length === 0) throw new Error(`Taxon not found: ${name}`);
-    return data.results[0];
-  },
+      async fetchTaxonData(name) {
+        return api.fetchTaxonDetails(name);
+      },
 
-  findCommonAncestor(taxon1, taxon2) {
-    const ancestors1 = new Set(taxon1.ancestor_ids);
-    let commonAncestor = null;
-    for (const ancestorId of taxon2.ancestor_ids) {
-      if (ancestors1.has(ancestorId)) {
-        commonAncestor = ancestorId;
-        break;
-      }
-    }
-    return commonAncestor;
-  },
-
-      async fetchAncestorDetails(ancestorIds) {
-        const ancestorDetails = new Map();
-        for (const id of ancestorIds) {
-          const response = await fetch(`https://api.inaturalist.org/v1/taxa/${id}`);
-          const data = await response.json();
-          if (data.results.length > 0) {
-            ancestorDetails.set(id, data.results[0]);
+      findCommonAncestor(taxon1, taxon2) {
+        const ancestors1 = new Set(taxon1.ancestor_ids);
+        let commonAncestor = null;
+        for (const ancestorId of taxon2.ancestor_ids) {
+          if (ancestors1.has(ancestorId)) {
+            commonAncestor = ancestorId;
+            break;
           }
         }
-        return ancestorDetails;
+        return commonAncestor;
+      },
+
+      async fetchAncestorDetails(ancestorIds) {
+          return api.fetchAncestorDetails(ancestorIds);
       },
 
     async renderGraph(taxon1, taxon2, commonAncestorId) {
