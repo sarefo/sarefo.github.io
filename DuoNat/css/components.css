@@ -632,10 +632,10 @@ width: 80%;
 }
 
 #phylogeny-dialog {
+    position: relative;
     width: 90%;
     height: 90%;
-    max-width: 1200px;
-    max-height: 800px;
+    max-width: 1800px;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -748,7 +748,8 @@ width: 80%;
     background-color: var(--background-color);
     border-radius: var(--border-radius);
     padding: 20px;
-    max-width: 90%;
+    width: 80%;
+    max-width: calc(var(--max-image-width) - 40px);
  /*   width: 300px;*/
 }
 
