@@ -204,8 +204,20 @@ const eventHandlers = {
     },
 
     handleKeyboardShortcuts(event) {
-        if (!dialogManager.activeDialog) {
-            const isDialogOpen = document.getElementById('enter-pair-dialog').open;
+    const infoDialog = document.getElementById('info-dialog');
+
+        if (infoDialog.open) {
+            // Info dialog is open, don't process main view shortcuts
+            return;
+        }
+
+        const activeDialog = dialogManager.activeDialog;
+        if (activeDialog) {
+            // Another dialog is active, don't process main view shortcuts
+            return;
+        }
+
+        const isDialogOpen = document.getElementById('enter-pair-dialog').open;
             
             if (!isDialogOpen) {
                 if (event.key === 'r' || event.key === 'R' || event.key === 'ArrowLeft') {
@@ -233,7 +245,6 @@ const eventHandlers = {
                     document.getElementById('info-button-2').click();
                 }
             }
-        }
     }
 };
 
