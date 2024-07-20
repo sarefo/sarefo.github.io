@@ -99,8 +99,11 @@ const dialogManager = {
         this.mainEventHandlers = {};
     },
 
-    // Enter pair dialog functionality:
-    initializeEnterPairDialog() {
+    // Dialog functionality:
+    initializeDialogs() {
+
+        document.getElementById('close-select-pair-dialog').addEventListener('click', () => this.closeDialog('select-pair-dialog'));
+
         // Initialize enter pair dialog elements
         this.enterPairDialog = document.getElementById('enter-pair-dialog');
         this.taxon1Input = document.getElementById('taxon1');

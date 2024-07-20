@@ -10,6 +10,24 @@ dialog {
   margin: 0;
 }
 
+.standard-dialog {
+    background-color: white;
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    width: 95%;
+    max-width: 500px;
+    max-height: 95vh;
+    padding: 40px 20px 20px;
+}
+
+.dialog-title {
+    color: var(--primary-counter-color);
+    text-align: center;
+    margin: 0 0 20px 0;
+    font-size: 1.5em;
+}
+
 .dialog-close-button {
     position: absolute;
     top: 10px;
@@ -266,17 +284,12 @@ dialog {
 /* Styles for enter pair dialog */
 #enter-pair-dialog {
     position: relative;
-    padding: 40px 20px 20px;
-    padding: 20px;
     border-radius: var(--border-radius);
     border: none;
     box-shadow: 0 0 10px var(--shadow-color);
-    max-width: 400px;
-    width: 80%;
-}
-#enter-pair-dialog h2 {
-    color: var(--primary-color);
-    margin-bottom: 20px;
+    padding: 40px 20px 20px;
+             max-width: 400px;
+width: 80%;
 }
 #enter-pair-dialog form {
     display: flex;
@@ -289,7 +302,7 @@ dialog {
     text-align: right;
     margin-right: 10px;
     font-weight: bold;
-    font-size: var(--normal-font-size);
+    font-size: 1.2em; /*var(--normal-font-size);*/
     color: var(--counter-text-color);
 }
 #enter-pair-dialog input {
@@ -330,6 +343,59 @@ dialog {
 }
 
 /* Styles for select taxon pair list dialog */
+#select-pair-dialog {
+ height: 95vh;
+}
+
+.taxon-pair-list {
+    overflow-y: auto;
+    max-height: 100%;
+}
+
+.taxon-pair-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    color: var(--text-color);
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.taxon-pair-button:hover {
+    background-color: #5c8a00;
+}
+
+.taxon-pair-versus {
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0 5px;
+}
+
+
+.taxon-pair-content {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 20px 20px;
+}
+
+.taxon-pair-title {
+    color: var(--primary-color);
+    text-align: center;
+    margin: 0 0 20px 0;
+    font-size: 1.5em;
+}
+
 .taxon-pair-modal {
     position: fixed;
     top: 0; left: 0;
@@ -339,42 +405,6 @@ dialog {
     justify-content: center;
     align-items: center;
     z-index: 1000;
-}
-.taxon-pair-list {
-    background-color: var(--background-color);
-    padding: 8px;
-    border-radius: var(--border-radius);
-    max-width: 90%;
-    max-height: 95%;
-    overflow-y: auto;
-}
-.taxon-pair-button {
-    display: block;
-    width: 100%;
-    padding: 8px;
-    margin: 4px 0;
-    color: var(--text-color);
-    background-color: var(--primary-color);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: larger;/*var(--normal-font-size);*/
-}
-.taxon-pair-versus {
-    color: #666;
-}
-.taxon-pair-cancel-button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    color: var(--text-color);
-    background-color: var(--primary-counter-color);
-    border: none;
-    border-radius: 5px;
-    font-size:22px;
-    font-weight: bold;
-    cursor: pointer;
 }
 
 /* Styles for help dialog */

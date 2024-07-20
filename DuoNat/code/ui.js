@@ -29,62 +29,23 @@ const ui = {
                 logger.error("No taxon pairs available");
                 return;
             }
-            const modal = document.createElement('div');
-            modal.id = 'taxon-pair-modal';
-            modal.className = 'taxon-pair-modal';
-            
-            const list = document.createElement('div');
-            list.className = 'taxon-pair-list';
-            
-            const cancelButton = document.createElement('button');
-            cancelButton.textContent = 'Cancel';
-            cancelButton.className = 'taxon-pair-cancel-button';
-            cancelButton.onclick = closeModal;
-            
+
+            const list = document.getElementById('taxon-pair-list');
+            list.innerHTML = ''; // Clear existing content
+
             taxonPairs.forEach((pair, index) => {
                 const button = document.createElement('button');
                 button.innerHTML = `<i>${pair.taxon1}</i> <span class="taxon-pair-versus">vs</span> <i>${pair.taxon2}</i>`;
                 button.className = 'taxon-pair-button';
                 button.onclick = () => {
-                    // Set the selected pair as the next pair to be used
                     game.nextSelectedPair = pair;
-                    
-                    // Close the modal
-                    closeModal();
-                    
-                    // Set up the game with the new pair
+                    dialogManager.closeDialog();
                     game.setupGame(true);
                 };
                 list.appendChild(button);
             });
-            
-            list.insertBefore(cancelButton, list.firstChild);
-            
-            modal.appendChild(list);
-            document.body.appendChild(modal);
 
-            dialogManager.openDialog('taxon-pair-modal');
-            
-            modal.onclick = (e) => {
-                if (e.target === modal) {
-                    closeModal();
-                }
-            };
-
-            // Add event listener for the Escape key
-            const handleEscapeKey = (e) => {
-                if (e.key === 'Escape') {
-                    closeModal();
-                }
-            };
-
-            document.addEventListener('keydown', handleEscapeKey);
-
-            // Function to close the modal
-            function closeModal() {
-                document.body.removeChild(modal);
-                document.removeEventListener('keydown', handleEscapeKey);
-            }
+            dialogManager.openDialog('select-pair-dialog');
         });
     },
 

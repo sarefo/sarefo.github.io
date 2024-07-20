@@ -56,7 +56,7 @@ const eventHandlers = {
         document.getElementById('share-button').addEventListener('click', this.shareCurrentPair);
         document.getElementById('phylogeny-button').addEventListener('click', game.showTaxaRelationship);
         document.getElementById('random-pair-button').addEventListener('click', async () => { await game.setupGame(true); });
-        document.getElementById('select-pair-button').addEventListener('click', this.showTaxonPairList);
+        document.getElementById('select-pair-button').addEventListener('click', () => ui.showTaxonPairList());
     
         // touch events
         [elements.imageOneContainer, elements.imageTwoContainer].forEach(container => {

@@ -25,7 +25,7 @@ import utils from './utils.js';
             game.nextSelectedPair = urlParams;
         }
         
-        dialogManager.initializeEnterPairDialog(); // TODO seems a bit too specific
+        dialogManager.initializeDialogs();
         game.setupGame(true);
         eventHandlers.initialize();
         ui.initialize();

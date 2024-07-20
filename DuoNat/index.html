@@ -172,13 +172,24 @@
     </div>
 </dialog>
 
+<!-- Select pair dialog -->
+    <dialog id="select-pair-dialog" class="standard-dialog">
+        <button class="dialog-close-button" id="close-select-pair-dialog" aria-label="Close">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        <h3 class="dialog-title">Select Taxon Pair</h3>
+        <div id="taxon-pair-list" class="taxon-pair-list">
+            <!-- Taxon pairs will be dynamically inserted here -->
+        </div>
+    </dialog>
+
 <!-- Enter pair dialog -->
-    <dialog id="enter-pair-dialog">
+    <dialog id="enter-pair-dialog" class="standard-dialog">
         <button class="dialog-close-button" id="close-dialog" aria-label="Close">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
         <form method="dialog">
-            <h2>Enter New Taxon Pair</h2>
+            <h2 class="dialog-title">Enter New Taxon Pair</h2>
             <div>
                 <label for="taxon1">Taxon 1:</label>
                 <input type="text" id="taxon1" required>
