@@ -182,30 +182,6 @@ dialog {
     transition: fill var(--transition-speed) ease;
 }
 
-/* Styles for share button on main page */
-/*#share-button {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    background: rgba(255, 255, 255, 0.4);
-    border: none;
-    cursor: pointer;
-    z-index: 1000;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color var(--transition-speed) ease;
-}
-
-#share-button svg {
-    width: 24px;
-    height: 24px;
-    fill: var(--primary-counter-color);
-    transition: fill var(--transition-speed) ease;
-}*/
 
 /* Styles for info buttons on images */
 .info-button {
@@ -253,35 +229,6 @@ dialog {
         height: 20px;
     }
 }
-/*
-.info-button {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background: rgba(255, 255, 255, 0.7);
-    border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: var(--normal-font-size);
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    z-index: 10;
-}
-
-.info-button:hover {
-    background: rgba(255, 255, 255, 0.9);
-}
-
-.info-button .icon {
-    width: 20px;
-    height: 20px;
-    fill: var(--primary-color);
-}
-*/
 
 /* Styles for enter pair dialog */
 #enter-pair-dialog {
@@ -329,9 +276,6 @@ width: 80%;
 #enter-pair-dialog button:hover {
     background-color: #5c8a00;
 }
-/*#enter-pair-dialog #close-dialog {
-    background-color: var(--primary-counter-color)
-}*/
 
 #dialog-message {
     color: var(--counter-text-color);
@@ -528,7 +472,7 @@ width: 80%;
     color: var(--text-color);
     border: none;
     padding: 12px 24px;
-    border-radius: 24px;
+    border-radius: 12px;
     cursor: pointer;
     font-size: 20px;
     font-weight: bold;
