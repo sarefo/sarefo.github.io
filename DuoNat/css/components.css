@@ -649,16 +649,16 @@ dialog {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
 #taxa-relationship-container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -667,33 +667,69 @@ dialog {
     display: none;
 }
 
-#taxa-relationship-graph {
+.graph-dialog-content {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    height: 90%;
+    max-width: 1200px;
+    max-height: 800px;
     position: relative;
-    flex-grow:1;
-    width: 100%;
-    height: calc(100% - 50px);  /* Adjust based on close button height */
+    display: flex;
+    flex-direction: column;
 }
 
-#taxa-relationship-container button {
-    background-color: var(--primary-color);
-    color: var(--text-color);
-    border: none;
-    padding: 10px 15px;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    font-size: 18px;
-    font-weight: bold;
-    transition: background-color var(--transition-speed) ease;
+.graph-title {
+    color: var(--primary-color);
+    text-align: center;
+    padding: 15px 0;
+    margin: 0;
+    font-size: 1.5em;
+    border-bottom: 1px solid #e0e0e0;
 }
-#taxa-relationship-container button:hover {
-    background-color: #5c8a00;
+
+#taxa-relationship-graph {
+    flex-grow: 1;
+    overflow: hidden;
 }
 
 #close-relationship-button {
     position: absolute;
     top: 10px;
     right: 10px;
-    z-index: 1001;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    border-radius: 50%;
+}
+
+#close-relationship-button:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+#close-relationship-button svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--primary-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .graph-dialog-content {
+        width: 95%;
+        height: 95%;
+    }
+
+    .graph-title {
+        font-size: 1.2em;
+        padding: 10px 0;
+    }
 }
 
 .clickable-network .vis-network:hover {
