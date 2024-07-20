@@ -59,52 +59,58 @@
 </button>
 
 <dialog id="help-dialog">
-    <img src="./images/icon-512x512.png" alt="DuoNat logo" class="background-logo">
-    <h2><span style="color: var(--primary-counter-color);">Duo</span><span style="color: var(--primary-color);">Nat</span>
-    <br><span style="color: var(--dark-neutral-color);">iNat Taxonomy Trainer</span></h2>
-    <div class="help-content">
-
-        <div class="help-item">
-            <svg class="icon"><use href="./images/icons.svg#icon-drag"/></svg>
-            <p>Drag name to image</p>
+    <div class="help-dialog-content">
+        <div class="help-dialog-header">
+            <img src="./images/icon-512x512.png" alt="DuoNat logo" class="help-dialog-logo">
+            <h2>
+                <span class="duo">Duo</span><span class="nat">Nat</span>
+                <br><span class="subtitle">iNat Taxonomy Trainer</span>
+            </h2>
         </div>
+        <div class="help-content">
 
-        <div class="help-item">
-            <svg class="icon"> <use href="./images/icons.svg#icon-left"/></svg>
-            <p>Swipe left for new taxon pair</p>
-        </div>
-
-        <div class="help-item">
-            <svg class="icon"> <use href="./images/icons.svg#icon-up"/></svg>
-            <p>Scroll down for more</p>
-        </div>
-
-        <div class="help-item">
-            <svg class="icon"> <use href="./images/icons.svg#icon-share"/></svg>
-            <p>Share current taxon pair</p>
-        </div>
-
-        <div id="keyboard-shortcuts" style="display: none;">
-            <h3>Keyboard Shortcuts</h3>
             <div class="help-item">
-                <svg class="icon"><use href="./images/icons.svg#icon-keyboard"/></svg>
-                <ul>
-                    <li><strong>H</strong>: Help</li>
-                    <li><strong>G</strong>: Show phylogeny graph</li>
-                    <li><strong>I</strong>: Info for left image</li>
-                    <li><strong>O</strong>: Info for right image</li>
-                    <li><strong>R</strong>: Random pair</li>
-                    <li><strong>S</strong>: Select pair</li>
-                    <li><strong>E</strong>: Enter pair</li>
-                </ul>
+                <svg class="icon"><use href="./images/icons.svg#icon-drag"/></svg>
+                <p>Drag name to image</p>
             </div>
+
+            <div class="help-item">
+                <svg class="icon"> <use href="./images/icons.svg#icon-left"/></svg>
+                <p>Swipe left for new taxon pair</p>
+            </div>
+
+            <div class="help-item">
+                <svg class="icon"> <use href="./images/icons.svg#icon-up"/></svg>
+                <p>Scroll down for more</p>
+            </div>
+
+            <div class="help-item">
+                <svg class="icon"> <use href="./images/icons.svg#icon-share"/></svg>
+                <p>Share current taxon pair</p>
+            </div>
+
+            <div id="keyboard-shortcuts" style="display: none;">
+                <h3>Keyboard Shortcuts</h3>
+                <div class="help-item">
+                    <svg class="icon"><use href="./images/icons.svg#icon-keyboard"/></svg>
+                    <ul>
+                        <li><strong>H</strong>: Help</li>
+                        <li><strong>G</strong>: Show phylogeny graph</li>
+                        <li><strong>I</strong>: Info for left image</li>
+                        <li><strong>O</strong>: Info for right image</li>
+                        <li><strong>R</strong>: Random pair</li>
+                        <li><strong>S</strong>: Select pair</li>
+                        <li><strong>E</strong>: Enter pair</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button id="start-tutorial-button">Start Tutorial</button>
+            <button id="discord-help-dialog">Join us on Discord</button>
+
         </div>
-
-        <button id="start-tutorial-button">Start Tutorial</button>
-        <button id="discord-help-dialog">Join us on Discord</button>
-
+        <button id="close-help-dialog">I'm good!</button>
     </div>
-    <button id="close-help-dialog">I'm good!</button>
 </dialog>
 
 <div class="game-container">

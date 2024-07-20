@@ -36,23 +36,29 @@ const taxaRelationshipViewer = {
     });
   },
 
-    createLoadingIndicator() {
-        if (!this.container) return;
-        this.loadingIndicator = document.createElement('div');
-        this.loadingIndicator.className = 'loading-indicator';
-        
-        const spinner = document.createElement('div');
-        spinner.className = 'loading-spinner';
-        
-        const message = document.createElement('p');
-        message.innerHTML = '<span>Building relationship graph...</span><br><br><span>Click on a node to open the taxon in iNaturalist!</span>';
-        
-        this.loadingIndicator.appendChild(spinner);
-        this.loadingIndicator.appendChild(message);
-        
-        this.loadingIndicator.style.display = 'none';
-        this.container.appendChild(this.loadingIndicator);
-    },
+createLoadingIndicator() {
+    if (!this.container) return;
+    this.loadingIndicator = document.createElement('div');
+    this.loadingIndicator.className = 'loading-indicator';
+    
+    const logo = document.createElement('img');
+    logo.src = './images/icon-512x512.png';
+    logo.alt = 'DuoNat logo';
+    logo.className = 'loading-indicator-logo';
+    
+    const spinner = document.createElement('div');
+    spinner.className = 'loading-spinner';
+    
+    const message = document.createElement('p');
+    message.innerHTML = '<span>Building relationship graph...</span><br><br><span>Click on a node to open the taxon in iNaturalist!</span>';
+    
+    this.loadingIndicator.appendChild(logo);
+    this.loadingIndicator.appendChild(spinner);
+    this.loadingIndicator.appendChild(message);
+    
+    this.loadingIndicator.style.display = 'none';
+    this.container.appendChild(this.loadingIndicator);
+},
 
   showLoadingIndicator() {
     if (this.loadingIndicator) {
