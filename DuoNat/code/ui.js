@@ -6,6 +6,7 @@ import dialogManager from './dialogManager.js';
 import {elements, gameState} from './state.js';
 import game from './game.js';
 import logger from './logger.js';
+import utils from './utils.js';
 
 const ui = {
 
@@ -300,6 +301,25 @@ restoreOriginalImages: function() {
         console.log(`Highlight created for: ${targetSelector}`);
 
         return highlight;
+    },
+
+    toggleKeyboardShortcuts: function() {
+        const keyboardShortcutsSection = document.getElementById('keyboard-shortcuts');
+        if (utils.hasKeyboard()) {
+            keyboardShortcutsSection.style.display = 'block';
+        } else {
+            keyboardShortcutsSection.style.display = 'none';
+        }
+    },
+
+    initializeHelpDialog: function() {
+        document.getElementById('help-button').addEventListener('click', () => {
+            this.toggleKeyboardShortcuts();
+            dialogManager.openDialog('help-dialog');
+        });
+    },
+    initialize: function() {
+        this.initializeHelpDialog();
     },
 
 }; // const ui

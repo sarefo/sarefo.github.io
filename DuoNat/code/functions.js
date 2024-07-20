@@ -28,6 +28,7 @@ import utils from './utils.js';
         dialogManager.initializeEnterPairDialog(); // TODO seems a bit too specific
         game.setupGame(true);
         eventHandlers.initialize();
+        ui.initialize();
         logger.info("App initialization complete");
 
         // Example of changing log level at runtime

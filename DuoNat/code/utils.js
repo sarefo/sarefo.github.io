@@ -34,6 +34,22 @@ const utils = {
           .then(() => { logger.info("Everybody plays their fart."); /* Audio started playing successfully*/ }).catch(error => { logger.error('Could not play my fart:', error); });
     },
 
+    hasKeyboard: function() {
+        // Check if the device is mobile
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        // Check if it's a tablet
+        const isTablet = /(tablet|ipad|playbook|silk)|(android(?!.*mobile))/i.test(navigator.userAgent);
+        
+        // If it's not mobile and not a tablet, assume it has a keyboard
+        const result = !isMobile && !isTablet;
+        
+        logger.debug(`hasKeyboard detected: ${result}`);
+        logger.debug(`UserAgent: ${navigator.userAgent}`);
+        
+        return result;
+    },
+
     debounce(func, wait) {
         let timeout;
         return function executedFunction(...args) {
