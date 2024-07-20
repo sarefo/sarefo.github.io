@@ -6,6 +6,7 @@ import { elements, gameState } from './state.js';
 import eventHandlers from './eventHandlers.js';
 import game from './game.js';
 import logger, { LogLevel } from './logger.js';
+import tooltipManager from './tooltipManager.js';
 import ui from './ui.js';
 import utils from './utils.js';
 
@@ -29,6 +30,7 @@ import utils from './utils.js';
         game.setupGame(true);
         eventHandlers.initialize();
         ui.initialize();
+        // tooltipManager.init(); /* need to remove bugs first */
         logger.info("App initialization complete");
 
         // Example of changing log level at runtime
