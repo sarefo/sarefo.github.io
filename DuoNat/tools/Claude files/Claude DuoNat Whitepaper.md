@@ -230,5 +230,5 @@ Also, this is a long-term project. Whenever you notice that something would make
 + Photoshop at times for icon design etc.
 
 ## LLM behavior
-+ please don't start every answer with "Certainly!" :)
++ please don't start every answer with "Certainly!" :) and no need to apologize all the time.
 + if a task seems complicated, please think it through step by step, explaining your reasoning.

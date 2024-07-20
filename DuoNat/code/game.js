@@ -612,9 +612,17 @@ const game = {
         // Implement observation functionality here
       };
 
-      taxonButton.onclick = () => {
+      taxonButton.onclick = async () => {
         logger.debug("Taxon button clicked");
-        // Implement taxon functionality here
+        try {
+          const taxonName = this.getCurrentTaxonName(url);
+          const taxonId = await api.fetchTaxonId(taxonName);
+          window.open(`https://www.inaturalist.org/taxa/${taxonId}`, '_blank');
+          dialog.close();
+        } catch (error) {
+          logger.error("Error opening taxon page:", error);
+          alert("Unable to open taxon page. Please try again.");
+        }
       };
 
       hintsButton.onclick = () => {
@@ -628,6 +636,18 @@ const game = {
 
       dialog.showModal();
     },
+
+    getCurrentTaxonName(url) {
+      if (url === this.currentObservationURLs.imageOne) {
+        return gameState.taxonImageOne;
+      } else if (url === this.currentObservationURLs.imageTwo) {
+        return gameState.taxonImageTwo;
+      } else {
+        logger.error("Unable to determine current taxon name");
+        return null;
+      }
+    },
+
 };
 
 // Initialize info buttons
