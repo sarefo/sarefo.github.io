@@ -32,6 +32,11 @@ const dialogManager = {
         dialog.addEventListener('close', this.handleDialogClose.bind(this));
         document.addEventListener('keydown', this.handleEscapeKey.bind(this));
 
+        const closeButton = dialog.querySelector('.dialog-close-button');
+        if (closeButton) {
+            closeButton.addEventListener('click', () => this.closeDialog());
+        }
+
         // Clear inputs after the dialog is shown
         if (dialogId === 'enter-pair-dialog') {
             setTimeout(() => {
@@ -57,8 +62,13 @@ const dialogManager = {
         this.enableMainEventHandlers();
 
         // Remove event listeners
-//        this.activeDialog.removeEventListener('close', this.handleDialogClose);
         document.removeEventListener('keydown', this.handleEscapeKey);
+
+        // Remove close button event listener
+        const closeButton = this.activeDialog.querySelector('.dialog-close-button');
+        if (closeButton) {
+            closeButton.removeEventListener('click', () => this.closeDialog());
+        }
 
         this.activeDialog = null;
     },
@@ -99,10 +109,16 @@ const dialogManager = {
         this.mainEventHandlers = {};
     },
 
-    // Dialog functionality:
     initializeDialogs() {
-
-        document.getElementById('close-select-pair-dialog').addEventListener('click', () => this.closeDialog('select-pair-dialog'));
+        const dialogs = ['select-pair-dialog', 'enter-pair-dialog', 'help-dialog', 'info-dialog', 'inat-down-dialog'];
+        
+        dialogs.forEach(dialogId => {
+            const dialog = document.getElementById(dialogId);
+            const closeButton = dialog.querySelector('.dialog-close-button');
+            if (closeButton) {
+                closeButton.addEventListener('click', () => this.closeDialog());
+            }
+        });
 
         // Initialize enter pair dialog elements
         this.enterPairDialog = document.getElementById('enter-pair-dialog');
@@ -113,7 +129,6 @@ const dialogManager = {
 
         // Add event listeners for enter pair dialog
         document.getElementById('enter-pair-button').addEventListener('click', () => this.openDialog('enter-pair-dialog'));
-//        document.getElementById('close-dialog').addEventListener('click', () => this.closeDialog());
         document.querySelector('#enter-pair-dialog form').addEventListener('submit', this.handleNewPairSubmit.bind(this));
 
         // input validation
