@@ -35,14 +35,23 @@ const taxaRelationshipViewer = {
     });
   },
 
-  createLoadingIndicator() {
-    if (!this.container) return;
-    this.loadingIndicator = document.createElement('div');
-    this.loadingIndicator.className = 'loading-indicator';
-    this.loadingIndicator.textContent = 'Building relationship graph...';
-    this.loadingIndicator.style.display = 'none';
-    this.container.appendChild(this.loadingIndicator);
-  },
+    createLoadingIndicator() {
+        if (!this.container) return;
+        this.loadingIndicator = document.createElement('div');
+        this.loadingIndicator.className = 'loading-indicator';
+        
+        const spinner = document.createElement('div');
+        spinner.className = 'loading-spinner';
+        
+        const message = document.createElement('p');
+        message.textContent = 'Building relationship graph...';
+        
+        this.loadingIndicator.appendChild(spinner);
+        this.loadingIndicator.appendChild(message);
+        
+        this.loadingIndicator.style.display = 'none';
+        this.container.appendChild(this.loadingIndicator);
+    },
 
   showLoadingIndicator() {
     if (this.loadingIndicator) {
