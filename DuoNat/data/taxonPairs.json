@@ -245,6 +245,7 @@
     {"taxon1":"Pardachirus pavoninus", "taxon2":"Soleichthys heterorhinos"},
     {"taxon1":"Sphyraena flavicauda", "taxon2":"Sphyraena jello"},
     {"taxon1":"Abudefduf bengalensis", "taxon2":"Abudefduf sexfasciatus"},
+    {"taxon1":"Abudefduf", "taxon2":"Dascyllus"},
     {"taxon1":"Pomacentrus coelestis", "taxon2":"Pomacentrus auriventris"},
     {"taxon1":"Amphiprion polymnus", "taxon2":"Amphiprion clarkii"},
     {"taxon1":"Pomacentrus polyspinus", "taxon2":"Pomacentrus tripunctatus"},
@@ -378,6 +379,8 @@
     {"taxon1":"Erthesina fullo", "taxon2":"Halyomorpha halys"},
     {"taxon1":"Halyomorpha halys", "taxon2":"Rhaphigaster nebulosa"},
     {"taxon1":"Dindymus sanguineus", "taxon2":"Antilochus nigripes"},
+    {"taxon1":"Pseudococcidae", "taxon2":"Icerya"},
+    {"taxon1":"Icerya seychellarum", "taxon2":"Icerya aegyptiaca"},
 
     {"taxon1":"Chrysopa perla", "taxon2":"Chrysoperla carnea"},
 
