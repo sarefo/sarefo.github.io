@@ -36,6 +36,7 @@ const ui = {
                 return;
             }
             const modal = document.createElement('div');
+            modal.id = 'taxon-pair-modal';
             modal.className = 'taxon-pair-modal';
             
             const list = document.createElement('div');
@@ -67,6 +68,8 @@ const ui = {
             
             modal.appendChild(list);
             document.body.appendChild(modal);
+
+            dialogManager.openDialog('taxon-pair-modal');
             
             modal.onclick = (e) => {
                 if (e.target === modal) {
