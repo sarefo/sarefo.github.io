@@ -279,8 +279,42 @@ restoreOriginalImages: function() {
             dialogManager.openDialog('help-dialog');
         });
     },
+
+      initializeInfoDialog: function() {
+        const infoDialog = document.getElementById('info-dialog');
+
+        // Check if the device has a keyboard
+        if (utils.hasKeyboard()) {
+          document.body.classList.add('has-keyboard');
+        }
+
+        const handleKeyPress = (event) => {
+          if (!infoDialog.open) return; // Only handle keypresses when the dialog is open
+          
+          event.stopPropagation();
+          const key = event.key.toLowerCase();
+          const buttonMap = {
+            'p': 'photo-button',
+            'h': 'hints-button',
+            'o': 'observation-button',
+            't': 'taxon-button'
+          };
+
+          if (buttonMap[key]) {
+            event.preventDefault();
+            document.getElementById(buttonMap[key]).click();
+          } else if (key === 'escape') {
+            event.preventDefault();
+            infoDialog.close();
+          }
+        };
+
+        document.addEventListener('keydown', handleKeyPress);
+      },
+
     initialize: function() {
         this.initializeHelpDialog();
+        this.initializeInfoDialog();
     },
 
 }; // const ui

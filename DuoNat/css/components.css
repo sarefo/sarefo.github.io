@@ -512,7 +512,7 @@ width: 80%;
     text-align: left;
 }
 
-#keyboard-shortcuts strong {
+#keyboard-shortcuts strong, #shortcut-key {
     display: inline-block;
     width: 20px;
     text-align: center;
@@ -768,7 +768,7 @@ width: 80%;
     border-radius: var(--border-radius);
     padding: 20px;
     max-width: 90%;
-    width: 300px;
+ /*   width: 300px;*/
 }
 
 /*.info-dialog h2 {
@@ -792,11 +792,29 @@ width: 80%;
   border-radius: var(--border-radius);
   cursor: pointer;
   font-size: larger;
+  text-align: center;
   transition: background-color var(--transition-speed) ease;
+  text-shadow: 1px 1px 2px var(--shadow-color);
 }
 
 .info-dialog-button:hover {
   background-color: #5c8a00;
+}
+
+.shortcut-key {
+    display: none;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 2px 5px;
+    border-radius: 3px;
+    margin-right: 5px;
+}
+
+body.has-keyboard .shortcut-key {
+    display: inline-block;
+}
+body.has-keyboard button {
+    text-align: left;
 }
 
 .close-dialog-button {

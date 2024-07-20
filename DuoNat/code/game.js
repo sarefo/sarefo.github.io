@@ -602,28 +602,6 @@ const game = {
       const hintsButton = document.getElementById('hints-button');
       const closeButton = document.getElementById('close-info-dialog');
 
-      const handleKeyPress = (event) => {
-          event.stopPropagation();
-        if (event.key === 'p' || event.key === 'P') {
-          event.preventDefault(); // Prevent default browser behavior
-          photoButton.click();
-        } else if (event.key === 'h' || event.key === 'H') {
-          event.preventDefault();
-          hintsButton.click();
-        } else if (event.key === 'o' || event.key === 'O') {
-          event.preventDefault();
-          observationButton.click();
-        } else if (event.key === 't' || event.key === 'T') {
-          event.preventDefault();
-          taxonButton.click();
-        } else if (event.key === 'Escape') {
-          event.preventDefault();
-          closeButton.click();
-        }
-      };
-
-      dialog.addEventListener('keydown', handleKeyPress);
-
       photoButton.onclick = () => {
         window.open(url, '_blank');
         dialog.close();
@@ -661,6 +639,7 @@ const game = {
       dialog.showModal();
     },
 
+// Rest of the game.js code remains the same
     getCurrentTaxonName(url) {
       if (url === this.currentObservationURLs.imageOne) {
         return gameState.taxonImageOne;

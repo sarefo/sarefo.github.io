@@ -153,13 +153,13 @@
                 <div class="help-item">
                     <svg class="icon"><use href="./images/icons.svg#icon-keyboard"/></svg>
                     <ul>
-                        <li><strong>H</strong>: Help</li>
-                        <li><strong>G</strong>: Show phylogeny graph</li>
-                        <li><strong>I</strong>: Info for left image</li>
-                        <li><strong>O</strong>: Info for right image</li>
-                        <li><strong>R</strong>: Random pair</li>
-                        <li><strong>S</strong>: Select pair</li>
-                        <li><strong>E</strong>: Enter pair</li>
+                        <li><strong>H</strong> Help</li>
+                        <li><strong>G</strong> Show phylogeny graph</li>
+                        <li><strong>I</strong> Info for left image</li>
+                        <li><strong>O</strong> Info for right image</li>
+                        <li><strong>R</strong> Random pair</li>
+                        <li><strong>S</strong> Select pair</li>
+                        <li><strong>E</strong> Enter pair</li>
                     </ul>
                 </div>
             </div>
@@ -208,7 +208,7 @@
     <button class="dialog-close-button" id="close-inat-down-dialog" aria-label="Close">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
     </button>
-  <h2>iNaturalist Unavailable</h2>
+  <h2 class="dialog-title">iNaturalist Unavailable</h2>
   <p>We're having trouble connecting to iNaturalist. This could be due to maintenance or temporary issues.</p>
   <button id="check-inat-status">Check iNaturalist Status</button>
   <button id="retry-connection">Retry Connection</button>
@@ -234,14 +234,21 @@
     <button class="dialog-close-button" id="close-info-dialog" aria-label="Close">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
     </button>
-  <h2 class="dialog-title">Taxon Information</h2>
-  <div class="info-dialog-buttons">
-    <button id="photo-button" class="info-dialog-button" aria-keyshortcuts="p"><span class="underline">P</span>hoto Page</button>
-    <button id="hints-button" class="info-dialog-button" aria-keyshortcuts="h"><span class="underline">H</span>ints (TODO)</button>
-    <button id="observation-button" class="info-dialog-button" aria-keyshortcuts="o"><span class="underline">O</span>bservation page (TODO)</button>
-    <button id="taxon-button" class="info-dialog-button" aria-keyshortcuts="t"><span class="underline">T</span>axon page</button>
-  </div>
- <!-- <button id="close-info-dialog" class="close-dialog-button">Close</button> -->
+    <h2 class="dialog-title">Taxon Information</h2>
+    <div class="info-dialog-buttons">
+        <button id="photo-button" class="info-dialog-button">
+            <span class="shortcut-key">P</span> Photo Page
+        </button>
+        <button id="hints-button" class="info-dialog-button">
+            <span class="shortcut-key">H</span> Hints (TODO)
+        </button>
+        <button id="observation-button" class="info-dialog-button">
+            <span class="shortcut-key">O</span> Observation page (TODO)
+        </button>
+        <button id="taxon-button" class="info-dialog-button">
+            <span class="shortcut-key">T</span> Taxon page
+        </button>
+    </div>
 </dialog>
 
 </body>
