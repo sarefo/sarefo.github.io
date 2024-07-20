@@ -55,6 +55,26 @@ If you provide code, please either provide whole functions, or exactly tell me w
 
 Indentation is four spaces.
 
+## Project structure
+
+### Main window
+The main window is presented to the user at startup. That's where they will be most of their time.
+
+### Help dialog
+The help dialog contains information about the most important functions of the game.
+
+### Info dialogs
+Each picture has its own info dialog. The user can access external information about the image, iNaturalist observation or taxon there. It's also planned to implement taxon-specific identification hints that can be accessed from there.
+
+### Enter taxa dialog
+The user can currently input two taxa, which will be used in a new session. Currently there's no server-side functionality, but when there is, those can also be stored for future use. Also, once taxon sets are implemented, the user will be able to input more than two taxa. Another idea is to only input one, and the app will create a taxon set from all the sister taxa at that level.
+
+### Select taxa dialog
+Currently this displays a list of all taxon pairs, locally saved in a JSON file. In future, this will be expanded, giving different ways to access taxon sets.
+
+### Phylogeny dialog
+The phylogeny graph shows how the two active taxa are connected taxonomically. It's also a way to link to the iNaturalist taxon pages of the taxa in its entire hierarchy.
+
 ## Architectural changes
 + you suggested some big changes in the past, and I'm willing to tackle them, if it helps me later to build a better app.
 + for example, you suggested using TypeScript for this kind of app. I don't know how feasible that is for me, a single not very smart or well-trained hobby programmer
@@ -88,13 +108,6 @@ Here are some ideas I have regarding future functionality:
 ### Update taxon set structure
 + there should be a taxon set title, of course the list of taxa in this set, and also a taxon set identifier, and tags
 + there should be an extra array where for every taxon, the ancestry hierarchy, the vernacular name, identification tips, and maybe tags and comments should be included
-
-### Linking to iNaturalist
-+ currently, the information buttons on the images link to their respective image page. It would be nice to instead present the user with a dialog giving the following selection of options:
-    + link to image page (current function)
-    + link to observation page for this image
-    + link to taxon page for this observation
-    + visual graph structure showing the relationship between the two taxa
 
 ### Optionally use observation images
 + right now, the app uses the taxon gallery images (up to twelve per taxon) for displaying images. That leaves out a huge number of potentially useful images that reside in the observations for any given taxon.
@@ -197,11 +210,8 @@ Also, this is a long-term project. Whenever you notice that something would make
 + So I definitely need a better approach to this. One idea I'm having is to have a beta and a production version on github.io, so I can test beta versions, and move them to production once they feel ready. If you have other ideas, let me know.
 
 ### Current known bugs
-#### Dialog behavior inconsistent
-+ in some dialogs, <Escape> closes the dialog, but not in all
-+ when a dialog is open, the elements under it (eg. the main screen) should not respond to any keyboard, mouse or touch input.
+#### Responsive layout
 + the dialogs should be fully visible and nicely positioned and layouted on big and small screens, in landscape and portrait mode
-+ I tried to implement an "iNat down" dialog, but although I had two attempts, both times the dialog always appeared on the screen, even if iNaturalist was not online (and the console log showed that the app was aware of that).
 
 #### Main screen layout
 + currently, the main screen is optimized for Pixel 6a phones. It should also display cleanly on smaller phones, such as iPhone 7. There should be a different display mode for widescreen displays, which ranges from laptop screens to small phone screens. During widescreen display, the images should be on the left and the right, with the name tiles between them, one above the other.
@@ -216,9 +226,6 @@ Also, this is a long-term project. Whenever you notice that something would make
 
 #### Dragging not pretty
 + The name tiles look different on different systems (Windows, Android). Also the layout should be roughly the same when resting, being dragged, and after being dropped. The dragging behavior is the problem here. I tried to improve it using Claude, but the Javascript code that seems to be necessary lead to super-buggy behavior.
-
-#### iNaturalist interface problems
-+ when retrieving taxa via the iNat API, sometimes the wrong taxon gets fetched when searching via the name. 
 
 ### Tools I'm using
 + I'm using Trello for keeping track of ideas and bugs
