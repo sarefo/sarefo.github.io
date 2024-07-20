@@ -1,6 +1,9 @@
 // dialogManager.js
 
+import api from './api.js';
 import eventHandlers from './eventHandlers.js';
+import game from './game.js';
+import logger from './logger.js';
 
 const dialogManager = {
     activeDialog: null,
@@ -28,6 +31,13 @@ const dialogManager = {
         // Add event listeners
         dialog.addEventListener('close', this.handleDialogClose.bind(this));
         document.addEventListener('keydown', this.handleEscapeKey.bind(this));
+
+        // Clear inputs after the dialog is shown
+        if (dialogId === 'enter-pair-dialog') {
+            setTimeout(() => {
+                this.clearEnterPairInputs();
+            }, 0);
+        }
     },
 
     closeDialog() {
@@ -87,7 +97,79 @@ const dialogManager = {
         document.addEventListener('keydown', eventHandlers.handleKeyboardShortcuts);
 
         this.mainEventHandlers = {};
-    }
+    },
+
+    // Enter pair dialog functionality:
+    initializeEnterPairDialog() {
+        // Existing initialization code
+        // ...
+
+        // Initialize enter pair dialog elements
+        this.enterPairDialog = document.getElementById('enter-pair-dialog');
+        this.taxon1Input = document.getElementById('taxon1');
+        this.taxon2Input = document.getElementById('taxon2');
+        this.dialogMessage = document.getElementById('dialog-message');
+
+        // Add event listeners for enter pair dialog
+        document.getElementById('enter-pair-button').addEventListener('click', () => this.openDialog('enter-pair-dialog'));
+        document.getElementById('close-dialog').addEventListener('click', () => this.closeDialog());
+        document.querySelector('#enter-pair-dialog form').addEventListener('submit', this.handleNewPairSubmit.bind(this));
+    },
+
+    clearEnterPairInputs() {
+        const taxon1Input = document.getElementById('taxon1');
+        const taxon2Input = document.getElementById('taxon2');
+        const dialogMessage = document.getElementById('dialog-message');
+        taxon1Input.value = '';
+        taxon2Input.value = '';
+        dialogMessage.textContent = '';
+    },
+
+    async handleNewPairSubmit(event) {
+        event.preventDefault();
+
+        const taxon1Input = document.getElementById('taxon1');
+        const taxon2Input = document.getElementById('taxon2');
+        const dialogMessage = document.getElementById('dialog-message');
+
+        const taxon1 = this.taxon1Input.value;
+        const taxon2 = this.taxon2Input.value;
+        
+        dialogMessage.textContent = 'Validating taxa...';
+        
+        const [validatedTaxon1, validatedTaxon2] = await Promise.all([
+            api.validateTaxon(taxon1),
+            api.validateTaxon(taxon2)
+        ]);
+        
+        if (validatedTaxon1 && validatedTaxon2) {
+            const newPair = {
+                taxon1: validatedTaxon1.name,
+                taxon2: validatedTaxon2.name
+            };
+        
+            try {
+                const response = await fetch('./data/taxonPairs.json');
+                const taxonPairs = await response.json();
+                taxonPairs.push(newPair);
+        
+                // Set the new pair as the next pair to be used
+                game.nextSelectedPair = newPair;
+                
+                // Close the dialog
+                this.closeDialog();
+                
+                // Set up the game with the new pair
+                game.setupGame(true);
+            } catch (error) {
+                logger.error('Error updating taxonPairs.json:', error);
+                this.dialogMessage.textContent = 'Error saving new pair. Please try again.';
+            }
+        } else {
+            this.dialogMessage.textContent = 'One or both taxa are invalid. Please check and try again.';
+        }
+    },
+
 };
 
 export default dialogManager;

@@ -67,7 +67,7 @@ const eventHandlers = {
         });
 
         // dialog events
-        document.getElementById('enter-pair-button').addEventListener('click', () => {
+/*        document.getElementById('enter-pair-button').addEventListener('click', () => {
             ui.clearDialogInputs();
             dialogManager.openDialog('enter-pair-dialog');
 //            document.getElementById('enter-pair-dialog').showModal();
@@ -76,6 +76,7 @@ const eventHandlers = {
             document.getElementById('enter-pair-dialog').close();
         });
         document.querySelector('#enter-pair-dialog form').addEventListener('submit', this.handleNewPairSubmit);
+        */
         document.getElementById('surprise-button').addEventListener('click', () => {
 /*            ui.clearDialogInputs();*/
             utils.surprise();
@@ -190,47 +191,6 @@ const eventHandlers = {
         // Add any specific image interaction logic here
     },
 
-    async handleNewPairSubmit(event) {
-        event.preventDefault();
-        const taxon1 = document.getElementById('taxon1').value;
-        const taxon2 = document.getElementById('taxon2').value;
-        const dialogMessage = document.getElementById('dialog-message');
-        
-        dialogMessage.textContent = 'Validating taxa...';
-        
-        const [validatedTaxon1, validatedTaxon2] = await Promise.all([
-            api.validateTaxon(taxon1),
-            api.validateTaxon(taxon2)
-        ]);
-        
-        if (validatedTaxon1 && validatedTaxon2) {
-            const newPair = {
-                taxon1: validatedTaxon1.name,
-                taxon2: validatedTaxon2.name
-            };
-        
-            try {
-                const response = await fetch('./data/taxonPairs.json');
-                const taxonPairs = await response.json();
-                taxonPairs.push(newPair);
-        
-                // Set the new pair as the next pair to be used
-                game.nextSelectedPair = newPair;
-                
-                // Close the dialog
-                document.getElementById('enter-pair-dialog').close();
-                
-                // Set up the game with the new pair
-                game.setupGame(true);
-            } catch (error) {
-                logger.error('Error updating taxonPairs.json:', error);
-                dialogMessage.textContent = 'Error saving new pair. Please try again.';
-            }
-        } else {
-            dialogMessage.textContent = 'One or both taxa are invalid. Please check and try again.';
-        }
-    },
-
     showTaxonPairList() {
         api.fetchTaxonPairs().then(taxonPairs => {
             ui.showTaxonPairList(taxonPairs, (selectedPair) => {
@@ -270,11 +230,7 @@ const eventHandlers = {
                     document.getElementById('help-button').click();
                 }
                 if (event.key === 'e' || event.key === 'E') {
-                    document.getElementById('enter-pair-button').click();
-                    setTimeout(() => {
-                        document.getElementById('taxon1').value = '';
-                        document.getElementById('taxon1').focus();
-                    }, 0);
+                    dialogManager.openDialog('enter-pair-dialog');
                 }
                 if (event.key === 'p' || event.key === 'P' || event.key === 'f' || event.key === 'F') {
                     document.getElementById('surprise-button').click();

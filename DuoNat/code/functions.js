@@ -1,6 +1,7 @@
 // snapshot 20240712 2247 > stable, but tooo many preload requests
 import api from './api.js';
 import config from './config.js';
+import dialogManager from './dialogManager.js';
 import {elements, gameState} from './state.js';
 import eventHandlers from './eventHandlers.js';
 import game from './game.js';
@@ -24,6 +25,7 @@ import utils from './utils.js';
             game.nextSelectedPair = urlParams;
         }
         
+        dialogManager.initializeEnterPairDialog(); // TODO seems a bit too specific
         game.setupGame(true);
         eventHandlers.initialize();
         logger.info("App initialization complete");
