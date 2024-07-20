@@ -115,7 +115,7 @@ const dialogManager = {
 
     initializeDialogs() {
         const dialogs = ['select-pair-dialog', 'enter-pair-dialog', 'help-dialog', 'info-dialog', 'inat-down-dialog'];
-        
+
         dialogs.forEach(dialogId => {
             const dialog = document.getElementById(dialogId);
             const closeButton = dialog.querySelector('.dialog-close-button');

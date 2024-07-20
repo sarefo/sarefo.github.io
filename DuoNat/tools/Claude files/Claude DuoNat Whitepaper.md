@@ -30,6 +30,7 @@ If no URL parameters are provided, the first session after the app starts up loa
 ### Main objectives
 It's important that the app runs smooth, and the code is robust and stable, and easy to read, so I can expand it without losing track, or breaking dependencies or functions all the time.
 
+#### Image preloading
 One thing I'm trying to do to reach this goal is preloading of images. The current approach of preloading is like this: When the app starts up, load two images for the current taxon pair. Directly after the first round begins, the app loads another random pair of images for the same taxon pair. This pair is displayed if the user chooses to play another round of the same session.
 
 Furthermore, directly after this preloading step, the app also preloads two images of another random pair. Let's call it the preloaded random pair, PRR. Whenever the user chooses to play another random session, this pair gets loaded, starting with those two preloaded images. If the user chooses a different session (eg selecting from a list, or entering a pair by hand), that PRR stays preloaded, as the user might later still choose to start a random session. So it's important not to preload a new random pair every time a session starts. 

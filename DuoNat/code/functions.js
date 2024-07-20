@@ -2,14 +2,14 @@
 import api from './api.js';
 import config from './config.js';
 import dialogManager from './dialogManager.js';
-import {elements, gameState} from './state.js';
+import { elements, gameState } from './state.js';
 import eventHandlers from './eventHandlers.js';
 import game from './game.js';
 import logger, { LogLevel } from './logger.js';
 import ui from './ui.js';
 import utils from './utils.js';
 
-(function() {
+(function () {
 
     // Set the log level based on your config
     logger.setLevel(config.debug ? LogLevel.DEBUG : LogLevel.INFO);
@@ -17,14 +17,14 @@ import utils from './utils.js';
 
     function initializeApp() {
         logger.info("Initializing app");
-        
+
         // Check for URL parameters
         const urlParams = utils.getURLParameters();
         if (urlParams) {
             logger.debug("URL parameters found:", urlParams);
             game.nextSelectedPair = urlParams;
         }
-        
+
         dialogManager.initializeDialogs();
         game.setupGame(true);
         eventHandlers.initialize();

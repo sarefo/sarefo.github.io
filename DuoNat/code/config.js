@@ -10,6 +10,6 @@ const config = {
     },
     debug: true, // set to false for less console output
     enablePreloading: false // Set to false to disable preloading
-    };
+};
 
 export default config;

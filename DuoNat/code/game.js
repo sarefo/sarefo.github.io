@@ -3,7 +3,7 @@
 import api from './api.js';
 import config from './config.js';
 import dialogManager from './dialogManager.js';
-import {elements, gameState, updateGameState, GameState} from './state.js';
+import { elements, gameState, updateGameState, GameState } from './state.js';
 import logger from './logger.js';
 import preloader from './preloader.js';
 import taxaRelationshipViewer from './taxaRelationshipViewer.js';
@@ -36,17 +36,17 @@ const game = {
         this.currentState = newState;
     },
 
-    showLoadingScreen: function() {
+    showLoadingScreen: function () {
         document.getElementById('loading-screen').style.display = 'flex';
     },
 
-    hideLoadingScreen: function() {
+    hideLoadingScreen: function () {
         document.getElementById('loading-screen').style.display = 'none';
     },
 
     async setupGame(newSession = false) {
         if (newSession) {
-            this.preloadedImages = { 
+            this.preloadedImages = {
                 current: { taxon1: [], taxon2: [] },
                 next: { taxon1: [], taxon2: [] }
             };
@@ -56,8 +56,8 @@ const game = {
             taxaRelationshipViewer.clearGraph(); // Clear the existing graph
         }
 
-        if (this.currentState !== GameState.IDLE && 
-            this.currentState !== GameState.READY && 
+        if (this.currentState !== GameState.IDLE &&
+            this.currentState !== GameState.READY &&
             this.currentState !== GameState.CHECKING) {
             logger.debug("Game is not in a state to start a new session");
             return;
@@ -90,13 +90,13 @@ const game = {
                 } else {
                     newTaxonImageCollection = await this.initializeNewTaxonPair();
                 }
-                
+
                 // Update the gameState with the new collection
                 updateGameState({
                     currentTaxonImageCollection: newTaxonImageCollection
                 });
             }
-            
+
             await this.setupRound();
             this.finishSetup();
 
@@ -210,21 +210,21 @@ const game = {
 
         logger.debug("Starting to preload next pair for a new session");
         this.preloadedPair = await this.initializeNewTaxonPair();
-        
+
         try {
             const [newImageOneURL, newImageTwoURL] = await Promise.all([
                 api.fetchRandomImageMetadata(this.preloadedPair.pair.taxon1),
                 api.fetchRandomImageMetadata(this.preloadedPair.pair.taxon2)
             ]);
-            
+
             await Promise.all([
                 this.preloadImage(newImageOneURL),
                 this.preloadImage(newImageTwoURL)
             ]);
-            
+
             this.preloadedImages.next.taxon1 = [newImageOneURL];
             this.preloadedImages.next.taxon2 = [newImageTwoURL];
-            
+
             logger.debug("Finished preloading next pair for a new session");
         } catch (error) {
             logger.error("Error preloading images for next session:", error);
@@ -237,7 +237,7 @@ const game = {
             api.fetchRandomImage(newPair.taxon1),
             api.fetchRandomImage(newPair.taxon2)
         ]);
-        
+
         return {
             pair: newPair,
             imageOneURL,
@@ -253,7 +253,7 @@ const game = {
             api.fetchRandomImage(pair.taxon1),
             api.fetchRandomImage(pair.taxon2)
         ]);
-        
+
         return { newImageOneURL, newImageTwoURL };
     },
 
@@ -348,21 +348,21 @@ const game = {
     async preloadImagesForCurrentPair() {
         const { pair } = gameState.currentTaxonImageCollection;
         logger.debug("Starting to preload images for next round of current session");
-        
+
         try {
             const [newImageOneURL, newImageTwoURL] = await Promise.all([
                 api.fetchRandomImageMetadata(pair.taxon1),
                 api.fetchRandomImageMetadata(pair.taxon2)
             ]);
-            
+
             await Promise.all([
                 this.preloadImage(newImageOneURL),
                 this.preloadImage(newImageTwoURL)
             ]);
-            
+
             this.preloadedImages.current.taxon1.push(newImageOneURL);
             this.preloadedImages.current.taxon2.push(newImageTwoURL);
-            
+
             logger.debug("Finished preloading images for next round of current session");
         } catch (error) {
             logger.error("Error preloading images for current session:", error);
@@ -384,7 +384,7 @@ const game = {
         });
     },
 
-    loadImages: async function(leftImageSrc, rightImageSrc) {
+    loadImages: async function (leftImageSrc, rightImageSrc) {
         logger.debug("Loading images:", { leftImageSrc, rightImageSrc });
         await Promise.all([
             this.loadImageAndRemoveLoadingClass(elements.imageOne, leftImageSrc),
@@ -413,15 +413,15 @@ const game = {
         const { taxonImageOne, taxonImageTwo } = gameState;
         const container = document.getElementById('taxa-relationship-graph');
         const containerWrapper = document.getElementById('taxa-relationship-container');
-        
+
         if (!taxonImageOne || !taxonImageTwo) {
             logger.error('Taxon names not available');
             alert('Unable to show relationship. Please try again after starting a new game.');
             return;
         }
-        
+
         dialogManager.openDialog('taxa-relationship-container');
-//        containerWrapper.classList.remove('hidden');
+        //        containerWrapper.classList.remove('hidden');
 
         try {
             await taxaRelationshipViewer.initialize(container);
@@ -445,14 +445,14 @@ const game = {
         }
     },
 
-    hideTaxaRelationship: function() {
+    hideTaxaRelationship: function () {
         dialogManager.closeDialog();
-//        const containerWrapper = document.getElementById('taxa-relationship-container');
-//        containerWrapper.classList.add('hidden');
+        //        const containerWrapper = document.getElementById('taxa-relationship-container');
+        //        containerWrapper.classList.add('hidden');
         // We don't clear the graph here, as we might want to show it again
-     },
+    },
 
-    prepareUIForLoading: function() {
+    prepareUIForLoading: function () {
         utils.resetDraggables();
         ui.scrollToTop();
         elements.imageOne.classList.add('loading');
@@ -477,7 +477,7 @@ const game = {
 
     async checkAnswer(droppedZoneId) {
         logger.debug("Checking answer. Current state:", this.currentState);
-        
+
         if (this.currentState !== GameState.PLAYING) {
             logger.debug("Cannot check answer when not in PLAYING state");
             return;
@@ -524,10 +524,10 @@ const game = {
         }
     },
 
-    setupNameTilesUI: function(leftName, rightName, leftNameVernacular, rightNameVernacular) {
+    setupNameTilesUI: function (leftName, rightName, leftNameVernacular, rightNameVernacular) {
         // Randomize the position of the name tiles
         const shouldSwap = Math.random() < 0.5;
-        
+
         const nameOne = shouldSwap ? rightName : leftName;
         const nameTwo = shouldSwap ? leftName : rightName;
         const vernacularOne = shouldSwap ? rightNameVernacular : leftNameVernacular;
@@ -552,7 +552,7 @@ const game = {
         gameState.taxonRightName = nameTwo;
     },
 
-    finishSetup: function() {
+    finishSetup: function () {
         ui.hideOverlay();
         logger.debug('Setup complete:', {
             taxonImageOne: gameState.taxonImageOne,
@@ -562,7 +562,7 @@ const game = {
         });
     },
 
-// TODO for now only gives photo page
+    // TODO for now only gives photo page
     getObservationURLFromImageURL(imageURL) {
         const match = imageURL.match(/\/photos\/(\d+)\//);
         if (match && match[1]) {
@@ -572,83 +572,83 @@ const game = {
     },
 
     initializeInfoButtons() {
-      const infoButton1 = document.getElementById('info-button-1');
-      const infoButton2 = document.getElementById('info-button-2');
-
-      infoButton1.addEventListener('click', () => this.showInfoDialog(this.currentObservationURLs.imageOne));
-      infoButton2.addEventListener('click', () => this.showInfoDialog(this.currentObservationURLs.imageTwo));
-    },
-/*    initializeInfoButtons() {
         const infoButton1 = document.getElementById('info-button-1');
         const infoButton2 = document.getElementById('info-button-2');
 
-        infoButton1.addEventListener('click', () => this.openObservationURL(this.currentObservationURLs.imageOne));
-        infoButton2.addEventListener('click', () => this.openObservationURL(this.currentObservationURLs.imageTwo));
-    },*/
+        infoButton1.addEventListener('click', () => this.showInfoDialog(this.currentObservationURLs.imageOne));
+        infoButton2.addEventListener('click', () => this.showInfoDialog(this.currentObservationURLs.imageTwo));
+    },
+    /*    initializeInfoButtons() {
+            const infoButton1 = document.getElementById('info-button-1');
+            const infoButton2 = document.getElementById('info-button-2');
+    
+            infoButton1.addEventListener('click', () => this.openObservationURL(this.currentObservationURLs.imageOne));
+            infoButton2.addEventListener('click', () => this.openObservationURL(this.currentObservationURLs.imageTwo));
+        },*/
 
     openObservationURL(url) {
-      if (url) {
-        this.showInfoDialog(url);
-      } else {
-        logger.error('Observation URL not available');
-      }
+        if (url) {
+            this.showInfoDialog(url);
+        } else {
+            logger.error('Observation URL not available');
+        }
     },
 
     showInfoDialog(url) {
-      const dialog = document.getElementById('info-dialog');
-      const photoButton = document.getElementById('photo-button');
-      const observationButton = document.getElementById('observation-button');
-      const taxonButton = document.getElementById('taxon-button');
-      const hintsButton = document.getElementById('hints-button');
-      const closeButton = document.getElementById('close-info-dialog');
+        const dialog = document.getElementById('info-dialog');
+        const photoButton = document.getElementById('photo-button');
+        const observationButton = document.getElementById('observation-button');
+        const taxonButton = document.getElementById('taxon-button');
+        const hintsButton = document.getElementById('hints-button');
+        const closeButton = document.getElementById('close-info-dialog');
 
-      photoButton.onclick = () => {
-        window.open(url, '_blank');
-        dialog.close();
-      };
+        photoButton.onclick = () => {
+            window.open(url, '_blank');
+            dialog.close();
+        };
 
-      observationButton.onclick = () => {
-        logger.debug("Observation button clicked");
-        utils.fart(); // placeholder
-        // Implement observation functionality here
-      };
+        observationButton.onclick = () => {
+            logger.debug("Observation button clicked");
+            utils.fart(); // placeholder
+            // Implement observation functionality here
+        };
 
-      taxonButton.onclick = async () => {
-        logger.debug("Taxon button clicked");
-        try {
-          const taxonName = this.getCurrentTaxonName(url);
-          const taxonId = await api.fetchTaxonId(taxonName);
-          window.open(`https://www.inaturalist.org/taxa/${taxonId}`, '_blank');
-          dialog.close();
-        } catch (error) {
-          logger.error("Error opening taxon page:", error);
-          alert("Unable to open taxon page. Please try again.");
-        }
-      };
+        taxonButton.onclick = async () => {
+            logger.debug("Taxon button clicked");
+            try {
+                const taxonName = this.getCurrentTaxonName(url);
+                const taxonId = await api.fetchTaxonId(taxonName);
+                window.open(`https://www.inaturalist.org/taxa/${taxonId}`, '_blank');
+                dialog.close();
+            } catch (error) {
+                logger.error("Error opening taxon page:", error);
+                alert("Unable to open taxon page. Please try again.");
+            }
+        };
 
-      hintsButton.onclick = () => {
-        logger.debug("Taxon hints button clicked");
-        utils.fart(); // placeholder
-        // Implement taxon hints functionality here
-      };
+        hintsButton.onclick = () => {
+            logger.debug("Taxon hints button clicked");
+            utils.fart(); // placeholder
+            // Implement taxon hints functionality here
+        };
 
-      closeButton.onclick = () => {
-        dialog.close();
-      };
+        closeButton.onclick = () => {
+            dialog.close();
+        };
 
-      dialog.showModal();
+        dialog.showModal();
     },
 
-// Rest of the game.js code remains the same
+    // Rest of the game.js code remains the same
     getCurrentTaxonName(url) {
-      if (url === this.currentObservationURLs.imageOne) {
-        return gameState.taxonImageOne;
-      } else if (url === this.currentObservationURLs.imageTwo) {
-        return gameState.taxonImageTwo;
-      } else {
-        logger.error("Unable to determine current taxon name");
-        return null;
-      }
+        if (url === this.currentObservationURLs.imageOne) {
+            return gameState.taxonImageOne;
+        } else if (url === this.currentObservationURLs.imageTwo) {
+            return gameState.taxonImageTwo;
+        } else {
+            logger.error("Unable to determine current taxon name");
+            return null;
+        }
     },
 
 };

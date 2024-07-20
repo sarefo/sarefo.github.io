@@ -9,14 +9,14 @@ const preloader = {
 
     async preloadNextPair() {
         if (this.isPreloading) return;
-        
+
         this.isPreloading = true;
         logger.debug("Starting to preload next pair");
 
         try {
             const newPair = await utils.selectTaxonPair();
             logger.debug(`Preloading images for taxon pair: ${newPair.taxon1} and ${newPair.taxon2}`);
-            
+
             const [imageOneURLs, imageTwoURLs, imageOneVernacular, imageTwoVernacular] = await Promise.all([
                 api.fetchMultipleImages(newPair.taxon1),
                 api.fetchMultipleImages(newPair.taxon2),

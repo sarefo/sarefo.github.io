@@ -35,7 +35,7 @@ const eventHandlers = {
             logger.error('Game container not found');
             return;
         }
-        
+
         const namePairElement = document.querySelector('.name-pair');
 
         // Add event listeners only to image containers
@@ -51,13 +51,13 @@ const eventHandlers = {
 
     initializeAllEventListeners() {
         dragAndDrop.initialize();
-        
+
         // button listeners
         document.getElementById('share-button').addEventListener('click', this.shareCurrentPair);
         document.getElementById('phylogeny-button').addEventListener('click', game.showTaxaRelationship);
         document.getElementById('random-pair-button').addEventListener('click', async () => { await game.setupGame(true); });
         document.getElementById('select-pair-button').addEventListener('click', () => ui.showTaxonPairList());
-    
+
         // touch events
         [elements.imageOneContainer, elements.imageTwoContainer].forEach(container => {
             container.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: true });
@@ -80,7 +80,7 @@ const eventHandlers = {
         // Help button functionality
         document.getElementById('help-button').addEventListener('click', () => {
             dialogManager.openDialog('help-dialog');
- //           document.getElementById('help-dialog').showModal();
+            //           document.getElementById('help-dialog').showModal();
         });
         document.getElementById('start-tutorial-button').addEventListener('click', () => {
             ui.showTutorial();
@@ -88,9 +88,9 @@ const eventHandlers = {
         document.getElementById('discord-help-dialog').addEventListener('click', () => {
             window.open('https://discord.gg/DcWrhYHmeM', '_blank');
         });
-//        document.getElementById('close-help-dialog').addEventListener('click', () => {
-//            document.getElementById('help-dialog').close();
-//        });
+        //        document.getElementById('close-help-dialog').addEventListener('click', () => {
+        //            document.getElementById('help-dialog').close();
+        //        });
 
         // Prevent scrolling in the name-pair area
         elements.namePair.addEventListener('touchmove', (event) => { event.preventDefault(); }, { passive: false });
@@ -117,7 +117,7 @@ const eventHandlers = {
 
     handleSwipeOrDrag(e) {
         if (!this.isDragging) return;
-        
+
         let endX, endY;
         if (e.type.includes('touch')) {
             endX = e.changedTouches[0].clientX;
@@ -126,14 +126,14 @@ const eventHandlers = {
             endX = e.clientX;
             endY = e.clientY;
         }
-        
+
         const deltaX = this.startX - endX;
         const deltaY = Math.abs(this.startY - endY);
-        
+
         if (deltaX > this.swipeThreshold && deltaY < this.swipeRestraint) {
             // Swipe left detected
             document.querySelector('.game-container').classList.add('swipe-out-left');
-            
+
             setTimeout(() => {
                 document.querySelector('.game-container').classList.remove('swiping-left', 'swipe-out-left');
                 ui.resetGameContainerStyle();
@@ -143,13 +143,13 @@ const eventHandlers = {
             // Reset if not swiped far enough or swiped vertically
             ui.resetGameContainerStyle();
         }
-        
+
         this.isDragging = false;
     },
 
     handleDragMove(e) {
         if (!this.isDragging) return;
-        
+
         let currentX, currentY;
         if (e.type.includes('touch')) {
             currentX = e.touches[0].clientX;
@@ -158,15 +158,15 @@ const eventHandlers = {
             currentX = e.clientX;
             currentY = e.clientY;
         }
-        
+
         const deltaX = this.startX - currentX;
         const deltaY = Math.abs(this.startY - currentY);
-        
+
         if (deltaX > 0 && deltaY < this.swipeRestraint) {
             const progress = Math.min(deltaX / 100, 1);
             const rotation = progress * -5;
             const opacity = 1 - progress * 0.5;
-            
+
             this.gameContainer.style.transform = `rotate(${rotation}deg) translateX(${-deltaX}px)`;
             this.gameContainer.style.opacity = opacity;
         }
@@ -174,8 +174,8 @@ const eventHandlers = {
 
     handleImageInteraction(event) {
         if (!event) return;  // handle cases where event is undefined
-//        const diffX = Math.abs(this.touchStartX - (event.clientX || event.changedTouches[0].clientX));
-//        const diffY = Math.abs(this.touchStartY - (event.clientY || event.changedTouches[0].clientY));
+        //        const diffX = Math.abs(this.touchStartX - (event.clientX || event.changedTouches[0].clientX));
+        //        const diffY = Math.abs(this.touchStartY - (event.clientY || event.changedTouches[0].clientY));
         // Add any specific image interaction logic here
     },
 
@@ -196,7 +196,7 @@ const eventHandlers = {
         currentUrl.searchParams.set('taxon1', gameState.taxonImageOne);
         currentUrl.searchParams.set('taxon2', gameState.taxonImageTwo);
         let shareUrl = currentUrl.toString();
-        
+
         navigator.clipboard.writeText(shareUrl).then(() => { }).catch(err => {
             logger.error('Failed to copy: ', err);
             alert('Failed to copy link. Please try again.');
@@ -204,7 +204,7 @@ const eventHandlers = {
     },
 
     handleKeyboardShortcuts(event) {
-    const infoDialog = document.getElementById('info-dialog');
+        const infoDialog = document.getElementById('info-dialog');
 
         if (infoDialog.open) {
             // Info dialog is open, don't process main view shortcuts
@@ -218,33 +218,33 @@ const eventHandlers = {
         }
 
         const isDialogOpen = document.getElementById('enter-pair-dialog').open;
-            
-            if (!isDialogOpen) {
-                if (event.key === 'r' || event.key === 'R' || event.key === 'ArrowLeft') {
-                    document.getElementById('random-pair-button').click();
-                }
-                if (event.key === 's' || event.key === 'S') {
-                    document.getElementById('select-pair-button').click();
-                }
-                if (event.key === 'h' || event.key === 'H') {
-                    document.getElementById('help-button').click();
-                }
-                if (event.key === 'e' || event.key === 'E') {
-                    dialogManager.openDialog('enter-pair-dialog');
-                }
-                if (event.key === 'p' || event.key === 'P' || event.key === 'f' || event.key === 'F') {
-                    document.getElementById('surprise-button').click();
-                }
-                if (event.key === 'g' || event.key === 'G') {
-                    document.getElementById('phylogeny-button').click();
-                }
-                if (event.key === 'i' || event.key === 'I') {
-                    document.getElementById('info-button-1').click();
-                }
-                if (event.key === 'o' || event.key === 'O') {
-                    document.getElementById('info-button-2').click();
-                }
+
+        if (!isDialogOpen) {
+            if (event.key === 'r' || event.key === 'R' || event.key === 'ArrowLeft') {
+                document.getElementById('random-pair-button').click();
             }
+            if (event.key === 's' || event.key === 'S') {
+                document.getElementById('select-pair-button').click();
+            }
+            if (event.key === 'h' || event.key === 'H') {
+                document.getElementById('help-button').click();
+            }
+            if (event.key === 'e' || event.key === 'E') {
+                dialogManager.openDialog('enter-pair-dialog');
+            }
+            if (event.key === 'p' || event.key === 'P' || event.key === 'f' || event.key === 'F') {
+                document.getElementById('surprise-button').click();
+            }
+            if (event.key === 'g' || event.key === 'G') {
+                document.getElementById('phylogeny-button').click();
+            }
+            if (event.key === 'i' || event.key === 'I') {
+                document.getElementById('info-button-1').click();
+            }
+            if (event.key === 'o' || event.key === 'O') {
+                document.getElementById('info-button-2').click();
+            }
+        }
     }
 };
 

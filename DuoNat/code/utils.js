@@ -20,7 +20,7 @@ const utils = {
     // trying out things button
     surprise: function () {
         logger.debug("Surprise!");
-//        game.showTaxaRelationship();
+        //        game.showTaxaRelationship();
         this.fart();
     },
 
@@ -29,24 +29,24 @@ const utils = {
         const soundUrl = './sound/fart.mp3';
         // Create a new Audio object
 
-    const audio = new Audio(soundUrl);
+        const audio = new Audio(soundUrl);
         audio.play({ playbackMode: 'background' })
-          .then(() => { logger.info("Everybody plays their fart."); /* Audio started playing successfully*/ }).catch(error => { logger.error('Could not play my fart:', error); });
+            .then(() => { logger.info("Everybody plays their fart."); /* Audio started playing successfully*/ }).catch(error => { logger.error('Could not play my fart:', error); });
     },
 
-    hasKeyboard: function() {
+    hasKeyboard: function () {
         // Check if the device is mobile
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        
+
         // Check if it's a tablet
         const isTablet = /(tablet|ipad|playbook|silk)|(android(?!.*mobile))/i.test(navigator.userAgent);
-        
+
         // If it's not mobile and not a tablet, assume it has a keyboard
         const result = !isMobile && !isTablet;
-        
+
         logger.debug(`hasKeyboard detected: ${result}`);
         logger.debug(`UserAgent: ${navigator.userAgent}`);
-        
+
         return result;
     },
 
@@ -62,7 +62,7 @@ const utils = {
         };
     },
 
-    sleep: function(ms) {
+    sleep: function (ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
     },
 
@@ -71,28 +71,29 @@ const utils = {
         const rightNameContainer = document.getElementById('right-name-container');
         const dropOne = document.getElementById('drop-1');
         const dropTwo = document.getElementById('drop-2');
-        
+
         // Move draggables back to the names container
         leftNameContainer.appendChild(document.getElementById('left-name'));
         rightNameContainer.appendChild(document.getElementById('right-name'));
-        
+
         // Clear drop zones
         dropOne.innerHTML = ''; dropTwo.innerHTML = '';
     },
 
-    capitalizeFirstLetter: function(string) {
-        if (!string) { return '';
+    capitalizeFirstLetter: function (string) {
+        if (!string) {
+            return '';
         } else { return string.charAt(0).toUpperCase() + string.slice(1); }
     },
 
-    shortenSpeciesName: function(string) {
+    shortenSpeciesName: function (string) {
         if (!string) { return ''; }
-        
+
         let parts = string.split(' ');
         if (parts.length < 2) {
             return string; // Return the original string if it doesn't contain at least two parts
         }
-        
+
         let genusInitial = parts[0].charAt(0).toUpperCase() + '.';
         let species = parts.slice(1).join(' '); // Join the remaining parts in case the species name has multiple words
 

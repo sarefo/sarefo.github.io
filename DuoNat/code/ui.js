@@ -3,7 +3,7 @@
 import api from './api.js';
 import config from './config.js';
 import dialogManager from './dialogManager.js';
-import {elements, gameState} from './state.js';
+import { elements, gameState } from './state.js';
 import game from './game.js';
 import logger from './logger.js';
 import utils from './utils.js';
@@ -49,11 +49,11 @@ const ui = {
         });
     },
 
-    showOverlay: function (message="", color) {
+    showOverlay: function (message = "", color) {
         elements.overlayMessage.innerHTML = message;
         elements.overlay.style.backgroundColor = color;
         elements.overlay.classList.add('show');
-        
+
         // Adjust font size for longer messages
         if (message.length > 20) {
             elements.overlayMessage.style.fontSize = '1.2em';
@@ -71,7 +71,7 @@ const ui = {
     },
 
     scrollToTop: () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     },
 
     showINatDownDialog: function () {
@@ -81,14 +81,14 @@ const ui = {
         }
 
         dialogManager.openDialog('inat-down-dialog');
-        
+
         const checkStatusBtn = document.getElementById('check-inat-status');
         const retryConnectionBtn = document.getElementById('retry-connection');
-        
+
         const checkStatusHandler = () => {
             window.open('https://inaturalist.org', '_blank');
         };
-        
+
         const retryConnectionHandler = async () => {
             dialogManager.closeDialog();
             if (await api.isINaturalistReachable()) {
@@ -97,7 +97,7 @@ const ui = {
                 this.showINatDownDialog();
             }
         };
-        
+
         checkStatusBtn.addEventListener('click', checkStatusHandler);
         retryConnectionBtn.addEventListener('click', retryConnectionHandler);
     },
@@ -106,7 +106,7 @@ const ui = {
         dialogManager.closeDialog();
     },
 
-    showTutorial: function() {
+    showTutorial: function () {
         const steps = [
             { message: "Welcome to DuoNat!<br>Let's learn how to play.", highlight: null },
             { message: "You'll see two images of different taxa.", highlights: ['#image-container-1', '#image-container-2'] },
@@ -125,7 +125,7 @@ const ui = {
             if (currentStep < steps.length) {
                 const step = steps[currentStep];
                 this.showOverlay(step.message, config.overlayColors.green);
-                
+
                 highlightElements.forEach(el => el.remove());
                 highlightElements = [];
 
@@ -173,7 +173,7 @@ const ui = {
         showStep();
     },
 
-    scrollToBottom: function(callback) {
+    scrollToBottom: function (callback) {
         const scrollableContent = document.querySelector('.scrollable-content');
         if (scrollableContent) {
             const scrollOptions = {
@@ -188,7 +188,7 @@ const ui = {
         }
     },
 
-    scrollToTop: function() {
+    scrollToTop: function () {
         const scrollableContent = document.querySelector('.scrollable-content');
         if (scrollableContent) {
             scrollableContent.scrollTo({
@@ -200,10 +200,10 @@ const ui = {
         }
     },
 
-    showNextRoundImages: function() {
+    showNextRoundImages: function () {
         const imageOne = document.getElementById('image-1');
         const imageTwo = document.getElementById('image-2');
-        
+
         // Store original images if not already stored
         if (!this.originalImages) {
             this.originalImages = {
@@ -222,7 +222,7 @@ const ui = {
         }
     },
 
-    restoreOriginalImages: function() {
+    restoreOriginalImages: function () {
         if (this.originalImages) {
             const imageOne = document.getElementById('image-1');
             const imageTwo = document.getElementById('image-2');
@@ -232,17 +232,17 @@ const ui = {
         }
     },
 
-restoreOriginalImages: function() {
-    if (this.originalImages) {
-        const imageOne = document.getElementById('image-1');
-        const imageTwo = document.getElementById('image-2');
-        imageOne.src = this.originalImages.one;
-        imageTwo.src = this.originalImages.two;
-        this.originalImages = null;
-    }
-},
+    restoreOriginalImages: function () {
+        if (this.originalImages) {
+            const imageOne = document.getElementById('image-1');
+            const imageTwo = document.getElementById('image-2');
+            imageOne.src = this.originalImages.one;
+            imageTwo.src = this.originalImages.two;
+            this.originalImages = null;
+        }
+    },
 
-    createHighlight: function(targetSelector) {
+    createHighlight: function (targetSelector) {
         const target = document.querySelector(targetSelector);
         if (!target) {
             console.error(`Target element not found: ${targetSelector}`);
@@ -264,7 +264,7 @@ restoreOriginalImages: function() {
         return highlight;
     },
 
-    toggleKeyboardShortcuts: function() {
+    toggleKeyboardShortcuts: function () {
         const keyboardShortcutsSection = document.getElementById('keyboard-shortcuts');
         if (utils.hasKeyboard()) {
             keyboardShortcutsSection.style.display = 'block';
@@ -273,46 +273,46 @@ restoreOriginalImages: function() {
         }
     },
 
-    initializeHelpDialog: function() {
+    initializeHelpDialog: function () {
         document.getElementById('help-button').addEventListener('click', () => {
             this.toggleKeyboardShortcuts();
             dialogManager.openDialog('help-dialog');
         });
     },
 
-      initializeInfoDialog: function() {
+    initializeInfoDialog: function () {
         const infoDialog = document.getElementById('info-dialog');
 
         // Check if the device has a keyboard
         if (utils.hasKeyboard()) {
-          document.body.classList.add('has-keyboard');
+            document.body.classList.add('has-keyboard');
         }
 
         const handleKeyPress = (event) => {
-          if (!infoDialog.open) return; // Only handle keypresses when the dialog is open
-          
-          event.stopPropagation();
-          const key = event.key.toLowerCase();
-          const buttonMap = {
-            'p': 'photo-button',
-            'h': 'hints-button',
-            'o': 'observation-button',
-            't': 'taxon-button'
-          };
+            if (!infoDialog.open) return; // Only handle keypresses when the dialog is open
 
-          if (buttonMap[key]) {
-            event.preventDefault();
-            document.getElementById(buttonMap[key]).click();
-          } else if (key === 'escape') {
-            event.preventDefault();
-            infoDialog.close();
-          }
+            event.stopPropagation();
+            const key = event.key.toLowerCase();
+            const buttonMap = {
+                'p': 'photo-button',
+                'h': 'hints-button',
+                'o': 'observation-button',
+                't': 'taxon-button'
+            };
+
+            if (buttonMap[key]) {
+                event.preventDefault();
+                document.getElementById(buttonMap[key]).click();
+            } else if (key === 'escape') {
+                event.preventDefault();
+                infoDialog.close();
+            }
         };
 
         document.addEventListener('keydown', handleKeyPress);
-      },
+    },
 
-    initialize: function() {
+    initialize: function () {
         this.initializeHelpDialog();
         this.initializeInfoDialog();
     },
