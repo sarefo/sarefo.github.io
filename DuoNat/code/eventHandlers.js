@@ -88,9 +88,9 @@ const eventHandlers = {
         document.getElementById('discord-help-dialog').addEventListener('click', () => {
             window.open('https://discord.gg/DcWrhYHmeM', '_blank');
         });
-        document.getElementById('close-help-dialog').addEventListener('click', () => {
-            document.getElementById('help-dialog').close();
-        });
+//        document.getElementById('close-help-dialog').addEventListener('click', () => {
+//            document.getElementById('help-dialog').close();
+//        });
 
         // Prevent scrolling in the name-pair area
         elements.namePair.addEventListener('touchmove', (event) => { event.preventDefault(); }, { passive: false });

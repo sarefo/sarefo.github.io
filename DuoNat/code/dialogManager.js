@@ -110,7 +110,7 @@ const dialogManager = {
 
         // Add event listeners for enter pair dialog
         document.getElementById('enter-pair-button').addEventListener('click', () => this.openDialog('enter-pair-dialog'));
-        document.getElementById('close-dialog').addEventListener('click', () => this.closeDialog());
+//        document.getElementById('close-dialog').addEventListener('click', () => this.closeDialog());
         document.querySelector('#enter-pair-dialog form').addEventListener('submit', this.handleNewPairSubmit.bind(this));
 
         // input validation

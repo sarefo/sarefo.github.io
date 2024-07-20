@@ -57,62 +57,6 @@
 <button id="help-button" title="Help">
     <svg class="icon"> <use href="./images/icons.svg#icon-help"/></svg>
 </button>
-
-<dialog id="help-dialog">
-    <div class="help-dialog-content">
-        <div class="help-dialog-header">
-            <img src="./images/icon-512x512.png" alt="DuoNat logo" class="help-dialog-logo">
-            <h2>
-                <span class="duo">Duo</span><span class="nat">Nat</span>
-                <br><span class="subtitle">iNat Taxonomy Trainer</span>
-            </h2>
-        </div>
-        <div class="help-content">
-
-            <div class="help-item">
-                <svg class="icon"><use href="./images/icons.svg#icon-drag"/></svg>
-                <p>Drag name to image</p>
-            </div>
-
-            <div class="help-item">
-                <svg class="icon"> <use href="./images/icons.svg#icon-left"/></svg>
-                <p>Swipe left for new taxon pair</p>
-            </div>
-
-            <div class="help-item">
-                <svg class="icon"> <use href="./images/icons.svg#icon-up"/></svg>
-                <p>Scroll down for more</p>
-            </div>
-
-            <div class="help-item">
-                <svg class="icon"> <use href="./images/icons.svg#icon-share"/></svg>
-                <p>Share current taxon pair</p>
-            </div>
-
-            <div id="keyboard-shortcuts" style="display: none;">
-                <h3>Keyboard Shortcuts</h3>
-                <div class="help-item">
-                    <svg class="icon"><use href="./images/icons.svg#icon-keyboard"/></svg>
-                    <ul>
-                        <li><strong>H</strong>: Help</li>
-                        <li><strong>G</strong>: Show phylogeny graph</li>
-                        <li><strong>I</strong>: Info for left image</li>
-                        <li><strong>O</strong>: Info for right image</li>
-                        <li><strong>R</strong>: Random pair</li>
-                        <li><strong>S</strong>: Select pair</li>
-                        <li><strong>E</strong>: Enter pair</li>
-                    </ul>
-                </div>
-            </div>
-
-            <button id="start-tutorial-button">Start Tutorial</button>
-            <button id="discord-help-dialog">Join us on Discord</button>
-
-        </div>
-        <button id="close-help-dialog">I'm good!</button>
-    </div>
-</dialog>
-
 <div class="game-container">
 
     <div class="image-container" id="image-container-1">
@@ -167,8 +111,72 @@
 
     </div>
 
-    <!-- only visible when opened in app-->
+<!-- only visible when opened in app-->
+
+<!-- Help dialog -->
+<dialog id="help-dialog">
+    <button class="dialog-close-button" id="close-help-dialog" aria-label="Close">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+    <div class="help-dialog-content">
+        <div class="help-dialog-header">
+            <img src="./images/icon-512x512.png" alt="DuoNat logo" class="help-dialog-logo">
+            <h2>
+                <span class="duo">Duo</span><span class="nat">Nat</span>
+                <br><span class="subtitle">iNat Taxonomy Trainer</span>
+            </h2>
+        </div>
+        <div class="help-content">
+
+            <div class="help-item">
+                <svg class="icon"><use href="./images/icons.svg#icon-drag"/></svg>
+                <p>Drag name to image</p>
+            </div>
+
+            <div class="help-item">
+                <svg class="icon"> <use href="./images/icons.svg#icon-left"/></svg>
+                <p>Swipe left for new taxon pair</p>
+            </div>
+
+            <div class="help-item">
+                <svg class="icon"> <use href="./images/icons.svg#icon-up"/></svg>
+                <p>Scroll down for more</p>
+            </div>
+
+            <div class="help-item">
+                <svg class="icon"> <use href="./images/icons.svg#icon-share"/></svg>
+                <p>Share current taxon pair</p>
+            </div>
+
+            <div id="keyboard-shortcuts" style="display: none;">
+                <h3>Keyboard Shortcuts</h3>
+                <div class="help-item">
+                    <svg class="icon"><use href="./images/icons.svg#icon-keyboard"/></svg>
+                    <ul>
+                        <li><strong>H</strong>: Help</li>
+                        <li><strong>G</strong>: Show phylogeny graph</li>
+                        <li><strong>I</strong>: Info for left image</li>
+                        <li><strong>O</strong>: Info for right image</li>
+                        <li><strong>R</strong>: Random pair</li>
+                        <li><strong>S</strong>: Select pair</li>
+                        <li><strong>E</strong>: Enter pair</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button id="start-tutorial-button">Start Tutorial</button>
+            <button id="discord-help-dialog">Join us on Discord</button>
+
+        </div>
+<!--        <button id="close-help-dialog">I'm good!</button>-->
+    </div>
+</dialog>
+
+<!-- Enter pair dialog -->
     <dialog id="enter-pair-dialog">
+        <button class="dialog-close-button" id="close-dialog" aria-label="Close">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
         <form method="dialog">
             <h2>Enter New Taxon Pair</h2>
             <div>
@@ -180,14 +188,15 @@
                 <input type="text" id="taxon2" required>
             </div>
             <div id="dialog-message" aria-live="polite"></div>
-            <div class="dialog-buttons">
-                <button type="button" id="close-dialog">Cancel</button>
-                <button type="submit" id="submit-dialog">Submit</button>
-            </div>
+            <button type="submit" id="submit-dialog">Submit</button>
         </form>
     </dialog>
 
+<!-- iNat down dialog -->
 <dialog id="inat-down-dialog">
+    <button class="dialog-close-button" id="close-inat-down-dialog" aria-label="Close">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
   <h2>iNaturalist Unavailable</h2>
   <p>We're having trouble connecting to iNaturalist. This could be due to maintenance or temporary issues.</p>
   <button id="check-inat-status">Check iNaturalist Status</button>
@@ -208,7 +217,12 @@
   <button id="close-relationship-button">Close</button>
 </div>
 -->
+
+<!-- Info dialog -->
 <dialog id="info-dialog" class="info-dialog">
+    <button class="dialog-close-button" id="close-info-dialog" aria-label="Close">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
   <h2>Taxon Information</h2>
   <div class="info-dialog-buttons">
     <button id="photo-button" class="info-dialog-button" aria-keyshortcuts="p"><span class="underline">P</span>hoto Page</button>

@@ -10,6 +10,32 @@ dialog {
   margin: 0;
 }
 
+.dialog-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.dialog-close-button:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.dialog-close-button svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--primary-color);
+}
+
 /* Styles for button column on left main screen */
 .button-column {
     position: fixed;
@@ -239,6 +265,8 @@ dialog {
 
 /* Styles for enter pair dialog */
 #enter-pair-dialog {
+    position: relative;
+    padding: 40px 20px 20px;
     padding: 20px;
     border-radius: var(--border-radius);
     border: none;
@@ -272,7 +300,7 @@ dialog {
     font-size: var(--normal-font-size);
     color: var(--counter-text-color);
 }
-#enter-pair-dialog button {
+#enter-pair-dialog #submit-dialog {
     background-color: var(--primary-color);
     color: var(--text-color);
     border: none;
@@ -286,9 +314,9 @@ dialog {
 #enter-pair-dialog button:hover {
     background-color: #5c8a00;
 }
-#enter-pair-dialog #close-dialog {
+/*#enter-pair-dialog #close-dialog {
     background-color: var(--primary-counter-color)
-}
+}*/
 
 #dialog-message {
     color: var(--counter-text-color);
@@ -351,6 +379,8 @@ dialog {
 
 /* Styles for help dialog */
 #help-dialog {
+    position: relative;
+    padding: 40px 24px 24px;
     padding: 24px;
     border-radius: 12px;
     border: none;
@@ -461,7 +491,7 @@ dialog {
     padding: 2px;
 }
 
-#more-help-dialog, #start-tutorial-button, #discord-help-dialog, #close-help-dialog {
+#start-tutorial-button, #discord-help-dialog {
     background-color: var(--primary-color);
     color: var(--text-color);
     border: none;
@@ -471,45 +501,7 @@ dialog {
     font-size: 20px;
     font-weight: bold;
     transition: background-color var(--transition-speed) ease, transform 0.1s ease;
-    margin-top: 24px;
     width: 100%;
-}
-#close-help-dialog {
-    background-color: var(--primary-counter-color);
-}
-
-#more-help-dialog:hover {
-    background-color: #5c8a00;
-}
-
-#more-help-dialog:active, #close-help-dialog:active {
-    transform: scale(0.98);
-    margin-top: 12px;
-}
-
-#tell-me-more-button {
-    background-color: var(--primary-counter-color);
-    color: var(--text-color);
-    border: none;
-    padding: 12px 24px;
-    border-radius: 24px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    transition: background-color --var(--transition-speed) ease, transform 0.1s ease;
-    margin-top: 24px;
-    width: 100%;
-    text-align: center;
-    text-decoration: none;
-    display: block;
-}
-
-#tell-me-more-button:hover {
-    background-color: #8a0020;
-}
-
-#tell-me-more-button:active {
-    transform: scale(0.98);
 }
 
 /* Styles for tutorial */
@@ -535,15 +527,14 @@ dialog {
 }
 /* Styles for iNaturalist Down Dialog */
 #inat-down-dialog {
- width:100%; height:100%;
-/*  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);*/
-  z-index: 10000; /* Ensure it's above everything else */
-  background-color: white;
-  padding: 0px;
-  border-radius: 00px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    position: relative;
+    padding: 40px 2rem 2rem;
+    width:100%; height:100%;
+    z-index: 10000;
+    background-color: white;
+    padding: 0px;
+    border-radius: 00px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 /*
 .fullscreen-dialog {
@@ -739,15 +730,18 @@ dialog {
 
 /* Styles info dialog */
 .info-dialog {
-  background-color: var(--background-color);
-  border-radius: var(--border-radius);
-  padding: 20px;
-  max-width: 90%;
-  width: 300px;
+    position: relative;
+    padding: 40px 20px 20px;
+    background-color: var(--background-color);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    max-width: 90%;
+    width: 300px;
 }
 
 .info-dialog h2 {
   color: var(--primary-color);
+  padding-top: 24px;
   margin-bottom: 20px;
   text-align: center;
 }
