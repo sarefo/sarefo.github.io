@@ -33,6 +33,7 @@ dialog {
     top: 10px;
     right: 10px;
     background: none;
+    color: var(--primary-counter-color);                
     border: none;
     cursor: pointer;
     padding: 5px;
@@ -51,7 +52,8 @@ dialog {
 .dialog-close-button svg {
     width: 24px;
     height: 24px;
-    stroke: var(--primary-color);
+/*    stroke: var(--primary-color);*/
+    stroke: var(--primary-counter-color);
 }
 
 /* Styles for button column on left main screen */
