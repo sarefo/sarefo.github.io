@@ -57,7 +57,7 @@ const dialogManager = {
         this.enableMainEventHandlers();
 
         // Remove event listeners
-        this.activeDialog.removeEventListener('close', this.handleDialogClose);
+//        this.activeDialog.removeEventListener('close', this.handleDialogClose);
         document.removeEventListener('keydown', this.handleEscapeKey);
 
         this.activeDialog = null;
@@ -101,19 +101,26 @@ const dialogManager = {
 
     // Enter pair dialog functionality:
     initializeEnterPairDialog() {
-        // Existing initialization code
-        // ...
-
         // Initialize enter pair dialog elements
         this.enterPairDialog = document.getElementById('enter-pair-dialog');
         this.taxon1Input = document.getElementById('taxon1');
         this.taxon2Input = document.getElementById('taxon2');
         this.dialogMessage = document.getElementById('dialog-message');
+        this.submitButton = document.getElementById('submit-dialog');
 
         // Add event listeners for enter pair dialog
         document.getElementById('enter-pair-button').addEventListener('click', () => this.openDialog('enter-pair-dialog'));
         document.getElementById('close-dialog').addEventListener('click', () => this.closeDialog());
         document.querySelector('#enter-pair-dialog form').addEventListener('submit', this.handleNewPairSubmit.bind(this));
+
+        // input validation
+        this.taxon1Input.addEventListener('input', () => this.validateInputs());
+        this.taxon2Input.addEventListener('input', () => this.validateInputs());
+    },
+
+    validateInputs() {
+        const isValid = this.taxon1Input.value.trim() !== '' && this.taxon2Input.value.trim() !== '';
+        this.submitButton.disabled = !isValid;
     },
 
     clearEnterPairInputs() {
@@ -123,50 +130,72 @@ const dialogManager = {
         taxon1Input.value = '';
         taxon2Input.value = '';
         dialogMessage.textContent = '';
+        this.validateInputs();
     },
 
     async handleNewPairSubmit(event) {
         event.preventDefault();
 
-        const taxon1Input = document.getElementById('taxon1');
-        const taxon2Input = document.getElementById('taxon2');
-        const dialogMessage = document.getElementById('dialog-message');
+        const taxon1 = this.taxon1Input.value.trim();
+        const taxon2 = this.taxon2Input.value.trim();
 
-        const taxon1 = this.taxon1Input.value;
-        const taxon2 = this.taxon2Input.value;
-        
-        dialogMessage.textContent = 'Validating taxa...';
-        
-        const [validatedTaxon1, validatedTaxon2] = await Promise.all([
-            api.validateTaxon(taxon1),
-            api.validateTaxon(taxon2)
-        ]);
-        
-        if (validatedTaxon1 && validatedTaxon2) {
-            const newPair = {
-                taxon1: validatedTaxon1.name,
-                taxon2: validatedTaxon2.name
-            };
-        
-            try {
-                const response = await fetch('./data/taxonPairs.json');
-                const taxonPairs = await response.json();
-                taxonPairs.push(newPair);
-        
-                // Set the new pair as the next pair to be used
-                game.nextSelectedPair = newPair;
-                
-                // Close the dialog
-                this.closeDialog();
-                
-                // Set up the game with the new pair
-                game.setupGame(true);
-            } catch (error) {
-                logger.error('Error updating taxonPairs.json:', error);
-                this.dialogMessage.textContent = 'Error saving new pair. Please try again.';
+        if (!taxon1 || !taxon2) {
+            this.dialogMessage.textContent = 'Please enter both taxa.';
+            return;
+        }
+
+        this.dialogMessage.textContent = 'Validating taxa...';
+        this.submitButton.disabled = true;
+        this.addLoadingSpinner();
+
+        try {
+            const [validatedTaxon1, validatedTaxon2] = await Promise.all([
+                api.validateTaxon(taxon1),
+                api.validateTaxon(taxon2)
+            ]);
+
+            if (validatedTaxon1 && validatedTaxon2) {
+                const newPair = {
+                    taxon1: validatedTaxon1.name,
+                    taxon2: validatedTaxon2.name
+                };
+
+                this.dialogMessage.textContent = 'Saving new pair...';
+
+                try {
+                    const response = await fetch('./data/taxonPairs.json');
+                    const taxonPairs = await response.json();
+                    taxonPairs.push(newPair);
+
+                    game.nextSelectedPair = newPair;
+                    this.closeDialog();
+                    game.setupGame(true);
+                } catch (error) {
+                    logger.error('Error updating taxonPairs.json:', error);
+                    this.dialogMessage.textContent = 'Error saving new pair. Please try again.';
+                }
+            } else {
+                this.dialogMessage.textContent = 'One or both taxa are invalid. Please check and try again.';
             }
-        } else {
-            this.dialogMessage.textContent = 'One or both taxa are invalid. Please check and try again.';
+        } catch (error) {
+            logger.error('Error validating taxa:', error);
+            this.dialogMessage.textContent = 'Error validating taxa. Please try again.';
+        } finally {
+            this.submitButton.disabled = false;
+            this.removeLoadingSpinner();
+        }
+    },
+
+    addLoadingSpinner() {
+        const spinner = document.createElement('div');
+        spinner.className = 'loading-spinner';
+        this.dialogMessage.appendChild(spinner);
+    },
+
+    removeLoadingSpinner() {
+        const spinner = this.dialogMessage.querySelector('.loading-spinner');
+        if (spinner) {
+            spinner.remove();
         }
     },
 
