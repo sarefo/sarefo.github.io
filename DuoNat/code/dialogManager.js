@@ -114,7 +114,7 @@ const dialogManager = {
     },
 
     initializeDialogs() {
-        const dialogs = ['select-pair-dialog', 'enter-pair-dialog', 'help-dialog', 'info-dialog', 'inat-down-dialog'];
+        const dialogs = ['select-pair-dialog', 'enter-pair-dialog', 'help-dialog', 'info-dialog', 'phylogeny-dialog', 'inat-down-dialog'];
 
         dialogs.forEach(dialogId => {
             const dialog = document.getElementById(dialogId);

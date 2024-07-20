@@ -70,9 +70,6 @@ const eventHandlers = {
         document.getElementById('surprise-button').addEventListener('click', () => {
             utils.surprise();
         });
-        document.getElementById('close-relationship-button').addEventListener('click', () => {
-            dialogManager.closeDialog();
-        });
 
         // Keyboard shortcuts
         document.addEventListener('keydown', this.handleKeyboardShortcuts.bind(this));
@@ -88,9 +85,6 @@ const eventHandlers = {
         document.getElementById('discord-help-dialog').addEventListener('click', () => {
             window.open('https://discord.gg/DcWrhYHmeM', '_blank');
         });
-        //        document.getElementById('close-help-dialog').addEventListener('click', () => {
-        //            document.getElementById('help-dialog').close();
-        //        });
 
         // Prevent scrolling in the name-pair area
         elements.namePair.addEventListener('touchmove', (event) => { event.preventDefault(); }, { passive: false });
@@ -174,8 +168,6 @@ const eventHandlers = {
 
     handleImageInteraction(event) {
         if (!event) return;  // handle cases where event is undefined
-        //        const diffX = Math.abs(this.touchStartX - (event.clientX || event.changedTouches[0].clientX));
-        //        const diffY = Math.abs(this.touchStartY - (event.clientY || event.changedTouches[0].clientY));
         // Add any specific image interaction logic here
     },
 

@@ -412,7 +412,6 @@ const game = {
     async showTaxaRelationship() {
         const { taxonImageOne, taxonImageTwo } = gameState;
         const container = document.getElementById('taxa-relationship-graph');
-        const containerWrapper = document.getElementById('taxa-relationship-container');
 
         if (!taxonImageOne || !taxonImageTwo) {
             logger.error('Taxon names not available');
@@ -420,13 +419,11 @@ const game = {
             return;
         }
 
-        dialogManager.openDialog('taxa-relationship-container');
-        //        containerWrapper.classList.remove('hidden');
+        dialogManager.openDialog('phylogeny-dialog');
 
         try {
             await taxaRelationshipViewer.initialize(container);
 
-            // Check if we're showing the same taxa pair
             if (this.currentGraphTaxa &&
                 this.currentGraphTaxa[0] === taxonImageOne &&
                 this.currentGraphTaxa[1] === taxonImageTwo) {
@@ -441,17 +438,17 @@ const game = {
         } catch (error) {
             logger.error('Error showing taxa relationship:', error);
             alert('Failed to load the relationship graph. Please try again later.');
-            this.hideTaxaRelationship();
+            dialogManager.closeDialog();
         }
     },
-
+/*
     hideTaxaRelationship: function () {
         dialogManager.closeDialog();
         //        const containerWrapper = document.getElementById('taxa-relationship-container');
         //        containerWrapper.classList.add('hidden');
         // We don't clear the graph here, as we might want to show it again
     },
-
+*/
     prepareUIForLoading: function () {
         utils.resetDraggables();
         ui.scrollToTop();
