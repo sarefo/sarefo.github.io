@@ -769,12 +769,12 @@ width: 80%;
     width: 300px;
 }
 
-.info-dialog h2 {
+/*.info-dialog h2 {
   color: var(--primary-color);
   padding-top: 24px;
   margin-bottom: 20px;
   text-align: center;
-}
+}*/
 
 .info-dialog-buttons {
   display: flex;
