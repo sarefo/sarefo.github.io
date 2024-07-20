@@ -35,8 +35,6 @@ body {
     overflow: auto;
     box-sizing: border-box;
     font-family: 'Open Sans', Arial, sans-serif;
-
-    text-shadow: 1px 1px 2px var(--shadow-color); /* TODO experimental, do case-by-case*/
 }
 body * { text-align: center; } /* percolate to child elements */
 

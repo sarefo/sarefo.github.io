@@ -58,6 +58,10 @@ const dialogManager = {
     },
 
     handleDialogClose() {
+        if (!this.activeDialog) {
+            logger.warn('handleDialogClose called with no active dialog');
+            return;
+        }
         // Re-enable main window event handlers
         this.enableMainEventHandlers();
 
