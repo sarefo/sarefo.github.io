@@ -240,3 +240,4 @@ Also, this is a long-term project. Whenever you notice that something would make
 ## LLM behavior
 + please don't start every answer with "Certainly!" :) and no need to apologize all the time.
 + if a task seems complicated, please think it through step by step, explaining your reasoning.
++ always let me know when I made a mistake or might have forgotten to add information that you need.

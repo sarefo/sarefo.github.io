@@ -26,7 +26,6 @@
     --center-min-height: 60px; /* consider relative to screen */
 }
 
-/* Main containers */
 body {
     display: flex;
     flex-direction: column;
@@ -38,6 +37,22 @@ body {
 }
 body * { text-align: center; } /* percolate to child elements */
 
+/* Other general styles */
+
+button {
+    outline: none;
+    box-shadow: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* remove black border when active */
+.no-outline {
+    outline: none;
+    box-shadow: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Main containers */
 .game-container {
     flex: none;
     display: flex;
