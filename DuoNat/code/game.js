@@ -631,6 +631,7 @@ const game = {
 
       observationButton.onclick = () => {
         logger.debug("Observation button clicked");
+        utils.fart(); // placeholder
         // Implement observation functionality here
       };
 
@@ -649,6 +650,7 @@ const game = {
 
       hintsButton.onclick = () => {
         logger.debug("Taxon hints button clicked");
+        utils.fart(); // placeholder
         // Implement taxon hints functionality here
       };
 
