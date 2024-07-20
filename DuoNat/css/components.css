@@ -619,6 +619,11 @@ dialog {
     z-index: 1001;
 }
 
+.clickable-network .vis-network:hover {
+    /* TODO: gives pointer not only over nodes*/
+   /* cursor: pointer; */
+}
+
 /* Styles info dialog */
 .info-dialog {
   background-color: var(--background-color);
