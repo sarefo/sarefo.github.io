@@ -599,11 +599,22 @@ const game = {
 
     showInfoDialog(url) {
         const dialog = document.getElementById('info-dialog');
+        const taxonElement = document.getElementById('info-dialog-taxon');
+        const vernacularElement = document.getElementById('info-dialog-vernacular');
         const photoButton = document.getElementById('photo-button');
         const observationButton = document.getElementById('observation-button');
         const taxonButton = document.getElementById('taxon-button');
         const hintsButton = document.getElementById('hints-button');
         const closeButton = document.getElementById('info-close-button');
+
+    // Set taxon and vernacular name
+    const currentTaxon = this.getCurrentTaxonName(url);
+    taxonElement.textContent = currentTaxon;
+    
+    // Fetch and set vernacular name
+    api.fetchVernacular(currentTaxon).then(vernacularName => {
+        vernacularElement.textContent = vernacularName || '';
+    });
 
         photoButton.onclick = () => {
             window.open(url, '_blank');
