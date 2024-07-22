@@ -87,8 +87,10 @@ const eventHandlers = {
             this.openDialog('info-dialog');
         }); */
         this.safeAddEventListener('random-pair-button', 'click', () => {
-            game.setupGame(true);
+            game.loadNewRandomPair();
             ui.closeFunctionsMenu(); // Close menu after action
+/*            game.setupGame(true);
+            ui.closeFunctionsMenu(); // Close menu after action*/
         });
         this.safeAddEventListener('like-button', 'click', () => {
             this.likePair();
@@ -110,9 +112,9 @@ const eventHandlers = {
         // button listeners
         //document.getElementById('share-button').addEventListener('click', this.shareCurrentPair);
         //document.getElementById('phylogeny-button').addEventListener('click', game.showTaxaRelationship);
-        document.getElementById('random-pair-button').addEventListener('click', async () => { await game.setupGame(true); });
+        /*document.getElementById('random-pair-button').addEventListener('click', async () => { await game.setupGame(true); });
         document.getElementById('select-pair-button').addEventListener('click', () => ui.showTaxonPairList());
-
+*/
         // touch events
         [elements.imageOneContainer, elements.imageTwoContainer].forEach(container => {
             container.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: true });
@@ -186,7 +188,7 @@ const eventHandlers = {
             setTimeout(() => {
                 document.querySelector('.game-container').classList.remove('swiping-left', 'swipe-out-left');
                 ui.resetGameContainerStyle();
-                game.setupGame(true);
+                game.loadNewRandomPair();
             }, 500); // Match this with the animation duration
         } else {
             // Reset if not swiped far enough or swiped vertically
@@ -259,7 +261,9 @@ const eventHandlers = {
 
         if (!isDialogOpen) {
             if (event.key === 'r' || event.key === 'R' || event.key === 'ArrowLeft') {
-                document.getElementById('random-pair-button').click();
+                event.preventDefault();
+/*                document.getElementById('random-pair-button').click();*/
+                game.loadNewRandomPair();
             }
             if (event.key === 's' || event.key === 'S') {
                 document.getElementById('select-pair-button').click();

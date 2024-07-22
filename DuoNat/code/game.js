@@ -457,6 +457,21 @@ const game = {
         gameState.isFirstLoad = false;
     },
 
+    async loadNewRandomPair() {
+        logger.debug("Loading new random pair");
+        ui.showOverlay('Loading...', config.overlayColors.green);
+        elements.imageOne.classList.add('loading');
+        elements.imageTwo.classList.add('loading');
+        
+        try {
+            await this.setupGame(true);
+            ui.hideOverlay();
+        } catch (error) {
+            logger.error("Error loading new random pair:", error);
+            ui.showOverlay("Error loading new pair. Please try again.", config.overlayColors.red);
+        }
+    },
+
     async loadNewTaxonPair() {
         const newPair = await utils.selectTaxonPair();
         updateGameState({
