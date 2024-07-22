@@ -4,81 +4,155 @@ import api from './api.js';
 import eventHandlers from './eventHandlers.js';
 import game from './game.js';
 import logger from './logger.js';
+import ui from './ui.js';
 
 const dialogManager = {
     activeDialog: null,
     mainEventHandlers: {},
+    eventListeners: {},
+
+
+    isAnyDialogOpen() {
+        return !!this.activeDialog;
+    },
 
     openDialog(dialogId) {
+        ui.closeFunctionsMenu();
         const dialog = document.getElementById(dialogId);
         if (!dialog) {
             console.error(`Dialog with id ${dialogId} not found`);
             return;
         }
 
-        // Disable main window event handlers
         this.disableMainEventHandlers();
 
-        // Show the dialog
-        if (dialog.tagName.toLowerCase() === 'dialog') {
-            dialog.showModal();
-        } else {
-            // For non-dialog elements like the relationship graph container
-            dialog.classList.remove('hidden');
+        if (dialog instanceof HTMLElement) {
+            if (dialog.tagName.toLowerCase() === 'dialog') {
+                dialog.showModal();
+            } else {
+                dialog.classList.remove('hidden');
+                if (dialogId === 'phylogeny-dialog') {
+                    dialog.style.display = 'flex';
+                }
+            }
         }
         this.activeDialog = dialog;
 
-        // Add event listeners
-        dialog.addEventListener('close', this.handleDialogClose.bind(this));
         document.addEventListener('keydown', this.handleEscapeKey.bind(this));
-
-        const closeButton = dialog.querySelector('.dialog-close-button');
-        if (closeButton) {
-            closeButton.addEventListener('click', () => this.closeDialog());
+        if (dialog instanceof HTMLElement) {
+            dialog.addEventListener('close', () => this.handleDialogClose(dialog));
+            const closeButton = dialog.querySelector('.dialog-close-button');
+            if (closeButton) {
+                closeButton.addEventListener('click', () => this.closeDialog());
+            }
         }
 
-        // Clear inputs after the dialog is shown
-        if (dialogId === 'enter-pair-dialog') {
-            setTimeout(() => {
-                this.clearEnterPairInputs();
-            }, 0);
-        }
+        logger.debug(`Dialog opened: ${dialogId}`);
     },
 
     closeDialog() {
         if (this.activeDialog) {
-            if (this.activeDialog.tagName.toLowerCase() === 'dialog') {
-                this.activeDialog.close();
-            } else {
-                // For non-dialog elements like the relationship graph container
-                this.activeDialog.classList.add('hidden');
-                this.handleDialogClose();
+            const dialog = this.activeDialog;
+            this.activeDialog = null;
+
+            if (dialog instanceof HTMLElement) {
+                if (dialog.tagName.toLowerCase() === 'dialog') {
+                    dialog.close();
+                } else {
+                    dialog.classList.add('hidden');
+                }
+
+                if (dialog.id === 'phylogeny-dialog') {
+                    dialog.style.display = 'none';
+                }
             }
+            this.handleDialogClose(dialog);
+            
+            logger.debug(`Emitting dialogClose event for: ${dialog.id}`);
+            this.emit('dialogClose', dialog.id);
         }
     },
 
-    handleDialogClose() {
-        if (!this.activeDialog) {
-            logger.warn('handleDialogClose called with no active dialog');
+    handleDialogClose(dialog) {
+        if (!dialog) {
+            logger.warn('handleDialogClose called with no dialog');
             return;
         }
-        // Re-enable main window event handlers
+
         this.enableMainEventHandlers();
 
-        // Remove event listeners
         document.removeEventListener('keydown', this.handleEscapeKey);
 
-        // Remove close button event listener
-        const closeButton = this.activeDialog.querySelector('.dialog-close-button');
-        if (closeButton) {
-            closeButton.removeEventListener('click', () => this.closeDialog());
+        if (dialog instanceof HTMLElement) {
+            const closeButton = dialog.querySelector('.dialog-close-button');
+            if (closeButton) {
+                closeButton.removeEventListener('click', this.closeDialog);
+            }
         }
 
         this.activeDialog = null;
+
+        ui.resetUIState();
+        logger.debug(`Dialog closed: ${dialog.id}`);
+    },
+
+    on(eventName, callback) {
+        if (!this.eventListeners[eventName]) {
+            this.eventListeners[eventName] = [];
+        }
+        this.eventListeners[eventName].push(callback);
+    },
+
+    off(eventName, callback) {
+        if (this.eventListeners[eventName]) {
+            this.eventListeners[eventName] = this.eventListeners[eventName].filter(
+                listener => listener !== callback
+            );
+        }
+    },
+
+    emit(eventName, data) {
+        logger.debug(`Emitting event: ${eventName}, data: ${data}`);
+        if (this.eventListeners[eventName]) {
+            this.eventListeners[eventName].forEach(callback => callback(data));
+        } else {
+            logger.debug(`No listeners for event: ${eventName}`);
+        }
+    }, 
+
+    handleDialogClose(dialog) {
+        if (!dialog) {
+            logger.warn('handleDialogClose called with no dialog');
+            return;
+        }
+
+        // Re-enable main window event handlers
+        this.enableMainEventHandlers();
+
+        // Remove event listener
+        document.removeEventListener('keydown', this.handleEscapeKey);
+
+        // Remove close button event listener if dialog is an HTMLElement
+        if (dialog instanceof HTMLElement) {
+            const closeButton = dialog.querySelector('.dialog-close-button');
+            if (closeButton) {
+                closeButton.removeEventListener('click', this.closeDialog);
+            }
+        }
+
+        // Ensure main event handlers are re-enabled
+        this.enableMainEventHandlers();
+
+        // Ensure the UI knows no dialog is open
+        this.activeDialog = null;
+
+        // Reset the UI state
+        ui.resetUIState();
     },
 
     handleEscapeKey(event) {
         if (event.key === 'Escape' && this.activeDialog) {
+            logger.debug('Escape key pressed, closing dialog');
             this.closeDialog();
         }
     },
@@ -111,6 +185,7 @@ const dialogManager = {
         document.addEventListener('keydown', eventHandlers.handleKeyboardShortcuts);
 
         this.mainEventHandlers = {};
+        logger.debug("Main event handlers re-enabled");
     },
 
     initializeDialogs() {
@@ -134,6 +209,11 @@ const dialogManager = {
         // Add event listeners for enter pair dialog
         document.getElementById('enter-pair-button').addEventListener('click', () => this.openDialog('enter-pair-dialog'));
         document.querySelector('#enter-pair-dialog form').addEventListener('submit', this.handleNewPairSubmit.bind(this));
+
+        this.on('dialogClose', (dialogId) => {
+            logger.debug(`Dialog closed: ${dialogId}`);
+            // Add any specific actions you want to perform when a dialog is closed
+        });
 
         // input validation
         this.taxon1Input.addEventListener('input', () => this.validateInputs());

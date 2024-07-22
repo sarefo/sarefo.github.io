@@ -28,6 +28,10 @@ const eventHandlers = {
         this.initializeSwipeFunctionality();
         this.initializeFunctionsMenuListeners();
         this.initializeAllEventListeners();
+
+        // Ensure keyboard shortcuts are properly set up
+        document.removeEventListener('keydown', this.handleKeyboardShortcuts);
+        document.addEventListener('keydown', this.handleKeyboardShortcuts.bind(this));
     },
 
     initializeSwipeFunctionality() {
@@ -62,35 +66,41 @@ const eventHandlers = {
     initializeFunctionsMenuListeners: function() {
         this.safeAddEventListener('share-button', 'click', () => {
             this.shareCurrentPair();
-            ui.toggleFunctionsMenu(); // Close menu after action
+            ui.closeFunctionsMenu(); // Close menu after action
         });
-        this.safeAddEventListener('graph-button', 'click', () => {
+        this.safeAddEventListener('phylogeny-button', 'click', () => {
             game.showTaxaRelationship();
-            ui.toggleFunctionsMenu(); // Close menu after action
+            ui.closeFunctionsMenu(); // Close menu after action
         });
         this.safeAddEventListener('select-pair-button', 'click', () => {
             ui.showTaxonPairList();
-            ui.toggleFunctionsMenu(); // Close menu after action
+            ui.closeFunctionsMenu(); // Close menu after action
         });
         this.safeAddEventListener('enter-pair-button', 'click', () => {
             dialogManager.openDialog('enter-pair-dialog');
-            ui.toggleFunctionsMenu(); // Close menu after action
+            ui.closeFunctionsMenu(); // Close menu after action
         });
+/*        this.safeAddEventListener('info-button-1', 'click', () => {
+            this.openDialog('info-dialog');
+        });
+        this.safeAddEventListener('info-button-1', 'click', () => {
+            this.openDialog('info-dialog');
+        }); */
         this.safeAddEventListener('random-pair-button', 'click', () => {
             game.setupGame(true);
-            ui.toggleFunctionsMenu(); // Close menu after action
+            ui.closeFunctionsMenu(); // Close menu after action
         });
         this.safeAddEventListener('like-button', 'click', () => {
             this.likePair();
-            ui.toggleFunctionsMenu(); // Close menu after action
+            ui.closeFunctionsMenu(); // Close menu after action
         });
         this.safeAddEventListener('trash-button', 'click', () => {
             this.trashPair();
-            ui.toggleFunctionsMenu(); // Close menu after action
+            ui.closeFunctionsMenu(); // Close menu after action
         });
         this.safeAddEventListener('surprise-button', 'click', () => {
             utils.surprise();
-            ui.toggleFunctionsMenu(); // Close menu after action
+            ui.closeFunctionsMenu(); // Close menu after action
         });
     },
 
@@ -226,12 +236,18 @@ const eventHandlers = {
     },
 
     handleKeyboardShortcuts(event) {
-        const infoDialog = document.getElementById('info-dialog');
+        logger.debug("Keyboard event:", event.key);
+        if (dialogManager.isAnyDialogOpen()) {
+            logger.debug("Dialog is open, ignoring keyboard shortcut");
+            return;
+        }
 
+        const infoDialog = document.getElementById('info-dialog');
         if (infoDialog.open) {
             // Info dialog is open, don't process main view shortcuts
             return;
         }
+
 
         const activeDialog = dialogManager.activeDialog;
         if (activeDialog) {
@@ -254,8 +270,11 @@ const eventHandlers = {
             if (event.key === 'e' || event.key === 'E') {
                 dialogManager.openDialog('enter-pair-dialog');
             }
-            if (event.key === 'm' || event.key === 'M' || event.key === 'f' || event.key === 'F') {
-                document.getElementById('functions-toggle').click();
+            if (event.key === 'm' || event.key === 'M') {
+                logger.debug("'M' key pressed, attempting to toggle menu");
+                event.preventDefault(); // Prevent default action
+                ui.toggleFunctionsMenu();
+                return; // Exit the function after toggling
             }
             if (event.key === 'p' || event.key === 'P' || event.key === 'f' || event.key === 'F') {
                 document.getElementById('surprise-button').click();

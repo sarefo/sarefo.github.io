@@ -109,6 +109,7 @@ const game = {
             logger.debug("Game setup complete. Current state:", this.currentState);
 
             ui.hideOverlay();
+            ui.resetUIState();
 
             // Only preload for the next session if we're starting a new one
             if (newSession) {
@@ -412,6 +413,7 @@ const game = {
     async showTaxaRelationship() {
         const { taxonImageOne, taxonImageTwo } = gameState;
         const container = document.getElementById('taxa-relationship-graph');
+        const dialog = document.getElementById('phylogeny-dialog');
 
         if (!taxonImageOne || !taxonImageTwo) {
             logger.error('Taxon names not available');
@@ -419,6 +421,8 @@ const game = {
             return;
         }
 
+        // Show the dialog
+        dialog.style.display = 'flex'; // Change to flex to match the CSS layout
         dialogManager.openDialog('phylogeny-dialog');
 
         try {
@@ -438,6 +442,7 @@ const game = {
         } catch (error) {
             logger.error('Error showing taxa relationship:', error);
             alert('Failed to load the relationship graph. Please try again later.');
+            dialog.style.display = 'none'; // Hide the dialog on error
             dialogManager.closeDialog();
         }
     },
@@ -568,13 +573,6 @@ const game = {
         infoButton1.addEventListener('click', () => this.showInfoDialog(this.currentObservationURLs.imageOne));
         infoButton2.addEventListener('click', () => this.showInfoDialog(this.currentObservationURLs.imageTwo));
     },
-    /*    initializeInfoButtons() {
-            const infoButton1 = document.getElementById('info-button-1');
-            const infoButton2 = document.getElementById('info-button-2');
-    
-            infoButton1.addEventListener('click', () => this.openObservationURL(this.currentObservationURLs.imageOne));
-            infoButton2.addEventListener('click', () => this.openObservationURL(this.currentObservationURLs.imageTwo));
-        },*/
 
     openObservationURL(url) {
         if (url) {
@@ -590,7 +588,7 @@ const game = {
         const observationButton = document.getElementById('observation-button');
         const taxonButton = document.getElementById('taxon-button');
         const hintsButton = document.getElementById('hints-button');
-        const closeButton = document.getElementById('close-info-dialog');
+        const closeButton = document.getElementById('info-close-button');
 
         photoButton.onclick = () => {
             window.open(url, '_blank');
@@ -622,6 +620,7 @@ const game = {
             // Implement taxon hints functionality here
         };
 
+        // TODO shouldn't this be handled in a standardized dialog way?
         closeButton.onclick = () => {
             dialog.close();
         };

@@ -8,7 +8,14 @@ import game from './game.js';
 import logger from './logger.js';
 import utils from './utils.js';
 
+let isMenuOpen = false;
+
 const ui = {
+
+    resetUIState: function() {
+        this.closeFunctionsMenu();
+        // Add any other UI state resets here if needed
+    },
 
     resetGameContainerStyle: function () {
         const gameContainer = document.querySelector('.game-container');
@@ -341,15 +348,30 @@ const ui = {
     },
 
     toggleFunctionsMenu: function() {
+        logger.debug("Attempting to toggle functions menu. Current state:", isMenuOpen);
         const topGroup = document.querySelector('.functions-dropdown.top-group');
         const bottomGroup = document.querySelector('.functions-dropdown.bottom-group');
         if (topGroup && bottomGroup) {
-            const isCurrentlyShown = topGroup.classList.contains('show');
+            isMenuOpen = !isMenuOpen;
+            
+            // Force a redraw
+            topGroup.style.display = 'none';
+            bottomGroup.style.display = 'none';
+            
+            // Trigger reflow
+            void topGroup.offsetHeight;
+            void bottomGroup.offsetHeight;
+            
+            topGroup.style.display = '';
+            bottomGroup.style.display = '';
+            
             topGroup.classList.toggle('show');
             bottomGroup.classList.toggle('show');
-            if (!isCurrentlyShown) {
+            
+            if (isMenuOpen) {
                 this.positionBottomGroup();
             }
+            logger.debug("Functions menu toggled. New state:", isMenuOpen);
         } else {
             logger.error('Functions dropdown groups not found');
         }
@@ -366,11 +388,35 @@ const ui = {
         }
     },
 
+closeFunctionsMenu: function() {
+    logger.debug("Attempting to close functions menu. Current state:", isMenuOpen);
+    if (isMenuOpen) {
+        const topGroup = document.querySelector('.functions-dropdown.top-group');
+        const bottomGroup = document.querySelector('.functions-dropdown.bottom-group');
+        if (topGroup && bottomGroup) {
+            isMenuOpen = false;
+            topGroup.classList.remove('show');
+            bottomGroup.classList.remove('show');
+            logger.debug("Functions menu closed.");
+        }
+    }
+},
+
+    isMenuOpen: function() {
+        return isMenuOpen;
+    },
 
     initialize: function () {
         this.initializeHelpDialog();
         this.initializeInfoDialog();
         this.initializeFunctionsMenu();
+        this.closeFunctionsMenu(); // Ensure menu is closed on initialization
+        // Close the dropdown when clicking outside of it
+        document.addEventListener('click', (event) => {
+            if (!event.target.closest('.functions-menu')) {
+                this.closeFunctionsMenu();
+            }
+        });
     },
 
 }; // const ui
