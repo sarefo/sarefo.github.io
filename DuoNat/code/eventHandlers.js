@@ -50,15 +50,23 @@ const eventHandlers = {
         });
     },
 
+    safeAddEventListener(id, eventType, handler) {
+        const element = document.getElementById(id);
+        if (element) {
+            element.addEventListener(eventType, handler);
+        } else {
+            logger.warn(`Element with id '${id}' not found. Skipping event listener.`);
+        }
+    },
     initializeFunctionsMenuListeners: function() {
-        document.getElementById('share-button').addEventListener('click', this.shareCurrentPair);
-        document.getElementById('graph-button').addEventListener('click', game.showTaxaRelationship);
-        document.getElementById('select-pair-button').addEventListener('click', ui.showTaxonPairList);
-        document.getElementById('enter-pair-button').addEventListener('click', () => dialogManager.openDialog('enter-pair-dialog'));
-        document.getElementById('random-pair-button').addEventListener('click', () => game.setupGame(true));
-        document.getElementById('like-button').addEventListener('click', this.likePair);
-        document.getElementById('trash-button').addEventListener('click', this.trashPair);
-        document.getElementById('surprise-button').addEventListener('click', utils.surprise);
+        this.safeAddEventListener('share-button', 'click', this.shareCurrentPair);
+        this.safeAddEventListener('graph-button', 'click', game.showTaxaRelationship);
+        this.safeAddEventListener('select-pair-button', 'click', ui.showTaxonPairList);
+        this.safeAddEventListener('enter-pair-button', 'click', () => dialogManager.openDialog('enter-pair-dialog'));
+        this.safeAddEventListener('random-pair-button', 'click', () => game.setupGame(true));
+        this.safeAddEventListener('like-button', 'click', this.likePair);
+        this.safeAddEventListener('trash-button', 'click', this.trashPair);
+        this.safeAddEventListener('surprise-button', 'click', utils.surprise);
     },
 
     initializeAllEventListeners() {
