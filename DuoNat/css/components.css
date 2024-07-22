@@ -718,13 +718,17 @@ width: 80%;
 }
 
 #phylogeny-dialog {
-    position: relative;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 90%;
     height: 90%;
     max-width: 1800px;
     padding: 20px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 #taxa-relationship-graph {

@@ -441,14 +441,7 @@ const game = {
             dialogManager.closeDialog();
         }
     },
-/*
-    hideTaxaRelationship: function () {
-        dialogManager.closeDialog();
-        //        const containerWrapper = document.getElementById('taxa-relationship-container');
-        //        containerWrapper.classList.add('hidden');
-        // We don't clear the graph here, as we might want to show it again
-    },
-*/
+
     prepareUIForLoading: function () {
         utils.resetDraggables();
         ui.scrollToTop();
