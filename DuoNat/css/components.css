@@ -574,6 +574,12 @@ width: 80%;
     width: 100%;
 }
 
+#version-id {
+    padding-top: 8px;
+    font-size: 14px;
+    color: var(--counter-text-color);
+}
+
 /* Styles for tutorial */
 .tutorial-highlight {
     position: absolute;

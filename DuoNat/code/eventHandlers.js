@@ -107,11 +107,11 @@ const eventHandlers = {
         });
 
         // Prevent scrolling in the name-pair area
-        elements.namePair.addEventListener('touchmove', (event) => { event.preventDefault(); }, { passive: false });
-        elements.namePair.addEventListener('wheel', (event) => { event.preventDefault(); }, { passive: false });
+//        elements.namePair.addEventListener('touchmove', (event) => { event.preventDefault(); }, { passive: false });
+//        elements.namePair.addEventListener('wheel', (event) => { event.preventDefault(); }, { passive: false });
 
         // Scroll to top when a button is clicked
-        elements.buttons.forEach(button => { button.addEventListener('click', () => { ui.scrollToTop(); }); });
+//        elements.buttons.forEach(button => { button.addEventListener('click', () => { ui.scrollToTop(); }); });
     },
 
     handleMouseDown(e) {

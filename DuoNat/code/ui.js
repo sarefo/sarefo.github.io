@@ -188,6 +188,7 @@ const ui = {
         }
     },
 
+                    /*
     scrollToTop: function () {
         const scrollableContent = document.querySelector('.scrollable-content');
         if (scrollableContent) {
@@ -199,7 +200,7 @@ const ui = {
             console.warn('Scrollable content not found');
         }
     },
-
+*/
     showNextRoundImages: function () {
         const imageOne = document.getElementById('image-1');
         const imageTwo = document.getElementById('image-2');

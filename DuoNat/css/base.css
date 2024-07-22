@@ -357,16 +357,3 @@ width: 100%;
 
 .swipe-out-left { animation: swipeOutLeft 0.5s ease-out forwards; }
 
-/* Misc. main page styles */
-#home-link {
-    font-size: 14px;
-    color: var(--counter-text-color);
-    text-decoration: none;
-}
-
-#version-id {
-    padding-top: 8px;
-    font-size: 14px;
-    color: var(--counter-text-color);
-}
-
