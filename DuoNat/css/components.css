@@ -601,6 +601,7 @@ width: 80%;
         box-shadow: 0 0 0 0 rgba(172, 0, 40, 0);
     }
 }
+
 /* Styles for iNaturalist Down Dialog */
 #inat-down-dialog {
     position: relative;
@@ -612,24 +613,6 @@ width: 80%;
     border-radius: 00px;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
-/*
-.fullscreen-dialog {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.95);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2000;
-  border: none;
-}
-.fullscreen-dialog::backdrop {
-  background-color: rgba(0, 0, 0, 0.5);
-}
-*/
 
 #inat-down-dialog {
   background-color: white;
@@ -744,75 +727,11 @@ width: 80%;
         height: 95%;
     }
 }
-/*
-#taxa-relationship-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
-#taxa-relationship-container.hidden {
-    display: none;
-}
-
-.graph-dialog-content {
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    width: 90%;
-    height: 90%;
-    max-width: 1200px;
-    max-height: 800px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-}
-
-.graph-title {
-    color: var(--primary-color);
-    text-align: center;
-    padding: 15px 0;
-    margin: 0;
-    font-size: 1.5em;
-    border-bottom: 1px solid #e0e0e0;
-}
-*/
 #taxa-relationship-graph {
     flex-grow: 1;
     overflow: hidden;
 }
-/*
-#close-relationship-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s ease;
-    border-radius: 50%;
-}
-#close-relationship-button:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-}
-
-#close-relationship-button svg {
-    width: 24px;
-    height: 24px;
-    stroke: var(--primary-color);
-}
-*/
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
