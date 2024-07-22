@@ -292,6 +292,7 @@
     {"taxon1":"Psychidae", "taxon2":"Tineidae"},
     {"taxon1":"Tortricidae", "taxon2":"Zygaenidae"},
     {"taxon1":"Zygaenidae", "taxon2":"Limacodidae"},
+    {"taxon1":"Scopula propinquaria", "taxon2":"Scopula limboundata"},
     {"taxon1":"Caeneressa diaphana", "taxon2":"Amata huebneri"},
     {"taxon1":"Synanthedon", "taxon2":"Vespoidea"},
 
