@@ -73,7 +73,7 @@ dialog {
 /* Styles for button column on left main screen */
 .button-column {
     position: fixed;
-    right: 10px;
+    right: 0px;
     top: 10px;
     display: flex;
     flex-direction: column;
@@ -111,6 +111,86 @@ dialog {
 .button-column .icon {
     width: 24px;
     height: 24px;
+}
+
+/* Styles for functions menu (to replace button column above) */
+.functions-menu {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+}
+
+.functions-menu button,
+.functions-dropdown button {
+    background-color: rgba(255, 255, 255, 0.6);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.functions-menu button:hover,
+.functions-dropdown button:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.functions-dropdown {
+    display: none;
+    position: absolute;
+}
+
+.functions-dropdown.show {
+    display: flex;
+    flex-direction: column;
+}
+
+.top-group {
+    top: 50px;
+}
+
+.bottom-group {
+    position: absolute;
+    top: 0; /* Will be set dynamically in JavaScript */
+    right: 0;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* Ensure buttons in dropdowns have the same style as other floating buttons */
+.functions-dropdown button {
+    background-color: rgba(255, 255, 255, 0.6);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.functions-dropdown button:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Media query for larger screens */
+@media (min-width: 768px) {
+    .bottom-group {
+        bottom: auto;
+        top: 50px;
+        right: 0;
+    }
 }
 
 /* Add some responsiveness for smaller screens */

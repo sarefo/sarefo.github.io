@@ -312,9 +312,64 @@ const ui = {
         document.addEventListener('keydown', handleKeyPress);
     },
 
+    // functions menu code:
+
+    initializeFunctionsMenu: function() {
+    //    this.createFunctionsMenu();
+        const functionsToggle = document.getElementById('functions-toggle');
+        if (functionsToggle) {
+            functionsToggle.addEventListener('click', () => this.toggleFunctionsMenu());
+        } else {
+            logger.error('Functions toggle button not found');
+        }
+
+        window.addEventListener('resize', this.positionBottomGroup.bind(this));
+        
+        // Call once to set initial position
+        this.positionBottomGroup();
+
+        // Close the dropdown when clicking outside of it
+        document.addEventListener('click', (event) => {
+            if (!event.target.closest('.functions-menu')) {
+                const topGroup = document.querySelector('.functions-dropdown.top-group');
+                const bottomGroup = document.querySelector('.functions-dropdown.bottom-group');
+                if (topGroup) topGroup.classList.remove('show');
+                if (bottomGroup) bottomGroup.classList.remove('show');
+            }
+        });
+    },
+
+    toggleFunctionsMenu: function() {
+        const topGroup = document.querySelector('.functions-dropdown.top-group');
+        const bottomGroup = document.querySelector('.functions-dropdown.bottom-group');
+        if (topGroup && bottomGroup) {
+            const isCurrentlyShown = topGroup.classList.contains('show');
+            topGroup.classList.toggle('show');
+            bottomGroup.classList.toggle('show');
+            if (!isCurrentlyShown) {
+                this.positionBottomGroup();
+            }
+        } else {
+            logger.error('Functions dropdown groups not found');
+        }
+    },
+
+    positionBottomGroup: function() {
+        const bottomGroup = document.querySelector('.functions-dropdown.bottom-group');
+        const lowerImageContainer = document.querySelector('#image-container-2');
+        
+        if (bottomGroup && lowerImageContainer) {
+            const rect = lowerImageContainer.getBoundingClientRect();
+            bottomGroup.style.top = `${rect.top}px`;
+            bottomGroup.style.right = `0px`; // Adjust if needed
+        }
+    },
+
+
     initialize: function () {
         this.initializeHelpDialog();
         this.initializeInfoDialog();
+        this.initializeFunctionsMenu();
     },
 
 }; // const ui

@@ -26,6 +26,7 @@ const eventHandlers = {
 
     initialize() {
         this.initializeSwipeFunctionality();
+        this.initializeFunctionsMenuListeners();
         this.initializeAllEventListeners();
     },
 
@@ -49,12 +50,23 @@ const eventHandlers = {
         });
     },
 
+    initializeFunctionsMenuListeners: function() {
+        document.getElementById('share-button').addEventListener('click', this.shareCurrentPair);
+        document.getElementById('graph-button').addEventListener('click', game.showTaxaRelationship);
+        document.getElementById('select-pair-button').addEventListener('click', ui.showTaxonPairList);
+        document.getElementById('enter-pair-button').addEventListener('click', () => dialogManager.openDialog('enter-pair-dialog'));
+        document.getElementById('random-pair-button').addEventListener('click', () => game.setupGame(true));
+        document.getElementById('like-button').addEventListener('click', this.likePair);
+        document.getElementById('trash-button').addEventListener('click', this.trashPair);
+        document.getElementById('surprise-button').addEventListener('click', utils.surprise);
+    },
+
     initializeAllEventListeners() {
         dragAndDrop.initialize();
 
         // button listeners
-        document.getElementById('share-button').addEventListener('click', this.shareCurrentPair);
-        document.getElementById('phylogeny-button').addEventListener('click', game.showTaxaRelationship);
+        //document.getElementById('share-button').addEventListener('click', this.shareCurrentPair);
+        //document.getElementById('phylogeny-button').addEventListener('click', game.showTaxaRelationship);
         document.getElementById('random-pair-button').addEventListener('click', async () => { await game.setupGame(true); });
         document.getElementById('select-pair-button').addEventListener('click', () => ui.showTaxonPairList());
 
@@ -180,21 +192,6 @@ const eventHandlers = {
         });
     },
 
-    // move to other module, utils?
-    shareCurrentPair() {
-        let currentUrl = new URL(window.location.href);
-        currentUrl.searchParams.delete('taxon1');
-        currentUrl.searchParams.delete('taxon2');
-        currentUrl.searchParams.set('taxon1', gameState.taxonImageOne);
-        currentUrl.searchParams.set('taxon2', gameState.taxonImageTwo);
-        let shareUrl = currentUrl.toString();
-
-        navigator.clipboard.writeText(shareUrl).then(() => { }).catch(err => {
-            logger.error('Failed to copy: ', err);
-            alert('Failed to copy link. Please try again.');
-        });
-    },
-
     handleKeyboardShortcuts(event) {
         const infoDialog = document.getElementById('info-dialog');
 
@@ -224,6 +221,9 @@ const eventHandlers = {
             if (event.key === 'e' || event.key === 'E') {
                 dialogManager.openDialog('enter-pair-dialog');
             }
+            if (event.key === 'm' || event.key === 'M' || event.key === 'f' || event.key === 'F') {
+                document.getElementById('functions-toggle').click();
+            }
             if (event.key === 'p' || event.key === 'P' || event.key === 'f' || event.key === 'F') {
                 document.getElementById('surprise-button').click();
             }
@@ -237,7 +237,35 @@ const eventHandlers = {
                 document.getElementById('info-button-2').click();
             }
         }
-    }
+    },
+
+    // move to other module, utils?
+    shareCurrentPair() {
+        let currentUrl = new URL(window.location.href);
+        currentUrl.searchParams.delete('taxon1');
+        currentUrl.searchParams.delete('taxon2');
+        currentUrl.searchParams.set('taxon1', gameState.taxonImageOne);
+        currentUrl.searchParams.set('taxon2', gameState.taxonImageTwo);
+        let shareUrl = currentUrl.toString();
+
+        navigator.clipboard.writeText(shareUrl).then(() => { }).catch(err => {
+            logger.error('Failed to copy: ', err);
+            alert('Failed to copy link. Please try again.');
+        });
+    },
+
+    likePair: function() {
+        // Implement liking functionality
+        logger.debug('Like pair clicked');
+        // Add your implementation here
+    },
+
+    trashPair: function() {
+        // Implement trashing functionality
+        logger.debug('Trash pair clicked');
+        // Add your implementation here
+    },
+
 };
 
 export default eventHandlers;
