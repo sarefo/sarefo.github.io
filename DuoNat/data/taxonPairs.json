@@ -296,6 +296,8 @@
     {"taxon1":"Caeneressa diaphana", "taxon2":"Amata huebneri"},
     {"taxon1":"Synanthedon", "taxon2":"Vespoidea"},
 
+    {"taxon1":"Acheron longus", "taxon2":"Maezous formosana"},
+
     {"taxon1":"Bombus terrestris", "taxon2":"Xylocopa violacea"},
     {"taxon1":"Vespa crabro", "taxon2":"Vespa velutina"},
     {"taxon1":"Apis mellifera", "taxon2":"Apis cerana"},
