@@ -117,7 +117,7 @@ const ui = {
         const steps = [
             { message: "Welcome to DuoNat!<br>Let's learn how to play.", highlight: null },
             { message: "You'll see two images of different taxa.", highlights: ['#image-container-1', '#image-container-2'] },
-            { message: "Drag the name tags here in the center<br>to match them with the correct images.", highlight: '.name-pair' },
+            { message: "Drag the name tags from the center<br>to match them with the correct images.", highlight: '.name-pair' },
             { message: "If you're correct,<br>you'll move to the next round.", highlight: null, showNextImages: true },
             { message: "Swipe left on an image<br>for a new set of species.", highlight: '.game-container' },
             { message: "Share your favorite pairs<br>with the share button on top.", highlight: '#share-button' },
