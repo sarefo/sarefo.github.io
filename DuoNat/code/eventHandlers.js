@@ -58,15 +58,40 @@ const eventHandlers = {
             logger.warn(`Element with id '${id}' not found. Skipping event listener.`);
         }
     },
+
     initializeFunctionsMenuListeners: function() {
-        this.safeAddEventListener('share-button', 'click', this.shareCurrentPair);
-        this.safeAddEventListener('graph-button', 'click', game.showTaxaRelationship);
-        this.safeAddEventListener('select-pair-button', 'click', ui.showTaxonPairList);
-        this.safeAddEventListener('enter-pair-button', 'click', () => dialogManager.openDialog('enter-pair-dialog'));
-        this.safeAddEventListener('random-pair-button', 'click', () => game.setupGame(true));
-        this.safeAddEventListener('like-button', 'click', this.likePair);
-        this.safeAddEventListener('trash-button', 'click', this.trashPair);
-        this.safeAddEventListener('surprise-button', 'click', utils.surprise);
+        this.safeAddEventListener('share-button', 'click', () => {
+            this.shareCurrentPair();
+            ui.toggleFunctionsMenu(); // Close menu after action
+        });
+        this.safeAddEventListener('graph-button', 'click', () => {
+            game.showTaxaRelationship();
+            ui.toggleFunctionsMenu(); // Close menu after action
+        });
+        this.safeAddEventListener('select-pair-button', 'click', () => {
+            ui.showTaxonPairList();
+            ui.toggleFunctionsMenu(); // Close menu after action
+        });
+        this.safeAddEventListener('enter-pair-button', 'click', () => {
+            dialogManager.openDialog('enter-pair-dialog');
+            ui.toggleFunctionsMenu(); // Close menu after action
+        });
+        this.safeAddEventListener('random-pair-button', 'click', () => {
+            game.setupGame(true);
+            ui.toggleFunctionsMenu(); // Close menu after action
+        });
+        this.safeAddEventListener('like-button', 'click', () => {
+            this.likePair();
+            ui.toggleFunctionsMenu(); // Close menu after action
+        });
+        this.safeAddEventListener('trash-button', 'click', () => {
+            this.trashPair();
+            ui.toggleFunctionsMenu(); // Close menu after action
+        });
+        this.safeAddEventListener('surprise-button', 'click', () => {
+            utils.surprise();
+            ui.toggleFunctionsMenu(); // Close menu after action
+        });
     },
 
     initializeAllEventListeners() {

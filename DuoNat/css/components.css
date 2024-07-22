@@ -729,6 +729,7 @@ width: 80%;
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    visibility: hidden;
 }
 
 #taxa-relationship-graph {
