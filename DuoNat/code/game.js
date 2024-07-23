@@ -31,19 +31,33 @@ const game = {
         imageTwo: null
     },
 
+    /**
+     * Sets the current game state.
+     * @param {GameState} newState - The new state to set.
+     */
     setState(newState) {
         logger.debug(`Game state changing from ${this.currentState} to ${newState}`);
         this.currentState = newState;
     },
 
+    /**
+     * Shows the loading screen.
+     */
     showLoadingScreen: function () {
         document.getElementById('loading-screen').style.display = 'flex';
     },
 
+    /**
+     * Hides the loading screen.
+     */
     hideLoadingScreen: function () {
         document.getElementById('loading-screen').style.display = 'none';
     },
 
+    /**
+     * Sets up the game, either for a new session or continuing the current one.
+     * @param {boolean} newSession - Whether to start a new session.
+     */
     async setupGame(newSession = false) {
         if (newSession) {
             this.preloadedImages = {
@@ -126,6 +140,10 @@ const game = {
         }
     },
 
+    /**
+     * Checks if iNaturalist API is reachable.
+     * @returns {Promise<boolean>} True if iNaturalist is reachable, false otherwise.
+     */
     async checkINaturalistReachability() {
         if (!await api.isINaturalistReachable()) {
             logger.error("iNaturalist is not reachable. Showing dialog.");
@@ -137,6 +155,11 @@ const game = {
         return true;
     },
 
+    /**
+     * Fetches a taxon image collection, with retry logic.
+     * @param {boolean} newSession - Whether this is for a new session.
+     * @returns {Promise<Object>} The fetched taxon image collection.
+     */
     async fetchTaxonImageCollection(newSession) {
         let attempts = 0;
         const maxAttempts = 3;
@@ -157,6 +180,11 @@ const game = {
         throw new Error("Failed to load images after multiple attempts");
     },
 
+    /**
+     * Attempts to fetch a taxon image collection.
+     * @param {boolean} newSession - Whether this is for a new session.
+     * @returns {Promise<Object>} The fetched taxon image collection.
+     */
     async attemptFetchTaxonImageCollection(newSession) {
         if (newSession || !gameState.currentTaxonImageCollection) {
             if (this.nextSelectedPair) {
@@ -176,10 +204,21 @@ const game = {
         return gameState.currentTaxonImageCollection;
     },
 
+    /**
+     * Determines if a fetch should be retried based on the error and attempt count.
+     * @param {Error} error - The error that occurred during the fetch.
+     * @param {number} attempts - The number of attempts made so far.
+     * @param {number} maxAttempts - The maximum number of attempts allowed.
+     * @returns {boolean} True if the fetch should be retried, false otherwise.
+     */
     shouldRetryFetch(error, attempts, maxAttempts) {
         return attempts < maxAttempts && error.message.includes("No images found");
     },
 
+    /**
+     * Handles errors that occur during fetching.
+     * @param {Error} error - The error that occurred.
+     */
     async handleFetchError(error) {
         if (error.message.includes("No images found")) {
             const taxonName = error.message.split("No images found for ")[1];
@@ -189,6 +228,9 @@ const game = {
         }
     },
 
+    /**
+     * Handles the initial load of the game.
+     */
     handleInitialLoad() {
         if (gameState.isInitialLoad) {
             this.hideLoadingScreen();
@@ -196,6 +238,10 @@ const game = {
         }
     },
 
+    /**
+     * Handles errors that occur during game setup.
+     * @param {Error} error - The error that occurred.
+     */
     handleSetupError(error) {
         logger.error("Error setting up game:", error);
         ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
@@ -206,6 +252,9 @@ const game = {
         }
     },
 
+    /**
+     * Preloads the next pair of taxa.
+     */
     async preloadNextPair() {
         if (this.preloadedPair) return; // Don't preload if we already have a preloaded pair
 
@@ -232,6 +281,11 @@ const game = {
         }
     },
 
+    /**
+     * Initializes a new taxon pair.
+     * @param {Object} [pair=null] - The taxon pair to initialize. If null, a random pair is selected.
+     * @returns {Promise<Object>} The initialized taxon pair with image URLs.
+     */
     async initializeNewTaxonPair(pair = null) {
         const newPair = pair || await utils.selectTaxonPair();
         const [imageOneURL, imageTwoURL] = await Promise.all([
@@ -248,6 +302,10 @@ const game = {
         };
     },
 
+    /**
+     * Gets new random images for the current taxon pair.
+     * @returns {Promise<Object>} Object containing new image URLs for the current pair.
+     */
     async getNewRandomImagesForCurrentPair() {
         const { pair } = gameState.currentTaxonImageCollection;
         const [newImageOneURL, newImageTwoURL] = await Promise.all([
@@ -258,6 +316,9 @@ const game = {
         return { newImageOneURL, newImageTwoURL };
     },
 
+    /**
+     * Loads the current taxon image collection, including multiple images and vernacular names.
+     */
     async loadCurrentTaxonImageCollection() {
         if (!gameState.currentTaxonImageCollection || !gameState.currentTaxonImageCollection.pair) {
             logger.error("currentTaxonImageCollection or its pair is null");
@@ -288,6 +349,9 @@ const game = {
         await preloader.preloadImages(imageOneURLs.slice(0, MAX_IMAGES).concat(imageTwoURLs.slice(0, MAX_IMAGES)));
     },
 
+    /**
+     * Sets up a new round of the game.
+     */
     async setupRound() {
         const { pair } = gameState.currentTaxonImageCollection;
         const randomized = Math.random() < 0.5;
@@ -346,6 +410,9 @@ const game = {
         this.preloadImagesForCurrentPair();
     },
 
+    /**
+     * Preloads images for the current taxon pair.
+     */
     async preloadImagesForCurrentPair() {
         const { pair } = gameState.currentTaxonImageCollection;
         logger.debug("Starting to preload images for next round of current session");
