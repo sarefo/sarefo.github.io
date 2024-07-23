@@ -293,7 +293,7 @@ z-index: 5000; /* debug */
 .info-button {
     position: absolute;
     bottom: 10px;
-    right: 10px;
+    left: 10px;
     background: rgba(255, 255, 255, 0.6);
     border: none;
     border-radius: 50%;
