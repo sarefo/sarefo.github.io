@@ -156,11 +156,11 @@ const ui = {
         const steps = [
             { message: "Welcome to DuoNat!<br>Let's learn how to play.", highlight: null },
             { message: "You'll see two images of different taxa.", highlights: ['#image-container-1', '#image-container-2'] },
-            { message: "Drag the name tags from the center<br>to match them with the correct images.", highlight: '.name-pair' },
-            { message: "If you're correct,<br>you'll move to the next round.", highlight: null, showNextImages: true },
-            { message: "Swipe left on an image<br>for a new set of species.", highlight: '.game-container' },
-            { message: "Share your favorite pairs<br>with the share button on top.", highlight: '#share-button' },
-            { message: "Scroll down for more functions.", highlight: '.scrollable-content', scroll: true },
+            { message: "Drag the name tags from the center to match them with the correct images.", highlight: '.name-pair' },
+            { message: "If you're correct, you'll move to the next round.", highlight: null, showNextImages: true },
+            { message: "Swipe left on an image for a new set of species.", highlight: '.game-container' },
+      /*      { message: "Share your favorite pairs with the share button on top.", highlight: '#share-button' }, */
+            { message: "Tap the menu for more functions.", highlight: '#menu-toggle' },
             { message: "Ready to start? Let's go!", highlight: null }
         ];
 
@@ -210,7 +210,6 @@ const ui = {
                 if (this.originalImages) {
                     this.restoreOriginalImages();
                 }
-                //game.setupGame(true); // Start a new game after the tutorial
             }
         };
 

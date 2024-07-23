@@ -83,18 +83,22 @@
 </button>
 
 <div class="functions-menu">
-<button id="menu-toggle" aria-label="Open functions menu" onclick="window.testButtonClick()">
-  <svg class="icon"><use href="./images/icons.svg#icon-menu"/></svg>
-</button>
+
+    <button id="menu-toggle" aria-label="Open functions menu" onclick="window.testButtonClick()">
+      <svg class="icon"><use href="./images/icons.svg#icon-menu"/></svg>
+    </button>
+
   <div class="functions-dropdown top-group">
+
     <div class="menu-item">
       <span class="info-label">Share this pair</span>
       <button id="share-button" aria-label="Share this pair">
         <svg class="icon"><use href="./images/icons.svg#icon-share"/></svg>
       </button>
     </div>
+
     <div class="menu-item">
-      <span class="info-label">Phylogeny</span>
+      <span class="info-label">Show phylogeny</span>
       <button id="phylogeny-button" aria-label="Show phylogeny">
 <!--      <svg class="icon"><use href="./images/icons.svg#icon-phylogeny"/></svg>-->
         <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -102,46 +106,57 @@
         </svg>
       </button>
     </div>
+
     <!-- enable when functionality added -->
-    <!--
-    <div class="menu-item">
+<!--    <div class="menu-item">
+      <span class="info-label">Like this pair</span>
     <button id="like-button" aria-label="Like this pair">
       <svg class="icon"><use href="./images/icons.svg#icon-heart"/></svg>
     </button>
     </div>
+
     <div class="menu-item">
+      <span class="info-label">Trash this pair</span>
     <button id="trash-button" aria-label="Trash this pair">
       <svg class="icon"><use href="./images/icons.svg#icon-trash"/></svg>
     </button>
-    </div>-->
+    </div> -->
+
   </div>
+
   <div class="functions-dropdown bottom-group">
+
     <div class="menu-item">
-      <span class="info-label">Select pair</span>
+      <span class="info-label">Select new pair</span>
       <button id="select-pair-button" aria-label="Select new pair">
         <svg class="icon"><use href="./images/icons.svg#icon-list"/></svg>
       </button>
     </div>
+
     <div class="menu-item">
-      <span class="info-label">Enter pair</span>
+      <span class="info-label">Enter new pair</span>
       <button id="enter-pair-button" aria-label="Enter new pair">
         <svg class="icon"><use href="./images/icons.svg#icon-plus"/></svg>
       </button>
     </div>
+
     <div class="menu-item">
-      <span class="info-label">Random pair</span>
+      <span class="info-label">Random new pair</span>
       <button id="random-pair-button" aria-label="Random new pair">
         <svg class="icon"><use href="./images/icons.svg#icon-random"/></svg>
       </button>
     </div> 
+
     <div class="menu-item">
       <span class="info-label">Surprise!</span>
       <button id="surprise-button" aria-label="Surprise!">
         <svg class="icon"><use href="./images/icons.svg#icon-star"/></svg>
       </button>
     </div>
-  </div>
-</div>
+
+  </div> <!-- bottom-group -->
+
+</div> <!-- functions menu -->
 
 <!-- Dialogs, only visible when opened in app: -->
 

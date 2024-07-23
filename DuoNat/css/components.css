@@ -168,10 +168,11 @@ z-index: 5000; /* debug */
     background-color: rgba(255, 255, 255, 0.9);
     /*height: 40px;*/
     height: fit-content; /* Adjust height to content */
-    padding: 5px 10px;
+    padding: 4px 10px;
     border-radius: 15px;
     font-size: 14px;
     margin-right: 10px;
+    margin-top: -8px;
     opacity: 0;
     transition: opacity 0.3s ease;
     white-space: nowrap;
