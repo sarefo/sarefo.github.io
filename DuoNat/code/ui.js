@@ -102,14 +102,23 @@ const ui = {
 
         // Adjust font size for longer messages
         if (message.length > 20) {
-            elements.overlayMessage.style.fontSize = '1.2em';
+            elements.overlayMessage.style.fontSize = '1.4em';
         } else {
             elements.overlayMessage.style.fontSize = '2.4em';
         }
     },
 
+    // Update this method to change only the message, not the visibility
     updateOverlayMessage: function (message) {
-        elements.overlayMessage.innerHTML = message;
+        const overlayMessage = document.getElementById('overlay-message');
+        overlayMessage.innerHTML = message;
+
+        // Adjust font size for longer messages
+        if (message.length > 20) {
+            overlayMessage.style.fontSize = '1.6em';
+        } else {
+            overlayMessage.style.fontSize = '2.4em';
+        }
     },
 
     hideOverlay: function () {
@@ -154,14 +163,15 @@ const ui = {
 
     showTutorial: function () {
         const steps = [
+
             { message: "Welcome to DuoNat!<br>Let's learn how to play.", highlight: null },
             { message: "You'll see two images of different taxa.", highlights: ['#image-container-1', '#image-container-2'] },
-            { message: "Drag the name tags from the center to match them with the correct images.", highlight: '.name-pair' },
+            { message: "Drag the name tags to match them with the correct images.", highlight: '.name-pair' },
             { message: "If you're correct, you'll move to the next round.", highlight: null, showNextImages: true },
-            { message: "Swipe left on an image for a new set of taxa.", highlight: '.game-container' },
-      /*      { message: "Share your favorite pairs with the share button on top.", highlight: '#share-button' }, */
+            { message: "Swipe left on an image for a new set of taxa.", highlight: null },
+            { message: "Get more info about a taxon.", highlights: ['#info-button-1', '#info-button-2'] },
             { message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => this.temporarilyOpenMenu(3000) },
-            { message: "Ready to start? Let's go!", highlight: null }
+            { message: "Ready to start?<br>Let's go!", highlight: null }
         ];
 
         let currentStep = 0;
@@ -170,7 +180,7 @@ const ui = {
         const showStep = () => {
             if (currentStep < steps.length) {
                 const step = steps[currentStep];
-                this.showOverlay(step.message, config.overlayColors.green);
+                this.updateOverlayMessage(step.message);
 
                 highlightElements.forEach(el => el.remove());
                 highlightElements = [];
@@ -186,7 +196,7 @@ const ui = {
                 }
 
                 if (step.action) {
-                  step.action();
+                    step.action();
                 }
 
                 if (step.showNextImages) {
@@ -196,10 +206,7 @@ const ui = {
                 }
 
                 currentStep++;
-                setTimeout(() => {
-                    this.hideOverlay();
-                    setTimeout(showStep, 500); // Short pause between steps
-                }, 4000); // Show each step for 4 seconds
+                setTimeout(showStep, 4000); // Show each step for 4 seconds
             } else {
                 this.hideOverlay();
                 highlightElements.forEach(el => el.remove());
@@ -211,6 +218,11 @@ const ui = {
 
         // Close the help dialog before starting the tutorial
         document.getElementById('help-dialog').close();
+        
+        // Show the overlay at the start of the tutorial
+        this.showOverlay("", config.overlayColors.green);
+        
+        // Start the tutorial
         showStep();
     },
 
