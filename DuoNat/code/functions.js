@@ -14,7 +14,7 @@ import utils from './utils.js';
 
     // Set the log level based on your config
     logger.setLevel(config.debug ? LogLevel.DEBUG : LogLevel.INFO);
-    document.getElementById('version-id').textContent = `Modified: ${document.lastModified}`;
+    document.getElementById('version-id').innerHTML = `Version: <i>${document.lastModified}</i>`;
 
     function initializeApp() {
         logger.info("Initializing app");
