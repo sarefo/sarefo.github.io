@@ -166,7 +166,6 @@ z-index: 5000; /* debug */
     display: flex;
     align-items: center;
     background-color: rgba(255, 255, 255, 0.9);
-    /*height: 40px;*/
     height: fit-content; /* Adjust height to content */
     padding: 4px 10px;
     border-radius: 15px;

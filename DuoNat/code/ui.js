@@ -158,9 +158,9 @@ const ui = {
             { message: "You'll see two images of different taxa.", highlights: ['#image-container-1', '#image-container-2'] },
             { message: "Drag the name tags from the center to match them with the correct images.", highlight: '.name-pair' },
             { message: "If you're correct, you'll move to the next round.", highlight: null, showNextImages: true },
-            { message: "Swipe left on an image for a new set of species.", highlight: '.game-container' },
+            { message: "Swipe left on an image for a new set of taxa.", highlight: '.game-container' },
       /*      { message: "Share your favorite pairs with the share button on top.", highlight: '#share-button' }, */
-            { message: "Tap the menu for more functions.", highlight: '#menu-toggle' },
+            { message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => this.temporarilyOpenMenu(3000) },
             { message: "Ready to start? Let's go!", highlight: null }
         ];
 
@@ -185,12 +185,8 @@ const ui = {
                     });
                 }
 
-                if (step.scroll) {
-                    this.scrollToBottom(() => {
-                        setTimeout(() => {
-                            this.scrollToTop();
-                        }, 1500);
-                    });
+                if (step.action) {
+                  step.action();
                 }
 
                 if (step.showNextImages) {
@@ -218,34 +214,13 @@ const ui = {
         showStep();
     },
 
-    scrollToBottom: function (callback) {
-        const scrollableContent = document.querySelector('.scrollable-content');
-        if (scrollableContent) {
-            const scrollOptions = {
-                top: scrollableContent.scrollHeight - scrollableContent.clientHeight,
-                behavior: 'smooth'
-            };
-            scrollableContent.scrollTo(scrollOptions);
-            setTimeout(callback, 1000); // Wait for scroll to complete
-        } else {
-            console.warn('Scrollable content not found');
-            callback();
-        }
+    temporarilyOpenMenu: function(duration) {
+      this.toggleFunctionsMenu(); // Open the menu
+      setTimeout(() => {
+        this.closeFunctionsMenu(); // Close the menu after the specified duration
+      }, duration);
     },
 
-                    /*
-    scrollToTop: function () {
-        const scrollableContent = document.querySelector('.scrollable-content');
-        if (scrollableContent) {
-            scrollableContent.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        } else {
-            console.warn('Scrollable content not found');
-        }
-    },
-*/
     showNextRoundImages: function () {
         const imageOne = document.getElementById('image-1');
         const imageTwo = document.getElementById('image-2');
@@ -363,7 +338,7 @@ const ui = {
         const functionsToggle = document.getElementById('menu-toggle');
         if (functionsToggle) {
             functionsToggle.addEventListener('click', (event) => {
-                logger.debug('Functions toggle button or its child clicked');
+//                logger.debug('Functions toggle button or its child clicked');
                 event.stopPropagation();
                 this.toggleFunctionsMenu();
             });
@@ -385,9 +360,7 @@ const ui = {
     },
 
     toggleFunctionsMenu: function() {
-        logger.debug("toggleFunctionsMenu called");
         this.isMenuOpen = !this.isMenuOpen;
-//        logger.debug("Menu is now " + (this.isMenuOpen ? "open" : "closed"));
 
         const topGroup = document.querySelector('.functions-dropdown.top-group');
         const bottomGroup = document.querySelector('.functions-dropdown.bottom-group');
@@ -395,7 +368,7 @@ const ui = {
         if (topGroup && bottomGroup) {
             topGroup.classList.toggle('show');
             bottomGroup.classList.toggle('show');
-            logger.debug("Show classes toggled");
+//            logger.debug("Show classes toggled");
 
             if (this.isMenuOpen) {
                 this.positionBottomGroup();
@@ -433,7 +406,6 @@ const ui = {
     },
 */
     initialize: function () {
-//                    logger.debug("initialize ui");
         this.initializeHelpDialog();
         this.initializeInfoDialog();
         this.initializeFunctionsMenu();
