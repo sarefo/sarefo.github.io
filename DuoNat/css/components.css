@@ -288,12 +288,19 @@ z-index: 5000; /* debug */
     transition: fill var(--transition-speed) ease;
 }
 
-
-/* Styles for info buttons on images */
-.info-button {
+/* Styles for image button containers */
+.image-buttons {
     position: absolute;
     bottom: 10px;
     left: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.thumbs-up-button,
+.thumbs-down-button,
+.info-button {
     background: rgba(255, 255, 255, 0.6);
     border: none;
     border-radius: 50%;
@@ -304,32 +311,42 @@ z-index: 5000; /* debug */
     align-items: center;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    z-index: 10;
+    margin-bottom: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+.thumbs-up-button:hover,
+.thumbs-down-button:hover,
 .info-button:hover {
     background: rgba(255, 255, 255, 1);
     transform: scale(1.1);
 }
 
+.thumbs-up-button:active,
+.thumbs-down-button:active,
 .info-button:active {
     transform: scale(0.95);
 }
 
+.thumbs-up-button .icon,
+.thumbs-down-button .icon,
 .info-button .icon {
-    width: 26px;
-    height: 26px;
+    width: 24px;
+    height: 24px;
     fill: var(--dark-neutral-color);
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+    .thumbs-up-button,
+    .thumbs-down-button,
     .info-button {
         width: 36px;
         height: 36px;
     }
     
+    .thumbs-up-button .icon,
+    .thumbs-down-button .icon,
     .info-button .icon {
         width: 20px;
         height: 20px;

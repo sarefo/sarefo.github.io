@@ -86,7 +86,7 @@ initializeSwipeFunctionality() {
         if (element) {
             element.addEventListener(eventType, handler);
         } else {
-            logger.warn(`Element with id '${id}' not found. Skipping event listener.`);
+            logger.debug(`Element with id '${id}' not found. Skipping event listener.`);
         }
     },
 
@@ -155,6 +155,11 @@ initializeSwipeFunctionality() {
             utils.surprise();
         });
 
+        ['1', '2'].forEach(index => {
+            this.safeAddEventListener(`thumbs-up-${index}`, 'click', () => this.handleThumbsUp(index));
+            this.safeAddEventListener(`thumbs-down-${index}`, 'click', () => this.handleThumbsDown(index));
+        });
+
         // Keyboard shortcuts
 //        document.addEventListener('keydown', this.handleKeyboardShortcuts.bind(this));
         document.addEventListener('keydown', this.debouncedKeyboardHandler);
@@ -177,6 +182,18 @@ initializeSwipeFunctionality() {
 
         // Scroll to top when a button is clicked
 //        elements.buttons.forEach(button => { button.addEventListener('click', () => { ui.scrollToTop(); }); });
+    },
+
+    handleThumbsUp(index) {
+        // Implement thumbs up functionality
+        logger.debug(`Thumbs up clicked for image ${index}`);
+        // Add your implementation here
+    },
+
+    handleThumbsDown(index) {
+        // Implement thumbs down functionality
+        logger.debug(`Thumbs down clicked for image ${index}`);
+        // Add your implementation here
     },
 
     handleMouseDown(e) {
