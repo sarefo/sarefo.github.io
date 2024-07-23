@@ -458,7 +458,13 @@ const game = {
     },
 
     async loadNewRandomPair() {
+        if (this.currentState === GameState.LOADING) {
+            logger.debug("Already loading a new pair, ignoring request");
+            return;
+        }
+
         logger.debug("Loading new random pair");
+        this.setState(GameState.LOADING);
         ui.showOverlay('Loading...', config.overlayColors.green);
         elements.imageOne.classList.add('loading');
         elements.imageTwo.classList.add('loading');
@@ -469,6 +475,8 @@ const game = {
         } catch (error) {
             logger.error("Error loading new random pair:", error);
             ui.showOverlay("Error loading new pair. Please try again.", config.overlayColors.red);
+        } finally {
+            this.setState(GameState.PLAYING);
         }
     },
 

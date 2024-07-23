@@ -2,12 +2,12 @@
 
 import api from './api.js';
 import dialogManager from './dialogManager.js';
+import dragAndDrop from './dragAndDrop.js';
 import game from './game.js';
 import logger from './logger.js';
+import { elements, gameState } from './state.js';
 import ui from './ui.js';
 import utils from './utils.js';
-import dragAndDrop from './dragAndDrop.js';
-import { elements, gameState } from './state.js';
 
 const eventHandlers = {
 
@@ -23,6 +23,8 @@ const eventHandlers = {
 
     swipeThreshold: 50, // minimum distance to trigger a swipe
     swipeRestraint: 100, // maximum vertical distance allowed during a swipe
+
+    isLoadingNewPair: false,
 
     initialize() {
         this.initializeSwipeFunctionality();
@@ -237,33 +239,32 @@ const eventHandlers = {
         });
     },
 
-    handleKeyboardShortcuts(event) {
+   handleKeyboardShortcuts: function(event) {
+        if (this.debouncedKeyboardHandler) {
+            this.debouncedKeyboardHandler(event);
+        } else {
+            this.debouncedKeyboardHandler = utils.debounce(this._handleKeyboardShortcuts.bind(this), 300);
+            this.debouncedKeyboardHandler(event);
+        }
+    },
+
+    _handleKeyboardShortcuts: function(event) {
         logger.debug("Keyboard event:", event.key);
-        if (dialogManager.isAnyDialogOpen()) {
-            logger.debug("Dialog is open, ignoring keyboard shortcut");
+
+        if (dialogManager.isAnyDialogOpen() || 
+            document.getElementById('info-dialog').open || 
+            dialogManager.activeDialog || 
+            document.getElementById('enter-pair-dialog').open ||
+            this.isLoadingNewPair) {
+            logger.debug("Dialog is open or already loading, ignoring keyboard shortcut");
             return;
         }
 
-        const infoDialog = document.getElementById('info-dialog');
-        if (infoDialog.open) {
-            // Info dialog is open, don't process main view shortcuts
-            return;
-        }
-
-
-        const activeDialog = dialogManager.activeDialog;
-        if (activeDialog) {
-            // Another dialog is active, don't process main view shortcuts
-            return;
-        }
-
-        const isDialogOpen = document.getElementById('enter-pair-dialog').open;
-
-        if (!isDialogOpen) {
             if (event.key === 'r' || event.key === 'R' || event.key === 'ArrowLeft') {
-                event.preventDefault();
+//                event.preventDefault();
 /*                document.getElementById('random-pair-button').click();*/
                 game.loadNewRandomPair();
+                return;
             }
             if (event.key === 's' || event.key === 'S') {
                 document.getElementById('select-pair-button').click();
@@ -292,7 +293,7 @@ const eventHandlers = {
             if (event.key === 'o' || event.key === 'O') {
                 document.getElementById('info-button-2').click();
             }
-        }
+
     },
 
     // move to other module, utils?
