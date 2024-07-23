@@ -170,7 +170,7 @@ const ui = {
             { message: "If you're correct, you'll move to the next round.", highlight: null, showNextImages: true },
             { message: "Swipe left on an image for a new set of taxa.", highlight: null },
             { message: "Get more info about a taxon.", highlights: ['#info-button-1', '#info-button-2'] },
-            { message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => this.temporarilyOpenMenu(3000) },
+            { message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => this.temporarilyOpenMenu(6000) },
             { message: "Ready to start?<br>Let's go!", highlight: null }
         ];
 
@@ -206,7 +206,7 @@ const ui = {
                 }
 
                 currentStep++;
-                setTimeout(showStep, 4000); // Show each step for 4 seconds
+                setTimeout(showStep, 6000); // Show each step for 6 seconds
             } else {
                 this.hideOverlay();
                 highlightElements.forEach(el => el.remove());
@@ -292,7 +292,7 @@ const ui = {
         highlight.style.top = `${targetRect.top}px`;
         highlight.style.left = `${targetRect.left}px`;
 
-        console.log(`Highlight created for: ${targetSelector}`);
+//        console.log(`Highlight created for: ${targetSelector}`);
 
         return highlight;
     },
