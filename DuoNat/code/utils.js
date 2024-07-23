@@ -57,8 +57,8 @@ const utils = {
         // If it's not mobile and not a tablet, assume it has a keyboard
         const result = !isMobile && !isTablet;
 
-        logger.debug(`hasKeyboard detected: ${result}`);
-        logger.debug(`UserAgent: ${navigator.userAgent}`);
+//        logger.debug(`hasKeyboard detected: ${result}`);
+//        logger.debug(`UserAgent: ${navigator.userAgent}`);
 
         return result;
     },

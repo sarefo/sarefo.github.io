@@ -296,11 +296,11 @@ const game = {
 
         // Use preloaded images for the current session if available
         if (this.preloadedImages.current.taxon1.length > 0 && this.preloadedImages.current.taxon2.length > 0) {
-            logger.debug("Using preloaded image metadata for current round");
+//            logger.debug("Using preloaded image metadata for current round");
             imageOneURL = this.preloadedImages.current.taxon1.pop();
             imageTwoURL = this.preloadedImages.current.taxon2.pop();
         } else {
-            logger.debug("Fetching new random image metadata for current round");
+//            logger.debug("Fetching new random image metadata for current round");
             [imageOneURL, imageTwoURL] = await Promise.all([
                 api.fetchRandomImageMetadata(pair.taxon1),
                 api.fetchRandomImageMetadata(pair.taxon2)
@@ -374,7 +374,7 @@ const game = {
         return new Promise((resolve, reject) => {
             const img = new Image();
             img.onload = () => {
-                logger.debug(`Image fully loaded: ${url}`);
+//                logger.debug(`Image fully loaded: ${url}`);
                 resolve(url);
             };
             img.onerror = () => {
@@ -621,7 +621,7 @@ const game = {
     
     // Fetch and set vernacular name
     api.fetchVernacular(currentTaxon).then(vernacularName => {
-        vernacularElement.textContent = vernacularName || '';
+        vernacularElement.textContent = utils.capitalizeFirstLetter(vernacularName) || '';
     });
 
         photoButton.onclick = () => {

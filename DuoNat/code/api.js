@@ -27,7 +27,7 @@ const api = (() => {
         },
 
         fetchRandomImage: async function (taxonName) {
-            logger.debug(`Fetching random image for ${taxonName}`);
+//            logger.debug(`Fetching random image for ${taxonName}`);
             const images = await this.fetchMultipleImages(taxonName, 12);
             if (images.length === 0) {
                 logger.error(`No images found for ${taxonName}`);
@@ -40,7 +40,7 @@ const api = (() => {
         },
 
         fetchImageMetadata: async function (taxonName, count = 12) {
-            logger.debug(`Fetching metadata for ${count} images of ${taxonName}`);
+//            logger.debug(`Fetching metadata for ${count} images of ${taxonName}`);
             try {
                 const searchResponse = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${taxonName}`);
                 const searchData = await searchResponse.json();
@@ -55,7 +55,7 @@ const api = (() => {
                 let images = taxon.taxon_photos.map(photo => photo.photo.url.replace('square', 'medium'));
 
                 const result = images.slice(0, Math.min(count, images.length));
-                logger.debug(`Fetched metadata for ${result.length} images of ${taxonName}`);
+//                logger.debug(`Fetched metadata for ${result.length} images of ${taxonName}`);
                 return result;
             } catch (error) {
                 logger.error(`Error fetching image metadata for ${taxonName}:`, error);
@@ -64,7 +64,7 @@ const api = (() => {
         },
 
         fetchRandomImageMetadata: async function (taxonName) {
-            logger.debug(`Fetching random image metadata for ${taxonName}`);
+//            logger.debug(`Fetching random image metadata for ${taxonName}`);
             const images = await this.fetchImageMetadata(taxonName, 12); // Fetch metadata for 12 images
             if (images.length === 0) {
                 logger.error(`No image metadata found for ${taxonName}`);
@@ -77,7 +77,7 @@ const api = (() => {
         },
 
         fetchMultipleImages: async function (taxonName, count = 12) {
-            logger.debug(`Fetching ${count} images for ${taxonName}`);
+//            logger.debug(`Fetching ${count} images for ${taxonName}`);
             try {
                 const searchResponse = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${taxonName}`);
                 const searchData = await searchResponse.json();
@@ -93,7 +93,7 @@ const api = (() => {
 
                 // If we don't have enough images, we'll just return what we have
                 const result = images.slice(0, Math.min(count, images.length));
-                logger.debug(`Fetched ${result.length} images for ${taxonName}`);
+//                logger.debug(`Fetched ${result.length} images for ${taxonName}`);
                 return result;
             } catch (error) {
                 logger.error(`Error fetching images for ${taxonName}:`, error);

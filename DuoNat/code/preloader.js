@@ -11,7 +11,7 @@ const preloader = {
         if (this.isPreloading) return;
 
         this.isPreloading = true;
-        logger.debug("Starting to preload next pair");
+//        logger.debug("Starting to preload next pair");
 
         try {
             const newPair = await utils.selectTaxonPair();
@@ -44,7 +44,7 @@ const preloader = {
     },
 
     async preloadImages(urls) {
-        logger.debug(`Starting to preload ${urls.length} images`);
+//        logger.debug(`Starting to preload ${urls.length} images`);
         const preloadPromises = urls.map(url => {
             return new Promise((resolve, reject) => {
                 const img = new Image();

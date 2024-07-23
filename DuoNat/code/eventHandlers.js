@@ -78,7 +78,7 @@ initializeSwipeFunctionality() {
         });
     });
 
-    logger.debug("Swipe functionality initialized");
+//    logger.debug("Swipe functionality initialized");
 },
 
     safeAddEventListener(id, eventType, handler) {
@@ -330,7 +330,7 @@ logger.debug(`Drag move detected: deltaX = ${deltaX}, deltaY = ${deltaY}`);
             document.getElementById('info-dialog').open || 
             dialogManager.activeDialog || 
             document.getElementById('enter-pair-dialog').open) {
-            logger.debug("Dialog is open, ignoring keyboard shortcut");
+//            logger.debug("Dialog is open, ignoring keyboard shortcut");
             return;
         }
 

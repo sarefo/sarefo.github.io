@@ -8,9 +8,8 @@ import game from './game.js';
 import logger from './logger.js';
 import utils from './utils.js';
 
-let isMenuOpen = false;
-
 const ui = {
+    isMenuOpen: false,
 
     resetUIState: function() {
         this.closeFunctionsMenu();
@@ -361,12 +360,14 @@ const ui = {
     },
 
     // functions menu code:
-
     initializeFunctionsMenu: function() {
-    //    this.createFunctionsMenu();
-        const functionsToggle = document.getElementById('functions-toggle');
+        const functionsToggle = document.getElementById('menu-toggle');
         if (functionsToggle) {
-            functionsToggle.addEventListener('click', () => this.toggleFunctionsMenu());
+            functionsToggle.addEventListener('click', (event) => {
+                logger.debug('Functions toggle button or its child clicked');
+                event.stopPropagation();
+                this.toggleFunctionsMenu();
+            });
         } else {
             logger.error('Functions toggle button not found');
         }
@@ -379,41 +380,29 @@ const ui = {
         // Close the dropdown when clicking outside of it
         document.addEventListener('click', (event) => {
             if (!event.target.closest('.functions-menu')) {
-                const topGroup = document.querySelector('.functions-dropdown.top-group');
-                const bottomGroup = document.querySelector('.functions-dropdown.bottom-group');
-                if (topGroup) topGroup.classList.remove('show');
-                if (bottomGroup) bottomGroup.classList.remove('show');
+                this.closeFunctionsMenu();
             }
         });
     },
 
     toggleFunctionsMenu: function() {
-//        logger.debug("Attempting to toggle functions menu. Current state:", isMenuOpen);
+        logger.debug("toggleFunctionsMenu called");
+        this.isMenuOpen = !this.isMenuOpen;
+//        logger.debug("Menu is now " + (this.isMenuOpen ? "open" : "closed"));
+
         const topGroup = document.querySelector('.functions-dropdown.top-group');
         const bottomGroup = document.querySelector('.functions-dropdown.bottom-group');
+
         if (topGroup && bottomGroup) {
-            isMenuOpen = !isMenuOpen;
-            
-            // Force a redraw
-            topGroup.style.display = 'none';
-            bottomGroup.style.display = 'none';
-            
-            // Trigger reflow
-            void topGroup.offsetHeight;
-            void bottomGroup.offsetHeight;
-            
-            topGroup.style.display = '';
-            bottomGroup.style.display = '';
-            
             topGroup.classList.toggle('show');
             bottomGroup.classList.toggle('show');
-            
-            if (isMenuOpen) {
+            logger.debug("Show classes toggled");
+
+            if (this.isMenuOpen) {
                 this.positionBottomGroup();
             }
-//            logger.debug("Functions menu toggled. New state:", isMenuOpen);
         } else {
- //           logger.error('Functions dropdown groups not found');
+            logger.error('Dropdown groups not found');
         }
     },
 
@@ -428,25 +417,24 @@ const ui = {
         }
     },
 
-closeFunctionsMenu: function() {
-    //logger.debug("Attempting to close functions menu. Current state:", isMenuOpen);
-    if (isMenuOpen) {
-        const topGroup = document.querySelector('.functions-dropdown.top-group');
-        const bottomGroup = document.querySelector('.functions-dropdown.bottom-group');
-        if (topGroup && bottomGroup) {
-            isMenuOpen = false;
-            topGroup.classList.remove('show');
-            bottomGroup.classList.remove('show');
-            //logger.debug("Functions menu closed.");
+    closeFunctionsMenu: function() {
+        if (this.isMenuOpen) {
+            const topGroup = document.querySelector('.functions-dropdown.top-group');
+            const bottomGroup = document.querySelector('.functions-dropdown.bottom-group');
+            if (topGroup && bottomGroup) {
+                this.isMenuOpen = false;
+                topGroup.classList.remove('show');
+                bottomGroup.classList.remove('show');
+            }
         }
-    }
-},
-
-    isMenuOpen: function() {
-        return isMenuOpen;
     },
 
+/*    isMenuOpen: function() {
+        return isMenuOpen;
+    },
+*/
     initialize: function () {
+//                    logger.debug("initialize ui");
         this.initializeHelpDialog();
         this.initializeInfoDialog();
         this.initializeFunctionsMenu();
@@ -462,3 +450,4 @@ closeFunctionsMenu: function() {
 }; // const ui
 
 export default ui;
+

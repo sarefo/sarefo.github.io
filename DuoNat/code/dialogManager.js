@@ -47,7 +47,7 @@ const dialogManager = {
             }
         }
 
-        logger.debug(`Dialog opened: ${dialogId}`);
+//        logger.debug(`Dialog opened: ${dialogId}`);
     },
 
     closeDialog() {
@@ -68,7 +68,7 @@ const dialogManager = {
             }
             this.handleDialogClose(dialog);
             
-            logger.debug(`Emitting dialogClose event for: ${dialog.id}`);
+//            logger.debug(`Emitting dialogClose event for: ${dialog.id}`);
             this.emit('dialogClose', dialog.id);
         }
     },
@@ -97,7 +97,7 @@ const dialogManager = {
 
         ui.resetUIState();
 
-        logger.debug(`Dialog closed: ${dialog.id}`);
+//        logger.debug(`Dialog closed: ${dialog.id}`);
     },
 
     on(eventName, callback) {
@@ -116,7 +116,7 @@ const dialogManager = {
     },
 
     emit(eventName, data) {
-        logger.debug(`Emitting event: ${eventName}, data: ${data}`);
+//        logger.debug(`Emitting event: ${eventName}, data: ${data}`);
         if (this.eventListeners[eventName]) {
             this.eventListeners[eventName].forEach(callback => callback(data));
         } else {
@@ -156,7 +156,7 @@ const dialogManager = {
 
     handleEscapeKey(event) {
         if (event.key === 'Escape' && this.activeDialog) {
-            logger.debug('Escape key pressed, closing dialog');
+//            logger.debug('Escape key pressed, closing dialog');
             this.closeDialog();
         }
     },
@@ -189,7 +189,7 @@ const dialogManager = {
         document.addEventListener('keydown', eventHandlers.handleKeyboardShortcuts);
 
         this.mainEventHandlers = {};
-        logger.debug("Main event handlers re-enabled");
+//        logger.debug("Main event handlers re-enabled");
     },
 
     initializeDialogs() {
@@ -215,7 +215,7 @@ const dialogManager = {
         document.querySelector('#enter-pair-dialog form').addEventListener('submit', this.handleNewPairSubmit.bind(this));
 
         this.on('dialogClose', (dialogId) => {
-            logger.debug(`Dialog closed: ${dialogId}`);
+//            logger.debug(`Dialog closed: ${dialogId}`);
             // Add any specific actions you want to perform when a dialog is closed
         });
 

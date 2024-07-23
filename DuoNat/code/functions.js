@@ -46,3 +46,4 @@ import utils from './utils.js';
         window.initializeApp();
     });
 })();
+
