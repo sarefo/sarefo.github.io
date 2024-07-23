@@ -90,9 +90,13 @@ const dialogManager = {
             }
         }
 
+        // Ensure main event handlers are re-enabled
+        this.enableMainEventHandlers();
+
         this.activeDialog = null;
 
         ui.resetUIState();
+
         logger.debug(`Dialog closed: ${dialog.id}`);
     },
 

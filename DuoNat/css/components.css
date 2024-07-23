@@ -385,12 +385,50 @@ width: 80%;
 
 /* Styles for select taxon pair list dialog */
 #select-pair-dialog {
- height: 95vh;
+    height: 90vh;
+    max-height: 90vh;
+    padding: 20px;
+}
+
+#select-pair-dialog .dialog-inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-height: calc(90vh - 40px); /* Adjust for dialog padding */
+}
+
+.dialog-title {
+    flex-shrink: 0;
+    margin-bottom: 15px;
 }
 
 .taxon-pair-list {
+    flex-grow: 1;
     overflow-y: auto;
-    max-height: 100%;
+    padding-bottom: 20px; /* This creates the gap at the bottom */
+    margin-bottom: 0;
+}
+
+/* Adjust the scrollable area to leave space at the bottom */
+#select-pair-dialog .taxon-pair-list {
+    max-height: calc(90vh - 180px); /* Adjust this value as needed */
+    padding-right: 5px; /* Add some padding for the scrollbar */
+}
+
+/* Style for webkit browsers */
+#select-pair-dialog .taxon-pair-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+#select-pair-dialog .taxon-pair-list::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 3px;
+}
+
+/* Style for Firefox */
+#select-pair-dialog .taxon-pair-list {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,0,0,0.2) transparent;
 }
 
 .taxon-pair-button {
@@ -405,6 +443,7 @@ width: 80%;
     cursor: pointer;
     font-size: larger;
     transition: background-color 0.3s ease;
+    flex-shrink: 0;
 }
 
 .taxon-pair-button:hover {
@@ -446,6 +485,56 @@ width: 80%;
     justify-content: center;
     align-items: center;
     z-index: 1000;
+}
+
+.search-container {
+  position: relative;
+  margin-bottom: 15px;
+  flex-shrink: 0;
+}
+
+#taxon-search {
+  width: 100%;
+  padding: 10px 15px;
+  padding-left: 40px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+#taxon-search:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: #888;
+}
+
+#clear-search {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  color: #888;
+  display: none;
+}
+
+#clear-search:hover {
+  color: var(--primary-color);
 }
 
 /* Styles for help dialog */

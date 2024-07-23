@@ -38,9 +38,16 @@ const ui = {
             }
 
             const list = document.getElementById('taxon-pair-list');
+            const searchInput = document.getElementById('taxon-search');
+            const clearButton = document.getElementById('clear-search');
+            
+            // Clear the search input and hide the clear button
+            searchInput.value = '';
+            clearButton.style.display = 'none';
+
             list.innerHTML = ''; // Clear existing content
 
-            taxonPairs.forEach((pair, index) => {
+            const createTaxonPairButton = (pair) => {
                 const button = document.createElement('button');
                 button.innerHTML = `<i>${pair.taxon1}</i> <span class="taxon-pair-versus">vs</span> <i>${pair.taxon2}</i>`;
                 button.className = 'taxon-pair-button';
@@ -49,10 +56,43 @@ const ui = {
                     dialogManager.closeDialog();
                     game.setupGame(true);
                 };
-                list.appendChild(button);
+                return button;
+            };
+
+            const renderFilteredList = (filter = '') => {
+                const fragment = document.createDocumentFragment();
+                taxonPairs.forEach(pair => {
+                    if (pair.taxon1.toLowerCase().includes(filter) || pair.taxon2.toLowerCase().includes(filter)) {
+                        fragment.appendChild(createTaxonPairButton(pair));
+                    }
+                });
+                list.innerHTML = '';
+                list.appendChild(fragment);
+            };
+
+            renderFilteredList(); // Initial render with all pairs
+
+            const debouncedFilter = utils.debounce((event) => {
+                const filter = event.target.value.toLowerCase();
+                renderFilteredList(filter);
+            }, 300);
+
+            searchInput.addEventListener('input', (event) => {
+                clearButton.style.display = event.target.value ? 'block' : 'none';
+                debouncedFilter(event);
+            });
+
+            clearButton.addEventListener('click', () => {
+                searchInput.value = '';
+                clearButton.style.display = 'none';
+                renderFilteredList();
+                searchInput.focus();
             });
 
             dialogManager.openDialog('select-pair-dialog');
+
+            // Focus on the search input when the dialog opens
+            setTimeout(() => searchInput.focus(), 100);
         });
     },
 
