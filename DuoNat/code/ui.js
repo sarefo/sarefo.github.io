@@ -348,7 +348,7 @@ const ui = {
     },
 
     toggleFunctionsMenu: function() {
-        logger.debug("Attempting to toggle functions menu. Current state:", isMenuOpen);
+//        logger.debug("Attempting to toggle functions menu. Current state:", isMenuOpen);
         const topGroup = document.querySelector('.functions-dropdown.top-group');
         const bottomGroup = document.querySelector('.functions-dropdown.bottom-group');
         if (topGroup && bottomGroup) {

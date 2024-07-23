@@ -31,9 +31,13 @@ const eventHandlers = {
         this.initializeFunctionsMenuListeners();
         this.initializeAllEventListeners();
 
+        this.debouncedKeyboardHandler = utils.debounce(this._handleKeyboardShortcuts.bind(this), 300);
+
         // Ensure keyboard shortcuts are properly set up
-        document.removeEventListener('keydown', this.handleKeyboardShortcuts);
-        document.addEventListener('keydown', this.handleKeyboardShortcuts.bind(this));
+        //document.removeEventListener('keydown', this.handleKeyboardShortcuts);
+        //document.addEventListener('keydown', this.handleKeyboardShortcuts.bind(this));
+        document.removeEventListener('keydown', this.debouncedKeyboardHandler);
+        document.addEventListener('keydown', this.debouncedKeyboardHandler);
     },
 
     initializeSwipeFunctionality() {
@@ -131,7 +135,8 @@ const eventHandlers = {
         });
 
         // Keyboard shortcuts
-        document.addEventListener('keydown', this.handleKeyboardShortcuts.bind(this));
+//        document.addEventListener('keydown', this.handleKeyboardShortcuts.bind(this));
+        document.addEventListener('keydown', this.debouncedKeyboardHandler);
 
         // Help button functionality
         document.getElementById('help-button').addEventListener('click', () => {
@@ -239,7 +244,7 @@ const eventHandlers = {
         });
     },
 
-   handleKeyboardShortcuts: function(event) {
+ /*  handleKeyboardShortcuts: function(event) {
         if (this.debouncedKeyboardHandler) {
             this.debouncedKeyboardHandler(event);
         } else {
@@ -247,8 +252,66 @@ const eventHandlers = {
             this.debouncedKeyboardHandler(event);
         }
     },
+*/
+    _handleKeyboardShortcuts(event) {
+//        logger.debug("Keyboard event:", event.key);
+        if (dialogManager.isAnyDialogOpen() || 
+            document.getElementById('info-dialog').open || 
+            dialogManager.activeDialog || 
+            document.getElementById('enter-pair-dialog').open) {
+            logger.debug("Dialog is open, ignoring keyboard shortcut");
+            return;
+        }
 
-    _handleKeyboardShortcuts: function(event) {
+        switch (event.key.toLowerCase()) {
+            case 'r':
+            case 'arrowleft':
+                if (!this.isLoadingNewPair) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    this.isLoadingNewPair = true;
+                    game.loadNewRandomPair().finally(() => {
+                        this.isLoadingNewPair = false;
+                    });
+                }
+                break;
+            case 's':
+                event.preventDefault();
+                ui.showTaxonPairList();
+                break;
+            case 'h':
+                event.preventDefault();
+                document.getElementById('help-button').click();
+                break;
+            case 'e':
+                event.preventDefault();
+                dialogManager.openDialog('enter-pair-dialog');
+                break;
+            case 'm':
+                event.preventDefault();
+//                logger.debug("'M' key pressed, attempting to toggle menu");
+                ui.toggleFunctionsMenu();
+                break;
+            case 'p':
+            case 'f':
+                event.preventDefault();
+                document.getElementById('surprise-button').click();
+                break;
+            case 'g':
+                event.preventDefault();
+                game.showTaxaRelationship();
+                break;
+            case 'i':
+                event.preventDefault();
+                document.getElementById('info-button-1').click();
+                break;
+            case 'o':
+                event.preventDefault();
+                document.getElementById('info-button-2').click();
+                break;
+        }
+    },
+/*    _handleKeyboardShortcuts: function(event) {
         logger.debug("Keyboard event:", event.key);
 
         if (dialogManager.isAnyDialogOpen() || 
@@ -256,13 +319,12 @@ const eventHandlers = {
             dialogManager.activeDialog || 
             document.getElementById('enter-pair-dialog').open ||
             this.isLoadingNewPair) {
-            logger.debug("Dialog is open or already loading, ignoring keyboard shortcut");
-            return;
-        }
+                logger.debug("Dialog is open or already loading, ignoring keyboard shortcut");
+                return;
+            }
 
             if (event.key === 'r' || event.key === 'R' || event.key === 'ArrowLeft') {
 //                event.preventDefault();
-/*                document.getElementById('random-pair-button').click();*/
                 game.loadNewRandomPair();
                 return;
             }
@@ -277,11 +339,11 @@ const eventHandlers = {
             }
             if (event.key === 'm' || event.key === 'M') {
                 logger.debug("'M' key pressed, attempting to toggle menu");
-                event.preventDefault(); // Prevent default action
+        //        event.preventDefault(); // Prevent default action
                 ui.toggleFunctionsMenu();
                 return; // Exit the function after toggling
             }
-            if (event.key === 'p' || event.key === 'P' || event.key === 'f' || event.key === 'F') {
+            if (event.key === 'p' || event.key === 'f') {
                 document.getElementById('surprise-button').click();
             }
             if (event.key === 'g' || event.key === 'G') {
@@ -294,7 +356,7 @@ const eventHandlers = {
                 document.getElementById('info-button-2').click();
             }
 
-    },
+    },*/
 
     // move to other module, utils?
     shareCurrentPair() {
