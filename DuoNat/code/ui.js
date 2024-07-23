@@ -371,9 +371,9 @@ const ui = {
             if (isMenuOpen) {
                 this.positionBottomGroup();
             }
-            logger.debug("Functions menu toggled. New state:", isMenuOpen);
+//            logger.debug("Functions menu toggled. New state:", isMenuOpen);
         } else {
-            logger.error('Functions dropdown groups not found');
+ //           logger.error('Functions dropdown groups not found');
         }
     },
 
@@ -389,7 +389,7 @@ const ui = {
     },
 
 closeFunctionsMenu: function() {
-    logger.debug("Attempting to close functions menu. Current state:", isMenuOpen);
+    //logger.debug("Attempting to close functions menu. Current state:", isMenuOpen);
     if (isMenuOpen) {
         const topGroup = document.querySelector('.functions-dropdown.top-group');
         const bottomGroup = document.querySelector('.functions-dropdown.bottom-group');
@@ -397,7 +397,7 @@ closeFunctionsMenu: function() {
             isMenuOpen = false;
             topGroup.classList.remove('show');
             bottomGroup.classList.remove('show');
-            logger.debug("Functions menu closed.");
+            //logger.debug("Functions menu closed.");
         }
     }
 },
