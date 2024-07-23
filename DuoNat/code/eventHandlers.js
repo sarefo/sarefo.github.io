@@ -40,25 +40,46 @@ const eventHandlers = {
         document.addEventListener('keydown', this.debouncedKeyboardHandler);
     },
 
-    initializeSwipeFunctionality() {
-        this.gameContainer = document.querySelector('.game-container');
-        if (!this.gameContainer) {
-            logger.error('Game container not found');
-            return;
-        }
+initializeSwipeFunctionality() {
+    this.gameContainer = document.querySelector('.game-container');
+    if (!this.gameContainer) {
+        logger.error('Game container not found');
+        return;
+    }
 
-        const namePairElement = document.querySelector('.name-pair');
+  //  logger.debug("Setting up event listeners for swipe functionality");
 
-        // Add event listeners only to image containers
-        [elements.imageOneContainer, elements.imageTwoContainer].forEach(container => {
-            container.addEventListener('mousedown', this.handleMouseDown.bind(this));
-            container.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: true });
-            container.addEventListener('mousemove', this.handleDragMove.bind(this));
-            container.addEventListener('touchmove', this.handleDragMove.bind(this), { passive: true });
-            container.addEventListener('mouseup', this.handleSwipeOrDrag.bind(this));
-            container.addEventListener('touchend', this.handleSwipeOrDrag.bind(this));
+    [elements.imageOneContainer, elements.imageTwoContainer].forEach((container, index) => {
+  //      logger.debug(`Setting up listeners for container ${index + 1}`);
+        
+        container.addEventListener('mousedown', (e) => {
+  //          logger.debug(`Mousedown on container ${index + 1}`);
+            this.handleMouseDown(e);
         });
-    },
+        container.addEventListener('touchstart', (e) => {
+ //           logger.debug(`Touchstart on container ${index + 1}`);
+            this.handleTouchStart(e);
+        }, { passive: true });
+        container.addEventListener('mousemove', (e) => {
+ //           logger.debug(`Mousemove on container ${index + 1}`);
+            this.handleDragMove(e);
+        });
+        container.addEventListener('touchmove', (e) => {
+  //          logger.debug(`Touchmove on container ${index + 1}`);
+            this.handleDragMove(e);
+        }, { passive: true });
+        container.addEventListener('mouseup', (e) => {
+    //        logger.debug(`Mouseup on container ${index + 1}`);
+            this.handleSwipeOrDrag(e);
+        });
+        container.addEventListener('touchend', (e) => {
+     //       logger.debug(`Touchend on container ${index + 1}`);
+            this.handleSwipeOrDrag(e);
+        });
+    });
+
+    logger.debug("Swipe functionality initialized");
+},
 
     safeAddEventListener(id, eventType, handler) {
         const element = document.getElementById(id);
@@ -166,12 +187,19 @@ const eventHandlers = {
         this.isDragging = true;
     },
 
-    handleTouchStart(e) {
-        if (!e.target.closest('.image-container') || e.target.closest('.info-button')) return;
-        this.startX = e.touches[0].clientX;
-        this.startY = e.touches[0].clientY;
-        this.isDragging = true;
-    },
+handleTouchStart(e) {
+   // logger.debug(`handleTouchStart called. Target: ${e.target.tagName}, closest .image-container: ${!!e.target.closest('.image-container')}, closest .info-button: ${!!e.target.closest('.info-button')}`);
+    
+    if (!e.target.closest('.image-container') || e.target.closest('.info-button')) {
+    //    logger.debug("Returning early from handleTouchStart");
+        return;
+    }
+    
+    this.startX = e.touches[0].clientX;
+    this.startY = e.touches[0].clientY;
+    this.isDragging = true;
+    //logger.debug("Touch start, dragging started. isDragging set to true.");
+},
 
     handleSwipeOrDrag(e) {
         if (!this.isDragging) return;
@@ -192,6 +220,11 @@ const eventHandlers = {
             // Swipe left detected
             document.querySelector('.game-container').classList.add('swipe-out-left');
 
+            // Hide the swipe info message
+            const swipeInfoMessage = document.getElementById('swipe-info-message');
+            swipeInfoMessage.style.opacity = 0;
+            swipeInfoMessage.style.transform = 'translateY(0)';
+
             setTimeout(() => {
                 document.querySelector('.game-container').classList.remove('swiping-left', 'swipe-out-left');
                 ui.resetGameContainerStyle();
@@ -200,9 +233,47 @@ const eventHandlers = {
         } else {
             // Reset if not swiped far enough or swiped vertically
             ui.resetGameContainerStyle();
+
+            // Hide the swipe info message
+            const swipeInfoMessage = document.getElementById('swipe-info-message');
+            swipeInfoMessage.style.opacity = 0;
+            swipeInfoMessage.style.transform = 'translateY(0)';
         }
 
         this.isDragging = false;
+    },
+
+    handleDragMove(e) {
+        logger.debug(`Drag move called, isDragging: ${this.isDragging}`);
+        if (!this.isDragging) {
+        logger.debug("not dragging in hDM");
+            return;}
+        let currentX, currentY;
+        if (e.type.includes('touch')) {
+            currentX = e.touches[0].clientX;
+            currentY = e.touches[0].clientY;
+        } else {
+            currentX = e.clientX;
+            currentY = e.clientY;
+        }
+
+        const deltaX = this.startX - currentX;
+        const deltaY = Math.abs(this.startY - currentY);
+logger.debug(`Drag move detected: deltaX = ${deltaX}, deltaY = ${deltaY}`);
+        if (deltaX > 0 && deltaY < this.swipeRestraint) {
+            const progress = Math.min(deltaX / 100, 1);
+            const rotation = progress * -5;
+            const opacity = 1 - progress * 0.5;
+
+            this.gameContainer.style.transform = `rotate(${rotation}deg) translateX(${-deltaX}px)`;
+            this.gameContainer.style.opacity = opacity;
+
+            // Show the swipe info message
+            logger.debug("show swipe info message");
+            const swipeInfoMessage = document.getElementById('swipe-info-message');
+            swipeInfoMessage.style.opacity = Math.min(progress * 2, 1); // Fade in as user swipes
+            swipeInfoMessage.style.transform = `translateY(${-20 * progress}px)`; // Slide up slightly
+        }
     },
 
     handleDragMove(e) {

@@ -1,4 +1,5 @@
-echo -e '\n==> index.html <==\n' > all_my_code.txt
+echo -e 'This are the listings of all code files in my project. Please consider them when answering questions regarding this project.\n\n' > all_my_code.txt
+echo -e '\n==> index.html <==\n' >> all_my_code.txt
 cat ../index.html >> all_my_code.txt
 
 # Find all .css files in the ../css/ directory and append to all_my_code.txt
