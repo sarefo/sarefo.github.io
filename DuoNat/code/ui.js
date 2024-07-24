@@ -162,9 +162,9 @@ const ui = {
 
             { message: "Welcome to DuoNat!<br>Let's learn how to play.", highlight: null },
             { message: "You'll see two images of different taxa.", highlights: ['#image-container-1', '#image-container-2'] },
-            { message: "Drag the name tags to match them with the correct images.", highlight: '.name-pair' },
-            { message: "If you're correct, you'll move to the next round.", highlight: null, showNextImages: true },
-            { message: "Swipe left on an image for a new set of taxa.", highlight: null },
+            { message: "Drag a name to the correct image.", highlight: '.name-pair' },
+            { message: "If correct, you'll move to the next round.", highlight: null, showNextImages: true },
+            { message: "Swipe left on an image for a new taxon set.", highlight: null },
             { message: "Get more info about a taxon.", highlights: ['#info-button-1', '#info-button-2'] },
             { message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => this.temporarilyOpenMenu(6000) },
             { message: "Ready to start?<br>Let's go!", highlight: null }
