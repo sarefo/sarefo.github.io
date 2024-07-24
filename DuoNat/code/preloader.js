@@ -11,7 +11,6 @@ const preloader = {
         if (this.isPreloading) return;
 
         this.isPreloading = true;
-//        logger.debug("Starting to preload next pair");
 
         try {
             const newPair = await utils.selectTaxonPair();

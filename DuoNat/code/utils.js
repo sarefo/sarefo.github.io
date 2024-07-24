@@ -113,6 +113,7 @@ const utils = {
         return genusInitial + ' ' + species;
     },
 
+    // Returns a taxon pair from the index, or a random one if none indicated
     selectTaxonPair: async function (index = null) {
         const taxonPairs = await api.fetchTaxonPairs();
         if (taxonPairs.length === 0) {

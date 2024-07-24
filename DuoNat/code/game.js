@@ -80,20 +80,27 @@ const game = {
 
             let newTaxonImageCollection;
 
+            // no idea what this does
             if (newSession || !gameState.currentTaxonImageCollection) {
 
                 if (this.nextSelectedPair) {
                     logger.debug("Using selected pair:", this.nextSelectedPair);
+
                     newTaxonImageCollection = await this.initializeNewTaxonPair(this.nextSelectedPair);
                     this.nextSelectedPair = null;
+
                 } else if (this.preloadedPair) {
                     logger.debug("Using preloaded pair");
+
                     newTaxonImageCollection = this.preloadedPair;
                     this.preloadedPair = null;
+
                     // Move preloaded images for the next session to the current session
                     this.preloadedImages.current = this.preloadedImages.next;
                     this.preloadedImages.next = { taxon1: [], taxon2: [] };
+
                 } else {
+                    logger.debug("First round of first session");
                     newTaxonImageCollection = await this.initializeNewTaxonPair();
                 }
 
@@ -300,6 +307,7 @@ const game = {
      * @returns {Promise<Object>} The initialized taxon pair with image URLs.
      */
     async initializeNewTaxonPair(pair = null) {
+
         const newPair = pair || await utils.selectTaxonPair();
         const [imageOneURL, imageTwoURL] = await Promise.all([
             api.fetchRandomImage(newPair.taxon1),
