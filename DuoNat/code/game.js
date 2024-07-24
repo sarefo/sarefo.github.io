@@ -11,6 +11,8 @@ import ui from './ui.js';
 import utils from './utils.js';
 
 const game = {
+    loadingMessage: "",
+    //loadingMessage: "Loading...",
     nextSelectedPair: null,
     currentState: GameState.IDLE,
     currentGraphTaxa: null,
@@ -514,10 +516,9 @@ const game = {
 
     prepareUIForLoading: function () {
         utils.resetDraggables();
-        ui.scrollToTop();
         elements.imageOne.classList.add('loading');
         elements.imageTwo.classList.add('loading');
-        var startMessage = gameState.isFirstLoad ? "Drag the names!" : "Loading...";
+        var startMessage = gameState.isFirstLoad ? "Drag the names!" : `${this.loadingMessage}`;
         ui.showOverlay(startMessage, config.overlayColors.green);
         // what does this do?
         gameState.isFirstLoad = false;
@@ -531,7 +532,7 @@ const game = {
 
     logger.debug("Loading new random pair");
     this.setState(GameState.LOADING);
-    ui.showOverlay('Loading...', config.overlayColors.green);
+    ui.showOverlay('${this.loadingMessage}', config.overlayColors.green);
     elements.imageOne.classList.add('loading');
     elements.imageTwo.classList.add('loading');
     
@@ -571,8 +572,6 @@ const game = {
         const leftAnswer = dropOne.children[0]?.getAttribute('data-taxon');
         const rightAnswer = dropTwo.children[0]?.getAttribute('data-taxon');
 
-        ui.scrollToTop();
-
         if (leftAnswer && rightAnswer) {
             let isCorrect = false;
             if (droppedZoneId === 'drop-1') {
@@ -586,7 +585,7 @@ const game = {
                 elements.imageOne.classList.add('loading');
                 elements.imageTwo.classList.add('loading');
                 await utils.sleep(1000); // Show "Correct!" for 1 second
-                ui.updateOverlayMessage('Loading...'); // Update message without changing color
+                ui.updateOverlayMessage(`${this.loadingMessage}`); // Update message without changing color
                 await this.setupGame(false);  // Start a new round with the same taxon pair
             } else {
                 // Immediately reset draggables before showing the "Try again!" message

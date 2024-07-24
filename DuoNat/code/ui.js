@@ -125,10 +125,6 @@ const ui = {
         elements.overlay.classList.remove('show');
     },
 
-    scrollToTop: () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    },
-
     showINatDownDialog: function () {
         const loadingScreen = document.getElementById('loading-screen');
         if (loadingScreen) {
