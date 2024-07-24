@@ -61,28 +61,27 @@ const game = {
     async setupGame(newSession = false) {
 
         // load new taxon set?
-        if (newSession) {
-            this.initializeNewSession();
-        }
+        if (newSession) { this.initializeNewSession(); }
 
         // does GameState allow for new session?
-        if (!this.canStartNewSession()) {
-            return;
-        }
+        if (!this.canStartNewSession()) { return; }
 
+        // enter LOADING state
         this.setState(GameState.LOADING);
 
-        if (!await this.checkINaturalistReachability()) {
-            logger.error("iNaturalist is not reachable. Showing dialog.");
-            this.setState(GameState.IDLE);
-            return; // Exit setupGame if iNaturalist is not reachable
-        }
+        // Exit setupGame if iNaturalist is not reachable
+        if (!await this.checkINaturalistReachability()) { return; }
 
+
+        // Loading …
         this.prepareUIForLoading();
 
         try {
+
             let newTaxonImageCollection;
+
             if (newSession || !gameState.currentTaxonImageCollection) {
+
                 if (this.nextSelectedPair) {
                     logger.debug("Using selected pair:", this.nextSelectedPair);
                     newTaxonImageCollection = await this.initializeNewTaxonPair(this.nextSelectedPair);
@@ -161,7 +160,6 @@ const game = {
      */
     async checkINaturalistReachability() {
         if (!await api.isINaturalistReachable()) {
-            logger.error("iNaturalist is not reachable. Showing dialog.");
             ui.showINatDownDialog();
             this.setState(GameState.IDLE);
             return false;
@@ -536,6 +534,7 @@ const game = {
         elements.imageTwo.classList.add('loading');
         var startMessage = gameState.isFirstLoad ? "Drag the names!" : "Loading...";
         ui.showOverlay(startMessage, config.overlayColors.green);
+        // what does this do?
         gameState.isFirstLoad = false;
     },
 
