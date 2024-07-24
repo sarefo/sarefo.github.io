@@ -35,23 +35,22 @@ If no URL parameters are provided, the first set after the app starts up loads a
 It's important that the app runs smooth, and the code is robust and stable, and easy to read, so I can expand it without losing track, or breaking dependencies or functions all the time.
 
 #### Image preloading
-I'm still trying to get preloading of images right. Currently, the preloading seems to work, but the app does not actually use the preloaded images when entering a new pair.
 
-Here's an outline of how I currently think the image loading should work:
+Here's an outline of how I currently think the image loading works:
 
-|Session|Set|Pair|Round|Action                                         |Variable       |
-|-------|---|----|-----|-----------------------------------------------|---------------|
-|1      |1  |1   |1    |Load images for taxon pair                     |               |
-|1      |1  |1   |1    |Use images from initial loading                |               |
-|1      |1  |1   |1    |Preload images for round 2                     |round_preload  |
-|1      |1  |1   |1    |Preload images for pair 2 round 1              |pair_preload   |
-|1      |1  |1   |2    |Use images from round 2 preload                |round_preload  |
-|1      |1  |1   |2    |Preload images for round 3 taxon pair          |round_preload  |
-|       |   |    |…    |                                               |               |
-|1      |1  |2   |1    |Use images from pair 2 preload                 |pair_preload   |
-|1      |1  |2   |1    |Preload images for round 2 taxon pair          |round_preload  |
-|1      |1  |2   |1    |Preload images for pair 3 taxon pair round 1   |pair_preload   |
-|       |   |    |…    |                                               |               |
+|Session|Set|Pair|Round|Action                                         |
+|-------|---|----|-----|-----------------------------------------------|
+|1      |1  |1   |1    |Load images for taxon pair                     |
+|1      |1  |1   |1    |Use images from initial loading                |
+|1      |1  |1   |1    |Preload images for round 2                     |
+|1      |1  |1   |1    |Preload images for pair 2 round 1              |
+|1      |1  |1   |2    |Use images from round 2 preload                |
+|1      |1  |1   |2    |Preload images for round 3 taxon pair          |
+|       |   |    |…    |                                               |
+|1      |1  |2   |1    |Use images from pair 2 preload                 |
+|1      |1  |2   |1    |Preload images for round 2 taxon pair          |
+|1      |1  |2   |1    |Preload images for pair 3 taxon pair round 1   |
+|       |   |    |…    |                                               |
 
 ### Possible uses
 + naturalist fun:
