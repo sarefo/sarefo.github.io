@@ -41,18 +41,19 @@ Furthermore, directly after this preloading step, the app also preloads two imag
 
 Here's an outline of how I currently think the image loading should work:
 
-|Run|Session|Round|Action                                         |variable       |
-|---|-------|-----|-----------------------------------------------|---------------|
-|1  |1      |1    |Load images for taxon pair                     |               |
-|1  |1      |1    |Use images from initial loading                |               |
-|1  |1      |1    |Preload images for round 2 taxon pair          |round_preload  |
-|1  |1      |1    |Preload images for session 2 taxon pair round 1|session_preload|
-|1  |1      |2    |Use images from round 2 preload                |round_preload  |
-|1  |1      |2    |Preload images for round 3 taxon pair          |round_preload  |
-|   |       |…    |                                               |               |
-|1  |2      |1    |Use images from session 2 preload              |session_preload|
-|1  |2      |1    |Preload images for round 2 taxon pair          |round_preload  |
-|1  |2      |1    |Preload images for session 3 taxon pair round 1|session_preload|
+
+|Session|Set|Pair|Round|Action                                         |Variable       |
+|-------|---|----|-----|-----------------------------------------------|---------------|
+|1      |1  |1   |1    |Load images for taxon pair                     |               |
+|1      |1  |1   |1    |Use images from initial loading                |               |
+|1      |1  |1   |1    |Preload images for round 2 taxon pair          |round_preload  |
+|1      |1  |1   |1    |Preload images for session 2 taxon pair round 1|session_preload|
+|1      |1  |1   |2    |Use images from round 2 preload                |round_preload  |
+|1      |1  |1   |2    |Preload images for round 3 taxon pair          |round_preload  |
+|       |   |    |…    |                                               |               |
+|1      |1  |2   |1    |Use images from session 2 preload              |session_preload|
+|1      |1  |2   |1    |Preload images for round 2 taxon pair          |round_preload  |
+|1      |1  |2   |1    |Preload images for session 3 taxon pair round 1|session_preload|
 
 ### Possible uses
 + naturalist fun:
