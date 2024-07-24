@@ -51,13 +51,81 @@ const game = {
      * Hides the loading screen.
      */
     hideLoadingScreen: function () {
-        document.getElementById('loading-screen').style.display = 'none';
+        setTimeout(() => {
+            document.getElementById('loading-screen').style.display = 'none';
+        }, 500); // 500ms delay, adjust as needed
     },
 
     /**
      * Sets up the game, either for a new pair or continuing the current one.
      * @param {boolean} new - Whether to start a new pair.
      */
+  async setupGame(newPair = false) {
+    this.setState(GameState.LOADING);
+
+    if (!await this.checkINaturalistReachability()) { return; }
+
+    this.prepareUIForLoading();
+
+    try {
+      if (newPair || !gameState.currentTaxonImageCollection) {
+        await this.initializeNewPair();
+      }
+
+      await this.setupRound();
+      this.finishSetup();
+
+      // Preload for the next round and next pair
+      preloader.preloadForNextRound();
+      preloader.preloadForNextPair();
+
+      this.setState(GameState.PLAYING);
+      // Hide the loading screen here
+      this.hideLoadingScreen();
+        
+      // Update initial load state
+      if (gameState.isInitialLoad) {
+          updateGameState({ isInitialLoad: false });
+      }
+
+      ui.hideOverlay();
+      ui.resetUIState();
+    } catch (error) {
+      this.handleSetupError(error);
+    }
+  },
+
+    async initializeNewPair() {
+        let newPair, imageOneURL, imageTwoURL;
+
+        if (this.nextSelectedPair) {
+            newPair = this.nextSelectedPair;
+            imageOneURL = gameState.preloadState?.nextPair?.taxon1;
+            imageTwoURL = gameState.preloadState?.nextPair?.taxon2;
+            this.nextSelectedPair = null;
+        } else {
+            newPair = await utils.selectTaxonPair();
+            [imageOneURL, imageTwoURL] = await Promise.all([
+                api.fetchRandomImageMetadata(newPair.taxon1),
+                api.fetchRandomImageMetadata(newPair.taxon2)
+            ]);
+        }
+
+        updateGameState({
+            currentTaxonImageCollection: { 
+                pair: newPair, 
+                imageOneURL, 
+                imageTwoURL 
+            }
+        });
+        
+        logger.debug("New pair initialized:", newPair);
+
+        // Preload for the current round
+        await preloader.preloadForCurrentRound();
+    },
+
+  /*
     async setupGame(newPair = false) {
 
         // load new taxon set?
@@ -135,18 +203,7 @@ const game = {
             this.handleSetupError(error);
         }
     },
-
-    initializeNewPair() {
-        this.preloadedImages = {
-            current: { taxon1: [], taxon2: [] },
-            next: { taxon1: [], taxon2: [] }
-        };
-        logger.debug("Starting new pair, resetting state");
-        this.setState(GameState.IDLE);
-        this.currentGraphTaxa = null; // Clear the current graph taxa
-        taxaRelationshipViewer.clearGraph(); // Clear the existing graph
-
-    },
+      */
 
     canStartNewPair() {
         if (this.currentState !== GameState.IDLE &&
@@ -370,35 +427,42 @@ const game = {
     /**
      * Sets up a new round of the game.
      */
-    async setupRound(isNewPair = false) {
-        const { pair } = gameState.currentTaxonImageCollection;
-        const randomized = Math.random() < 0.5;
+    async setupRound() {
+    if (!gameState.currentTaxonImageCollection) {
+        logger.error("Current taxon image collection is null. Initializing new pair.");
+        await this.initializeNewPair();
+    }
 
-        let imageOneURL, imageTwoURL;
+    const { pair } = gameState.currentTaxonImageCollection;
+    const randomized = Math.random() < 0.5;
 
-    if (isNewPair && gameState.currentTaxonImageCollection.imageOneURL && gameState.currentTaxonImageCollection.imageTwoURL) {
-        // Use the preloaded images for the new pair
-        imageOneURL = gameState.currentTaxonImageCollection.imageOneURL;
-        imageTwoURL = gameState.currentTaxonImageCollection.imageTwoURL;
-        logger.debug("Using preloaded images for new pair");
-    } else if (this.preloadedImages.current.taxon1.length > 0 && this.preloadedImages.current.taxon2.length > 0) {
-        // Use preloaded images for subsequent rounds
-        imageOneURL = this.preloadedImages.current.taxon1.pop();
-        imageTwoURL = this.preloadedImages.current.taxon2.pop();
-        logger.debug("Using preloaded image metadata for current round");
+    let imageOneURL, imageTwoURL;
+
+    // Use preloaded images if available, otherwise fetch new ones
+    if (gameState.preloadState && gameState.preloadState.currentRound &&
+        gameState.preloadState.currentRound.taxon1 && gameState.preloadState.currentRound.taxon2) {
+        imageOneURL = gameState.preloadState.currentRound.taxon1;
+        imageTwoURL = gameState.preloadState.currentRound.taxon2;
+        
+        // Clear the current round preloaded images
+        updateGameState({
+            preloadState: {
+                ...gameState.preloadState,
+                currentRound: { taxon1: null, taxon2: null }
+            }
+        });
     } else {
-        // Fetch new images if no preloaded images are available
         [imageOneURL, imageTwoURL] = await Promise.all([
             api.fetchRandomImageMetadata(pair.taxon1),
             api.fetchRandomImageMetadata(pair.taxon2)
         ]);
-        logger.debug("Fetching new random image metadata for current round");
     }
 
         const leftImageSrc = randomized ? imageOneURL : imageTwoURL;
         const rightImageSrc = randomized ? imageTwoURL : imageOneURL;
 
         await this.loadImages(leftImageSrc, rightImageSrc);
+
         // Set the observation URLs
         this.currentObservationURLs.imageOne = this.getObservationURLFromImageURL(leftImageSrc);
         this.currentObservationURLs.imageTwo = this.getObservationURLFromImageURL(rightImageSrc);
@@ -431,7 +495,7 @@ const game = {
         logger.debug(`Images for this round: ${imageOneURL}, ${imageTwoURL}`);
 
         // Preload images for the next round of the current pair
-        this.preloadImagesForCurrentPair();
+        preloader.preloadForNextRound();
     },
 
     /**
