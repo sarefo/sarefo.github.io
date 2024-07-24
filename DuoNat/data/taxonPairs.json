@@ -605,6 +605,8 @@
     {"taxon1":"Scleroderma citrinum", "taxon2":"Pisolithus tinctorius"},
 
     {"taxon1":"Magnoliopsida", "taxon2":"Liliopsida"},
+    {"taxon1":"Asteraceae", "taxon2":"Brassicaceae"},
+    {"taxon1":"Apiaceae", "taxon2":"Brassicaceae"},
     {"taxon1":"Quercus robur", "taxon2":"Quercus petraea"},
     {"taxon1":"Betula pendula", "taxon2":"Betula pubescens"},
     {"taxon1":"Pinus sylvestris", "taxon2":"Picea abies"},
