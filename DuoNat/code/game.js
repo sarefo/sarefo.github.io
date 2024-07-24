@@ -59,21 +59,14 @@ const game = {
      * @param {boolean} newSession - Whether to start a new session.
      */
     async setupGame(newSession = false) {
+
+        // load new taxon set?
         if (newSession) {
-            this.preloadedImages = {
-                current: { taxon1: [], taxon2: [] },
-                next: { taxon1: [], taxon2: [] }
-            };
-            logger.debug("Starting new session, resetting state");
-            this.setState(GameState.IDLE);
-            this.currentGraphTaxa = null; // Clear the current graph taxa
-            taxaRelationshipViewer.clearGraph(); // Clear the existing graph
+            this.initializeNewSession();
         }
 
-        if (this.currentState !== GameState.IDLE &&
-            this.currentState !== GameState.READY &&
-            this.currentState !== GameState.CHECKING) {
-            logger.debug("Game is not in a state to start a new session");
+        // does GameState allow for new session?
+        if (!this.canStartNewSession()) {
             return;
         }
 
@@ -138,6 +131,28 @@ const game = {
                 updateGameState({ isInitialLoad: false });
             }
         }
+    },
+
+    initializeNewSession() {
+        this.preloadedImages = {
+            current: { taxon1: [], taxon2: [] },
+            next: { taxon1: [], taxon2: [] }
+        };
+        logger.debug("Starting new session, resetting state");
+        this.setState(GameState.IDLE);
+        this.currentGraphTaxa = null; // Clear the current graph taxa
+        taxaRelationshipViewer.clearGraph(); // Clear the existing graph
+
+    },
+
+    canStartNewSession() {
+        if (this.currentState !== GameState.IDLE &&
+            this.currentState !== GameState.READY &&
+            this.currentState !== GameState.CHECKING) {
+            logger.debug("Game is not in a state to start a new session");
+            return false;
+        }
+        return true;
     },
 
     /**
