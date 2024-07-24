@@ -61,10 +61,10 @@ const game = {
     async setupGame(newPair = false) {
 
         // load new taxon set?
-        if (newPair) { this.initializeNewSession(); }
+        if (newPair) { this.initializeNewPair(); }
 
-        // does GameState allow for new session?
-        if (!this.canStartNewSession()) { return; }
+        // does GameState allow for new pair?
+        if (!this.canStartNewPair()) { return; }
 
         // enter LOADING state
         this.setState(GameState.LOADING);
@@ -103,7 +103,7 @@ const game = {
                 this.preloadedImages.next = { taxon1: [], taxon2: [] };
 
                 } else {
-                    logger.debug("First round of first session");
+                    logger.debug("First round of first pair");
                     newTaxonImageCollection = await this.initializeNewTaxonPair();
                 }
 
@@ -127,7 +127,7 @@ const game = {
             ui.hideOverlay();
             ui.resetUIState();
 
-            // Only preload for the next session if we're starting a new one
+            // Only preload for the next pair if we're starting a new one
             if (newPair) {
                 this.preloadNextPair();
             }
@@ -136,23 +136,23 @@ const game = {
         }
     },
 
-    initializeNewSession() {
+    initializeNewPair() {
         this.preloadedImages = {
             current: { taxon1: [], taxon2: [] },
             next: { taxon1: [], taxon2: [] }
         };
-        logger.debug("Starting new session, resetting state");
+        logger.debug("Starting new pair, resetting state");
         this.setState(GameState.IDLE);
         this.currentGraphTaxa = null; // Clear the current graph taxa
         taxaRelationshipViewer.clearGraph(); // Clear the existing graph
 
     },
 
-    canStartNewSession() {
+    canStartNewPair() {
         if (this.currentState !== GameState.IDLE &&
             this.currentState !== GameState.READY &&
             this.currentState !== GameState.CHECKING) {
-            logger.debug("Game is not in a state to start a new session");
+            logger.debug("Game is not in a state to start a new pair");
             return false;
         }
         return true;
@@ -174,7 +174,7 @@ const game = {
 
     /**
      * Fetches a taxon image collection, with retry logic.
-     * @param {boolean} newPair - Whether this is for a new session.
+     * @param {boolean} newPair - Whether this is for a new pair.
      * @returns {Promise<Object>} The fetched taxon image collection.
      */
     async fetchTaxonImageCollection(newPair) {
@@ -199,7 +199,7 @@ const game = {
 
     /**
      * Attempts to fetch a taxon image collection.
-     * @param {boolean} newPair - Whether this is for a new session.
+     * @param {boolean} newPair - Whether this is for a new pair.
      * @returns {Promise<Object>} The fetched taxon image collection.
      */
     async attemptFetchTaxonImageCollection(newPair) {
@@ -275,7 +275,7 @@ const game = {
     async preloadNextPair() {
         if (this.preloadedPair) return; // Don't preload if we already have a preloaded pair
 
-        logger.debug("Starting to preload next pair for a new session");
+        logger.debug("Starting to preload next pair for a new pair");
         this.preloadedPair = await this.initializeNewTaxonPair();
 
         try {
@@ -292,9 +292,9 @@ const game = {
             this.preloadedImages.next.taxon1 = [newImageOneURL];
             this.preloadedImages.next.taxon2 = [newImageTwoURL];
 
-            logger.debug("Finished preloading next pair for a new session");
+            logger.debug("Finished preloading next pair for a new pair");
         } catch (error) {
-            logger.error("Error preloading images for next session:", error);
+            logger.error("Error preloading images for next pair:", error);
         }
     },
 
@@ -370,17 +370,17 @@ const game = {
     /**
      * Sets up a new round of the game.
      */
-    async setupRound(isNewSession = false) {
+    async setupRound(isNewPair = false) {
         const { pair } = gameState.currentTaxonImageCollection;
         const randomized = Math.random() < 0.5;
 
         let imageOneURL, imageTwoURL;
 
-    if (isNewSession && gameState.currentTaxonImageCollection.imageOneURL && gameState.currentTaxonImageCollection.imageTwoURL) {
-        // Use the preloaded images for the new session
+    if (isNewPair && gameState.currentTaxonImageCollection.imageOneURL && gameState.currentTaxonImageCollection.imageTwoURL) {
+        // Use the preloaded images for the new pair
         imageOneURL = gameState.currentTaxonImageCollection.imageOneURL;
         imageTwoURL = gameState.currentTaxonImageCollection.imageTwoURL;
-        logger.debug("Using preloaded images for new session");
+        logger.debug("Using preloaded images for new pair");
     } else if (this.preloadedImages.current.taxon1.length > 0 && this.preloadedImages.current.taxon2.length > 0) {
         // Use preloaded images for subsequent rounds
         imageOneURL = this.preloadedImages.current.taxon1.pop();
@@ -396,7 +396,7 @@ const game = {
     }
 
 /*
-        // Use preloaded images for the current session if available
+        // Use preloaded images for the current pair if available
         if (this.preloadedImages.current.taxon1.length > 0 && this.preloadedImages.current.taxon2.length > 0) {
 //            logger.debug("Using preloaded image metadata for current round");
             imageOneURL = this.preloadedImages.current.taxon1.pop();
@@ -444,7 +444,7 @@ const game = {
 
         logger.debug(`Images for this round: ${imageOneURL}, ${imageTwoURL}`);
 
-        // Preload images for the next round of the current session
+        // Preload images for the next round of the current pair
         this.preloadImagesForCurrentPair();
     },
 
@@ -453,7 +453,7 @@ const game = {
      */
     async preloadImagesForCurrentPair() {
         const { pair } = gameState.currentTaxonImageCollection;
-        logger.debug("Starting to preload images for next round of current session");
+        logger.debug("Starting to preload images for next round of current pair");
 
         try {
             const [newImageOneURL, newImageTwoURL] = await Promise.all([
@@ -469,9 +469,9 @@ const game = {
             this.preloadedImages.current.taxon1.push(newImageOneURL);
             this.preloadedImages.current.taxon2.push(newImageTwoURL);
 
-            logger.debug("Finished preloading images for next round of current session");
+            logger.debug("Finished preloading images for next round of current pair");
         } catch (error) {
-            logger.error("Error preloading images for current session:", error);
+            logger.error("Error preloading images for current pair:", error);
         }
     },
 
