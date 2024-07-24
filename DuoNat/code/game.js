@@ -72,7 +72,6 @@ const game = {
         // Exit setupGame if iNaturalist is not reachable
         if (!await this.checkINaturalistReachability()) { return; }
 
-
         // Loading …
         this.prepareUIForLoading();
 
@@ -95,17 +94,13 @@ const game = {
                     newTaxonImageCollection = this.preloadedPair;
                     this.preloadedPair = null;
 
-                    // Move preloaded images for the next session to the current session
-                    this.preloadedImages.current = this.preloadedImages.next;
-                    this.preloadedImages.next = { taxon1: [], taxon2: [] };
-
-                    // Ensure newTaxonImageCollection has the correct image URLs
-                    newTaxonImageCollection.imageOneURL = this.preloadedImages.current.taxon1[0];
-                    newTaxonImageCollection.imageTwoURL = this.preloadedImages.current.taxon2[0];
-                    
-                    // Remove the used images from the current preloaded images
-                    this.preloadedImages.current.taxon1.shift();
-                    this.preloadedImages.current.taxon2.shift();
+                // Use the preloaded images
+                newTaxonImageCollection.imageOneURL = this.preloadedImages.next.taxon1[0];
+                newTaxonImageCollection.imageTwoURL = this.preloadedImages.next.taxon2[0];
+                
+                // Move preloaded images to current
+                this.preloadedImages.current = this.preloadedImages.next;
+                this.preloadedImages.next = { taxon1: [], taxon2: [] };
 
                 } else {
                     logger.debug("First round of first session");
@@ -137,13 +132,7 @@ const game = {
                 this.preloadNextPair();
             }
         } catch (error) {
-            logger.error("Error setting up game:", error);
-            ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
-            this.setState(GameState.IDLE);
-            if (gameState.isInitialLoad) {
-                this.hideLoadingScreen();
-                updateGameState({ isInitialLoad: false });
-            }
+            this.handleSetupError(error);
         }
     },
 
@@ -405,7 +394,6 @@ const game = {
         ]);
         logger.debug("Fetching new random image metadata for current round");
     }
-
 
 /*
         // Use preloaded images for the current session if available
