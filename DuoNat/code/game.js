@@ -99,6 +99,14 @@ const game = {
                     this.preloadedImages.current = this.preloadedImages.next;
                     this.preloadedImages.next = { taxon1: [], taxon2: [] };
 
+                    // Ensure newTaxonImageCollection has the correct image URLs
+                    newTaxonImageCollection.imageOneURL = this.preloadedImages.current.taxon1[0];
+                    newTaxonImageCollection.imageTwoURL = this.preloadedImages.current.taxon2[0];
+                    
+                    // Remove the used images from the current preloaded images
+                    this.preloadedImages.current.taxon1.shift();
+                    this.preloadedImages.current.taxon2.shift();
+
                 } else {
                     logger.debug("First round of first session");
                     newTaxonImageCollection = await this.initializeNewTaxonPair();
@@ -373,12 +381,33 @@ const game = {
     /**
      * Sets up a new round of the game.
      */
-    async setupRound() {
+    async setupRound(isNewSession = false) {
         const { pair } = gameState.currentTaxonImageCollection;
         const randomized = Math.random() < 0.5;
 
         let imageOneURL, imageTwoURL;
 
+    if (isNewSession && gameState.currentTaxonImageCollection.imageOneURL && gameState.currentTaxonImageCollection.imageTwoURL) {
+        // Use the preloaded images for the new session
+        imageOneURL = gameState.currentTaxonImageCollection.imageOneURL;
+        imageTwoURL = gameState.currentTaxonImageCollection.imageTwoURL;
+        logger.debug("Using preloaded images for new session");
+    } else if (this.preloadedImages.current.taxon1.length > 0 && this.preloadedImages.current.taxon2.length > 0) {
+        // Use preloaded images for subsequent rounds
+        imageOneURL = this.preloadedImages.current.taxon1.pop();
+        imageTwoURL = this.preloadedImages.current.taxon2.pop();
+        logger.debug("Using preloaded image metadata for current round");
+    } else {
+        // Fetch new images if no preloaded images are available
+        [imageOneURL, imageTwoURL] = await Promise.all([
+            api.fetchRandomImageMetadata(pair.taxon1),
+            api.fetchRandomImageMetadata(pair.taxon2)
+        ]);
+        logger.debug("Fetching new random image metadata for current round");
+    }
+
+
+/*
         // Use preloaded images for the current session if available
         if (this.preloadedImages.current.taxon1.length > 0 && this.preloadedImages.current.taxon2.length > 0) {
 //            logger.debug("Using preloaded image metadata for current round");
@@ -391,7 +420,7 @@ const game = {
                 api.fetchRandomImageMetadata(pair.taxon2)
             ]);
         }
-
+*/
         const leftImageSrc = randomized ? imageOneURL : imageTwoURL;
         const rightImageSrc = randomized ? imageTwoURL : imageOneURL;
 
