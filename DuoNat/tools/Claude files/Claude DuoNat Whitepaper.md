@@ -9,11 +9,15 @@ The web app DuoNat has the following goals:
 3. be engaging and addictive, helping the user to explore biodiversity, and become better at identifying taxa
 
 The nomenclature for the game is like this:
-+ the whole time from starting up the app to closing it is called a "run". It can have one or more "sessions", which in turn can have one or more "rounds"
-+ during one session, the same two taxa are presented throughout.
-+ each round, a different pair of images from those two taxa are presented, and the user needs to guess which one is which.
++ the whole time from starting up the app to closing it is called a "session".
++ it can have one or more "sets". each set consists of one or more "pairs". every pair consists of one or more "rounds".
++ during a "set", the game uses the same taxon set throughout. a taxon set is an array of two or more taxa.
++ during a "pair", the game uses the same taxon pair throughout. a taxon pair is selected from the current taxon set, and consists of exactly two of its taxa.
++ during a "round", a pair of images are displayed, for the currently active taxon pair. every round, there will be two different images for that same taxon pair. The user needs to guess which image belongs to which taxon.
 
-A session can get its two taxa either randomly from a list of taxon pairs (in taxonPairs.json), or defined by the user. The latter can happen by:
+I'm currently transitioning the app from only using taxon pairs to using taxon sets. For now, let's consider a taxon pair in the code and data to be a minimal taxon set (a taxon set which only has one taxon pair).
+
+A pair can get its two taxa either randomly from a list of taxon sets (in taxonPairs.json), or defined by the user. The latter can happen by:
 + providing the two taxa in the URL as optional parameters, or
 + by defining them inside the app using the "Enter pair" dialog.
 If no URL parameters are provided, the first session after the app starts up loads a random pair from the taxon pair list. Other options are accessed via
@@ -34,6 +38,21 @@ It's important that the app runs smooth, and the code is robust and stable, and 
 One thing I'm trying to do to reach this goal is preloading of images. The current approach of preloading is like this: When the app starts up, load two images for the current taxon pair. Directly after the first round begins, the app loads another random pair of images for the same taxon pair. This pair is displayed if the user chooses to play another round of the same session.
 
 Furthermore, directly after this preloading step, the app also preloads two images of another random pair. Let's call it the preloaded random pair, PRR. Whenever the user chooses to play another random session, this pair gets loaded, starting with those two preloaded images. If the user chooses a different session (eg selecting from a list, or entering a pair by hand), that PRR stays preloaded, as the user might later still choose to start a random session. So it's important not to preload a new random pair every time a session starts. 
+
+Here's an outline of how I currently think the image loading should work:
+
+|Run|Session|Round|Action                                         |variable       |
+|---|-------|-----|-----------------------------------------------|---------------|
+|1  |1      |1    |Load images for taxon pair                     |               |
+|1  |1      |1    |Use images from initial loading                |               |
+|1  |1      |1    |Preload images for round 2 taxon pair          |round_preload  |
+|1  |1      |1    |Preload images for session 2 taxon pair round 1|session_preload|
+|1  |1      |2    |Use images from round 2 preload                |round_preload  |
+|1  |1      |2    |Preload images for round 3 taxon pair          |round_preload  |
+|   |       |…    |                                               |               |
+|1  |2      |1    |Use images from session 2 preload              |session_preload|
+|1  |2      |1    |Preload images for round 2 taxon pair          |round_preload  |
+|1  |2      |1    |Preload images for session 3 taxon pair round 1|session_preload|
 
 ### Possible uses
 + naturalist fun:

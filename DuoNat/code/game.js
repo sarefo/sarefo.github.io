@@ -55,13 +55,13 @@ const game = {
     },
 
     /**
-     * Sets up the game, either for a new session or continuing the current one.
-     * @param {boolean} newSession - Whether to start a new session.
+     * Sets up the game, either for a new pair or continuing the current one.
+     * @param {boolean} new - Whether to start a new pair.
      */
-    async setupGame(newSession = false) {
+    async setupGame(newPair = false) {
 
         // load new taxon set?
-        if (newSession) { this.initializeNewSession(); }
+        if (newPair) { this.initializeNewSession(); }
 
         // does GameState allow for new session?
         if (!this.canStartNewSession()) { return; }
@@ -80,7 +80,7 @@ const game = {
             let newTaxonImageCollection;
 
             // no idea what this does
-            if (newSession || !gameState.currentTaxonImageCollection) {
+            if (newPair || !gameState.currentTaxonImageCollection) {
 
                 if (this.nextSelectedPair) {
                     logger.debug("Using selected pair:", this.nextSelectedPair);
@@ -128,7 +128,7 @@ const game = {
             ui.resetUIState();
 
             // Only preload for the next session if we're starting a new one
-            if (newSession) {
+            if (newPair) {
                 this.preloadNextPair();
             }
         } catch (error) {
@@ -174,16 +174,16 @@ const game = {
 
     /**
      * Fetches a taxon image collection, with retry logic.
-     * @param {boolean} newSession - Whether this is for a new session.
+     * @param {boolean} newPair - Whether this is for a new session.
      * @returns {Promise<Object>} The fetched taxon image collection.
      */
-    async fetchTaxonImageCollection(newSession) {
+    async fetchTaxonImageCollection(newPair) {
         let attempts = 0;
         const maxAttempts = 3;
 
         while (attempts < maxAttempts) {
             try {
-                return await this.attemptFetchTaxonImageCollection(newSession);
+                return await this.attemptFetchTaxonImageCollection(newPair);
             } catch (error) {
                 attempts++;
                 if (this.shouldRetryFetch(error, attempts, maxAttempts)) {
@@ -199,11 +199,11 @@ const game = {
 
     /**
      * Attempts to fetch a taxon image collection.
-     * @param {boolean} newSession - Whether this is for a new session.
+     * @param {boolean} newPair - Whether this is for a new session.
      * @returns {Promise<Object>} The fetched taxon image collection.
      */
-    async attemptFetchTaxonImageCollection(newSession) {
-        if (newSession || !gameState.currentTaxonImageCollection) {
+    async attemptFetchTaxonImageCollection(newPair) {
+        if (newPair || !gameState.currentTaxonImageCollection) {
             if (this.nextSelectedPair) {
                 logger.debug("Using selected pair:", this.nextSelectedPair);
                 const collection = await this.initializeNewTaxonPair(this.nextSelectedPair);
