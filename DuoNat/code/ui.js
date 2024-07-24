@@ -164,7 +164,11 @@ const ui = {
             { message: "You'll see two images of different taxa.", highlights: ['#image-container-1', '#image-container-2'] },
             { message: "Drag a name to the correct image.", highlight: '.name-pair' },
             { message: "If correct, you'll move to the next round.", highlight: null, showNextImages: true },
-            { message: "Swipe left on an image for a new taxon set.", highlight: null },
+            { 
+                message: "Swipe left on an image for a new taxon set.", 
+                highlight: null,
+                action: () => this.tiltGameContainer(1200) // Add this line
+            },
             { message: "Get more info about a taxon.", highlights: ['#info-button-1', '#info-button-2'] },
             { message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => this.temporarilyOpenMenu(6000) },
             { message: "Ready to start?<br>Let's go!", highlight: null }
@@ -227,6 +231,20 @@ const ui = {
       setTimeout(() => {
         this.closeFunctionsMenu(); // Close the menu after the specified duration
       }, duration);
+    },
+
+    // for tutorial demo
+    tiltGameContainer: function(duration = 800) {
+        const gameContainer = document.querySelector('.game-container');
+        gameContainer.style.transition = `transform ${duration}ms ease-out, opacity ${duration}ms ease-out`;
+        gameContainer.style.transform = 'rotate(-3deg) translateX(-50px)';
+        gameContainer.style.opacity = '0.7';
+
+        setTimeout(() => {
+            gameContainer.style.transition = '';
+            gameContainer.style.transform = '';
+            gameContainer.style.opacity = '';
+        }, duration);
     },
 
     showNextRoundImages: function () {
