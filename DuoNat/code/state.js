@@ -33,10 +33,10 @@ export const gameState = {
     preloadedPair: null,
     currentRun: 1,
     currentSession: 1,
-    currentRound: 1,
+ /*   currentRound: 1, */
     roundPreload: null,
     pairPreload: null,
-/*
+
     currentRound: {
         pair: null,
         imageOneURLs: [],
@@ -44,7 +44,7 @@ export const gameState = {
         imageOneVernacular: null,
         imageTwoVernacular: null,
         randomized: false
-    },*/
+    },
     preloadedTaxonImageCollection: null,
     currentTaxonImageCollection: null,
     taxonImageOne: null,
