@@ -72,9 +72,13 @@ const game = {
 
       this.finishSetup();
 
-      // Preload for the next round and next pair
+      // Preload for the next round
       preloader.preloadForNextRound();
-      preloader.preloadForNextPair();
+
+      // Only preload for next pair if we don't have one already
+      if (!preloader.hasPreloadedPair()) {
+        preloader.preloadForNextPair();
+      }
 
       this.setState(GameState.PLAYING);
       this.hideLoadingScreen();

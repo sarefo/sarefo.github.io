@@ -36,6 +36,11 @@ const preloader = {
   },
 
   async preloadForNextPair() {
+    if (this.preloadedImages.nextPair.pair) {
+      logger.debug("Skipping preload for next pair as one is already available");
+      return;
+    }
+
     const newPair = await utils.selectTaxonPair();
     const [imageOneURL, imageTwoURL] = await Promise.all([
       api.fetchRandomImageMetadata(newPair.taxon1),
@@ -65,6 +70,10 @@ const preloader = {
     const images = this.preloadedImages.nextPair;
     this.preloadedImages.nextPair = { taxon1: null, taxon2: null, pair: null };
     return images;
+  },
+
+  hasPreloadedPair() {
+    return !!this.preloadedImages.nextPair.pair;
   }
 };
 
