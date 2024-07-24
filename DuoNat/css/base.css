@@ -350,15 +350,19 @@ width: 100%;
 .swipe-out-left { animation: swipeOutLeft 0.5s ease-out forwards; }
 
 .swipe-info-message {
-    position: fixed;
+    position: absolute;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.7);
-    color: red;
-    padding: 10px 20px;
-    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: var(--dark-neutral-color);
+    height: fit-content;
+    width: auto;
+    max-width: 80%;
+    padding: 4px 10px;
+    border-radius: 15px;
     font-size: 16px;
+    white-space: nowrap;
     opacity: 0;
     transition: opacity 0.3s, transform 0.3s;
     pointer-events: none;

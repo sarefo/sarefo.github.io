@@ -204,19 +204,19 @@ initializeSwipeFunctionality() {
         this.isDragging = true;
     },
 
-handleTouchStart(e) {
-   // logger.debug(`handleTouchStart called. Target: ${e.target.tagName}, closest .image-container: ${!!e.target.closest('.image-container')}, closest .info-button: ${!!e.target.closest('.info-button')}`);
-    
-    if (!e.target.closest('.image-container') || e.target.closest('.info-button')) {
-    //    logger.debug("Returning early from handleTouchStart");
-        return;
-    }
-    
-    this.startX = e.touches[0].clientX;
-    this.startY = e.touches[0].clientY;
-    this.isDragging = true;
-    //logger.debug("Touch start, dragging started. isDragging set to true.");
-},
+    handleTouchStart(e) {
+       // logger.debug(`handleTouchStart called. Target: ${e.target.tagName}, closest .image-container: ${!!e.target.closest('.image-container')}, closest .info-button: ${!!e.target.closest('.info-button')}`);
+        
+        if (!e.target.closest('.image-container') || e.target.closest('.info-button')) {
+        //    logger.debug("Returning early from handleTouchStart");
+            return;
+        }
+        
+        this.startX = e.touches[0].clientX;
+        this.startY = e.touches[0].clientY;
+        this.isDragging = true;
+        //logger.debug("Touch start, dragging started. isDragging set to true.");
+    },
 
     handleSwipeOrDrag(e) {
         if (!this.isDragging) return;
@@ -233,64 +233,29 @@ handleTouchStart(e) {
         const deltaX = this.startX - endX;
         const deltaY = Math.abs(this.startY - endY);
 
-        if (deltaX > this.swipeThreshold && deltaY < this.swipeRestraint) {
-            // Swipe left detected
-            document.querySelector('.game-container').classList.add('swipe-out-left');
+    if (deltaX > this.swipeThreshold && deltaY < this.swipeRestraint) {
+        // Swipe left detected
+        document.querySelector('.game-container').classList.add('swipe-out-left');
 
-            // Hide the swipe info message
-            const swipeInfoMessage = document.getElementById('swipe-info-message');
-            swipeInfoMessage.style.opacity = 0;
-            swipeInfoMessage.style.transform = 'translateY(0)';
+        // Hide the swipe info message
+        const swipeInfoMessage = document.getElementById('swipe-info-message');
+        swipeInfoMessage.style.opacity = 0;
 
-            setTimeout(() => {
-                document.querySelector('.game-container').classList.remove('swiping-left', 'swipe-out-left');
-                ui.resetGameContainerStyle();
-                game.loadNewRandomPair();
-            }, 500); // Match this with the animation duration
-        } else {
-            // Reset if not swiped far enough or swiped vertically
+        setTimeout(() => {
+            document.querySelector('.game-container').classList.remove('swiping-left', 'swipe-out-left');
             ui.resetGameContainerStyle();
+            game.loadNewRandomPair();
+        }, 500); // Match this with the animation duration
+    } else {
+        // Reset if not swiped far enough or swiped vertically
+        ui.resetGameContainerStyle();
 
-            // Hide the swipe info message
-            const swipeInfoMessage = document.getElementById('swipe-info-message');
-            swipeInfoMessage.style.opacity = 0;
-            swipeInfoMessage.style.transform = 'translateY(0)';
-        }
+        // Hide the swipe info message
+        const swipeInfoMessage = document.getElementById('swipe-info-message');
+        swipeInfoMessage.style.opacity = 0;
+    }
 
-        this.isDragging = false;
-    },
-
-    handleDragMove(e) {
-        logger.debug(`Drag move called, isDragging: ${this.isDragging}`);
-        if (!this.isDragging) {
-        logger.debug("not dragging in hDM");
-            return;}
-        let currentX, currentY;
-        if (e.type.includes('touch')) {
-            currentX = e.touches[0].clientX;
-            currentY = e.touches[0].clientY;
-        } else {
-            currentX = e.clientX;
-            currentY = e.clientY;
-        }
-
-        const deltaX = this.startX - currentX;
-        const deltaY = Math.abs(this.startY - currentY);
-logger.debug(`Drag move detected: deltaX = ${deltaX}, deltaY = ${deltaY}`);
-        if (deltaX > 0 && deltaY < this.swipeRestraint) {
-            const progress = Math.min(deltaX / 100, 1);
-            const rotation = progress * -5;
-            const opacity = 1 - progress * 0.5;
-
-            this.gameContainer.style.transform = `rotate(${rotation}deg) translateX(${-deltaX}px)`;
-            this.gameContainer.style.opacity = opacity;
-
-            // Show the swipe info message
-            logger.debug("show swipe info message");
-            const swipeInfoMessage = document.getElementById('swipe-info-message');
-            swipeInfoMessage.style.opacity = Math.min(progress * 2, 1); // Fade in as user swipes
-            swipeInfoMessage.style.transform = `translateY(${-20 * progress}px)`; // Slide up slightly
-        }
+    this.isDragging = false;
     },
 
     handleDragMove(e) {
@@ -315,6 +280,10 @@ logger.debug(`Drag move detected: deltaX = ${deltaX}, deltaY = ${deltaY}`);
 
             this.gameContainer.style.transform = `rotate(${rotation}deg) translateX(${-deltaX}px)`;
             this.gameContainer.style.opacity = opacity;
+
+            // Update the swipe info message
+            const swipeInfoMessage = document.getElementById('swipe-info-message');
+            swipeInfoMessage.style.opacity = progress.toFixed(2); // Fade in smoothly
         }
     },
 
@@ -332,15 +301,6 @@ logger.debug(`Drag move detected: deltaX = ${deltaX}, deltaY = ${deltaY}`);
         });
     },
 
- /*  handleKeyboardShortcuts: function(event) {
-        if (this.debouncedKeyboardHandler) {
-            this.debouncedKeyboardHandler(event);
-        } else {
-            this.debouncedKeyboardHandler = utils.debounce(this._handleKeyboardShortcuts.bind(this), 300);
-            this.debouncedKeyboardHandler(event);
-        }
-    },
-*/
     _handleKeyboardShortcuts(event) {
 //        logger.debug("Keyboard event:", event.key);
         if (dialogManager.isAnyDialogOpen() || 
