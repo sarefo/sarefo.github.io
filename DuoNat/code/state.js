@@ -43,7 +43,6 @@ export const gameState = {
     // check which of these still used:
     isFirstLoad: true,
   isInitialLoad: true,
-  hasLoadedFullSet: false,
   isPreloading: false,
   preloadedPair: null,
   currentSession: 1,

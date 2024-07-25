@@ -34,8 +34,6 @@ const eventHandlers = {
         this.debouncedKeyboardHandler = utils.debounce(this._handleKeyboardShortcuts.bind(this), 300);
 
         // Ensure keyboard shortcuts are properly set up
-        //document.removeEventListener('keydown', this.handleKeyboardShortcuts);
-        //document.addEventListener('keydown', this.handleKeyboardShortcuts.bind(this));
         document.removeEventListener('keydown', this.debouncedKeyboardHandler);
         document.addEventListener('keydown', this.debouncedKeyboardHandler);
     },
@@ -47,38 +45,27 @@ initializeSwipeFunctionality() {
         return;
     }
 
-  //  logger.debug("Setting up event listeners for swipe functionality");
-
     [elements.imageOneContainer, elements.imageTwoContainer].forEach((container, index) => {
-  //      logger.debug(`Setting up listeners for container ${index + 1}`);
-        
         container.addEventListener('mousedown', (e) => {
-  //          logger.debug(`Mousedown on container ${index + 1}`);
             this.handleMouseDown(e);
         });
         container.addEventListener('touchstart', (e) => {
- //           logger.debug(`Touchstart on container ${index + 1}`);
             this.handleTouchStart(e);
         }, { passive: true });
         container.addEventListener('mousemove', (e) => {
- //           logger.debug(`Mousemove on container ${index + 1}`);
             this.handleDragMove(e);
         });
         container.addEventListener('touchmove', (e) => {
-  //          logger.debug(`Touchmove on container ${index + 1}`);
             this.handleDragMove(e);
         }, { passive: true });
         container.addEventListener('mouseup', (e) => {
-    //        logger.debug(`Mouseup on container ${index + 1}`);
             this.handleSwipeOrDrag(e);
         });
         container.addEventListener('touchend', (e) => {
-     //       logger.debug(`Touchend on container ${index + 1}`);
             this.handleSwipeOrDrag(e);
         });
     });
 
-//    logger.debug("Swipe functionality initialized");
 },
 
     safeAddEventListener(id, eventType, handler) {
@@ -107,17 +94,9 @@ initializeSwipeFunctionality() {
             dialogManager.openDialog('enter-pair-dialog');
             ui.closeFunctionsMenu(); // Close menu after action
         });
-/*        this.safeAddEventListener('info-button-1', 'click', () => {
-            this.openDialog('info-dialog');
-        });
-        this.safeAddEventListener('info-button-1', 'click', () => {
-            this.openDialog('info-dialog');
-        }); */
         this.safeAddEventListener('random-pair-button', 'click', () => {
             game.loadNewRandomPair();
             ui.closeFunctionsMenu(); // Close menu after action
-/*            game.setupGame(true);
-            ui.closeFunctionsMenu(); // Close menu after action*/
         });
         this.safeAddEventListener('like-button', 'click', () => {
             this.likePair();
@@ -136,12 +115,6 @@ initializeSwipeFunctionality() {
     initializeAllEventListeners() {
         dragAndDrop.initialize();
 
-        // button listeners
-        //document.getElementById('share-button').addEventListener('click', this.shareCurrentPair);
-        //document.getElementById('phylogeny-button').addEventListener('click', game.showTaxaRelationship);
-        /*document.getElementById('random-pair-button').addEventListener('click', async () => { await game.setupGame(true); });
-        document.getElementById('select-pair-button').addEventListener('click', () => ui.showTaxonPairList());
-*/
         // touch events
         [elements.imageOneContainer, elements.imageTwoContainer].forEach(container => {
             container.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: true });
@@ -161,13 +134,11 @@ initializeSwipeFunctionality() {
         });
 
         // Keyboard shortcuts
-//        document.addEventListener('keydown', this.handleKeyboardShortcuts.bind(this));
         document.addEventListener('keydown', this.debouncedKeyboardHandler);
 
         // Help button functionality
         document.getElementById('help-button').addEventListener('click', () => {
             dialogManager.openDialog('help-dialog');
-            //           document.getElementById('help-dialog').showModal();
         });
         document.getElementById('start-tutorial-button').addEventListener('click', () => {
             ui.showTutorial();
@@ -176,12 +147,6 @@ initializeSwipeFunctionality() {
             window.open('https://discord.gg/DcWrhYHmeM', '_blank');
         });
 
-        // Prevent scrolling in the name-pair area
-//        elements.namePair.addEventListener('touchmove', (event) => { event.preventDefault(); }, { passive: false });
-//        elements.namePair.addEventListener('wheel', (event) => { event.preventDefault(); }, { passive: false });
-
-        // Scroll to top when a button is clicked
-//        elements.buttons.forEach(button => { button.addEventListener('click', () => { ui.scrollToTop(); }); });
     },
 
     handleThumbsUp(index) {
@@ -205,17 +170,14 @@ initializeSwipeFunctionality() {
     },
 
     handleTouchStart(e) {
-       // logger.debug(`handleTouchStart called. Target: ${e.target.tagName}, closest .image-container: ${!!e.target.closest('.image-container')}, closest .info-button: ${!!e.target.closest('.info-button')}`);
         
         if (!e.target.closest('.image-container') || e.target.closest('.info-button')) {
-        //    logger.debug("Returning early from handleTouchStart");
             return;
         }
         
         this.startX = e.touches[0].clientX;
         this.startY = e.touches[0].clientY;
         this.isDragging = true;
-        //logger.debug("Touch start, dragging started. isDragging set to true.");
     },
 
     handleSwipeOrDrag(e) {
@@ -359,52 +321,6 @@ initializeSwipeFunctionality() {
                 break;
         }
     },
-/*    _handleKeyboardShortcuts: function(event) {
-        logger.debug("Keyboard event:", event.key);
-
-        if (dialogManager.isAnyDialogOpen() || 
-            document.getElementById('info-dialog').open || 
-            dialogManager.activeDialog || 
-            document.getElementById('enter-pair-dialog').open ||
-            this.isLoadingNewPair) {
-                logger.debug("Dialog is open or already loading, ignoring keyboard shortcut");
-                return;
-            }
-
-            if (event.key === 'r' || event.key === 'R' || event.key === 'ArrowLeft') {
-//                event.preventDefault();
-                game.loadNewRandomPair();
-                return;
-            }
-            if (event.key === 's' || event.key === 'S') {
-                document.getElementById('select-pair-button').click();
-            }
-            if (event.key === 'h' || event.key === 'H') {
-                document.getElementById('help-button').click();
-            }
-            if (event.key === 'e' || event.key === 'E') {
-                dialogManager.openDialog('enter-pair-dialog');
-            }
-            if (event.key === 'm' || event.key === 'M') {
-                logger.debug("'M' key pressed, attempting to toggle menu");
-        //        event.preventDefault(); // Prevent default action
-                ui.toggleFunctionsMenu();
-                return; // Exit the function after toggling
-            }
-            if (event.key === 'p' || event.key === 'f') {
-                document.getElementById('surprise-button').click();
-            }
-            if (event.key === 'g' || event.key === 'G') {
-                document.getElementById('phylogeny-button').click();
-            }
-            if (event.key === 'i' || event.key === 'I') {
-                document.getElementById('info-button-1').click();
-            }
-            if (event.key === 'o' || event.key === 'O') {
-                document.getElementById('info-button-2').click();
-            }
-
-    },*/
 
     // move to other module, utils?
     shareCurrentPair() {
