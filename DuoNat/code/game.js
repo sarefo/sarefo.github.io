@@ -289,16 +289,6 @@ const game = {
     },
 
     /**
-     * Handles the initial load of the game.
-     */
-    handleInitialLoad() {
-        if (gameState.isInitialLoad) {
-            this.hideLoadingScreen();
-            updateGameState({ isInitialLoad: false });
-        }
-    },
-
-    /**
      * Handles errors that occur during game setup.
      * @param {Error} error - The error that occurred.
      */
@@ -309,35 +299,6 @@ const game = {
         if (gameState.isInitialLoad) {
             this.hideLoadingScreen();
             updateGameState({ isInitialLoad: false });
-        }
-    },
-
-    /**
-     * Preloads the next pair of taxa.
-     */
-    async preloadNextPair() {
-        if (this.preloadedPair) return; // Don't preload if we already have a preloaded pair
-
-        logger.debug("Starting to preload next pair for a new pair");
-        this.preloadedPair = await this.initializeNewTaxonPair();
-
-        try {
-            const [newImageOneURL, newImageTwoURL] = await Promise.all([
-                api.fetchRandomImageMetadata(this.preloadedPair.pair.taxon1),
-                api.fetchRandomImageMetadata(this.preloadedPair.pair.taxon2)
-            ]);
-
-            await Promise.all([
-                this.preloadImage(newImageOneURL),
-                this.preloadImage(newImageTwoURL)
-            ]);
-
-            this.preloadedImages.next.taxon1 = [newImageOneURL];
-            this.preloadedImages.next.taxon2 = [newImageTwoURL];
-
-            logger.debug("Finished preloading next pair for a new pair");
-        } catch (error) {
-            logger.error("Error preloading images for next pair:", error);
         }
     },
 
@@ -361,20 +322,6 @@ const game = {
             imageOneVernacular: null,
             imageTwoVernacular: null
         };
-    },
-
-    /**
-     * Gets new random images for the current taxon pair.
-     * @returns {Promise<Object>} Object containing new image URLs for the current pair.
-     */
-    async getNewRandomImagesForCurrentPair() {
-        const { pair } = gameState.currentTaxonImageCollection;
-        const [newImageOneURL, newImageTwoURL] = await Promise.all([
-            api.fetchRandomImage(pair.taxon1),
-            api.fetchRandomImage(pair.taxon2)
-        ]);
-
-        return { newImageOneURL, newImageTwoURL };
     },
 
     /**
