@@ -216,7 +216,7 @@ const api = (() => {
                     logger.error(`Error fetching ancestor details for ID ${id}:`, error);
                 }
             }
-  //      console.log(Array.from(ancestorDetails.entries()));
+//            logger.debug(`Fetching ancestry from iNat: ${Array.from(ancestorDetails.entries())}`);
             return ancestorDetails;
         }
     };
