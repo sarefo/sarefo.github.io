@@ -172,7 +172,7 @@ const api = (() => {
             return data.results[0].id;
         },
 
-        fetchTaxonAncestry: async function (taxonName) {
+/*        fetchTaxonAncestry: async function (taxonName) {
             logger.debug(`Fetching ancestry for ${taxonName}`);
             try {
                 const taxonId = await this.fetchTaxonId(taxonName);
@@ -190,7 +190,7 @@ const api = (() => {
                 return [];
             }
         },
-
+*/
         fetchTaxonDetails: async function (name) {
             try {
                 const response = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${encodeURIComponent(name)}&per_page=1&all_names=true`);
@@ -216,6 +216,7 @@ const api = (() => {
                     logger.error(`Error fetching ancestor details for ID ${id}:`, error);
                 }
             }
+  //      console.log(Array.from(ancestorDetails.entries()));
             return ancestorDetails;
         }
     };
