@@ -160,14 +160,10 @@ const ui = {
     showTutorial: function () {
         const steps = [
 
-            { message: "Welcome to DuoNat!<br>Let's learn how to play.", highlight: null },
-            { message: "You'll see two images of different taxa.", highlights: ['#image-container-1', '#image-container-2'] },
-            { message: "Drag a name to the correct image.", highlight: '.name-pair' },
-            { message: "If correct, you'll move to the next round.", highlight: null, showNextImages: true },
             { 
                 message: "Swipe left on an image for a new taxon set.", 
                 highlight: null,
-                action: () => this.tiltGameContainer(1200) // Add this line
+                action: () => this.tiltGameContainer(3200)
             },
             { message: "Get more info about a taxon.", highlights: ['#info-button-1', '#info-button-2'] },
             { message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => this.temporarilyOpenMenu(6000) },
@@ -234,16 +230,25 @@ const ui = {
     },
 
     // for tutorial demo
-    tiltGameContainer: function(duration = 800) {
+    tiltGameContainer: function(duration = 3200) {
         const gameContainer = document.querySelector('.game-container');
-        gameContainer.style.transition = `transform ${duration}ms ease-out, opacity ${duration}ms ease-out`;
+        const midpoint = duration / 2;
+
+        // Initial tilt
+        gameContainer.style.transition = `transform ${midpoint}ms ease-out, opacity ${midpoint}ms ease-out`;
         gameContainer.style.transform = 'rotate(-3deg) translateX(-50px)';
         gameContainer.style.opacity = '0.7';
 
+        // Return to original position
         setTimeout(() => {
-            gameContainer.style.transition = '';
+            gameContainer.style.transition = `transform ${midpoint}ms ease-in, opacity ${midpoint}ms ease-in`;
             gameContainer.style.transform = '';
             gameContainer.style.opacity = '';
+        }, midpoint);
+
+        // Clean up
+        setTimeout(() => {
+            gameContainer.style.transition = '';
         }, duration);
     },
 
