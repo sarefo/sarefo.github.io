@@ -532,7 +532,7 @@ const game = {
 
     logger.debug("Loading new random pair");
     this.setState(GameState.LOADING);
-    ui.showOverlay('${this.loadingMessage}', config.overlayColors.green);
+    ui.showOverlay(`${this.loadingMessage}`, config.overlayColors.green);
     elements.imageOne.classList.add('loading');
     elements.imageTwo.classList.add('loading');
     
