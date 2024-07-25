@@ -10,10 +10,10 @@ const api = (() => {
         loadTaxaInfo: async function() {
             if (taxaInfo === null) {
                 try {
-                    const response = await fetch('./data/taxa_info.json');
+                    const response = await fetch('./data/taxaInfo.json');
                     taxaInfo = await response.json();
                 } catch (error) {
-                    logger.error('Error loading taxa_info.json:', error);
+                    logger.error('Error loading taxaInfo.json:', error);
                     taxaInfo = {};
                 }
             }

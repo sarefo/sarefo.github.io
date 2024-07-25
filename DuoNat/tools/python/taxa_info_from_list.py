@@ -35,30 +35,48 @@ def fetch_taxon_info(taxon_name):
         "distributionMapUrl": distribution_map_url
     }
 
-def read_taxa_file(file_path):
-    with open(file_path, "r") as file:
-        taxa = [line.strip() for line in file if line.strip()]
-    return taxa
+def read_json_file(file_path):
+    with open(file_path, 'r') as file:
+        return json.load(file)
 
 def write_json_file(data, output_path):
     with open(output_path, "w") as file:
         json.dump(data, file, indent=2)
 
-def main(input_file, output_file):
-    taxa = read_taxa_file(input_file)
-    result = {}
+def get_unique_taxa(taxon_pairs):
+    unique_taxa = set()
+    for pair in taxon_pairs:
+        unique_taxa.add(pair['taxon1'])
+        unique_taxa.add(pair['taxon2'])
+    return list(unique_taxa)
 
-    for taxon in taxa:
+def main(taxon_pairs_file, taxa_info_file, output_file):
+    taxon_pairs = read_json_file(taxon_pairs_file)
+    taxa_info = read_json_file(taxa_info_file)
+    
+    unique_taxa = get_unique_taxa(taxon_pairs)
+    existing_taxa_names = set(info['taxonName'] for info in taxa_info.values())
+    
+    taxa_to_fetch = set(unique_taxa) - existing_taxa_names
+    
+    for taxon in taxa_to_fetch:
         print(f"Fetching data for: {taxon}")
         taxon_id, taxon_info = fetch_taxon_info(taxon)
         if taxon_info:
-            result[taxon_id] = taxon_info
-            write_json_file(result, output_file)
-            print(f"Data for {taxon} (ID: {taxon_id}) saved to {output_file}")
+            taxa_info[taxon_id] = taxon_info
+            write_json_file(taxa_info, output_file)
+            inat_taxon_name = taxon_info['taxonName']
+            print(f"Data saved for taxon:")
+            print(f"  - Original name in taxonPairs: {taxon}")
+            print(f"  - Official name from iNaturalist: {inat_taxon_name}")
+            print(f"  - ID: {taxon_id}")
+            print("---")
         time.sleep(2)  # Wait for 2 seconds between requests to avoid overloading the server
 
-if __name__ == "__main__":
-    input_file = "../../data/taxa.txt"  # Replace with your input file path
-    output_file = "../../data/taxa_info2.json"  # Replace with your output file path
-    main(input_file, output_file)
+    print(f"All taxa information updated and saved to {output_file}")
 
+if __name__ == "__main__":
+    taxon_pairs_file = "../../data/taxonPairs.json"
+    taxa_info_file = "../../data/taxaInfo.json"
+    output_file = "../../data/taxaInfo.json.new"
+    main(taxon_pairs_file, taxa_info_file, output_file)
