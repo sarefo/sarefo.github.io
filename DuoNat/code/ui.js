@@ -157,60 +157,54 @@ const ui = {
         dialogManager.closeDialog();
     },
 
-    showTutorial: function () {
-        const steps = [
+showTutorial: function () {
+    const steps = [
+        { message: "Welcome to DuoNat!<br>Let's learn how to play.", highlight: null },
+        { message: "You'll see two images of different taxa.", highlights: ['#image-container-1', '#image-container-2'] },
+        { message: "Drag a name to the correct image.", highlight: '.name-pair' },
+        { message: "If correct, you'll move to the next round.", highlight: null, },
+        { 
+            message: "Swipe left on an image for a new taxon set.", 
+            highlight: null,
+            action: () => { this.tiltGameContainer(3200); }
+        },
+        { message: "Get more info about a taxon.", highlights: ['#info-button-1', '#info-button-2'] },
+        { message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => this.temporarilyOpenMenu(6000) },
+        { message: "Ready to start?<br>Let's go!", highlight: null }
+    ];
 
-            { 
-                message: "Swipe left on an image for a new taxon set.", 
-                highlight: null,
-                action: () => this.tiltGameContainer(3200)
-            },
-            { message: "Get more info about a taxon.", highlights: ['#info-button-1', '#info-button-2'] },
-            { message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => this.temporarilyOpenMenu(6000) },
-            { message: "Ready to start?<br>Let's go!", highlight: null }
-        ];
+    let currentStep = 0;
+    let highlightElements = [];
 
-        let currentStep = 0;
-        let highlightElements = [];
+    const showStep = () => {
+        if (currentStep < steps.length) {
+            const step = steps[currentStep];
+            this.updateOverlayMessage(step.message);
 
-        const showStep = () => {
-            if (currentStep < steps.length) {
-                const step = steps[currentStep];
-                this.updateOverlayMessage(step.message);
+            highlightElements.forEach(el => el.remove());
+            highlightElements = [];
 
-                highlightElements.forEach(el => el.remove());
-                highlightElements = [];
-
-                if (step.highlight) {
-                    const highlight = this.createHighlight(step.highlight);
+            if (step.highlight) {
+                const highlight = this.createHighlight(step.highlight);
+                if (highlight) highlightElements.push(highlight);
+            } else if (step.highlights) {
+                step.highlights.forEach(selector => {
+                    const highlight = this.createHighlight(selector);
                     if (highlight) highlightElements.push(highlight);
-                } else if (step.highlights) {
-                    step.highlights.forEach(selector => {
-                        const highlight = this.createHighlight(selector);
-                        if (highlight) highlightElements.push(highlight);
-                    });
-                }
-
-                if (step.action) {
-                    step.action();
-                }
-
-                if (step.showNextImages) {
-                    this.showNextRoundImages();
-                } else if (this.originalImages) {
-                    this.restoreOriginalImages();
-                }
-
-                currentStep++;
-                setTimeout(showStep, 6000); // Show each step for 6 seconds
-            } else {
-                this.hideOverlay();
-                highlightElements.forEach(el => el.remove());
-                if (this.originalImages) {
-                    this.restoreOriginalImages();
-                }
+                });
             }
-        };
+
+            if (step.action) {
+                step.action();
+            }
+
+            currentStep++;
+            setTimeout(showStep, 6000); // Show each step for 6 seconds
+        } else {
+            this.hideOverlay();
+            highlightElements.forEach(el => el.remove());
+        }
+    };
 
         // Close the help dialog before starting the tutorial
         document.getElementById('help-dialog').close();
@@ -250,48 +244,6 @@ const ui = {
         setTimeout(() => {
             gameContainer.style.transition = '';
         }, duration);
-    },
-
-    showNextRoundImages: function () {
-        const imageOne = document.getElementById('image-1');
-        const imageTwo = document.getElementById('image-2');
-
-        // Store original images if not already stored
-        if (!this.originalImages) {
-            this.originalImages = {
-                one: imageOne.src,
-                two: imageTwo.src
-            };
-        }
-
-        // Show preloaded images for next round
-        if (game.preloadedImages && game.preloadedImages.taxon1 && game.preloadedImages.taxon1.length > 0 &&
-            game.preloadedImages.taxon2 && game.preloadedImages.taxon2.length > 0) {
-            imageOne.src = game.preloadedImages.taxon1[0];
-            imageTwo.src = game.preloadedImages.taxon2[0];
-        } else {
-            console.warn('Preloaded images for the next round are not available.');
-        }
-    },
-
-    restoreOriginalImages: function () {
-        if (this.originalImages) {
-            const imageOne = document.getElementById('image-1');
-            const imageTwo = document.getElementById('image-2');
-            imageOne.src = this.originalImages.one;
-            imageTwo.src = this.originalImages.two;
-            this.originalImages = null;
-        }
-    },
-
-    restoreOriginalImages: function () {
-        if (this.originalImages) {
-            const imageOne = document.getElementById('image-1');
-            const imageTwo = document.getElementById('image-2');
-            imageOne.src = this.originalImages.one;
-            imageTwo.src = this.originalImages.two;
-            this.originalImages = null;
-        }
     },
 
     createHighlight: function (targetSelector) {
