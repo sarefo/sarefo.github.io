@@ -38,7 +38,7 @@ const game = {
      * @param {GameState} newState - The new state to set.
      */
     setState(newState) {
-        logger.debug(`Game state changing from ${this.currentState} to ${newState}`);
+//        logger.debug(`Game state changing from ${this.currentState} to ${newState}`);
         this.currentState = newState;
     },
 
@@ -103,7 +103,7 @@ const game = {
       // Use the manually selected pair if available
       newPair = this.nextSelectedPair;
       this.nextSelectedPair = null; // Clear the selected pair after use
-      logger.debug("Using manually selected pair:", newPair);
+//      logger.debug("Using manually selected pair:", newPair);
       [imageOneURL, imageTwoURL] = await Promise.all([
         api.fetchRandomImageMetadata(newPair.taxon1),
         api.fetchRandomImageMetadata(newPair.taxon2)
@@ -115,14 +115,14 @@ const game = {
         newPair = preloadedPair.pair;
         imageOneURL = preloadedPair.taxon1;
         imageTwoURL = preloadedPair.taxon2;
-        logger.debug("Using preloaded pair:", newPair);
+//        logger.debug("Using preloaded pair:", newPair);
       } else {
         newPair = await utils.selectTaxonPair();
         [imageOneURL, imageTwoURL] = await Promise.all([
           api.fetchRandomImageMetadata(newPair.taxon1),
           api.fetchRandomImageMetadata(newPair.taxon2)
         ]);
-        logger.debug("Fetched new random pair:", newPair);
+//        logger.debug("Fetched new random pair:", newPair);
       }
     }
 
@@ -134,7 +134,7 @@ const game = {
       }
     });
     
-    logger.debug("New pair initialized:", newPair);
+//    logger.debug("New pair initialized:", newPair);
 
     await this.setupRound(true);
   },
@@ -148,19 +148,19 @@ const game = {
     if (isNewPair) {
       imageOneURL = gameState.currentTaxonImageCollection.imageOneURL;
       imageTwoURL = gameState.currentTaxonImageCollection.imageTwoURL;
-      logger.debug("Using images from new pair initialization");
+//      logger.debug("Using images from new pair initialization");
     } else {
       const preloadedImages = preloader.getPreloadedImagesForNextRound();
       if (preloadedImages && preloadedImages.taxon1 && preloadedImages.taxon2) {
         imageOneURL = preloadedImages.taxon1;
         imageTwoURL = preloadedImages.taxon2;
-        logger.debug("Using preloaded images for next round");
+//        logger.debug("Using preloaded images for next round");
       } else {
         [imageOneURL, imageTwoURL] = await Promise.all([
           api.fetchRandomImageMetadata(pair.taxon1),
           api.fetchRandomImageMetadata(pair.taxon2)
         ]);
-        logger.debug("Fetched new images for round");
+//        logger.debug("Fetched new images for round");
       }
     }
 
@@ -198,7 +198,7 @@ const game = {
       }
     });
 
-    logger.debug(`Images for this round: ${imageOneURL}, ${imageTwoURL}`);
+//    logger.debug(`Images for this round: ${imageOneURL}, ${imageTwoURL}`);
   },
 
     /**
@@ -248,12 +248,12 @@ const game = {
     async attemptFetchTaxonImageCollection(newPair) {
         if (newPair || !gameState.currentTaxonImageCollection) {
             if (this.nextSelectedPair) {
-                logger.debug("Using selected pair:", this.nextSelectedPair);
+//                logger.debug("Using selected pair:", this.nextSelectedPair);
                 const collection = await this.initializeNewTaxonPair(this.nextSelectedPair);
                 this.nextSelectedPair = null;
                 return collection;
             } else if (this.preloadedPair) {
-                logger.debug("Using preloaded pair");
+//                logger.debug("Using preloaded pair");
                 const collection = this.preloadedPair;
                 this.preloadedPair = null;
                 return collection;
@@ -362,7 +362,7 @@ const game = {
      */
     async preloadImagesForCurrentPair() {
         const { pair } = gameState.currentTaxonImageCollection;
-        logger.debug("Starting to preload images for next round of current pair");
+//        logger.debug("Starting to preload images for next round of current pair");
 
         try {
             const [newImageOneURL, newImageTwoURL] = await Promise.all([
@@ -378,7 +378,7 @@ const game = {
             this.preloadedImages.current.taxon1.push(newImageOneURL);
             this.preloadedImages.current.taxon2.push(newImageTwoURL);
 
-            logger.debug("Finished preloading images for next round of current pair");
+//            logger.debug("Finished preloading images for next round of current pair");
         } catch (error) {
             logger.error("Error preloading images for current pair:", error);
         }
@@ -400,12 +400,12 @@ const game = {
     },
 
     loadImages: async function (leftImageSrc, rightImageSrc) {
-        logger.debug("Loading images:", { leftImageSrc, rightImageSrc });
+//        logger.debug("Loading images:", { leftImageSrc, rightImageSrc });
         await Promise.all([
             this.loadImageAndRemoveLoadingClass(elements.imageOne, leftImageSrc),
             this.loadImageAndRemoveLoadingClass(elements.imageTwo, rightImageSrc)
         ]);
-        logger.debug("Finished loading images");
+//        logger.debug("Finished loading images");
     },
 
     async loadImageAndRemoveLoadingClass(imgElement, src) {
@@ -578,12 +578,12 @@ const game = {
 
     finishSetup: function () {
         ui.hideOverlay();
-        logger.debug('Setup complete:', {
-            taxonImageOne: gameState.taxonImageOne,
-            taxonImageTwo: gameState.taxonImageTwo,
-            taxonLeftName: gameState.taxonLeftName,
-            taxonRightName: gameState.taxonRightName
-        });
+//        logger.debug('Setup complete:', {
+//            taxonImageOne: gameState.taxonImageOne,
+//            taxonImageTwo: gameState.taxonImageTwo,
+//            taxonLeftName: gameState.taxonLeftName,
+//            taxonRightName: gameState.taxonRightName
+//        });
     },
 
     // TODO for now only gives photo page
