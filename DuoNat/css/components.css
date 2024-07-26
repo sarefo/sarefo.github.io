@@ -414,6 +414,8 @@ width: 80%;
 
 /* Styles for select taxon pair list dialog */
 #select-pair-dialog {
+    max-width: 90%;
+    width: 400px;
     height: 90vh;
     max-height: 90vh;
     padding: 20px;
@@ -433,6 +435,7 @@ width: 80%;
 
 .taxon-pair-list {
     flex-grow: 1;
+    max-height: calc(80vh - 150px);
     overflow-y: auto;
     padding-bottom: 20px; /* This creates the gap at the bottom */
     margin-bottom: 0;
@@ -459,67 +462,51 @@ width: 80%;
     scrollbar-width: thin;
     scrollbar-color: rgba(0,0,0,0.2) transparent;
 }
-/*
+
 .taxon-pair-button {
     display: block;
     width: 100%;
     padding: 10px;
     margin: 10px 0;
-    color: var(--text-color);
     background-color: var(--primary-color);
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: larger;
     transition: background-color 0.3s ease;
-    flex-shrink: 0;
 }
 
 .taxon-pair-button:hover {
     background-color: #5c8a00;
 }
 
-.taxon-pair-versus {
-    color: rgba(255, 255, 255, 0.7);
-    margin: 0 5px;
+.taxon-pair-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
 }
-*/
 
-.taxon-pair-button {
+.taxon-item {
+    flex: 1;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
+    padding: 5px;
     color: var(--text-color);
-    background-color: var(--primary-color);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
 }
 
-.taxon-pair-button:hover {
-    background-color: #5c8a00;
-}
-
-.taxon-pair-button .scientific-names {
+.taxon-name {
+    font-style: italic;
+    font-weight: bold;
     font-size: 1em;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
 }
 
-.taxon-pair-button .vernacular-names {
-    font-size: 0.8em;
+.vernacular-name {
+    font-size: 0.9em;
     color: rgba(255, 255, 255, 0.8);
 }
 
-.taxon-pair-versus {
-    color: rgba(255, 255, 255, 0.7);
-    margin: 0 5px;
-}
 
 .taxon-pair-content {
     background-color: white;

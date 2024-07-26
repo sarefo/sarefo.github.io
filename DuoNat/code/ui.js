@@ -57,11 +57,15 @@ const ui = {
                 button.setAttribute('data-vernacular1', vernacular1.toLowerCase());
                 button.setAttribute('data-vernacular2', vernacular2.toLowerCase());
                 button.innerHTML = `
-                    <div class="scientific-names">
-                        <i>${pair.taxon1}</i> <span class="taxon-pair-versus">vs</span> <i>${pair.taxon2}</i>
-                    </div>
-                    <div class="vernacular-names">
-                        <span>${vernacular1}</span> <span class="taxon-pair-versus">vs</span> <span>${vernacular2}</span>
+                    <div class="taxon-pair-container">
+                        <div class="taxon-item">
+                            <div class="taxon-name">${pair.taxon1}</div>
+                            <div class="vernacular-name">${vernacular1}</div>
+                        </div>
+                        <div class="taxon-item">
+                            <div class="taxon-name">${pair.taxon2}</div>
+                            <div class="vernacular-name">${vernacular2}</div>
+                        </div>
                     </div>
                 `;
                 button.onclick = () => {

@@ -50,7 +50,7 @@ const taxaRelationshipViewer = {
     spinner.className = 'loading-spinner';
 
     const message = document.createElement('p');
-    message.innerHTML = '<span>Building relationship graph...</span><br><br><span>Click on a node to open the taxon in iNaturalist!</span>';
+    message.innerHTML = '<span>Building relationship graph...';
 
     this.loadingIndicator.appendChild(logo);
     this.loadingIndicator.appendChild(spinner);
