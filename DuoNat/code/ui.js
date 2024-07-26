@@ -52,6 +52,10 @@ const ui = {
 
                 const button = document.createElement('button');
                 button.className = 'taxon-pair-button';
+                button.setAttribute('data-taxon1', pair.taxon1.toLowerCase());
+                button.setAttribute('data-taxon2', pair.taxon2.toLowerCase());
+                button.setAttribute('data-vernacular1', vernacular1.toLowerCase());
+                button.setAttribute('data-vernacular2', vernacular2.toLowerCase());
                 button.innerHTML = `
                     <div class="scientific-names">
                         <i>${pair.taxon1}</i> <span class="taxon-pair-versus">vs</span> <i>${pair.taxon2}</i>
@@ -70,9 +74,15 @@ const ui = {
 
             const renderFilteredList = async (filter = '') => {
                 const fragment = document.createDocumentFragment();
+                const lowerFilter = filter.toLowerCase();
                 for (const pair of taxonPairs) {
-                    if (pair.taxon1.toLowerCase().includes(filter) || pair.taxon2.toLowerCase().includes(filter)) {
-                        const button = await createTaxonPairButton(pair);
+                    const button = await createTaxonPairButton(pair);
+                    const matchesTaxon = button.getAttribute('data-taxon1').includes(lowerFilter) || 
+                                         button.getAttribute('data-taxon2').includes(lowerFilter);
+                    const matchesVernacular = button.getAttribute('data-vernacular1').includes(lowerFilter) || 
+                                              button.getAttribute('data-vernacular2').includes(lowerFilter);
+                    
+                    if (matchesTaxon || matchesVernacular) {
                         fragment.appendChild(button);
                     }
                 }
