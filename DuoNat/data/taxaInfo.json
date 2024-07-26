@@ -23092,6 +23092,44 @@
     ],
     "rank": "suborder",
     "distributionMapUrl": ""
+  },
+  "623965": {
+    "taxonName": "Mobula alfredi",
+    "vernacularName": "Reef Manta Ray",
+    "ancestryIds": [
+      48460,
+      1,
+      2,
+      355675,
+      47273,
+      505362,
+      448201,
+      196615,
+      715805,
+      49697,
+      623965
+    ],
+    "rank": "species",
+    "distributionMapUrl": ""
+  },
+  "623966": {
+    "taxonName": "Mobula birostris",
+    "vernacularName": "Oceanic Manta Ray",
+    "ancestryIds": [
+      48460,
+      1,
+      2,
+      355675,
+      47273,
+      505362,
+      448201,
+      196615,
+      715805,
+      49697,
+      623966
+    ],
+    "rank": "species",
+    "distributionMapUrl": ""
   }
 }
 
