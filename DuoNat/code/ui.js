@@ -46,16 +46,9 @@ const ui = {
 
             list.innerHTML = ''; // Clear existing content
 
-            const createTaxonPairButton = async (pair) => {
-                const vernacular1 = await api.getVernacularName(pair.taxon1);
-                const vernacular2 = await api.getVernacularName(pair.taxon2);
-
+            const createTaxonPairButton = (pair, vernacular1, vernacular2) => {
                 const button = document.createElement('button');
                 button.className = 'taxon-pair-button';
-                button.setAttribute('data-taxon1', pair.taxon1.toLowerCase());
-                button.setAttribute('data-taxon2', pair.taxon2.toLowerCase());
-                button.setAttribute('data-vernacular1', vernacular1.toLowerCase());
-                button.setAttribute('data-vernacular2', vernacular2.toLowerCase());
                 button.innerHTML = `
                     <div class="taxon-pair-container">
                         <div class="taxon-item">
@@ -80,13 +73,16 @@ const ui = {
                 const fragment = document.createDocumentFragment();
                 const lowerFilter = filter.toLowerCase();
                 for (const pair of taxonPairs) {
-                    const button = await createTaxonPairButton(pair);
-                    const matchesTaxon = button.getAttribute('data-taxon1').includes(lowerFilter) || 
-                                         button.getAttribute('data-taxon2').includes(lowerFilter);
-                    const matchesVernacular = button.getAttribute('data-vernacular1').includes(lowerFilter) || 
-                                              button.getAttribute('data-vernacular2').includes(lowerFilter);
+                    const vernacular1 = await api.getVernacularName(pair.taxon1);
+                    const vernacular2 = await api.getVernacularName(pair.taxon2);
+                    
+                    const matchesTaxon = pair.taxon1.toLowerCase().includes(lowerFilter) || 
+                                         pair.taxon2.toLowerCase().includes(lowerFilter);
+                    const matchesVernacular = vernacular1.toLowerCase().includes(lowerFilter) || 
+                                              vernacular2.toLowerCase().includes(lowerFilter);
                     
                     if (matchesTaxon || matchesVernacular) {
+                        const button = createTaxonPairButton(pair, vernacular1, vernacular2);
                         fragment.appendChild(button);
                     }
                 }

@@ -361,8 +361,8 @@ z-index: 5000; /* debug */
     border: none;
     box-shadow: 0 0 10px var(--shadow-color);
     padding: 40px 20px 20px;
-             max-width: 400px;
-width: 80%;
+    max-width: 400px;
+    width: 80%;
 }
 #enter-pair-dialog form {
     display: flex;
@@ -414,11 +414,11 @@ width: 80%;
 
 /* Styles for select taxon pair list dialog */
 #select-pair-dialog {
-    max-width: 90%;
-    width: 400px;
+    width: 95%;
+    max-width: var(--max-image-width);
     height: 90vh;
     max-height: 90vh;
-    padding: 20px;
+    padding: 10px;
 }
 
 #select-pair-dialog .dialog-inner {
@@ -437,13 +437,13 @@ width: 80%;
     flex-grow: 1;
     max-height: calc(80vh - 150px);
     overflow-y: auto;
-    padding-bottom: 20px; /* This creates the gap at the bottom */
+    padding-bottom: 10px; /* This creates the gap at the bottom */
     margin-bottom: 0;
 }
 
 /* Adjust the scrollable area to leave space at the bottom */
 #select-pair-dialog .taxon-pair-list {
-    max-height: calc(90vh - 180px); /* Adjust this value as needed */
+    max-height: calc(90vh - 140px); /* Adjust this value as needed */
     padding-right: 5px; /* Add some padding for the scrollbar */
 }
 
@@ -466,23 +466,24 @@ width: 80%;
 .taxon-pair-button {
     display: block;
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    background-color: var(--primary-color);
+    padding: 5px;
+    margin: 2px 0;
+    background-color: rgba(116, 172, 0, 0.3); /* Light green background */
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 .taxon-pair-button:hover {
-    background-color: #5c8a00;
+    background-color: rgba(116, 172, 0, 0.5);
 }
 
 .taxon-pair-container {
     display: flex;
     justify-content: space-between;
     align-items: stretch;
+    gap: 5px; /* Small gap between the two "buttons" */
 }
 
 .taxon-item {
@@ -491,22 +492,29 @@ width: 80%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 5px;
+    padding: 10px;
+    background-color: var(--primary-color);
     color: var(--text-color);
+    border-radius: 5px;
+}
+
+.taxon-pair-button:hover .taxon-item {
+    background-color: #5c8a00;
 }
 
 .taxon-name {
     font-style: italic;
     font-weight: bold;
-    font-size: 1em;
+    font-size: 1.3em;
     margin-bottom: 3px;
+    text-align: center;
 }
 
 .vernacular-name {
-    font-size: 0.9em;
+    font-size: 1.2em;
     color: rgba(255, 255, 255, 0.8);
+    text-align: center;
 }
-
 
 .taxon-pair-content {
     background-color: white;
