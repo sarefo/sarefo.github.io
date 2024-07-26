@@ -184,9 +184,8 @@
 
 <!-- Help dialog -->
 <dialog id="help-dialog">
-    <button class="dialog-close-button" aria-label="Close">
-        <svg class="icon"><use href="./images/icons.svg#icon-close"/></svg>
-    </button>
+
+<button class="dialog-close-button" aria-label="Close">×</button>
     <div class="help-dialog-content">
         <div class="help-dialog-header">
             <img src="./images/icon-512x512.png" alt="DuoNat logo" class="help-dialog-logo">
@@ -238,9 +237,7 @@
 <!-- Select pair dialog -->
     <dialog id="select-pair-dialog" class="standard-dialog">
         <div class="dialog-inner">
-            <button class="dialog-close-button" aria-label="Close">
-                <svg class="icon"><use href="./images/icons.svg#icon-close"/></svg>
-            </button>
+            <button class="dialog-close-button" aria-label="Close">×</button>
             <h3 class="dialog-title">Select Taxon Pair</h3>
             <div class="search-container">
                   <input type="text" id="taxon-search" placeholder="Search taxa..." aria-label="Search taxa">
@@ -257,9 +254,7 @@
 
 <!-- Enter pair dialog -->
     <dialog id="enter-pair-dialog" class="standard-dialog">
-        <button class="dialog-close-button" aria-label="Close">
-            <svg class="icon"><use href="./images/icons.svg#icon-close"/></svg>
-        </button>
+        <button class="dialog-close-button" aria-label="Close">×</button>
         <form method="dialog">
             <h2 class="dialog-title">Enter New Taxon Pair</h2>
             <div>
@@ -277,20 +272,15 @@
 
 <!-- Phylogeny dialog -->
 <dialog id="phylogeny-dialog" class="standard-dialog">
-    <button class="dialog-close-button" aria-label="Close">
-        <svg class="icon"><use href="./images/icons.svg#icon-close"/></svg>
-    </button>
+    <button class="dialog-close-button" aria-label="Close">×</button>
     <h3 class="dialog-title">Phylogenetic Relationship</h3>
+    <div id="graph-hint" class="graph-hint">Tip: Click on a node to open its iNaturalist page</div>
     <div id="taxa-relationship-graph"></div>
 </dialog>
 
 <!-- Info dialog -->
 <dialog id="info-dialog" class="info-dialog">
-<!--<button class="dialog-close-button" id="info-close-button" aria-label="Close">×</button>-->
-    <button class="dialog-close-button" id="info-close-button" aria-label="Close">
-        <svg class="icon"><use href="./images/icons.svg#icon-close"/></svg>
-    </button>
-<!--    <h2 class="dialog-title">Taxon Information</h2> -->
+    <button class="dialog-close-button" id="info-close-button" aria-label="Close">×</button>
     <div class="info-dialog-header">
         <h2 id="info-dialog-taxon" class="info-dialog-taxon"></h2>
         <p id="info-dialog-vernacular" class="info-dialog-vernacular"></p>
@@ -314,10 +304,7 @@
 
 <!-- iNat down dialog -->
 <dialog id="inat-down-dialog">
-    <button class="dialog-close-button" aria-label="Close">
-        <svg class="icon"><use href="./images/icons.svg#icon-close"/></svg>
-        <!--<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>-->
-    </button>
+    <button class="dialog-close-button" aria-label="Close">×</button>
   <h2 class="dialog-title">iNaturalist Unavailable</h2>
   <p>We're having trouble connecting to iNaturalist. This could be due to maintenance or temporary issues.</p>
   <button id="check-inat-status">Check iNaturalist Status</button>
