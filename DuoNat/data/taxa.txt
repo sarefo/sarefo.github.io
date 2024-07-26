@@ -30,7 +30,7 @@ Afrotheria
 Agaricus bisporus
 Agaricus campestris
 Agaricus xanthodermus
-Agelena gracilens
+Allagelena gracilens
 Agelena labyrinthica
 Agkistrodon contortrix
 Agkistrodon piscivorus
@@ -162,8 +162,8 @@ Canis rufus
 Cantharellus cibarius
 Carausius morosus
 Carduelis carduelis
-Carduelis spinus
-Carollia brevicauda
+Spinus spinus
+Carollia brevicaudum
 Carollia perspicillata
 Carrhotus sannio
 Carrhotus viduus
@@ -256,7 +256,7 @@ Corvus corax
 Corvus corone
 Corvus frugilegus
 Cosmophasis micarioides
-Cosmophasis umbratica
+Cosmophasis thalassina
 Cossus cossus
 Costasiella kuroshimae
 Costasiella usagi
@@ -285,12 +285,12 @@ Dascyllus
 Dasyurus maculatus
 Delichon urbicum
 Delphinapterus leucas
-Delphinus capensis
+Delphinus delphis
 Delphinus delphis
 Dendroaspis angusticeps
 Dendroaspis polylepis
 Dendrocopos major
-Dendrocopos medius
+Dendrocoptes medius
 Dendrodoris fumata
 Dendrodoris nigra
 Dendronephthya
@@ -299,7 +299,7 @@ Dermatobranchus striatus
 Desmodus rotundus
 Diadophis punctatus
 Diaea dorsata
-Diaemus youngi
+Diaemus youngii
 Diagramma pictum
 Diaphorodoris alba
 Diaphorodoris luteocincta
@@ -385,10 +385,10 @@ Felimare villafranca
 Feresa attenuata
 Ficus pumila
 Fistulina hepatica
-Flabellina bertschi
-Flabellina exoptata
-Flabellina iodinea
-Flabellina rubrolineata
+Edmundsella bertschi
+Coryphellina exoptata
+Flabellinopsis iodinea
+Coryphellina rubrolineata
 Flammulina velutipes
 Flavocaranx bajad
 Fomes fomentarius
@@ -421,7 +421,7 @@ Gnatholepis cauerensis
 Gomphus vulgatissimus
 Gonepteryx cleopatra
 Gonepteryx rhamni
-Gongylophis conicus
+Eryx conicus
 Goniobranchus fidelis
 Goniobranchus sinensis
 Goniobranchus splendidus
@@ -434,7 +434,7 @@ Gryllus bimaculatus
 Gryllus campestris
 Gunnellichthys curiosus
 Gunnellichthys viridescens
-Gyromitra 
+Gyromitra
 Gyromitra esculenta
 Habronattus coecatus
 Habronattus pyrrithrix
@@ -458,12 +458,12 @@ Heliophanus cupreus
 Heliophanus flavipes
 Heniochus chrysostomus
 Heniochus diphreutes
-Heniochus macrolepidotus
+Heniochus acuminatus
 Heniochus varius
 Hericium coralloides
 Hericium erinaceus
 Heteractis doreensis
-Heteractis magnifica
+Radianthus magnifica
 Heterobranchia
 Heterodon nasicus
 Heterodon platirhinos
@@ -478,7 +478,7 @@ Hippodamia tredecimpunctata
 Hippodamia variegata
 Hippopotamus amphibius
 Hipposideros armiger
-Hipposideros pratti
+Hipposideros swinhoei
 Hirundo rustica
 Hogna carolinensis
 Holcolaetis vellerea
@@ -495,7 +495,7 @@ Hyllus diardi
 Hyllus semicupreus
 Hyperoodon ampullatus
 Hypholoma fasciculare
-Hypselodoris bullocki
+Hypselodoris bullockii
 Hypselodoris infucata
 Hypselodoris katherinae
 Hypselodoris maculosa
@@ -515,7 +515,7 @@ Ischnura elegans
 Ischnura pumilio
 Istigobius decoratus
 Istigobius ornatus
-Janolus cristatus
+Antiopella cristata
 Janolus hyalinus
 Kerivoula hardwickii
 Kerivoula papillosa
@@ -524,10 +524,10 @@ Kogia sima
 Lactarius deliciosus
 Lactarius deterrimus
 Laetiporus sulphureus
-Lagenorhynchus acutus
+Leucopleurus acutus
 Lagenorhynchus albirostris
-Lagenorhynchus obliquidens
-Lagenorhynchus obscurus
+Sagmatias obliquidens
+Sagmatias obscurus
 Lampropeltis californiae
 Lampropeltis getula
 Laothoe populi
@@ -549,14 +549,14 @@ Leccinum scabrum
 Leccinum versipelle
 Lemmaphyllum microphyllum
 Lemur catta
-Lentinus edodes
+Lentinula edodes
 Lentinus tigrinus
-Lenzites betulina
+Trametes betulina
 Leontodon hispidus
 Leopardus pardalis
 Leopardus wiedii
 Leptonycteris yerbabuenae
-Leptynia hispanica
+Pijnackeria hispanica
 Lestes dryas
 Lestes sponsa
 Lethrinidae
@@ -595,18 +595,18 @@ Lyssomanes portoricensis
 Lyssomanes viridis
 Macaca fascicularis
 Macaca mulatta
-Machimus atricapillus
-Machimus cingulatus
+Tolmerus atricapillus
+Tolmerus cingulatus
 Macroglossus minimus
 Macrolepiota procera
 Macropus giganteus
-Macropus rufus
+Osphranter rufus
 Macrotus californicus
 Macrotus waterhousii
 Maezous formosana
 Magnoliopsida
 Malpolon monspessulanus
-Manduca quinquemaculata
+Manduca quinquemaculatus
 Manduca sexta
 Mantis religiosa
 Marmota flaviventris
@@ -618,7 +618,7 @@ Mauritia arabica
 Meconema meridionale
 Meconema thalassinum
 Medauroidea extradentata
-Megaderma lyra
+Lyroderma lyra
 Megaderma spasma
 Megaptera novaeangliae
 Meles meles
@@ -651,10 +651,10 @@ Morchella
 Morchella esculenta
 Morelia bredli
 Morelia spilota
-Mormopterus norfolkensis
-Mormopterus planiceps
+Micronomus norfolkensis
+Ozimops planiceps
 Morpho helenor
-Morpho peleides
+Not found
 Motacilla alba
 Motacilla flava
 Murina cyclotis
@@ -692,11 +692,11 @@ Nembrotha cristata
 Nembrotha kubaryana
 Neon reticulatus
 Neon robustus
-Neoromicia capensis
-Neoromicia nanus
+Laephotis capensis
+Afronycteris nanus
 Neoscona crucifera
-Neovison vison
-Nephila clavipes
+Neogale vison
+Trichonephila clavipes
 Nephila pilipes
 Neriene radiata
 Neritimorpha
@@ -758,7 +758,7 @@ Papilio zelicaon
 Papilionoidea
 Papio anubis
 Papio hamadryas
-Parapercis hexophthalma
+Parapercis hexophtalma
 Parapercis xanthozona
 Paraponerinae
 Parasola plicatilis
@@ -779,7 +779,7 @@ Peracarida
 Pernis apivorus
 Peyssonneliaceae
 Phaeophyceae
-Phalacrocorax aristotelis
+Gulosus aristotelis
 Phalacrocorax carbo
 Phalera bucephala
 Phallus impudicus
@@ -791,7 +791,7 @@ Philodromus aureolus
 Philodromus dispar
 Philonicus albiceps
 Phintella bifurcilinea
-Phintella versicolor
+Phintelloides versicolor
 Phintella vittata
 Phintelloides versicolor
 Phoca vitulina
@@ -855,7 +855,7 @@ Polycera quadrilineata
 Polycladida
 Polygonia c-album
 Polygonia interrogationis
-Polyporus squamosus
+Cerioporus squamosus
 Pomacentrus auriventris
 Pomacentrus coelestis
 Pomacentrus polyspinus
@@ -898,7 +898,7 @@ Puma concolor
 Pygopodidae
 Pyrrhosoma nymphula
 Python bivittatus
-Python reticulatus
+Malayopython reticulatus
 Quercus petraea
 Quercus robur
 Rabelera holostea
@@ -953,14 +953,14 @@ Scotophilus kuhlii
 Scyphozoa
 Segestria florentina
 Segestria senoculata
-Sepia latimanus
+Ascarosepion latimanus
 Sepiida
 Siler collingwoodi
 Siler semiglaucus
 Sistrurus catenatus
 Sistrurus miliarius
-Sitticus fasciger
-Sitticus pubescens
+Attulus fasciger
+Attulus pubescens
 Smerinthus ocellata
 Solanum americanum
 Solanum nigrum
@@ -1008,7 +1008,7 @@ Sylvia atricapilla
 Sylvia borin
 Sympetrum striolatum
 Sympetrum vulgatum
-Synaema globosum
+Synema globosum
 Synageles occidentalis
 Synageles venator
 Synanthedon
@@ -1017,7 +1017,7 @@ Tadarida brasiliensis
 Tadarida teniotis
 Tambja morosa
 Tambja verconis
-Tamias sibiricus
+Eutamias sibiricus
 Tamias striatus
 Tantilla coronata
 Tantilla relicta
@@ -1038,7 +1038,7 @@ Tettigonia cantans
 Tettigonia viridissima
 Tettigoniidae
 Thamnophis elegans
-Thamnophis sauritus
+Thamnophis proximus
 Thamnophis sirtalis
 Theridion grallator
 Theridula emertoni
@@ -1052,9 +1052,9 @@ Tibicina quadrisignata
 Tineidae
 Tortricidae
 Trametes versicolor
-Trapania hispalensis
+Trapania lineata
 Trapania tartanella
-Tremella aurantia
+Naematelia aurantia
 Tremella mesenterica
 Tricholoma magnivelare
 Tricholoma matsutake
@@ -1067,8 +1067,8 @@ Trimeresurus albolabris
 Trimeresurus popeiorum
 Tringa nebularia
 Tringa totanus
-Tritonia nilsodhneri
-Tritonia plebeia
+Candiella odhneri
+Candiella plebeia
 Trochosa terricola
 Tropidomantis gressitti
 Turdus merula
@@ -1105,8 +1105,8 @@ Vombatus ursinus
 Vulpes corsac
 Vulpes vulpes
 Xenarthra
-Xenochrophis flavipunctatus
-Xenochrophis piscator
+Fowlea flavipunctata
+Fowlea piscator
 Xerocomellus chrysenteron
 Xerocomellus pruinatus
 Xestia c-nigrum

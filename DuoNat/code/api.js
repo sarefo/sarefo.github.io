@@ -2,22 +2,22 @@
 
 import logger from './logger.js';
 
-let taxaInfo = null;
+let taxonInfo = null;
 
 const api = (() => {
     return {
 
-        loadTaxaInfo: async function() {
-            if (taxaInfo === null) {
+        loadTaxonInfo: async function() {
+            if (taxonInfo === null) {
                 try {
-                    const response = await fetch('./data/taxaInfo.json');
-                    taxaInfo = await response.json();
+                    const response = await fetch('./data/taxonInfo.json');
+                    taxonInfo = await response.json();
                 } catch (error) {
-                    logger.error('Error loading taxaInfo.json:', error);
-                    taxaInfo = {};
+                    logger.error('Error loading taxonInfo.json:', error);
+                    taxonInfo = {};
                 }
             }
-            return taxaInfo;
+            return taxonInfo;
         },
 
         // fetch from JSON file
@@ -118,10 +118,10 @@ const api = (() => {
 
         // fetch vernacular name of taxon from iNat
         fetchVernacular: async function (taxonName) {
-          const taxaInfo = await this.loadTaxaInfo();
+          const taxonInfo = await this.loadTaxonInfo();
           
           // Find the entry with matching taxonName
-          const entry = Object.values(taxaInfo).find(info => info.taxonName.toLowerCase() === taxonName.toLowerCase());
+          const entry = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxonName.toLowerCase());
           
           if (entry && entry.vernacularName) {
             if (entry.vernacularName == "none") return "";
