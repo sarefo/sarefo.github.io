@@ -616,26 +616,22 @@ const game = {
         const currentTaxon = this.getCurrentTaxonName(url);
         taxonElement.textContent = currentTaxon;
 
-        // Fetch and set vernacular name and taxon facts
+        api.getVernacularName(currentTaxon).then(vernacularName => {
+            vernacularElement.textContent = vernacularName;
+
+        // Add taxon facts (assuming they're still in taxonInfo.json)
         api.loadTaxonInfo().then(taxonInfo => {
             const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === currentTaxon.toLowerCase());
-            if (taxonData) {
-                vernacularElement.textContent = utils.capitalizeFirstLetter(taxonData.vernacularName) || '';
-                
-                // Add taxon facts
-                if (taxonData.taxonFacts && taxonData.taxonFacts.length > 0) {
-                    factsElement.innerHTML = '<h3>Facts:</h3><ul>' + 
-                        taxonData.taxonFacts.map(fact => `<li>${fact}</li>`).join('') + 
-                        '</ul>';
-                    factsElement.style.display = 'block';
-                } else {
-                    factsElement.style.display = 'none';
-                }
+            if (taxonData && taxonData.taxonFacts && taxonData.taxonFacts.length > 0) {
+                factsElement.innerHTML = '<h3>Facts:</h3><ul>' + 
+                    taxonData.taxonFacts.map(fact => `<li>${fact}</li>`).join('') + 
+                    '</ul>';
+                factsElement.style.display = 'block';
             } else {
-                vernacularElement.textContent = '';
                 factsElement.style.display = 'none';
             }
         });
+    });
 
         photoButton.onclick = () => {
             window.open(url, '_blank');

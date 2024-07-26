@@ -46,10 +46,20 @@ const ui = {
 
             list.innerHTML = ''; // Clear existing content
 
-            const createTaxonPairButton = (pair) => {
+            const createTaxonPairButton = async (pair) => {
+                const vernacular1 = await api.getVernacularName(pair.taxon1);
+                const vernacular2 = await api.getVernacularName(pair.taxon2);
+
                 const button = document.createElement('button');
-                button.innerHTML = `<i>${pair.taxon1}</i> <span class="taxon-pair-versus">vs</span> <i>${pair.taxon2}</i>`;
                 button.className = 'taxon-pair-button';
+                button.innerHTML = `
+                    <div class="scientific-names">
+                        <i>${pair.taxon1}</i> <span class="taxon-pair-versus">vs</span> <i>${pair.taxon2}</i>
+                    </div>
+                    <div class="vernacular-names">
+                        <span>${vernacular1}</span> <span class="taxon-pair-versus">vs</span> <span>${vernacular2}</span>
+                    </div>
+                `;
                 button.onclick = () => {
                     game.nextSelectedPair = pair;
                     dialogManager.closeDialog();
@@ -58,22 +68,25 @@ const ui = {
                 return button;
             };
 
-            const renderFilteredList = (filter = '') => {
+            const renderFilteredList = async (filter = '') => {
                 const fragment = document.createDocumentFragment();
-                taxonPairs.forEach(pair => {
+                for (const pair of taxonPairs) {
                     if (pair.taxon1.toLowerCase().includes(filter) || pair.taxon2.toLowerCase().includes(filter)) {
-                        fragment.appendChild(createTaxonPairButton(pair));
+                        const button = await createTaxonPairButton(pair);
+                        fragment.appendChild(button);
                     }
-                });
+                }
                 list.innerHTML = '';
                 list.appendChild(fragment);
             };
 
-            renderFilteredList(); // Initial render with all pairs
+            (async () => {
+                await renderFilteredList(); // Initial render with all pairs
+            })();
 
-            const debouncedFilter = utils.debounce((event) => {
+            const debouncedFilter = utils.debounce(async (event) => {
                 const filter = event.target.value.toLowerCase();
-                renderFilteredList(filter);
+                await renderFilteredList(filter);
             }, 300);
 
             searchInput.addEventListener('input', (event) => {

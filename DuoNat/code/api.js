@@ -1,6 +1,7 @@
 // iNat API
 
 import logger from './logger.js';
+import utils from './utils.js';
 
 let taxonInfo = null;
 
@@ -18,6 +19,12 @@ const api = (() => {
                 }
             }
             return taxonInfo;
+        },
+
+        getVernacularName: async function(taxonName) {
+            const taxonInfo = await this.loadTaxonInfo();
+            const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxonName.toLowerCase());
+            return taxonData ? utils.capitalizeFirstLetter(taxonData.vernacularName) : '';
         },
 
         // fetch from JSON file
@@ -116,7 +123,7 @@ const api = (() => {
             }
         },
 
-        // fetch vernacular name of taxon from iNat
+        // fetch vernacular name of taxon from local file or iNat
         fetchVernacular: async function (taxonName) {
           const taxonInfo = await this.loadTaxonInfo();
           
@@ -124,7 +131,6 @@ const api = (() => {
           const entry = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxonName.toLowerCase());
           
           if (entry && entry.vernacularName) {
-            if (entry.vernacularName == "none") return "";
             return entry.vernacularName;
           } else {
             logger.warn(`Vernacular name not found for ${taxonName} in local data`);
