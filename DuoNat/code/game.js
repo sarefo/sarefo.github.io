@@ -605,6 +605,7 @@ const game = {
         const dialog = document.getElementById('info-dialog');
         const taxonElement = document.getElementById('info-dialog-taxon');
         const vernacularElement = document.getElementById('info-dialog-vernacular');
+        const factsElement = document.getElementById('info-dialog-facts');
         const photoButton = document.getElementById('photo-button');
         const observationButton = document.getElementById('observation-button');
         const taxonButton = document.getElementById('taxon-button');
@@ -615,9 +616,25 @@ const game = {
         const currentTaxon = this.getCurrentTaxonName(url);
         taxonElement.textContent = currentTaxon;
 
-        // Fetch and set vernacular name
-        api.fetchVernacular(currentTaxon).then(vernacularName => {
-            vernacularElement.textContent = utils.capitalizeFirstLetter(vernacularName) || '';
+        // Fetch and set vernacular name and taxon facts
+        api.loadTaxonInfo().then(taxonInfo => {
+            const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === currentTaxon.toLowerCase());
+            if (taxonData) {
+                vernacularElement.textContent = utils.capitalizeFirstLetter(taxonData.vernacularName) || '';
+                
+                // Add taxon facts
+                if (taxonData.taxonFacts && taxonData.taxonFacts.length > 0) {
+                    factsElement.innerHTML = '<h3>Facts:</h3><ul>' + 
+                        taxonData.taxonFacts.map(fact => `<li>${fact}</li>`).join('') + 
+                        '</ul>';
+                    factsElement.style.display = 'block';
+                } else {
+                    factsElement.style.display = 'none';
+                }
+            } else {
+                vernacularElement.textContent = '';
+                factsElement.style.display = 'none';
+            }
         });
 
         photoButton.onclick = () => {

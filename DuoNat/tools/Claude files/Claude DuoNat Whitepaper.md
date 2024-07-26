@@ -81,7 +81,7 @@ The main window is presented to the user at startup. That's where they will be m
 The help dialog contains information about the most important functions of the game.
 
 ### Info dialogs
-Each picture has its own info dialog. The user can access external information about the image, iNaturalist observation or taxon there. It's also planned to implement taxon-specific identification hints that can be accessed from there.
+Each picture has its own info dialog. The user can access external information about the image, iNaturalist observation or taxon there. There are preliminary taxon facts (provided by Perplexity.ai on 20240726). It's also planned to implement taxon-specific identification hints that can be accessed from there.
 
 ### Enter taxa dialog
 The user can currently input two taxa, which will be used in a new pair. Currently there's no server-side functionality, but when there is, those can also be stored for future use. Also, once taxon sets are implemented, the user will be able to input more than two taxa. Another idea is to only input one, and the app will create a taxon set from all the sister taxa at that level.
