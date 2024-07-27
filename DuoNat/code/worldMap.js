@@ -1,4 +1,4 @@
-export function createWorldMap(container, highlightedContinent) {
+export function createWorldMap(container, highlightedContinents) {
     const mapContainer = container.querySelector('.world-map-container');
     if (!mapContainer) {
         console.error('World map container not found');
@@ -28,7 +28,7 @@ export function createWorldMap(container, highlightedContinent) {
             const paths = svg.querySelectorAll('path');
             paths.forEach(path => {
                 const continentName = path.getAttribute('inkscape:label');
-                if (continentName === highlightedContinent) {
+                if (highlightedContinents.includes(continentName)) {
                     path.setAttribute('fill', '#ac0028');
                 } else {
                     path.setAttribute('fill', '#888');

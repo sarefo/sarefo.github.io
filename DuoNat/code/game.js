@@ -177,11 +177,11 @@ const game = {
     );
 
     // Add world maps
-    const leftContinent = await this.getContinentForTaxon(randomized ? pair.taxon1 : pair.taxon2);
-    const rightContinent = await this.getContinentForTaxon(randomized ? pair.taxon2 : pair.taxon1);
+    const leftContinents = await this.getContinentForTaxon(randomized ? pair.taxon1 : pair.taxon2);
+    const rightContinents = await this.getContinentForTaxon(randomized ? pair.taxon2 : pair.taxon1);
     await Promise.all([
-        createWorldMap(elements.imageOneContainer, leftContinent),
-        createWorldMap(elements.imageTwoContainer, rightContinent)
+        createWorldMap(elements.imageOneContainer, leftContinents),
+        createWorldMap(elements.imageTwoContainer, rightContinents)
     ]);
 
         updateGameState({
@@ -218,15 +218,11 @@ const game = {
             // Convert all continent codes to full names
             const fullContinents = taxonData.distribution.map(code => continentMap[code]);
             
-            // If there's more than one continent, randomly select one
-            const randomContinent = fullContinents[Math.floor(Math.random() * fullContinents.length)];
-            
-            console.log(`Continent for ${taxon}: ${randomContinent}`);
-            return randomContinent;
+            console.log(`Continents for ${taxon}: ${fullContinents.join(', ')}`);
+            return fullContinents;
         } else {
             console.log(`No distribution data found for ${taxon}. Using placeholder.`);
-            const placeholderContinents = ['North America', 'South America', 'Europe', 'Africa', 'Asia', 'Oceania'];
-            return placeholderContinents[Math.floor(Math.random() * placeholderContinents.length)];
+            return ['North America', 'South America', 'Europe', 'Africa', 'Asia', 'Oceania'];
         }
     },
 
