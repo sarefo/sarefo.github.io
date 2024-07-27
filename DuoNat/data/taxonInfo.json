@@ -10921,7 +10921,6 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Fungus species commonly known as black witch's butter",
       "Found on dead wood of deciduous trees",
       "Produces gelatinous fruiting bodies"
     ],
@@ -11161,7 +11160,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Creeping fig, native to East Asia",
+      "Native to East Asia",
       "Climbing vine that attaches to surfaces with aerial rootlets",
       "Often used as an ornamental plant on walls and buildings"
     ],
@@ -11187,7 +11186,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Beefsteak fungus, found in Europe and North America",
+      "Found in Europe and North America",
       "Parasitic on oak and chestnut trees",
       "Edible fungus with a distinctive meat-like appearance"
     ],
@@ -11277,7 +11276,6 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Known as the Spanish shawl nudibranch",
       "Found along the Pacific coast of North America",
       "Vibrant purple body with orange cerata"
     ],
@@ -11950,7 +11948,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Short-finned pilot whale, found in tropical and warm temperate oceans",
+      "Found in tropical and warm temperate oceans",
       "Highly social, living in stable matrilineal pods",
       "Known for mass strandings"
     ],
@@ -11987,7 +11985,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Long-finned pilot whale, found in cooler waters of the North Atlantic and Southern Hemisphere",
+      "Found in cooler waters of the North Atlantic and Southern Hemisphere",
       "Forms large, stable social groups",
       "Known for mass strandings"
     ],
@@ -12086,7 +12084,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Pallas's long-tongued bat, found in Central and South America",
+      "Found in Central and South America",
       "Important pollinator for many tropical plants",
       "Feeds primarily on nectar and pollen"
     ],
@@ -12168,7 +12166,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Club-tailed dragonfly, found in Europe and parts of Asia",
+      "Found in Europe and parts of Asia",
       "Prefers slow-flowing rivers and streams",
       "Larvae develop in river sediments"
     ],
@@ -12253,7 +12251,6 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Known as the rough-scaled sand boa",
       "Found in parts of South Asia",
       "Burrowing snake that spends most of its time underground"
     ],
@@ -12445,7 +12442,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Eastern gorilla, found in central Africa",
+      "Found in central Africa",
       "Includes two subspecies: mountain gorilla and eastern lowland gorilla",
       "Critically endangered due to habitat loss and poaching"
     ],
@@ -12477,7 +12474,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Western gorilla, found in central Africa",
+      "Found in central Africa",
       "Includes two subspecies: western lowland gorilla and Cross River gorilla",
       "Critically endangered due to habitat loss, poaching, and disease"
     ],
@@ -12509,7 +12506,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Risso's dolphin, found in temperate and tropical oceans worldwide",
+      "Found in temperate and tropical oceans worldwide",
       "Recognizable by its heavily scarred body and blunt head",
       "Feeds primarily on squid"
     ],
@@ -13358,7 +13355,6 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Known as the pennant coralfish",
       "Found in the Indo-Pacific region",
       "Has a distinctive elongated dorsal fin filament"
     ],
@@ -13490,7 +13486,6 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Species of sea anemone",
       "Found in the Indo-Pacific region",
       "Known for its large size and vibrant colors"
     ],
@@ -13542,7 +13537,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Western hognose snake, found in North America",
+      "Found in North America",
       "Known for its upturned snout used for digging",
       "Mildly venomous but not dangerous to humans"
     ],
@@ -13568,7 +13563,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Eastern hognose snake, found in North America",
+      "Found in North America",
       "Known for its dramatic defensive displays",
       "Feeds primarily on amphibians"
     ],
@@ -14241,7 +14236,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Yellow-bellied sea snake, found in the tropical waters of the Indian and Pacific Oceans",
+      "Found in the tropical waters of the Indian and Pacific Oceans",
       "Highly venomous and fully aquatic",
       "Feeds primarily on small fish"
     ],
@@ -14269,7 +14264,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "False chanterelle mushroom, found in Europe and North America",
+      "Found in Europe and North America",
       "Grows on decaying wood and forest litter",
       "Edible but not recommended due to its similarity to toxic species"
     ],
@@ -14362,7 +14357,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Northern bottlenose whale, found in the North Atlantic Ocean",
+      "Found in the North Atlantic Ocean",
       "Known for its bulbous forehead and deep-diving behavior",
       "Feeds primarily on squid"
     ],
@@ -14389,7 +14384,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Sulphur tuft mushroom, found in Europe and North America",
+      "Found in Europe and North America",
       "Grows in clusters on decaying wood",
       "Toxic and can cause severe gastrointestinal distress"
     ],
@@ -14666,7 +14661,6 @@
     ],
     "rank": "genus",
     "taxonFacts": [
-      "Genus of jumping spiders",
       "Found in various regions worldwide",
       "Known for their active hunting behavior and excellent vision"
     ],
@@ -14768,7 +14762,7 @@
   },
   "127021": {
     "taxonName": "Inonotus obliquus",
-    "vernacularName": "chaga",
+    "vernacularName": "Chaga mushroom",
     "ancestryIds": [
       48460,
       47170,
@@ -14782,7 +14776,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Chaga mushroom, found on birch trees in cold climates",
+      "Found on birch trees in cold climates",
       "Used in traditional medicine for its purported health benefits",
       "Forms a hard, black mass on the tree trunk"
     ],
@@ -14794,7 +14788,7 @@
   },
   "542457": {
     "taxonName": "Ips sexdentatus",
-    "vernacularName": "",
+    "vernacularName": "Six-toothed bark beetle",
     "ancestryIds": [
       48460,
       1,
@@ -14814,7 +14808,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Six-toothed bark beetle, found in Europe and Asia",
+      "Found in Europe and Asia",
       "Pest of coniferous trees, particularly pines",
       "Known for its role in forest ecosystem disturbances"
     ],
@@ -14845,7 +14839,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "European spruce bark beetle found in Europe and Asia",
+      "Found in Europe and Asia",
       "Major pest of spruce trees",
       "Can cause significant damage to forests during outbreaks"
     ],
@@ -14903,7 +14897,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Blue-tailed damselfly found in Europe and parts of Asia",
+      "Found in Europe and parts of Asia",
       "Prefers still or slow-moving water bodies",
       "Males have distinctive blue and black coloration"
     ],
@@ -14932,7 +14926,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Scarce blue-tailed damselfly found in Europe and parts of Asia",
+      "Found in Europe and parts of Asia",
       "Smaller than Ischnura elegans",
       "Prefers shallow, temporary water bodies"
     ],
@@ -14960,7 +14954,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Decorated goby, marine fish found in the Indo-Pacific",
+      "Marine fish found in the Indo-Pacific",
       "Inhabits coral reefs and lagoons",
       "Known for its colorful patterns"
     ],
@@ -14987,7 +14981,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Ornate goby, marine fish found in the Indo-Pacific",
+      "Marine fish found in the Indo-Pacific",
       "Inhabits coral reefs and sandy areas",
       "Has distinctive markings on its body"
     ],
@@ -15076,7 +15070,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Hardwicke's woolly bat found in Southeast Asia",
+      "Found in Southeast Asia",
       "Small bat species with woolly fur",
       "Roosts in foliage and feeds on insects"
     ],
@@ -15106,7 +15100,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Papillose woolly bat found in Southeast Asia",
+      "Found in Southeast Asia",
       "Small bat species with distinctive fur texture",
       "Roosts in foliage and feeds on insects"
     ],
@@ -15137,7 +15131,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Pygmy sperm whale found in temperate and tropical oceans worldwide",
+      "Found in temperate and tropical oceans worldwide",
       "Deep-diving species that feeds primarily on squid",
       "Rarely seen at the surface"
     ],
@@ -15173,7 +15167,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Dwarf sperm whale found in temperate and tropical oceans worldwide",
+      "Found in temperate and tropical oceans worldwide",
       "Smaller than the pygmy sperm whale",
       "Deep-diving species that feeds on squid and fish"
     ],
@@ -15204,7 +15198,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Saffron milk cap mushroom found in Europe and North America",
+      "Found in Europe and North America",
       "Edible mushroom with orange latex",
       "Forms mycorrhizal associations with pine trees"
     ],
@@ -15257,7 +15251,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Chicken of the woods mushroom found in Europe and North America",
+      "Found in Europe and North America",
       "Bright yellow-orange bracket fungus growing on trees",
       "Edible and prized for its chicken-like texture"
     ],
@@ -15290,7 +15284,6 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Known as the Atlantic white-sided dolphin",
       "Found in temperate and sub-arctic waters of the North Atlantic",
       "Known for its distinctive white and yellow side patches"
     ],
@@ -15322,7 +15315,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "White-beaked dolphin found in the North Atlantic",
+      "Found in the North Atlantic",
       "Characterized by its white beak and large size",
       "Feeds primarily on fish and squid"
     ],
@@ -15355,7 +15348,6 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Known as the Pacific white-sided dolphin",
       "Found in temperate waters of the North Pacific",
       "Known for its acrobatic behavior"
     ],
@@ -15417,7 +15409,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "California kingsnake found in western United States and Mexico",
+      "Found in western United States and Mexico",
       "Non-venomous constrictor known for eating other snakes",
       "Popular in the pet trade due to its docile nature"
     ],
@@ -15443,7 +15435,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Eastern kingsnake found in the eastern and central United States",
+      "Found in the eastern and central United States",
       "Non-venomous constrictor known for eating other snakes",
       "Has distinctive black and white or yellow bands"
     ],
@@ -15471,7 +15463,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Poplar hawk-moth found in Europe and Asia",
+      "Found in Europe and Asia",
       "Large moth species with distinctive wing patterns",
       "Larvae feed primarily on poplar and willow trees"
     ],
@@ -15542,7 +15534,7 @@
   },
   "1541384": {
     "taxonName": "Larinioides cornutus",
-    "vernacularName": "",
+    "vernacularName": "Furrow orb-weaver",
     "ancestryIds": [
       48460,
       1,
@@ -15560,7 +15552,7 @@
     ],
     "rank": "complex",
     "taxonFacts": [
-      "Furrow orb-weaver spider found in Europe and North America",
+      "Found in Europe and North America",
       "Builds large orb webs near water bodies",
       "Active primarily at night"
     ],
@@ -15590,7 +15582,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Bridge orb-weaver spider found in Europe and North America",
+      "Found in Europe and North America",
       "Often builds webs on man-made structures near water",
       "Tolerant of urban environments"
     ],
@@ -15617,7 +15609,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "European herring gull found along coasts of Europe and North America",
+      "Found along coasts of Europe and North America",
       "Large, white-headed gull with gray back",
       "Opportunistic feeder with diverse diet"
     ],
@@ -15644,7 +15636,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Lesser black-backed gull found in Europe and parts of North America",
+      "Found in Europe and parts of North America",
       "Medium-sized gull with dark gray to black back",
       "Migratory species that breeds in northern Europe"
     ],
@@ -15677,7 +15669,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Silver-haired bat found in North America",
+      "Found in North America",
       "Medium-sized bat with distinctive silver-tipped fur",
       "Migratory species that roosts in trees"
     ],
@@ -15704,7 +15696,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Southern hairy-nosed wombat found in southern Australia",
+      "Found in southern Australia",
       "Burrowing marsupial with stocky build",
       "Herbivorous, feeding primarily on grasses"
     ],
@@ -15736,7 +15728,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Eastern red bat found in North and South America",
+      "Found in North and South America",
       "Tree-roosting bat with distinctive reddish fur",
       "Insectivorous, feeding on a variety of flying insects"
     ],
@@ -15768,7 +15760,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Hoary bat found across the Americas",
+      "Found across the Americas",
       "Large bat species with distinctive frosted fur",
       "Migratory and solitary, roosting in trees"
     ],
@@ -15795,7 +15787,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Yellow-lipped sea krait found in the Indo-Pacific",
+      "Found in the Indo-Pacific",
       "Venomous sea snake that comes ashore to lay eggs",
       "Feeds primarily on eels and small fish"
     ],
@@ -15824,7 +15816,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Western black widow spider found in western North America",
+      "Found in western North America",
       "Venomous spider known for its distinctive red hourglass marking",
       "Builds irregular webs in sheltered areas"
     ],
@@ -15852,7 +15844,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Southern black widow spider found in North America",
+      "Found in North America",
       "Venomous spider with distinctive red hourglass marking",
       "Builds irregular webs in sheltered locations"
     ],
@@ -15907,7 +15899,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Birch bolete mushroom found in Europe and North America",
+      "Found in Europe and North America",
       "Edible mushroom that forms mycorrhizal associations with birch trees",
       "Cap has distinctive scaly surface"
     ],
@@ -15936,7 +15928,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Orange birch bolete mushroom found in Europe and North America",
+      "Found in Europe and North America",
       "Edible mushroom associated with birch trees",
       "Cap has distinctive orange-red color"
     ],
@@ -15995,7 +15987,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Ring-tailed lemur native to Madagascar",
+      "Native to Madagascar",
       "Known for its distinctive black and white ringed tail",
       "Highly social primate that lives in matriarchal groups"
     ],
@@ -16021,7 +16013,6 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Commonly known as shiitake mushroom",
       "Native to East Asia",
       "Widely cultivated for culinary and medicinal purposes"
     ],
@@ -16046,7 +16037,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Tiger sawgill mushroom, found in Europe and North America",
+      "Found in Europe and North America",
       "Grows on dead or dying hardwood trees",
       "Characterized by its scaly, tiger-like pattern on the cap"
     ],
@@ -16096,7 +16087,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Rough hawkbit, found in Europe and parts of Asia",
+      "Found in Europe and parts of Asia",
       "Perennial herb in the dandelion family",
       "Grows in grasslands and along roadsides"
     ],
@@ -16125,7 +16116,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Ocelot, found in the Americas from the southwestern United States to northern Argentina",
+      "Found in the Americas from the southwestern United States to northern Argentina",
       "Medium-sized wild cat with distinctive spotted coat",
       "Primarily nocturnal and arboreal"
     ],
@@ -16154,7 +16145,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Margay, found in Central and South America",
+      "Found in Central and South America",
       "Small wild cat known for its excellent climbing abilities",
       "Primarily nocturnal and arboreal"
     ],
@@ -16185,7 +16176,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Lesser long-nosed bat, found in the southwestern United States and Mexico",
+      "Found in the southwestern United States and Mexico",
       "Important pollinator for many desert plants, including agave and cacti",
       "Migratory species that follows the blooming of certain plants"
     ],
@@ -16236,7 +16227,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Emerald damselfly, found in Europe and parts of Asia and North America",
+      "Found in Europe and parts of Asia and North America",
       "Prefers temporary water bodies for breeding",
       "Adults have a distinctive metallic green coloration"
     ],
@@ -16265,7 +16256,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Common spreadwing damselfly, found in Europe and parts of Asia",
+      "Found in Europe and parts of Asia",
       "Prefers still or slow-moving water bodies with abundant vegetation",
       "Males have a distinctive blue pruinescence"
     ],
@@ -16316,7 +16307,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "White-faced darter, found in Europe and parts of Asia",
+      "Found in Europe and parts of Asia",
       "Prefers acidic bog pools and lakes",
       "Males have a distinctive white face and dark body"
     ],
