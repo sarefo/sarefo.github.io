@@ -150,6 +150,27 @@ button {
     transition: opacity var(--transition-speed) ease-in-out;    
 }
 
+.world-map-container {
+    position: absolute;
+    right: 5px;
+    width: 100px; /* Adjust as needed */
+    height: 60px; /* Adjust as needed */
+    border-radius: var(--border-radius);
+    z-index: 10;
+}
+.world-map-container svg {
+    opacity: 0.6;
+    border-radius: var(--border-radius);
+}
+
+#world-map-1 {
+bottom: 5px;
+}
+
+#world-map-2 {
+top: 15px;
+}
+
 /* Name pair container and components */
 .name-pair {
     position: relative;
@@ -254,7 +275,7 @@ opacity: 0.8;
 
 .droppable .draggable,
 .draggable.dragging {
-    box-shadow: 0 0 0 2px white;/*, 0 0 10px 3px rgba(255, 255, 255, 0.7);*/
+    box-shadow: 0 0 0 2px white;
     transition: box-shadow var(--transition-speed) ease;
     max-width: var(--max-image-width);
 }
@@ -269,8 +290,8 @@ opacity: 0.8;
     height: 60px; /* Add a fixed height */
     pointer-events: none;
 }
-#image-container-1 .droppable { bottom: 10%; }
-#image-container-2 .droppable { top: 10%; }
+#image-container-1 .droppable { bottom: 24%; }
+#image-container-2 .droppable { top: 24%; }
 
 /* Styles for message overlay */
 #overlay {

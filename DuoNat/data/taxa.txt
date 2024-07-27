@@ -286,7 +286,6 @@ Dasyurus maculatus
 Delichon urbicum
 Delphinapterus leucas
 Delphinus delphis
-Delphinus delphis
 Dendroaspis angusticeps
 Dendroaspis polylepis
 Dendrocopos major
@@ -654,7 +653,7 @@ Morelia spilota
 Micronomus norfolkensis
 Ozimops planiceps
 Morpho helenor
-Not found
+Morpho helenor peleides
 Motacilla alba
 Motacilla flava
 Murina cyclotis
@@ -793,7 +792,6 @@ Philonicus albiceps
 Phintella bifurcilinea
 Phintelloides versicolor
 Phintella vittata
-Phintelloides versicolor
 Phoca vitulina
 Phocidae
 Phocoena phocoena
@@ -1038,7 +1036,7 @@ Tettigonia cantans
 Tettigonia viridissima
 Tettigoniidae
 Thamnophis elegans
-Thamnophis proximus
+Thamnophis saurita
 Thamnophis sirtalis
 Theridion grallator
 Theridula emertoni
@@ -1122,3 +1120,5 @@ Ziphius cavirostris
 Zygaenidae
 Zygiella x-notata
 Zygoptera
+Mobula alfredi
+Mobula birostris

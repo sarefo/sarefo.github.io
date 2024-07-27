@@ -9,6 +9,7 @@ import preloader from './preloader.js';
 import taxaRelationshipViewer from './taxaRelationshipViewer.js';
 import ui from './ui.js';
 import utils from './utils.js';
+import { createWorldMap } from './worldMap.js';
 
 const game = {
     loadingMessage: "",
@@ -159,21 +160,29 @@ const game = {
 
         await this.loadImages(leftImageSrc, rightImageSrc);
 
-        // Set the observation URLs
-        this.currentObservationURLs.imageOne = this.getObservationURLFromImageURL(leftImageSrc);
-        this.currentObservationURLs.imageTwo = this.getObservationURLFromImageURL(rightImageSrc);
+  // Set the observation URLs
+    this.currentObservationURLs.imageOne = this.getObservationURLFromImageURL(leftImageSrc);
+    this.currentObservationURLs.imageTwo = this.getObservationURLFromImageURL(rightImageSrc);
 
-        const [leftVernacular, rightVernacular] = await Promise.all([
-            utils.capitalizeFirstLetter(await api.fetchVernacular(randomized ? pair.taxon1 : pair.taxon2)),
-            utils.capitalizeFirstLetter(await api.fetchVernacular(randomized ? pair.taxon2 : pair.taxon1))
-        ]);
+    const [leftVernacular, rightVernacular] = await Promise.all([
+        utils.capitalizeFirstLetter(await api.fetchVernacular(randomized ? pair.taxon1 : pair.taxon2)),
+        utils.capitalizeFirstLetter(await api.fetchVernacular(randomized ? pair.taxon2 : pair.taxon1))
+    ]);
 
-        this.setupNameTilesUI(
-            randomized ? pair.taxon1 : pair.taxon2,
-            randomized ? pair.taxon2 : pair.taxon1,
-            leftVernacular,
-            rightVernacular
-        );
+    this.setupNameTilesUI(
+        randomized ? pair.taxon1 : pair.taxon2,
+        randomized ? pair.taxon2 : pair.taxon1,
+        leftVernacular,
+        rightVernacular
+    );
+
+    // Add world maps
+    const leftContinent = await this.getContinentForTaxon(randomized ? pair.taxon1 : pair.taxon2);
+    const rightContinent = await this.getContinentForTaxon(randomized ? pair.taxon2 : pair.taxon1);
+    await Promise.all([
+        createWorldMap(elements.imageOneContainer, leftContinent),
+        createWorldMap(elements.imageTwoContainer, rightContinent)
+    ]);
 
         updateGameState({
             taxonImageOne: randomized ? pair.taxon1 : pair.taxon2,
@@ -191,10 +200,36 @@ const game = {
         //    logger.debug(`Images for this round: ${imageOneURL}, ${imageTwoURL}`);
     },
 
-    /**
-     * Checks if iNaturalist API is reachable.
-     * @returns {Promise<boolean>} True if iNaturalist is reachable, false otherwise.
-     */
+    async getContinentForTaxon(taxon) {
+        const taxonInfo = await api.loadTaxonInfo();
+        const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxon.toLowerCase());
+        
+        if (taxonData && taxonData.distribution && taxonData.distribution.length > 0) {
+            // Convert the continent codes to full names
+            const continentMap = {
+                'NA': 'North America',
+                'SA': 'South America',
+                'EU': 'Europe',
+                'AS': 'Asia',
+                'AF': 'Africa',
+                'OC': 'Oceania'
+            };
+            
+            // Convert all continent codes to full names
+            const fullContinents = taxonData.distribution.map(code => continentMap[code]);
+            
+            // If there's more than one continent, randomly select one
+            const randomContinent = fullContinents[Math.floor(Math.random() * fullContinents.length)];
+            
+            console.log(`Continent for ${taxon}: ${randomContinent}`);
+            return randomContinent;
+        } else {
+            console.log(`No distribution data found for ${taxon}. Using placeholder.`);
+            const placeholderContinents = ['North America', 'South America', 'Europe', 'Africa', 'Asia', 'Oceania'];
+            return placeholderContinents[Math.floor(Math.random() * placeholderContinents.length)];
+        }
+    },
+
     async checkINaturalistReachability() {
         if (!await api.isINaturalistReachable()) {
             ui.showINatDownDialog();
@@ -205,11 +240,6 @@ const game = {
         return true;
     },
 
-    /**
-     * Fetches a taxon image collection, with retry logic.
-     * @param {boolean} newPair - Whether this is for a new pair.
-     * @returns {Promise<Object>} The fetched taxon image collection.
-     */
     async fetchTaxonImageCollection(newPair) {
         let attempts = 0;
         const maxAttempts = 3;
