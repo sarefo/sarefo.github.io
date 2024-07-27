@@ -152,7 +152,7 @@ button {
 
 .world-map-container {
     position: absolute;
-    right: 5px;
+    left: 60px;
     width: 100px; /* Adjust as needed */
     height: 60px; /* Adjust as needed */
     border-radius: var(--border-radius);

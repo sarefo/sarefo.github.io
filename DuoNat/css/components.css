@@ -292,12 +292,20 @@ z-index: 5000; /* debug */
 /* Styles for image button containers */
 .image-buttons {
     position: absolute;
-    bottom: 10px;
     left: 10px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
+
+#image-buttons-1 {
+    bottom: 10px;
+}
+
+#image-buttons-2 {
+    top: 20px;
+}
+
 
 .thumbs-up-button,
 .thumbs-down-button,
