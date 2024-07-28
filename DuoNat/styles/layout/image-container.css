@@ -84,7 +84,7 @@
     z-index: 10;
     width: 60%;
     max-width: calc(var(--max-image-width)-50px);
-    height: 60px; /* Add a fixed height */
+    height: 80px; /* Add a fixed height */
     pointer-events: none;
 }
 
