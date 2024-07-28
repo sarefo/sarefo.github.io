@@ -610,13 +610,12 @@ const game = {
         }
         return null;
     },
-
     initializeInfoButtons() {
         const infoButton1 = document.getElementById('info-button-1');
         const infoButton2 = document.getElementById('info-button-2');
 
-        infoButton1.addEventListener('click', () => this.showInfoDialog(this.currentObservationURLs.imageOne));
-        infoButton2.addEventListener('click', () => this.showInfoDialog(this.currentObservationURLs.imageTwo));
+        infoButton1.addEventListener('click', () => this.showInfoDialog(this.currentObservationURLs.imageOne, 1));
+        infoButton2.addEventListener('click', () => this.showInfoDialog(this.currentObservationURLs.imageTwo, 2));
     },
 
     openObservationURL(url) {
@@ -627,7 +626,7 @@ const game = {
         }
     },
 
-    showInfoDialog(url) {
+    showInfoDialog(url, imageIndex) {
         const dialog = document.getElementById('info-dialog');
         const taxonElement = document.getElementById('info-dialog-taxon');
         const vernacularElement = document.getElementById('info-dialog-vernacular');
@@ -638,6 +637,14 @@ const game = {
         const hintsButton = document.getElementById('hints-button');
         const closeButton = document.getElementById('info-close-button');
 
+        // Frame the corresponding image if imageIndex is provided
+        if (imageIndex) {
+            const imageContainer = document.getElementById(`image-container-${imageIndex}`);
+            if (imageContainer) {
+                imageContainer.classList.add('framed');
+            }
+        }
+
         // Set taxon and vernacular name
         const currentTaxon = this.getCurrentTaxonName(url);
         taxonElement.textContent = currentTaxon;
@@ -645,19 +652,19 @@ const game = {
         api.getVernacularName(currentTaxon).then(vernacularName => {
             vernacularElement.textContent = vernacularName;
 
-        // Add taxon facts (assuming they're still in taxonInfo.json)
-        api.loadTaxonInfo().then(taxonInfo => {
-            const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === currentTaxon.toLowerCase());
-            if (taxonData && taxonData.taxonFacts && taxonData.taxonFacts.length > 0) {
-                factsElement.innerHTML = '<h3>Facts:</h3><ul>' + 
-                    taxonData.taxonFacts.map(fact => `<li>${fact}</li>`).join('') + 
-                    '</ul>';
-                factsElement.style.display = 'block';
-            } else {
-                factsElement.style.display = 'none';
-            }
+            // Add taxon facts (assuming they're still in taxonInfo.json)
+            api.loadTaxonInfo().then(taxonInfo => {
+                const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === currentTaxon.toLowerCase());
+                if (taxonData && taxonData.taxonFacts && taxonData.taxonFacts.length > 0) {
+                    factsElement.innerHTML = '<h3>Facts:</h3><ul>' + 
+                        taxonData.taxonFacts.map(fact => `<li>${fact}</li>`).join('') + 
+                        '</ul>';
+                    factsElement.style.display = 'block';
+                } else {
+                    factsElement.style.display = 'none';
+                }
+            });
         });
-    });
 
         photoButton.onclick = () => {
             window.open(url, '_blank');
@@ -666,7 +673,6 @@ const game = {
 
         observationButton.onclick = () => {
             logger.debug("Observation button clicked");
-            //            utils.fart(); // placeholder
             // Implement observation functionality here
         };
 
@@ -685,14 +691,27 @@ const game = {
 
         hintsButton.onclick = () => {
             logger.debug("Taxon hints button clicked");
-            //            utils.fart(); // placeholder
             // Implement taxon hints functionality here
         };
 
-        // TODO shouldn't this be handled in a standardized dialog way?
         closeButton.onclick = () => {
             dialog.close();
+            if (imageIndex) {
+                const imageContainer = document.getElementById(`image-container-${imageIndex}`);
+                if (imageContainer) {
+                    imageContainer.classList.remove('framed');
+                }
+            }
         };
+
+        dialog.addEventListener('close', () => {
+            if (imageIndex) {
+                const imageContainer = document.getElementById(`image-container-${imageIndex}`);
+                if (imageContainer) {
+                    imageContainer.classList.remove('framed');
+                }
+            }
+        });
 
         dialog.showModal();
     },

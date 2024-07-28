@@ -293,6 +293,11 @@ opacity: 0.8;
 #image-container-1 .droppable { bottom: 24%; }
 #image-container-2 .droppable { top: 24%; }
 
+.image-container.framed {
+    box-shadow: 0 0 0 4px rgba(172, 0, 40, 0.5); /* Same color as in the tutorial */
+    transition: box-shadow 0.3s ease;
+}
+
 /* Styles for message overlay */
 #overlay {
     position: absolute;

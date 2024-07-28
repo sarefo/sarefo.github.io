@@ -313,11 +313,11 @@ initializeSwipeFunctionality() {
                 break;
             case 'i':
                 event.preventDefault();
-                document.getElementById('info-button-1').click();
+                game.showInfoDialog(game.currentObservationURLs.imageOne, 1);
                 break;
             case 'o':
                 event.preventDefault();
-                document.getElementById('info-button-2').click();
+                game.showInfoDialog(game.currentObservationURLs.imageTwo, 2);
                 break;
         }
     },
