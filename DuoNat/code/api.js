@@ -177,17 +177,23 @@ const api = (() => {
             logger.debug(`Taxon ID for ${taxonName}:`, data.results[0].id);
             return data.results[0].id;
         },
-
         fetchTaxonDetails: async function (name) {
             try {
                 const response = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${encodeURIComponent(name)}&per_page=1&all_names=true`);
                 const data = await response.json();
                 if (data.results.length === 0) throw new Error(`Taxon not found: ${name}`);
+                logger.debug('Fetched taxon details:', data.results[0]);
                 return data.results[0];
             } catch (error) {
                 logger.error('Error fetching taxon details:', error);
                 throw error;
             }
+        },
+
+        async getAncestryFromLocalData(taxonName) {
+            const taxonInfo = await this.loadTaxonInfo();
+            const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxonName.toLowerCase());
+            return taxonData ? taxonData.ancestryIds.map(id => parseInt(id)) : [];
         },
 
         fetchAncestorDetails: async function (ancestorIds) {
@@ -203,9 +209,9 @@ const api = (() => {
                     logger.error(`Error fetching ancestor details for ID ${id}:`, error);
                 }
             }
-//            logger.debug(`Fetching ancestry from iNat: ${Array.from(ancestorDetails.entries())}`);
+            logger.debug(`Fetched ancestry from iNat:`, Array.from(ancestorDetails.entries()));
             return ancestorDetails;
-        }
+        },
     };
 
 })();
