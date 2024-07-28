@@ -1,0 +1,135 @@
+/* Name pair container and components */
+
+.name-pair {
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: stretch;
+    margin: 4px auto;
+    gap: 4px;
+    width: 98%;
+    max-width: var(--max-image-width);
+    min-height: var(--center-min-height);
+}
+
+#left-name-container, #right-name-container {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    max-width: 100%;
+    margin: 0px;
+    min-height: var(--center-min-height);
+}
+
+/* Styles for draggable name tiles */
+.draggable {
+    position: relative;
+    box-sizing: border-box;
+    z-index: 10;
+    border-radius: var(--border-radius);
+
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 6px;
+    width: 100%;
+    min-height: var(--center-min-height);
+
+    color: var(--text-color);
+    background-color: var(--primary-color);
+    opacity: 1;
+    font-size: 22px;
+
+    text-shadow: 1px 1px 2px var(--shadow-color);
+
+    touch-action: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-break: break-word;
+    hyphens: auto;
+
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    cursor: grab;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.draggable .taxon-name,
+.draggable .vernacular-name {
+    width: 100%;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: wrap; /* TODO claude says no-wrap */
+}
+
+.draggable .taxon-name {
+    font-style: italic;
+    font-weight: bold;
+    margin-bottom: 2px;
+    font-size: 0.95em;
+}
+
+.draggable .vernacular-name {
+    font-size: 0.85em;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.draggable:active {
+    cursor: grabbing;
+    transform: scale(1.05);
+/*    max-width: calc(var(--max-image-width)-50px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);*/
+}
+.draggable:hover {
+    transform: scale(1.02);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.draggable.dragging {
+opacity: 0.8;
+    pointer-events: none;
+    box-shadow: 0 0 0 2px white, 0 0 10px 3px rgba(255, 255, 255, 0.7);
+    width: 60%;
+}
+
+.droppable .draggable,
+.draggable.dragging {
+    box-shadow: 0 0 0 2px white;
+    transition: box-shadow var(--transition-speed) ease;
+    max-width: var(--max-image-width);
+}
+
+/* Message overlay */
+
+#overlay {
+    position: absolute;
+    border-radius: var(--border-radius);
+    height: 100%;
+    background-color: var(--overlay-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-speed) ease, background-color var(--transition-speed) ease;
+}
+
+#overlay.show { opacity: 1; }
+
+#overlay-message {
+    font-size: 2.4em;
+    font-weight: bold;
+    color: var(--text-color);
+    text-shadow: 1px 1px 2px var(--shadow-color);
+    padding: 15px;
+    max-width: 95%;
+    line-height: 1.4;
+}
+
+

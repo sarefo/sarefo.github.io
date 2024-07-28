@@ -1,0 +1,21 @@
+/* Main containers */
+.game-container {
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height:100vh;
+    padding: 0;
+    overflow: hidden;
+    padding: 0px;
+    box-sizing: border-box;
+    transition: transform 0.1 ease-out, opacity 0.1 ease-out;
+}
+
+  .underline {
+    text-decoration: underline;
+  }
+
+

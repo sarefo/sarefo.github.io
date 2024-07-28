@@ -1,5 +1,3 @@
-/* Styles for dialogs mostly */
-
 /* Generic dialog style */
 
 dialog {
@@ -73,294 +71,6 @@ z-index: 5000; /* debug */
 }
 
 /* Styles for button column on left main screen */
-.button-column {
-    position: fixed;
-    right: 0px;
-    top: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    z-index: 1000;
-}
-
-.button-column button, #help-button {
-    background-color: rgba(255, 255, 255, 0.6);
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: background-color var(--transition-speed) ease;
-}
-
-.button-column button:hover {
-    background-color: rgba(255, 255, 255, 1);
-}
-
-#share-button, #help-button {
-    fill: var(--dark-neutral-color);
-}
-#like-button {
-    fill: var(--primary-color);
-}
-#trash-button {
-    fill: var(--primary-counter-color);
-}
-
-.button-column .icon {
-    width: 24px;
-    height: 24px;
-}
-
-/* Styles for functions menu (to replace button column above) */
-.functions-menu {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    z-index: 1000;
-}
-
-.functions-menu button,
-.functions-dropdown button {
-    background-color: rgba(255, 255, 255, 0.6);
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-bottom: 10px;
-}
-
-.functions-menu button:hover,
-.functions-dropdown button:hover {
-    background-color: rgba(255, 255, 255, 0.8);
-}
-
-.functions-dropdown {
-    display: none;
-    position: absolute;
-    right: 0;
-    top: 40px;
-}
-
-.functions-dropdown.show {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
-
-.menu-item {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    margin-bottom: 10px;
-}
-
-.info-label {
-    display: flex;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.9);
-    height: fit-content; /* Adjust height to content */
-    padding: 4px 10px;
-    border-radius: 15px;
-    font-size: 14px;
-    margin-right: 10px;
-    margin-top: -8px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    white-space: nowrap;
-}
-
-.functions-dropdown.show .info-label {
-    opacity: .8;
-}
-
-.top-group {
-    top: 60px;
-}
-
-.bottom-group {
-    position: absolute;
-    top: 0; /* Will be set dynamically in JavaScript */
-    right: 0;
-}
-
-.icon {
-    width: 24px;
-    height: 24px;
-}
-
-/* Media query for larger screens */
-@media (min-width: 768px) {
-    .bottom-group {
-        bottom: auto;
-        top: 50px;
-        right: 0;
-    }
-}
-
-/* Add some responsiveness for smaller screens */
-@media (max-height: 400px) {
-    .button-column {
-        flex-direction: row;
-        top: 10px;
-        right: 10px;
-        left: 10px;
-        justify-content: flex-end;
-    }
-}
-
-/* Styles for loading screen */
-#loading-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #f9f9f9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9000;
-}
-
-.loading-content {
-    text-align: center;
-}
-
-.loading-logo {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 20px;
-}
-
-.loading-content h1 {
-    font-size: 2.5em;
-    margin-bottom: 10px;
-}
-
-.loading-content h1 .duo {
-    color: var(--primary-counter-color);
-}
-
-.loading-content h1 .nat {
-    color: var(--primary-color);
-}
-
-.loading-content p {
-    font-size: 1.2em;
-    color: #666;
-    margin-bottom: 20px;
-}
-
-.loading-spinner {
-    border: 5px solid #f3f3f3;
-    border-top: 5px solid var(--primary-color);
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
-    margin: 0 auto;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Styles for help button */
-#help-button {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    z-index: 1000;
-}
-
-#help-button svg {
-    width: 24px;
-    height: 24px;
-    transition: fill var(--transition-speed) ease;
-}
-
-/* Styles for image button containers */
-.image-buttons {
-    position: absolute;
-    left: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-#image-buttons-1 {
-    bottom: 10px;
-}
-
-#image-buttons-2 {
-    bottom: 10px;
-}
-
-
-.thumbs-up-button,
-.thumbs-down-button,
-.info-button {
-    background: rgba(255, 255, 255, 0.6);
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    margin-bottom: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.thumbs-up-button:hover,
-.thumbs-down-button:hover,
-.info-button:hover {
-    background: rgba(255, 255, 255, 1);
-    transform: scale(1.1);
-}
-
-.thumbs-up-button:active,
-.thumbs-down-button:active,
-.info-button:active {
-    transform: scale(0.95);
-}
-
-.thumbs-up-button .icon,
-.thumbs-down-button .icon,
-.info-button .icon {
-    width: 24px;
-    height: 24px;
-    fill: var(--dark-neutral-color);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .thumbs-up-button,
-    .thumbs-down-button,
-    .info-button {
-        width: 36px;
-        height: 36px;
-    }
-    
-    .thumbs-up-button .icon,
-    .thumbs-down-button .icon,
-    .info-button .icon {
-        width: 20px;
-        height: 20px;
-    }
-}
 
 /* Styles for enter pair dialog */
 #enter-pair-dialog {
@@ -765,181 +475,24 @@ z-index: 5000; /* debug */
     }
 }
 
-/* Styles for iNaturalist Down Dialog */
-#inat-down-dialog {
-    position: relative;
-    padding: 40px 2rem 2rem;
-    width:100%; height:100%;
-    z-index: 10000;
-    background-color: white;
-    padding: 0px;
-    border-radius: 00px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-}
-
-#inat-down-dialog {
-  background-color: white;
-  padding: 2rem;
-  border-radius: var(--border-radius);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  max-width: 90%;
-  width: 400px;
-  text-align: center;
-}
-
-#inat-down-dialog h2 {
-  color: var(--primary-counter-color);
-  margin-bottom: 1rem;
-}
-
-#inat-down-dialog p {
-  margin-bottom: 1rem;
-  color: var(--counter-text-color);
-}
-
-#inat-down-dialog button {
-  background-color: var(--primary-color);
-  color: var(--text-color);
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: var(--border-radius);
-  cursor: pointer;
-  font-size: 1rem;
-  margin: 0.5rem;
-  transition: background-color var(--transition-speed) ease;
-}
-
-#inat-down-dialog button:hover {
-  background-color: #5c8a00;
-}
-
-#check-inat-status {
-  background-color: var(--primary-color);
-}
-
-#check-inat-status:hover {
-  background-color: #8a0020;
-}
-
-/* Taxa relationship graph */
-.loading-indicator {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(255, 255, 255, 1);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    z-index: 1000;
-}
-
-.loading-indicator-logo {
-    width: 80px;
-    height: 80px;
-    margin-bottom: 15px;
-}
-
-.loading-indicator .loading-spinner {
-    border: 5px solid #f3f3f3;
-    border-top: 5px solid var(--primary-color);
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
-    margin: 0 auto 15px;
-}
-
-.loading-indicator p {
-    margin: 0;
-    color: var(--primary-color);
-    font-size: 18px;
+.shortcut-key {
+    display: none;
     font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 2px 5px;
+    border-radius: 3px;
+    margin-right: 5px;
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+body.has-keyboard .shortcut-key {
+    display: inline-block;
+}
+body.has-keyboard button {
+    text-align: left;
 }
 
-#phylogeny-dialog {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    height: 90%;
-    max-width: 1800px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    /*visibility: hidden;*/
-    display: none;
-    opacity: 0.92;
-}
+/* Info dialog */
 
-.graph-hint {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(255, 255, 255, 0.8);
-    color: var(--dark-neutral-color);
-    padding: 5px 10px;
-    border-radius: 15px;
-    font-size: 0.9em;
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
-}
-
-.graph-hint:hover {
-    opacity: 0;
-}
-
-#taxa-relationship-graph {
-    flex-grow: 1;
-    overflow: hidden;
-}
-
-/* hide when dialog is hidden */
-#phylogeny-dialog.hidden #taxa-relationship-graph {
-    display: none;
-    visibility: hidden;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    #phylogeny-dialog {
-        width: 95%;
-        height: 95%;
-    }
-}
-
-#taxa-relationship-graph {
-    flex-grow: 1;
-    overflow: hidden;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .graph-dialog-content {
-        width: 95%;
-        height: 95%;
-    }
-
-    .graph-title {
-        font-size: 1.2em;
-        padding: 10px 0;
-    }
-}
-
-.clickable-network .vis-network:hover {
-    /* TODO: gives pointer not only over nodes*/
-   /* cursor: pointer; */
-}
-
-/* Styles info dialog */
 .info-dialog {
     position: relative;
     padding: 40px 20px 20px;
@@ -1041,19 +594,140 @@ z-index: 5000; /* debug */
   background-color: #5c8a00;
 }
 
-.shortcut-key {
+
+/* Relationship graph dialog */
+
+#phylogeny-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    height: 90%;
+    max-width: 1800px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    /*visibility: hidden;*/
     display: none;
-    font-weight: bold;
-    background-color: rgba(255, 255, 255, 0.2);
-    padding: 2px 5px;
-    border-radius: 3px;
-    margin-right: 5px;
+    opacity: 0.92;
 }
 
-body.has-keyboard .shortcut-key {
-    display: inline-block;
+.graph-hint {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    color: var(--dark-neutral-color);
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.9em;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
 }
-body.has-keyboard button {
-    text-align: left;
+
+.graph-hint:hover {
+    opacity: 0;
 }
+
+#taxa-relationship-graph {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+/* hide when dialog is hidden */
+#phylogeny-dialog.hidden #taxa-relationship-graph {
+    display: none;
+    visibility: hidden;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #phylogeny-dialog {
+        width: 95%;
+        height: 95%;
+    }
+}
+
+#taxa-relationship-graph {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .graph-dialog-content {
+        width: 95%;
+        height: 95%;
+    }
+
+    .graph-title {
+        font-size: 1.2em;
+        padding: 10px 0;
+    }
+}
+
+.clickable-network .vis-network:hover {
+    /* TODO: gives pointer not only over nodes*/
+   /* cursor: pointer; */
+}
+
+
+/* Styles for iNaturalist Down Dialog */
+#inat-down-dialog {
+    position: relative;
+    padding: 40px 2rem 2rem;
+    width:100%; height:100%;
+    z-index: 10000;
+    background-color: white;
+    padding: 0px;
+    border-radius: 00px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+#inat-down-dialog {
+  background-color: white;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  max-width: 90%;
+  width: 400px;
+  text-align: center;
+}
+
+#inat-down-dialog h2 {
+  color: var(--primary-counter-color);
+  margin-bottom: 1rem;
+}
+
+#inat-down-dialog p {
+  margin-bottom: 1rem;
+  color: var(--counter-text-color);
+}
+
+#inat-down-dialog button {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 0.5rem;
+  transition: background-color var(--transition-speed) ease;
+}
+
+#inat-down-dialog button:hover {
+  background-color: #5c8a00;
+}
+
+#check-inat-status {
+  background-color: var(--primary-color);
+}
+
+#check-inat-status:hover {
+  background-color: #8a0020;
+}
+
 

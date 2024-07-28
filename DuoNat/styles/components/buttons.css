@@ -1,0 +1,110 @@
+/* Styles for help button */
+
+#help-button {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.6);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color var(--transition-speed) ease;
+}
+
+#help-button svg {
+    width: 24px;
+    height: 24px;
+    transition: fill var(--transition-speed) ease;
+}
+
+#share-button, #help-button {
+    fill: var(--dark-neutral-color);
+}
+#like-button {
+    fill: var(--primary-color);
+}
+#trash-button {
+    fill: var(--primary-counter-color);
+}
+
+/* Styles for image button containers */
+
+.image-buttons {
+    position: absolute;
+    left: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#image-buttons-1 {
+    bottom: 10px;
+}
+
+#image-buttons-2 {
+    bottom: 10px;
+}
+
+
+.thumbs-up-button,
+.thumbs-down-button,
+.info-button {
+    background: rgba(255, 255, 255, 0.6);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.thumbs-up-button:hover,
+.thumbs-down-button:hover,
+.info-button:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: scale(1.1);
+}
+
+.thumbs-up-button:active,
+.thumbs-down-button:active,
+.info-button:active {
+    transform: scale(0.95);
+}
+
+.thumbs-up-button .icon,
+.thumbs-down-button .icon,
+.info-button .icon {
+    width: 24px;
+    height: 24px;
+    fill: var(--dark-neutral-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .thumbs-up-button,
+    .thumbs-down-button,
+    .info-button {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .thumbs-up-button .icon,
+    .thumbs-down-button .icon,
+    .info-button .icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+

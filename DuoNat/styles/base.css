@@ -1,0 +1,115 @@
+/* Mostly styles for main page */
+
+/* CSS reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Custom properties */
+:root {
+    --primary-color: #74ac00; /* iNat green */
+    --primary-counter-color: #ac0028; /* red */
+    --dark-neutral-color: #444;
+    --background-color: #ffffff;
+    --text-color: #ffffff;
+    --counter-text-color: #444;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --overlay-color: rgba(0, 0, 0, 0.3);
+
+    --normal-font-size: 18px;
+    --border-radius: 8px;
+    --max-image-width: 500px;
+    --transition-speed: 0.3s;
+    /* images wobble when <80px */
+    --center-min-height: 80px; /* consider relative to screen */
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0; padding: 0;
+    overflow: auto;
+    box-sizing: border-box;
+    font-family: 'Open Sans', Arial, sans-serif;
+}
+body * { text-align: center; } /* percolate to child elements */
+
+/* Other general styles */
+
+button {
+    outline: none;
+    box-shadow: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* remove black border when active */
+.no-outline {
+    outline: none;
+    box-shadow: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Styles common to all main containers */
+.image-container,
+.name-pair,
+#overlay {
+    width: 98vw;
+    max-width: var(--max-image-width);
+}
+
+.droppable {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.9;
+    z-index: 10;
+    width: 60%;
+    max-width: calc(var(--max-image-width)-50px);
+    height: 60px; /* Add a fixed height */
+    pointer-events: none;
+}
+
+.image-container.framed {
+    box-shadow: 0 0 0 4px rgba(172, 0, 40, 0.5);
+    transition: box-shadow 0.3s ease;
+}
+
+/* Animation keyframes etc. */
+@keyframes dropAnimation {
+    0% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+.drop-animation { animation: dropAnimation 0.3s ease-out forwards; }
+
+@keyframes swipeOutLeft {
+    to {
+        transform: rotate(-5deg) translateX(-100%);
+        opacity: 0;
+    }
+}
+
+.swipe-out-left { animation: swipeOutLeft 0.5s ease-out forwards; }
+
+.swipe-info-message {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    color: var(--dark-neutral-color);
+    height: fit-content;
+    width: auto;
+    max-width: 80%;
+    padding: 6px 15px;
+    border-radius: 15px;
+    font-size: larger;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    pointer-events: none;
+    z-index: 1000;
+}
