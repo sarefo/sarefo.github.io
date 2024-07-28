@@ -429,10 +429,10 @@ const game = {
             const img = new Image();
             img.onload = () => {
                 imgElement.src = src;
-                imgElement.classList.remove('loading');
+                imgElement.classList.remove('image-container__image--loading');
                 // Add a slight delay before adding the 'loaded' class
                 setTimeout(() => {
-                    imgElement.classList.add('loaded');
+                    imgElement.classList.add('image-container__image--loaded');
                     resolve();
                 }, 50); // 50ms delay to ensure the browser has time to apply the new src
             };
@@ -479,8 +479,8 @@ const game = {
 
     prepareUIForLoading: function () {
         utils.resetDraggables();
-        elements.imageOne.classList.add('loading');
-        elements.imageTwo.classList.add('loading');
+        elements.imageOne.classList.add('image-container__image--loading');
+        elements.imageTwo.classList.add('image-container__image--loading');
         var startMessage = gameState.isFirstLoad ? "Drag the names!" : `${this.loadingMessage}`;
         ui.showOverlay(startMessage, config.overlayColors.green);
         // what does this do?
@@ -496,8 +496,8 @@ const game = {
         logger.debug("Loading new random pair");
         this.setState(GameState.LOADING);
         ui.showOverlay(`${this.loadingMessage}`, config.overlayColors.green);
-        elements.imageOne.classList.add('loading');
-        elements.imageTwo.classList.add('loading');
+        elements.imageOne.classList.add('image-container__image--loading');
+        elements.imageTwo.classList.add('image-container__image--loading');
 
         try {
             this.nextSelectedPair = null; // Ensure we're not using a previously selected pair
@@ -545,8 +545,8 @@ const game = {
 
             if (isCorrect) {
                 await ui.showOverlay('Correct!', colorCorrect);
-                elements.imageOne.classList.add('loading');
-                elements.imageTwo.classList.add('loading');
+                elements.imageOne.classList.add('image-container__image--loading');
+                elements.imageTwo.classList.add('image-container__image--loading');
                 await utils.sleep(2000); // Show "Correct!" for a while
                 ui.updateOverlayMessage(`${this.loadingMessage}`); // Update message without changing color
                 await this.setupGame(false);  // Start a new round with the same taxon pair
@@ -635,7 +635,7 @@ const game = {
         if (imageIndex) {
             const imageContainer = document.getElementById(`image-container-${imageIndex}`);
             if (imageContainer) {
-                imageContainer.classList.add('framed');
+                imageContainer.classList.add('image-container--framed');
             }
         }
 

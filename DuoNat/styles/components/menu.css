@@ -1,13 +1,13 @@
 /* Styles for functions menu (to replace button column above) */
 
-.functions-menu {
+.main-menu {
     position: fixed;
     top: 10px;
     right: 10px;
     z-index: 1000;
 }
 
-.functions-menu button,
+.main-menu button,
 .functions-dropdown button {
     background-color: rgba(255, 255, 255, 0.6);
     border: none;
@@ -22,7 +22,7 @@
     margin-bottom: 10px;
 }
 
-.functions-menu button:hover,
+.main-menu button:hover,
 .functions-dropdown button:hover {
     background-color: rgba(255, 255, 255, 0.8);
 }
@@ -74,11 +74,6 @@
     position: absolute;
     top: 0; /* Will be set dynamically in JavaScript */
     right: 0;
-}
-
-.icon {
-    width: 24px;
-    height: 24px;
 }
 
 /* Media query for larger screens */

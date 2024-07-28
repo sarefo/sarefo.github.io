@@ -15,7 +15,7 @@
     z-index: 1;
     cursor: default;
 }
-.image-container.drag-over {
+.image-container--drag-over {
     cursor: copy;
 }
 
@@ -26,7 +26,7 @@
 #image-container-2 {
     margin-bottom: 4px;
 }
-.image-container img {
+.image-container__image {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -46,14 +46,15 @@
     pointer-events: none; /* Prevents the image from interfering with dragging */
     transition: opacity var(--transition-speed) ease-in-out;
 }
-.image-container img.loading {
+
+.image-container__image--loading {
     opacity: 0.5;
     transition: opacity var(--transition-speed) ease-in-out;    
 }
 
 /* World map overlays on images */
 
-.world-map-container {
+.image-container__world-map {
     position: absolute;
     left: 60px;
     width: 100px; /* Adjust as needed */
@@ -61,7 +62,7 @@
     border-radius: var(--border-radius);
     z-index: 10;
 }
-.world-map-container svg {
+.image-container__world-map svg {
     opacity: 0.6;
     border-radius: var(--border-radius);
 }
@@ -75,7 +76,7 @@
 }
 
 /* Drop zone for taxon tiles */
-.droppable {
+.image-container__drop-zone {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -90,7 +91,7 @@
 
 /* Used for marking the active image when showing the info dialog */
 
-.image-container.framed {
+.image-container--framed {
     box-shadow: 0 0 0 4px rgba(172, 0, 40, 0.5);
     transition: box-shadow 0.3s ease;
 }

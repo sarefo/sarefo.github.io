@@ -1,3 +1,10 @@
+.icon {
+    width: 24px;
+    height: 24px;
+    fill: var(--dark-neutral-color);
+    transition: fill var(--transition-speed) ease;
+}
+
 /* Styles for help button */
 
 #help-button {
@@ -17,12 +24,6 @@
     transition: background-color var(--transition-speed) ease;
 }
 
-#help-button svg {
-    width: 24px;
-    height: 24px;
-    transition: fill var(--transition-speed) ease;
-}
-
 #share-button, #help-button {
     fill: var(--dark-neutral-color);
 }
@@ -35,7 +36,7 @@
 
 /* Styles for image button containers */
 
-.image-buttons {
+.image-container__buttons {
     position: absolute;
     left: 10px;
     display: flex;
@@ -51,10 +52,7 @@
     bottom: 10px;
 }
 
-
-.thumbs-up-button,
-.thumbs-down-button,
-.info-button {
+.image-container__button {
     background: rgba(255, 255, 255, 0.6);
     border: none;
     border-radius: 50%;
@@ -69,39 +67,23 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.thumbs-up-button:hover,
-.thumbs-down-button:hover,
-.info-button:hover {
+.image-container__button:hover {
     background: rgba(255, 255, 255, 1);
     transform: scale(1.1);
 }
 
-.thumbs-up-button:active,
-.thumbs-down-button:active,
-.info-button:active {
+.image-container__button:active {
     transform: scale(0.95);
-}
-
-.thumbs-up-button .icon,
-.thumbs-down-button .icon,
-.info-button .icon {
-    width: 24px;
-    height: 24px;
-    fill: var(--dark-neutral-color);
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    .thumbs-up-button,
-    .thumbs-down-button,
-    .info-button {
+
+.image-container__button {
         width: 36px;
         height: 36px;
     }
-    
-    .thumbs-up-button .icon,
-    .thumbs-down-button .icon,
-    .info-button .icon {
+.image-container__button-icon {
         width: 20px;
         height: 20px;
     }

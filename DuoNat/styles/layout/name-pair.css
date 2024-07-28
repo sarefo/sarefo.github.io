@@ -97,7 +97,7 @@ opacity: 0.8;
     width: 60%;
 }
 
-.droppable .name-pair__item--draggable,
+.name-pair__item--draggable,
 .name-pair__item--draggable.dragging {
     box-shadow: 0 0 0 2px white;
     transition: box-shadow var(--transition-speed) ease;

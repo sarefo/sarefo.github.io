@@ -358,7 +358,7 @@ const ui = {
 
         // Close the dropdown when clicking outside of it
         document.addEventListener('click', (event) => {
-            if (!event.target.closest('.functions-menu')) {
+            if (!event.target.closest('.main-menu')) {
                 this.closeFunctionsMenu();
             }
         });
@@ -417,7 +417,7 @@ const ui = {
         this.closeFunctionsMenu(); // Ensure menu is closed on initialization
         // Close the dropdown when clicking outside of it
         document.addEventListener('click', (event) => {
-            if (!event.target.closest('.functions-menu')) {
+            if (!event.target.closest('.main-menu')) {
                 this.closeFunctionsMenu();
             }
         });

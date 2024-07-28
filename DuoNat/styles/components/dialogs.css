@@ -64,9 +64,6 @@ z-index: 5000; /* debug */
 }
 
 .dialog-close-button svg {
-    width: 24px;
-    height: 24px;
-/*    stroke: var(--primary-color);*/
     stroke: var(--primary-counter-color);
 }
 
@@ -389,10 +386,6 @@ z-index: 5000; /* debug */
 }
 
 .help-item svg {
-    width: 24px;
-    height: 24px;
-/*    fill: var(--primary-color); */
-    fill: var(--dark-neutral-color);
     flex-shrink: 0;
 }
 

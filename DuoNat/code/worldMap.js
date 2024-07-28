@@ -1,5 +1,5 @@
 export function createWorldMap(container, highlightedContinents) {
-    const mapContainer = container.querySelector('.world-map-container');
+    const mapContainer = container.querySelector('.image-container__world-map');
     if (!mapContainer) {
         console.error('World map container not found');
         return;

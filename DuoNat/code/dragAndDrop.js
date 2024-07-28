@@ -78,13 +78,13 @@ const dragAndDrop = {
     dragOver(e) {
         e.preventDefault();
         if (e.target.classList.contains('image-container')) {
-            e.target.classList.add('drag-over');
+            e.target.classList.add('image-container--drag-over');
         }
     },
 
     dragLeave(e) {
         if (e.target.classList.contains('image-container')) {
-            e.target.classList.remove('drag-over');
+            e.target.classList.remove('image-container--drag-over');
         }
     },
 
@@ -95,10 +95,10 @@ const dragAndDrop = {
 
         let dropZone;
         if (e.target.classList.contains('image-container')) {
-            e.target.classList.remove('drag-over');
+            e.target.classList.remove('image-container--drag-over');
             dropZone = e.target.querySelector('div[id^="drop-"]');
         } else if (e.target.tagName === 'IMG') {
-            e.target.parentElement.classList.remove('drag-over');
+            e.target.parentElement.classList.remove('image-container--drag-over');
             dropZone = e.target.nextElementSibling;
         } else {
             return; // Drop on an invalid target
