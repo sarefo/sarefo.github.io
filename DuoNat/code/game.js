@@ -122,6 +122,10 @@ const game = {
                 pair: newPair,
                 imageOneURL,
                 imageTwoURL
+            },
+            usedImages: {
+                taxon1: new Set([imageOneURL]),
+                taxon2: new Set([imageTwoURL])
             }
         });
 
@@ -139,19 +143,16 @@ const game = {
         if (isNewPair) {
             imageOneURL = gameState.currentTaxonImageCollection.imageOneURL;
             imageTwoURL = gameState.currentTaxonImageCollection.imageTwoURL;
-            //      logger.debug("Using images from new pair initialization");
         } else {
             const preloadedImages = preloader.getPreloadedImagesForNextRound();
             if (preloadedImages && preloadedImages.taxon1 && preloadedImages.taxon2) {
                 imageOneURL = preloadedImages.taxon1;
                 imageTwoURL = preloadedImages.taxon2;
-                //        logger.debug("Using preloaded images for next round");
             } else {
                 [imageOneURL, imageTwoURL] = await Promise.all([
-                    api.fetchRandomImageMetadata(pair.taxon1),
-                    api.fetchRandomImageMetadata(pair.taxon2)
+                    preloader.fetchDifferentImage(pair.taxon1, gameState.currentRound.imageOneURL),
+                    preloader.fetchDifferentImage(pair.taxon2, gameState.currentRound.imageTwoURL)
                 ]);
-                //        logger.debug("Fetched new images for round");
             }
         }
 
@@ -218,7 +219,6 @@ const game = {
             // Convert all continent codes to full names
             const fullContinents = taxonData.distribution.map(code => continentMap[code]);
             
-            console.log(`Continents for ${taxon}: ${fullContinents.join(', ')}`);
             return fullContinents;
         } else {
             console.log(`No distribution data found for ${taxon}. Using placeholder.`);

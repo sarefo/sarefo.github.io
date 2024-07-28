@@ -99,30 +99,35 @@ const api = (() => {
             return result;
         },
 
-        fetchMultipleImages: async function (taxonName, count = 12) {
-//            logger.debug(`Fetching ${count} images for ${taxonName}`);
-            try {
-                const searchResponse = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${taxonName}`);
-                const searchData = await searchResponse.json();
-                if (searchData.results.length === 0) { throw new Error('Taxon not found'); }
-                const taxonId = searchData.results[0].id;
+    async fetchMultipleImages(taxonName, count = 12) {
+        try {
+            const searchResponse = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${taxonName}`);
+            const searchData = await searchResponse.json();
+            if (searchData.results.length === 0) { throw new Error('Taxon not found'); }
+            const taxonId = searchData.results[0].id;
 
-                const taxonResponse = await fetch(`https://api.inaturalist.org/v1/taxa/${taxonId}`);
-                const taxonData = await taxonResponse.json();
-                if (taxonData.results.length === 0) { throw new Error('No details found for the taxon'); }
-                const taxon = taxonData.results[0];
+            // Fetch more photos to ensure we have a good selection
+            const taxonResponse = await fetch(`https://api.inaturalist.org/v1/taxa/${taxonId}?photos=true`);
+            const taxonData = await taxonResponse.json();
+            if (taxonData.results.length === 0) { throw new Error('No details found for the taxon'); }
+            const taxon = taxonData.results[0];
 
-                let images = taxon.taxon_photos.map(photo => photo.photo.url.replace('square', 'medium'));
+            let images = taxon.taxon_photos.map(photo => photo.photo.url.replace('square', 'medium'));
 
-                // If we don't have enough images, we'll just return what we have
-                const result = images.slice(0, Math.min(count, images.length));
-//                logger.debug(`Fetched ${result.length} images for ${taxonName}`);
-                return result;
-            } catch (error) {
-                logger.error(`Error fetching images for ${taxonName}:`, error);
-                return [];
-            }
-        },
+            // Ensure unique images
+            images = [...new Set(images)];
+
+            // Shuffle the array of unique images
+            images = images.sort(() => Math.random() - 0.5);
+
+            // If we don't have enough images, we'll just return what we have
+            const result = images.slice(0, Math.min(count, images.length));
+            return result;
+        } catch (error) {
+            logger.error(`Error fetching images for ${taxonName}:`, error);
+            return [];
+        }
+    },
 
         // fetch vernacular name of taxon from local file or iNat
         fetchVernacular: async function (taxonName) {

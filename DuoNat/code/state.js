@@ -41,7 +41,7 @@ export const gameState = {
     }
   },
     // check which of these still used:
-    isFirstLoad: true,
+  isFirstLoad: true,
   isInitialLoad: true,
   isPreloading: false,
   preloadedPair: null,
@@ -58,6 +58,12 @@ export const gameState = {
     imageTwoVernacular: null,
     randomized: false
   },
+
+    usedImages: {
+        taxon1: new Set(),
+        taxon2: new Set()
+    },
+
   preloadedTaxonImageCollection: null,
   currentTaxonImageCollection: null,
   taxonImageOne: null,
