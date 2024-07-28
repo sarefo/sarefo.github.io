@@ -567,6 +567,32 @@ body.has-keyboard button {
 }
 
 .info-dialog-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.info-dialog-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.info-dialog-button:hover {
+    background-color: rgba(116, 172, 0, 0.1);
+}
+
+.info-dialog-button .icon {
+    width: 24px;
+    height: 24px;
+    fill: var(--primary-color);
+}
+
+/*
+.info-dialog-buttons {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -588,7 +614,7 @@ body.has-keyboard button {
 .info-dialog-button:hover {
   background-color: #5c8a00;
 }
-
+*/
 
 /* Relationship graph dialog */
 

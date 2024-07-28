@@ -690,21 +690,16 @@ const game = {
 
         closeButton.onclick = () => {
             dialog.close();
-            if (imageIndex) {
-                const imageContainer = document.getElementById(`image-container-${imageIndex}`);
-                if (imageContainer) {
-                    imageContainer.classList.remove('framed');
-                }
-            }
+            document.querySelectorAll('.image-container').forEach(container => {
+                container.classList.remove('image-container--framed');
+            });
         };
 
         dialog.addEventListener('close', () => {
-            if (imageIndex) {
-                const imageContainer = document.getElementById(`image-container-${imageIndex}`);
-                if (imageContainer) {
-                    imageContainer.classList.remove('framed');
-                }
-            }
+            // Remove framing from all containers when dialog is closed
+            document.querySelectorAll('.image-container').forEach(container => {
+                container.classList.remove('image-container--framed');
+            });
         });
 
         dialog.showModal();
