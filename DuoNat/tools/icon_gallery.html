@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DuoNat Icon Set</title>
+  <style>
+    .icon {
+      width: 24px;
+      height: 24px;
+      margin: 10px;
+      border: 1px solid #ccc;
+      padding: 5px;
+    }
+    .icon-container {
+      display: inline-block;
+      text-align: center;
+      margin: 10px;
+    }
+    .icon-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    #results {
+      margin-top: 20px;
+      font-family: monospace;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="icon-test-area">
+    </div>
+
+  <div id="results"></div>
+
+  <script>
+    const icons = ['help', 'info', 'lightbulb', 'search', 'share', 'link', 'left', 'right', 'up', 'down', 'star', 'heart', 'trash', 'thumb-up', 'thumb-down', 'close', 'menu', 'three-dots', 'user', 'settings', 'report', 'keyboard', 'drag', 'random', 'list', 'plus', 'stats', 'camera', 'microscope', 'phylogeny'];
+    const iconTestArea = document.getElementById('icon-test-area');
+    const results = document.getElementById('results');
+
+    let row = document.createElement('div');
+    row.className = 'icon-row';
+
+    icons.forEach((icon, index) => {
+      const container = document.createElement('div');
+      container.className = 'icon-container';
+      container.innerHTML = `
+        <svg class="icon"><use href="../images/icons.svg#icon-${icon}"></use></svg>
+        <div>${icon}</div>
+      `;
+      row.appendChild(container);
+
+      if ((index + 1) % 6 === 0) {
+        iconTestArea.appendChild(row);
+        row = document.createElement('div');
+        row.className = 'icon-row';
+      }
+    });
+
+    // Append the last row if there are remaining icons
+    if (row.children.length > 0) {
+      iconTestArea.appendChild(row);
+    }
+
+  </script>
+</body>
+</html>
+

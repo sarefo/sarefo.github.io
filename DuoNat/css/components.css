@@ -996,7 +996,7 @@ z-index: 5000; /* debug */
     position: relative;
     padding-left: 24px;
     margin-bottom: 10px;
-    text-align: justify;
+    text-align: left;
     word-break: normal;
     overflow-wrap: break-word;
     hyphens: auto;

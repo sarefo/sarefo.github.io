@@ -4,6 +4,7 @@ import logger from './logger.js';
 import utils from './utils.js';
 
 let taxonInfo = null;
+let ancestryInfo = null;
 
 const api = (() => {
     return {
@@ -190,6 +191,19 @@ const api = (() => {
             }
         },
 
+       loadAncestryInfo: async function() {
+            if (ancestryInfo === null) {
+                try {
+                    const response = await fetch('./data/ancestryInfo.json');
+                    ancestryInfo = await response.json();
+                } catch (error) {
+                    logger.error('Error loading ancestryInfo.json:', error);
+                    ancestryInfo = {};
+                }
+            }
+            return ancestryInfo;
+        },
+
         async getAncestryFromLocalData(taxonName) {
             const taxonInfo = await this.loadTaxonInfo();
             const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxonName.toLowerCase());
@@ -198,20 +212,34 @@ const api = (() => {
 
         fetchAncestorDetails: async function (ancestorIds) {
             const ancestorDetails = new Map();
+            const localAncestryInfo = await this.loadAncestryInfo();
+
             for (const id of ancestorIds) {
-                try {
-                    const response = await fetch(`https://api.inaturalist.org/v1/taxa/${id}`);
-                    const data = await response.json();
-                    if (data.results.length > 0) {
-                        ancestorDetails.set(id, data.results[0]);
+                const localData = localAncestryInfo[id];
+                if (localData) {
+                    ancestorDetails.set(id, {
+                        id: parseInt(id),
+                        name: localData.taxonName,
+                        rank: localData.rank,
+                        preferred_common_name: localData.vernacularName
+                    });
+                    logger.debug(`Using local ancestry data for ID ${id}:`, localData);
+                } else {
+                    try {
+                        const response = await fetch(`https://api.inaturalist.org/v1/taxa/${id}`);
+                        const data = await response.json();
+                        if (data.results.length > 0) {
+                            ancestorDetails.set(id, data.results[0]);
+                            logger.debug(`Fetched ancestry data from iNat for ID ${id}:`, data.results[0]);
+                        }
+                    } catch (error) {
+                        logger.error(`Error fetching ancestor details for ID ${id}:`, error);
                     }
-                } catch (error) {
-                    logger.error(`Error fetching ancestor details for ID ${id}:`, error);
                 }
             }
-            logger.debug(`Fetched ancestry from iNat:`, Array.from(ancestorDetails.entries()));
             return ancestorDetails;
         },
+
     };
 
 })();

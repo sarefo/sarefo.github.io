@@ -87,43 +87,43 @@ const taxaRelationshipViewer = {
     }
   },
 
-async findRelationship(taxonName1, taxonName2) {
-    if (!this.initialized) {
-        throw new Error('Viewer not initialized. Call initialize() first.');
-    }
+    async findRelationship(taxonName1, taxonName2) {
+        if (!this.initialized) {
+            throw new Error('Viewer not initialized. Call initialize() first.');
+        }
 
-    this.showLoadingIndicator();
+        this.showLoadingIndicator();
 
-    try {
-        const [taxon1, taxon2] = await Promise.all([
-            this.fetchTaxonData(taxonName1),
-            this.fetchTaxonData(taxonName2)
-        ]);
+        try {
+            const [taxon1, taxon2] = await Promise.all([
+                this.fetchTaxonData(taxonName1),
+                this.fetchTaxonData(taxonName2)
+            ]);
 
-        // Fetch ancestry from local data
-        const [ancestry1, ancestry2] = await Promise.all([
-            api.getAncestryFromLocalData(taxonName1),
-            api.getAncestryFromLocalData(taxonName2)
-        ]);
+            // Fetch ancestry from local data
+            const [ancestry1, ancestry2] = await Promise.all([
+                api.getAncestryFromLocalData(taxonName1),
+                api.getAncestryFromLocalData(taxonName2)
+            ]);
 
-        // Convert Set to Array if necessary
-        taxon1.ancestor_ids = Array.isArray(taxon1.ancestor_ids) ? taxon1.ancestor_ids : Array.from(taxon1.ancestor_ids || []);
-        taxon2.ancestor_ids = Array.isArray(taxon2.ancestor_ids) ? taxon2.ancestor_ids : Array.from(taxon2.ancestor_ids || []);
+            // Convert Set to Array if necessary
+            taxon1.ancestor_ids = Array.isArray(taxon1.ancestor_ids) ? taxon1.ancestor_ids : Array.from(taxon1.ancestor_ids || []);
+            taxon2.ancestor_ids = Array.isArray(taxon2.ancestor_ids) ? taxon2.ancestor_ids : Array.from(taxon2.ancestor_ids || []);
 
-        // Use local ancestry if available
-        if (ancestry1.length > 0) taxon1.ancestor_ids = ancestry1;
-        if (ancestry2.length > 0) taxon2.ancestor_ids = ancestry2;
+            // Use local ancestry if available
+            if (ancestry1.length > 0) taxon1.ancestor_ids = ancestry1;
+            if (ancestry2.length > 0) taxon2.ancestor_ids = ancestry2;
 
-        const commonAncestor = this.findCommonAncestor(taxon1, taxon2);
-        this.currentData = { taxon1, taxon2, commonAncestor };
-        await this.renderGraph(taxon1, taxon2, commonAncestor);
-    } catch (error) {
-        logger.error('Error finding relationship:', error);
-        throw error;
-    } finally {
-        this.hideLoadingIndicator();
-    }
-},
+            const commonAncestor = this.findCommonAncestor(taxon1, taxon2);
+            this.currentData = { taxon1, taxon2, commonAncestor };
+            await this.renderGraph(taxon1, taxon2, commonAncestor);
+        } catch (error) {
+            logger.error('Error finding relationship:', error);
+            throw error;
+        } finally {
+            this.hideLoadingIndicator();
+        }
+    },
 
     async fetchAncestorDetails(ancestorIds, taxon1, taxon2) {
         ancestorIds = Array.isArray(ancestorIds) ? ancestorIds : Array.from(ancestorIds || []);
@@ -131,7 +131,7 @@ async findRelationship(taxonName1, taxonName2) {
 
         const localAncestorDetails = new Map();
 
-        // Only use local data for the end nodes (taxon1 and taxon2)
+        // Add end nodes (taxon1 and taxon2) to localAncestorDetails
         const endNodes = [taxon1, taxon2];
         for (const taxon of endNodes) {
             if (taxon && taxon.id) {
@@ -145,17 +145,16 @@ async findRelationship(taxonName1, taxonName2) {
             }
         }
 
-        // Fetch all other ancestor details from the API
-        const idsToFetch = ancestorIds.filter(id => !localAncestorDetails.has(id));
-        logger.debug('IDs to fetch from API:', idsToFetch);
-
-        if (idsToFetch.length > 0) {
-            const apiAncestorDetails = await api.fetchAncestorDetails(idsToFetch);
-            apiAncestorDetails.forEach((value, key) => {
+        // Fetch ancestor details from API (which now checks local ancestryInfo.json first)
+        const ancestorDetails = await api.fetchAncestorDetails(ancestorIds);
+        
+        // Merge API results with localAncestorDetails
+        ancestorDetails.forEach((value, key) => {
+            if (!localAncestorDetails.has(key)) {
                 localAncestorDetails.set(key, value);
-                logger.debug(`Added API data for ID ${key}:`, value);
-            });
-        }
+                logger.debug(`Added ancestry data for ID ${key}:`, value);
+            }
+        });
 
         return localAncestorDetails;
     },
