@@ -547,14 +547,14 @@ const game = {
                 await ui.showOverlay('Correct!', colorCorrect);
                 elements.imageOne.classList.add('loading');
                 elements.imageTwo.classList.add('loading');
-                await utils.sleep(1000); // Show "Correct!" for 1 second
+                await utils.sleep(2400); // Show "Correct!" for a while
                 ui.updateOverlayMessage(`${this.loadingMessage}`); // Update message without changing color
                 await this.setupGame(false);  // Start a new round with the same taxon pair
             } else {
                 // Immediately reset draggables before showing the "Try again!" message
                 utils.resetDraggables();
                 await ui.showOverlay('Try again!', colorWrong);
-                await utils.sleep(800);
+                await utils.sleep(1200);
                 ui.hideOverlay();
                 this.setState(GameState.PLAYING);
             }
