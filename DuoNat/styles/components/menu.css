@@ -1,4 +1,4 @@
-/* Styles for functions menu (to replace button column above) */
+/* Styles for main menu (to replace button column above) */
 
 .main-menu {
     position: fixed;
@@ -8,7 +8,7 @@
 }
 
 .main-menu button,
-.functions-dropdown button {
+.main-menu__dropdown button {
     background-color: rgba(255, 255, 255, 0.6);
     border: none;
     border-radius: 50%;
@@ -23,31 +23,31 @@
 }
 
 .main-menu button:hover,
-.functions-dropdown button:hover {
+.main-menu__dropdown button:hover {
     background-color: rgba(255, 255, 255, 0.8);
 }
 
-.functions-dropdown {
+.main-menu__dropdown {
     display: none;
     position: absolute;
     right: 0;
     top: 40px;
 }
 
-.functions-dropdown.show {
+.main-menu__dropdown.show {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
 }
 
-.menu-item {
+.main-menu__item {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     margin-bottom: 10px;
 }
 
-.info-label {
+.main-menu__label {
     display: flex;
     align-items: center;
     background-color: rgba(255, 255, 255, 0.9);
@@ -62,15 +62,15 @@
     white-space: nowrap;
 }
 
-.functions-dropdown.show .info-label {
+.main-menu__dropdown.show .main-menu__label {
     opacity: .8;
 }
 
-.top-group {
+.main-menu__dropdown--top {
     top: 60px;
 }
 
-.bottom-group {
+.main-menu__dropdown--bottom {
     position: absolute;
     top: 0; /* Will be set dynamically in JavaScript */
     right: 0;
@@ -78,11 +78,10 @@
 
 /* Media query for larger screens */
 @media (min-width: 768px) {
-    .bottom-group {
+    .main-menu__dropdown--bottom {
         bottom: auto;
         top: 50px;
         right: 0;
     }
 }
-
 

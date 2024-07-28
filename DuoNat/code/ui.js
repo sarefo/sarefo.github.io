@@ -338,11 +338,11 @@ const ui = {
         document.addEventListener('keydown', handleKeyPress);
     },
 
-    // functions menu code:
+    // main menu code:
     initializeFunctionsMenu: function() {
-        const functionsToggle = document.getElementById('menu-toggle');
-        if (functionsToggle) {
-            functionsToggle.addEventListener('click', (event) => {
+        const menuToggle = document.getElementById('menu-toggle');
+        if (menuToggle) {
+            menuToggle.addEventListener('click', (event) => {
 //                logger.debug('Functions toggle button or its child clicked');
                 event.stopPropagation();
                 this.toggleFunctionsMenu();
@@ -367,8 +367,8 @@ const ui = {
     toggleFunctionsMenu: function() {
         this.isMenuOpen = !this.isMenuOpen;
 
-        const topGroup = document.querySelector('.functions-dropdown.top-group');
-        const bottomGroup = document.querySelector('.functions-dropdown.bottom-group');
+        const topGroup = document.querySelector('.main-menu__dropdown--top');
+        const bottomGroup = document.querySelector('.main-menu__dropdown--bottom');
 
         if (topGroup && bottomGroup) {
             topGroup.classList.toggle('show');
@@ -384,7 +384,7 @@ const ui = {
     },
 
     positionBottomGroup: function() {
-        const bottomGroup = document.querySelector('.functions-dropdown.bottom-group');
+        const bottomGroup = document.querySelector('.main-menu__dropdown--bottom');
         const lowerImageContainer = document.querySelector('#image-container-2');
         
         if (bottomGroup && lowerImageContainer) {
@@ -396,8 +396,8 @@ const ui = {
 
     closeFunctionsMenu: function() {
         if (this.isMenuOpen) {
-            const topGroup = document.querySelector('.functions-dropdown.top-group');
-            const bottomGroup = document.querySelector('.functions-dropdown.bottom-group');
+            const topGroup = document.querySelector('.main-menu__dropdown--top');
+            const bottomGroup = document.querySelector('.main-menu__dropdown--bottom');
             if (topGroup && bottomGroup) {
                 this.isMenuOpen = false;
                 topGroup.classList.remove('show');
