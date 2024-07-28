@@ -319,7 +319,8 @@ z-index: 5000; /* debug */
   color: var(--primary-color);
 }
 
-/* Styles for help dialog */
+/* Help dialog */
+
 #help-dialog {
     position: relative;
     padding: 40px 24px 24px;
@@ -501,6 +502,7 @@ body.has-keyboard button {
     padding: 25px;
     width: 90%;
     max-width: calc(var(--max-image-width) - 40px);
+    max-height: 80%;
 }
 
 .info-dialog-header {
