@@ -141,7 +141,7 @@ const dragAndDrop = {
 
     resetDraggedElement() {
         const originalContainer = this.draggedElement.id === 'left-name' ? 'name-pair__container--left' : 'name-pair__container--right';
-        document.getElementById(originalContainer).appendChild(this.draggedElement);
+        document.getElementsByClassName(originalContainer)[0].appendChild(this.draggedElement);
         this.draggedElement.style.position = '';
         this.draggedElement.style.left = '';
         this.draggedElement.style.top = '';
