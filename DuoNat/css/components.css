@@ -443,8 +443,10 @@ z-index: 5000; /* debug */
 
 .taxon-pair-list {
     flex-grow: 1;
+    width: 100%;
     max-height: calc(80vh - 150px);
     overflow-y: auto;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
     padding-bottom: 10px; /* This creates the gap at the bottom */
     margin-bottom: 0;
 }
@@ -481,6 +483,7 @@ z-index: 5000; /* debug */
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    box-sizing: border-box; /* Include padding in width calculation */
 }
 
 .taxon-pair-button:hover {
@@ -492,6 +495,7 @@ z-index: 5000; /* debug */
     justify-content: space-between;
     align-items: stretch;
     gap: 5px; /* Small gap between the two "buttons" */
+    width: 100%;
 }
 
 .taxon-item {
