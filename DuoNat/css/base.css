@@ -280,15 +280,18 @@ opacity: 0.8;
 .droppable {
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);
+    top: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.8;
     z-index: 10;
     width: 60%;
     max-width: calc(var(--max-image-width)-50px);
     height: 60px; /* Add a fixed height */
     pointer-events: none;
 }
-#image-container-1 .droppable { bottom: 24%; }
+/*#image-container-1 .droppable { bottom: 24%; }
 #image-container-2 .droppable { top: 24%; }
+*/
 
 .image-container.framed {
     box-shadow: 0 0 0 4px rgba(172, 0, 40, 0.5); /* Same color as in the tutorial */
