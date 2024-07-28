@@ -580,12 +580,12 @@ const game = {
 
         // Create a span for the taxon name and a span for the vernacular name
         elements.leftName.innerHTML = `
-            <span class="taxon-name">${nameOne}</span>
-            ${vernacularOne ? `<span class="vernacular-name">${vernacularOne}</span>` : ''}
+            <span class="name-pair__taxon-name">${nameOne}</span>
+            ${vernacularOne ? `<span class="name-pair__vernacular-name">${vernacularOne}</span>` : ''}
         `;
         elements.rightName.innerHTML = `
-            <span class="taxon-name">${nameTwo}</span>
-            ${vernacularTwo ? `<span class="vernacular-name">${vernacularTwo}</span>` : ''}
+            <span class="name-pair__taxon-name">${nameTwo}</span>
+            ${vernacularTwo ? `<span class="name-pair__vernacular-name">${vernacularTwo}</span>` : ''}
         `;
 
         gameState.taxonLeftName = nameOne;
@@ -594,12 +594,6 @@ const game = {
 
     finishSetup: function () {
         ui.hideOverlay();
-        //        logger.debug('Setup complete:', {
-        //            taxonImageOne: gameState.taxonImageOne,
-        //            taxonImageTwo: gameState.taxonImageTwo,
-        //            taxonLeftName: gameState.taxonLeftName,
-        //            taxonRightName: gameState.taxonRightName
-        //        });
     },
 
     // TODO for now only gives photo page

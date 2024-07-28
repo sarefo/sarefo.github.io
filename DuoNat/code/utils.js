@@ -80,8 +80,8 @@ const utils = {
     },
 
     resetDraggables: function () {
-        const leftNameContainer = document.getElementById('left-name-container');
-        const rightNameContainer = document.getElementById('right-name-container');
+        const leftNameContainer = document.getElementsByClassName('name-pair__container--left')[0];
+        const rightNameContainer = document.getElementsByClassName('name-pair__container--right')[0];
         const dropOne = document.getElementById('drop-1');
         const dropTwo = document.getElementById('drop-2');
 

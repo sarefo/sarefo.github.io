@@ -13,7 +13,7 @@
     min-height: var(--center-min-height);
 }
 
-#left-name-container, #right-name-container {
+.name-pair__container--left, .name-pair__container--right {
     display: flex;
     flex: 1;
     min-width: 0;
@@ -23,7 +23,7 @@
 }
 
 /* Styles for draggable name tiles */
-.draggable {
+.name-pair__item--draggable {
     position: relative;
     box-sizing: border-box;
     z-index: 10;
@@ -58,8 +58,8 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.draggable .taxon-name,
-.draggable .vernacular-name {
+.name-pair__taxon-name,
+.name-pair__vernacular-name {
     width: 100%;
     display: block;
     overflow: hidden;
@@ -67,38 +67,38 @@
     white-space: wrap; /* TODO claude says no-wrap */
 }
 
-.draggable .taxon-name {
+.name-pair__taxon-name {
     font-style: italic;
     font-weight: bold;
     margin-bottom: 2px;
     font-size: 0.95em;
 }
 
-.draggable .vernacular-name {
+.name-pair__vernacular-name {
     font-size: 0.85em;
     color: rgba(255, 255, 255, 0.8);
 }
 
-.draggable:active {
+.name-pair__item--draggable:active {
     cursor: grabbing;
     transform: scale(1.05);
 /*    max-width: calc(var(--max-image-width)-50px);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);*/
 }
-.draggable:hover {
+.name-pair__item--draggable:hover {
     transform: scale(1.02);
     box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.draggable.dragging {
+.name-pair__item--draggable.dragging {
 opacity: 0.8;
     pointer-events: none;
     box-shadow: 0 0 0 2px white, 0 0 10px 3px rgba(255, 255, 255, 0.7);
     width: 60%;
 }
 
-.droppable .draggable,
-.draggable.dragging {
+.droppable .name-pair__item--draggable,
+.name-pair__item--draggable.dragging {
     box-shadow: 0 0 0 2px white;
     transition: box-shadow var(--transition-speed) ease;
     max-width: var(--max-image-width);
@@ -106,7 +106,7 @@ opacity: 0.8;
 
 /* Message overlay */
 
-#overlay {
+.name-pair__overlay {
     position: absolute;
     border-radius: var(--border-radius);
     height: 100%;
@@ -120,9 +120,9 @@ opacity: 0.8;
     transition: opacity var(--transition-speed) ease, background-color var(--transition-speed) ease;
 }
 
-#overlay.show { opacity: 1; }
+.name-pair__overlay.show { opacity: 1; }
 
-#overlay-message {
+.name-pair__overlay-message {
     font-size: 2.4em;
     font-weight: bold;
     color: var(--text-color);

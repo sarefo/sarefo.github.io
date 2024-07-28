@@ -14,7 +14,7 @@ const dragAndDrop = {
     },
 
     addEventListeners() {
-        document.querySelectorAll('.draggable').forEach(element => {
+        document.querySelectorAll('.name-pair__item--draggable').forEach(element => {
             element.addEventListener('dragstart', this.dragStart.bind(this));
             element.addEventListener('touchstart', this.touchStart.bind(this), { passive: false });
             element.addEventListener('touchmove', this.touchMove.bind(this), { passive: false });
@@ -34,7 +34,7 @@ const dragAndDrop = {
 
     touchStart(e) {
         e.preventDefault();
-        this.draggedElement = e.target.closest('.draggable');
+        this.draggedElement = e.target.closest('.name-pair__item--draggable');
         if (!this.draggedElement) return;
 
         const touch = e.touches[0];
@@ -140,7 +140,7 @@ const dragAndDrop = {
     },
 
     resetDraggedElement() {
-        const originalContainer = this.draggedElement.id === 'left-name' ? 'left-name-container' : 'right-name-container';
+        const originalContainer = this.draggedElement.id === 'left-name' ? 'name-pair__container--left' : 'name-pair__container--right';
         document.getElementById(originalContainer).appendChild(this.draggedElement);
         this.draggedElement.style.position = '';
         this.draggedElement.style.left = '';

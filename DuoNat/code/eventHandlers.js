@@ -163,7 +163,7 @@ initializeSwipeFunctionality() {
 
     handleMouseDown(e) {
         if (!e.target.closest('.image-container') || e.target.closest('.info-button')) return;
-        if (e.target.closest('.draggable')) return; // Ignore draggable elements
+        if (e.target.closest('.name-pair__item--draggable')) return; // Ignore draggable elements
         this.startX = e.clientX;
         this.startY = e.clientY;
         this.isDragging = true;
