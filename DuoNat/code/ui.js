@@ -272,7 +272,7 @@ showTutorial: function () {
     createHighlight: function (targetSelector) {
         const target = document.querySelector(targetSelector);
         if (!target) {
-            console.error(`Target element not found: ${targetSelector}`);
+            logger.error(`Target element not found: ${targetSelector}`);
             return null;
         }
 
@@ -285,8 +285,6 @@ showTutorial: function () {
         highlight.style.height = `${targetRect.height}px`;
         highlight.style.top = `${targetRect.top}px`;
         highlight.style.left = `${targetRect.left}px`;
-
-//        console.log(`Highlight created for: ${targetSelector}`);
 
         return highlight;
     },

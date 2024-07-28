@@ -221,7 +221,7 @@ const game = {
             
             return fullContinents;
         } else {
-            console.log(`No distribution data found for ${taxon}. Using placeholder.`);
+            logger.debug(`No distribution data found for ${taxon}. Using placeholder.`);
             return ['North America', 'South America', 'Europe', 'Africa', 'Asia', 'Oceania'];
         }
     },
