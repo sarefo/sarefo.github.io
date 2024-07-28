@@ -53,7 +53,7 @@ button {
 }
 
 .game-container {
-    position: relative;
+/*    position: relative;*/
     flex: none;
     display: flex;
     flex-direction: column;
