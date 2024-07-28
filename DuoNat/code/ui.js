@@ -12,7 +12,7 @@ const ui = {
     isMenuOpen: false,
 
     resetUIState: function() {
-        this.closeFunctionsMenu();
+        this.closeMainMenu();
         // Add any other UI state resets here if needed
     },
 
@@ -241,9 +241,9 @@ const ui = {
     },
 
     temporarilyOpenMenu: function(duration) {
-      this.toggleFunctionsMenu(); // Open the menu
+      this.toggleMainMenu(); // Open the menu
       setTimeout(() => {
-        this.closeFunctionsMenu(); // Close the menu after the specified duration
+        this.closeMainMenu(); // Close the menu after the specified duration
       }, duration);
     },
 
@@ -339,13 +339,13 @@ const ui = {
     },
 
     // main menu code:
-    initializeFunctionsMenu: function() {
+    initializeMainMenu: function() {
         const menuToggle = document.getElementById('menu-toggle');
         if (menuToggle) {
             menuToggle.addEventListener('click', (event) => {
 //                logger.debug('Functions toggle button or its child clicked');
                 event.stopPropagation();
-                this.toggleFunctionsMenu();
+                this.toggleMainMenu();
             });
         } else {
             logger.error('Functions toggle button not found');
@@ -359,12 +359,12 @@ const ui = {
         // Close the dropdown when clicking outside of it
         document.addEventListener('click', (event) => {
             if (!event.target.closest('.main-menu')) {
-                this.closeFunctionsMenu();
+                this.closeMainMenu();
             }
         });
     },
 
-    toggleFunctionsMenu: function() {
+    toggleMainMenu: function() {
         this.isMenuOpen = !this.isMenuOpen;
 
         const topGroup = document.querySelector('.main-menu__dropdown--top');
@@ -394,7 +394,7 @@ const ui = {
         }
     },
 
-    closeFunctionsMenu: function() {
+    closeMainMenu: function() {
         if (this.isMenuOpen) {
             const topGroup = document.querySelector('.main-menu__dropdown--top');
             const bottomGroup = document.querySelector('.main-menu__dropdown--bottom');
@@ -413,12 +413,12 @@ const ui = {
     initialize: function () {
         this.initializeHelpDialog();
         this.initializeInfoDialog();
-        this.initializeFunctionsMenu();
-        this.closeFunctionsMenu(); // Ensure menu is closed on initialization
+        this.initializeMainMenu();
+        this.closeMainMenu(); // Ensure menu is closed on initialization
         // Close the dropdown when clicking outside of it
         document.addEventListener('click', (event) => {
             if (!event.target.closest('.main-menu')) {
-                this.closeFunctionsMenu();
+                this.closeMainMenu();
             }
         });
     },
