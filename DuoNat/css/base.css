@@ -23,7 +23,7 @@
     --max-image-width: 500px;
     --transition-speed: 0.3s;
     /* images wobble when <80px */
-    --center-min-height: 60px; /* consider relative to screen */
+    --center-min-height: 80px; /* consider relative to screen */
 }
 
 body {
@@ -175,21 +175,21 @@ top: 15px;
 .name-pair {
     position: relative;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: center;
     align-items: stretch;
     margin: 4px auto;
     gap: 4px;
+    width: 98%;
+    max-width: var(--max-image-width);
     min-height: var(--center-min-height);
 }
 
 #left-name-container, #right-name-container {
     display: flex;
-    flex-basis: 100%;
-    flex: 1 1 calc(50% - 4px);
+    flex: 1;
+    min-width: 0;
     max-width: 100%;
-    min-width: 200px; /*adjust as needed for horizontal/vertical flip*/
-/*    width: var(--max-image-width);*/
     margin: 0px;
     min-height: var(--center-min-height);
 }
@@ -199,17 +199,16 @@ top: 15px;
     position: relative;
     box-sizing: border-box;
     z-index: 10;
+    border-radius: var(--border-radius);
 
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    box-sizing: border-box;
+
     padding: 6px;
-    border-radius: var(--border-radius);
     width: 100%;
-/*    max-width: var(--max-image-width);*/
     min-height: var(--center-min-height);
 
     color: var(--text-color);
@@ -229,8 +228,6 @@ top: 15px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     cursor: grab;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    /* transition: all var(--transition-speed) ease;
-    max-width: calc(var(--max-image-width) - 50px); */
 }
 
 .draggable .taxon-name,
@@ -239,17 +236,17 @@ top: 15px;
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: wrap; /* TODO claude says no-wrap */
 }
 
 .draggable .taxon-name {
     font-style: italic;
     font-weight: bold;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
     font-size: 0.95em;
 }
 
 .draggable .vernacular-name {
-    font-size: 20px;
     font-size: 0.85em;
     color: rgba(255, 255, 255, 0.8);
 }
