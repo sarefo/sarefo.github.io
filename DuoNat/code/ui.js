@@ -180,54 +180,55 @@ const ui = {
         dialogManager.closeDialog();
     },
 
-showTutorial: function () {
-    const steps = [
-        { message: "Welcome to DuoNat!<br>Let's learn how to play.", highlight: null },
-        { message: "You'll see two images of different taxa.", highlights: ['#image-container-1', '#image-container-2'] },
-        { message: "Drag a name to the correct image.", highlight: '.name-pair' },
-        { message: "If correct, you'll move to the next round.", highlight: null, },
-        { 
-            message: "Swipe left on an image for a new taxon set.", 
-            highlight: null,
-            action: () => { this.tiltGameContainer(3200); }
-        },
-        { message: "Get more info about a taxon.", highlights: ['#info-button-1', '#info-button-2'] },
-        { message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => this.temporarilyOpenMenu(6000) },
-        { message: "Ready to start?<br>Let's go!", highlight: null }
-    ];
+    showTutorial: function () {
+        const steps = [
+            { message: "Welcome to DuoNat!<br>Let's learn how to play.", highlight: null, duration: 4000 },
+            { message: "You'll see two images of different taxa.", highlights: ['#image-container-1', '#image-container-2'], duration: 5000 },
+            { message: "Drag a name to the correct image.", highlight: '.name-pair', duration: 5000 },
+            { message: "If correct, you'll move to the next round.", highlight: null, duration: 4000 },
+            { 
+                message: "Swipe left on an image for a new taxon set.", 
+                highlight: null,
+                action: () => { this.tiltGameContainer(3200); },
+                duration: 6000
+            },
+            { message: "Get more info about a taxon.", highlights: ['#info-button-1', '#info-button-2'], duration: 6000 },
+            { message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => this.temporarilyOpenMenu(6000), duration: 6000 },
+            { message: "Ready to start?<br>Let's go!", highlight: null, duration: 2000 }
+        ];
 
-    let currentStep = 0;
-    let highlightElements = [];
+        let currentStep = 0;
+        let highlightElements = [];
 
-    const showStep = () => {
-        if (currentStep < steps.length) {
-            const step = steps[currentStep];
-            this.updateOverlayMessage(step.message);
+        const showStep = () => {
+            if (currentStep < steps.length) {
+                const step = steps[currentStep];
+                this.updateOverlayMessage(step.message);
 
-            highlightElements.forEach(el => el.remove());
-            highlightElements = [];
+                highlightElements.forEach(el => el.remove());
+                highlightElements = [];
 
-            if (step.highlight) {
-                const highlight = this.createHighlight(step.highlight);
-                if (highlight) highlightElements.push(highlight);
-            } else if (step.highlights) {
-                step.highlights.forEach(selector => {
-                    const highlight = this.createHighlight(selector);
+                if (step.highlight) {
+                    const highlight = this.createHighlight(step.highlight);
                     if (highlight) highlightElements.push(highlight);
-                });
-            }
+                } else if (step.highlights) {
+                    step.highlights.forEach(selector => {
+                        const highlight = this.createHighlight(selector);
+                        if (highlight) highlightElements.push(highlight);
+                    });
+                }
 
-            if (step.action) {
-                step.action();
-            }
+                if (step.action) {
+                    step.action();
+                }
 
-            currentStep++;
-            setTimeout(showStep, 6000); // Show each step for 6 seconds
-        } else {
-            this.hideOverlay();
-            highlightElements.forEach(el => el.remove());
-        }
-    };
+                currentStep++;
+                setTimeout(showStep, step.duration); // Use the step's duration
+            } else {
+                this.hideOverlay();
+                highlightElements.forEach(el => el.remove());
+            }
+        };
 
         // Close the help dialog before starting the tutorial
         document.getElementById('help-dialog').close();

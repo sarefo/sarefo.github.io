@@ -547,7 +547,7 @@ const game = {
                 await ui.showOverlay('Correct!', colorCorrect);
                 elements.imageOne.classList.add('loading');
                 elements.imageTwo.classList.add('loading');
-                await utils.sleep(2400); // Show "Correct!" for a while
+                await utils.sleep(2000); // Show "Correct!" for a while
                 ui.updateOverlayMessage(`${this.loadingMessage}`); // Update message without changing color
                 await this.setupGame(false);  // Start a new round with the same taxon pair
             } else {
