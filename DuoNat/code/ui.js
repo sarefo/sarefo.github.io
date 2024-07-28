@@ -343,12 +343,12 @@ const ui = {
         const menuToggle = document.getElementById('menu-toggle');
         if (menuToggle) {
             menuToggle.addEventListener('click', (event) => {
-//                logger.debug('Functions toggle button or its child clicked');
+//                logger.debug('Menu toggle button or its child clicked');
                 event.stopPropagation();
                 this.toggleMainMenu();
             });
         } else {
-            logger.error('Functions toggle button not found');
+            logger.error('Menu toggle button not found');
         }
 
         window.addEventListener('resize', this.positionBottomGroup.bind(this));

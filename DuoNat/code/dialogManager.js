@@ -17,7 +17,7 @@ const dialogManager = {
     },
 
     openDialog(dialogId) {
-        ui.closeFunctionsMenu();
+        ui.closeMainMenu();
         const dialog = document.getElementById(dialogId);
         if (!dialog) {
             console.error(`Dialog with id ${dialogId} not found`);

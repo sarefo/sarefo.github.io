@@ -28,7 +28,7 @@ const eventHandlers = {
 
     initialize() {
         this.initializeSwipeFunctionality();
-        this.initializeFunctionsMenuListeners();
+        this.initializeMainMenuListeners();
         this.initializeAllEventListeners();
 
         this.debouncedKeyboardHandler = utils.debounce(this._handleKeyboardShortcuts.bind(this), 300);
@@ -77,38 +77,38 @@ initializeSwipeFunctionality() {
         }
     },
 
-    initializeFunctionsMenuListeners: function() {
+    initializeMainMenuListeners: function() {
         this.safeAddEventListener('share-button', 'click', () => {
             this.shareCurrentPair();
-            ui.closeFunctionsMenu(); // Close menu after action
+            ui.closeMainMenu(); // Close menu after action
         });
         this.safeAddEventListener('phylogeny-button', 'click', () => {
             game.showTaxaRelationship();
-            ui.closeFunctionsMenu(); // Close menu after action
+            ui.closeMainMenu(); // Close menu after action
         });
         this.safeAddEventListener('select-pair-button', 'click', () => {
             ui.showTaxonPairList();
-            ui.closeFunctionsMenu(); // Close menu after action
+            ui.closeMainMenu(); // Close menu after action
         });
         this.safeAddEventListener('enter-pair-button', 'click', () => {
             dialogManager.openDialog('enter-pair-dialog');
-            ui.closeFunctionsMenu(); // Close menu after action
+            ui.closeMainMenu(); // Close menu after action
         });
         this.safeAddEventListener('random-pair-button', 'click', () => {
             game.loadNewRandomPair();
-            ui.closeFunctionsMenu(); // Close menu after action
+            ui.closeMainMenu(); // Close menu after action
         });
         this.safeAddEventListener('like-button', 'click', () => {
             this.likePair();
-            ui.closeFunctionsMenu(); // Close menu after action
+            ui.closeMainMenu(); // Close menu after action
         });
         this.safeAddEventListener('trash-button', 'click', () => {
             this.trashPair();
-            ui.closeFunctionsMenu(); // Close menu after action
+            ui.closeMainMenu(); // Close menu after action
         });
         this.safeAddEventListener('surprise-button', 'click', () => {
             utils.surprise();
-            ui.closeFunctionsMenu(); // Close menu after action
+            ui.closeMainMenu(); // Close menu after action
         });
     },
 
@@ -300,7 +300,7 @@ initializeSwipeFunctionality() {
             case 'm':
                 event.preventDefault();
 //                logger.debug("'M' key pressed, attempting to toggle menu");
-                ui.toggleFunctionsMenu();
+                ui.toggleMainMenu();
                 break;
             case 'p':
             case 'f':
