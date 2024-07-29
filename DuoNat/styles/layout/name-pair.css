@@ -187,10 +187,12 @@
     cursor: grabbing !important;
 }
 
+/*
 @keyframes correctAnswer {
     0%, 100% { background-color: var(--primary-color); }
-    50% { background-color: #4CAF50; } /* Green */
+    50% { background-color: #4CAF50; } 
 }
+*/
 
 @keyframes incorrectAnswer {
     0%, 100% { background-color: var(--primary-color); }
