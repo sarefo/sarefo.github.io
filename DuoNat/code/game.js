@@ -629,6 +629,7 @@ const game = {
         const observationButton = document.getElementById('observation-button');
         const taxonButton = document.getElementById('taxon-button');
         const hintsButton = document.getElementById('hints-button');
+        const reportButton = document.getElementById('report-button');
         const closeButton = document.getElementById('info-close-button');
 
         // Frame the corresponding image if imageIndex is provided
@@ -686,6 +687,11 @@ const game = {
         hintsButton.onclick = () => {
             logger.debug("Taxon hints button clicked");
             // Implement taxon hints functionality here
+        };
+
+        reportButton.onclick = () => {
+            logger.debug("Report button clicked");
+            // Implement report functionality here
         };
 
         closeButton.onclick = () => {

@@ -323,7 +323,8 @@ const ui = {
                 'p': 'photo-button',
                 'h': 'hints-button',
                 'o': 'observation-button',
-                't': 'taxon-button'
+                't': 'taxon-button',
+                'r': 'report-button'
             };
 
             if (buttonMap[key]) {

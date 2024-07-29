@@ -535,7 +535,7 @@ body.has-keyboard button {
     margin: 20px 0;
     padding: 15px;
     text-align: left;
-    background-color: rgba(116, 172, 0, 0.1); /* Light green background */
+    background-color: var(--light-green);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     max-height: 30%;
