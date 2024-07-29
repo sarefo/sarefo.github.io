@@ -86,6 +86,7 @@
     width: 300px;
     max-width: calc(var(--max-image-width)-50px);
     height: 80px; /* Add a fixed height */
+    transition: all 0.3s ease-out;
     pointer-events: none;
 }
 

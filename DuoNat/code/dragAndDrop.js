@@ -1,6 +1,7 @@
 // Drag and drop functionality
 
 import game from './game.js';
+import { gameState } from './state.js';
 import logger from './logger.js';
 
 const dragAndDrop = {
@@ -176,29 +177,115 @@ const dragAndDrop = {
         this.handleDrop(dropZone, draggedElement);
     },
 
+    checkAnswer(dropZoneId, draggedElementId) {
+        try {
+            const isLeftDrop = dropZoneId === 'drop-1';
+            const draggedElement = document.getElementById(draggedElementId);
+            
+            if (!draggedElement) {
+                logger.error('Dragged element not found');
+                return false;
+            }
+
+            const draggedTaxon = draggedElement.getAttribute('data-taxon');
+            
+            if (!gameState) {
+                logger.error('gameState is undefined');
+                return false;
+            }
+
+            const correctTaxon = isLeftDrop ? gameState.taxonImageOne : gameState.taxonImageTwo;
+            
+            if (!correctTaxon) {
+                logger.error('Correct taxon is undefined in gameState');
+                return false;
+            }
+
+            logger.debug(`Checking answer: Dragged ${draggedTaxon}, Correct ${correctTaxon}`);
+            return draggedTaxon === correctTaxon;
+        } catch (error) {
+            logger.error('Error in checkAnswer:', error);
+            return false;
+        }
+    },
+
     handleDrop(dropZone, draggedElement = this.draggedElement) {
         if (!draggedElement) return;
 
-        dropZone.innerHTML = '';
-        dropZone.appendChild(draggedElement);
-        draggedElement.style.position = 'static';
-        draggedElement.style.left = '';
-        draggedElement.style.top = '';
-        draggedElement.style.width = '100%';
-        
-        // Maintain the height set by setNamePairHeight
-        draggedElement.style.height = document.querySelector('.name-pair').style.height;
+        const isCorrect = this.checkAnswer(dropZone.id, draggedElement.id);
 
-        const otherNameId = draggedElement.id === 'left-name' ? 'right-name' : 'left-name';
-        const otherName = document.getElementById(otherNameId);
-        const otherDropZone = document.getElementById(dropZone.id === 'drop-1' ? 'drop-2' : 'drop-1');
-        otherDropZone.innerHTML = '';
-        otherDropZone.appendChild(otherName);
-        
-        // Maintain the height for the other name tile as well
-        otherName.style.height = document.querySelector('.name-pair').style.height;
+        // Get the current position
+        const currentRect = draggedElement.getBoundingClientRect();
 
-        game.checkAnswer(dropZone.id);
+        // Set the initial position
+        draggedElement.style.position = 'fixed';
+        draggedElement.style.left = `${currentRect.left}px`;
+        draggedElement.style.top = `${currentRect.top}px`;
+        draggedElement.style.width = `${currentRect.width}px`;
+        draggedElement.style.height = `${currentRect.height}px`;
+
+        // Add the element to the DOM
+        document.body.appendChild(draggedElement);
+
+        // Force a reflow
+        draggedElement.offsetHeight;
+
+        // Add the landing class to trigger the transition
+        draggedElement.classList.add('name-pair__item--landing');
+
+        let targetRect;
+        if (isCorrect) {
+            // Move to drop zone
+            targetRect = dropZone.getBoundingClientRect();
+        } else {
+            // Return to original position
+            const originalContainer = draggedElement.id === 'left-name' ? 
+                document.querySelector('.name-pair__container--left') : 
+                document.querySelector('.name-pair__container--right');
+            targetRect = originalContainer.getBoundingClientRect();
+        }
+
+        draggedElement.style.left = `${targetRect.left}px`;
+        draggedElement.style.top = `${targetRect.top}px`;
+        draggedElement.style.width = `${targetRect.width}px`;
+        draggedElement.style.height = `${targetRect.height}px`;
+
+        // After the transition
+        setTimeout(() => {
+            draggedElement.classList.remove('name-pair__item--landing');
+            draggedElement.classList.remove('name-pair__item--dragging');
+            draggedElement.style.position = 'static';
+            draggedElement.style.left = '';
+            draggedElement.style.top = '';
+            draggedElement.style.width = '100%';
+            draggedElement.style.height = document.querySelector('.name-pair').style.height;
+
+            if (isCorrect) {
+                dropZone.innerHTML = '';
+                dropZone.appendChild(draggedElement);
+
+                // Handle the other name tile
+                const otherNameId = draggedElement.id === 'left-name' ? 'right-name' : 'left-name';
+                const otherName = document.getElementById(otherNameId);
+                const otherDropZone = document.getElementById(dropZone.id === 'drop-1' ? 'drop-2' : 'drop-1');
+                otherDropZone.innerHTML = '';
+                otherDropZone.appendChild(otherName);
+                otherName.style.height = document.querySelector('.name-pair').style.height;
+
+                game.checkAnswer(dropZone.id);
+            } else {
+                const originalContainer = draggedElement.id === 'left-name' ? 
+                    document.querySelector('.name-pair__container--left') : 
+                    document.querySelector('.name-pair__container--right');
+                originalContainer.appendChild(draggedElement);
+            }
+
+            // Add feedback class
+            draggedElement.classList.add(isCorrect ? 'name-pair__item--correct' : 'name-pair__item--incorrect');
+            setTimeout(() => {
+                draggedElement.classList.remove('name-pair__item--correct', 'name-pair__item--incorrect');
+            }, 600); // This should match the duration of the feedback animation
+        }, 300); // This should match the transition duration in CSS
     },
 
     getDropZone(e) {

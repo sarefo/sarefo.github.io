@@ -159,11 +159,15 @@
     hyphens: auto;
     box-shadow: 0 0 0 2px white;
     cursor: grab;
-    transition: all 0.1s ease-out;
+    transition: all 0.3s ease-out;
     -webkit-touch-callout: none !important;
     -webkit-user-select: none !important;
     user-select: none !important;
     -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+}
+
+.name-pair__item--landing {
+    transition: all 0.3s ease-out !important;
 }
 
 .name-pair__item--draggable:active,
@@ -183,3 +187,20 @@
     cursor: grabbing !important;
 }
 
+@keyframes correctAnswer {
+    0%, 100% { background-color: var(--primary-color); }
+    50% { background-color: #4CAF50; } /* Green */
+}
+
+@keyframes incorrectAnswer {
+    0%, 100% { background-color: var(--primary-color); }
+    50% { background-color: #F44336; } /* Red */
+}
+
+.name-pair__item--correct {
+    animation: correctAnswer 0.6s ease-in-out;
+}
+
+.name-pair__item--incorrect {
+    animation: incorrectAnswer 0.6s ease-in-out;
+}
