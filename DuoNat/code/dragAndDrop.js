@@ -112,16 +112,22 @@ const dragAndDrop = {
 
         dropZone.innerHTML = '';
         dropZone.appendChild(draggedElement);
-        draggedElement.style.position = 'static'; // Reset position to static
+        draggedElement.style.position = 'static';
         draggedElement.style.left = '';
         draggedElement.style.top = '';
-        draggedElement.style.width = '100%'; // Ensure the dragged element fills the drop zone width
+        draggedElement.style.width = '100%';
+        
+        // Maintain the height set by setNamePairHeight
+        draggedElement.style.height = document.querySelector('.name-pair').style.height;
 
         const otherNameId = draggedElement.id === 'left-name' ? 'right-name' : 'left-name';
         const otherName = document.getElementById(otherNameId);
         const otherDropZone = document.getElementById(dropZone.id === 'drop-1' ? 'drop-2' : 'drop-1');
         otherDropZone.innerHTML = '';
         otherDropZone.appendChild(otherName);
+        
+        // Maintain the height for the other name tile as well
+        otherName.style.height = document.querySelector('.name-pair').style.height;
 
         game.checkAnswer(dropZone.id);
     },

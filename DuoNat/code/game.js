@@ -64,6 +64,7 @@ const game = {
             }
 
             this.finishSetup();
+            this.setNamePairHeight();
 
             // Preload for the next round
             preloader.preloadForNextRound();
@@ -562,6 +563,29 @@ const game = {
         }
     },
 
+    // determine height of tallest name tile, to keep layout stable over multiple rounds
+    setNamePairHeight: function () {
+        const leftName = document.getElementById('left-name');
+        const rightName = document.getElementById('right-name');
+        const namePair = document.querySelector('.name-pair');
+
+        // Get the natural height of both name tiles
+        leftName.style.height = 'auto';
+        rightName.style.height = 'auto';
+        
+        // Use setTimeout to ensure the browser has rendered the auto heights
+        setTimeout(() => {
+            const maxHeight = Math.max(leftName.offsetHeight, rightName.offsetHeight);
+            
+            // Set the height of the name-pair container
+            namePair.style.height = `${maxHeight}px`;
+            
+            // Set both name tiles to this height
+            leftName.style.height = `${maxHeight}px`;
+            rightName.style.height = `${maxHeight}px`;
+        }, 0);
+    },
+
     setupNameTilesUI: function (leftName, rightName, leftNameVernacular, rightNameVernacular) {
         // Randomize the position of the name tiles
         const shouldSwap = Math.random() < 0.5;
@@ -588,6 +612,8 @@ const game = {
 
         gameState.taxonLeftName = nameOne;
         gameState.taxonRightName = nameTwo;
+
+        this.setNamePairHeight();
     },
 
     finishSetup: function () {
