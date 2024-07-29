@@ -6,6 +6,7 @@
     flex-wrap: nowrap;
     justify-content: center;
     align-items: stretch;
+    background-color: var(--light-green);
     margin: 4px auto;
     gap: 4px;
     width: 98%;
@@ -17,7 +18,7 @@
     display: flex;
     flex: 1;
     min-width: 0;
-    max-width: 100%;
+    max-width: 300px;
     margin: 0px;
     min-height: var(--center-min-height);
 }
@@ -36,7 +37,7 @@
     align-items: center;
 
     padding: 6px;
-    width: 100%;
+    width: 300px;
     min-height: var(--center-min-height);
 
     color: var(--text-color);
@@ -53,9 +54,9 @@
     word-break: break-word;
     hyphens: auto;
 
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 0 2px white;
     cursor: grab;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: box-shadow var(--transition-speed) ease;
 }
 
 .name-pair__taxon-name,
@@ -82,26 +83,24 @@
 .name-pair__item--draggable:active {
     cursor: grabbing;
     transform: scale(1.05);
-/*    max-width: calc(var(--max-image-width)-50px);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);*/
 }
+
 .name-pair__item--draggable:hover {
     transform: scale(1.02);
     box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
 .name-pair__item--draggable.dragging {
-opacity: 0.8;
+    opacity: 0.8;
     pointer-events: none;
     box-shadow: 0 0 0 2px white, 0 0 10px 3px rgba(255, 255, 255, 0.7);
-    width: 60%;
+    width: 300px;
 }
 
 .name-pair__item--draggable,
 .name-pair__item--draggable.dragging {
-    box-shadow: 0 0 0 2px white;
-    transition: box-shadow var(--transition-speed) ease;
-    max-width: var(--max-image-width);
+    max-width: 300px;
 }
 
 /* Message overlay */

@@ -5,6 +5,15 @@
     transition: fill var(--transition-speed) ease;
 }
 
+.icon:hover {
+/*    background: rgba(255, 255, 255, 1);*/
+    transform: scale(1.1);
+}
+.icon:active {
+
+    transform: scale(0.95);
+}
+
 /* Styles for help button */
 
 #help-button {

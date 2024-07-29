@@ -83,7 +83,7 @@
     transform: translate(-50%, -50%);
     opacity: 0.9;
     z-index: 10;
-    width: 60%;
+    width: 300px;
     max-width: calc(var(--max-image-width)-50px);
     height: 80px; /* Add a fixed height */
     pointer-events: none;
