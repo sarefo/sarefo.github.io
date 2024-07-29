@@ -60,10 +60,10 @@
     width: 100px; /* Adjust as needed */
     height: 60px; /* Adjust as needed */
     border-radius: var(--border-radius);
+    opacity: 0.6;
     z-index: 10;
 }
 .image-container__world-map svg {
-    opacity: 0.6;
     border-radius: var(--border-radius);
 }
 

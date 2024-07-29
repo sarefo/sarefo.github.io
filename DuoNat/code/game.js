@@ -180,10 +180,8 @@ const game = {
     // Add world maps
     const leftContinents = await this.getContinentForTaxon(randomized ? pair.taxon1 : pair.taxon2);
     const rightContinents = await this.getContinentForTaxon(randomized ? pair.taxon2 : pair.taxon1);
-    await Promise.all([
-        createWorldMap(elements.imageOneContainer, leftContinents),
-        createWorldMap(elements.imageTwoContainer, rightContinents)
-    ]);
+    createWorldMap(elements.imageOneContainer, leftContinents);
+    createWorldMap(elements.imageTwoContainer, rightContinents);
 
         updateGameState({
             taxonImageOne: randomized ? pair.taxon1 : pair.taxon2,
