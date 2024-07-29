@@ -91,12 +91,14 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+/*
 .name-pair__item--draggable.dragging {
     opacity: 0.8;
     pointer-events: none;
     box-shadow: 0 0 0 2px white, 0 0 10px 3px rgba(255, 255, 255, 0.7);
     width: 300px;
 }
+*/
 
 .name-pair__item--draggable,
 .name-pair__item--draggable.dragging {
@@ -104,22 +106,14 @@
 }
 
 .name-pair__item--dragging {
-    transition: all 0.1s ease-out;
-    opacity: 0.8;
-    z-index: 1000;
-    box-shadow: 0 0 0 2px white, 0 0 10px 3px rgba(255, 255, 255, 0.7);
-/*
-    transform: translateY(-20px) translateX(-50%);
-    transition: transform 0.1s ease-out;
-*/
-/*    position: fixed !important;*/ /* Ensure it overrides any inline positioning */
     width: 300px !important; /* Use !important to ensure this isn't overridden */
-    max-width: 300px !important;
- /*   margin-left: auto;
-    margin-right: auto;
-    left: 0%;
-    right: 0;
-    z-index: 1000;*/
+    /*max-width: 300px !important;*/
+
+    opacity: 0.9;
+    box-shadow: 0 0 0 2px white, 0 0 10px 3px rgba(255, 255, 255, 0.7);
+
+    transition: all 0.1s ease-out;
+    z-index: 1000;
 }
 
 /* Message overlay */
