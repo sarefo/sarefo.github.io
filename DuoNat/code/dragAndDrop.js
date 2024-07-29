@@ -45,6 +45,7 @@ const dragAndDrop = {
         this.touchOffset.y = touch.clientY - rect.top;
 
         this.draggedElement.classList.add('name-pair__item--dragging');
+        this.draggedElement.style.zIndex = '1000'; // Set a high z-index
         this.updateElementPosition(touch);
     },
 
@@ -65,9 +66,8 @@ const dragAndDrop = {
             } else {
                 this.resetDraggedElement();
             }
-            this.draggedElement.style.zIndex = '';
-            this.draggedElement.style.position = '';
-            this.draggedElement.classList.remove('name-pair__item--dragging'); // Add this line
+            this.draggedElement.classList.remove('name-pair__item--dragging');
+            this.draggedElement.style.zIndex = ''; // Reset z-index
             this.draggedElement = null;
         }
     },
@@ -100,7 +100,7 @@ const dragAndDrop = {
         this.draggedElement.style.position = '';
         this.draggedElement.style.left = '';
         this.draggedElement.style.top = '';
-        // No need to reset width, as it's handled by CSS
+        this.draggedElement.style.zIndex = ''; // Reset z-index
     },
 
     dragOver(e) {
