@@ -34,7 +34,44 @@ const utils = {
     surprise: function () {
         logger.debug("Surprise!");
         //        game.showTaxaRelationship();
-        this.fart();
+        //this.fart();
+        this.randomAnimalSound();
+    },
+
+    randomAnimalSound: async function () {
+        try {
+            // Fetch random observations with sounds
+            const url = "https://api.inaturalist.org/v1/observations?order_by=random&sounds=true";
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Failed to fetch observations');
+            }
+            const data = await response.json();
+
+            // Filter observations with sounds
+            const observationsWithSounds = data.results.filter(obs => obs.sounds && obs.sounds.length > 0);
+
+            if (observationsWithSounds.length > 0) {
+                // Choose a random observation
+                const randomObservation = observationsWithSounds[Math.floor(Math.random() * observationsWithSounds.length)];
+                
+                // Extract the sound URL
+                const soundUrl = randomObservation.sounds[0].file_url;
+
+                if (soundUrl) {
+                    // Create and play the audio
+                    const audio = new Audio(soundUrl);
+                    await audio.play();
+                    logger.info(`Playing sound from observation: ${randomObservation.species_guess || 'Unknown species'}`);
+                } else {
+                    logger.warn("Sound URL not found in the selected observation.");
+                }
+            } else {
+                logger.warn("No observations with sounds found.");
+            }
+        } catch (error) {
+            logger.error('Could not play animal sound:', error);
+        }
     },
 
     fart: function () {

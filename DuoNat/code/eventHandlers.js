@@ -123,11 +123,6 @@ initializeSwipeFunctionality() {
             container.addEventListener('mouseup', this.handleImageInteraction.bind(this));
         });
 
-        // dialog events
-        document.getElementById('surprise-button').addEventListener('click', () => {
-            utils.surprise();
-        });
-
         ['1', '2'].forEach(index => {
             this.safeAddEventListener(`thumbs-up-${index}`, 'click', () => this.handleThumbsUp(index));
             this.safeAddEventListener(`thumbs-down-${index}`, 'click', () => this.handleThumbsDown(index));
