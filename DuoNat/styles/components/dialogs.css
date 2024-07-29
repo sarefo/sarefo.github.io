@@ -499,18 +499,7 @@ body.has-keyboard button {
     overflow-y: auto;
     transition: top 0.3s ease-out, height 0.3s ease-out;
 }
-/*
-.info-dialog {
-    position: relative;
-    padding: 40px 20px 20px;
-    background-color: var(--background-color);
-    border-radius: var(--border-radius);
-    padding: 25px;
-    width: 90%;
-    max-width: calc(var(--max-image-width) - 40px);
-    max-height: 80%;
-}
-*/
+
 .info-dialog-header {
     text-align: center;
     margin-bottom: 20px;
@@ -532,6 +521,8 @@ body.has-keyboard button {
 }
 
 .info-dialog-facts {
+    min-height: 20vh;
+    max-height: 40vh;
     margin: 20px 0;
     padding: 15px;
     text-align: left;
