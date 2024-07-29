@@ -44,6 +44,7 @@ const dragAndDrop = {
 
         this.draggedElement.style.zIndex = '1000';
         this.draggedElement.style.position = 'fixed';
+        this.draggedElement.classList.add('name-pair__item--dragging'); // Add this line
         this.updateElementPosition(touch);
     },
 
@@ -66,13 +67,23 @@ const dragAndDrop = {
             }
             this.draggedElement.style.zIndex = '';
             this.draggedElement.style.position = '';
+            this.draggedElement.classList.remove('name-pair__item--dragging'); // Add this line
             this.draggedElement = null;
         }
     },
 
     updateElementPosition(touch) {
         this.draggedElement.style.left = `${touch.clientX - this.touchOffset.x}px`;
-        this.draggedElement.style.top = `${touch.clientY - this.touchOffset.y}px`;
+        this.draggedElement.style.top = `${touch.clientY - this.touchOffset.y - 40}px`; // Subtract 40px here
+    },
+
+    resetDraggedElement() {
+        const originalContainer = this.draggedElement.id === 'left-name' ? 'name-pair__container--left' : 'name-pair__container--right';
+        document.getElementsByClassName(originalContainer)[0].appendChild(this.draggedElement);
+        this.draggedElement.style.position = '';
+        this.draggedElement.style.left = '';
+        this.draggedElement.style.top = '';
+        this.draggedElement.classList.remove('name-pair__item--dragging'); // Add this line
     },
 
     dragOver(e) {
@@ -145,13 +156,6 @@ const dragAndDrop = {
         return null;
     },
 
-    resetDraggedElement() {
-        const originalContainer = this.draggedElement.id === 'left-name' ? 'name-pair__container--left' : 'name-pair__container--right';
-        document.getElementsByClassName(originalContainer)[0].appendChild(this.draggedElement);
-        this.draggedElement.style.position = '';
-        this.draggedElement.style.left = '';
-        this.draggedElement.style.top = '';
-    }
 };
 
 export default dragAndDrop;

@@ -103,6 +103,11 @@
     max-width: 300px;
 }
 
+.name-pair__item--dragging {
+    transform: translateY(-20px);
+    transition: transform 0.1s ease-out;
+}
+
 /* Message overlay */
 
 .name-pair__overlay {
