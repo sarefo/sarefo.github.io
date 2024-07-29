@@ -105,7 +105,9 @@
 
 .name-pair__item--dragging {
     transition: all 0.1s ease-out;
+    opacity: 0.8;
     z-index: 1000;
+    box-shadow: 0 0 0 2px white, 0 0 10px 3px rgba(255, 255, 255, 0.7);
 /*
     transform: translateY(-20px) translateX(-50%);
     transition: transform 0.1s ease-out;
