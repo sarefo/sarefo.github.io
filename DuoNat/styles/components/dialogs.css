@@ -493,7 +493,7 @@ body.has-keyboard button {
     background-color: var(--background-color);
     border-radius: var(--border-radius);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    max-width: 90%;
+    max-width: var(--max-image-width);
     width: 100%;
     box-sizing: border-box;
     overflow-y: auto;
