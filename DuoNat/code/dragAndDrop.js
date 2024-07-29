@@ -15,19 +15,60 @@ const dragAndDrop = {
         this.addEventListeners();
     },
 
-    addEventListeners() {
+   addEventListeners() {
         document.querySelectorAll('.name-pair__item--draggable').forEach(element => {
             element.addEventListener('dragstart', this.dragStart.bind(this));
+            element.addEventListener('mousedown', this.mouseStart.bind(this));
             element.addEventListener('touchstart', this.touchStart.bind(this), { passive: false });
             element.addEventListener('touchmove', this.touchMove.bind(this), { passive: false });
             element.addEventListener('touchend', this.touchEnd.bind(this), { passive: false });
         });
+
+        document.addEventListener('mousemove', this.mouseMove.bind(this));
+        document.addEventListener('mouseup', this.mouseEnd.bind(this));
 
         document.querySelectorAll('.image-container').forEach(element => {
             element.addEventListener('dragover', this.dragOver.bind(this));
             element.addEventListener('dragleave', this.dragLeave.bind(this));
             element.addEventListener('drop', this.drop.bind(this));
         });
+    },
+
+    mouseStart(e) {
+        e.preventDefault();
+        this.draggedElement = e.target.closest('.name-pair__item--draggable');
+        if (!this.draggedElement) return;
+
+        const rect = this.draggedElement.getBoundingClientRect();
+        this.touchOffset = {
+            x: e.clientX - rect.left,
+            y: e.clientY - rect.top
+        };
+
+        this.draggedElement.classList.add('name-pair__item--dragging');
+        this.draggedElement.style.zIndex = '1000';
+        this.updateElementPosition(e);
+    },
+
+    mouseMove(e) {
+        if (this.draggedElement) {
+            e.preventDefault();
+            this.updateElementPosition(e);
+        }
+    },
+
+    mouseEnd(e) {
+        if (this.draggedElement) {
+            const dropZone = this.getDropZone(e);
+            if (dropZone) {
+                this.handleDrop(dropZone);
+            } else {
+                this.resetDraggedElement();
+            }
+            this.draggedElement.classList.remove('name-pair__item--dragging');
+            this.draggedElement.style.zIndex = '';
+            this.draggedElement = null;
+        }
     },
 
     dragStart(e) {
@@ -72,7 +113,7 @@ const dragAndDrop = {
         }
     },
 
-    updateElementPosition(touch) {
+    updateElementPosition(event) {
         if (!this.draggedElement || !this.gameContainer) return;
 
         const gameContainerRect = this.gameContainer.getBoundingClientRect();
@@ -81,12 +122,12 @@ const dragAndDrop = {
         // Calculate center position
         const leftPosition = gameContainerRect.left + (gameContainerRect.width / 2) - (elementWidth / 2);
         
-        // Position vertically based on touch position, with 40px upward offset
-        const topPosition = touch.clientY - this.touchOffset.y - 40;
+        // Position vertically based on event position, with 40px upward offset
+        const clientY = event.touches ? event.touches[0].clientY : event.clientY;
+        const topPosition = clientY - this.touchOffset.y - 40;
 
         // Apply the positioning
         this.draggedElement.style.position = 'fixed';
-        // Don't set width here, let CSS handle it
         this.draggedElement.style.left = `${leftPosition}px`;
         this.draggedElement.style.top = `${topPosition}px`;
     },
