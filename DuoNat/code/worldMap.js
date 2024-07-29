@@ -21,10 +21,8 @@ export function createWorldMap(container, highlightedContinents) {
         button.style.left = '60px';
         
         const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        svg.setAttribute('width', '24');
-        svg.setAttribute('height', '24');
+        svg.setAttribute('class', 'image-container__button-icon icon');
         svg.setAttribute('viewBox', '0 0 24 24');
-        svg.style.fill = 'currentColor';
 
         const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
         use.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', './images/icons.svg#icon-globe');
