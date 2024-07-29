@@ -76,13 +76,17 @@ const dragAndDrop = {
         if (!this.draggedElement || !this.gameContainer) return;
 
         const gameContainerRect = this.gameContainer.getBoundingClientRect();
+        const elementWidth = 300; // Fixed width
 
-        // Set left to 50% of the game container's width
-        const leftPosition = gameContainerRect.left + (gameContainerRect.width / 2);
-
+        // Calculate center position
+        const leftPosition = gameContainerRect.left + (gameContainerRect.width / 2) - (elementWidth / 2);
+        
         // Position vertically based on touch position, with 40px upward offset
         const topPosition = touch.clientY - this.touchOffset.y - 40;
 
+        // Apply the positioning
+        this.draggedElement.style.position = 'fixed';
+        // Don't set width here, let CSS handle it
         this.draggedElement.style.left = `${leftPosition}px`;
         this.draggedElement.style.top = `${topPosition}px`;
     },
@@ -96,6 +100,7 @@ const dragAndDrop = {
         this.draggedElement.style.position = '';
         this.draggedElement.style.left = '';
         this.draggedElement.style.top = '';
+        // No need to reset width, as it's handled by CSS
     },
 
     dragOver(e) {
