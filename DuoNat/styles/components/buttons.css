@@ -1,41 +1,46 @@
+/* For icons in general */
 .icon {
-    width: 24px;
-    height: 24px;
-    fill: var(--dark-neutral-color);
-    transition: fill var(--transition-speed) ease;
+  width: 24px;
+  height: 24px;
+  fill: var(--dark-neutral-color);
+  transition: transform 0.2s ease, fill 0.2s ease;
 }
 
-.icon:hover {
-/*    background: rgba(255, 255, 255, 1);*/
-    transform: scale(1.1);
-}
-.icon:active {
-
-    transform: scale(0.95);
+.icon:hover, .icon-button:hover {
+  transform: scale(1.1);
 }
 
-/* Styles for help button */
+.icon:active, .icon-button:active {
+  transform: scale(0.95);
+}
+
+/* For buttons containing icons */
+.icon-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  transition: background-color var(--transition-speed) ease, transform 0.2s ease;
+}
+
+.icon-button:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
 
 #help-button {
     position: fixed;
     top: 10px;
     right: 60px;
     z-index: 1000;
-    background-color: rgba(255, 255, 255, 0.6);
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: background-color var(--transition-speed) ease;
 }
 
-#share-button, #help-button {
-    fill: var(--dark-neutral-color);
-}
 #like-button {
     fill: var(--primary-color);
 }
@@ -53,46 +58,25 @@
     align-items: flex-start;
 }
 
-#image-buttons-1 {
-    bottom: 10px;
-}
-
+#image-buttons-1,
 #image-buttons-2 {
     bottom: 10px;
 }
 
 .image-container__button {
-    background: rgba(255, 255, 255, 0.6);
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
     margin-bottom: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.image-container__button:hover {
-    background: rgba(255, 255, 255, 0.9);
-    transform: scale(1.1);
-}
-
-.image-container__button:active {
-    transform: scale(0.95);
+    width: 36px;
+    height: 36px;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-
-.image-container__button {
-        width: 36px;
-        height: 36px;
+    .image-container__button {
+        width: 32px;
+        height: 32px;
     }
-.image-container__button-icon {
+
+    .image-container__button-icon {
         width: 20px;
         height: 20px;
     }

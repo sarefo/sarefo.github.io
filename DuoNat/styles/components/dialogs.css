@@ -576,7 +576,7 @@ border-color: var(--primary-color);
     display: flex;
     justify-content: space-around;
     margin-top: 20px;
-bottom: 20px;
+    bottom: 20px;
 }
 
 .info-dialog__button {

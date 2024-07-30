@@ -13,13 +13,13 @@ export function createWorldMap(container, highlightedContinents) {
 
     function createGlobeIcon() {
         const button = document.createElement('button');
-        button.className = 'image-container__button image-container__button--globe';
+        button.className = 'icon-button image-container__button image-container__button--globe';
         button.style.position = 'absolute';
         button.style.bottom = '10px';
         button.style.left = '60px';
         
         const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        svg.setAttribute('class', 'image-container__button-icon icon');
+        svg.setAttribute('class', 'icon');
         svg.setAttribute('viewBox', '0 0 24 24');
 
         const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
