@@ -122,5 +122,23 @@
     <symbol id="icon-globe" viewBox="0 0 24 24">
         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
     </symbol>
+  <symbol id="icon-qr" viewBox="0 0 24 24">
+    <path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm13-2h3v3h-3v-3zm0 5h3v3h-3v-3zm-5 0h3v3h-3v-3zm5-5h3v3h-3v-3z"/>
+  </symbol>
+  <symbol id="icon-taxon-dna" viewBox="0 0 24 24">
+    <path d="M4 2c3 4 7 6 10 6 3 0 7-2 10-6v20c-3-4-7-6-10-6-3 0-7 2-10 6V2z"/>
+    <path d="M8 7h8M8 11h8M8 15h8M8 19h8" stroke="currentColor" fill="none" stroke-width="2"/>
+  </symbol>
+  <symbol id="icon-taxon-tree" viewBox="0 0 24 24">
+    <path d="M12 2v8m0 0l-6 6m6-6l6 6m-9 6h6m-6 0v-3m6 3v-3"/>
+    <circle cx="12" cy="10" r="2"/>
+    <circle cx="6" cy="16" r="2"/>
+    <circle cx="18" cy="16" r="2"/>
+    <circle cx="9" cy="22" r="2"/>
+    <circle cx="15" cy="22" r="2"/>
+  </symbol>
+  <symbol id="icon-taxon-classification" viewBox="0 0 24 24">
+    <path d="M4 4h16v4H4zM6 10h12v3H6zM8 15h8v3H8zM10 20h4v2h-4z"/>
+  </symbol>
 </svg>
 
