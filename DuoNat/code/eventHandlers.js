@@ -294,11 +294,9 @@ initializeSwipeFunctionality() {
                 break;
             case 'm':
                 event.preventDefault();
-//                logger.debug("'M' key pressed, attempting to toggle menu");
                 ui.toggleMainMenu();
                 break;
             case 'p':
-            case 'f':
                 event.preventDefault();
                 document.getElementById('surprise-button').click();
                 break;
@@ -313,6 +311,10 @@ initializeSwipeFunctionality() {
             case 'o':
                 event.preventDefault();
                 game.showInfoDialog(game.currentObservationURLs.imageTwo, 2);
+                break;
+            case 'w':
+                // createWorldMap.toggleAllWorldMaps();
+                // TODO need to find a way to trigger from here
                 break;
         }
     },

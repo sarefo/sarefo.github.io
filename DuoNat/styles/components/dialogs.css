@@ -502,12 +502,12 @@ border-color: var(--primary-color);
     transform: translate(0, 0);
 }
 
-.info-dialog-header {
+.info-dialog__header {
     text-align: center;
     margin-bottom: 20px;
 }
 
-.info-dialog-taxon {
+.info-dialog__taxon {
     font-size: 1.4em;
     margin: 0;
     color: var(--primary-counter-color);
@@ -515,14 +515,14 @@ border-color: var(--primary-color);
     text-shadow: 1px 1px 2px var(--shadow-color);
 }
 
-.info-dialog-vernacular {
+.info-dialog__vernacular {
     font-size: 1.2em;
     margin: 5px 0 0;
     color: var(--dark-neutral-color);
     text-shadow: 1px 1px 2px var(--shadow-color);
 }
 
-.info-dialog-facts {
+.info-dialog__facts {
     min-height: 20vh;
     max-height: 40vh;
     margin: 20px 0;
@@ -535,7 +535,7 @@ border-color: var(--primary-color);
 
 }
 
-.info-dialog-facts h3 {
+.info-dialog__facts h3 {
     color: var(--primary-color);
     font-size: 1.2em;
     margin-bottom: 12px;
@@ -543,13 +543,13 @@ border-color: var(--primary-color);
     border-bottom: 2px solid var(--primary-color);
 }
 
-.info-dialog-facts ul {
+.info-dialog__facts ul {
     list-style-type: none;
     padding-left: 0;
     margin: 0;
 }
 
-.info-dialog-facts li {
+.info-dialog__facts li {
     position: relative;
     padding-left: 24px;
     margin-bottom: 10px;
@@ -563,7 +563,7 @@ border-color: var(--primary-color);
 /*    text-shadow: 1px 1px 2px var(--shadow-color);*/
 }
 
-.info-dialog-facts li::before {
+.info-dialog__facts li::before {
     content: "•";
     position: absolute;
     left: 8px;
@@ -571,7 +571,7 @@ border-color: var(--primary-color);
     font-size: 1.3em;
 }
 
-.info-dialog-buttons {
+.info-dialog__buttons {
     position: fixed;
     display: flex;
     justify-content: space-around;
@@ -579,7 +579,7 @@ border-color: var(--primary-color);
 bottom: 20px;
 }
 
-.info-dialog-button {
+.info-dialog__button {
     background: none;
     border: none;
     cursor: pointer;
@@ -588,40 +588,14 @@ bottom: 20px;
     transition: background-color 0.3s ease;
 }
 
-.info-dialog-button:hover {
+.info-dialog__button:hover {
     background-color: rgba(116, 172, 0, 0.1);
 }
 
-.info-dialog-button .icon {
-    width: 24px;
-    height: 24px;
-    fill: var(--primary-color);
+.info-dialog__button-icon {
+/*    fill: var(--primary-color);*/
+    opacity: 0.8;
 }
-
-/*
-.info-dialog-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.info-dialog-button {
-  background-color: var(--primary-color);
-  color: var(--text-color);
-  border: none;
-  padding: 10px;
-  border-radius: var(--border-radius);
-  cursor: pointer;
-  font-size: larger;
-  text-align: center;
-  transition: background-color var(--transition-speed) ease;
-  text-shadow: 1px 1px 2px var(--shadow-color);
-}
-
-.info-dialog-button:hover {
-  background-color: #5c8a00;
-}
-*/
 
 /* Relationship graph dialog */
 
