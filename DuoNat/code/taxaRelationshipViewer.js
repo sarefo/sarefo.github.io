@@ -203,7 +203,8 @@ const taxaRelationshipViewer = {
         const nodeData = ancestorDetails.get(taxon.id) || taxon;
         logger.debug('Adding node:', nodeData);
         
-        var vernacularName = nodeData.preferred_common_name ? `\n(${nodeData.preferred_common_name})` : "";
+        var vernacularName = nodeData.preferred_common_name ? 
+            `\n(${utils.capitalizeFirstLetter(nodeData.preferred_common_name)})` : "";
         const isSpecificTaxon = nodeData.id === taxon1.id || nodeData.id === taxon2.id;
 
         var taxonName = nodeData.name || `Unknown Taxon ${nodeData.id}`;
