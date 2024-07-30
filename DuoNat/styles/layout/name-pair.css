@@ -48,9 +48,9 @@
     text-shadow: 1px 1px 2px var(--shadow-color);
 
     touch-action: none;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
     word-break: break-word;
     hyphens: auto;
 
