@@ -137,12 +137,40 @@ const dragAndDrop = {
         if (!this.draggedElement) return;
         
         const originalContainer = this.draggedElement.id === 'left-name' ? 'name-pair__container--left' : 'name-pair__container--right';
-        document.getElementsByClassName(originalContainer)[0].appendChild(this.draggedElement);
-        this.draggedElement.classList.remove('name-pair__item--dragging');
+        const container = document.getElementsByClassName(originalContainer)[0];
+        
+        // Store the original styles
+        const originalStyles = {
+            position: this.draggedElement.style.position,
+            left: this.draggedElement.style.left,
+            top: this.draggedElement.style.top,
+            width: this.draggedElement.style.width,
+            height: this.draggedElement.style.height,
+            zIndex: this.draggedElement.style.zIndex
+        };
+
+        // Reset classes and remove inline styles
+        this.draggedElement.classList.remove('name-pair__item--dragging', 'name-pair__item--landing');
         this.draggedElement.style.position = '';
         this.draggedElement.style.left = '';
         this.draggedElement.style.top = '';
-        this.draggedElement.style.zIndex = ''; // Reset z-index
+        this.draggedElement.style.width = '';
+        this.draggedElement.style.height = '';
+        this.draggedElement.style.zIndex = '';
+
+        // Move the element back to its original container
+        container.appendChild(this.draggedElement);
+
+        // Force a reflow
+        this.draggedElement.offsetHeight;
+
+        // Re-apply the original styles if they were set
+        if (originalStyles.position) this.draggedElement.style.position = originalStyles.position;
+        if (originalStyles.left) this.draggedElement.style.left = originalStyles.left;
+        if (originalStyles.top) this.draggedElement.style.top = originalStyles.top;
+        if (originalStyles.width) this.draggedElement.style.width = originalStyles.width;
+        if (originalStyles.height) this.draggedElement.style.height = originalStyles.height;
+        if (originalStyles.zIndex) this.draggedElement.style.zIndex = originalStyles.zIndex;
     },
 
     dragOver(e) {
@@ -252,13 +280,13 @@ const dragAndDrop = {
 
         // After the transition
         setTimeout(() => {
-            draggedElement.classList.remove('name-pair__item--landing');
-            draggedElement.classList.remove('name-pair__item--dragging');
-            draggedElement.style.position = 'static';
+            draggedElement.classList.remove('name-pair__item--landing', 'name-pair__item--dragging');
+            draggedElement.style.position = '';
             draggedElement.style.left = '';
             draggedElement.style.top = '';
-            draggedElement.style.width = '100%';
-            draggedElement.style.height = document.querySelector('.name-pair').style.height;
+            draggedElement.style.width = '';
+            draggedElement.style.height = '';
+            draggedElement.style.zIndex = '';
 
             if (isCorrect) {
                 dropZone.innerHTML = '';
@@ -270,8 +298,8 @@ const dragAndDrop = {
                 const otherDropZone = document.getElementById(dropZone.id === 'drop-1' ? 'drop-2' : 'drop-1');
                 otherDropZone.innerHTML = '';
                 otherDropZone.appendChild(otherName);
-                otherName.style.height = document.querySelector('.name-pair').style.height;
 
+                // Call game.checkAnswer to proceed to the next round
                 game.checkAnswer(dropZone.id);
             } else {
                 const originalContainer = draggedElement.id === 'left-name' ? 
@@ -284,8 +312,8 @@ const dragAndDrop = {
             draggedElement.classList.add(isCorrect ? 'name-pair__item--correct' : 'name-pair__item--incorrect');
             setTimeout(() => {
                 draggedElement.classList.remove('name-pair__item--correct', 'name-pair__item--incorrect');
-            }, 600); // This should match the duration of the feedback animation
-        }, 300); // This should match the transition duration in CSS
+            }, 600);
+        }, 300);
     },
 
     getDropZone(e) {
