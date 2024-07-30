@@ -1,4 +1,3 @@
-// preloader.js
 import api from './api.js';
 import { gameState, updateGameState } from './state.js';
 import logger from './logger.js';

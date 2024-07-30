@@ -1,4 +1,3 @@
-// version.js
 const version = '1.4.19';
 
 function updateVersion() {

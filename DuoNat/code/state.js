@@ -40,7 +40,8 @@ export const gameState = {
       taxon2: null
     }
   },
-    // check which of these still used:
+
+  // check which of these still used:
   isFirstLoad: true,
   isInitialLoad: true,
   isPreloading: false,

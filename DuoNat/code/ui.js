@@ -1,5 +1,3 @@
-// UI functions
-
 import api from './api.js';
 import config from './config.js';
 import dialogManager from './dialogManager.js';
@@ -407,10 +405,6 @@ const ui = {
         }
     },
 
-/*    isMenuOpen: function() {
-        return isMenuOpen;
-    },
-*/
     initialize: function () {
         this.initializeHelpDialog();
         this.initializeInfoDialog();
@@ -424,7 +418,7 @@ const ui = {
         });
     },
 
-}; // const ui
+};
 
 export default ui;
 

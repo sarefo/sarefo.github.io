@@ -1,5 +1,3 @@
-// worldMap.js
-
 let isGlobeView = false; // Session-wide setting
 let worldMaps = []; // Array to store all world map instances
 

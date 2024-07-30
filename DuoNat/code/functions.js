@@ -1,4 +1,3 @@
-// snapshot 20240712 2247 > stable, but tooo many preload requests
 import api from './api.js';
 import config from './config.js';
 import dialogManager from './dialogManager.js';

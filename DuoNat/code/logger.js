@@ -1,5 +1,3 @@
-// logger.js
-
 const LogLevel = {
     ERROR: 0,
     WARN: 1,

@@ -1,5 +1,3 @@
-// Drag and drop functionality
-
 import game from './game.js';
 import { gameState } from './state.js';
 import logger from './logger.js';
@@ -69,7 +67,7 @@ const dragAndDrop = {
         this.captureOtherElementPosition();
 
         this.draggedElement.classList.add('name-pair__item--dragging');
-        this.draggedElement.style.zIndex = '1000'; // Set a high z-index
+        this.draggedElement.style.zIndex = '1000';
         this.updateElementPosition(touch);
     },
 
@@ -200,7 +198,6 @@ captureOtherElementPosition() {
         }
     },
 
-
     dragOver(e) {
         e.preventDefault();
         if (e.target.classList.contains('image-container')) {
@@ -264,7 +261,6 @@ captureOtherElementPosition() {
             return false;
         }
     },
-
 
     getDropZone(e) {
         const touch = e.changedTouches ? e.changedTouches[0] : e;

@@ -1,5 +1,3 @@
-// Game functions
-
 import api from './api.js';
 import config from './config.js';
 import dialogManager from './dialogManager.js';
@@ -35,7 +33,6 @@ const game = {
     },
 
     setState(newState) {
-        //        logger.debug(`Game state changing from ${this.currentState} to ${newState}`);
         this.currentState = newState;
     },
 
@@ -97,7 +94,6 @@ const game = {
             // Use the manually selected pair if available
             newPair = this.nextSelectedPair;
             this.nextSelectedPair = null; // Clear the selected pair after use
-            //      logger.debug("Using manually selected pair:", newPair);
             [imageOneURL, imageTwoURL] = await Promise.all([
                 api.fetchRandomImageMetadata(newPair.taxon1),
                 api.fetchRandomImageMetadata(newPair.taxon2)
@@ -109,14 +105,12 @@ const game = {
                 newPair = preloadedPair.pair;
                 imageOneURL = preloadedPair.taxon1;
                 imageTwoURL = preloadedPair.taxon2;
-                //        logger.debug("Using preloaded pair:", newPair);
             } else {
                 newPair = await utils.selectTaxonPair();
                 [imageOneURL, imageTwoURL] = await Promise.all([
                     api.fetchRandomImageMetadata(newPair.taxon1),
                     api.fetchRandomImageMetadata(newPair.taxon2)
                 ]);
-                //        logger.debug("Fetched new random pair:", newPair);
             }
         }
 
@@ -131,8 +125,6 @@ const game = {
                 taxon2: new Set([imageTwoURL])
             }
         });
-
-        //    logger.debug("New pair initialized:", newPair);
 
         await this.setupRound(true);
     },
@@ -199,7 +191,6 @@ const game = {
             }
         });
 
-        //    logger.debug(`Images for this round: ${imageOneURL}, ${imageTwoURL}`);
     },
 
     async getContinentForTaxon(taxon) {
@@ -257,20 +248,13 @@ const game = {
         throw new Error("Failed to load images after multiple attempts");
     },
 
-    /**
-     * Attempts to fetch a taxon image collection.
-     * @param {boolean} newPair - Whether this is for a new pair.
-     * @returns {Promise<Object>} The fetched taxon image collection.
-     */
     async attemptFetchTaxonImageCollection(newPair) {
         if (newPair || !gameState.currentTaxonImageCollection) {
             if (this.nextSelectedPair) {
-                //                logger.debug("Using selected pair:", this.nextSelectedPair);
                 const collection = await this.initializeNewTaxonPair(this.nextSelectedPair);
                 this.nextSelectedPair = null;
                 return collection;
             } else if (this.preloadedPair) {
-                //                logger.debug("Using preloaded pair");
                 const collection = this.preloadedPair;
                 this.preloadedPair = null;
                 return collection;
@@ -281,21 +265,10 @@ const game = {
         return gameState.currentTaxonImageCollection;
     },
 
-    /**
-     * Determines if a fetch should be retried based on the error and attempt count.
-     * @param {Error} error - The error that occurred during the fetch.
-     * @param {number} attempts - The number of attempts made so far.
-     * @param {number} maxAttempts - The maximum number of attempts allowed.
-     * @returns {boolean} True if the fetch should be retried, false otherwise.
-     */
     shouldRetryFetch(error, attempts, maxAttempts) {
         return attempts < maxAttempts && error.message.includes("No images found");
     },
 
-    /**
-     * Handles errors that occur during fetching.
-     * @param {Error} error - The error that occurred.
-     */
     async handleFetchError(error) {
         if (error.message.includes("No images found")) {
             const taxonName = error.message.split("No images found for ")[1];
@@ -305,10 +278,6 @@ const game = {
         }
     },
 
-    /**
-     * Handles errors that occur during game setup.
-     * @param {Error} error - The error that occurred.
-     */
     handleSetupError(error) {
         logger.error("Error setting up game:", error);
         ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
@@ -319,11 +288,6 @@ const game = {
         }
     },
 
-    /**
-     * Initializes a new taxon pair.
-     * @param {Object} [pair=null] - The taxon pair to initialize. If null, a random pair is selected.
-     * @returns {Promise<Object>} The initialized taxon pair with image URLs.
-     */
     async initializeNewTaxonPair(pair = null) {
 
         const newPair = pair || await utils.selectTaxonPair();
@@ -341,9 +305,6 @@ const game = {
         };
     },
 
-    /**
-     * Loads the current taxon image collection, including multiple images and vernacular names.
-     */
     async loadCurrentTaxonImageCollection() {
         if (!gameState.currentTaxonImageCollection || !gameState.currentTaxonImageCollection.pair) {
             logger.error("currentTaxonImageCollection or its pair is null");
@@ -374,12 +335,8 @@ const game = {
         await preloader.preloadImages(imageOneURLs.slice(0, MAX_IMAGES).concat(imageTwoURLs.slice(0, MAX_IMAGES)));
     },
 
-    /**
-     * Preloads images for the current taxon pair.
-     */
     async preloadImagesForCurrentPair() {
         const { pair } = gameState.currentTaxonImageCollection;
-        //        logger.debug("Starting to preload images for next round of current pair");
 
         try {
             const [newImageOneURL, newImageTwoURL] = await Promise.all([
@@ -395,7 +352,6 @@ const game = {
             this.preloadedImages.current.taxon1.push(newImageOneURL);
             this.preloadedImages.current.taxon2.push(newImageTwoURL);
 
-            //            logger.debug("Finished preloading images for next round of current pair");
         } catch (error) {
             logger.error("Error preloading images for current pair:", error);
         }
@@ -405,7 +361,6 @@ const game = {
         return new Promise((resolve, reject) => {
             const img = new Image();
             img.onload = () => {
-                //                logger.debug(`Image fully loaded: ${url}`);
                 resolve(url);
             };
             img.onerror = () => {
@@ -417,12 +372,10 @@ const game = {
     },
 
     loadImages: async function (leftImageSrc, rightImageSrc) {
-        //        logger.debug("Loading images:", { leftImageSrc, rightImageSrc });
         await Promise.all([
             this.loadImageAndRemoveLoadingClass(elements.imageOne, leftImageSrc),
             this.loadImageAndRemoveLoadingClass(elements.imageTwo, rightImageSrc)
         ]);
-        //        logger.debug("Finished loading images");
     },
 
     async loadImageAndRemoveLoadingClass(imgElement, src) {
@@ -630,6 +583,7 @@ const game = {
         }
         return null;
     },
+
     initializeInfoButtons() {
         const infoButton1 = document.getElementById('info-button-1');
         const infoButton2 = document.getElementById('info-button-2');
@@ -685,7 +639,7 @@ showInfoDialog(url, imageIndex) {
         // Center horizontally
         dialog.style.left = `${(window.innerWidth - dialogRect.width) / 2}px`;
     };
-/*
+
     // Frame the corresponding image if imageIndex is provided
     if (imageIndex) {
         const imageContainer = document.getElementById(`image-container-${imageIndex}`);
@@ -693,7 +647,7 @@ showInfoDialog(url, imageIndex) {
             imageContainer.classList.add('image-container--framed');
         }
     }
-*/
+
     // Set taxon and vernacular name
     const currentTaxon = this.getCurrentTaxonName(url);
     taxonElement.textContent = currentTaxon;
