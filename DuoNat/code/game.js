@@ -64,6 +64,8 @@ const game = {
             }
 
             this.finishSetup();
+            
+            // Call setNamePairHeight here, after the new pair or round is set up
             this.setNamePairHeight();
 
             // Preload for the next round
@@ -569,12 +571,13 @@ const game = {
         const rightName = document.getElementById('right-name');
         const namePair = document.querySelector('.name-pair');
 
-        // Get the natural height of both name tiles
+        // Reset the height to auto to get the natural height
         leftName.style.height = 'auto';
         rightName.style.height = 'auto';
+        namePair.style.height = 'auto';
         
-        // Use setTimeout to ensure the browser has rendered the auto heights
-        setTimeout(() => {
+        // Use requestAnimationFrame to ensure the browser has rendered the auto heights
+        requestAnimationFrame(() => {
             const maxHeight = Math.max(leftName.offsetHeight, rightName.offsetHeight);
             
             // Set the height of the name-pair container
@@ -583,7 +586,7 @@ const game = {
             // Set both name tiles to this height
             leftName.style.height = `${maxHeight}px`;
             rightName.style.height = `${maxHeight}px`;
-        }, 0);
+        });
     },
 
     setupNameTilesUI: function (leftName, rightName, leftNameVernacular, rightNameVernacular) {
@@ -613,7 +616,6 @@ const game = {
         gameState.taxonLeftName = nameOne;
         gameState.taxonRightName = nameTwo;
 
-        this.setNamePairHeight();
     },
 
     finishSetup: function () {
