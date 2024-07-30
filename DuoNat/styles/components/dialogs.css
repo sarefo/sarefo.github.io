@@ -489,7 +489,7 @@ body.has-keyboard button {
 .info-dialog {
     position: fixed;
     padding: 20px;
-    background-color: #eeffcc;
+    background-color: #f1f7e5;
     border-radius: var(--border-radius);
 border-color: var(--primary-color);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
