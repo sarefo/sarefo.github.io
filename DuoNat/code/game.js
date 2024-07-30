@@ -646,46 +646,77 @@ const game = {
         }
     },
 
-    showInfoDialog(url, imageIndex) {
-        const dialog = document.getElementById('info-dialog');
-        const taxonElement = document.getElementById('info-dialog-taxon');
-        const vernacularElement = document.getElementById('info-dialog-vernacular');
-        const factsElement = document.getElementById('info-dialog-facts');
-        const photoButton = document.getElementById('photo-button');
-        const observationButton = document.getElementById('observation-button');
-        const taxonButton = document.getElementById('taxon-button');
-        const hintsButton = document.getElementById('hints-button');
-        const reportButton = document.getElementById('report-button');
-        const closeButton = document.getElementById('info-close-button');
+showInfoDialog(url, imageIndex) {
+    const dialog = document.getElementById('info-dialog');
+    const taxonElement = document.getElementById('info-dialog-taxon');
+    const vernacularElement = document.getElementById('info-dialog-vernacular');
+    const factsElement = document.getElementById('info-dialog-facts');
+    const photoButton = document.getElementById('photo-button');
+    const observationButton = document.getElementById('observation-button');
+    const taxonButton = document.getElementById('taxon-button');
+    const hintsButton = document.getElementById('hints-button');
+    const reportButton = document.getElementById('report-button');
+    const closeButton = document.getElementById('info-close-button');
 
-        // Frame the corresponding image if imageIndex is provided
-        if (imageIndex) {
-            const imageContainer = document.getElementById(`image-container-${imageIndex}`);
-            if (imageContainer) {
-                imageContainer.classList.add('image-container--framed');
-            }
+    // Get the image containers
+    const topImageContainer = document.getElementById('image-container-1');
+    const bottomImageContainer = document.getElementById('image-container-2');
+    const namePairContainer = document.querySelector('.name-pair');
+
+    // Position the dialog
+    const positionDialog = () => {
+        const dialogRect = dialog.getBoundingClientRect();
+        const topContainerRect = topImageContainer.getBoundingClientRect();
+        const bottomContainerRect = bottomImageContainer.getBoundingClientRect();
+        const namePairRect = namePairContainer.getBoundingClientRect();
+
+        if (imageIndex === 1) {
+            // For the top image
+            dialog.style.top = `${namePairRect.top}px`;
+            dialog.style.bottom = `${window.innerHeight - bottomContainerRect.bottom}px`;
+            dialog.style.height = 'auto'; // Let the height adjust automatically
+        } else {
+            // For the bottom image
+            dialog.style.top = `${topContainerRect.top}px`;
+            dialog.style.bottom = `${window.innerHeight - namePairRect.bottom}px`;
+            dialog.style.height = 'auto'; // Let the height adjust automatically
         }
 
-        // Set taxon and vernacular name
-        const currentTaxon = this.getCurrentTaxonName(url);
-        taxonElement.textContent = currentTaxon;
+        // Center horizontally
+        dialog.style.left = `${(window.innerWidth - dialogRect.width) / 2}px`;
+    };
 
-        api.getVernacularName(currentTaxon).then(vernacularName => {
-            vernacularElement.textContent = vernacularName;
+    // Frame the corresponding image if imageIndex is provided
+    if (imageIndex) {
+        const imageContainer = document.getElementById(`image-container-${imageIndex}`);
+        if (imageContainer) {
+            imageContainer.classList.add('image-container--framed');
+        }
+    }
 
-            // Add taxon facts (assuming they're still in taxonInfo.json)
-            api.loadTaxonInfo().then(taxonInfo => {
-                const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === currentTaxon.toLowerCase());
-                if (taxonData && taxonData.taxonFacts && taxonData.taxonFacts.length > 0) {
-                    factsElement.innerHTML = '<h3>Facts:</h3><ul>' + 
-                        taxonData.taxonFacts.map(fact => `<li>${fact}</li>`).join('') + 
-                        '</ul>';
-                    factsElement.style.display = 'block';
-                } else {
-                    factsElement.style.display = 'none';
-                }
-            });
+    // Set taxon and vernacular name
+    const currentTaxon = this.getCurrentTaxonName(url);
+    taxonElement.textContent = currentTaxon;
+
+    api.getVernacularName(currentTaxon).then(vernacularName => {
+        vernacularElement.textContent = vernacularName;
+
+        // Add taxon facts (assuming they're still in taxonInfo.json)
+        api.loadTaxonInfo().then(taxonInfo => {
+            const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === currentTaxon.toLowerCase());
+            if (taxonData && taxonData.taxonFacts && taxonData.taxonFacts.length > 0) {
+                factsElement.innerHTML = '<h3>Facts:</h3><ul>' + 
+                    taxonData.taxonFacts.map(fact => `<li>${fact}</li>`).join('') + 
+                    '</ul>';
+                factsElement.style.display = 'block';
+            } else {
+                factsElement.style.display = 'none';
+            }
+
+            // Position the dialog after content is loaded
+            positionDialog();
         });
+    });
 
         photoButton.onclick = () => {
             window.open(url, '_blank');
@@ -735,9 +766,11 @@ const game = {
         });
 
         dialog.showModal();
+    // Reposition on window resize
+    window.addEventListener('resize', positionDialog);
+
     },
 
-    // Rest of the game.js code remains the same
     getCurrentTaxonName(url) {
         if (url === this.currentObservationURLs.imageOne) {
             return gameState.taxonImageOne;

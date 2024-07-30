@@ -486,9 +486,8 @@ body.has-keyboard button {
 }
 
 /* Info dialog */
-
 .info-dialog {
-    position: absolute;
+    position: fixed;
     padding: 20px;
     background-color: var(--background-color);
     border-radius: var(--border-radius);
@@ -497,7 +496,9 @@ body.has-keyboard button {
     width: 100%;
     box-sizing: border-box;
     overflow-y: auto;
-    transition: top 0.3s ease-out, height 0.3s ease-out;
+/*    transition: top 0.3s ease-out, bottom 0.3s ease-out;*/
+    transition: top 0.3s ease-out, bottom 0.3s ease-out, height 0.3s ease-out;
+    transform: translate(0, 0);
 }
 
 .info-dialog-header {
