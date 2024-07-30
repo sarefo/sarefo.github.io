@@ -607,130 +607,131 @@ const game = {
         }
     },
 
-showInfoDialog(url, imageIndex) {
-    const dialog = document.getElementById('info-dialog');
-    const taxonElement = document.getElementById('info-dialog-taxon');
-    const vernacularElement = document.getElementById('info-dialog-vernacular');
-    const factsElement = document.getElementById('info-dialog-facts');
-    const photoButton = document.getElementById('photo-button');
-    const observationButton = document.getElementById('observation-button');
-    const taxonButton = document.getElementById('taxon-button');
-    const hintsButton = document.getElementById('hints-button');
-    const reportButton = document.getElementById('report-button');
-    const closeButton = document.getElementById('info-close-button');
+    showInfoDialog(url, imageIndex) {
+        const dialog = document.getElementById('info-dialog');
+        const taxonElement = document.getElementById('info-dialog-taxon');
+        const vernacularElement = document.getElementById('info-dialog-vernacular');
+        const factsElement = document.getElementById('info-dialog-facts');
+        const photoButton = document.getElementById('photo-button');
+        const observationButton = document.getElementById('observation-button');
+        const taxonButton = document.getElementById('taxon-button');
+        const hintsButton = document.getElementById('hints-button');
+        const reportButton = document.getElementById('report-button');
+        const closeButton = document.getElementById('info-close-button');
 
-    // Get the image containers
-    const topImageContainer = document.getElementById('image-container-1');
-    const bottomImageContainer = document.getElementById('image-container-2');
-    const namePairContainer = document.querySelector('.name-pair');
+        // Get the image containers
+        const topImageContainer = document.getElementById('image-container-1');
+        const bottomImageContainer = document.getElementById('image-container-2');
+        const namePairContainer = document.querySelector('.name-pair');
 
-    // Position the dialog
-    const positionDialog = () => {
-        const dialogRect = dialog.getBoundingClientRect();
-        const topContainerRect = topImageContainer.getBoundingClientRect();
-        const bottomContainerRect = bottomImageContainer.getBoundingClientRect();
-        const namePairRect = namePairContainer.getBoundingClientRect();
+        // Position the dialog
+        const positionDialog = () => {
+            const dialogRect = dialog.getBoundingClientRect();
+            const topContainerRect = topImageContainer.getBoundingClientRect();
+            const bottomContainerRect = bottomImageContainer.getBoundingClientRect();
+            const namePairRect = namePairContainer.getBoundingClientRect();
 
-        if (imageIndex === 1) {
-            // For the top image
-            dialog.style.top = `${namePairRect.top}px`;
-            dialog.style.bottom = `${window.innerHeight - bottomContainerRect.bottom}px`;
-            dialog.style.height = 'auto'; // Let the height adjust automatically
-        } else {
-            // For the bottom image
-            dialog.style.top = `${topContainerRect.top}px`;
-            dialog.style.bottom = `${window.innerHeight - namePairRect.bottom}px`;
-            dialog.style.height = 'auto'; // Let the height adjust automatically
-        }
-
-        // Center horizontally
-        dialog.style.left = `${(window.innerWidth - dialogRect.width) / 2}px`;
-    };
-
-    // Frame the corresponding image if imageIndex is provided
-    if (imageIndex) {
-        const imageContainer = document.getElementById(`image-container-${imageIndex}`);
-        if (imageContainer) {
-            imageContainer.classList.add('image-container--framed');
-        }
-    }
-
-    // Set taxon and vernacular name
-    const currentTaxon = this.getCurrentTaxonName(url);
-    taxonElement.textContent = currentTaxon;
-
-    api.getVernacularName(currentTaxon).then(vernacularName => {
-        vernacularElement.textContent = vernacularName;
-
-        // Add taxon facts (assuming they're still in taxonInfo.json)
-        api.loadTaxonInfo().then(taxonInfo => {
-            const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === currentTaxon.toLowerCase());
-            if (taxonData && taxonData.taxonFacts && taxonData.taxonFacts.length > 0) {
-                factsElement.innerHTML = '<h3>Facts:</h3><ul>' + 
-                    taxonData.taxonFacts.map(fact => `<li>${fact}</li>`).join('') + 
-                    '</ul>';
-                factsElement.style.display = 'block';
+            if (imageIndex === 1) {
+                // For the top image
+                dialog.style.top = `${namePairRect.top}px`;
+                dialog.style.bottom = `${window.innerHeight - bottomContainerRect.bottom}px`;
+                dialog.style.height = 'auto'; // Let the height adjust automatically
             } else {
-                factsElement.style.display = 'none';
+                // For the bottom image
+                dialog.style.top = `${topContainerRect.top}px`;
+                dialog.style.bottom = `${window.innerHeight - namePairRect.bottom}px`;
+                dialog.style.height = 'auto'; // Let the height adjust automatically
             }
 
-            // Position the dialog after content is loaded
-            positionDialog();
+            // Center horizontally
+            dialog.style.left = `${(window.innerWidth - dialogRect.width) / 2}px`;
+        };
+
+        // Frame the corresponding image if imageIndex is provided
+        if (imageIndex) {
+            const imageContainer = document.getElementById(`image-container-${imageIndex}`);
+            if (imageContainer) {
+                imageContainer.classList.add('image-container--framed');
+            }
+        }
+
+        // Set taxon and vernacular name
+        const currentTaxon = this.getCurrentTaxonName(url);
+        taxonElement.textContent = currentTaxon;
+
+        api.getVernacularName(currentTaxon).then(vernacularName => {
+            vernacularElement.textContent = vernacularName;
+
+            // Add taxon facts (assuming they're still in taxonInfo.json)
+            api.loadTaxonInfo().then(taxonInfo => {
+                const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === currentTaxon.toLowerCase());
+                if (taxonData && taxonData.taxonFacts && taxonData.taxonFacts.length > 0) {
+                    factsElement.innerHTML = '<h3>Facts:</h3><ul>' + 
+                        taxonData.taxonFacts.map(fact => `<li>${fact}</li>`).join('') + 
+                        '</ul>';
+                    factsElement.style.display = 'block';
+                } else {
+                    factsElement.style.display = 'none';
+                }
+
+                // Position the dialog after content is loaded
+                dialog.setAttribute('open', ''); // Explicitly set the 'open' attribute
+                positionDialog();
+            });
         });
-    });
 
-        photoButton.onclick = () => {
-            window.open(url, '_blank');
-            dialog.close();
-        };
-
-        observationButton.onclick = () => {
-            logger.debug("Observation button clicked");
-            // Implement observation functionality here
-        };
-
-        taxonButton.onclick = async () => {
-            logger.debug("Taxon button clicked");
-            try {
-                const taxonName = this.getCurrentTaxonName(url);
-                const taxonId = await api.fetchTaxonId(taxonName);
-                window.open(`https://www.inaturalist.org/taxa/${taxonId}`, '_blank');
+            photoButton.onclick = () => {
+                window.open(url, '_blank');
                 dialog.close();
-            } catch (error) {
-                logger.error("Error opening taxon page:", error);
-                alert("Unable to open taxon page. Please try again.");
-            }
-        };
+            };
 
-        hintsButton.onclick = () => {
-            logger.debug("Taxon hints button clicked");
-            // Implement taxon hints functionality here
-        };
+            observationButton.onclick = () => {
+                logger.debug("Observation button clicked");
+                // Implement observation functionality here
+            };
 
-        reportButton.onclick = () => {
-            logger.debug("Report button clicked");
-            // Implement report functionality here
-        };
+            taxonButton.onclick = async () => {
+                logger.debug("Taxon button clicked");
+                try {
+                    const taxonName = this.getCurrentTaxonName(url);
+                    const taxonId = await api.fetchTaxonId(taxonName);
+                    window.open(`https://www.inaturalist.org/taxa/${taxonId}`, '_blank');
+                    dialog.close();
+                } catch (error) {
+                    logger.error("Error opening taxon page:", error);
+                    alert("Unable to open taxon page. Please try again.");
+                }
+            };
 
-        closeButton.onclick = () => {
-            dialog.close();
-            document.querySelectorAll('.image-container').forEach(container => {
-                container.classList.remove('image-container--framed');
+            hintsButton.onclick = () => {
+                logger.debug("Taxon hints button clicked");
+                // Implement taxon hints functionality here
+            };
+
+            reportButton.onclick = () => {
+                logger.debug("Report button clicked");
+                // Implement report functionality here
+            };
+
+            closeButton.onclick = () => {
+                dialog.close();
+                document.querySelectorAll('.image-container').forEach(container => {
+                    container.classList.remove('image-container--framed');
+                });
+            };
+
+            dialog.addEventListener('close', () => {
+                // Remove framing from all containers when dialog is closed
+                document.querySelectorAll('.image-container').forEach(container => {
+                    container.classList.remove('image-container--framed');
+                });
             });
-        };
 
-        dialog.addEventListener('close', () => {
-            // Remove framing from all containers when dialog is closed
-            document.querySelectorAll('.image-container').forEach(container => {
-                container.classList.remove('image-container--framed');
-            });
-        });
+            dialog.showModal();
+        // Reposition on window resize
+        window.addEventListener('resize', positionDialog);
 
-        dialog.showModal();
-    // Reposition on window resize
-    window.addEventListener('resize', positionDialog);
-
-    },
+        },
 
     getCurrentTaxonName(url) {
         if (url === this.currentObservationURLs.imageOne) {

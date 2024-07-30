@@ -486,25 +486,32 @@ body.has-keyboard button {
 }
 
 /* Info dialog */
+
 .info-dialog {
     position: fixed;
+    transform: translate(0, 0); /* override system-wide centering of dialogs */
+    padding: 20px;
+    display: none;
+    flex-direction: column;
+    box-sizing: border-box;
     padding: 20px;
     background-color: #f1f7e5;
     border-radius: var(--border-radius);
-border-color: var(--primary-color);
+    border-color: var(--primary-color);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     max-width: var(--max-image-width);
     width: 100%;
-    box-sizing: border-box;
     overflow-y: auto;
-/*    transition: top 0.3s ease-out, bottom 0.3s ease-out;*/
     transition: top 0.3s ease-out, bottom 0.3s ease-out, height 0.3s ease-out;
-    transform: translate(0, 0);
+}
+
+.info-dialog[open] {
+    display: flex;
 }
 
 .info-dialog__header {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .info-dialog__taxon {
@@ -523,11 +530,9 @@ border-color: var(--primary-color);
 }
 
 .info-dialog__facts {
-    min-height: 20vh;
-    max-height: 40vh;
-    margin: 20px 0;
+    flex-grow: 1;
+    margin: 15px 0;
     padding: 15px;
-    text-align: left;
     background-color: var(--light-green);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -538,7 +543,7 @@ border-color: var(--primary-color);
 .info-dialog__facts h3 {
     color: var(--primary-color);
     font-size: 1.2em;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     padding-bottom: 8px;
     border-bottom: 2px solid var(--primary-color);
 }
@@ -552,14 +557,14 @@ border-color: var(--primary-color);
 .info-dialog__facts li {
     position: relative;
     padding-left: 24px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     text-align: left;
+    font-size: 1.3em;
+    line-height: 1.4;
+    color: var(--dark-neutral-color);
     word-break: normal;
     overflow-wrap: break-word;
     hyphens: auto;
-    line-height: 1.2;
-    font-size: 1.3em;
-    color: var(--dark-neutral-color);
 /*    text-shadow: 1px 1px 2px var(--shadow-color);*/
 }
 
@@ -572,29 +577,50 @@ border-color: var(--primary-color);
 }
 
 .info-dialog__buttons {
-    position: fixed;
     display: flex;
     justify-content: space-around;
-    margin-top: 20px;
-    bottom: 20px;
+    margin-top: 15px;
 }
 
 .info-dialog__button {
-    background: none;
-    border: none;
-    cursor: pointer;
     padding: 10px;
-    border-radius: 50%;
-    transition: background-color 0.3s ease;
 }
 
-.info-dialog__button:hover {
-    background-color: rgba(116, 172, 0, 0.1);
-}
+@media (max-width: 480px) {
+    .info-dialog {
+        padding: 12px;
+    }
 
-.info-dialog__button-icon {
-/*    fill: var(--primary-color);*/
-    opacity: 0.8;
+    .info-dialog__header {
+        margin-bottom: 5px;
+    }
+
+    .info-dialog__taxon {
+        font-size: 1.4em;
+    }
+
+    .info-dialog__vernacular {
+        font-size: 1.1em;
+    }
+
+    .info-dialog__facts {
+        margin: 4px 0 0 0;
+        padding: 10px;
+    }
+
+    .info-dialog__facts li {
+        font-size: 1.1em;
+        line-height: 1.2;
+    }
+
+    .info-dialog__buttons {
+        margin-top: 15px;
+    }
+
+    .info-dialog__button-icon {
+        width: 20px;
+        height: 20px;
+    }
 }
 
 /* Relationship graph dialog */
