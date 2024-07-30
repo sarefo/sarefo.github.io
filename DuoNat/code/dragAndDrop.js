@@ -10,6 +10,7 @@ const dragAndDrop = {
     draggedElement: null,
     touchOffset: { x: 0, y: 0 },
     gameContainer: null,
+    initialY: 0,
 
     initialize() {
         this.gameContainer = document.querySelector('.game-container');
@@ -45,16 +46,59 @@ const dragAndDrop = {
             x: e.clientX - rect.left,
             y: e.clientY - rect.top
         };
+        this.initialY = e.clientY;
+        this.captureOtherElementPosition();
 
         this.draggedElement.classList.add('name-pair__item--dragging');
         this.draggedElement.style.zIndex = '1000';
         this.updateElementPosition(e);
     },
 
+    touchStart(e) {
+        e.preventDefault();
+        this.draggedElement = e.target.closest('.name-pair__item--draggable');
+        if (!this.draggedElement) return;
+
+        const touch = e.touches[0];
+        const rect = this.draggedElement.getBoundingClientRect();
+        this.touchOffset = {
+            x: touch.clientX - rect.left,
+            y: touch.clientY - rect.top
+        };
+        this.initialY = touch.clientY;
+        this.captureOtherElementPosition();
+
+        this.draggedElement.classList.add('name-pair__item--dragging');
+        this.draggedElement.style.zIndex = '1000'; // Set a high z-index
+        this.updateElementPosition(touch);
+    },
+
+captureOtherElementPosition() {
+    const otherElement = this.draggedElement.id === 'left-name' ? 
+        document.getElementById('right-name') : 
+        document.getElementById('left-name');
+    if (otherElement) {
+        const rect = otherElement.getBoundingClientRect();
+        this.otherElementInitialY = rect.top;
+    }
+},
+
     mouseMove(e) {
         if (this.draggedElement) {
             e.preventDefault();
             this.updateElementPosition(e);
+        }
+    },
+
+    dragStart(e) {
+        e.dataTransfer.setData('text/plain', e.target.id);
+    },
+
+    touchMove(e) {
+        e.preventDefault();
+        if (this.draggedElement) {
+            const touch = e.touches[0];
+            this.updateElementPosition(touch);
         }
     },
 
@@ -66,36 +110,7 @@ const dragAndDrop = {
             } else {
                 this.resetDraggedElement();
             }
-            this.draggedElement.classList.remove('name-pair__item--dragging');
-            this.draggedElement.style.zIndex = '';
             this.draggedElement = null;
-        }
-    },
-
-    dragStart(e) {
-        e.dataTransfer.setData('text/plain', e.target.id);
-    },
-
-    touchStart(e) {
-        e.preventDefault();
-        this.draggedElement = e.target.closest('.name-pair__item--draggable');
-        if (!this.draggedElement) return;
-
-        const touch = e.touches[0];
-        const rect = this.draggedElement.getBoundingClientRect();
-        this.touchOffset.x = touch.clientX - rect.left;
-        this.touchOffset.y = touch.clientY - rect.top;
-
-        this.draggedElement.classList.add('name-pair__item--dragging');
-        this.draggedElement.style.zIndex = '1000'; // Set a high z-index
-        this.updateElementPosition(touch);
-    },
-
-    touchMove(e) {
-        e.preventDefault();
-        if (this.draggedElement) {
-            const touch = e.touches[0];
-            this.updateElementPosition(touch);
         }
     },
 
@@ -108,9 +123,41 @@ const dragAndDrop = {
             } else {
                 this.resetDraggedElement();
             }
-            this.draggedElement.classList.remove('name-pair__item--dragging');
-            this.draggedElement.style.zIndex = ''; // Reset z-index
             this.draggedElement = null;
+        }
+    },
+
+    resetDraggedElement() {
+        if (!this.draggedElement) return;
+        
+        const elements = [
+            this.draggedElement,
+            this.draggedElement.id === 'left-name' ? document.getElementById('right-name') : document.getElementById('left-name')
+        ];
+
+        elements.forEach(element => {
+            const originalContainer = element.id === 'left-name' ? 'name-pair__container--left' : 'name-pair__container--right';
+            const container = document.getElementsByClassName(originalContainer)[0];
+            
+            element.classList.remove('name-pair__item--dragging', 'name-pair__item--landing');
+            element.style = '';
+            container.appendChild(element);
+        });
+
+        this.draggedElement = null;
+    },
+
+    resetOtherElement() {
+        const otherElement = this.draggedElement.id === 'left-name' ? 
+            document.getElementById('right-name') : 
+            document.getElementById('left-name');
+        
+        if (otherElement) {
+            const originalContainer = otherElement.id === 'left-name' ? 'name-pair__container--left' : 'name-pair__container--right';
+            const container = document.getElementsByClassName(originalContainer)[0];
+            
+            otherElement.style = '';
+            container.appendChild(otherElement);
         }
     },
 
@@ -118,60 +165,41 @@ const dragAndDrop = {
         if (!this.draggedElement || !this.gameContainer) return;
 
         const gameContainerRect = this.gameContainer.getBoundingClientRect();
-        const elementWidth = 300; // Fixed width
+        const elementWidth = this.draggedElement.offsetWidth;
 
         // Calculate center position
         const leftPosition = gameContainerRect.left + (gameContainerRect.width / 2) - (elementWidth / 2);
         
-        // Position vertically based on event position, with 40px upward offset
+        // Calculate vertical position
         const clientY = event.touches ? event.touches[0].clientY : event.clientY;
-        const topPosition = clientY - this.touchOffset.y - 40;
+        const deltaY = clientY - this.initialY;
+        const topPosition = clientY - this.touchOffset.y;
 
-        // Apply the positioning
+        // Apply the positioning to the dragged element
         this.draggedElement.style.position = 'fixed';
         this.draggedElement.style.left = `${leftPosition}px`;
         this.draggedElement.style.top = `${topPosition}px`;
+
+        // Mirror the other element
+        this.mirrorOtherElement(deltaY);
     },
 
-    resetDraggedElement() {
-        if (!this.draggedElement) return;
+    mirrorOtherElement(deltaY) {
+        const otherElement = this.draggedElement.id === 'left-name' ? 
+            document.getElementById('right-name') : 
+            document.getElementById('left-name');
         
-        const originalContainer = this.draggedElement.id === 'left-name' ? 'name-pair__container--left' : 'name-pair__container--right';
-        const container = document.getElementsByClassName(originalContainer)[0];
-        
-        // Store the original styles
-        const originalStyles = {
-            position: this.draggedElement.style.position,
-            left: this.draggedElement.style.left,
-            top: this.draggedElement.style.top,
-            width: this.draggedElement.style.width,
-            height: this.draggedElement.style.height,
-            zIndex: this.draggedElement.style.zIndex
-        };
+        if (otherElement) {
+            const gameContainerRect = this.gameContainer.getBoundingClientRect();
+            const elementWidth = otherElement.offsetWidth;
+            const leftPosition = gameContainerRect.left + (gameContainerRect.width / 2) - (elementWidth / 2);
 
-        // Reset classes and remove inline styles
-        this.draggedElement.classList.remove('name-pair__item--dragging', 'name-pair__item--landing');
-        this.draggedElement.style.position = '';
-        this.draggedElement.style.left = '';
-        this.draggedElement.style.top = '';
-        this.draggedElement.style.width = '';
-        this.draggedElement.style.height = '';
-        this.draggedElement.style.zIndex = '';
-
-        // Move the element back to its original container
-        container.appendChild(this.draggedElement);
-
-        // Force a reflow
-        this.draggedElement.offsetHeight;
-
-        // Re-apply the original styles if they were set
-        if (originalStyles.position) this.draggedElement.style.position = originalStyles.position;
-        if (originalStyles.left) this.draggedElement.style.left = originalStyles.left;
-        if (originalStyles.top) this.draggedElement.style.top = originalStyles.top;
-        if (originalStyles.width) this.draggedElement.style.width = originalStyles.width;
-        if (originalStyles.height) this.draggedElement.style.height = originalStyles.height;
-        if (originalStyles.zIndex) this.draggedElement.style.zIndex = originalStyles.zIndex;
+            otherElement.style.position = 'fixed';
+            otherElement.style.left = `${leftPosition}px`;
+            otherElement.style.top = `${this.otherElementInitialY - deltaY}px`;
+        }
     },
+
 
     dragOver(e) {
         e.preventDefault();
@@ -237,84 +265,6 @@ const dragAndDrop = {
         }
     },
 
-    handleDrop(dropZone, draggedElement = this.draggedElement) {
-        if (!draggedElement) return;
-
-        const isCorrect = this.checkAnswer(dropZone.id, draggedElement.id);
-
-        // Get the current position
-        const currentRect = draggedElement.getBoundingClientRect();
-
-        // Set the initial position
-        draggedElement.style.position = 'fixed';
-        draggedElement.style.left = `${currentRect.left}px`;
-        draggedElement.style.top = `${currentRect.top}px`;
-        draggedElement.style.width = `${currentRect.width}px`;
-        draggedElement.style.height = `${currentRect.height}px`;
-
-        // Add the element to the DOM
-        document.body.appendChild(draggedElement);
-
-        // Force a reflow
-        draggedElement.offsetHeight;
-
-        // Add the landing class to trigger the transition
-        draggedElement.classList.add('name-pair__item--landing');
-
-        let targetRect;
-        if (isCorrect) {
-            // Move to drop zone
-            targetRect = dropZone.getBoundingClientRect();
-        } else {
-            // Return to original position
-            const originalContainer = draggedElement.id === 'left-name' ? 
-                document.querySelector('.name-pair__container--left') : 
-                document.querySelector('.name-pair__container--right');
-            targetRect = originalContainer.getBoundingClientRect();
-        }
-
-        draggedElement.style.left = `${targetRect.left}px`;
-        draggedElement.style.top = `${targetRect.top}px`;
-        draggedElement.style.width = `${targetRect.width}px`;
-        draggedElement.style.height = `${targetRect.height}px`;
-
-        // After the transition
-        setTimeout(() => {
-            draggedElement.classList.remove('name-pair__item--landing', 'name-pair__item--dragging');
-            draggedElement.style.position = '';
-            draggedElement.style.left = '';
-            draggedElement.style.top = '';
-            draggedElement.style.width = '';
-            draggedElement.style.height = '';
-            draggedElement.style.zIndex = '';
-
-            if (isCorrect) {
-                dropZone.innerHTML = '';
-                dropZone.appendChild(draggedElement);
-
-                // Handle the other name tile
-                const otherNameId = draggedElement.id === 'left-name' ? 'right-name' : 'left-name';
-                const otherName = document.getElementById(otherNameId);
-                const otherDropZone = document.getElementById(dropZone.id === 'drop-1' ? 'drop-2' : 'drop-1');
-                otherDropZone.innerHTML = '';
-                otherDropZone.appendChild(otherName);
-
-                // Call game.checkAnswer to proceed to the next round
-                game.checkAnswer(dropZone.id);
-            } else {
-                const originalContainer = draggedElement.id === 'left-name' ? 
-                    document.querySelector('.name-pair__container--left') : 
-                    document.querySelector('.name-pair__container--right');
-                originalContainer.appendChild(draggedElement);
-            }
-
-            // Add feedback class
-            draggedElement.classList.add(isCorrect ? 'name-pair__item--correct' : 'name-pair__item--incorrect');
-            setTimeout(() => {
-                draggedElement.classList.remove('name-pair__item--correct', 'name-pair__item--incorrect');
-            }, 600);
-        }, 300);
-    },
 
     getDropZone(e) {
         const touch = e.changedTouches ? e.changedTouches[0] : e;
@@ -327,6 +277,94 @@ const dragAndDrop = {
             }
         }
         return null;
+    },
+
+    handleDrop(dropZone, draggedElement = this.draggedElement) {
+        if (!draggedElement) return;
+
+        const isCorrect = this.checkAnswer(dropZone.id, draggedElement.id);
+        const otherElement = draggedElement.id === 'left-name' ? 
+            document.getElementById('right-name') : 
+            document.getElementById('left-name');
+
+        // Handle both elements
+        this.animateElement(draggedElement, dropZone, isCorrect);
+        this.animateElement(otherElement, this.getOtherDropZone(dropZone), isCorrect);
+
+        // After the transition
+        setTimeout(() => {
+            this.finalizeDropAnimation(draggedElement, otherElement, dropZone, isCorrect);
+        }, 300);
+    },
+
+    getOtherDropZone(dropZone) {
+        return document.getElementById(dropZone.id === 'drop-1' ? 'drop-2' : 'drop-1');
+    },
+
+    animateElement(element, targetZone, isCorrect) {
+        const currentRect = element.getBoundingClientRect();
+        let targetRect;
+
+        if (isCorrect) {
+            targetRect = targetZone.getBoundingClientRect();
+        } else {
+            const originalContainer = element.id === 'left-name' ? 
+                document.querySelector('.name-pair__container--left') : 
+                document.querySelector('.name-pair__container--right');
+            targetRect = originalContainer.getBoundingClientRect();
+        }
+
+        element.style.position = 'fixed';
+        element.style.left = `${currentRect.left}px`;
+        element.style.top = `${currentRect.top}px`;
+        element.style.width = `${currentRect.width}px`;
+        element.style.height = `${currentRect.height}px`;
+        element.style.zIndex = '1000';
+
+        document.body.appendChild(element);
+        element.offsetHeight; // Force reflow
+        element.classList.add('name-pair__item--landing');
+
+        element.style.left = `${targetRect.left}px`;
+        element.style.top = `${targetRect.top}px`;
+        element.style.width = `${targetRect.width}px`;
+        element.style.height = `${targetRect.height}px`;
+    },
+
+    finalizeDropAnimation(draggedElement, otherElement, dropZone, isCorrect) {
+        [draggedElement, otherElement].forEach(element => {
+            element.classList.remove('name-pair__item--landing', 'name-pair__item--dragging');
+            element.style.position = '';
+            element.style.left = '';
+            element.style.top = '';
+            element.style.width = '';
+            element.style.height = '';
+            element.style.zIndex = '';
+        });
+
+        if (isCorrect) {
+            dropZone.innerHTML = '';
+            dropZone.appendChild(draggedElement);
+
+            const otherDropZone = this.getOtherDropZone(dropZone);
+            otherDropZone.innerHTML = '';
+            otherDropZone.appendChild(otherElement);
+
+            // Call game.checkAnswer to proceed to the next round
+            game.checkAnswer(dropZone.id);
+        } else {
+            const leftContainer = document.querySelector('.name-pair__container--left');
+            const rightContainer = document.querySelector('.name-pair__container--right');
+            
+            leftContainer.appendChild(document.getElementById('left-name'));
+            rightContainer.appendChild(document.getElementById('right-name'));
+        }
+
+        // Add feedback class
+        draggedElement.classList.add(isCorrect ? 'name-pair__item--correct' : 'name-pair__item--incorrect');
+        setTimeout(() => {
+            draggedElement.classList.remove('name-pair__item--correct', 'name-pair__item--incorrect');
+        }, 600);
     },
 
 };
