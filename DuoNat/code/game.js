@@ -685,7 +685,7 @@ showInfoDialog(url, imageIndex) {
         // Center horizontally
         dialog.style.left = `${(window.innerWidth - dialogRect.width) / 2}px`;
     };
-
+/*
     // Frame the corresponding image if imageIndex is provided
     if (imageIndex) {
         const imageContainer = document.getElementById(`image-container-${imageIndex}`);
@@ -693,7 +693,7 @@ showInfoDialog(url, imageIndex) {
             imageContainer.classList.add('image-container--framed');
         }
     }
-
+*/
     // Set taxon and vernacular name
     const currentTaxon = this.getCurrentTaxonName(url);
     taxonElement.textContent = currentTaxon;

@@ -491,6 +491,7 @@ body.has-keyboard button {
     padding: 20px;
     background-color: var(--background-color);
     border-radius: var(--border-radius);
+border-color: var(--primary-color);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     max-width: var(--max-image-width);
     width: 100%;
@@ -557,9 +558,9 @@ body.has-keyboard button {
     overflow-wrap: break-word;
     hyphens: auto;
     line-height: 1.2;
-    font-size: 1.1em;
+    font-size: 1.3em;
     color: var(--dark-neutral-color);
-    text-shadow: 1px 1px 2px var(--shadow-color);
+/*    text-shadow: 1px 1px 2px var(--shadow-color);*/
 }
 
 .info-dialog-facts li::before {
@@ -567,13 +568,15 @@ body.has-keyboard button {
     position: absolute;
     left: 8px;
     color: var(--primary-color);
-    font-size: 1.2em;
+    font-size: 1.3em;
 }
 
 .info-dialog-buttons {
+position: relative;
     display: flex;
     justify-content: space-around;
     margin-top: 20px;
+bottom: 20px;
 }
 
 .info-dialog-button {
