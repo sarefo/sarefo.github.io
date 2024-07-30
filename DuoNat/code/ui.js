@@ -59,10 +59,22 @@ const ui = {
                         </div>
                     </div>
                 `;
+
                 button.onclick = () => {
+                    // Remove selection from all buttons
+                    document.querySelectorAll('.taxon-pair-button').forEach(btn => {
+                        btn.classList.remove('taxon-pair-button--selected');
+                    });
+                    
+                    // Add selection to clicked button
+                    button.classList.add('taxon-pair-button--selected');
+
                     game.nextSelectedPair = pair;
-                    dialogManager.closeDialog();
-                    game.setupGame(true);
+                    // Don't close the dialog immediately to allow the user to see the selection
+                    setTimeout(() => {
+                        dialogManager.closeDialog();
+                        game.setupGame(true);
+                    }, 300); // 300ms delay before closing
                 };
                 return button;
             };

@@ -193,8 +193,27 @@ z-index: 5000; /* debug */
     box-sizing: border-box; /* Include padding in width calculation */
 }
 
-.taxon-pair-button:hover {
+.taxon-pair-button:focus {
+    outline: none;
     background-color: rgba(116, 172, 0, 0.5);
+    box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+.taxon-pair-button:focus .taxon-item {
+    background-color: #5c8a00;
+}
+
+.taxon-pair-button--selected {
+    background-color: rgba(116, 172, 0, 0.5); /* Darker green background */
+    box-shadow: 0 0 0 2px var(--primary-color); /* Green outline */
+}
+
+.taxon-pair-button--selected .taxon-item {
+    background-color: #5c8a00; /* Darker green for the taxon items */
+}
+
+.taxon-pair-button--selected:hover {
+    background-color: rgba(116, 172, 0, 0.6); /* Even darker on hover */
 }
 
 .taxon-pair-container {
