@@ -46,6 +46,7 @@ const dialogManager = {
         }
     },
 
+
     closeDialog() {
         if (this.activeDialog) {
             const dialog = this.activeDialog;
@@ -60,6 +61,8 @@ const dialogManager = {
 
                 if (dialog.id === 'phylogeny-dialog') {
                     dialog.style.display = 'none';
+                    // If you have a method to clear the graph, call it here
+                    // For example: taxaRelationshipViewer.clearGraph();
                 }
             }
             this.handleDialogClose(dialog);
@@ -91,6 +94,7 @@ const dialogManager = {
         this.activeDialog = null;
 
         ui.resetUIState();
+        history.pushState(null, '', window.location.pathname);
     },
 
     on(eventName, callback) {
@@ -144,6 +148,13 @@ const dialogManager = {
 
         // Reset the UI state
         ui.resetUIState();
+    },
+
+    handleBackNavigation(event) {
+        if (this.activeDialog) {
+            event.preventDefault();
+            this.closeDialog();
+        }
     },
 
     handleEscapeKey(event) {
@@ -211,6 +222,7 @@ const dialogManager = {
         // input validation
         this.taxon1Input.addEventListener('input', () => this.validateInputs());
         this.taxon2Input.addEventListener('input', () => this.validateInputs());
+        window.addEventListener('popstate', this.handleBackNavigation.bind(this));
     },
 
     validateInputs() {
