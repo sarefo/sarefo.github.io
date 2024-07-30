@@ -280,6 +280,14 @@ initializeSwipeFunctionality() {
                     });
                 }
                 break;
+            case 'arrowup':
+                event.preventDefault();
+                this.moveTileToDropZone('left', 'upper');
+                break;
+            case 'arrowdown':
+                event.preventDefault();
+                this.moveTileToDropZone('left', 'lower');
+                break;
             case 's':
                 event.preventDefault();
                 ui.showTaxonPairList();
@@ -316,6 +324,26 @@ initializeSwipeFunctionality() {
                 // createWorldMap.toggleAllWorldMaps();
                 // TODO need to find a way to trigger from here
                 break;
+        }
+    },
+
+    moveTileToDropZone(tilePosition, dropZonePosition) {
+        const tile = document.getElementById(tilePosition === 'left' ? 'left-name' : 'right-name');
+        const dropZone = document.getElementById(dropZonePosition === 'upper' ? 'drop-1' : 'drop-2');
+        
+        if (tile && dropZone) {
+            // Remove the tile from its current position
+            tile.parentNode.removeChild(tile);
+            
+            // Clear the drop zone and add the tile
+            dropZone.innerHTML = '';
+            dropZone.appendChild(tile);
+            
+            // Highlight the moved tile
+            //ui.highlightTile(tile.id);
+            
+            // Trigger the answer check using the game's checkAnswer method
+            game.checkAnswer(dropZone.id);
         }
     },
 

@@ -471,7 +471,7 @@ const game = {
         await this.setupGame(true);
     },
 
-    async checkAnswer(droppedZoneId) {
+    checkAnswer(droppedZoneId) {
         logger.debug("Checking answer. Current state:", this.currentState);
 
         if (this.currentState !== GameState.PLAYING) {
@@ -489,7 +489,7 @@ const game = {
         const leftAnswer = dropOne.children[0]?.getAttribute('data-taxon');
         const rightAnswer = dropTwo.children[0]?.getAttribute('data-taxon');
 
-        if (leftAnswer && rightAnswer) {
+        if (leftAnswer || rightAnswer) {
             let isCorrect = false;
             if (droppedZoneId === 'drop-1') {
                 isCorrect = leftAnswer === gameState.taxonImageOne;
@@ -498,24 +498,31 @@ const game = {
             }
 
             if (isCorrect) {
-                await ui.showOverlay('Correct!', colorCorrect);
-                elements.imageOne.classList.add('image-container__image--loading');
-                elements.imageTwo.classList.add('image-container__image--loading');
-                await utils.sleep(2000); // Show "Correct!" for a while
-                ui.updateOverlayMessage(`${this.loadingMessage}`); // Update message without changing color
-                await this.setupGame(false);  // Start a new round with the same taxon pair
+                this.handleCorrectAnswer();
             } else {
-                // Immediately reset draggables before showing the "Try again!" message
-                utils.resetDraggables();
-                await ui.showOverlay('Try again!', colorWrong);
-                await utils.sleep(1200);
-                ui.hideOverlay();
-                this.setState(GameState.PLAYING);
+                this.handleIncorrectAnswer();
             }
         } else {
             logger.debug("Incomplete answer. Returning to PLAYING state.");
             this.setState(GameState.PLAYING);
         }
+    },
+
+    async handleCorrectAnswer() {
+        await ui.showOverlay('Correct!', config.overlayColors.green);
+        elements.imageOne.classList.add('image-container__image--loading');
+        elements.imageTwo.classList.add('image-container__image--loading');
+        await utils.sleep(2000); // Show "Correct!" for a while
+        ui.updateOverlayMessage(`${this.loadingMessage}`); // Update message without changing color
+        await this.setupGame(false);  // Start a new round with the same taxon pair
+    },
+
+    async handleIncorrectAnswer() {
+        utils.resetDraggables();
+        await ui.showOverlay('Try again!', config.overlayColors.red);
+        await utils.sleep(1200);
+        ui.hideOverlay();
+        this.setState(GameState.PLAYING);
     },
 
     // determine height of tallest name tile, to keep layout stable over multiple rounds
