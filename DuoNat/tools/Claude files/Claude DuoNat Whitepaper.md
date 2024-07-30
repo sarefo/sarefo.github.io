@@ -241,9 +241,6 @@ Also, this is a long-term project. Whenever you notice that something would make
 + I kind of suspect that cache problems might be to blame for SVG icons not always loading properly from the ./images/icons.svg file
     + I checked the file, and it's fine. I could not figure out what the problem with the loading was, also not with the help of Claude.
 
-#### Dragging not pretty
-+ The name tiles look different on different systems (Windows, Android). Also the layout should be roughly the same when resting, being dragged, and after being dropped. The dragging behavior is the problem here. I tried to improve it using Claude, but the Javascript code that seems to be necessary lead to super-buggy behavior.
-
 ### Tools I'm using
 + I'm using Trello for keeping track of ideas and bugs
 + gvim with many tabs for writing the code
@@ -255,7 +252,7 @@ Also, this is a long-term project. Whenever you notice that something would make
 + Photoshop at times for icon design etc.
 
 ## LLM behavior
-+ please don't start every answer with "Certainly!" :) and no need to apologize all the time.
++ Dear Claude: please don't start every answer with "Certainly!" :) and no need to apologize all the time.
 + if a task seems complicated, please think it through step by step, explaining your reasoning.
 + always let me know when I made a mistake or might have forgotten to add information that you need.
 + if you encounter comments in my code, never remove them. I sometimes put them there for a reason ;)
