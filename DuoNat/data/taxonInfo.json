@@ -19618,36 +19618,6 @@
       "AS"
     ]
   },
-  "811621": {
-    "taxonName": "Myrmarachne melanotarsa",
-    "vernacularName": "Dark-footed Ant-mimic Spider",
-    "ancestryIds": [
-      48460,
-      1,
-      47120,
-      245097,
-      47119,
-      47118,
-      120474,
-      342614,
-      367200,
-      48139,
-      606933,
-      712059,
-      1373446,
-      51780,
-      811621
-    ],
-    "rank": "species",
-    "taxonFacts": [
-      "Ant-mimicking jumping spider found in Africa",
-      "Closely resembles weaver ants",
-      "Forms social groups, unusual for spiders"
-    ],
-    "distribution": [
-      "AF"
-    ]
-  },
   "712059": {
     "taxonName": "Myrmarachnini",
     "vernacularName": "Ant-like Jumping Spiders",

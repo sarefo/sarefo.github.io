@@ -46,9 +46,13 @@ const ui = {
 
             const createTaxonPairButton = (pair, vernacular1, vernacular2) => {
                 const button = document.createElement('button');
-                button.className = 'taxon-pair-button';
+                button.className = 'taxon-set-button';
                 button.innerHTML = `
-                    <div class="taxon-pair-container">
+                    <div class="taxon-set-container">
+                        <div class="taxon-set-info">
+                            <div class="set-name">${pair.setName}</div>
+                            <div class="tags">${pair.tags.join(', ')}</div>
+                        </div>
                         <div class="taxon-item">
                             <div class="taxon-name">${pair.taxon1}</div>
                             <div class="vernacular-name">${vernacular1}</div>
@@ -62,12 +66,12 @@ const ui = {
 
                 button.onclick = () => {
                     // Remove selection from all buttons
-                    document.querySelectorAll('.taxon-pair-button').forEach(btn => {
-                        btn.classList.remove('taxon-pair-button--selected');
+                    document.querySelectorAll('.taxon-set-button').forEach(btn => {
+                        btn.classList.remove('taxon-set-button--selected');
                     });
                     
                     // Add selection to clicked button
-                    button.classList.add('taxon-pair-button--selected');
+                    button.classList.add('taxon-set-button--selected');
 
                     game.nextSelectedPair = pair;
                     // Don't close the dialog immediately to allow the user to see the selection
@@ -90,8 +94,10 @@ const ui = {
                                          pair.taxon2.toLowerCase().includes(lowerFilter);
                     const matchesVernacular = vernacular1.toLowerCase().includes(lowerFilter) || 
                                               vernacular2.toLowerCase().includes(lowerFilter);
+                    const matchesSetName = pair.setName.toLowerCase().includes(lowerFilter);
+                    const matchesTags = pair.tags.some(tag => tag.toLowerCase().includes(lowerFilter));
                     
-                    if (matchesTaxon || matchesVernacular) {
+                    if (matchesTaxon || matchesVernacular || matchesSetName || matchesTags) {
                         const button = createTaxonPairButton(pair, vernacular1, vernacular2);
                         fragment.appendChild(button);
                     }

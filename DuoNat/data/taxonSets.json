@@ -6998,23 +6998,6 @@
     ]
   },
   {
-    "setID": "413",
-    "setName": "Ant-mimicking Jumping Spiders",
-    "skillLevel": "",
-    "tags": [
-      "arachnids",
-      "spiders"
-    ],
-    "taxa": [
-      135289,
-      811621
-    ],
-    "taxonNames": [
-      "Myrmarachne formicaria",
-      "Myrmarachne melanotarsa"
-    ]
-  },
-  {
     "setID": "414",
     "setName": "Pseudicius Jumping Spiders",
     "skillLevel": "",

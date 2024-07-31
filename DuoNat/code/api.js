@@ -47,10 +47,13 @@ const api = (() => {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const taxonSets = await response.json();
-            // Convert the new format to the old format
+            // Convert the new format to an expanded version of the old format
             return taxonSets.map(set => ({
                 taxon1: set.taxonNames[0],
-                taxon2: set.taxonNames[1]
+                taxon2: set.taxonNames[1],
+                setName: set.setName,
+                tags: set.tags,
+                setID: set.setID
             }));
         } catch (error) {
             handleApiError(error, 'fetchTaxonPairs');

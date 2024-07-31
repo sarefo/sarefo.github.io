@@ -180,7 +180,7 @@ z-index: 5000; /* debug */
     scrollbar-color: rgba(0,0,0,0.2) transparent;
 }
 
-.taxon-pair-button {
+.taxon-set-button {
     display: block;
     width: 100%;
     padding: 5px;
@@ -193,35 +193,46 @@ z-index: 5000; /* debug */
     box-sizing: border-box; /* Include padding in width calculation */
 }
 
-.taxon-pair-button:focus {
+.taxon-set-button:focus {
     outline: none;
     background-color: rgba(116, 172, 0, 0.5);
     box-shadow: 0 0 0 2px var(--primary-color);
 }
 
-.taxon-pair-button:focus .taxon-item {
+.taxon-set-button:focus .taxon-item {
     background-color: #5c8a00;
 }
 
-.taxon-pair-button--selected {
+.taxon-set-button--selected {
     background-color: rgba(116, 172, 0, 0.5); /* Darker green background */
     box-shadow: 0 0 0 2px var(--primary-color); /* Green outline */
 }
 
-.taxon-pair-button--selected .taxon-item {
+.taxon-set-button--selected .taxon-item {
     background-color: #5c8a00; /* Darker green for the taxon items */
 }
 
-.taxon-pair-button--selected:hover {
+.taxon-set-button--selected:hover {
     background-color: rgba(116, 172, 0, 0.6); /* Even darker on hover */
 }
 
-.taxon-pair-container {
+.taxon-set-container {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: stretch;
     gap: 5px; /* Small gap between the two "buttons" */
     width: 100%;
+}
+
+.set-name {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.tags {
+    font-size: 1em;
+    color: #666;
 }
 
 .taxon-item {
@@ -236,7 +247,7 @@ z-index: 5000; /* debug */
     border-radius: 5px;
 }
 
-.taxon-pair-button:hover .taxon-item {
+.taxon-set-button:hover .taxon-item {
     background-color: #5c8a00;
 }
 
