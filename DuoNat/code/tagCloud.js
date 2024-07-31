@@ -57,7 +57,7 @@ const tagCloud = {
     },
 
     updateTaxonList() {
-        const selectedTags = Array.from(this.selectedTags);
+        const selectedTags = this.getSelectedTags();
         
         api.fetchTaxonPairs().then(taxonPairs => {
             let filteredPairs;
@@ -71,9 +71,10 @@ const tagCloud = {
             }
             
             logger.debug(`Filtered pairs: ${filteredPairs.length} out of ${taxonPairs.length}`);
+            logger.debug(`Selected tags: ${selectedTags.join(', ')}`);
             
             // Update the UI with the filtered pairs
-            ui.updateTaxonPairList(filteredPairs);
+            ui.renderTaxonPairList(filteredPairs);
         });
     },
 
@@ -139,10 +140,24 @@ const tagCloud = {
         return Array.from(this.selectedTags);
     },
 
+    setSelectedTags(tags) {
+        this.selectedTags = new Set(tags);
+        updateGameState({ selectedTags: this.getSelectedTags() });
+        this.updateActiveTags();
+    },
+
     clearTags() {
         this.selectedTags.clear();
         updateGameState({ selectedTags: [] });
         this.renderTagCloud(this.getTagCounts());
+        this.updateMatchingPairsCount();
+    },
+
+    clearAllTags() {
+        this.selectedTags.clear();
+//        this.updateActiveTags();
+        this.renderTagCloud(this.getTagCounts());
+        this.updateTaxonList();
         this.updateMatchingPairsCount();
     },
 
@@ -160,14 +175,6 @@ const tagCloud = {
         // Show or hide the container based on whether there are active tags
         const container = document.getElementById('active-tags-container');
         container.style.display = this.selectedTags.size > 0 ? 'flex' : 'none';
-    },
-
-    clearAllTags() {
-        this.selectedTags.clear();
-        this.updateActiveTags();
-        this.renderTagCloud(this.getTagCounts());
-        this.updateTaxonList();
-        this.updateMatchingPairsCount();
     },
 
 };

@@ -4,6 +4,7 @@ import dialogManager from './dialogManager.js';
 import { elements, gameState } from './state.js';
 import game from './game.js';
 import logger from './logger.js';
+import tagCloud from './tagCloud.js';
 import utils from './utils.js';
 
 const ui = {
@@ -44,94 +45,39 @@ const ui = {
 
             list.innerHTML = ''; // Clear existing content
 
-            const createTaxonPairButton = (pair, vernacular1, vernacular2) => {
-                const button = document.createElement('button');
-                button.className = 'taxon-set-button';
-                button.innerHTML = `
-                    <div class="taxon-set-container">
-                        <div class="taxon-set-info">
-                            <div class="set-name">${pair.setName}</div>
-                            <div class="tags">${pair.tags.join(', ')}</div>
-                        </div>
-                        <div class="taxon-item">
-                            <div class="taxon-name">${pair.taxon1}</div>
-                            <div class="vernacular-name">${vernacular1}</div>
-                        </div>
-                        <div class="taxon-item">
-                            <div class="taxon-name">${pair.taxon2}</div>
-                            <div class="vernacular-name">${vernacular2}</div>
-                        </div>
-                    </div>
-                `;
+            // Filter pairs based on selected tags
+            const selectedTags = tagCloud.getSelectedTags();
+            let filteredPairs = taxonPairs;
+            if (selectedTags.length > 0) {
+                filteredPairs = taxonPairs.filter(pair => 
+                    pair.tags.some(tag => selectedTags.includes(tag))
+                );
+            }
 
-                button.onclick = () => {
-                    // Remove selection from all buttons
-                    document.querySelectorAll('.taxon-set-button').forEach(btn => {
-                        btn.classList.remove('taxon-set-button--selected');
-                    });
-                    
-                    // Add selection to clicked button
-                    button.classList.add('taxon-set-button--selected');
-
-                    game.nextSelectedPair = pair;
-                    // Don't close the dialog immediately to allow the user to see the selection
-                    setTimeout(() => {
-                        dialogManager.closeDialog();
-                        game.setupGame(true);
-                    }, 300); // 300ms delay before closing
-                };
-                return button;
-            };
-
-            const renderFilteredList = async (filter = '') => {
-                const fragment = document.createDocumentFragment();
-                const lowerFilter = filter.toLowerCase();
-                for (const pair of taxonPairs) {
-                    const vernacular1 = await api.getVernacularName(pair.taxon1);
-                    const vernacular2 = await api.getVernacularName(pair.taxon2);
-                    
-                    const matchesTaxon = pair.taxon1.toLowerCase().includes(lowerFilter) || 
-                                         pair.taxon2.toLowerCase().includes(lowerFilter);
-                    const matchesVernacular = vernacular1.toLowerCase().includes(lowerFilter) || 
-                                              vernacular2.toLowerCase().includes(lowerFilter);
-                    const matchesSetName = pair.setName.toLowerCase().includes(lowerFilter);
-                    const matchesTags = pair.tags.some(tag => tag.toLowerCase().includes(lowerFilter));
-                    
-                    if (matchesTaxon || matchesVernacular || matchesSetName || matchesTags) {
-                        const button = createTaxonPairButton(pair, vernacular1, vernacular2);
-                        fragment.appendChild(button);
-                    }
-                }
-                list.innerHTML = '';
-                list.appendChild(fragment);
-            };
-
-            (async () => {
-                await renderFilteredList(); // Initial render with all pairs
-            })();
-
-            const debouncedFilter = utils.debounce(async (event) => {
-                const filter = event.target.value.toLowerCase();
-                await renderFilteredList(filter);
-            }, 300);
-
-            searchInput.addEventListener('input', (event) => {
-                clearButton.style.display = event.target.value ? 'block' : 'none';
-                debouncedFilter(event);
-            });
-
-            clearButton.addEventListener('click', () => {
-                searchInput.value = '';
-                clearButton.style.display = 'none';
-                renderFilteredList();
-                searchInput.focus();
-            });
+            this.renderTaxonPairList(filteredPairs);
 
             dialogManager.openDialog('select-pair-dialog');
 
             // Focus on the search input when the dialog opens
             setTimeout(() => searchInput.focus(), 100);
         });
+    },
+
+    renderTaxonPairList: function(pairs) {
+        const list = document.getElementById('taxon-pair-list');
+        list.innerHTML = ''; // Clear existing content
+
+        if (pairs.length === 0) {
+            const noResultsMessage = document.createElement('p');
+            noResultsMessage.textContent = 'No matching pairs found.';
+            noResultsMessage.className = 'no-results-message';
+            list.appendChild(noResultsMessage);
+        } else {
+            pairs.forEach(pair => {
+                const button = this.createTaxonPairButton(pair);
+                list.appendChild(button);
+            });
+        }
     },
 
     updateTaxonPairList(filteredPairs) {
