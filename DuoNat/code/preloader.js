@@ -105,7 +105,46 @@ const preloader = {
 
   hasPreloadedPair() {
     return !!this.preloadedImages.nextPair.pair;
-  }
+  },
+
+    async preloadNewPairWithTags(selectedTags) {
+        if (this.isPreloading) {
+            logger.debug("Preloading already in progress, skipping tag-based preload");
+            return;
+        }
+
+        this.isPreloading = true;
+        logger.debug(`Selected tags: ${selectedTags}`);
+        try {
+            const newPair = await utils.selectTaxonPair();
+            if (!newPair) {
+                logger.warn("No pair found matching selected tags");
+                return;
+            }
+
+            const [imageOneURL, imageTwoURL] = await Promise.all([
+                this.fetchDifferentImage(newPair.taxon1, null),
+                this.fetchDifferentImage(newPair.taxon2, null)
+            ]);
+            
+            await Promise.all([
+                this.preloadImage(imageOneURL),
+                this.preloadImage(imageTwoURL)
+            ]);
+
+            this.preloadedImages.nextPair = { 
+                pair: newPair,
+                taxon1: imageOneURL, 
+                taxon2: imageTwoURL 
+            };
+            logger.debug("Preloaded new pair based on selected tags");
+        } catch (error) {
+            logger.error("Error preloading new pair with tags:", error);
+        } finally {
+            this.isPreloading = false;
+        }
+    },
+
 };
 
 export default preloader;

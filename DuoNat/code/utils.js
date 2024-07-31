@@ -2,6 +2,7 @@
 
 import api from './api.js';
 import game from './game.js';
+import { gameState, updateGameState } from './state.js';
 import logger from './logger.js';
 import tagCloud from './tagCloud.js';
 
@@ -159,12 +160,11 @@ const utils = {
             return null;
         }
 
-        const selectedTags = tagCloud.getSelectedTags();
         let filteredPairs = taxonPairs;
 
-        if (selectedTags.length > 0) {
+        if (gameState.selectedTags.length > 0) {
             filteredPairs = taxonPairs.filter(pair => 
-                pair.tags.some(tag => selectedTags.includes(tag))
+                pair.tags.some(tag => gameState.selectedTags.includes(tag))
             );
         }
 
@@ -174,7 +174,7 @@ const utils = {
         }
 
         return index !== null ? filteredPairs[index] : filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
-    },
+    }
 
 }; // const utils
 

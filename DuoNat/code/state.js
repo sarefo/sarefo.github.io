@@ -38,8 +38,9 @@ export const gameState = {
     nextPair: {
       taxon1: null,
       taxon2: null
-    }
+    },
   },
+    selectedTags: [],
 
   // check which of these still used:
   isFirstLoad: true,

@@ -19,7 +19,6 @@ const dialogManager = {
     },
 
     closeDialog(dialogId) {
-        logger.debug("closing dialog");
         const dialog = document.getElementById(dialogId);
         if (dialog) {
             if (dialog.id === 'phylogeny-dialog') {
@@ -29,7 +28,6 @@ const dialogManager = {
         if (dialog && dialog.tagName.toLowerCase() === 'dialog') {
             dialog.close();
             this.openDialogs.delete(dialogId);
-            logger.debug("phyl dialog closing:");
         }
     },
 

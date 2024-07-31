@@ -1,5 +1,7 @@
-import dialogManager from './dialogManager.js';
 import api from './api.js';
+import dialogManager from './dialogManager.js';
+import { gameState, updateGameState } from './state.js';
+import preloader from './preloader.js';
 
 const tagCloud = {
     selectedTags: new Set(),
@@ -25,6 +27,7 @@ const tagCloud = {
 
     closeTagCloud() {
         dialogManager.closeDialog('tag-cloud-dialog');
+        preloader.preloadNewPairWithTags(gameState.selectedTags);
     },
 
     async getTagCounts() {
@@ -72,17 +75,28 @@ const tagCloud = {
 
     toggleTag(element, tag) {
         element.classList.toggle('active');
+        let newSelectedTags;
         if (this.selectedTags.has(tag)) {
             this.selectedTags.delete(tag);
+            newSelectedTags = Array.from(this.selectedTags);
         } else {
             this.selectedTags.add(tag);
+            newSelectedTags = Array.from(this.selectedTags);
         }
+        updateGameState({ selectedTags: newSelectedTags });
         this.updateMatchingPairsCount();
     },
 
     getSelectedTags() {
         return Array.from(this.selectedTags);
-    }
+    },
+
+    clearTags() {
+        this.selectedTags.clear();
+        updateGameState({ selectedTags: [] });
+        this.renderTagCloud(this.getTagCounts());
+        this.updateMatchingPairsCount();
+    },
 };
 
 export default tagCloud;
