@@ -134,6 +134,52 @@ const ui = {
         });
     },
 
+    updateTaxonPairList(filteredPairs) {
+        const list = document.getElementById('taxon-pair-list');
+        list.innerHTML = ''; // Clear existing content
+        
+        if (filteredPairs.length === 0) {
+            const noResultsMessage = document.createElement('p');
+            noResultsMessage.textContent = 'No matching pairs found.';
+            noResultsMessage.className = 'no-results-message';
+            list.appendChild(noResultsMessage);
+        } else {
+            filteredPairs.forEach(pair => {
+                const button = this.createTaxonPairButton(pair);
+                list.appendChild(button);
+            });
+        }
+    },
+
+    createTaxonPairButton(pair) {
+        const button = document.createElement('button');
+        button.className = 'taxon-set-button';
+        button.innerHTML = `
+            <div class="taxon-set-container">
+                <div class="taxon-set-info">
+                    <div class="set-name">${pair.setName || 'Unnamed Set'}</div>
+                    <div class="tags">${pair.tags.join(', ')}</div>
+                </div>
+                <div class="taxon-item">
+                    <div class="taxon-name">${pair.taxon1}</div>
+                </div>
+                <div class="taxon-item">
+                    <div class="taxon-name">${pair.taxon2}</div>
+                </div>
+            </div>
+        `;
+
+        button.onclick = () => {
+            game.nextSelectedPair = pair;
+            setTimeout(() => {
+                dialogManager.closeDialog();
+                game.setupGame(true);
+            }, 300);
+        };
+
+        return button;
+    },
+
     showOverlay: function (message = "", color) {
         elements.overlayMessage.innerHTML = message;
         elements.overlay.style.backgroundColor = color;

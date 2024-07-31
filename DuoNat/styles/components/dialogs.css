@@ -361,6 +361,43 @@ z-index: 5000; /* debug */
   color: var(--primary-color);
 }
 
+/* Active tags functionality */
+.active-tags-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    display: none; /* Initially hidden */
+}
+
+.active-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.active-tag {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.9em;
+}
+
+.clear-all-tags {
+    background-color: var(--primary-counter-color);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.clear-all-tags:hover {
+    background-color: #8a0020;
+}
+
 /* Tag cloud dialog */
 
 #tag-cloud-dialog {
