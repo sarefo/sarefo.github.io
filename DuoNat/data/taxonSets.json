@@ -4980,7 +4980,8 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "hymenoptera"
+      "hymenoptera",
+      "mimicry"
     ],
     "taxa": [
       47336,
@@ -10222,5 +10223,22 @@
       "Corallinales",
       "Peyssonneliaceae"
     ]
+  },
+    {
+        "setID": "602",
+        "setName": "Caterpillars and Mimics",
+        "skillLevel": "",
+        "tags": [
+            "mimicry",
+            "spiders"
+        ],
+        "taxa": [
+        881846,
+        145092232
+        ],
+        "taxonNames": [
+            "Uroballus carlei",
+            "Miltochrista arcuata"
+        ]
   }
 ]
