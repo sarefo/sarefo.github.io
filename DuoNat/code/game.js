@@ -616,6 +616,7 @@ const game = {
         const observationButton = document.getElementById('observation-button');
         const taxonButton = document.getElementById('taxon-button');
         const hintsButton = document.getElementById('hints-button');
+        const wikiButton = document.getElementById('wiki-button');
         const reportButton = document.getElementById('report-button');
         const closeButton = document.getElementById('info-close-button');
 
@@ -706,6 +707,19 @@ const game = {
             hintsButton.onclick = () => {
                 logger.debug("Taxon hints button clicked");
                 // Implement taxon hints functionality here
+            };
+
+            wikiButton.onclick = () => {
+                logger.debug("Wiki button clicked");
+                try {
+                    const taxonName = this.getCurrentTaxonName(url);
+//                    const taxonId = await api.fetchTaxonId(taxonName);
+                    window.open(`https://en.wikipedia.org/wiki/${taxonName}`, '_blank');
+                    dialog.close();
+                } catch (error) {
+                    logger.error("Error opening taxon page:", error);
+                    alert("Unable to open Wikipedia page. Please try again.");
+                }
             };
 
             reportButton.onclick = () => {

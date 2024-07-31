@@ -334,6 +334,7 @@ const ui = {
                 'h': 'hints-button',
                 'o': 'observation-button',
                 't': 'taxon-button',
+                'w': 'wiki-button',
                 'r': 'report-button'
             };
 
