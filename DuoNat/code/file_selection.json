@@ -1,1 +1,1 @@
-["index.html", "code/game.js", "code/state.js", "code/ui.js", "code/utils.js", "code/tagCloud.js", "code/eventHandlers.js", "code/dialogManager.js", "manifest.json"]
+["index.html", "code/game.js", "code/state.js", "code/ui.js", "code/utils.js", "code/tagCloud.js", "code/eventHandlers.js", "code/dialogManager.js", "manifest.json", "code/api.js", "code/config.js", "code/functions.js"]

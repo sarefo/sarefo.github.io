@@ -15,29 +15,47 @@ const dialogManager = {
         if (dialog && dialog.tagName.toLowerCase() === 'dialog') {
             dialog.showModal();
             this.openDialogs.add(dialogId);
+            this.activeDialog = dialog;
+            
+            // Add event listener to handle keyboard events
+            dialog.addEventListener('keydown', this.handleDialogKeydown);
         }
     },
 
     closeDialog(dialogId) {
         const dialog = document.getElementById(dialogId);
-        if (dialog) {
-            if (dialog.id === 'phylogeny-dialog') {
-                dialog.style.display = 'none';
-            }
-        }
         if (dialog && dialog.tagName.toLowerCase() === 'dialog') {
             dialog.close();
             this.openDialogs.delete(dialogId);
+            this.activeDialog = null;
+            
+            // Remove event listener
+            dialog.removeEventListener('keydown', this.handleDialogKeydown);
         }
+    },
+
+    isAnyDialogOpen() {
+        return this.openDialogs.size > 0;
+    },
+    /*
+    isAnyDialogOpen() {
+        return !!this.activeDialog;
+    },
+*/
+    handleDialogKeydown(event) {
+        // Allow default behavior for input fields
+        if (event.target.tagName.toLowerCase() === 'input') {
+            return;
+        }
+        
+        // Prevent propagation for other elements
+        event.stopPropagation();
     },
 
     closeAllDialogs() {
         this.openDialogs.forEach(dialogId => this.closeDialog(dialogId));
     },
 
-    isAnyDialogOpen() {
-        return !!this.activeDialog;
-    },
 /*
     openDialog(dialogId) {
         ui.closeMainMenu();

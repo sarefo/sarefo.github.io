@@ -153,6 +153,12 @@ initializeSwipeFunctionality() {
             }
         });
 
+        // Add search functionality
+        const searchInput = document.getElementById('taxon-search');
+        if (searchInput) {
+            searchInput.addEventListener('input', this.handleSearch);
+        }
+
         // Help button functionality
         document.getElementById('help-button').addEventListener('click', () => {
             dialogManager.openDialog('help-dialog');
@@ -164,6 +170,19 @@ initializeSwipeFunctionality() {
             window.open('https://discord.gg/DcWrhYHmeM', '_blank');
         });
 
+    },
+
+    handleSearch: function(event) {
+        const searchTerm = event.target.value.toLowerCase();
+        api.fetchTaxonPairs().then(taxonPairs => {
+            const filteredPairs = taxonPairs.filter(pair => 
+                pair.taxon1.toLowerCase().includes(searchTerm) || 
+                pair.taxon2.toLowerCase().includes(searchTerm) ||
+                pair.setName.toLowerCase().includes(searchTerm) ||
+                pair.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+            );
+            ui.updateTaxonPairList(filteredPairs);
+        });
     },
 
     handleThumbsUp(index) {
@@ -282,6 +301,12 @@ initializeSwipeFunctionality() {
 
     _handleKeyboardShortcuts(event) {
 //        logger.debug("Keyboard event:", event.key);
+
+        if (dialogManager.isAnyDialogOpen()) {
+            // If any dialog is open, don't process keyboard shortcuts
+            return;
+        }
+
         if (dialogManager.isAnyDialogOpen() || 
             document.getElementById('info-dialog').open || 
             dialogManager.activeDialog || 
