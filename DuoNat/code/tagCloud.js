@@ -155,10 +155,14 @@ const tagCloud = {
 
     clearAllTags() {
         this.selectedTags.clear();
-//        this.updateActiveTags();
+        updateGameState({ selectedTags: [] });
         this.renderTagCloud(this.getTagCounts());
         this.updateTaxonList();
         this.updateMatchingPairsCount();
+        this.updateActiveTags();
+        
+        // Trigger preloading of a random pair from all available pairs
+        preloader.preloadNewPairWithTags([]);  // Pass an empty array to indicate no tag filtering
     },
 
     updateActiveTags() {

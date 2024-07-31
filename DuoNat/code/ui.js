@@ -118,7 +118,7 @@ const ui = {
         button.onclick = () => {
             game.nextSelectedPair = pair;
             setTimeout(() => {
-                dialogManager.closeDialog();
+                dialogManager.closeDialog('select-pair-dialog');  // Add this line
                 game.setupGame(true);
             }, 300);
         };
