@@ -296,6 +296,21 @@ z-index: 5000; /* debug */
     z-index: 1000;
 }
 
+.select-tags-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.select-tags-button:hover {
+    background-color: #5c8a00;
+}
+
 .search-container {
   position: relative;
   margin-bottom: 15px;
@@ -307,7 +322,7 @@ z-index: 5000; /* debug */
   padding: 10px 15px;
   padding-left: 40px;
   border: 1px solid #ddd;
-  border-radius: 20px;
+  border-radius: var(--border-radius);
   font-size: 16px;
   transition: border-color 0.3s ease;
 }
@@ -344,6 +359,59 @@ z-index: 5000; /* debug */
 
 #clear-search:hover {
   color: var(--primary-color);
+}
+
+/* Tag cloud dialog */
+
+#tag-cloud-dialog {
+    width: 95%;
+    max-width: var(--max-image-width);
+    height: 90vh;
+    display: none; /* Hide the dialog by default */
+}
+
+#tag-cloud-dialog[open] {
+    display: flex;
+    flex-direction: column;
+}
+
+#tag-cloud-container {
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.tag-cloud-item {
+    margin: 5px;
+    padding: 5px 10px;
+    background-color: #f0f0f0;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.tag-cloud-item.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.done-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.done-button:hover {
+    background-color: #5c8a00;
 }
 
 /* Help dialog */

@@ -262,6 +262,7 @@
         <div class="dialog-inner">
             <button class="dialog-close-button icon" aria-label="Close">×</button>
             <h3 class="dialog-title">Select Taxon Pair</h3>
+            <button id="select-tags-button" class="select-tags-button">Select Tags</button>
             <div class="search-container">
                   <input type="text" id="taxon-search" placeholder="Search taxa..." aria-label="Search taxa">
                   <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -273,6 +274,14 @@
                 <!-- Taxon pairs will be dynamically inserted here -->
             </div>
         </div>
+    </dialog>
+
+    <dialog id="tag-cloud-dialog" class="standard-dialog">
+        <button class="dialog-close-button icon" aria-label="Close">×</button>
+        <h3 class="dialog-title">Select Tags</h3>
+        <div id="tag-cloud-container"></div>
+        <p id="matching-pairs-count"></p>
+        <button id="tag-cloud-done-button" class="done-button">Done</button>
     </dialog>
 
 <!-- Enter pair dialog -->

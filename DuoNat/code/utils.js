@@ -3,6 +3,7 @@
 import api from './api.js';
 import game from './game.js';
 import logger from './logger.js';
+import tagCloud from './tagCloud.js';
 
 const utils = {
 
@@ -157,7 +158,22 @@ const utils = {
             logger.error("No taxon pairs available");
             return null;
         }
-        return index !== null ? taxonPairs[index] : taxonPairs[Math.floor(Math.random() * taxonPairs.length)];
+
+        const selectedTags = tagCloud.getSelectedTags();
+        let filteredPairs = taxonPairs;
+
+        if (selectedTags.length > 0) {
+            filteredPairs = taxonPairs.filter(pair => 
+                pair.tags.some(tag => selectedTags.includes(tag))
+            );
+        }
+
+        if (filteredPairs.length === 0) {
+            logger.warn("No pairs match the selected tags. Using all pairs.");
+            filteredPairs = taxonPairs;
+        }
+
+        return index !== null ? filteredPairs[index] : filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
     },
 
 }; // const utils

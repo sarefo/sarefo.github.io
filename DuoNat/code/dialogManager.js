@@ -8,12 +8,39 @@ const dialogManager = {
     activeDialog: null,
     mainEventHandlers: {},
     eventListeners: {},
+    openDialogs: new Set(),
 
+    openDialog(dialogId) {
+        const dialog = document.getElementById(dialogId);
+        if (dialog && dialog.tagName.toLowerCase() === 'dialog') {
+            dialog.showModal();
+            this.openDialogs.add(dialogId);
+        }
+    },
+
+    closeDialog(dialogId) {
+        logger.debug("closing dialog");
+        const dialog = document.getElementById(dialogId);
+        if (dialog) {
+            if (dialog.id === 'phylogeny-dialog') {
+                dialog.style.display = 'none';
+            }
+        }
+        if (dialog && dialog.tagName.toLowerCase() === 'dialog') {
+            dialog.close();
+            this.openDialogs.delete(dialogId);
+            logger.debug("phyl dialog closing:");
+        }
+    },
+
+    closeAllDialogs() {
+        this.openDialogs.forEach(dialogId => this.closeDialog(dialogId));
+    },
 
     isAnyDialogOpen() {
         return !!this.activeDialog;
     },
-
+/*
     openDialog(dialogId) {
         ui.closeMainMenu();
         const dialog = document.getElementById(dialogId);
@@ -67,7 +94,7 @@ const dialogManager = {
             this.emit('dialogClose', dialog.id);
         }
     },
-
+*/
     handleDialogClose(dialog) {
         if (!dialog) {
             logger.warn('handleDialogClose called with no dialog');

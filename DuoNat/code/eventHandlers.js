@@ -36,6 +36,21 @@ const eventHandlers = {
         // Ensure keyboard shortcuts are properly set up
         document.removeEventListener('keydown', this.debouncedKeyboardHandler);
         document.addEventListener('keydown', this.debouncedKeyboardHandler);
+
+        // Select pair dialog close button
+        const selectPairDialog = document.getElementById('select-pair-dialog');
+        const selectPairCloseButton = selectPairDialog.querySelector('.dialog-close-button');
+        selectPairCloseButton.addEventListener('click', () => {
+            dialogManager.closeDialog('select-pair-dialog');
+        });
+
+        // Tag cloud dialog close button
+        const tagCloudDialog = document.getElementById('tag-cloud-dialog');
+        const tagCloudCloseButton = tagCloudDialog.querySelector('.dialog-close-button');
+        tagCloudCloseButton.addEventListener('click', () => {
+            dialogManager.closeDialog('tag-cloud-dialog');
+        });
+
     },
 
 initializeSwipeFunctionality() {
@@ -130,6 +145,13 @@ initializeSwipeFunctionality() {
 
         // Keyboard shortcuts
         document.addEventListener('keydown', this.debouncedKeyboardHandler);
+
+        // Failsafe to ensure all dialogs can be closed
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                dialogManager.closeAllDialogs();
+            }
+        });
 
         // Help button functionality
         document.getElementById('help-button').addEventListener('click', () => {
