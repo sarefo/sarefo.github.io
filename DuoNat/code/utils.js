@@ -13,8 +13,9 @@ const utils = {
         const params = new URLSearchParams(window.location.search);
         const taxon1 = params.get('taxon1');
         const taxon2 = params.get('taxon2');
+        const tags = params.get('tags');
         if (taxon1 && taxon2) {
-            return { taxon1, taxon2 };
+            return { taxon1, taxon2, tags };
         }
         return null;
     },

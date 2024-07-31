@@ -24,6 +24,13 @@ import utils from './utils.js';
         if (urlParams) {
             logger.debug("URL parameters found:", urlParams);
             game.nextSelectedPair = urlParams;
+        
+            // Handle tags from URL
+            if (urlParams.tags) {
+                const tags = urlParams.tags.split(',');
+                tagCloud.setSelectedTags(tags);
+                logger.debug("Tags from URL:", tags);
+            }
         }
 
         dialogManager.initializeDialogs();

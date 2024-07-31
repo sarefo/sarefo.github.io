@@ -374,11 +374,22 @@ initializeSwipeFunctionality() {
         let currentUrl = new URL(window.location.href);
         currentUrl.searchParams.delete('taxon1');
         currentUrl.searchParams.delete('taxon2');
+        currentUrl.searchParams.delete('tags'); // Clear any existing tags
+        
         currentUrl.searchParams.set('taxon1', gameState.taxonImageOne);
         currentUrl.searchParams.set('taxon2', gameState.taxonImageTwo);
+        
+        // Add active tags to the URL
+        const activeTags = gameState.selectedTags;
+        if (activeTags && activeTags.length > 0) {
+            currentUrl.searchParams.set('tags', activeTags.join(','));
+        }
+        
         let shareUrl = currentUrl.toString();
 
-        navigator.clipboard.writeText(shareUrl).then(() => { }).catch(err => {
+        navigator.clipboard.writeText(shareUrl).then(() => {
+            logger.info('Share URL copied to clipboard');
+        }).catch(err => {
             logger.error('Failed to copy: ', err);
             alert('Failed to copy link. Please try again.');
         });

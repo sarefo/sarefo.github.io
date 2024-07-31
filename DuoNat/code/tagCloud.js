@@ -144,8 +144,8 @@ const tagCloud = {
         this.selectedTags = new Set(tags);
         updateGameState({ selectedTags: this.getSelectedTags() });
         this.updateActiveTags();
+        this.updateTaxonList();
     },
-
     clearTags() {
         this.selectedTags.clear();
         updateGameState({ selectedTags: [] });

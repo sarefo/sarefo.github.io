@@ -470,28 +470,17 @@ const game = {
     async initializeNewPair() {
         let newPair, imageOneURL, imageTwoURL;
 
-        if (this.nextSelectedPair) {
-            // Use the manually selected pair if available
-            newPair = this.nextSelectedPair;
-            this.nextSelectedPair = null; // Clear the selected pair after use
+        const preloadedPair = preloader.getPreloadedImagesForNextPair();
+        if (preloadedPair && preloadedPair.pair) {
+            newPair = preloadedPair.pair;
+            imageOneURL = preloadedPair.taxon1;
+            imageTwoURL = preloadedPair.taxon2;
+        } else {
+            newPair = await utils.selectTaxonPair();
             [imageOneURL, imageTwoURL] = await Promise.all([
                 api.fetchRandomImageMetadata(newPair.taxon1),
                 api.fetchRandomImageMetadata(newPair.taxon2)
             ]);
-        } else {
-            // Use preloaded pair if available, otherwise fetch a new random pair
-            const preloadedPair = preloader.getPreloadedImagesForNextPair();
-            if (preloadedPair && preloadedPair.pair) {
-                newPair = preloadedPair.pair;
-                imageOneURL = preloadedPair.taxon1;
-                imageTwoURL = preloadedPair.taxon2;
-            } else {
-                newPair = await utils.selectTaxonPair();
-                [imageOneURL, imageTwoURL] = await Promise.all([
-                    api.fetchRandomImageMetadata(newPair.taxon1),
-                    api.fetchRandomImageMetadata(newPair.taxon2)
-                ]);
-            }
         }
 
         updateGameState({
@@ -507,6 +496,9 @@ const game = {
         });
 
         await this.setupRound(true);
+
+        // Trigger preloading for the next pair
+        preloader.preloadForNextPair();
     },
 
     async setupRound(isNewPair = false) {
@@ -1355,7 +1347,7 @@ const ui = {
         button.onclick = () => {
             game.nextSelectedPair = pair;
             setTimeout(() => {
-                dialogManager.closeDialog();
+                dialogManager.closeDialog('select-pair-dialog');  // Add this line
                 game.setupGame(true);
             }, 300);
         };
@@ -2018,10 +2010,14 @@ const tagCloud = {
 
     clearAllTags() {
         this.selectedTags.clear();
-//        this.updateActiveTags();
+        updateGameState({ selectedTags: [] });
         this.renderTagCloud(this.getTagCounts());
         this.updateTaxonList();
         this.updateMatchingPairsCount();
+        this.updateActiveTags();
+        
+        // Trigger preloading of a random pair from all available pairs
+        preloader.preloadNewPairWithTags([]);  // Pass an empty array to indicate no tag filtering
     },
 
     updateActiveTags() {
@@ -2778,5 +2774,30 @@ const dialogManager = {
 };
 
 export default dialogManager;
+
+
+
+# manifest.json
+
+{
+  "name": "DuoNat - iNaturalist Taxon Trainer",
+  "short_name": "DuoNat",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#74ac00",
+  "icons": [
+    {
+      "src": "images/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
 
 
