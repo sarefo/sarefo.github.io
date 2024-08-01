@@ -153,38 +153,38 @@ const api = (() => {
         },
 
         // fetch vernacular name of taxon from local file or iNat
-    fetchVernacular: async function (taxonName) {
-        const taxonInfo = await this.loadTaxonInfo();
-        
-        // Find the entry with matching taxonName
-        const entry = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxonName.toLowerCase());
-        
-        if (entry && entry.vernacularName) {
-            return entry.vernacularName;
-        } else {
-            logger.warn(`Vernacular name not found for ${taxonName} in local data`);
-            // Optionally, you can still fallback to the API if not found locally
-            return this.fetchVernacularFromAPI(taxonName);
-        }
-    },
-
-    fetchVernacularFromAPI: async function (taxonName) {
-        logger.debug("fetching vernacular from iNat");
-        try {
-            const baseUrl = 'https://api.inaturalist.org/v1/taxa/autocomplete';
-            const response = await fetch(`${baseUrl}?q=${encodeURIComponent(taxonName)}`);
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            const data = await response.json();
-            if (data.results && data.results.length > 0) {
-                const taxon = data.results[0];
-                return taxon.preferred_common_name || null;
+        fetchVernacular: async function (taxonName) {
+            const taxonInfo = await this.loadTaxonInfo();
+            
+            // Find the entry with matching taxonName
+            const entry = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxonName.toLowerCase());
+            
+            if (entry && entry.vernacularName) {
+                return entry.vernacularName;
             } else {
-                return null;
+                logger.warn(`Vernacular name not found for ${taxonName} in local data`);
+                // Optionally, you can still fallback to the API if not found locally
+                return this.fetchVernacularFromAPI(taxonName);
             }
-        } catch (error) {
-            handleApiError(error, 'fetchVernacularFromAPI');
-        }
-    },
+        },
+
+        fetchVernacularFromAPI: async function (taxonName) {
+            logger.debug("fetching vernacular from iNat");
+            try {
+                const baseUrl = 'https://api.inaturalist.org/v1/taxa/autocomplete';
+                const response = await fetch(`${baseUrl}?q=${encodeURIComponent(taxonName)}`);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                const data = await response.json();
+                if (data.results && data.results.length > 0) {
+                    const taxon = data.results[0];
+                    return taxon.preferred_common_name || null;
+                } else {
+                    return null;
+                }
+            } catch (error) {
+                handleApiError(error, 'fetchVernacularFromAPI');
+            }
+        },
 
         // function to check if iNaturalist API is reachable
         isINaturalistReachable: async function () {

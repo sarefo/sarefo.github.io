@@ -17,15 +17,6 @@ async function getCachedVernacularName(taxonName) {
     return vernacularNameCache.get(taxonName);
 }
 
-async function prefetchVernacularNames() {
-    const taxonPairs = await api.fetchTaxonPairs();
-    for (const pair of taxonPairs) {
-        await getCachedVernacularName(pair.taxon1);
-        await getCachedVernacularName(pair.taxon2);
-    }
-    logger.debug('All vernacular names pre-fetched');
-}
-
 const ui = {
     isMenuOpen: false,
 
@@ -55,17 +46,7 @@ const ui = {
                 return;
             }
 
-            // Prefetch vernacular names
-            await prefetchVernacularNames();
-
             const list = document.getElementById('taxon-pair-list');
-            const searchInput = document.getElementById('taxon-search');
-            const clearButton = document.getElementById('clear-search');
-            
-            // Clear the search input and hide the clear button
-            searchInput.value = '';
-            clearButton.style.display = 'none';
-
             list.innerHTML = ''; // Clear existing content
 
             // Filter pairs based on selected tags
@@ -77,12 +58,10 @@ const ui = {
                 );
             }
 
-            await this.renderTaxonPairList(filteredPairs);
+            // Render only visible pairs initially
+            await this.renderVisibleTaxonPairs(filteredPairs);
 
             dialogManager.openDialog('select-pair-dialog');
-
-            // Focus on the search input when the dialog opens
-            setTimeout(() => searchInput.focus(), 100);
         } catch (error) {
             logger.error("Error in showTaxonPairList:", error);
         }
@@ -102,6 +81,40 @@ const ui = {
                 const button = await this.createTaxonPairButton(pair);
                 list.appendChild(button);
             }
+        }
+    },
+
+    renderVisibleTaxonPairs: async function(pairs) {
+        const list = document.getElementById('taxon-pair-list');
+        const visiblePairs = pairs.slice(0, 20); // Render first 20 pairs
+
+        for (const pair of visiblePairs) {
+            const button = await this.createTaxonPairButton(pair);
+            list.appendChild(button);
+        }
+
+        // Implement lazy loading for remaining pairs
+        if (pairs.length > 20) {
+            const loadMoreButton = document.createElement('button');
+            loadMoreButton.textContent = 'Load More';
+            loadMoreButton.addEventListener('click', () => this.loadMorePairs(pairs, 20));
+            list.appendChild(loadMoreButton);
+        }
+    },
+
+    loadMorePairs: async function(pairs, startIndex) {
+        const list = document.getElementById('taxon-pair-list');
+        const nextPairs = pairs.slice(startIndex, startIndex + 20);
+
+        for (const pair of nextPairs) {
+            const button = await this.createTaxonPairButton(pair);
+            list.insertBefore(button, list.lastChild);
+        }
+
+        if (startIndex + 20 >= pairs.length) {
+            list.removeChild(list.lastChild); // Remove "Load More" button
+        } else {
+            list.lastChild.addEventListener('click', () => this.loadMorePairs(pairs, startIndex + 20));
         }
     },
 
