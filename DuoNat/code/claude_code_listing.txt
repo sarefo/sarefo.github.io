@@ -1031,8 +1031,8 @@ const game = {
         // Set taxon and vernacular name
         const currentTaxon = this.getCurrentTaxonName(url);
         taxonElement.textContent = currentTaxon;
-
-        api.getVernacularName(currentTaxon).then(vernacularName => {
+// TODO check why api.fetchVernacular() won't work here
+        api.fetchVernacular(currentTaxon).then(vernacularName => {
             vernacularElement.textContent = vernacularName;
 
             // Add taxon facts (assuming they're still in taxonInfo.json)
@@ -1236,6 +1236,25 @@ import logger from './logger.js';
 import tagCloud from './tagCloud.js';
 import utils from './utils.js';
 
+const vernacularNameCache = new Map();
+
+async function getCachedVernacularName(taxonName) {
+    if (!vernacularNameCache.has(taxonName)) {
+        const vernacularName = await api.fetchVernacular(taxonName);
+        vernacularNameCache.set(taxonName, vernacularName);
+    }
+    return vernacularNameCache.get(taxonName);
+}
+
+async function prefetchVernacularNames() {
+    const taxonPairs = await api.fetchTaxonPairs();
+    for (const pair of taxonPairs) {
+        await getCachedVernacularName(pair.taxon1);
+        await getCachedVernacularName(pair.taxon2);
+    }
+    logger.debug('All vernacular names pre-fetched');
+}
+
 const ui = {
     isMenuOpen: false,
 
@@ -1257,12 +1276,16 @@ const ui = {
     },
 
     // display pair list for selection
-    showTaxonPairList: function () {
-        api.fetchTaxonPairs().then(taxonPairs => {
+    showTaxonPairList: async function () {
+        try {
+            const taxonPairs = await api.fetchTaxonPairs();
             if (taxonPairs.length === 0) {
                 logger.error("No taxon pairs available");
                 return;
             }
+
+            // Prefetch vernacular names
+            await prefetchVernacularNames();
 
             const list = document.getElementById('taxon-pair-list');
             const searchInput = document.getElementById('taxon-search');
@@ -1283,16 +1306,18 @@ const ui = {
                 );
             }
 
-            this.renderTaxonPairList(filteredPairs);
+            await this.renderTaxonPairList(filteredPairs);
 
             dialogManager.openDialog('select-pair-dialog');
 
             // Focus on the search input when the dialog opens
             setTimeout(() => searchInput.focus(), 100);
-        });
+        } catch (error) {
+            logger.error("Error in showTaxonPairList:", error);
+        }
     },
 
-    renderTaxonPairList: function(pairs) {
+    renderTaxonPairList: async function(pairs) {
         const list = document.getElementById('taxon-pair-list');
         list.innerHTML = ''; // Clear existing content
 
@@ -1302,14 +1327,14 @@ const ui = {
             noResultsMessage.className = 'no-results-message';
             list.appendChild(noResultsMessage);
         } else {
-            pairs.forEach(pair => {
-                const button = this.createTaxonPairButton(pair);
+            for (const pair of pairs) {
+                const button = await this.createTaxonPairButton(pair);
                 list.appendChild(button);
-            });
+            }
         }
     },
 
-    updateTaxonPairList(filteredPairs) {
+    updateTaxonPairList: async function(filteredPairs) {
         const list = document.getElementById('taxon-pair-list');
         list.innerHTML = ''; // Clear existing content
         
@@ -1319,16 +1344,20 @@ const ui = {
             noResultsMessage.className = 'no-results-message';
             list.appendChild(noResultsMessage);
         } else {
-            filteredPairs.forEach(pair => {
-                const button = this.createTaxonPairButton(pair);
+            for (const pair of filteredPairs) {
+                const button = await this.createTaxonPairButton(pair);
                 list.appendChild(button);
-            });
+            }
         }
     },
 
-    createTaxonPairButton(pair) {
+    createTaxonPairButton: async function(pair) {
         const button = document.createElement('button');
         button.className = 'taxon-set-button';
+
+        const vernacular1 = await getCachedVernacularName(pair.taxon1);
+        const vernacular2 = await getCachedVernacularName(pair.taxon2);
+
         button.innerHTML = `
             <div class="taxon-set-container">
                 <div class="taxon-set-info">
@@ -1337,9 +1366,11 @@ const ui = {
                 </div>
                 <div class="taxon-item">
                     <div class="taxon-name">${pair.taxon1}</div>
+                    <div class="vernacular-name">${vernacular1 || 'No common name'}</div>
                 </div>
                 <div class="taxon-item">
                     <div class="taxon-name">${pair.taxon2}</div>
+                    <div class="vernacular-name">${vernacular2 || 'No common name'}</div>
                 </div>
             </div>
         `;
@@ -1347,7 +1378,7 @@ const ui = {
         button.onclick = () => {
             game.nextSelectedPair = pair;
             setTimeout(() => {
-                dialogManager.closeDialog('select-pair-dialog');  // Add this line
+                dialogManager.closeDialog('select-pair-dialog');
                 game.setupGame(true);
             }, 300);
         };
@@ -2056,6 +2087,16 @@ import { elements, gameState } from './state.js';
 import ui from './ui.js';
 import utils from './utils.js';
 
+const vernacularNameCache = new Map();
+
+async function getCachedVernacularName(taxonName) {
+    if (!vernacularNameCache.has(taxonName)) {
+        const vernacularName = await api.fetchVernacular(taxonName);
+        vernacularNameCache.set(taxonName, vernacularName);
+    }
+    return vernacularNameCache.get(taxonName);
+}
+
 const eventHandlers = {
 
     // global variables for swiping left
@@ -2200,6 +2241,12 @@ initializeSwipeFunctionality() {
             }
         });
 
+        // Add search functionality
+        const searchInput = document.getElementById('taxon-search');
+        if (searchInput) {
+            searchInput.addEventListener('input', this.handleSearch);
+        }
+
         // Help button functionality
         document.getElementById('help-button').addEventListener('click', () => {
             dialogManager.openDialog('help-dialog');
@@ -2211,6 +2258,38 @@ initializeSwipeFunctionality() {
             window.open('https://discord.gg/DcWrhYHmeM', '_blank');
         });
 
+    },
+
+    handleSearch: async function(event) {
+        const searchTerm = event.target.value.toLowerCase();
+        const clearButton = document.getElementById('clear-search');
+        
+        if (searchTerm.length > 0) {
+            clearButton.style.display = 'block';
+        } else {
+            clearButton.style.display = 'none';
+        }
+
+        const taxonPairs = await api.fetchTaxonPairs();
+        const filteredPairs = [];
+
+        for (const pair of taxonPairs) {
+            const vernacular1 = await getCachedVernacularName(pair.taxon1);
+            const vernacular2 = await getCachedVernacularName(pair.taxon2);
+
+            if (
+                pair.taxon1.toLowerCase().includes(searchTerm) ||
+                pair.taxon2.toLowerCase().includes(searchTerm) ||
+                (vernacular1 && vernacular1.toLowerCase().includes(searchTerm)) ||
+                (vernacular2 && vernacular2.toLowerCase().includes(searchTerm)) ||
+                pair.setName.toLowerCase().includes(searchTerm) ||
+                pair.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+            ) {
+                filteredPairs.push(pair);
+            }
+        }
+
+        ui.updateTaxonPairList(filteredPairs);
     },
 
     handleThumbsUp(index) {
@@ -2329,6 +2408,12 @@ initializeSwipeFunctionality() {
 
     _handleKeyboardShortcuts(event) {
 //        logger.debug("Keyboard event:", event.key);
+
+        if (dialogManager.isAnyDialogOpen()) {
+            // If any dialog is open, don't process keyboard shortcuts
+            return;
+        }
+
         if (dialogManager.isAnyDialogOpen() || 
             document.getElementById('info-dialog').open || 
             dialogManager.activeDialog || 
@@ -2479,29 +2564,47 @@ const dialogManager = {
         if (dialog && dialog.tagName.toLowerCase() === 'dialog') {
             dialog.showModal();
             this.openDialogs.add(dialogId);
+            this.activeDialog = dialog;
+            
+            // Add event listener to handle keyboard events
+            dialog.addEventListener('keydown', this.handleDialogKeydown);
         }
     },
 
     closeDialog(dialogId) {
         const dialog = document.getElementById(dialogId);
-        if (dialog) {
-            if (dialog.id === 'phylogeny-dialog') {
-                dialog.style.display = 'none';
-            }
-        }
         if (dialog && dialog.tagName.toLowerCase() === 'dialog') {
             dialog.close();
             this.openDialogs.delete(dialogId);
+            this.activeDialog = null;
+            
+            // Remove event listener
+            dialog.removeEventListener('keydown', this.handleDialogKeydown);
         }
+    },
+
+    isAnyDialogOpen() {
+        return this.openDialogs.size > 0;
+    },
+    /*
+    isAnyDialogOpen() {
+        return !!this.activeDialog;
+    },
+*/
+    handleDialogKeydown(event) {
+        // Allow default behavior for input fields
+        if (event.target.tagName.toLowerCase() === 'input') {
+            return;
+        }
+        
+        // Prevent propagation for other elements
+        event.stopPropagation();
     },
 
     closeAllDialogs() {
         this.openDialogs.forEach(dialogId => this.closeDialog(dialogId));
     },
 
-    isAnyDialogOpen() {
-        return !!this.activeDialog;
-    },
 /*
     openDialog(dialogId) {
         ui.closeMainMenu();
@@ -2847,7 +2950,7 @@ const api = (() => {
             }
         },
 
-        getVernacularName: async function(taxonName) {
+   /*     getVernacularName: async function(taxonName) {
             try {
                 const taxonInfo = await this.loadTaxonInfo();
                 const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxonName.toLowerCase());
@@ -2856,7 +2959,7 @@ const api = (() => {
                 handleApiError(error, 'getVernacularName');
             }
         },
-
+*/
         // fetch from JSON file
     fetchTaxonPairs: async function () {
         try {
@@ -2971,38 +3074,38 @@ const api = (() => {
         },
 
         // fetch vernacular name of taxon from local file or iNat
-        fetchVernacular: async function (taxonName) {
-          const taxonInfo = await this.loadTaxonInfo();
-          
-          // Find the entry with matching taxonName
-          const entry = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxonName.toLowerCase());
-          
-          if (entry && entry.vernacularName) {
+    fetchVernacular: async function (taxonName) {
+        const taxonInfo = await this.loadTaxonInfo();
+        
+        // Find the entry with matching taxonName
+        const entry = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxonName.toLowerCase());
+        
+        if (entry && entry.vernacularName) {
             return entry.vernacularName;
-          } else {
+        } else {
             logger.warn(`Vernacular name not found for ${taxonName} in local data`);
             // Optionally, you can still fallback to the API if not found locally
             return this.fetchVernacularFromAPI(taxonName);
-          }
-        },
+        }
+    },
 
-        fetchVernacularFromAPI: async function (taxonName) {
-            logger.debug("fetching vernacular from iNat");
-            try {
-                const baseUrl = 'https://api.inaturalist.org/v1/taxa/autocomplete';
-                const response = await fetch(`${baseUrl}?q=${encodeURIComponent(taxonName)}`);
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                const data = await response.json();
-                if (data.results && data.results.length > 0) {
-                    const taxon = data.results[0];
-                    return taxon.preferred_common_name || null;
-                } else {
-                    return null;
-                }
-            } catch (error) {
-                handleApiError(error, 'fetchVernacularFromAPI');
+    fetchVernacularFromAPI: async function (taxonName) {
+        logger.debug("fetching vernacular from iNat");
+        try {
+            const baseUrl = 'https://api.inaturalist.org/v1/taxa/autocomplete';
+            const response = await fetch(`${baseUrl}?q=${encodeURIComponent(taxonName)}`);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const data = await response.json();
+            if (data.results && data.results.length > 0) {
+                const taxon = data.results[0];
+                return taxon.preferred_common_name || null;
+            } else {
+                return null;
             }
-        },
+        } catch (error) {
+            handleApiError(error, 'fetchVernacularFromAPI');
+        }
+    },
 
         // function to check if iNaturalist API is reachable
         isINaturalistReachable: async function () {
@@ -3179,5 +3282,160 @@ import utils from './utils.js';
     });
 })();
 
+
+
+
+# code/preloader.js
+
+import api from './api.js';
+import { gameState, updateGameState } from './state.js';
+import logger from './logger.js';
+import utils from './utils.js';
+
+const preloader = {
+  preloadedImages: {
+    nextRound: { taxon1: null, taxon2: null },
+    nextPair: { taxon1: null, taxon2: null, pair: null }
+  },
+
+  async preloadImage(url) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(url);
+      img.onerror = () => reject(new Error(`Failed to load image: ${url}`));
+      img.src = url;
+    });
+  },
+
+    async preloadForNextRound() {
+        const { pair, imageOneURL, imageTwoURL } = gameState.currentTaxonImageCollection;
+        const [newImageOneURL, newImageTwoURL] = await Promise.all([
+            this.fetchDifferentImage(pair.taxon1, imageOneURL),
+            this.fetchDifferentImage(pair.taxon2, imageTwoURL)
+        ]);
+        
+        await Promise.all([
+            this.preloadImage(newImageOneURL),
+            this.preloadImage(newImageTwoURL)
+        ]);
+
+        this.preloadedImages.nextRound = { taxon1: newImageOneURL, taxon2: newImageTwoURL };
+        logger.debug("Preloaded images for next round");
+    },
+
+    async fetchDifferentImage(taxonName, currentImageURL) {
+        const images = await api.fetchMultipleImages(taxonName, 12);
+        const taxonKey = taxonName === gameState.currentTaxonImageCollection.pair.taxon1 ? 'taxon1' : 'taxon2';
+        let usedImages = gameState.usedImages[taxonKey];
+        
+        // Filter out the current image and any previously used images
+        let availableImages = images.filter(img => !usedImages.has(img) && img !== currentImageURL);
+        
+        // If we've used all images, reset the used images but still avoid the current image
+        if (availableImages.length === 0) {
+            logger.warn(`All images for ${taxonName} have been used. Resetting used images.`);
+            usedImages = new Set([currentImageURL]);
+            availableImages = images.filter(img => img !== currentImageURL);
+        }
+        
+        if (availableImages.length > 0) {
+            const selectedImage = availableImages[Math.floor(Math.random() * availableImages.length)];
+            usedImages.add(selectedImage);
+            updateGameState({ 
+                usedImages: { 
+                    ...gameState.usedImages, 
+                    [taxonKey]: usedImages 
+                } 
+            });
+            return selectedImage;
+        } else {
+            // This should rarely happen, but just in case
+            logger.error(`No available images found for ${taxonName}. Using current image.`);
+            return currentImageURL;
+        }
+    },
+
+    async preloadForNextPair() {
+        if (this.preloadedImages.nextPair.pair) {
+            logger.debug("Skipping preload for next pair as one is already available");
+            return;
+        }
+
+        const newPair = await utils.selectTaxonPair();
+        const [imageOneURL, imageTwoURL] = await Promise.all([
+            this.fetchDifferentImage(newPair.taxon1, null),
+            this.fetchDifferentImage(newPair.taxon2, null)
+        ]);
+        
+        await Promise.all([
+            this.preloadImage(imageOneURL),
+            this.preloadImage(imageTwoURL)
+        ]);
+
+        this.preloadedImages.nextPair = { 
+            pair: newPair,
+            taxon1: imageOneURL, 
+            taxon2: imageTwoURL 
+        };
+        logger.debug("Preloaded images for next pair");
+    },
+
+  getPreloadedImagesForNextRound() {
+    const images = this.preloadedImages.nextRound;
+    this.preloadedImages.nextRound = { taxon1: null, taxon2: null };
+    return images;
+  },
+
+  getPreloadedImagesForNextPair() {
+    const images = this.preloadedImages.nextPair;
+    this.preloadedImages.nextPair = { taxon1: null, taxon2: null, pair: null };
+    return images;
+  },
+
+  hasPreloadedPair() {
+    return !!this.preloadedImages.nextPair.pair;
+  },
+
+    async preloadNewPairWithTags(selectedTags) {
+        if (this.isPreloading) {
+            logger.debug("Preloading already in progress, skipping tag-based preload");
+            return;
+        }
+
+        this.isPreloading = true;
+        logger.debug(`Selected tags: ${selectedTags}`);
+        try {
+            const newPair = await utils.selectTaxonPair();
+            if (!newPair) {
+                logger.warn("No pair found matching selected tags");
+                return;
+            }
+
+            const [imageOneURL, imageTwoURL] = await Promise.all([
+                this.fetchDifferentImage(newPair.taxon1, null),
+                this.fetchDifferentImage(newPair.taxon2, null)
+            ]);
+            
+            await Promise.all([
+                this.preloadImage(imageOneURL),
+                this.preloadImage(imageTwoURL)
+            ]);
+
+            this.preloadedImages.nextPair = { 
+                pair: newPair,
+                taxon1: imageOneURL, 
+                taxon2: imageTwoURL 
+            };
+            logger.debug("Preloaded new pair based on selected tags");
+        } catch (error) {
+            logger.error("Error preloading new pair with tags:", error);
+        } finally {
+            this.isPreloading = false;
+        }
+    },
+
+};
+
+export default preloader;
 
 

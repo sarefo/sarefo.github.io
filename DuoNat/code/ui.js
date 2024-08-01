@@ -7,6 +7,25 @@ import logger from './logger.js';
 import tagCloud from './tagCloud.js';
 import utils from './utils.js';
 
+const vernacularNameCache = new Map();
+
+async function getCachedVernacularName(taxonName) {
+    if (!vernacularNameCache.has(taxonName)) {
+        const vernacularName = await api.fetchVernacular(taxonName);
+        vernacularNameCache.set(taxonName, vernacularName);
+    }
+    return vernacularNameCache.get(taxonName);
+}
+
+async function prefetchVernacularNames() {
+    const taxonPairs = await api.fetchTaxonPairs();
+    for (const pair of taxonPairs) {
+        await getCachedVernacularName(pair.taxon1);
+        await getCachedVernacularName(pair.taxon2);
+    }
+    logger.debug('All vernacular names pre-fetched');
+}
+
 const ui = {
     isMenuOpen: false,
 
@@ -28,12 +47,16 @@ const ui = {
     },
 
     // display pair list for selection
-    showTaxonPairList: function () {
-        api.fetchTaxonPairs().then(taxonPairs => {
+    showTaxonPairList: async function () {
+        try {
+            const taxonPairs = await api.fetchTaxonPairs();
             if (taxonPairs.length === 0) {
                 logger.error("No taxon pairs available");
                 return;
             }
+
+            // Prefetch vernacular names
+            await prefetchVernacularNames();
 
             const list = document.getElementById('taxon-pair-list');
             const searchInput = document.getElementById('taxon-search');
@@ -54,16 +77,18 @@ const ui = {
                 );
             }
 
-            this.renderTaxonPairList(filteredPairs);
+            await this.renderTaxonPairList(filteredPairs);
 
             dialogManager.openDialog('select-pair-dialog');
 
             // Focus on the search input when the dialog opens
             setTimeout(() => searchInput.focus(), 100);
-        });
+        } catch (error) {
+            logger.error("Error in showTaxonPairList:", error);
+        }
     },
 
-    renderTaxonPairList: function(pairs) {
+    renderTaxonPairList: async function(pairs) {
         const list = document.getElementById('taxon-pair-list');
         list.innerHTML = ''; // Clear existing content
 
@@ -73,14 +98,14 @@ const ui = {
             noResultsMessage.className = 'no-results-message';
             list.appendChild(noResultsMessage);
         } else {
-            pairs.forEach(pair => {
-                const button = this.createTaxonPairButton(pair);
+            for (const pair of pairs) {
+                const button = await this.createTaxonPairButton(pair);
                 list.appendChild(button);
-            });
+            }
         }
     },
 
-    updateTaxonPairList(filteredPairs) {
+    updateTaxonPairList: async function(filteredPairs) {
         const list = document.getElementById('taxon-pair-list');
         list.innerHTML = ''; // Clear existing content
         
@@ -90,16 +115,20 @@ const ui = {
             noResultsMessage.className = 'no-results-message';
             list.appendChild(noResultsMessage);
         } else {
-            filteredPairs.forEach(pair => {
-                const button = this.createTaxonPairButton(pair);
+            for (const pair of filteredPairs) {
+                const button = await this.createTaxonPairButton(pair);
                 list.appendChild(button);
-            });
+            }
         }
     },
 
-    createTaxonPairButton(pair) {
+    createTaxonPairButton: async function(pair) {
         const button = document.createElement('button');
         button.className = 'taxon-set-button';
+
+        const vernacular1 = await getCachedVernacularName(pair.taxon1);
+        const vernacular2 = await getCachedVernacularName(pair.taxon2);
+
         button.innerHTML = `
             <div class="taxon-set-container">
                 <div class="taxon-set-info">
@@ -108,9 +137,11 @@ const ui = {
                 </div>
                 <div class="taxon-item">
                     <div class="taxon-name">${pair.taxon1}</div>
+                    <div class="vernacular-name">${vernacular1 || 'No common name'}</div>
                 </div>
                 <div class="taxon-item">
                     <div class="taxon-name">${pair.taxon2}</div>
+                    <div class="vernacular-name">${vernacular2 || 'No common name'}</div>
                 </div>
             </div>
         `;
@@ -118,7 +149,7 @@ const ui = {
         button.onclick = () => {
             game.nextSelectedPair = pair;
             setTimeout(() => {
-                dialogManager.closeDialog('select-pair-dialog');  // Add this line
+                dialogManager.closeDialog('select-pair-dialog');
                 game.setupGame(true);
             }, 300);
         };

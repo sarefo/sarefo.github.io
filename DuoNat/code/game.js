@@ -90,17 +90,28 @@ const game = {
     async initializeNewPair() {
         let newPair, imageOneURL, imageTwoURL;
 
-        const preloadedPair = preloader.getPreloadedImagesForNextPair();
-        if (preloadedPair && preloadedPair.pair) {
-            newPair = preloadedPair.pair;
-            imageOneURL = preloadedPair.taxon1;
-            imageTwoURL = preloadedPair.taxon2;
-        } else {
-            newPair = await utils.selectTaxonPair();
+        if (this.nextSelectedPair) {
+            // Use the nextSelectedPair if it exists (from URL parameters)
+            newPair = this.nextSelectedPair;
+            this.nextSelectedPair = null; // Clear it after use
             [imageOneURL, imageTwoURL] = await Promise.all([
                 api.fetchRandomImageMetadata(newPair.taxon1),
                 api.fetchRandomImageMetadata(newPair.taxon2)
             ]);
+        } else {
+            // Use the existing logic for selecting a random pair
+            const preloadedPair = preloader.getPreloadedImagesForNextPair();
+            if (preloadedPair && preloadedPair.pair) {
+                newPair = preloadedPair.pair;
+                imageOneURL = preloadedPair.taxon1;
+                imageTwoURL = preloadedPair.taxon2;
+            } else {
+                newPair = await utils.selectTaxonPair();
+                [imageOneURL, imageTwoURL] = await Promise.all([
+                    api.fetchRandomImageMetadata(newPair.taxon1),
+                    api.fetchRandomImageMetadata(newPair.taxon2)
+                ]);
+            }
         }
 
         updateGameState({
@@ -651,8 +662,8 @@ const game = {
         // Set taxon and vernacular name
         const currentTaxon = this.getCurrentTaxonName(url);
         taxonElement.textContent = currentTaxon;
-
-        api.getVernacularName(currentTaxon).then(vernacularName => {
+// TODO check why api.fetchVernacular() won't work here
+        api.fetchVernacular(currentTaxon).then(vernacularName => {
             vernacularElement.textContent = vernacularName;
 
             // Add taxon facts (assuming they're still in taxonInfo.json)

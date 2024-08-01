@@ -41,7 +41,7 @@ export class CurrentSet {
         return this.currentPair;
     }
 
-    getVernacularName(taxon) {
+    fetchVernacular(taxon) {
         return this.vernacularNames[taxon] || '';
     }
 

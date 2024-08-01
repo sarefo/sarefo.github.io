@@ -9,6 +9,16 @@ import { elements, gameState } from './state.js';
 import ui from './ui.js';
 import utils from './utils.js';
 
+const vernacularNameCache = new Map();
+
+async function getCachedVernacularName(taxonName) {
+    if (!vernacularNameCache.has(taxonName)) {
+        const vernacularName = await api.fetchVernacular(taxonName);
+        vernacularNameCache.set(taxonName, vernacularName);
+    }
+    return vernacularNameCache.get(taxonName);
+}
+
 const eventHandlers = {
 
     // global variables for swiping left
@@ -172,17 +182,36 @@ initializeSwipeFunctionality() {
 
     },
 
-    handleSearch: function(event) {
+    handleSearch: async function(event) {
         const searchTerm = event.target.value.toLowerCase();
-        api.fetchTaxonPairs().then(taxonPairs => {
-            const filteredPairs = taxonPairs.filter(pair => 
-                pair.taxon1.toLowerCase().includes(searchTerm) || 
+        const clearButton = document.getElementById('clear-search');
+        
+        if (searchTerm.length > 0) {
+            clearButton.style.display = 'block';
+        } else {
+            clearButton.style.display = 'none';
+        }
+
+        const taxonPairs = await api.fetchTaxonPairs();
+        const filteredPairs = [];
+
+        for (const pair of taxonPairs) {
+            const vernacular1 = await getCachedVernacularName(pair.taxon1);
+            const vernacular2 = await getCachedVernacularName(pair.taxon2);
+
+            if (
+                pair.taxon1.toLowerCase().includes(searchTerm) ||
                 pair.taxon2.toLowerCase().includes(searchTerm) ||
+                (vernacular1 && vernacular1.toLowerCase().includes(searchTerm)) ||
+                (vernacular2 && vernacular2.toLowerCase().includes(searchTerm)) ||
                 pair.setName.toLowerCase().includes(searchTerm) ||
                 pair.tags.some(tag => tag.toLowerCase().includes(searchTerm))
-            );
-            ui.updateTaxonPairList(filteredPairs);
-        });
+            ) {
+                filteredPairs.push(pair);
+            }
+        }
+
+        ui.updateTaxonPairList(filteredPairs);
     },
 
     handleThumbsUp(index) {

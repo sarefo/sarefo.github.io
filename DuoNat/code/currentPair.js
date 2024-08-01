@@ -19,7 +19,7 @@ export class CurrentPair {
         this.vernacularNames[this.taxon2] = await api.fetchVernacular(this.taxon2);
     }
 
-    getVernacularName(taxon) {
+    fetchVernacular(taxon) {
         return this.vernacularNames[taxon] || '';
     }
 
