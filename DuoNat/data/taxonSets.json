@@ -22,7 +22,7 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "canines"
+      "carnivores"
     ],
     "taxa": [
       42048,
@@ -39,7 +39,7 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "bears"
+      "carnivores"
     ],
     "taxa": [
       41641,
@@ -56,7 +56,8 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "big cats"
+      "carnivores",
+      "cats"
     ],
     "taxa": [
       41970,
@@ -124,7 +125,7 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "monkeys"
+      "primates"
     ],
     "taxa": [
       936369,
@@ -158,7 +159,7 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "proboscideans"
+      "elephants"
     ],
     "taxa": [
       43696,
@@ -175,7 +176,7 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "proboscideans"
+      "elephants"
     ],
     "taxa": [
       43694,
@@ -191,8 +192,7 @@
     "setName": "Placental Mammals",
     "skillLevel": "",
     "tags": [
-      "mammals",
-      "placentals"
+      "mammals"
     ],
     "taxa": [
       848324,
@@ -208,8 +208,7 @@
     "setName": "Placental Mammals",
     "skillLevel": "",
     "tags": [
-      "mammals",
-      "placentals"
+      "mammals"
     ],
     "taxa": [
       848322,
@@ -225,8 +224,7 @@
     "setName": "Placental Mammals",
     "skillLevel": "",
     "tags": [
-      "mammals",
-      "placentals"
+      "mammals"
     ],
     "taxa": [
       848321,
@@ -260,7 +258,7 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "wildcats"
+      "cats"
     ],
     "taxa": [
       41997,
@@ -277,7 +275,7 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "wildcats"
+      "cats"
     ],
     "taxa": [
       41976,
@@ -345,7 +343,7 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "pinnipeds"
+      "marine mammals"
     ],
     "taxa": [
       41740,
@@ -362,7 +360,7 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "pinnipeds"
+      "marine mammals"
     ],
     "taxa": [
       41708,
@@ -379,7 +377,8 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cetaceans"
+      "marine mammals",
+      "dolphins"
     ],
     "taxa": [
       41482,
@@ -396,7 +395,8 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cetaceans"
+      "marine mammals",
+      "whales"
     ],
     "taxa": [
       41562,
@@ -413,7 +413,8 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cetaceans"
+      "marine mammals",
+      "whales"
     ],
     "taxa": [
       41562,
@@ -430,7 +431,8 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cetaceans"
+      "marine mammals",
+      "whales"
     ],
     "taxa": [
       41559,
@@ -447,7 +449,8 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cetaceans"
+      "marine mammals",
+      "whales"
     ],
     "taxa": [
       41550,
@@ -464,7 +467,8 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cetaceans"
+      "marine mammals",
+      "whales"
     ],
     "taxa": [
       41566,
@@ -481,7 +485,8 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cetaceans"
+      "marine mammals",
+      "whales"
     ],
     "taxa": [
       41570,
@@ -498,7 +503,8 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cetaceans"
+      "marine mammals",
+      "whales"
     ],
     "taxa": [
       74890,
@@ -515,7 +521,8 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cetaceans"
+      "marine mammals",
+      "whales"
     ],
     "taxa": [
       41464,
@@ -532,7 +539,8 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cetaceans"
+      "marine mammals",
+      "dolphins"
     ],
     "taxa": [
       41521,
@@ -549,7 +557,8 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cetaceans"
+      "marine mammals",
+      "whales"
     ],
     "taxa": [
       41529,
@@ -566,7 +575,8 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cetaceans"
+      "marine mammals",
+      "whales"
     ],
     "taxa": [
       41482,
@@ -583,7 +593,8 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cetaceans"
+      "marine mammals",
+      "whales"
     ],
     "taxa": [
       41500,
@@ -600,7 +611,8 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cetaceans"
+      "marine mammals",
+      "whales"
     ],
     "taxa": [
       41494,
@@ -617,7 +629,8 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cetaceans"
+      "marine mammals",
+      "whales"
     ],
     "taxa": [
       1368483,
@@ -634,7 +647,8 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cetaceans"
+      "marine mammals",
+      "whales"
     ],
     "taxa": [
       41505,
@@ -651,7 +665,8 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cetaceans"
+      "marine mammals",
+      "whales"
     ],
     "taxa": [
       41541,
@@ -668,7 +683,8 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cetaceans"
+      "marine mammals",
+      "whales"
     ],
     "taxa": [
       41440,
@@ -685,7 +701,8 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cetaceans"
+      "marine mammals",
+      "whales"
     ],
     "taxa": [
       41413,
@@ -702,7 +719,8 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cetaceans"
+      "marine mammals",
+      "whales"
     ],
     "taxa": [
       41428,
@@ -719,7 +737,8 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cetaceans"
+      "marine mammals",
+      "dolphins"
     ],
     "taxa": [
       41472,
@@ -736,7 +755,8 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cetaceans"
+      "marine mammals",
+      "whales"
     ],
     "taxa": [
       41461,
@@ -753,7 +773,8 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cetaceans"
+      "marine mammals",
+      "dolphins"
     ],
     "taxa": [
       41515,
@@ -770,7 +791,8 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cetaceans"
+      "marine mammals",
+      "dolphins"
     ],
     "taxa": [
       41490,
@@ -787,7 +809,8 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cetaceans"
+      "marine mammals",
+      "dolphins"
     ],
     "taxa": [
       41543,
@@ -804,7 +827,8 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cetaceans"
+      "marine mammals",
+      "dolphins"
     ],
     "taxa": [
       41537,
@@ -821,7 +845,7 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cervids"
+      "ungulates"
     ],
     "taxa": [
       42223,
@@ -838,7 +862,7 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cervids"
+      "ungulates"
     ],
     "taxa": [
       204113,
@@ -855,7 +879,7 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cervids"
+      "ungulates"
     ],
     "taxa": [
       522193,
@@ -872,7 +896,7 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "bovids"
+      "ungulates"
     ],
     "taxa": [
       42408,
@@ -889,7 +913,7 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "bovids"
+      "ungulates"
     ],
     "taxa": [
       42391,
@@ -906,7 +930,7 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "bovids"
+      "ungulates"
     ],
     "taxa": [
       42414,
@@ -923,7 +947,7 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "cervids"
+      "ungulates"
     ],
     "taxa": [
       42199,
@@ -940,7 +964,7 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "equids"
+      "ungulates"
     ],
     "taxa": [
       43330,
@@ -957,7 +981,7 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "proboscideans"
+      "elephants"
     ],
     "taxa": [
       43694,
@@ -974,7 +998,7 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "artiodactyls"
+      "ungulates"
     ],
     "taxa": [
       42149,
@@ -991,7 +1015,7 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "perissodactyls"
+      "ungulates"
     ],
     "taxa": [
       43350,
@@ -1008,7 +1032,7 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "great apes"
+      "primates"
     ],
     "taxa": [
       43577,
@@ -1025,7 +1049,7 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "great apes"
+      "primates"
     ],
     "taxa": [
       68790,
@@ -1042,7 +1066,7 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "great apes"
+      "primates"
     ],
     "taxa": [
       569678,
@@ -1059,7 +1083,7 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "old world monkeys"
+      "primates"
     ],
     "taxa": [
       43460,
@@ -1076,7 +1100,7 @@
     "skillLevel": "",
     "tags": [
       "mammals",
-      "old world monkeys"
+      "primates"
     ],
     "taxa": [
       74832,
@@ -2686,7 +2710,7 @@
     "skillLevel": "",
     "tags": [
       "birds",
-      "piciformes"
+      "woodpeckers"
     ],
     "taxa": [
       144243,
@@ -2703,7 +2727,7 @@
     "skillLevel": "",
     "tags": [
       "birds",
-      "piciformes"
+      "woodpeckers"
     ],
     "taxa": [
       17871,
@@ -2737,7 +2761,7 @@
     "skillLevel": "",
     "tags": [
       "birds",
-      "waterfowl"
+      "waterbirds"
     ],
     "taxa": [
       7045,
@@ -2754,7 +2778,7 @@
     "skillLevel": "",
     "tags": [
       "birds",
-      "waterfowl"
+      "waterbirds"
     ],
     "taxa": [
       7004,
@@ -4334,7 +4358,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "butterflies"
+      "butterflies",
+      "lepidoptera"
+
     ],
     "taxa": [
       56529,
@@ -4351,7 +4377,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "butterflies"
+      "butterflies",
+      "lepidoptera"
+
     ],
     "taxa": [
       58523,
@@ -4368,7 +4396,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "butterflies"
+      "butterflies",
+      "lepidoptera"
+
     ],
     "taxa": [
       147200,
@@ -4385,7 +4415,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "butterflies"
+      "butterflies",
+      "lepidoptera"
+
     ],
     "taxa": [
       49133,
@@ -4402,7 +4434,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "butterflies"
+      "butterflies",
+      "lepidoptera"
+
     ],
     "taxa": [
       55626,
@@ -4419,7 +4453,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "butterflies"
+      "butterflies",
+      "lepidoptera"
+
     ],
     "taxa": [
       55655,
@@ -4436,7 +4472,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "butterflies"
+      "butterflies",
+      "lepidoptera"
+
     ],
     "taxa": [
       207977,
@@ -4453,7 +4491,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "butterflies"
+      "butterflies",
+      "lepidoptera"
+
     ],
     "taxa": [
       52771,
@@ -4470,7 +4510,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "butterflies"
+      "butterflies",
+      "lepidoptera"
+
     ],
     "taxa": [
       56225,
@@ -4487,7 +4529,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "butterflies"
+      "butterflies",
+      "lepidoptera"
+
     ],
     "taxa": [
       56832,
@@ -4504,7 +4548,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "butterflies"
+      "butterflies",
+      "lepidoptera"
+
     ],
     "taxa": [
       62381,
@@ -4521,7 +4567,8 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "butterflies"
+      "butterflies",
+      "lepidoptera"
     ],
     "taxa": [
       48662,
@@ -4572,7 +4619,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "moths"
+      "moths",
+      "lepidoptera"
+
     ],
     "taxa": [
       56530,
@@ -4589,7 +4638,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "moths"
+      "moths",
+      "lepidoptera"
+
     ],
     "taxa": [
       62331,
@@ -4606,7 +4657,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "moths"
+      "moths",
+      "lepidoptera"
+
     ],
     "taxa": [
       116385,
@@ -4623,7 +4676,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "moths"
+      "moths",
+      "lepidoptera"
+
     ],
     "taxa": [
       82279,
@@ -4640,7 +4695,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "moths"
+      "moths",
+      "lepidoptera"
+
     ],
     "taxa": [
       59346,
@@ -4657,7 +4714,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "moths"
+      "moths",
+      "lepidoptera"
+
     ],
     "taxa": [
       68330,
@@ -4674,7 +4733,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "moths"
+      "moths",
+      "lepidoptera"
+
     ],
     "taxa": [
       1120872,
@@ -4691,7 +4752,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "moths"
+      "moths",
+      "lepidoptera"
+
     ],
     "taxa": [
       118936,
@@ -4708,7 +4771,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "moths"
+      "moths",
+      "lepidoptera"
+
     ],
     "taxa": [
       55361,
@@ -4725,7 +4790,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "moths"
+      "moths",
+      "lepidoptera"
+
     ],
     "taxa": [
       362611,
@@ -4742,7 +4809,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "moths"
+      "moths",
+      "lepidoptera"
+
     ],
     "taxa": [
       61505,
@@ -4759,7 +4828,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "moths"
+      "moths",
+      "lepidoptera"
+
     ],
     "taxa": [
       47916,
@@ -4776,7 +4847,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "moths"
+      "moths",
+      "lepidoptera"
+
     ],
     "taxa": [
       61415,
@@ -4793,7 +4866,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "moths"
+      "moths",
+      "lepidoptera"
+
     ],
     "taxa": [
       47155,
@@ -4810,7 +4885,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "moths"
+      "moths",
+      "lepidoptera"
+
     ],
     "taxa": [
       52028,
@@ -4827,7 +4904,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "moths"
+      "moths",
+      "lepidoptera"
+
     ],
     "taxa": [
       121878,
@@ -4844,7 +4923,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "moths"
+      "moths",
+      "lepidoptera"
+
     ],
     "taxa": [
       366952,
@@ -4861,7 +4942,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "moths"
+      "moths",
+      "lepidoptera"
+
     ],
     "taxa": [
       51684,
@@ -4878,7 +4961,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "moths"
+      "moths",
+      "lepidoptera"
+
     ],
     "taxa": [
       1290471,
@@ -4895,7 +4980,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "hymenoptera"
+      "hymenoptera",
+      "bees"
+
     ],
     "taxa": [
       57516,
@@ -4912,7 +4999,8 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "hymenoptera"
+      "hymenoptera",
+      "wasps"
     ],
     "taxa": [
       54327,
@@ -4929,7 +5017,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "hymenoptera"
+      "hymenoptera",
+      "bees"
+
     ],
     "taxa": [
       47219,
@@ -4946,7 +5036,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "hymenoptera"
+      "hymenoptera",
+      "bees"
+
     ],
     "taxa": [
       55637,
@@ -4963,7 +5055,8 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "hymenoptera"
+      "hymenoptera",
+      "wasps"
     ],
     "taxa": [
       127777,
@@ -4981,6 +5074,8 @@
     "tags": [
       "insects",
       "hymenoptera",
+      "ants",
+      "spiders",
       "mimicry"
     ],
     "taxa": [
@@ -4998,7 +5093,8 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "hymenoptera"
+      "hymenoptera",
+      "ants"
     ],
     "taxa": [
       244834,
@@ -5015,7 +5111,8 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "hymenoptera"
+      "hymenoptera",
+      "ants"
     ],
     "taxa": [
       428222,
@@ -5032,7 +5129,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "hymenoptera"
+      "hymenoptera",
+      "ants"
+
     ],
     "taxa": [
       244394,
@@ -5049,7 +5148,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "hymenoptera"
+      "hymenoptera",
+      "ants"
+
     ],
     "taxa": [
       338275,
@@ -5066,7 +5167,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "hymenoptera"
+      "hymenoptera",
+      "ants"
+
     ],
     "taxa": [
       338275,
@@ -5083,7 +5186,9 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "hymenoptera"
+      "hymenoptera",
+      "ants"
+
     ],
     "taxa": [
       123386,
@@ -5099,7 +5204,10 @@
     "setName": "Hoverflies and Wasps",
     "skillLevel": "",
     "tags": [
-      "insects"
+      "insects",
+      "hymenoptera",
+      "wasps",
+      "diptera"
     ],
     "taxa": [
       49995,
@@ -5116,7 +5224,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "coleoptera"
+      "beetles"
     ],
     "taxa": [
       61749,
@@ -5129,11 +5237,12 @@
   },
   {
     "setID": "303",
-    "setName": "Ladybirds",
+    "setName": "Ladybugs",
     "skillLevel": "",
     "tags": [
       "insects",
-      "coleoptera"
+      "beetles",
+      "ladybugs"
     ],
     "taxa": [
       51702,
@@ -5150,7 +5259,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "coleoptera"
+      "beetles"
     ],
     "taxa": [
       130143,
@@ -5167,7 +5276,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "coleoptera"
+      "beetles"
     ],
     "taxa": [
       97022,
@@ -5184,7 +5293,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "coleoptera"
+      "beetles"
     ],
     "taxa": [
       48197,
@@ -5201,7 +5310,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "coleoptera"
+      "beetles"
     ],
     "taxa": [
       222281,
@@ -5214,11 +5323,12 @@
   },
   {
     "setID": "308",
-    "setName": "Two-spot Ladybirds",
+    "setName": "Two-spot Ladybugs",
     "skillLevel": "",
     "tags": [
       "insects",
-      "coleoptera"
+      "beetles",
+      "ladybugs"
     ],
     "taxa": [
       52506,
@@ -5231,11 +5341,12 @@
   },
   {
     "setID": "309",
-    "setName": "Spotted Ladybirds",
+    "setName": "Spotted Ladybugs",
     "skillLevel": "",
     "tags": [
       "insects",
-      "coleoptera"
+      "beetles",
+      "ladybugs"
     ],
     "taxa": [
       61532,
@@ -5248,11 +5359,12 @@
   },
   {
     "setID": "310",
-    "setName": "Variegated Ladybirds",
+    "setName": "Variegated Ladybugs",
     "skillLevel": "",
     "tags": [
       "insects",
-      "coleoptera"
+      "beetles",
+      "ladybugs"
     ],
     "taxa": [
       143034,
@@ -5265,11 +5377,12 @@
   },
   {
     "setID": "311",
-    "setName": "Eyed Ladybirds",
+    "setName": "Eyed Ladybugs",
     "skillLevel": "",
     "tags": [
       "insects",
-      "coleoptera"
+      "beetles",
+      "ladybugs"
     ],
     "taxa": [
       321535,
@@ -5282,11 +5395,12 @@
   },
   {
     "setID": "312",
-    "setName": "Eleven-spot Ladybirds",
+    "setName": "Eleven-spot Ladybugs",
     "skillLevel": "",
     "tags": [
       "insects",
-      "coleoptera"
+      "beetles",
+      "ladybugs"
     ],
     "taxa": [
       205977,
@@ -5299,11 +5413,12 @@
   },
   {
     "setID": "313",
-    "setName": "Cream-spot Ladybirds",
+    "setName": "Cream-spot Ladybugs",
     "skillLevel": "",
     "tags": [
       "insects",
-      "coleoptera"
+      "beetles",
+      "ladybugs"
     ],
     "taxa": [
       52881,
@@ -5316,11 +5431,12 @@
   },
   {
     "setID": "314",
-    "setName": "Orange Ladybirds",
+    "setName": "Orange Ladybugs",
     "skillLevel": "",
     "tags": [
       "insects",
-      "coleoptera"
+      "beetles",
+      "ladybugs"
     ],
     "taxa": [
       318777,
@@ -5333,11 +5449,12 @@
   },
   {
     "setID": "315",
-    "setName": "Kidney-spot Ladybirds",
+    "setName": "Kidney-spot Ladybugs",
     "skillLevel": "",
     "tags": [
       "insects",
-      "coleoptera"
+      "beetles",
+      "ladybugs"
     ],
     "taxa": [
       126636,
@@ -5350,11 +5467,12 @@
   },
   {
     "setID": "316",
-    "setName": "Pine Ladybirds",
+    "setName": "Pine Ladybugs",
     "skillLevel": "",
     "tags": [
       "insects",
-      "coleoptera"
+      "beetles",
+      "ladybugs"
     ],
     "taxa": [
       243968,
@@ -5367,11 +5485,12 @@
   },
   {
     "setID": "317",
-    "setName": "24-spot Ladybirds",
+    "setName": "24-spot Ladybugs",
     "skillLevel": "",
     "tags": [
       "insects",
-      "coleoptera"
+      "beetles",
+      "ladybugs"
     ],
     "taxa": [
       61937,
@@ -5384,11 +5503,12 @@
   },
   {
     "setID": "318",
-    "setName": "Water Ladybirds",
+    "setName": "Water Ladybugs",
     "skillLevel": "",
     "tags": [
       "insects",
-      "coleoptera"
+      "beetles",
+      "ladybugs"
     ],
     "taxa": [
       130575,
@@ -5401,11 +5521,12 @@
   },
   {
     "setID": "319",
-    "setName": "Cream-streaked Ladybirds",
+    "setName": "Cream-streaked Ladybugs",
     "skillLevel": "",
     "tags": [
       "insects",
-      "coleoptera"
+      "beetles",
+      "ladybugs"
     ],
     "taxa": [
       131091,
@@ -5418,11 +5539,12 @@
   },
   {
     "setID": "320",
-    "setName": "Striped Ladybirds",
+    "setName": "Striped Ladybugs",
     "skillLevel": "",
     "tags": [
       "insects",
-      "coleoptera"
+      "beetles",
+      "ladybugs"
     ],
     "taxa": [
       56731,
@@ -5435,11 +5557,12 @@
   },
   {
     "setID": "321",
-    "setName": "Convergent Ladybirds",
+    "setName": "Convergent Ladybugs",
     "skillLevel": "",
     "tags": [
       "insects",
-      "coleoptera"
+      "beetles",
+      "ladybugs"
     ],
     "taxa": [
       126267,
@@ -5452,11 +5575,12 @@
   },
   {
     "setID": "322",
-    "setName": "Hieroglyphic Ladybirds",
+    "setName": "Hieroglyphic Ladybugs",
     "skillLevel": "",
     "tags": [
       "insects",
-      "coleoptera"
+      "beetles",
+      "ladybugs"
     ],
     "taxa": [
       217265,
@@ -5469,11 +5593,12 @@
   },
   {
     "setID": "323",
-    "setName": "Asian Ladybirds",
+    "setName": "Asian Ladybugs",
     "skillLevel": "",
     "tags": [
       "insects",
-      "coleoptera"
+      "beetles",
+      "ladybugs"
     ],
     "taxa": [
       319910,
@@ -5490,7 +5615,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "mantodea"
+      "mantids"
     ],
     "taxa": [
       53905,
@@ -5507,7 +5632,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "mantodea"
+      "mantids"
     ],
     "taxa": [
       55122,
@@ -5524,7 +5649,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "mantodea"
+      "mantids"
     ],
     "taxa": [
       430051,
@@ -5541,7 +5666,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "mantodea"
+      "mantids"
     ],
     "taxa": [
       126571,
@@ -5558,7 +5683,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "mantodea"
+      "mantids"
     ],
     "taxa": [
       328037,
@@ -5711,7 +5836,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "odonata"
+      "dragonflies"
     ],
     "taxa": [
       61536,
@@ -5728,7 +5853,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "odonata"
+      "dragonflies"
     ],
     "taxa": [
       52519,
@@ -5745,7 +5870,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "odonata"
+      "dragonflies"
     ],
     "taxa": [
       55625,
@@ -5762,7 +5887,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "odonata"
+      "dragonflies"
     ],
     "taxa": [
       563098,
@@ -5779,7 +5904,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "odonata"
+      "dragonflies"
     ],
     "taxa": [
       94043,
@@ -5796,7 +5921,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "odonata"
+      "dragonflies"
     ],
     "taxa": [
       85057,
@@ -5813,7 +5938,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "odonata"
+      "dragonflies"
     ],
     "taxa": [
       57454,
@@ -5830,7 +5955,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "odonata"
+      "dragonflies"
     ],
     "taxa": [
       62067,
@@ -5847,7 +5972,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "odonata"
+      "dragonflies"
     ],
     "taxa": [
       104547,
@@ -5864,7 +5989,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "odonata"
+      "dragonflies"
     ],
     "taxa": [
       112801,
@@ -5881,7 +6006,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "odonata"
+      "dragonflies"
     ],
     "taxa": [
       61152,
@@ -5898,7 +6023,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "odonata"
+      "dragonflies"
     ],
     "taxa": [
       61508,
@@ -5915,7 +6040,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "odonata"
+      "dragonflies"
     ],
     "taxa": [
       51678,
@@ -5932,7 +6057,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "odonata"
+      "dragonflies"
     ],
     "taxa": [
       99901,
@@ -5949,7 +6074,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "odonata"
+      "dragonflies"
     ],
     "taxa": [
       130408,
@@ -5966,7 +6091,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "odonata"
+      "dragonflies"
     ],
     "taxa": [
       109650,
@@ -5983,7 +6108,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "odonata"
+      "dragonflies"
     ],
     "taxa": [
       209688,
@@ -6000,7 +6125,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "odonata"
+      "dragonflies"
     ],
     "taxa": [
       47927,
@@ -6017,7 +6142,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "phasmatodea"
+      "phasmids"
     ],
     "taxa": [
       357169,
@@ -6034,7 +6159,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "phasmatodea"
+      "phasmids"
     ],
     "taxa": [
       337089,
@@ -6051,7 +6176,7 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "phasmatodea"
+      "phasmids"
     ],
     "taxa": [
       53592,
@@ -6068,7 +6193,8 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "hemiptera"
+      "hemiptera",
+      "cicadas"
     ],
     "taxa": [
       243961,
@@ -6085,7 +6211,8 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "hemiptera"
+      "hemiptera",
+      "cicadas"
     ],
     "taxa": [
       496256,
@@ -6102,7 +6229,8 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "hemiptera"
+      "hemiptera",
+      "cicadas"
     ],
     "taxa": [
       1353539,
@@ -6153,7 +6281,8 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "hemiptera"
+      "hemiptera",
+      "true bugs"
     ],
     "taxa": [
       359008,
@@ -6170,7 +6299,8 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "hemiptera"
+      "hemiptera",
+      "true bugs"
     ],
     "taxa": [
       81923,
@@ -6187,7 +6317,8 @@
     "skillLevel": "",
     "tags": [
       "insects",
-      "hemiptera"
+      "hemiptera",
+      "true bugs"
     ],
     "taxa": [
       567663,
@@ -6407,7 +6538,6 @@
     "setName": "Golden Orb-weavers",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -6424,8 +6554,8 @@
     "setName": "Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       347886,
@@ -6441,8 +6571,8 @@
     "setName": "Zebra Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       68062,
@@ -6458,8 +6588,8 @@
     "setName": "Menemerus Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       68062,
@@ -6475,8 +6605,8 @@
     "setName": "Colorful Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       416293,
@@ -6492,8 +6622,8 @@
     "setName": "Rhene Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       416293,
@@ -6509,8 +6639,8 @@
     "setName": "Thiania Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       182744,
@@ -6526,8 +6656,8 @@
     "setName": "Carrhotus Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       334660,
@@ -6543,8 +6673,8 @@
     "setName": "Telamonia Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       820185,
@@ -6560,8 +6690,8 @@
     "setName": "Epocilla Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       417718,
@@ -6577,8 +6707,8 @@
     "setName": "Pancorius Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       360385,
@@ -6594,8 +6724,8 @@
     "setName": "Epocilla Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       417718,
@@ -6611,8 +6741,8 @@
     "setName": "Portia Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       819932,
@@ -6628,8 +6758,8 @@
     "setName": "Phintella Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       967406,
@@ -6645,8 +6775,8 @@
     "setName": "Siler Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       822089,
@@ -6662,8 +6792,8 @@
     "setName": "Phidippus Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       1362557,
@@ -6676,11 +6806,11 @@
   },
   {
     "setID": "394",
-    "setName": "Zebra Spiders",
+    "setName": "Zebra Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       68901,
@@ -6696,8 +6826,8 @@
     "setName": "Marpissa Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       146723,
@@ -6713,8 +6843,8 @@
     "setName": "Evarcha Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       357413,
@@ -6730,8 +6860,8 @@
     "setName": "Heliophanus Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       141759,
@@ -6747,8 +6877,8 @@
     "setName": "Plexippus Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       125444,
@@ -6764,8 +6894,8 @@
     "setName": "Menemerus Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       157990,
@@ -6781,8 +6911,8 @@
     "setName": "Attulus Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       1070905,
@@ -6798,8 +6928,8 @@
     "setName": "Carrhotus Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       343255,
@@ -6815,8 +6945,8 @@
     "setName": "Habronattus Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       1363898,
@@ -6832,8 +6962,8 @@
     "setName": "Pellenes Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       504052,
@@ -6849,8 +6979,8 @@
     "setName": "Synageles Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       232111,
@@ -6866,8 +6996,8 @@
     "setName": "Icius Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       318820,
@@ -6883,8 +7013,8 @@
     "setName": "Saitis Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       487303,
@@ -6900,8 +7030,8 @@
     "setName": "Euophrys Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       362098,
@@ -6917,8 +7047,8 @@
     "setName": "Neon Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       225672,
@@ -6934,8 +7064,8 @@
     "setName": "Lyssomanes Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       68315,
@@ -6951,8 +7081,8 @@
     "setName": "Portia Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       322490,
@@ -6968,8 +7098,8 @@
     "setName": "Hyllus Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       70371,
@@ -6985,8 +7115,8 @@
     "setName": "Thyene Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       468023,
@@ -7002,8 +7132,8 @@
     "setName": "Pseudicius Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       528836,
@@ -7019,8 +7149,8 @@
     "setName": "Aelurillus Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       130287,
@@ -7036,8 +7166,8 @@
     "setName": "Cosmophasis Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       832226,
@@ -7053,8 +7183,8 @@
     "setName": "Epeus Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       543152,
@@ -7070,8 +7200,8 @@
     "setName": "Icius and Pancorius Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       172570,
@@ -7087,8 +7217,8 @@
     "setName": "Harmochirus Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       358015,
@@ -7104,8 +7234,8 @@
     "setName": "Holcolaetis Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       639216,
@@ -7121,8 +7251,8 @@
     "setName": "Australian Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       194788,
@@ -7138,8 +7268,8 @@
     "setName": "Mopsus and Epeus Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       194788,
@@ -7155,8 +7285,8 @@
     "setName": "Phintella Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       967406,
@@ -7172,8 +7302,8 @@
     "setName": "Telamonia Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       148396,
@@ -7189,7 +7319,6 @@
     "setName": "Orb-weaver Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7206,7 +7335,6 @@
     "setName": "Garden Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7223,7 +7351,6 @@
     "setName": "Black Widow Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7240,7 +7367,6 @@
     "setName": "Recluse Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7257,7 +7383,6 @@
     "setName": "House Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7274,7 +7399,6 @@
     "setName": "Cellar Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7291,7 +7415,6 @@
     "setName": "Crab Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7308,8 +7431,8 @@
     "setName": "Common Jumping Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
-      "spiders"
+      "spiders",
+      "jumping spiders"
     ],
     "taxa": [
       68901,
@@ -7325,7 +7448,6 @@
     "setName": "Large Wolf Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7342,7 +7464,6 @@
     "setName": "Nursery Web Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7359,7 +7480,6 @@
     "setName": "Golden Silk Orb-weavers",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7376,7 +7496,6 @@
     "setName": "False Widow Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7393,7 +7512,6 @@
     "setName": "Orb-weaver Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7410,7 +7528,6 @@
     "setName": "Wandering Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7427,7 +7544,6 @@
     "setName": "Comb-footed Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7444,7 +7560,6 @@
     "setName": "Large Orb-weavers",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7461,7 +7576,6 @@
     "setName": "False Widow Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7478,7 +7592,6 @@
     "setName": "Orb Weavers",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7495,7 +7608,6 @@
     "setName": "Wandering Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7512,7 +7624,6 @@
     "setName": "Comb-footed Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7529,7 +7640,6 @@
     "setName": "Large Orb-weavers",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7546,7 +7656,6 @@
     "setName": "Sheet Weavers",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7563,7 +7672,6 @@
     "setName": "Woodlouse Hunters",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7580,7 +7688,6 @@
     "setName": "Tube Web Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7597,7 +7704,6 @@
     "setName": "Lace-webbed Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7614,7 +7720,6 @@
     "setName": "Sac Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7631,7 +7736,6 @@
     "setName": "Wolf Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7648,7 +7752,6 @@
     "setName": "Ground Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7665,7 +7768,6 @@
     "setName": "Green Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7682,7 +7784,6 @@
     "setName": "Crab Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7699,7 +7800,6 @@
     "setName": "Funnel Weavers",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7716,7 +7816,6 @@
     "setName": "Orb Weavers",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7733,7 +7832,6 @@
     "setName": "Bridge Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7750,7 +7848,6 @@
     "setName": "Walnut Orb-weavers",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7767,7 +7864,6 @@
     "setName": "Autumn Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7784,7 +7880,6 @@
     "setName": "Long-jawed Orb Weavers",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7801,7 +7896,6 @@
     "setName": "Running Crab Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7818,7 +7912,6 @@
     "setName": "Ghost Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7835,7 +7928,6 @@
     "setName": "Flower Crab Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7852,7 +7944,6 @@
     "setName": "Funnel-web House Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7869,7 +7960,6 @@
     "setName": "Stone Spiders",
     "skillLevel": "",
     "tags": [
-      "arachnids",
       "spiders"
     ],
     "taxa": [
@@ -7918,7 +8008,8 @@
     "setName": "Hermit Crabs",
     "skillLevel": "",
     "tags": [
-      "crustaceans"
+      "crustaceans",
+      "crabs"
     ],
     "taxa": [
       319352,
@@ -7934,7 +8025,8 @@
     "setName": "Hermit Crabs",
     "skillLevel": "",
     "tags": [
-      "crustaceans"
+      "crustaceans",
+      "crabs"
     ],
     "taxa": [
       506276,
@@ -7950,7 +8042,8 @@
     "setName": "Swimming Crabs",
     "skillLevel": "",
     "tags": [
-      "crustaceans"
+      "crustaceans",
+      "crabs"
     ],
     "taxa": [
       127703,
@@ -7966,7 +8059,8 @@
     "setName": "Reef Crabs",
     "skillLevel": "",
     "tags": [
-      "crustaceans"
+      "crustaceans",
+      "crabs"
     ],
     "taxa": [
       469186,
@@ -8169,7 +8263,7 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs"
+      "nudibranchs"
     ],
     "taxa": [
       870525,
@@ -8186,7 +8280,7 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs"
+      "nudibranchs"
     ],
     "taxa": [
       841163,
@@ -8203,7 +8297,7 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs"
+      "nudibranchs"
     ],
     "taxa": [
       564891,
@@ -8220,7 +8314,7 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs"
+      "nudibranchs"
     ],
     "taxa": [
       578658,
@@ -8237,7 +8331,7 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs"
+      "nudibranchs"
     ],
     "taxa": [
       143297,
@@ -8254,7 +8348,7 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs"
+      "nudibranchs"
     ],
     "taxa": [
       781482,
@@ -8271,7 +8365,7 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs"
+      "nudibranchs"
     ],
     "taxa": [
       505643,
@@ -8288,7 +8382,7 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs"
+      "nudibranchs"
     ],
     "taxa": [
       469221,
@@ -8305,7 +8399,7 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs"
+      "nudibranchs"
     ],
     "taxa": [
       871903,
@@ -8322,7 +8416,7 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs"
+      "nudibranchs"
     ],
     "taxa": [
       119872,
@@ -8339,7 +8433,7 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs"
+      "nudibranchs"
     ],
     "taxa": [
       119872,
@@ -8356,7 +8450,7 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs"
+      "nudibranchs"
     ],
     "taxa": [
       119872,
@@ -8373,7 +8467,7 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs"
+      "nudibranchs"
     ],
     "taxa": [
       142294,
@@ -8390,7 +8484,7 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs"
+      "nudibranchs"
     ],
     "taxa": [
       142294,
@@ -8407,7 +8501,7 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs"
+      "nudibranchs"
     ],
     "taxa": [
       49735,
@@ -8424,7 +8518,7 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs"
+      "nudibranchs"
     ],
     "taxa": [
       49728,
@@ -8441,7 +8535,7 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs"
+      "nudibranchs"
     ],
     "taxa": [
       395373,
@@ -8458,7 +8552,7 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs"
+      "nudibranchs"
     ],
     "taxa": [
       564895,
@@ -8474,7 +8568,9 @@
     "setName": "Sea Slugs and Flatworms",
     "skillLevel": "",
     "tags": [
-      "marine invertebrates"
+      "marine invertebrates",
+      "nudibranchs",
+      "flatworms"
     ],
     "taxa": [
       47113,
@@ -8491,7 +8587,6 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs",
       "nudibranchs"
     ],
     "taxa": [
@@ -8509,7 +8604,6 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs",
       "nudibranchs"
     ],
     "taxa": [
@@ -8527,7 +8621,6 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs",
       "nudibranchs"
     ],
     "taxa": [
@@ -8545,7 +8638,6 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs",
       "nudibranchs"
     ],
     "taxa": [
@@ -8563,7 +8655,6 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs",
       "nudibranchs"
     ],
     "taxa": [
@@ -8581,7 +8672,6 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs",
       "nudibranchs"
     ],
     "taxa": [
@@ -8599,7 +8689,6 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs",
       "nudibranchs"
     ],
     "taxa": [
@@ -8617,7 +8706,6 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs",
       "nudibranchs"
     ],
     "taxa": [
@@ -8635,7 +8723,6 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs",
       "nudibranchs"
     ],
     "taxa": [
@@ -8653,7 +8740,6 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs",
       "nudibranchs"
     ],
     "taxa": [
@@ -8671,7 +8757,6 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs",
       "nudibranchs"
     ],
     "taxa": [
@@ -8689,7 +8774,6 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs",
       "nudibranchs"
     ],
     "taxa": [
@@ -8707,7 +8791,6 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs",
       "nudibranchs"
     ],
     "taxa": [
@@ -8725,7 +8808,6 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs",
       "nudibranchs"
     ],
     "taxa": [
@@ -8743,7 +8825,6 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs",
       "nudibranchs"
     ],
     "taxa": [
@@ -8761,7 +8842,6 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs",
       "nudibranchs"
     ],
     "taxa": [
@@ -8779,7 +8859,6 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs",
       "nudibranchs"
     ],
     "taxa": [
@@ -8797,7 +8876,6 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs",
       "nudibranchs"
     ],
     "taxa": [
@@ -8815,7 +8893,6 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs",
       "nudibranchs"
     ],
     "taxa": [
@@ -8833,7 +8910,6 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs",
       "nudibranchs"
     ],
     "taxa": [
@@ -8851,7 +8927,6 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs",
       "nudibranchs"
     ],
     "taxa": [
@@ -8869,7 +8944,6 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs",
       "nudibranchs"
     ],
     "taxa": [
@@ -8887,7 +8961,6 @@
     "skillLevel": "",
     "tags": [
       "mollusks",
-      "sea slugs",
       "nudibranchs"
     ],
     "taxa": [
@@ -8939,7 +9012,7 @@
     "skillLevel": "",
     "tags": [
       "cnidarians",
-      "anthozoans"
+      "corals"
     ],
     "taxa": [
       340493,
@@ -8956,6 +9029,7 @@
     "skillLevel": "",
     "tags": [
       "cnidarians",
+      "corals",
       "hard corals"
     ],
     "taxa": [
@@ -8973,6 +9047,7 @@
     "skillLevel": "",
     "tags": [
       "cnidarians",
+      "corals",
       "hard corals"
     ],
     "taxa": [
@@ -8990,6 +9065,7 @@
     "skillLevel": "",
     "tags": [
       "cnidarians",
+      "corals",
       "hard corals"
     ],
     "taxa": [
@@ -9007,6 +9083,7 @@
     "skillLevel": "",
     "tags": [
       "cnidarians",
+      "corals",
       "soft corals"
     ],
     "taxa": [
@@ -9024,6 +9101,7 @@
     "skillLevel": "",
     "tags": [
       "cnidarians",
+      "corals",
       "hard corals"
     ],
     "taxa": [
@@ -9041,6 +9119,7 @@
     "skillLevel": "",
     "tags": [
       "cnidarians",
+      "corals",
       "hard corals"
     ],
     "taxa": [
@@ -9058,6 +9137,7 @@
     "skillLevel": "",
     "tags": [
       "cnidarians",
+      "corals",
       "hard corals"
     ],
     "taxa": [
@@ -9075,6 +9155,7 @@
     "skillLevel": "",
     "tags": [
       "cnidarians",
+      "corals",
       "hard corals"
     ],
     "taxa": [
@@ -9092,6 +9173,7 @@
     "skillLevel": "",
     "tags": [
       "cnidarians",
+      "corals",
       "hard corals"
     ],
     "taxa": [
@@ -9160,7 +9242,7 @@
     "skillLevel": "",
     "tags": [
       "cnidarians",
-      "corallimorpharians"
+      "sea anemones"
     ],
     "taxa": [
       472113,
@@ -9176,7 +9258,10 @@
     "setName": "Comb Jellies and True Jellyfish",
     "skillLevel": "",
     "tags": [
-      "marine invertebrates"
+      "cnidarians",
+      "jellyfish",
+      "comb jellies"
+
     ],
     "taxa": [
       51508,
@@ -9907,7 +9992,9 @@
     "skillLevel": "",
     "tags": [
       "plants",
-      "angiosperms"
+      "angiosperms",
+      "dicots",
+      "monocots"
     ],
     "taxa": [
       47124,
@@ -9924,7 +10011,8 @@
     "skillLevel": "",
     "tags": [
       "plants",
-      "angiosperms"
+      "angiosperms",
+      "dicots"
     ],
     "taxa": [
       47604,
@@ -9941,7 +10029,8 @@
     "skillLevel": "",
     "tags": [
       "plants",
-      "angiosperms"
+      "angiosperms",
+      "dicots"
     ],
     "taxa": [
       48699,
@@ -9958,6 +10047,8 @@
     "skillLevel": "",
     "tags": [
       "plants",
+      "angiosperms",
+      "dicots",
       "trees"
     ],
     "taxa": [
@@ -9975,6 +10066,8 @@
     "skillLevel": "",
     "tags": [
       "plants",
+      "angiosperms",
+      "dicots",
       "trees"
     ],
     "taxa": [
@@ -10009,6 +10102,8 @@
     "skillLevel": "",
     "tags": [
       "plants",
+      "angiosperms",
+      "dicots",
       "trees"
     ],
     "taxa": [
@@ -10026,6 +10121,8 @@
     "skillLevel": "",
     "tags": [
       "plants",
+      "angiosperms",
+      "dicots",
       "flowers"
     ],
     "taxa": [
@@ -10043,6 +10140,8 @@
     "skillLevel": "",
     "tags": [
       "plants",
+      "angiosperms",
+      "dicots",
       "flowers"
     ],
     "taxa": [
@@ -10060,6 +10159,8 @@
     "skillLevel": "",
     "tags": [
       "plants",
+      "angiosperms",
+      "dicots",
       "nightshades"
     ],
     "taxa": [
@@ -10077,6 +10178,8 @@
     "skillLevel": "",
     "tags": [
       "plants",
+      "angiosperms",
+      "dicots",
       "vines"
     ],
     "taxa": [
@@ -10094,6 +10197,8 @@
     "skillLevel": "",
     "tags": [
       "plants",
+      "angiosperms",
+      "dicots",
       "vines"
     ],
     "taxa": [
@@ -10111,6 +10216,8 @@
     "skillLevel": "",
     "tags": [
       "plants",
+      "angiosperms",
+      "dicots",
       "vines"
     ],
     "taxa": [
@@ -10128,6 +10235,8 @@
     "skillLevel": "",
     "tags": [
       "plants",
+      "angiosperms",
+      "dicots",
       "shrubs"
     ],
     "taxa": [
@@ -10145,6 +10254,8 @@
     "skillLevel": "",
     "tags": [
       "plants",
+      "angiosperms",
+      "dicots",
       "flowers"
     ],
     "taxa": [
@@ -10208,20 +10319,20 @@
     ]
   },
     {
-        "setID": "602",
-        "setName": "Caterpillars and Mimics",
-        "skillLevel": "",
-        "tags": [
-            "mimicry",
-            "spiders"
-        ],
-        "taxa": [
-        881846,
-        145092232
-        ],
-        "taxonNames": [
-            "Uroballus carlei",
-            "Miltochrista arcuata"
-        ]
+      "setID": "602",
+      "setName": "Caterpillars and Mimics",
+      "skillLevel": "",
+      "tags": [
+          "mimicry",
+          "spiders"
+      ],
+      "taxa": [
+      881846,
+      145092232
+      ],
+      "taxonNames": [
+          "Uroballus carlei",
+          "Miltochrista arcuata"
+      ]
   }
 ]

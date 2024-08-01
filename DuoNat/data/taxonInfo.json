@@ -640,7 +640,7 @@
   },
   "130414": {
     "taxonName": "Adalia decempunctata",
-    "vernacularName": "10-spot Ladybird",
+    "vernacularName": "10-spot Ladybug",
     "ancestryIds": [
       48460,
       1,
@@ -1827,7 +1827,7 @@
   },
   "321535": {
     "taxonName": "Anatis ocellata",
-    "vernacularName": "Eyed Ladybird Beetle",
+    "vernacularName": "Eyed Ladybug Beetle",
     "ancestryIds": [
       48460,
       1,
@@ -1945,7 +1945,7 @@
   },
   "130575": {
     "taxonName": "Anisosticta novemdecimpunctata",
-    "vernacularName": "Water Ladybird",
+    "vernacularName": "Water Ladybug",
     "ancestryIds": [
       48460,
       1,
@@ -4468,7 +4468,7 @@
   },
   "69203": {
     "taxonName": "Calvia quatuordecimguttata",
-    "vernacularName": "Cream-spotted Ladybird",
+    "vernacularName": "Cream-spotted Ladybug",
     "ancestryIds": [
       48460,
       1,
@@ -5518,7 +5518,7 @@
   },
   "319910": {
     "taxonName": "Cheilomenes sexmaculata",
-    "vernacularName": "Six-spotted Zigzag Ladybird",
+    "vernacularName": "Six-spotted Zigzag Ladybug",
     "ancestryIds": [
       48460,
       1,
@@ -5722,7 +5722,7 @@
   },
   "123596": {
     "taxonName": "Chilocorus bipustulatus",
-    "vernacularName": "Heather Ladybird",
+    "vernacularName": "Heather Ladybug",
     "ancestryIds": [
       48460,
       1,
@@ -5754,7 +5754,7 @@
   },
   "126636": {
     "taxonName": "Chilocorus renipustulatus",
-    "vernacularName": "Kidney-spot Ladybird",
+    "vernacularName": "Kidney-spot Ladybug",
     "ancestryIds": [
       48460,
       1,
@@ -6476,7 +6476,7 @@
   },
   "490612": {
     "taxonName": "Coccinella magnifica",
-    "vernacularName": "Scarce Seven-spotted Ladybird Beetle",
+    "vernacularName": "Scarce Seven-spotted Ladybug Beetle",
     "ancestryIds": [
       48460,
       1,
@@ -6496,7 +6496,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Magnificent ladybird, found in Europe",
+      "Magnificent ladybug, found in Europe",
       "Feeds on aphids and other small insects",
       "Often found in association with ants"
     ],
@@ -6540,7 +6540,7 @@
   },
   "349064": {
     "taxonName": "Coccinella transversalis",
-    "vernacularName": "Small Transverse Ladybird Beetle",
+    "vernacularName": "Small Transverse Ladybug Beetle",
     "ancestryIds": [
       48460,
       1,
@@ -6603,7 +6603,7 @@
   },
   "205977": {
     "taxonName": "Coccinella undecimpunctata",
-    "vernacularName": "Eleven-spotted Ladybird Beetle",
+    "vernacularName": "Eleven-spotted Ladybug Beetle",
     "ancestryIds": [
       48460,
       1,
@@ -6770,7 +6770,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Ladybird beetle native to North and South America",
+      "Ladybug beetle native to North and South America",
       "Feeds on aphids, mites, and insect eggs",
       "Used in biological pest control"
     ],
@@ -7983,9 +7983,9 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Ladybird beetle species found in Europe",
+      "Ladybug beetle species found in Europe",
       "Feeds primarily on plants rather than aphids",
-      "Lacks the spots typical of many ladybird species"
+      "Lacks the spots typical of many ladybug species"
     ],
     "distribution": [
       "EU",
@@ -10931,7 +10931,7 @@
   },
   "243968": {
     "taxonName": "Exochomus quadripustulatus",
-    "vernacularName": "Pine Ladybird",
+    "vernacularName": "Pine Ladybug",
     "ancestryIds": [
       48460,
       1,
@@ -10951,7 +10951,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Ladybird beetle species found in Europe and Asia",
+      "Ladybug beetle species found in Europe and Asia",
       "Predator of scale insects and aphids",
       "Has distinctive red spots on a black background"
     ],
@@ -12923,7 +12923,7 @@
   },
   "52881": {
     "taxonName": "Halyzia sedecimguttata",
-    "vernacularName": "Orange Ladybird",
+    "vernacularName": "Orange Ladybug",
     "ancestryIds": [
       48460,
       1,
@@ -12943,7 +12943,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Ladybird beetle species found in Europe",
+      "Ladybug beetle species found in Europe",
       "Recognizable by its orange body with 16 white spots",
       "Feeds primarily on mildew and other fungi"
     ],
@@ -13063,7 +13063,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Invasive ladybird beetle species native to East Asia",
+      "Invasive ladybug beetle species native to East Asia",
       "Used in biological control but has become a pest in many areas",
       "Recognizable by its variable coloration and pattern"
     ],
@@ -13075,7 +13075,7 @@
   },
   "210509": {
     "taxonName": "Harmonia conformis",
-    "vernacularName": "Large Spotted Ladybird",
+    "vernacularName": "Large Spotted Ladybug",
     "ancestryIds": [
       48460,
       1,
@@ -13095,7 +13095,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Ladybird beetle species found in Australia",
+      "Ladybug beetle species found in Australia",
       "Feeds on aphids and other small insects",
       "Recognizable by its orange body with black spots"
     ],
@@ -13106,7 +13106,7 @@
   },
   "131091": {
     "taxonName": "Harmonia quadripunctata",
-    "vernacularName": "Cream-streaked Ladybird",
+    "vernacularName": "Cream-streaked Ladybug",
     "ancestryIds": [
       48460,
       1,
@@ -13126,7 +13126,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Ladybird beetle species found in Europe and Asia",
+      "Ladybug beetle species found in Europe and Asia",
       "Known for its four distinctive black spots on a red background",
       "Feeds on aphids and other small insects"
     ],
@@ -13767,7 +13767,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Ladybird beetle species native to North America",
+      "Ladybug beetle species native to North America",
       "Known as the convergent lady beetle",
       "Important predator of aphids and other agricultural pests"
     ],
@@ -13798,7 +13798,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Ladybird beetle species found in Europe and Asia",
+      "Ladybug beetle species found in Europe and Asia",
       "Has 13 black spots on its red elytra",
       "Feeds on aphids and other small insects"
     ],
@@ -13830,7 +13830,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Ladybird beetle species found in Europe, Asia, and North Africa",
+      "Ladybug beetle species found in Europe, Asia, and North Africa",
       "Variable in coloration and spot patterns",
       "Predator of aphids and other small insects"
     ],
@@ -19711,7 +19711,7 @@
   },
   "318777": {
     "taxonName": "Myrrha octodecimguttata",
-    "vernacularName": "18-spot Ladybird",
+    "vernacularName": "18-spot Ladybug",
     "ancestryIds": [
       48460,
       1,
@@ -20854,7 +20854,7 @@
   },
   "56731": {
     "taxonName": "Oenopia conglobata",
-    "vernacularName": "Poplar Ladybird Beetle",
+    "vernacularName": "Poplar Ladybug Beetle",
     "ancestryIds": [
       48460,
       1,
@@ -20874,7 +20874,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Ladybird beetle species found in Europe and Asia",
+      "Ladybug beetle species found in Europe and Asia",
       "Known for its variable coloration and pattern",
       "Predatory beetle that feeds on aphids and other small insects"
     ],
@@ -20905,7 +20905,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Ladybird beetle species found in Europe",
+      "Ladybug beetle species found in Europe",
       "Recognizable by its distinctive black spots on a yellow or red background",
       "Feeds on aphids and other small insects"
     ],
@@ -24130,7 +24130,7 @@
   },
   "343122": {
     "taxonName": "Platynaspis luteorubra",
-    "vernacularName": "Ant-nest Ladybird",
+    "vernacularName": "Ant-nest Ladybug",
     "ancestryIds": [
       48460,
       1,
@@ -24150,7 +24150,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Ladybird beetle species found in Europe",
+      "Ladybug beetle species found in Europe",
       "Recognizable by its red and black coloration",
       "Predatory beetle that feeds on aphids and other small insects"
     ],
@@ -25561,7 +25561,7 @@
   },
   "51660": {
     "taxonName": "Psyllobora vigintiduopunctata",
-    "vernacularName": "22-spot Ladybird",
+    "vernacularName": "22-spot Ladybug",
     "ancestryIds": [
       48460,
       1,
@@ -28036,7 +28036,7 @@
   },
   "776545": {
     "taxonName": "Sospita vigintiguttata",
-    "vernacularName": "Twenty-spotted Ladybird",
+    "vernacularName": "Twenty-spotted Ladybug",
     "ancestryIds": [
       48460,
       1,
@@ -28966,7 +28966,7 @@
   },
   "61937": {
     "taxonName": "Subcoccinella vigintiquatuorpunctata",
-    "vernacularName": "24-spot Ladybird",
+    "vernacularName": "24-spot Ladybug",
     "ancestryIds": [
       48460,
       1,
@@ -31801,7 +31801,7 @@
     ],
     "rank": "species",
     "taxonFacts": [
-      "Species of ladybird beetle",
+      "Species of ladybug beetle",
       "Found in Europe and Asia",
       "Feeds primarily on mildew fungi"
     ],
