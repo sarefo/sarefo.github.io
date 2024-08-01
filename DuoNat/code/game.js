@@ -54,8 +54,8 @@ const game = {
         this.prepareUIForLoading();
 
         try {
-            logger.debug("Setting up game with newPair:", newPair);
-            logger.debug("Current nextSelectedPair:", this.nextSelectedPair);
+//            logger.debug("Setting up game with newPair:", newPair);
+//            logger.debug("Current nextSelectedPair:", this.nextSelectedPair);
 
             if (newPair || !gameState.currentTaxonImageCollection) {
                 await this.initializeNewPair();

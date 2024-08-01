@@ -444,7 +444,7 @@ const game = {
             }
 
             this.finishSetup();
-            
+
             this.setNamePairHeight();
 
             // Always preload for the next round
@@ -500,9 +500,6 @@ const game = {
             }
         }
 
-        logger.debug("New pair initialized:", newPair);
-        logger.debug("Fetched images:", { imageOneURL, imageTwoURL });
-
         updateGameState({
             currentTaxonImageCollection: {
                 pair: newPair,
@@ -514,8 +511,6 @@ const game = {
                 taxon2: new Set([imageTwoURL])
             }
         });
-
-        logger.debug("Updated gameState:", gameState.currentTaxonImageCollection);
 
         await this.setupRound(true);
     },
@@ -547,27 +542,27 @@ const game = {
 
         await this.loadImages(leftImageSrc, rightImageSrc);
 
-  // Set the observation URLs
-    this.currentObservationURLs.imageOne = this.getObservationURLFromImageURL(leftImageSrc);
-    this.currentObservationURLs.imageTwo = this.getObservationURLFromImageURL(rightImageSrc);
+        // Set the observation URLs
+        this.currentObservationURLs.imageOne = this.getObservationURLFromImageURL(leftImageSrc);
+        this.currentObservationURLs.imageTwo = this.getObservationURLFromImageURL(rightImageSrc);
 
-    const [leftVernacular, rightVernacular] = await Promise.all([
-        utils.capitalizeFirstLetter(await api.fetchVernacular(randomized ? pair.taxon1 : pair.taxon2)),
-        utils.capitalizeFirstLetter(await api.fetchVernacular(randomized ? pair.taxon2 : pair.taxon1))
-    ]);
+        const [leftVernacular, rightVernacular] = await Promise.all([
+            utils.capitalizeFirstLetter(await api.fetchVernacular(randomized ? pair.taxon1 : pair.taxon2)),
+            utils.capitalizeFirstLetter(await api.fetchVernacular(randomized ? pair.taxon2 : pair.taxon1))
+        ]);
 
-    this.setupNameTilesUI(
-        randomized ? pair.taxon1 : pair.taxon2,
-        randomized ? pair.taxon2 : pair.taxon1,
-        leftVernacular,
-        rightVernacular
-    );
+        this.setupNameTilesUI(
+            randomized ? pair.taxon1 : pair.taxon2,
+            randomized ? pair.taxon2 : pair.taxon1,
+            leftVernacular,
+            rightVernacular
+        );
 
-    // Add world maps
-    const leftContinents = await this.getContinentForTaxon(randomized ? pair.taxon1 : pair.taxon2);
-    const rightContinents = await this.getContinentForTaxon(randomized ? pair.taxon2 : pair.taxon1);
-    createWorldMap(elements.imageOneContainer, leftContinents);
-    createWorldMap(elements.imageTwoContainer, rightContinents);
+        // Add world maps
+        const leftContinents = await this.getContinentForTaxon(randomized ? pair.taxon1 : pair.taxon2);
+        const rightContinents = await this.getContinentForTaxon(randomized ? pair.taxon2 : pair.taxon1);
+        createWorldMap(elements.imageOneContainer, leftContinents);
+        createWorldMap(elements.imageTwoContainer, rightContinents);
 
         updateGameState({
             taxonImageOne: randomized ? pair.taxon1 : pair.taxon2,
@@ -587,7 +582,7 @@ const game = {
     async getContinentForTaxon(taxon) {
         const taxonInfo = await api.loadTaxonInfo();
         const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxon.toLowerCase());
-        
+
         if (taxonData && taxonData.distribution && taxonData.distribution.length > 0) {
             // Convert the continent codes to full names
             const continentMap = {
@@ -598,10 +593,10 @@ const game = {
                 'AF': 'Africa',
                 'OC': 'Oceania'
             };
-            
+
             // Convert all continent codes to full names
             const fullContinents = taxonData.distribution.map(code => continentMap[code]);
-            
+
             return fullContinents;
         } else {
             logger.debug(`No distribution data found for ${taxon}. Using placeholder.`);
@@ -926,14 +921,14 @@ const game = {
         leftName.style.height = 'auto';
         rightName.style.height = 'auto';
         namePair.style.height = 'auto';
-        
+
         // Use requestAnimationFrame to ensure the browser has rendered the auto heights
         requestAnimationFrame(() => {
             const maxHeight = Math.max(leftName.offsetHeight, rightName.offsetHeight);
-            
+
             // Set the height of the name-pair container
             namePair.style.height = `${maxHeight}px`;
-            
+
             // Set both name tiles to this height
             leftName.style.height = `${maxHeight}px`;
             rightName.style.height = `${maxHeight}px`;
@@ -1050,7 +1045,7 @@ const game = {
         // Set taxon and vernacular name
         const currentTaxon = this.getCurrentTaxonName(url);
         taxonElement.textContent = currentTaxon;
-// TODO check why api.fetchVernacular() won't work here
+        // TODO check why api.fetchVernacular() won't work here
         api.fetchVernacular(currentTaxon).then(vernacularName => {
             vernacularElement.textContent = vernacularName;
 
@@ -1058,8 +1053,8 @@ const game = {
             api.loadTaxonInfo().then(taxonInfo => {
                 const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === currentTaxon.toLowerCase());
                 if (taxonData && taxonData.taxonFacts && taxonData.taxonFacts.length > 0) {
-                    factsElement.innerHTML = '<h3>Facts:</h3><ul>' + 
-                        taxonData.taxonFacts.map(fact => `<li>${fact}</li>`).join('') + 
+                    factsElement.innerHTML = '<h3>Facts:</h3><ul>' +
+                        taxonData.taxonFacts.map(fact => `<li>${fact}</li>`).join('') +
                         '</ul>';
                     factsElement.style.display = 'block';
                 } else {
@@ -1072,71 +1067,71 @@ const game = {
             });
         });
 
-            photoButton.onclick = () => {
-                window.open(url, '_blank');
+        photoButton.onclick = () => {
+            window.open(url, '_blank');
+            dialog.close();
+        };
+
+        observationButton.onclick = () => {
+            logger.debug("Observation button clicked");
+            // Implement observation functionality here
+        };
+
+        taxonButton.onclick = async () => {
+            logger.debug("Taxon button clicked");
+            try {
+                const taxonName = this.getCurrentTaxonName(url);
+                const taxonId = await api.fetchTaxonId(taxonName);
+                window.open(`https://www.inaturalist.org/taxa/${taxonId}`, '_blank');
                 dialog.close();
-            };
+            } catch (error) {
+                logger.error("Error opening taxon page:", error);
+                alert("Unable to open taxon page. Please try again.");
+            }
+        };
 
-            observationButton.onclick = () => {
-                logger.debug("Observation button clicked");
-                // Implement observation functionality here
-            };
+        hintsButton.onclick = () => {
+            logger.debug("Taxon hints button clicked");
+            // Implement taxon hints functionality here
+        };
 
-            taxonButton.onclick = async () => {
-                logger.debug("Taxon button clicked");
-                try {
-                    const taxonName = this.getCurrentTaxonName(url);
-                    const taxonId = await api.fetchTaxonId(taxonName);
-                    window.open(`https://www.inaturalist.org/taxa/${taxonId}`, '_blank');
-                    dialog.close();
-                } catch (error) {
-                    logger.error("Error opening taxon page:", error);
-                    alert("Unable to open taxon page. Please try again.");
-                }
-            };
-
-            hintsButton.onclick = () => {
-                logger.debug("Taxon hints button clicked");
-                // Implement taxon hints functionality here
-            };
-
-            wikiButton.onclick = () => {
-                logger.debug("Wiki button clicked");
-                try {
-                    const taxonName = this.getCurrentTaxonName(url);
-//                    const taxonId = await api.fetchTaxonId(taxonName);
-                    window.open(`https://en.wikipedia.org/wiki/${taxonName}`, '_blank');
-                    dialog.close();
-                } catch (error) {
-                    logger.error("Error opening taxon page:", error);
-                    alert("Unable to open Wikipedia page. Please try again.");
-                }
-            };
-
-            reportButton.onclick = () => {
-                logger.debug("Report button clicked");
-                // Implement report functionality here
-            };
-
-            closeButton.onclick = () => {
+        wikiButton.onclick = () => {
+            logger.debug("Wiki button clicked");
+            try {
+                const taxonName = this.getCurrentTaxonName(url);
+                //                    const taxonId = await api.fetchTaxonId(taxonName);
+                window.open(`https://en.wikipedia.org/wiki/${taxonName}`, '_blank');
                 dialog.close();
-                document.querySelectorAll('.image-container').forEach(container => {
-                    container.classList.remove('image-container--framed');
-                });
-            };
+            } catch (error) {
+                logger.error("Error opening taxon page:", error);
+                alert("Unable to open Wikipedia page. Please try again.");
+            }
+        };
 
-            dialog.addEventListener('close', () => {
-                // Remove framing from all containers when dialog is closed
-                document.querySelectorAll('.image-container').forEach(container => {
-                    container.classList.remove('image-container--framed');
-                });
+        reportButton.onclick = () => {
+            logger.debug("Report button clicked");
+            // Implement report functionality here
+        };
+
+        closeButton.onclick = () => {
+            dialog.close();
+            document.querySelectorAll('.image-container').forEach(container => {
+                container.classList.remove('image-container--framed');
             });
+        };
 
-            dialog.showModal();
+        dialog.addEventListener('close', () => {
+            // Remove framing from all containers when dialog is closed
+            document.querySelectorAll('.image-container').forEach(container => {
+                container.classList.remove('image-container--framed');
+            });
+        });
+
+        dialog.showModal();
         // Reposition on window resize
         window.addEventListener('resize', positionDialog);
 
-        },
+    },
 
     getCurrentTaxonName(url) {
         if (url === this.currentObservationURLs.imageOne) {
@@ -1268,7 +1263,7 @@ async function getCachedVernacularName(taxonName) {
 const ui = {
     isMenuOpen: false,
 
-    resetUIState: function() {
+    resetUIState: function () {
         this.closeMainMenu();
         // Add any other UI state resets here if needed
     },
@@ -1301,7 +1296,7 @@ const ui = {
             const selectedTags = tagCloud.getSelectedTags();
             let filteredPairs = taxonPairs;
             if (selectedTags.length > 0) {
-                filteredPairs = taxonPairs.filter(pair => 
+                filteredPairs = taxonPairs.filter(pair =>
                     pair.tags.some(tag => selectedTags.includes(tag))
                 );
             }
@@ -1315,7 +1310,7 @@ const ui = {
         }
     },
 
-    renderTaxonPairList: async function(pairs) {
+    renderTaxonPairList: async function (pairs) {
         const list = document.getElementById('taxon-pair-list');
         list.innerHTML = ''; // Clear existing content
 
@@ -1332,7 +1327,7 @@ const ui = {
         }
     },
 
-    renderVisibleTaxonPairs: async function(pairs) {
+    renderVisibleTaxonPairs: async function (pairs) {
         const list = document.getElementById('taxon-pair-list');
         const visiblePairs = pairs.slice(0, 20); // Render first 20 pairs
 
@@ -1350,7 +1345,7 @@ const ui = {
         }
     },
 
-    loadMorePairs: async function(pairs, startIndex) {
+    loadMorePairs: async function (pairs, startIndex) {
         const list = document.getElementById('taxon-pair-list');
         const nextPairs = pairs.slice(startIndex, startIndex + 20);
 
@@ -1366,10 +1361,10 @@ const ui = {
         }
     },
 
-    updateTaxonPairList: async function(filteredPairs) {
+    updateTaxonPairList: async function (filteredPairs) {
         const list = document.getElementById('taxon-pair-list');
         list.innerHTML = ''; // Clear existing content
-        
+
         if (filteredPairs.length === 0) {
             const noResultsMessage = document.createElement('p');
             noResultsMessage.textContent = 'No matching pairs found.';
@@ -1383,7 +1378,7 @@ const ui = {
         }
     },
 
-    createTaxonPairButton: async function(pair) {
+    createTaxonPairButton: async function (pair) {
         const button = document.createElement('button');
         button.className = 'taxon-set-button';
 
@@ -1419,10 +1414,10 @@ const ui = {
                 tags: [...pair.tags],
                 setID: pair.setID
             };
-            
+
             game.nextSelectedPair = selectedPair;
             logger.debug('Selected pair:', selectedPair);
-            
+
             setTimeout(() => {
                 dialogManager.closeDialog('select-pair-dialog');
                 game.setupGame(true);
@@ -1432,7 +1427,7 @@ const ui = {
         return button;
     },
 
-    updateVernacularNames: async function(button, pair) {
+    updateVernacularNames: async function (button, pair) {
         const vernacular1 = await getCachedVernacularName(pair.taxon1);
         const vernacular2 = await getCachedVernacularName(pair.taxon2);
 
@@ -1509,8 +1504,8 @@ const ui = {
             { message: "You'll see two images of different taxa.", highlights: ['#image-container-1', '#image-container-2'], duration: 5000 },
             { message: "Drag a name to the correct image.", highlight: '.name-pair', duration: 5000 },
             { message: "If correct, you'll move to the next round.", highlight: null, duration: 4000 },
-            { 
-                message: "Swipe left on an image for a new taxon set.", 
+            {
+                message: "Swipe left on an image for a new taxon set.",
                 highlight: null,
                 action: () => { this.tiltGameContainer(3200); },
                 duration: 6000
@@ -1555,23 +1550,23 @@ const ui = {
 
         // Close the help dialog before starting the tutorial
         document.getElementById('help-dialog').close();
-        
+
         // Show the overlay at the start of the tutorial
         this.showOverlay("", config.overlayColors.green);
-        
+
         // Start the tutorial
         showStep();
     },
 
-    temporarilyOpenMenu: function(duration) {
-      this.toggleMainMenu(); // Open the menu
-      setTimeout(() => {
-        this.closeMainMenu(); // Close the menu after the specified duration
-      }, duration);
+    temporarilyOpenMenu: function (duration) {
+        this.toggleMainMenu(); // Open the menu
+        setTimeout(() => {
+            this.closeMainMenu(); // Close the menu after the specified duration
+        }, duration);
     },
 
     // for tutorial demo
-    tiltGameContainer: function(duration = 3200) {
+    tiltGameContainer: function (duration = 3200) {
         const gameContainer = document.querySelector('.game-container');
         const midpoint = duration / 2;
 
@@ -1664,11 +1659,11 @@ const ui = {
     },
 
     // main menu code:
-    initializeMainMenu: function() {
+    initializeMainMenu: function () {
         const menuToggle = document.getElementById('menu-toggle');
         if (menuToggle) {
             menuToggle.addEventListener('click', (event) => {
-//                logger.debug('Menu toggle button or its child clicked');
+                //                logger.debug('Menu toggle button or its child clicked');
                 event.stopPropagation();
                 this.toggleMainMenu();
             });
@@ -1677,7 +1672,7 @@ const ui = {
         }
 
         window.addEventListener('resize', this.positionBottomGroup.bind(this));
-        
+
         // Call once to set initial position
         this.positionBottomGroup();
 
@@ -1689,7 +1684,7 @@ const ui = {
         });
     },
 
-    toggleMainMenu: function() {
+    toggleMainMenu: function () {
         this.isMenuOpen = !this.isMenuOpen;
 
         const topGroup = document.querySelector('.main-menu__dropdown--top');
@@ -1698,7 +1693,7 @@ const ui = {
         if (topGroup && bottomGroup) {
             topGroup.classList.toggle('show');
             bottomGroup.classList.toggle('show');
-//            logger.debug("Show classes toggled");
+            //            logger.debug("Show classes toggled");
 
             if (this.isMenuOpen) {
                 this.positionBottomGroup();
@@ -1708,10 +1703,10 @@ const ui = {
         }
     },
 
-    positionBottomGroup: function() {
+    positionBottomGroup: function () {
         const bottomGroup = document.querySelector('.main-menu__dropdown--bottom');
         const lowerImageContainer = document.querySelector('#image-container-2');
-        
+
         if (bottomGroup && lowerImageContainer) {
             const rect = lowerImageContainer.getBoundingClientRect();
             bottomGroup.style.top = `${rect.top}px`;
@@ -1719,7 +1714,7 @@ const ui = {
         }
     },
 
-    closeMainMenu: function() {
+    closeMainMenu: function () {
         if (this.isMenuOpen) {
             const topGroup = document.querySelector('.main-menu__dropdown--top');
             const bottomGroup = document.querySelector('.main-menu__dropdown--bottom');
@@ -1769,7 +1764,7 @@ const utils = {
         const taxon1 = params.get('taxon1');
         const taxon2 = params.get('taxon2');
         const tags = params.get('tags');
-        
+
         return { taxon1, taxon2, tags };
     },
 
@@ -1810,7 +1805,7 @@ const utils = {
             if (observationsWithSounds.length > 0) {
                 // Choose a random observation
                 const randomObservation = observationsWithSounds[Math.floor(Math.random() * observationsWithSounds.length)];
-                
+
                 // Extract the sound URL
                 const soundUrl = randomObservation.sounds[0].file_url;
 
@@ -1850,8 +1845,8 @@ const utils = {
         // If it's not mobile and not a tablet, assume it has a keyboard
         const result = !isMobile && !isTablet;
 
-//        logger.debug(`hasKeyboard detected: ${result}`);
-//        logger.debug(`UserAgent: ${navigator.userAgent}`);
+        //        logger.debug(`hasKeyboard detected: ${result}`);
+        //        logger.debug(`UserAgent: ${navigator.userAgent}`);
 
         return result;
     },
@@ -1917,7 +1912,7 @@ const utils = {
         let filteredPairs = taxonPairs;
 
         if (gameState.selectedTags.length > 0) {
-            filteredPairs = taxonPairs.filter(pair => 
+            filteredPairs = taxonPairs.filter(pair =>
                 pair.tags.some(tag => gameState.selectedTags.includes(tag))
             );
         }
@@ -1933,193 +1928,6 @@ const utils = {
 }; // const utils
 
 export default utils;
-
-
-
-# code/tagCloud.js
-
-import api from './api.js';
-import dialogManager from './dialogManager.js';
-import { gameState, updateGameState } from './state.js';
-import preloader from './preloader.js';
-import ui from './ui.js';
-import logger from './logger.js';
-
-const tagCloud = {
-    selectedTags: new Set(),
-    eventListeners: {},
-
-    on(eventName, callback) {
-        if (!this.eventListeners[eventName]) {
-            this.eventListeners[eventName] = [];
-        }
-        this.eventListeners[eventName].push(callback);
-    },
-
-    emit(eventName, data) {
-        if (this.eventListeners[eventName]) {
-            this.eventListeners[eventName].forEach(callback => callback(data));
-        }
-    },
-
-    async initialize() {
-        const selectTagsButton = document.getElementById('select-tags-button');
-        const tagCloudDialog = document.getElementById('tag-cloud-dialog');
-        const doneButton = document.getElementById('tag-cloud-done-button');
-
-        selectTagsButton.addEventListener('click', () => this.openTagCloud());
-        doneButton.addEventListener('click', () => this.closeTagCloud());
-
-        // Close button functionality
-        const closeButton = tagCloudDialog.querySelector('.dialog-close-button');
-        closeButton.addEventListener('click', () => this.closeTagCloud());
-    
-        const clearAllTagsButton = document.getElementById('clear-all-tags');
-        clearAllTagsButton.addEventListener('click', () => this.clearAllTags());
-        
-        // Update active tags when the tag cloud is opened or closed
-        this.on('tagCloudOpened', () => this.updateActiveTags());
-        this.on('tagCloudClosed', () => this.updateActiveTags());
-    },
-
-    async openTagCloud() {
-        const tagCounts = await this.getTagCounts();
-        this.renderTagCloud(tagCounts);
-        dialogManager.openDialog('tag-cloud-dialog');
-        this.emit('tagCloudOpened');
-    },
-
-    closeTagCloud() {
-        dialogManager.closeDialog('tag-cloud-dialog');
-        this.updateTaxonList();
-        preloader.preloadNewPairWithTags(gameState.selectedTags);
-        this.emit('tagCloudClosed');
-    },
-
-    updateTaxonList() {
-        const selectedTags = this.getSelectedTags();
-        
-        api.fetchTaxonPairs().then(taxonPairs => {
-            let filteredPairs = taxonPairs;
-            
-            if (selectedTags.length > 0) {
-                filteredPairs = taxonPairs.filter(pair => 
-                    pair.tags.some(tag => selectedTags.includes(tag))
-                );
-            }
-            
-            // Update the UI with the filtered pairs
-            ui.renderTaxonPairList(filteredPairs);
-        });
-    },
-    async getTagCounts() {
-        const taxonPairs = await api.fetchTaxonPairs();
-        const tagCounts = {};
-        taxonPairs.forEach(pair => {
-            pair.tags.forEach(tag => {
-                tagCounts[tag] = (tagCounts[tag] || 0) + 1;
-            });
-        });
-        return tagCounts;
-    },
-
-    async updateMatchingPairsCount() {
-        const taxonPairs = await api.fetchTaxonPairs();
-        const selectedTags = Array.from(this.selectedTags);
-        const matchingPairs = taxonPairs.filter(pair => 
-            pair.tags.some(tag => selectedTags.includes(tag))
-        );
-        
-        const countElement = document.getElementById('matching-pairs-count');
-        if (countElement) {
-            countElement.textContent = `Matching pairs: ${matchingPairs.length}`;
-        }
-    },
-
-    renderTagCloud(tagCounts) {
-        const container = document.getElementById('tag-cloud-container');
-        container.innerHTML = '';
-        const maxCount = Math.max(...Object.values(tagCounts));
-        
-        Object.entries(tagCounts).forEach(([tag, count]) => {
-            const size = 14 + (count / maxCount) * 24; // Font size between 14px and 38px
-            const tagElement = document.createElement('span');
-            tagElement.textContent = tag;
-            tagElement.className = 'tag-cloud-item';
-            tagElement.style.fontSize = `${size}px`;
-            if (this.selectedTags.has(tag)) {
-                tagElement.classList.add('active');
-            }
-            tagElement.addEventListener('click', () => this.toggleTag(tagElement, tag));
-            container.appendChild(tagElement);
-        });
-    },
-
-    toggleTag(element, tag) {
-        element.classList.toggle('active');
-        let newSelectedTags;
-        if (this.selectedTags.has(tag)) {
-            this.selectedTags.delete(tag);
-            newSelectedTags = Array.from(this.selectedTags);
-        } else {
-            this.selectedTags.add(tag);
-            newSelectedTags = Array.from(this.selectedTags);
-        }
-        updateGameState({ selectedTags: newSelectedTags });
-        this.updateMatchingPairsCount();
-        this.updateActiveTags();
-    },
-
-    getSelectedTags() {
-        return Array.from(this.selectedTags);
-    },
-
-    setSelectedTags(tags) {
-        this.selectedTags = new Set(tags);
-        updateGameState({ selectedTags: this.getSelectedTags() });
-        this.updateActiveTags();
-        this.updateTaxonList();
-        logger.debug("Setting selected tags");
-        // Trigger preloading of a new pair based on the selected tags
-        preloader.preloadNewPairWithTags(this.getSelectedTags());
-    },
-    clearTags() {
-        this.selectedTags.clear();
-        updateGameState({ selectedTags: [] });
-        this.renderTagCloud(this.getTagCounts());
-        this.updateMatchingPairsCount();
-    },
-
-    clearAllTags() {
-        this.selectedTags.clear();
-        updateGameState({ selectedTags: [] });
-        this.updateActiveTags();
-        
-        this.updateTaxonList();
-        
-        // Trigger preloading of a random pair from all available pairs
-        preloader.preloadNewPairWithTags([]);
-    },
-
-    updateActiveTags() {
-        const activeTagsContainer = document.getElementById('active-tags');
-        activeTagsContainer.innerHTML = '';
-        
-        this.selectedTags.forEach(tag => {
-            const tagElement = document.createElement('span');
-            tagElement.className = 'active-tag';
-            tagElement.textContent = tag;
-            activeTagsContainer.appendChild(tagElement);
-        });
-        
-        // Show or hide the container based on whether there are active tags
-        const container = document.getElementById('active-tags-container');
-        container.style.display = this.selectedTags.size > 0 ? 'flex' : 'none';
-    },
-
-};
-
-export default tagCloud;
 
 
 
@@ -2143,7 +1951,7 @@ const dialogManager = {
             dialog.showModal();
             this.openDialogs.add(dialogId);
             this.activeDialog = dialog;
-            
+
             // Add event listener to handle keyboard events
             dialog.addEventListener('keydown', this.handleDialogKeydown);
         }
@@ -2155,7 +1963,7 @@ const dialogManager = {
             dialog.close();
             this.openDialogs.delete(dialogId);
             this.activeDialog = null;
-            
+
             // Remove event listener
             dialog.removeEventListener('keydown', this.handleDialogKeydown);
         }
@@ -2174,7 +1982,7 @@ const dialogManager = {
         if (event.target.tagName.toLowerCase() === 'input') {
             return;
         }
-        
+
         // Prevent propagation for other elements
         event.stopPropagation();
     },
@@ -2183,61 +1991,61 @@ const dialogManager = {
         this.openDialogs.forEach(dialogId => this.closeDialog(dialogId));
     },
 
-/*
-    openDialog(dialogId) {
-        ui.closeMainMenu();
-        const dialog = document.getElementById(dialogId);
-        if (!dialog) {
-            console.error(`Dialog with id ${dialogId} not found`);
-            return;
-        }
-
-        this.disableMainEventHandlers();
-
-        if (dialog instanceof HTMLElement) {
-            if (dialog.tagName.toLowerCase() === 'dialog') {
-                dialog.showModal();
-            } else {
-                dialog.classList.remove('hidden');
-                if (dialogId === 'phylogeny-dialog') {
-                    dialog.style.display = 'flex';
-                }
+    /*
+        openDialog(dialogId) {
+            ui.closeMainMenu();
+            const dialog = document.getElementById(dialogId);
+            if (!dialog) {
+                console.error(`Dialog with id ${dialogId} not found`);
+                return;
             }
-        }
-        this.activeDialog = dialog;
-
-        document.addEventListener('keydown', this.handleEscapeKey.bind(this));
-        if (dialog instanceof HTMLElement) {
-            dialog.addEventListener('close', () => this.handleDialogClose(dialog));
-            const closeButton = dialog.querySelector('.dialog-close-button');
-            if (closeButton) {
-                closeButton.addEventListener('click', () => this.closeDialog());
-            }
-        }
-    },
-
-    closeDialog() {
-        if (this.activeDialog) {
-            const dialog = this.activeDialog;
-            this.activeDialog = null;
-
+    
+            this.disableMainEventHandlers();
+    
             if (dialog instanceof HTMLElement) {
                 if (dialog.tagName.toLowerCase() === 'dialog') {
-                    dialog.close();
+                    dialog.showModal();
                 } else {
-                    dialog.classList.add('hidden');
-                }
-
-                if (dialog.id === 'phylogeny-dialog') {
-                    dialog.style.display = 'none';
+                    dialog.classList.remove('hidden');
+                    if (dialogId === 'phylogeny-dialog') {
+                        dialog.style.display = 'flex';
+                    }
                 }
             }
-            this.handleDialogClose(dialog);
-            
-            this.emit('dialogClose', dialog.id);
-        }
-    },
-*/
+            this.activeDialog = dialog;
+    
+            document.addEventListener('keydown', this.handleEscapeKey.bind(this));
+            if (dialog instanceof HTMLElement) {
+                dialog.addEventListener('close', () => this.handleDialogClose(dialog));
+                const closeButton = dialog.querySelector('.dialog-close-button');
+                if (closeButton) {
+                    closeButton.addEventListener('click', () => this.closeDialog());
+                }
+            }
+        },
+    
+        closeDialog() {
+            if (this.activeDialog) {
+                const dialog = this.activeDialog;
+                this.activeDialog = null;
+    
+                if (dialog instanceof HTMLElement) {
+                    if (dialog.tagName.toLowerCase() === 'dialog') {
+                        dialog.close();
+                    } else {
+                        dialog.classList.add('hidden');
+                    }
+    
+                    if (dialog.id === 'phylogeny-dialog') {
+                        dialog.style.display = 'none';
+                    }
+                }
+                this.handleDialogClose(dialog);
+                
+                this.emit('dialogClose', dialog.id);
+            }
+        },
+    */
     handleDialogClose(dialog) {
         if (!dialog) {
             logger.warn('handleDialogClose called with no dialog');
@@ -2284,7 +2092,7 @@ const dialogManager = {
         } else {
             logger.debug(`No listeners for event: ${eventName}`);
         }
-    }, 
+    },
 
     handleDialogClose(dialog) {
         if (!dialog) {
@@ -2513,7 +2321,7 @@ const handleApiError = (error, context) => {
 const api = (() => {
     return {
 
-        loadTaxonInfo: async function() {
+        loadTaxonInfo: async function () {
             try {
                 if (taxonInfo === null) {
                     const response = await fetch('./data/taxonInfo.json');
@@ -2528,36 +2336,36 @@ const api = (() => {
             }
         },
 
-   /*     getVernacularName: async function(taxonName) {
+        /*     getVernacularName: async function(taxonName) {
+                 try {
+                     const taxonInfo = await this.loadTaxonInfo();
+                     const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxonName.toLowerCase());
+                     return taxonData ? utils.capitalizeFirstLetter(taxonData.vernacularName) : '';
+                 } catch (error) {
+                     handleApiError(error, 'getVernacularName');
+                 }
+             },
+     */
+        // fetch from JSON file
+        fetchTaxonPairs: async function () {
             try {
-                const taxonInfo = await this.loadTaxonInfo();
-                const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxonName.toLowerCase());
-                return taxonData ? utils.capitalizeFirstLetter(taxonData.vernacularName) : '';
+                const response = await fetch('./data/taxonSets.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const taxonSets = await response.json();
+                // Convert the new format to an expanded version of the old format
+                return taxonSets.map(set => ({
+                    taxon1: set.taxonNames[0],
+                    taxon2: set.taxonNames[1],
+                    setName: set.setName,
+                    tags: set.tags,
+                    setID: set.setID
+                }));
             } catch (error) {
-                handleApiError(error, 'getVernacularName');
+                handleApiError(error, 'fetchTaxonPairs');
             }
         },
-*/
-        // fetch from JSON file
-    fetchTaxonPairs: async function () {
-        try {
-            const response = await fetch('./data/taxonSets.json');
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const taxonSets = await response.json();
-            // Convert the new format to an expanded version of the old format
-            return taxonSets.map(set => ({
-                taxon1: set.taxonNames[0],
-                taxon2: set.taxonNames[1],
-                setName: set.setName,
-                tags: set.tags,
-                setID: set.setID
-            }));
-        } catch (error) {
-            handleApiError(error, 'fetchTaxonPairs');
-        }
-    },
 
         // for user input of new taxon pairs
         validateTaxon: async function (taxonName) {
@@ -2589,7 +2397,7 @@ const api = (() => {
         },
 
         fetchImageMetadata: async function (taxonName, count = 12) {
-//            logger.debug(`Fetching metadata for ${count} images of ${taxonName}`);
+            //            logger.debug(`Fetching metadata for ${count} images of ${taxonName}`);
             try {
                 const searchResponse = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${taxonName}`);
                 const searchData = await searchResponse.json();
@@ -2604,7 +2412,7 @@ const api = (() => {
                 let images = taxon.taxon_photos.map(photo => photo.photo.url.replace('square', 'medium'));
 
                 const result = images.slice(0, Math.min(count, images.length));
-//                logger.debug(`Fetched metadata for ${result.length} images of ${taxonName}`);
+                //                logger.debug(`Fetched metadata for ${result.length} images of ${taxonName}`);
                 return result;
             } catch (error) {
                 logger.error(`Error fetching image metadata for ${taxonName}:`, error);
@@ -2613,7 +2421,7 @@ const api = (() => {
         },
 
         fetchRandomImageMetadata: async function (taxonName) {
-//            logger.debug(`Fetching random image metadata for ${taxonName}`);
+            //            logger.debug(`Fetching random image metadata for ${taxonName}`);
             const images = await this.fetchImageMetadata(taxonName, 12); // Fetch metadata for 12 images
             if (images.length === 0) {
                 logger.error(`No image metadata found for ${taxonName}`);
@@ -2621,7 +2429,7 @@ const api = (() => {
             }
             const randomIndex = Math.floor(Math.random() * images.length);
             const result = images[randomIndex];
-//            logger.debug(`Selected random image metadata for ${taxonName}: ${result}`);
+            //            logger.debug(`Selected random image metadata for ${taxonName}: ${result}`);
             return result;
         },
 
@@ -2654,10 +2462,10 @@ const api = (() => {
         // fetch vernacular name of taxon from local file or iNat
         fetchVernacular: async function (taxonName) {
             const taxonInfo = await this.loadTaxonInfo();
-            
+
             // Find the entry with matching taxonName
             const entry = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxonName.toLowerCase());
-            
+
             if (entry) {
                 // Return the vernacularName even if it's an empty string
                 return entry.vernacularName;
@@ -2725,7 +2533,7 @@ const api = (() => {
             }
         },
 
-        loadAncestryInfo: async function() {
+        loadAncestryInfo: async function () {
             try {
                 if (ancestryInfo === null) {
                     const response = await fetch('./data/ancestryInfo.json');
@@ -2803,238 +2611,1697 @@ export default config;
 
 
 
-# code/functions.js
+# styles/base.css
 
-import api from './api.js';
-import config from './config.js';
-import dialogManager from './dialogManager.js';
-import { elements, gameState } from './state.js';
-import eventHandlers from './eventHandlers.js';
-import game from './game.js';
-import logger, { LogLevel } from './logger.js';
-import tagCloud from './tagCloud.js';
-import tooltipManager from './tooltipManager.js';
-import ui from './ui.js';
-import utils from './utils.js';
+/* Mostly styles for main page */
 
-(function () {
+/* CSS reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    // Set the log level based on your config
-    logger.setLevel(config.debug ? LogLevel.DEBUG : LogLevel.INFO);
-    document.getElementById('version-id').innerHTML = `Version: <i>${document.lastModified}</i>`;
+/* Custom properties */
+:root {
+    --primary-color: #74ac00; /* iNat green rgb(116, 172, 0) */
+    --primary-counter-color: #ac0028; /* red rgb(172, 0, 40) */
+    --light-green: rgba(116, 172, 0, 0.1);
+    --dark-neutral-color: #444;
+    --background-color: #ffffff;
+    --text-color: #ffffff;
+    --counter-text-color: #444;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --overlay-color: rgba(0, 0, 0, 0.3);
 
-    function initializeApp() {
-        logger.info("Initializing app");
+    --normal-font-size: 18px;
+    --border-radius: 8px;
+    --max-image-width: 500px;
+    --transition-speed: 0.3s;
+    /* images wobble when <80px */
+    --center-min-height: 80px; /* consider relative to screen */
+}
 
-        // Check for URL parameters
-        const urlParams = utils.getURLParameters();
-        if (urlParams.taxon1 && urlParams.taxon2) {
-            logger.debug("Taxon parameters found:", urlParams);
-            game.nextSelectedPair = {
-                taxon1: urlParams.taxon1,
-                taxon2: urlParams.taxon2
-            };
-        }
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    box-sizing: border-box;
+    font-family: 'Open Sans', Arial, sans-serif;
+    background-color: var(--light-green);
+}
 
-        // Handle tags from URL
-        if (urlParams.tags) {
-            const tags = urlParams.tags.split(',');
-            tagCloud.setSelectedTags(tags);
-            logger.debug("Tags from URL:", tags);
-        }
+body * {
+    text-align: center;
+} /* percolate to child elements */
 
-        dialogManager.initializeDialogs();
-        game.setupGame(true);
-        eventHandlers.initialize();
-        ui.initialize();
-        tagCloud.initialize();
-        // tooltipManager.init(); /* need to remove bugs first */
-        logger.info("App initialization complete");
+/* Other general styles */
 
-        // Example of changing log level at runtime
-        // Uncomment this line to test changing log level
-        // logger.changeLogLevel(LogLevel.WARN);
+button {
+    outline: none;
+    box-shadow: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* remove black border when active */
+.no-outline {
+    outline: none;
+    box-shadow: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.game-container {
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    padding: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+    transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+/* Styles common to all main containers */
+.image-container,
+.name-pair,
+#overlay {
+    width: 98vw;
+    max-width: var(--max-image-width);
+}
+
+/* Animation keyframes etc. */
+@keyframes dropAnimation {
+    0% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.drop-animation {
+    animation: dropAnimation 0.3s ease-out forwards;
+}
+
+@keyframes swipeOutLeft {
+    to {
+        transform: rotate(-5deg) translateX(-100%);
+        opacity: 0;
+    }
+}
+
+.swipe-out-left {
+    animation: swipeOutLeft 0.5s ease-out forwards;
+}
+
+.swipe-info-message {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    color: var(--dark-neutral-color);
+    height: fit-content;
+    width: auto;
+    max-width: 80%;
+    padding: 6px 15px;
+    border-radius: 15px;
+    font-size: larger;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+
+
+
+# styles/components.css
+
+
+
+
+
+# styles/main.css
+
+@import 'base.css';
+@import 'components/loading.css';
+@import 'components/menu.css';
+@import 'components/buttons.css';
+@import 'components/dialogs.css';
+
+@import 'layout/image-container.css';
+@import 'layout/name-pair.css';
+
+@import 'components/tooltips.css';
+
+/*
+@import 'components/forms.css';
+@import 'components/icons.css';
+*/
+
+
+
+# styles/components/buttons.css
+
+/* For icons in general */
+.icon {
+  width: 24px;
+  height: 24px;
+  fill: var(--dark-neutral-color);
+  transition: transform 0.2s ease, fill 0.2s ease;
+}
+
+.icon:hover, .icon-button:hover {
+  transform: scale(1.1);
+}
+
+.icon:active, .icon-button:active {
+  transform: scale(0.95);
+}
+
+/* For buttons containing icons */
+.icon-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  transition: background-color var(--transition-speed) ease, transform 0.2s ease;
+}
+
+.icon-button:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+
+#help-button {
+    position: fixed;
+    top: 10px;
+    right: 60px;
+    z-index: 1000;
+}
+
+#like-button {
+    fill: var(--primary-color);
+}
+#trash-button {
+    fill: var(--primary-counter-color);
+}
+
+/* Styles for image button containers */
+
+.image-container__buttons {
+    position: absolute;
+    left: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#image-buttons-1,
+#image-buttons-2 {
+    bottom: 10px;
+}
+
+.image-container__button {
+    margin-bottom: 10px;
+    width: 36px;
+    height: 36px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .image-container__button {
+        width: 32px;
+        height: 32px;
     }
 
-    // Expose initializeApp to the global scope
-    window.initializeApp = initializeApp;
-
-    // Call initialization function
-    window.addEventListener('DOMContentLoaded', (event) => {
-        window.initializeApp();
-    });
-})();
+    .image-container__button-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
 
 
 
 
-# code/preloader.js
+# styles/components/dialogs.css
 
-import api from './api.js';
-import { gameState, updateGameState } from './state.js';
-import logger from './logger.js';
-import utils from './utils.js';
+/* Generic dialog style */
 
-const preloader = {
-  preloadedImages: {
-    nextRound: { taxon1: null, taxon2: null },
-    nextPair: { taxon1: null, taxon2: null, pair: null }
-  },
+dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+}
 
-  async preloadImage(url) {
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-      img.onload = () => resolve(url);
-      img.onerror = () => reject(new Error(`Failed to load image: ${url}`));
-      img.src = url;
-    });
-  },
+.standard-dialog {
+    background-color: white;
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    width: 95%;
+    max-width: 500px;
+    max-height: 95vh;
+    padding: 40px 20px 20px;
+z-index: 5000; /* debug */
+}
 
-    async preloadForNextRound() {
-        const { pair, imageOneURL, imageTwoURL } = gameState.currentTaxonImageCollection;
-        const [newImageOneURL, newImageTwoURL] = await Promise.all([
-            this.fetchDifferentImage(pair.taxon1, imageOneURL),
-            this.fetchDifferentImage(pair.taxon2, imageTwoURL)
-        ]);
-        
-        await Promise.all([
-            this.preloadImage(newImageOneURL),
-            this.preloadImage(newImageTwoURL)
-        ]);
+.dialog-title {
+    color: var(--primary-counter-color);
+    text-align: center;
+    margin: 0 0 20px 0;
+    font-size: 1.5em;
+}
 
-        this.preloadedImages.nextRound = { taxon1: newImageOneURL, taxon2: newImageTwoURL };
-        logger.debug("Preloaded images for next round");
-    },
+.dialog-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    font-size: 2em;
+    color: var(--primary-counter-color);                
+    outline: none;
+    border: none;
+    box-shadow: none;
+    -webkit-tap-highlight-color: transparent; /* Removes tap highlight on iOS */
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    border-radius: 50%;
+    z-index: 10;
+}
 
-    async fetchDifferentImage(taxonName, currentImageURL) {
-        const images = await api.fetchMultipleImages(taxonName, 12);
-        let usedImages;
+/*.dialog-close-button:focus-visible {
+    background-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 0 2px var(--primary-counter-color);
+}*/
 
-        if (gameState.currentTaxonImageCollection) {
-            const taxonKey = taxonName === gameState.currentTaxonImageCollection.pair.taxon1 ? 'taxon1' : 'taxon2';
-            usedImages = gameState.usedImages[taxonKey];
-        } else {
-            usedImages = new Set();
-        }
-        
-        // Filter out the current image and any previously used images
-        let availableImages = images.filter(img => !usedImages.has(img) && img !== currentImageURL);
-        
-        // If we've used all images, reset the used images but still avoid the current image
-        if (availableImages.length === 0) {
-            logger.warn(`All images for ${taxonName} have been used. Resetting used images.`);
-            usedImages = new Set(currentImageURL ? [currentImageURL] : []);
-            availableImages = images.filter(img => img !== currentImageURL);
-        }
-        
-        if (availableImages.length > 0) {
-            const selectedImage = availableImages[Math.floor(Math.random() * availableImages.length)];
-            usedImages.add(selectedImage);
-            if (gameState.currentTaxonImageCollection) {
-                const taxonKey = taxonName === gameState.currentTaxonImageCollection.pair.taxon1 ? 'taxon1' : 'taxon2';
-                updateGameState({ 
-                    usedImages: { 
-                        ...gameState.usedImages, 
-                        [taxonKey]: usedImages 
-                    } 
-                });
-            }
-            return selectedImage;
-        } else {
-            // This should rarely happen, but just in case
-            logger.error(`No available images found for ${taxonName}. Using current image.`);
-            return currentImageURL || images[0]; // Return the first image if no current image
-        }
-    },
+/* Hover styles */
+.dialog-close-button:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
 
-    async preloadForNextPair() {
-        logger.debug("Starting preload for next pair");
-        if (this.preloadedImages.nextPair.pair) {
-            logger.debug("Skipping preload for next pair as one is already available");
-            return;
-        }
+/* Active styles */
+.dialog-close-button:active {
+    background-color: rgba(0, 0, 0, 0.2);
+}
 
-        try {
-            const newPair = await utils.selectTaxonPair();
-            logger.debug("Selected new pair for preloading:", newPair);
+.dialog-close-button svg {
+    stroke: var(--primary-counter-color);
+}
 
-            const [imageOneURL, imageTwoURL] = await Promise.all([
-                this.fetchDifferentImage(newPair.taxon1, null),
-                this.fetchDifferentImage(newPair.taxon2, null)
-            ]);
-            
-            await Promise.all([
-                this.preloadImage(imageOneURL),
-                this.preloadImage(imageTwoURL)
-            ]);
+/* Styles for button column on left main screen */
 
-            this.preloadedImages.nextPair = { 
-                pair: newPair,
-                taxon1: imageOneURL, 
-                taxon2: imageTwoURL 
-            };
-            logger.debug(`Preloaded images for next pair: ${newPair.taxon1} / ${newPair.taxon2}`);
-        } catch (error) {
-            logger.error("Error preloading next pair:", error);
-        }
-    },
+/* Styles for enter pair dialog */
+#enter-pair-dialog {
+    position: relative;
+    border-radius: var(--border-radius);
+    border: none;
+    box-shadow: 0 0 10px var(--shadow-color);
+    padding: 40px 20px 20px;
+    max-width: 400px;
+    width: 80%;
+}
+#enter-pair-dialog form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+#enter-pair-dialog label {
+    display: inline-block;
+    width: 80px;
+    text-align: right;
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 1.2em; /*var(--normal-font-size);*/
+    color: var(--counter-text-color);
+}
+#enter-pair-dialog input {
+    width: calc(100% - 90px);
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: var(--normal-font-size);
+    color: var(--counter-text-color);
+}
+#enter-pair-dialog #submit-dialog {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: var(--normal-font-size);
+    font-weight: bold;
+    transition: background-color var(--transition-speed) ease;
+}
+#enter-pair-dialog button:hover {
+    background-color: #5c8a00;
+}
 
-  getPreloadedImagesForNextRound() {
-    const images = this.preloadedImages.nextRound;
-    this.preloadedImages.nextRound = { taxon1: null, taxon2: null };
-    return images;
-  },
+#dialog-message {
+    color: var(--counter-text-color);
+    font-style: italic;
+    margin-top: 10px;
+}
+.dialog-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
 
-  getPreloadedImagesForNextPair() {
-    const images = this.preloadedImages.nextPair;
-    this.preloadedImages.nextPair = { taxon1: null, taxon2: null, pair: null };
-    return images;
-  },
+/* Styles for select taxon pair list dialog */
+#select-pair-dialog {
+    width: 95%;
+    max-width: var(--max-image-width);
+    height: 90vh;
+    max-height: 90vh;
+    padding: 10px;
+}
 
-  hasPreloadedPair() {
-    return !!this.preloadedImages.nextPair.pair;
-  },
+#select-pair-dialog .dialog-inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-height: calc(90vh - 40px); /* Adjust for dialog padding */
+}
 
-    async preloadNewPairWithTags(selectedTags) {
-        if (this.isPreloading) {
-            logger.debug("Preloading already in progress, skipping tag-based preload");
-            return;
-        }
+.dialog-title {
+    flex-shrink: 0;
+    margin-bottom: 15px;
+}
 
-        this.isPreloading = true;
-        logger.debug(`Selected tags: ${selectedTags}`);
-        try {
-            const newPair = await utils.selectTaxonPair();
-            if (!newPair) {
-                logger.warn("No pair found matching selected tags");
-                return;
-            }
+.taxon-pair-list {
+    flex-grow: 1;
+    width: 100%;
+    max-height: calc(80vh - 150px);
+    overflow-y: auto;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    padding-bottom: 10px; /* This creates the gap at the bottom */
+    margin-bottom: 0;
+}
 
-            const [imageOneURL, imageTwoURL] = await Promise.all([
-                this.fetchDifferentImage(newPair.taxon1, null),
-                this.fetchDifferentImage(newPair.taxon2, null)
-            ]);
-            
-            await Promise.all([
-                this.preloadImage(imageOneURL),
-                this.preloadImage(imageTwoURL)
-            ]);
+/* Adjust the scrollable area to leave space at the bottom */
+#select-pair-dialog .taxon-pair-list {
+    max-height: calc(90vh - 140px); /* Adjust this value as needed */
+    padding-right: 5px; /* Add some padding for the scrollbar */
+}
 
-            this.preloadedImages.nextPair = { 
-                pair: newPair,
-                taxon1: imageOneURL, 
-                taxon2: imageTwoURL 
-            };
-            logger.debug("Preloaded new pair based on selected tags");
-        } catch (error) {
-            logger.error("Error preloading new pair with tags:", error);
-        } finally {
-            this.isPreloading = false;
-        }
-    },
+/* Style for webkit browsers */
+#select-pair-dialog .taxon-pair-list::-webkit-scrollbar {
+    width: 6px;
+}
 
-};
+#select-pair-dialog .taxon-pair-list::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 3px;
+}
 
-export default preloader;
+/* Style for Firefox */
+#select-pair-dialog .taxon-pair-list {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,0,0,0.2) transparent;
+}
+
+.taxon-set-button {
+    display: block;
+    width: 100%;
+    padding: 5px;
+    margin: 2px 0;
+    background-color: rgba(116, 172, 0, 0.3); /* Light green background */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+
+.taxon-set-button:focus {
+    outline: none;
+    background-color: rgba(116, 172, 0, 0.5);
+    box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+.taxon-set-button:focus .taxon-item {
+    background-color: #5c8a00;
+}
+
+.taxon-set-button--selected {
+    background-color: rgba(116, 172, 0, 0.5); /* Darker green background */
+    box-shadow: 0 0 0 2px var(--primary-color); /* Green outline */
+}
+
+.taxon-set-button--selected .taxon-item {
+    background-color: #5c8a00; /* Darker green for the taxon items */
+}
+
+.taxon-set-button--selected:hover {
+    background-color: rgba(116, 172, 0, 0.6); /* Even darker on hover */
+}
+
+.taxon-set-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 5px; /* Small gap between the two "buttons" */
+    width: 100%;
+}
+
+.set-name {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.tags {
+    font-size: 1em;
+    color: #666;
+}
+
+.taxon-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border-radius: 5px;
+}
+
+.taxon-set-button:hover .taxon-item {
+    background-color: #5c8a00;
+}
+
+.taxon-name {
+    font-style: italic;
+    font-weight: bold;
+    font-size: 1.3em;
+    margin-bottom: 3px;
+    text-align: center;
+}
+
+.vernacular-name {
+    font-size: 1.2em;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+}
+
+.taxon-pair-content {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 20px 20px;
+}
+
+.taxon-pair-title {
+    color: var(--primary-color);
+    text-align: center;
+    margin: 0 0 20px 0;
+    font-size: 1.5em;
+}
+
+.taxon-pair-modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.select-tags-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.select-tags-button:hover {
+    background-color: #5c8a00;
+}
+
+.search-container {
+  position: relative;
+  margin-bottom: 15px;
+  flex-shrink: 0;
+}
+
+#taxon-search {
+  width: 100%;
+  padding: 10px 15px;
+  padding-left: 40px;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+#taxon-search:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: #888;
+}
+
+#clear-search {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  color: #888;
+  display: none;
+}
+
+#clear-search:hover {
+  color: var(--primary-color);
+}
+
+/* Active tags functionality */
+.active-tags-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    display: none; /* Initially hidden */
+}
+
+.active-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.active-tag {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.9em;
+}
+
+.clear-all-tags {
+    background-color: var(--primary-counter-color);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.clear-all-tags:hover {
+    background-color: #8a0020;
+}
+
+/* Tag cloud dialog */
+
+#tag-cloud-dialog {
+    width: 95%;
+    max-width: var(--max-image-width);
+    height: 90vh;
+    display: none; /* Hide the dialog by default */
+}
+
+#tag-cloud-dialog[open] {
+    display: flex;
+    flex-direction: column;
+}
+
+#tag-cloud-container {
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.tag-cloud-item {
+    margin: 5px;
+    padding: 5px 10px;
+    background-color: #f0f0f0;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.tag-cloud-item.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.done-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.done-button:hover {
+    background-color: #5c8a00;
+}
+
+/* Help dialog */
+
+#help-dialog {
+    position: relative;
+    padding: 40px 24px 24px;
+    padding: 24px;
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    max-width: 400px;
+    width: 80%;
+    background-color: #f9f9f9;
+}
+.help-dialog-content {
+    position: relative;
+    padding-top: 60px; /* Space for the logo */
+}
+
+.help-dialog-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.help-dialog-logo {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 80px;
+    opacity: 0.8;
+}
+
+#help-dialog h2 {
+    color: var(--primary-color);
+    margin-top: 0;
+    font-size: 24px;
+    line-height: 1.5;
+}
+
+#help-dialog h2 .duo {
+    color: var(--primary-counter-color);
+}
+
+#help-dialog h2 .nat {
+    color: var(--primary-color);
+}
+
+#help-dialog h2 .subtitle {
+    color: var(--dark-neutral-color);
+    font-size: 0.8em;
+}
+
+.help-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.help-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background-color: white;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.help-item svg {
+    flex-shrink: 0;
+}
+
+.help-item p {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.4;
+    color: var(--dark-neutral-color);
+    text-align: left; /* TODO doesn't work */
+}
+
+#keyboard-shortcuts {
+    margin-top: 20px;
+}
+
+#keyboard-shortcuts h3 {
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+#keyboard-shortcuts ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#keyboard-shortcuts li {
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+#keyboard-shortcuts strong, #shortcut-key {
+    display: inline-block;
+    width: 20px;
+    text-align: center;
+    margin-right: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 3px;
+    padding: 2px;
+}
+
+#start-tutorial-button, #discord-help-dialog {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    transition: background-color var(--transition-speed) ease, transform 0.1s ease;
+    width: 100%;
+}
+
+#version-id {
+    padding-top: 8px;
+    font-size: 14px;
+    color: var(--counter-text-color);
+}
+
+/* Styles for tutorial */
+.tutorial-highlight {
+    position: absolute;
+    border-radius: 8px;
+    box-shadow: 0 0 0 4px rgba(172, 0, 40, 0.5); /* var(--primary-counter-color); */
+    pointer-events: none;
+    z-index: 10000;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(172, 0, 40, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(172, 0, 40, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(172, 0, 40, 0);
+    }
+}
+
+.shortcut-key {
+    display: none;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 2px 5px;
+    border-radius: 3px;
+    margin-right: 5px;
+}
+
+body.has-keyboard .shortcut-key {
+    display: inline-block;
+}
+body.has-keyboard button {
+    text-align: left;
+}
+
+/* Info dialog */
+
+.info-dialog {
+    position: fixed;
+    transform: translate(0, 0); /* override system-wide centering of dialogs */
+    padding: 20px;
+    display: none;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: #f1f7e5;
+    border-radius: var(--border-radius);
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    max-width: var(--max-image-width);
+    width: 100%;
+    overflow-y: auto;
+    transition: top 0.3s ease-out, bottom 0.3s ease-out, height 0.3s ease-out;
+}
+
+.info-dialog[open] {
+    display: flex;
+}
+
+.info-dialog__header {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.info-dialog__taxon {
+    font-size: 1.4em;
+    margin: 0;
+    color: var(--primary-counter-color);
+    font-style: italic;
+    text-shadow: 1px 1px 2px var(--shadow-color);
+}
+
+.info-dialog__vernacular {
+    font-size: 1.2em;
+    margin: 5px 0 0;
+    color: var(--dark-neutral-color);
+    text-shadow: 1px 1px 2px var(--shadow-color);
+}
+
+.info-dialog__facts {
+    flex-grow: 1;
+    margin: 15px 0;
+    padding: 15px;
+    background-color: var(--light-green);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+
+}
+
+.info-dialog__facts h3 {
+    color: var(--primary-color);
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.info-dialog__facts ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.info-dialog__facts li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 8px;
+    text-align: left;
+    font-size: 1.3em;
+    line-height: 1.4;
+    color: var(--dark-neutral-color);
+    word-break: normal;
+    overflow-wrap: break-word;
+    hyphens: auto;
+/*    text-shadow: 1px 1px 2px var(--shadow-color);*/
+}
+
+.info-dialog__facts li::before {
+    content: "•";
+    position: absolute;
+    left: 8px;
+    color: var(--primary-color);
+    font-size: 1.3em;
+}
+
+.info-dialog__buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+}
+
+.info-dialog__button {
+    padding: 10px;
+}
+
+@media (max-width: 480px) {
+    .info-dialog {
+        padding: 12px;
+    }
+
+    .info-dialog__header {
+        margin-bottom: 5px;
+    }
+
+    .info-dialog__taxon {
+        font-size: 1.4em;
+    }
+
+    .info-dialog__vernacular {
+        font-size: 1.1em;
+    }
+
+    .info-dialog__facts {
+        margin: 4px 0 0 0;
+        padding: 10px;
+    }
+
+    .info-dialog__facts li {
+        font-size: 1.2em;
+        line-height: 1.2;
+    }
+
+    .info-dialog__buttons {
+        margin-top: 15px;
+    }
+
+    .info-dialog__button-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* Relationship graph dialog */
+
+#phylogeny-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    height: 90%;
+    max-width: 1800px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    /*visibility: hidden;*/
+    display: none;
+    opacity: 0.92;
+}
+
+.graph-hint {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    color: var(--dark-neutral-color);
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.9em;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.graph-hint:hover {
+    opacity: 0;
+}
+
+#taxa-relationship-graph {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+/* hide when dialog is hidden */
+#phylogeny-dialog.hidden #taxa-relationship-graph {
+    display: none;
+    visibility: hidden;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #phylogeny-dialog {
+        width: 95%;
+        height: 95%;
+    }
+}
+
+#taxa-relationship-graph {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .graph-dialog-content {
+        width: 95%;
+        height: 95%;
+    }
+
+    .graph-title {
+        font-size: 1.2em;
+        padding: 10px 0;
+    }
+}
+
+.clickable-network .vis-network:hover {
+    /* TODO: gives pointer not only over nodes*/
+   /* cursor: pointer; */
+}
+
+
+/* Styles for iNaturalist Down Dialog */
+#inat-down-dialog {
+    position: relative;
+    padding: 40px 2rem 2rem;
+    width:100%; height:100%;
+    z-index: 10000;
+    background-color: white;
+    padding: 0px;
+    border-radius: 00px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+#inat-down-dialog {
+  background-color: white;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  max-width: 90%;
+  width: 400px;
+  text-align: center;
+}
+
+#inat-down-dialog h2 {
+  color: var(--primary-counter-color);
+  margin-bottom: 1rem;
+}
+
+#inat-down-dialog p {
+  margin-bottom: 1rem;
+  color: var(--counter-text-color);
+}
+
+#inat-down-dialog button {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 0.5rem;
+  transition: background-color var(--transition-speed) ease;
+}
+
+#inat-down-dialog button:hover {
+  background-color: #5c8a00;
+}
+
+#check-inat-status {
+  background-color: var(--primary-color);
+}
+
+#check-inat-status:hover {
+  background-color: #8a0020;
+}
+
+
+
+
+
+# styles/components/loading.css
+
+/* Styles for loading screen */
+
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9000;
+}
+
+.loading-screen__content {
+    text-align: center;
+}
+
+.loading-screen__logo {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+.loading-screen__title {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.loading-screen__title-duo {
+    color: var(--primary-counter-color);
+}
+
+.loading-screen__title-nat {
+    color: var(--primary-color);
+}
+
+.loading-screen__message {
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.loading-screen__spinner {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid var(--primary-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Phylogeny graph dialog */
+
+.loading-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    z-index: 1000;
+}
+
+.loading-indicator-logo {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 15px;
+}
+
+.loading-indicator .loading-spinner {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid var(--primary-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 15px;
+}
+
+.loading-indicator p {
+    margin: 0;
+    color: var(--primary-color);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+
+
+
+# styles/components/menu.css
+
+/* Styles for main menu (to replace button column above) */
+
+.main-menu {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+}
+/*
+.main-menu button,
+.main-menu__dropdown button {
+    background-color: rgba(255, 255, 255, 0.6);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.main-menu button:hover,
+.main-menu__dropdown button:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    transform: scale(1.1);
+}
+*/
+.main-menu__dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 40px;
+}
+
+.main-menu__dropdown.show {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.main-menu__item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.main-menu__label {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    height: fit-content; /* Adjust height to content */
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 14px;
+    margin-right: 10px;
+    margin-top: -8px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+}
+
+.main-menu__dropdown.show .main-menu__label {
+    opacity: .8;
+}
+
+.main-menu__dropdown--top {
+    top: 60px;
+}
+
+.main-menu__dropdown--bottom {
+    position: absolute;
+    top: 0; /* Will be set dynamically in JavaScript */
+    right: 0;
+}
+
+/* Media query for larger screens */
+@media (min-width: 768px) {
+    .main-menu__dropdown--bottom {
+        bottom: auto;
+        top: 50px;
+        right: 0;
+    }
+}
+
+
+
+
+# styles/components/tooltips.css
+
+/* not currently used */
+
+.tooltip {
+    position: absolute;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+
+.tooltip.visible {
+    opacity: 1;
+}
+
+
+
+
+# styles/layout/image-container.css
+
+/* Image container and components */
+
+.image-container {
+    position: relative;
+    flex: 1 1 300px;
+    margin: 0px 0px;
+    padding: 4px;
+    aspect-ratio: 1/1;
+    position: relative;
+    background-color: var(--counter-text-color);
+    box-shadow: 0 0 10px var(--shadow-color);
+    border-radius: var(--border-radius);
+    box-sizing: border-box;
+    overflow: hidden;
+    z-index: 1;
+    cursor: default;
+}
+.image-container--drag-over {
+    cursor: copy;
+}
+
+/* TODO this will be a problem when switching to side-by-side on desktop, keep in mind */
+#image-container-1 {
+    margin-top: 4px;
+}
+#image-container-2 {
+    margin-bottom: 4px;
+}
+.image-container__image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    background-color: #f0f0f0;
+    color: var(--primary-color);
+    font-size: 36px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--border-radius);
+    pointer-events: none; /* Prevents the image from interfering with dragging */
+    transition: opacity var(--transition-speed) ease-in-out;
+}
+
+.image-container__image--loading {
+    opacity: 0.5;
+    transition: opacity var(--transition-speed) ease-in-out;    
+}
+
+/* World map overlays on images */
+
+.image-container__world-map {
+    position: absolute;
+    left: 60px;
+    width: 100px; /* Adjust as needed */
+    height: 60px; /* Adjust as needed */
+    border-radius: var(--border-radius);
+    opacity: 0.6;
+    z-index: 10;
+}
+.image-container__world-map svg {
+    border-radius: var(--border-radius);
+}
+
+#world-map-1 {
+    bottom: 5px;
+}
+
+#world-map-2 {
+    bottom: 5px;
+}
+
+/* Drop zone for taxon tiles */
+.image-container__drop-zone {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.9;
+    z-index: 10;
+    width: 300px;
+    max-width: calc(var(--max-image-width)-50px);
+    height: 80px; /* Add a fixed height */
+    transition: all 0.3s ease-out;
+    pointer-events: none;
+}
+
+/* Used for marking the active image when showing the info dialog */
+
+.image-container--framed {
+    box-shadow: 0 0 0 4px rgba(116, 172, 0, 0.5);
+    transition: box-shadow 0.3s ease;
+    z-index: 1000;
+}
+
+
+
+
+# styles/layout/name-pair.css
+
+/* Name pair container and components */
+
+.name-pair {
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: stretch;
+    background-color: rgb(0,0,0,0);
+    margin: 4px auto;
+    gap: 4px;
+    width: 98%;
+    max-width: var(--max-image-width);
+    min-height: var(--center-min-height);
+}
+
+.name-pair__container--left, .name-pair__container--right {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    max-width: 300px;
+    margin: 0px;
+    min-height: var(--center-min-height);
+}
+
+/* Styles for draggable name tiles */
+.name-pair__item--draggable {
+    position: relative;
+    box-sizing: border-box;
+    z-index: 10;
+    border-radius: var(--border-radius);
+
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 6px;
+    width: 300px;
+    min-height: var(--center-min-height);
+
+    color: var(--text-color);
+    background-color: var(--primary-color);
+    opacity: 1;
+    font-size: 22px;
+
+    text-shadow: 1px 1px 2px var(--shadow-color);
+
+    touch-action: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+    hyphens: auto;
+
+    box-shadow: 0 0 0 2px white;
+    cursor: grab;
+    transition: box-shadow var(--transition-speed) ease;
+}
+
+.name-pair__taxon-name,
+.name-pair__vernacular-name {
+    width: 100%;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: wrap; /* TODO claude says no-wrap */
+}
+
+.name-pair__taxon-name {
+    font-style: italic;
+    font-weight: bold;
+    margin-bottom: 2px;
+    font-size: 0.95em;
+}
+
+.name-pair__vernacular-name {
+    font-size: 0.85em;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.name-pair__item--draggable:hover {
+    transform: scale(1.02);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/*.name-pair__item--draggable,
+.name-pair__item--draggable.dragging {
+    max-width: 300px;
+}
+*/
+
+.name-pair__item--dragging {
+    /* Ensure the element is rendered as its own layer */
+    transform: translateZ(0) !important;
+    -webkit-transform: translateZ(0) !important;
+}
+
+.name-pair__item--draggable {
+    -khtml-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+}
+
+/* Message overlay */
+
+.name-pair__overlay {
+    position: absolute;
+    border-radius: var(--border-radius);
+    height: 100%;
+    background-color: var(--overlay-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-speed) ease, background-color var(--transition-speed) ease;
+}
+
+.name-pair__overlay.show { opacity: 1; }
+
+.name-pair__overlay-message {
+    font-size: 2.4em;
+    font-weight: bold;
+    color: var(--text-color);
+    text-shadow: 1px 1px 2px var(--shadow-color);
+    padding: 15px;
+    max-width: 95%;
+    line-height: 1.4;
+}
+
+/*new*/
+.name-pair__item--draggable {
+    position: relative;
+    box-sizing: border-box;
+    z-index: 10;
+    border-radius: var(--border-radius);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 6px;
+    width: 300px;
+    min-height: var(--center-min-height);
+    color: var(--text-color);
+    background-color: var(--primary-color);
+    opacity: 1;
+    font-size: 22px;
+    text-shadow: 1px 1px 2px var(--shadow-color);
+    touch-action: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-break: break-word;
+    hyphens: auto;
+    box-shadow: 0 0 0 2px white;
+    cursor: grab;
+    transition: all 0.3s ease-out;
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    user-select: none !important;
+    -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+}
+
+.name-pair__item--landing {
+    transition: all 0.3s ease-out !important;
+}
+
+.name-pair__item--draggable:active,
+.name-pair__item--dragging {
+    width: 300px !important;
+    opacity: 0.9 !important;
+    border: 2px solid white !important;
+    box-shadow: 0 0 0 2px white, 0 0 10px 3px rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 10px 3px rgba(255, 255, 255, 0.7) !important;
+    -webkit-box-shadow: 0 0 10px 3px rgba(255, 255, 255, 0.7) !important;
+    transition: all 0.1s ease-out !important;
+    z-index: 1000 !important;
+    transform: translateZ(0) !important;
+    -webkit-transform: scale(1.05) translateZ(0) !important;
+    -webkit-backface-visibility: hidden !important;
+    -webkit-perspective: 1000 !important;
+    cursor: grabbing !important;
+}
+
+/*
+@keyframes correctAnswer {
+    0%, 100% { background-color: var(--primary-color); }
+    50% { background-color: #4CAF50; } 
+}
+*/
+
+@keyframes incorrectAnswer {
+    0%, 100% { background-color: var(--primary-color); }
+    50% { background-color: #F44336; } /* Red */
+}
+
+.name-pair__item--correct {
+    animation: correctAnswer 0.6s ease-in-out;
+}
+
+.name-pair__item--incorrect {
+    animation: incorrectAnswer 0.6s ease-in-out;
+}
 
 

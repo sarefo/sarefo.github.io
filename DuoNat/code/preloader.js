@@ -76,7 +76,7 @@ const preloader = {
     },
 
     async preloadForNextPair() {
-        logger.debug("Starting preload for next pair");
+//        logger.debug("Starting preload for next pair");
         if (this.preloadedImages.nextPair.pair) {
             logger.debug("Skipping preload for next pair as one is already available");
             return;

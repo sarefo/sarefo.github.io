@@ -351,17 +351,20 @@ const ui = {
             logger.error(`Target element not found: ${targetSelector}`);
             return null;
         }
-
         const highlight = document.createElement('div');
         highlight.className = 'tutorial-highlight';
         document.body.appendChild(highlight);
-
         const targetRect = target.getBoundingClientRect();
         highlight.style.width = `${targetRect.width}px`;
         highlight.style.height = `${targetRect.height}px`;
         highlight.style.top = `${targetRect.top}px`;
         highlight.style.left = `${targetRect.left}px`;
-
+        
+        // Check if the target is an icon-button
+        if (target.classList.contains('icon-button')) {
+            highlight.style.borderRadius = '50%';
+        }
+        
         return highlight;
     },
 
