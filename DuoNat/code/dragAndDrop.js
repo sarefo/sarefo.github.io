@@ -15,7 +15,7 @@ const dragAndDrop = {
         this.addEventListeners();
     },
 
-   addEventListeners() {
+    addEventListeners() {
         document.querySelectorAll('.name-pair__item--draggable').forEach(element => {
             element.addEventListener('dragstart', this.dragStart.bind(this));
             element.addEventListener('mousedown', this.mouseStart.bind(this));
@@ -71,15 +71,15 @@ const dragAndDrop = {
         this.updateElementPosition(touch);
     },
 
-captureOtherElementPosition() {
-    const otherElement = this.draggedElement.id === 'left-name' ? 
-        document.getElementById('right-name') : 
-        document.getElementById('left-name');
-    if (otherElement) {
-        const rect = otherElement.getBoundingClientRect();
-        this.otherElementInitialY = rect.top;
-    }
-},
+    captureOtherElementPosition() {
+        const otherElement = this.draggedElement.id === 'left-name' ?
+            document.getElementById('right-name') :
+            document.getElementById('left-name');
+        if (otherElement) {
+            const rect = otherElement.getBoundingClientRect();
+            this.otherElementInitialY = rect.top;
+        }
+    },
 
     mouseMove(e) {
         if (this.draggedElement) {
@@ -127,7 +127,7 @@ captureOtherElementPosition() {
 
     resetDraggedElement() {
         if (!this.draggedElement) return;
-        
+
         const elements = [
             this.draggedElement,
             this.draggedElement.id === 'left-name' ? document.getElementById('right-name') : document.getElementById('left-name')
@@ -136,7 +136,7 @@ captureOtherElementPosition() {
         elements.forEach(element => {
             const originalContainer = element.id === 'left-name' ? 'name-pair__container--left' : 'name-pair__container--right';
             const container = document.getElementsByClassName(originalContainer)[0];
-            
+
             element.classList.remove('name-pair__item--dragging', 'name-pair__item--landing');
             element.style = '';
             container.appendChild(element);
@@ -146,14 +146,14 @@ captureOtherElementPosition() {
     },
 
     resetOtherElement() {
-        const otherElement = this.draggedElement.id === 'left-name' ? 
-            document.getElementById('right-name') : 
+        const otherElement = this.draggedElement.id === 'left-name' ?
+            document.getElementById('right-name') :
             document.getElementById('left-name');
-        
+
         if (otherElement) {
             const originalContainer = otherElement.id === 'left-name' ? 'name-pair__container--left' : 'name-pair__container--right';
             const container = document.getElementsByClassName(originalContainer)[0];
-            
+
             otherElement.style = '';
             container.appendChild(otherElement);
         }
@@ -167,7 +167,7 @@ captureOtherElementPosition() {
 
         // Calculate center position
         const leftPosition = gameContainerRect.left + (gameContainerRect.width / 2) - (elementWidth / 2);
-        
+
         // Calculate vertical position
         const clientY = event.touches ? event.touches[0].clientY : event.clientY;
         const deltaY = clientY - this.initialY;
@@ -183,10 +183,10 @@ captureOtherElementPosition() {
     },
 
     mirrorOtherElement(deltaY) {
-        const otherElement = this.draggedElement.id === 'left-name' ? 
-            document.getElementById('right-name') : 
+        const otherElement = this.draggedElement.id === 'left-name' ?
+            document.getElementById('right-name') :
             document.getElementById('left-name');
-        
+
         if (otherElement) {
             const gameContainerRect = this.gameContainer.getBoundingClientRect();
             const elementWidth = otherElement.offsetWidth;
@@ -234,21 +234,21 @@ captureOtherElementPosition() {
         try {
             const isLeftDrop = dropZoneId === 'drop-1';
             const draggedElement = document.getElementById(draggedElementId);
-            
+
             if (!draggedElement) {
                 logger.error('Dragged element not found');
                 return false;
             }
 
             const draggedTaxon = draggedElement.getAttribute('data-taxon');
-            
+
             if (!gameState) {
                 logger.error('gameState is undefined');
                 return false;
             }
 
             const correctTaxon = isLeftDrop ? gameState.taxonImageOne : gameState.taxonImageTwo;
-            
+
             if (!correctTaxon) {
                 logger.error('Correct taxon is undefined in gameState');
                 return false;
@@ -279,8 +279,8 @@ captureOtherElementPosition() {
         if (!draggedElement) return;
 
         const isCorrect = this.checkAnswer(dropZone.id, draggedElement.id);
-        const otherElement = draggedElement.id === 'left-name' ? 
-            document.getElementById('right-name') : 
+        const otherElement = draggedElement.id === 'left-name' ?
+            document.getElementById('right-name') :
             document.getElementById('left-name');
 
         // Handle both elements
@@ -304,8 +304,8 @@ captureOtherElementPosition() {
         if (isCorrect) {
             targetRect = targetZone.getBoundingClientRect();
         } else {
-            const originalContainer = element.id === 'left-name' ? 
-                document.querySelector('.name-pair__container--left') : 
+            const originalContainer = element.id === 'left-name' ?
+                document.querySelector('.name-pair__container--left') :
                 document.querySelector('.name-pair__container--right');
             targetRect = originalContainer.getBoundingClientRect();
         }
@@ -351,7 +351,7 @@ captureOtherElementPosition() {
         } else {
             const leftContainer = document.querySelector('.name-pair__container--left');
             const rightContainer = document.querySelector('.name-pair__container--right');
-            
+
             leftContainer.appendChild(document.getElementById('left-name'));
             rightContainer.appendChild(document.getElementById('right-name'));
         }

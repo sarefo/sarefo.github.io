@@ -64,7 +64,7 @@ const game = {
             }
 
             this.finishSetup();
-            
+
             this.setNamePairHeight();
 
             // Always preload for the next round
@@ -162,27 +162,27 @@ const game = {
 
         await this.loadImages(leftImageSrc, rightImageSrc);
 
-  // Set the observation URLs
-    this.currentObservationURLs.imageOne = this.getObservationURLFromImageURL(leftImageSrc);
-    this.currentObservationURLs.imageTwo = this.getObservationURLFromImageURL(rightImageSrc);
+        // Set the observation URLs
+        this.currentObservationURLs.imageOne = this.getObservationURLFromImageURL(leftImageSrc);
+        this.currentObservationURLs.imageTwo = this.getObservationURLFromImageURL(rightImageSrc);
 
-    const [leftVernacular, rightVernacular] = await Promise.all([
-        utils.capitalizeFirstLetter(await api.fetchVernacular(randomized ? pair.taxon1 : pair.taxon2)),
-        utils.capitalizeFirstLetter(await api.fetchVernacular(randomized ? pair.taxon2 : pair.taxon1))
-    ]);
+        const [leftVernacular, rightVernacular] = await Promise.all([
+            utils.capitalizeFirstLetter(await api.fetchVernacular(randomized ? pair.taxon1 : pair.taxon2)),
+            utils.capitalizeFirstLetter(await api.fetchVernacular(randomized ? pair.taxon2 : pair.taxon1))
+        ]);
 
-    this.setupNameTilesUI(
-        randomized ? pair.taxon1 : pair.taxon2,
-        randomized ? pair.taxon2 : pair.taxon1,
-        leftVernacular,
-        rightVernacular
-    );
+        this.setupNameTilesUI(
+            randomized ? pair.taxon1 : pair.taxon2,
+            randomized ? pair.taxon2 : pair.taxon1,
+            leftVernacular,
+            rightVernacular
+        );
 
-    // Add world maps
-    const leftContinents = await this.getContinentForTaxon(randomized ? pair.taxon1 : pair.taxon2);
-    const rightContinents = await this.getContinentForTaxon(randomized ? pair.taxon2 : pair.taxon1);
-    createWorldMap(elements.imageOneContainer, leftContinents);
-    createWorldMap(elements.imageTwoContainer, rightContinents);
+        // Add world maps
+        const leftContinents = await this.getContinentForTaxon(randomized ? pair.taxon1 : pair.taxon2);
+        const rightContinents = await this.getContinentForTaxon(randomized ? pair.taxon2 : pair.taxon1);
+        createWorldMap(elements.imageOneContainer, leftContinents);
+        createWorldMap(elements.imageTwoContainer, rightContinents);
 
         updateGameState({
             taxonImageOne: randomized ? pair.taxon1 : pair.taxon2,
@@ -202,7 +202,7 @@ const game = {
     async getContinentForTaxon(taxon) {
         const taxonInfo = await api.loadTaxonInfo();
         const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxon.toLowerCase());
-        
+
         if (taxonData && taxonData.distribution && taxonData.distribution.length > 0) {
             // Convert the continent codes to full names
             const continentMap = {
@@ -213,10 +213,10 @@ const game = {
                 'AF': 'Africa',
                 'OC': 'Oceania'
             };
-            
+
             // Convert all continent codes to full names
             const fullContinents = taxonData.distribution.map(code => continentMap[code]);
-            
+
             return fullContinents;
         } else {
             logger.debug(`No distribution data found for ${taxon}. Using placeholder.`);
@@ -541,14 +541,14 @@ const game = {
         leftName.style.height = 'auto';
         rightName.style.height = 'auto';
         namePair.style.height = 'auto';
-        
+
         // Use requestAnimationFrame to ensure the browser has rendered the auto heights
         requestAnimationFrame(() => {
             const maxHeight = Math.max(leftName.offsetHeight, rightName.offsetHeight);
-            
+
             // Set the height of the name-pair container
             namePair.style.height = `${maxHeight}px`;
-            
+
             // Set both name tiles to this height
             leftName.style.height = `${maxHeight}px`;
             rightName.style.height = `${maxHeight}px`;
@@ -665,7 +665,7 @@ const game = {
         // Set taxon and vernacular name
         const currentTaxon = this.getCurrentTaxonName(url);
         taxonElement.textContent = currentTaxon;
-// TODO check why api.fetchVernacular() won't work here
+        // TODO check why api.fetchVernacular() won't work here
         api.fetchVernacular(currentTaxon).then(vernacularName => {
             vernacularElement.textContent = vernacularName;
 
@@ -673,8 +673,8 @@ const game = {
             api.loadTaxonInfo().then(taxonInfo => {
                 const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === currentTaxon.toLowerCase());
                 if (taxonData && taxonData.taxonFacts && taxonData.taxonFacts.length > 0) {
-                    factsElement.innerHTML = '<h3>Facts:</h3><ul>' + 
-                        taxonData.taxonFacts.map(fact => `<li>${fact}</li>`).join('') + 
+                    factsElement.innerHTML = '<h3>Facts:</h3><ul>' +
+                        taxonData.taxonFacts.map(fact => `<li>${fact}</li>`).join('') +
                         '</ul>';
                     factsElement.style.display = 'block';
                 } else {
@@ -687,71 +687,71 @@ const game = {
             });
         });
 
-            photoButton.onclick = () => {
-                window.open(url, '_blank');
+        photoButton.onclick = () => {
+            window.open(url, '_blank');
+            dialog.close();
+        };
+
+        observationButton.onclick = () => {
+            logger.debug("Observation button clicked");
+            // Implement observation functionality here
+        };
+
+        taxonButton.onclick = async () => {
+            logger.debug("Taxon button clicked");
+            try {
+                const taxonName = this.getCurrentTaxonName(url);
+                const taxonId = await api.fetchTaxonId(taxonName);
+                window.open(`https://www.inaturalist.org/taxa/${taxonId}`, '_blank');
                 dialog.close();
-            };
+            } catch (error) {
+                logger.error("Error opening taxon page:", error);
+                alert("Unable to open taxon page. Please try again.");
+            }
+        };
 
-            observationButton.onclick = () => {
-                logger.debug("Observation button clicked");
-                // Implement observation functionality here
-            };
+        hintsButton.onclick = () => {
+            logger.debug("Taxon hints button clicked");
+            // Implement taxon hints functionality here
+        };
 
-            taxonButton.onclick = async () => {
-                logger.debug("Taxon button clicked");
-                try {
-                    const taxonName = this.getCurrentTaxonName(url);
-                    const taxonId = await api.fetchTaxonId(taxonName);
-                    window.open(`https://www.inaturalist.org/taxa/${taxonId}`, '_blank');
-                    dialog.close();
-                } catch (error) {
-                    logger.error("Error opening taxon page:", error);
-                    alert("Unable to open taxon page. Please try again.");
-                }
-            };
-
-            hintsButton.onclick = () => {
-                logger.debug("Taxon hints button clicked");
-                // Implement taxon hints functionality here
-            };
-
-            wikiButton.onclick = () => {
-                logger.debug("Wiki button clicked");
-                try {
-                    const taxonName = this.getCurrentTaxonName(url);
-//                    const taxonId = await api.fetchTaxonId(taxonName);
-                    window.open(`https://en.wikipedia.org/wiki/${taxonName}`, '_blank');
-                    dialog.close();
-                } catch (error) {
-                    logger.error("Error opening taxon page:", error);
-                    alert("Unable to open Wikipedia page. Please try again.");
-                }
-            };
-
-            reportButton.onclick = () => {
-                logger.debug("Report button clicked");
-                // Implement report functionality here
-            };
-
-            closeButton.onclick = () => {
+        wikiButton.onclick = () => {
+            logger.debug("Wiki button clicked");
+            try {
+                const taxonName = this.getCurrentTaxonName(url);
+                //                    const taxonId = await api.fetchTaxonId(taxonName);
+                window.open(`https://en.wikipedia.org/wiki/${taxonName}`, '_blank');
                 dialog.close();
-                document.querySelectorAll('.image-container').forEach(container => {
-                    container.classList.remove('image-container--framed');
-                });
-            };
+            } catch (error) {
+                logger.error("Error opening taxon page:", error);
+                alert("Unable to open Wikipedia page. Please try again.");
+            }
+        };
 
-            dialog.addEventListener('close', () => {
-                // Remove framing from all containers when dialog is closed
-                document.querySelectorAll('.image-container').forEach(container => {
-                    container.classList.remove('image-container--framed');
-                });
+        reportButton.onclick = () => {
+            logger.debug("Report button clicked");
+            // Implement report functionality here
+        };
+
+        closeButton.onclick = () => {
+            dialog.close();
+            document.querySelectorAll('.image-container').forEach(container => {
+                container.classList.remove('image-container--framed');
             });
+        };
 
-            dialog.showModal();
+        dialog.addEventListener('close', () => {
+            // Remove framing from all containers when dialog is closed
+            document.querySelectorAll('.image-container').forEach(container => {
+                container.classList.remove('image-container--framed');
+            });
+        });
+
+        dialog.showModal();
         // Reposition on window resize
         window.addEventListener('resize', positionDialog);
 
-        },
+    },
 
     getCurrentTaxonName(url) {
         if (url === this.currentObservationURLs.imageOne) {

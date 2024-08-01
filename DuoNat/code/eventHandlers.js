@@ -63,35 +63,35 @@ const eventHandlers = {
 
     },
 
-initializeSwipeFunctionality() {
-    this.gameContainer = document.querySelector('.game-container');
-    if (!this.gameContainer) {
-        logger.error('Game container not found');
-        return;
-    }
+    initializeSwipeFunctionality() {
+        this.gameContainer = document.querySelector('.game-container');
+        if (!this.gameContainer) {
+            logger.error('Game container not found');
+            return;
+        }
 
-    [elements.imageOneContainer, elements.imageTwoContainer].forEach((container, index) => {
-        container.addEventListener('mousedown', (e) => {
-            this.handleMouseDown(e);
+        [elements.imageOneContainer, elements.imageTwoContainer].forEach((container, index) => {
+            container.addEventListener('mousedown', (e) => {
+                this.handleMouseDown(e);
+            });
+            container.addEventListener('touchstart', (e) => {
+                this.handleTouchStart(e);
+            }, { passive: true });
+            container.addEventListener('mousemove', (e) => {
+                this.handleDragMove(e);
+            });
+            container.addEventListener('touchmove', (e) => {
+                this.handleDragMove(e);
+            }, { passive: true });
+            container.addEventListener('mouseup', (e) => {
+                this.handleSwipeOrDrag(e);
+            });
+            container.addEventListener('touchend', (e) => {
+                this.handleSwipeOrDrag(e);
+            });
         });
-        container.addEventListener('touchstart', (e) => {
-            this.handleTouchStart(e);
-        }, { passive: true });
-        container.addEventListener('mousemove', (e) => {
-            this.handleDragMove(e);
-        });
-        container.addEventListener('touchmove', (e) => {
-            this.handleDragMove(e);
-        }, { passive: true });
-        container.addEventListener('mouseup', (e) => {
-            this.handleSwipeOrDrag(e);
-        });
-        container.addEventListener('touchend', (e) => {
-            this.handleSwipeOrDrag(e);
-        });
-    });
 
-},
+    },
 
     safeAddEventListener(id, eventType, handler) {
         const element = document.getElementById(id);
@@ -102,7 +102,7 @@ initializeSwipeFunctionality() {
         }
     },
 
-    initializeMainMenuListeners: function() {
+    initializeMainMenuListeners: function () {
         this.safeAddEventListener('share-button', 'click', () => {
             this.shareCurrentPair();
             ui.closeMainMenu(); // Close menu after action
@@ -182,10 +182,10 @@ initializeSwipeFunctionality() {
 
     },
 
-    handleSearch: async function(event) {
+    handleSearch: async function (event) {
         const searchTerm = event.target.value.toLowerCase();
         const clearButton = document.getElementById('clear-search');
-        
+
         if (searchTerm.length > 0) {
             clearButton.style.display = 'block';
         } else {
@@ -235,11 +235,11 @@ initializeSwipeFunctionality() {
     },
 
     handleTouchStart(e) {
-        
+
         if (!e.target.closest('.image-container') || e.target.closest('.info-button')) {
             return;
         }
-        
+
         this.startX = e.touches[0].clientX;
         this.startY = e.touches[0].clientY;
         this.isDragging = true;
@@ -260,29 +260,29 @@ initializeSwipeFunctionality() {
         const deltaX = this.startX - endX;
         const deltaY = Math.abs(this.startY - endY);
 
-    if (deltaX > this.swipeThreshold && deltaY < this.swipeRestraint) {
-        // Swipe left detected
-        document.querySelector('.game-container').classList.add('swipe-out-left');
+        if (deltaX > this.swipeThreshold && deltaY < this.swipeRestraint) {
+            // Swipe left detected
+            document.querySelector('.game-container').classList.add('swipe-out-left');
 
-        // Hide the swipe info message
-        const swipeInfoMessage = document.getElementById('swipe-info-message');
-        swipeInfoMessage.style.opacity = 0;
+            // Hide the swipe info message
+            const swipeInfoMessage = document.getElementById('swipe-info-message');
+            swipeInfoMessage.style.opacity = 0;
 
-        setTimeout(() => {
-            document.querySelector('.game-container').classList.remove('swiping-left', 'swipe-out-left');
+            setTimeout(() => {
+                document.querySelector('.game-container').classList.remove('swiping-left', 'swipe-out-left');
+                ui.resetGameContainerStyle();
+                game.loadNewRandomPair();
+            }, 500); // Match this with the animation duration
+        } else {
+            // Reset if not swiped far enough or swiped vertically
             ui.resetGameContainerStyle();
-            game.loadNewRandomPair();
-        }, 500); // Match this with the animation duration
-    } else {
-        // Reset if not swiped far enough or swiped vertically
-        ui.resetGameContainerStyle();
 
-        // Hide the swipe info message
-        const swipeInfoMessage = document.getElementById('swipe-info-message');
-        swipeInfoMessage.style.opacity = 0;
-    }
+            // Hide the swipe info message
+            const swipeInfoMessage = document.getElementById('swipe-info-message');
+            swipeInfoMessage.style.opacity = 0;
+        }
 
-    this.isDragging = false;
+        this.isDragging = false;
     },
 
     handleDragMove(e) {
@@ -319,28 +319,28 @@ initializeSwipeFunctionality() {
         // Add any specific image interaction logic here
     },
 
-/*    showTaxonPairList() {
-        api.fetchTaxonPairs().then(taxonPairs => {
-            ui.showTaxonPairList(taxonPairs, (selectedPair) => {
-                game.nextSelectedPair = selectedPair;
-                game.setupGame(true);
+    /*    showTaxonPairList() {
+            api.fetchTaxonPairs().then(taxonPairs => {
+                ui.showTaxonPairList(taxonPairs, (selectedPair) => {
+                    game.nextSelectedPair = selectedPair;
+                    game.setupGame(true);
+                });
             });
-        });
-    },
-*/
+        },
+    */
     _handleKeyboardShortcuts(event) {
-//        logger.debug("Keyboard event:", event.key);
+        //        logger.debug("Keyboard event:", event.key);
 
         if (dialogManager.isAnyDialogOpen()) {
             // If any dialog is open, don't process keyboard shortcuts
             return;
         }
 
-        if (dialogManager.isAnyDialogOpen() || 
-            document.getElementById('info-dialog').open || 
-            dialogManager.activeDialog || 
+        if (dialogManager.isAnyDialogOpen() ||
+            document.getElementById('info-dialog').open ||
+            dialogManager.activeDialog ||
             document.getElementById('enter-pair-dialog').open) {
-//            logger.debug("Dialog is open, ignoring keyboard shortcut");
+            //            logger.debug("Dialog is open, ignoring keyboard shortcut");
             return;
         }
 
@@ -406,18 +406,18 @@ initializeSwipeFunctionality() {
     moveTileToDropZone(tilePosition, dropZonePosition) {
         const tile = document.getElementById(tilePosition === 'left' ? 'left-name' : 'right-name');
         const dropZone = document.getElementById(dropZonePosition === 'upper' ? 'drop-1' : 'drop-2');
-        
+
         if (tile && dropZone) {
             // Remove the tile from its current position
             tile.parentNode.removeChild(tile);
-            
+
             // Clear the drop zone and add the tile
             dropZone.innerHTML = '';
             dropZone.appendChild(tile);
-            
+
             // Highlight the moved tile
             //ui.highlightTile(tile.id);
-            
+
             // Trigger the answer check using the game's checkAnswer method
             game.checkAnswer(dropZone.id);
         }
@@ -429,16 +429,16 @@ initializeSwipeFunctionality() {
         currentUrl.searchParams.delete('taxon1');
         currentUrl.searchParams.delete('taxon2');
         currentUrl.searchParams.delete('tags'); // Clear any existing tags
-        
+
         currentUrl.searchParams.set('taxon1', gameState.taxonImageOne);
         currentUrl.searchParams.set('taxon2', gameState.taxonImageTwo);
-        
+
         // Add active tags to the URL
         const activeTags = gameState.selectedTags;
         if (activeTags && activeTags.length > 0) {
             currentUrl.searchParams.set('tags', activeTags.join(','));
         }
-        
+
         let shareUrl = currentUrl.toString();
 
         navigator.clipboard.writeText(shareUrl).then(() => {
@@ -449,13 +449,13 @@ initializeSwipeFunctionality() {
         });
     },
 
-    likePair: function() {
+    likePair: function () {
         // Implement liking functionality
         logger.debug('Like pair clicked');
         // Add your implementation here
     },
 
-    trashPair: function() {
+    trashPair: function () {
         // Implement trashing functionality
         logger.debug('Trash pair clicked');
         // Add your implementation here

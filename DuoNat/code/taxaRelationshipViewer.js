@@ -87,77 +87,77 @@ const taxaRelationshipViewer = {
     }
   },
 
-    async findRelationship(taxonName1, taxonName2) {
-        if (!this.initialized) {
-            throw new Error('Viewer not initialized. Call initialize() first.');
-        }
+  async findRelationship(taxonName1, taxonName2) {
+    if (!this.initialized) {
+      throw new Error('Viewer not initialized. Call initialize() first.');
+    }
 
-        this.showLoadingIndicator();
+    this.showLoadingIndicator();
 
-        try {
-            const [taxon1, taxon2] = await Promise.all([
-                this.fetchTaxonData(taxonName1),
-                this.fetchTaxonData(taxonName2)
-            ]);
+    try {
+      const [taxon1, taxon2] = await Promise.all([
+        this.fetchTaxonData(taxonName1),
+        this.fetchTaxonData(taxonName2)
+      ]);
 
-            // Fetch ancestry from local data
-            const [ancestry1, ancestry2] = await Promise.all([
-                api.getAncestryFromLocalData(taxonName1),
-                api.getAncestryFromLocalData(taxonName2)
-            ]);
+      // Fetch ancestry from local data
+      const [ancestry1, ancestry2] = await Promise.all([
+        api.getAncestryFromLocalData(taxonName1),
+        api.getAncestryFromLocalData(taxonName2)
+      ]);
 
-            // Convert Set to Array if necessary
-            taxon1.ancestor_ids = Array.isArray(taxon1.ancestor_ids) ? taxon1.ancestor_ids : Array.from(taxon1.ancestor_ids || []);
-            taxon2.ancestor_ids = Array.isArray(taxon2.ancestor_ids) ? taxon2.ancestor_ids : Array.from(taxon2.ancestor_ids || []);
+      // Convert Set to Array if necessary
+      taxon1.ancestor_ids = Array.isArray(taxon1.ancestor_ids) ? taxon1.ancestor_ids : Array.from(taxon1.ancestor_ids || []);
+      taxon2.ancestor_ids = Array.isArray(taxon2.ancestor_ids) ? taxon2.ancestor_ids : Array.from(taxon2.ancestor_ids || []);
 
-            // Use local ancestry if available
-            if (ancestry1.length > 0) taxon1.ancestor_ids = ancestry1;
-            if (ancestry2.length > 0) taxon2.ancestor_ids = ancestry2;
+      // Use local ancestry if available
+      if (ancestry1.length > 0) taxon1.ancestor_ids = ancestry1;
+      if (ancestry2.length > 0) taxon2.ancestor_ids = ancestry2;
 
-            const commonAncestor = this.findCommonAncestor(taxon1, taxon2);
-            this.currentData = { taxon1, taxon2, commonAncestor };
-            await this.renderGraph(taxon1, taxon2, commonAncestor);
-        } catch (error) {
-            logger.error('Error finding relationship:', error);
-            throw error;
-        } finally {
-            this.hideLoadingIndicator();
-        }
-    },
+      const commonAncestor = this.findCommonAncestor(taxon1, taxon2);
+      this.currentData = { taxon1, taxon2, commonAncestor };
+      await this.renderGraph(taxon1, taxon2, commonAncestor);
+    } catch (error) {
+      logger.error('Error finding relationship:', error);
+      throw error;
+    } finally {
+      this.hideLoadingIndicator();
+    }
+  },
 
-    async fetchAncestorDetails(ancestorIds, taxon1, taxon2) {
-        ancestorIds = Array.isArray(ancestorIds) ? ancestorIds : Array.from(ancestorIds || []);
-        logger.debug('Fetching ancestor details for IDs:', ancestorIds);
+  async fetchAncestorDetails(ancestorIds, taxon1, taxon2) {
+    ancestorIds = Array.isArray(ancestorIds) ? ancestorIds : Array.from(ancestorIds || []);
+    logger.debug('Fetching ancestor details for IDs:', ancestorIds);
 
-        const localAncestorDetails = new Map();
+    const localAncestorDetails = new Map();
 
-        // Add end nodes (taxon1 and taxon2) to localAncestorDetails
-        const endNodes = [taxon1, taxon2];
-        for (const taxon of endNodes) {
-            if (taxon && taxon.id) {
-                localAncestorDetails.set(taxon.id, {
-                    id: taxon.id,
-                    name: taxon.name,
-                    rank: taxon.rank,
-                    preferred_common_name: taxon.preferred_common_name
-                });
-                logger.debug(`Added local data for end node ${taxon.id}:`, localAncestorDetails.get(taxon.id));
-            }
-        }
-
-        // Fetch ancestor details from API (which now checks local ancestryInfo.json first)
-        const ancestorDetails = await api.fetchAncestorDetails(ancestorIds);
-        
-        // Merge API results with localAncestorDetails
-        ancestorDetails.forEach((value, key) => {
-            if (!localAncestorDetails.has(key)) {
-                localAncestorDetails.set(key, value);
-                logger.debug(`Added ancestry data for ID ${key}:`, value);
-            }
+    // Add end nodes (taxon1 and taxon2) to localAncestorDetails
+    const endNodes = [taxon1, taxon2];
+    for (const taxon of endNodes) {
+      if (taxon && taxon.id) {
+        localAncestorDetails.set(taxon.id, {
+          id: taxon.id,
+          name: taxon.name,
+          rank: taxon.rank,
+          preferred_common_name: taxon.preferred_common_name
         });
+        logger.debug(`Added local data for end node ${taxon.id}:`, localAncestorDetails.get(taxon.id));
+      }
+    }
 
-        return localAncestorDetails;
-    },
+    // Fetch ancestor details from API (which now checks local ancestryInfo.json first)
+    const ancestorDetails = await api.fetchAncestorDetails(ancestorIds);
+
+    // Merge API results with localAncestorDetails
+    ancestorDetails.forEach((value, key) => {
+      if (!localAncestorDetails.has(key)) {
+        localAncestorDetails.set(key, value);
+        logger.debug(`Added ancestry data for ID ${key}:`, value);
+      }
+    });
+
+    return localAncestorDetails;
+  },
 
   clearGraph() {
     if (this.network) {
@@ -199,30 +199,30 @@ const taxaRelationshipViewer = {
     const allAncestorIds = new Set([...taxon1.ancestor_ids, ...taxon2.ancestor_ids]);
     const ancestorDetails = await this.fetchAncestorDetails(allAncestorIds, taxon1, taxon2);
 
-   const addNodeAndEdges = (taxon, parentId) => {
-        const nodeData = ancestorDetails.get(taxon.id) || taxon;
-        logger.debug('Adding node:', nodeData);
-        
-        var vernacularName = nodeData.preferred_common_name ? 
-            `\n(${utils.capitalizeFirstLetter(nodeData.preferred_common_name)})` : "";
-        const isSpecificTaxon = nodeData.id === taxon1.id || nodeData.id === taxon2.id;
+    const addNodeAndEdges = (taxon, parentId) => {
+      const nodeData = ancestorDetails.get(taxon.id) || taxon;
+      logger.debug('Adding node:', nodeData);
 
-        var taxonName = nodeData.name || `Unknown Taxon ${nodeData.id}`;
-        var taxonRank = utils.capitalizeFirstLetter(nodeData.rank || 'Unknown');
-        if (taxonRank === "Species" || taxonRank === "Genus" || taxonRank === "Stateofmatter") { vernacularName = ""; }
-        if (taxonRank === "Species") { taxonName = utils.shortenSpeciesName(taxonName); }
-        if (taxonRank === "Species" || taxonRank === "Genus" || taxonRank === "Stateofmatter") { taxonRank = ""; }
+      var vernacularName = nodeData.preferred_common_name ?
+        `\n(${utils.capitalizeFirstLetter(nodeData.preferred_common_name)})` : "";
+      const isSpecificTaxon = nodeData.id === taxon1.id || nodeData.id === taxon2.id;
 
-        if (!nodes.get(nodeData.id)) {
-            nodes.add({
-                id: nodeData.id,
-                label: `${taxonRank} ${taxonName}${vernacularName}`,
-                color: isSpecificTaxon ? '#ffa500' : '#74ac00',
-                url: `https://www.inaturalist.org/taxa/${nodeData.id}`,
-                title: 'Click to view on iNaturalist'
-            });
-            if (parentId) edges.add({ from: parentId, to: nodeData.id });
-        }
+      var taxonName = nodeData.name || `Unknown Taxon ${nodeData.id}`;
+      var taxonRank = utils.capitalizeFirstLetter(nodeData.rank || 'Unknown');
+      if (taxonRank === "Species" || taxonRank === "Genus" || taxonRank === "Stateofmatter") { vernacularName = ""; }
+      if (taxonRank === "Species") { taxonName = utils.shortenSpeciesName(taxonName); }
+      if (taxonRank === "Species" || taxonRank === "Genus" || taxonRank === "Stateofmatter") { taxonRank = ""; }
+
+      if (!nodes.get(nodeData.id)) {
+        nodes.add({
+          id: nodeData.id,
+          label: `${taxonRank} ${taxonName}${vernacularName}`,
+          color: isSpecificTaxon ? '#ffa500' : '#74ac00',
+          url: `https://www.inaturalist.org/taxa/${nodeData.id}`,
+          title: 'Click to view on iNaturalist'
+        });
+        if (parentId) edges.add({ from: parentId, to: nodeData.id });
+      }
     };
 
     const processAncestry = (taxon) => {

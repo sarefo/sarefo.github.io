@@ -4,19 +4,19 @@ import logger from './logger.js';
 import utils from './utils.js';
 
 const preloader = {
-  preloadedImages: {
-    nextRound: { taxon1: null, taxon2: null },
-    nextPair: { taxon1: null, taxon2: null, pair: null }
-  },
+    preloadedImages: {
+        nextRound: { taxon1: null, taxon2: null },
+        nextPair: { taxon1: null, taxon2: null, pair: null }
+    },
 
-  async preloadImage(url) {
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-      img.onload = () => resolve(url);
-      img.onerror = () => reject(new Error(`Failed to load image: ${url}`));
-      img.src = url;
-    });
-  },
+    async preloadImage(url) {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = () => resolve(url);
+            img.onerror = () => reject(new Error(`Failed to load image: ${url}`));
+            img.src = url;
+        });
+    },
 
     async preloadForNextRound() {
         const { pair, imageOneURL, imageTwoURL } = gameState.currentTaxonImageCollection;
@@ -24,7 +24,7 @@ const preloader = {
             this.fetchDifferentImage(pair.taxon1, imageOneURL),
             this.fetchDifferentImage(pair.taxon2, imageTwoURL)
         ]);
-        
+
         await Promise.all([
             this.preloadImage(newImageOneURL),
             this.preloadImage(newImageTwoURL)
@@ -44,27 +44,27 @@ const preloader = {
         } else {
             usedImages = new Set();
         }
-        
+
         // Filter out the current image and any previously used images
         let availableImages = images.filter(img => !usedImages.has(img) && img !== currentImageURL);
-        
+
         // If we've used all images, reset the used images but still avoid the current image
         if (availableImages.length === 0) {
             logger.warn(`All images for ${taxonName} have been used. Resetting used images.`);
             usedImages = new Set(currentImageURL ? [currentImageURL] : []);
             availableImages = images.filter(img => img !== currentImageURL);
         }
-        
+
         if (availableImages.length > 0) {
             const selectedImage = availableImages[Math.floor(Math.random() * availableImages.length)];
             usedImages.add(selectedImage);
             if (gameState.currentTaxonImageCollection) {
                 const taxonKey = taxonName === gameState.currentTaxonImageCollection.pair.taxon1 ? 'taxon1' : 'taxon2';
-                updateGameState({ 
-                    usedImages: { 
-                        ...gameState.usedImages, 
-                        [taxonKey]: usedImages 
-                    } 
+                updateGameState({
+                    usedImages: {
+                        ...gameState.usedImages,
+                        [taxonKey]: usedImages
+                    }
                 });
             }
             return selectedImage;
@@ -92,7 +92,7 @@ const preloader = {
                 attempts++;
 
                 // Check if the new pair is the same as the current pair
-                const isSamePair = gameState.currentTaxonImageCollection && 
+                const isSamePair = gameState.currentTaxonImageCollection &&
                     newPair.taxon1 === gameState.currentTaxonImageCollection.pair.taxon1 &&
                     newPair.taxon2 === gameState.currentTaxonImageCollection.pair.taxon2;
 
@@ -113,16 +113,16 @@ const preloader = {
                 this.fetchDifferentImage(newPair.taxon1, null),
                 this.fetchDifferentImage(newPair.taxon2, null)
             ]);
-            
+
             await Promise.all([
                 this.preloadImage(imageOneURL),
                 this.preloadImage(imageTwoURL)
             ]);
 
-            this.preloadedImages.nextPair = { 
+            this.preloadedImages.nextPair = {
                 pair: newPair,
-                taxon1: imageOneURL, 
-                taxon2: imageTwoURL 
+                taxon1: imageOneURL,
+                taxon2: imageTwoURL
             };
             logger.debug(`Preloaded images for next pair: ${newPair.taxon1} / ${newPair.taxon2}`);
         } catch (error) {
@@ -130,21 +130,21 @@ const preloader = {
         }
     },
 
-  getPreloadedImagesForNextRound() {
-    const images = this.preloadedImages.nextRound;
-    this.preloadedImages.nextRound = { taxon1: null, taxon2: null };
-    return images;
-  },
+    getPreloadedImagesForNextRound() {
+        const images = this.preloadedImages.nextRound;
+        this.preloadedImages.nextRound = { taxon1: null, taxon2: null };
+        return images;
+    },
 
-  getPreloadedImagesForNextPair() {
-    const images = this.preloadedImages.nextPair;
-    this.preloadedImages.nextPair = { taxon1: null, taxon2: null, pair: null };
-    return images;
-  },
+    getPreloadedImagesForNextPair() {
+        const images = this.preloadedImages.nextPair;
+        this.preloadedImages.nextPair = { taxon1: null, taxon2: null, pair: null };
+        return images;
+    },
 
-  hasPreloadedPair() {
-    return !!this.preloadedImages.nextPair.pair;
-  },
+    hasPreloadedPair() {
+        return !!this.preloadedImages.nextPair.pair;
+    },
 
     async preloadNewPairWithTags(selectedTags) {
         if (this.isPreloading) {
@@ -168,7 +168,7 @@ const preloader = {
                     return;
                 }
 
-                const isSamePair = gameState.currentTaxonImageCollection && 
+                const isSamePair = gameState.currentTaxonImageCollection &&
                     newPair.taxon1 === gameState.currentTaxonImageCollection.pair.taxon1 &&
                     newPair.taxon2 === gameState.currentTaxonImageCollection.pair.taxon2;
 
@@ -187,16 +187,16 @@ const preloader = {
                 this.fetchDifferentImage(newPair.taxon1, null),
                 this.fetchDifferentImage(newPair.taxon2, null)
             ]);
-            
+
             await Promise.all([
                 this.preloadImage(imageOneURL),
                 this.preloadImage(imageTwoURL)
             ]);
 
-            this.preloadedImages.nextPair = { 
+            this.preloadedImages.nextPair = {
                 pair: newPair,
-                taxon1: imageOneURL, 
-                taxon2: imageTwoURL 
+                taxon1: imageOneURL,
+                taxon2: imageTwoURL
             };
             logger.debug("Preloaded new pair based on selected tags");
         } catch (error) {

@@ -33,10 +33,10 @@ const tagCloud = {
         // Close button functionality
         const closeButton = tagCloudDialog.querySelector('.dialog-close-button');
         closeButton.addEventListener('click', () => this.closeTagCloud());
-    
+
         const clearAllTagsButton = document.getElementById('clear-all-tags');
         clearAllTagsButton.addEventListener('click', () => this.clearAllTags());
-        
+
         // Update active tags when the tag cloud is opened or closed
         this.on('tagCloudOpened', () => this.updateActiveTags());
         this.on('tagCloudClosed', () => this.updateActiveTags());
@@ -58,16 +58,16 @@ const tagCloud = {
 
     updateTaxonList() {
         const selectedTags = this.getSelectedTags();
-        
+
         api.fetchTaxonPairs().then(taxonPairs => {
             let filteredPairs = taxonPairs;
-            
+
             if (selectedTags.length > 0) {
-                filteredPairs = taxonPairs.filter(pair => 
+                filteredPairs = taxonPairs.filter(pair =>
                     pair.tags.some(tag => selectedTags.includes(tag))
                 );
             }
-            
+
             // Update the UI with the filtered pairs
             ui.renderTaxonPairList(filteredPairs);
         });
@@ -86,10 +86,10 @@ const tagCloud = {
     async updateMatchingPairsCount() {
         const taxonPairs = await api.fetchTaxonPairs();
         const selectedTags = Array.from(this.selectedTags);
-        const matchingPairs = taxonPairs.filter(pair => 
+        const matchingPairs = taxonPairs.filter(pair =>
             pair.tags.some(tag => selectedTags.includes(tag))
         );
-        
+
         const countElement = document.getElementById('matching-pairs-count');
         if (countElement) {
             countElement.textContent = `Matching pairs: ${matchingPairs.length}`;
@@ -100,7 +100,7 @@ const tagCloud = {
         const container = document.getElementById('tag-cloud-container');
         container.innerHTML = '';
         const maxCount = Math.max(...Object.values(tagCounts));
-        
+
         Object.entries(tagCounts).forEach(([tag, count]) => {
             const size = 14 + (count / maxCount) * 24; // Font size between 14px and 38px
             const tagElement = document.createElement('span');
@@ -154,9 +154,9 @@ const tagCloud = {
         this.selectedTags.clear();
         updateGameState({ selectedTags: [] });
         this.updateActiveTags();
-        
+
         this.updateTaxonList();
-        
+
         // Trigger preloading of a random pair from all available pairs
         preloader.preloadNewPairWithTags([]);
     },
@@ -164,14 +164,14 @@ const tagCloud = {
     updateActiveTags() {
         const activeTagsContainer = document.getElementById('active-tags');
         activeTagsContainer.innerHTML = '';
-        
+
         this.selectedTags.forEach(tag => {
             const tagElement = document.createElement('span');
             tagElement.className = 'active-tag';
             tagElement.textContent = tag;
             activeTagsContainer.appendChild(tagElement);
         });
-        
+
         // Show or hide the container based on whether there are active tags
         const container = document.getElementById('active-tags-container');
         container.style.display = this.selectedTags.size > 0 ? 'flex' : 'none';

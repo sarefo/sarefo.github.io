@@ -16,7 +16,7 @@ const dialogManager = {
             dialog.showModal();
             this.openDialogs.add(dialogId);
             this.activeDialog = dialog;
-            
+
             // Add event listener to handle keyboard events
             dialog.addEventListener('keydown', this.handleDialogKeydown);
         }
@@ -28,7 +28,7 @@ const dialogManager = {
             dialog.close();
             this.openDialogs.delete(dialogId);
             this.activeDialog = null;
-            
+
             // Remove event listener
             dialog.removeEventListener('keydown', this.handleDialogKeydown);
         }
@@ -47,7 +47,7 @@ const dialogManager = {
         if (event.target.tagName.toLowerCase() === 'input') {
             return;
         }
-        
+
         // Prevent propagation for other elements
         event.stopPropagation();
     },
@@ -56,61 +56,61 @@ const dialogManager = {
         this.openDialogs.forEach(dialogId => this.closeDialog(dialogId));
     },
 
-/*
-    openDialog(dialogId) {
-        ui.closeMainMenu();
-        const dialog = document.getElementById(dialogId);
-        if (!dialog) {
-            console.error(`Dialog with id ${dialogId} not found`);
-            return;
-        }
-
-        this.disableMainEventHandlers();
-
-        if (dialog instanceof HTMLElement) {
-            if (dialog.tagName.toLowerCase() === 'dialog') {
-                dialog.showModal();
-            } else {
-                dialog.classList.remove('hidden');
-                if (dialogId === 'phylogeny-dialog') {
-                    dialog.style.display = 'flex';
-                }
+    /*
+        openDialog(dialogId) {
+            ui.closeMainMenu();
+            const dialog = document.getElementById(dialogId);
+            if (!dialog) {
+                console.error(`Dialog with id ${dialogId} not found`);
+                return;
             }
-        }
-        this.activeDialog = dialog;
-
-        document.addEventListener('keydown', this.handleEscapeKey.bind(this));
-        if (dialog instanceof HTMLElement) {
-            dialog.addEventListener('close', () => this.handleDialogClose(dialog));
-            const closeButton = dialog.querySelector('.dialog-close-button');
-            if (closeButton) {
-                closeButton.addEventListener('click', () => this.closeDialog());
-            }
-        }
-    },
-
-    closeDialog() {
-        if (this.activeDialog) {
-            const dialog = this.activeDialog;
-            this.activeDialog = null;
-
+    
+            this.disableMainEventHandlers();
+    
             if (dialog instanceof HTMLElement) {
                 if (dialog.tagName.toLowerCase() === 'dialog') {
-                    dialog.close();
+                    dialog.showModal();
                 } else {
-                    dialog.classList.add('hidden');
-                }
-
-                if (dialog.id === 'phylogeny-dialog') {
-                    dialog.style.display = 'none';
+                    dialog.classList.remove('hidden');
+                    if (dialogId === 'phylogeny-dialog') {
+                        dialog.style.display = 'flex';
+                    }
                 }
             }
-            this.handleDialogClose(dialog);
-            
-            this.emit('dialogClose', dialog.id);
-        }
-    },
-*/
+            this.activeDialog = dialog;
+    
+            document.addEventListener('keydown', this.handleEscapeKey.bind(this));
+            if (dialog instanceof HTMLElement) {
+                dialog.addEventListener('close', () => this.handleDialogClose(dialog));
+                const closeButton = dialog.querySelector('.dialog-close-button');
+                if (closeButton) {
+                    closeButton.addEventListener('click', () => this.closeDialog());
+                }
+            }
+        },
+    
+        closeDialog() {
+            if (this.activeDialog) {
+                const dialog = this.activeDialog;
+                this.activeDialog = null;
+    
+                if (dialog instanceof HTMLElement) {
+                    if (dialog.tagName.toLowerCase() === 'dialog') {
+                        dialog.close();
+                    } else {
+                        dialog.classList.add('hidden');
+                    }
+    
+                    if (dialog.id === 'phylogeny-dialog') {
+                        dialog.style.display = 'none';
+                    }
+                }
+                this.handleDialogClose(dialog);
+                
+                this.emit('dialogClose', dialog.id);
+            }
+        },
+    */
     handleDialogClose(dialog) {
         if (!dialog) {
             logger.warn('handleDialogClose called with no dialog');
@@ -157,7 +157,7 @@ const dialogManager = {
         } else {
             logger.debug(`No listeners for event: ${eventName}`);
         }
-    }, 
+    },
 
     handleDialogClose(dialog) {
         if (!dialog) {

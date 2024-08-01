@@ -14,7 +14,7 @@ const handleApiError = (error, context) => {
 const api = (() => {
     return {
 
-        loadTaxonInfo: async function() {
+        loadTaxonInfo: async function () {
             try {
                 if (taxonInfo === null) {
                     const response = await fetch('./data/taxonInfo.json');
@@ -29,36 +29,36 @@ const api = (() => {
             }
         },
 
-   /*     getVernacularName: async function(taxonName) {
+        /*     getVernacularName: async function(taxonName) {
+                 try {
+                     const taxonInfo = await this.loadTaxonInfo();
+                     const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxonName.toLowerCase());
+                     return taxonData ? utils.capitalizeFirstLetter(taxonData.vernacularName) : '';
+                 } catch (error) {
+                     handleApiError(error, 'getVernacularName');
+                 }
+             },
+     */
+        // fetch from JSON file
+        fetchTaxonPairs: async function () {
             try {
-                const taxonInfo = await this.loadTaxonInfo();
-                const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxonName.toLowerCase());
-                return taxonData ? utils.capitalizeFirstLetter(taxonData.vernacularName) : '';
+                const response = await fetch('./data/taxonSets.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const taxonSets = await response.json();
+                // Convert the new format to an expanded version of the old format
+                return taxonSets.map(set => ({
+                    taxon1: set.taxonNames[0],
+                    taxon2: set.taxonNames[1],
+                    setName: set.setName,
+                    tags: set.tags,
+                    setID: set.setID
+                }));
             } catch (error) {
-                handleApiError(error, 'getVernacularName');
+                handleApiError(error, 'fetchTaxonPairs');
             }
         },
-*/
-        // fetch from JSON file
-    fetchTaxonPairs: async function () {
-        try {
-            const response = await fetch('./data/taxonSets.json');
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const taxonSets = await response.json();
-            // Convert the new format to an expanded version of the old format
-            return taxonSets.map(set => ({
-                taxon1: set.taxonNames[0],
-                taxon2: set.taxonNames[1],
-                setName: set.setName,
-                tags: set.tags,
-                setID: set.setID
-            }));
-        } catch (error) {
-            handleApiError(error, 'fetchTaxonPairs');
-        }
-    },
 
         // for user input of new taxon pairs
         validateTaxon: async function (taxonName) {
@@ -90,7 +90,7 @@ const api = (() => {
         },
 
         fetchImageMetadata: async function (taxonName, count = 12) {
-//            logger.debug(`Fetching metadata for ${count} images of ${taxonName}`);
+            //            logger.debug(`Fetching metadata for ${count} images of ${taxonName}`);
             try {
                 const searchResponse = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${taxonName}`);
                 const searchData = await searchResponse.json();
@@ -105,7 +105,7 @@ const api = (() => {
                 let images = taxon.taxon_photos.map(photo => photo.photo.url.replace('square', 'medium'));
 
                 const result = images.slice(0, Math.min(count, images.length));
-//                logger.debug(`Fetched metadata for ${result.length} images of ${taxonName}`);
+                //                logger.debug(`Fetched metadata for ${result.length} images of ${taxonName}`);
                 return result;
             } catch (error) {
                 logger.error(`Error fetching image metadata for ${taxonName}:`, error);
@@ -114,7 +114,7 @@ const api = (() => {
         },
 
         fetchRandomImageMetadata: async function (taxonName) {
-//            logger.debug(`Fetching random image metadata for ${taxonName}`);
+            //            logger.debug(`Fetching random image metadata for ${taxonName}`);
             const images = await this.fetchImageMetadata(taxonName, 12); // Fetch metadata for 12 images
             if (images.length === 0) {
                 logger.error(`No image metadata found for ${taxonName}`);
@@ -122,7 +122,7 @@ const api = (() => {
             }
             const randomIndex = Math.floor(Math.random() * images.length);
             const result = images[randomIndex];
-//            logger.debug(`Selected random image metadata for ${taxonName}: ${result}`);
+            //            logger.debug(`Selected random image metadata for ${taxonName}: ${result}`);
             return result;
         },
 
@@ -155,10 +155,10 @@ const api = (() => {
         // fetch vernacular name of taxon from local file or iNat
         fetchVernacular: async function (taxonName) {
             const taxonInfo = await this.loadTaxonInfo();
-            
+
             // Find the entry with matching taxonName
             const entry = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxonName.toLowerCase());
-            
+
             if (entry) {
                 // Return the vernacularName even if it's an empty string
                 return entry.vernacularName;
@@ -226,7 +226,7 @@ const api = (() => {
             }
         },
 
-        loadAncestryInfo: async function() {
+        loadAncestryInfo: async function () {
             try {
                 if (ancestryInfo === null) {
                     const response = await fetch('./data/ancestryInfo.json');

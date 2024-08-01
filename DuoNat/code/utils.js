@@ -14,7 +14,7 @@ const utils = {
         const taxon1 = params.get('taxon1');
         const taxon2 = params.get('taxon2');
         const tags = params.get('tags');
-        
+
         return { taxon1, taxon2, tags };
     },
 
@@ -55,7 +55,7 @@ const utils = {
             if (observationsWithSounds.length > 0) {
                 // Choose a random observation
                 const randomObservation = observationsWithSounds[Math.floor(Math.random() * observationsWithSounds.length)];
-                
+
                 // Extract the sound URL
                 const soundUrl = randomObservation.sounds[0].file_url;
 
@@ -95,8 +95,8 @@ const utils = {
         // If it's not mobile and not a tablet, assume it has a keyboard
         const result = !isMobile && !isTablet;
 
-//        logger.debug(`hasKeyboard detected: ${result}`);
-//        logger.debug(`UserAgent: ${navigator.userAgent}`);
+        //        logger.debug(`hasKeyboard detected: ${result}`);
+        //        logger.debug(`UserAgent: ${navigator.userAgent}`);
 
         return result;
     },
@@ -162,7 +162,7 @@ const utils = {
         let filteredPairs = taxonPairs;
 
         if (gameState.selectedTags.length > 0) {
-            filteredPairs = taxonPairs.filter(pair => 
+            filteredPairs = taxonPairs.filter(pair =>
                 pair.tags.some(tag => gameState.selectedTags.includes(tag))
             );
         }

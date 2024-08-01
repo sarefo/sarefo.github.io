@@ -17,7 +17,7 @@ export function createWorldMap(container, highlightedContinents) {
         button.style.position = 'absolute';
         button.style.bottom = '10px';
         button.style.left = '60px';
-        
+
         const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svg.setAttribute('class', 'icon');
         svg.setAttribute('viewBox', '0 0 24 24');

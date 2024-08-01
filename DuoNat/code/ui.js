@@ -20,7 +20,7 @@ async function getCachedVernacularName(taxonName) {
 const ui = {
     isMenuOpen: false,
 
-    resetUIState: function() {
+    resetUIState: function () {
         this.closeMainMenu();
         // Add any other UI state resets here if needed
     },
@@ -53,7 +53,7 @@ const ui = {
             const selectedTags = tagCloud.getSelectedTags();
             let filteredPairs = taxonPairs;
             if (selectedTags.length > 0) {
-                filteredPairs = taxonPairs.filter(pair => 
+                filteredPairs = taxonPairs.filter(pair =>
                     pair.tags.some(tag => selectedTags.includes(tag))
                 );
             }
@@ -67,7 +67,7 @@ const ui = {
         }
     },
 
-    renderTaxonPairList: async function(pairs) {
+    renderTaxonPairList: async function (pairs) {
         const list = document.getElementById('taxon-pair-list');
         list.innerHTML = ''; // Clear existing content
 
@@ -84,7 +84,7 @@ const ui = {
         }
     },
 
-    renderVisibleTaxonPairs: async function(pairs) {
+    renderVisibleTaxonPairs: async function (pairs) {
         const list = document.getElementById('taxon-pair-list');
         const visiblePairs = pairs.slice(0, 20); // Render first 20 pairs
 
@@ -102,7 +102,7 @@ const ui = {
         }
     },
 
-    loadMorePairs: async function(pairs, startIndex) {
+    loadMorePairs: async function (pairs, startIndex) {
         const list = document.getElementById('taxon-pair-list');
         const nextPairs = pairs.slice(startIndex, startIndex + 20);
 
@@ -118,10 +118,10 @@ const ui = {
         }
     },
 
-    updateTaxonPairList: async function(filteredPairs) {
+    updateTaxonPairList: async function (filteredPairs) {
         const list = document.getElementById('taxon-pair-list');
         list.innerHTML = ''; // Clear existing content
-        
+
         if (filteredPairs.length === 0) {
             const noResultsMessage = document.createElement('p');
             noResultsMessage.textContent = 'No matching pairs found.';
@@ -135,7 +135,7 @@ const ui = {
         }
     },
 
-    createTaxonPairButton: async function(pair) {
+    createTaxonPairButton: async function (pair) {
         const button = document.createElement('button');
         button.className = 'taxon-set-button';
 
@@ -171,10 +171,10 @@ const ui = {
                 tags: [...pair.tags],
                 setID: pair.setID
             };
-            
+
             game.nextSelectedPair = selectedPair;
             logger.debug('Selected pair:', selectedPair);
-            
+
             setTimeout(() => {
                 dialogManager.closeDialog('select-pair-dialog');
                 game.setupGame(true);
@@ -184,7 +184,7 @@ const ui = {
         return button;
     },
 
-    updateVernacularNames: async function(button, pair) {
+    updateVernacularNames: async function (button, pair) {
         const vernacular1 = await getCachedVernacularName(pair.taxon1);
         const vernacular2 = await getCachedVernacularName(pair.taxon2);
 
@@ -261,8 +261,8 @@ const ui = {
             { message: "You'll see two images of different taxa.", highlights: ['#image-container-1', '#image-container-2'], duration: 5000 },
             { message: "Drag a name to the correct image.", highlight: '.name-pair', duration: 5000 },
             { message: "If correct, you'll move to the next round.", highlight: null, duration: 4000 },
-            { 
-                message: "Swipe left on an image for a new taxon set.", 
+            {
+                message: "Swipe left on an image for a new taxon set.",
                 highlight: null,
                 action: () => { this.tiltGameContainer(3200); },
                 duration: 6000
@@ -307,23 +307,23 @@ const ui = {
 
         // Close the help dialog before starting the tutorial
         document.getElementById('help-dialog').close();
-        
+
         // Show the overlay at the start of the tutorial
         this.showOverlay("", config.overlayColors.green);
-        
+
         // Start the tutorial
         showStep();
     },
 
-    temporarilyOpenMenu: function(duration) {
-      this.toggleMainMenu(); // Open the menu
-      setTimeout(() => {
-        this.closeMainMenu(); // Close the menu after the specified duration
-      }, duration);
+    temporarilyOpenMenu: function (duration) {
+        this.toggleMainMenu(); // Open the menu
+        setTimeout(() => {
+            this.closeMainMenu(); // Close the menu after the specified duration
+        }, duration);
     },
 
     // for tutorial demo
-    tiltGameContainer: function(duration = 3200) {
+    tiltGameContainer: function (duration = 3200) {
         const gameContainer = document.querySelector('.game-container');
         const midpoint = duration / 2;
 
@@ -416,11 +416,11 @@ const ui = {
     },
 
     // main menu code:
-    initializeMainMenu: function() {
+    initializeMainMenu: function () {
         const menuToggle = document.getElementById('menu-toggle');
         if (menuToggle) {
             menuToggle.addEventListener('click', (event) => {
-//                logger.debug('Menu toggle button or its child clicked');
+                //                logger.debug('Menu toggle button or its child clicked');
                 event.stopPropagation();
                 this.toggleMainMenu();
             });
@@ -429,7 +429,7 @@ const ui = {
         }
 
         window.addEventListener('resize', this.positionBottomGroup.bind(this));
-        
+
         // Call once to set initial position
         this.positionBottomGroup();
 
@@ -441,7 +441,7 @@ const ui = {
         });
     },
 
-    toggleMainMenu: function() {
+    toggleMainMenu: function () {
         this.isMenuOpen = !this.isMenuOpen;
 
         const topGroup = document.querySelector('.main-menu__dropdown--top');
@@ -450,7 +450,7 @@ const ui = {
         if (topGroup && bottomGroup) {
             topGroup.classList.toggle('show');
             bottomGroup.classList.toggle('show');
-//            logger.debug("Show classes toggled");
+            //            logger.debug("Show classes toggled");
 
             if (this.isMenuOpen) {
                 this.positionBottomGroup();
@@ -460,10 +460,10 @@ const ui = {
         }
     },
 
-    positionBottomGroup: function() {
+    positionBottomGroup: function () {
         const bottomGroup = document.querySelector('.main-menu__dropdown--bottom');
         const lowerImageContainer = document.querySelector('#image-container-2');
-        
+
         if (bottomGroup && lowerImageContainer) {
             const rect = lowerImageContainer.getBoundingClientRect();
             bottomGroup.style.top = `${rect.top}px`;
@@ -471,7 +471,7 @@ const ui = {
         }
     },
 
-    closeMainMenu: function() {
+    closeMainMenu: function () {
         if (this.isMenuOpen) {
             const topGroup = document.querySelector('.main-menu__dropdown--top');
             const bottomGroup = document.querySelector('.main-menu__dropdown--bottom');
