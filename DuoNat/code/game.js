@@ -90,28 +90,17 @@ const game = {
     async initializeNewPair() {
         let newPair, imageOneURL, imageTwoURL;
 
-        if (this.nextSelectedPair) {
-            // Use the nextSelectedPair if it exists (from URL parameters)
-            newPair = this.nextSelectedPair;
-            this.nextSelectedPair = null; // Clear it after use
+        const preloadedPair = preloader.getPreloadedImagesForNextPair();
+        if (preloadedPair && preloadedPair.pair) {
+            newPair = preloadedPair.pair;
+            imageOneURL = preloadedPair.taxon1;
+            imageTwoURL = preloadedPair.taxon2;
+        } else {
+            newPair = await utils.selectTaxonPair();
             [imageOneURL, imageTwoURL] = await Promise.all([
                 api.fetchRandomImageMetadata(newPair.taxon1),
                 api.fetchRandomImageMetadata(newPair.taxon2)
             ]);
-        } else {
-            // Use the existing logic for selecting a random pair
-            const preloadedPair = preloader.getPreloadedImagesForNextPair();
-            if (preloadedPair && preloadedPair.pair) {
-                newPair = preloadedPair.pair;
-                imageOneURL = preloadedPair.taxon1;
-                imageTwoURL = preloadedPair.taxon2;
-            } else {
-                newPair = await utils.selectTaxonPair();
-                [imageOneURL, imageTwoURL] = await Promise.all([
-                    api.fetchRandomImageMetadata(newPair.taxon1),
-                    api.fetchRandomImageMetadata(newPair.taxon2)
-                ]);
-            }
         }
 
         updateGameState({
@@ -128,8 +117,7 @@ const game = {
 
         await this.setupRound(true);
 
-        // Trigger preloading for the next pair
-        preloader.preloadForNextPair();
+        // Removed the preloadForNextPair call from here
     },
 
     async setupRound(isNewPair = false) {
