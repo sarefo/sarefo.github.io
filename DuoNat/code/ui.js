@@ -14,7 +14,7 @@ async function getCachedVernacularName(taxonName) {
         const vernacularName = await api.fetchVernacular(taxonName);
         vernacularNameCache.set(taxonName, vernacularName);
     }
-    return vernacularNameCache.get(taxonName);
+    return vernacularNameCache.get(taxonName) || 'n/a';
 }
 
 const ui = {
@@ -139,8 +139,13 @@ const ui = {
         const button = document.createElement('button');
         button.className = 'taxon-set-button';
 
-        const vernacular1 = await getCachedVernacularName(pair.taxon1);
-        const vernacular2 = await getCachedVernacularName(pair.taxon2);
+        //const vernacular1 = await getCachedVernacularName(pair.taxon1);
+        //const vernacular2 = await getCachedVernacularName(pair.taxon2);
+        let result = await getCachedVernacularName(pair.taxon1);
+        const vernacular1 = result === "n/a" ? "" : result;
+
+        result = await getCachedVernacularName(pair.taxon2);
+        const vernacular2 = result === "n/a" ? "" : result;
 
         button.innerHTML = `
             <div class="taxon-set-container">
@@ -150,11 +155,11 @@ const ui = {
                 </div>
                 <div class="taxon-item">
                     <div class="taxon-name">${pair.taxon1}</div>
-                    <div class="vernacular-name">${vernacular1 || 'No common name'}</div>
+                    <div class="vernacular-name">${vernacular1}</div>
                 </div>
                 <div class="taxon-item">
                     <div class="taxon-name">${pair.taxon2}</div>
-                    <div class="vernacular-name">${vernacular2 || 'No common name'}</div>
+                    <div class="vernacular-name">${vernacular2}</div>
                 </div>
             </div>
         `;
@@ -168,6 +173,15 @@ const ui = {
         };
 
         return button;
+    },
+
+    updateVernacularNames: async function(button, pair) {
+        const vernacular1 = await getCachedVernacularName(pair.taxon1);
+        const vernacular2 = await getCachedVernacularName(pair.taxon2);
+
+        const vernacularElements = button.querySelectorAll('.vernacular-name');
+        vernacularElements[0].textContent = vernacular1 || '';
+        vernacularElements[1].textContent = vernacular2 || '';
     },
 
     showOverlay: function (message = "", color) {

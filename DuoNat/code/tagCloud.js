@@ -60,24 +60,18 @@ const tagCloud = {
         const selectedTags = this.getSelectedTags();
         
         api.fetchTaxonPairs().then(taxonPairs => {
-            let filteredPairs;
+            let filteredPairs = taxonPairs;
             
             if (selectedTags.length > 0) {
                 filteredPairs = taxonPairs.filter(pair => 
                     pair.tags.some(tag => selectedTags.includes(tag))
                 );
-            } else {
-                filteredPairs = taxonPairs; // If no tags selected, show all pairs
             }
-            
-            logger.debug(`Filtered pairs: ${filteredPairs.length} out of ${taxonPairs.length}`);
-            logger.debug(`Selected tags: ${selectedTags.join(', ')}`);
             
             // Update the UI with the filtered pairs
             ui.renderTaxonPairList(filteredPairs);
         });
     },
-
     async getTagCounts() {
         const taxonPairs = await api.fetchTaxonPairs();
         const tagCounts = {};
@@ -159,13 +153,12 @@ const tagCloud = {
     clearAllTags() {
         this.selectedTags.clear();
         updateGameState({ selectedTags: [] });
-        this.renderTagCloud(this.getTagCounts());
-        this.updateTaxonList();
-        this.updateMatchingPairsCount();
         this.updateActiveTags();
         
+        this.updateTaxonList();
+        
         // Trigger preloading of a random pair from all available pairs
-        preloader.preloadNewPairWithTags([]);  // Pass an empty array to indicate no tag filtering
+        preloader.preloadNewPairWithTags([]);
     },
 
     updateActiveTags() {

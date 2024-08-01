@@ -1245,15 +1245,6 @@ async function getCachedVernacularName(taxonName) {
     return vernacularNameCache.get(taxonName);
 }
 
-async function prefetchVernacularNames() {
-    const taxonPairs = await api.fetchTaxonPairs();
-    for (const pair of taxonPairs) {
-        await getCachedVernacularName(pair.taxon1);
-        await getCachedVernacularName(pair.taxon2);
-    }
-    logger.debug('All vernacular names pre-fetched');
-}
-
 const ui = {
     isMenuOpen: false,
 
@@ -1283,17 +1274,7 @@ const ui = {
                 return;
             }
 
-            // Prefetch vernacular names
-            await prefetchVernacularNames();
-
             const list = document.getElementById('taxon-pair-list');
-            const searchInput = document.getElementById('taxon-search');
-            const clearButton = document.getElementById('clear-search');
-            
-            // Clear the search input and hide the clear button
-            searchInput.value = '';
-            clearButton.style.display = 'none';
-
             list.innerHTML = ''; // Clear existing content
 
             // Filter pairs based on selected tags
@@ -1305,12 +1286,10 @@ const ui = {
                 );
             }
 
-            await this.renderTaxonPairList(filteredPairs);
+            // Render only visible pairs initially
+            await this.renderVisibleTaxonPairs(filteredPairs);
 
             dialogManager.openDialog('select-pair-dialog');
-
-            // Focus on the search input when the dialog opens
-            setTimeout(() => searchInput.focus(), 100);
         } catch (error) {
             logger.error("Error in showTaxonPairList:", error);
         }
@@ -1330,6 +1309,40 @@ const ui = {
                 const button = await this.createTaxonPairButton(pair);
                 list.appendChild(button);
             }
+        }
+    },
+
+    renderVisibleTaxonPairs: async function(pairs) {
+        const list = document.getElementById('taxon-pair-list');
+        const visiblePairs = pairs.slice(0, 20); // Render first 20 pairs
+
+        for (const pair of visiblePairs) {
+            const button = await this.createTaxonPairButton(pair);
+            list.appendChild(button);
+        }
+
+        // Implement lazy loading for remaining pairs
+        if (pairs.length > 20) {
+            const loadMoreButton = document.createElement('button');
+            loadMoreButton.textContent = 'Load More';
+            loadMoreButton.addEventListener('click', () => this.loadMorePairs(pairs, 20));
+            list.appendChild(loadMoreButton);
+        }
+    },
+
+    loadMorePairs: async function(pairs, startIndex) {
+        const list = document.getElementById('taxon-pair-list');
+        const nextPairs = pairs.slice(startIndex, startIndex + 20);
+
+        for (const pair of nextPairs) {
+            const button = await this.createTaxonPairButton(pair);
+            list.insertBefore(button, list.lastChild);
+        }
+
+        if (startIndex + 20 >= pairs.length) {
+            list.removeChild(list.lastChild); // Remove "Load More" button
+        } else {
+            list.lastChild.addEventListener('click', () => this.loadMorePairs(pairs, startIndex + 20));
         }
     },
 
@@ -1383,6 +1396,15 @@ const ui = {
         };
 
         return button;
+    },
+
+    updateVernacularNames: async function(button, pair) {
+        const vernacular1 = await getCachedVernacularName(pair.taxon1);
+        const vernacular2 = await getCachedVernacularName(pair.taxon2);
+
+        const vernacularElements = button.querySelectorAll('.vernacular-name');
+        vernacularElements[0].textContent = vernacular1 || '';
+        vernacularElements[1].textContent = vernacular2 || '';
     },
 
     showOverlay: function (message = "", color) {
@@ -1944,14 +1966,12 @@ const tagCloud = {
         const selectedTags = this.getSelectedTags();
         
         api.fetchTaxonPairs().then(taxonPairs => {
-            let filteredPairs;
+            let filteredPairs = taxonPairs;
             
             if (selectedTags.length > 0) {
                 filteredPairs = taxonPairs.filter(pair => 
                     pair.tags.some(tag => selectedTags.includes(tag))
                 );
-            } else {
-                filteredPairs = taxonPairs; // If no tags selected, show all pairs
             }
             
             logger.debug(`Filtered pairs: ${filteredPairs.length} out of ${taxonPairs.length}`);
@@ -2043,13 +2063,13 @@ const tagCloud = {
     clearAllTags() {
         this.selectedTags.clear();
         updateGameState({ selectedTags: [] });
-        this.renderTagCloud(this.getTagCounts());
-        this.updateTaxonList();
-        this.updateMatchingPairsCount();
         this.updateActiveTags();
         
+        // Simply update the taxon list as if no tags were selected
+        this.updateTaxonList();
+        
         // Trigger preloading of a random pair from all available pairs
-        preloader.preloadNewPairWithTags([]);  // Pass an empty array to indicate no tag filtering
+        preloader.preloadNewPairWithTags([]);
     },
 
     updateActiveTags() {
@@ -2071,477 +2091,6 @@ const tagCloud = {
 };
 
 export default tagCloud;
-
-
-
-# code/eventHandlers.js
-
-// Event handlers
-
-import api from './api.js';
-import dialogManager from './dialogManager.js';
-import dragAndDrop from './dragAndDrop.js';
-import game from './game.js';
-import logger from './logger.js';
-import { elements, gameState } from './state.js';
-import ui from './ui.js';
-import utils from './utils.js';
-
-const vernacularNameCache = new Map();
-
-async function getCachedVernacularName(taxonName) {
-    if (!vernacularNameCache.has(taxonName)) {
-        const vernacularName = await api.fetchVernacular(taxonName);
-        vernacularNameCache.set(taxonName, vernacularName);
-    }
-    return vernacularNameCache.get(taxonName);
-}
-
-const eventHandlers = {
-
-    // global variables for swiping left
-    startX: 0,
-    endX: 0,
-    isDragging: false,
-    gameContainer: null,
-    touchStartX: 0,
-    touchStartY: 0,
-    touchEndX: 0,
-    touchEndY: 0,
-
-    swipeThreshold: 50, // minimum distance to trigger a swipe
-    swipeRestraint: 100, // maximum vertical distance allowed during a swipe
-
-    isLoadingNewPair: false,
-
-    initialize() {
-        this.initializeSwipeFunctionality();
-        this.initializeMainMenuListeners();
-        this.initializeAllEventListeners();
-
-        this.debouncedKeyboardHandler = utils.debounce(this._handleKeyboardShortcuts.bind(this), 300);
-
-        // Ensure keyboard shortcuts are properly set up
-        document.removeEventListener('keydown', this.debouncedKeyboardHandler);
-        document.addEventListener('keydown', this.debouncedKeyboardHandler);
-
-        // Select pair dialog close button
-        const selectPairDialog = document.getElementById('select-pair-dialog');
-        const selectPairCloseButton = selectPairDialog.querySelector('.dialog-close-button');
-        selectPairCloseButton.addEventListener('click', () => {
-            dialogManager.closeDialog('select-pair-dialog');
-        });
-
-        // Tag cloud dialog close button
-        const tagCloudDialog = document.getElementById('tag-cloud-dialog');
-        const tagCloudCloseButton = tagCloudDialog.querySelector('.dialog-close-button');
-        tagCloudCloseButton.addEventListener('click', () => {
-            dialogManager.closeDialog('tag-cloud-dialog');
-        });
-
-    },
-
-initializeSwipeFunctionality() {
-    this.gameContainer = document.querySelector('.game-container');
-    if (!this.gameContainer) {
-        logger.error('Game container not found');
-        return;
-    }
-
-    [elements.imageOneContainer, elements.imageTwoContainer].forEach((container, index) => {
-        container.addEventListener('mousedown', (e) => {
-            this.handleMouseDown(e);
-        });
-        container.addEventListener('touchstart', (e) => {
-            this.handleTouchStart(e);
-        }, { passive: true });
-        container.addEventListener('mousemove', (e) => {
-            this.handleDragMove(e);
-        });
-        container.addEventListener('touchmove', (e) => {
-            this.handleDragMove(e);
-        }, { passive: true });
-        container.addEventListener('mouseup', (e) => {
-            this.handleSwipeOrDrag(e);
-        });
-        container.addEventListener('touchend', (e) => {
-            this.handleSwipeOrDrag(e);
-        });
-    });
-
-},
-
-    safeAddEventListener(id, eventType, handler) {
-        const element = document.getElementById(id);
-        if (element) {
-            element.addEventListener(eventType, handler);
-        } else {
-            logger.debug(`Element with id '${id}' not found. Skipping event listener.`);
-        }
-    },
-
-    initializeMainMenuListeners: function() {
-        this.safeAddEventListener('share-button', 'click', () => {
-            this.shareCurrentPair();
-            ui.closeMainMenu(); // Close menu after action
-        });
-        this.safeAddEventListener('phylogeny-button', 'click', () => {
-            game.showTaxaRelationship();
-            ui.closeMainMenu(); // Close menu after action
-        });
-        this.safeAddEventListener('select-pair-button', 'click', () => {
-            ui.showTaxonPairList();
-            ui.closeMainMenu(); // Close menu after action
-        });
-        this.safeAddEventListener('enter-pair-button', 'click', () => {
-            dialogManager.openDialog('enter-pair-dialog');
-            ui.closeMainMenu(); // Close menu after action
-        });
-        this.safeAddEventListener('random-pair-button', 'click', () => {
-            game.loadNewRandomPair();
-            ui.closeMainMenu(); // Close menu after action
-        });
-        this.safeAddEventListener('like-button', 'click', () => {
-            this.likePair();
-            ui.closeMainMenu(); // Close menu after action
-        });
-        this.safeAddEventListener('trash-button', 'click', () => {
-            this.trashPair();
-            ui.closeMainMenu(); // Close menu after action
-        });
-        this.safeAddEventListener('surprise-button', 'click', () => {
-            utils.surprise();
-            ui.closeMainMenu(); // Close menu after action
-        });
-    },
-
-    initializeAllEventListeners() {
-        dragAndDrop.initialize();
-
-        // touch events
-        [elements.imageOneContainer, elements.imageTwoContainer].forEach(container => {
-            container.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: true });
-            container.addEventListener('touchend', this.handleImageInteraction.bind(this));
-            container.addEventListener('mousedown', this.handleMouseDown.bind(this));
-            container.addEventListener('mouseup', this.handleImageInteraction.bind(this));
-        });
-
-        ['1', '2'].forEach(index => {
-            this.safeAddEventListener(`thumbs-up-${index}`, 'click', () => this.handleThumbsUp(index));
-            this.safeAddEventListener(`thumbs-down-${index}`, 'click', () => this.handleThumbsDown(index));
-        });
-
-        // Keyboard shortcuts
-        document.addEventListener('keydown', this.debouncedKeyboardHandler);
-
-        // Failsafe to ensure all dialogs can be closed
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape') {
-                dialogManager.closeAllDialogs();
-            }
-        });
-
-        // Add search functionality
-        const searchInput = document.getElementById('taxon-search');
-        if (searchInput) {
-            searchInput.addEventListener('input', this.handleSearch);
-        }
-
-        // Help button functionality
-        document.getElementById('help-button').addEventListener('click', () => {
-            dialogManager.openDialog('help-dialog');
-        });
-        document.getElementById('start-tutorial-button').addEventListener('click', () => {
-            ui.showTutorial();
-        });
-        document.getElementById('discord-help-dialog').addEventListener('click', () => {
-            window.open('https://discord.gg/DcWrhYHmeM', '_blank');
-        });
-
-    },
-
-    handleSearch: async function(event) {
-        const searchTerm = event.target.value.toLowerCase();
-        const clearButton = document.getElementById('clear-search');
-        
-        if (searchTerm.length > 0) {
-            clearButton.style.display = 'block';
-        } else {
-            clearButton.style.display = 'none';
-        }
-
-        const taxonPairs = await api.fetchTaxonPairs();
-        const filteredPairs = [];
-
-        for (const pair of taxonPairs) {
-            const vernacular1 = await getCachedVernacularName(pair.taxon1);
-            const vernacular2 = await getCachedVernacularName(pair.taxon2);
-
-            if (
-                pair.taxon1.toLowerCase().includes(searchTerm) ||
-                pair.taxon2.toLowerCase().includes(searchTerm) ||
-                (vernacular1 && vernacular1.toLowerCase().includes(searchTerm)) ||
-                (vernacular2 && vernacular2.toLowerCase().includes(searchTerm)) ||
-                pair.setName.toLowerCase().includes(searchTerm) ||
-                pair.tags.some(tag => tag.toLowerCase().includes(searchTerm))
-            ) {
-                filteredPairs.push(pair);
-            }
-        }
-
-        ui.updateTaxonPairList(filteredPairs);
-    },
-
-    handleThumbsUp(index) {
-        // Implement thumbs up functionality
-        logger.debug(`Thumbs up clicked for image ${index}`);
-        // Add your implementation here
-    },
-
-    handleThumbsDown(index) {
-        // Implement thumbs down functionality
-        logger.debug(`Thumbs down clicked for image ${index}`);
-        // Add your implementation here
-    },
-
-    handleMouseDown(e) {
-        if (!e.target.closest('.image-container') || e.target.closest('.info-button')) return;
-        if (e.target.closest('.name-pair__item--draggable')) return; // Ignore draggable elements
-        this.startX = e.clientX;
-        this.startY = e.clientY;
-        this.isDragging = true;
-    },
-
-    handleTouchStart(e) {
-        
-        if (!e.target.closest('.image-container') || e.target.closest('.info-button')) {
-            return;
-        }
-        
-        this.startX = e.touches[0].clientX;
-        this.startY = e.touches[0].clientY;
-        this.isDragging = true;
-    },
-
-    handleSwipeOrDrag(e) {
-        if (!this.isDragging) return;
-
-        let endX, endY;
-        if (e.type.includes('touch')) {
-            endX = e.changedTouches[0].clientX;
-            endY = e.changedTouches[0].clientY;
-        } else {
-            endX = e.clientX;
-            endY = e.clientY;
-        }
-
-        const deltaX = this.startX - endX;
-        const deltaY = Math.abs(this.startY - endY);
-
-    if (deltaX > this.swipeThreshold && deltaY < this.swipeRestraint) {
-        // Swipe left detected
-        document.querySelector('.game-container').classList.add('swipe-out-left');
-
-        // Hide the swipe info message
-        const swipeInfoMessage = document.getElementById('swipe-info-message');
-        swipeInfoMessage.style.opacity = 0;
-
-        setTimeout(() => {
-            document.querySelector('.game-container').classList.remove('swiping-left', 'swipe-out-left');
-            ui.resetGameContainerStyle();
-            game.loadNewRandomPair();
-        }, 500); // Match this with the animation duration
-    } else {
-        // Reset if not swiped far enough or swiped vertically
-        ui.resetGameContainerStyle();
-
-        // Hide the swipe info message
-        const swipeInfoMessage = document.getElementById('swipe-info-message');
-        swipeInfoMessage.style.opacity = 0;
-    }
-
-    this.isDragging = false;
-    },
-
-    handleDragMove(e) {
-        if (!this.isDragging) return;
-
-        let currentX, currentY;
-        if (e.type.includes('touch')) {
-            currentX = e.touches[0].clientX;
-            currentY = e.touches[0].clientY;
-        } else {
-            currentX = e.clientX;
-            currentY = e.clientY;
-        }
-
-        const deltaX = this.startX - currentX;
-        const deltaY = Math.abs(this.startY - currentY);
-
-        if (deltaX > 0 && deltaY < this.swipeRestraint) {
-            const progress = Math.min(deltaX / 100, 1);
-            const rotation = progress * -5;
-            const opacity = 1 - progress * 0.5;
-
-            this.gameContainer.style.transform = `rotate(${rotation}deg) translateX(${-deltaX}px)`;
-            this.gameContainer.style.opacity = opacity;
-
-            // Update the swipe info message
-            const swipeInfoMessage = document.getElementById('swipe-info-message');
-            swipeInfoMessage.style.opacity = progress.toFixed(2); // Fade in smoothly
-        }
-    },
-
-    handleImageInteraction(event) {
-        if (!event) return;  // handle cases where event is undefined
-        // Add any specific image interaction logic here
-    },
-
-    showTaxonPairList() {
-        api.fetchTaxonPairs().then(taxonPairs => {
-            ui.showTaxonPairList(taxonPairs, (selectedPair) => {
-                game.nextSelectedPair = selectedPair;
-                game.setupGame(true);
-            });
-        });
-    },
-
-    _handleKeyboardShortcuts(event) {
-//        logger.debug("Keyboard event:", event.key);
-
-        if (dialogManager.isAnyDialogOpen()) {
-            // If any dialog is open, don't process keyboard shortcuts
-            return;
-        }
-
-        if (dialogManager.isAnyDialogOpen() || 
-            document.getElementById('info-dialog').open || 
-            dialogManager.activeDialog || 
-            document.getElementById('enter-pair-dialog').open) {
-//            logger.debug("Dialog is open, ignoring keyboard shortcut");
-            return;
-        }
-
-        switch (event.key.toLowerCase()) {
-            case 'r':
-            case 'arrowleft':
-                if (!this.isLoadingNewPair) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    this.isLoadingNewPair = true;
-                    game.loadNewRandomPair().finally(() => {
-                        this.isLoadingNewPair = false;
-                    });
-                }
-                break;
-            case 'arrowup':
-                event.preventDefault();
-                this.moveTileToDropZone('left', 'upper');
-                break;
-            case 'arrowdown':
-                event.preventDefault();
-                this.moveTileToDropZone('left', 'lower');
-                break;
-            case 's':
-                event.preventDefault();
-                ui.showTaxonPairList();
-                break;
-            case 'h':
-                event.preventDefault();
-                document.getElementById('help-button').click();
-                break;
-            case 'e':
-                event.preventDefault();
-                dialogManager.openDialog('enter-pair-dialog');
-                break;
-            case 'm':
-                event.preventDefault();
-                ui.toggleMainMenu();
-                break;
-            case 'p':
-                event.preventDefault();
-                document.getElementById('surprise-button').click();
-                break;
-            case 'g':
-                event.preventDefault();
-                game.showTaxaRelationship();
-                break;
-            case 'i':
-                event.preventDefault();
-                game.showInfoDialog(game.currentObservationURLs.imageOne, 1);
-                break;
-            case 'o':
-                event.preventDefault();
-                game.showInfoDialog(game.currentObservationURLs.imageTwo, 2);
-                break;
-            case 'w':
-                // createWorldMap.toggleAllWorldMaps();
-                // TODO need to find a way to trigger from here
-                break;
-        }
-    },
-
-    moveTileToDropZone(tilePosition, dropZonePosition) {
-        const tile = document.getElementById(tilePosition === 'left' ? 'left-name' : 'right-name');
-        const dropZone = document.getElementById(dropZonePosition === 'upper' ? 'drop-1' : 'drop-2');
-        
-        if (tile && dropZone) {
-            // Remove the tile from its current position
-            tile.parentNode.removeChild(tile);
-            
-            // Clear the drop zone and add the tile
-            dropZone.innerHTML = '';
-            dropZone.appendChild(tile);
-            
-            // Highlight the moved tile
-            //ui.highlightTile(tile.id);
-            
-            // Trigger the answer check using the game's checkAnswer method
-            game.checkAnswer(dropZone.id);
-        }
-    },
-
-    // move to other module, utils?
-    shareCurrentPair() {
-        let currentUrl = new URL(window.location.href);
-        currentUrl.searchParams.delete('taxon1');
-        currentUrl.searchParams.delete('taxon2');
-        currentUrl.searchParams.delete('tags'); // Clear any existing tags
-        
-        currentUrl.searchParams.set('taxon1', gameState.taxonImageOne);
-        currentUrl.searchParams.set('taxon2', gameState.taxonImageTwo);
-        
-        // Add active tags to the URL
-        const activeTags = gameState.selectedTags;
-        if (activeTags && activeTags.length > 0) {
-            currentUrl.searchParams.set('tags', activeTags.join(','));
-        }
-        
-        let shareUrl = currentUrl.toString();
-
-        navigator.clipboard.writeText(shareUrl).then(() => {
-            logger.info('Share URL copied to clipboard');
-        }).catch(err => {
-            logger.error('Failed to copy: ', err);
-            alert('Failed to copy link. Please try again.');
-        });
-    },
-
-    likePair: function() {
-        // Implement liking functionality
-        logger.debug('Like pair clicked');
-        // Add your implementation here
-    },
-
-    trashPair: function() {
-        // Implement trashing functionality
-        logger.debug('Trash pair clicked');
-        // Add your implementation here
-    },
-
-};
-
-export default eventHandlers;
 
 
 
@@ -3074,38 +2623,38 @@ const api = (() => {
         },
 
         // fetch vernacular name of taxon from local file or iNat
-    fetchVernacular: async function (taxonName) {
-        const taxonInfo = await this.loadTaxonInfo();
-        
-        // Find the entry with matching taxonName
-        const entry = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxonName.toLowerCase());
-        
-        if (entry && entry.vernacularName) {
-            return entry.vernacularName;
-        } else {
-            logger.warn(`Vernacular name not found for ${taxonName} in local data`);
-            // Optionally, you can still fallback to the API if not found locally
-            return this.fetchVernacularFromAPI(taxonName);
-        }
-    },
-
-    fetchVernacularFromAPI: async function (taxonName) {
-        logger.debug("fetching vernacular from iNat");
-        try {
-            const baseUrl = 'https://api.inaturalist.org/v1/taxa/autocomplete';
-            const response = await fetch(`${baseUrl}?q=${encodeURIComponent(taxonName)}`);
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            const data = await response.json();
-            if (data.results && data.results.length > 0) {
-                const taxon = data.results[0];
-                return taxon.preferred_common_name || null;
+        fetchVernacular: async function (taxonName) {
+            const taxonInfo = await this.loadTaxonInfo();
+            
+            // Find the entry with matching taxonName
+            const entry = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxonName.toLowerCase());
+            
+            if (entry && entry.vernacularName) {
+                return entry.vernacularName;
             } else {
-                return null;
+                logger.warn(`Vernacular name not found for ${taxonName} in local data`);
+                // Optionally, you can still fallback to the API if not found locally
+                return this.fetchVernacularFromAPI(taxonName);
             }
-        } catch (error) {
-            handleApiError(error, 'fetchVernacularFromAPI');
-        }
-    },
+        },
+
+        fetchVernacularFromAPI: async function (taxonName) {
+            logger.debug("fetching vernacular from iNat");
+            try {
+                const baseUrl = 'https://api.inaturalist.org/v1/taxa/autocomplete';
+                const response = await fetch(`${baseUrl}?q=${encodeURIComponent(taxonName)}`);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                const data = await response.json();
+                if (data.results && data.results.length > 0) {
+                    const taxon = data.results[0];
+                    return taxon.preferred_common_name || null;
+                } else {
+                    return null;
+                }
+            } catch (error) {
+                handleApiError(error, 'fetchVernacularFromAPI');
+            }
+        },
 
         // function to check if iNaturalist API is reachable
         isINaturalistReachable: async function () {

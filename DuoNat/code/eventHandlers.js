@@ -319,7 +319,7 @@ initializeSwipeFunctionality() {
         // Add any specific image interaction logic here
     },
 
-    showTaxonPairList() {
+/*    showTaxonPairList() {
         api.fetchTaxonPairs().then(taxonPairs => {
             ui.showTaxonPairList(taxonPairs, (selectedPair) => {
                 game.nextSelectedPair = selectedPair;
@@ -327,7 +327,7 @@ initializeSwipeFunctionality() {
             });
         });
     },
-
+*/
     _handleKeyboardShortcuts(event) {
 //        logger.debug("Keyboard event:", event.key);
 
