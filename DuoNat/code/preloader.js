@@ -36,8 +36,14 @@ const preloader = {
 
     async fetchDifferentImage(taxonName, currentImageURL) {
         const images = await api.fetchMultipleImages(taxonName, 12);
-        const taxonKey = taxonName === gameState.currentTaxonImageCollection.pair.taxon1 ? 'taxon1' : 'taxon2';
-        let usedImages = gameState.usedImages[taxonKey];
+        let usedImages;
+
+        if (gameState.currentTaxonImageCollection) {
+            const taxonKey = taxonName === gameState.currentTaxonImageCollection.pair.taxon1 ? 'taxon1' : 'taxon2';
+            usedImages = gameState.usedImages[taxonKey];
+        } else {
+            usedImages = new Set();
+        }
         
         // Filter out the current image and any previously used images
         let availableImages = images.filter(img => !usedImages.has(img) && img !== currentImageURL);
@@ -45,24 +51,27 @@ const preloader = {
         // If we've used all images, reset the used images but still avoid the current image
         if (availableImages.length === 0) {
             logger.warn(`All images for ${taxonName} have been used. Resetting used images.`);
-            usedImages = new Set([currentImageURL]);
+            usedImages = new Set(currentImageURL ? [currentImageURL] : []);
             availableImages = images.filter(img => img !== currentImageURL);
         }
         
         if (availableImages.length > 0) {
             const selectedImage = availableImages[Math.floor(Math.random() * availableImages.length)];
             usedImages.add(selectedImage);
-            updateGameState({ 
-                usedImages: { 
-                    ...gameState.usedImages, 
-                    [taxonKey]: usedImages 
-                } 
-            });
+            if (gameState.currentTaxonImageCollection) {
+                const taxonKey = taxonName === gameState.currentTaxonImageCollection.pair.taxon1 ? 'taxon1' : 'taxon2';
+                updateGameState({ 
+                    usedImages: { 
+                        ...gameState.usedImages, 
+                        [taxonKey]: usedImages 
+                    } 
+                });
+            }
             return selectedImage;
         } else {
             // This should rarely happen, but just in case
             logger.error(`No available images found for ${taxonName}. Using current image.`);
-            return currentImageURL;
+            return currentImageURL || images[0]; // Return the first image if no current image
         }
     },
 

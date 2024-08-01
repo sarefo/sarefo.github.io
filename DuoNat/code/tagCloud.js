@@ -145,6 +145,9 @@ const tagCloud = {
         updateGameState({ selectedTags: this.getSelectedTags() });
         this.updateActiveTags();
         this.updateTaxonList();
+        logger.debug("Setting selected tags");
+        // Trigger preloading of a new pair based on the selected tags
+        preloader.preloadNewPairWithTags(this.getSelectedTags());
     },
     clearTags() {
         this.selectedTags.clear();

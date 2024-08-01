@@ -14,10 +14,8 @@ const utils = {
         const taxon1 = params.get('taxon1');
         const taxon2 = params.get('taxon2');
         const tags = params.get('tags');
-        if (taxon1 && taxon2) {
-            return { taxon1, taxon2, tags };
-        }
-        return null;
+        
+        return { taxon1, taxon2, tags };
     },
 
     debounce: function (func, wait) {
@@ -175,7 +173,7 @@ const utils = {
         }
 
         return index !== null ? filteredPairs[index] : filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
-    }
+    },
 
 }; // const utils
 

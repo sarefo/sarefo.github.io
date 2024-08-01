@@ -21,16 +21,19 @@ import utils from './utils.js';
 
         // Check for URL parameters
         const urlParams = utils.getURLParameters();
-        if (urlParams) {
-            logger.debug("URL parameters found:", urlParams);
-            game.nextSelectedPair = urlParams;
-        
-            // Handle tags from URL
-            if (urlParams.tags) {
-                const tags = urlParams.tags.split(',');
-                tagCloud.setSelectedTags(tags);
-                logger.debug("Tags from URL:", tags);
-            }
+        if (urlParams.taxon1 && urlParams.taxon2) {
+            logger.debug("Taxon parameters found:", urlParams);
+            game.nextSelectedPair = {
+                taxon1: urlParams.taxon1,
+                taxon2: urlParams.taxon2
+            };
+        }
+
+        // Handle tags from URL
+        if (urlParams.tags) {
+            const tags = urlParams.tags.split(',');
+            tagCloud.setSelectedTags(tags);
+            logger.debug("Tags from URL:", tags);
         }
 
         dialogManager.initializeDialogs();
