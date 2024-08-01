@@ -83,7 +83,30 @@ const preloader = {
         }
 
         try {
-            const newPair = await utils.selectTaxonPair();
+            let newPair;
+            let attempts = 0;
+            const maxAttempts = 10; // Prevent infinite loop in case of very limited set
+
+            do {
+                newPair = await utils.selectTaxonPair();
+                attempts++;
+
+                // Check if the new pair is the same as the current pair
+                const isSamePair = gameState.currentTaxonImageCollection && 
+                    newPair.taxon1 === gameState.currentTaxonImageCollection.pair.taxon1 &&
+                    newPair.taxon2 === gameState.currentTaxonImageCollection.pair.taxon2;
+
+                if (!isSamePair || attempts >= maxAttempts) {
+                    break;
+                }
+
+                logger.debug("Selected pair is the same as current, trying again");
+            } while (true);
+
+            if (attempts >= maxAttempts) {
+                logger.warn("Reached max attempts to find a different pair. Using the last selected pair.");
+            }
+
             logger.debug("Selected new pair for preloading:", newPair);
 
             const [imageOneURL, imageTwoURL] = await Promise.all([
@@ -130,12 +153,34 @@ const preloader = {
         }
 
         this.isPreloading = true;
-        logger.debug(`Selected tags: ${selectedTags}`);
+        logger.debug(`Preloading with selected tags: ${selectedTags}`);
         try {
-            const newPair = await utils.selectTaxonPair();
-            if (!newPair) {
-                logger.warn("No pair found matching selected tags");
-                return;
+            let newPair;
+            let attempts = 0;
+            const maxAttempts = 10;
+
+            do {
+                newPair = await utils.selectTaxonPair();
+                attempts++;
+
+                if (!newPair) {
+                    logger.warn("No pair found matching selected tags");
+                    return;
+                }
+
+                const isSamePair = gameState.currentTaxonImageCollection && 
+                    newPair.taxon1 === gameState.currentTaxonImageCollection.pair.taxon1 &&
+                    newPair.taxon2 === gameState.currentTaxonImageCollection.pair.taxon2;
+
+                if (!isSamePair || attempts >= maxAttempts) {
+                    break;
+                }
+
+                logger.debug("Selected pair is the same as current, trying again");
+            } while (true);
+
+            if (attempts >= maxAttempts) {
+                logger.warn("Reached max attempts to find a different pair. Using the last selected pair.");
             }
 
             const [imageOneURL, imageTwoURL] = await Promise.all([
@@ -160,7 +205,6 @@ const preloader = {
             this.isPreloading = false;
         }
     },
-
 };
 
 export default preloader;

@@ -120,9 +120,6 @@ const game = {
             }
         }
 
-        logger.debug("New pair initialized:", newPair);
-        logger.debug("Fetched images:", { imageOneURL, imageTwoURL });
-
         updateGameState({
             currentTaxonImageCollection: {
                 pair: newPair,
@@ -134,8 +131,6 @@ const game = {
                 taxon2: new Set([imageTwoURL])
             }
         });
-
-        logger.debug("Updated gameState:", gameState.currentTaxonImageCollection);
 
         await this.setupRound(true);
     },
