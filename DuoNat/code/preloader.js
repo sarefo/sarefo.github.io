@@ -76,28 +76,35 @@ const preloader = {
     },
 
     async preloadForNextPair() {
+        logger.debug("Starting preload for next pair");
         if (this.preloadedImages.nextPair.pair) {
             logger.debug("Skipping preload for next pair as one is already available");
             return;
         }
 
-        const newPair = await utils.selectTaxonPair();
-        const [imageOneURL, imageTwoURL] = await Promise.all([
-            this.fetchDifferentImage(newPair.taxon1, null),
-            this.fetchDifferentImage(newPair.taxon2, null)
-        ]);
-        
-        await Promise.all([
-            this.preloadImage(imageOneURL),
-            this.preloadImage(imageTwoURL)
-        ]);
+        try {
+            const newPair = await utils.selectTaxonPair();
+            logger.debug("Selected new pair for preloading:", newPair);
 
-        this.preloadedImages.nextPair = { 
-            pair: newPair,
-            taxon1: imageOneURL, 
-            taxon2: imageTwoURL 
-        };
-        logger.debug("Preloaded images for next pair");
+            const [imageOneURL, imageTwoURL] = await Promise.all([
+                this.fetchDifferentImage(newPair.taxon1, null),
+                this.fetchDifferentImage(newPair.taxon2, null)
+            ]);
+            
+            await Promise.all([
+                this.preloadImage(imageOneURL),
+                this.preloadImage(imageTwoURL)
+            ]);
+
+            this.preloadedImages.nextPair = { 
+                pair: newPair,
+                taxon1: imageOneURL, 
+                taxon2: imageTwoURL 
+            };
+            logger.debug(`Preloaded images for next pair: ${newPair.taxon1} / ${newPair.taxon2}`);
+        } catch (error) {
+            logger.error("Error preloading next pair:", error);
+        }
     },
 
   getPreloadedImagesForNextRound() {

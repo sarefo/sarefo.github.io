@@ -54,6 +54,9 @@ const game = {
         this.prepareUIForLoading();
 
         try {
+            logger.debug("Setting up game with newPair:", newPair);
+            logger.debug("Current nextSelectedPair:", this.nextSelectedPair);
+
             if (newPair || !gameState.currentTaxonImageCollection) {
                 await this.initializeNewPair();
             } else {
@@ -62,16 +65,15 @@ const game = {
 
             this.finishSetup();
             
-            // Call setNamePairHeight here, after the new pair or round is set up
             this.setNamePairHeight();
 
-            // Preload for the next round
-            preloader.preloadForNextRound();
+            // Always preload for the next round
+            await preloader.preloadForNextRound();
+            logger.debug("Preloaded for next round");
 
-            // Only preload for next pair if we don't have one already
-            if (!preloader.hasPreloadedPair()) {
-                preloader.preloadForNextPair();
-            }
+            // Always preload for the next pair
+            await preloader.preloadForNextPair();
+            logger.debug("Preloaded for next pair");
 
             this.setState(GameState.PLAYING);
             this.hideLoadingScreen();
@@ -90,18 +92,36 @@ const game = {
     async initializeNewPair() {
         let newPair, imageOneURL, imageTwoURL;
 
-        const preloadedPair = preloader.getPreloadedImagesForNextPair();
-        if (preloadedPair && preloadedPair.pair) {
-            newPair = preloadedPair.pair;
-            imageOneURL = preloadedPair.taxon1;
-            imageTwoURL = preloadedPair.taxon2;
-        } else {
-            newPair = await utils.selectTaxonPair();
+        logger.debug("Initializing new pair");
+        logger.debug("Current nextSelectedPair:", this.nextSelectedPair);
+
+        if (this.nextSelectedPair) {
+            newPair = this.nextSelectedPair;
+            logger.debug("Using nextSelectedPair:", newPair);
+            this.nextSelectedPair = null;
             [imageOneURL, imageTwoURL] = await Promise.all([
                 api.fetchRandomImageMetadata(newPair.taxon1),
                 api.fetchRandomImageMetadata(newPair.taxon2)
             ]);
+        } else {
+            const preloadedPair = preloader.getPreloadedImagesForNextPair();
+            if (preloadedPair && preloadedPair.pair) {
+                logger.debug("Using preloaded pair:", preloadedPair.pair);
+                newPair = preloadedPair.pair;
+                imageOneURL = preloadedPair.taxon1;
+                imageTwoURL = preloadedPair.taxon2;
+            } else {
+                logger.debug("No preloaded pair available, selecting random pair");
+                newPair = await utils.selectTaxonPair();
+                [imageOneURL, imageTwoURL] = await Promise.all([
+                    api.fetchRandomImageMetadata(newPair.taxon1),
+                    api.fetchRandomImageMetadata(newPair.taxon2)
+                ]);
+            }
         }
+
+        logger.debug("New pair initialized:", newPair);
+        logger.debug("Fetched images:", { imageOneURL, imageTwoURL });
 
         updateGameState({
             currentTaxonImageCollection: {
@@ -115,9 +135,9 @@ const game = {
             }
         });
 
-        await this.setupRound(true);
+        logger.debug("Updated gameState:", gameState.currentTaxonImageCollection);
 
-        // Removed the preloadForNextPair call from here
+        await this.setupRound(true);
     },
 
     async setupRound(isNewPair = false) {
@@ -438,7 +458,7 @@ const game = {
             return;
         }
 
-        logger.debug("Loading new random pair");
+        logger.debug("Loading new pair");
         this.setState(GameState.LOADING);
         ui.showOverlay(`${this.loadingMessage}`, config.overlayColors.green);
         elements.imageOne.classList.add('image-container__image--loading');
@@ -449,7 +469,7 @@ const game = {
             await this.setupGame(true);
             ui.hideOverlay();
         } catch (error) {
-            logger.error("Error loading new random pair:", error);
+            logger.error("Error loading new pair:", error);
             ui.showOverlay("Error loading new pair. Please try again.", config.overlayColors.red);
         } finally {
             this.setState(GameState.PLAYING);

@@ -139,8 +139,6 @@ const ui = {
         const button = document.createElement('button');
         button.className = 'taxon-set-button';
 
-        //const vernacular1 = await getCachedVernacularName(pair.taxon1);
-        //const vernacular2 = await getCachedVernacularName(pair.taxon2);
         let result = await getCachedVernacularName(pair.taxon1);
         const vernacular1 = result === "n/a" ? "" : result;
 
@@ -165,7 +163,18 @@ const ui = {
         `;
 
         button.onclick = () => {
-            game.nextSelectedPair = pair;
+            // Create a new object with the pair data to ensure we're not using a reference
+            const selectedPair = {
+                taxon1: pair.taxon1,
+                taxon2: pair.taxon2,
+                setName: pair.setName,
+                tags: [...pair.tags],
+                setID: pair.setID
+            };
+            
+            game.nextSelectedPair = selectedPair;
+            logger.debug('Selected pair:', selectedPair);
+            
             setTimeout(() => {
                 dialogManager.closeDialog('select-pair-dialog');
                 game.setupGame(true);

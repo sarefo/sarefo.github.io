@@ -442,13 +442,10 @@ const game = {
 
             this.finishSetup();
             
-            // Call setNamePairHeight here, after the new pair or round is set up
             this.setNamePairHeight();
 
-            // Preload for the next round
             preloader.preloadForNextRound();
 
-            // Only preload for next pair if we don't have one already
             if (!preloader.hasPreloadedPair()) {
                 preloader.preloadForNextPair();
             }
@@ -470,18 +467,17 @@ const game = {
     async initializeNewPair() {
         let newPair, imageOneURL, imageTwoURL;
 
-        const preloadedPair = preloader.getPreloadedImagesForNextPair();
-        if (preloadedPair && preloadedPair.pair) {
-            newPair = preloadedPair.pair;
-            imageOneURL = preloadedPair.taxon1;
-            imageTwoURL = preloadedPair.taxon2;
+        if (this.nextSelectedPair) {
+            newPair = this.nextSelectedPair;
+            this.nextSelectedPair = null;
         } else {
             newPair = await utils.selectTaxonPair();
-            [imageOneURL, imageTwoURL] = await Promise.all([
-                api.fetchRandomImageMetadata(newPair.taxon1),
-                api.fetchRandomImageMetadata(newPair.taxon2)
-            ]);
         }
+
+        [imageOneURL, imageTwoURL] = await Promise.all([
+            api.fetchRandomImageMetadata(newPair.taxon1),
+            api.fetchRandomImageMetadata(newPair.taxon2)
+        ]);
 
         updateGameState({
             currentTaxonImageCollection: {
@@ -496,8 +492,6 @@ const game = {
         });
 
         await this.setupRound(true);
-
-        // Removed the preloadForNextPair call from here
     },
 
     async setupRound(isNewPair = false) {
@@ -1242,7 +1236,7 @@ async function getCachedVernacularName(taxonName) {
         const vernacularName = await api.fetchVernacular(taxonName);
         vernacularNameCache.set(taxonName, vernacularName);
     }
-    return vernacularNameCache.get(taxonName);
+    return vernacularNameCache.get(taxonName) || 'n/a';
 }
 
 const ui = {
@@ -1367,8 +1361,11 @@ const ui = {
         const button = document.createElement('button');
         button.className = 'taxon-set-button';
 
-        const vernacular1 = await getCachedVernacularName(pair.taxon1);
-        const vernacular2 = await getCachedVernacularName(pair.taxon2);
+        let result = await getCachedVernacularName(pair.taxon1);
+        const vernacular1 = result === "n/a" ? "" : result;
+
+        result = await getCachedVernacularName(pair.taxon2);
+        const vernacular2 = result === "n/a" ? "" : result;
 
         button.innerHTML = `
             <div class="taxon-set-container">
@@ -1378,17 +1375,28 @@ const ui = {
                 </div>
                 <div class="taxon-item">
                     <div class="taxon-name">${pair.taxon1}</div>
-                    <div class="vernacular-name">${vernacular1 || 'No common name'}</div>
+                    <div class="vernacular-name">${vernacular1}</div>
                 </div>
                 <div class="taxon-item">
                     <div class="taxon-name">${pair.taxon2}</div>
-                    <div class="vernacular-name">${vernacular2 || 'No common name'}</div>
+                    <div class="vernacular-name">${vernacular2}</div>
                 </div>
             </div>
         `;
 
         button.onclick = () => {
-            game.nextSelectedPair = pair;
+            // Create a new object with the pair data to ensure we're not using a reference
+            const selectedPair = {
+                taxon1: pair.taxon1,
+                taxon2: pair.taxon2,
+                setName: pair.setName,
+                tags: [...pair.tags],
+                setID: pair.setID
+            };
+            
+            game.nextSelectedPair = selectedPair;
+            logger.debug('Selected pair:', selectedPair);
+            
             setTimeout(() => {
                 dialogManager.closeDialog('select-pair-dialog');
                 game.setupGame(true);
@@ -1974,14 +1982,10 @@ const tagCloud = {
                 );
             }
             
-            logger.debug(`Filtered pairs: ${filteredPairs.length} out of ${taxonPairs.length}`);
-            logger.debug(`Selected tags: ${selectedTags.join(', ')}`);
-            
             // Update the UI with the filtered pairs
             ui.renderTaxonPairList(filteredPairs);
         });
     },
-
     async getTagCounts() {
         const taxonPairs = await api.fetchTaxonPairs();
         const tagCounts = {};
@@ -2065,7 +2069,6 @@ const tagCloud = {
         updateGameState({ selectedTags: [] });
         this.updateActiveTags();
         
-        // Simply update the taxon list as if no tags were selected
         this.updateTaxonList();
         
         // Trigger preloading of a random pair from all available pairs
@@ -2629,17 +2632,18 @@ const api = (() => {
             // Find the entry with matching taxonName
             const entry = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxonName.toLowerCase());
             
-            if (entry && entry.vernacularName) {
+            if (entry) {
+                // Return the vernacularName even if it's an empty string
                 return entry.vernacularName;
             } else {
-                logger.warn(`Vernacular name not found for ${taxonName} in local data`);
-                // Optionally, you can still fallback to the API if not found locally
+                logger.warn(`Taxon not found in local data: ${taxonName}`);
+                // Only fetch from API if the taxon is not in our local data at all
                 return this.fetchVernacularFromAPI(taxonName);
             }
         },
 
         fetchVernacularFromAPI: async function (taxonName) {
-            logger.debug("fetching vernacular from iNat");
+            logger.debug("Fetching vernacular from iNat API for: " + taxonName);
             try {
                 const baseUrl = 'https://api.inaturalist.org/v1/taxa/autocomplete';
                 const response = await fetch(`${baseUrl}?q=${encodeURIComponent(taxonName)}`);
@@ -2647,12 +2651,13 @@ const api = (() => {
                 const data = await response.json();
                 if (data.results && data.results.length > 0) {
                     const taxon = data.results[0];
-                    return taxon.preferred_common_name || null;
+                    return taxon.preferred_common_name || "";
                 } else {
-                    return null;
+                    return "";
                 }
             } catch (error) {
                 handleApiError(error, 'fetchVernacularFromAPI');
+                return "";
             }
         },
 
@@ -2834,5 +2839,169 @@ import utils from './utils.js';
     });
 })();
 
+
+
+
+# code/preloader.js
+
+import api from './api.js';
+import { gameState, updateGameState } from './state.js';
+import logger from './logger.js';
+import utils from './utils.js';
+
+const preloader = {
+  preloadedImages: {
+    nextRound: { taxon1: null, taxon2: null },
+    nextPair: { taxon1: null, taxon2: null, pair: null }
+  },
+
+  async preloadImage(url) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(url);
+      img.onerror = () => reject(new Error(`Failed to load image: ${url}`));
+      img.src = url;
+    });
+  },
+
+    async preloadForNextRound() {
+        const { pair, imageOneURL, imageTwoURL } = gameState.currentTaxonImageCollection;
+        const [newImageOneURL, newImageTwoURL] = await Promise.all([
+            this.fetchDifferentImage(pair.taxon1, imageOneURL),
+            this.fetchDifferentImage(pair.taxon2, imageTwoURL)
+        ]);
+        
+        await Promise.all([
+            this.preloadImage(newImageOneURL),
+            this.preloadImage(newImageTwoURL)
+        ]);
+
+        this.preloadedImages.nextRound = { taxon1: newImageOneURL, taxon2: newImageTwoURL };
+        logger.debug("Preloaded images for next round");
+    },
+
+    async fetchDifferentImage(taxonName, currentImageURL) {
+        const images = await api.fetchMultipleImages(taxonName, 12);
+        let usedImages;
+
+        if (gameState.currentTaxonImageCollection) {
+            const taxonKey = taxonName === gameState.currentTaxonImageCollection.pair.taxon1 ? 'taxon1' : 'taxon2';
+            usedImages = gameState.usedImages[taxonKey];
+        } else {
+            usedImages = new Set();
+        }
+        
+        // Filter out the current image and any previously used images
+        let availableImages = images.filter(img => !usedImages.has(img) && img !== currentImageURL);
+        
+        // If we've used all images, reset the used images but still avoid the current image
+        if (availableImages.length === 0) {
+            logger.warn(`All images for ${taxonName} have been used. Resetting used images.`);
+            usedImages = new Set(currentImageURL ? [currentImageURL] : []);
+            availableImages = images.filter(img => img !== currentImageURL);
+        }
+        
+        if (availableImages.length > 0) {
+            const selectedImage = availableImages[Math.floor(Math.random() * availableImages.length)];
+            usedImages.add(selectedImage);
+            if (gameState.currentTaxonImageCollection) {
+                const taxonKey = taxonName === gameState.currentTaxonImageCollection.pair.taxon1 ? 'taxon1' : 'taxon2';
+                updateGameState({ 
+                    usedImages: { 
+                        ...gameState.usedImages, 
+                        [taxonKey]: usedImages 
+                    } 
+                });
+            }
+            return selectedImage;
+        } else {
+            // This should rarely happen, but just in case
+            logger.error(`No available images found for ${taxonName}. Using current image.`);
+            return currentImageURL || images[0]; // Return the first image if no current image
+        }
+    },
+
+    async preloadForNextPair() {
+        if (this.preloadedImages.nextPair.pair) {
+            logger.debug("Skipping preload for next pair as one is already available");
+            return;
+        }
+
+        const newPair = await utils.selectTaxonPair();
+        const [imageOneURL, imageTwoURL] = await Promise.all([
+            this.fetchDifferentImage(newPair.taxon1, null),
+            this.fetchDifferentImage(newPair.taxon2, null)
+        ]);
+        
+        await Promise.all([
+            this.preloadImage(imageOneURL),
+            this.preloadImage(imageTwoURL)
+        ]);
+
+        this.preloadedImages.nextPair = { 
+            pair: newPair,
+            taxon1: imageOneURL, 
+            taxon2: imageTwoURL 
+        };
+        logger.debug(`Preloaded images for next pair: ${taxon1.taxonName} / ${taxon2.taxonName}`);
+    },
+
+  getPreloadedImagesForNextRound() {
+    const images = this.preloadedImages.nextRound;
+    this.preloadedImages.nextRound = { taxon1: null, taxon2: null };
+    return images;
+  },
+
+  getPreloadedImagesForNextPair() {
+    const images = this.preloadedImages.nextPair;
+    this.preloadedImages.nextPair = { taxon1: null, taxon2: null, pair: null };
+    return images;
+  },
+
+  hasPreloadedPair() {
+    return !!this.preloadedImages.nextPair.pair;
+  },
+
+    async preloadNewPairWithTags(selectedTags) {
+        if (this.isPreloading) {
+            logger.debug("Preloading already in progress, skipping tag-based preload");
+            return;
+        }
+
+        this.isPreloading = true;
+        logger.debug(`Selected tags: ${selectedTags}`);
+        try {
+            const newPair = await utils.selectTaxonPair();
+            if (!newPair) {
+                logger.warn("No pair found matching selected tags");
+                return;
+            }
+
+            const [imageOneURL, imageTwoURL] = await Promise.all([
+                this.fetchDifferentImage(newPair.taxon1, null),
+                this.fetchDifferentImage(newPair.taxon2, null)
+            ]);
+            
+            await Promise.all([
+                this.preloadImage(imageOneURL),
+                this.preloadImage(imageTwoURL)
+            ]);
+
+            this.preloadedImages.nextPair = { 
+                pair: newPair,
+                taxon1: imageOneURL, 
+                taxon2: imageTwoURL 
+            };
+            logger.debug("Preloaded new pair based on selected tags");
+        } catch (error) {
+            logger.error("Error preloading new pair with tags:", error);
+        } finally {
+            this.isPreloading = false;
+        }
+    },
+
+};
+
+export default preloader;
 
 
