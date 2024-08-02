@@ -21,20 +21,20 @@ const dialogManager = {
             dialog.showModal();
             this.openDialogs.add(dialogId);
             
-            dialog.addEventListener('keydown', this.handleDialogKeydown);
+            dialog.addEventListener('keydown', (event) => this.handleDialogKeydown(event, dialogId));
 
             if (this.openDialogs.size === 1) {
                 this.disableMainEventHandlers();
             }
 
-            logger.debug(`Opened dialog: ${dialogId}. Open dialogs: ${Array.from(this.openDialogs)}`);
+            //logger.debug(`Opened dialog: ${dialogId}. Open dialogs: ${Array.from(this.openDialogs)}`);
         }
     },
 
     closeDialog(dialogId) {
-        logger.debug(`Attempting to close dialog: ${dialogId}`);
+        //logger.debug(`Attempting to close dialog: ${dialogId}`);
         if (!this.openDialogs.has(dialogId)) {
-            logger.debug(`Dialog ${dialogId} is not open. Skipping.`);
+            //logger.debug(`Dialog ${dialogId} is not open. Skipping.`);
             return;
         }
 
@@ -43,7 +43,7 @@ const dialogManager = {
             dialog.close();
             this.openDialogs.delete(dialogId);
             
-            dialog.removeEventListener('keydown', this.handleDialogKeydown);
+            dialog.removeEventListener('keydown', (event) => this.handleDialogKeydown(event, dialogId));
 
             this.handleDialogClose(dialog);
             this.emit('dialogClose', dialogId);
@@ -52,10 +52,22 @@ const dialogManager = {
                 this.enableMainEventHandlers();
             }
 
-            logger.debug(`Closed dialog: ${dialogId}. Remaining open dialogs: ${Array.from(this.openDialogs)}`);
+            //logger.debug(`Closed dialog: ${dialogId}. Remaining open dialogs: ${Array.from(this.openDialogs)}`);
         } else {
             logger.error(`Failed to close dialog: ${dialogId}. Dialog element not found or not a dialog.`);
         }
+    },
+
+    handleDialogKeydown(event, dialogId) {
+        if (event.key === 'Escape') {
+            this.closeDialog(dialogId);
+        }
+        // Allow default behavior for input fields
+        if (event.target.tagName.toLowerCase() === 'input') {
+            return;
+        }
+        // Prevent propagation for other elements
+        event.stopPropagation();
     },
 
     handleDialogClose(dialog) {
@@ -66,21 +78,6 @@ const dialogManager = {
     isAnyDialogOpen() {
         return this.openDialogs.size > 0;
     },
-
-    handleDialogKeydown(event) {
-        if (event.key === 'Escape') {
-            const openDialogId = Array.from(this.openDialogs)[this.openDialogs.size - 1];
-            if (openDialogId) {
-                this.closeDialog(openDialogId);
-            }
-        }
-        // Allow default behavior for input fields
-        if (event.target.tagName.toLowerCase() === 'input') {
-            return;
-        }
-        // Prevent propagation for other elements
-        event.stopPropagation();
-    },    
 
     closeAllDialogs() {
         [...this.openDialogs].forEach(dialogId => this.closeDialog(dialogId));
@@ -105,7 +102,7 @@ const dialogManager = {
         if (this.eventListeners[eventName]) {
             this.eventListeners[eventName].forEach(callback => callback(data));
         } else {
-            logger.debug(`No listeners for event: ${eventName}`);
+            //logger.debug(`No listeners for event: ${eventName}`);
         }
     },
 
@@ -116,7 +113,7 @@ const dialogManager = {
     },
 
     disableMainEventHandlers() {
-        logger.debug('Disabling main event handlers');
+        //logger.debug('Disabling main event handlers');
         const mainElements = ['#random-pair-button', '#select-set-button', '#enter-set-button', '#share-button', '#help-button'];
         mainElements.forEach(selector => {
             const element = document.querySelector(selector);
@@ -127,11 +124,11 @@ const dialogManager = {
         });
 
         document.removeEventListener('keydown', eventHandlers.debouncedKeyboardHandler);
-        logger.debug('Removed keydown event listener');
+        //logger.debug('Removed keydown event listener');
     },
 
     enableMainEventHandlers() {
-        logger.debug('Enabling main event handlers');
+        //logger.debug('Enabling main event handlers');
         Object.entries(this.mainEventHandlers).forEach(([selector, handler]) => {
             const element = document.querySelector(selector);
             if (element) {
@@ -140,7 +137,7 @@ const dialogManager = {
         });
 
         document.addEventListener('keydown', eventHandlers.debouncedKeyboardHandler);
-        logger.debug('Added keydown event listener');
+        //logger.debug('Added keydown event listener');
 
         this.mainEventHandlers = {};
     },
