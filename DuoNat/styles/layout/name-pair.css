@@ -64,6 +64,9 @@
     width: 100%;
     display: block;
     overflow: hidden;
+    word-break: normal;
+    overflow-wrap: break-word; /* doesn't work */
+    hyphens: auto;
     text-overflow: ellipsis;
     white-space: wrap; /* TODO claude says no-wrap */
 }
