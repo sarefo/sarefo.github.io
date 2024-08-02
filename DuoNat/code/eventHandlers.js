@@ -331,10 +331,8 @@ const eventHandlers = {
         },
     */
     _handleKeyboardShortcuts(event) {
-        logger.debug("Keyboard event:", event.key);
 
         if (dialogManager.isAnyDialogOpen()) {
-            logger.debug("Dialog is open, ignoring keyboard shortcut");
             // If any dialog is open, don't process keyboard shortcuts
             return;
         }
@@ -343,7 +341,6 @@ const eventHandlers = {
             document.getElementById('info-dialog').open ||
             dialogManager.activeDialog ||
             document.getElementById('enter-set-dialog').open) {
-            //            logger.debug("Dialog is open, ignoring keyboard shortcut");
             return;
         }
 

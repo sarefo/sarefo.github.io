@@ -12,7 +12,7 @@ const dialogManager = {
 
     openDialog(dialogId) {
         if (this.openDialogs.has(dialogId)) {
-            logger.debug(`Dialog ${dialogId} is already open. Skipping.`);
+            //logger.debug(`Dialog ${dialogId} is already open. Skipping.`);
             return;
         }
 
@@ -68,14 +68,19 @@ const dialogManager = {
     },
 
     handleDialogKeydown(event) {
+        if (event.key === 'Escape') {
+            const openDialogId = Array.from(this.openDialogs)[this.openDialogs.size - 1];
+            if (openDialogId) {
+                this.closeDialog(openDialogId);
+            }
+        }
         // Allow default behavior for input fields
         if (event.target.tagName.toLowerCase() === 'input') {
             return;
         }
-
         // Prevent propagation for other elements
         event.stopPropagation();
-    },
+    },    
 
     closeAllDialogs() {
         [...this.openDialogs].forEach(dialogId => this.closeDialog(dialogId));
@@ -142,12 +147,11 @@ const dialogManager = {
 
     initializeDialogs() {
         const dialogs = ['select-set-dialog', 'tag-cloud-dialog', 'enter-set-dialog', 'help-dialog', 'info-dialog', 'phylogeny-dialog', 'inat-down-dialog'];
-
         dialogs.forEach(dialogId => {
             const dialog = document.getElementById(dialogId);
             const closeButton = dialog.querySelector('.dialog-close-button');
             if (closeButton) {
-                closeButton.addEventListener('click', () => this.closeDialog());
+                closeButton.addEventListener('click', () => this.closeDialog(dialogId));
             }
         });
 
