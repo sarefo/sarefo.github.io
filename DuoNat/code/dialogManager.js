@@ -23,21 +23,8 @@ const dialogManager = {
             
             dialog.addEventListener('keydown', this.handleDialogKeydown);
 
-            // Add event listener for the 'close' event
-            const closeHandler = () => {
-                this.closeDialog(dialogId);
-                dialog.removeEventListener('close', closeHandler);
-            };
-            dialog.addEventListener('close', closeHandler);
-
             if (this.openDialogs.size === 1) {
                 this.disableMainEventHandlers();
-            }
-
-            // Add event listener for the close button
-            const closeButton = dialog.querySelector('.dialog-close-button');
-            if (closeButton) {
-                closeButton.addEventListener('click', () => dialog.close());
             }
 
             logger.debug(`Opened dialog: ${dialogId}. Open dialogs: ${Array.from(this.openDialogs)}`);
@@ -45,11 +32,7 @@ const dialogManager = {
     },
 
     closeDialog(dialogId) {
-        if (!dialogId) {
-            logger.debug('No dialogId provided to closeDialog');
-            return;
-        }
-
+        logger.debug(`Attempting to close dialog: ${dialogId}`);
         if (!this.openDialogs.has(dialogId)) {
             logger.debug(`Dialog ${dialogId} is not open. Skipping.`);
             return;
@@ -57,6 +40,7 @@ const dialogManager = {
 
         const dialog = document.getElementById(dialogId);
         if (dialog && dialog.tagName.toLowerCase() === 'dialog') {
+            dialog.close();
             this.openDialogs.delete(dialogId);
             
             dialog.removeEventListener('keydown', this.handleDialogKeydown);
@@ -69,7 +53,14 @@ const dialogManager = {
             }
 
             logger.debug(`Closed dialog: ${dialogId}. Remaining open dialogs: ${Array.from(this.openDialogs)}`);
+        } else {
+            logger.error(`Failed to close dialog: ${dialogId}. Dialog element not found or not a dialog.`);
         }
+    },
+
+    handleDialogClose(dialog) {
+        // Any additional cleanup needed when a dialog is closed
+        ui.resetUIState();
     },
 
     isAnyDialogOpen() {
@@ -88,11 +79,6 @@ const dialogManager = {
 
     closeAllDialogs() {
         [...this.openDialogs].forEach(dialogId => this.closeDialog(dialogId));
-    },
-
-    handleDialogClose(dialog) {
-        // Any additional cleanup needed when a dialog is closed
-        ui.resetUIState();
     },
 
     on(eventName, callback) {

@@ -175,8 +175,11 @@ const ui = {
             game.nextSelectedPair = selectedPair;
             logger.debug('Selected pair:', selectedPair);
 
+            logger.debug('Attempting to close select-set-dialog');
+            dialogManager.closeDialog('select-set-dialog');
+
             setTimeout(() => {
-                dialogManager.closeDialog('select-set-dialog');
+                logger.debug('Setting up game after dialog close');
                 game.setupGame(true);
             }, 300);
         };
