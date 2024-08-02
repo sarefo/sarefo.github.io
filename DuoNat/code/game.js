@@ -620,17 +620,10 @@ const game = {
     },
 
     showInfoDialog(url, imageIndex) {
+    const currentTaxon = this.getCurrentTaxon(url);
+    if (!currentTaxon) return;
+
         const dialog = document.getElementById('info-dialog');
-        const taxonElement = document.getElementById('info-dialog-taxon');
-        const vernacularElement = document.getElementById('info-dialog-vernacular');
-        const factsElement = document.getElementById('info-dialog-facts');
-        const photoButton = document.getElementById('photo-button');
-        const observationButton = document.getElementById('observation-button');
-        const taxonButton = document.getElementById('taxon-button');
-        const hintsButton = document.getElementById('hints-button');
-        const wikiButton = document.getElementById('wiki-button');
-        const reportButton = document.getElementById('report-button');
-        const closeButton = document.getElementById('info-close-button');
 
         // Get the image containers
         const topImageContainer = document.getElementById('image-container-1');
@@ -660,16 +653,11 @@ const game = {
             dialog.style.left = `${(window.innerWidth - dialogRect.width) / 2}px`;
         };
 
-        // Frame the corresponding image if imageIndex is provided
-        if (imageIndex) {
-            const imageContainer = document.getElementById(`image-container-${imageIndex}`);
-            if (imageContainer) {
-                imageContainer.classList.add('image-container--framed');
-            }
-        }
+        this.frameImage(imageIndex);
 
-        // Set taxon and vernacular name
-        const currentTaxon = this.getCurrentTaxonName(url);
+        const taxonElement = document.getElementById('info-dialog-taxon');
+        const vernacularElement = document.getElementById('info-dialog-vernacular');
+        const factsElement = document.getElementById('info-dialog-facts');
         taxonElement.textContent = currentTaxon;
         // TODO check why api.fetchVernacular() won't work here
         api.fetchVernacular(currentTaxon).then(vernacularName => {
@@ -693,52 +681,10 @@ const game = {
             });
         });
 
-        photoButton.onclick = () => {
-            window.open(url, '_blank');
-            dialog.close();
-        };
-
-        observationButton.onclick = () => {
-            logger.debug("Observation button clicked");
-            // Implement observation functionality here
-        };
-
-        taxonButton.onclick = async () => {
-            logger.debug("Taxon button clicked");
-            try {
-                const taxonName = this.getCurrentTaxonName(url);
-                const taxonId = await api.fetchTaxonId(taxonName);
-                window.open(`https://www.inaturalist.org/taxa/${taxonId}`, '_blank');
-                dialog.close();
-            } catch (error) {
-                logger.error("Error opening taxon page:", error);
-                alert("Unable to open taxon page. Please try again.");
-            }
-        };
-
-        hintsButton.onclick = () => {
-            logger.debug("Taxon hints button clicked");
-            // Implement taxon hints functionality here
-        };
-
-        wikiButton.onclick = () => {
-            logger.debug("Wiki button clicked");
-            try {
-                const taxonName = this.getCurrentTaxonName(url);
-                //                    const taxonId = await api.fetchTaxonId(taxonName);
-                window.open(`https://en.wikipedia.org/wiki/${taxonName}`, '_blank');
-                dialog.close();
-            } catch (error) {
-                logger.error("Error opening taxon page:", error);
-                alert("Unable to open Wikipedia page. Please try again.");
-            }
-        };
-
-        reportButton.onclick = () => {
-            logger.debug("Report button clicked");
-            // Implement report functionality here
-        };
-
+        this.setupButtonHandlers(url, currentTaxon);
+        
+        // TODO: let dialogManager take over
+        const closeButton = document.getElementById('info-close-button');
         closeButton.onclick = () => {
             dialog.close();
             document.querySelectorAll('.image-container').forEach(container => {
@@ -759,7 +705,7 @@ const game = {
 
     },
 
-    getCurrentTaxonName(url) {
+    getCurrentTaxon(url) {
         if (url === this.currentObservationURLs.imageOne) {
             return gameState.taxonImageOne;
         } else if (url === this.currentObservationURLs.imageTwo) {
@@ -768,6 +714,63 @@ const game = {
             logger.error("Unable to determine current taxon name");
             return null;
         }
+    },
+
+    frameImage(imageIndex) {
+        if (imageIndex) {
+            const imageContainer = document.getElementById(`image-container-${imageIndex}`);
+            if (imageContainer) {
+                imageContainer.classList.add('image-container--framed');
+            }
+        }
+    },
+
+    setupButtonHandlers(url, currentTaxon) {
+        const photoButton = document.getElementById('photo-button');
+        const observationButton = document.getElementById('observation-button');
+        const taxonButton = document.getElementById('taxon-button');
+        const hintsButton = document.getElementById('hints-button');
+        const wikiButton = document.getElementById('wiki-button');
+        const reportButton = document.getElementById('report-button');
+
+        photoButton.onclick = () => {
+            window.open(url, '_blank');
+            dialogManager.closeDialog('info-dialog');
+        };
+
+        observationButton.onclick = () => {
+            logger.debug("Observation button clicked");
+            // Implement observation functionality here
+        };
+
+        taxonButton.onclick = async () => {
+            try {
+                const taxonId = await api.fetchTaxonId(currentTaxon);
+                window.open(`https://www.inaturalist.org/taxa/${taxonId}`, '_blank');
+                dialogManager.closeDialog('info-dialog');
+            } catch (error) {
+                alert("Unable to open taxon page. Please try again.");
+            }
+        };
+
+        hintsButton.onclick = () => {
+            logger.debug("Taxon hints button clicked");
+            // Implement taxon hints functionality here
+        };
+
+        wikiButton.onclick = () => {
+            try {
+                window.open(`https://en.wikipedia.org/wiki/${currentTaxon}`, '_blank');
+                dialogManager.closeDialog('info-dialog');
+            } catch (error) {
+                alert("Unable to open Wikipedia page. Please try again.");
+            }
+        };
+
+        reportButton.onclick = () => {
+            logger.debug("Report button clicked");
+            // Implement report functionality here
+        };
     },
 
 };
