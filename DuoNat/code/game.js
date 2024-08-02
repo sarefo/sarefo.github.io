@@ -412,7 +412,7 @@ const game = {
         }
 
         // Show the dialog
-        dialog.style.display = 'flex'; // Change to flex to match the CSS layout
+    //    dialog.style.display = 'flex'; // Change to flex to match the CSS layout
         dialogManager.openDialog('phylogeny-dialog');
 
         try {
@@ -432,7 +432,7 @@ const game = {
         } catch (error) {
             logger.error('Error showing taxa relationship:', error);
             alert('Failed to load the relationship graph. Please try again later.');
-            dialog.style.display = 'none'; // Hide the dialog on error
+     //       dialog.style.display = 'none'; // Hide the dialog on error
             dialogManager.closeDialog();
         }
     },

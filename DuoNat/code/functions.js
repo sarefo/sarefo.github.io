@@ -19,6 +19,7 @@ import utils from './utils.js';
     function initializeApp() {
         logger.info("Initializing app");
 
+  //      dialogManager.openDialog('inat-down-dialog'); // for debugging
         // Check for URL parameters
         const urlParams = utils.getURLParameters();
         if (urlParams.taxon1 && urlParams.taxon2) {

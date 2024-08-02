@@ -61,7 +61,7 @@ const ui = {
             // Render only visible pairs initially
             await this.renderVisibleTaxonPairs(filteredPairs);
 
-            dialogManager.openDialog('select-pair-dialog');
+            dialogManager.openDialog('select-set-dialog');
         } catch (error) {
             logger.error("Error in showTaxonPairList:", error);
         }
@@ -176,7 +176,7 @@ const ui = {
             logger.debug('Selected pair:', selectedPair);
 
             setTimeout(() => {
-                dialogManager.closeDialog('select-pair-dialog');
+                dialogManager.closeDialog('select-set-dialog');
                 game.setupGame(true);
             }, 300);
         };
@@ -379,7 +379,6 @@ const ui = {
 
     initializeHelpDialog: function () {
         document.getElementById('help-button').addEventListener('click', () => {
-            this.toggleKeyboardShortcuts();
             dialogManager.openDialog('help-dialog');
         });
     },

@@ -5,43 +5,77 @@ import logger from './logger.js';
 import ui from './ui.js';
 
 const dialogManager = {
-    activeDialog: null,
+  /*  activeDialog: null,*/
     mainEventHandlers: {},
-    eventListeners: {},
+   eventListeners: {},
     openDialogs: new Set(),
 
     openDialog(dialogId) {
+        if (this.openDialogs.has(dialogId)) {
+            logger.debug(`Dialog ${dialogId} is already open. Skipping.`);
+            return;
+        }
+
         const dialog = document.getElementById(dialogId);
         if (dialog && dialog.tagName.toLowerCase() === 'dialog') {
             dialog.showModal();
             this.openDialogs.add(dialogId);
-            this.activeDialog = dialog;
-
-            // Add event listener to handle keyboard events
+            
             dialog.addEventListener('keydown', this.handleDialogKeydown);
+
+            // Add event listener for the 'close' event
+            const closeHandler = () => {
+                this.closeDialog(dialogId);
+                dialog.removeEventListener('close', closeHandler);
+            };
+            dialog.addEventListener('close', closeHandler);
+
+            if (this.openDialogs.size === 1) {
+                this.disableMainEventHandlers();
+            }
+
+            // Add event listener for the close button
+            const closeButton = dialog.querySelector('.dialog-close-button');
+            if (closeButton) {
+                closeButton.addEventListener('click', () => dialog.close());
+            }
+
+            logger.debug(`Opened dialog: ${dialogId}. Open dialogs: ${Array.from(this.openDialogs)}`);
         }
     },
 
     closeDialog(dialogId) {
+        if (!dialogId) {
+            logger.debug('No dialogId provided to closeDialog');
+            return;
+        }
+
+        if (!this.openDialogs.has(dialogId)) {
+            logger.debug(`Dialog ${dialogId} is not open. Skipping.`);
+            return;
+        }
+
         const dialog = document.getElementById(dialogId);
         if (dialog && dialog.tagName.toLowerCase() === 'dialog') {
-            dialog.close();
             this.openDialogs.delete(dialogId);
-            this.activeDialog = null;
-
-            // Remove event listener
+            
             dialog.removeEventListener('keydown', this.handleDialogKeydown);
+
+            this.handleDialogClose(dialog);
+            this.emit('dialogClose', dialogId);
+
+            if (this.openDialogs.size === 0) {
+                this.enableMainEventHandlers();
+            }
+
+            logger.debug(`Closed dialog: ${dialogId}. Remaining open dialogs: ${Array.from(this.openDialogs)}`);
         }
     },
 
     isAnyDialogOpen() {
         return this.openDialogs.size > 0;
     },
-    /*
-    isAnyDialogOpen() {
-        return !!this.activeDialog;
-    },
-*/
+
     handleDialogKeydown(event) {
         // Allow default behavior for input fields
         if (event.target.tagName.toLowerCase() === 'input') {
@@ -53,86 +87,11 @@ const dialogManager = {
     },
 
     closeAllDialogs() {
-        this.openDialogs.forEach(dialogId => this.closeDialog(dialogId));
+        [...this.openDialogs].forEach(dialogId => this.closeDialog(dialogId));
     },
 
-    /*
-        openDialog(dialogId) {
-            ui.closeMainMenu();
-            const dialog = document.getElementById(dialogId);
-            if (!dialog) {
-                console.error(`Dialog with id ${dialogId} not found`);
-                return;
-            }
-    
-            this.disableMainEventHandlers();
-    
-            if (dialog instanceof HTMLElement) {
-                if (dialog.tagName.toLowerCase() === 'dialog') {
-                    dialog.showModal();
-                } else {
-                    dialog.classList.remove('hidden');
-                    if (dialogId === 'phylogeny-dialog') {
-                        dialog.style.display = 'flex';
-                    }
-                }
-            }
-            this.activeDialog = dialog;
-    
-            document.addEventListener('keydown', this.handleEscapeKey.bind(this));
-            if (dialog instanceof HTMLElement) {
-                dialog.addEventListener('close', () => this.handleDialogClose(dialog));
-                const closeButton = dialog.querySelector('.dialog-close-button');
-                if (closeButton) {
-                    closeButton.addEventListener('click', () => this.closeDialog());
-                }
-            }
-        },
-    
-        closeDialog() {
-            if (this.activeDialog) {
-                const dialog = this.activeDialog;
-                this.activeDialog = null;
-    
-                if (dialog instanceof HTMLElement) {
-                    if (dialog.tagName.toLowerCase() === 'dialog') {
-                        dialog.close();
-                    } else {
-                        dialog.classList.add('hidden');
-                    }
-    
-                    if (dialog.id === 'phylogeny-dialog') {
-                        dialog.style.display = 'none';
-                    }
-                }
-                this.handleDialogClose(dialog);
-                
-                this.emit('dialogClose', dialog.id);
-            }
-        },
-    */
     handleDialogClose(dialog) {
-        if (!dialog) {
-            logger.warn('handleDialogClose called with no dialog');
-            return;
-        }
-
-        this.enableMainEventHandlers();
-
-        document.removeEventListener('keydown', this.handleEscapeKey);
-
-        if (dialog instanceof HTMLElement) {
-            const closeButton = dialog.querySelector('.dialog-close-button');
-            if (closeButton) {
-                closeButton.removeEventListener('click', this.closeDialog);
-            }
-        }
-
-        // Ensure main event handlers are re-enabled
-        this.enableMainEventHandlers();
-
-        this.activeDialog = null;
-
+        // Any additional cleanup needed when a dialog is closed
         ui.resetUIState();
     },
 
@@ -159,36 +118,6 @@ const dialogManager = {
         }
     },
 
-    handleDialogClose(dialog) {
-        if (!dialog) {
-            logger.warn('handleDialogClose called with no dialog');
-            return;
-        }
-
-        // Re-enable main window event handlers
-        this.enableMainEventHandlers();
-
-        // Remove event listener
-        document.removeEventListener('keydown', this.handleEscapeKey);
-
-        // Remove close button event listener if dialog is an HTMLElement
-        if (dialog instanceof HTMLElement) {
-            const closeButton = dialog.querySelector('.dialog-close-button');
-            if (closeButton) {
-                closeButton.removeEventListener('click', this.closeDialog);
-            }
-        }
-
-        // Ensure main event handlers are re-enabled
-        this.enableMainEventHandlers();
-
-        // Ensure the UI knows no dialog is open
-        this.activeDialog = null;
-
-        // Reset the UI state
-        ui.resetUIState();
-    },
-
     handleEscapeKey(event) {
         if (event.key === 'Escape' && this.activeDialog) {
             this.closeDialog();
@@ -196,8 +125,8 @@ const dialogManager = {
     },
 
     disableMainEventHandlers() {
-        // Store and disable main window event handlers
-        const mainElements = ['#random-pair-button', '#select-pair-button', '#enter-pair-button', '#share-button', '#help-button'];
+        logger.debug('Disabling main event handlers');
+        const mainElements = ['#random-pair-button', '#select-set-button', '#enter-set-button', '#share-button', '#help-button'];
         mainElements.forEach(selector => {
             const element = document.querySelector(selector);
             if (element) {
@@ -206,12 +135,12 @@ const dialogManager = {
             }
         });
 
-        // Disable keyboard shortcuts
-        document.removeEventListener('keydown', eventHandlers.handleKeyboardShortcuts);
+        document.removeEventListener('keydown', eventHandlers.debouncedKeyboardHandler);
+        logger.debug('Removed keydown event listener');
     },
 
     enableMainEventHandlers() {
-        // Re-enable main window event handlers
+        logger.debug('Enabling main event handlers');
         Object.entries(this.mainEventHandlers).forEach(([selector, handler]) => {
             const element = document.querySelector(selector);
             if (element) {
@@ -219,14 +148,14 @@ const dialogManager = {
             }
         });
 
-        // Re-enable keyboard shortcuts
-        document.addEventListener('keydown', eventHandlers.handleKeyboardShortcuts);
+        document.addEventListener('keydown', eventHandlers.debouncedKeyboardHandler);
+        logger.debug('Added keydown event listener');
 
         this.mainEventHandlers = {};
     },
 
     initializeDialogs() {
-        const dialogs = ['select-pair-dialog', 'enter-pair-dialog', 'help-dialog', 'info-dialog', 'phylogeny-dialog', 'inat-down-dialog'];
+        const dialogs = ['select-set-dialog', 'tag-cloud-dialog', 'enter-set-dialog', 'help-dialog', 'info-dialog', 'phylogeny-dialog', 'inat-down-dialog'];
 
         dialogs.forEach(dialogId => {
             const dialog = document.getElementById(dialogId);
@@ -236,24 +165,10 @@ const dialogManager = {
             }
         });
 
-        // Initialize enter pair dialog elements
-        this.enterPairDialog = document.getElementById('enter-pair-dialog');
-        this.taxon1Input = document.getElementById('taxon1');
-        this.taxon2Input = document.getElementById('taxon2');
-        this.dialogMessage = document.getElementById('dialog-message');
-        this.submitButton = document.getElementById('submit-dialog');
-
-        // Add event listeners for enter pair dialog
-        document.getElementById('enter-pair-button').addEventListener('click', () => this.openDialog('enter-pair-dialog'));
-        document.querySelector('#enter-pair-dialog form').addEventListener('submit', this.handleNewPairSubmit.bind(this));
-
         this.on('dialogClose', (dialogId) => {
             // Add any specific actions you want to perform when a dialog is closed
         });
 
-        // input validation
-        this.taxon1Input.addEventListener('input', () => this.validateInputs());
-        this.taxon2Input.addEventListener('input', () => this.validateInputs());
     },
 
     validateInputs() {

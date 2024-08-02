@@ -10,6 +10,7 @@ dialog {
 
 .standard-dialog {
     background-color: white;
+    background-color: #f9f9f9;
     border-radius: 12px;
     border: none;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
@@ -18,6 +19,12 @@ dialog {
     max-height: 95vh;
     padding: 40px 20px 20px;
 z-index: 5000; /* debug */
+}
+
+.dialog-content {
+    /*width: 100%;
+    height: 100%;*/
+
 }
 
 .dialog-title {
@@ -69,8 +76,8 @@ z-index: 5000; /* debug */
 
 /* Styles for button column on left main screen */
 
-/* Styles for enter pair dialog */
-#enter-pair-dialog {
+/* Styles for enter set dialog */
+#enter-set-dialog {
     position: relative;
     border-radius: var(--border-radius);
     border: none;
@@ -79,12 +86,12 @@ z-index: 5000; /* debug */
     max-width: 400px;
     width: 80%;
 }
-#enter-pair-dialog form {
+#enter-set-dialog form {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
-#enter-pair-dialog label {
+#enter-set-dialog label {
     display: inline-block;
     width: 80px;
     text-align: right;
@@ -93,7 +100,7 @@ z-index: 5000; /* debug */
     font-size: 1.2em; /*var(--normal-font-size);*/
     color: var(--counter-text-color);
 }
-#enter-pair-dialog input {
+#enter-set-dialog input {
     width: calc(100% - 90px);
     padding: 8px;
     border: 1px solid #ccc;
@@ -101,7 +108,7 @@ z-index: 5000; /* debug */
     font-size: var(--normal-font-size);
     color: var(--counter-text-color);
 }
-#enter-pair-dialog #submit-dialog {
+#enter-set-dialog #submit-dialog {
     background-color: var(--primary-color);
     color: var(--text-color);
     border: none;
@@ -112,7 +119,7 @@ z-index: 5000; /* debug */
     font-weight: bold;
     transition: background-color var(--transition-speed) ease;
 }
-#enter-pair-dialog button:hover {
+#enter-set-button:hover {
     background-color: #5c8a00;
 }
 
@@ -127,8 +134,8 @@ z-index: 5000; /* debug */
     margin-top: 20px;
 }
 
-/* Styles for select taxon pair list dialog */
-#select-pair-dialog {
+/* Styles for select taxon set list dialog */
+#select-set-dialog {
     width: 95%;
     max-width: var(--max-image-width);
     height: 90vh;
@@ -136,7 +143,7 @@ z-index: 5000; /* debug */
     padding: 10px;
 }
 
-#select-pair-dialog .dialog-inner {
+#select-set-dialog .dialog-inner {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -159,23 +166,23 @@ z-index: 5000; /* debug */
 }
 
 /* Adjust the scrollable area to leave space at the bottom */
-#select-pair-dialog .taxon-pair-list {
+#select-set-dialog .taxon-pair-list {
     max-height: calc(90vh - 140px); /* Adjust this value as needed */
     padding-right: 5px; /* Add some padding for the scrollbar */
 }
 
 /* Style for webkit browsers */
-#select-pair-dialog .taxon-pair-list::-webkit-scrollbar {
+#select-set-dialog .taxon-pair-list::-webkit-scrollbar {
     width: 6px;
 }
 
-#select-pair-dialog .taxon-pair-list::-webkit-scrollbar-thumb {
+#select-set-dialog .taxon-pair-list::-webkit-scrollbar-thumb {
     background-color: rgba(0,0,0,0.2);
     border-radius: 3px;
 }
 
 /* Style for Firefox */
-#select-pair-dialog .taxon-pair-list {
+#select-set-dialog .taxon-pair-list {
     scrollbar-width: thin;
     scrollbar-color: rgba(0,0,0,0.2) transparent;
 }
@@ -453,17 +460,6 @@ z-index: 5000; /* debug */
 
 /* Help dialog */
 
-#help-dialog {
-    position: relative;
-    padding: 40px 24px 24px;
-    padding: 24px;
-    border-radius: 12px;
-    border: none;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    max-width: 400px;
-    width: 80%;
-    background-color: #f9f9f9;
-}
 .help-dialog-content {
     position: relative;
     padding-top: 60px; /* Space for the logo */
@@ -760,7 +756,7 @@ body.has-keyboard button {
 /* Relationship graph dialog */
 
 #phylogeny-dialog {
-    position: fixed;
+/*    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -769,9 +765,9 @@ body.has-keyboard button {
     max-width: 1800px;
     padding: 20px;
     display: flex;
-    flex-direction: column;
+  */  flex-direction: column;
     /*visibility: hidden;*/
-    display: none;
+    /*display: none;*/
     opacity: 0.92;
 }
 
@@ -796,6 +792,9 @@ body.has-keyboard button {
 #taxa-relationship-graph {
     flex-grow: 1;
     overflow: hidden;
+    width: 100%;
+    height: 100%; /* TODO ugly hack */
+    padding-bottom:20px;
 }
 
 /* hide when dialog is hidden */
@@ -838,29 +837,7 @@ body.has-keyboard button {
 
 /* Styles for iNaturalist Down Dialog */
 #inat-down-dialog {
-    position: relative;
-    padding: 40px 2rem 2rem;
-    width:100%; height:100%;
     z-index: 10000;
-    background-color: white;
-    padding: 0px;
-    border-radius: 00px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-}
-
-#inat-down-dialog {
-  background-color: white;
-  padding: 2rem;
-  border-radius: var(--border-radius);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  max-width: 90%;
-  width: 400px;
-  text-align: center;
-}
-
-#inat-down-dialog h2 {
-  color: var(--primary-counter-color);
-  margin-bottom: 1rem;
 }
 
 #inat-down-dialog p {
@@ -868,7 +845,9 @@ body.has-keyboard button {
   color: var(--counter-text-color);
 }
 
-#inat-down-dialog button {
+#check-inat-status,
+#retry-connection
+{
   background-color: var(--primary-color);
   color: var(--text-color);
   border: none;
@@ -877,19 +856,11 @@ body.has-keyboard button {
   cursor: pointer;
   font-size: 1rem;
   margin: 0.5rem;
+    width: 80vw;
   transition: background-color var(--transition-speed) ease;
-}
-
-#inat-down-dialog button:hover {
-  background-color: #5c8a00;
 }
 
 #check-inat-status {
   background-color: var(--primary-color);
 }
-
-#check-inat-status:hover {
-  background-color: #8a0020;
-}
-
 

@@ -35,6 +35,7 @@ const eventHandlers = {
     swipeRestraint: 100, // maximum vertical distance allowed during a swipe
 
     isLoadingNewPair: false,
+    isOpeningDialog: false,
 
     initialize() {
         this.initializeSwipeFunctionality();
@@ -42,16 +43,17 @@ const eventHandlers = {
         this.initializeAllEventListeners();
 
         this.debouncedKeyboardHandler = utils.debounce(this._handleKeyboardShortcuts.bind(this), 300);
+        document.addEventListener('keydown', this.debouncedKeyboardHandler);
 
         // Ensure keyboard shortcuts are properly set up
         document.removeEventListener('keydown', this.debouncedKeyboardHandler);
         document.addEventListener('keydown', this.debouncedKeyboardHandler);
 
-        // Select pair dialog close button
-        const selectPairDialog = document.getElementById('select-pair-dialog');
-        const selectPairCloseButton = selectPairDialog.querySelector('.dialog-close-button');
-        selectPairCloseButton.addEventListener('click', () => {
-            dialogManager.closeDialog('select-pair-dialog');
+        // Select set dialog close button
+        const selectSetDialog = document.getElementById('select-set-dialog');
+        const selectSetCloseButton = selectSetDialog.querySelector('.dialog-close-button');
+        selectSetCloseButton.addEventListener('click', () => {
+            dialogManager.closeDialog('select-set-dialog');
         });
 
         // Tag cloud dialog close button
@@ -111,12 +113,12 @@ const eventHandlers = {
             game.showTaxaRelationship();
             ui.closeMainMenu(); // Close menu after action
         });
-        this.safeAddEventListener('select-pair-button', 'click', () => {
+        this.safeAddEventListener('select-set-button', 'click', () => {
             ui.showTaxonPairList();
             ui.closeMainMenu(); // Close menu after action
         });
-        this.safeAddEventListener('enter-pair-button', 'click', () => {
-            dialogManager.openDialog('enter-pair-dialog');
+        this.safeAddEventListener('enter-set-button', 'click', () => {
+            dialogManager.openDialog('enter-set-dialog');
             ui.closeMainMenu(); // Close menu after action
         });
         this.safeAddEventListener('random-pair-button', 'click', () => {
@@ -329,9 +331,10 @@ const eventHandlers = {
         },
     */
     _handleKeyboardShortcuts(event) {
-        //        logger.debug("Keyboard event:", event.key);
+        logger.debug("Keyboard event:", event.key);
 
         if (dialogManager.isAnyDialogOpen()) {
+            logger.debug("Dialog is open, ignoring keyboard shortcut");
             // If any dialog is open, don't process keyboard shortcuts
             return;
         }
@@ -339,7 +342,7 @@ const eventHandlers = {
         if (dialogManager.isAnyDialogOpen() ||
             document.getElementById('info-dialog').open ||
             dialogManager.activeDialog ||
-            document.getElementById('enter-pair-dialog').open) {
+            document.getElementById('enter-set-dialog').open) {
             //            logger.debug("Dialog is open, ignoring keyboard shortcut");
             return;
         }
@@ -370,11 +373,11 @@ const eventHandlers = {
                 break;
             case 'h':
                 event.preventDefault();
-                document.getElementById('help-button').click();
+                dialogManager.openDialog('help-dialog');
                 break;
             case 'e':
                 event.preventDefault();
-                dialogManager.openDialog('enter-pair-dialog');
+                dialogManager.openDialog('enter-set-dialog');
                 break;
             case 'm':
                 event.preventDefault();

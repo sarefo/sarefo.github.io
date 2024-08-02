@@ -142,7 +142,7 @@
 
     <div class="main-menu__item">
       <span class="main-menu__label">Select new set</span>
-      <button class="icon-button" id="select-pair-button" aria-label="Select new pair">
+      <button class="icon-button" id="select-set-button" aria-label="Select new set">
         <svg class="icon"><use href="./images/icons.svg#icon-list"/></svg>
       </button>
     </div>
@@ -178,7 +178,7 @@
 
     <div class="main-menu__item">
       <span class="main-menu__label">Enter new pair</span>
-      <button class="icon-button" id="enter-pair-button" aria-label="Enter new pair">
+      <button class="icon-button" id="enter-set-button" aria-label="Enter new pair">
         <svg class="icon"><use href="./images/icons.svg#icon-plus"/></svg>
       </button>
     </div>
@@ -206,10 +206,10 @@
 <!-- TODO: these should be in their own files -->
 
 <!-- Help dialog -->
-<dialog id="help-dialog">
+<dialog id="help-dialog" class="standard-dialog">
 
 <button class="dialog-close-button icon" aria-label="Close">×</button>
-    <div class="help-dialog-content">
+    <div class="dialog-content help-dialog-content">
         <div class="help-dialog-header">
             <img src="./images/icon-512x512.png" alt="DuoNat logo" class="help-dialog-logo">
             <h2>
@@ -257,29 +257,28 @@
     </div>
 </dialog>
 
-<!-- Select pair dialog -->
-    <dialog id="select-pair-dialog" class="standard-dialog">
+<!-- Select set dialog -->
+    <dialog id="select-set-dialog" class="standard-dialog">
         <div class="dialog-inner">
             <button class="dialog-close-button icon" aria-label="Close">×</button>
-            <h3 class="dialog-title">Select Taxon Pair</h3>
+            <h3 class="dialog-title">Select Taxon Set</h3>
+                <button id="select-tags-button" class="select-tags-button">Select Tags</button>
 
-            <button id="select-tags-button" class="select-tags-button">Select Tags</button>
+                <div id="active-tags-container" class="active-tags-container">
+                    <div id="active-tags" class="active-tags"></div>
+                    <button id="clear-all-tags" class="clear-all-tags">Clear All Tags</button>
+                </div>
 
-            <div id="active-tags-container" class="active-tags-container">
-                <div id="active-tags" class="active-tags"></div>
-                <button id="clear-all-tags" class="clear-all-tags">Clear All Tags</button>
-            </div>
-
-            <div class="search-container">
-                  <input type="text" id="taxon-search" placeholder="Search taxa..." aria-label="Search taxa">
-                  <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                  <button id="clear-search" aria-label="Clear search" style="display: none;">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                  </button>
-            </div>
-            <div id="taxon-pair-list" class="taxon-pair-list">
-                <!-- Taxon pairs will be dynamically inserted here -->
-            </div>
+                <div class="search-container">
+                      <input type="text" id="taxon-search" placeholder="Search taxa..." aria-label="Search taxa">
+                      <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                      <button id="clear-search" aria-label="Clear search" style="display: none;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                      </button>
+                </div>
+                <div id="taxon-pair-list" class="taxon-pair-list">
+                    <!-- Taxon pairs will be dynamically inserted here -->
+                </div>
         </div>
     </dialog>
 
@@ -291,21 +290,23 @@
         <button id="tag-cloud-done-button" class="done-button">Done</button>
     </dialog>
 
-<!-- Enter pair dialog -->
-    <dialog id="enter-pair-dialog" class="standard-dialog">
+<!-- Enter set dialog -->
+    <dialog id="enter-set-dialog" class="standard-dialog">
         <button class="dialog-close-button icon" aria-label="Close">×</button>
         <form method="dialog">
-            <h2 class="dialog-title">Enter New Taxon Pair</h2>
-            <div>
-                <label for="taxon1">Taxon 1:</label>
-                <input type="text" id="taxon1" required>
+            <h2 class="dialog-title">Enter New Taxon Set</h2>
+            <div class="dialog-content">
+                <div>
+                    <label for="taxon1">Taxon 1:</label>
+                    <input type="text" id="taxon1" required>
+                </div>
+                <div>
+                    <label for="taxon2">Taxon 2:</label>
+                    <input type="text" id="taxon2" required>
+                </div>
+                <div id="dialog-message" aria-live="polite"></div>
+                <button type="submit" id="submit-dialog">Submit</button>
             </div>
-            <div>
-                <label for="taxon2">Taxon 2:</label>
-                <input type="text" id="taxon2" required>
-            </div>
-            <div id="dialog-message" aria-live="polite"></div>
-            <button type="submit" id="submit-dialog">Submit</button>
         </form>
     </dialog>
 
@@ -313,57 +314,65 @@
 <!-- Phylogeny dialog -->
 <dialog id="phylogeny-dialog" class="standard-dialog">
     <button class="dialog-close-button icon" aria-label="Close">×</button>
+
     <h3 class="dialog-title">Phylogenetic Relationship</h3>
-    <div id="graph-hint" class="graph-hint">Tip: Click on a node to open its iNaturalist page</div>
-    <div id="taxa-relationship-graph"></div>
+
+<!--    <div class="dialog-content">-->
+        <div id="graph-hint" class="graph-hint">Tip: Click on a node to open its iNaturalist page</div>
+        <div id="taxa-relationship-graph"></div>
+<!--    </div>-->
 </dialog>
 
 
 <!-- Info dialog -->
 <dialog id="info-dialog" class="info-dialog">
-
     <button class="dialog-close-button icon" id="info-close-button" aria-label="Close">×</button>
-    <div class="info-dialog__header">
-        <h2 id="info-dialog-taxon" class="info-dialog__taxon"></h2>
-        <p id="info-dialog-vernacular" class="info-dialog__vernacular"></p>
-    </div>
-    <div id="info-dialog-facts" class="info-dialog__facts"></div>
+<!--    <div class="dialog-content">-->
+        <div class="info-dialog__header">
+            <h2 id="info-dialog-taxon" class="info-dialog__taxon"></h2>
+            <p id="info-dialog-vernacular" class="info-dialog__vernacular"></p>
+        </div>
+        <div id="info-dialog-facts" class="info-dialog__facts"></div>
 
-<div class="info-dialog__buttons">
-    <button id="hints-button" class="icon-button info-dialog__button info-dialog__button--hints" title="Hints" aria-label="Show identification hints (TODO)">
-<!--    <svg class="icon info-dialog__button--inactive" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/>
-        </svg>-->
-<!--        <svg class="info-dialog__button-icon icon"><use href="./images/icons.svg#icon-info"/></svg>-->
-    </button>
-    <button id="photo-button" class="icon-button info-dialog__button info-dialog__button--photo" title="Photo Page" aria-label="Open iNat photo page">
-        <svg class="info-dialog__button-icon icon"><use href="./images/icons.svg#icon-camera"/></svg>
-    </button>
-    <button id="observation-button" class="icon-button info-dialog__button info-dialog__button--observation" title="Observation page" aria-label="Open iNat observation (TODO)">
-<!--        <svg class="info-dialog__button-icon icon info-dialog__button--inactive"><use href="./images/icons.svg#icon-microscope"/></svg>-->
-    </button>
-    <button id="taxon-button" class="icon-button info-dialog__button info-dialog__button--taxon" title="Taxon page" aria-label="Open taxon page">
-        <svg class="info-dialog__button-icon icon"><use href="./images/icons.svg#icon-info"/></svg>
-<!--        <svg class="info-dialog__button-icon icon"><use href="./images/icons.svg#icon-taxon"/></svg>-->
-    </button>
-    <button id="wiki-button" class="icon-button info-dialog__button info-dialog__button--wiki" title="Wikipedia page" aria-label="Open Wikipedia page">
-        <svg class="info-dialog__button-icon icon"><use href="./images/icons.svg#icon-wiki"/></svg>
-    </button>
-    <button id="report-button" class="icon-button info-dialog__button info-dialog__button--report" title="Report problem" aria-label="Report problem">
-<!--        <svg class="info-dialog__button-icon icon"><use href="./images/icons.svg#icon-report"/></svg>-->
-    </button>
-</div>
-
+        <div class="info-dialog__buttons">
+            <button id="hints-button" class="icon-button info-dialog__button info-dialog__button--hints" title="Hints" aria-label="Show identification hints (TODO)">
+        <!--    <svg class="icon info-dialog__button--inactive" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/>
+                </svg>-->
+        <!--        <svg class="info-dialog__button-icon icon"><use href="./images/icons.svg#icon-info"/></svg>-->
+            </button>
+            <button id="photo-button" class="icon-button info-dialog__button info-dialog__button--photo" title="Photo Page" aria-label="Open iNat photo page">
+                <svg class="info-dialog__button-icon icon"><use href="./images/icons.svg#icon-camera"/></svg>
+            </button>
+            <button id="observation-button" class="icon-button info-dialog__button info-dialog__button--observation" title="Observation page" aria-label="Open iNat observation (TODO)">
+        <!--        <svg class="info-dialog__button-icon icon info-dialog__button--inactive"><use href="./images/icons.svg#icon-microscope"/></svg>-->
+            </button>
+            <button id="taxon-button" class="icon-button info-dialog__button info-dialog__button--taxon" title="Taxon page" aria-label="Open taxon page">
+                <svg class="info-dialog__button-icon icon"><use href="./images/icons.svg#icon-info"/></svg>
+        <!--        <svg class="info-dialog__button-icon icon"><use href="./images/icons.svg#icon-taxon"/></svg>-->
+            </button>
+            <button id="wiki-button" class="icon-button info-dialog__button info-dialog__button--wiki" title="Wikipedia page" aria-label="Open Wikipedia page">
+                <svg class="info-dialog__button-icon icon"><use href="./images/icons.svg#icon-wiki"/></svg>
+            </button>
+            <button id="report-button" class="icon-button info-dialog__button info-dialog__button--report" title="Report problem" aria-label="Report problem">
+        <!--        <svg class="info-dialog__button-icon icon"><use href="./images/icons.svg#icon-report"/></svg>-->
+            </button>
+        </div>
+<!--    </div>-->
 </dialog>
 
 
 <!-- iNat down dialog -->
 <dialog id="inat-down-dialog" class="standard-dialog">
     <button class="dialog-close-button icon" aria-label="Close">×</button>
+
   <h2 class="dialog-title">iNaturalist Unavailable</h2>
-  <p>We're having trouble connecting to iNaturalist. This could be due to maintenance or temporary issues.</p>
-  <button id="check-inat-status">Check iNaturalist Status</button>
-  <button id="retry-connection">Retry Connection</button>
+
+        <div class="dialog-content">
+            <p>We're having trouble connecting to iNaturalist. This could be due to maintenance or temporary issues.</p>
+            <button id="check-inat-status">Check iNaturalist Status</button>
+            <button id="retry-connection">Retry Connection</button>
+        </div>
 </dialog>
 
 <div id="swipe-info-message" class="swipe-info-message">New random pair</div>
