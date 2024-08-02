@@ -54,9 +54,6 @@ const game = {
         this.prepareUIForLoading();
 
         try {
-//            logger.debug("Setting up game with newPair:", newPair);
-//            logger.debug("Current nextSelectedPair:", this.nextSelectedPair);
-
             if (newPair || !gameState.currentTaxonImageCollection) {
                 await this.initializeNewPair();
             } else {
@@ -64,16 +61,7 @@ const game = {
             }
 
             this.finishSetup();
-
             this.setNamePairHeight();
-
-            // Always preload for the next round
-            await preloader.preloadForNextRound();
-            logger.debug("Preloaded for next round");
-
-            // Always preload for the next pair
-            await preloader.preloadForNextPair();
-            logger.debug("Preloaded for next pair");
 
             this.setState(GameState.PLAYING);
             this.hideLoadingScreen();
@@ -84,8 +72,23 @@ const game = {
 
             ui.hideOverlay();
             ui.resetUIState();
+
+            // Start preloading asynchronously
+            this.startPreloading();
         } catch (error) {
             this.handleSetupError(error);
+        }
+    },
+
+    async startPreloading() {
+        try {
+            await Promise.all([
+                preloader.preloadForNextRound(),
+                preloader.preloadForNextPair()
+            ]);
+            logger.debug("Preloading completed for next round and next pair");
+        } catch (error) {
+            logger.error("Error during preloading:", error);
         }
     },
 
