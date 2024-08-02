@@ -603,6 +603,12 @@ const game = {
 
         infoButton1.addEventListener('click', () => this.showInfoDialog(this.currentObservationURLs.imageOne, 1));
         infoButton2.addEventListener('click', () => this.showInfoDialog(this.currentObservationURLs.imageTwo, 2));
+
+        document.getElementById('info-dialog').addEventListener('close', () => {
+            document.querySelectorAll('.image-container').forEach(container => {
+                container.classList.remove('image-container--framed');
+            });
+        });
     },
 
     openObservationURL(url) {
