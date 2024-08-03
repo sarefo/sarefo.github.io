@@ -496,6 +496,56 @@ z-index: 5000; /* debug */
     background-color: #5c8a00;
 }
 
+/* Active range dialog */
+
+.range-map-container {
+/*    width: 100%;
+    height: 300px;
+    margin-bottom: 20px;*/
+}
+/*
+.range-dialog__active-ranges {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.range-dialog__ranges-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: flex-start;
+    gap: 5px;
+    margin: 0 4px;
+    flex-grow: 1;
+}
+
+.active-range {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.9em;
+}
+
+.range-dialog__clear-ranges {
+    background-color: var(--primary-counter-color);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.range-dialog__clear-ranges:hover {
+    background-color: #8a0020;
+}
+*/
+
 /* Help dialog */
 
 .help-dialog-content {

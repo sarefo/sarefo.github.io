@@ -5,6 +5,7 @@ import { elements, gameState } from './state.js';
 import eventHandlers from './eventHandlers.js';
 import game from './game.js';
 import logger, { LogLevel } from './logger.js';
+import rangeSelector from './rangeSelector.js';
 import tagCloud from './tagCloud.js';
 import tooltipManager from './tooltipManager.js';
 import ui from './ui.js';
@@ -42,6 +43,7 @@ import utils from './utils.js';
         eventHandlers.initialize();
         ui.initialize();
         tagCloud.initialize();
+        rangeSelector.initialize();
         // tooltipManager.init(); /* need to remove bugs first */
         logger.info("App initialization complete");
 

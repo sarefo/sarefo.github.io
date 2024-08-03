@@ -101,3 +101,46 @@ export function createWorldMap(container, highlightedContinents) {
         })
         .catch(error => console.error('Error loading SVG:', error));
 }
+
+export function createClickableWorldMap(container, selectedContinents, onContinentClick) {
+    const mapContainer = container.querySelector('.range-map-container') || container;
+    if (!mapContainer) {
+        console.error('World map container not found');
+        return;
+    }
+
+    const width = 100;
+    const height = 60;
+
+    fetch('./images/world.svg')
+        .then(response => response.text())
+        .then(svgData => {
+            const parser = new DOMParser();
+            const svgDOM = parser.parseFromString(svgData, "image/svg+xml");
+
+            const svg = svgDOM.documentElement;
+            svg.setAttribute('width', '100%');
+            svg.setAttribute('height', '100%');
+            svg.setAttribute('viewBox', '0 0 1775.8327 853.5303');
+            svg.style.maxWidth = '100%';
+            svg.style.height = 'auto';
+
+            // Color the continents and make them clickable
+            const paths = svg.querySelectorAll('path');
+            paths.forEach(path => {
+                const continentName = path.getAttribute('inkscape:label');
+                path.setAttribute('fill', selectedContinents.has(continentName) ? '#ac0028' : '#888');
+                path.setAttribute('stroke', '#33a02c');
+                path.setAttribute('stroke-width', '0.5');
+                path.style.cursor = 'pointer';
+                path.addEventListener('click', () => {
+                    onContinentClick(continentName);
+                    path.setAttribute('fill', selectedContinents.has(continentName) ? '#ac0028' : '#888');
+                });
+            });
+
+            mapContainer.innerHTML = '';
+            mapContainer.appendChild(svg);
+        })
+        .catch(error => console.error('Error loading SVG:', error));
+}
