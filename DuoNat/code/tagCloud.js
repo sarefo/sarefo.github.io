@@ -55,7 +55,7 @@ const tagCloud = {
     closeTagCloud() {
         dialogManager.closeDialog('tag-cloud-dialog');
         this.updateTaxonList();
-        preloader.preloadNewPairWithTags(gameState.selectedTags);
+        preloader.preloadNewPairWithTags(gameState.selectedTags, gameState.selectedLevel);
         this.emit('tagCloudClosed');
     },
 
@@ -63,19 +63,23 @@ const tagCloud = {
         const selectedTags = this.getSelectedTags();
         const selectedLevel = document.getElementById('level-filter-dropdown').value;
 
+        // Update gameState
+        updateGameState({ 
+            selectedTags: selectedTags,
+            selectedLevel: selectedLevel
+        });
+
         api.fetchTaxonPairs().then(taxonPairs => {
-            let filteredPairs = taxonPairs;
-
-            if (selectedTags.length > 0 || selectedLevel !== '') {
-                filteredPairs = taxonPairs.filter(pair => {
-                    const matchesTags = selectedTags.length === 0 || pair.tags.some(tag => selectedTags.includes(tag));
-                    const matchesLevel = selectedLevel === '' || pair.skillLevel === selectedLevel;
-                    return matchesTags && matchesLevel;
-                });
-            }
-
-            // Update the UI with the filtered pairs
+            let filteredPairs = this.filterTaxonPairs(taxonPairs, selectedTags, selectedLevel);
             ui.renderTaxonPairList(filteredPairs);
+        });
+    },
+
+    filterTaxonPairs(taxonPairs, selectedTags, selectedLevel) {
+        return taxonPairs.filter(pair => {
+            const matchesTags = selectedTags.length === 0 || pair.tags.some(tag => selectedTags.includes(tag));
+            const matchesLevel = selectedLevel === '' || pair.skillLevel === selectedLevel;
+            return matchesTags && matchesLevel;
         });
     },
 

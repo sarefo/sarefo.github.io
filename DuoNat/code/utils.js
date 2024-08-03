@@ -161,14 +161,18 @@ const utils = {
 
         let filteredPairs = taxonPairs;
 
-        if (gameState.selectedTags.length > 0) {
-            filteredPairs = taxonPairs.filter(pair =>
-                pair.tags.some(tag => gameState.selectedTags.includes(tag))
-            );
+        if (gameState.selectedTags.length > 0 || gameState.selectedLevel !== '') {
+            filteredPairs = taxonPairs.filter(pair => {
+                const matchesTags = gameState.selectedTags.length === 0 || 
+                    pair.tags.some(tag => gameState.selectedTags.includes(tag));
+                const matchesLevel = gameState.selectedLevel === '' || 
+                    pair.skillLevel === gameState.selectedLevel;
+                return matchesTags && matchesLevel;
+            });
         }
 
         if (filteredPairs.length === 0) {
-            logger.warn("No pairs match the selected tags. Using all pairs.");
+            logger.warn("No pairs match the selected criteria. Using all pairs.");
             filteredPairs = taxonPairs;
         }
 

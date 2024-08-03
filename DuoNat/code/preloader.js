@@ -76,22 +76,17 @@ const preloader = {
     },
 
     async preloadForNextPair() {
-//        logger.debug("Starting preload for next pair");
-        if (this.preloadedImages.nextPair.pair) {
-            logger.debug("Skipping preload for next pair as one is already available");
-            return;
-        }
-
+        logger.debug("Starting preload for next pair");
+        
         try {
             let newPair;
             let attempts = 0;
-            const maxAttempts = 10; // Prevent infinite loop in case of very limited set
+            const maxAttempts = 10;
 
             do {
                 newPair = await utils.selectTaxonPair();
                 attempts++;
 
-                // Check if the new pair is the same as the current pair
                 const isSamePair = gameState.currentTaxonImageCollection &&
                     newPair.taxon1 === gameState.currentTaxonImageCollection.pair.taxon1 &&
                     newPair.taxon2 === gameState.currentTaxonImageCollection.pair.taxon2;
@@ -137,7 +132,7 @@ const preloader = {
     },
 
     getPreloadedImagesForNextPair() {
-        const images = this.preloadedImages.nextPair;
+        const images = { ...this.preloadedImages.nextPair };
         this.preloadedImages.nextPair = { taxon1: null, taxon2: null, pair: null };
         return images;
     },
@@ -146,14 +141,14 @@ const preloader = {
         return !!this.preloadedImages.nextPair.pair;
     },
 
-    async preloadNewPairWithTags(selectedTags) {
+    async preloadNewPairWithTags(selectedTags, selectedLevel) {
         if (this.isPreloading) {
             logger.debug("Preloading already in progress, skipping tag-based preload");
             return;
         }
 
         this.isPreloading = true;
-        logger.debug(`Preloading with selected tags: ${selectedTags}`);
+        logger.debug(`Preloading with selected tags: ${selectedTags} and level: ${selectedLevel}`);
         try {
             let newPair;
             let attempts = 0;
@@ -164,7 +159,7 @@ const preloader = {
                 attempts++;
 
                 if (!newPair) {
-                    logger.warn("No pair found matching selected tags");
+                    logger.warn("No pair found matching selected tags and level");
                     return;
                 }
 
@@ -172,11 +167,13 @@ const preloader = {
                     newPair.taxon1 === gameState.currentTaxonImageCollection.pair.taxon1 &&
                     newPair.taxon2 === gameState.currentTaxonImageCollection.pair.taxon2;
 
-                if (!isSamePair || attempts >= maxAttempts) {
+                const matchesLevel = selectedLevel === '' || newPair.skillLevel === selectedLevel;
+
+                if ((!isSamePair && matchesLevel) || attempts >= maxAttempts) {
                     break;
                 }
 
-                logger.debug("Selected pair is the same as current, trying again");
+                logger.debug("Selected pair is the same as current or doesn't match level, trying again");
             } while (true);
 
             if (attempts >= maxAttempts) {
@@ -198,13 +195,14 @@ const preloader = {
                 taxon1: imageOneURL,
                 taxon2: imageTwoURL
             };
-            logger.debug("Preloaded new pair based on selected tags");
+            logger.debug("Preloaded new pair based on selected tags and level");
         } catch (error) {
-            logger.error("Error preloading new pair with tags:", error);
+            logger.error("Error preloading new pair with tags and level:", error);
         } finally {
             this.isPreloading = false;
         }
     },
+
 };
 
 export default preloader;

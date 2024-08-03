@@ -200,6 +200,7 @@ const game = {
             }
         });
 
+        setTimeout(() => this.setNamePairHeight(), 100);
     },
 
     async getContinentForTaxon(taxon) {
@@ -463,15 +464,40 @@ const game = {
         elements.imageTwo.classList.add('image-container__image--loading');
 
         try {
-            this.nextSelectedPair = null; // Ensure we're not using a previously selected pair
-            await this.setupGame(true);
+            const preloadedPair = preloader.getPreloadedImagesForNextPair();
+            if (preloadedPair && preloadedPair.pair) {
+                logger.debug("Using preloaded pair:", preloadedPair.pair);
+                await this.setupGameWithPreloadedPair(preloadedPair);
+            } else {
+                logger.debug("No preloaded pair available, selecting random pair");
+                await this.setupGame(true);
+            }
             ui.hideOverlay();
+            this.setNamePairHeight(); 
         } catch (error) {
             logger.error("Error loading new pair:", error);
             ui.showOverlay("Error loading new pair. Please try again.", config.overlayColors.red);
         } finally {
             this.setState(GameState.PLAYING);
+            // Start preloading for the next pair
+            preloader.preloadForNextPair();
         }
+    },
+
+    async setupGameWithPreloadedPair(preloadedPair) {
+        updateGameState({
+            currentTaxonImageCollection: {
+                pair: preloadedPair.pair,
+                imageOneURL: preloadedPair.taxon1,
+                imageTwoURL: preloadedPair.taxon2
+            },
+            usedImages: {
+                taxon1: new Set([preloadedPair.taxon1]),
+                taxon2: new Set([preloadedPair.taxon2])
+            }
+        });
+
+        await this.setupRound(true);
     },
 
     // Update this method to set the nextSelectedPair
@@ -585,6 +611,8 @@ const game = {
         gameState.taxonLeftName = nameOne;
         gameState.taxonRightName = nameTwo;
 
+        // Call setNamePairHeight after setting the content
+        this.setNamePairHeight();
     },
 
     finishSetup: function () {
