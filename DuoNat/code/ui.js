@@ -2,6 +2,7 @@ import api from './api.js';
 import config from './config.js';
 import dialogManager from './dialogManager.js';
 import { elements, gameState } from './state.js';
+import eventHandlers from './eventHandlers.js';
 import game from './game.js';
 import logger from './logger.js';
 import tagCloud from './tagCloud.js';
@@ -200,7 +201,12 @@ const ui = {
         if (searchInput) {
             setTimeout(() => {
                 searchInput.focus();
-            }, 100); // Short delay to ensure the dialog is fully open
+                if (searchInput.value.length > 0) {
+                    searchInput.select();
+                }
+                // Assuming eventHandlers is accessible here, if not, you may need to expose this flag differently
+                eventHandlers.hasLostFocus = false;
+            }, 100);
         }
     },
 

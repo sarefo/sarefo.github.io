@@ -4431,7 +4431,7 @@
   {
     "setID": "260",
     "setName": "Cabbage White Butterflies",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "butterflies",
@@ -4450,7 +4450,7 @@
   {
     "setID": "261",
     "setName": "Copper Butterflies",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "butterflies",
@@ -4469,7 +4469,7 @@
   {
     "setID": "262",
     "setName": "Peacock Butterflies",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "butterflies",
@@ -4488,7 +4488,7 @@
   {
     "setID": "263",
     "setName": "Brimstone Butterflies",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "butterflies",
@@ -4507,7 +4507,7 @@
   {
     "setID": "264",
     "setName": "Comma Butterflies",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "butterflies",
@@ -4526,7 +4526,7 @@
   {
     "setID": "265",
     "setName": "Large Nymphalid Butterflies",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "butterflies",
@@ -4545,7 +4545,7 @@
   {
     "setID": "266",
     "setName": "Ringlet Butterflies",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "butterflies",
@@ -4564,7 +4564,7 @@
   {
     "setID": "267",
     "setName": "Monarch Butterflies",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "butterflies",
@@ -4582,7 +4582,7 @@
   {
     "setID": "268",
     "setName": "True Butterflies",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "lepidoptera"
@@ -4599,7 +4599,7 @@
   {
     "setID": "269",
     "setName": "Butterflies and Moths",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "lepidoptera"
@@ -4616,7 +4616,7 @@
   {
     "setID": "270",
     "setName": "Death's-head Hawkmoths",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "moths",
@@ -4635,7 +4635,7 @@
   {
     "setID": "271",
     "setName": "Large Hawkmoths",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "moths",

@@ -36,6 +36,7 @@ const eventHandlers = {
 
     isLoadingNewPair: false,
     isOpeningDialog: false,
+    hasLostFocus: true,
 
     initialize() {
         this.initializeSwipeFunctionality();
@@ -189,7 +190,8 @@ const eventHandlers = {
     },
 
     handleSearch: async function (event) {
-        const searchTerm = event.target.value.toLowerCase();
+        const searchInput = event.target;
+        const searchTerm = searchInput.value.toLowerCase();
         const clearButton = document.getElementById('clear-search');
 
         if (searchTerm.length > 0) {
@@ -223,8 +225,17 @@ const eventHandlers = {
 
         ui.updateTaxonPairList(filteredPairs);
 
-        // Focus on the search input
-        event.target.focus();
+        // Only select all text if the input has lost focus since last input
+        // and the input is not empty (to avoid selecting the first letter)
+        if (this.hasLostFocus && searchInput.value.length > 1) {
+            searchInput.select();
+        }
+        this.hasLostFocus = false;
+
+        // Add these event listeners to track focus
+        searchInput.addEventListener('blur', () => {
+            this.hasLostFocus = true;
+        }, { once: true });
     },
 
     handleClearSearch: async function() {
@@ -236,7 +247,9 @@ const eventHandlers = {
             // Reset the taxon list to show all pairs
             const taxonPairs = await api.fetchTaxonPairs();
             ui.updateTaxonPairList(taxonPairs);
-            // Focus on the search input
+            // Set hasLostFocus to true before focusing
+            this.hasLostFocus = true;
+            // Focus on the search input and select all text
             searchInput.focus();
         }
     },
