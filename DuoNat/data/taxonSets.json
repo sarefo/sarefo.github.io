@@ -4654,7 +4654,7 @@
   {
     "setID": "272",
     "setName": "Red Underwing Moths",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "moths",
@@ -4673,7 +4673,7 @@
   {
     "setID": "273",
     "setName": "Io Moths",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "moths",
@@ -4692,7 +4692,7 @@
   {
     "setID": "274",
     "setName": "Emperor Moths",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "moths",
@@ -4711,7 +4711,7 @@
   {
     "setID": "275",
     "setName": "Tiger Moths",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "moths",
@@ -4730,7 +4730,7 @@
   {
     "setID": "276",
     "setName": "Dart Moths",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "moths",
@@ -4749,7 +4749,7 @@
   {
     "setID": "277",
     "setName": "Jersey Tiger Moths",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "moths",
@@ -4768,7 +4768,7 @@
   {
     "setID": "278",
     "setName": "Prominent Moths",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "moths",
@@ -4787,7 +4787,7 @@
   {
     "setID": "279",
     "setName": "Carpenter Moths",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "moths",
@@ -4806,7 +4806,7 @@
   {
     "setID": "280",
     "setName": "Sphinx Moths",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "moths",
@@ -4825,7 +4825,7 @@
   {
     "setID": "281",
     "setName": "Luna Moths",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "moths",
@@ -4844,7 +4844,7 @@
   {
     "setID": "282",
     "setName": "Bagworm Moths",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "moths",
@@ -4863,7 +4863,7 @@
   {
     "setID": "283",
     "setName": "Leaf Roller Moths",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "moths",
@@ -4882,7 +4882,7 @@
   {
     "setID": "284",
     "setName": "Burnet Moths",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "moths",
@@ -4901,7 +4901,7 @@
   {
     "setID": "285",
     "setName": "Wave Moths",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "moths",
@@ -4920,7 +4920,7 @@
   {
     "setID": "286",
     "setName": "Tiger Moths",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "moths",
@@ -4939,11 +4939,12 @@
   {
     "setID": "287",
     "setName": "Clearwing Moths",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "insects",
       "moths",
-      "lepidoptera"
+      "lepidoptera",
+      "mimicry"
 
     ],
     "taxa": [
@@ -4957,12 +4958,11 @@
   },
   {
     "setID": "288",
-    "setName": "Giant Moth Group",
-    "skillLevel": "",
+    "setName": "Owlflies",
+    "skillLevel": "2",
     "tags": [
       "insects",
-      "moths",
-      "lepidoptera"
+      "neuroptera"
 
     ],
     "taxa": [
@@ -4977,7 +4977,7 @@
   {
     "setID": "289",
     "setName": "Large Bees",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "insects",
       "hymenoptera",
@@ -4996,7 +4996,7 @@
   {
     "setID": "290",
     "setName": "Large Wasps",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "hymenoptera",
@@ -5014,7 +5014,7 @@
   {
     "setID": "291",
     "setName": "Honey Bees",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "hymenoptera",
@@ -5033,7 +5033,7 @@
   {
     "setID": "292",
     "setName": "Bumblebees",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "hymenoptera",
@@ -5052,7 +5052,7 @@
   {
     "setID": "293",
     "setName": "Social Wasps",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "hymenoptera",
@@ -5070,7 +5070,7 @@
   {
     "setID": "294",
     "setName": "Ants and Ant Mimics",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "hymenoptera",
@@ -5090,7 +5090,7 @@
   {
     "setID": "295",
     "setName": "Ant Subfamilies",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "hymenoptera",
@@ -5108,7 +5108,7 @@
   {
     "setID": "296",
     "setName": "Primitive Ants",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "hymenoptera",
@@ -5126,7 +5126,7 @@
   {
     "setID": "297",
     "setName": "Diverse Ant Groups",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "hymenoptera",
@@ -5145,7 +5145,7 @@
   {
     "setID": "298",
     "setName": "Stinging Ants",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "hymenoptera",
@@ -5164,7 +5164,7 @@
   {
     "setID": "299",
     "setName": "Primitive and Stinging Ants",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "hymenoptera",
@@ -5183,7 +5183,7 @@
   {
     "setID": "300",
     "setName": "Invasive Ants",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "hymenoptera",
@@ -5202,12 +5202,13 @@
   {
     "setID": "301",
     "setName": "Hoverflies and Wasps",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "insects",
       "hymenoptera",
       "wasps",
-      "diptera"
+      "diptera",
+      "mimicry"
     ],
     "taxa": [
       49995,
@@ -5221,7 +5222,7 @@
   {
     "setID": "302",
     "setName": "Large Beetles",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "insects",
       "beetles"
@@ -5256,7 +5257,7 @@
   {
     "setID": "304",
     "setName": "Tiger Beetles",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "beetles"
@@ -5273,7 +5274,7 @@
   {
     "setID": "305",
     "setName": "Longhorn Beetles",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "beetles"
@@ -5290,7 +5291,7 @@
   {
     "setID": "306",
     "setName": "Chafer Beetles",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "beetles"
@@ -5307,7 +5308,7 @@
   {
     "setID": "307",
     "setName": "Bark Beetles",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "beetles"
@@ -5324,7 +5325,7 @@
   {
     "setID": "308",
     "setName": "Two-spot Ladybugs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "beetles",
@@ -5342,7 +5343,7 @@
   {
     "setID": "309",
     "setName": "Spotted Ladybugs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "beetles",
@@ -5378,7 +5379,7 @@
   {
     "setID": "311",
     "setName": "Eyed Ladybugs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "beetles",
@@ -5414,7 +5415,7 @@
   {
     "setID": "313",
     "setName": "Cream-spot Ladybugs",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "beetles",
@@ -5432,7 +5433,7 @@
   {
     "setID": "314",
     "setName": "Orange Ladybugs",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "beetles",
@@ -5450,7 +5451,7 @@
   {
     "setID": "315",
     "setName": "Kidney-spot Ladybugs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "beetles",
@@ -5468,7 +5469,7 @@
   {
     "setID": "316",
     "setName": "Pine Ladybugs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "beetles",
@@ -5486,7 +5487,7 @@
   {
     "setID": "317",
     "setName": "24-spot Ladybugs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "beetles",
@@ -5504,7 +5505,7 @@
   {
     "setID": "318",
     "setName": "Water Ladybugs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "beetles",
@@ -5522,7 +5523,7 @@
   {
     "setID": "319",
     "setName": "Cream-streaked Ladybugs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "beetles",
@@ -5540,7 +5541,7 @@
   {
     "setID": "320",
     "setName": "Striped Ladybugs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "beetles",
@@ -5558,7 +5559,7 @@
   {
     "setID": "321",
     "setName": "Convergent Ladybugs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "beetles",
@@ -5594,7 +5595,7 @@
   {
     "setID": "323",
     "setName": "Asian Ladybugs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "beetles",
@@ -5612,7 +5613,7 @@
   {
     "setID": "324",
     "setName": "Large Mantids",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "mantids"
@@ -5629,7 +5630,7 @@
   {
     "setID": "325",
     "setName": "Conehead Mantids",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "mantids"
@@ -5646,7 +5647,7 @@
   {
     "setID": "326",
     "setName": "Mediterranean Mantids",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "mantids"
