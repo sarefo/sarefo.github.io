@@ -32631,5 +32631,371 @@
         "Commonly found near water or in wet environments."
     ],
     "distribution": [ "EU", "AS", "NA", "SA", "AF", "OC" ]
+  },
+  "47458": {
+    "taxonName": "Octopoda",
+    "vernacularName": "Octopuses",
+    "ancestryIds": [
+      1,
+      47115,
+      47459,
+      372759,
+      339397,
+      47458
+    ],
+    "rank": "Order",
+    "taxonFacts": [
+        "Includes about 300 species of octopuses.",
+        "Can change color and texture for camouflage.",
+        "Have three hearts and blue blood."
+    ],
+    "distribution": [ "NA", "SA", "AF", "EU", "AS", "OC" ]
+  },
+  "61267": {
+    "taxonName": "Heteroptera",
+    "vernacularName": "True bugs",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47744,
+      61267
+    ],
+    "rank": "Suborder",
+    "taxonFacts": [
+        "Suborder of about 40,000 species within Hemiptera.",
+        "Many have forewings with both membranous and hardened portions.",
+        "Some families are aquatic or semiaquatic insects."
+    ],
+    "distribution": [ "NA", "SA", "AF", "EU", "AS", "OC" ]
+  },
+  "47208": {
+    "taxonName": "Coleoptera",
+    "vernacularName": "Beetles",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47208
+    ],
+    "rank": "Order",
+    "taxonFacts": [
+        "Largest order of insects, with over 400,000 species.",
+        "First pair of wings hardened into elytra.",
+        "Evolved during the Permian period, over 250 million years ago."
+    ],
+    "distribution": [ "NA", "SA", "AF", "EU", "AS", "OC" ]
+  },
+  "47792": {
+    "taxonName": "Odonata",
+    "vernacularName": "Dragonflies and damselflies",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47792
+    ],
+    "rank": "Order",
+    "taxonFacts": [
+        "Comprises dragonflies and damselflies.",
+        "Diurnal insects with well-developed vision.",
+        "Some species can fly backwards and hover."
+    ],
+    "distribution": [ "NA", "SA", "AF", "EU", "AS", "OC" ]
+  },
+  "153097": {
+    "taxonName": "Ascalaphinae",
+    "vernacularName": "Owlflies",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      48763,
+      489592,
+      49359,
+      49358,
+      153097
+    ],
+    "rank": "Subfamily",
+    "taxonFacts": [
+        "Subfamily of owlflies within Neuroptera.",
+        "Adults resemble dragonflies with long, clubbed antennae.",
+        "Larvae are predatory and often camouflage themselves."
+    ],
+    "distribution": [ "NA", "SA", "AF", "EU", "AS", "OC" ]
+  },
+  "47201": {
+    "taxonName": "Hymenoptera",
+    "vernacularName": "Ants, bees, wasps, and sawflies",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47201
+    ],
+    "rank": "Order",
+    "taxonFacts": [
+        "Over 150,000 living species described.",
+        "Many species are parasitic.",
+        "Females typically have a specialized ovipositor, often modified into a stinger."
+    ],
+    "distribution": [ "NA", "SA", "AF", "EU", "AS", "OC" ]
+  },
+  "47822": {
+    "taxonName": "Diptera",
+    "vernacularName": "Flies",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47822
+    ],
+    "rank": "Order",
+    "taxonFacts": [
+        "Includes flies, mosquitoes, and gnats.",
+        "Second pair of wings reduced to halteres.",
+        "Many species are important pollinators."
+    ],
+    "distribution": [ "NA", "SA", "AF", "EU", "AS", "OC" ]
+  },
+  "20978": {
+    "taxonName": "Amphibia",
+    "vernacularName": "Amphibians",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      20978
+    ],
+    "rank": "Class",
+    "taxonFacts": [
+        "Includes frogs, toads, salamanders, and caecilians.",
+        "Most undergo metamorphosis from aquatic larvae to terrestrial adults.",
+        "Breathe through moist skin as well as lungs."
+    ],
+    "distribution": [ "NA", "SA", "AF", "EU", "AS", "OC" ]
+  },
+  "26036": {
+    "taxonName": "Reptilia",
+    "vernacularName": "Reptiles",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036
+    ],
+    "rank": "Class",
+    "taxonFacts": [
+        "Includes snakes, lizards, turtles, and crocodilians.",
+        "First fully terrestrial vertebrates.",
+        "Most lay amniotic eggs with hard or leathery shells."
+    ],
+    "distribution": [ "NA", "SA", "AF", "EU", "AS", "OC" ]
+  },
+  "848319": {
+    "taxonName": "Marsupialia",
+    "vernacularName": "Marsupials",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848319
+    ],
+    "rank": "Infraclass",
+    "taxonFacts": [
+        "Young are born very underdeveloped and continue to develop in pouch.",
+        "Includes kangaroos, koalas, and opossums.",
+        "Most diverse in Australia and nearby islands."
+    ],
+    "distribution": [ "NA", "SA", "OC" ]
+  },
+  "848320": {
+    "taxonName": "Placentalia",
+    "vernacularName": "Placental mammals",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320
+    ],
+    "rank": "Infraclass",
+    "taxonFacts": [
+        "Largest group of mammals, including humans.",
+        "Young develop in uterus, nourished by placenta.",
+        "Evolved around 65 million years ago."
+    ],
+    "distribution": [ "NA", "SA", "AF", "EU", "AS", "OC" ]
+  },
+  "43233": {
+    "taxonName": "Monotremata",
+    "vernacularName": "Monotremes",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848316,
+      43233
+    ],
+    "rank": "Order",
+    "taxonFacts": [
+        "Egg-laying mammals.",
+        "Includes platypuses and echidnas.",
+        "Have electroreception for hunting prey."
+    ],
+    "distribution": [ "OC" ]
+  },
+  "43236": {
+    "taxonName": "Ornithorhynchus anatinus",
+    "vernacularName": "Platypus",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848316,
+      43233,
+      43234,
+      43235,
+      43236
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+        "One of few venomous mammals.",
+        "Uses electroreception to locate prey underwater.",
+        "Stores fat in its tail."
+    ],
+    "distribution": [ "OC" ]
+  },
+  "43792": {
+    "taxonName": "Castor",
+    "vernacularName": "Beavers",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43698,
+      870764,
+      43791,
+      43792
+    ],
+    "rank": "Genus",
+    "taxonFacts": [
+        "Build dams and lodges, significantly altering their environment.",
+        "Second-largest rodents after capybaras."
+    ],
+    "distribution": [ "NA", "EU", "AS" ]
+  },
+  "46078": {
+    "taxonName": "Marmota",
+    "vernacularName": "Marmots",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43698,
+      129411,
+      45933,
+      339572,
+      209650,
+      46078
+    ],
+    "rank": "Genus",
+    "taxonFacts": [
+        "Genus of large ground squirrels.",
+        "Hibernate during winter months.",
+        "Some species are highly social."
+    ],
+    "distribution": [ "NA", "EU", "AS" ]
+  },
+  "526556": {
+    "taxonName": "Lutrinae",
+    "vernacularName": "Otters",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41770,
+      526556
+    ],
+    "rank": "Subfamily",
+    "taxonFacts": [
+        "Subfamily within Mustelidae.",
+        "Semi-aquatic mammals with dense, insulating fur.",
+        "Use tools like rocks to open shellfish."
+    ],
+    "distribution": [ "NA", "SA", "AF", "EU", "AS", "OC" ]
+  },
+  "372843": {
+    "taxonName": "Phocoidea",
+    "vernacularName": "Pinnipeds",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      372843
+    ],
+    "rank": "Superfamily",
+    "taxonFacts": [
+        "Superfamily including seals, sea lions, and walruses.",
+        "Adapted for aquatic life with streamlined bodies.",
+        "Can dive to great depths and hold breath for extended periods."
+    ],
+    "distribution": [ "NA", "SA", "AF", "EU", "AS", "OC" ]
+  },
+  "46306": {
+    "taxonName": "Sirenia",
+    "vernacularName": "Sirenians",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848321,
+      46306
+    ],
+    "rank": "Order",
+    "taxonFacts": [
+        "Order of aquatic mammals including manatees and dugongs.",
+        "Herbivorous, feeding on aquatic plants.",
+        "Have pectoral mammary glands, inspiring mermaid legends."
+    ],
+    "distribution": [ "NA", "SA", "AF", "AS", "OC" ]
   }
 }

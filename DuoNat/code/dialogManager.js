@@ -2,6 +2,7 @@ import api from './api.js';
 import eventHandlers from './eventHandlers.js';
 import game from './game.js';
 import logger from './logger.js';
+import { updateGameState } from './state.js';
 import tagCloud from './tagCloud.js';
 import ui from './ui.js';
 
@@ -170,6 +171,7 @@ const dialogManager = {
         const selectedLevel = levelDropdown.value;
         
         updateGameState({ selectedLevel: selectedLevel });
+        ui.updateLevelDropdown();
         
         this.closeDialog('select-set-dialog');
         if (!game.isCurrentPairInCollection()) {

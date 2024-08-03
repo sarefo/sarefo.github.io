@@ -10354,5 +10354,229 @@
       "Thysanoptera",
       "Staphylinidae"
     ]
+  },
+  {
+    "setID": "604",
+    "setName": "Cuttlefish vs Octopus",
+    "skillLevel": "2",
+    "tags": [
+      "mollusks",
+      "cephalopods"
+    ],
+    "taxa": [
+      "67961",
+      "47458"
+    ],
+    "taxonNames": [
+      "Sepiida",
+      "Octopoda"
+    ]
+  },
+  {
+    "setID": "605",
+    "setName": "Bugs vs Beetles",
+    "skillLevel": "1",
+    "tags": [
+        "insects",
+        "beetles",
+        "true bugs"
+    ],
+    "taxa": [
+      "61267",
+      "47208"
+    ],
+    "taxonNames": [
+      "Heteroptera",
+      "Coleoptera"
+    ]
+  },
+  {
+    "setID": "606",
+    "setName": "Dragonflies vs Owlflies",
+    "skillLevel": "",
+    "tags": [
+      "insects",
+      "dragonflies",
+      "owlflies"
+    ],
+    "taxa": [
+      "47792",
+      "153097"
+    ],
+    "taxonNames": [
+      "Odonata",
+      "Ascalaphinae"
+    ]
+  },
+  {
+    "setID": "607",
+    "setName": "Wasps vs Flies",
+    "skillLevel": "1",
+    "tags": [
+      "insects",
+      "hymenoptera",
+      "diptera"
+    ],
+    "taxa": [
+      "47201",
+      "47822"
+    ],
+    "taxonNames": [
+      "Hymenoptera",
+      "Diptera"
+    ]
+  },
+  {
+    "setID": "608",
+    "setName": "Amphibians vs Reptiles",
+    "skillLevel": "1",
+    "tags": [
+      "amphibians",
+      "reptiles"
+    ],
+    "taxa": [
+      "20978",
+      "26036"
+    ],
+    "taxonNames": [
+      "Amphibia",
+      "Reptilia"
+    ]
+  },
+  {
+    "setID": "609",
+    "setName": "Marsupials vs. Placental Mammals",
+    "skillLevel": "2",
+    "tags": [
+      "mammals",
+      "marsupials" 
+    ],
+    "taxa": [
+      "848319",
+      "848320"
+    ],
+    "taxonNames": [
+      "Marsupialia",
+      "Placentalia"
+    ]
+  },
+  {
+    "setID": "610",
+    "setName": "Monotremes vs Marsupials",
+    "skillLevel": "2",
+    "tags": [
+      "mammals",
+      "marsupials",
+      "monotremes"
+    ],
+    "taxa": [
+      "43233",
+      "848319"
+    ],
+    "taxonNames": [
+      "Monotremata",
+      "Marsupialia"
+    ]
+  },
+  {
+    "setID": "611",
+    "setName": "Monotremes vs Placental Mammals",
+    "skillLevel": "2",
+    "tags": [
+      "mammals",
+      "monotremes"
+    ],
+    "taxa": [
+      "43233",
+      "848320"
+    ],
+    "taxonNames": [
+      "Monotremata",
+      "Placentalia"
+    ]
+  },
+  {
+    "setID": "612",
+    "setName": "Platypus vs Beaver",
+    "skillLevel": "1",
+    "tags": [
+      "mammals",
+      "monotremes",
+      "rodents"
+    ],
+    "taxa": [
+      "43236",
+      "43792"
+    ],
+    "taxonNames": [
+      "Ornithorhynchus anatinus",
+      "Castor"
+    ]
+  },
+  {
+    "setID": "613",
+    "setName": "Beaver vs Marmot",
+    "skillLevel": "2",
+    "tags": [
+      "mammals",
+      "rodents"
+    ],
+    "taxa": [
+      "43792",
+      "46078"
+    ],
+    "taxonNames": [
+      "Castor",
+      "Marmota"
+    ]
+  },
+  {
+    "setID": "614",
+    "setName": "Beaver vs Otter",
+    "skillLevel": "2",
+    "tags": [
+      "mammals",
+      "rodents"
+    ],
+    "taxa": [
+      "43792",
+      "526556"
+    ],
+    "taxonNames": [
+      "Castor",
+      "Lutrinae"
+    ]
+  },
+  {
+    "setID": "615",
+    "setName": "Otters vs Seals",
+    "skillLevel": "1",
+    "tags": [
+      "mammals"
+    ],
+    "taxa": [
+      "526556",
+      "372843"
+    ],
+    "taxonNames": [
+      "Lutrinae",
+      "Phocoidea"
+    ]
+  },
+  {
+    "setID": "616",
+    "setName": "Sirenians vs Seals",
+    "skillLevel": "2",
+    "tags": [
+      "mammals"
+    ],
+    "taxa": [
+      "46306",
+      "372843"
+    ],
+    "taxonNames": [
+      "Sirenia",
+      "Phocoidea"
+    ]
   }
 ]

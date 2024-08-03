@@ -64,6 +64,12 @@ const ui = {
             // Update the count
             this.updateActiveCollectionCount(filteredPairs.length);
 
+            // Set the correct value in the level dropdown
+            const levelDropdown = document.getElementById('level-filter-dropdown');
+            if (levelDropdown) {
+                levelDropdown.value = gameState.selectedLevel;
+            }
+
             dialogManager.openDialog('select-set-dialog');
             
             // Focus on the search input after opening the dialog
@@ -83,6 +89,13 @@ const ui = {
             }
         } catch (error) {
             logger.error("Error in showTaxonPairList:", error);
+        }
+    },
+
+    updateLevelDropdown: function() {
+        const levelDropdown = document.getElementById('level-filter-dropdown');
+        if (levelDropdown) {
+            levelDropdown.value = gameState.selectedLevel;
         }
     },
 
@@ -326,7 +339,8 @@ const ui = {
             },
             { message: "Get more info about a taxon.", highlights: ['#info-button-1', '#info-button-2'], duration: 6000 },
             { message: "Share the current pair and collection", highlight: '#share-button', duration: 6000 },
-            { message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => this.temporarilyOpenMenu(6000), duration: 6000 },
+            { message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => this.temporarilyOpenMenu(12000), duration: 6000 },
+            { message: "Set difficulty, range or topic here.", highlight: '#select-set-button', duration: 6000 },
             { message: "Ready to start?<br>Let's go!", highlight: null, duration: 2000 }
         ];
 

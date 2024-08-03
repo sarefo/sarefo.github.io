@@ -24,6 +24,7 @@ import utils from './utils.js';
 
         // Initialize gameState with easy skillLevel
         updateGameState({ selectedLevel: '' });
+        ui.updateLevelDropdown();
 
         // Check for URL parameters
         const urlParams = utils.getURLParameters();
@@ -47,6 +48,7 @@ import utils from './utils.js';
         // Handle skillLevel from URL
         if (urlParams.skillLevel) {
             updateGameState({ selectedLevel: urlParams.skillLevel });
+            ui.updateLevelDropdown();
             logger.debug("Skill level from URL:", urlParams.skillLevel);
         }
 

@@ -299,7 +299,9 @@ z-index: 5000; /* debug */
 }
 
 .select-set-dialog__done-button {
+position: relative;
     background-color: var(--primary-color);
+    flex-grow: 1;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -307,7 +309,6 @@ z-index: 5000; /* debug */
     cursor: pointer;
     font-size: 16px;
     margin-top: 20px;
-    width: 100%;
     transition: background-color 0.3s ease;
 }
 
