@@ -225,6 +225,7 @@ const eventHandlers = {
         }
 
         ui.updateTaxonPairList(filteredPairs);
+        ui.updateActiveCollectionCount(filteredPairs.length);
 
         // Only select all text if the input has lost focus since last input
         // and the input is not empty (to avoid selecting the first letter)

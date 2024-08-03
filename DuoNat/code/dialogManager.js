@@ -151,10 +151,25 @@ const dialogManager = {
             }
         });
 
+        // TODO should be in its own module somewhere I think
+        const selectSetDoneButton = document.getElementById('select-set-done-button');
+        if (selectSetDoneButton) {
+            selectSetDoneButton.addEventListener('click', this.handleSelectSetDone.bind(this));
+        }
+
         this.on('dialogClose', (dialogId) => {
             // Add any specific actions you want to perform when a dialog is closed
         });
 
+    },
+
+    handleSelectSetDone() {
+        this.closeDialog('select-set-dialog');
+        if (!game.isCurrentPairInCollection()) {
+            game.loadRandomPairFromCurrentCollection();
+        } else {
+            logger.debug("Current pair is already in the collection. No new pair loaded.");
+        }
     },
 
     validateInputs() {

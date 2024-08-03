@@ -72,6 +72,7 @@ const tagCloud = {
         api.fetchTaxonPairs().then(taxonPairs => {
             let filteredPairs = this.filterTaxonPairs(taxonPairs, selectedTags, selectedLevel);
             ui.renderTaxonPairList(filteredPairs);
+            ui.updateActiveCollectionCount(filteredPairs.length);
         });
     },
 

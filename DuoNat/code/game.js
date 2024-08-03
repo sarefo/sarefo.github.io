@@ -815,6 +815,73 @@ const game = {
         };
     },
 
+    // TODO should probably be somewhere with other select-set-dialog functionality
+    loadRandomPairFromCurrentCollection: async function() {
+        if (this.isCurrentPairInCollection()) {
+            logger.debug("Current pair is already in the collection. No new pair loaded.");
+            return;
+        }
+
+        logger.debug("Loading random pair from current collection");
+        this.setState(GameState.LOADING);
+        ui.showOverlay(`${this.loadingMessage}`, config.overlayColors.green);
+
+        try {
+            // Check if there's a preloaded pair that matches the current collection
+            const preloadedPair = preloader.getPreloadedImagesForNextPair();
+            if (preloadedPair && preloadedPair.pair && this.isPairInCurrentCollection(preloadedPair.pair)) {
+                logger.debug("Using preloaded pair:", preloadedPair.pair);
+                await this.setupGameWithPreloadedPair(preloadedPair);
+            } else {
+                logger.debug("No suitable preloaded pair, selecting new random pair");
+                const newPair = await this.selectRandomPairFromCurrentCollection();
+                if (newPair) {
+                    this.nextSelectedPair = newPair;
+                    await this.setupGame(true);
+                } else {
+                    throw new Error("No pairs available in the current collection");
+                }
+            }
+            ui.hideOverlay();
+        } catch (error) {
+            logger.error("Error loading random pair from collection:", error);
+            ui.showOverlay("Error loading new pair. Please try again.", config.overlayColors.red);
+        } finally {
+            this.setState(GameState.PLAYING);
+            preloader.clearPreloadedImagesForNextRound();
+            preloader.preloadForNextRound();
+            preloader.preloadForNextPair();
+        }
+    },
+
+    isPairInCurrentCollection: function(pair) {
+        const selectedTags = gameState.selectedTags;
+        const selectedLevel = gameState.selectedLevel;
+        return (selectedTags.length === 0 || pair.tags.some(tag => selectedTags.includes(tag))) &&
+               (selectedLevel === '' || pair.skillLevel === selectedLevel);
+    },
+
+    isCurrentPairInCollection: function() {
+        if (!gameState.currentTaxonImageCollection || !gameState.currentTaxonImageCollection.pair) {
+            return false;
+        }
+
+        const currentPair = gameState.currentTaxonImageCollection.pair;
+        return this.isPairInCurrentCollection(currentPair);
+    },
+
+    selectRandomPairFromCurrentCollection: async function() {
+        const taxonPairs = await api.fetchTaxonPairs();
+        const filteredPairs = taxonPairs.filter(pair => this.isPairInCurrentCollection(pair));
+        
+        if (filteredPairs.length === 0) {
+            logger.warn("No pairs match the current collection criteria");
+            return null;
+        }
+
+        return filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
+    }
+
 };
 
 // Initialize info buttons

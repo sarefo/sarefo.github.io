@@ -52,15 +52,17 @@ const ui = {
 
             // Filter pairs based on selected tags
             const selectedTags = gameState.selectedTags;
+            const selectedLevel = gameState.selectedLevel;
             let filteredPairs = taxonPairs;
-            if (selectedTags.length > 0) {
-                filteredPairs = taxonPairs.filter(pair =>
-                    pair.tags.some(tag => selectedTags.includes(tag))
-                );
+            if (selectedTags.length > 0 || selectedLevel !== '') {
+                filteredPairs = tagCloud.filterTaxonPairs(taxonPairs, selectedTags, selectedLevel);
             }
 
             // Render only visible pairs initially
             await this.renderVisibleTaxonPairs(filteredPairs);
+
+            // Update the count
+            this.updateActiveCollectionCount(filteredPairs.length);
 
             dialogManager.openDialog('select-set-dialog');
             
@@ -207,6 +209,13 @@ const ui = {
                 // Assuming eventHandlers is accessible here, if not, you may need to expose this flag differently
                 eventHandlers.hasLostFocus = false;
             }, 100);
+        }
+    },
+
+    updateActiveCollectionCount: function(count) {
+        const countElement = document.getElementById('active-collection-count');
+        if (countElement) {
+            countElement.textContent = `Active collection: ${count} set${count !== 1 ? 's' : ''}`;
         }
     },
 
