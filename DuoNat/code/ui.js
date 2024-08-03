@@ -97,6 +97,7 @@ const ui = {
         if (pairs.length > 20) {
             const loadMoreButton = document.createElement('button');
             loadMoreButton.textContent = 'Load More';
+            loadMoreButton.className = 'load-more-button'; // Add this line
             loadMoreButton.addEventListener('click', () => this.loadMorePairs(pairs, 20));
             list.appendChild(loadMoreButton);
         }
@@ -114,7 +115,8 @@ const ui = {
         if (startIndex + 20 >= pairs.length) {
             list.removeChild(list.lastChild); // Remove "Load More" button
         } else {
-            list.lastChild.addEventListener('click', () => this.loadMorePairs(pairs, startIndex + 20));
+            const loadMoreButton = list.lastChild;
+            loadMoreButton.addEventListener('click', () => this.loadMorePairs(pairs, startIndex + 20));
         }
     },
 

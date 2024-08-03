@@ -145,11 +145,10 @@ z-index: 5000; /* debug */
     padding: 10px;
 }
 
-#select-set-dialog__inner {
+.select-set-dialog__inner {
     display: flex;
     flex-direction: column;
     height: 100%;
-    max-height: calc(90vh - 40px); /* Adjust for dialog padding */
     padding: 20px;
 }
 
@@ -302,6 +301,30 @@ z-index: 5000; /* debug */
 .select-set-dialog__list {
     scrollbar-width: thin;
     scrollbar-color: rgba(0,0,0,0.2) transparent;
+}
+
+.load-more-button {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 8px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    width: 80%;
+    max-width: 300px;
+    margin: 10px auto;
+    display: block;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.load-more-button:hover {
+    background-color: #5c8a00;
+    transform: translateY(-2px);
+}
+
+.load-more-button:active {
+    transform: translateY(0);
 }
 
 .taxon-set-button {
