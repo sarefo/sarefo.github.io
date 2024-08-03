@@ -2252,7 +2252,7 @@
   {
     "setID": "132",
     "setName": "Old World Warblers",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "birds",
       "passerines"
@@ -2320,7 +2320,7 @@
   {
     "setID": "136",
     "setName": "Buntings",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "birds",
       "passerines"
@@ -2354,7 +2354,7 @@
   {
     "setID": "138",
     "setName": "Larks",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "birds",
       "passerines"
@@ -2371,7 +2371,7 @@
   {
     "setID": "139",
     "setName": "Wagtails",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "birds",
       "passerines"
@@ -2388,7 +2388,7 @@
   {
     "setID": "140",
     "setName": "Starlings",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "birds",
       "passerines"
@@ -2439,7 +2439,7 @@
   {
     "setID": "143",
     "setName": "Accipiters",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "birds",
       "birds of prey"
@@ -2473,7 +2473,7 @@
   {
     "setID": "145",
     "setName": "Large Eagles",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "birds",
       "birds of prey"
@@ -2490,7 +2490,7 @@
   {
     "setID": "146",
     "setName": "Herons",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "birds",
       "wading birds"
@@ -2507,7 +2507,7 @@
   {
     "setID": "147",
     "setName": "Egrets",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "birds",
       "wading birds"
@@ -2575,7 +2575,7 @@
   {
     "setID": "151",
     "setName": "Pigeons",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "birds",
       "columbiformes"
@@ -2642,7 +2642,7 @@
   {
     "setID": "155",
     "setName": "Wood Owls",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "birds",
       "birds of prey"
@@ -2675,7 +2675,7 @@
   {
     "setID": "157",
     "setName": "Colorful Small Birds",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "birds"
     ],
@@ -2724,7 +2724,7 @@
   {
     "setID": "160",
     "setName": "European Woodpeckers",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "birds",
       "woodpeckers"
@@ -2741,7 +2741,7 @@
   {
     "setID": "161",
     "setName": "Dabbling Ducks",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "birds",
       "waterbirds"
@@ -2792,7 +2792,7 @@
   {
     "setID": "164",
     "setName": "Grebes",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "birds",
       "waterbirds"
@@ -2826,7 +2826,7 @@
   {
     "setID": "166",
     "setName": "Rails",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "birds",
       "waterbirds"
@@ -2843,7 +2843,7 @@
   {
     "setID": "167",
     "setName": "Plovers",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "birds",
       "shorebirds"
@@ -2962,7 +2962,7 @@
   {
     "setID": "174",
     "setName": "Skuas",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "birds",
       "seabirds"
@@ -3096,7 +3096,7 @@
   {
     "setID": "182",
     "setName": "European Rat Snakes",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "reptiles",
       "snakes"
@@ -3266,7 +3266,7 @@
   {
     "setID": "192",
     "setName": "Fer-de-lance",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "reptiles",
       "snakes"
@@ -3760,7 +3760,7 @@
   {
     "setID": "221",
     "setName": "Platax Batfish",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "fish",
       "marine fish"
@@ -3777,7 +3777,7 @@
   {
     "setID": "222",
     "setName": "Teira Batfish Group",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "fish",
       "marine fish"
@@ -3811,7 +3811,7 @@
   {
     "setID": "224",
     "setName": "Butterflyfish",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fish",
       "marine fish"
@@ -3828,7 +3828,7 @@
   {
     "setID": "225",
     "setName": "Vagabond Butterflyfish Group",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fish",
       "marine fish"
@@ -3845,7 +3845,7 @@
   {
     "setID": "226",
     "setName": "Heniochus Butterflyfish",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fish",
       "marine fish"
@@ -3862,7 +3862,7 @@
   {
     "setID": "227",
     "setName": "Longfin Bannerfish Group",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "fish",
       "marine fish"
@@ -3879,7 +3879,7 @@
   {
     "setID": "228",
     "setName": "Tropical Snappers",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fish",
       "marine fish"
@@ -3913,7 +3913,7 @@
   {
     "setID": "230",
     "setName": "Sweetlips",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fish",
       "marine fish"
@@ -3930,7 +3930,7 @@
   {
     "setID": "231",
     "setName": "Fusiliers",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fish",
       "marine fish"
@@ -3947,7 +3947,7 @@
   {
     "setID": "232",
     "setName": "Monocle Breams",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fish",
       "marine fish"
@@ -3964,7 +3964,7 @@
   {
     "setID": "233",
     "setName": "Blennies",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fish",
       "marine fish"
@@ -3981,7 +3981,7 @@
   {
     "setID": "234",
     "setName": "Jacks",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fish",
       "marine fish"
@@ -3998,7 +3998,7 @@
   {
     "setID": "235",
     "setName": "Soles",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "fish",
       "marine fish"
@@ -4015,7 +4015,7 @@
   {
     "setID": "236",
     "setName": "Barracudas",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fish",
       "marine fish"
@@ -4032,7 +4032,7 @@
   {
     "setID": "237",
     "setName": "Sergeant Majors",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fish",
       "marine fish"
@@ -4049,7 +4049,7 @@
   {
     "setID": "238",
     "setName": "Damselfish",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fish",
       "marine fish"
@@ -4066,7 +4066,7 @@
   {
     "setID": "239",
     "setName": "Blue Damselfish",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fish",
       "marine fish"
@@ -4083,7 +4083,7 @@
   {
     "setID": "240",
     "setName": "Clownfish",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fish",
       "marine fish"
@@ -4100,7 +4100,7 @@
   {
     "setID": "241",
     "setName": "Spiny Damselfish",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "fish",
       "marine fish"
@@ -4117,7 +4117,7 @@
   {
     "setID": "242",
     "setName": "Prawn-gobies",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fish",
       "marine fish"
@@ -4134,7 +4134,7 @@
   {
     "setID": "243",
     "setName": "Pygmy Gobies",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fish",
       "marine fish"
@@ -4151,7 +4151,7 @@
   {
     "setID": "244",
     "setName": "Decorated Gobies",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fish",
       "marine fish"
@@ -4168,7 +4168,7 @@
   {
     "setID": "245",
     "setName": "Dartfish",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fish",
       "marine fish"
@@ -4185,7 +4185,7 @@
   {
     "setID": "246",
     "setName": "Cardinalfish",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "fish",
       "marine fish"
@@ -4202,7 +4202,7 @@
   {
     "setID": "247",
     "setName": "Groupers",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fish",
       "marine fish"
@@ -4219,7 +4219,7 @@
   {
     "setID": "248",
     "setName": "Wrasses",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fish",
       "marine fish"
@@ -4236,7 +4236,7 @@
   {
     "setID": "249",
     "setName": "Checkerboard Wrasses",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fish",
       "marine fish"
@@ -4253,7 +4253,7 @@
   {
     "setID": "250",
     "setName": "Parrotfish",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fish",
       "marine fish"
@@ -4270,7 +4270,7 @@
   {
     "setID": "251",
     "setName": "Sandperches",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fish",
       "marine fish"
@@ -5238,7 +5238,7 @@
   {
     "setID": "303",
     "setName": "Ladybugs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "beetles",
@@ -5360,7 +5360,7 @@
   {
     "setID": "310",
     "setName": "Variegated Ladybugs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "beetles",
@@ -5396,7 +5396,7 @@
   {
     "setID": "312",
     "setName": "Eleven-spot Ladybugs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "beetles",
@@ -5576,7 +5576,7 @@
   {
     "setID": "322",
     "setName": "Hieroglyphic Ladybugs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "beetles",
@@ -7215,7 +7215,7 @@
   {
     "setID": "419",
     "setName": "Harmochirus Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders",
       "jumping spiders"
