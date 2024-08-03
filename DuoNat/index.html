@@ -265,9 +265,9 @@
 
                 <div class="select-set-dialog__top-section">
                     <div class="select-set-dialog__button-group">
-                        <button id="select-tags-button" class="select-set-dialog__select-buttons">Tags</button>
-                        <button id="select-range-button" class="select-set-dialog__select-buttons">Range</button>
-                        <div class="select-set-dialog__level-filter">
+                        <button id="select-tags-button" class="select-set-dialog__select-buttons" aria-label="Select Tags (Alt-T)">Tags</button>
+                        <button id="select-range-button" class="select-set-dialog__select-buttons" aria-label="Select Range (Alt-R)">Range</button>
+                        <div class="select-set-dialog__level-filter" aria-label="Select Level (Alt-L)">
                             <select id="level-filter-dropdown" class="level-filter-dropdown">
                                 <option value="">All Levels</option>
                                 <option value="1">Easy</option>
@@ -275,17 +275,16 @@
                                 <option value="3">Hard</option>
                             </select>
                         </div>
-<!--                        <button id="select-level-button" class="select-set-dialog__select-buttons">Level</button>-->
                     </div>
                     <div id="active-tags-container" class="select-set-dialog__active-tags">
                         <div id="active-tags" class="select-set-dialog__tags-list"></div>
-                        <button id="clear-all-tags" class="select-set-dialog__clear-tags">Clear Tags</button>
+                        <button id="clear-all-tags" class="select-set-dialog__clear-tags" aria-label="Clear Tags (Alt-G)">Clear Tags</button>
                     </div>
                 </div>
                 <div class="select-set-dialog__search">
-                    <input type="text" id="taxon-search" class="select-set-dialog__search-input" placeholder="Search taxa..." aria-label="Search taxa">
+                    <input type="text" id="taxon-search" class="select-set-dialog__search-input" placeholder="Search taxa..." aria-label="Search taxa (Alt-S)">
                     <svg class="select-set-dialog__search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    <button id="clear-search" class="select-set-dialog__clear-search" aria-label="Clear search" style="display: none;">
+                    <button id="clear-search" class="select-set-dialog__clear-search" aria-label="Clear search (Alt-C)" style="display: none;">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     </button>
                 </div>
@@ -293,6 +292,7 @@
                 <div id="taxon-pair-list" class="select-set-dialog__list">
                     <!-- Taxon pairs will be dynamically inserted here -->
                 </div>
+            <button id="select-set-done-button" class="select-set-dialog__done-button">Done</button>
         </div>
     </dialog>
 

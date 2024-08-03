@@ -298,6 +298,23 @@ z-index: 5000; /* debug */
   color: var(--primary-color);
 }
 
+.select-set-dialog__done-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.select-set-dialog__done-button:hover {
+    background-color: #5c8a00;
+}
+
 .select-set-dialog__list {
     flex-grow: 1;
     width: 100%;

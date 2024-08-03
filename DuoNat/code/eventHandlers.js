@@ -42,6 +42,7 @@ const eventHandlers = {
         this.initializeSwipeFunctionality();
         this.initializeMainMenuListeners();
         this.initializeAllEventListeners();
+        this.initializeSelectSetDialogShortcuts();
 
         this.debouncedKeyboardHandler = utils.debounce(this._handleKeyboardShortcuts.bind(this), 300);
         document.addEventListener('keydown', this.debouncedKeyboardHandler);
@@ -438,6 +439,42 @@ const eventHandlers = {
                 // createWorldMap.toggleAllWorldMaps();
                 // TODO need to find a way to trigger from here
                 break;
+        }
+    },
+
+    initializeSelectSetDialogShortcuts() {
+        const dialog = document.getElementById('select-set-dialog');
+        dialog.addEventListener('keydown', this.handleSelectSetDialogKeydown.bind(this));
+    },
+
+    handleSelectSetDialogKeydown(event) {
+        if (event.altKey) {
+            switch (event.key.toLowerCase()) {
+                case 't':
+                    event.preventDefault();
+                    document.getElementById('select-tags-button').click();
+                    break;
+                case 'r':
+                    event.preventDefault();
+                    document.getElementById('select-range-button').click();
+                    break;
+                case 'l':
+                    event.preventDefault();
+                    document.getElementById('level-filter-dropdown').focus();
+                    break;
+                case 's':
+                    event.preventDefault();
+                    document.getElementById('taxon-search').focus();
+                    break;
+                case 'c':
+                    event.preventDefault();
+                    this.handleClearSearch();
+                    break;
+                case 'g':
+                    event.preventDefault();
+                    document.getElementById('clear-all-tags').click();
+                    break;
+            }
         }
     },
 
