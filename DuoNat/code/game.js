@@ -135,9 +135,10 @@ const game = {
                 taxon1: new Set([imageOneURL]),
                 taxon2: new Set([imageTwoURL])
             },
-            selectedLevel: newPair.skillLevel || gameState.selectedLevel,
             currentSetID: newPair.setID || gameState.currentSetID
         });
+
+        // Note: We're not updating the global selectedLevel here anymore
 
         await this.setupRound(true);
     },

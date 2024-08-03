@@ -37,12 +37,14 @@ const utils = {
             currentUrl.searchParams.set('tags', activeTags.join(','));
         }
 
-        // Add skillLevel and setID if available
+        // Add skillLevel only if it's set (not empty)
+        if (gameState.selectedLevel && gameState.selectedLevel !== '') {
+            currentUrl.searchParams.set('skillLevel', gameState.selectedLevel);
+        }
+
+        // Add setID if available
         if (gameState.currentTaxonImageCollection && gameState.currentTaxonImageCollection.pair) {
-            const { skillLevel, setID } = gameState.currentTaxonImageCollection.pair;
-            if (skillLevel) {
-                currentUrl.searchParams.set('skillLevel', skillLevel);
-            }
+            const { setID } = gameState.currentTaxonImageCollection.pair;
             if (setID) {
                 currentUrl.searchParams.set('setID', setID);
             }
@@ -234,7 +236,7 @@ const utils = {
             logger.error("Error in selectTaxonPair:", error);
             return null;
         }
-    },
+    }
 
 }; // const utils
 

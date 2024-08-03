@@ -166,6 +166,11 @@ const dialogManager = {
     },
 
     handleSelectSetDone() {
+        const levelDropdown = document.getElementById('level-filter-dropdown');
+        const selectedLevel = levelDropdown.value;
+        
+        updateGameState({ selectedLevel: selectedLevel });
+        
         this.closeDialog('select-set-dialog');
         if (!game.isCurrentPairInCollection()) {
             game.loadRandomPairFromCurrentCollection();

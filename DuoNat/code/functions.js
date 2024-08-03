@@ -1,7 +1,7 @@
 import api from './api.js';
 import config from './config.js';
 import dialogManager from './dialogManager.js';
-import { elements, gameState } from './state.js';
+import { elements, gameState, updateGameState } from './state.js';
 import eventHandlers from './eventHandlers.js';
 import game from './game.js';
 import logger, { LogLevel } from './logger.js';
@@ -21,6 +21,9 @@ import utils from './utils.js';
         logger.info("Initializing app");
 
   //      dialogManager.openDialog('inat-down-dialog'); // for debugging
+
+        // Initialize gameState with easy skillLevel
+        updateGameState({ selectedLevel: '' });
 
         // Check for URL parameters
         const urlParams = utils.getURLParameters();
@@ -49,8 +52,7 @@ import utils from './utils.js';
 
         // Handle setID from URL
         if (urlParams.setID) {
-            // You might want to fetch the specific set using this ID
-            // For now, we'll just log it
+            updateGameState({ currentSetID: urlParams.setID });
             logger.debug("Set ID from URL:", urlParams.setID);
         }
 
