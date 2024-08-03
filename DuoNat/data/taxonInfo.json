@@ -32508,5 +32508,128 @@
       "AS",
       "OC"
     ]
+  },
+  "881846": {
+    "taxonName": "Uroballus carlei",
+    "vernacularName": "Caterpillar jumping spider",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      342614,
+      367200,
+      48139,
+      606933,
+      712063,
+      1109011,
+      420655,
+      881846
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+        "Named after Eric Carle, of 'Very Hungry Caterpillar fame'",
+        "Mimics a small caterpillar with defensive hair",
+        "Probably lives in trees"
+    ],
+    "distribution": ["AS"]
+  },
+  "985194": {
+    "taxonName": "Miltochrista arcuata",
+    "vernacularName": "",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47157,
+      47607,
+      121850,
+      47606,
+      82092,
+      124004,
+      83727,
+      985194
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+    "Found in parts of Asia",
+    "Caterpillar resembles the jumping spider <i>Uroballus carlei</i>"
+    ],
+    "distribution": ["AS"]
+  },
+  "43584": {
+    "taxonName": "Homo sapiens",
+    "vernacularName": "Human",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43367,
+      786045,
+      936377,
+      936369,
+      1036675,
+      43575,
+      846252,
+      43583,
+      43584
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+        "Only extant species of the genus <i>Homo</i>.",
+        "Originated in Africa about 300,000 years ago.",
+        "Capable of complex language and some abstract thought."
+    ],
+    "distribution": [ "EU", "AS", "NA", "SA", "AF", "OC" ]
+  },
+  "83201": {
+    "taxonName": "Thysanoptera",
+    "vernacularName": "Thrips",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      83201
+    ],
+    "rank": "Order",
+    "taxonFacts": [
+        "Over 6,000 described species.",
+        "Some species are significant agricultural pests.",
+        "Thrips can transmit plant viruses."
+    ],
+    "distribution": [ "EU", "AS", "NA", "SA", "AF", "OC" ]
+  },
+  "47951": {
+    "taxonName": "Staphylinidae",
+    "vernacularName": "Rove beetles",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47208,
+      71130,
+      372870,
+      48311,
+      47951
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+        "Over 66,000 species in thousands of genera.",
+        "Fossilized rove beetles date back to the Triassic period.",
+        "Commonly found near water or in wet environments."
+    ],
+    "distribution": [ "EU", "AS", "NA", "SA", "AF", "OC" ]
   }
 }

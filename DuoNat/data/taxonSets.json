@@ -10322,18 +10322,37 @@
     {
       "setID": "602",
       "setName": "Caterpillars and Mimics",
-      "skillLevel": "",
+      "skillLevel": "1",
       "tags": [
           "mimicry",
-          "spiders"
+          "spiders",
+          "moths",
+          "lepidoptera"
       ],
       "taxa": [
       881846,
-      145092232
+      985194
       ],
       "taxonNames": [
           "Uroballus carlei",
           "Miltochrista arcuata"
       ]
+  },
+  {
+    "setID": "603",
+    "setName": "Beetles and Thrips",
+    "skillLevel": "2",
+    "tags": [
+      "coleoptera",
+      "thrips"
+    ],
+    "taxa": [
+      "83201",
+      "47951"
+    ],
+    "taxonNames": [
+      "Thysanoptera",
+      "Staphylinidae"
+    ]
   }
 ]
