@@ -170,6 +170,10 @@ const eventHandlers = {
         if (searchInput) {
             searchInput.addEventListener('input', this.handleSearch);
         }
+        const clearSearchButton = document.getElementById('clear-search');
+        if (clearSearchButton) {
+            clearSearchButton.addEventListener('click', this.handleClearSearch);
+        }
 
         // Help button functionality
         document.getElementById('help-button').addEventListener('click', () => {
@@ -195,25 +199,41 @@ const eventHandlers = {
         }
 
         const taxonPairs = await api.fetchTaxonPairs();
+        const activeTags = gameState.selectedTags;
         const filteredPairs = [];
 
         for (const pair of taxonPairs) {
             const vernacular1 = await getCachedVernacularName(pair.taxon1);
             const vernacular2 = await getCachedVernacularName(pair.taxon2);
 
-            if (
+            // Check if the pair matches active tags
+            const matchesTags = activeTags.length === 0 || pair.tags.some(tag => activeTags.includes(tag));
+
+            if (matchesTags && (
                 pair.taxon1.toLowerCase().includes(searchTerm) ||
                 pair.taxon2.toLowerCase().includes(searchTerm) ||
                 (vernacular1 && vernacular1.toLowerCase().includes(searchTerm)) ||
                 (vernacular2 && vernacular2.toLowerCase().includes(searchTerm)) ||
                 pair.setName.toLowerCase().includes(searchTerm) ||
                 pair.tags.some(tag => tag.toLowerCase().includes(searchTerm))
-            ) {
+            )) {
                 filteredPairs.push(pair);
             }
         }
 
         ui.updateTaxonPairList(filteredPairs);
+    },
+
+    handleClearSearch: async function() {
+        const searchInput = document.getElementById('taxon-search');
+        if (searchInput) {
+            searchInput.value = '';
+            // Hide the clear button
+            document.getElementById('clear-search').style.display = 'none';
+            // Reset the taxon list to show all pairs
+            const taxonPairs = await api.fetchTaxonPairs();
+            ui.updateTaxonPairList(taxonPairs);
+        }
     },
 
     handleThumbsUp(index) {

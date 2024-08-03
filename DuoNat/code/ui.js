@@ -50,7 +50,7 @@ const ui = {
             list.innerHTML = ''; // Clear existing content
 
             // Filter pairs based on selected tags
-            const selectedTags = tagCloud.getSelectedTags();
+            const selectedTags = gameState.selectedTags;
             let filteredPairs = taxonPairs;
             if (selectedTags.length > 0) {
                 filteredPairs = taxonPairs.filter(pair =>

@@ -309,7 +309,7 @@ z-index: 5000; /* debug */
     display: flex;
     flex-direction: row;    
     justify-content: space-evenly;
-    width: 100%;
+    width: 98%;
 }
 
 .select-set-dialog__select-buttons {
@@ -385,6 +385,7 @@ z-index: 5000; /* debug */
     align-items: center;
     margin-bottom: 10px;
     display: none; /* Initially hidden */
+    width: 98%;
 }
 
 .select-set-dialog__tags-list {
@@ -618,12 +619,12 @@ z-index: 5000; /* debug */
     margin-right: 5px;
 }
 
-body.has-keyboard .shortcut-key {
+/*body.has-keyboard .shortcut-key {
     display: inline-block;
 }
 body.has-keyboard button {
     text-align: left;
-}
+}*/
 
 /* Info dialog */
 
