@@ -41,6 +41,7 @@ export const gameState = {
     },
   },
     selectedTags: [],
+    selectedLevel: '',
 
   // check which of these still used:
   isFirstLoad: true,

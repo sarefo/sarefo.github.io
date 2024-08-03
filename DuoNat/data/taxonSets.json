@@ -944,7 +944,7 @@
   {
     "setID": "55",
     "setName": "Cold-adapted Cervids",
-    "skillLevel": "1",
+    "skillLevel": "2",
     "tags": [
       "mammals",
       "ungulates"
@@ -2625,7 +2625,7 @@
   {
     "setID": "154",
     "setName": "Owls",
-    "skillLevel": "1",
+    "skillLevel": "2",
     "tags": [
       "birds",
       "birds of prey"

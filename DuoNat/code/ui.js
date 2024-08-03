@@ -147,11 +147,14 @@ const ui = {
         result = await getCachedVernacularName(pair.taxon2);
         const vernacular2 = result === "n/a" ? "" : result;
 
+        const levelText = pair.skillLevel ? `Level: ${this.getLevelText(pair.skillLevel)}` : '';
+
         button.innerHTML = `
             <div class="taxon-set-container">
                 <div class="taxon-set-info">
                     <div class="set-name">${pair.setName || 'Unnamed Set'}</div>
                     <div class="tags">${pair.tags.join(', ')}</div>
+                    <div class="skill-level">${levelText}</div>
                 </div>
                 <div class="taxon-item">
                     <div class="taxon-name">${pair.taxon1}</div>
@@ -187,6 +190,15 @@ const ui = {
         };
 
         return button;
+    },
+
+    getLevelText(level) {
+        switch(level) {
+            case '1': return 'Easy';
+            case '2': return 'Medium';
+            case '3': return 'Hard';
+            default: return 'Unknown';
+        }
     },
 
     updateVernacularNames: async function (button, pair) {

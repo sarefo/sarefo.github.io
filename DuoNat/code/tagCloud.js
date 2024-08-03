@@ -40,6 +40,9 @@ const tagCloud = {
         // Update active tags when the tag cloud is opened or closed
         this.on('tagCloudOpened', () => this.updateActiveTags());
         this.on('tagCloudClosed', () => this.updateActiveTags());
+
+        const levelDropdown = document.getElementById('level-filter-dropdown');
+        levelDropdown.addEventListener('change', () => this.updateTaxonList());
     },
 
     async openTagCloud() {
@@ -58,20 +61,24 @@ const tagCloud = {
 
     updateTaxonList() {
         const selectedTags = this.getSelectedTags();
+        const selectedLevel = document.getElementById('level-filter-dropdown').value;
 
         api.fetchTaxonPairs().then(taxonPairs => {
             let filteredPairs = taxonPairs;
 
-            if (selectedTags.length > 0) {
-                filteredPairs = taxonPairs.filter(pair =>
-                    pair.tags.some(tag => selectedTags.includes(tag))
-                );
+            if (selectedTags.length > 0 || selectedLevel !== '') {
+                filteredPairs = taxonPairs.filter(pair => {
+                    const matchesTags = selectedTags.length === 0 || pair.tags.some(tag => selectedTags.includes(tag));
+                    const matchesLevel = selectedLevel === '' || pair.skillLevel === selectedLevel;
+                    return matchesTags && matchesLevel;
+                });
             }
 
             // Update the UI with the filtered pairs
             ui.renderTaxonPairList(filteredPairs);
         });
     },
+
     async getTagCounts() {
         const taxonPairs = await api.fetchTaxonPairs();
         const tagCounts = {};
