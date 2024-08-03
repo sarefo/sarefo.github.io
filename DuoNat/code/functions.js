@@ -21,13 +21,16 @@ import utils from './utils.js';
         logger.info("Initializing app");
 
   //      dialogManager.openDialog('inat-down-dialog'); // for debugging
+
         // Check for URL parameters
         const urlParams = utils.getURLParameters();
         if (urlParams.taxon1 && urlParams.taxon2) {
             logger.debug("Taxon parameters found:", urlParams);
             game.nextSelectedPair = {
                 taxon1: urlParams.taxon1,
-                taxon2: urlParams.taxon2
+                taxon2: urlParams.taxon2,
+                skillLevel: urlParams.skillLevel,
+                setID: urlParams.setID
             };
         }
 
@@ -36,6 +39,19 @@ import utils from './utils.js';
             const tags = urlParams.tags.split(',');
             tagCloud.setSelectedTags(tags);
             logger.debug("Tags from URL:", tags);
+        }
+
+        // Handle skillLevel from URL
+        if (urlParams.skillLevel) {
+            updateGameState({ selectedLevel: urlParams.skillLevel });
+            logger.debug("Skill level from URL:", urlParams.skillLevel);
+        }
+
+        // Handle setID from URL
+        if (urlParams.setID) {
+            // You might want to fetch the specific set using this ID
+            // For now, we'll just log it
+            logger.debug("Set ID from URL:", urlParams.setID);
         }
 
         dialogManager.initializeDialogs();

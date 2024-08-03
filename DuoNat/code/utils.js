@@ -14,8 +14,48 @@ const utils = {
         const taxon1 = params.get('taxon1');
         const taxon2 = params.get('taxon2');
         const tags = params.get('tags');
+        const skillLevel = params.get('skillLevel');
+        const setID = params.get('setID');
 
-        return { taxon1, taxon2, tags };
+        return { taxon1, taxon2, tags, skillLevel, setID };
+    },
+
+    shareCurrentPair: function() {
+        let currentUrl = new URL(window.location.href);
+        currentUrl.searchParams.delete('taxon1');
+        currentUrl.searchParams.delete('taxon2');
+        currentUrl.searchParams.delete('tags');
+        currentUrl.searchParams.delete('skillLevel');
+        currentUrl.searchParams.delete('setID');
+
+        currentUrl.searchParams.set('taxon1', gameState.taxonImageOne);
+        currentUrl.searchParams.set('taxon2', gameState.taxonImageTwo);
+
+        // Add active tags to the URL
+        const activeTags = gameState.selectedTags;
+        if (activeTags && activeTags.length > 0) {
+            currentUrl.searchParams.set('tags', activeTags.join(','));
+        }
+
+        // Add skillLevel and setID if available
+        if (gameState.currentTaxonImageCollection && gameState.currentTaxonImageCollection.pair) {
+            const { skillLevel, setID } = gameState.currentTaxonImageCollection.pair;
+            if (skillLevel) {
+                currentUrl.searchParams.set('skillLevel', skillLevel);
+            }
+            if (setID) {
+                currentUrl.searchParams.set('setID', setID);
+            }
+        }
+
+        let shareUrl = currentUrl.toString();
+
+        navigator.clipboard.writeText(shareUrl).then(() => {
+            logger.info('Share URL copied to clipboard');
+        }).catch(err => {
+            logger.error('Failed to copy: ', err);
+            alert('Failed to copy link. Please try again.');
+        });
     },
 
     debounce: function (func, wait) {
@@ -34,8 +74,6 @@ const utils = {
     // trying out things button
     surprise: function () {
         logger.debug("Surprise!");
-        //        game.showTaxaRelationship();
-        //this.fart();
         this.randomAnimalSound();
     },
 
@@ -152,31 +190,50 @@ const utils = {
     },
 
     // Returns a taxon pair from the index, or a random one if none indicated
-    selectTaxonPair: async function (index = null) {
-        const taxonPairs = await api.fetchTaxonPairs();
-        if (taxonPairs.length === 0) {
-            logger.error("No taxon pairs available");
-            return null;
-        }
+    selectTaxonPair: async function (skillLevel = null, setID = null, index = null) {
+        try {
+            const taxonPairs = await api.fetchTaxonPairs();
+            if (taxonPairs.length === 0) {
+                logger.error("No taxon pairs available");
+                return null;
+            }
 
-        let filteredPairs = taxonPairs;
+            let filteredPairs = taxonPairs;
 
-        if (gameState.selectedTags.length > 0 || gameState.selectedLevel !== '') {
-            filteredPairs = taxonPairs.filter(pair => {
+            // Filter by setID if provided
+            if (setID) {
+                filteredPairs = filteredPairs.filter(pair => pair.setID === setID);
+            }
+
+            // Filter by skillLevel if provided
+            if (skillLevel) {
+                filteredPairs = filteredPairs.filter(pair => pair.skillLevel === skillLevel);
+            }
+
+            // Filter by tags and selected level from gameState
+            filteredPairs = filteredPairs.filter(pair => {
                 const matchesTags = gameState.selectedTags.length === 0 || 
                     pair.tags.some(tag => gameState.selectedTags.includes(tag));
                 const matchesLevel = gameState.selectedLevel === '' || 
                     pair.skillLevel === gameState.selectedLevel;
                 return matchesTags && matchesLevel;
             });
-        }
 
-        if (filteredPairs.length === 0) {
-            logger.warn("No pairs match the selected criteria. Using all pairs.");
-            filteredPairs = taxonPairs;
-        }
+            if (filteredPairs.length === 0) {
+                logger.warn("No pairs match the selected criteria. Using all pairs.");
+                filteredPairs = taxonPairs;
+            }
 
-        return index !== null ? filteredPairs[index] : filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
+            if (filteredPairs.length === 0) {
+                logger.error("No valid taxon pairs found after filtering");
+                return null;
+            }
+
+            return index !== null ? filteredPairs[index] : filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
+        } catch (error) {
+            logger.error("Error in selectTaxonPair:", error);
+            return null;
+        }
     },
 
 }; // const utils

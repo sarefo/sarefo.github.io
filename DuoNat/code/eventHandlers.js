@@ -106,7 +106,7 @@ const eventHandlers = {
 
     initializeMainMenuListeners: function () {
         this.safeAddEventListener('share-button', 'click', () => {
-            this.shareCurrentPair();
+            utils.shareCurrentPair();
             ui.closeMainMenu(); // Close menu after action
         });
         this.safeAddEventListener('phylogeny-button', 'click', () => {
@@ -441,32 +441,6 @@ const eventHandlers = {
             // Trigger the answer check using the game's checkAnswer method
             game.checkAnswer(dropZone.id);
         }
-    },
-
-    // move to other module, utils?
-    shareCurrentPair() {
-        let currentUrl = new URL(window.location.href);
-        currentUrl.searchParams.delete('taxon1');
-        currentUrl.searchParams.delete('taxon2');
-        currentUrl.searchParams.delete('tags'); // Clear any existing tags
-
-        currentUrl.searchParams.set('taxon1', gameState.taxonImageOne);
-        currentUrl.searchParams.set('taxon2', gameState.taxonImageTwo);
-
-        // Add active tags to the URL
-        const activeTags = gameState.selectedTags;
-        if (activeTags && activeTags.length > 0) {
-            currentUrl.searchParams.set('tags', activeTags.join(','));
-        }
-
-        let shareUrl = currentUrl.toString();
-
-        navigator.clipboard.writeText(shareUrl).then(() => {
-            logger.info('Share URL copied to clipboard');
-        }).catch(err => {
-            logger.error('Failed to copy: ', err);
-            alert('Failed to copy link. Please try again.');
-        });
     },
 
     likePair: function () {

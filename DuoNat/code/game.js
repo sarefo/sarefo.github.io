@@ -102,10 +102,6 @@ const game = {
             newPair = this.nextSelectedPair;
             logger.debug("Using nextSelectedPair:", newPair);
             this.nextSelectedPair = null;
-            [imageOneURL, imageTwoURL] = await Promise.all([
-                api.fetchRandomImageMetadata(newPair.taxon1),
-                api.fetchRandomImageMetadata(newPair.taxon2)
-            ]);
         } else {
             const preloadedPair = preloader.getPreloadedImagesForNextPair();
             if (preloadedPair && preloadedPair.pair) {
@@ -115,12 +111,18 @@ const game = {
                 imageTwoURL = preloadedPair.taxon2;
             } else {
                 logger.debug("No preloaded pair available, selecting random pair");
-                newPair = await utils.selectTaxonPair();
-                [imageOneURL, imageTwoURL] = await Promise.all([
-                    api.fetchRandomImageMetadata(newPair.taxon1),
-                    api.fetchRandomImageMetadata(newPair.taxon2)
-                ]);
+                newPair = await utils.selectTaxonPair(gameState.selectedLevel, gameState.currentSetID);
+                if (!newPair) {
+                    throw new Error("Failed to select a valid taxon pair");
+                }
             }
+        }
+
+        if (!imageOneURL || !imageTwoURL) {
+            [imageOneURL, imageTwoURL] = await Promise.all([
+                api.fetchRandomImageMetadata(newPair.taxon1),
+                api.fetchRandomImageMetadata(newPair.taxon2)
+            ]);
         }
 
         updateGameState({
@@ -132,7 +134,9 @@ const game = {
             usedImages: {
                 taxon1: new Set([imageOneURL]),
                 taxon2: new Set([imageTwoURL])
-            }
+            },
+            selectedLevel: newPair.skillLevel || gameState.selectedLevel,
+            currentSetID: newPair.setID || gameState.currentSetID
         });
 
         await this.setupRound(true);
@@ -290,7 +294,11 @@ const game = {
 
     handleSetupError(error) {
         logger.error("Error setting up game:", error);
-        ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
+        if (error.message === "Failed to select a valid taxon pair") {
+            ui.showOverlay("No valid taxon pairs found. Please check your filters and try again.", config.overlayColors.red);
+        } else {
+            ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
+        }
         this.setState(GameState.IDLE);
         if (gameState.isInitialLoad) {
             this.hideLoadingScreen();
