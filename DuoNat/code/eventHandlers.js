@@ -222,6 +222,9 @@ const eventHandlers = {
         }
 
         ui.updateTaxonPairList(filteredPairs);
+
+        // Focus on the search input
+        event.target.focus();
     },
 
     handleClearSearch: async function() {
@@ -233,6 +236,8 @@ const eventHandlers = {
             // Reset the taxon list to show all pairs
             const taxonPairs = await api.fetchTaxonPairs();
             ui.updateTaxonPairList(taxonPairs);
+            // Focus on the search input
+            searchInput.focus();
         }
     },
 

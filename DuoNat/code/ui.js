@@ -62,6 +62,9 @@ const ui = {
             await this.renderVisibleTaxonPairs(filteredPairs);
 
             dialogManager.openDialog('select-set-dialog');
+            
+            // Focus on the search input after opening the dialog
+            this.focusSearchInput();
         } catch (error) {
             logger.error("Error in showTaxonPairList:", error);
         }
@@ -190,6 +193,15 @@ const ui = {
         };
 
         return button;
+    },
+
+    focusSearchInput: function() {
+        const searchInput = document.getElementById('taxon-search');
+        if (searchInput) {
+            setTimeout(() => {
+                searchInput.focus();
+            }, 100); // Short delay to ensure the dialog is fully open
+        }
     },
 
     getLevelText(level) {

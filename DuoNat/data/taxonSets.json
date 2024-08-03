@@ -4287,7 +4287,7 @@
   {
     "setID": "252",
     "setName": "Lionfish",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fish",
       "marine fish"
@@ -4304,7 +4304,7 @@
   {
     "setID": "253",
     "setName": "Bridled Gobies",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "fish",
       "marine fish"
@@ -4321,7 +4321,7 @@
   {
     "setID": "254",
     "setName": "Wormfish",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fish",
       "marine fish"
@@ -4355,7 +4355,7 @@
   {
     "setID": "256",
     "setName": "Swallowtail Butterflies",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "butterflies",
@@ -4374,7 +4374,7 @@
   {
     "setID": "257",
     "setName": "North American Swallowtails",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "butterflies",
@@ -4393,7 +4393,7 @@
   {
     "setID": "258",
     "setName": "Longwing Butterflies",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "butterflies",
@@ -4412,7 +4412,7 @@
   {
     "setID": "259",
     "setName": "Red Admiral Butterflies",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "butterflies",

@@ -27,7 +27,6 @@ const dialogManager = {
                 this.disableMainEventHandlers();
             }
 
-            //logger.debug(`Opened dialog: ${dialogId}. Open dialogs: ${Array.from(this.openDialogs)}`);
         }
     },
 
