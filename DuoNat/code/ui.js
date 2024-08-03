@@ -47,7 +47,7 @@ const ui = {
                 return;
             }
 
-            const list = document.getElementById('taxon-pair-list');
+            const list = document.getElementById('taxon-set-list');
             list.innerHTML = ''; // Clear existing content
 
             // Filter pairs based on selected tags
@@ -68,13 +68,26 @@ const ui = {
             
             // Focus on the search input after opening the dialog
             this.focusSearchInput();
+
+            // Trigger the search if there's text in the search input
+            const searchInput = document.getElementById('taxon-search');
+            if (searchInput && searchInput.value.trim() !== '') {
+                const event = new Event('input', { bubbles: true, cancelable: true });
+                searchInput.dispatchEvent(event);
+            }
+
+            // Show/hide clear button based on search input content
+            const clearButton = document.getElementById('clear-search');
+            if (clearButton) {
+                clearButton.style.display = searchInput.value.trim() !== '' ? 'block' : 'none';
+            }
         } catch (error) {
             logger.error("Error in showTaxonPairList:", error);
         }
     },
 
     renderTaxonPairList: async function (pairs) {
-        const list = document.getElementById('taxon-pair-list');
+        const list = document.getElementById('taxon-set-list');
         list.innerHTML = ''; // Clear existing content
 
         if (pairs.length === 0) {
@@ -91,7 +104,7 @@ const ui = {
     },
 
     renderVisibleTaxonPairs: async function (pairs) {
-        const list = document.getElementById('taxon-pair-list');
+        const list = document.getElementById('taxon-set-list');
         const visiblePairs = pairs.slice(0, 20); // Render first 20 pairs
 
         for (const pair of visiblePairs) {
@@ -110,7 +123,7 @@ const ui = {
     },
 
     loadMorePairs: async function (pairs, startIndex) {
-        const list = document.getElementById('taxon-pair-list');
+        const list = document.getElementById('taxon-set-list');
         const nextPairs = pairs.slice(startIndex, startIndex + 20);
 
         for (const pair of nextPairs) {
@@ -127,7 +140,7 @@ const ui = {
     },
 
     updateTaxonPairList: async function (filteredPairs) {
-        const list = document.getElementById('taxon-pair-list');
+        const list = document.getElementById('taxon-set-list');
         list.innerHTML = ''; // Clear existing content
 
         if (filteredPairs.length === 0) {

@@ -451,7 +451,7 @@ z-index: 5000; /* debug */
     color: rgba(255, 255, 255, 0.8);
     text-align: center;
 }
-
+/*
 .taxon-pair-content {
     background-color: white;
     border-radius: 12px;
@@ -482,6 +482,7 @@ z-index: 5000; /* debug */
     align-items: center;
     z-index: 1000;
 }
+*/
 
 /* Tag cloud dialog */
 

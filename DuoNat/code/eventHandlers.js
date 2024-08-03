@@ -203,16 +203,18 @@ const eventHandlers = {
 
         const taxonPairs = await api.fetchTaxonPairs();
         const activeTags = gameState.selectedTags;
+        const selectedLevel = gameState.selectedLevel;
         const filteredPairs = [];
 
         for (const pair of taxonPairs) {
             const vernacular1 = await getCachedVernacularName(pair.taxon1);
             const vernacular2 = await getCachedVernacularName(pair.taxon2);
 
-            // Check if the pair matches active tags
+            // Check if the pair matches active tags and selected level
             const matchesTags = activeTags.length === 0 || pair.tags.some(tag => activeTags.includes(tag));
+            const matchesLevel = selectedLevel === '' || pair.skillLevel === selectedLevel;
 
-            if (matchesTags && (
+            if (matchesTags && matchesLevel && (
                 pair.taxon1.toLowerCase().includes(searchTerm) ||
                 pair.taxon2.toLowerCase().includes(searchTerm) ||
                 (vernacular1 && vernacular1.toLowerCase().includes(searchTerm)) ||
@@ -246,12 +248,11 @@ const eventHandlers = {
             searchInput.value = '';
             // Hide the clear button
             document.getElementById('clear-search').style.display = 'none';
-            // Reset the taxon list to show all pairs
-            const taxonPairs = await api.fetchTaxonPairs();
-            ui.updateTaxonPairList(taxonPairs);
+            // Trigger the search event to update the list
+            searchInput.dispatchEvent(new Event('input', { bubbles: true }));
             // Set hasLostFocus to true before focusing
             this.hasLostFocus = true;
-            // Focus on the search input and select all text
+            // Focus on the search input
             searchInput.focus();
         }
     },
@@ -455,6 +456,10 @@ const eventHandlers = {
                     event.preventDefault();
                     document.getElementById('select-tags-button').click();
                     break;
+                case 'g':
+                    event.preventDefault();
+                    document.getElementById('clear-all-tags').click();
+                    break;
                 case 'r':
                     event.preventDefault();
                     document.getElementById('select-range-button').click();
@@ -470,10 +475,6 @@ const eventHandlers = {
                 case 'c':
                     event.preventDefault();
                     this.handleClearSearch();
-                    break;
-                case 'g':
-                    event.preventDefault();
-                    document.getElementById('clear-all-tags').click();
                     break;
             }
         }
