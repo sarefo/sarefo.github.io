@@ -31,7 +31,7 @@ const preloader = {
         ]);
 
         this.preloadedImages.nextRound = { taxon1: newImageOneURL, taxon2: newImageTwoURL };
-        logger.debug("Preloaded images for next round");
+        logger.debug("Preloaded images for next round:", this.preloadedImages.nextRound);
     },
 
     async fetchDifferentImage(taxonName, currentImageURL) {
@@ -129,6 +129,11 @@ const preloader = {
         const images = this.preloadedImages.nextRound;
         this.preloadedImages.nextRound = { taxon1: null, taxon2: null };
         return images;
+    },
+
+    clearPreloadedImagesForNextRound() {
+        this.preloadedImages.nextRound = { taxon1: null, taxon2: null };
+        logger.debug("Cleared preloaded images for next round");
     },
 
     getPreloadedImagesForNextPair() {

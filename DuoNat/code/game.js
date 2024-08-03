@@ -479,7 +479,10 @@ const game = {
             ui.showOverlay("Error loading new pair. Please try again.", config.overlayColors.red);
         } finally {
             this.setState(GameState.PLAYING);
-            // Start preloading for the next pair
+            // Clear preloaded images for the next round
+            preloader.clearPreloadedImagesForNextRound();
+            // Start preloading for the next round and the next pair
+            preloader.preloadForNextRound();
             preloader.preloadForNextPair();
         }
     },
