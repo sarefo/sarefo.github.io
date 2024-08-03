@@ -109,7 +109,7 @@ const eventHandlers = {
     initializeMainMenuListeners: function () {
         this.safeAddEventListener('share-button', 'click', () => {
             utils.shareCurrentPair();
-            ui.closeMainMenu(); // Close menu after action
+//            ui.closeMainMenu(); // Close menu after action
         });
         this.safeAddEventListener('phylogeny-button', 'click', () => {
             game.showTaxaRelationship();

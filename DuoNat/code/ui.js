@@ -325,6 +325,7 @@ const ui = {
                 duration: 6000
             },
             { message: "Get more info about a taxon.", highlights: ['#info-button-1', '#info-button-2'], duration: 6000 },
+            { message: "Share the current pair and collection", highlight: '#share-button', duration: 6000 },
             { message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => this.temporarilyOpenMenu(6000), duration: 6000 },
             { message: "Ready to start?<br>Let's go!", highlight: null, duration: 2000 }
         ];

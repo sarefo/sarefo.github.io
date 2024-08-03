@@ -41,6 +41,26 @@
     z-index: 1000;
 }
 
+#help-button,
+#share-button,
+#menu-toggle {
+    position: fixed;
+    top: 10px;
+    z-index: 1000;
+}
+
+#help-button {
+    right: 110px;
+}
+
+#share-button {
+    right: 60px;
+}
+
+#menu-toggle {
+    right: 10px;
+}
+
 #like-button {
     fill: var(--primary-color);
 }
