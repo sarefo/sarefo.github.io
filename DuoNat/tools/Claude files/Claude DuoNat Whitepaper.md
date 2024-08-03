@@ -11,22 +11,23 @@ The web app DuoNat has the following goals:
 The nomenclature for the game is like this:
 + the whole time from starting up the app to closing it is called a "session".
 + it can have one or more "sets". each set consists of one or more "pairs". every pair consists of one or more "rounds".
++ the user can filter the complete list of available taxon sets. these filtered lists are called "collections".
 + during a "set", the game uses the same taxon set throughout. a taxon set is an array of two or more taxa.
 + during a "pair", the game uses the same taxon pair throughout. a taxon pair is selected from the current taxon set, and consists of exactly two of its taxa.
 + during a "round", a pair of images are displayed, for the currently active taxon pair. every round, there will be two different images for that same taxon pair. The user needs to guess which image belongs to which taxon.
 
 I'm currently transitioning the app from only using taxon pairs to using taxon sets. For now, let's consider a taxon pair in the code and data to be a minimal taxon set (a taxon set which only has one taxon pair).
 
-A pair can get its two taxa either randomly from a list of taxon sets (in taxonPairs.json), or defined by the user. The latter can happen by:
-+ providing the two taxa in the URL as optional parameters, or
-+ by defining them inside the app using the "Enter pair" dialog.
+A pair can get its two taxa either randomly from a list of taxon sets (in taxonSets.json), or defined by the user. The latter can happen by:
++ providing the (currently two) taxa in the URL as optional parameters, or
++ by defining them inside the app using the "Enter set" dialog.
 If no URL parameters are provided, the first set after the app starts up loads a random pair from the taxon pair list. Other options are accessed via
-+ the "Random pair" (loads a random pair from the taxon pair list) or
-+ "Select pair" (let's the user select a pair from the taxon pair list) options.
++ the "Random set" (loads a random set from the taxon set list) or
++ "Select set" (let's the user select a set from the taxon set list) options.
 
 ### Sharing
-+ the user can easily share the currently active taxon pair by tapping on the "Share" icon. This creates a link to the app with the two taxa encoded in the URL.
-+ once taxon sets are implemented, these could also be encoded in the URL, together with the two taxa
++ the user can easily share the currently active collection and pair by tapping on the "Share" icon. This creates a link to the app with the relevant information encoded in the URL.
++ once taxon sets are fully implemented, these could also be encoded in the URL, together with the two taxa for the current pair
 + This sharing link is an important component of the game, helping with its virality, as users can easily share interesting pairs with others
 + I'd like the app to optionally display a QR code for the current pair, so users can share when they're next to each other
     + not every phone has a good way of creating these, and it's often hard to find in the moment
@@ -86,8 +87,8 @@ Each picture has its own info dialog. The user can access external information a
 ### Enter taxa dialog
 The user can currently input two taxa, which will be used in a new pair. Currently there's no server-side functionality, but when there is, those can also be stored for future use. Also, once taxon sets are implemented, the user will be able to input more than two taxa. Another idea is to only input one, and the app will create a taxon set from all the sister taxa at that level.
 
-### Select taxa dialog
-Currently this displays a list of all taxon pairs, locally saved in a JSON file. In future, this will be expanded, giving different ways to access taxon sets.
+### Select taxon sets dialog
+Currently this displays a list of all taxon sets, locally saved in a JSON file. In future, this will be expanded, giving different ways to access taxon sets.
 
 ### Phylogeny dialog
 The phylogeny graph shows how the two active taxa are connected taxonomically. It's also a way to link to the iNaturalist taxon pages of the taxa in its entire hierarchy.
@@ -118,12 +119,11 @@ The phylogeny graph shows how the two active taxa are connected taxonomically. I
 Here are some ideas I have regarding future functionality:
 
 ### Expand taxon pairs into taxon sets
-+ currently, the system only allows fair taxon pairs: two different taxa that are compared in the quiz
++ currently, the system only allows for taxon pairs: two different taxa that are compared in the quiz
 + it would be nice to expand on that: having taxon sets instead, which can consist of two or more taxa. If more than two taxa are in a set, the app would create random pairs out of it for use in a pair.
 + although a taxon set can contain more than two taxa, in each game pair, only the same two taxa from this set would be compared to each other! otherwise it would become confusing and hard to figure out the identification traits, I think.
 
 ### Update taxon set structure
-+ there should be a taxon set title, of course the list of taxa in this set, and also a taxon set identifier, and tags
 + there should be an extra array where for every taxon, the ancestry hierarchy, the vernacular name, identification tips, and maybe tags and comments should be included
 
 ### Optionally use observation images
@@ -135,14 +135,11 @@ Here are some ideas I have regarding future functionality:
 + if a taxon has less than 10 images, this could be logged in the console
 + alternatively, it might make more sense to have a standalone script that runs for new taxon sets, resulting in a set of taxon sets with low image gallery numbers
 
-### Tagging system for taxon sets
-+ as the list of taxon sets gets longer, it also gets unwieldy
-+ one idea is to add an arbitrary number of tags to any taxon set
-    + this way, taxon sets could be selected by a range of different criteria
-    + possible tags would be "mimicry", "fishes", or others. open for suggestions here!
-    + another option might be to locally store ancestry information (from the iNat API) for each taxon
-        + this would help with ancestry connection graph creation
-        + it would also help users to select for example "beetles" or "fungi", and then get only taxon pairs that fit this selection in their pairs
+### Improving the tagging system
++ the user should be able to organically create personal collections by combining at least tags, ranges and levels.
++ possible tags would be "mimicry", "fishes", or others. open for suggestions here!
++ another option would be to use ancestry information, so that users can select groups according to phylogeny.
+    + it would also help users to select for example "beetles" or "fungi", and then get only taxon pairs that fit this selection in their pairs
 
 ### Long-press information
 + show information on what buttons do when long-pressed (on touch devices), or hover (on mouse devices), or whatever the best practice to get this information is nowadays
@@ -232,8 +229,6 @@ Also, this is a long-term project. Whenever you notice that something would make
 
 #### Main screen layout
 + currently, the main screen is optimized for Pixel 6a phones. It should also display cleanly on smaller phones, such as iPhone 7. There should be a different display mode for widescreen displays, which ranges from laptop screens to small phone screens. During widescreen display, the images should be on the left and the right, with the name tiles between them, one above the other.
-+ the text on the taxon name buttons should be nicely layouted and fully visible. There's always a taxon name, and often there's a vernacular name too. If there is no vernacular name, the taxon name should use the whole space available for both of them.
-+ here's a problem I'm currently struggling with: I want the name buttons to be in the center between the top and bottom image. when the space allows, I want the two buttons next to each other. The text on both should ideally be fully visible. After the screen size gets small enough, I want the left button to be on top of the right one. This is kind of the already existing behavior, but it's not working properly. how can we design a robust CSS system that does this elegantly?
 
 #### Cache problems
 + I currently have some functionality at the beginning of index.html to increase the version number, for cache busting
