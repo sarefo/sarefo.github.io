@@ -13,6 +13,7 @@ import utils from './utils.js';
 
 (function () {
 
+
     // Set the log level based on your config
     logger.setLevel(config.debug ? LogLevel.DEBUG : LogLevel.INFO);
     document.getElementById('version-id').innerHTML = `Version: <i>${document.lastModified}</i>`;
