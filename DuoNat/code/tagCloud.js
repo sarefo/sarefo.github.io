@@ -23,11 +23,12 @@ const tagCloud = {
     },
 
     async initialize() {
-        const selectTagsButton = document.getElementById('select-tags-button');
         const tagCloudDialog = document.getElementById('tag-cloud-dialog');
-        const doneButton = document.getElementById('tag-cloud-done-button');
 
+        const selectTagsButton = document.getElementById('select-tags-button');
         selectTagsButton.addEventListener('click', () => this.openTagCloud());
+
+        const doneButton = document.getElementById('tag-cloud-done-button');
         doneButton.addEventListener('click', () => this.closeTagCloud());
 
         // Close button functionality
@@ -53,10 +54,10 @@ const tagCloud = {
     },
 
     closeTagCloud() {
-        dialogManager.closeDialog('tag-cloud-dialog');
         this.updateTaxonList();
         preloader.preloadNewPairWithTags(gameState.selectedTags, gameState.selectedLevel);
         this.emit('tagCloudClosed');
+        dialogManager.closeDialog('tag-cloud-dialog', true);
     },
 
     updateTaxonList() {

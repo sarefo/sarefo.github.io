@@ -81,7 +81,7 @@ const preloader = {
         try {
             let newPair;
             let attempts = 0;
-            const maxAttempts = 10;
+            const maxAttempts = 3;
 
             do {
                 newPair = await utils.selectTaxonPair();

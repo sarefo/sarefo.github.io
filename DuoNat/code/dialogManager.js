@@ -2,71 +2,73 @@ import api from './api.js';
 import eventHandlers from './eventHandlers.js';
 import game from './game.js';
 import logger from './logger.js';
+import tagCloud from './tagCloud.js';
 import ui from './ui.js';
 
 const dialogManager = {
   /*  activeDialog: null,*/
     mainEventHandlers: {},
-   eventListeners: {},
-    openDialogs: new Set(),
+    eventListeners: {},
+    openDialogs: [],
 
     openDialog(dialogId) {
-        if (this.openDialogs.has(dialogId)) {
-            //logger.debug(`Dialog ${dialogId} is already open. Skipping.`);
+        if (this.openDialogs.includes(dialogId)) {
             return;
         }
 
         const dialog = document.getElementById(dialogId);
         if (dialog && dialog.tagName.toLowerCase() === 'dialog') {
             dialog.showModal();
-            this.openDialogs.add(dialogId);
+            this.openDialogs.push(dialogId);
             
-            dialog.addEventListener('keydown', (event) => this.handleDialogKeydown(event, dialogId));
+            // Remove any existing event listener before adding a new one
+            dialog.removeEventListener('keydown', this.handleDialogKeydown);
+            dialog.addEventListener('keydown', this.handleDialogKeydown.bind(this));
 
-            if (this.openDialogs.size === 1) {
+            if (this.openDialogs.length === 1) {
                 this.disableMainEventHandlers();
             }
-
         }
     },
 
-    closeDialog(dialogId) {
-        //logger.debug(`Attempting to close dialog: ${dialogId}`);
-        if (!this.openDialogs.has(dialogId)) {
-            //logger.debug(`Dialog ${dialogId} is not open. Skipping.`);
+    closeDialog(dialogId, fromTagCloud = false) {
+        const index = this.openDialogs.indexOf(dialogId);
+        if (index === -1) {
             return;
         }
 
         const dialog = document.getElementById(dialogId);
         if (dialog && dialog.tagName.toLowerCase() === 'dialog') {
+            if (dialogId === 'tag-cloud-dialog' && !fromTagCloud) {
+                tagCloud.closeTagCloud();
+                return;
+            }
+
             dialog.close();
-            this.openDialogs.delete(dialogId);
+            this.openDialogs.splice(index, 1);
             
-            dialog.removeEventListener('keydown', (event) => this.handleDialogKeydown(event, dialogId));
+            dialog.removeEventListener('keydown', this.handleDialogKeydown);
 
             this.handleDialogClose(dialog);
             this.emit('dialogClose', dialogId);
 
-            if (this.openDialogs.size === 0) {
+            if (this.openDialogs.length === 0) {
                 this.enableMainEventHandlers();
             }
-
-            //logger.debug(`Closed dialog: ${dialogId}. Remaining open dialogs: ${Array.from(this.openDialogs)}`);
-        } else {
-            logger.error(`Failed to close dialog: ${dialogId}. Dialog element not found or not a dialog.`);
         }
     },
 
-    handleDialogKeydown(event, dialogId) {
+    handleDialogKeydown(event) {
         if (event.key === 'Escape') {
-            this.closeDialog(dialogId);
+            event.preventDefault();
+            event.stopPropagation();
+            const topDialogId = this.openDialogs[this.openDialogs.length - 1];
+            if (topDialogId === 'tag-cloud-dialog') {
+                tagCloud.closeTagCloud();
+            } else {
+                this.closeDialog(topDialogId);
+            }
         }
-        // Allow default behavior for input fields
-        if (event.target.tagName.toLowerCase() === 'input') {
-            return;
-        }
-        // Prevent propagation for other elements
-        event.stopPropagation();
     },
 
     handleDialogClose(dialog) {

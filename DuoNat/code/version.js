@@ -1,4 +1,4 @@
-const version = '1.4.28';
+const version = '1.4.29';
 
 function updateVersion() {
     const noCacheFiles = document.querySelectorAll('link[rel="stylesheet"], link[rel="preload"], script[src], link[rel="manifest"]');
