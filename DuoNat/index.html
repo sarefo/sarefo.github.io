@@ -267,7 +267,15 @@
                     <div class="select-set-dialog__button-group">
                         <button id="select-tags-button" class="select-set-dialog__select-buttons">Tags</button>
                         <button id="select-range-button" class="select-set-dialog__select-buttons">Range</button>
-                        <button id="select-level-button" class="select-set-dialog__select-buttons">Level</button>
+                        <div class="select-set-dialog__level-filter">
+                            <select id="level-filter-dropdown" class="level-filter-dropdown">
+                                <option value="">All Levels</option>
+                                <option value="1">Easy</option>
+                                <option value="2">Medium</option>
+                                <option value="3">Hard</option>
+                            </select>
+                        </div>
+<!--                        <button id="select-level-button" class="select-set-dialog__select-buttons">Level</button>-->
                     </div>
                     <div id="active-tags-container" class="select-set-dialog__active-tags">
                         <div id="active-tags" class="select-set-dialog__tags-list"></div>
