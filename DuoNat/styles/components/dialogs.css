@@ -309,6 +309,7 @@ position: relative;
     cursor: pointer;
     font-size: 16px;
     margin-top: 20px;
+    max-height: 40px;
     transition: background-color 0.3s ease;
 }
 

@@ -171,6 +171,7 @@ const eventHandlers = {
         const searchInput = document.getElementById('taxon-search');
         if (searchInput) {
             searchInput.addEventListener('input', this.handleSearch);
+            searchInput.addEventListener('keydown', this.handleSearchKeydown.bind(this));
         }
         const clearSearchButton = document.getElementById('clear-search');
         if (clearSearchButton) {
@@ -190,7 +191,7 @@ const eventHandlers = {
 
     },
 
-    handleSearch: async function (event) {
+    handleSearch: async function(event) {
         const searchInput = event.target;
         const searchTerm = searchInput.value.toLowerCase();
         const clearButton = document.getElementById('clear-search');
@@ -210,7 +211,6 @@ const eventHandlers = {
             const vernacular1 = await getCachedVernacularName(pair.taxon1);
             const vernacular2 = await getCachedVernacularName(pair.taxon2);
 
-            // Check if the pair matches active tags and selected level
             const matchesTags = activeTags.length === 0 || pair.tags.some(tag => activeTags.includes(tag));
             const matchesLevel = selectedLevel === '' || pair.skillLevel === selectedLevel;
 
@@ -229,17 +229,22 @@ const eventHandlers = {
         ui.updateTaxonPairList(filteredPairs);
         ui.updateActiveCollectionCount(filteredPairs.length);
 
-        // Only select all text if the input has lost focus since last input
-        // and the input is not empty (to avoid selecting the first letter)
         if (this.hasLostFocus && searchInput.value.length > 1) {
             searchInput.select();
         }
         this.hasLostFocus = false;
 
-        // Add these event listeners to track focus
         searchInput.addEventListener('blur', () => {
             this.hasLostFocus = true;
         }, { once: true });
+    },
+
+    handleSearchKeydown: function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            this.openFirstTaxonSet();
+            dialogManager.closeDialog('select-set-dialog');
+        }
     },
 
     handleClearSearch: async function() {
@@ -254,6 +259,13 @@ const eventHandlers = {
             this.hasLostFocus = true;
             // Focus on the search input
             searchInput.focus();
+        }
+    },
+
+    openFirstTaxonSet: function() {
+        const firstTaxonSetButton = document.querySelector('.taxon-set-button');
+        if (firstTaxonSetButton) {
+            firstTaxonSetButton.click();
         }
     },
 

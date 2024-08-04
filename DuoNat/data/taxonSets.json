@@ -340,7 +340,7 @@
   {
     "setID": "21",
     "setName": "Sea Lions",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mammals",
       "marine mammals"
@@ -357,7 +357,7 @@
   {
     "setID": "22",
     "setName": "True Seals",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mammals",
       "marine mammals"
@@ -374,7 +374,7 @@
   {
     "setID": "23",
     "setName": "Dolphins",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "mammals",
       "marine mammals",
@@ -392,7 +392,7 @@
   {
     "setID": "24",
     "setName": "Rorqual Whales",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mammals",
       "marine mammals",
@@ -410,7 +410,7 @@
   {
     "setID": "25",
     "setName": "Large Baleen Whales",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mammals",
       "marine mammals",
@@ -428,7 +428,7 @@
   {
     "setID": "26",
     "setName": "Sei Whale Group",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mammals",
       "marine mammals",
@@ -446,7 +446,7 @@
   {
     "setID": "27",
     "setName": "Minke Whales",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mammals",
       "marine mammals",
@@ -464,7 +464,7 @@
   {
     "setID": "28",
     "setName": "Baleen Whales",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mammals",
       "marine mammals",
@@ -482,7 +482,7 @@
   {
     "setID": "29",
     "setName": "Right Whales",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mammals",
       "marine mammals",
@@ -500,7 +500,7 @@
   {
     "setID": "30",
     "setName": "Sperm Whales",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mammals",
       "marine mammals",
@@ -518,7 +518,7 @@
   {
     "setID": "31",
     "setName": "Dwarf Sperm Whales",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mammals",
       "marine mammals",
@@ -536,7 +536,7 @@
   {
     "setID": "32",
     "setName": "Large Oceanic Dolphins",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mammals",
       "marine mammals",
@@ -554,7 +554,7 @@
   {
     "setID": "33",
     "setName": "Pilot Whales",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mammals",
       "marine mammals",
@@ -572,7 +572,7 @@
   {
     "setID": "34",
     "setName": "Bottlenose Dolphins",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mammals",
       "marine mammals",
@@ -590,7 +590,7 @@
   {
     "setID": "35",
     "setName": "Spotted Dolphins",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mammals",
       "marine mammals",
@@ -608,7 +608,7 @@
   {
     "setID": "36",
     "setName": "Striped Dolphins",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mammals",
       "marine mammals",
@@ -626,7 +626,7 @@
   {
     "setID": "37",
     "setName": "Oceanic Dolphins",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mammals",
       "marine mammals",
@@ -644,7 +644,7 @@
   {
     "setID": "38",
     "setName": "White-beaked Dolphins",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mammals",
       "marine mammals",
@@ -662,7 +662,7 @@
   {
     "setID": "39",
     "setName": "Rough-toothed Dolphins",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mammals",
       "marine mammals",
@@ -680,7 +680,7 @@
   {
     "setID": "40",
     "setName": "Porpoises",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mammals",
       "marine mammals",
@@ -698,7 +698,7 @@
   {
     "setID": "41",
     "setName": "Beaked Whales",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mammals",
       "marine mammals",
@@ -716,7 +716,7 @@
   {
     "setID": "42",
     "setName": "Large Beaked Whales",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mammals",
       "marine mammals",
@@ -734,7 +734,7 @@
   {
     "setID": "43",
     "setName": "River Dolphins",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mammals",
       "marine mammals",
@@ -752,7 +752,7 @@
   {
     "setID": "44",
     "setName": "Arctic Whales",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mammals",
       "marine mammals",
@@ -770,7 +770,7 @@
   {
     "setID": "45",
     "setName": "Cephalorhynchus Dolphins",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mammals",
       "marine mammals",
@@ -788,7 +788,7 @@
   {
     "setID": "46",
     "setName": "Tucuxi Dolphins",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mammals",
       "marine mammals",
@@ -806,7 +806,7 @@
   {
     "setID": "47",
     "setName": "Small Oceanic Dolphins",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mammals",
       "marine mammals",
@@ -824,7 +824,7 @@
   {
     "setID": "48",
     "setName": "Right Whale Dolphins",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mammals",
       "marine mammals",
@@ -842,7 +842,7 @@
   {
     "setID": "49",
     "setName": "New World Deer",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mammals",
       "ungulates"
@@ -859,7 +859,7 @@
   {
     "setID": "50",
     "setName": "Red Deer Group",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mammals",
       "ungulates"
@@ -927,7 +927,7 @@
   {
     "setID": "54",
     "setName": "Mountain Bovids",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mammals",
       "ungulates"
@@ -961,7 +961,7 @@
   {
     "setID": "56",
     "setName": "Zebras",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mammals",
       "ungulates"
@@ -1012,7 +1012,7 @@
   {
     "setID": "59",
     "setName": "Rhinoceroses",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mammals",
       "ungulates"
@@ -1080,7 +1080,7 @@
   {
     "setID": "63",
     "setName": "Macaques",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mammals",
       "primates"
@@ -1131,7 +1131,7 @@
   {
     "setID": "66",
     "setName": "Tree Squirrels",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mammals",
       "rodents"
@@ -1148,7 +1148,7 @@
   {
     "setID": "67",
     "setName": "Chipmunks",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mammals",
       "rodents"
@@ -1165,7 +1165,7 @@
   {
     "setID": "68",
     "setName": "Marmots",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mammals",
       "rodents"
@@ -1233,7 +1233,7 @@
   {
     "setID": "72",
     "setName": "Opossums",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mammals",
       "marsupials"
@@ -1250,7 +1250,7 @@
   {
     "setID": "73",
     "setName": "Arboreal Marsupials",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mammals",
       "marsupials"
@@ -1267,7 +1267,7 @@
   {
     "setID": "74",
     "setName": "Large Kangaroos",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mammals",
       "marsupials"
@@ -1284,7 +1284,7 @@
   {
     "setID": "75",
     "setName": "Carnivorous Marsupials",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "mammals",
       "marsupials"
@@ -1301,7 +1301,7 @@
   {
     "setID": "76",
     "setName": "Wombats",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mammals",
       "marsupials"
@@ -2218,7 +2218,7 @@
   {
     "setID": "130",
     "setName": "Old World Flycatchers",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "birds",
       "passerines"
@@ -2269,7 +2269,7 @@
   {
     "setID": "133",
     "setName": "Leaf Warblers",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "birds",
       "passerines"
@@ -2286,7 +2286,7 @@
   {
     "setID": "134",
     "setName": "Finches",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "birds",
       "passerines"
@@ -2456,7 +2456,7 @@
   {
     "setID": "144",
     "setName": "Falcons",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "birds",
       "birds of prey"
@@ -2541,7 +2541,7 @@
   {
     "setID": "149",
     "setName": "Terns",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "birds",
       "seabirds"
@@ -2659,7 +2659,7 @@
   {
     "setID": "156",
     "setName": "Swifts and Swallows",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "birds"
     ],
@@ -2758,7 +2758,7 @@
   {
     "setID": "162",
     "setName": "Diving Ducks",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "birds",
       "waterbirds"
@@ -2775,7 +2775,7 @@
   {
     "setID": "163",
     "setName": "Mergansers",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "birds",
       "waterbirds"
@@ -2809,7 +2809,7 @@
   {
     "setID": "165",
     "setName": "Cormorants",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "birds",
       "seabirds"
@@ -2860,7 +2860,7 @@
   {
     "setID": "168",
     "setName": "Sandpipers",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "birds",
       "shorebirds"
@@ -2877,7 +2877,7 @@
   {
     "setID": "169",
     "setName": "Small Waders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "birds",
       "shorebirds"
@@ -2894,7 +2894,7 @@
   {
     "setID": "170",
     "setName": "Curlews",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "birds",
       "shorebirds"
@@ -2911,7 +2911,7 @@
   {
     "setID": "171",
     "setName": "Snipes",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "birds",
       "shorebirds"
@@ -2928,7 +2928,7 @@
   {
     "setID": "172",
     "setName": "Coastal Shorebirds",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "birds",
       "shorebirds"
@@ -2945,7 +2945,7 @@
   {
     "setID": "173",
     "setName": "Stone-curlews and Plovers",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "birds",
       "shorebirds"
@@ -3028,7 +3028,7 @@
   {
     "setID": "178",
     "setName": "European Snakes",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "reptiles",
       "snakes"
@@ -3045,7 +3045,7 @@
   {
     "setID": "179",
     "setName": "European Water Snakes",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "reptiles",
       "snakes"
@@ -3062,7 +3062,7 @@
   {
     "setID": "180",
     "setName": "European Vipers",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "reptiles",
       "snakes"
@@ -3079,7 +3079,7 @@
   {
     "setID": "181",
     "setName": "Small European Snakes",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "reptiles",
       "snakes"
@@ -3113,7 +3113,7 @@
   {
     "setID": "183",
     "setName": "Four-lined Snakes",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "reptiles",
       "snakes"
@@ -3130,7 +3130,7 @@
   {
     "setID": "184",
     "setName": "Mediterranean Snakes",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "reptiles",
       "snakes"
@@ -3164,7 +3164,7 @@
   {
     "setID": "186",
     "setName": "Asian Cobras",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "reptiles",
       "snakes"
@@ -3181,7 +3181,7 @@
   {
     "setID": "187",
     "setName": "Kraits",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "reptiles",
       "snakes"
@@ -3198,7 +3198,7 @@
   {
     "setID": "188",
     "setName": "Mambas",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "reptiles",
       "snakes"
@@ -3215,7 +3215,7 @@
   {
     "setID": "189",
     "setName": "Rattlesnakes",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "reptiles",
       "snakes"
@@ -3232,7 +3232,7 @@
   {
     "setID": "190",
     "setName": "Pygmy Rattlesnakes",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "reptiles",
       "snakes"
@@ -3249,7 +3249,7 @@
   {
     "setID": "191",
     "setName": "Copperheads",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "reptiles",
       "snakes"
@@ -3283,7 +3283,7 @@
   {
     "setID": "193",
     "setName": "African Vipers",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "reptiles",
       "snakes"
@@ -3300,7 +3300,7 @@
   {
     "setID": "194",
     "setName": "Saw-scaled Vipers",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "reptiles",
       "snakes"
@@ -3317,7 +3317,7 @@
   {
     "setID": "195",
     "setName": "Large Pythons",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "reptiles",
       "snakes"
@@ -3334,7 +3334,7 @@
   {
     "setID": "196",
     "setName": "Large Constrictors",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "reptiles",
       "snakes"
@@ -3351,7 +3351,7 @@
   {
     "setID": "197",
     "setName": "Carpet Pythons",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "reptiles",
       "snakes"
@@ -3368,7 +3368,7 @@
   {
     "setID": "198",
     "setName": "Rat Snakes",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "reptiles",
       "snakes"
@@ -3385,7 +3385,7 @@
   {
     "setID": "199",
     "setName": "Kingsnakes",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "reptiles",
       "snakes"
@@ -3402,7 +3402,7 @@
   {
     "setID": "200",
     "setName": "Garter Snakes",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "reptiles",
       "snakes"
@@ -3419,7 +3419,7 @@
   {
     "setID": "201",
     "setName": "North American Colubrids",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "reptiles",
       "snakes"
@@ -3436,7 +3436,7 @@
   {
     "setID": "202",
     "setName": "Racers",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "reptiles",
       "snakes"
@@ -3453,7 +3453,7 @@
   {
     "setID": "203",
     "setName": "Hognose Snakes",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "reptiles",
       "snakes"
@@ -3470,7 +3470,7 @@
   {
     "setID": "204",
     "setName": "Green Snakes",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "reptiles",
       "snakes"
@@ -3487,7 +3487,7 @@
   {
     "setID": "205",
     "setName": "Water Snakes",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "reptiles",
       "snakes"
@@ -3504,7 +3504,7 @@
   {
     "setID": "206",
     "setName": "Queen Snakes",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "reptiles",
       "snakes"
@@ -3521,7 +3521,7 @@
   {
     "setID": "207",
     "setName": "Brown Snakes",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "reptiles",
       "snakes"
@@ -3538,7 +3538,7 @@
   {
     "setID": "208",
     "setName": "Ring-necked Snakes",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "reptiles",
       "snakes"
@@ -3555,7 +3555,7 @@
   {
     "setID": "209",
     "setName": "Crowned Snakes",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "reptiles",
       "snakes"
@@ -3572,7 +3572,7 @@
   {
     "setID": "210",
     "setName": "North American Boas",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "reptiles",
       "snakes"
@@ -3589,7 +3589,7 @@
   {
     "setID": "211",
     "setName": "Sand Boas",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "reptiles",
       "snakes"
@@ -3606,7 +3606,7 @@
   {
     "setID": "212",
     "setName": "File Snakes",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "reptiles",
       "snakes"
@@ -3623,7 +3623,7 @@
   {
     "setID": "213",
     "setName": "Sea Snakes",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "reptiles",
       "snakes",
