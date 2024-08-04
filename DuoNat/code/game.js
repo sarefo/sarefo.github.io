@@ -74,19 +74,19 @@ const game = {
             ui.resetUIState();
 
             // Start preloading asynchronously
-            this.startPreloading();
+            this.startPreloading(newPair);
         } catch (error) {
             this.handleSetupError(error);
         }
-    },
+     },
 
-    async startPreloading() {
+    async startPreloading(isNewPair) {
         try {
-            await Promise.all([
-                preloader.preloadForNextRound(),
-                preloader.preloadForNextPair()
-            ]);
-            logger.debug("Preloading completed for next round and next pair");
+            await preloader.preloadForNextRound();
+            if (isNewPair || !preloader.hasPreloadedPair()) {
+                await preloader.preloadForNextPair();
+            }
+            logger.debug("Preloading completed for next round" + (isNewPair ? " and next pair" : ""));
         } catch (error) {
             logger.error("Error during preloading:", error);
         }
@@ -491,8 +491,7 @@ const game = {
             // Clear preloaded images for the next round
             preloader.clearPreloadedImagesForNextRound();
             // Start preloading for the next round and the next pair
-            preloader.preloadForNextRound();
-            preloader.preloadForNextPair();
+            this.startPreloading(true);
         }
     },
 

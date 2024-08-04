@@ -76,6 +76,11 @@ const preloader = {
     },
 
     async preloadForNextPair() {
+        if (this.hasPreloadedPair()) {
+            logger.debug("Already have a preloaded pair, skipping preload");
+            return;
+        }
+
         logger.debug("Starting preload for next pair");
         
         try {
