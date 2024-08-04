@@ -398,7 +398,6 @@ const eventHandlers = {
         }
 
         switch (event.key.toLowerCase()) {
-            case 'r':
             case 'arrowleft':
                 if (!this.isLoadingNewPair) {
                     event.preventDefault();
@@ -417,7 +416,7 @@ const eventHandlers = {
                 event.preventDefault();
                 this.moveTileToDropZone('left', 'lower');
                 break;
-            case 's':
+            case 'm':
                 event.preventDefault();
                 ui.showTaxonPairList();
                 break;
@@ -433,7 +432,7 @@ const eventHandlers = {
                 event.preventDefault();
                 ui.toggleMainMenu();
                 break;
-            case 'p':
+            case 's':
                 event.preventDefault();
                 document.getElementById('surprise-button').click();
                 break;

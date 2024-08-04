@@ -43,6 +43,12 @@ body * {
     text-align: center;
 } /* percolate to child elements */
 
+/*
+body::-webkit-scrollbar * {
+    display: none;
+}
+*/
+
 /* Other general styles */
 
 button {

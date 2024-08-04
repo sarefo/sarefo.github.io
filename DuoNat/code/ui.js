@@ -441,6 +441,7 @@ const ui = {
     },
 
     toggleKeyboardShortcuts: function () {
+        logger.debug("toggling Keyboard shortcuts");
         const keyboardShortcutsSection = document.getElementById('keyboard-shortcuts');
         if (utils.hasKeyboard()) {
             keyboardShortcutsSection.style.display = 'block';
@@ -452,6 +453,7 @@ const ui = {
     initializeHelpDialog: function () {
         document.getElementById('help-button').addEventListener('click', () => {
             dialogManager.openDialog('help-dialog');
+            this.toggleKeyboardShortcuts();
         });
     },
 
