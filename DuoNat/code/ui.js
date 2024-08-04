@@ -179,14 +179,16 @@ const ui = {
         result = await getCachedVernacularName(pair.taxon2);
         const vernacular2 = result === "n/a" ? "" : result;
 
-        const levelText = pair.skillLevel ? `Level: ${this.getLevelText(pair.skillLevel)}` : '';
+        const chiliHtml = this.getChiliHtml(pair.skillLevel);
 
         button.innerHTML = `
             <div class="taxon-set-container">
                 <div class="taxon-set-info">
-                    <div class="set-name">${pair.setName || 'Unnamed Set'}</div>
+                    <div class="set-name-container">
+                        <div class="set-name">${pair.setName || 'Unnamed Set'}</div>
+                        <div class="skill-level-chilis" aria-label="Skill level">${chiliHtml}</div>
+                    </div>
                     <div class="tags">${pair.tags.join(', ')}</div>
-                    <div class="skill-level">${levelText}</div>
                 </div>
                 <div class="taxon-item">
                     <div class="taxon-name">${pair.taxon1}</div>
@@ -222,6 +224,15 @@ const ui = {
         };
 
         return button;
+    },
+
+    getChiliHtml: function (skillLevel) {
+        const chiliCount = parseInt(skillLevel) || 0;
+        let chiliHtml = '';
+        for (let i = 0; i < chiliCount; i++) {
+            chiliHtml += '<svg class="icon icon-chili"><use href="./images/icons.svg#icon-spicy"/></svg>';
+        }
+        return chiliHtml;
     },
 
     focusSearchInput: function() {

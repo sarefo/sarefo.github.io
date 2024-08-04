@@ -408,9 +408,31 @@ position: relative;
     width: 100%;
 }
 
+.set-name-container {
+    position: relative;
+    text-align: center;
+    padding: 5px 0;
+}
+
 .set-name {
     font-size: 1.2em;
-    font-weight: bold;
+    display: inline-block;
+}
+
+.skill-level-chilis {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+}
+
+.icon-chili {
+    width: 16px;
+    height: 16px;
+    fill: var(--primary-counter-color); /* Adjust color as needed */
+    margin-left: 2px;
 }
 
 .tags {
