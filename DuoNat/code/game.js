@@ -143,7 +143,8 @@ const game = {
             currentSetID: newPair.setID || gameState.currentSetID
         });
 
-        // Note: We're not updating the global selectedLevel here anymore
+        // Update the skill level indicator
+        this.updateSkillLevelIndicator(newPair.skillLevel);
 
         await this.setupRound(true);
     },
@@ -922,7 +923,7 @@ const game = {
             useElement.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', './images/icons.svg#icon-spicy');
             
             useElement.setAttribute('transform', 'scale(1.5) translate(-4, -4)');
-            useElement.setAttribute('filter', 'url(#chiliGlow)'); // Apply the glow filter
+            useElement.setAttribute('filter', 'url(#chiliShadow)'); // Apply the glow filter
             
             chiliSvg.appendChild(useElement);
             indicator.appendChild(chiliSvg);

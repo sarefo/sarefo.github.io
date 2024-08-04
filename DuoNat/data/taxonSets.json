@@ -5851,7 +5851,7 @@
   {
     "setID": "338",
     "setName": "Hawker Dragonflies",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "dragonflies"
@@ -5868,7 +5868,7 @@
   {
     "setID": "339",
     "setName": "Darter Dragonflies",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "dragonflies"
@@ -5885,7 +5885,7 @@
   {
     "setID": "340",
     "setName": "Broad-bodied Dragonflies",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "dragonflies"
@@ -5902,7 +5902,7 @@
   {
     "setID": "341",
     "setName": "Emperor Dragonflies",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "dragonflies"
@@ -5919,7 +5919,7 @@
   {
     "setID": "342",
     "setName": "Golden-ringed Dragonflies",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "dragonflies"
@@ -5936,7 +5936,7 @@
   {
     "setID": "343",
     "setName": "Club-tailed Dragonflies",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "dragonflies"
@@ -5953,7 +5953,7 @@
   {
     "setID": "344",
     "setName": "Skimmer Dragonflies",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "dragonflies"
@@ -5970,7 +5970,7 @@
   {
     "setID": "345",
     "setName": "Whiteface Dragonflies",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "dragonflies"
@@ -5987,7 +5987,7 @@
   {
     "setID": "346",
     "setName": "Emerald Dragonflies",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "dragonflies"
@@ -6004,7 +6004,7 @@
   {
     "setID": "347",
     "setName": "Red Damselflies",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "dragonflies"
@@ -6021,7 +6021,7 @@
   {
     "setID": "348",
     "setName": "Blue-tailed Damselflies",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "dragonflies"
@@ -6038,7 +6038,7 @@
   {
     "setID": "349",
     "setName": "Azure Damselflies",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "dragonflies"
@@ -6055,7 +6055,7 @@
   {
     "setID": "350",
     "setName": "Common Blue Damselflies",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "dragonflies"
@@ -6072,7 +6072,7 @@
   {
     "setID": "351",
     "setName": "Emerald Damselflies",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "dragonflies"
@@ -6089,7 +6089,7 @@
   {
     "setID": "352",
     "setName": "White-legged Damselflies",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "dragonflies"
@@ -6106,7 +6106,7 @@
   {
     "setID": "353",
     "setName": "Red-eyed Damselflies",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "dragonflies"
@@ -6123,7 +6123,7 @@
   {
     "setID": "354",
     "setName": "Dragonflies and Damselflies",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "dragonflies"
@@ -6140,7 +6140,7 @@
   {
     "setID": "355",
     "setName": "Stick Insects",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "phasmids"
@@ -6157,7 +6157,7 @@
   {
     "setID": "356",
     "setName": "European Stick Insects",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "phasmids"
@@ -6174,7 +6174,7 @@
   {
     "setID": "357",
     "setName": "Laboratory Stick Insects",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "phasmids"
@@ -6191,7 +6191,7 @@
   {
     "setID": "358",
     "setName": "European Cicadas",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "hemiptera",
@@ -6209,7 +6209,7 @@
   {
     "setID": "359",
     "setName": "Red Cicadas",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "hemiptera",
@@ -6227,7 +6227,7 @@
   {
     "setID": "360",
     "setName": "Mountain Cicadas",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "hemiptera",
@@ -6245,7 +6245,7 @@
   {
     "setID": "361",
     "setName": "Leafhoppers and Planthoppers",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "hemiptera"
@@ -6262,7 +6262,7 @@
   {
     "setID": "362",
     "setName": "Hemipteran Suborders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "hemiptera"
@@ -6279,7 +6279,7 @@
   {
     "setID": "363",
     "setName": "Asian Stink Bugs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "hemiptera",
@@ -6297,7 +6297,7 @@
   {
     "setID": "364",
     "setName": "Invasive Stink Bugs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "hemiptera",
@@ -6315,7 +6315,7 @@
   {
     "setID": "365",
     "setName": "Cotton Stainers",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "hemiptera",
@@ -6333,7 +6333,7 @@
   {
     "setID": "366",
     "setName": "Scale Insects",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "hemiptera"
@@ -6350,7 +6350,7 @@
   {
     "setID": "367",
     "setName": "Cottony Cushion Scales",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "hemiptera"
@@ -6367,7 +6367,7 @@
   {
     "setID": "368",
     "setName": "Lacewings",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "neuroptera"
@@ -6384,7 +6384,7 @@
   {
     "setID": "369",
     "setName": "Scorpionflies",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "mecoptera"
@@ -6401,7 +6401,7 @@
   {
     "setID": "370",
     "setName": "Robber Flies",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "diptera"
@@ -6418,7 +6418,7 @@
   {
     "setID": "371",
     "setName": "Forest Robber Flies",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "diptera"
@@ -6435,7 +6435,7 @@
   {
     "setID": "372",
     "setName": "Large Robber Flies",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "diptera"
@@ -6452,7 +6452,7 @@
   {
     "setID": "373",
     "setName": "Common Robber Flies",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "diptera"
@@ -6469,7 +6469,7 @@
   {
     "setID": "374",
     "setName": "March Flies",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "diptera"
@@ -6486,7 +6486,7 @@
   {
     "setID": "375",
     "setName": "Fly Suborders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "diptera"
@@ -6503,7 +6503,7 @@
   {
     "setID": "376",
     "setName": "Fly Infraorders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "diptera"
@@ -6520,7 +6520,7 @@
   {
     "setID": "377",
     "setName": "Fly Sections",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "diptera"
@@ -6537,7 +6537,7 @@
   {
     "setID": "378",
     "setName": "Golden Orb-weavers",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders"
     ],
@@ -6553,7 +6553,7 @@
   {
     "setID": "379",
     "setName": "Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -6570,7 +6570,7 @@
   {
     "setID": "380",
     "setName": "Zebra Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -6587,7 +6587,7 @@
   {
     "setID": "381",
     "setName": "Menemerus Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -6604,7 +6604,7 @@
   {
     "setID": "382",
     "setName": "Colorful Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -6621,7 +6621,7 @@
   {
     "setID": "383",
     "setName": "Rhene Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -6638,7 +6638,7 @@
   {
     "setID": "384",
     "setName": "Thiania Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -6655,7 +6655,7 @@
   {
     "setID": "385",
     "setName": "Carrhotus Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -6672,7 +6672,7 @@
   {
     "setID": "386",
     "setName": "Telamonia Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -6689,7 +6689,7 @@
   {
     "setID": "387",
     "setName": "Epocilla Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -6706,7 +6706,7 @@
   {
     "setID": "388",
     "setName": "Pancorius Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -6723,7 +6723,7 @@
   {
     "setID": "389",
     "setName": "Epocilla Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -6740,7 +6740,7 @@
   {
     "setID": "390",
     "setName": "Portia Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -6757,7 +6757,7 @@
   {
     "setID": "391",
     "setName": "Phintella Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -6774,7 +6774,7 @@
   {
     "setID": "392",
     "setName": "Siler Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -6791,7 +6791,7 @@
   {
     "setID": "393",
     "setName": "Phidippus Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -6808,7 +6808,7 @@
   {
     "setID": "394",
     "setName": "Zebra Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -6825,7 +6825,7 @@
   {
     "setID": "395",
     "setName": "Marpissa Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -6842,7 +6842,7 @@
   {
     "setID": "396",
     "setName": "Evarcha Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -6859,7 +6859,7 @@
   {
     "setID": "397",
     "setName": "Heliophanus Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -6876,7 +6876,7 @@
   {
     "setID": "398",
     "setName": "Plexippus Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -6891,26 +6891,9 @@
     ]
   },
   {
-    "setID": "399",
-    "setName": "Menemerus Jumping Spiders",
-    "skillLevel": "",
-    "tags": [
-      "spiders",
-      "jumping spiders"
-    ],
-    "taxa": [
-      157990,
-      68062
-    ],
-    "taxonNames": [
-      "Menemerus semilimbatus",
-      "Menemerus bivittatus"
-    ]
-  },
-  {
     "setID": "400",
     "setName": "Attulus Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -6927,7 +6910,7 @@
   {
     "setID": "401",
     "setName": "Carrhotus Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders",
       "jumping spiders"
