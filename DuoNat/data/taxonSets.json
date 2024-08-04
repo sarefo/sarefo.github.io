@@ -3641,7 +3641,7 @@
   {
     "setID": "214",
     "setName": "Coral Snakes",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "reptiles",
       "snakes"
@@ -3658,7 +3658,7 @@
   {
     "setID": "215",
     "setName": "Puerto Rican Boas",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "reptiles",
       "snakes"
@@ -3675,7 +3675,7 @@
   {
     "setID": "216",
     "setName": "Asian Cat Snakes",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "reptiles",
       "snakes"
@@ -3692,7 +3692,7 @@
   {
     "setID": "217",
     "setName": "Kukri Snakes",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "reptiles",
       "snakes"
@@ -3709,7 +3709,7 @@
   {
     "setID": "218",
     "setName": "Pit Vipers",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "reptiles",
       "snakes"
@@ -3726,7 +3726,7 @@
   {
     "setID": "219",
     "setName": "Asian Water Snakes",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "reptiles",
       "snakes"
@@ -3896,7 +3896,7 @@
   {
     "setID": "229",
     "setName": "Red Snappers",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fish",
       "marine fish"
@@ -4338,7 +4338,7 @@
   {
     "setID": "255",
     "setName": "Manta Rays",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "fish",
       "cartilaginous fish"
@@ -5664,7 +5664,7 @@
   {
     "setID": "327",
     "setName": "Giant Mantids",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "mantids"
@@ -5681,7 +5681,7 @@
   {
     "setID": "328",
     "setName": "Asian Mantids",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "mantids"
@@ -5698,7 +5698,7 @@
   {
     "setID": "329",
     "setName": "Field Crickets",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "orthoptera"
@@ -5715,7 +5715,7 @@
   {
     "setID": "330",
     "setName": "Great Green Bush-crickets",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "orthoptera"
@@ -5732,7 +5732,7 @@
   {
     "setID": "331",
     "setName": "Sickle Bush-crickets",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "orthoptera"
@@ -5749,7 +5749,7 @@
   {
     "setID": "332",
     "setName": "Cone-headed Grasshoppers",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "orthoptera"
@@ -5766,7 +5766,7 @@
   {
     "setID": "333",
     "setName": "Oak Bush-crickets",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "orthoptera"
@@ -5783,7 +5783,7 @@
   {
     "setID": "334",
     "setName": "Grasshoppers and Crickets",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "orthoptera"
@@ -5800,7 +5800,7 @@
   {
     "setID": "335",
     "setName": "Katydids and Grasshoppers",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "orthoptera"
@@ -5817,7 +5817,7 @@
   {
     "setID": "336",
     "setName": "Earwigs",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "insects",
       "dermaptera"
@@ -5834,7 +5834,7 @@
   {
     "setID": "337",
     "setName": "Demoiselle Damselflies",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "insects",
       "dragonflies"
