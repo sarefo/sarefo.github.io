@@ -208,7 +208,8 @@ const ui = {
                 taxon2: pair.taxon2,
                 setName: pair.setName,
                 tags: [...pair.tags],
-                setID: pair.setID
+                setID: pair.setID,
+                skillLevel: pair.skillLevel
             };
 
             game.nextSelectedPair = selectedPair;

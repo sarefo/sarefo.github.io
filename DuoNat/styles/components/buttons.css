@@ -36,8 +36,8 @@
 /* Level indicator on main screen */
 .skill-level-indicator {
     position: fixed;
-    top: 10px;
-    left: 10px;
+    top: 15px;
+    left: 5px;
     z-index: 1000;
    /* background-color: rgba(255, 255, 255, 0.6);*/
     border-radius: 4px;
@@ -52,7 +52,7 @@
     width: 38px;
     height: 38px;
     fill: #ff4136;
-    fill: var(--dark-neutral-color);
+  /*  fill: var(--dark-neutral-color);*/
     display: block;
     margin-top: 0px; /* Adjust this value to control overlap */
 }

@@ -60,8 +60,9 @@ const game = {
                 await this.setupRound();
             }
 
-        // add chili skill level indicator
-        this.updateSkillLevelIndicator(gameState.currentTaxonImageCollection.pair.skillLevel);
+            // Update skill level indicator
+            const skillLevel = gameState.currentTaxonImageCollection.pair.skillLevel;
+            this.updateSkillLevelIndicator(skillLevel);
 
             this.finishSetup();
             this.setNamePairHeight();
@@ -81,7 +82,7 @@ const game = {
         } catch (error) {
             this.handleSetupError(error);
         }
-     },
+    },
 
     async startPreloading(isNewPair) {
         try {
@@ -897,6 +898,21 @@ const game = {
         const chiliCount = parseInt(skillLevel) || 0;
         indicator.innerHTML = ''; // Clear existing content
 
+        // Create an SVG element to hold the filter definition
+        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute('width', '0');
+        svg.setAttribute('height', '0');
+        svg.style.position = 'absolute'; // Position it off-screen
+
+        // Define the filter
+        const filter = `
+            <filter id="chiliShadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="1" dy="1" stdDeviation="1" flood-color="#FFFFFF" flood-opacity="0.5"/>
+            </filter>
+        `;
+        svg.innerHTML = filter;
+        indicator.appendChild(svg);
+
         for (let i = 0; i < chiliCount; i++) {
             const chiliSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
             chiliSvg.classList.add('icon', 'icon-chili');
@@ -906,6 +922,7 @@ const game = {
             useElement.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', './images/icons.svg#icon-spicy');
             
             useElement.setAttribute('transform', 'scale(1.5) translate(-4, -4)');
+            useElement.setAttribute('filter', 'url(#chiliGlow)'); // Apply the glow filter
             
             chiliSvg.appendChild(useElement);
             indicator.appendChild(chiliSvg);
