@@ -60,6 +60,9 @@ const game = {
                 await this.setupRound();
             }
 
+        // add chili skill level indicator
+        this.updateSkillLevelIndicator(gameState.currentTaxonImageCollection.pair.skillLevel);
+
             this.finishSetup();
             this.setNamePairHeight();
 
@@ -129,7 +132,8 @@ const game = {
             currentTaxonImageCollection: {
                 pair: newPair,
                 imageOneURL,
-                imageTwoURL
+                imageTwoURL,
+                skillLevel: newPair.skillLevel
             },
             usedImages: {
                 taxon1: new Set([imageOneURL]),
@@ -483,6 +487,7 @@ const game = {
             }
             ui.hideOverlay();
             this.setNamePairHeight(); 
+            this.updateSkillLevelIndicator(gameState.currentTaxonImageCollection.pair.skillLevel);
         } catch (error) {
             logger.error("Error loading new pair:", error);
             ui.showOverlay("Error loading new pair. Please try again.", config.overlayColors.red);
@@ -842,6 +847,9 @@ const game = {
                     throw new Error("No pairs available in the current collection");
                 }
             }
+
+            this.updateSkillLevelIndicator(gameState.currentTaxonImageCollection.pair.skillLevel);
+
             ui.hideOverlay();
         } catch (error) {
             logger.error("Error loading random pair from collection:", error);
@@ -880,7 +888,32 @@ const game = {
         }
 
         return filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
-    }
+    },
+
+    updateSkillLevelIndicator: function(skillLevel) {
+        const indicator = document.getElementById('skill-level-indicator');
+        if (!indicator) return;
+
+        const chiliCount = parseInt(skillLevel) || 0;
+        indicator.innerHTML = ''; // Clear existing content
+
+        for (let i = 0; i < chiliCount; i++) {
+            const chiliSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            chiliSvg.classList.add('icon', 'icon-chili');
+            chiliSvg.setAttribute('viewBox', '0 0 24 24');
+            
+            const useElement = document.createElementNS("http://www.w3.org/2000/svg", "use");
+            useElement.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', './images/icons.svg#icon-spicy');
+            
+            useElement.setAttribute('transform', 'scale(1.5) translate(-4, -4)');
+            
+            chiliSvg.appendChild(useElement);
+            indicator.appendChild(chiliSvg);
+        }
+
+        // Adjust container height based on number of chilis
+        indicator.style.height = `${chiliCount * 12 + 8}px`;
+    },
 
 };
 

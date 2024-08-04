@@ -428,11 +428,11 @@ position: relative;
     align-items: center;
 }
 
-.icon-chili {
+.taxon-set__icon-chili {
     width: 16px;
     height: 16px;
     fill: var(--primary-counter-color); /* Adjust color as needed */
-    margin-left: 2px;
+    /*margin-left: 2px;*/
 }
 
 .tags {

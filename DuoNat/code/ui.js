@@ -230,7 +230,7 @@ const ui = {
         const chiliCount = parseInt(skillLevel) || 0;
         let chiliHtml = '';
         for (let i = 0; i < chiliCount; i++) {
-            chiliHtml += '<svg class="icon icon-chili"><use href="./images/icons.svg#icon-spicy"/></svg>';
+            chiliHtml += '<svg class="icon taxon-set__icon-chili"><use href="./images/icons.svg#icon-spicy"/></svg>';
         }
         return chiliHtml;
     },
