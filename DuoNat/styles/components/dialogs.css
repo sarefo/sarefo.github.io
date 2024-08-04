@@ -73,7 +73,7 @@ z-index: 5000; /* debug */
 }
 
 /* Styles for enter set dialog */
-#enter-set-dialog {
+.enter-set-dialog {
     position: relative;
     border-radius: var(--border-radius);
     border: none;
@@ -83,23 +83,23 @@ z-index: 5000; /* debug */
     width: 80%;
 }
 
-#enter-set-dialog form {
+.enter-set-dialog__form {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-#enter-set-dialog label {
+.enter-set-dialog__label {
     display: inline-block;
     width: 80px;
     text-align: right;
     margin-right: 10px;
     font-weight: bold;
-    font-size: 1.2em; /*var(--normal-font-size);*/
+    font-size: 1.2em;
     color: var(--counter-text-color);
 }
 
-#enter-set-dialog input {
+.enter-set-dialog__input {
     width: calc(100% - 90px);
     padding: 8px;
     border: 1px solid #ccc;
@@ -108,7 +108,7 @@ z-index: 5000; /* debug */
     color: var(--counter-text-color);
 }
 
-#enter-set-dialog #submit-dialog {
+.enter-set-dialog__submit {
     background-color: var(--primary-color);
     color: var(--text-color);
     border: none;
@@ -120,20 +120,14 @@ z-index: 5000; /* debug */
     transition: background-color var(--transition-speed) ease;
 }
 
-#enter-set-button:hover {
+.enter-set-dialog__submit:hover {
     background-color: #5c8a00;
 }
 
-#dialog-message {
+.enter-set-dialog__message {
     color: var(--counter-text-color);
     font-style: italic;
     margin-top: 10px;
-}
-
-.dialog-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
 }
 
 /* Styles for select taxon set list dialog */
@@ -683,17 +677,6 @@ position: relative;
     padding: 2px;
 }
 
-/*
-.help-dialog__shortcut-key {
-    display: none;
-    font-weight: bold;
-    background-color: rgba(255, 255, 255, 0.2);
-    padding: 2px 5px;
-    border-radius: 3px;
-    margin-right: 5px;
-}
-*/
-
 .help-dialog__button {
     background-color: var(--primary-color);
     color: var(--text-color);
@@ -922,18 +905,16 @@ position: relative;
 
 
 /* Styles for iNaturalist Down Dialog */
-#inat-down-dialog {
+.inat-down-dialog {
     z-index: 10000;
 }
 
-#inat-down-dialog p {
+.inat-down-dialog__message {
   margin-bottom: 1rem;
   color: var(--counter-text-color);
 }
 
-#check-inat-status,
-#retry-connection
-{
+.inat-down-dialog__button {
   background-color: var(--primary-color);
   color: var(--text-color);
   border: none;
@@ -946,7 +927,11 @@ position: relative;
   transition: background-color var(--transition-speed) ease;
 }
 
-#check-inat-status {
+.inat-down-dialog__button:hover {
+    background-color: #5c8a00;
+}
+
+.inat-down-dialog__button--status {
   background-color: var(--primary-color);
 }
 
