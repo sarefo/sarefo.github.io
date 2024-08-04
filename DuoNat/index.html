@@ -336,14 +336,14 @@
 
 
 <!-- Phylogeny dialog -->
-<dialog id="phylogeny-dialog" class="standard-dialog">
+<dialog id="phylogeny-dialog" class="standard-dialog phylogeny-dialog">
     <button class="dialog-close-button icon" aria-label="Close">×</button>
 
-    <h3 class="dialog-title">Phylogenetic Relationship</h3>
+    <h3 class="dialog-title phylogeny-dialog__title">Phylogenetic Relationship</h3>
+    <div class="phylogeny-dialog__hint">Tip: Click on a node to open its iNaturalist page</div>
 
 <!--    <div class="dialog-content">-->
-        <div id="graph-hint" class="graph-hint">Tip: Click on a node to open its iNaturalist page</div>
-        <div id="taxa-relationship-graph"></div>
+        <div id="phylogeny-dialog__graph" class="phylogeny-dialog__graph"></div>
 <!--    </div>-->
 </dialog>
 

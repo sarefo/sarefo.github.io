@@ -886,41 +886,28 @@ body.has-keyboard button {
 
 /* Relationship graph dialog */
 
-#phylogeny-dialog {
-/*    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    height: 90%;
-    max-width: 1800px;
-    padding: 20px;
-    display: flex;
-  */  flex-direction: column;
-    /*visibility: hidden;*/
-    /*display: none;*/
+.phylogeny-dialog {
+    flex-direction: column;
     opacity: 0.92;
+    width: 95%;
+    height: 95%;
+    padding: 20px 5px 5px;
 }
 
-.graph-hint {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(255, 255, 255, 0.8);
+.phylogeny-dialog__title {
+    margin-bottom: 5px;
+}
+
+.phylogeny-dialog__hint {
+    /*background-color: rgba(255, 255, 255, 0.6);*/
     color: var(--dark-neutral-color);
-    padding: 5px 10px;
-    border-radius: 15px;
+/*    padding: 5px 10px;
+    border-radius: 15px;*/
     font-size: 0.9em;
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
+    opacity: 0.6;
 }
 
-.graph-hint:hover {
-    opacity: 0;
-}
-
-#taxa-relationship-graph {
+.phylogeny-dialog__graph {
     flex-grow: 1;
     overflow: hidden;
     width: 100%;
@@ -929,35 +916,14 @@ body.has-keyboard button {
 }
 
 /* hide when dialog is hidden */
-#phylogeny-dialog.hidden #taxa-relationship-graph {
+#phylogeny-dialog.hidden .phylogeny-dialog__graph {
     display: none;
     visibility: hidden;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    #phylogeny-dialog {
-        width: 95%;
-        height: 95%;
-    }
-}
-
-#taxa-relationship-graph {
+.phylogeny-dialog__graph {
     flex-grow: 1;
     overflow: hidden;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .graph-dialog-content {
-        width: 95%;
-        height: 95%;
-    }
-
-    .graph-title {
-        font-size: 1.2em;
-        padding: 10px 0;
-    }
 }
 
 .clickable-network .vis-network:hover {

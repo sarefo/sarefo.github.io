@@ -415,7 +415,7 @@ const game = {
 
     async showTaxaRelationship() {
         const { taxonImageOne, taxonImageTwo } = gameState;
-        const container = document.getElementById('taxa-relationship-graph');
+        const container = document.getElementById('phylogeny-dialog__graph');
         const dialog = document.getElementById('phylogeny-dialog');
 
         if (!taxonImageOne || !taxonImageTwo) {
