@@ -401,8 +401,13 @@ const ui = {
     };
 
     // Close the help dialog before starting the tutorial
-    document.getElementById('help-dialog').close();
-
+    //document.getElementById('help-dialog').close();
+    const helpDialog = document.getElementById('help-dialog');
+    if (helpDialog && helpDialog.open) {
+                helpDialog.close();
+                // If you have any custom close logic, call it here
+                // For example: dialogManager.handleDialogClose('help-dialog');
+            }
     // Show the overlay at the start of the tutorial
     this.showOverlay("", config.overlayColors.green);
 
