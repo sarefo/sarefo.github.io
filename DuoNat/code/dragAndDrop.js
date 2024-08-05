@@ -1,4 +1,4 @@
-import game from './game.js';
+import gameLogic from './gameLogic.js';
 import { gameState } from './state.js';
 import logger from './logger.js';
 
@@ -347,7 +347,7 @@ const dragAndDrop = {
             otherDropZone.appendChild(otherElement);
 
             // Call game.checkAnswer to proceed to the next round
-            game.checkAnswer(dropZone.id);
+            gameLogic.checkAnswer(dropZone.id);
         } else {
             const leftContainer = document.querySelector('.name-pair__container--left');
             const rightContainer = document.querySelector('.name-pair__container--right');

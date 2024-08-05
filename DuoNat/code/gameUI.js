@@ -97,7 +97,6 @@ const gameUI = {
         indicator.style.width = `${chiliCount * 26 + 16}px`; // Adjusted width calculation
     },
 
-    // ... (move other UI-related functions here)
 };
 
 Object.keys(gameUI).forEach(key => {

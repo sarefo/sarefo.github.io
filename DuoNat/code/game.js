@@ -22,11 +22,8 @@ const game = {
         this.currentState = newState;
     },
 
-    // ... (keep other necessary game-wide properties and methods)
-
     // Expose necessary methods from other modules
     setupGame: gameSetup.setupGame,
-    checkAnswer: gameLogic.checkAnswer,
     loadNewRandomPair: gameLogic.loadNewRandomPair,
     updateSkillLevelIndicator: gameUI.updateSkillLevelIndicator,
 

@@ -408,6 +408,10 @@ const eventHandlers = {
     */
     _handleKeyboardShortcuts(event) {
 
+        if (event.ctrlKey || event.altKey || event.shiftKey || event.metaKey) {
+            return; // Exit the function if any modifier key is pressed
+        }
+
         if (dialogManager.isAnyDialogOpen()) {
             // If any dialog is open, don't process keyboard shortcuts
             return;
@@ -534,7 +538,7 @@ const eventHandlers = {
             //ui.highlightTile(tile.id);
 
             // Trigger the answer check using the game's checkAnswer method
-            game.checkAnswer(dropZone.id);
+            gameLogic.checkAnswer(dropZone.id);
         }
     },
 
