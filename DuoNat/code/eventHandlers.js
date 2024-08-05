@@ -438,30 +438,14 @@ const eventHandlers = {
                 event.preventDefault();
                 this.moveTileToDropZone('left', 'lower');
                 break;
-            case 'l':
             case 'c':
+            case 'l':
                 event.preventDefault();
                 ui.showTaxonPairList();
-                break;
-            case 'h':
-                event.preventDefault();
-                dialogManager.openDialog('help-dialog');
                 break;
             case 'e':
                 event.preventDefault();
                 dialogManager.openDialog('enter-set-dialog');
-                break;
-            case 'm':
-                event.preventDefault();
-                ui.toggleMainMenu();
-                break;
-            case 's':
-                event.preventDefault();
-                document.getElementById('surprise-button').click();
-                break;
-            case 'g':
-                event.preventDefault();
-                game.showTaxaRelationship();
                 break;
             case 'i':
                 event.preventDefault();
@@ -471,9 +455,28 @@ const eventHandlers = {
                 event.preventDefault();
                 game.showInfoDialog(game.currentObservationURLs.imageTwo, 2);
                 break;
+            case 'g':
+                game.showTaxaRelationship();
+                break;
+            case 'h':
+                event.preventDefault();
+                dialogManager.openDialog('help-dialog');
+                break;
+            case 'm':
+                event.preventDefault();
+                ui.toggleMainMenu();
+                break;
+            case 's':
+                event.preventDefault();
+                utils.shareCurrentPair();
+                break;
             case 'w':
                 // createWorldMap.toggleAllWorldMaps();
                 // TODO need to find a way to trigger from here
+                break;
+            case 'x':
+                event.preventDefault();
+                document.getElementById('surprise-button').click();
                 break;
         }
     },
