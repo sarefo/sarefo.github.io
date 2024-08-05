@@ -19,6 +19,7 @@
 
     <link rel="manifest" href="./manifest.json">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script type="module" src="./code/functions.js" defer></script>
 
     <link rel="stylesheet" href="./styles/main.css">
@@ -205,6 +206,15 @@
 <!-- Dialogs, only visible when opened in app: -->
 <!-- TODO: these should be in their own files -->
 
+<!-- QR sharing dialog -->
+<dialog id="qr-code-dialog" class="standard-dialog qr-code-dialog">
+    <button class="dialog-close-button icon" aria-label="Close">×</button>
+    <h3 class="dialog-title">Share This Pair</h3>
+    <p id="share-message">Link copied to clipboard!</p>
+    <div id="qr-code-container"></div>
+    <p>Scan this QR code to share</p>
+</dialog>
+
 <!-- Help dialog -->
 <dialog id="help-dialog" class="standard-dialog help-dialog">
 
@@ -228,6 +238,11 @@
         <div class="help-dialog__item">
             <svg class="icon"> <use href="./images/icons.svg#icon-left"/></svg>
             <p class="help-dialog__item-text">Swipe left for new pair</p>
+        </div>
+
+        <div class="help-dialog__item">
+            <svg class="icon"> <use href="./images/icons.svg#icon-info"/></svg>
+            <p class="help-dialog__item-text">Get info on taxon</p>
         </div>
 
         <div class="help-dialog__item">

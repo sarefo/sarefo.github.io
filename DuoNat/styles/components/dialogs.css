@@ -573,6 +573,20 @@ z-index: 5000; /* debug */
     margin-bottom: 20px;*/
 }
 
+/* QR share dialog */
+.qr-code-dialog {
+    text-align: center;
+}
+
+#qr-code-container {
+    margin: 20px 0;
+}
+
+#share-message {
+    font-weight: bold;
+    color: #74ac00; /* iNat green */
+    margin-bottom: 15px;
+}
 
 /* Help dialog */
 

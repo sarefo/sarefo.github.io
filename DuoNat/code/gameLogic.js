@@ -66,7 +66,7 @@ const gameLogic = {
             return;
         }
 
-        logger.debug("Loading new pair");
+//        logger.debug("Loading new pair");
         game.setState(GameState.LOADING);
         ui.showOverlay(`${game.loadingMessage}`, config.overlayColors.green);
         gameUI.prepareImagesForLoading();

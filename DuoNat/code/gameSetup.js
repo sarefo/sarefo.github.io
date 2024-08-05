@@ -88,8 +88,8 @@ const gameSetup = {
     async initializeNewPair() {
         let newPair, imageOneURL, imageTwoURL;
 
-        logger.debug("Initializing new pair");
-        logger.debug("Current nextSelectedPair:", game.nextSelectedPair);
+//        logger.debug("Initializing new pair");
+//        logger.debug("Current nextSelectedPair:", game.nextSelectedPair);
 
         if (game.nextSelectedPair) {
             newPair = game.nextSelectedPair;

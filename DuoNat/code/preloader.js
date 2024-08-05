@@ -81,7 +81,7 @@ const preloader = {
             return;
         }
 
-        logger.debug("Starting preload for next pair");
+//        logger.debug("Starting preload for next pair");
         
         try {
             let newPair;

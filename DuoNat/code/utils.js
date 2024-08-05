@@ -2,6 +2,7 @@
 
 import api from './api.js';
 import game from './game.js';
+import dialogManager from './dialogManager.js';
 import { gameState, updateGameState } from './state.js';
 import logger from './logger.js';
 import tagCloud from './tagCloud.js';
@@ -52,8 +53,21 @@ const utils = {
 
         let shareUrl = currentUrl.toString();
 
+        // Copy to clipboard
         navigator.clipboard.writeText(shareUrl).then(() => {
             logger.info('Share URL copied to clipboard');
+            
+            // Generate QR code
+            const qrCodeContainer = document.getElementById('qr-code-container');
+            qrCodeContainer.innerHTML = ''; // Clear previous QR code
+            new QRCode(qrCodeContainer, {
+                text: shareUrl,
+                width: 256,
+                height: 256
+            });
+
+            // Open the QR code dialog
+            dialogManager.openDialog('qr-code-dialog');
         }).catch(err => {
             logger.error('Failed to copy: ', err);
             alert('Failed to copy link. Please try again.');
