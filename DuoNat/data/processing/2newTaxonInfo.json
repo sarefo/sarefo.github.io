@@ -1,0 +1,227 @@
+{
+  "48139": {
+    "taxonName": "Salticidae",
+    "vernacularName": "Jumping spiders",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      342614,
+      367200,
+      48139
+    ],
+    "rank": "Family",
+    "taxonFacts": [],
+    "distribution": []
+  },
+  "83843": {
+    "taxonName": "Oxyopidae",
+    "vernacularName": "Lynx spiders",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      342614,
+      1529315,
+      1529320,
+      367161,
+      83843
+    ],
+    "rank": "Family",
+    "taxonFacts": [],
+    "distribution": []
+  },
+  "55788": {
+    "taxonName": "Pisauridae",
+    "vernacularName": "Nursery web spiders",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      342614,
+      1529315,
+      1529320,
+      367161,
+      55788
+    ],
+    "rank": "Family",
+    "taxonFacts": [],
+    "distribution": []
+  },
+  "47416": {
+    "taxonName": "Lycosidae",
+    "vernacularName": "Wolf spiders",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      342614,
+      1529315,
+      1529320,
+      367161,
+      47416
+    ],
+    "rank": "Family",
+    "taxonFacts": [],
+    "distribution": []
+  },
+  "47868": {
+    "taxonName": "Philodromidae",
+    "vernacularName": "Running crab spiders",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      342614,
+      367176,
+      47868
+    ],
+    "rank": "Family",
+    "taxonFacts": [],
+    "distribution": []
+  },
+  "47866": {
+    "taxonName": "Thomisidae",
+    "vernacularName": "Crab spiders",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      342614,
+      367176,
+      47866
+    ],
+    "rank": "Family",
+    "taxonFacts": [],
+    "distribution": []
+  },
+  "47867": {
+    "taxonName": "Sparassidae",
+    "vernacularName": "Huntsman spiders",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      342614,
+      1529315,
+      47867
+    ],
+    "rank": "Family",
+    "taxonFacts": [],
+    "distribution": []
+  },
+  "367165": {
+    "taxonName": "Corinnoidea",
+    "vernacularName": "Ant-mimic sac spiders and allies",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      342614,
+      1529315,
+      1529303,
+      367165
+    ],
+    "rank": "Superfamily",
+    "taxonFacts": [],
+    "distribution": []
+  },
+  "102812": {
+    "taxonName": "Hippocampus bargibanti",
+    "vernacularName": "Pygmy seahorse",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      47178,
+      47245,
+      1303580,
+      49106,
+      488479,
+      54541,
+      102812
+    ],
+    "rank": "Species",
+    "taxonFacts": [],
+    "distribution": []
+  },
+  "102818": {
+    "taxonName": "Hippocampus denise",
+    "vernacularName": "Denise's pygmy seahorse",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      47178,
+      47245,
+      1303580,
+      49106,
+      488479,
+      54541,
+      102818
+    ],
+    "rank": "Species",
+    "taxonFacts": [],
+    "distribution": []
+  },
+  "846194": {
+    "taxonName": "Erinaceinae",
+    "vernacularName": "Hedgehogs",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      533971,
+      1474222,
+      43011,
+      846194
+    ],
+    "rank": "Subfamily",
+    "taxonFacts": [],
+    "distribution": []
+  },
+  "43237": {
+    "taxonName": "Tachyglossidae",
+    "vernacularName": "Echidnas",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848316,
+      43233,
+      43237
+    ],
+    "rank": "Family",
+    "taxonFacts": [],
+    "distribution": []
+  }
+}

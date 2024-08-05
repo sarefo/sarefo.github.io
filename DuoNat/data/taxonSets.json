@@ -10481,5 +10481,136 @@
       "Sirenia",
       "Phocoidea"
     ]
+  },
+  {
+    "setID": "617",
+    "setName": "Jumping spiders vs Crab spiders",
+    "skillLevel": "0",
+    "tags": [
+      "spiders",
+      "jumping spiders"
+    ],
+    "taxa": [
+      "48139",
+      "83843"
+    ],
+    "taxonNames": [
+      "Salticidae",
+      "Oxyopidae"
+    ]
+  },
+  {
+    "setID": "618",
+    "setName": "Wolf spiders vs Nursery web spiders",
+    "skillLevel": "0",
+    "tags": [
+      "spiders"
+    ],
+    "taxa": [
+      "55788",
+      "47416"
+    ],
+    "taxonNames": [
+      "Pisauridae",
+      "Lycosidae"
+    ]
+  },
+  {
+    "setID": "619",
+    "setName": "Running crab spiders vs Crab spiders",
+    "skillLevel": "0",
+    "tags": [
+      "spiders"
+    ],
+    "taxa": [
+      "47868",
+      "47866"
+    ],
+    "taxonNames": [
+      "Philodromidae",
+      "Thomisidae"
+    ]
+  },
+  {
+    "setID": "620",
+    "setName": "Crab spiders vs Lynx spiders",
+    "skillLevel": "0",
+    "tags": [
+      "spiders"
+    ],
+    "taxa": [
+      "47866",
+      "83843"
+    ],
+    "taxonNames": [
+      "Thomisidae",
+      "Oxyopidae"
+    ]
+  },
+  {
+    "setID": "621",
+    "setName": "Running crab spiders vs Huntsmen",
+    "skillLevel": "0",
+    "tags": [
+      "spiders"
+    ],
+    "taxa": [
+      "47867",
+      "47868"
+    ],
+    "taxonNames": [
+      "Sparassidae",
+      "Philodromidae"
+    ]
+  },
+  {
+    "setID": "622",
+    "setName": "Huntsmen vs Corinnoidea",
+    "skillLevel": "0",
+    "tags": [
+      ""
+    ],
+    "taxa": [
+      "47867",
+      "367165"
+    ],
+    "taxonNames": [
+      "Sparassidae",
+      "Corinnoidea"
+    ]
+  },
+  {
+    "setID": "623",
+    "setName": "Pygmy seahorses",
+    "skillLevel": "0",
+    "tags": [
+      "fish",
+      "marine fish"
+    ],
+    "taxa": [
+      "102812",
+      "102818"
+    ],
+    "taxonNames": [
+      "Hippocampus bargibanti",
+      "Hippocampus denise"
+    ]
+  },
+  {
+    "setID": "624",
+    "setName": "Hedgehogs vs Echidna",
+    "skillLevel": "1",
+    "tags": [
+      "mammals",
+      "monotremes"
+    ],
+    "taxa": [
+      "846194",
+      "43237"
+    ],
+    "taxonNames": [
+      "Erinaceinae",
+      "Tachyglossidae"
+    ]
   }
 ]

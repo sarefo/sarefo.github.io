@@ -32995,5 +32995,339 @@
         "Have pectoral mammary glands, inspiring mermaid legends."
     ],
     "distribution": [ "NA", "SA", "AF", "AS", "OC" ]
+  },
+  "48139": {
+    "taxonName": "Salticidae",
+    "vernacularName": "Jumping spiders",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      342614,
+      367200,
+      48139
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Largest spider family with over 6,000 described species.",
+      "Excellent vision with four pairs of eyes.",
+      "Can jump up to 50 times their body length."
+    ],
+    "distribution": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "83843": {
+    "taxonName": "Oxyopidae",
+    "vernacularName": "Lynx spiders",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      342614,
+      1529315,
+      1529320,
+      367161,
+      83843
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Have spiny legs and distinctive hexagonal eye arrangement.",
+      "Excellent jumpers that actively hunt prey."
+    ],
+    "distribution": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "55788": {
+    "taxonName": "Pisauridae",
+    "vernacularName": "Nursery web spiders",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      342614,
+      1529315,
+      1529320,
+      367161,
+      55788
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Females carry egg sacs in their chelicerae.",
+      "Some species can walk on water."
+    ],
+    "distribution": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "47416": {
+    "taxonName": "Lycosidae",
+    "vernacularName": "Wolf spiders",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      342614,
+      1529315,
+      1529320,
+      367161,
+      47416
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Females carry spiderlings on their backs.",
+      "Have excellent night vision with reflective eyes."
+    ],
+    "distribution": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "47868": {
+    "taxonName": "Philodromidae",
+    "vernacularName": "Running crab spiders",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      342614,
+      367176,
+      47868
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Have laterigrade legs for sideways movement.",
+      "Excellent camouflage abilities."
+    ],
+    "distribution": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "47866": {
+    "taxonName": "Thomisidae",
+    "vernacularName": "Crab spiders",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      342614,
+      367176,
+      47866
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Can change color to match their surroundings.",
+      "Ambush predators with powerful front legs."
+    ],
+    "distribution": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "47867": {
+    "taxonName": "Sparassidae",
+    "vernacularName": "Huntsman spiders",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      342614,
+      1529315,
+      47867
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Have laterally flattened bodies.",
+      "Some species practice social behavior."
+    ],
+    "distribution": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "367165": {
+    "taxonName": "Corinnoidea",
+    "vernacularName": "Ant-mimic sac spiders and allies",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      342614,
+      1529315,
+      1529303,
+      367165
+    ],
+    "rank": "Superfamily",
+    "taxonFacts": [
+      "Superfamily including ant-mimicking spiders.",
+      "Many species have elongated bodies.",
+      "Some genera are known for their bright colors."
+    ],
+    "distribution": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "102812": {
+    "taxonName": "Hippocampus bargibanti",
+    "vernacularName": "Pygmy seahorse",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      47178,
+      47245,
+      1303580,
+      49106,
+      488479,
+      54541,
+      102812
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Lives exclusively on <i>Muricella</i> sea fans.",
+      "Discovered in 1969 and named after its discoverer."
+    ],
+    "distribution": [
+      "AS",
+      "OC"
+    ]
+  },
+  "102818": {
+    "taxonName": "Hippocampus denise",
+    "vernacularName": "Denise's pygmy seahorse",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      47178,
+      47245,
+      1303580,
+      49106,
+      488479,
+      54541,
+      102818
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "One of the smallest known seahorse species.",
+      "Typically less than 16 mm in height.",
+      "Named after diver Denise Tackett, who aided in its discovery."
+    ],
+    "distribution": [
+      "AS",
+      "OC"
+    ]
+  },
+  "846194": {
+    "taxonName": "Erinaceinae",
+    "vernacularName": "Hedgehogs",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      533971,
+      1474222,
+      43011,
+      846194
+    ],
+    "rank": "Subfamily",
+    "taxonFacts": [
+      "Subfamily of insectivores.",
+      "Have up to 7,000 spines for defense.",
+      "Can roll into a tight ball when threatened."
+    ],
+    "distribution": [
+      "AF",
+      "EU",
+      "AS"
+    ]
+  },
+  "43237": {
+    "taxonName": "Tachyglossidae",
+    "vernacularName": "Echidnas",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848316,
+      43233,
+      43237
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Family of egg-laying mammals.",
+      "Have electroreceptors on their snouts.",
+      "Can live up to 50 years in captivity."
+    ],
+    "distribution": [
+      "OC"
+    ]
   }
 }

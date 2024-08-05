@@ -3,6 +3,59 @@
 # reads taxonInfo.json and taxonSets.json for context
 # afterwards, get distribution + facts from perplexity: https://www.perplexity.ai/search/please-give-me-a-list-of-at-mo-gmq_93EyRqaxmtTbAgI9SQ
 
+# sample entry for taxonInfo.json:
+'''
+  "62483": {
+    "taxonName": "Tricholoma magnivelare",
+    "vernacularName": "American matsutake",
+    "ancestryIds": [
+      48460,
+      47170,
+      47169,
+      492000,
+      50814,
+      1094814,
+      47167,
+      787526,
+      47498,
+      62484,
+      1444961,
+      1377700,
+      62483
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Highly prized edible mushroom in North America and Japan",
+      "Forms mycorrhizal associations with conifer trees",
+      "Has a distinctive cinnamon-like aroma"
+    ],
+    "distribution": [
+      "NA"
+    ]
+  },
+'''
+
+# sample entry for taxonSets.json:
+'''
+  {
+    "setID": "603",
+    "setName": "Beetles and Thrips",
+    "skillLevel": "2",
+    "tags": [
+      "beetles",
+      "thrips"
+    ],
+    "taxa": [
+      "83201",
+      "47951"
+    ],
+    "taxonNames": [
+      "Thysanoptera",
+      "Staphylinidae"
+    ]
+  },
+'''
+
 import requests
 import json
 from time import sleep
@@ -33,7 +86,21 @@ def get_last_set_id(file_path):
     except FileNotFoundError:
         return 0
 
-def process_taxa(input_file, existing_taxon_file, new_taxon_file, existing_sets_file, new_sets_file):
+def load_existing_sets(file_path):
+    try:
+        with open(file_path, 'r') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return []
+
+def is_duplicate_set(new_set, existing_sets):
+    new_set_taxa = set(new_set)
+    for existing_set in existing_sets:
+        if set(existing_set['taxa']) == new_set_taxa:
+            return True
+    return False
+
+def process_taxa(input_file, existing_taxon_file, new_taxon_file, existing_sets_file, new_sets_file, new_taxa_list_file):
     existing_taxa = {}
     new_taxa = {}
     new_sets = []
@@ -44,6 +111,9 @@ def process_taxa(input_file, existing_taxon_file, new_taxon_file, existing_sets_
             existing_taxa = json.load(f)
     except FileNotFoundError:
         pass
+
+    # Load existing sets
+    existing_sets = load_existing_sets(existing_sets_file)
 
     # Get the last setID
     last_set_id = get_last_set_id(existing_sets_file)
@@ -80,11 +150,16 @@ def process_taxa(input_file, existing_taxon_file, new_taxon_file, existing_sets_
             
             sleep(1)  # To avoid hitting API rate limits
 
+        # Check if the set is a duplicate
+        if is_duplicate_set(taxon_ids, existing_sets):
+            print(f"Duplicate set found: {', '.join(taxon_names)}. Skipping.")
+            continue
+
         # Create new set entry
         new_set = {
-            "setID": str(last_set_id + set_index),
+            "setID": str(last_set_id + len(new_sets) + 1),
             "setName": "",
-            "skillLevel": "",
+            "skillLevel": "0",
             "tags": [""],
             "taxa": taxon_ids,
             "taxonNames": taxon_names
@@ -99,13 +174,20 @@ def process_taxa(input_file, existing_taxon_file, new_taxon_file, existing_sets_
     with open(new_sets_file, 'w') as f:
         json.dump(new_sets, f, indent=2)
 
+    # Write new taxa names to text file
+    with open(new_taxa_list_file, 'w') as f:
+        for taxon_info in new_taxa.values():
+            f.write(f"{taxon_info['taxonName']}\n")
+
     print(f"New taxa data written to {new_taxon_file}")
     print(f"New sets data written to {new_sets_file}")
+    print(f"List of new taxa written to {new_taxa_list_file}")
 
 if __name__ == "__main__":
-    input_file = "newTaxonSetData.txt"
-    existing_taxon_file = "taxonInfo.json"
-    new_taxon_file = "newTaxonInfo.json"
-    existing_sets_file = "taxonSets.json"
-    new_sets_file = "newTaxonSets.json"
-    process_taxa(input_file, existing_taxon_file, new_taxon_file, existing_sets_file, new_sets_file)
+    input_file = "1newTaxonInputSets.txt"
+    existing_taxon_file = "../taxonInfo.json"
+    new_taxon_file = "2newTaxonInfo.json"
+    existing_sets_file = "../taxonSets.json"
+    new_sets_file = "3newTaxonSets.json"
+    new_taxa_list_file = "4newTaxonList.txt"
+    process_taxa(input_file, existing_taxon_file, new_taxon_file, existing_sets_file, new_sets_file, new_taxa_list_file)
