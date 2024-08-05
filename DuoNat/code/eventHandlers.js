@@ -43,6 +43,7 @@ const eventHandlers = {
         this.initializeMainMenuListeners();
         this.initializeAllEventListeners();
         this.initializeSelectSetDialogShortcuts();
+        this.initializeSkillLevelIndicator();
 
         this.debouncedKeyboardHandler = utils.debounce(this._handleKeyboardShortcuts.bind(this), 300);
         document.addEventListener('keydown', this.debouncedKeyboardHandler);
@@ -65,6 +66,23 @@ const eventHandlers = {
             dialogManager.closeDialog('tag-cloud-dialog');
         });
 
+    },
+
+    initializeSkillLevelIndicator() {
+        const skillLevelIndicator = document.getElementById('skill-level-indicator');
+        if (skillLevelIndicator) {
+            skillLevelIndicator.addEventListener('click', this.handleSkillLevelIndicatorClick);
+            skillLevelIndicator.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    this.handleSkillLevelIndicatorClick();
+                }
+            });
+        }
+    },
+
+    handleSkillLevelIndicatorClick() {
+        ui.showTaxonPairList();
     },
 
     initializeSwipeFunctionality() {
