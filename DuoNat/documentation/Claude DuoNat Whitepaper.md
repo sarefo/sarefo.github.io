@@ -23,7 +23,7 @@ A pair can get its two taxa either randomly from a list of taxon sets (in taxonS
 + by defining them inside the app using the "Enter set" dialog.
 If no URL parameters are provided, the first set after the app starts up loads a random pair from the taxon pair list. Other options are accessed via
 + the "Random set" (loads a random set from the taxon set list) or
-+ "Select set" (let's the user select a set from the taxon set list) options.
++ "Manage collection" (let's the user select a set from the taxon set list) options.
 
 ### Sharing
 + the user can easily share the currently active collection and pair by tapping on the "Share" icon. This creates a link to the app with the relevant information encoded in the URL.
@@ -87,7 +87,7 @@ Each picture has its own info dialog. The user can access external information a
 ### Enter taxa dialog
 The user can currently input two taxa, which will be used in a new pair. Currently there's no server-side functionality, but when there is, those can also be stored for future use. Also, once taxon sets are implemented, the user will be able to input more than two taxa. Another idea is to only input one, and the app will create a taxon set from all the sister taxa at that level.
 
-### Select taxon sets dialog
+### Collection manager dialog
 Currently this displays a list of all taxon sets, locally saved in a JSON file. In future, this will be expanded, giving different ways to access taxon sets.
 
 ### Phylogeny dialog
