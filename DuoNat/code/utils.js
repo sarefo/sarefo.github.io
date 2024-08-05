@@ -58,7 +58,7 @@ const utils = {
             logger.info('Share URL copied to clipboard');
             
             // Generate QR code
-            const qrCodeContainer = document.getElementById('qr-code-container');
+            const qrCodeContainer = document.getElementById('qr-container');
             qrCodeContainer.innerHTML = ''; // Clear previous QR code
             new QRCode(qrCodeContainer, {
                 text: shareUrl,
@@ -67,7 +67,7 @@ const utils = {
             });
 
             // Open the QR code dialog
-            dialogManager.openDialog('qr-code-dialog');
+            dialogManager.openDialog('qr-dialog');
         }).catch(err => {
             logger.error('Failed to copy: ', err);
             alert('Failed to copy link. Please try again.');

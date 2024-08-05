@@ -574,17 +574,18 @@ z-index: 5000; /* debug */
 }
 
 /* QR share dialog */
-.qr-code-dialog {
+.qr-dialog {
     text-align: center;
 }
 
-#qr-code-container {
+#qr-container {
     margin: 20px 0;
 }
 
-#share-message {
+#qr-dialog__share-message {
+    font-size: larger;
     font-weight: bold;
-    color: #74ac00; /* iNat green */
+    color: var(--primary-color);
     margin-bottom: 15px;
 }
 

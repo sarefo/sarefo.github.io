@@ -146,7 +146,7 @@ const dialogManager = {
     },
 
     initializeDialogs() {
-        const dialogs = ['select-set-dialog', 'tag-cloud-dialog', 'enter-set-dialog', 'qr-code-dialog', 'help-dialog', 'info-dialog', 'phylogeny-dialog', 'inat-down-dialog'];
+        const dialogs = ['select-set-dialog', 'tag-cloud-dialog', 'enter-set-dialog', 'qr-dialog', 'help-dialog', 'info-dialog', 'phylogeny-dialog', 'inat-down-dialog'];
         dialogs.forEach(dialogId => {
             const dialog = document.getElementById(dialogId);
             const closeButton = dialog.querySelector('.dialog-close-button');
