@@ -10568,7 +10568,7 @@
     "setName": "Huntsmen vs Corinnoidea",
     "skillLevel": "3",
     "tags": [
-      ""
+      "spiders"
     ],
     "taxa": [
       "47867",
@@ -10669,7 +10669,8 @@
     "setName": "Butterfly fishes",
     "skillLevel": "2",
     "tags": [
-      ""
+      "fish",
+      "marine fish"
     ],
     "taxa": [
       "97210",

@@ -141,6 +141,12 @@ const tagCloud = {
             tagElement.textContent = tag;
             tagElement.className = 'tag-cloud-item';
             tagElement.style.fontSize = `${size}px`;
+            
+            // Apply CSS class for tags with only one occurrence
+            if (count === 1) {
+                tagElement.classList.add('tag-cloud-item--single');
+            }
+            
             if (this.selectedTags.has(tag)) {
                 tagElement.classList.add('active');
             }
