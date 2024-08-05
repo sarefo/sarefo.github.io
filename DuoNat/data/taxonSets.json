@@ -1316,6 +1316,59 @@
     ]
   },
   {
+    "setID": "610",
+    "setName": "Monotremes vs Marsupials",
+    "skillLevel": "2",
+    "tags": [
+      "mammals",
+      "marsupials",
+      "monotremes"
+    ],
+    "taxa": [
+      "43233",
+      "848319"
+    ],
+    "taxonNames": [
+      "Monotremata",
+      "Marsupialia"
+    ]
+  },
+  {
+    "setID": "611",
+    "setName": "Monotremes vs Placental Mammals",
+    "skillLevel": "2",
+    "tags": [
+      "mammals",
+      "monotremes"
+    ],
+    "taxa": [
+      "43233",
+      "848320"
+    ],
+    "taxonNames": [
+      "Monotremata",
+      "Placentalia"
+    ]
+  },
+  {
+    "setID": "612",
+    "setName": "Platypus vs Beaver",
+    "skillLevel": "1",
+    "tags": [
+      "mammals",
+      "monotremes",
+      "rodents"
+    ],
+    "taxa": [
+      "43236",
+      "43792"
+    ],
+    "taxonNames": [
+      "Ornithorhynchus anatinus",
+      "Castor"
+    ]
+  },
+  {
     "setID": "77",
     "setName": "Large Mouse-eared Bats",
     "skillLevel": "3",
@@ -6138,6 +6191,24 @@
     ]
   },
   {
+    "setID": "606",
+    "setName": "Dragonflies vs Owlflies",
+    "skillLevel": "1",
+    "tags": [
+      "insects",
+      "dragonflies",
+      "owlflies"
+    ],
+    "taxa": [
+      "47792",
+      "153097"
+    ],
+    "taxonNames": [
+      "Odonata",
+      "Ascalaphinae"
+    ]
+  },
+  {
     "setID": "355",
     "setName": "Stick Insects",
     "skillLevel": "3",
@@ -10242,23 +10313,6 @@
       ]
   },
   {
-    "setID": "603",
-    "setName": "Beetles and Thrips",
-    "skillLevel": "2",
-    "tags": [
-      "coleoptera",
-      "thrips"
-    ],
-    "taxa": [
-      "83201",
-      "47951"
-    ],
-    "taxonNames": [
-      "Thysanoptera",
-      "Staphylinidae"
-    ]
-  },
-  {
     "setID": "604",
     "setName": "Cuttlefish vs Octopus",
     "skillLevel": "2",
@@ -10294,21 +10348,20 @@
     ]
   },
   {
-    "setID": "606",
-    "setName": "Dragonflies vs Owlflies",
-    "skillLevel": "1",
+    "setID": "603",
+    "setName": "Beetles and Thrips",
+    "skillLevel": "2",
     "tags": [
-      "insects",
-      "dragonflies",
-      "owlflies"
+      "beetles",
+      "thrips"
     ],
     "taxa": [
-      "47792",
-      "153097"
+      "83201",
+      "47951"
     ],
     "taxonNames": [
-      "Odonata",
-      "Ascalaphinae"
+      "Thysanoptera",
+      "Staphylinidae"
     ]
   },
   {
@@ -10361,59 +10414,6 @@
     "taxonNames": [
       "Marsupialia",
       "Placentalia"
-    ]
-  },
-  {
-    "setID": "610",
-    "setName": "Monotremes vs Marsupials",
-    "skillLevel": "2",
-    "tags": [
-      "mammals",
-      "marsupials",
-      "monotremes"
-    ],
-    "taxa": [
-      "43233",
-      "848319"
-    ],
-    "taxonNames": [
-      "Monotremata",
-      "Marsupialia"
-    ]
-  },
-  {
-    "setID": "611",
-    "setName": "Monotremes vs Placental Mammals",
-    "skillLevel": "2",
-    "tags": [
-      "mammals",
-      "monotremes"
-    ],
-    "taxa": [
-      "43233",
-      "848320"
-    ],
-    "taxonNames": [
-      "Monotremata",
-      "Placentalia"
-    ]
-  },
-  {
-    "setID": "612",
-    "setName": "Platypus vs Beaver",
-    "skillLevel": "1",
-    "tags": [
-      "mammals",
-      "monotremes",
-      "rodents"
-    ],
-    "taxa": [
-      "43236",
-      "43792"
-    ],
-    "taxonNames": [
-      "Ornithorhynchus anatinus",
-      "Castor"
     ]
   },
   {
