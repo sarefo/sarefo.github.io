@@ -192,7 +192,7 @@ const utils = {
     },
 
     // Returns a taxon pair from the index, or a random one if none indicated
-    selectTaxonPair: async function (skillLevel = null, setID = null, index = null) {
+    selectTaxonPair: async function (setID = null) {
         try {
             const taxonPairs = await api.fetchTaxonPairs();
             if (taxonPairs.length === 0) {
@@ -205,11 +205,6 @@ const utils = {
             // Filter by setID if provided
             if (setID) {
                 filteredPairs = filteredPairs.filter(pair => pair.setID === setID);
-            }
-
-            // Filter by skillLevel if provided
-            if (skillLevel) {
-                filteredPairs = filteredPairs.filter(pair => pair.skillLevel === skillLevel);
             }
 
             // Filter by tags and selected level from gameState
@@ -226,18 +221,12 @@ const utils = {
                 filteredPairs = taxonPairs;
             }
 
-            if (filteredPairs.length === 0) {
-                logger.error("No valid taxon pairs found after filtering");
-                return null;
-            }
-
-            return index !== null ? filteredPairs[index] : filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
+            return filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
         } catch (error) {
             logger.error("Error in selectTaxonPair:", error);
             return null;
         }
     }
-
 }; // const utils
 
 export default utils;

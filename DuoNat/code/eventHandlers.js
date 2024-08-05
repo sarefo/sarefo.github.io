@@ -344,7 +344,11 @@ const eventHandlers = {
             setTimeout(() => {
                 document.querySelector('.game-container').classList.remove('swiping-left', 'swipe-out-left');
                 ui.resetGameContainerStyle();
-                game.loadNewRandomPair();
+                if (!game.isCurrentPairInCollection()) {
+                    game.loadRandomPairFromCurrentCollection();
+                } else {
+                    game.loadNewRandomPair();
+                }
             }, 500); // Match this with the animation duration
         } else {
             // Reset if not swiped far enough or swiped vertically

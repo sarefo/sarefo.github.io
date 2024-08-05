@@ -877,7 +877,15 @@ const game = {
         }
 
         const currentPair = gameState.currentTaxonImageCollection.pair;
-        return this.isPairInCurrentCollection(currentPair);
+        const selectedTags = gameState.selectedTags;
+        const selectedLevel = gameState.selectedLevel;
+
+        const matchesTags = selectedTags.length === 0 || 
+            currentPair.tags.some(tag => selectedTags.includes(tag));
+        const matchesLevel = selectedLevel === '' || 
+            currentPair.skillLevel === selectedLevel;
+
+        return matchesTags && matchesLevel;
     },
 
     selectRandomPairFromCurrentCollection: async function() {
