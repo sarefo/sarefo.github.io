@@ -260,7 +260,7 @@
     </div>
 </dialog>
 
-<!-- Select set dialog -->
+<!-- Collection Manager dialog -->
     <dialog id="select-set-dialog" class="standard-dialog">
         <div class="select-set-dialog__inner">
             <button class="dialog-close-button icon" aria-label="Close">×</button>
@@ -295,18 +295,20 @@
                 <div id="taxon-set-list" class="select-set-dialog__list">
                     <!-- Taxon pairs will be dynamically inserted here -->
                 </div>
-            <button id="select-set-done-button" class="select-set-dialog__done-button">Done</button>
+            <button id="select-set-done-button" class="select-set-dialog__done-button dialog-done-button">Done</button>
         </div>
     </dialog>
 
+    <!-- Tag cloud dialog -->
     <dialog id="tag-cloud-dialog" class="standard-dialog">
         <button class="dialog-close-button icon" aria-label="Close">×</button>
         <h3 class="dialog-title">Select Tags</h3>
         <div id="tag-cloud-container"></div>
         <p id="matching-pairs-count"></p>
-        <button id="tag-cloud-done-button" class="done-button" data-close-dialog>Done</button>
+        <button id="tag-cloud-done-button" class="tag-cloud-dialog__done-button dialog-done-button" data-close-dialog>Done</button>
     </dialog>
 
+    <!-- Range dialog-->
     <dialog id="range-dialog" class="standard-dialog">
         <button class="dialog-close-button icon" aria-label="Close">×</button>
         <h3 class="dialog-title">Select Range (Dummy dialog)</h3>
@@ -317,7 +319,7 @@
             <div id="active-ranges" class="range-dialog__ranges-list"></div>
             <button id="clear-all-ranges" class="range-dialog__clear-ranges">Clear Ranges</button>
         </div>-->
-        <button id="range-done-button" class="done-button">Done</button>
+        <button id="range-done-button" class="range-dialog__done-button dialog-done-button">Done</button>
     </dialog>
 
 <!-- Enter set dialog -->
