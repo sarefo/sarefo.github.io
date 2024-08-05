@@ -50,13 +50,10 @@ const ui = {
             const list = document.getElementById('taxon-set-list');
             list.innerHTML = ''; // Clear existing content
 
-            // Filter pairs based on selected tags
+            // Filter pairs based on selected tags and level
             const selectedTags = gameState.selectedTags;
             const selectedLevel = gameState.selectedLevel;
-            let filteredPairs = taxonPairs;
-            if (selectedTags.length > 0 || selectedLevel !== '') {
-                filteredPairs = tagCloud.filterTaxonPairs(taxonPairs, selectedTags, selectedLevel);
-            }
+            let filteredPairs = tagCloud.filterTaxonPairs(taxonPairs, selectedTags, selectedLevel);
 
             // Render only visible pairs initially
             await this.renderVisibleTaxonPairs(filteredPairs);

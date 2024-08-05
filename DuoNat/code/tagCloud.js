@@ -8,6 +8,8 @@ import logger from './logger.js';
 const tagCloud = {
     selectedTags: new Set(),
     eventListeners: {},
+    filteredPairsByLevel: [],
+    filteredPairsByTags: [],
 
     on(eventName, callback) {
         if (!this.eventListeners[eventName]) {
@@ -44,10 +46,14 @@ const tagCloud = {
 
         const levelDropdown = document.getElementById('level-filter-dropdown');
         levelDropdown.addEventListener('change', () => this.updateTaxonList());
+
+        // Initialize filteredPairs
+        await this.updateFilteredPairs();
     },
 
     async openTagCloud() {
-        const tagCounts = await this.getTagCounts();
+        await this.updateFilteredPairs();
+        const tagCounts = this.getTagCounts();
         this.renderTagCloud(tagCounts);
         dialogManager.openDialog('tag-cloud-dialog');
         this.emit('tagCloudOpened');
@@ -60,7 +66,7 @@ const tagCloud = {
         dialogManager.closeDialog('tag-cloud-dialog', true);
     },
 
-    updateTaxonList() {
+    async updateTaxonList() {
         const selectedTags = this.getSelectedTags();
         const selectedLevel = document.getElementById('level-filter-dropdown').value;
 
@@ -70,25 +76,40 @@ const tagCloud = {
             selectedLevel: selectedLevel
         });
 
-        api.fetchTaxonPairs().then(taxonPairs => {
-            let filteredPairs = this.filterTaxonPairs(taxonPairs, selectedTags, selectedLevel);
-            ui.renderTaxonPairList(filteredPairs);
-            ui.updateActiveCollectionCount(filteredPairs.length);
-        });
+        await this.updateFilteredPairs();
     },
 
     filterTaxonPairs(taxonPairs, selectedTags, selectedLevel) {
         return taxonPairs.filter(pair => {
-            const matchesTags = selectedTags.length === 0 || pair.tags.some(tag => selectedTags.includes(tag));
             const matchesLevel = selectedLevel === '' || pair.skillLevel === selectedLevel;
-            return matchesTags && matchesLevel;
+            const matchesTags = selectedTags.length === 0 || pair.tags.some(tag => selectedTags.includes(tag));
+            return matchesLevel && matchesTags;
         });
     },
 
-    async getTagCounts() {
+    async updateFilteredPairs() {
         const taxonPairs = await api.fetchTaxonPairs();
+        this.filteredPairsByLevel = this.filterPairsByLevel(taxonPairs, gameState.selectedLevel);
+        this.filteredPairsByTags = this.filterPairsByTags(this.filteredPairsByLevel, gameState.selectedTags);
+        
+        ui.renderTaxonPairList(this.filteredPairsByTags);
+        ui.updateActiveCollectionCount(this.filteredPairsByTags.length);
+        this.updateTagCloud();
+    },
+
+    filterPairsByLevel(taxonPairs, selectedLevel) {
+        return taxonPairs.filter(pair => selectedLevel === '' || pair.skillLevel === selectedLevel);
+    },
+
+    filterPairsByTags(pairs, selectedTags) {
+        return pairs.filter(pair => 
+            selectedTags.length === 0 || pair.tags.some(tag => selectedTags.includes(tag))
+        );
+    },
+
+    getTagCounts() {
         const tagCounts = {};
-        taxonPairs.forEach(pair => {
+        this.filteredPairsByLevel.forEach(pair => {
             pair.tags.forEach(tag => {
                 tagCounts[tag] = (tagCounts[tag] || 0) + 1;
             });
@@ -96,17 +117,17 @@ const tagCloud = {
         return tagCounts;
     },
 
-    async updateMatchingPairsCount() {
-        const taxonPairs = await api.fetchTaxonPairs();
-        const selectedTags = Array.from(this.selectedTags);
-        const matchingPairs = taxonPairs.filter(pair =>
-            pair.tags.some(tag => selectedTags.includes(tag))
-        );
-
+    updateMatchingPairsCount() {
         const countElement = document.getElementById('matching-pairs-count');
         if (countElement) {
-            countElement.textContent = `Matching pairs: ${matchingPairs.length}`;
+            countElement.textContent = `Matching pairs: ${this.filteredPairsByTags.length}`;
         }
+    },
+
+    updateTagCloud() {
+        const tagCounts = this.getTagCounts();
+        this.renderTagCloud(tagCounts);
+        this.updateMatchingPairsCount();
     },
 
     renderTagCloud(tagCounts) {
@@ -128,18 +149,16 @@ const tagCloud = {
         });
     },
 
-    toggleTag(element, tag) {
+    async toggleTag(element, tag) {
         element.classList.toggle('active');
-        let newSelectedTags;
         if (this.selectedTags.has(tag)) {
             this.selectedTags.delete(tag);
-            newSelectedTags = Array.from(this.selectedTags);
         } else {
             this.selectedTags.add(tag);
-            newSelectedTags = Array.from(this.selectedTags);
         }
+        const newSelectedTags = Array.from(this.selectedTags);
         updateGameState({ selectedTags: newSelectedTags });
-        this.updateMatchingPairsCount();
+        await this.updateFilteredPairs();
         this.updateActiveTags();
     },
 
@@ -147,31 +166,24 @@ const tagCloud = {
         return Array.from(this.selectedTags);
     },
 
-    setSelectedTags(tags) {
+    async setSelectedTags(tags) {
         this.selectedTags = new Set(tags);
         updateGameState({ selectedTags: this.getSelectedTags() });
         this.updateActiveTags();
-        this.updateTaxonList();
+        await this.updateFilteredPairs();
         logger.debug("Setting selected tags");
         // Trigger preloading of a new pair based on the selected tags
-        preloader.preloadNewPairWithTags(this.getSelectedTags());
-    },
-    clearTags() {
-        this.selectedTags.clear();
-        updateGameState({ selectedTags: [] });
-        this.renderTagCloud(this.getTagCounts());
-        this.updateMatchingPairsCount();
+        preloader.preloadNewPairWithTags(this.getSelectedTags(), gameState.selectedLevel);
     },
 
-    clearAllTags() {
+    async clearAllTags() {
         this.selectedTags.clear();
         updateGameState({ selectedTags: [] });
         this.updateActiveTags();
-
-        this.updateTaxonList();
+        await this.updateFilteredPairs();
 
         // Trigger preloading of a random pair from all available pairs
-        preloader.preloadNewPairWithTags([]);
+        preloader.preloadNewPairWithTags([], gameState.selectedLevel);
     },
 
     updateActiveTags() {
@@ -189,7 +201,6 @@ const tagCloud = {
         const container = document.getElementById('active-tags-container');
         container.style.display = this.selectedTags.size > 0 ? 'flex' : 'none';
     },
-
 };
 
 export default tagCloud;
