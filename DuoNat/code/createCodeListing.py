@@ -106,7 +106,7 @@ def main():
         out_f.write("")  # Clear the output file
 
     with open(OUTPUT_FILE, 'a') as out_f:
-        out_f.write(f"This file provides listings of relevant parts of my code base. Every file is indicated with '# <file name>' at the start. Be aware that there may be other files in my code that are not included. If you need them, please tell me so during the conversation. Do not just make up stuff instead.\n\n")
+        out_f.write(f"This file provides listings of relevant parts of my code base. These are up-to-date versions, so everything you see in here will be exactly like this in my project. Every file is indicated with '# <file name>' at the start. Be aware that there may be other files in my code that are not included. If you need them, please tell me so during the conversation. Do not just make up stuff instead.\n\n")
 
     for file in selected_files:
         append_file_contents(file, OUTPUT_FILE)

@@ -525,7 +525,7 @@ const game = {
     },
 
     checkAnswer(droppedZoneId) {
-        logger.debug("Checking answer. Current state:", this.currentState);
+//        logger.debug("Checking answer. Current state:", this.currentState);
 
         if (this.currentState !== GameState.PLAYING) {
             logger.debug("Cannot check answer when not in PLAYING state");
