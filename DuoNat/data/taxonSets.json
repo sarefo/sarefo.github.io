@@ -10485,7 +10485,7 @@
   {
     "setID": "617",
     "setName": "Jumping spiders vs Crab spiders",
-    "skillLevel": "0",
+    "skillLevel": "1",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -10502,7 +10502,7 @@
   {
     "setID": "618",
     "setName": "Wolf spiders vs Nursery web spiders",
-    "skillLevel": "0",
+    "skillLevel": "3",
     "tags": [
       "spiders"
     ],
@@ -10518,7 +10518,7 @@
   {
     "setID": "619",
     "setName": "Running crab spiders vs Crab spiders",
-    "skillLevel": "0",
+    "skillLevel": "2",
     "tags": [
       "spiders"
     ],
@@ -10534,7 +10534,7 @@
   {
     "setID": "620",
     "setName": "Crab spiders vs Lynx spiders",
-    "skillLevel": "0",
+    "skillLevel": "2",
     "tags": [
       "spiders"
     ],
@@ -10550,7 +10550,7 @@
   {
     "setID": "621",
     "setName": "Running crab spiders vs Huntsmen",
-    "skillLevel": "0",
+    "skillLevel": "3",
     "tags": [
       "spiders"
     ],
@@ -10566,7 +10566,7 @@
   {
     "setID": "622",
     "setName": "Huntsmen vs Corinnoidea",
-    "skillLevel": "0",
+    "skillLevel": "3",
     "tags": [
       ""
     ],
@@ -10582,7 +10582,7 @@
   {
     "setID": "623",
     "setName": "Pygmy seahorses",
-    "skillLevel": "0",
+    "skillLevel": "1",
     "tags": [
       "fish",
       "marine fish"
@@ -10611,6 +10611,90 @@
     "taxonNames": [
       "Erinaceinae",
       "Tachyglossidae"
+    ]
+  },
+  {
+    "setID": "625",
+    "setName": "Butterfly fishes",
+    "skillLevel": "1",
+    "tags": [
+      "fish",
+      "marine fish"
+    ],
+    "taxa": [
+      "97185",
+      "59931"
+    ],
+    "taxonNames": [
+      "Chaetodon octofasciatus",
+      "Acanthurus triostegus"
+    ]
+  },
+  {
+    "setID": "626",
+    "setName": "",
+    "skillLevel": "1",
+    "tags": [
+      "fish",
+      "marine fish"
+    ],
+    "taxa": [
+      "59931",
+      "123922"
+    ],
+    "taxonNames": [
+      "Acanthurus triostegus",
+      "Abudefduf sordidus"
+    ]
+  },
+  {
+    "setID": "627",
+    "setName": "",
+    "skillLevel": "3",
+    "tags": [
+      "fish",
+      "marine fish"
+    ],
+    "taxa": [
+      "49402",
+      "49403"
+    ],
+    "taxonNames": [
+      "Abudefduf saxatilis",
+      "Abudefduf vaigiensis"
+    ]
+  },
+  {
+    "setID": "628",
+    "setName": "Butterfly fishes",
+    "skillLevel": "2",
+    "tags": [
+      ""
+    ],
+    "taxa": [
+      "97210",
+      "47316"
+    ],
+    "taxonNames": [
+      "Chaetodon wiebeli",
+      "Chaetodon lunula"
+    ]
+  },
+  {
+    "setID": "629",
+    "setName": "Butterfly fishes",
+    "skillLevel": "2",
+    "tags": [
+      "fish",
+      "marine fish"
+    ],
+    "taxa": [
+      "47316",
+      "97144"
+    ],
+    "taxonNames": [
+      "Chaetodon lunula",
+      "Chaetodon auripes"
     ]
   }
 ]

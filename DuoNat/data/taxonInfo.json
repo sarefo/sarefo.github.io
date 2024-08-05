@@ -33329,5 +33329,209 @@
     "distribution": [
       "OC"
     ]
+  },
+  "97185": {
+    "taxonName": "Chaetodon octofasciatus",
+    "vernacularName": "Eightband butterflyfish",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      47178,
+      1303726,
+      47318,
+      1544594,
+      47317,
+      97185
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Part of the butterflyfish family, Chaetodontidae.",
+      "Closely related to C. wiebeli and C. auripes.",
+      "Studied for phylogenetic and taxonomic classifications."
+    ],
+    "distribution": [
+      "AS"
+    ]
+  },
+  "59931": {
+    "taxonName": "Acanthurus triostegus",
+    "vernacularName": "Convict surgeonfish",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      47178,
+      1303726,
+      47619,
+      55382,
+      59931
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for its role in reef ecosystems.",
+      "Often found in large schools.",
+      "Important for controlling algae growth."
+    ],
+    "distribution": [
+      "NA",
+      "SA",
+      "AF",
+      "AS",
+      "OC"
+    ]
+  },
+  "123922": {
+    "taxonName": "Abudefduf sordidus",
+    "vernacularName": "Blackspot sergeant",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      47178,
+      1303737,
+      48313,
+      1303643,
+      48312,
+      123922
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Commonly found in shallow waters.",
+      "Known for its aggressive behavior.",
+      "Frequently observed in tide pools."
+    ],
+    "distribution": [
+      "NA",
+      "SA",
+      "AF",
+      "AS",
+      "OC"
+    ]
+  },
+  "49402": {
+    "taxonName": "Abudefduf saxatilis",
+    "vernacularName": "Atlantic sergeant major",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      47178,
+      1303737,
+      48313,
+      1303643,
+      48312,
+      49402
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Often seen near coral reefs.",
+      "Known to form large aggregations.",
+      "Plays a role in reef fish communities."
+    ],
+    "distribution": [
+      "NA",
+      "SA",
+      "AF"
+    ]
+  },
+  "49403": {
+    "taxonName": "Abudefduf vaigiensis",
+    "vernacularName": "Indo-pacific sergeant major",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      47178,
+      1303737,
+      48313,
+      1303643,
+      48312,
+      49403
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Widespread in tropical and subtropical waters.",
+      "Recognized for its territorial nature.",
+      "Important in reef fish dynamics."
+    ],
+    "distribution": [
+      "NA",
+      "SA",
+      "AF",
+      "AS",
+      "OC"
+    ]
+  },
+  "97210": {
+    "taxonName": "Chaetodon wiebeli",
+    "vernacularName": "Hong kong butterflyfish",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      47178,
+      1303726,
+      47318,
+      1544594,
+      47317,
+      97210
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Closely related to <i>C. octofasciatus</i> and <i>C. auripes</i>.",
+      "Part of the butterflyfish family."
+    ],
+    "distribution": [
+      "AS"
+    ]
+  },
+  "47316": {
+    "taxonName": "Chaetodon lunula",
+    "vernacularName": "Raccoon butterflyfish",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      47178,
+      1303726,
+      47318,
+      1544594,
+      47317,
+      47316
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for its nocturnal behavior.",
+      "Part of the butterflyfish family.",
+      "Studied for its unique feeding habits."
+    ],
+    "distribution": [
+      "AS",
+      "OC"
+    ]
+  },
+  "97144": {
+    "taxonName": "Chaetodon auripes",
+    "vernacularName": "Oriental butterflyfish",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      47178,
+      1303726,
+      47318,
+      1544594,
+      47317,
+      97144
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Closely related to <i>C. wiebeli</i> and <i>C. octofasciatus</i>.",
+      "Part of the butterflyfish family."
+    ],
+    "distribution": [
+      "AS"
+    ]
   }
 }

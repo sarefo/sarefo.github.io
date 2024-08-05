@@ -1,7 +1,7 @@
 import json
 
 # Load newTaxonInfo.json
-with open('2newTaxonInfo.json', 'r') as file:
+with open('2newTaxonInfoForPerplexity.json', 'r') as file:
     new_taxon_info = json.load(file)
 
 # Load perplexity_data.json
