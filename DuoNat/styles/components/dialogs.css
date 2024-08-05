@@ -689,10 +689,11 @@ z-index: 5000; /* debug */
 /* Styles for tutorial */
 .tutorial-highlight {
     position: absolute;
-    border-radius: 8px;
     pointer-events: none;
+    border-radius: var(--border-radius);
     z-index: 10000;
     animation: pulse-highlight 1.5s infinite;
+    box-sizing: border-box;
 }
 
 @keyframes pulse-highlight {

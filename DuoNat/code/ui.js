@@ -69,7 +69,7 @@ const ui = {
             }
 
             dialogManager.openDialog('select-set-dialog');
-            
+
             // Focus on the search input after opening the dialog
             this.focusSearchInput();
 
@@ -90,7 +90,7 @@ const ui = {
         }
     },
 
-    updateLevelDropdown: function() {
+    updateLevelDropdown: function () {
         const levelDropdown = document.getElementById('level-filter-dropdown');
         if (levelDropdown) {
             levelDropdown.value = gameState.selectedLevel;
@@ -234,7 +234,7 @@ const ui = {
         return chiliHtml;
     },
 
-    focusSearchInput: function() {
+    focusSearchInput: function () {
         const searchInput = document.getElementById('taxon-search');
         if (searchInput) {
             setTimeout(() => {
@@ -248,7 +248,7 @@ const ui = {
         }
     },
 
-    updateActiveCollectionCount: function(count) {
+    updateActiveCollectionCount: function (count) {
         const countElement = document.getElementById('active-collection-count');
         if (countElement) {
             countElement.textContent = `Active collection: ${count} set${count !== 1 ? 's' : ''}`;
@@ -256,7 +256,7 @@ const ui = {
     },
 
     getLevelText(level) {
-        switch(level) {
+        switch (level) {
             case '1': return 'Easy';
             case '2': return 'Medium';
             case '3': return 'Hard';
@@ -335,66 +335,94 @@ const ui = {
         dialogManager.closeDialog();
     },
 
-    showTutorial: function () {
-        const steps = [
-            { message: "Welcome to DuoNat!<br>Let's learn how to play.", highlight: null, duration: 4000 },
-            { message: "You'll see two images of different taxa.", highlights: ['#image-container-1', '#image-container-2'], duration: 5000 },
-            { message: "Drag a name to the correct image.", highlight: '.name-pair', duration: 5000 },
-            { message: "If correct, you'll move to the next round.", highlight: null, duration: 4000 },
-            {
-                message: "Swipe left on an image for a new taxon set.",
-                highlight: null,
-                action: () => { this.tiltGameContainer(3200); },
-                duration: 6000
-            },
-            { message: "Get more info about a taxon.", highlights: ['#info-button-1', '#info-button-2'], duration: 6000 },
-            { message: "Share the current pair and collection", highlight: '#share-button', duration: 6000 },
-            { message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => this.temporarilyOpenMenu(12000), duration: 6000 },
-            { message: "Set difficulty, range or topic here.", highlight: '#select-set-button', duration: 6000 },
-            { message: "Ready to start?<br>Let's go!", highlight: null, duration: 2000 }
-        ];
+  showTutorial: function () {
+    const steps = [
+      { message: "Welcome to DuoNat!<br>Let's learn how to play.", highlight: null, duration: 4000 },
+      { message: "You'll see two images of different taxa.", highlights: ['#image-container-1', '#image-container-2'], duration: 5000 },
+      { message: "Drag a name to the correct image.", highlight: '.name-pair', duration: 5000 },
+      { message: "If correct, you'll move to the next round.", highlight: null, duration: 4000 },
+      {
+        message: "Swipe left on an image for a new taxon set.",
+        highlight: null,
+        action: () => { this.tiltGameContainer(3200); },
+        duration: 6000
+      },
+      { message: "Get more info about a taxon.", highlights: ['#info-button-1', '#info-button-2'], duration: 6000 },
+      { message: "Share the current pair and collection", highlight: '#share-button', duration: 6000 },
+      { message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => this.temporarilyOpenMenu(12000), duration: 6000 },
+      { message: "Set difficulty, range or topic here.", highlights: ['#skill-level-indicator', '#select-set-button'], duration: 5000 },
+      { message: "Ready to start?<br>Let's go!", highlight: null, duration: 2000 }
+    ];
 
-        let currentStep = 0;
-        let highlightElements = [];
+    let currentStep = 0;
+    let highlightElements = [];
 
-        const showStep = () => {
-            if (currentStep < steps.length) {
-                const step = steps[currentStep];
-                this.updateOverlayMessage(step.message);
+    const showStep = () => {
+      if (currentStep < steps.length) {
+        const step = steps[currentStep];
+        
+        // Fade out current message
+        this.fadeOutOverlayMessage(() => {
+          // Update message content
+          this.updateOverlayMessage(step.message);
+          
+          // Clear previous highlights
+          highlightElements.forEach(el => el.remove());
+          highlightElements = [];
 
-                highlightElements.forEach(el => el.remove());
-                highlightElements = [];
+          // Add new highlights
+          if (step.highlight) {
+            const highlight = this.createHighlight(step.highlight);
+            if (highlight) highlightElements.push(highlight);
+          } else if (step.highlights) {
+            step.highlights.forEach(selector => {
+              const highlight = this.createHighlight(selector);
+              if (highlight) highlightElements.push(highlight);
+            });
+          }
 
-                if (step.highlight) {
-                    const highlight = this.createHighlight(step.highlight);
-                    if (highlight) highlightElements.push(highlight);
-                } else if (step.highlights) {
-                    step.highlights.forEach(selector => {
-                        const highlight = this.createHighlight(selector);
-                        if (highlight) highlightElements.push(highlight);
-                    });
-                }
+          // Perform any additional actions
+          if (step.action) {
+            step.action();
+          }
 
-                if (step.action) {
-                    step.action();
-                }
+          // Fade in new message
+          this.fadeInOverlayMessage();
 
-                currentStep++;
-                setTimeout(showStep, step.duration); // Use the step's duration
-            } else {
-                this.hideOverlay();
-                highlightElements.forEach(el => el.remove());
-            }
-        };
+          currentStep++;
+          setTimeout(showStep, step.duration);
+        });
+      } else {
+        this.fadeOutOverlayMessage(() => {
+          this.hideOverlay();
+          highlightElements.forEach(el => el.remove());
+        });
+      }
+    };
 
-        // Close the help dialog before starting the tutorial
-        document.getElementById('help-dialog').close();
+    // Close the help dialog before starting the tutorial
+    document.getElementById('help-dialog').close();
 
-        // Show the overlay at the start of the tutorial
-        this.showOverlay("", config.overlayColors.green);
+    // Show the overlay at the start of the tutorial
+    this.showOverlay("", config.overlayColors.green);
 
-        // Start the tutorial
-        showStep();
+    // Start the tutorial
+    showStep();
+  },
+
+    fadeOutOverlayMessage: function (callback) {
+        const overlayMessage = document.getElementById('overlay-message');
+        overlayMessage.style.transition = 'opacity 0.3s ease-out';
+        overlayMessage.style.opacity = '0';
+        setTimeout(() => {
+            if (callback) callback();
+        }, 300);
+    },
+
+    fadeInOverlayMessage: function () {
+        const overlayMessage = document.getElementById('overlay-message');
+        overlayMessage.style.transition = 'opacity 0.3s ease-in';
+        overlayMessage.style.opacity = '1';
     },
 
     temporarilyOpenMenu: function (duration) {
@@ -437,14 +465,25 @@ const ui = {
         highlight.className = 'tutorial-highlight';
         document.body.appendChild(highlight);
         const targetRect = target.getBoundingClientRect();
-        highlight.style.width = `${targetRect.width}px`;
-        highlight.style.height = `${targetRect.height}px`;
-        highlight.style.top = `${targetRect.top}px`;
-        highlight.style.left = `${targetRect.left}px`;
         
-        // Check if the target is an icon-button
-        if (target.classList.contains('icon-button')) {
-            highlight.style.borderRadius = '50%';
+        if (targetSelector === '#skill-level-indicator') {
+            // Create a custom shape for skill-level-indicator
+            highlight.style.width = `${targetRect.width}px`;
+            highlight.style.height = `${targetRect.height}px`;
+            highlight.style.top = `${targetRect.top}px`;
+            highlight.style.left = `${targetRect.left}px`;
+            highlight.style.borderRadius = '20px'; // Match the skill-level-indicator's border-radius
+        } else {
+            // Default highlight behavior for other elements
+            highlight.style.width = `${targetRect.width}px`;
+            highlight.style.height = `${targetRect.height}px`;
+            highlight.style.top = `${targetRect.top}px`;
+            highlight.style.left = `${targetRect.left}px`;
+            
+            if (target.classList.contains('icon-button')) {
+                highlight.style.borderRadius = '50%';
+            }
+            highlight.style.animation = 'pulse-highlight 1.5s infinite';
         }
         
         return highlight;
