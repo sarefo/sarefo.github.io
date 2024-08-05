@@ -6927,7 +6927,7 @@
   {
     "setID": "402",
     "setName": "Habronattus Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -6944,7 +6944,7 @@
   {
     "setID": "403",
     "setName": "Pellenes Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -6961,7 +6961,7 @@
   {
     "setID": "404",
     "setName": "Synageles Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -6978,7 +6978,7 @@
   {
     "setID": "405",
     "setName": "Icius Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -6995,7 +6995,7 @@
   {
     "setID": "406",
     "setName": "Saitis Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -7012,7 +7012,7 @@
   {
     "setID": "407",
     "setName": "Euophrys Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -7029,7 +7029,7 @@
   {
     "setID": "408",
     "setName": "Neon Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -7046,7 +7046,7 @@
   {
     "setID": "409",
     "setName": "Lyssomanes Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -7063,7 +7063,7 @@
   {
     "setID": "410",
     "setName": "Portia Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -7080,7 +7080,7 @@
   {
     "setID": "411",
     "setName": "Hyllus Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -7097,7 +7097,7 @@
   {
     "setID": "412",
     "setName": "Thyene Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -7114,7 +7114,7 @@
   {
     "setID": "414",
     "setName": "Pseudicius Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -7131,7 +7131,7 @@
   {
     "setID": "415",
     "setName": "Aelurillus Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -7148,7 +7148,7 @@
   {
     "setID": "416",
     "setName": "Cosmophasis Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -7165,7 +7165,7 @@
   {
     "setID": "417",
     "setName": "Epeus Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -7182,7 +7182,7 @@
   {
     "setID": "418",
     "setName": "Icius and Pancorius Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -7216,7 +7216,7 @@
   {
     "setID": "420",
     "setName": "Holcolaetis Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -7233,7 +7233,7 @@
   {
     "setID": "421",
     "setName": "Australian Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -7250,7 +7250,7 @@
   {
     "setID": "422",
     "setName": "Mopsus and Epeus Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -7267,7 +7267,7 @@
   {
     "setID": "423",
     "setName": "Phintella Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -7284,7 +7284,7 @@
   {
     "setID": "424",
     "setName": "Telamonia Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -7301,7 +7301,7 @@
   {
     "setID": "425",
     "setName": "Orb-weaver Spiders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders"
     ],
@@ -7317,7 +7317,7 @@
   {
     "setID": "426",
     "setName": "Garden Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders"
     ],
@@ -7333,7 +7333,7 @@
   {
     "setID": "427",
     "setName": "Black Widow Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders"
     ],
@@ -7349,7 +7349,7 @@
   {
     "setID": "428",
     "setName": "Recluse Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders"
     ],
@@ -7365,7 +7365,7 @@
   {
     "setID": "429",
     "setName": "House Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders"
     ],
@@ -7381,7 +7381,7 @@
   {
     "setID": "430",
     "setName": "Cellar Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders"
     ],
@@ -7397,7 +7397,7 @@
   {
     "setID": "431",
     "setName": "Crab Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders"
     ],
@@ -7413,7 +7413,7 @@
   {
     "setID": "432",
     "setName": "Common Jumping Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders",
       "jumping spiders"
@@ -7430,7 +7430,7 @@
   {
     "setID": "433",
     "setName": "Large Wolf Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders"
     ],
@@ -7446,7 +7446,7 @@
   {
     "setID": "434",
     "setName": "Nursery Web Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders"
     ],
@@ -7462,7 +7462,7 @@
   {
     "setID": "435",
     "setName": "Golden Silk Orb-weavers",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders"
     ],
@@ -7478,7 +7478,7 @@
   {
     "setID": "436",
     "setName": "False Widow Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders"
     ],
@@ -7494,7 +7494,7 @@
   {
     "setID": "437",
     "setName": "Orb-weaver Spiders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders"
     ],
@@ -7510,7 +7510,7 @@
   {
     "setID": "438",
     "setName": "Wandering Spiders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders"
     ],
@@ -7526,7 +7526,7 @@
   {
     "setID": "439",
     "setName": "Comb-footed Spiders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders"
     ],
@@ -7542,87 +7542,7 @@
   {
     "setID": "440",
     "setName": "Large Orb-weavers",
-    "skillLevel": "",
-    "tags": [
-      "spiders"
-    ],
-    "taxa": [
-      67707,
-      904336
-    ],
-    "taxonNames": [
-      "Argiope aurantia",
-      "Trichonephila clavipes"
-    ]
-  },
-  {
-    "setID": "441",
-    "setName": "False Widow Spiders",
-    "skillLevel": "",
-    "tags": [
-      "spiders"
-    ],
-    "taxa": [
-      61997,
-      366894
-    ],
-    "taxonNames": [
-      "Steatoda grossa",
-      "Steatoda nobilis"
-    ]
-  },
-  {
-    "setID": "442",
-    "setName": "Orb Weavers",
-    "skillLevel": "",
-    "tags": [
-      "spiders"
-    ],
-    "taxa": [
-      155279,
-      85034
-    ],
-    "taxonNames": [
-      "Zygiella x-notata",
-      "Neoscona crucifera"
-    ]
-  },
-  {
-    "setID": "443",
-    "setName": "Wandering Spiders",
-    "skillLevel": "",
-    "tags": [
-      "spiders"
-    ],
-    "taxa": [
-      53392,
-      53390
-    ],
-    "taxonNames": [
-      "Cupiennius salei",
-      "Phoneutria fera"
-    ]
-  },
-  {
-    "setID": "444",
-    "setName": "Comb-footed Spiders",
-    "skillLevel": "",
-    "tags": [
-      "spiders"
-    ],
-    "taxa": [
-      122011,
-      232562
-    ],
-    "taxonNames": [
-      "Theridion grallator",
-      "Theridula emertoni"
-    ]
-  },
-  {
-    "setID": "445",
-    "setName": "Large Orb-weavers",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders"
     ],
@@ -7638,7 +7558,7 @@
   {
     "setID": "446",
     "setName": "Sheet Weavers",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders"
     ],
@@ -7654,7 +7574,7 @@
   {
     "setID": "447",
     "setName": "Woodlouse Hunters",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders"
     ],
@@ -7670,7 +7590,7 @@
   {
     "setID": "448",
     "setName": "Tube Web Spiders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders"
     ],
@@ -7686,7 +7606,7 @@
   {
     "setID": "449",
     "setName": "Lace-webbed Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders"
     ],
@@ -7702,7 +7622,7 @@
   {
     "setID": "450",
     "setName": "Sac Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders"
     ],
@@ -7718,7 +7638,7 @@
   {
     "setID": "451",
     "setName": "Wolf Spiders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders"
     ],
@@ -7734,7 +7654,7 @@
   {
     "setID": "452",
     "setName": "Ground Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders"
     ],
@@ -7750,7 +7670,7 @@
   {
     "setID": "453",
     "setName": "Green Spiders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders"
     ],
@@ -7766,7 +7686,7 @@
   {
     "setID": "454",
     "setName": "Crab Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders"
     ],
@@ -7782,7 +7702,7 @@
   {
     "setID": "455",
     "setName": "Funnel Weavers",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders"
     ],
@@ -7798,7 +7718,7 @@
   {
     "setID": "456",
     "setName": "Orb Weavers",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders"
     ],
@@ -7814,7 +7734,7 @@
   {
     "setID": "457",
     "setName": "Bridge Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders"
     ],
@@ -7830,7 +7750,7 @@
   {
     "setID": "458",
     "setName": "Walnut Orb-weavers",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders"
     ],
@@ -7846,7 +7766,7 @@
   {
     "setID": "459",
     "setName": "Autumn Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders"
     ],
@@ -7862,7 +7782,7 @@
   {
     "setID": "460",
     "setName": "Long-jawed Orb Weavers",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders"
     ],
@@ -7878,7 +7798,7 @@
   {
     "setID": "461",
     "setName": "Running Crab Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders"
     ],
@@ -7894,7 +7814,7 @@
   {
     "setID": "462",
     "setName": "Ghost Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders"
     ],
@@ -7910,7 +7830,7 @@
   {
     "setID": "463",
     "setName": "Flower Crab Spiders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders"
     ],
@@ -7926,7 +7846,7 @@
   {
     "setID": "464",
     "setName": "Funnel-web House Spiders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "spiders"
     ],
@@ -7942,7 +7862,7 @@
   {
     "setID": "465",
     "setName": "Stone Spiders",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "spiders"
     ],
@@ -7958,7 +7878,7 @@
   {
     "setID": "466",
     "setName": "Malacostracan Crustaceans",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "crustaceans"
     ],
@@ -7974,7 +7894,7 @@
   {
     "setID": "467",
     "setName": "Higher Crustaceans",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "crustaceans"
     ],
@@ -7990,7 +7910,7 @@
   {
     "setID": "468",
     "setName": "Hermit Crabs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "crustaceans",
       "crabs"
@@ -8007,7 +7927,7 @@
   {
     "setID": "469",
     "setName": "Hermit Crabs",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "crustaceans",
       "crabs"
@@ -8024,7 +7944,7 @@
   {
     "setID": "470",
     "setName": "Swimming Crabs",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "crustaceans",
       "crabs"
@@ -8041,7 +7961,7 @@
   {
     "setID": "471",
     "setName": "Reef Crabs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "crustaceans",
       "crabs"
@@ -8058,7 +7978,7 @@
   {
     "setID": "472",
     "setName": "Hinge-beak Shrimps",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "crustaceans"
     ],
@@ -8074,7 +7994,7 @@
   {
     "setID": "473",
     "setName": "Giant Clams",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mollusks",
       "bivalves"
@@ -8091,7 +8011,7 @@
   {
     "setID": "474",
     "setName": "Giant Clams",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mollusks",
       "bivalves"
@@ -8108,7 +8028,7 @@
   {
     "setID": "475",
     "setName": "Cuttlefish",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mollusks",
       "cephalopods"
@@ -8125,7 +8045,7 @@
   {
     "setID": "476",
     "setName": "Cowries",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mollusks",
       "gastropods"
@@ -8142,7 +8062,7 @@
   {
     "setID": "477",
     "setName": "Cephalopod Orders",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mollusks",
       "cephalopods"
@@ -8159,7 +8079,7 @@
   {
     "setID": "478",
     "setName": "Gastropod Clades",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mollusks",
       "gastropods"
@@ -8176,7 +8096,7 @@
   {
     "setID": "479",
     "setName": "Gastropod Clades",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mollusks",
       "gastropods"
@@ -8193,7 +8113,7 @@
   {
     "setID": "480",
     "setName": "Gastropod Clades",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mollusks",
       "gastropods"
@@ -8210,7 +8130,7 @@
   {
     "setID": "481",
     "setName": "Gastropod Clades",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mollusks",
       "gastropods"
@@ -8227,7 +8147,7 @@
   {
     "setID": "482",
     "setName": "Giant African Land Snails",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mollusks",
       "gastropods"
@@ -8244,7 +8164,7 @@
   {
     "setID": "483",
     "setName": "Unidentia Nudibranchs",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mollusks",
       "nudibranchs"
@@ -8261,7 +8181,7 @@
   {
     "setID": "484",
     "setName": "Armina Nudibranchs",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mollusks",
       "nudibranchs"
@@ -8278,7 +8198,7 @@
   {
     "setID": "485",
     "setName": "Dermatobranchus Nudibranchs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mollusks",
       "nudibranchs"
@@ -8295,7 +8215,7 @@
   {
     "setID": "486",
     "setName": "Goniobranchus Nudibranchs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mollusks",
       "nudibranchs"
@@ -8312,7 +8232,7 @@
   {
     "setID": "487",
     "setName": "Hypselodoris Nudibranchs",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "mollusks",
       "nudibranchs"
@@ -8329,7 +8249,7 @@
   {
     "setID": "488",
     "setName": "Hypselodoris Nudibranchs",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "mollusks",
       "nudibranchs"
@@ -8346,7 +8266,7 @@
   {
     "setID": "489",
     "setName": "Mexichromis Nudibranchs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mollusks",
       "nudibranchs"
@@ -8363,7 +8283,7 @@
   {
     "setID": "490",
     "setName": "Costasiella Sea Slugs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mollusks",
       "nudibranchs"
@@ -8380,7 +8300,7 @@
   {
     "setID": "491",
     "setName": "Coryphellina Nudibranchs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mollusks",
       "nudibranchs"
@@ -8397,7 +8317,7 @@
   {
     "setID": "492",
     "setName": "Phyllidia Nudibranchs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mollusks",
       "nudibranchs"
@@ -8414,7 +8334,7 @@
   {
     "setID": "493",
     "setName": "Phyllidia Nudibranchs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mollusks",
       "nudibranchs"
@@ -8431,7 +8351,7 @@
   {
     "setID": "494",
     "setName": "Phyllidia Nudibranchs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mollusks",
       "nudibranchs"
@@ -8448,7 +8368,7 @@
   {
     "setID": "495",
     "setName": "Phyllidia Nudibranchs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mollusks",
       "nudibranchs"
@@ -8465,7 +8385,7 @@
   {
     "setID": "496",
     "setName": "Phyllidia Nudibranchs",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mollusks",
       "nudibranchs"
@@ -8482,7 +8402,7 @@
   {
     "setID": "497",
     "setName": "Phyllidia Nudibranchs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "mollusks",
       "nudibranchs"
@@ -8499,7 +8419,7 @@
   {
     "setID": "498",
     "setName": "Phyllidiella Nudibranchs",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "mollusks",
       "nudibranchs"
