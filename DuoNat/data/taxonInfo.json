@@ -33865,5 +33865,329 @@
       "NA",
       "EU"
     ]
+  },
+  "58586": {
+    "taxonName": "Limenitis archippus",
+    "vernacularName": "Viceroy",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47157,
+      47224,
+      47922,
+      134171,
+      134175,
+      50881,
+      58586
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Mimics monarch butterflies for protection",
+      "Caterpillars make shelters from rolled leaf tips to overwinter",
+      "Males exhibit perch-patrol behavior to find mates"
+    ],
+    "distribution": [
+      "NA"
+    ]
+  },
+  "30493": {
+    "taxonName": "Micrurus",
+    "vernacularName": "Coralsnakes",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26172,
+      85553,
+      30403,
+      30493
+    ],
+    "rank": "Genus",
+    "taxonFacts": [
+      "Highly venomous coral snakes",
+      "Have fixed front fangs and potent neurotoxic venom",
+      "Many species have red, yellow/white, and black banded patterns"
+    ],
+    "distribution": [
+      "NA",
+      "SA"
+    ]
+  },
+  "29793": {
+    "taxonName": "Lampropeltis elapsoides",
+    "vernacularName": "Scarlet kingsnake",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26172,
+      85553,
+      26504,
+      797520,
+      29768,
+      29793
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Non-venomous snake that mimics coral snakes",
+      "Primarily nocturnal and secretive",
+      "Diet consists mainly of lizards and their eggs"
+    ],
+    "distribution": [
+      "NA"
+    ]
+  },
+  "5180": {
+    "taxonName": "Buteo albonotatus",
+    "vernacularName": "Zone-tailed hawk",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      71261,
+      5067,
+      1542783,
+      5179,
+      5180
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Soars on thermals with wings in slight dihedral",
+      "Feeds primarily on small mammals, birds, and lizards",
+      "Nests in tall trees or on cliff ledges"
+    ],
+    "distribution": [
+      "NA",
+      "SA"
+    ]
+  },
+  "4756": {
+    "taxonName": "Cathartes aura",
+    "vernacularName": "Turkey vulture",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      559244,
+      71306,
+      4755,
+      4756
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Has an excellent sense of smell to locate carrion",
+      "Lacks a syrinx, so vocalizations are limited to hisses and grunts",
+      "Plays crucial role in ecosystem as a scavenger"
+    ],
+    "distribution": [
+      "NA",
+      "SA"
+    ]
+  },
+  "446201": {
+    "taxonName": "Meiacanthus nigrolineatus",
+    "vernacularName": "Blackline fangblenny",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      47178,
+      1303737,
+      522592,
+      49390,
+      788672,
+      89821,
+      446201
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Venomous blenny fish with unique defense mechanism",
+      "Mimicked by non-venomous fish species",
+      "Found in coral reef environments"
+    ],
+    "distribution": [
+      "OC"
+    ]
+  },
+  "7993": {
+    "taxonName": "Coracina bicolor",
+    "vernacularName": "Pied cuckooshrike",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      71303,
+      7949,
+      7993
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Endemic to Sulawesi, Indonesia",
+      "Inhabits lowland and hill forests",
+      "Threatened by habitat loss due to deforestation"
+    ],
+    "distribution": [
+      "AS"
+    ]
+  },
+  "12319": {
+    "taxonName": "Philemon",
+    "vernacularName": "Typical friarbirds",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      12160,
+      12319
+    ],
+    "rank": "Genus",
+    "taxonFacts": [
+      "Have distinctive bare heads and strong bills",
+      "Some species are important pollinators in their ecosystems"
+    ],
+    "distribution": [
+      "AS",
+      "OC"
+    ]
+  },
+  "144329": {
+    "taxonName": "Hierococcyx",
+    "vernacularName": "Hawk-cuckoos",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      1623,
+      1627,
+      1541355,
+      144329
+    ],
+    "rank": "Genus",
+    "taxonFacts": [
+      "Genus of cuckoos",
+      "Many species are brood parasites",
+      "Mimic appearance of <i>Accipiter</i> hawks"
+    ],
+    "distribution": [
+      "AS"
+    ]
+  },
+  "5085": {
+    "taxonName": "Accipiter",
+    "vernacularName": "Accipiters",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      71261,
+      5067,
+      1541538,
+      5085
+    ],
+    "rank": "Genus",
+    "taxonFacts": [
+      "Genus includes hawks, sparrowhawks, and goshawks",
+      "Adapted for hunting birds in forest environments",
+      "Have short, rounded wings and long tails for maneuverability"
+    ],
+    "distribution": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "196710": {
+    "taxonName": "Plagiotremus rhinorhynchos",
+    "vernacularName": "Bluestriped fangblenny",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      47178,
+      1303737,
+      522592,
+      49390,
+      788672,
+      91106,
+      196710
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Mimics cleaner fish for protection and feeding",
+      "Inhabits coral-rich areas of lagoons and seaward reefs",
+      "Hides in deserted worm tubes or small holes when alarmed"
+    ],
+    "distribution": [
+      "AS",
+      "OC"
+    ]
+  },
+  "196714": {
+    "taxonName": "Aspidontus taeniatus",
+    "vernacularName": "False cleanerfish",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      47178,
+      1303737,
+      522592,
+      49390,
+      788672,
+      86670,
+      196714
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Mimics cleaner wrasse for deceptive feeding",
+      "Feeds on scales and mucus of other fish",
+      "Found in coral reefs of the Indo-Pacific"
+    ],
+    "distribution": [
+      "AS",
+      "OC"
+    ]
+  },
+  "103901": {
+    "taxonName": "Labroides dimidiatus",
+    "vernacularName": "Bluestreak cleaner wrasse",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      47178,
+      1555654,
+      1303565,
+      49284,
+      1541889,
+      89290,
+      103901
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for cleaning parasites off other fish",
+      "Forms mutualistic relationships with 'clients'",
+      "Inhabits coral reefs in the Indo-Pacific region"
+    ],
+    "distribution": [
+      "AS",
+      "OC"
+    ]
   }
 }

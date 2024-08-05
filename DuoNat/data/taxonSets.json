@@ -10846,5 +10846,128 @@
       "Platydemus manokwari",
       "Caenoplana coerulea"
     ]
+  },
+  {
+    "setID": "639",
+    "setName": "Butterfly mimicry",
+    "skillLevel": "3",
+    "tags": [
+        "insects",
+        "lepidoptera",
+        "butterflies",
+      "mimicry"
+    ],
+    "taxa": [
+      "58586",
+      "48662"
+    ],
+    "taxonNames": [
+      "Limenitis archippus",
+      "Danaus plexippus"
+    ]
+  },
+  {
+    "setID": "640",
+    "setName": "Coral snake mimics",
+    "skillLevel": "2",
+    "tags": [
+      "snakes",
+      "mimicry"
+    ],
+    "taxa": [
+      "30493",
+      "29793"
+    ],
+    "taxonNames": [
+      "Micrurus",
+      "Lampropeltis elapsoides"
+    ]
+  },
+  {
+    "setID": "641",
+    "setName": "Turkey vulture mimic",
+    "skillLevel": "1",
+    "tags": [
+      "birds",
+      "mimicry"
+    ],
+    "taxa": [
+      "5180",
+      "4756"
+    ],
+    "taxonNames": [
+      "Buteo albonotatus",
+      "Cathartes aura"
+    ]
+  },
+  {
+    "setID": "643",
+    "setName": "Friarbird mimic",
+    "skillLevel": "2",
+    "tags": [
+      "birds",
+      "mimicry"
+    ],
+    "taxa": [
+      "7993",
+      "12319"
+    ],
+    "taxonNames": [
+      "Coracina bicolor",
+      "Philemon"
+    ]
+  },
+  {
+    "setID": "644",
+    "setName": "",
+    "skillLevel": "1",
+    "tags": [
+      "birds",
+      "mimicry"
+    ],
+    "taxa": [
+      "144329",
+      "5085"
+    ],
+    "taxonNames": [
+      "Hierococcyx",
+      "Accipiter"
+    ]
+  },
+  {
+    "setID": "645",
+    "setName": "Fangblenny mimicry",
+    "skillLevel": "2",
+    "tags": [
+      "fish",
+      "marine fish",
+      "mimicry"
+    ],
+    "taxa": [
+      "196710",
+      "446201"
+    ],
+    "taxonNames": [
+      "Plagiotremus rhinorhynchos",
+      "Meiacanthus nigrolineatus"
+    ]
+  },
+  {
+    "setID": "646",
+    "setName": "Cleanerfish mimicry",
+    "skillLevel": "3",
+    "tags": [
+      "fish",
+      "marine fish",
+      "mimicry"
+    ],
+    "taxa": [
+      "196714",
+      "103901"
+    ],
+    "taxonNames": [
+      "Aspidontus taeniatus",
+      "Labroides dimidiatus"
+    ]
   }
 ]
