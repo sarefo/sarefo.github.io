@@ -9213,7 +9213,7 @@
   {
     "setID": "544",
     "setName": "Ascomycete Fungi",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fungi",
       "ascomycetes"
@@ -9230,7 +9230,7 @@
   {
     "setID": "545",
     "setName": "Amanita Mushrooms",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9247,7 +9247,7 @@
   {
     "setID": "546",
     "setName": "Deadly Amanitas",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9264,7 +9264,7 @@
   {
     "setID": "547",
     "setName": "Bolete Mushrooms",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9281,7 +9281,7 @@
   {
     "setID": "548",
     "setName": "Chanterelles",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9298,7 +9298,7 @@
   {
     "setID": "549",
     "setName": "Morel Mushrooms",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fungi",
       "ascomycetes"
@@ -9315,7 +9315,7 @@
   {
     "setID": "550",
     "setName": "Scaber Stalk Mushrooms",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9332,7 +9332,7 @@
   {
     "setID": "551",
     "setName": "Milk-cap Mushrooms",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9349,7 +9349,7 @@
   {
     "setID": "552",
     "setName": "Parasol Mushrooms",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9366,7 +9366,7 @@
   {
     "setID": "553",
     "setName": "Inky Cap Mushrooms",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9383,7 +9383,7 @@
   {
     "setID": "554",
     "setName": "Shelf Fungi",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9400,7 +9400,7 @@
   {
     "setID": "555",
     "setName": "Oyster Mushrooms",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9417,7 +9417,7 @@
   {
     "setID": "556",
     "setName": "Honey Mushrooms",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9434,7 +9434,7 @@
   {
     "setID": "557",
     "setName": "Button Mushrooms",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9451,7 +9451,7 @@
   {
     "setID": "558",
     "setName": "Matsutake Mushrooms",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9468,7 +9468,7 @@
   {
     "setID": "559",
     "setName": "Russula Mushrooms",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9485,7 +9485,7 @@
   {
     "setID": "560",
     "setName": "Hedgehog Mushrooms",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9502,7 +9502,7 @@
   {
     "setID": "561",
     "setName": "Polypores",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9519,7 +9519,7 @@
   {
     "setID": "562",
     "setName": "Bracket Fungi",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9536,7 +9536,7 @@
   {
     "setID": "563",
     "setName": "Horn of Plenty Mushrooms",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9553,7 +9553,7 @@
   {
     "setID": "564",
     "setName": "Lion's Mane Mushrooms",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9570,7 +9570,7 @@
   {
     "setID": "565",
     "setName": "Jelly Fungi",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9587,7 +9587,7 @@
   {
     "setID": "566",
     "setName": "Wood Ear Fungi",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9604,7 +9604,7 @@
   {
     "setID": "567",
     "setName": "Enoki Mushrooms",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9621,7 +9621,7 @@
   {
     "setID": "568",
     "setName": "Psilocybe Mushrooms",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9638,7 +9638,7 @@
   {
     "setID": "569",
     "setName": "Slippery Jack Mushrooms",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9655,7 +9655,7 @@
   {
     "setID": "570",
     "setName": "Cortinarius Mushrooms",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9672,7 +9672,7 @@
   {
     "setID": "571",
     "setName": "Shiitake Mushrooms",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9689,7 +9689,7 @@
   {
     "setID": "572",
     "setName": "Puffballs",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9706,7 +9706,7 @@
   {
     "setID": "573",
     "setName": "Medicinal Polypores",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9723,7 +9723,7 @@
   {
     "setID": "574",
     "setName": "Split Gill Mushrooms",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9740,7 +9740,7 @@
   {
     "setID": "575",
     "setName": "Turkey Tail Mushrooms",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9757,7 +9757,7 @@
   {
     "setID": "576",
     "setName": "Poison Pax Mushrooms",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9774,7 +9774,7 @@
   {
     "setID": "577",
     "setName": "Boletes",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9791,7 +9791,7 @@
   {
     "setID": "578",
     "setName": "Amanita Mushrooms",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9808,7 +9808,7 @@
   {
     "setID": "579",
     "setName": "Clitocybe Mushrooms",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9825,7 +9825,7 @@
   {
     "setID": "580",
     "setName": "Inky Cap Mushrooms",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9842,7 +9842,7 @@
   {
     "setID": "581",
     "setName": "Bracket Fungi",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9859,7 +9859,7 @@
   {
     "setID": "582",
     "setName": "Stinkhorn Mushrooms",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9876,7 +9876,7 @@
   {
     "setID": "583",
     "setName": "Earthball Mushrooms",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "fungi",
       "basidiomycetes"
@@ -9893,7 +9893,7 @@
   {
     "setID": "584",
     "setName": "Flowering Plants",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "plants",
       "angiosperms",
@@ -9912,7 +9912,7 @@
   {
     "setID": "585",
     "setName": "Flowering Plant Families",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "plants",
       "angiosperms",
@@ -9930,7 +9930,7 @@
   {
     "setID": "586",
     "setName": "Flowering Plant Families",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "plants",
       "angiosperms",
@@ -9948,7 +9948,7 @@
   {
     "setID": "587",
     "setName": "Oak Trees",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "plants",
       "angiosperms",
@@ -9967,7 +9967,7 @@
   {
     "setID": "588",
     "setName": "Birch Trees",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "plants",
       "angiosperms",
@@ -9986,7 +9986,7 @@
   {
     "setID": "589",
     "setName": "Coniferous Trees",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "plants",
       "trees"
@@ -10003,7 +10003,7 @@
   {
     "setID": "590",
     "setName": "Poplar Trees",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "plants",
       "angiosperms",
@@ -10022,7 +10022,7 @@
   {
     "setID": "591",
     "setName": "Buttercups",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "plants",
       "angiosperms",
@@ -10041,7 +10041,7 @@
   {
     "setID": "592",
     "setName": "Dandelions",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "plants",
       "angiosperms",
@@ -10060,7 +10060,7 @@
   {
     "setID": "593",
     "setName": "Nightshades",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "plants",
       "angiosperms",
@@ -10079,7 +10079,7 @@
   {
     "setID": "594",
     "setName": "Climbing Plants",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "plants",
       "angiosperms",
@@ -10098,7 +10098,7 @@
   {
     "setID": "595",
     "setName": "Climbing Plants",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "plants",
       "angiosperms",
@@ -10117,7 +10117,7 @@
   {
     "setID": "596",
     "setName": "Climbing Plants",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "plants",
       "angiosperms",
@@ -10136,7 +10136,7 @@
   {
     "setID": "597",
     "setName": "Flowering Shrubs",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "plants",
       "angiosperms",
@@ -10155,7 +10155,7 @@
   {
     "setID": "598",
     "setName": "Chickweeds",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "plants",
       "angiosperms",
@@ -10174,7 +10174,7 @@
   {
     "setID": "599",
     "setName": "Seaweeds",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "algae",
       "marine plants"
@@ -10191,7 +10191,7 @@
   {
     "setID": "600",
     "setName": "Algae",
-    "skillLevel": "",
+    "skillLevel": "2",
     "tags": [
       "algae",
       "marine plants"
@@ -10208,7 +10208,7 @@
   {
     "setID": "601",
     "setName": "Red Algae",
-    "skillLevel": "",
+    "skillLevel": "3",
     "tags": [
       "algae",
       "marine plants"
@@ -10296,7 +10296,7 @@
   {
     "setID": "606",
     "setName": "Dragonflies vs Owlflies",
-    "skillLevel": "",
+    "skillLevel": "1",
     "tags": [
       "insects",
       "dragonflies",
