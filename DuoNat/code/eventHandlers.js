@@ -4,6 +4,7 @@ import api from './api.js';
 import dialogManager from './dialogManager.js';
 import dragAndDrop from './dragAndDrop.js';
 import game from './game.js';
+import gameLogic from './gameLogic.js';
 import logger from './logger.js';
 import { elements, gameState } from './state.js';
 import ui from './ui.js';
@@ -344,8 +345,8 @@ const eventHandlers = {
             setTimeout(() => {
                 document.querySelector('.game-container').classList.remove('swiping-left', 'swipe-out-left');
                 ui.resetGameContainerStyle();
-                if (!game.isCurrentPairInCollection()) {
-                    game.loadRandomPairFromCurrentCollection();
+                if (!gameLogic.isCurrentPairInCollection()) {
+                    gameLogic.loadRandomPairFromCurrentCollection();
                 } else {
                     game.loadNewRandomPair();
                 }

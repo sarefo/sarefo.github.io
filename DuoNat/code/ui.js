@@ -4,6 +4,7 @@ import dialogManager from './dialogManager.js';
 import { elements, gameState } from './state.js';
 import eventHandlers from './eventHandlers.js';
 import game from './game.js';
+import gameSetup from './gameSetup.js';
 import logger from './logger.js';
 import tagCloud from './tagCloud.js';
 import utils from './utils.js';
@@ -217,7 +218,7 @@ const ui = {
 
             setTimeout(() => {
                 logger.debug('Setting up game after dialog close');
-                game.setupGame(true);
+                gameSetup.setupGame(true);
             }, 300);
         };
 

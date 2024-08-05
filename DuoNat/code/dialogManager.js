@@ -1,6 +1,7 @@
 import api from './api.js';
 import eventHandlers from './eventHandlers.js';
 import game from './game.js';
+import gameLogic from './gameLogic.js';
 import logger from './logger.js';
 import { updateGameState } from './state.js';
 import tagCloud from './tagCloud.js';
@@ -174,8 +175,8 @@ const dialogManager = {
         ui.updateLevelDropdown();
         
         this.closeDialog('select-set-dialog');
-        if (!game.isCurrentPairInCollection()) {
-            game.loadRandomPairFromCurrentCollection();
+        if (!gameLogic.isCurrentPairInCollection()) {
+            gameLogic.loadRandomPairFromCurrentCollection();
         } else {
             logger.debug("Current pair is already in the collection. No new pair loaded.");
         }
