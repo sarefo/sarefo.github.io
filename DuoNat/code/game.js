@@ -905,13 +905,6 @@ const game = {
         svg.setAttribute('height', '0');
         svg.style.position = 'absolute'; // Position it off-screen
 
-        // Define the filter
-        const filter = `
-            <filter id="chiliShadow" x="-20%" y="-20%" width="140%" height="140%">
-                <feDropShadow dx="1" dy="1" stdDeviation="1" flood-color="#FFFFFF" flood-opacity="0.5"/>
-            </filter>
-        `;
-        svg.innerHTML = filter;
         indicator.appendChild(svg);
 
         for (let i = 0; i < chiliCount; i++) {
@@ -922,8 +915,7 @@ const game = {
             const useElement = document.createElementNS("http://www.w3.org/2000/svg", "use");
             useElement.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', './images/icons.svg#icon-spicy');
             
-            useElement.setAttribute('transform', 'scale(1.2) translate(-2, -2)'); // Slightly smaller scale
-            useElement.setAttribute('filter', 'url(#chiliShadow)'); // Apply the glow filter
+            useElement.setAttribute('transform', 'scale(1.2) translate(-2, -2)'); // enlarge a bit
             
             chiliSvg.appendChild(useElement);
             indicator.appendChild(chiliSvg);
