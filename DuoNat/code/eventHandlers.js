@@ -438,7 +438,8 @@ const eventHandlers = {
                 event.preventDefault();
                 this.moveTileToDropZone('left', 'lower');
                 break;
-            case 'm':
+            case 'l':
+            case 'c':
                 event.preventDefault();
                 ui.showTaxonPairList();
                 break;
