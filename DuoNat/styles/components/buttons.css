@@ -36,38 +36,31 @@
 /* Level indicator on main screen */
 .skill-level-indicator {
     position: fixed;
-    top: 15px;
-    left: 5px;
+    top: 10px;
+    left: 10px;
+    height: 40px;
+    border-radius: 20px;
     z-index: 1000;
-   /* background-color: rgba(255, 255, 255, 0.6);*/
-    border-radius: 4px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    width: 38px; /* Adjust based on your icon size */
-    height: 60px;
+    justify-content: space-evenly;
+    background-color: rgba(255, 255, 255, 0.6);
 }
 
 .skill-level-indicator .icon-chili {
-    width: 38px;
-    height: 38px;
-    fill: #ff4136;
+    width: 24px;
+    height: 24px;
+    fill: var(--primary-counter-color);
     fill: var(--dark-neutral-color);
-    display: block;
-    margin-top: 2px; /* Adjust this value to control overlap */
+    margin-right: 0px;
 }
 
-.skill-level-indicator .icon-chili:first-child {
-    margin-top: 0; /* No negative margin for the first icon */
+.skill-level-indicator .icon-chili:last-child {
+    margin-right: 0;
 }
 
-/* Help button */
-#help-button {
-    position: fixed;
-    top: 10px;
-    right: 60px;
-    z-index: 1000;
-}
+/* Main window buttons */
 
 #help-button,
 #share-button,
