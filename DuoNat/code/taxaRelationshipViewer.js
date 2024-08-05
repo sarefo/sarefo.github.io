@@ -152,7 +152,7 @@ const taxaRelationshipViewer = {
     ancestorDetails.forEach((value, key) => {
       if (!localAncestorDetails.has(key)) {
         localAncestorDetails.set(key, value);
-        logger.debug(`Added ancestry data for ID ${key}:`, value);
+//        logger.debug(`Added ancestry data for ID ${key}:`, value);
       }
     });
 
@@ -201,7 +201,7 @@ const taxaRelationshipViewer = {
 
     const addNodeAndEdges = (taxon, parentId) => {
       const nodeData = ancestorDetails.get(taxon.id) || taxon;
-      logger.debug('Adding node:', nodeData);
+//      logger.debug('Adding node:', nodeData);
 
       var vernacularName = nodeData.preferred_common_name ?
         `\n(${utils.capitalizeFirstLetter(nodeData.preferred_common_name)})` : "";
