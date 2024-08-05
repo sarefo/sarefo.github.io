@@ -12,3 +12,7 @@ DuoNat/data/newTaxonInfo.json
 DuoNat/data/newTaxonSets.json
 DuoNat/data/processing/1newTaxonInputSets.txt
 DuoNat/data/processing/5perplexityData.json
+DuoNat/data/processing/6newTaxonInfoWithPerplexity.json
+DuoNat/data/processing/4newTaxonListForPerplexity.txt
+DuoNat/data/processing/3newTaxonSets.json
+DuoNat/data/processing/2newTaxonInfoForPerplexity.json

@@ -10697,5 +10697,154 @@
       "Chaetodon lunula",
       "Chaetodon auripes"
     ]
+  },
+  {
+    "setID": "630",
+    "setName": "Skunks",
+    "skillLevel": "3",
+    "tags": [
+      "mammals",
+      "carnivores"
+    ],
+    "taxa": [
+      "41879",
+      "41880"
+    ],
+    "taxonNames": [
+      "Mephitis macroura",
+      "Mephitis mephitis"
+    ]
+  },
+  {
+    "setID": "631",
+    "setName": "Skunk vs Ratel",
+    "skillLevel": "1",
+    "tags": [
+      "mammals",
+      "carnivores"
+    ],
+    "taxa": [
+      "41834",
+      "41880"
+    ],
+    "taxonNames": [
+      "Mellivora capensis",
+      "Mephitis mephitis"
+    ]
+  },
+  {
+    "setID": "632",
+    "setName": "Skunk vs Honey badger",
+    "skillLevel": "1",
+    "tags": [
+      "mammals",
+      "carnivores"
+    ],
+    "taxa": [
+      "855297",
+      "41880"
+    ],
+    "taxonNames": [
+      "Meles meles",
+      "Mephitis mephitis"
+    ]
+  },
+  {
+    "setID": "633",
+    "setName": "Badger vs Ratel",
+    "skillLevel": "1",
+    "tags": [
+      "mammals",
+      "carnivores"
+    ],
+    "taxa": [
+      "855297",
+      "41834"
+    ],
+    "taxonNames": [
+      "Meles meles",
+      "Mellivora capensis"
+    ]
+  },
+  {
+    "setID": "634",
+    "setName": "Wolverine vs Fisher",
+    "skillLevel": "2",
+    "tags": [
+      "mammals",
+      "carnivores"
+    ],
+    "taxa": [
+      "41852",
+      "453109"
+    ],
+    "taxonNames": [
+      "Gulo gulo",
+      "Pekania pennanti"
+    ]
+  },
+  {
+    "setID": "635",
+    "setName": "Mites vs Spiders",
+    "skillLevel": "1",
+    "tags": [
+      ""
+    ],
+    "taxa": [
+      "52788",
+      "47118"
+    ],
+    "taxonNames": [
+      "Acari",
+      "Araneae"
+    ]
+  },
+  {
+    "setID": "636",
+    "setName": "Daddy Long Legs",
+    "skillLevel": "1",
+    "tags": [
+      ""
+    ],
+    "taxa": [
+      "47823",
+      "57409"
+    ],
+    "taxonNames": [
+      "Pholcidae",
+      "Phalangiidae"
+    ]
+  },
+  {
+    "setID": "637",
+    "setName": "Cellar Spiders",
+    "skillLevel": "3",
+    "tags": [
+      ""
+    ],
+    "taxa": [
+      "67328",
+      "541903"
+    ],
+    "taxonNames": [
+      "Pholcus phalangioides",
+      "Pholcus opilionoides"
+    ]
+  },
+  {
+    "setID": "638",
+    "setName": "Invasive Flatworms",
+    "skillLevel": "2",
+    "tags": [
+      "flatworms"
+    ],
+    "taxa": [
+      "199342",
+      "121271"
+    ],
+    "taxonNames": [
+      "Platydemus manokwari",
+      "Caenoplana coerulea"
+    ]
   }
 ]

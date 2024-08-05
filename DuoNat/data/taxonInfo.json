@@ -33533,5 +33533,337 @@
     "distribution": [
       "AS"
     ]
+  },
+  "41879": {
+    "taxonName": "Mephitis macroura",
+    "vernacularName": "Hooded skunk",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41871,
+      846224,
+      41878,
+      41879
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Breeding season occurs from late February to March.",
+      "Diet consists of 70% insects, including earwigs and beetles.",
+      "Can throw bird eggs between hindlegs to break them open."
+    ],
+    "distribution": [
+      "NA",
+      "SA"
+    ]
+  },
+  "41880": {
+    "taxonName": "Mephitis mephitis",
+    "vernacularName": "Striped skunk",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41871,
+      846224,
+      41878,
+      41880
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Polygynous mating system",
+      "Gestation period is approximately 60 days"
+    ],
+    "distribution": [
+      "NA"
+    ]
+  },
+  "41834": {
+    "taxonName": "Mellivora capensis",
+    "vernacularName": "Ratel",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41770,
+      846265,
+      41833,
+      41834
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for its strength and ferocity",
+      "Has a thick, loose skin that's difficult for predators to grasp",
+      "Can emit a strong, suffocating odor from anal glands"
+    ],
+    "distribution": [
+      "AF",
+      "AS"
+    ]
+  },
+  "41852": {
+    "taxonName": "Gulo gulo",
+    "vernacularName": "Wolverine",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41770,
+      846241,
+      41851,
+      41852
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Largest terrestrial member of the weasel family",
+      "Can take down prey much larger than itself",
+      "Has extremely strong jaws and can crush frozen carrion"
+    ],
+    "distribution": [
+      "NA",
+      "EU",
+      "AS"
+    ]
+  },
+  "453109": {
+    "taxonName": "Pekania pennanti",
+    "vernacularName": "Fisher",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41770,
+      846241,
+      453110,
+      453109
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Excellent climbers, spending much time in trees",
+      "One of the few animals that prey on porcupines",
+      "Can rotate their hind paws 180 degrees for climbing headfirst"
+    ],
+    "distribution": [
+      "NA"
+    ]
+  },
+  "52788": {
+    "taxonName": "Acari",
+    "vernacularName": "Mites and ticks",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      52788
+    ],
+    "rank": "Subclass",
+    "taxonFacts": [
+      "Mites and ticks span two large orders: Acariformes and Parasitiformes",
+      "Oldest fossils date to the early Devonian, around 410 million years ago",
+      "Mites exhibit extreme morphological diversity and specialization"
+    ],
+    "distribution": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "47118": {
+    "taxonName": "Araneae",
+    "vernacularName": "Spiders",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118
+    ],
+    "rank": "Order",
+    "taxonFacts": [
+      "Spiders have spinnerets for silk production",
+      "Over 48,000 species described",
+      "First appeared in the Devonian period, around 400 million years ago"
+    ],
+    "distribution": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "47823": {
+    "taxonName": "Pholcidae",
+    "vernacularName": "Cellar spiders",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      367158,
+      1528408,
+      367163,
+      47823
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Known for their long, slender legs",
+      "Often found in human dwellings",
+      "Use a unique web structure to catch prey"
+    ],
+    "distribution": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "57409": {
+    "taxonName": "Phalangiidae",
+    "vernacularName": "Phalangiid harvestmen",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47367,
+      372840,
+      61350,
+      57409
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Have two eyes",
+      "Do not produce silk or venom",
+      "Have a single body segment appearance"
+    ],
+    "distribution": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "541903": {
+    "taxonName": "Pholcus opilionoides",
+    "vernacularName": "Harvestman cellar spider",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      367158,
+      1528408,
+      367163,
+      47823,
+      1471930,
+      67329,
+      541903
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Prefers dark, undisturbed habitats",
+      "Feeds on small insects and other arthropods",
+      "Can vibrate in webs to avoid predators"
+    ],
+    "distribution": [
+      "EU",
+      "AS"
+    ]
+  },
+  "199342": {
+    "taxonName": "Platydemus manokwari",
+    "vernacularName": "New guinea flatworm",
+    "ancestryIds": [
+      1,
+      52319,
+      152105,
+      64222,
+      475824,
+      475828,
+      84642,
+      475830,
+      775587,
+      199350,
+      199342
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Invasive flatworm species",
+      "Feeds on land snails",
+      "Threatens native snail populations"
+    ],
+    "distribution": [
+      "OC",
+      "AS",
+      "NA",
+      "EU"
+    ]
+  },
+  "121271": {
+    "taxonName": "Caenoplana coerulea",
+    "vernacularName": "Blue garden flatworm",
+    "ancestryIds": [
+      1,
+      52319,
+      152105,
+      64222,
+      475824,
+      475828,
+      84642,
+      475830,
+      557040,
+      121272,
+      121271
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Blue planarian native to Australia",
+      "Feeds on earthworms and other small invertebrates",
+      "Can regenerate lost body parts"
+    ],
+    "distribution": [
+      "OC",
+      "NA",
+      "EU"
+    ]
   }
 }
