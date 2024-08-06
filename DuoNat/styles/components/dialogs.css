@@ -816,8 +816,42 @@ z-index: 5000; /* debug */
 
 .info-dialog__buttons {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-items: center;
     margin-top: 15px;
+    padding: 5px;
+    position: relative;
+}
+
+.info-dialog__button {
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    margin: 0;
+    transition: background-color 0.3s ease;
+    z-index: 1; /* Ensures buttons are above the iNat container */
+}
+
+.info-dialog__inat-buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+/*    background-color: var(--primary-color);*/
+    background-color: rgba(116, 172, 0, 0.3);
+    border-radius: 20px;
+    margin: 0 10px;
+    width: 140px;
+}
+
+.inat-button {
+    pointer-events: auto; /* Re-enables clicks for these buttons */
+}
+
+.inat-button:hover {
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .info-dialog__button {
@@ -857,7 +891,12 @@ z-index: 5000; /* debug */
     }
 
     .info-dialog__buttons {
-        margin-top: 15px;
+        flex-wrap: wrap;
+    }
+
+    .info-dialog__button,
+    .inat-button {
+        padding: 6px;
     }
 
     .info-dialog__button-icon {
@@ -865,7 +904,6 @@ z-index: 5000; /* debug */
         height: 20px;
     }
 }
-
 /* Report dialog */
 
 .report-dialog {
