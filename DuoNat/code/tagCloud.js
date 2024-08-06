@@ -79,11 +79,13 @@ const tagCloud = {
         await this.updateFilteredPairs();
     },
 
-    filterTaxonPairs(taxonPairs, selectedTags, selectedLevel) {
+    filterTaxonPairs(taxonPairs, selectedTags, selectedLevel, selectedRanges) {
         return taxonPairs.filter(pair => {
             const matchesLevel = selectedLevel === '' || pair.skillLevel === selectedLevel;
             const matchesTags = selectedTags.length === 0 || pair.tags.some(tag => selectedTags.includes(tag));
-            return matchesLevel && matchesTags;
+            const matchesRanges = selectedRanges.length === 0 || 
+                (pair.range && pair.range.some(range => selectedRanges.includes(range)));
+            return matchesLevel && matchesTags && matchesRanges;
         });
     },
 
@@ -91,9 +93,10 @@ const tagCloud = {
         const taxonPairs = await api.fetchTaxonPairs();
         this.filteredPairsByLevel = this.filterPairsByLevel(taxonPairs, gameState.selectedLevel);
         this.filteredPairsByTags = this.filterPairsByTags(this.filteredPairsByLevel, gameState.selectedTags);
+        this.filteredPairsByRanges = this.filterPairsByRanges(this.filteredPairsByTags, gameState.selectedRanges);
         
-        ui.renderTaxonPairList(this.filteredPairsByTags);
-        ui.updateActiveCollectionCount(this.filteredPairsByTags.length);
+        ui.renderTaxonPairList(this.filteredPairsByRanges);
+        ui.updateActiveCollectionCount(this.filteredPairsByRanges.length);
         this.updateTagCloud();
     },
 
@@ -104,6 +107,12 @@ const tagCloud = {
     filterPairsByTags(pairs, selectedTags) {
         return pairs.filter(pair => 
             selectedTags.length === 0 || pair.tags.some(tag => selectedTags.includes(tag))
+        );
+    },
+
+    filterPairsByRanges(pairs, selectedRanges) {
+        return pairs.filter(pair => 
+            selectedRanges.length === 0 || pair.range.some(range => selectedRanges.includes(range))
         );
     },
 
@@ -179,7 +188,7 @@ const tagCloud = {
         await this.updateFilteredPairs();
         logger.debug("Setting selected tags");
         // Trigger preloading of a new pair based on the selected tags
-        preloader.preloadNewPairWithTags(this.getSelectedTags(), gameState.selectedLevel);
+        preloader.preloadNewPairWithTags(this.getSelectedTags(), gameState.selectedLevel, gameState.selectedRanges || []);
     },
 
     async clearAllTags() {
@@ -189,7 +198,8 @@ const tagCloud = {
         await this.updateFilteredPairs();
 
         // Trigger preloading of a random pair from all available pairs
-        preloader.preloadNewPairWithTags([], gameState.selectedLevel);
+        preloader.preloadNewPairWithTags([], gameState.selectedLevel, gameState.selectedRanges);
+
     },
 
     updateActiveTags() {

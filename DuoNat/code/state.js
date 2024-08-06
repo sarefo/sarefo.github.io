@@ -40,8 +40,9 @@ export const gameState = {
       taxon2: null
     },
   },
-    selectedTags: [],
-    selectedLevel: '',
+  selectedTags: [],
+  selectedLevel: '',
+  selectedRanges: [],
 
   // check which of these still used:
   isFirstLoad: true,

@@ -71,18 +71,11 @@ const gameUI = {
         const chiliCount = parseInt(skillLevel) || 0;
         indicator.innerHTML = ''; // Clear existing content
 
-        // Create an SVG element to hold the filter definition
-        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        svg.setAttribute('width', '0');
-        svg.setAttribute('height', '0');
-        svg.style.position = 'absolute'; // Position it off-screen
-
-        indicator.appendChild(svg);
-
         for (let i = 0; i < chiliCount; i++) {
             const chiliSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
             chiliSvg.classList.add('icon', 'icon-chili');
             chiliSvg.setAttribute('viewBox', '0 0 24 24');
+   //         chiliSvg.style.display = 'inline-block'; // Ensure the SVG is visible
             
             const useElement = document.createElementNS("http://www.w3.org/2000/svg", "use");
             useElement.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', './images/icons.svg#icon-spicy');

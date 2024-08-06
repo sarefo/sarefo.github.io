@@ -221,13 +221,15 @@ const utils = {
                 filteredPairs = filteredPairs.filter(pair => pair.setID === setID);
             }
 
-            // Filter by tags and selected level from gameState
+            // Filter by tags, selected level, and ranges from gameState
             filteredPairs = filteredPairs.filter(pair => {
                 const matchesTags = gameState.selectedTags.length === 0 || 
                     pair.tags.some(tag => gameState.selectedTags.includes(tag));
                 const matchesLevel = gameState.selectedLevel === '' || 
                     pair.skillLevel === gameState.selectedLevel;
-                return matchesTags && matchesLevel;
+                const matchesRanges = gameState.selectedRanges.length === 0 ||
+                    pair.range.some(range => gameState.selectedRanges.includes(range));
+                return matchesTags && matchesLevel && matchesRanges;
             });
 
             if (filteredPairs.length === 0) {
@@ -241,6 +243,7 @@ const utils = {
             return null;
         }
     }
+
 }; // const utils
 
 export default utils;

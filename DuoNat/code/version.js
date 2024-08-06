@@ -1,4 +1,4 @@
-const version = '1.4.35'; // Increment the version number
+const version = '1.4.36'; // Increment the version number
 
 function updateVersion() {
     // Update CSS, JS, and manifest files
@@ -28,4 +28,15 @@ document.addEventListener('DOMContentLoaded', () => {
     updateVersion();
     // Run again after a short delay to catch any dynamically added elements
     setTimeout(updateVersion, 100);
+
+    // Show SVG icons and fade in the body
+    document.querySelectorAll('svg.icon').forEach(icon => {
+        icon.style.display = 'inline-block';
+    });
+    document.body.classList.add('loaded');
+});
+
+// Add this to ensure the loading screen is displayed as early as possible
+window.addEventListener('load', () => {
+    document.getElementById('loading-screen').style.display = 'flex';
 });

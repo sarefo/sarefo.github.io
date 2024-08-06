@@ -151,40 +151,42 @@ const preloader = {
         return !!this.preloadedImages.nextPair.pair;
     },
 
-    async preloadNewPairWithTags(selectedTags, selectedLevel) {
+    async preloadNewPairWithTags(selectedTags, selectedLevel, selectedRanges) {
         if (this.isPreloading) {
             logger.debug("Preloading already in progress, skipping tag-based preload");
             return;
         }
 
-        this.isPreloading = true;
-        logger.debug(`Preloading with selected tags: ${selectedTags} and level: ${selectedLevel}`);
-        try {
-            let newPair;
-            let attempts = 0;
-            const maxAttempts = 10;
+    this.isPreloading = true;
+    logger.debug(`Preloading with selected tags: ${selectedTags}, level: ${selectedLevel}, and ranges: ${selectedRanges}`);
+    try {
+        let newPair;
+        let attempts = 0;
+        const maxAttempts = 10;
 
-            do {
-                newPair = await utils.selectTaxonPair();
-                attempts++;
+        do {
+            newPair = await utils.selectTaxonPair();
+            attempts++;
 
-                if (!newPair) {
-                    logger.warn("No pair found matching selected tags and level");
-                    return;
-                }
+            if (!newPair) {
+                logger.warn("No pair found matching selected criteria");
+                return;
+            }
 
-                const isSamePair = gameState.currentTaxonImageCollection &&
-                    newPair.taxon1 === gameState.currentTaxonImageCollection.pair.taxon1 &&
-                    newPair.taxon2 === gameState.currentTaxonImageCollection.pair.taxon2;
+            const isSamePair = gameState.currentTaxonImageCollection &&
+                newPair.taxon1 === gameState.currentTaxonImageCollection.pair.taxon1 &&
+                newPair.taxon2 === gameState.currentTaxonImageCollection.pair.taxon2;
 
-                const matchesLevel = selectedLevel === '' || newPair.skillLevel === selectedLevel;
+            const matchesLevel = selectedLevel === '' || newPair.skillLevel === selectedLevel;
+            const matchesRanges = !selectedRanges || selectedRanges.length === 0 || 
+                (newPair.range && newPair.range.some(range => selectedRanges.includes(range)));
 
-                if ((!isSamePair && matchesLevel) || attempts >= maxAttempts) {
-                    break;
-                }
+            if ((!isSamePair && matchesLevel && matchesRanges) || attempts >= maxAttempts) {
+                break;
+            }
 
-                logger.debug("Selected pair is the same as current or doesn't match level, trying again");
-            } while (true);
+            logger.debug("Selected pair doesn't match criteria, trying again");
+        } while (true);
 
             if (attempts >= maxAttempts) {
                 logger.warn("Reached max attempts to find a different pair. Using the last selected pair.");
@@ -205,9 +207,9 @@ const preloader = {
                 taxon1: imageOneURL,
                 taxon2: imageTwoURL
             };
-            logger.debug("Preloaded new pair based on selected tags and level");
+            logger.debug("Preloaded new pair based on selected tags, level, and ranges");
         } catch (error) {
-            logger.error("Error preloading new pair with tags and level:", error);
+            logger.error("Error preloading new pair with tags, level, and ranges:", error);
         } finally {
             this.isPreloading = false;
         }

@@ -22,6 +22,11 @@ z-index: 5000; /* debug */
 }
 
 .dialog-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 /*    background-color: white;*/
 /*    padding: 20px;*/
 /*    border-radius: 8px;*/
@@ -575,7 +580,7 @@ z-index: 5000; /* debug */
 
 /* QR share dialog */
 .qr-dialog {
-    text-align: center;
+    max-width: 400px;
 }
 
 #qr-container {
@@ -586,7 +591,6 @@ z-index: 5000; /* debug */
     font-size: larger;
     font-weight: bold;
     color: var(--primary-color);
-    margin-bottom: 15px;
 }
 
 /* Help dialog */
@@ -598,10 +602,9 @@ z-index: 5000; /* debug */
 
 /* .help-dialog__content naming triggers some weird extension behavior :P */
 .help-dialog_content {
-    display: flex;
-    flex-direction: column;
     gap: 20px;
-    max-height:95%;
+/*    max-height:95%;*/
+    padding: 0 20px;
 }
 
 .help-dialog__header {
@@ -634,6 +637,14 @@ z-index: 5000; /* debug */
     font-size: 0.8em;
 }
 
+.help-dialog__items {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 8px;
+}
+
 .help-dialog__item {
     display: flex;
     align-items: center;
@@ -653,6 +664,7 @@ z-index: 5000; /* debug */
 }
 
 .help-dialog__shortcuts {
+    width: 100%;
 }
 
 .help-dialog__shortcuts-title {

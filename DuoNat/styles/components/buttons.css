@@ -55,7 +55,7 @@
 /* Level indicator on main screen */
 .skill-level-indicator {
     position: static;
-              margin-left: 10px;
+    margin-left: 10px;
     top: 10px;
     left: 10px;
     height: 40px;
@@ -68,6 +68,10 @@
     align-items: center;
     background-color: rgba(255, 255, 255, 0.6);
     z-index: 2000;
+}
+
+.skill-level-indicator:focus {
+    outline: none;
 }
 
 .skill-level-indicator .icon-chili {
@@ -88,20 +92,7 @@
 #share-button,
 #menu-toggle {
     position: static;
-/*    top: 10px;*/
     z-index: 1000;
-}
-
-#help-button {
-/*    right: 110px;*/
-}
-
-#share-button {
- /*   right: 60px;*/
-}
-
-#menu-toggle {
-    /*right: 10px;*/
 }
 
 #like-button {

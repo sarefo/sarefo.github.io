@@ -26,12 +26,26 @@
 
     <link rel="icon" href="./images/favicon.png" type="image/png">
   <!--  <link rel="preload" href="./images/icons.svg" as="image" type="image/svg+xml"> -->
+    <style>
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9000;
+        }
+    </style>
 </head>
 
 <body>
 
 <div class="ui-container">
-    <div id="skill-level-indicator" class="skill-level-indicator" aria-label="Change difficulty" role="button" tabindex="0">
+    <div id="skill-level-indicator" class="skill-level-indicator icon" aria-label="Change difficulty" role="button" tabindex="0">
         <!-- Chili icons will be inserted here dynamically -->
     </div>
 
@@ -239,24 +253,26 @@
             </h2>
         </div>
 
-        <div class="help-dialog__item">
-            <svg class="icon"><use href="./images/icons.svg#icon-drag"/></svg>
-            <p class="help-dialog__item-text">Drag name to image</p>
-        </div>
+        <div class="help-dialog__items">
+            <div class="help-dialog__item">
+                <svg class="icon"><use href="./images/icons.svg#icon-drag"/></svg>
+                <p class="help-dialog__item-text">Drag name to image</p>
+            </div>
 
-        <div class="help-dialog__item">
-            <svg class="icon"> <use href="./images/icons.svg#icon-left"/></svg>
-            <p class="help-dialog__item-text">Swipe left for new pair</p>
-        </div>
+            <div class="help-dialog__item">
+                <svg class="icon"> <use href="./images/icons.svg#icon-left"/></svg>
+                <p class="help-dialog__item-text">Swipe left for new pair</p>
+            </div>
 
-        <div class="help-dialog__item">
-            <svg class="icon"> <use href="./images/icons.svg#icon-info"/></svg>
-            <p class="help-dialog__item-text">Get info on taxon</p>
-        </div>
+            <div class="help-dialog__item">
+                <svg class="icon"> <use href="./images/icons.svg#icon-info"/></svg>
+                <p class="help-dialog__item-text">Get info on taxon</p>
+            </div>
 
-        <div class="help-dialog__item">
-            <svg class="icon"> <use href="./images/icons.svg#icon-menu"/></svg>
-            <p class="help-dialog__item-text">Menu for more</p>
+            <div class="help-dialog__item">
+                <svg class="icon"> <use href="./images/icons.svg#icon-menu"/></svg>
+                <p class="help-dialog__item-text">Menu for more</p>
+            </div>
         </div>
 
         <div id="keyboard-shortcuts" class="help-dialog__shortcuts">
@@ -335,7 +351,7 @@
     <!-- Range dialog-->
     <dialog id="range-dialog" class="standard-dialog range-dialog">
         <button class="dialog-close-button icon" aria-label="Close">×</button>
-        <h3 class="dialog-title">Select Range (Dummy dialog)</h3>
+        <h3 class="dialog-title">Select Range</h3>
         <div id="range-map-container" class="range-map-container">
             <!-- World map SVG will be inserted here -->
         </div>
@@ -416,19 +432,22 @@
 <dialog id="report-dialog" class="standard-dialog report-dialog">
     <button class="dialog-close-button icon" aria-label="Close">×</button>
 
-    <h3 class="dialog-title">Report an Issue</h3>
+    <div class="dialog-content">
+        <h3 class="dialog-title">Report an Issue</h3>
 
-    <form id="report-dialog__form">
-        <div class="report-dialog__options">
-            <label><input type="checkbox" name="report-type" value="wrong-image"> The image is wrong</label>
-            <label><input type="checkbox" name="report-type" value="wrong-range"> Range is wrong</label>
-            <label><input type="checkbox" name="report-type" value="wrong-name"> Name is wrong</label>
-            <label><input type="checkbox" name="report-type" value="wrong-info"> Info is wrong</label>
-            <label><input type="checkbox" name="report-type" value="other"> Something else is wrong</label>
-        </div>
-        <textarea id="report-dialog__details" placeholder="Please provide more details..." style="display: none;"></textarea>
-        <button type="submit" id="report-dialog__submit" class="report-dialog__submit">Send Report</button>
-    </form>
+        <form id="report-dialog__form">
+            <div class="report-dialog__options">
+                <label><input type="checkbox" name="report-type" value="wrong-image"> The image is wrong</label>
+                <label><input type="checkbox" name="report-type" value="wrong-range"> Range is wrong</label>
+                <label><input type="checkbox" name="report-type" value="wrong-name"> Name is wrong</label>
+                <label><input type="checkbox" name="report-type" value="wrong-info"> Info is wrong</label>
+                <label><input type="checkbox" name="report-type" value="other"> Something else is wrong</label>
+            </div>
+            <textarea id="report-dialog__details" placeholder="Please provide more details..." style="display: none;"></textarea>
+            <button type="submit" id="report-dialog__submit" class="report-dialog__submit">Send Report</button>
+        </form>
+
+    </div>
 
 </dialog>
 

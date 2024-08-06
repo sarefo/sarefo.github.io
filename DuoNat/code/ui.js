@@ -51,10 +51,11 @@ const ui = {
             const list = document.getElementById('taxon-set-list');
             list.innerHTML = ''; // Clear existing content
 
-            // Filter pairs based on selected tags and level
+            // Filter pairs based on selected tags, level, and ranges
             const selectedTags = gameState.selectedTags;
             const selectedLevel = gameState.selectedLevel;
-            let filteredPairs = tagCloud.filterTaxonPairs(taxonPairs, selectedTags, selectedLevel);
+            const selectedRanges = gameState.selectedRanges || []; // Add this line
+            let filteredPairs = tagCloud.filterTaxonPairs(taxonPairs, selectedTags, selectedLevel, selectedRanges);
 
             // Render only visible pairs initially
             await this.renderVisibleTaxonPairs(filteredPairs);
@@ -112,6 +113,9 @@ const ui = {
                 list.appendChild(button);
             }
         }
+
+        // Update the count
+        this.updateActiveCollectionCount(pairs.length);
     },
 
     renderVisibleTaxonPairs: async function (pairs) {
@@ -154,7 +158,9 @@ const ui = {
         const list = document.getElementById('taxon-set-list');
         list.innerHTML = ''; // Clear existing content
 
-        if (filteredPairs.length === 0) {
+        logger.debug(`Updating taxon pair list with ${filteredPairs ? filteredPairs.length : 0} pairs`);
+
+        if (!filteredPairs || filteredPairs.length === 0) {
             const noResultsMessage = document.createElement('p');
             noResultsMessage.textContent = 'No matching pairs found.';
             noResultsMessage.className = 'no-results-message';
@@ -165,6 +171,9 @@ const ui = {
                 list.appendChild(button);
             }
         }
+
+        // Update the count
+        this.updateActiveCollectionCount(filteredPairs ? filteredPairs.length : 0);
     },
 
     createTaxonPairButton: async function (pair) {
@@ -213,11 +222,11 @@ const ui = {
             game.nextSelectedPair = selectedPair;
             logger.debug('Selected pair:', selectedPair);
 
-            logger.debug('Attempting to close select-set-dialog');
+//            logger.debug('Attempting to close select-set-dialog');
             dialogManager.closeDialog('select-set-dialog');
 
             setTimeout(() => {
-                logger.debug('Setting up game after dialog close');
+ //               logger.debug('Setting up game after dialog close');
                 gameSetup.setupGame(true);
             }, 300);
         };

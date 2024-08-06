@@ -40,26 +40,26 @@ const api = (() => {
              },
      */
         // fetch from JSON file
-        fetchTaxonPairs: async function () {
-            try {
-                const response = await fetch('./data/taxonSets.json');
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const taxonSets = await response.json();
-                // Convert the new format to an expanded version of the old format
-                return taxonSets.map(set => ({
-                    taxon1: set.taxonNames[0],
-                    taxon2: set.taxonNames[1],
-                    setID: set.setID,
-                    skillLevel: set.skillLevel,
-                    setName: set.setName,
-                    tags: set.tags
-                }));
-            } catch (error) {
-                handleApiError(error, 'fetchTaxonPairs');
+    fetchTaxonPairs: async function () {
+        try {
+            const response = await fetch('./data/taxonSets.json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
-        },
+            const taxonSets = await response.json();
+            return taxonSets.map(set => ({
+                taxon1: set.taxonNames[0],
+                taxon2: set.taxonNames[1],
+                setID: set.setID,
+                skillLevel: set.skillLevel,
+                setName: set.setName,
+                tags: set.tags,
+                range: set.range
+            }));
+        } catch (error) {
+            handleApiError(error, 'fetchTaxonPairs');
+        }
+    },
 
         // for user input of new taxon pairs
         validateTaxon: async function (taxonName) {

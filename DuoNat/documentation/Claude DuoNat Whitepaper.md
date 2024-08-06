@@ -84,14 +84,14 @@ The help dialog contains information about the most important functions of the g
 ### Info dialogs
 Each picture has its own info dialog. The user can access external information about the image, iNaturalist observation or taxon there. There are preliminary taxon facts (provided by Perplexity.ai on 20240726). It's also planned to implement taxon-specific identification hints that can be accessed from there.
 
-### Enter taxa dialog
-The user can currently input two taxa, which will be used in a new pair. Currently there's no server-side functionality, but when there is, those can also be stored for future use. Also, once taxon sets are implemented, the user will be able to input more than two taxa. Another idea is to only input one, and the app will create a taxon set from all the sister taxa at that level.
-
 ### Collection manager dialog
-Currently this displays a list of all taxon sets, locally saved in a JSON file. In future, this will be expanded, giving different ways to access taxon sets.
+Currently this displays a list of all taxon sets, locally saved in a JSON file. The user can filter by tags, range or level for now.
 
 ### Phylogeny dialog
 The phylogeny graph shows how the two active taxa are connected taxonomically. It's also a way to link to the iNaturalist taxon pages of the taxa in its entire hierarchy.
+
+### Enter taxa dialog
+The user can currently input two taxa, which will be used in a new pair. Currently there's no server-side functionality, but when there is, those can also be stored for future use. Also, once taxon sets are implemented, the user will be able to input more than two taxa. Another idea is to only input one, and the app will create a taxon set from all the sister taxa at that level.
 
 ## Architectural changes
 + you suggested some big changes in the past, and I'm willing to tackle them, if it helps me later to build a better app.
@@ -122,6 +122,12 @@ Here are some ideas I have regarding future functionality:
 + currently, the system only allows for taxon pairs: two different taxa that are compared in the quiz
 + it would be nice to expand on that: having taxon sets instead, which can consist of two or more taxa. If more than two taxa are in a set, the app would create random pairs out of it for use in a pair.
 + although a taxon set can contain more than two taxa, in each game pair, only the same two taxa from this set would be compared to each other! otherwise it would become confusing and hard to figure out the identification traits, I think.
+
+### Use taxonomic hierarchy throughout the app
++ currently, the taxonomic hierarchy is mainly used to display the relationship graph
++ it would make sense to link all ancestry data into a linked list or something
++ this could then be used for the user to browse for interesting taxon pairs
++ it could also be used to sort the taxonomic tags into a hierarchy
 
 ### Update taxon set structure
 + there should be an extra array where for every taxon, the ancestry hierarchy, the vernacular name, identification tips, and maybe tags and comments should be included
