@@ -37,7 +37,7 @@
   <div id="results"></div>
 
   <script>
-    const icons = ['help', 'info', 'lightbulb', 'search', 'share', 'link', 'qr', 'left', 'right', 'up', 'down', 'star', 'heart', 'trash', 'thumb-up', 'thumb-down', 'close', 'menu', 'three-dots', 'user', 'settings', 'report', 'keyboard', 'drag', 'random', 'list', 'plus', 'stats', 'camera', 'microscope', 'phylogeny', 'globe', 'wiki', 'spicy'];
+    const icons = ['help', 'info', 'lightbulb', 'search', 'share', 'link', 'qr', 'left', 'right', 'up', 'down', 'star', 'heart', 'trash', 'thumb-up', 'thumb-down', 'close', 'menu', 'three-dots', 'user', 'settings', 'report', 'keyboard', 'drag', 'random', 'list', 'plus', 'stats', 'camera', 'microscope', 'phylogeny', 'globe', 'wiki', 'spicy', 'inat'];
     const iconTestArea = document.getElementById('icon-test-area');
     const results = document.getElementById('results');
 
@@ -48,7 +48,7 @@
       const container = document.createElement('div');
       container.className = 'icon-container';
       container.innerHTML = `
-        <svg class="icon"><use href="../images/icons.svg?v=8#icon-${icon}"></use></svg>
+        <svg class="icon"><use href="../images/icons.svg?v=1#icon-${icon}"></use></svg>
         <div>${icon}</div>
       `;
       row.appendChild(container);

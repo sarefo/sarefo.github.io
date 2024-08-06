@@ -42,12 +42,12 @@
     border-radius: 20px;
     padding-left: 4px;
     padding-right: 8px;
-    z-index: 1000;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     background-color: rgba(255, 255, 255, 0.6);
+    z-index: 2000;
 }
 
 .skill-level-indicator .icon-chili {
