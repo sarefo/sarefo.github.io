@@ -114,6 +114,11 @@ const gameLogic = {
 
     // TODO should probably be somewhere with other select-set-dialog functionality
     loadRandomPairFromCurrentCollection: async function() {
+        logger.debug("Attempting to load random pair from current collection");
+        logger.debug(`Selected tags: ${gameState.selectedTags.join(', ')}`);
+        logger.debug(`Selected level: ${gameState.selectedLevel}`);
+        logger.debug(`Selected ranges: ${gameState.selectedRanges.join(', ')}`);
+
         if (this.isCurrentPairInCollection()) {
             logger.debug("Current pair is already in the collection. No new pair loaded.");
             return;
@@ -124,12 +129,13 @@ const gameLogic = {
         ui.showOverlay(`${this.loadingMessage}`, config.overlayColors.green);
 
         try {
-            // Select a new random pair from the current collection
             const newPair = await this.selectRandomPairFromCurrentCollection();
             if (newPair) {
+                logger.debug(`Selected new pair: ${newPair.taxon1} / ${newPair.taxon2}`);
                 game.nextSelectedPair = newPair;
                 await gameSetup.setupGame(true);
             } else {
+                logger.error("No pairs available in the current collection");
                 throw new Error("No pairs available in the current collection");
             }
 
@@ -150,39 +156,63 @@ const gameLogic = {
     isPairInCurrentCollection: function(pair) {
         const selectedTags = gameState.selectedTags;
         const selectedLevel = gameState.selectedLevel;
-        return (selectedTags.length === 0 || pair.tags.some(tag => selectedTags.includes(tag))) &&
-               (selectedLevel === '' || pair.skillLevel === selectedLevel);
+        const selectedRanges = gameState.selectedRanges;
+
+        const matchesTags = selectedTags.length === 0 || 
+            pair.tags.some(tag => selectedTags.includes(tag));
+        const matchesLevel = selectedLevel === '' || 
+            pair.skillLevel === selectedLevel;
+        const matchesRanges = selectedRanges.length === 0 || 
+            (pair.range && pair.range.some(range => selectedRanges.includes(range)));
+
+
+        const isInCollection = matchesTags && matchesLevel && matchesRanges;
+//        logger.debug(`Is in collection: ${isInCollection}`);
+
+        return isInCollection;
     },
 
     isCurrentPairInCollection: function() {
         if (!gameState.currentTaxonImageCollection || !gameState.currentTaxonImageCollection.pair) {
+            logger.debug("No current pair in gameState");
             return false;
         }
 
         const currentPair = gameState.currentTaxonImageCollection.pair;
         const selectedTags = gameState.selectedTags;
         const selectedLevel = gameState.selectedLevel;
+        const selectedRanges = gameState.selectedRanges;
 
         const matchesTags = selectedTags.length === 0 || 
             currentPair.tags.some(tag => selectedTags.includes(tag));
         const matchesLevel = selectedLevel === '' || 
             currentPair.skillLevel === selectedLevel;
+        const matchesRanges = selectedRanges.length === 0 || 
+            (currentPair.range && currentPair.range.some(range => selectedRanges.includes(range)));
 
-        return matchesTags && matchesLevel;
+
+        const isInCollection = matchesTags && matchesLevel && matchesRanges;
+
+        return isInCollection;
     },
 
     selectRandomPairFromCurrentCollection: async function() {
         const taxonPairs = await api.fetchTaxonPairs();
+        logger.debug(`Total taxon pairs: ${taxonPairs.length}`);
+        
         const filteredPairs = taxonPairs.filter(pair => this.isPairInCurrentCollection(pair));
+        logger.debug(`Filtered pairs: ${filteredPairs.length}`);
         
         if (filteredPairs.length === 0) {
             logger.warn("No pairs match the current collection criteria");
             return null;
         }
 
-        return filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
-    },
+        const selectedPair = filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
+        logger.debug(`Selected pair: ${selectedPair.taxon1} / ${selectedPair.taxon2}`);
 
+        return selectedPair;
+    }
 
 };
 

@@ -43,7 +43,7 @@ const rangeSelector = {
 
     closeRangeDialog() {
         dialogManager.closeDialog('range-dialog');
-        logger.debug(`closing with active continents: ${[...this.selectedContinents]}`);
+//        logger.debug(`closing with active continents: ${[...this.selectedContinents]}`);
         this.updateTaxonList();
     },
 
@@ -57,10 +57,10 @@ const rangeSelector = {
     },
 
     async updateTaxonList() {
-        // Convert full names to abbreviations
         const selectedAbbreviations = Array.from(this.selectedContinents).map(fullName => this.continentMap[fullName]);
         
-        logger.debug(`Selected abbreviations: ${selectedAbbreviations}`);
+        logger.debug(`Selected continents: ${Array.from(this.selectedContinents).join(', ')}`);
+        logger.debug(`Selected abbreviations: ${selectedAbbreviations.join(', ')}`);
         
         updateGameState({ selectedRanges: selectedAbbreviations });
         
@@ -68,12 +68,10 @@ const rangeSelector = {
             const taxonSets = await api.fetchTaxonPairs();
             logger.debug(`Total taxon pairs: ${taxonSets.length}`);
             
-            // Fetch the original taxon sets data
             const response = await fetch('./data/taxonSets.json');
             const originalTaxonSets = await response.json();
             
             const filteredPairs = taxonSets.filter(pair => {
-                // Find the corresponding original set
                 const originalSet = originalTaxonSets.find(set => set.setID === pair.setID);
                 if (!originalSet || !originalSet.range) {
                     logger.debug(`Set without range: ${pair.setName}`);
@@ -81,11 +79,6 @@ const rangeSelector = {
                 }
                 const matches = selectedAbbreviations.length === 0 || 
                     originalSet.range.some(range => selectedAbbreviations.includes(range));
-                if (matches) {
-                    logger.debug(`Matched set: ${pair.setName}, Range: ${originalSet.range}`);
-                } else {
-                    logger.debug(`Unmatched set: ${pair.setName}, Range: ${originalSet.range}`);
-                }
                 return matches;
             });
             
@@ -96,7 +89,6 @@ const rangeSelector = {
             ui.updateTaxonPairList([]);
         }
     }
-
 };
 
 export default rangeSelector;

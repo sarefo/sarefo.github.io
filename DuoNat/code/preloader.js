@@ -81,7 +81,7 @@ const preloader = {
             return;
         }
 
-//        logger.debug("Starting preload for next pair");
+        logger.debug("Starting preload for next pair");
         
         try {
             let newPair;
@@ -96,11 +96,13 @@ const preloader = {
                     newPair.taxon1 === gameState.currentTaxonImageCollection.pair.taxon1 &&
                     newPair.taxon2 === gameState.currentTaxonImageCollection.pair.taxon2;
 
-                if (!isSamePair || attempts >= maxAttempts) {
+                const isValidPair = this.isPairValid(newPair);
+
+                if ((!isSamePair && isValidPair) || attempts >= maxAttempts) {
                     break;
                 }
 
-                logger.debug("Selected pair is the same as current, trying again");
+                logger.debug("Selected pair is not valid or is the same as current, trying again");
             } while (true);
 
             if (attempts >= maxAttempts) {
@@ -124,10 +126,28 @@ const preloader = {
                 taxon1: imageOneURL,
                 taxon2: imageTwoURL
             };
-//            logger.debug(`Preloaded images for next pair: ${newPair.taxon1} / ${newPair.taxon2}`);
+            logger.debug(`Preloaded images for next pair: ${newPair.taxon1} / ${newPair.taxon2}`);
         } catch (error) {
             logger.error("Error preloading next pair:", error);
         }
+    },
+
+    isPairValid(pair) {
+        const selectedTags = gameState.selectedTags;
+        const selectedLevel = gameState.selectedLevel;
+        const selectedRanges = gameState.selectedRanges;
+
+        const matchesTags = selectedTags.length === 0 || 
+            pair.tags.some(tag => selectedTags.includes(tag));
+        const matchesLevel = selectedLevel === '' || 
+            pair.skillLevel === selectedLevel;
+        const matchesRanges = selectedRanges.length === 0 || 
+            (pair.range && pair.range.some(range => selectedRanges.includes(range)));
+
+        logger.debug(`Validating pair: ${pair.taxon1} / ${pair.taxon2}`);
+        logger.debug(`Matches tags: ${matchesTags}, Matches level: ${matchesLevel}, Matches ranges: ${matchesRanges}`);
+
+        return matchesTags && matchesLevel && matchesRanges;
     },
 
     getPreloadedImagesForNextRound() {
@@ -143,8 +163,14 @@ const preloader = {
 
     getPreloadedImagesForNextPair() {
         const images = { ...this.preloadedImages.nextPair };
-        this.preloadedImages.nextPair = { taxon1: null, taxon2: null, pair: null };
-        return images;
+        if (images.pair && this.isPairValid(images.pair)) {
+            this.preloadedImages.nextPair = { taxon1: null, taxon2: null, pair: null };
+            return images;
+        } else {
+            logger.debug("Preloaded pair is no longer valid, returning null");
+            this.preloadedImages.nextPair = { taxon1: null, taxon2: null, pair: null };
+            return null;
+        }
     },
 
     hasPreloadedPair() {
