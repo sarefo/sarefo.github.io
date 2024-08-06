@@ -21,7 +21,7 @@
 
     --normal-font-size: 18px;
     --border-radius: 8px;
-    --max-image-width: 500px;
+    --max-image-width: 800px;
     --transition-speed: 0.3s;
     /* images wobble when <80px */
     --center-min-height: 80px; /* consider relative to screen */
