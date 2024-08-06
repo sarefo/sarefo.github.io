@@ -60,6 +60,15 @@ const gameSetup = {
     },
 
     async setupGameWithPreloadedPair(preloadedPair) {
+        logger.debug(`Setting up game with preloaded pair: ${preloadedPair.pair.taxon1} / ${preloadedPair.pair.taxon2}, Skill Level: ${preloadedPair.pair.skillLevel}`);
+        logger.debug(`Current selected level: ${gameState.selectedLevel}`);
+
+        if (!preloader.isPairValid(preloadedPair.pair)) {
+            logger.warn("Preloaded pair is no longer valid, fetching a new pair");
+            await this.setupGame(true);
+            return;
+        }
+
         updateGameState({
             currentTaxonImageCollection: {
                 pair: preloadedPair.pair,
@@ -74,7 +83,6 @@ const gameSetup = {
 
         await this.setupRound(true);
     },
-
 
     prepareUIForLoading() {
         utils.resetDraggables();
@@ -250,6 +258,8 @@ const gameSetup = {
             logger.debug("Preloading completed for next round" + (isNewPair ? " and next pair" : ""));
         } catch (error) {
             logger.error("Error during preloading:", error);
+            // Optionally, you could reset the preloaded state here
+            // preloader.preloadedImages.nextPair = null;
         }
     },
 

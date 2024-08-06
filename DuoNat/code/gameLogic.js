@@ -66,20 +66,32 @@ const gameLogic = {
             return;
         }
 
-//        logger.debug("Loading new pair");
+        logger.debug(`Loading new random pair. Selected level: ${gameState.selectedLevel}`);
         game.setState(GameState.LOADING);
         ui.showOverlay(`${game.loadingMessage}`, config.overlayColors.green);
         gameUI.prepareImagesForLoading();
 
         try {
-            const preloadedPair = preloader.getPreloadedImagesForNextPair();
-            if (preloadedPair && preloadedPair.pair) {
-                logger.debug("Using preloaded pair:", preloadedPair.pair);
-                await gameSetup.setupGameWithPreloadedPair(preloadedPair);
+            let newPair;
+            const preloadedImages = preloader.getPreloadedImagesForNextPair();
+            
+            if (preloadedImages && preloadedImages.pair && this.isPairInCurrentCollection(preloadedImages.pair)) {
+                logger.debug(`Using preloaded pair: ${preloadedImages.pair.taxon1} / ${preloadedImages.pair.taxon2}, Skill Level: ${preloadedImages.pair.skillLevel}`);
+                newPair = preloadedImages.pair;
+                game.nextSelectedPair = newPair;
+                await gameSetup.setupGameWithPreloadedPair(preloadedImages);
             } else {
-                logger.debug("No preloaded pair available, selecting random pair");
-                await gameSetup.setupGame(true);
+                logger.debug("No valid preloaded pair available, selecting random pair");
+                newPair = await this.selectRandomPairFromCurrentCollection();
+                if (newPair) {
+                    logger.debug(`Selected new pair: ${newPair.taxon1} / ${newPair.taxon2}, Skill Level: ${newPair.skillLevel}`);
+                    game.nextSelectedPair = newPair;
+                    await gameSetup.setupGame(true);
+                } else {
+                    throw new Error("No pairs available in the current collection");
+                }
             }
+
             ui.hideOverlay();
             gameUI.setNamePairHeight(); 
             gameUI.updateSkillLevelIndicator(gameState.currentTaxonImageCollection.pair.skillLevel);
@@ -88,9 +100,7 @@ const gameLogic = {
             ui.showOverlay("Error loading new pair. Please try again.", config.overlayColors.red);
         } finally {
             game.setState(GameState.PLAYING);
-            // Clear preloaded images for the next round
-            preloader.clearPreloadedImagesForNextRound();
-            // Start preloading for the next round and the next pair
+            // Start preloading for next round and pair
             gameSetup.startPreloading(true);
         }
     },
@@ -114,36 +124,24 @@ const gameLogic = {
 
     // TODO should probably be somewhere with other select-set-dialog functionality
     loadRandomPairFromCurrentCollection: async function() {
-        logger.debug("Attempting to load random pair from current collection");
-        logger.debug(`Selected tags: ${gameState.selectedTags.join(', ')}`);
-        logger.debug(`Selected level: ${gameState.selectedLevel}`);
-        logger.debug(`Selected ranges: ${gameState.selectedRanges.join(', ')}`);
+        logger.debug(`Loading pair. Selected level: ${gameState.selectedLevel}`);
 
         if (this.isCurrentPairInCollection()) {
-            logger.debug("Current pair is already in the collection. No new pair loaded.");
+            logger.debug("Current pair is in collection. No new pair loaded.");
             return;
         }
-
-        logger.debug("Loading random pair from current collection");
-        game.setState(GameState.LOADING);
-        ui.showOverlay(`${this.loadingMessage}`, config.overlayColors.green);
 
         try {
             const newPair = await this.selectRandomPairFromCurrentCollection();
             if (newPair) {
-                logger.debug(`Selected new pair: ${newPair.taxon1} / ${newPair.taxon2}`);
+                logger.debug(`New pair selected: ${newPair.taxon1} / ${newPair.taxon2}, Skill Level: ${newPair.skillLevel}`);
                 game.nextSelectedPair = newPair;
                 await gameSetup.setupGame(true);
             } else {
-                logger.error("No pairs available in the current collection");
                 throw new Error("No pairs available in the current collection");
             }
-
-            gameUI.updateSkillLevelIndicator(gameState.currentTaxonImageCollection.pair.skillLevel);
-
-            ui.hideOverlay();
         } catch (error) {
-            logger.error("Error loading random pair from collection:", error);
+            logger.error("Error loading random pair:", error);
             ui.showOverlay("Error loading new pair. Please try again.", config.overlayColors.red);
         } finally {
             game.setState(GameState.PLAYING);
@@ -165,35 +163,24 @@ const gameLogic = {
         const matchesRanges = selectedRanges.length === 0 || 
             (pair.range && pair.range.some(range => selectedRanges.includes(range)));
 
-
-        const isInCollection = matchesTags && matchesLevel && matchesRanges;
-//        logger.debug(`Is in collection: ${isInCollection}`);
-
-        return isInCollection;
+        return matchesTags && matchesLevel && matchesRanges;
     },
 
     isCurrentPairInCollection: function() {
         if (!gameState.currentTaxonImageCollection || !gameState.currentTaxonImageCollection.pair) {
-            logger.debug("No current pair in gameState");
             return false;
         }
 
         const currentPair = gameState.currentTaxonImageCollection.pair;
-        const selectedTags = gameState.selectedTags;
         const selectedLevel = gameState.selectedLevel;
-        const selectedRanges = gameState.selectedRanges;
 
-        const matchesTags = selectedTags.length === 0 || 
-            currentPair.tags.some(tag => selectedTags.includes(tag));
-        const matchesLevel = selectedLevel === '' || 
-            currentPair.skillLevel === selectedLevel;
-        const matchesRanges = selectedRanges.length === 0 || 
-            (currentPair.range && currentPair.range.some(range => selectedRanges.includes(range)));
+        const matchesLevel = selectedLevel === '' || currentPair.skillLevel === selectedLevel;
 
+        if (!matchesLevel) {
+            logger.debug(`Current pair not in collection - Skill level mismatch: Pair ${currentPair.skillLevel}, Selected ${selectedLevel}`);
+        }
 
-        const isInCollection = matchesTags && matchesLevel && matchesRanges;
-
-        return isInCollection;
+        return matchesLevel; // Simplified for now to focus on skill level
     },
 
     selectRandomPairFromCurrentCollection: async function() {
@@ -208,12 +195,25 @@ const gameLogic = {
             return null;
         }
 
-        const selectedPair = filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
-        logger.debug(`Selected pair: ${selectedPair.taxon1} / ${selectedPair.taxon2}`);
+        // Ensure we're not selecting the current pair
+        const currentPair = gameState.currentTaxonImageCollection?.pair;
+        const availablePairs = currentPair 
+            ? filteredPairs.filter(pair => 
+                pair.taxon1 !== currentPair.taxon1 || pair.taxon2 !== currentPair.taxon2)
+            : filteredPairs;
 
+        if (availablePairs.length === 0) {
+            logger.warn("All filtered pairs have been used, resetting selection");
+            availablePairs = filteredPairs;
+        }
+
+        const randomIndex = Math.floor(Math.random() * availablePairs.length);
+        const selectedPair = availablePairs[randomIndex];
+        
+        logger.debug(`Selected random pair: ${selectedPair.taxon1} / ${selectedPair.taxon2}, Skill Level: ${selectedPair.skillLevel}`);
+        
         return selectedPair;
-    }
-
+    },
 };
 
 Object.keys(gameLogic).forEach(key => {

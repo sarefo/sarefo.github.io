@@ -84,32 +84,8 @@ const preloader = {
         logger.debug("Starting preload for next pair");
         
         try {
-            let newPair;
-            let attempts = 0;
-            const maxAttempts = 3;
-
-            do {
-                newPair = await utils.selectTaxonPair();
-                attempts++;
-
-                const isSamePair = gameState.currentTaxonImageCollection &&
-                    newPair.taxon1 === gameState.currentTaxonImageCollection.pair.taxon1 &&
-                    newPair.taxon2 === gameState.currentTaxonImageCollection.pair.taxon2;
-
-                const isValidPair = this.isPairValid(newPair);
-
-                if ((!isSamePair && isValidPair) || attempts >= maxAttempts) {
-                    break;
-                }
-
-                logger.debug("Selected pair is not valid or is the same as current, trying again");
-            } while (true);
-
-            if (attempts >= maxAttempts) {
-                logger.warn("Reached max attempts to find a different pair. Using the last selected pair.");
-            }
-
-            logger.debug("Selected new pair for preloading:", newPair);
+            let newPair = await utils.selectTaxonPair();
+            logger.debug(`Selected new pair for preloading: ${newPair.taxon1} / ${newPair.taxon2}, Skill Level: ${newPair.skillLevel}`);
 
             const [imageOneURL, imageTwoURL] = await Promise.all([
                 this.fetchDifferentImage(newPair.taxon1, null),
@@ -126,28 +102,22 @@ const preloader = {
                 taxon1: imageOneURL,
                 taxon2: imageTwoURL
             };
-            logger.debug(`Preloaded images for next pair: ${newPair.taxon1} / ${newPair.taxon2}`);
+            logger.debug(`Preloading complete for next pair: ${newPair.taxon1} / ${newPair.taxon2}, Skill Level: ${newPair.skillLevel}`);
         } catch (error) {
             logger.error("Error preloading next pair:", error);
+            this.preloadedImages.nextPair = null;
         }
     },
 
     isPairValid(pair) {
-        const selectedTags = gameState.selectedTags;
         const selectedLevel = gameState.selectedLevel;
-        const selectedRanges = gameState.selectedRanges;
-
-        const matchesTags = selectedTags.length === 0 || 
-            pair.tags.some(tag => selectedTags.includes(tag));
-        const matchesLevel = selectedLevel === '' || 
-            pair.skillLevel === selectedLevel;
-        const matchesRanges = selectedRanges.length === 0 || 
-            (pair.range && pair.range.some(range => selectedRanges.includes(range)));
-
-        logger.debug(`Validating pair: ${pair.taxon1} / ${pair.taxon2}`);
-        logger.debug(`Matches tags: ${matchesTags}, Matches level: ${matchesLevel}, Matches ranges: ${matchesRanges}`);
-
-        return matchesTags && matchesLevel && matchesRanges;
+        const matchesLevel = selectedLevel === '' || pair.skillLevel === selectedLevel;
+        
+        if (!matchesLevel) {
+            logger.debug(`Pair invalid - Skill level mismatch: Pair ${pair.skillLevel}, Selected ${selectedLevel}`);
+        }
+        
+        return matchesLevel; // Simplified for now to focus on skill level
     },
 
     getPreloadedImagesForNextRound() {
@@ -162,19 +132,19 @@ const preloader = {
     },
 
     getPreloadedImagesForNextPair() {
-        const images = { ...this.preloadedImages.nextPair };
-        if (images.pair && this.isPairValid(images.pair)) {
-            this.preloadedImages.nextPair = { taxon1: null, taxon2: null, pair: null };
+        if (this.hasPreloadedPair()) {
+            const images = this.preloadedImages.nextPair;
+            logger.debug(`Retrieving preloaded pair: ${images.pair.taxon1} / ${images.pair.taxon2}, Skill Level: ${images.pair.skillLevel}`);
+            this.preloadedImages.nextPair = null;
             return images;
         } else {
-            logger.debug("Preloaded pair is no longer valid, returning null");
-            this.preloadedImages.nextPair = { taxon1: null, taxon2: null, pair: null };
+            logger.debug("No preloaded pair available");
             return null;
         }
     },
 
     hasPreloadedPair() {
-        return !!this.preloadedImages.nextPair.pair;
+        return this.preloadedImages.nextPair != null && this.preloadedImages.nextPair.pair != null;
     },
 
     async preloadNewPairWithTags(selectedTags, selectedLevel, selectedRanges) {

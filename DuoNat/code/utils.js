@@ -228,7 +228,8 @@ const utils = {
                 const matchesLevel = gameState.selectedLevel === '' || 
                     pair.skillLevel === gameState.selectedLevel;
                 const matchesRanges = gameState.selectedRanges.length === 0 ||
-                    pair.range.some(range => gameState.selectedRanges.includes(range));
+                    (pair.range && pair.range.some(range => gameState.selectedRanges.includes(range)));
+                
                 return matchesTags && matchesLevel && matchesRanges;
             });
 
@@ -237,7 +238,9 @@ const utils = {
                 filteredPairs = taxonPairs;
             }
 
-            return filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
+            const selectedPair = filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
+
+            return selectedPair;
         } catch (error) {
             logger.error("Error in selectTaxonPair:", error);
             return null;
