@@ -1,5 +1,6 @@
 import api from './api.js';
 import { gameState, updateGameState } from './state.js';
+import gameLogic from './gameLogic.js';
 import logger from './logger.js';
 import utils from './utils.js';
 
@@ -76,40 +77,28 @@ const preloader = {
     },
 
     async preloadForNextPair() {
-        if (this.isPreloading) {
-            logger.debug("Preloading already in progress, skipping");
-            return;
-        }
-
-        this.isPreloading = true;
-        logger.debug("Starting preload for next pair");
+        if (this.isPreloading) return;
         
+        this.isPreloading = true;
         try {
-            const filters = {
-                level: gameState.selectedLevel,
-                ranges: gameState.selectedRanges,
-                tags: gameState.selectedTags
-            };
+            const newPair = await gameLogic.selectRandomPairFromCurrentCollection();
+            if (newPair) {
+                const [imageOneURL, imageTwoURL] = await Promise.all([
+                    this.fetchDifferentImage(newPair.taxon1, null),
+                    this.fetchDifferentImage(newPair.taxon2, null)
+                ]);
 
-            let newPair = await utils.selectTaxonPair(filters);
-            logger.debug(`Selected new pair for preloading: ${newPair.taxon1} / ${newPair.taxon2}, Skill Level: ${newPair.skillLevel}`);
+                await Promise.all([
+                    this.preloadImage(imageOneURL),
+                    this.preloadImage(imageTwoURL)
+                ]);
 
-            const [imageOneURL, imageTwoURL] = await Promise.all([
-                this.fetchDifferentImage(newPair.taxon1, null),
-                this.fetchDifferentImage(newPair.taxon2, null)
-            ]);
-
-            await Promise.all([
-                this.preloadImage(imageOneURL),
-                this.preloadImage(imageTwoURL)
-            ]);
-
-            this.preloadedImages.nextPair = {
-                pair: newPair,
-                taxon1: imageOneURL,
-                taxon2: imageTwoURL
-            };
-            logger.debug(`Preloading complete for next pair: ${newPair.taxon1} / ${newPair.taxon2}, Skill Level: ${newPair.skillLevel}`);
+                this.preloadedImages.nextPair = {
+                    pair: newPair,
+                    taxon1: imageOneURL,
+                    taxon2: imageTwoURL
+                };
+            }
         } catch (error) {
             logger.error("Error preloading next pair:", error);
             this.preloadedImages.nextPair = null;

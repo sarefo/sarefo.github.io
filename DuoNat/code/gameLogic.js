@@ -61,12 +61,6 @@ const gameLogic = {
     },
 
     async loadNewRandomPair() {
-        if (game.currentState === GameState.LOADING) {
-            logger.debug("Already loading a new pair, ignoring request");
-            return;
-        }
-
-        logger.debug(`Loading new random pair. Selected level: ${gameState.selectedLevel}`);
         game.setState(GameState.LOADING);
         ui.showOverlay(`${game.loadingMessage}`, config.overlayColors.green);
         gameUI.prepareImagesForLoading();
@@ -75,16 +69,12 @@ const gameLogic = {
             let newPair;
             const preloadedImages = preloader.getPreloadedImagesForNextPair();
             
-            if (preloadedImages && preloadedImages.pair && this.isPairInCurrentCollection(preloadedImages.pair)) {
-                logger.debug(`Using preloaded pair: ${preloadedImages.pair.taxon1} / ${preloadedImages.pair.taxon2}, Skill Level: ${preloadedImages.pair.skillLevel}`);
+            if (preloadedImages && preloadedImages.pair && this.isPairValidForCurrentFilters(preloadedImages.pair)) {
                 newPair = preloadedImages.pair;
-                game.nextSelectedPair = newPair;
                 await gameSetup.setupGameWithPreloadedPair(preloadedImages);
             } else {
-                logger.debug("No valid preloaded pair available, selecting random pair");
                 newPair = await this.selectRandomPairFromCurrentCollection();
                 if (newPair) {
-                    logger.debug(`Selected new pair: ${newPair.taxon1} / ${newPair.taxon2}, Skill Level: ${newPair.skillLevel}`);
                     game.nextSelectedPair = newPair;
                     await gameSetup.setupGame(true);
                 } else {
@@ -93,16 +83,24 @@ const gameLogic = {
             }
 
             ui.hideOverlay();
-            gameUI.setNamePairHeight(); 
-            gameUI.updateSkillLevelIndicator(gameState.currentTaxonImageCollection.pair.skillLevel);
+            gameUI.updateSkillLevelIndicator(newPair.skillLevel);
         } catch (error) {
             logger.error("Error loading new pair:", error);
             ui.showOverlay("Error loading new pair. Please try again.", config.overlayColors.red);
         } finally {
             game.setState(GameState.PLAYING);
-            // Start preloading for next round and pair
-            gameSetup.startPreloading(true);
+            preloader.preloadForNextPair();
         }
+    },
+
+    isPairValidForCurrentFilters: function (pair) {
+        const matchesLevel = gameState.selectedLevel === '' || pair.skillLevel === gameState.selectedLevel;
+        const matchesTags = gameState.selectedTags.length === 0 || 
+            pair.tags.some(tag => gameState.selectedTags.includes(tag));
+        const matchesRanges = gameState.selectedRanges.length === 0 || 
+            (pair.range && pair.range.some(range => gameState.selectedRanges.includes(range)));
+
+        return matchesLevel && matchesTags && matchesRanges;
     },
 
     // Update this method to set the nextSelectedPair
@@ -111,32 +109,18 @@ const gameLogic = {
         await gameSetup.setupGame(true);
     },
 
-    async applyFilters(newFilters) {
-        const previousState = {
-            selectedLevel: gameState.selectedLevel,
-            selectedRanges: gameState.selectedRanges,
-            selectedTags: gameState.selectedTags
-        };
-
+    applyFilters: function (newFilters) {
         updateGameState({
             selectedLevel: newFilters.level ?? gameState.selectedLevel,
             selectedRanges: newFilters.ranges ?? gameState.selectedRanges,
             selectedTags: newFilters.tags ?? gameState.selectedTags
         });
-        
-        logger.debug(`Applied new filters: Level ${gameState.selectedLevel}, Ranges ${gameState.selectedRanges}, Tags ${gameState.selectedTags}`);
 
-        // Check if filters have actually changed
-        const filtersChanged = 
-            previousState.selectedLevel !== gameState.selectedLevel ||
-            !utils.arraysEqual(previousState.selectedRanges, gameState.selectedRanges) ||
-            !utils.arraysEqual(previousState.selectedTags, gameState.selectedTags);
-
-        if (filtersChanged) {
-            logger.debug("Filters changed, loading new pair");
-            await this.loadRandomPairFromCurrentCollection();
+        const currentPair = gameState.currentTaxonImageCollection.pair;
+        if (!this.isPairValidForCurrentFilters(currentPair)) {
+            this.loadNewRandomPair();
         } else {
-            logger.debug("Filters unchanged, no action needed");
+            preloader.preloadForNextPair();
         }
     },
 
