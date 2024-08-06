@@ -1,9 +1,10 @@
 import api from './api.js';
+import config from './config.js';
 import eventHandlers from './eventHandlers.js';
 import game from './game.js';
 import gameLogic from './gameLogic.js';
 import logger from './logger.js';
-import { updateGameState } from './state.js';
+import { gameState, updateGameState } from './state.js';
 import tagCloud from './tagCloud.js';
 import ui from './ui.js';
 
@@ -31,6 +32,11 @@ const dialogManager = {
                 this.disableMainEventHandlers();
             }
         }
+
+        if (dialogId === 'report-dialog') {
+            this.resetReportDialog();
+        }
+
     },
 
     closeDialog(dialogId, fromTagCloud = false) {
@@ -146,7 +152,7 @@ const dialogManager = {
     },
 
     initializeDialogs() {
-        const dialogs = ['select-set-dialog', 'tag-cloud-dialog', 'enter-set-dialog', 'qr-dialog', 'help-dialog', 'info-dialog', 'phylogeny-dialog', 'inat-down-dialog'];
+        const dialogs = ['select-set-dialog', 'tag-cloud-dialog', 'enter-set-dialog', 'qr-dialog', 'help-dialog', 'info-dialog', 'report-dialog', 'phylogeny-dialog', 'inat-down-dialog'];
         dialogs.forEach(dialogId => {
             const dialog = document.getElementById(dialogId);
             const closeButton = dialog.querySelector('.dialog-close-button');
@@ -164,6 +170,8 @@ const dialogManager = {
         this.on('dialogClose', (dialogId) => {
             // Add any specific actions you want to perform when a dialog is closed
         });
+
+        this.initializeReportDialog();
 
     },
 
@@ -261,6 +269,228 @@ const dialogManager = {
         if (spinner) {
             spinner.remove();
         }
+    },
+
+    initializeReportDialog: function() {
+        const reportDialog = document.getElementById('report-dialog');
+        if (!reportDialog) {
+            logger.error('Report dialog not found in the DOM');
+            return;
+        }
+
+        const reportForm = reportDialog.querySelector('#report-dialog__form');
+        if (!reportForm) {
+            logger.error('Report form not found in the report dialog');
+            return;
+        }
+
+        const reportOptions = reportForm.querySelectorAll('input[name="report-type"]');
+        const reportDetails = reportDialog.querySelector('#report-dialog__details');
+
+        if (!reportDetails) {
+            logger.error('Report details textarea not found in the report dialog');
+            return;
+        }
+
+        reportOptions.forEach(option => {
+            option.addEventListener('change', () => {
+                const isOtherChecked = Array.from(reportOptions).some(opt => opt.value === 'other' && opt.checked);
+                reportDetails.style.display = isOtherChecked ? 'block' : 'none';
+            });
+        });
+
+        reportForm.addEventListener('submit', this.handleReportSubmit.bind(this));
+    },
+
+    initializeReportDialog: function() {
+        const reportDialog = document.getElementById('report-dialog');
+        if (!reportDialog) {
+            logger.error('Report dialog not found in the DOM');
+            return;
+        }
+
+        const reportForm = reportDialog.querySelector('#report-dialog__form');
+        if (!reportForm) {
+            logger.error('Report form not found in the report dialog');
+            return;
+        }
+
+        const reportOptions = reportForm.querySelectorAll('input[name="report-type"]');
+        const reportDetails = reportDialog.querySelector('#report-dialog__details');
+
+        if (!reportDetails) {
+            logger.error('Report details textarea not found in the report dialog');
+            return;
+        }
+
+        reportOptions.forEach(option => {
+            option.addEventListener('change', () => {
+                const isOtherChecked = Array.from(reportOptions).some(opt => opt.value === 'other' && opt.checked);
+                reportDetails.style.display = isOtherChecked ? 'block' : 'none';
+            });
+        });
+
+        reportForm.addEventListener('submit', this.handleReportSubmit.bind(this));
+    },
+
+    handleReportSubmit: function(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const reportTypes = formData.getAll('report-type');
+        const details = document.getElementById('report-dialog__details').value;
+
+        if (reportTypes.length === 0) {
+            ui.showOverlay("Please select at least one issue to report.", config.overlayColors.red);
+            setTimeout(() => ui.hideOverlay(), 2000);
+            return;
+        }
+
+        let emailBody = "Report Types:\n";
+        reportTypes.forEach(type => {
+            emailBody += `- ${this.getReportTypeText(type)}\n`;
+        });
+
+        if (details.trim() !== '') {
+            emailBody += `\nAdditional Details:\n${details}\n`;
+        }
+
+        emailBody += "\nGame State Information:\n";
+        if (gameState.currentTaxonImageCollection && gameState.currentTaxonImageCollection.pair) {
+            const pair = gameState.currentTaxonImageCollection.pair;
+            emailBody += `Taxon 1: ${pair.taxon1}\n`;
+            emailBody += `Taxon 2: ${pair.taxon2}\n`;
+            emailBody += `Set Name: ${pair.setName || 'N/A'}\n`;
+            emailBody += `Set ID: ${pair.setID || 'N/A'}\n`;
+            emailBody += `Skill Level: ${pair.skillLevel || 'N/A'}\n`;
+        } else {
+            emailBody += "Current taxon pair information not available\n";
+        }
+
+        if (gameState.currentObservationURLs) {
+            emailBody += `Image 1 URL: ${gameState.currentObservationURLs.imageOne || 'N/A'}\n`;
+            emailBody += `Image 2 URL: ${gameState.currentObservationURLs.imageTwo || 'N/A'}\n`;
+        } else {
+            emailBody += "Current image URLs not available\n";
+        }
+
+        this.sendReportEmail(emailBody);
+    },
+
+    sendReportEmail: function(body) {
+        const subject = "DuoNat Report";
+        const recipient = "sarefo@gmail.com";
+        const fullEmailContent = `To: ${recipient}\nSubject: ${subject}\n\n${body}`;
+
+        this.copyToClipboard(fullEmailContent);
+
+        // Log the action for debugging
+        logger.debug('Report content copied to clipboard');
+
+        // Show message to user
+        this.showNotification("Report copied to clipboard. Please paste it into your email client and send to " + recipient);
+        
+        // Set a timeout to hide the notification and reset the dialog
+        setTimeout(() => {
+            this.hideNotification();
+            this.closeDialog('report-dialog');
+            this.resetReportDialog();
+        }, 6000);  // 6 seconds should be enough time for users to read the message
+    },
+
+    showNotification: function(message) {
+        logger.debug('Attempting to show notification:', message);
+        
+        // Try using ui.showOverlay first
+        if (ui && typeof ui.showOverlay === 'function') {
+            ui.showOverlay(message, config.overlayColors.green);
+            logger.debug('Notification shown using ui.showOverlay');
+        } else {
+            // Fallback to creating a custom notification element
+            logger.debug('ui.showOverlay not available, using fallback notification');
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.position = 'fixed';
+            notification.style.top = '20px';
+            notification.style.left = '50%';
+            notification.style.transform = 'translateX(-50%)';
+            notification.style.backgroundColor = 'rgba(116, 172, 0, 0.9)';
+            notification.style.color = 'white';
+            notification.style.padding = '10px 20px';
+            notification.style.borderRadius = '5px';
+            notification.style.zIndex = '10000';
+            document.body.appendChild(notification);
+            this.currentNotification = notification;
+        }
+    },
+
+    hideNotification: function() {
+        if (ui && typeof ui.hideOverlay === 'function') {
+            ui.hideOverlay();
+        } else if (this.currentNotification) {
+            document.body.removeChild(this.currentNotification);
+            this.currentNotification = null;
+        }
+    },
+
+    copyToClipboard: function(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+            // Use the Clipboard API when available
+            navigator.clipboard.writeText(text).then(() => {
+                logger.debug('Text successfully copied to clipboard using Clipboard API');
+            }).catch(err => {
+                logger.error('Failed to copy text using Clipboard API: ', err);
+                this.fallbackCopyToClipboard(text);
+            });
+        } else {
+            // Fallback to older method
+            this.fallbackCopyToClipboard(text);
+        }
+    },
+
+    fallbackCopyToClipboard: function(text) {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";  // Avoid scrolling to bottom
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            const successful = document.execCommand('copy');
+            const msg = successful ? 'successful' : 'unsuccessful';
+            logger.debug('Fallback: Copying text command was ' + msg);
+        } catch (err) {
+            logger.error('Fallback: Unable to copy to clipboard', err);
+            this.showNotification("Failed to copy report. Please try again.");
+        }
+        document.body.removeChild(textArea);
+    },
+
+    resetReportDialog: function() {
+        const reportForm = document.getElementById('report-dialog__form');
+        const reportOptions = reportForm.querySelectorAll('input[name="report-type"]');
+        const reportDetails = document.getElementById('report-dialog__details');
+
+        // Uncheck all checkboxes
+        reportOptions.forEach(option => {
+            option.checked = false;
+        });
+
+        // Clear the details textarea
+        reportDetails.value = '';
+
+        // Hide the details textarea
+        reportDetails.style.display = 'none';
+    },
+
+    getReportTypeText: function(type) {
+        const typeMap = {
+            'wrong-image': 'The image is wrong',
+            'wrong-range': 'Range is wrong',
+            'wrong-name': 'Name is wrong',
+            'wrong-info': 'Info is wrong',
+            'other': 'Something else is wrong'
+        };
+        return typeMap[type] || type;
     },
 
 };

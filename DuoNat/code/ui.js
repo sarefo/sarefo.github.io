@@ -522,6 +522,15 @@ const ui = {
         const handleKeyPress = (event) => {
             if (!infoDialog.open) return; // Only handle keypresses when the dialog is open
 
+            // Ignore keypress events if the active element is a text input or textarea
+            if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
+                return;
+            }
+
+            if (event.ctrlKey || event.altKey || event.shiftKey || event.metaKey) {
+                return; // Exit the function if any modifier key is pressed
+            }
+
             event.stopPropagation();
             const key = event.key.toLowerCase();
             const buttonMap = {
@@ -541,6 +550,12 @@ const ui = {
                 infoDialog.close();
             }
         };
+
+        const reportButton = document.getElementById('report-button');
+        reportButton.addEventListener('click', () => {
+            dialogManager.closeDialog('info-dialog');
+            dialogManager.openDialog('report-dialog');
+        });
 
         document.addEventListener('keydown', handleKeyPress);
     },
