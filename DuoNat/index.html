@@ -29,8 +29,94 @@
 </head>
 
 <body>
-<div id="skill-level-indicator" class="skill-level-indicator" aria-label="Change difficulty" role="button" tabindex="0">
-    <!-- Chili icons will be inserted here dynamically -->
+<div class="ui-container">
+    <div id="skill-level-indicator" class="skill-level-indicator" aria-label="Change difficulty" role="button" tabindex="0">
+        <!-- Chili icons will be inserted here dynamically -->
+    </div>
+
+    <div class="ui-buttons">
+        <button class="icon-button" id="help-button" title="Help" aria-label="Open help dialog">
+            <svg class="icon">
+                <use href="./images/icons.svg#icon-help"/>
+            </svg>
+        </button>
+
+        <button class="icon-button" id="share-button" aria-label="Share this pair">
+          <svg class="icon"><use href="./images/icons.svg#icon-share"/></svg>
+        </button>
+
+        <!-- Main menu -->
+        <div class="main-menu">
+
+            <button class="icon-button" id="menu-toggle" title="Menu" aria-label="Open menu">
+              <svg class="icon"><use href="./images/icons.svg#icon-menu"/></svg>
+            </button>
+
+          <div class="main-menu__dropdown main-menu__dropdown--top">
+
+            <div class="main-menu__item">
+              <span class="main-menu__label">Show phylogeny</span>
+              <button class="icon-button" id="phylogeny-button" aria-label="Show phylogeny">
+        <!--      <svg class="icon"><use href="./images/icons.svg#icon-phylogeny"/></svg>-->
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z" transform="rotate(90 12 12)"/>
+                </svg>
+              </button>
+            </div>
+
+            <div class="main-menu__item">
+              <span class="main-menu__label">Manage collections</span>
+              <button class="icon-button" id="select-set-button" aria-label="Select new set">
+                <svg class="icon"><use href="./images/icons.svg#icon-list"/></svg>
+              </button>
+            </div>
+
+            <!-- enable when functionality added 
+            <div class="main-menu__item">
+              <span class="main-menu__label">Like this pair</span>
+            <button class="icon-button" id="like-button" aria-label="Like this pair">
+              <svg class="icon"><use href="./images/icons.svg#icon-heart"/></svg>
+            </button>
+            </div>
+
+            <div class="main-menu__item">
+              <span class="main-menu__label">Trash this pair</span>
+            <button class="icon-button" id="trash-button" aria-label="Trash this pair">
+              <svg class="icon"><use href="./images/icons.svg#icon-trash"/></svg>
+            </button>
+            </div> -->
+
+          </div>
+
+          <div class="main-menu__dropdown main-menu__dropdown--bottom">
+
+            <div class="main-menu__item">
+              <span class="main-menu__label">Enter new set</span>
+              <button class="icon-button" id="enter-set-button" aria-label="Enter new set">
+                <svg class="icon"><use href="./images/icons.svg#icon-plus"/></svg>
+              </button>
+            </div>
+        <!--
+            <div class="main-menu__item">
+              <span class="main-menu__label">Random new set</span>
+              <button class="icon-button" id="random-pair-button" aria-label="Random new set">
+                <svg class="icon"><use href="./images/icons.svg#icon-random"/></svg>
+              </button>
+            </div> 
+        -->
+            <div class="main-menu__item">
+              <span class="main-menu__label">Surprise!</span>
+              <button class="icon-button" id="surprise-button" aria-label="Surprise!">
+                <svg class="icon"><use href="./images/icons.svg#icon-star"/></svg>
+              </button>
+            </div>
+
+          </div> <!-- bottom-group -->
+
+        </div> <!-- main menu -->
+
+    </div> <!-- ui-container -->
+
 </div>
 
 <!-- Loading screen at app start -->
@@ -121,86 +207,6 @@
 </div> <!-- game-container -->
 
 <!-- overlay buttons on the main screen -->
-
-<button class="icon-button" id="help-button" title="Help" aria-label="Open help dialog">
-    <svg class="icon">
-        <use href="./images/icons.svg#icon-help"/>
-    </svg>
-</button>
-
-<!-- Main menu -->
-<div class="main-menu">
-
-    <button class="icon-button" id="menu-toggle" title="Menu" aria-label="Open menu">
-      <svg class="icon"><use href="./images/icons.svg#icon-menu"/></svg>
-    </button>
-
-    <button class="icon-button" id="share-button" aria-label="Share this pair">
-      <svg class="icon"><use href="./images/icons.svg#icon-share"/></svg>
-    </button>
-
-  <div class="main-menu__dropdown main-menu__dropdown--top">
-
-    <div class="main-menu__item">
-      <span class="main-menu__label">Show phylogeny</span>
-      <button class="icon-button" id="phylogeny-button" aria-label="Show phylogeny">
-<!--      <svg class="icon"><use href="./images/icons.svg#icon-phylogeny"/></svg>-->
-        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z" transform="rotate(90 12 12)"/>
-        </svg>
-      </button>
-    </div>
-
-    <div class="main-menu__item">
-      <span class="main-menu__label">Manage collections</span>
-      <button class="icon-button" id="select-set-button" aria-label="Select new set">
-        <svg class="icon"><use href="./images/icons.svg#icon-list"/></svg>
-      </button>
-    </div>
-
-    <!-- enable when functionality added 
-    <div class="main-menu__item">
-      <span class="main-menu__label">Like this pair</span>
-    <button class="icon-button" id="like-button" aria-label="Like this pair">
-      <svg class="icon"><use href="./images/icons.svg#icon-heart"/></svg>
-    </button>
-    </div>
-
-    <div class="main-menu__item">
-      <span class="main-menu__label">Trash this pair</span>
-    <button class="icon-button" id="trash-button" aria-label="Trash this pair">
-      <svg class="icon"><use href="./images/icons.svg#icon-trash"/></svg>
-    </button>
-    </div> -->
-
-  </div>
-
-  <div class="main-menu__dropdown main-menu__dropdown--bottom">
-
-    <div class="main-menu__item">
-      <span class="main-menu__label">Enter new set</span>
-      <button class="icon-button" id="enter-set-button" aria-label="Enter new set">
-        <svg class="icon"><use href="./images/icons.svg#icon-plus"/></svg>
-      </button>
-    </div>
-<!--
-    <div class="main-menu__item">
-      <span class="main-menu__label">Random new set</span>
-      <button class="icon-button" id="random-pair-button" aria-label="Random new set">
-        <svg class="icon"><use href="./images/icons.svg#icon-random"/></svg>
-      </button>
-    </div> 
--->
-    <div class="main-menu__item">
-      <span class="main-menu__label">Surprise!</span>
-      <button class="icon-button" id="surprise-button" aria-label="Surprise!">
-        <svg class="icon"><use href="./images/icons.svg#icon-star"/></svg>
-      </button>
-    </div>
-
-  </div> <!-- bottom-group -->
-
-</div> <!-- main menu -->
 
 
 <!-- Dialogs, only visible when opened in app: -->

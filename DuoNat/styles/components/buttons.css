@@ -33,9 +33,29 @@
   background: rgba(255, 255, 255, 0.8);
 }
 
+.ui-container {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 98vw;
+    max-width: var(--max-image-width);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+}
+
+.ui-buttons {
+    display: flex;
+    gap: 10px;
+         padding-right: 5px;
+}
+
 /* Level indicator on main screen */
 .skill-level-indicator {
-    position: fixed;
+    position: static;
+              margin-left: 10px;
     top: 10px;
     left: 10px;
     height: 40px;
@@ -67,21 +87,21 @@
 #help-button,
 #share-button,
 #menu-toggle {
-    position: fixed;
-    top: 10px;
+    position: static;
+/*    top: 10px;*/
     z-index: 1000;
 }
 
 #help-button {
-    right: 110px;
+/*    right: 110px;*/
 }
 
 #share-button {
-    right: 60px;
+ /*   right: 60px;*/
 }
 
 #menu-toggle {
-    right: 10px;
+    /*right: 10px;*/
 }
 
 #like-button {
