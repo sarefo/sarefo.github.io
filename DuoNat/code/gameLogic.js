@@ -112,24 +112,32 @@ const gameLogic = {
     },
 
     async applyFilters(newFilters) {
+        const previousState = {
+            selectedLevel: gameState.selectedLevel,
+            selectedRanges: gameState.selectedRanges,
+            selectedTags: gameState.selectedTags
+        };
+
         updateGameState({
-            selectedLevel: newFilters.level || gameState.selectedLevel,
-            selectedRanges: newFilters.ranges || gameState.selectedRanges,
-            selectedTags: newFilters.tags || gameState.selectedTags
+            selectedLevel: newFilters.level ?? gameState.selectedLevel,
+            selectedRanges: newFilters.ranges ?? gameState.selectedRanges,
+            selectedTags: newFilters.tags ?? gameState.selectedTags
         });
         
         logger.debug(`Applied new filters: Level ${gameState.selectedLevel}, Ranges ${gameState.selectedRanges}, Tags ${gameState.selectedTags}`);
 
-        // Check if current pair is still valid
-        if (!this.isCurrentPairInCollection()) {
-            logger.debug("Current pair no longer valid with new filters, loading new pair");
+        // Check if filters have actually changed
+        const filtersChanged = 
+            previousState.selectedLevel !== gameState.selectedLevel ||
+            !utils.arraysEqual(previousState.selectedRanges, gameState.selectedRanges) ||
+            !utils.arraysEqual(previousState.selectedTags, gameState.selectedTags);
+
+        if (filtersChanged) {
+            logger.debug("Filters changed, loading new pair");
             await this.loadRandomPairFromCurrentCollection();
         } else {
-            logger.debug("Current pair still valid with new filters");
+            logger.debug("Filters unchanged, no action needed");
         }
-        
-        // Trigger preloading
-        preloader.preloadForNextPair();
     },
 
     getCurrentTaxon(url) {
@@ -147,10 +155,10 @@ const gameLogic = {
     loadRandomPairFromCurrentCollection: async function() {
         logger.debug(`Loading pair. Selected level: ${gameState.selectedLevel}`);
 
-        if (this.isCurrentPairInCollection()) {
-            logger.debug("Current pair is in collection. No new pair loaded.");
-            return;
-        }
+//        if (this.isCurrentPairInCollection()) {
+//            logger.debug("Current pair is in collection. No new pair loaded.");
+//            return;
+//        }
 
         try {
             const newPair = await this.selectRandomPairFromCurrentCollection();
