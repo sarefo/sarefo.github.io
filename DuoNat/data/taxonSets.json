@@ -14,6 +14,13 @@
     "taxonNames": [
       "Felidae",
       "Canidae"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -31,6 +38,9 @@
     "taxonNames": [
       "Canis lupus",
       "Canis latrans"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -48,6 +58,9 @@
     "taxonNames": [
       "Ursus arctos",
       "Ursus americanus"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -66,7 +79,8 @@
     "taxonNames": [
       "Panthera onca",
       "Panthera pardus"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "5",
@@ -83,6 +97,13 @@
     "taxonNames": [
       "Otariidae",
       "Phocidae"
+    ],
+    "range": [
+      "SA",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -100,6 +121,14 @@
     "taxonNames": [
       "Mysticeti",
       "Odontoceti"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -117,6 +146,10 @@
     "taxonNames": [
       "Haplorhini",
       "Strepsirrhini"
+    ],
+    "range": [
+      "AF",
+      "AS"
     ]
   },
   {
@@ -134,7 +167,8 @@
     "taxonNames": [
       "Catarrhini",
       "Platyrrhini"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "9",
@@ -151,6 +185,10 @@
     "taxonNames": [
       "Hominoidea",
       "Cercopithecidae"
+    ],
+    "range": [
+      "AF",
+      "AS"
     ]
   },
   {
@@ -168,7 +206,8 @@
     "taxonNames": [
       "Elephas",
       "Loxodonta"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "11",
@@ -185,6 +224,9 @@
     "taxonNames": [
       "Loxodonta africana",
       "Loxodonta cyclotis"
+    ],
+    "range": [
+      "AF"
     ]
   },
   {
@@ -201,6 +243,14 @@
     "taxonNames": [
       "Laurasiatheria",
       "Euarchontoglires"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -217,7 +267,8 @@
     "taxonNames": [
       "Xenarthra",
       "Afrotheria"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "14",
@@ -233,6 +284,9 @@
     "taxonNames": [
       "Afrotheria",
       "Laurasiatheria"
+    ],
+    "range": [
+      "AF"
     ]
   },
   {
@@ -250,7 +304,8 @@
     "taxonNames": [
       "Puma concolor",
       "Acinonyx jubatus"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "16",
@@ -267,6 +322,10 @@
     "taxonNames": [
       "Leopardus pardalis",
       "Leopardus wiedii"
+    ],
+    "range": [
+      "NA",
+      "SA"
     ]
   },
   {
@@ -284,6 +343,9 @@
     "taxonNames": [
       "Lynx rufus",
       "Lynx canadensis"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -301,6 +363,9 @@
     "taxonNames": [
       "Vulpes vulpes",
       "Vulpes corsac"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -318,6 +383,9 @@
     "taxonNames": [
       "Canis lupus",
       "Canis rufus"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -335,7 +403,8 @@
     "taxonNames": [
       "Ursus americanus",
       "Ursus thibetanus"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "21",
@@ -352,6 +421,9 @@
     "taxonNames": [
       "Zalophus californianus",
       "Eumetopias jubatus"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -369,6 +441,10 @@
     "taxonNames": [
       "Phoca vitulina",
       "Halichoerus grypus"
+    ],
+    "range": [
+      "NA",
+      "EU"
     ]
   },
   {
@@ -387,6 +463,12 @@
     "taxonNames": [
       "Tursiops truncatus",
       "Stenella frontalis"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "EU",
+      "AF"
     ]
   },
   {
@@ -405,6 +487,14 @@
     "taxonNames": [
       "Balaenoptera physalus",
       "Balaenoptera borealis"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -423,6 +513,14 @@
     "taxonNames": [
       "Balaenoptera physalus",
       "Balaenoptera musculus"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -441,6 +539,13 @@
     "taxonNames": [
       "Balaenoptera borealis",
       "Balaenoptera edeni"
+    ],
+    "range": [
+      "SA",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -459,6 +564,11 @@
     "taxonNames": [
       "Balaenoptera acutorostrata",
       "Balaenoptera bonaerensis"
+    ],
+    "range": [
+      "SA",
+      "OC",
+      "AF"
     ]
   },
   {
@@ -477,6 +587,10 @@
     "taxonNames": [
       "Megaptera novaeangliae",
       "Eubalaena glacialis"
+    ],
+    "range": [
+      "NA",
+      "EU"
     ]
   },
   {
@@ -495,7 +609,8 @@
     "taxonNames": [
       "Eubalaena glacialis",
       "Eubalaena australis"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "30",
@@ -513,6 +628,14 @@
     "taxonNames": [
       "Physeter macrocephalus",
       "Kogia breviceps"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -531,6 +654,14 @@
     "taxonNames": [
       "Kogia breviceps",
       "Kogia sima"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -549,6 +680,14 @@
     "taxonNames": [
       "Orcinus orca",
       "Pseudorca crassidens"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -567,6 +706,14 @@
     "taxonNames": [
       "Globicephala melas",
       "Globicephala macrorhynchus"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -585,6 +732,11 @@
     "taxonNames": [
       "Tursiops truncatus",
       "Tursiops aduncus"
+    ],
+    "range": [
+      "OC",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -603,6 +755,12 @@
     "taxonNames": [
       "Stenella attenuata",
       "Stenella frontalis"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "EU",
+      "AF"
     ]
   },
   {
@@ -621,6 +779,13 @@
     "taxonNames": [
       "Stenella coeruleoalba",
       "Stenella longirostris"
+    ],
+    "range": [
+      "SA",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -639,6 +804,9 @@
     "taxonNames": [
       "Leucopleurus acutus",
       "Sagmatias obliquidens"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -657,6 +825,9 @@
     "taxonNames": [
       "Lagenorhynchus albirostris",
       "Sagmatias obscurus"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -675,6 +846,14 @@
     "taxonNames": [
       "Grampus griseus",
       "Steno bredanensis"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -693,6 +872,10 @@
     "taxonNames": [
       "Phocoena phocoena",
       "Phocoenoides dalli"
+    ],
+    "range": [
+      "NA",
+      "AS"
     ]
   },
   {
@@ -711,6 +894,10 @@
     "taxonNames": [
       "Mesoplodon bidens",
       "Mesoplodon europaeus"
+    ],
+    "range": [
+      "NA",
+      "EU"
     ]
   },
   {
@@ -729,6 +916,10 @@
     "taxonNames": [
       "Ziphius cavirostris",
       "Hyperoodon ampullatus"
+    ],
+    "range": [
+      "NA",
+      "EU"
     ]
   },
   {
@@ -747,7 +938,8 @@
     "taxonNames": [
       "Inia geoffrensis",
       "Platanista gangetica"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "44",
@@ -765,6 +957,11 @@
     "taxonNames": [
       "Delphinapterus leucas",
       "Monodon monoceros"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -783,7 +980,8 @@
     "taxonNames": [
       "Cephalorhynchus hectori",
       "Cephalorhynchus commersonii"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "46",
@@ -801,6 +999,9 @@
     "taxonNames": [
       "Sotalia fluviatilis",
       "Sotalia guianensis"
+    ],
+    "range": [
+      "SA"
     ]
   },
   {
@@ -819,6 +1020,13 @@
     "taxonNames": [
       "Peponocephala electra",
       "Feresa attenuata"
+    ],
+    "range": [
+      "SA",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -837,7 +1045,8 @@
     "taxonNames": [
       "Lissodelphis borealis",
       "Lissodelphis peronii"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "49",
@@ -854,6 +1063,9 @@
     "taxonNames": [
       "Odocoileus virginianus",
       "Odocoileus hemionus"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -871,6 +1083,10 @@
     "taxonNames": [
       "Cervus elaphus",
       "Cervus canadensis"
+    ],
+    "range": [
+      "NA",
+      "AS"
     ]
   },
   {
@@ -888,6 +1104,10 @@
     "taxonNames": [
       "Alces alces",
       "Cervus canadensis"
+    ],
+    "range": [
+      "NA",
+      "AS"
     ]
   },
   {
@@ -905,6 +1125,9 @@
     "taxonNames": [
       "Bison bison",
       "Bos taurus"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -922,6 +1145,9 @@
     "taxonNames": [
       "Ovis canadensis",
       "Ovis dalli"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -939,6 +1165,9 @@
     "taxonNames": [
       "Oreamnos americanus",
       "Ovis dalli"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -956,6 +1185,11 @@
     "taxonNames": [
       "Rangifer tarandus",
       "Alces alces"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -973,6 +1207,9 @@
     "taxonNames": [
       "Equus zebra",
       "Equus quagga"
+    ],
+    "range": [
+      "AF"
     ]
   },
   {
@@ -990,7 +1227,8 @@
     "taxonNames": [
       "Loxodonta africana",
       "Elephas maximus"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "58",
@@ -1007,6 +1245,9 @@
     "taxonNames": [
       "Hippopotamus amphibius",
       "Choeropsis liberiensis"
+    ],
+    "range": [
+      "AF"
     ]
   },
   {
@@ -1024,6 +1265,9 @@
     "taxonNames": [
       "Diceros bicornis",
       "Ceratotherium simum"
+    ],
+    "range": [
+      "AF"
     ]
   },
   {
@@ -1041,6 +1285,9 @@
     "taxonNames": [
       "Pan troglodytes",
       "Pan paniscus"
+    ],
+    "range": [
+      "AF"
     ]
   },
   {
@@ -1058,6 +1305,9 @@
     "taxonNames": [
       "Gorilla beringei",
       "Gorilla gorilla"
+    ],
+    "range": [
+      "AF"
     ]
   },
   {
@@ -1075,6 +1325,9 @@
     "taxonNames": [
       "Pongo abelii",
       "Pongo pygmaeus"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -1092,6 +1345,9 @@
     "taxonNames": [
       "Macaca mulatta",
       "Macaca fascicularis"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -1109,6 +1365,9 @@
     "taxonNames": [
       "Papio anubis",
       "Papio hamadryas"
+    ],
+    "range": [
+      "AF"
     ]
   },
   {
@@ -1126,6 +1385,9 @@
     "taxonNames": [
       "Lemur catta",
       "Varecia variegata"
+    ],
+    "range": [
+      "AF"
     ]
   },
   {
@@ -1143,6 +1405,9 @@
     "taxonNames": [
       "Sciurus carolinensis",
       "Sciurus niger"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -1160,7 +1425,8 @@
     "taxonNames": [
       "Tamias striatus",
       "Eutamias sibiricus"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "68",
@@ -1177,6 +1443,9 @@
     "taxonNames": [
       "Marmota monax",
       "Marmota flaviventris"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -1194,6 +1463,9 @@
     "taxonNames": [
       "Cricetus cricetus",
       "Mesocricetus auratus"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -1211,6 +1483,14 @@
     "taxonNames": [
       "Rattus norvegicus",
       "Rattus rattus"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -1228,6 +1508,11 @@
     "taxonNames": [
       "Mus musculus",
       "Apodemus sylvaticus"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -1245,6 +1530,9 @@
     "taxonNames": [
       "Didelphis virginiana",
       "Didelphis marsupialis"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -1262,6 +1550,9 @@
     "taxonNames": [
       "Trichosurus vulpecula",
       "Pseudocheirus peregrinus"
+    ],
+    "range": [
+      "OC"
     ]
   },
   {
@@ -1279,6 +1570,9 @@
     "taxonNames": [
       "Osphranter rufus",
       "Macropus giganteus"
+    ],
+    "range": [
+      "OC"
     ]
   },
   {
@@ -1296,6 +1590,9 @@
     "taxonNames": [
       "Sarcophilus harrisii",
       "Dasyurus maculatus"
+    ],
+    "range": [
+      "OC"
     ]
   },
   {
@@ -1313,6 +1610,9 @@
     "taxonNames": [
       "Vombatus ursinus",
       "Lasiorhinus latifrons"
+    ],
+    "range": [
+      "OC"
     ]
   },
   {
@@ -1331,6 +1631,9 @@
     "taxonNames": [
       "Monotremata",
       "Marsupialia"
+    ],
+    "range": [
+      "OC"
     ]
   },
   {
@@ -1348,6 +1651,9 @@
     "taxonNames": [
       "Monotremata",
       "Placentalia"
+    ],
+    "range": [
+      "OC"
     ]
   },
   {
@@ -1366,7 +1672,8 @@
     "taxonNames": [
       "Ornithorhynchus anatinus",
       "Castor"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "77",
@@ -1383,6 +1690,10 @@
     "taxonNames": [
       "Myotis myotis",
       "Myotis blythii"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -1400,6 +1711,10 @@
     "taxonNames": [
       "Myotis daubentonii",
       "Myotis dasycneme"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -1417,6 +1732,10 @@
     "taxonNames": [
       "Myotis nattereri",
       "Myotis emarginatus"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -1434,6 +1753,10 @@
     "taxonNames": [
       "Myotis bechsteinii",
       "Plecotus auritus"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -1451,6 +1774,9 @@
     "taxonNames": [
       "Myotis lucifugus",
       "Myotis yumanensis"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -1468,6 +1794,10 @@
     "taxonNames": [
       "Eptesicus serotinus",
       "Eptesicus nilssonii"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -1485,6 +1815,9 @@
     "taxonNames": [
       "Eptesicus fuscus",
       "Lasionycteris noctivagans"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -1502,6 +1835,11 @@
     "taxonNames": [
       "Nyctalus noctula",
       "Nyctalus leisleri"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -1519,6 +1857,10 @@
     "taxonNames": [
       "Pipistrellus pipistrellus",
       "Pipistrellus pygmaeus"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -1536,6 +1878,10 @@
     "taxonNames": [
       "Pipistrellus nathusii",
       "Pipistrellus kuhlii"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -1553,6 +1899,10 @@
     "taxonNames": [
       "Plecotus auritus",
       "Plecotus austriacus"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -1570,6 +1920,10 @@
     "taxonNames": [
       "Barbastella barbastellus",
       "Myotis mystacinus"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -1587,6 +1941,11 @@
     "taxonNames": [
       "Rhinolophus ferrumequinum",
       "Rhinolophus hipposideros"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -1604,6 +1963,11 @@
     "taxonNames": [
       "Rhinolophus euryale",
       "Rhinolophus mehelyi"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -1621,7 +1985,8 @@
     "taxonNames": [
       "Tadarida brasiliensis",
       "Tadarida teniotis"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "92",
@@ -1638,6 +2003,9 @@
     "taxonNames": [
       "Miniopterus schreibersii",
       "Miniopterus fuliginosus"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -1655,6 +2023,10 @@
     "taxonNames": [
       "Pteronotus parnellii",
       "Pteronotus davyi"
+    ],
+    "range": [
+      "NA",
+      "SA"
     ]
   },
   {
@@ -1672,6 +2044,10 @@
     "taxonNames": [
       "Artibeus jamaicensis",
       "Artibeus lituratus"
+    ],
+    "range": [
+      "NA",
+      "SA"
     ]
   },
   {
@@ -1689,6 +2065,9 @@
     "taxonNames": [
       "Carollia perspicillata",
       "Carollia brevicaudum"
+    ],
+    "range": [
+      "SA"
     ]
   },
   {
@@ -1706,6 +2085,9 @@
     "taxonNames": [
       "Glossophaga soricina",
       "Leptonycteris yerbabuenae"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -1723,6 +2105,10 @@
     "taxonNames": [
       "Desmodus rotundus",
       "Diaemus youngii"
+    ],
+    "range": [
+      "NA",
+      "SA"
     ]
   },
   {
@@ -1740,6 +2126,9 @@
     "taxonNames": [
       "Macrotus californicus",
       "Macrotus waterhousii"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -1757,6 +2146,9 @@
     "taxonNames": [
       "Hipposideros armiger",
       "Hipposideros swinhoei"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -1774,6 +2166,9 @@
     "taxonNames": [
       "Rousettus aegyptiacus",
       "Rousettus leschenaultii"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -1791,6 +2186,9 @@
     "taxonNames": [
       "Pteropus giganteus",
       "Pteropus vampyrus"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -1808,6 +2206,9 @@
     "taxonNames": [
       "Cynopterus brachyotis",
       "Cynopterus sphinx"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -1825,6 +2226,9 @@
     "taxonNames": [
       "Eonycteris spelaea",
       "Macroglossus minimus"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -1842,6 +2246,9 @@
     "taxonNames": [
       "Nycteris thebaica",
       "Nycteris macrotis"
+    ],
+    "range": [
+      "AF"
     ]
   },
   {
@@ -1859,6 +2266,9 @@
     "taxonNames": [
       "Lyroderma lyra",
       "Megaderma spasma"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -1876,6 +2286,9 @@
     "taxonNames": [
       "Taphozous melanopogon",
       "Taphozous theobaldi"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -1893,6 +2306,9 @@
     "taxonNames": [
       "Craseonycteris thonglongyai",
       "Myotis siligorensis"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -1910,6 +2326,9 @@
     "taxonNames": [
       "Murina cyclotis",
       "Murina suilla"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -1927,6 +2346,9 @@
     "taxonNames": [
       "Kerivoula papillosa",
       "Kerivoula hardwickii"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -1944,6 +2366,9 @@
     "taxonNames": [
       "Chalinolobus gouldii",
       "Chalinolobus morio"
+    ],
+    "range": [
+      "OC"
     ]
   },
   {
@@ -1961,6 +2386,9 @@
     "taxonNames": [
       "Nyctophilus geoffroyi",
       "Nyctophilus gouldi"
+    ],
+    "range": [
+      "OC"
     ]
   },
   {
@@ -1978,6 +2406,9 @@
     "taxonNames": [
       "Ozimops planiceps",
       "Micronomus norfolkensis"
+    ],
+    "range": [
+      "OC"
     ]
   },
   {
@@ -1995,6 +2426,9 @@
     "taxonNames": [
       "Scotophilus kuhlii",
       "Scotophilus heathii"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -2012,6 +2446,9 @@
     "taxonNames": [
       "Afronycteris nanus",
       "Laephotis capensis"
+    ],
+    "range": [
+      "AF"
     ]
   },
   {
@@ -2029,6 +2466,9 @@
     "taxonNames": [
       "Lasiurus cinereus",
       "Lasiurus borealis"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -2046,6 +2486,10 @@
     "taxonNames": [
       "Eumops perotis",
       "Eumops underwoodi"
+    ],
+    "range": [
+      "NA",
+      "SA"
     ]
   },
   {
@@ -2063,6 +2507,9 @@
     "taxonNames": [
       "Erinaceus europaeus",
       "Erinaceus roumanicus"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -2080,6 +2527,10 @@
     "taxonNames": [
       "Sorex araneus",
       "Sorex minutus"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -2097,7 +2548,8 @@
     "taxonNames": [
       "Procyon lotor",
       "Nasua nasua"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "120",
@@ -2114,7 +2566,8 @@
     "taxonNames": [
       "Meles meles",
       "Taxidea taxus"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "121",
@@ -2131,7 +2584,8 @@
     "taxonNames": [
       "Neogale vison",
       "Mustela putorius"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "122",
@@ -2148,6 +2602,11 @@
     "taxonNames": [
       "Accipiter nisus",
       "Falco tinnunculus"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -2165,6 +2624,10 @@
     "taxonNames": [
       "Corvus corax",
       "Corvus corone"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -2182,6 +2645,10 @@
     "taxonNames": [
       "Zenaida",
       "Columba"
+    ],
+    "range": [
+      "NA",
+      "SA"
     ]
   },
   {
@@ -2198,6 +2665,14 @@
     "taxonNames": [
       "Columbidae",
       "Corvidae"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -2215,6 +2690,11 @@
     "taxonNames": [
       "Larus argentatus",
       "Larus fuscus"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -2232,6 +2712,10 @@
     "taxonNames": [
       "Passer domesticus",
       "Passer montanus"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -2249,6 +2733,10 @@
     "taxonNames": [
       "Corvus corone",
       "Corvus frugilegus"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -2266,6 +2754,11 @@
     "taxonNames": [
       "Parus major",
       "Cyanistes caeruleus"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -2283,6 +2776,10 @@
     "taxonNames": [
       "Erithacus rubecula",
       "Luscinia svecica"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -2300,6 +2797,11 @@
     "taxonNames": [
       "Turdus merula",
       "Turdus philomelos"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -2317,6 +2819,11 @@
     "taxonNames": [
       "Sylvia atricapilla",
       "Sylvia borin"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -2334,6 +2841,11 @@
     "taxonNames": [
       "Phylloscopus trochilus",
       "Phylloscopus collybita"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -2351,6 +2863,10 @@
     "taxonNames": [
       "Fringilla coelebs",
       "Fringilla montifringilla"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -2368,6 +2884,10 @@
     "taxonNames": [
       "Carduelis carduelis",
       "Spinus spinus"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -2385,6 +2905,10 @@
     "taxonNames": [
       "Emberiza citrinella",
       "Emberiza schoeniclus"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -2402,6 +2926,11 @@
     "taxonNames": [
       "Hirundo rustica",
       "Delichon urbicum"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -2419,6 +2948,10 @@
     "taxonNames": [
       "Alauda arvensis",
       "Lullula arborea"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -2436,6 +2969,11 @@
     "taxonNames": [
       "Motacilla alba",
       "Motacilla flava"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -2453,6 +2991,10 @@
     "taxonNames": [
       "Sturnus vulgaris",
       "Sturnus unicolor"
+    ],
+    "range": [
+      "EU",
+      "AF"
     ]
   },
   {
@@ -2470,6 +3012,11 @@
     "taxonNames": [
       "Garrulus glandarius",
       "Pica pica"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -2487,6 +3034,11 @@
     "taxonNames": [
       "Buteo buteo",
       "Pernis apivorus"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -2504,6 +3056,10 @@
     "taxonNames": [
       "Accipiter nisus",
       "Accipiter gentilis"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -2521,6 +3077,11 @@
     "taxonNames": [
       "Falco tinnunculus",
       "Falco naumanni"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -2538,6 +3099,10 @@
     "taxonNames": [
       "Aquila chrysaetos",
       "Haliaeetus albicilla"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -2555,6 +3120,11 @@
     "taxonNames": [
       "Ardea cinerea",
       "Ardea purpurea"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -2572,6 +3142,12 @@
     "taxonNames": [
       "Egretta garzetta",
       "Bubulcus ibis"
+    ],
+    "range": [
+      "OC",
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -2589,6 +3165,11 @@
     "taxonNames": [
       "Ciconia ciconia",
       "Ciconia nigra"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -2606,6 +3187,14 @@
     "taxonNames": [
       "Sterna hirundo",
       "Sterna paradisaea"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -2623,6 +3212,10 @@
     "taxonNames": [
       "Alca torda",
       "Uria aalge"
+    ],
+    "range": [
+      "NA",
+      "EU"
     ]
   },
   {
@@ -2640,6 +3233,11 @@
     "taxonNames": [
       "Columba palumbus",
       "Columba oenas"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -2657,6 +3255,11 @@
     "taxonNames": [
       "Streptopelia decaocto",
       "Streptopelia turtur"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -2673,6 +3276,11 @@
     "taxonNames": [
       "Cuculus canorus",
       "Accipiter nisus"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -2690,6 +3298,13 @@
     "taxonNames": [
       "Tyto alba",
       "Asio flammeus"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -2707,6 +3322,10 @@
     "taxonNames": [
       "Strix aluco",
       "Strix nebulosa"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -2723,6 +3342,11 @@
     "taxonNames": [
       "Apus apus",
       "Hirundo rustica"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -2739,6 +3363,11 @@
     "taxonNames": [
       "Alcedo atthis",
       "Merops apiaster"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -2755,6 +3384,11 @@
     "taxonNames": [
       "Upupa epops",
       "Coracias garrulus"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -2772,6 +3406,10 @@
     "taxonNames": [
       "Picus viridis",
       "Picus canus"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -2789,6 +3427,10 @@
     "taxonNames": [
       "Dendrocopos major",
       "Dendrocoptes medius"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -2806,6 +3448,12 @@
     "taxonNames": [
       "Anas platyrhynchos",
       "Anas acuta"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -2823,6 +3471,11 @@
     "taxonNames": [
       "Aythya ferina",
       "Aythya fuligula"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -2840,6 +3493,11 @@
     "taxonNames": [
       "Mergus merganser",
       "Mergus serrator"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -2857,6 +3515,10 @@
     "taxonNames": [
       "Podiceps cristatus",
       "Podiceps grisegena"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -2874,6 +3536,11 @@
     "taxonNames": [
       "Phalacrocorax carbo",
       "Gulosus aristotelis"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -2891,6 +3558,12 @@
     "taxonNames": [
       "Fulica atra",
       "Gallinula chloropus"
+    ],
+    "range": [
+      "OC",
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -2908,6 +3581,10 @@
     "taxonNames": [
       "Vanellus vanellus",
       "Pluvialis apricaria"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -2925,6 +3602,11 @@
     "taxonNames": [
       "Tringa totanus",
       "Tringa nebularia"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -2942,6 +3624,11 @@
     "taxonNames": [
       "Calidris alpina",
       "Calidris ferruginea"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -2959,6 +3646,11 @@
     "taxonNames": [
       "Numenius arquata",
       "Numenius phaeopus"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -2976,6 +3668,10 @@
     "taxonNames": [
       "Scolopax rusticola",
       "Gallinago gallinago"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -2993,6 +3689,11 @@
     "taxonNames": [
       "Haematopus ostralegus",
       "Recurvirostra avosetta"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -3010,6 +3711,11 @@
     "taxonNames": [
       "Burhinus oedicnemus",
       "Pluvialis apricaria"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -3027,6 +3733,11 @@
     "taxonNames": [
       "Stercorarius parasiticus",
       "Stercorarius longicaudus"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -3043,6 +3754,11 @@
     "taxonNames": [
       "Crocodylidae",
       "Alligatoridae"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AS"
     ]
   },
   {
@@ -3059,6 +3775,9 @@
     "taxonNames": [
       "Pygopodidae",
       "Colubridae"
+    ],
+    "range": [
+      "OC"
     ]
   },
   {
@@ -3076,6 +3795,14 @@
     "taxonNames": [
       "Chelonia mydas",
       "Eretmochelys imbricata"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -3093,6 +3820,10 @@
     "taxonNames": [
       "Vipera berus",
       "Natrix natrix"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -3110,6 +3841,9 @@
     "taxonNames": [
       "Natrix natrix",
       "Natrix helvetica"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -3127,6 +3861,9 @@
     "taxonNames": [
       "Vipera berus",
       "Vipera aspis"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -3144,6 +3881,10 @@
     "taxonNames": [
       "Coronella austriaca",
       "Vipera berus"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -3161,6 +3902,9 @@
     "taxonNames": [
       "Zamenis longissimus",
       "Hierophis viridiflavus"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -3178,6 +3922,10 @@
     "taxonNames": [
       "Elaphe quatuorlineata",
       "Elaphe sauromates"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -3195,6 +3943,9 @@
     "taxonNames": [
       "Malpolon monspessulanus",
       "Hierophis viridiflavus"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -3212,6 +3963,9 @@
     "taxonNames": [
       "Naja naja",
       "Naja kaouthia"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -3229,6 +3983,9 @@
     "taxonNames": [
       "Naja naja",
       "Naja atra"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -3246,6 +4003,9 @@
     "taxonNames": [
       "Bungarus caeruleus",
       "Bungarus candidus"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -3263,6 +4023,9 @@
     "taxonNames": [
       "Dendroaspis polylepis",
       "Dendroaspis angusticeps"
+    ],
+    "range": [
+      "AF"
     ]
   },
   {
@@ -3280,6 +4043,9 @@
     "taxonNames": [
       "Crotalus atrox",
       "Crotalus scutulatus"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -3297,6 +4063,9 @@
     "taxonNames": [
       "Sistrurus catenatus",
       "Sistrurus miliarius"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -3314,6 +4083,9 @@
     "taxonNames": [
       "Agkistrodon contortrix",
       "Agkistrodon piscivorus"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -3331,6 +4103,9 @@
     "taxonNames": [
       "Bothrops atrox",
       "Bothrops asper"
+    ],
+    "range": [
+      "SA"
     ]
   },
   {
@@ -3348,6 +4123,9 @@
     "taxonNames": [
       "Bitis arietans",
       "Bitis gabonica"
+    ],
+    "range": [
+      "AF"
     ]
   },
   {
@@ -3365,6 +4143,10 @@
     "taxonNames": [
       "Echis carinatus",
       "Echis coloratus"
+    ],
+    "range": [
+      "AF",
+      "AS"
     ]
   },
   {
@@ -3382,6 +4164,9 @@
     "taxonNames": [
       "Malayopython reticulatus",
       "Python bivittatus"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -3399,6 +4184,9 @@
     "taxonNames": [
       "Boa constrictor",
       "Eunectes murinus"
+    ],
+    "range": [
+      "SA"
     ]
   },
   {
@@ -3416,6 +4204,9 @@
     "taxonNames": [
       "Morelia spilota",
       "Morelia bredli"
+    ],
+    "range": [
+      "OC"
     ]
   },
   {
@@ -3433,6 +4224,9 @@
     "taxonNames": [
       "Pantherophis guttatus",
       "Pantherophis alleghaniensis"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -3450,6 +4244,9 @@
     "taxonNames": [
       "Lampropeltis getula",
       "Lampropeltis californiae"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -3467,6 +4264,9 @@
     "taxonNames": [
       "Thamnophis sirtalis",
       "Thamnophis elegans"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -3484,6 +4284,9 @@
     "taxonNames": [
       "Pituophis catenifer",
       "Pantherophis obsoletus"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -3501,6 +4304,9 @@
     "taxonNames": [
       "Coluber constrictor",
       "Masticophis flagellum"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -3518,6 +4324,9 @@
     "taxonNames": [
       "Heterodon platirhinos",
       "Heterodon nasicus"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -3535,6 +4344,9 @@
     "taxonNames": [
       "Opheodrys aestivus",
       "Opheodrys vernalis"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -3552,6 +4364,9 @@
     "taxonNames": [
       "Nerodia sipedon",
       "Nerodia fasciata"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -3569,6 +4384,9 @@
     "taxonNames": [
       "Regina septemvittata",
       "Thamnophis saurita"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -3586,6 +4404,9 @@
     "taxonNames": [
       "Storeria dekayi",
       "Storeria occipitomaculata"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -3603,6 +4424,9 @@
     "taxonNames": [
       "Diadophis punctatus",
       "Contia tenuis"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -3620,6 +4444,9 @@
     "taxonNames": [
       "Tantilla coronata",
       "Tantilla relicta"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -3637,6 +4464,9 @@
     "taxonNames": [
       "Lichanura trivirgata",
       "Charina bottae"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -3654,6 +4484,9 @@
     "taxonNames": [
       "Eryx johnii",
       "Eryx conicus"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -3671,6 +4504,10 @@
     "taxonNames": [
       "Acrochordus granulatus",
       "Acrochordus javanicus"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -3689,6 +4526,10 @@
     "taxonNames": [
       "Laticauda colubrina",
       "Hydrophis platurus"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -3706,6 +4547,9 @@
     "taxonNames": [
       "Micrurus fulvius",
       "Micrurus tener"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -3723,6 +4567,9 @@
     "taxonNames": [
       "Chilabothrus striatus",
       "Chilabothrus inornatus"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -3740,6 +4587,9 @@
     "taxonNames": [
       "Boiga irregularis",
       "Boiga cynodon"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -3757,6 +4607,9 @@
     "taxonNames": [
       "Oligodon octolineatus",
       "Oligodon fasciolatus"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -3774,6 +4627,9 @@
     "taxonNames": [
       "Trimeresurus albolabris",
       "Trimeresurus popeiorum"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -3791,6 +4647,9 @@
     "taxonNames": [
       "Fowlea piscator",
       "Fowlea flavipunctata"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -3808,6 +4667,10 @@
     "taxonNames": [
       "Platax teira",
       "Platax orbicularis"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -3825,6 +4688,10 @@
     "taxonNames": [
       "Platax boersii",
       "Platax orbicularis"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -3842,6 +4709,10 @@
     "taxonNames": [
       "Platax teira",
       "Platax boersii"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -3859,6 +4730,10 @@
     "taxonNames": [
       "Ostracion meleagris",
       "Ostracion solorense"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -3876,6 +4751,10 @@
     "taxonNames": [
       "Coradion chrysozonus",
       "Chelmon rostratus"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -3893,6 +4772,10 @@
     "taxonNames": [
       "Chaetodon vagabundus",
       "Chaetodon lunulatus"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -3910,6 +4793,10 @@
     "taxonNames": [
       "Heniochus varius",
       "Heniochus chrysostomus"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -3927,6 +4814,10 @@
     "taxonNames": [
       "Heniochus acuminatus",
       "Heniochus diphreutes"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -3944,6 +4835,10 @@
     "taxonNames": [
       "Lethrinidae",
       "Lutjanidae"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -3961,6 +4856,10 @@
     "taxonNames": [
       "Lutjanus malabaricus",
       "Lutjanus erythropterus"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -3978,6 +4877,10 @@
     "taxonNames": [
       "Diagramma pictum",
       "Plectorhinchus chaetodonoides"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -3995,6 +4898,10 @@
     "taxonNames": [
       "Caesio cuning",
       "Caesio teres"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -4012,6 +4919,10 @@
     "taxonNames": [
       "Scolopsis bilineata",
       "Scolopsis lineata"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -4029,6 +4940,10 @@
     "taxonNames": [
       "Salarias fasciatus",
       "Salarias guttatus"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -4046,6 +4961,11 @@
     "taxonNames": [
       "Flavocaranx bajad",
       "Turrum fulvoguttatum"
+    ],
+    "range": [
+      "OC",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -4063,6 +4983,10 @@
     "taxonNames": [
       "Pardachirus pavoninus",
       "Soleichthys heterorhinos"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -4080,6 +5004,10 @@
     "taxonNames": [
       "Sphyraena flavicauda",
       "Sphyraena jello"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -4097,6 +5025,10 @@
     "taxonNames": [
       "Abudefduf bengalensis",
       "Abudefduf sexfasciatus"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -4114,6 +5046,11 @@
     "taxonNames": [
       "Abudefduf",
       "Dascyllus"
+    ],
+    "range": [
+      "OC",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -4131,6 +5068,10 @@
     "taxonNames": [
       "Pomacentrus coelestis",
       "Pomacentrus auriventris"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -4148,6 +5089,10 @@
     "taxonNames": [
       "Amphiprion polymnus",
       "Amphiprion clarkii"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -4165,6 +5110,10 @@
     "taxonNames": [
       "Pomacentrus polyspinus",
       "Pomacentrus tripunctatus"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -4182,6 +5131,10 @@
     "taxonNames": [
       "Amblyeleotris gymnocephala",
       "Amblyeleotris rubrimarginata"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -4199,6 +5152,10 @@
     "taxonNames": [
       "Eviota guttata",
       "Eviota sebreei"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -4216,6 +5173,10 @@
     "taxonNames": [
       "Istigobius decoratus",
       "Istigobius ornatus"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -4233,6 +5194,10 @@
     "taxonNames": [
       "Ptereleotris hanae",
       "Ptereleotris microlepis"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -4250,6 +5215,10 @@
     "taxonNames": [
       "Ostorhinchus cyanosoma",
       "Ostorhinchus wassinki"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -4267,6 +5236,10 @@
     "taxonNames": [
       "Epinephelus coioides",
       "Epinephelus fuscoguttatus"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -4284,6 +5257,10 @@
     "taxonNames": [
       "Cheilinus chlorourus",
       "Cheilinus trilobatus"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -4301,6 +5278,10 @@
     "taxonNames": [
       "Halichoeres hortulanus",
       "Halichoeres leucurus"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -4318,6 +5299,10 @@
     "taxonNames": [
       "Scarus rivulatus",
       "Scarus hypselopterus"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -4335,6 +5320,10 @@
     "taxonNames": [
       "Parapercis xanthozona",
       "Parapercis hexophtalma"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -4352,6 +5341,10 @@
     "taxonNames": [
       "Pterois volitans",
       "Pterois antennata"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -4369,6 +5362,10 @@
     "taxonNames": [
       "Gnatholepis cauerensis",
       "Gnatholepis anjerensis"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -4386,6 +5383,10 @@
     "taxonNames": [
       "Gunnellichthys curiosus",
       "Gunnellichthys viridescens"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -4403,6 +5404,10 @@
     "taxonNames": [
       "Mobula alfredi",
       "Mobula birostris"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -4413,7 +5418,6 @@
       "insects",
       "butterflies",
       "lepidoptera"
-
     ],
     "taxa": [
       56529,
@@ -4422,6 +5426,9 @@
     "taxonNames": [
       "Papilio machaon",
       "Papilio xuthus"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -4432,7 +5439,6 @@
       "insects",
       "butterflies",
       "lepidoptera"
-
     ],
     "taxa": [
       58523,
@@ -4441,6 +5447,9 @@
     "taxonNames": [
       "Papilio polyxenes",
       "Papilio zelicaon"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -4451,7 +5460,6 @@
       "insects",
       "butterflies",
       "lepidoptera"
-
     ],
     "taxa": [
       147200,
@@ -4460,6 +5468,10 @@
     "taxonNames": [
       "Heliconius melpomene",
       "Heliconius erato"
+    ],
+    "range": [
+      "NA",
+      "SA"
     ]
   },
   {
@@ -4470,7 +5482,6 @@
       "insects",
       "butterflies",
       "lepidoptera"
-
     ],
     "taxa": [
       49133,
@@ -4479,6 +5490,9 @@
     "taxonNames": [
       "Vanessa atalanta",
       "Vanessa indica"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -4489,7 +5503,6 @@
       "insects",
       "butterflies",
       "lepidoptera"
-
     ],
     "taxa": [
       55626,
@@ -4498,6 +5511,11 @@
     "taxonNames": [
       "Pieris rapae",
       "Pieris napi"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -4508,7 +5526,6 @@
       "insects",
       "butterflies",
       "lepidoptera"
-
     ],
     "taxa": [
       55655,
@@ -4517,6 +5534,10 @@
     "taxonNames": [
       "Lycaena phlaeas",
       "Lycaena dispar"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -4527,7 +5548,6 @@
       "insects",
       "butterflies",
       "lepidoptera"
-
     ],
     "taxa": [
       207977,
@@ -4536,6 +5556,10 @@
     "taxonNames": [
       "Aglais io",
       "Aglais urticae"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -4546,7 +5570,6 @@
       "insects",
       "butterflies",
       "lepidoptera"
-
     ],
     "taxa": [
       52771,
@@ -4555,6 +5578,11 @@
     "taxonNames": [
       "Gonepteryx rhamni",
       "Gonepteryx cleopatra"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -4565,7 +5593,6 @@
       "insects",
       "butterflies",
       "lepidoptera"
-
     ],
     "taxa": [
       56225,
@@ -4574,7 +5601,8 @@
     "taxonNames": [
       "Polygonia c-album",
       "Polygonia interrogationis"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "265",
@@ -4584,7 +5612,6 @@
       "insects",
       "butterflies",
       "lepidoptera"
-
     ],
     "taxa": [
       56832,
@@ -4593,6 +5620,10 @@
     "taxonNames": [
       "Nymphalis antiopa",
       "Nymphalis polychloros"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -4603,7 +5634,6 @@
       "insects",
       "butterflies",
       "lepidoptera"
-
     ],
     "taxa": [
       62381,
@@ -4612,6 +5642,9 @@
     "taxonNames": [
       "Erebia ligea",
       "Erebia euryale"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -4630,6 +5663,10 @@
     "taxonNames": [
       "Danaus plexippus",
       "Danaus gilippus"
+    ],
+    "range": [
+      "NA",
+      "SA"
     ]
   },
   {
@@ -4647,6 +5684,14 @@
     "taxonNames": [
       "Papilionoidea",
       "Geometroidea"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -4664,6 +5709,14 @@
     "taxonNames": [
       "Papilionoidea",
       "Bombycoidea"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -4674,7 +5727,6 @@
       "insects",
       "moths",
       "lepidoptera"
-
     ],
     "taxa": [
       56530,
@@ -4683,6 +5735,9 @@
     "taxonNames": [
       "Acherontia atropos",
       "Acherontia styx"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -4693,7 +5748,6 @@
       "insects",
       "moths",
       "lepidoptera"
-
     ],
     "taxa": [
       62331,
@@ -4702,6 +5756,10 @@
     "taxonNames": [
       "Laothoe populi",
       "Smerinthus ocellata"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -4712,7 +5770,6 @@
       "insects",
       "moths",
       "lepidoptera"
-
     ],
     "taxa": [
       116385,
@@ -4721,6 +5778,10 @@
     "taxonNames": [
       "Catocala nupta",
       "Catocala sponsa"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -4731,7 +5792,6 @@
       "insects",
       "moths",
       "lepidoptera"
-
     ],
     "taxa": [
       82279,
@@ -4740,6 +5800,9 @@
     "taxonNames": [
       "Automeris io",
       "Automeris cecrops"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -4750,7 +5813,6 @@
       "insects",
       "moths",
       "lepidoptera"
-
     ],
     "taxa": [
       59346,
@@ -4759,6 +5821,10 @@
     "taxonNames": [
       "Saturnia pavonia",
       "Saturnia pyri"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -4769,7 +5835,6 @@
       "insects",
       "moths",
       "lepidoptera"
-
     ],
     "taxa": [
       68330,
@@ -4778,6 +5843,11 @@
     "taxonNames": [
       "Arctia caja",
       "Arctia plantaginis"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -4788,7 +5858,6 @@
       "insects",
       "moths",
       "lepidoptera"
-
     ],
     "taxa": [
       1120872,
@@ -4797,6 +5866,10 @@
     "taxonNames": [
       "Xestia c-nigrum",
       "Xestia triangulum"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -4807,7 +5880,6 @@
       "insects",
       "moths",
       "lepidoptera"
-
     ],
     "taxa": [
       118936,
@@ -4816,6 +5888,10 @@
     "taxonNames": [
       "Euplagia quadripunctaria",
       "Callimorpha dominula"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -4826,7 +5902,6 @@
       "insects",
       "moths",
       "lepidoptera"
-
     ],
     "taxa": [
       55361,
@@ -4835,6 +5910,10 @@
     "taxonNames": [
       "Phalera bucephala",
       "Cerura vinula"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -4845,7 +5924,6 @@
       "insects",
       "moths",
       "lepidoptera"
-
     ],
     "taxa": [
       362611,
@@ -4854,6 +5932,10 @@
     "taxonNames": [
       "Cossus cossus",
       "Zeuzera pyrina"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -4864,7 +5946,6 @@
       "insects",
       "moths",
       "lepidoptera"
-
     ],
     "taxa": [
       61505,
@@ -4873,6 +5954,10 @@
     "taxonNames": [
       "Manduca sexta",
       "Manduca quinquemaculatus"
+    ],
+    "range": [
+      "NA",
+      "SA"
     ]
   },
   {
@@ -4883,7 +5968,6 @@
       "insects",
       "moths",
       "lepidoptera"
-
     ],
     "taxa": [
       47916,
@@ -4892,7 +5976,8 @@
     "taxonNames": [
       "Actias luna",
       "Actias dubernardi"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "282",
@@ -4902,7 +5987,6 @@
       "insects",
       "moths",
       "lepidoptera"
-
     ],
     "taxa": [
       61415,
@@ -4911,6 +5995,14 @@
     "taxonNames": [
       "Psychidae",
       "Tineidae"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -4921,7 +6013,6 @@
       "insects",
       "moths",
       "lepidoptera"
-
     ],
     "taxa": [
       47155,
@@ -4930,6 +6021,14 @@
     "taxonNames": [
       "Tortricidae",
       "Zygaenidae"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -4940,7 +6039,6 @@
       "insects",
       "moths",
       "lepidoptera"
-
     ],
     "taxa": [
       52028,
@@ -4949,6 +6047,14 @@
     "taxonNames": [
       "Zygaenidae",
       "Limacodidae"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -4959,7 +6065,6 @@
       "insects",
       "moths",
       "lepidoptera"
-
     ],
     "taxa": [
       121878,
@@ -4968,7 +6073,8 @@
     "taxonNames": [
       "Scopula propinquaria",
       "Scopula limboundata"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "286",
@@ -4978,7 +6084,6 @@
       "insects",
       "moths",
       "lepidoptera"
-
     ],
     "taxa": [
       366952,
@@ -4987,6 +6092,9 @@
     "taxonNames": [
       "Caeneressa diaphana",
       "Amata huebneri"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -4998,7 +6106,6 @@
       "moths",
       "lepidoptera",
       "mimicry"
-
     ],
     "taxa": [
       51684,
@@ -5007,6 +6114,12 @@
     "taxonNames": [
       "Synanthedon",
       "Vespoidea"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -5016,7 +6129,6 @@
     "tags": [
       "insects",
       "neuroptera"
-
     ],
     "taxa": [
       1290471,
@@ -5025,6 +6137,9 @@
     "taxonNames": [
       "Acheron longus",
       "Maezous formosana"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -5035,7 +6150,6 @@
       "insects",
       "hymenoptera",
       "bees"
-
     ],
     "taxa": [
       57516,
@@ -5044,6 +6158,10 @@
     "taxonNames": [
       "Bombus terrestris",
       "Xylocopa violacea"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5062,6 +6180,10 @@
     "taxonNames": [
       "Vespa crabro",
       "Vespa velutina"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5072,7 +6194,6 @@
       "insects",
       "hymenoptera",
       "bees"
-
     ],
     "taxa": [
       47219,
@@ -5081,6 +6202,9 @@
     "taxonNames": [
       "Apis mellifera",
       "Apis cerana"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -5091,7 +6215,6 @@
       "insects",
       "hymenoptera",
       "bees"
-
     ],
     "taxa": [
       55637,
@@ -5100,6 +6223,10 @@
     "taxonNames": [
       "Bombus pascuorum",
       "Bombus muscorum"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5118,6 +6245,11 @@
     "taxonNames": [
       "Vespula vulgaris",
       "Vespula germanica"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5138,6 +6270,14 @@
     "taxonNames": [
       "Formicidae",
       "Myrmarachnini"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -5156,6 +6296,14 @@
     "taxonNames": [
       "Formicinae",
       "Myrmicinae"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -5174,6 +6322,9 @@
     "taxonNames": [
       "Myrmeciinae",
       "Myrmicinae"
+    ],
+    "range": [
+      "OC"
     ]
   },
   {
@@ -5184,7 +6335,6 @@
       "insects",
       "hymenoptera",
       "ants"
-
     ],
     "taxa": [
       244394,
@@ -5193,6 +6343,14 @@
     "taxonNames": [
       "Dolichoderinae",
       "Camponotus"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -5203,7 +6361,6 @@
       "insects",
       "hymenoptera",
       "ants"
-
     ],
     "taxa": [
       338275,
@@ -5212,6 +6369,14 @@
     "taxonNames": [
       "Ponerinae",
       "Camponotus"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -5222,7 +6387,6 @@
       "insects",
       "hymenoptera",
       "ants"
-
     ],
     "taxa": [
       338275,
@@ -5231,6 +6395,9 @@
     "taxonNames": [
       "Ponerinae",
       "Paraponerinae"
+    ],
+    "range": [
+      "SA"
     ]
   },
   {
@@ -5241,7 +6408,6 @@
       "insects",
       "hymenoptera",
       "ants"
-
     ],
     "taxa": [
       123386,
@@ -5250,6 +6416,10 @@
     "taxonNames": [
       "Anoplolepis gracilipes",
       "Solenopsis invicta"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -5270,6 +6440,14 @@
     "taxonNames": [
       "Syrphidae",
       "Vespoidea"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -5287,6 +6465,10 @@
     "taxonNames": [
       "Lucanus cervus",
       "Prionus coriarius"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5305,6 +6487,11 @@
     "taxonNames": [
       "Coccinella septempunctata",
       "Harmonia axyridis"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5322,6 +6509,10 @@
     "taxonNames": [
       "Cicindela campestris",
       "Cicindela hybrida"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5339,6 +6530,10 @@
     "taxonNames": [
       "Cerambyx cerdo",
       "Cerambyx scopolii"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5356,6 +6551,10 @@
     "taxonNames": [
       "Melolontha melolontha",
       "Amphimallon solstitiale"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5373,6 +6572,10 @@
     "taxonNames": [
       "Ips typographus",
       "Ips sexdentatus"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5391,6 +6594,10 @@
     "taxonNames": [
       "Adalia bipunctata",
       "Adalia decempunctata"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5409,6 +6616,10 @@
     "taxonNames": [
       "Propylea quatuordecimpunctata",
       "Psyllobora vigintiduopunctata"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5427,6 +6638,11 @@
     "taxonNames": [
       "Hippodamia variegata",
       "Hippodamia tredecimpunctata"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5445,6 +6661,11 @@
     "taxonNames": [
       "Anatis ocellata",
       "Calvia quatuordecimguttata"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5463,6 +6684,10 @@
     "taxonNames": [
       "Coccinella undecimpunctata",
       "Coccinella magnifica"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5481,6 +6706,10 @@
     "taxonNames": [
       "Halyzia sedecimguttata",
       "Vibidia duodecimguttata"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5499,6 +6728,10 @@
     "taxonNames": [
       "Myrrha octodecimguttata",
       "Sospita vigintiguttata"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5517,6 +6750,10 @@
     "taxonNames": [
       "Chilocorus renipustulatus",
       "Chilocorus bipustulatus"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5535,6 +6772,10 @@
     "taxonNames": [
       "Exochomus quadripustulatus",
       "Platynaspis luteorubra"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5553,6 +6794,10 @@
     "taxonNames": [
       "Subcoccinella vigintiquatuorpunctata",
       "Cynegetis impunctata"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5571,6 +6816,10 @@
     "taxonNames": [
       "Anisosticta novemdecimpunctata",
       "Coccinula quatuordecimpustulata"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5589,6 +6838,9 @@
     "taxonNames": [
       "Harmonia quadripunctata",
       "Harmonia conformis"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -5607,6 +6859,10 @@
     "taxonNames": [
       "Oenopia conglobata",
       "Oenopia lyncea"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5625,6 +6881,10 @@
     "taxonNames": [
       "Coleomegilla maculata",
       "Hippodamia convergens"
+    ],
+    "range": [
+      "NA",
+      "SA"
     ]
   },
   {
@@ -5643,6 +6903,10 @@
     "taxonNames": [
       "Coccinella hieroglyphica",
       "Coccinella trifasciata"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5661,6 +6925,10 @@
     "taxonNames": [
       "Cheilomenes sexmaculata",
       "Coccinella transversalis"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -5678,6 +6946,10 @@
     "taxonNames": [
       "Mantis religiosa",
       "Tenodera sinensis"
+    ],
+    "range": [
+      "NA",
+      "AS"
     ]
   },
   {
@@ -5695,6 +6967,11 @@
     "taxonNames": [
       "Empusa pennata",
       "Empusa fasciata"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -5712,6 +6989,9 @@
     "taxonNames": [
       "Ameles spallanzania",
       "Ameles decolor"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -5729,7 +7009,8 @@
     "taxonNames": [
       "Sphodromantis viridis",
       "Hierodula membranacea"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "328",
@@ -5746,6 +7027,9 @@
     "taxonNames": [
       "Hierodula patellifera",
       "Tropidomantis gressitti"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -5763,6 +7047,10 @@
     "taxonNames": [
       "Gryllus campestris",
       "Gryllus bimaculatus"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5780,6 +7068,10 @@
     "taxonNames": [
       "Tettigonia viridissima",
       "Tettigonia cantans"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5797,6 +7089,10 @@
     "taxonNames": [
       "Phaneroptera falcata",
       "Phaneroptera nana"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5814,6 +7110,10 @@
     "taxonNames": [
       "Conocephalus fuscus",
       "Conocephalus dorsalis"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5831,6 +7131,9 @@
     "taxonNames": [
       "Meconema thalassinum",
       "Meconema meridionale"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -5848,6 +7151,14 @@
     "taxonNames": [
       "Caelifera",
       "Ensifera"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -5865,6 +7176,14 @@
     "taxonNames": [
       "Tettigoniidae",
       "Acridoidea"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -5882,6 +7201,9 @@
     "taxonNames": [
       "Forficula auricularia",
       "Chelidurella acanthopygia"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -5899,6 +7221,10 @@
     "taxonNames": [
       "Calopteryx virgo",
       "Calopteryx splendens"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5916,6 +7242,10 @@
     "taxonNames": [
       "Aeshna cyanea",
       "Aeshna mixta"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5933,6 +7263,10 @@
     "taxonNames": [
       "Sympetrum striolatum",
       "Sympetrum vulgatum"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5950,6 +7284,10 @@
     "taxonNames": [
       "Libellula depressa",
       "Libellula quadrimaculata"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -5967,6 +7305,11 @@
     "taxonNames": [
       "Anax imperator",
       "Anax parthenope"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -5984,6 +7327,10 @@
     "taxonNames": [
       "Cordulegaster boltonii",
       "Cordulegaster bidentata"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -6001,6 +7348,10 @@
     "taxonNames": [
       "Gomphus vulgatissimus",
       "Onychogomphus forcipatus"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -6018,6 +7369,10 @@
     "taxonNames": [
       "Orthetrum cancellatum",
       "Orthetrum albistylum"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -6035,6 +7390,10 @@
     "taxonNames": [
       "Leucorrhinia dubia",
       "Leucorrhinia rubicunda"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -6052,6 +7411,10 @@
     "taxonNames": [
       "Somatochlora metallica",
       "Cordulia aenea"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -6069,6 +7432,9 @@
     "taxonNames": [
       "Pyrrhosoma nymphula",
       "Ceriagrion tenellum"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -6086,6 +7452,11 @@
     "taxonNames": [
       "Ischnura elegans",
       "Ischnura pumilio"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -6103,6 +7474,10 @@
     "taxonNames": [
       "Coenagrion puella",
       "Coenagrion pulchellum"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -6120,6 +7495,10 @@
     "taxonNames": [
       "Enallagma cyathigerum",
       "Coenagrion hastulatum"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -6137,6 +7516,10 @@
     "taxonNames": [
       "Lestes sponsa",
       "Lestes dryas"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -6154,6 +7537,9 @@
     "taxonNames": [
       "Platycnemis pennipes",
       "Platycnemis latipes"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -6171,6 +7557,10 @@
     "taxonNames": [
       "Erythromma najas",
       "Erythromma viridulum"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -6188,6 +7578,14 @@
     "taxonNames": [
       "Anisoptera",
       "Zygoptera"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -6206,6 +7604,14 @@
     "taxonNames": [
       "Odonata",
       "Ascalaphinae"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -6223,6 +7629,9 @@
     "taxonNames": [
       "Bacillus rossius",
       "Bacillus atticus"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -6240,6 +7649,9 @@
     "taxonNames": [
       "Clonopsis gallica",
       "Pijnackeria hispanica"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -6257,6 +7669,9 @@
     "taxonNames": [
       "Carausius morosus",
       "Medauroidea extradentata"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -6275,6 +7690,10 @@
     "taxonNames": [
       "Cicada orni",
       "Lyristes plebejus"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -6293,6 +7712,9 @@
     "taxonNames": [
       "Tibicina haematodes",
       "Tibicina quadrisignata"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -6311,6 +7733,9 @@
     "taxonNames": [
       "Cicadetta montana",
       "Cicadetta brevipennis"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -6328,6 +7753,14 @@
     "taxonNames": [
       "Cicadellidae",
       "Fulgoroidea"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -6345,6 +7778,14 @@
     "taxonNames": [
       "Auchenorrhyncha",
       "Sternorrhyncha"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -6363,6 +7804,9 @@
     "taxonNames": [
       "Erthesina fullo",
       "Halyomorpha halys"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -6381,6 +7825,10 @@
     "taxonNames": [
       "Halyomorpha halys",
       "Rhaphigaster nebulosa"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -6399,6 +7847,9 @@
     "taxonNames": [
       "Dindymus sanguineus",
       "Antilochus nigripes"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -6416,6 +7867,14 @@
     "taxonNames": [
       "Pseudococcidae",
       "Icerya"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -6433,6 +7892,10 @@
     "taxonNames": [
       "Icerya seychellarum",
       "Icerya aegyptiaca"
+    ],
+    "range": [
+      "AF",
+      "AS"
     ]
   },
   {
@@ -6450,6 +7913,10 @@
     "taxonNames": [
       "Chrysopa perla",
       "Chrysoperla carnea"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -6467,6 +7934,9 @@
     "taxonNames": [
       "Panorpa communis",
       "Panorpa germanica"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -6484,6 +7954,10 @@
     "taxonNames": [
       "Asilus crabroniformis",
       "Philonicus albiceps"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -6501,6 +7975,10 @@
     "taxonNames": [
       "Dioctria rufipes",
       "Dioctria atricapilla"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -6518,6 +7996,9 @@
     "taxonNames": [
       "Laphria flava",
       "Laphria gilva"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -6535,6 +8016,9 @@
     "taxonNames": [
       "Tolmerus atricapillus",
       "Tolmerus cingulatus"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -6552,6 +8036,9 @@
     "taxonNames": [
       "Bibio marci",
       "Bibio leucopterus"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -6569,6 +8056,14 @@
     "taxonNames": [
       "Brachycera",
       "Nematocera"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -6586,6 +8081,14 @@
     "taxonNames": [
       "Cyclorrhapha",
       "Orthorrhapha"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -6603,6 +8106,14 @@
     "taxonNames": [
       "Acalyptratae",
       "Calyptratae"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -6619,6 +8130,9 @@
     "taxonNames": [
       "Nephila pilipes",
       "Trichonephila clavata"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -6636,6 +8150,10 @@
     "taxonNames": [
       "Hasarius adansoni",
       "Chinattus tibialis"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -6653,6 +8171,9 @@
     "taxonNames": [
       "Menemerus bivittatus",
       "Menemerus nigli"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -6670,6 +8191,11 @@
     "taxonNames": [
       "Menemerus bivittatus",
       "Menemerus semilimbatus"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -6687,6 +8213,9 @@
     "taxonNames": [
       "Rhene flavicomans",
       "Irura bidenticulata"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -6704,6 +8233,9 @@
     "taxonNames": [
       "Rhene flavicomans",
       "Rhene atrata"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -6721,6 +8253,9 @@
     "taxonNames": [
       "Thiania bhamoensis",
       "Thiania suboppressa"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -6738,6 +8273,9 @@
     "taxonNames": [
       "Carrhotus sannio",
       "Carrhotus viduus"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -6755,6 +8293,9 @@
     "taxonNames": [
       "Telamonia caprina",
       "Telamonia festiva"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -6772,6 +8313,9 @@
     "taxonNames": [
       "Epocilla calcarata",
       "Telamonia festiva"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -6789,6 +8333,9 @@
     "taxonNames": [
       "Pancorius crassipes",
       "Epocilla calcarata"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -6806,6 +8353,9 @@
     "taxonNames": [
       "Epocilla calcarata",
       "Epocilla blairei"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -6823,6 +8373,9 @@
     "taxonNames": [
       "Portia orientalis",
       "Portia labiata"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -6840,6 +8393,9 @@
     "taxonNames": [
       "Phintelloides versicolor",
       "Phintella bifurcilinea"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -6857,6 +8413,9 @@
     "taxonNames": [
       "Siler collingwoodi",
       "Siler semiglaucus"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -6874,6 +8433,9 @@
     "taxonNames": [
       "Phidippus audax",
       "Phidippus regius"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -6891,6 +8453,10 @@
     "taxonNames": [
       "Salticus scenicus",
       "Salticus cingulatus"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -6908,6 +8474,10 @@
     "taxonNames": [
       "Marpissa muscosa",
       "Marpissa radiata"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -6925,6 +8495,10 @@
     "taxonNames": [
       "Evarcha arcuata",
       "Evarcha falcata"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -6942,6 +8516,10 @@
     "taxonNames": [
       "Heliophanus flavipes",
       "Heliophanus cupreus"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -6959,6 +8537,10 @@
     "taxonNames": [
       "Plexippus paykulli",
       "Plexippus petersi"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -6976,6 +8558,10 @@
     "taxonNames": [
       "Attulus pubescens",
       "Attulus fasciger"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -6993,6 +8579,9 @@
     "taxonNames": [
       "Carrhotus xanthogramma",
       "Carrhotus sannio"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -7010,6 +8599,9 @@
     "taxonNames": [
       "Habronattus coecatus",
       "Habronattus pyrrithrix"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -7027,6 +8619,10 @@
     "taxonNames": [
       "Pellenes tripunctatus",
       "Pellenes nigrociliatus"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -7044,7 +8640,8 @@
     "taxonNames": [
       "Synageles venator",
       "Synageles occidentalis"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "405",
@@ -7061,6 +8658,10 @@
     "taxonNames": [
       "Icius hamatus",
       "Icius subinermis"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -7078,6 +8679,9 @@
     "taxonNames": [
       "Saitis barbipes",
       "Saitis tauricus"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -7095,6 +8699,9 @@
     "taxonNames": [
       "Euophrys frontalis",
       "Euophrys herbigrada"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -7112,6 +8719,9 @@
     "taxonNames": [
       "Neon reticulatus",
       "Neon robustus"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -7129,6 +8739,9 @@
     "taxonNames": [
       "Lyssomanes viridis",
       "Lyssomanes portoricensis"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -7146,6 +8759,9 @@
     "taxonNames": [
       "Portia fimbriata",
       "Portia labiata"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -7163,6 +8779,9 @@
     "taxonNames": [
       "Hyllus diardi",
       "Hyllus semicupreus"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -7180,6 +8799,9 @@
     "taxonNames": [
       "Thyene imperialis",
       "Thyene coccineovittata"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -7197,6 +8819,9 @@
     "taxonNames": [
       "Pseudicius encarpatus",
       "Pseudicius badius"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -7214,6 +8839,10 @@
     "taxonNames": [
       "Aelurillus v-insignitus",
       "Aelurillus aeruginosus"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -7231,6 +8860,10 @@
     "taxonNames": [
       "Cosmophasis thalassina",
       "Cosmophasis micarioides"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -7248,6 +8881,9 @@
     "taxonNames": [
       "Epeus flavobilineatus",
       "Epeus indicus"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -7265,6 +8901,9 @@
     "taxonNames": [
       "Icius",
       "Pancorius"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -7282,6 +8921,9 @@
     "taxonNames": [
       "Harmochirus brachiatus",
       "Harmochirus luculentus"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -7299,6 +8941,9 @@
     "taxonNames": [
       "Holcolaetis vellerea",
       "Holcolaetis zuluensis"
+    ],
+    "range": [
+      "AF"
     ]
   },
   {
@@ -7316,6 +8961,9 @@
     "taxonNames": [
       "Mopsus mormon",
       "Sandalodes bipenicillatus"
+    ],
+    "range": [
+      "OC"
     ]
   },
   {
@@ -7333,7 +8981,8 @@
     "taxonNames": [
       "Mopsus mormon",
       "Epeus flavobilineatus"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "423",
@@ -7350,6 +8999,9 @@
     "taxonNames": [
       "Phintelloides versicolor",
       "Phintella vittata"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -7367,6 +9019,9 @@
     "taxonNames": [
       "Telamonia dimidiata",
       "Telamonia festiva"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -7383,6 +9038,11 @@
     "taxonNames": [
       "Araneus diadematus",
       "Araneus marmoreus"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -7399,6 +9059,11 @@
     "taxonNames": [
       "Argiope bruennichi",
       "Argiope trifasciata"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -7415,6 +9080,9 @@
     "taxonNames": [
       "Latrodectus mactans",
       "Latrodectus hesperus"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -7431,7 +9099,8 @@
     "taxonNames": [
       "Loxosceles reclusa",
       "Loxosceles laeta"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "429",
@@ -7447,6 +9116,9 @@
     "taxonNames": [
       "Tegenaria domestica",
       "Eratigena atrica"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -7463,6 +9135,10 @@
     "taxonNames": [
       "Pholcus phalangioides",
       "Holocnemus pluchei"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -7479,6 +9155,10 @@
     "taxonNames": [
       "Misumena vatia",
       "Thomisus onustus"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -7496,6 +9176,10 @@
     "taxonNames": [
       "Salticus scenicus",
       "Menemerus semilimbatus"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -7512,7 +9196,8 @@
     "taxonNames": [
       "Lycosa tarantula",
       "Hogna carolinensis"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "434",
@@ -7528,6 +9213,9 @@
     "taxonNames": [
       "Pisaurina mira",
       "Dolomedes tenebrosus"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -7544,7 +9232,8 @@
     "taxonNames": [
       "Trichonephila clavipes",
       "Trichonephila clavata"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "436",
@@ -7560,6 +9249,10 @@
     "taxonNames": [
       "Steatoda grossa",
       "Steatoda nobilis"
+    ],
+    "range": [
+      "NA",
+      "EU"
     ]
   },
   {
@@ -7576,6 +9269,9 @@
     "taxonNames": [
       "Zygiella x-notata",
       "Neoscona crucifera"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -7592,6 +9288,9 @@
     "taxonNames": [
       "Cupiennius salei",
       "Phoneutria fera"
+    ],
+    "range": [
+      "SA"
     ]
   },
   {
@@ -7608,7 +9307,8 @@
     "taxonNames": [
       "Theridion grallator",
       "Theridula emertoni"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "440",
@@ -7624,6 +9324,9 @@
     "taxonNames": [
       "Argiope aurantia",
       "Trichonephila clavipes"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -7640,6 +9343,10 @@
     "taxonNames": [
       "Linyphia triangularis",
       "Neriene radiata"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -7656,6 +9363,9 @@
     "taxonNames": [
       "Dysdera crocata",
       "Dysdera erythrina"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -7672,6 +9382,10 @@
     "taxonNames": [
       "Segestria florentina",
       "Segestria senoculata"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -7688,6 +9402,10 @@
     "taxonNames": [
       "Amaurobius ferox",
       "Amaurobius similis"
+    ],
+    "range": [
+      "NA",
+      "EU"
     ]
   },
   {
@@ -7704,6 +9422,10 @@
     "taxonNames": [
       "Clubiona corticalis",
       "Clubiona pallidula"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -7720,6 +9442,10 @@
     "taxonNames": [
       "Pardosa amentata",
       "Pardosa pullata"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -7736,6 +9462,10 @@
     "taxonNames": [
       "Alopecosa pulverulenta",
       "Trochosa terricola"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -7752,6 +9482,10 @@
     "taxonNames": [
       "Micrommata virescens",
       "Cheiracanthium inclusum"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -7768,6 +9502,10 @@
     "taxonNames": [
       "Xysticus cristatus",
       "Xysticus audax"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -7784,6 +9522,10 @@
     "taxonNames": [
       "Agelena labyrinthica",
       "Allagelena gracilens"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -7800,6 +9542,10 @@
     "taxonNames": [
       "Aculepeira ceropegia",
       "Araniella cucurbitina"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -7816,6 +9562,11 @@
     "taxonNames": [
       "Larinioides cornutus",
       "Larinioides sclopetarius"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -7832,6 +9583,10 @@
     "taxonNames": [
       "Nuctenea umbratica",
       "Nuctenea silvicultrix"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -7848,6 +9603,9 @@
     "taxonNames": [
       "Metellina segmentata",
       "Metellina merianae"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -7864,6 +9622,10 @@
     "taxonNames": [
       "Tetragnatha extensa",
       "Tetragnatha montana"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -7880,6 +9642,10 @@
     "taxonNames": [
       "Philodromus dispar",
       "Philodromus aureolus"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -7896,6 +9662,9 @@
     "taxonNames": [
       "Anyphaena accentuata",
       "Anyphaena sabina"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -7912,6 +9681,10 @@
     "taxonNames": [
       "Diaea dorsata",
       "Synema globosum"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -7928,6 +9701,9 @@
     "taxonNames": [
       "Eratigena agrestis",
       "Tegenaria ferruginea"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -7944,6 +9720,10 @@
     "taxonNames": [
       "Drassodes lapidosus",
       "Drassodes cupreus"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -7960,6 +9740,14 @@
     "taxonNames": [
       "Eucarida",
       "Peracarida"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -7976,6 +9764,14 @@
     "taxonNames": [
       "Eumalacostraca",
       "Hoplocarida"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -7993,6 +9789,10 @@
     "taxonNames": [
       "Dardanus lagopodes",
       "Dardanus megistos"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8010,6 +9810,10 @@
     "taxonNames": [
       "Clibanarius infraspinatus",
       "Clibanarius longitarsus"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8027,6 +9831,10 @@
     "taxonNames": [
       "Portunus pelagicus",
       "Portunus sanguinolentus"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8044,6 +9852,10 @@
     "taxonNames": [
       "Atergatis floridus",
       "Atergatis integerrimus"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8060,6 +9872,10 @@
     "taxonNames": [
       "Urocaridella antonbruunii",
       "Urocaridella pulchella"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8077,6 +9893,10 @@
     "taxonNames": [
       "Tridacna crocea",
       "Tridacna maxima"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8094,6 +9914,10 @@
     "taxonNames": [
       "Tridacna maxima",
       "Tridacna squamosa"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8111,6 +9935,9 @@
     "taxonNames": [
       "Acanthosepion pharaonis",
       "Ascarosepion latimanus"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -8128,6 +9955,10 @@
     "taxonNames": [
       "Cypraea tigris",
       "Mauritia arabica"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8145,6 +9976,14 @@
     "taxonNames": [
       "Sepiida",
       "Myopsida"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -8162,6 +10001,14 @@
     "taxonNames": [
       "Neritimorpha",
       "Heterobranchia"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -8179,6 +10026,14 @@
     "taxonNames": [
       "Vetigastropoda",
       "Heterobranchia"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -8196,6 +10051,14 @@
     "taxonNames": [
       "Vetigastropoda",
       "Caenogastropoda"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -8213,6 +10076,14 @@
     "taxonNames": [
       "Vetigastropoda",
       "Patellogastropoda"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -8230,6 +10101,9 @@
     "taxonNames": [
       "Lissachatina immaculata",
       "Lissachatina fulica"
+    ],
+    "range": [
+      "AF"
     ]
   },
   {
@@ -8247,6 +10121,10 @@
     "taxonNames": [
       "Unidentia aliciae",
       "Unidentia angelvaldesi"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8264,6 +10142,10 @@
     "taxonNames": [
       "Armina scotti",
       "Armina semperi"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8281,6 +10163,10 @@
     "taxonNames": [
       "Dermatobranchus fortunatus",
       "Dermatobranchus striatus"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8298,6 +10184,10 @@
     "taxonNames": [
       "Goniobranchus sinensis",
       "Goniobranchus trimarginatus"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8315,6 +10205,10 @@
     "taxonNames": [
       "Hypselodoris maculosa",
       "Goniobranchus fidelis"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8332,6 +10226,10 @@
     "taxonNames": [
       "Hypselodoris katherinae",
       "Hypselodoris tryoni"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8349,6 +10247,10 @@
     "taxonNames": [
       "Mexichromis mariei",
       "Mexichromis multituberculata"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8366,6 +10268,10 @@
     "taxonNames": [
       "Costasiella kuroshimae",
       "Costasiella usagi"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8383,6 +10289,10 @@
     "taxonNames": [
       "Coryphellina exoptata",
       "Coryphellina rubrolineata"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8400,6 +10310,10 @@
     "taxonNames": [
       "Phyllidia elegans",
       "Phyllidia coelestis"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8417,6 +10331,10 @@
     "taxonNames": [
       "Phyllidia elegans",
       "Phyllidia picta"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8434,6 +10352,10 @@
     "taxonNames": [
       "Phyllidia elegans",
       "Phyllidia varicosa"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8451,6 +10373,10 @@
     "taxonNames": [
       "Phyllidia coelestis",
       "Phyllidia picta"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8468,6 +10394,10 @@
     "taxonNames": [
       "Phyllidia coelestis",
       "Phyllidia varicosa"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8485,6 +10415,10 @@
     "taxonNames": [
       "Phyllidia varicosa",
       "Phyllidia picta"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8502,6 +10436,10 @@
     "taxonNames": [
       "Phyllidiella pustulosa",
       "Phyllidiopsis krempfi"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8519,6 +10457,10 @@
     "taxonNames": [
       "Plocamopherus imperialis",
       "Plocamopherus tilesii"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8536,6 +10478,10 @@
     "taxonNames": [
       "Elysia asbecki",
       "Elysia tomentosa"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8554,6 +10500,14 @@
     "taxonNames": [
       "Nudibranchia",
       "Polycladida"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -8571,6 +10525,10 @@
     "taxonNames": [
       "Chromodoris magnifica",
       "Chromodoris kuiteri"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8588,6 +10546,10 @@
     "taxonNames": [
       "Hypselodoris bullockii",
       "Hypselodoris infucata"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8605,6 +10567,10 @@
     "taxonNames": [
       "Goniobranchus splendidus",
       "Goniobranchus tinctorius"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8622,6 +10588,9 @@
     "taxonNames": [
       "Felimare picta",
       "Felimare villafranca"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -8639,6 +10608,10 @@
     "taxonNames": [
       "Glossodoris cincta",
       "Glossodoris hikuerensis"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8656,6 +10629,10 @@
     "taxonNames": [
       "Nembrotha kubaryana",
       "Nembrotha cristata"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8673,6 +10650,9 @@
     "taxonNames": [
       "Tambja morosa",
       "Tambja verconis"
+    ],
+    "range": [
+      "OC"
     ]
   },
   {
@@ -8690,6 +10670,9 @@
     "taxonNames": [
       "Flabellinopsis iodinea",
       "Edmundsella bertschi"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -8707,6 +10690,10 @@
     "taxonNames": [
       "Berghia coerulescens",
       "Berghia verrucicornis"
+    ],
+    "range": [
+      "EU",
+      "AF"
     ]
   },
   {
@@ -8724,6 +10711,9 @@
     "taxonNames": [
       "Doriopsilla areolata",
       "Doriopsilla pelseneeri"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -8741,6 +10731,10 @@
     "taxonNames": [
       "Dendrodoris fumata",
       "Dendrodoris nigra"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8758,6 +10752,10 @@
     "taxonNames": [
       "Phyllidiella pustulosa",
       "Phyllidiella nigra"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8775,6 +10773,10 @@
     "taxonNames": [
       "Phyllodesmium longicirrum",
       "Phyllodesmium briareum"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8792,6 +10794,10 @@
     "taxonNames": [
       "Pteraeolidia ianthina",
       "Pteraeolidia semperi"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8809,6 +10815,9 @@
     "taxonNames": [
       "Candiella odhneri",
       "Candiella plebeia"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -8826,6 +10835,9 @@
     "taxonNames": [
       "Antiopella cristata",
       "Janolus hyalinus"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -8843,6 +10855,9 @@
     "taxonNames": [
       "Polycera quadrilineata",
       "Polycera faeroensis"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -8860,6 +10875,9 @@
     "taxonNames": [
       "Diaphorodoris luteocincta",
       "Diaphorodoris alba"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -8877,6 +10895,10 @@
     "taxonNames": [
       "Rostanga pulchra",
       "Rostanga arbutus"
+    ],
+    "range": [
+      "NA",
+      "EU"
     ]
   },
   {
@@ -8894,7 +10916,8 @@
     "taxonNames": [
       "Hexabranchus sanguineus",
       "Hexabranchus morsomus"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "522",
@@ -8911,6 +10934,9 @@
     "taxonNames": [
       "Cadlina laevis",
       "Cadlina pellucida"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -8928,6 +10954,9 @@
     "taxonNames": [
       "Doto coronata",
       "Doto pinnatifida"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -8945,6 +10974,9 @@
     "taxonNames": [
       "Trapania lineata",
       "Trapania tartanella"
+    ],
+    "range": [
+      "EU"
     ]
   },
   {
@@ -8962,6 +10994,10 @@
     "taxonNames": [
       "Fromia monilis",
       "Fromia heffernani"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8979,6 +11015,10 @@
     "taxonNames": [
       "Pseudobiceros bedfordi",
       "Acanthozoon"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -8996,6 +11036,14 @@
     "taxonNames": [
       "Octocorallia",
       "Hexacorallia"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -9014,6 +11062,10 @@
     "taxonNames": [
       "Plerogyra sinuosa",
       "Physogyra lichtensteini"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -9032,6 +11084,10 @@
     "taxonNames": [
       "Platygyra",
       "Lobophyllia"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -9050,6 +11106,10 @@
     "taxonNames": [
       "Pocillopora",
       "Millepora"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -9068,6 +11128,10 @@
     "taxonNames": [
       "Dendronephthya",
       "Scleronephthya"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -9086,6 +11150,10 @@
     "taxonNames": [
       "Acropora millepora",
       "Acropora hyacinthus"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -9104,6 +11172,11 @@
     "taxonNames": [
       "Acropora muricata",
       "Acropora intermedia"
+    ],
+    "range": [
+      "OC",
+      "AF",
+      "AS"
     ]
   },
   {
@@ -9122,6 +11195,10 @@
     "taxonNames": [
       "Montipora digitata",
       "Montipora verrucosa"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -9140,6 +11217,10 @@
     "taxonNames": [
       "Pachyseris foliosa",
       "Pachyseris speciosa"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -9158,6 +11239,10 @@
     "taxonNames": [
       "Pavona cactus",
       "Pavona decussata"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -9175,6 +11260,9 @@
     "taxonNames": [
       "Cyanea capillata",
       "Versuriga anadyomene"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -9192,6 +11280,10 @@
     "taxonNames": [
       "Heteractis doreensis",
       "Radianthus magnifica"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -9209,6 +11301,10 @@
     "taxonNames": [
       "Stichodactyla haddoni",
       "Stichodactyla gigantea"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -9226,6 +11322,10 @@
     "taxonNames": [
       "Amplexidiscus fenestrafer",
       "Rhodactis inchoata"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -9236,7 +11336,6 @@
       "cnidarians",
       "jellyfish",
       "comb jellies"
-
     ],
     "taxa": [
       51508,
@@ -9245,6 +11344,14 @@
     "taxonNames": [
       "Ctenophora",
       "Scyphozoa"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -9262,6 +11369,10 @@
     "taxonNames": [
       "Stichopus chloronotus",
       "Holothuria leucospilota"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -9279,6 +11390,11 @@
     "taxonNames": [
       "Amanita virosa",
       "Agaricus campestris"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9296,6 +11412,11 @@
     "taxonNames": [
       "Gyromitra",
       "Morchella"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9313,6 +11434,11 @@
     "taxonNames": [
       "Amanita muscaria",
       "Amanita caesarea"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9330,6 +11456,11 @@
     "taxonNames": [
       "Amanita phalloides",
       "Amanita verna"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9347,6 +11478,11 @@
     "taxonNames": [
       "Boletus edulis",
       "Tylopilus felleus"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9364,6 +11500,11 @@
     "taxonNames": [
       "Cantharellus cibarius",
       "Hygrophoropsis aurantiaca"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9381,6 +11522,11 @@
     "taxonNames": [
       "Morchella esculenta",
       "Gyromitra esculenta"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9398,6 +11544,11 @@
     "taxonNames": [
       "Leccinum scabrum",
       "Leccinum versipelle"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9415,6 +11566,10 @@
     "taxonNames": [
       "Lactarius deliciosus",
       "Lactarius deterrimus"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9432,6 +11587,10 @@
     "taxonNames": [
       "Macrolepiota procera",
       "Chlorophyllum molybdites"
+    ],
+    "range": [
+      "NA",
+      "AS"
     ]
   },
   {
@@ -9449,6 +11608,11 @@
     "taxonNames": [
       "Coprinus comatus",
       "Coprinopsis atramentaria"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9466,6 +11630,11 @@
     "taxonNames": [
       "Ganoderma lucidum",
       "Ganoderma applanatum"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9483,6 +11652,11 @@
     "taxonNames": [
       "Pleurotus ostreatus",
       "Pleurocybella porrigens"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9500,6 +11674,11 @@
     "taxonNames": [
       "Armillaria mellea",
       "Hypholoma fasciculare"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9517,6 +11696,11 @@
     "taxonNames": [
       "Agaricus bisporus",
       "Agaricus xanthodermus"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9534,7 +11718,8 @@
     "taxonNames": [
       "Tricholoma matsutake",
       "Tricholoma magnivelare"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "559",
@@ -9551,6 +11736,10 @@
     "taxonNames": [
       "Russula emetica",
       "Russula paludosa"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9568,6 +11757,11 @@
     "taxonNames": [
       "Hydnum repandum",
       "Hydnum rufescens"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9585,6 +11779,11 @@
     "taxonNames": [
       "Laetiporus sulphureus",
       "Cerioporus squamosus"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9602,6 +11801,11 @@
     "taxonNames": [
       "Fistulina hepatica",
       "Ganoderma resinaceum"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9619,6 +11823,10 @@
     "taxonNames": [
       "Craterellus cornucopioides",
       "Craterellus cinereus"
+    ],
+    "range": [
+      "NA",
+      "EU"
     ]
   },
   {
@@ -9636,6 +11844,11 @@
     "taxonNames": [
       "Hericium erinaceus",
       "Hericium coralloides"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9653,6 +11866,11 @@
     "taxonNames": [
       "Tremella mesenterica",
       "Naematelia aurantia"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9670,6 +11888,10 @@
     "taxonNames": [
       "Auricularia auricula-judae",
       "Exidia glandulosa"
+    ],
+    "range": [
+      "NA",
+      "EU"
     ]
   },
   {
@@ -9687,6 +11909,11 @@
     "taxonNames": [
       "Flammulina velutipes",
       "Galerina marginata"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9704,6 +11931,10 @@
     "taxonNames": [
       "Psilocybe cubensis",
       "Psilocybe semilanceata"
+    ],
+    "range": [
+      "NA",
+      "AS"
     ]
   },
   {
@@ -9721,6 +11952,11 @@
     "taxonNames": [
       "Suillus luteus",
       "Suillus granulatus"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9738,6 +11974,9 @@
     "taxonNames": [
       "Cortinarius violaceus",
       "Cortinarius iodes"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -9755,6 +11994,9 @@
     "taxonNames": [
       "Lentinula edodes",
       "Lentinus tigrinus"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -9772,6 +12014,11 @@
     "taxonNames": [
       "Calvatia gigantea",
       "Lycoperdon perlatum"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9789,6 +12036,11 @@
     "taxonNames": [
       "Inonotus obliquus",
       "Fomes fomentarius"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9806,6 +12058,11 @@
     "taxonNames": [
       "Schizophyllum commune",
       "Trametes betulina"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9823,6 +12080,11 @@
     "taxonNames": [
       "Trametes versicolor",
       "Stereum ostrea"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9840,6 +12102,11 @@
     "taxonNames": [
       "Paxillus involutus",
       "Tapinella atrotomentosa"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9857,6 +12124,11 @@
     "taxonNames": [
       "Xerocomellus chrysenteron",
       "Xerocomellus pruinatus"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9874,6 +12146,11 @@
     "taxonNames": [
       "Amanita pantherina",
       "Amanita rubescens"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9891,6 +12168,10 @@
     "taxonNames": [
       "Clitocybe nebularis",
       "Entoloma sinuatum"
+    ],
+    "range": [
+      "NA",
+      "EU"
     ]
   },
   {
@@ -9908,6 +12189,11 @@
     "taxonNames": [
       "Coprinellus micaceus",
       "Parasola plicatilis"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9925,6 +12211,11 @@
     "taxonNames": [
       "Fomitopsis pinicola",
       "Fomitopsis betulina"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9942,6 +12233,11 @@
     "taxonNames": [
       "Phallus impudicus",
       "Mutinus caninus"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9959,6 +12255,11 @@
     "taxonNames": [
       "Scleroderma citrinum",
       "Pisolithus tinctorius"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -9978,6 +12279,14 @@
     "taxonNames": [
       "Magnoliopsida",
       "Liliopsida"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -9996,6 +12305,14 @@
     "taxonNames": [
       "Asteraceae",
       "Brassicaceae"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -10014,6 +12331,14 @@
     "taxonNames": [
       "Apiaceae",
       "Brassicaceae"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -10033,6 +12358,10 @@
     "taxonNames": [
       "Quercus robur",
       "Quercus petraea"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -10052,6 +12381,10 @@
     "taxonNames": [
       "Betula pendula",
       "Betula pubescens"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -10069,6 +12402,10 @@
     "taxonNames": [
       "Pinus sylvestris",
       "Picea abies"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -10088,6 +12425,10 @@
     "taxonNames": [
       "Populus tremula",
       "Populus alba"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -10107,6 +12448,11 @@
     "taxonNames": [
       "Ranunculus acris",
       "Ranunculus repens"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -10126,6 +12472,10 @@
     "taxonNames": [
       "Taraxacum officinale",
       "Leontodon hispidus"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -10145,6 +12495,14 @@
     "taxonNames": [
       "Solanum nigrum",
       "Solanum americanum"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -10164,6 +12522,9 @@
     "taxonNames": [
       "Psychotria serpens",
       "Ficus pumila"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -10183,6 +12544,9 @@
     "taxonNames": [
       "Psychotria serpens",
       "Lemmaphyllum microphyllum"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -10202,6 +12566,9 @@
     "taxonNames": [
       "Ficus pumila",
       "Lemmaphyllum microphyllum"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -10221,6 +12588,9 @@
     "taxonNames": [
       "Rhaphiolepis indica",
       "Rhodomyrtus tomentosa"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -10240,6 +12610,10 @@
     "taxonNames": [
       "Stellaria graminea",
       "Rabelera holostea"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -10257,6 +12631,14 @@
     "taxonNames": [
       "Rhodophyta",
       "Phaeophyceae"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -10274,6 +12656,14 @@
     "taxonNames": [
       "Chlorophyta",
       "Phaeophyceae"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -10291,26 +12681,37 @@
     "taxonNames": [
       "Corallinales",
       "Peyssonneliaceae"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
-    {
-      "setID": "602",
-      "setName": "Caterpillars and Mimics",
-      "skillLevel": "1",
-      "tags": [
-          "mimicry",
-          "spiders",
-          "moths",
-          "lepidoptera"
-      ],
-      "taxa": [
+  {
+    "setID": "602",
+    "setName": "Caterpillars and Mimics",
+    "skillLevel": "1",
+    "tags": [
+      "mimicry",
+      "spiders",
+      "moths",
+      "lepidoptera"
+    ],
+    "taxa": [
       881846,
       985194
-      ],
-      "taxonNames": [
-          "Uroballus carlei",
-          "Miltochrista arcuata"
-      ]
+    ],
+    "taxonNames": [
+      "Uroballus carlei",
+      "Miltochrista arcuata"
+    ],
+    "range": [
+      "AS"
+    ]
   },
   {
     "setID": "604",
@@ -10327,6 +12728,14 @@
     "taxonNames": [
       "Sepiida",
       "Octopoda"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -10334,9 +12743,9 @@
     "setName": "Bugs vs Beetles",
     "skillLevel": "1",
     "tags": [
-        "insects",
-        "beetles",
-        "true bugs"
+      "insects",
+      "beetles",
+      "true bugs"
     ],
     "taxa": [
       "61267",
@@ -10345,6 +12754,14 @@
     "taxonNames": [
       "Heteroptera",
       "Coleoptera"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -10362,6 +12779,14 @@
     "taxonNames": [
       "Thysanoptera",
       "Staphylinidae"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -10380,6 +12805,14 @@
     "taxonNames": [
       "Hymenoptera",
       "Diptera"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -10397,6 +12830,14 @@
     "taxonNames": [
       "Amphibia",
       "Reptilia"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -10405,7 +12846,7 @@
     "skillLevel": "2",
     "tags": [
       "mammals",
-      "marsupials" 
+      "marsupials"
     ],
     "taxa": [
       "848319",
@@ -10414,6 +12855,11 @@
     "taxonNames": [
       "Marsupialia",
       "Placentalia"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "OC"
     ]
   },
   {
@@ -10431,6 +12877,11 @@
     "taxonNames": [
       "Castor",
       "Marmota"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -10448,6 +12899,11 @@
     "taxonNames": [
       "Castor",
       "Lutrinae"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
     ]
   },
   {
@@ -10464,6 +12920,14 @@
     "taxonNames": [
       "Lutrinae",
       "Phocoidea"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -10480,6 +12944,13 @@
     "taxonNames": [
       "Sirenia",
       "Phocoidea"
+    ],
+    "range": [
+      "SA",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -10497,6 +12968,14 @@
     "taxonNames": [
       "Salticidae",
       "Oxyopidae"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -10513,6 +12992,14 @@
     "taxonNames": [
       "Pisauridae",
       "Lycosidae"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -10529,6 +13016,14 @@
     "taxonNames": [
       "Philodromidae",
       "Thomisidae"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -10545,6 +13040,14 @@
     "taxonNames": [
       "Thomisidae",
       "Oxyopidae"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -10561,6 +13064,14 @@
     "taxonNames": [
       "Sparassidae",
       "Philodromidae"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -10577,6 +13088,14 @@
     "taxonNames": [
       "Sparassidae",
       "Corinnoidea"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -10594,6 +13113,10 @@
     "taxonNames": [
       "Hippocampus bargibanti",
       "Hippocampus denise"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   },
   {
@@ -10611,7 +13134,8 @@
     "taxonNames": [
       "Erinaceinae",
       "Tachyglossidae"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "625",
@@ -10628,6 +13152,9 @@
     "taxonNames": [
       "Chaetodon octofasciatus",
       "Acanthurus triostegus"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -10645,6 +13172,13 @@
     "taxonNames": [
       "Acanthurus triostegus",
       "Abudefduf sordidus"
+    ],
+    "range": [
+      "SA",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -10662,6 +13196,11 @@
     "taxonNames": [
       "Abudefduf saxatilis",
       "Abudefduf vaigiensis"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF"
     ]
   },
   {
@@ -10679,6 +13218,9 @@
     "taxonNames": [
       "Chaetodon wiebeli",
       "Chaetodon lunula"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -10696,6 +13238,9 @@
     "taxonNames": [
       "Chaetodon lunula",
       "Chaetodon auripes"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -10713,6 +13258,9 @@
     "taxonNames": [
       "Mephitis macroura",
       "Mephitis mephitis"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -10730,7 +13278,8 @@
     "taxonNames": [
       "Mellivora capensis",
       "Mephitis mephitis"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "632",
@@ -10747,7 +13296,8 @@
     "taxonNames": [
       "Meles meles",
       "Mephitis mephitis"
-    ]
+    ],
+    "range": []
   },
   {
     "setID": "633",
@@ -10764,6 +13314,9 @@
     "taxonNames": [
       "Meles meles",
       "Mellivora capensis"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -10781,6 +13334,9 @@
     "taxonNames": [
       "Gulo gulo",
       "Pekania pennanti"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -10797,6 +13353,14 @@
     "taxonNames": [
       "Acari",
       "Araneae"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -10813,6 +13377,14 @@
     "taxonNames": [
       "Pholcidae",
       "Phalangiidae"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "OC",
+      "AF",
+      "NA",
+      "AS"
     ]
   },
   {
@@ -10829,6 +13401,10 @@
     "taxonNames": [
       "Pholcus phalangioides",
       "Pholcus opilionoides"
+    ],
+    "range": [
+      "EU",
+      "AS"
     ]
   },
   {
@@ -10845,6 +13421,11 @@
     "taxonNames": [
       "Platydemus manokwari",
       "Caenoplana coerulea"
+    ],
+    "range": [
+      "NA",
+      "OC",
+      "EU"
     ]
   },
   {
@@ -10852,10 +13433,10 @@
     "setName": "Butterfly mimicry",
     "skillLevel": "3",
     "tags": [
-        "insects",
-        "lepidoptera",
-        "butterflies",
-        "mimicry"
+      "insects",
+      "lepidoptera",
+      "butterflies",
+      "mimicry"
     ],
     "taxa": [
       "58586",
@@ -10864,6 +13445,9 @@
     "taxonNames": [
       "Limenitis archippus",
       "Danaus plexippus"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -10881,6 +13465,9 @@
     "taxonNames": [
       "Micrurus",
       "Lampropeltis elapsoides"
+    ],
+    "range": [
+      "NA"
     ]
   },
   {
@@ -10898,6 +13485,10 @@
     "taxonNames": [
       "Buteo albonotatus",
       "Cathartes aura"
+    ],
+    "range": [
+      "NA",
+      "SA"
     ]
   },
   {
@@ -10915,6 +13506,9 @@
     "taxonNames": [
       "Coracina bicolor",
       "Philemon"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -10932,6 +13526,9 @@
     "taxonNames": [
       "Hierococcyx",
       "Accipiter"
+    ],
+    "range": [
+      "AS"
     ]
   },
   {
@@ -10950,6 +13547,9 @@
     "taxonNames": [
       "Plagiotremus rhinorhynchos",
       "Meiacanthus nigrolineatus"
+    ],
+    "range": [
+      "OC"
     ]
   },
   {
@@ -10968,6 +13568,10 @@
     "taxonNames": [
       "Aspidontus taeniatus",
       "Labroides dimidiatus"
+    ],
+    "range": [
+      "OC",
+      "AS"
     ]
   }
 ]
