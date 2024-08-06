@@ -76,15 +76,22 @@ const preloader = {
     },
 
     async preloadForNextPair() {
-        if (this.hasPreloadedPair()) {
-            logger.debug("Already have a preloaded pair, skipping preload");
+        if (this.isPreloading) {
+            logger.debug("Preloading already in progress, skipping");
             return;
         }
 
+        this.isPreloading = true;
         logger.debug("Starting preload for next pair");
         
         try {
-            let newPair = await utils.selectTaxonPair();
+            const filters = {
+                level: gameState.selectedLevel,
+                ranges: gameState.selectedRanges,
+                tags: gameState.selectedTags
+            };
+
+            let newPair = await utils.selectTaxonPair(filters);
             logger.debug(`Selected new pair for preloading: ${newPair.taxon1} / ${newPair.taxon2}, Skill Level: ${newPair.skillLevel}`);
 
             const [imageOneURL, imageTwoURL] = await Promise.all([
@@ -106,6 +113,8 @@ const preloader = {
         } catch (error) {
             logger.error("Error preloading next pair:", error);
             this.preloadedImages.nextPair = null;
+        } finally {
+            this.isPreloading = false;
         }
     },
 

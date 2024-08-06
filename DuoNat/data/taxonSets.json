@@ -8705,26 +8705,6 @@
     ]
   },
   {
-    "setID": "408",
-    "setName": "Neon Jumping Spiders",
-    "skillLevel": "3",
-    "tags": [
-      "spiders",
-      "jumping spiders"
-    ],
-    "taxa": [
-      225672,
-      784208
-    ],
-    "taxonNames": [
-      "Neon reticulatus",
-      "Neon robustus"
-    ],
-    "range": [
-      "EU"
-    ]
-  },
-  {
     "setID": "409",
     "setName": "Lyssomanes Jumping Spiders",
     "skillLevel": "3",

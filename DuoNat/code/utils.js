@@ -206,7 +206,7 @@ const utils = {
     },
 
     // Returns a taxon pair from the index, or a random one if none indicated
-    selectTaxonPair: async function (setID = null) {
+    selectTaxonPair: async function (filters = {}) {
         try {
             const taxonPairs = await api.fetchTaxonPairs();
             if (taxonPairs.length === 0) {
@@ -214,23 +214,16 @@ const utils = {
                 return null;
             }
 
-            let filteredPairs = taxonPairs;
+            const { level, ranges, tags } = filters;
 
-            // Filter by setID if provided
-            if (setID) {
-                filteredPairs = filteredPairs.filter(pair => pair.setID === setID);
-            }
-
-            // Filter by tags, selected level, and ranges from gameState
-            filteredPairs = filteredPairs.filter(pair => {
-                const matchesTags = gameState.selectedTags.length === 0 || 
-                    pair.tags.some(tag => gameState.selectedTags.includes(tag));
-                const matchesLevel = gameState.selectedLevel === '' || 
-                    pair.skillLevel === gameState.selectedLevel;
-                const matchesRanges = gameState.selectedRanges.length === 0 ||
-                    (pair.range && pair.range.some(range => gameState.selectedRanges.includes(range)));
+            let filteredPairs = taxonPairs.filter(pair => {
+                const matchesLevel = !level || pair.skillLevel === level;
+                const matchesRanges = !ranges || ranges.length === 0 || 
+                    (pair.range && pair.range.some(range => ranges.includes(range)));
+                const matchesTags = !tags || tags.length === 0 || 
+                    pair.tags.some(tag => tags.includes(tag));
                 
-                return matchesTags && matchesLevel && matchesRanges;
+                return matchesLevel && matchesRanges && matchesTags;
             });
 
             if (filteredPairs.length === 0) {
@@ -239,13 +232,14 @@ const utils = {
             }
 
             const selectedPair = filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
+            logger.debug(`Selected pair: ${selectedPair.taxon1} / ${selectedPair.taxon2}, Skill Level: ${selectedPair.skillLevel}`);
 
             return selectedPair;
         } catch (error) {
             logger.error("Error in selectTaxonPair:", error);
             return null;
         }
-    }
+    },
 
 }; // const utils
 

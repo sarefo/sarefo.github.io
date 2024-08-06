@@ -20058,65 +20058,6 @@
       "OC"
     ]
   },
-  "225672": {
-    "taxonName": "Neon reticulatus",
-    "vernacularName:": "n/a",
-    "ancestryIds": [
-      48460,
-      1,
-      47120,
-      245097,
-      47119,
-      47118,
-      120474,
-      342614,
-      367200,
-      48139,
-      606933,
-      712060,
-      172376,
-      225672
-    ],
-    "rank": "Species",
-    "taxonFacts": [
-      "Tiny jumping spider found in Europe",
-      "Known for its small size and distinctive reticulated pattern",
-      "Active hunter that relies on visual cues"
-    ],
-    "range": [
-      "EU",
-      "AS"
-    ]
-  },
-  "784208": {
-    "taxonName": "Neon robustus",
-    "vernacularName:": "n/a",
-    "ancestryIds": [
-      48460,
-      1,
-      47120,
-      245097,
-      47119,
-      47118,
-      120474,
-      342614,
-      367200,
-      48139,
-      606933,
-      712060,
-      172376,
-      784208
-    ],
-    "rank": "Species",
-    "taxonFacts": [
-      "Small jumping spider found in Europe",
-      "Slightly larger than <i>Neon reticulatus</i>",
-      "Active hunter with excellent vision"
-    ],
-    "range": [
-      "EU"
-    ]
-  },
   "1431030": {
     "taxonName": "Laephotis capensis",
     "vernacularName": "Cape serotine",

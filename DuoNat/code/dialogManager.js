@@ -179,15 +179,13 @@ const dialogManager = {
         const levelDropdown = document.getElementById('level-filter-dropdown');
         const selectedLevel = levelDropdown.value;
         
-        updateGameState({ selectedLevel: selectedLevel });
-        ui.updateLevelDropdown();
+        gameLogic.applyFilters({
+            level: selectedLevel,
+            ranges: gameState.selectedRanges,
+            tags: gameState.selectedTags
+        });
         
         this.closeDialog('select-set-dialog');
-        if (!gameLogic.isCurrentPairInCollection()) {
-            gameLogic.loadRandomPairFromCurrentCollection();
-        } else {
-            logger.debug("Current pair is already in the collection. No new pair loaded.");
-        }
     },
 
     validateInputs() {

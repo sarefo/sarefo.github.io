@@ -111,6 +111,27 @@ const gameLogic = {
         await gameSetup.setupGame(true);
     },
 
+    async applyFilters(newFilters) {
+        updateGameState({
+            selectedLevel: newFilters.level || gameState.selectedLevel,
+            selectedRanges: newFilters.ranges || gameState.selectedRanges,
+            selectedTags: newFilters.tags || gameState.selectedTags
+        });
+        
+        logger.debug(`Applied new filters: Level ${gameState.selectedLevel}, Ranges ${gameState.selectedRanges}, Tags ${gameState.selectedTags}`);
+
+        // Check if current pair is still valid
+        if (!this.isCurrentPairInCollection()) {
+            logger.debug("Current pair no longer valid with new filters, loading new pair");
+            await this.loadRandomPairFromCurrentCollection();
+        } else {
+            logger.debug("Current pair still valid with new filters");
+        }
+        
+        // Trigger preloading
+        preloader.preloadForNextPair();
+    },
+
     getCurrentTaxon(url) {
         if (url === game.currentObservationURLs.imageOne) {
             return gameState.taxonImageOne;
