@@ -5,11 +5,11 @@ don't provide common name (such as "known as" or such) or visual characteristics
 Also tell me where the members of the taxon live, using the initals NA, SA, AF, EU, AS and OC for north america, south america, africa europe, asia and oceania, respectively.
 
 The format for each taxon should be:
-"taxon name": {
-"taxon_info": [
-"info_1",
-"info_2",
-"info_3"
+"<taxon name>": {
+"taxonFacts": [
+"<info_1>",
+"<info_2>",
+"<info_3>"
 ],
 "distribution": [
 <array of continent initials>

@@ -8975,6 +8975,11 @@
       547018
     ],
     "rank": "Species",
+    "taxonFacts": [
+        "Predatory robber fly that feeds on parasitic wasps and other insects",
+        "Adults can be found from May to July-August",
+        "Larvae develop as predators in the ground"
+    ],
     "distribution": [
       "EU",
       "AS"
@@ -16208,6 +16213,11 @@
       568702
     ],
     "rank": "Species",
+    "taxonFacts": [
+        "Stick insect species endemic to the Iberian Peninsula",
+        "Exhibits parthenogenetic reproduction, with all-female populations",
+        "Named after Dutch entomologist Pijnacker"
+    ],
     "distribution": [
       "EU"
     ]
@@ -17310,6 +17320,11 @@
       505623
     ],
     "rank": "Species",
+    "taxonFacts": [
+        "Robber fly species that preys on other insects",
+        "Found in various habitats including grasslands and forest edges",
+        "Active during summer months"
+    ],
     "distribution": [
       "EU"
     ]
@@ -17334,6 +17349,10 @@
       502158
     ],
     "rank": "Species",
+    "taxonFacts": [
+        "Often found in open, sunny habitats",
+        "Males engage in territorial behavior"
+    ],
     "distribution": [
       "EU"
     ]
@@ -17975,6 +17994,11 @@
       1370818
     ],
     "rank": "Species",
+    "taxonFacts": [
+        "Bat species also known as the Indian false vampire bat",
+        "Largest microchiropteran bat in the Indian subcontinent",
+        "Uses echolocation for navigation and hunting"
+    ],
     "distribution": [
       "AS"
     ]
@@ -18921,6 +18945,11 @@
       1370802
     ],
     "rank": "Species",
+    "taxonFacts": [
+        "Bat species endemic to eastern Australia",
+        "Roosts in tree hollows and buildings",
+        "Feeds on flying insects, particularly moths and beetles"
+    ],
     "distribution": [
       "OC"
     ]
@@ -18946,6 +18975,11 @@
       1370825
     ],
     "rank": "Species",
+    "taxonFacts": [
+        "Bat species found in Australia",
+        "Formerly classified under the genus <i>Mormopterus</i>",
+        "Adapted to various habitats including urban areas"
+    ],
     "distribution": [
       "OC"
     ]
@@ -19000,6 +19034,11 @@
       345775
     ],
     "rank": "Subspecies",
+    "taxonFacts": [
+        "Subspecies of the <i>Morpho helenor</i> butterfly",
+        "Known for its iridescent blue wings",
+        "Found in tropical and subtropical forests"
+    ],
     "distribution": [
       "SA"
     ]
@@ -20100,6 +20139,11 @@
       1431030
     ],
     "rank": "Species",
+    "taxonFacts": [
+        "Bat species native to southern Africa",
+        "Roosts in rock crevices and buildings",
+        "Feeds on small flying insects"
+    ],
     "distribution": [
       "AF"
     ]
@@ -20126,6 +20170,11 @@
       1431034
     ],
     "rank": "Species",
+    "taxonFacts": [
+        "Small bat species found in sub-Saharan Africa",
+        "Formerly classified under the genus Neoromicia",
+        "Inhabits savanna and forest habitats"
+    ],
     "distribution": [
       "AF"
     ]
@@ -21981,6 +22030,11 @@
       196574
     ],
     "rank": "Species",
+    "taxonFacts": [
+        "Marine fish species belonging to the sandperch family",
+        "Found in coral reef environments",
+        "Can change sex from female to male"
+    ],
     "distribution": [
       "AS",
       "OC"
@@ -27587,6 +27641,11 @@
       1500640
     ],
     "rank": "Species",
+    "taxonFacts": [
+        "Cuttlefish species found in the Indo-Pacific region",
+        "Has specialized arm tips for capturing prey",
+        "Can change color and pattern for camouflage"
+    ],
     "distribution": [
       "AS",
       "OC"
@@ -30078,6 +30137,10 @@
       558951
     ],
     "rank": "Species",
+    "taxonFacts": [
+        "Semi-aquatic, often found near water bodies",
+        "Primarily feeds on amphibians and small fish"
+    ],
     "distribution": [
       "NA"
     ]
@@ -32540,7 +32603,7 @@
   },
   "985194": {
     "taxonName": "Miltochrista arcuata",
-    "vernacularName": "",
+    "vernacularName": "n/a",
     "ancestryIds": [
       1,
       47120,

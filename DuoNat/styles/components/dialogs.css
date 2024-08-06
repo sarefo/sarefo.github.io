@@ -823,6 +823,19 @@ z-index: 5000; /* debug */
     position: relative;
 }
 
+.info-dialog__buttons::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(50% + 24px); /* Adjust based on your needs */
+    height: 100%;
+    background-color: rgba(116, 172, 0, 0.3);
+    border-radius: 20px;
+    z-index: 0;
+}
+
 .info-dialog__button {
     background-color: rgba(255, 255, 255, 0.6);
     border-radius: 50%;
@@ -833,17 +846,27 @@ z-index: 5000; /* debug */
     margin: 0;
     transition: background-color 0.3s ease;
     z-index: 1; /* Ensures buttons are above the iNat container */
+    position: relative;
 }
 
 .info-dialog__inat-buttons {
     display: flex;
     justify-content: space-between;
-    padding: 5px;
-/*    background-color: var(--primary-color);*/
+    position: relative;
+    flex: 0 0 auto;
+    width: 140px;
+}
+
+.info-dialog__inat-buttons::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -10px;
+    right: -10px;
+    bottom: -5px;
     background-color: rgba(116, 172, 0, 0.3);
     border-radius: 20px;
-    margin: 0 10px;
-    width: 140px;
+    z-index: 0;
 }
 
 .inat-button {
@@ -854,56 +877,15 @@ z-index: 5000; /* debug */
     background-color: rgba(255, 255, 255, 0.8);
 }
 
-.info-dialog__button {
+/*.info-dialog__button {
     padding: 10px;
-}
+}*/
 
 .info-dialog__button--inactive {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
-@media (max-width: 480px) {
-    .info-dialog {
-        padding: 12px;
-    }
-
-    .info-dialog__header {
-        margin-bottom: 5px;
-    }
-
-    .info-dialog__taxon {
-        font-size: 1.4em;
-    }
-
-    .info-dialog__vernacular {
-        font-size: 1.1em;
-    }
-
-    .info-dialog__facts {
-        margin: 4px 0 0 0;
-        padding: 10px;
-    }
-
-    .info-dialog__facts li {
-        font-size: 1.2em;
-        line-height: 1.2;
-    }
-
-    .info-dialog__buttons {
-        flex-wrap: wrap;
-    }
-
-    .info-dialog__button,
-    .inat-button {
-        padding: 6px;
-    }
-
-    .info-dialog__button-icon {
-        width: 20px;
-        height: 20px;
-    }
-}
 /* Report dialog */
 
 .report-dialog {
