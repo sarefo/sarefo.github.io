@@ -24,9 +24,9 @@ def check_empty_fields(data: Dict[str, Any]) -> Dict[str, list]:
     if 'taxonFacts' not in data or not data['taxonFacts']:
         empty_fields.append('taxonFacts')
     
-    # Check if distribution is empty
-    if not data.get('distribution'):
-        empty_fields.append('distribution')
+    # Check if range is empty
+    if not data.get('range'):
+        empty_fields.append('range')
     
     return empty_fields
 

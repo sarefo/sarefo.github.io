@@ -1,7 +1,7 @@
 # input: 'newTaxonSetData.txt' > comma-separated taxa, one set per line
 # output: newTaxonInfo.json for new taxa • newTaxonSets.json for new sets
 # reads taxonInfo.json and taxonSets.json for context
-# afterwards, get distribution + facts from perplexity: https://www.perplexity.ai/search/please-give-me-a-list-of-at-mo-gmq_93EyRqaxmtTbAgI9SQ
+# afterwards, get range + facts from perplexity: https://www.perplexity.ai/search/please-give-me-a-list-of-at-mo-gmq_93EyRqaxmtTbAgI9SQ
 
 # sample entry for taxonInfo.json:
 '''
@@ -29,7 +29,7 @@
       "Forms mycorrhizal associations with conifer trees",
       "Has a distinctive cinnamon-like aroma"
     ],
-    "distribution": [
+    "range": [
       "NA"
     ]
   },
@@ -143,7 +143,7 @@ def process_taxa(input_file, existing_taxon_file, new_taxon_file, existing_sets_
                         "ancestryIds": [ancestor['id'] for ancestor in ancestry] + [int(taxon_id)],
                         "rank": taxon_details['rank'].capitalize(),
                         "taxonFacts": [],
-                        "distribution": []
+                        "range": []
                     }
                 else:
                     print(f"Taxon {taxon} (ID: {taxon_id}) already exists in the database.")

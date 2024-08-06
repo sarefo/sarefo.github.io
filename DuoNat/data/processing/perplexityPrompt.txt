@@ -11,7 +11,7 @@ The format for each taxon should be:
 "<info_2>",
 "<info_3>"
 ],
-"distribution": [
+"range": [
 <array of continent initials>
 ]
 }

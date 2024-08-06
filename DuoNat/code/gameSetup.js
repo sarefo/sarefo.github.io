@@ -142,7 +142,7 @@ const gameSetup = {
         const taxonInfo = await api.loadTaxonInfo();
         const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxon.toLowerCase());
 
-        if (taxonData && taxonData.distribution && taxonData.distribution.length > 0) {
+        if (taxonData && taxonData.range && taxonData.range.length > 0) {
             // Convert the continent codes to full names
             const continentMap = {
                 'NA': 'North America',
@@ -154,11 +154,11 @@ const gameSetup = {
             };
 
             // Convert all continent codes to full names
-            const fullContinents = taxonData.distribution.map(code => continentMap[code]);
+            const fullContinents = taxonData.range.map(code => continentMap[code]);
 
             return fullContinents;
         } else {
-            logger.debug(`No distribution data found for ${taxon}. Using placeholder.`);
+            logger.debug(`No range data found for ${taxon}. Using placeholder.`);
             return ['North America', 'South America', 'Europe', 'Africa', 'Asia', 'Oceania'];
         }
     },

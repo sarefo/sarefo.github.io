@@ -17,8 +17,8 @@ for taxon_id, taxon_data in new_taxon_info.items():
         # Add taxonFacts from perplexity_data
         taxon_data['taxonFacts'] = perplexity_info.get('taxonFacts', [])
         
-        # Add distribution from perplexity_data
-        taxon_data['distribution'] = perplexity_info.get('distribution', [])
+        # Add range from perplexity_data
+        taxon_data['range'] = perplexity_info.get('range', [])
 
 # Save the merged data to a new file
 with open('6newTaxonInfoWithPerplexity.json', 'w') as file:
