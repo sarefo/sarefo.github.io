@@ -340,8 +340,7 @@ const dialogManager = {
         const details = document.getElementById('report-dialog__details').value;
 
         if (reportTypes.length === 0) {
-            ui.showOverlay("Please select at least one issue to report.", config.overlayColors.red);
-            setTimeout(() => ui.hideOverlay(), 2000);
+            ui.showPopupNotification("Please select at least one issue to report.", 3000);
             return;
         }
 
@@ -366,9 +365,10 @@ const dialogManager = {
             emailBody += "Current taxon pair information not available\n";
         }
 
-        if (gameState.currentObservationURLs) {
-            emailBody += `Image 1 URL: ${gameState.currentObservationURLs.imageOne || 'N/A'}\n`;
-            emailBody += `Image 2 URL: ${gameState.currentObservationURLs.imageTwo || 'N/A'}\n`;
+        // Include current image URLs
+        if (game.currentObservationURLs) {
+            emailBody += `Image 1 URL: ${game.currentObservationURLs.imageOne || 'N/A'}\n`;
+            emailBody += `Image 2 URL: ${game.currentObservationURLs.imageTwo || 'N/A'}\n`;
         } else {
             emailBody += "Current image URLs not available\n";
         }
@@ -381,55 +381,27 @@ const dialogManager = {
         const recipient = "sarefo@gmail.com";
         const fullEmailContent = `To: ${recipient}\nSubject: ${subject}\n\n${body}`;
 
+        // Copy to clipboard
         this.copyToClipboard(fullEmailContent);
 
-        // Log the action for debugging
-        logger.debug('Report content copied to clipboard');
+        // Attempt to open email client
+        const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.location.href = mailtoLink;
 
-        // Show message to user
-        this.showNotification("Report copied to clipboard. Please paste it into your email client and send to " + recipient);
-        
-        // Set a timeout to hide the notification and reset the dialog
+        // Show popup notification
+        ui.showPopupNotification(
+            "Attempting to open your email client. If it doesn't open, the report has been copied to your clipboard. Please paste it into your email client and send to " + recipient,
+            6000  // Increased duration to 6 seconds for longer message
+        );
+
+        // Log the actions for debugging
+        logger.debug('Report content copied to clipboard and mailto link opened');
+
+        // Close the report dialog and reset it
         setTimeout(() => {
-            this.hideNotification();
             this.closeDialog('report-dialog');
             this.resetReportDialog();
-        }, 6000);  // 6 seconds should be enough time for users to read the message
-    },
-
-    showNotification: function(message) {
-        logger.debug('Attempting to show notification:', message);
-        
-        // Try using ui.showOverlay first
-        if (ui && typeof ui.showOverlay === 'function') {
-            ui.showOverlay(message, config.overlayColors.green);
-            logger.debug('Notification shown using ui.showOverlay');
-        } else {
-            // Fallback to creating a custom notification element
-            logger.debug('ui.showOverlay not available, using fallback notification');
-            const notification = document.createElement('div');
-            notification.textContent = message;
-            notification.style.position = 'fixed';
-            notification.style.top = '20px';
-            notification.style.left = '50%';
-            notification.style.transform = 'translateX(-50%)';
-            notification.style.backgroundColor = 'rgba(116, 172, 0, 0.9)';
-            notification.style.color = 'white';
-            notification.style.padding = '10px 20px';
-            notification.style.borderRadius = '5px';
-            notification.style.zIndex = '10000';
-            document.body.appendChild(notification);
-            this.currentNotification = notification;
-        }
-    },
-
-    hideNotification: function() {
-        if (ui && typeof ui.hideOverlay === 'function') {
-            ui.hideOverlay();
-        } else if (this.currentNotification) {
-            document.body.removeChild(this.currentNotification);
-            this.currentNotification = null;
-        }
+        }, 6000);  // Increased to match notification duration
     },
 
     copyToClipboard: function(text) {
@@ -460,9 +432,35 @@ const dialogManager = {
             logger.debug('Fallback: Copying text command was ' + msg);
         } catch (err) {
             logger.error('Fallback: Unable to copy to clipboard', err);
-            this.showNotification("Failed to copy report. Please try again.");
+            this.showPopupNotification("Failed to copy report. Please try again.");
         }
         document.body.removeChild(textArea);
+    },
+
+    showPopupNotification: function(message, duration = 3000) {
+        const popup = document.createElement('div');
+        popup.className = 'popup-notification';
+        popup.textContent = message;
+
+        document.body.appendChild(popup);
+
+        // Trigger a reflow before adding the 'show' class
+        popup.offsetHeight;
+
+        popup.classList.add('show');
+
+        // For longer messages, increase the width and add word-wrap
+        if (message.length > 100) {
+            popup.style.maxWidth = '80%';
+            popup.style.wordWrap = 'break-word';
+        }
+
+        setTimeout(() => {
+            popup.classList.remove('show');
+            setTimeout(() => {
+                document.body.removeChild(popup);
+            }, 300); // Wait for the fade out animation to complete
+        }, duration);
     },
 
     resetReportDialog: function() {

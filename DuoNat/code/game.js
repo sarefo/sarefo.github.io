@@ -273,9 +273,18 @@ const game = {
         }
     },
 
-    showInfoDialog(url, imageIndex) {
-    const currentTaxon = gameLogic.getCurrentTaxon(url);
-    if (!currentTaxon) return;
+    frameImage(imageIndex) {
+        if (imageIndex) {
+            const imageContainer = document.getElementById(`image-container-${imageIndex}`);
+            if (imageContainer) {
+                imageContainer.classList.add('image-container--framed');
+            }
+        }
+    },
+
+    async showInfoDialog(url, imageIndex) {
+        const currentTaxon = gameLogic.getCurrentTaxon(url);
+        if (!currentTaxon) return;
 
         const dialog = document.getElementById('info-dialog');
 
@@ -313,59 +322,99 @@ const game = {
         const vernacularElement = document.getElementById('info-dialog-vernacular');
         const factsElement = document.getElementById('info-dialog-facts');
         taxonElement.textContent = currentTaxon;
-        // TODO check why api.fetchVernacular() won't work here
-        api.fetchVernacular(currentTaxon).then(vernacularName => {
+
+        try {
+            const vernacularName = await api.fetchVernacular(currentTaxon);
             vernacularElement.textContent = vernacularName;
 
-            // Add taxon facts (assuming they're still in taxonInfo.json)
-            api.loadTaxonInfo().then(taxonInfo => {
-                const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === currentTaxon.toLowerCase());
-                if (taxonData && taxonData.taxonFacts && taxonData.taxonFacts.length > 0) {
-                    factsElement.innerHTML = '<h3>Facts:</h3><ul>' +
-                        taxonData.taxonFacts.map(fact => `<li>${fact}</li>`).join('') +
-                        '</ul>';
-                    factsElement.style.display = 'block';
-                } else {
-                    factsElement.style.display = 'none';
-                }
+            const taxonInfo = await api.loadTaxonInfo();
+            const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === currentTaxon.toLowerCase());
+            if (taxonData && taxonData.taxonFacts && taxonData.taxonFacts.length > 0) {
+                factsElement.innerHTML = '<h3>Facts:</h3><ul>' +
+                    taxonData.taxonFacts.map(fact => `<li>${fact}</li>`).join('') +
+                    '</ul>';
+                factsElement.style.display = 'block';
+            } else {
+                factsElement.style.display = 'none';
+            }
 
-                // Position the dialog after content is loaded
-                dialog.setAttribute('open', ''); // Explicitly set the 'open' attribute
-                positionDialog();
+            const hasWikipediaPage = await api.checkWikipediaPage(currentTaxon);
+
+            const wikiButton = document.getElementById('wiki-button');
+            if (hasWikipediaPage) {
+                wikiButton.classList.remove('info-dialog__button--inactive');
+                wikiButton.disabled = false;
+            } else {
+                wikiButton.classList.add('info-dialog__button--inactive');
+                wikiButton.disabled = true;
+            }
+
+            // TODO enable when functionality added
+            const hintButton = document.getElementById('hints-button');
+            hintButton.classList.add('info-dialog__button--inactive');
+            hintButton.disabled = true;
+            const observationButton = document.getElementById('observation-button');
+            observationButton.classList.add('info-dialog__button--inactive');
+            observationButton.disabled = true;
+
+            this.setupButtonHandlers(url, currentTaxon);
+
+            // TODO: let dialogManager take over
+            const closeButton = document.getElementById('info-close-button');
+            closeButton.onclick = () => {
+                dialog.close();
+                document.querySelectorAll('.image-container').forEach(container => {
+                    container.classList.remove('image-container--framed');
+                });
+            };
+
+            dialog.addEventListener('close', () => {
+                // Remove framing from all containers when dialog is closed
+                document.querySelectorAll('.image-container').forEach(container => {
+                    container.classList.remove('image-container--framed');
+                });
             });
-        });
 
-        this.setupButtonHandlers(url, currentTaxon);
-        
-        // TODO: let dialogManager take over
-        const closeButton = document.getElementById('info-close-button');
-        closeButton.onclick = () => {
-            dialog.close();
-            document.querySelectorAll('.image-container').forEach(container => {
-                container.classList.remove('image-container--framed');
-            });
-        };
+            // Check if the dialog is already open
+            if (!dialog.open) {
+                dialog.showModal();
+            }
 
-        dialog.addEventListener('close', () => {
-            // Remove framing from all containers when dialog is closed
-            document.querySelectorAll('.image-container').forEach(container => {
-                container.classList.remove('image-container--framed');
-            });
-        });
+            // Position the dialog after content is loaded
+            positionDialog();
+            
+            // Reposition on window resize
+            window.addEventListener('resize', positionDialog);
 
-        dialog.showModal();
-        // Reposition on window resize
-        window.addEventListener('resize', positionDialog);
-
+        } catch (error) {
+            logger.error('Error in showInfoDialog:', error);
+        }
     },
 
-    frameImage(imageIndex) {
-        if (imageIndex) {
-            const imageContainer = document.getElementById(`image-container-${imageIndex}`);
-            if (imageContainer) {
-                imageContainer.classList.add('image-container--framed');
-            }
+    positionDialog(dialog, imageIndex) {
+        const topImageContainer = document.getElementById('image-container-1');
+        const bottomImageContainer = document.getElementById('image-container-2');
+        const namePairContainer = document.querySelector('.name-pair');
+
+        const dialogRect = dialog.getBoundingClientRect();
+        const topContainerRect = topImageContainer.getBoundingClientRect();
+        const bottomContainerRect = bottomImageContainer.getBoundingClientRect();
+        const namePairRect = namePairContainer.getBoundingClientRect();
+
+        if (imageIndex === 1) {
+            // For the top image
+            dialog.style.top = `${namePairRect.top}px`;
+            dialog.style.bottom = `${window.innerHeight - bottomContainerRect.bottom}px`;
+            dialog.style.height = 'auto'; // Let the height adjust automatically
+        } else {
+            // For the bottom image
+            dialog.style.top = `${topContainerRect.top}px`;
+            dialog.style.bottom = `${window.innerHeight - namePairRect.bottom}px`;
+            dialog.style.height = 'auto'; // Let the height adjust automatically
         }
+
+        // Center horizontally
+        dialog.style.left = `${(window.innerWidth - dialogRect.width) / 2}px`;
     },
 
     setupButtonHandlers(url, currentTaxon) {

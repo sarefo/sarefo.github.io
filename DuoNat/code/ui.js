@@ -560,6 +560,26 @@ const ui = {
         document.addEventListener('keydown', handleKeyPress);
     },
 
+    showPopupNotification: function(message, duration = 3000) {
+        const popup = document.createElement('div');
+        popup.className = 'popup-notification';
+        popup.textContent = message;
+
+        document.body.appendChild(popup);
+
+        // Trigger a reflow before adding the 'show' class
+        popup.offsetHeight;
+
+        popup.classList.add('show');
+
+        setTimeout(() => {
+            popup.classList.remove('show');
+            setTimeout(() => {
+                document.body.removeChild(popup);
+            }, 300); // Wait for the fade out animation to complete
+        }, duration);
+    },
+
     // main menu code:
     initializeMainMenu: function () {
         const menuToggle = document.getElementById('menu-toggle');

@@ -824,6 +824,11 @@ z-index: 5000; /* debug */
     padding: 10px;
 }
 
+.info-dialog__button--inactive {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 @media (max-width: 480px) {
     .info-dialog {
         padding: 12px;
@@ -919,6 +924,29 @@ z-index: 5000; /* debug */
 
 .report-dialog__submit:hover {
     background-color: #5c8a00;
+}
+
+.popup-notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    max-width: 80%;
+    word-wrap: break-word;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+.popup-notification.show {
+    opacity: 1;
 }
 
 /* Relationship graph dialog */

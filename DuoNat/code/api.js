@@ -200,6 +200,23 @@ const api = (() => {
             }
         },
 
+        checkWikipediaPage: async function (taxonName) {
+            const encodedTaxonName = encodeURIComponent(taxonName);
+            const apiUrl = `https://en.wikipedia.org/w/api.php?action=query&titles=${encodedTaxonName}&format=json&origin=*`;
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                const pages = data.query.pages;
+                
+                // If the page exists, it will have a positive page ID
+                return !pages[-1];
+            } catch (error) {
+                logger.error('Error checking Wikipedia page:', error);
+                return false;
+            }
+        },
+
         fetchTaxonId: async function (taxonName) {
             try {
                 logger.debug(`Fetching taxon ID for ${taxonName}`);
