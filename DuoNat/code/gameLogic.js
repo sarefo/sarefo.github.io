@@ -1,13 +1,13 @@
 import api from './api.js';
 import config from './config.js';
 import { gameState, updateGameState, GameState } from './state.js';
-import logger from './logger.js';
-import ui from './ui.js';
-import utils from './utils.js';
 import game from './game.js';
 import gameSetup from './gameSetup.js';
 import gameUI from './gameUI.js';
+import logger from './logger.js';
 import preloader from './preloader.js';
+import ui from './ui.js';
+import utils from './utils.js';
 
 const gameLogic = {
 
@@ -137,6 +137,7 @@ const gameLogic = {
         } else {
             preloader.preloadForNextPair();
         }
+        ui.updateFilterSummary(); 
     },
 
     getCurrentTaxon(url) {

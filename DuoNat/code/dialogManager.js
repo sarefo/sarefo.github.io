@@ -5,6 +5,7 @@ import game from './game.js';
 import gameLogic from './gameLogic.js';
 import logger from './logger.js';
 import { gameState, updateGameState } from './state.js';
+import rangeSelector from './rangeSelector.js';
 import tagCloud from './tagCloud.js';
 import ui from './ui.js';
 
@@ -31,6 +32,10 @@ const dialogManager = {
             if (this.openDialogs.length === 1) {
                 this.disableMainEventHandlers();
             }
+        }
+
+        if (dialogId === 'select-set-dialog') {
+            ui.updateFilterSummary();
         }
 
         if (dialogId === 'report-dialog') {
@@ -162,10 +167,22 @@ const dialogManager = {
         });
 
         // TODO should be in its own module somewhere I think
+        const filterSummaryMap = document.querySelector('.filter-summary__map');
+        if (filterSummaryMap) {
+            filterSummaryMap.addEventListener('click', () => {
+                this.openDialog('range-dialog');
+            });
+        }
+
+        const clearFiltersButton = document.getElementById('clear-all-filters');
+        if (clearFiltersButton) {
+            clearFiltersButton.addEventListener('click', this.clearAllFilters.bind(this));
+        }
         const selectSetDoneButton = document.getElementById('select-set-done-button');
         if (selectSetDoneButton) {
             selectSetDoneButton.addEventListener('click', this.handleSelectSetDone.bind(this));
         }
+
 
         this.on('dialogClose', (dialogId) => {
             // Add any specific actions you want to perform when a dialog is closed
@@ -173,6 +190,31 @@ const dialogManager = {
 
         this.initializeReportDialog();
 
+    },
+
+    clearAllFilters() {
+        gameState.selectedTags = [];
+        gameState.selectedRanges = [];
+        gameState.selectedLevel = '';
+
+        // Reset the level dropdown
+        const levelDropdown = document.getElementById('level-filter-dropdown');
+        if (levelDropdown) {
+            levelDropdown.value = '';
+        }
+
+        // Clear tags
+        tagCloud.clearAllTags();
+
+        // Clear ranges
+        rangeSelector.setSelectedRanges([]);
+
+        // Update the UI
+        ui.updateTaxonPairList();
+        ui.updateFilterSummary();
+
+        // Optionally, you can add a notification here
+        ui.showPopupNotification('All filters cleared');
     },
 
     handleSelectSetDone() {

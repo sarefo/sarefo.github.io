@@ -498,9 +498,9 @@ const eventHandlers = {
                     event.preventDefault();
                     document.getElementById('select-tags-button').click();
                     break;
-                case 'g':
+                case 'f':
                     event.preventDefault();
-                    document.getElementById('clear-all-tags').click();
+                    document.getElementById('clear-all-filters').click();
                     break;
                 case 'r':
                     event.preventDefault();

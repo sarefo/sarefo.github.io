@@ -37,12 +37,13 @@ const tagCloud = {
         const closeButton = tagCloudDialog.querySelector('.dialog-close-button');
         closeButton.addEventListener('click', () => this.closeTagCloud());
 
-        const clearAllTagsButton = document.getElementById('clear-all-tags');
-        clearAllTagsButton.addEventListener('click', () => this.clearAllTags());
+        // TODO not sure this should be in tagCloud.js
+        const clearAllFiltersButton = document.getElementById('clear-all-filters');
+        clearAllFiltersButton.addEventListener('click', () => dialogManager.clearAllFilters());
 
         // Update active tags when the tag cloud is opened or closed
-        this.on('tagCloudOpened', () => this.updateActiveTags());
-        this.on('tagCloudClosed', () => this.updateActiveTags());
+//        this.on('tagCloudOpened', () => ui.updateFilterSummary());
+//        this.on('tagCloudClosed', () => ui.updateFilterSummary());
 
         const levelDropdown = document.getElementById('level-filter-dropdown');
         levelDropdown.addEventListener('change', () => this.updateTaxonList());
@@ -56,14 +57,15 @@ const tagCloud = {
         this.renderTagCloud(tagCounts);
         this.updateMatchingPairsCount();
         dialogManager.openDialog('tag-cloud-dialog');
-        this.emit('tagCloudOpened');
+       // this.emit('tagCloudOpened');
     },
 
     closeTagCloud() {
         this.updateTaxonList();
         preloader.preloadNewPairWithTags(gameState.selectedTags, gameState.selectedLevel);
-        this.emit('tagCloudClosed');
+       // this.emit('tagCloudClosed');
         dialogManager.closeDialog('tag-cloud-dialog', true);
+        ui.updateFilterSummary();
     },
 
     async updateTaxonList() {
@@ -187,7 +189,7 @@ const tagCloud = {
         const newSelectedTags = Array.from(this.selectedTags);
         updateGameState({ selectedTags: newSelectedTags });
         await this.updateFilteredPairs();
-        this.updateActiveTags();
+        ui.updateFilterSummary();
         this.updateMatchingPairsCount();
     },
 
@@ -198,7 +200,7 @@ const tagCloud = {
     async setSelectedTags(tags) {
         this.selectedTags = new Set(tags);
         updateGameState({ selectedTags: this.getSelectedTags() });
-        this.updateActiveTags();
+        ui.updateFilterSummary();
         await this.updateFilteredPairs();
         logger.debug("Setting selected tags");
         // Trigger preloading of a new pair based on the selected tags
@@ -208,7 +210,7 @@ const tagCloud = {
     async clearAllTags() {
         this.selectedTags.clear();
         updateGameState({ selectedTags: [] });
-        this.updateActiveTags();
+        ui.updateFilterSummary();
         await this.updateFilteredPairs();
 
         // Trigger preloading of a random pair from all available pairs
@@ -216,7 +218,7 @@ const tagCloud = {
 
     },
 
-    updateActiveTags() {
+/*    updateActiveTags() {
         const activeTagsContainer = document.getElementById('active-tags');
         activeTagsContainer.innerHTML = '';
 
@@ -230,7 +232,8 @@ const tagCloud = {
         // Show or hide the container based on whether there are active tags
         const container = document.getElementById('active-tags-container');
         container.style.display = this.selectedTags.size > 0 ? 'flex' : 'none';
-    },
+    },*/
+
 };
 
 export default tagCloud;

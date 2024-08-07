@@ -221,15 +221,84 @@ z-index: 5000; /* debug */
     box-shadow: 0 0 0 2px rgba(116, 172, 0, 0.2);
 }
 
+/* Active filters */
+
+.filter-summary {
+    display: flex;
+    align-items: center;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    padding: 10px;
+    width: 100%;
+}
+
+.filter-summary__map {
+    width: 100px;
+    height: 45px;
+    margin-right: 10px;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.filter-summary__map:hover {
+    opacity: 0.8;
+}
+
+.filter-summary__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    flex-grow: 1;
+}
+
+.filter-summary__tag {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.9em;
+}
+
+.filter-summary__no-tags {
+    color: var(--dark-neutral-color);
+    font-style: italic;
+}
+
+.select-set-dialog__clear-filters {
+    background-color: var(--primary-counter-color);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+}
+
+.select-set-dialog__clear-filters:hover {
+    background-color: #8a0020;
+}
+
+/* Add this if you want the map to appear clickable */
+.filter-summary__map {
+  cursor: pointer;
+}
+
+/* Add a subtle hover effect */
+.filter-summary__map:hover {
+  opacity: 0.8;
+}
+
+
 /* Active tags functionality */
 .select-set-dialog__active-tags {
     display: flex;
     flex-direction: row;
+    flex-wrap: nowrap;
     justify-content: space-between;
     align-items: stretch;
+    gap: 4px;
     margin-bottom: 10px;
     width: 100%;
-    display: none; /* Initially hidden */
+   /* display: none;*/ /* Initially hidden */
 }
 
 .select-set-dialog__tags-list {

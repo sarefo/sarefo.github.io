@@ -9,6 +9,7 @@ import gameSetup from './gameSetup.js';
 import logger from './logger.js';
 import tagCloud from './tagCloud.js';
 import utils from './utils.js';
+import { createClickableWorldMap } from './worldMap.js';
 
 const vernacularNameCache = new Map();
 
@@ -70,7 +71,7 @@ const ui = {
             }
 
             dialogManager.openDialog('select-set-dialog');
-
+            this.updateFilterSummary();
             // Focus on the search input after opening the dialog
             this.focusSearchInput();
 
@@ -95,6 +96,29 @@ const ui = {
         const levelDropdown = document.getElementById('level-filter-dropdown');
         if (levelDropdown) {
             levelDropdown.value = gameState.selectedLevel;
+        }
+    },
+
+    updateFilterSummary: function () {
+        const mapContainer = document.querySelector('.filter-summary__map');
+        const tagsContainer = document.querySelector('.filter-summary__tags');
+
+        if (mapContainer) {
+            // Clear the existing content
+            mapContainer.innerHTML = '';
+            // Create a new world map with the current selected ranges
+            createClickableWorldMap(mapContainer, new Set(gameState.selectedRanges), () => {
+                // Open the range dialog when the map is clicked
+                dialogManager.openDialog('range-dialog');
+            });
+        }
+
+        if (tagsContainer) {
+            tagsContainer.innerHTML = gameState.selectedTags.length > 0
+                ? gameState.selectedTags
+                    .map(tag => `<span class="filter-summary__tag">${tag}</span>`)
+                    .join('')
+                : '<span class="filter-summary__no-tags">No filters active</span>';
         }
     },
 
@@ -174,6 +198,7 @@ const ui = {
 
         // Update the count
         this.updateActiveCollectionCount(filteredPairs ? filteredPairs.length : 0);
+        this.updateFilterSummary();
     },
 
     createTaxonPairButton: async function (pair) {

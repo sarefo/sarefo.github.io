@@ -44,8 +44,8 @@ const rangeSelector = {
 
     closeRangeDialog() {
         dialogManager.closeDialog('range-dialog');
-//        logger.debug(`closing with active continents: ${[...this.selectedContinents]}`);
         this.updateTaxonList();
+        ui.updateFilterSummary();
     },
 
     getSelectedRanges() {
@@ -57,6 +57,7 @@ const rangeSelector = {
             ranges.map(abbr => Object.keys(this.continentMap).find(key => this.continentMap[key] === abbr))
         );
         this.initializeWorldMap(); // Redraw the map to reflect the changes
+        ui.updateFilterSummary();
     },
 
     toggleContinent(continent) {
@@ -66,6 +67,12 @@ const rangeSelector = {
             this.selectedContinents.add(continent);
         }
         this.initializeWorldMap(); // Redraw the map to reflect the changes
+        
+        // Update the gameState with the new selected ranges
+        gameState.selectedRanges = this.getSelectedRanges();
+        
+        // Update the filter summary to reflect the changes immediately
+        ui.updateFilterSummary();
     },
 
     async updateTaxonList() {
