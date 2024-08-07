@@ -24,7 +24,7 @@ const rangeSelector = {
         const rangeDialog = document.getElementById('range-dialog');
         const doneButton = document.getElementById('range-done-button');
 
-        selectRangeButton.addEventListener('click', () => this.openRangeDialog());
+        selectRangeButton.addEventListener('click', () => dialogManager.openRangeDialog());
         doneButton.addEventListener('click', () => this.closeRangeDialog());
 
         // Close button functionality
@@ -39,6 +39,10 @@ const rangeSelector = {
 
     initializeWorldMap() {
         const container = document.getElementById('range-map-container');
+        if (!container) {
+            console.error('Range map container not found');
+            return;
+        }
         createClickableWorldMap(container, this.selectedContinents, (continent) => this.toggleContinent(continent));
     },
 

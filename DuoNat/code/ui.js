@@ -104,11 +104,19 @@ const ui = {
         const tagsContainer = document.querySelector('.filter-summary__tags');
 
         if (mapContainer) {
+            // Clear the existing content
+            mapContainer.innerHTML = '';
+            
             // Convert the selected ranges from abbreviations to full names
             const selectedContinents = new Set(gameState.selectedRanges.map(abbr => getFullContinentName(abbr)));
 
             // Create a new non-clickable world map with the current selected ranges
             createNonClickableWorldMap(mapContainer, selectedContinents);
+
+            // Add click event to open range dialog
+            mapContainer.addEventListener('click', () => {
+                dialogManager.openRangeDialog();
+            });
         }
 
         if (tagsContainer) {
@@ -116,7 +124,7 @@ const ui = {
                 ? gameState.selectedTags
                     .map(tag => `<span class="filter-summary__tag">${tag}</span>`)
                     .join('')
-                : '<span class="filter-summary__no-tags">No filters active</span>';
+                : '<span class="filter-summary__no-tags">No active tags</span>';
         }
     },
 

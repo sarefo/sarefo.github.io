@@ -15,6 +15,11 @@ const dialogManager = {
     eventListeners: {},
     openDialogs: [],
 
+    openRangeDialog() {
+        this.openDialog('range-dialog');
+        rangeSelector.initializeWorldMap();
+    },
+
     openDialog(dialogId) {
         if (this.openDialogs.includes(dialogId)) {
             return;
@@ -170,7 +175,7 @@ const dialogManager = {
         const filterSummaryMap = document.querySelector('.filter-summary__map');
         if (filterSummaryMap) {
             filterSummaryMap.addEventListener('click', () => {
-                this.openDialog('range-dialog');
+                this.openRangeDialog();
             });
         }
 
