@@ -9,7 +9,7 @@ import gameSetup from './gameSetup.js';
 import logger from './logger.js';
 import tagCloud from './tagCloud.js';
 import utils from './utils.js';
-import { createClickableWorldMap } from './worldMap.js';
+import { createNonClickableWorldMap, getFullContinentName } from './worldMap.js';
 
 const vernacularNameCache = new Map();
 
@@ -104,13 +104,11 @@ const ui = {
         const tagsContainer = document.querySelector('.filter-summary__tags');
 
         if (mapContainer) {
-            // Clear the existing content
-            mapContainer.innerHTML = '';
-            // Create a new world map with the current selected ranges
-            createClickableWorldMap(mapContainer, new Set(gameState.selectedRanges), () => {
-                // Open the range dialog when the map is clicked
-                dialogManager.openDialog('range-dialog');
-            });
+            // Convert the selected ranges from abbreviations to full names
+            const selectedContinents = new Set(gameState.selectedRanges.map(abbr => getFullContinentName(abbr)));
+
+            // Create a new non-clickable world map with the current selected ranges
+            createNonClickableWorldMap(mapContainer, selectedContinents);
         }
 
         if (tagsContainer) {

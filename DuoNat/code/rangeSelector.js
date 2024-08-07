@@ -1,5 +1,5 @@
 import dialogManager from './dialogManager.js';
-import { createClickableWorldMap } from './worldMap.js';
+import { createClickableWorldMap, getContinentAbbreviation, getFullContinentName } from './worldMap.js';
 import { gameState, updateGameState } from './state.js';
 import gameLogic from './gameLogic.js';
 import logger from './logger.js';
@@ -49,14 +49,12 @@ const rangeSelector = {
     },
 
     getSelectedRanges() {
-        return Array.from(this.selectedContinents).map(fullName => this.continentMap[fullName]);
+        return Array.from(this.selectedContinents).map(fullName => getContinentAbbreviation(fullName));
     },
 
     setSelectedRanges(ranges) {
-        this.selectedContinents = new Set(
-            ranges.map(abbr => Object.keys(this.continentMap).find(key => this.continentMap[key] === abbr))
-        );
-        this.initializeWorldMap(); // Redraw the map to reflect the changes
+        this.selectedContinents = new Set(ranges.map(abbr => getFullContinentName(abbr)));
+        this.initializeWorldMap();
         ui.updateFilterSummary();
     },
 

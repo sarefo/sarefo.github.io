@@ -57,22 +57,25 @@
 .image-container__world-map {
     position: absolute;
     left: 60px;
-    width: 100px; /* Adjust as needed */
-    height: 60px; /* Adjust as needed */
+    bottom: 5px;
+    width: 100px;
+    height: 60px;
     border-radius: var(--border-radius);
     opacity: 0.6;
     z-index: 10;
 }
+
 .image-container__world-map svg {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    width: 100px;
+    height: 60px;
+    padding: 4px;
+    background: #fff;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
     border-radius: var(--border-radius);
-}
-
-#world-map-1 {
-    bottom: 5px;
-}
-
-#world-map-2 {
-    bottom: 5px;
 }
 
 /* Drop zone for taxon tiles */
