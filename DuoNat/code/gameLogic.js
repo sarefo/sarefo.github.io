@@ -89,6 +89,8 @@ const gameLogic = {
             ui.showOverlay("Error loading new pair. Please try again.", config.overlayColors.red);
         } finally {
             game.setState(GameState.PLAYING);
+            preloader.clearPreloadedImagesForNextRound();
+            preloader.preloadForNextRound();
             preloader.preloadForNextPair();
         }
     },

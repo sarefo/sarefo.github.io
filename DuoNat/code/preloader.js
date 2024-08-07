@@ -32,7 +32,7 @@ const preloader = {
         ]);
 
         this.preloadedImages.nextRound = { taxon1: newImageOneURL, taxon2: newImageTwoURL };
-//        logger.debug("Preloaded images for next round:", this.preloadedImages.nextRound);
+        logger.debug("Preloaded images for next round:", this.preloadedImages.nextRound);
     },
 
     async fetchDifferentImage(taxonName, currentImageURL) {
