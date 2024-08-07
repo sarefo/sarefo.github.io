@@ -9,7 +9,6 @@ import tagCloud from './tagCloud.js';
 
 const utils = {
 
-    // optionally get pair of taxa from URL
     getURLParameters: function () {
         const params = new URLSearchParams(window.location.search);
         const taxon1 = params.get('taxon1');
@@ -17,8 +16,9 @@ const utils = {
         const tags = params.get('tags');
         const level = params.get('level');
         const setID = params.get('setID');
+        const ranges = params.get('ranges');
 
-        return { taxon1, taxon2, tags, level, setID };
+        return { taxon1, taxon2, tags, level, setID, ranges };
     },
 
     shareCurrentPair: function() {
@@ -41,6 +41,11 @@ const utils = {
         // Add level only if it's set (not empty)
         if (gameState.selectedLevel && gameState.selectedLevel !== '') {
             currentUrl.searchParams.set('level', gameState.selectedLevel);
+        }
+
+        // Add ranges to the URL
+        if (gameState.selectedRanges && gameState.selectedRanges.length > 0) {
+            currentUrl.searchParams.set('ranges', gameState.selectedRanges.join(','));
         }
 
         // Add setID if available

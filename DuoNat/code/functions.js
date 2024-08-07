@@ -51,13 +51,11 @@ import utils from './utils.js';
             ui.updateLevelDropdown();
             logger.debug("Skill level from URL:", urlParams.level);
         }
-
         // Handle ranges from URL
         if (urlParams.ranges) {
             const ranges = urlParams.ranges.split(',');
             updateGameState({ selectedRanges: ranges });
-            // You might need to create a function to update the range selector UI
-            // rangeSelector.updateSelectedRanges(ranges);
+            rangeSelector.setSelectedRanges(ranges);
             logger.debug("Ranges from URL:", ranges);
         }
 
