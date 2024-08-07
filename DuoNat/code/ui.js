@@ -4,6 +4,7 @@ import dialogManager from './dialogManager.js';
 import { elements, gameState } from './state.js';
 import eventHandlers from './eventHandlers.js';
 import game from './game.js';
+import gameLogic from './gameLogic.js';
 import gameSetup from './gameSetup.js';
 import logger from './logger.js';
 import tagCloud from './tagCloud.js';
@@ -48,14 +49,13 @@ const ui = {
                 return;
             }
 
-            const list = document.getElementById('taxon-set-list');
-            list.innerHTML = ''; // Clear existing content
+            const filters = {
+                level: gameState.selectedLevel,
+                ranges: gameState.selectedRanges,
+                tags: gameState.selectedTags
+            };
 
-            // Filter pairs based on selected tags, level, and ranges
-            const selectedTags = gameState.selectedTags;
-            const selectedLevel = gameState.selectedLevel;
-            const selectedRanges = gameState.selectedRanges || []; // Add this line
-            let filteredPairs = tagCloud.filterTaxonPairs(taxonPairs, selectedTags, selectedLevel, selectedRanges);
+            let filteredPairs = gameLogic.filterTaxonPairs(taxonPairs, filters);
 
             // Render only visible pairs initially
             await this.renderVisibleTaxonPairs(filteredPairs);

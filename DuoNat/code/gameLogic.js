@@ -95,6 +95,18 @@ const gameLogic = {
         }
     },
 
+    filterTaxonPairs: function (taxonPairs, filters) {
+        return taxonPairs.filter(pair => {
+            const matchesLevel = !filters.level || pair.skillLevel === filters.level;
+            const matchesRanges = !filters.ranges || filters.ranges.length === 0 || 
+                (pair.range && pair.range.some(range => filters.ranges.includes(range)));
+            const matchesTags = filters.tags.length === 0 || 
+                pair.tags.some(tag => filters.tags.includes(tag));
+            
+            return matchesLevel && matchesRanges && matchesTags;
+        });
+    },
+
     isPairValidForCurrentFilters: function (pair) {
         const matchesLevel = gameState.selectedLevel === '' || pair.skillLevel === gameState.selectedLevel;
         const matchesTags = gameState.selectedTags.length === 0 || 
@@ -202,7 +214,13 @@ const gameLogic = {
         const taxonPairs = await api.fetchTaxonPairs();
         logger.debug(`Total taxon pairs: ${taxonPairs.length}`);
         
-        const filteredPairs = taxonPairs.filter(pair => this.isPairInCurrentCollection(pair));
+        const filters = {
+            level: gameState.selectedLevel,
+            ranges: gameState.selectedRanges,
+            tags: gameState.selectedTags
+        };
+        
+        const filteredPairs = this.filterTaxonPairs(taxonPairs, filters);
         logger.debug(`Filtered pairs: ${filteredPairs.length}`);
         
         if (filteredPairs.length === 0) {
@@ -229,6 +247,7 @@ const gameLogic = {
         
         return selectedPair;
     },
+
 };
 
 Object.keys(gameLogic).forEach(key => {

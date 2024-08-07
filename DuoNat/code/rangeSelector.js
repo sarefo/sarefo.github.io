@@ -1,6 +1,7 @@
 import dialogManager from './dialogManager.js';
 import { createClickableWorldMap } from './worldMap.js';
 import { gameState, updateGameState } from './state.js';
+import gameLogic from './gameLogic.js';
 import logger from './logger.js';
 import ui from './ui.js';
 import api from './api.js';
@@ -59,36 +60,25 @@ const rangeSelector = {
     async updateTaxonList() {
         const selectedAbbreviations = Array.from(this.selectedContinents).map(fullName => this.continentMap[fullName]);
         
-        logger.debug(`Selected continents: ${Array.from(this.selectedContinents).join(', ')}`);
-        logger.debug(`Selected abbreviations: ${selectedAbbreviations.join(', ')}`);
-        
         updateGameState({ selectedRanges: selectedAbbreviations });
         
         try {
             const taxonSets = await api.fetchTaxonPairs();
-            logger.debug(`Total taxon pairs: ${taxonSets.length}`);
+            const filters = {
+                level: gameState.selectedLevel,
+                ranges: selectedAbbreviations,
+                tags: gameState.selectedTags
+            };
             
-            const response = await fetch('./data/taxonSets.json');
-            const originalTaxonSets = await response.json();
+            const filteredPairs = gameLogic.filterTaxonPairs(taxonSets, filters);
             
-            const filteredPairs = taxonSets.filter(pair => {
-                const originalSet = originalTaxonSets.find(set => set.setID === pair.setID);
-                if (!originalSet || !originalSet.range) {
-                    logger.debug(`Set without range: ${pair.setName}`);
-                    return false;
-                }
-                const matches = selectedAbbreviations.length === 0 || 
-                    originalSet.range.some(range => selectedAbbreviations.includes(range));
-                return matches;
-            });
-            
-            logger.debug(`Filtered pairs: ${filteredPairs.length}`);
             ui.updateTaxonPairList(filteredPairs);
         } catch (error) {
             logger.error("Error updating taxon list:", error);
             ui.updateTaxonPairList([]);
         }
     }
+
 };
 
 export default rangeSelector;

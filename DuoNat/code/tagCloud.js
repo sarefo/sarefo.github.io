@@ -1,5 +1,6 @@
 import api from './api.js';
 import dialogManager from './dialogManager.js';
+import gameLogic from './gameLogic.js';
 import { gameState, updateGameState } from './state.js';
 import preloader from './preloader.js';
 import ui from './ui.js';
@@ -8,8 +9,7 @@ import logger from './logger.js';
 const tagCloud = {
     selectedTags: new Set(),
     eventListeners: {},
-    filteredPairsByLevel: [],
-    filteredPairsByTags: [],
+    filteredPairs: [],
 
     on(eventName, callback) {
         if (!this.eventListeners[eventName]) {
@@ -52,9 +52,9 @@ const tagCloud = {
     },
 
     async openTagCloud() {
-        await this.updateFilteredPairs();
-        const tagCounts = this.getTagCounts();
+        const tagCounts = await this.getTagCounts();
         this.renderTagCloud(tagCounts);
+        this.updateMatchingPairsCount();
         dialogManager.openDialog('tag-cloud-dialog');
         this.emit('tagCloudOpened');
     },
@@ -91,13 +91,17 @@ const tagCloud = {
 
     async updateFilteredPairs() {
         const taxonPairs = await api.fetchTaxonPairs();
-        this.filteredPairsByLevel = this.filterPairsByLevel(taxonPairs, gameState.selectedLevel);
-        this.filteredPairsByTags = this.filterPairsByTags(this.filteredPairsByLevel, gameState.selectedTags);
-        this.filteredPairsByRanges = this.filterPairsByRanges(this.filteredPairsByTags, gameState.selectedRanges);
+        const filters = {
+            level: gameState.selectedLevel,
+            ranges: gameState.selectedRanges,
+            tags: Array.from(this.selectedTags)
+        };
         
-        ui.renderTaxonPairList(this.filteredPairsByRanges);
-        ui.updateActiveCollectionCount(this.filteredPairsByRanges.length);
-        this.updateTagCloud();
+        this.filteredPairs = gameLogic.filterTaxonPairs(taxonPairs, filters);
+        
+        ui.renderTaxonPairList(this.filteredPairs);
+        ui.updateActiveCollectionCount(this.filteredPairs.length);
+        this.updateMatchingPairsCount();
     },
 
     filterPairsByLevel(taxonPairs, selectedLevel) {
@@ -116,9 +120,18 @@ const tagCloud = {
         );
     },
 
-    getTagCounts() {
+    async getTagCounts() {
         const tagCounts = {};
-        this.filteredPairsByLevel.forEach(pair => {
+        const taxonPairs = await api.fetchTaxonPairs();
+        const filters = {
+            level: gameState.selectedLevel,
+            ranges: gameState.selectedRanges,
+            tags: [] // Empty array to ignore tag filtering
+        };
+        
+        const filteredPairs = gameLogic.filterTaxonPairs(taxonPairs, filters);
+        
+        filteredPairs.forEach(pair => {
             pair.tags.forEach(tag => {
                 tagCounts[tag] = (tagCounts[tag] || 0) + 1;
             });
@@ -129,7 +142,7 @@ const tagCloud = {
     updateMatchingPairsCount() {
         const countElement = document.getElementById('matching-pairs-count');
         if (countElement) {
-            countElement.textContent = `Matching pairs: ${this.filteredPairsByTags.length}`;
+            countElement.textContent = `Matching pairs: ${this.filteredPairs.length}`;
         }
     },
 
@@ -175,6 +188,7 @@ const tagCloud = {
         updateGameState({ selectedTags: newSelectedTags });
         await this.updateFilteredPairs();
         this.updateActiveTags();
+        this.updateMatchingPairsCount();
     },
 
     getSelectedTags() {
