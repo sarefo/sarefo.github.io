@@ -118,10 +118,11 @@ const gameLogic = {
     },
 
     // Update this method to set the nextSelectedPair
-    async loadNewTaxonPair(newPair) {
+/*    async loadNewTaxonPair(newPair) {
         this.nextSelectedPair = newPair;
         await gameSetup.setupGame(true);
     },
+    */
 
     applyFilters: function (newFilters) {
         updateGameState({
@@ -178,7 +179,7 @@ const gameLogic = {
         }
     },
 
-    isPairInCurrentCollection: function(pair) {
+/*    isPairInCurrentCollection: function(pair) {
         const selectedTags = gameState.selectedTags;
         const selectedLevel = gameState.selectedLevel;
         const selectedRanges = gameState.selectedRanges;
@@ -191,7 +192,7 @@ const gameLogic = {
             (pair.range && pair.range.some(range => selectedRanges.includes(range)));
 
         return matchesTags && matchesLevel && matchesRanges;
-    },
+    },*/
 
     isCurrentPairInCollection: function() {
         if (!gameState.currentTaxonImageCollection || !gameState.currentTaxonImageCollection.pair) {
