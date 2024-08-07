@@ -33,7 +33,7 @@ for index, item in enumerate(input_data, start=1):
     output_item = {
         "setID": str(index),
         "setName": item['setName'],
-        "skillLevel": "",
+        "level": "",
         "tags": item['tags'],
         "taxa": taxa_ids,
         "taxaNames": taxa_names

@@ -53,7 +53,7 @@
 }
 
 /* Level indicator on main screen */
-.skill-level-indicator {
+.level-indicator {
     position: static;
     margin-left: 10px;
     top: 10px;
@@ -70,11 +70,11 @@
     z-index: 2000;
 }
 
-.skill-level-indicator:focus {
+.level-indicator:focus {
     outline: none;
 }
 
-.skill-level-indicator .icon-chili {
+.level-indicator .icon-chili {
     width: 24px;
     height: 24px;
     fill: var(--primary-counter-color);
@@ -82,7 +82,7 @@
     margin-right: 0px;
 }
 
-.skill-level-indicator .icon-chili:last-child {
+.level-indicator .icon-chili:last-child {
     margin-right: 0;
 }
 

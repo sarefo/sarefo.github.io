@@ -36,8 +36,8 @@ const gameSetup = {
             }
 
             // Update skill level indicator
-            const skillLevel = gameState.currentTaxonImageCollection.pair.skillLevel;
-            gameUI.updateSkillLevelIndicator(skillLevel);
+            const level = gameState.currentTaxonImageCollection.pair.level;
+            gameUI.updateLevelIndicator(level);
 
             this.finishSetup();
             gameUI.setNamePairHeight();
@@ -60,7 +60,7 @@ const gameSetup = {
     },
 
     async setupGameWithPreloadedPair(preloadedPair) {
-        logger.debug(`Setting up game with preloaded pair: ${preloadedPair.pair.taxon1} / ${preloadedPair.pair.taxon2}, Skill Level: ${preloadedPair.pair.skillLevel}`);
+        logger.debug(`Setting up game with preloaded pair: ${preloadedPair.pair.taxon1} / ${preloadedPair.pair.taxon2}, Skill Level: ${preloadedPair.pair.level}`);
         logger.debug(`Current selected level: ${gameState.selectedLevel}`);
 
         if (!preloader.isPairValid(preloadedPair.pair)) {
@@ -131,7 +131,7 @@ const gameSetup = {
                 pair: newPair,
                 imageOneURL,
                 imageTwoURL,
-                skillLevel: newPair.skillLevel
+                level: newPair.level
             },
             usedImages: {
                 taxon1: new Set([imageOneURL]),
@@ -141,7 +141,7 @@ const gameSetup = {
         });
 
         // Update the skill level indicator
-        gameUI.updateSkillLevelIndicator(newPair.skillLevel);
+        gameUI.updateLevelIndicator(newPair.level);
 
         await this.setupRound(true);
     },

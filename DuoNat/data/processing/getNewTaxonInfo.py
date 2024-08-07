@@ -40,7 +40,7 @@
   {
     "setID": "603",
     "setName": "Beetles and Thrips",
-    "skillLevel": "2",
+    "level": "2",
     "tags": [
       "beetles",
       "thrips"
@@ -159,7 +159,7 @@ def process_taxa(input_file, existing_taxon_file, new_taxon_file, existing_sets_
         new_set = {
             "setID": str(last_set_id + len(new_sets) + 1),
             "setName": "",
-            "skillLevel": "0",
+            "level": "0",
             "tags": [""],
             "taxa": taxon_ids,
             "taxonNames": taxon_names

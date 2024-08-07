@@ -358,7 +358,7 @@ const dialogManager = {
             emailBody += `Taxon 2: ${pair.taxon2}\n`;
             emailBody += `Set Name: ${pair.setName || 'N/A'}\n`;
             emailBody += `Set ID: ${pair.setID || 'N/A'}\n`;
-            emailBody += `Skill Level: ${pair.skillLevel || 'N/A'}\n`;
+            emailBody += `Level: ${pair.level || 'N/A'}\n`;
         } else {
             emailBody += "Current taxon pair information not available\n";
         }

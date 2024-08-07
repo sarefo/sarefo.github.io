@@ -64,11 +64,11 @@ const gameUI = {
         this.setNamePairHeight();
     },
 
-    updateSkillLevelIndicator(skillLevel) {
-        const indicator = document.getElementById('skill-level-indicator');
+    updateLevelIndicator(level) {
+        const indicator = document.getElementById('level-indicator');
         if (!indicator) return;
 
-        const chiliCount = parseInt(skillLevel) || 0;
+        const chiliCount = parseInt(level) || 0;
         indicator.innerHTML = ''; // Clear existing content
 
         for (let i = 0; i < chiliCount; i++) {

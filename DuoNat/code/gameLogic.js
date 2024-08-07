@@ -83,7 +83,7 @@ const gameLogic = {
             }
 
             ui.hideOverlay();
-            gameUI.updateSkillLevelIndicator(newPair.skillLevel);
+            gameUI.updateLevelIndicator(newPair.level);
         } catch (error) {
             logger.error("Error loading new pair:", error);
             ui.showOverlay("Error loading new pair. Please try again.", config.overlayColors.red);
@@ -97,7 +97,7 @@ const gameLogic = {
 
     filterTaxonPairs: function (taxonPairs, filters) {
         return taxonPairs.filter(pair => {
-            const matchesLevel = !filters.level || pair.skillLevel === filters.level;
+            const matchesLevel = !filters.level || pair.level === filters.level;
             const matchesRanges = !filters.ranges || filters.ranges.length === 0 || 
                 (pair.range && pair.range.some(range => filters.ranges.includes(range)));
             const matchesTags = filters.tags.length === 0 || 
@@ -108,7 +108,7 @@ const gameLogic = {
     },
 
     isPairValidForCurrentFilters: function (pair) {
-        const matchesLevel = gameState.selectedLevel === '' || pair.skillLevel === gameState.selectedLevel;
+        const matchesLevel = gameState.selectedLevel === '' || pair.level === gameState.selectedLevel;
         const matchesTags = gameState.selectedTags.length === 0 || 
             pair.tags.some(tag => gameState.selectedTags.includes(tag));
         const matchesRanges = gameState.selectedRanges.length === 0 || 
@@ -161,7 +161,7 @@ const gameLogic = {
         try {
             const newPair = await this.selectRandomPairFromCurrentCollection();
             if (newPair) {
-                logger.debug(`New pair selected: ${newPair.taxon1} / ${newPair.taxon2}, Skill Level: ${newPair.skillLevel}`);
+                logger.debug(`New pair selected: ${newPair.taxon1} / ${newPair.taxon2}, Level: ${newPair.level}`);
                 game.nextSelectedPair = newPair;
                 await gameSetup.setupGame(true);
             } else {
@@ -186,7 +186,7 @@ const gameLogic = {
         const matchesTags = selectedTags.length === 0 || 
             pair.tags.some(tag => selectedTags.includes(tag));
         const matchesLevel = selectedLevel === '' || 
-            pair.skillLevel === selectedLevel;
+            pair.level === selectedLevel;
         const matchesRanges = selectedRanges.length === 0 || 
             (pair.range && pair.range.some(range => selectedRanges.includes(range)));
 
@@ -201,10 +201,10 @@ const gameLogic = {
         const currentPair = gameState.currentTaxonImageCollection.pair;
         const selectedLevel = gameState.selectedLevel;
 
-        const matchesLevel = selectedLevel === '' || currentPair.skillLevel === selectedLevel;
+        const matchesLevel = selectedLevel === '' || currentPair.level === selectedLevel;
 
         if (!matchesLevel) {
-            logger.debug(`Current pair not in collection - Skill level mismatch: Pair ${currentPair.skillLevel}, Selected ${selectedLevel}`);
+            logger.debug(`Current pair not in collection - Skill level mismatch: Pair ${currentPair.level}, Selected ${selectedLevel}`);
         }
 
         return matchesLevel; // Simplified for now to focus on skill level
@@ -243,7 +243,7 @@ const gameLogic = {
         const randomIndex = Math.floor(Math.random() * availablePairs.length);
         const selectedPair = availablePairs[randomIndex];
         
-        logger.debug(`Selected random pair: ${selectedPair.taxon1} / ${selectedPair.taxon2}, Skill Level: ${selectedPair.skillLevel}`);
+        logger.debug(`Selected random pair: ${selectedPair.taxon1} / ${selectedPair.taxon2}, Skill Level: ${selectedPair.level}`);
         
         return selectedPair;
     },

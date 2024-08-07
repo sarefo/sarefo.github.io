@@ -186,14 +186,14 @@ const ui = {
         result = await getCachedVernacularName(pair.taxon2);
         const vernacular2 = result === "n/a" ? "" : result;
 
-        const chiliHtml = this.getChiliHtml(pair.skillLevel);
+        const chiliHtml = this.getChiliHtml(pair.level);
 
         button.innerHTML = `
             <div class="taxon-set-container">
                 <div class="taxon-set-info">
                     <div class="set-name-container">
                         <div class="set-name">${pair.setName || 'Unnamed Set'}</div>
-                        <div class="skill-level-chilis" aria-label="Skill level">${chiliHtml}</div>
+                        <div class="level-chilis" aria-label="Skill level">${chiliHtml}</div>
                     </div>
                     <div class="tags">${pair.tags.join(', ')}</div>
                 </div>
@@ -216,7 +216,7 @@ const ui = {
                 setName: pair.setName,
                 tags: [...pair.tags],
                 setID: pair.setID,
-                skillLevel: pair.skillLevel
+                level: pair.level
             };
 
             game.nextSelectedPair = selectedPair;
@@ -234,8 +234,8 @@ const ui = {
         return button;
     },
 
-    getChiliHtml: function (skillLevel) {
-        const chiliCount = parseInt(skillLevel) || 0;
+    getChiliHtml: function (level) {
+        const chiliCount = parseInt(level) || 0;
         let chiliHtml = '';
         for (let i = 0; i < chiliCount; i++) {
             chiliHtml += '<svg class="icon taxon-set__icon-chili"><use href="./images/icons.svg#icon-spicy"/></svg>';
@@ -359,7 +359,7 @@ const ui = {
       { message: "Get more info about a taxon.", highlights: ['#info-button-1', '#info-button-2'], duration: 6000 },
       { message: "Share the current pair and collection.", highlight: '#share-button', duration: 6000 },
       { message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => this.temporarilyOpenMenu(12000), duration: 6000 },
-      { message: "Set difficulty, range or tags here.", highlights: ['#skill-level-indicator', '#select-set-button'], duration: 5000 },
+      { message: "Set difficulty, range or tags here.", highlights: ['#level-indicator', '#select-set-button'], duration: 5000 },
       { message: "Ready to start?<br>Let's go!", highlight: null, duration: 2000 }
     ];
 
@@ -480,13 +480,13 @@ const ui = {
         document.body.appendChild(highlight);
         const targetRect = target.getBoundingClientRect();
         
-        if (targetSelector === '#skill-level-indicator') {
-            // Create a custom shape for skill-level-indicator
+        if (targetSelector === '#level-indicator') {
+            // Create a custom shape for level-indicator
             highlight.style.width = `${targetRect.width}px`;
             highlight.style.height = `${targetRect.height}px`;
             highlight.style.top = `${targetRect.top}px`;
             highlight.style.left = `${targetRect.left}px`;
-            highlight.style.borderRadius = '20px'; // Match the skill-level-indicator's border-radius
+            highlight.style.borderRadius = '20px'; // Match the level-indicator's border-radius
         } else {
             // Default highlight behavior for other elements
             highlight.style.width = `${targetRect.width}px`;

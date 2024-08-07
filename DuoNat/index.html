@@ -45,7 +45,7 @@
 <body>
 
 <div class="ui-container">
-    <div id="skill-level-indicator" class="skill-level-indicator icon" aria-label="Change difficulty" role="button" tabindex="0">
+    <div id="level-indicator" class="level-indicator icon" aria-label="Change difficulty" role="button" tabindex="0">
         <!-- Chili icons will be inserted here dynamically -->
     </div>
 
@@ -308,8 +308,6 @@
 
                 <div class="select-set-dialog__top-section">
                     <div class="select-set-dialog__button-group">
-                        <button id="select-tags-button" class="select-set-dialog__select-buttons" aria-label="Select Tags (Alt-T)">Tags</button>
-                        <button id="select-range-button" class="select-set-dialog__select-buttons" aria-label="Select Range (Alt-R)">Range</button>
                         <div class="select-set-dialog__level-filter" aria-label="Select Level (Alt-L)">
                             <select id="level-filter-dropdown" class="level-filter-dropdown">
                                 <option value="">All Levels</option>
@@ -318,6 +316,8 @@
                                 <option value="3">Hard</option>
                             </select>
                         </div>
+                        <button id="select-range-button" class="select-set-dialog__select-buttons" aria-label="Select Range (Alt-R)">Range</button>
+                        <button id="select-tags-button" class="select-set-dialog__select-buttons" aria-label="Select Tags (Alt-T)">Tags</button>
                     </div>
                     <div id="active-tags-container" class="select-set-dialog__active-tags">
                         <div id="active-tags" class="select-set-dialog__tags-list"></div>

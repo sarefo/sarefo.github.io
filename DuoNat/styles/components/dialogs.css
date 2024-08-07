@@ -427,7 +427,7 @@ z-index: 5000; /* debug */
     display: inline-block;
 }
 
-.skill-level-chilis {
+.level-chilis {
     position: absolute;
     right: 5px;
     top: 50%;

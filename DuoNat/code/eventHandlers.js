@@ -44,7 +44,7 @@ const eventHandlers = {
         this.initializeMainMenuListeners();
         this.initializeAllEventListeners();
         this.initializeSelectSetDialogShortcuts();
-        this.initializeSkillLevelIndicator();
+        this.initializeLevelIndicator();
 
         this.debouncedKeyboardHandler = utils.debounce(this._handleKeyboardShortcuts.bind(this), 300);
         document.addEventListener('keydown', this.debouncedKeyboardHandler);
@@ -69,20 +69,20 @@ const eventHandlers = {
 
     },
 
-    initializeSkillLevelIndicator() {
-        const skillLevelIndicator = document.getElementById('skill-level-indicator');
-        if (skillLevelIndicator) {
-            skillLevelIndicator.addEventListener('click', this.handleSkillLevelIndicatorClick);
-            skillLevelIndicator.addEventListener('keydown', (event) => {
+    initializeLevelIndicator() {
+        const levelIndicator = document.getElementById('level-indicator');
+        if (levelIndicator) {
+            levelIndicator.addEventListener('click', this.handleLevelIndicatorClick);
+            levelIndicator.addEventListener('keydown', (event) => {
                 if (event.key === 'Enter' || event.key === ' ') {
                     event.preventDefault();
-                    this.handleSkillLevelIndicatorClick();
+                    this.handleLevelIndicatorClick();
                 }
             });
         }
     },
 
-    handleSkillLevelIndicatorClick() {
+    handleLevelIndicatorClick() {
         ui.showTaxonPairList();
     },
 
@@ -231,7 +231,7 @@ const eventHandlers = {
             const vernacular2 = await getCachedVernacularName(pair.taxon2);
 
             const matchesTags = activeTags.length === 0 || pair.tags.some(tag => activeTags.includes(tag));
-            const matchesLevel = selectedLevel === '' || pair.skillLevel === selectedLevel;
+            const matchesLevel = selectedLevel === '' || pair.level === selectedLevel;
 
             if (matchesTags && matchesLevel && (
                 pair.taxon1.toLowerCase().includes(searchTerm) ||

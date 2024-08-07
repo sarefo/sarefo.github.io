@@ -25,7 +25,7 @@ const game = {
     // Expose necessary methods from other modules
     setupGame: gameSetup.setupGame,
     loadNewRandomPair: gameLogic.loadNewRandomPair,
-    updateSkillLevelIndicator: gameUI.updateSkillLevelIndicator,
+    updateLevelIndicator: gameUI.updateLevelIndicator,
 
     preloadedPair: null,
     preloadedImages: {

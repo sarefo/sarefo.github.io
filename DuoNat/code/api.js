@@ -51,7 +51,7 @@ const api = (() => {
                 taxon1: set.taxonNames[0],
                 taxon2: set.taxonNames[1],
                 setID: set.setID,
-                skillLevel: set.skillLevel,
+                level: set.level,
                 setName: set.setName,
                 tags: set.tags,
                 range: set.range

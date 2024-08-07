@@ -81,7 +81,7 @@ const tagCloud = {
 
     filterTaxonPairs(taxonPairs, selectedTags, selectedLevel, selectedRanges) {
         return taxonPairs.filter(pair => {
-            const matchesLevel = selectedLevel === '' || pair.skillLevel === selectedLevel;
+            const matchesLevel = selectedLevel === '' || pair.level === selectedLevel;
             const matchesTags = selectedTags.length === 0 || pair.tags.some(tag => selectedTags.includes(tag));
             const matchesRanges = selectedRanges.length === 0 || 
                 (pair.range && pair.range.some(range => selectedRanges.includes(range)));
@@ -105,7 +105,7 @@ const tagCloud = {
     },
 
     filterPairsByLevel(taxonPairs, selectedLevel) {
-        return taxonPairs.filter(pair => selectedLevel === '' || pair.skillLevel === selectedLevel);
+        return taxonPairs.filter(pair => selectedLevel === '' || pair.level === selectedLevel);
     },
 
     filterPairsByTags(pairs, selectedTags) {

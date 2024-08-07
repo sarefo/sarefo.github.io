@@ -109,10 +109,10 @@ const preloader = {
 
     isPairValid(pair) {
         const selectedLevel = gameState.selectedLevel;
-        const matchesLevel = selectedLevel === '' || pair.skillLevel === selectedLevel;
+        const matchesLevel = selectedLevel === '' || pair.level === selectedLevel;
         
         if (!matchesLevel) {
-            logger.debug(`Pair invalid - Skill level mismatch: Pair ${pair.skillLevel}, Selected ${selectedLevel}`);
+            logger.debug(`Pair invalid - Skill level mismatch: Pair ${pair.level}, Selected ${selectedLevel}`);
         }
         
         return matchesLevel; // Simplified for now to focus on skill level
@@ -132,7 +132,7 @@ const preloader = {
     getPreloadedImagesForNextPair() {
         if (this.hasPreloadedPair()) {
             const images = this.preloadedImages.nextPair;
-            logger.debug(`Retrieving preloaded pair: ${images.pair.taxon1} / ${images.pair.taxon2}, Skill Level: ${images.pair.skillLevel}`);
+            logger.debug(`Retrieving preloaded pair: ${images.pair.taxon1} / ${images.pair.taxon2}, Skill Level: ${images.pair.level}`);
             this.preloadedImages.nextPair = null;
             return images;
         } else {
@@ -171,7 +171,7 @@ const preloader = {
                 newPair.taxon1 === gameState.currentTaxonImageCollection.pair.taxon1 &&
                 newPair.taxon2 === gameState.currentTaxonImageCollection.pair.taxon2;
 
-            const matchesLevel = selectedLevel === '' || newPair.skillLevel === selectedLevel;
+            const matchesLevel = selectedLevel === '' || newPair.level === selectedLevel;
             const matchesRanges = !selectedRanges || selectedRanges.length === 0 || 
                 (newPair.range && newPair.range.some(range => selectedRanges.includes(range)));
 

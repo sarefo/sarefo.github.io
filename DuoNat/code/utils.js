@@ -15,10 +15,10 @@ const utils = {
         const taxon1 = params.get('taxon1');
         const taxon2 = params.get('taxon2');
         const tags = params.get('tags');
-        const skillLevel = params.get('skillLevel');
+        const level = params.get('level');
         const setID = params.get('setID');
 
-        return { taxon1, taxon2, tags, skillLevel, setID };
+        return { taxon1, taxon2, tags, level, setID };
     },
 
     shareCurrentPair: function() {
@@ -26,7 +26,7 @@ const utils = {
         currentUrl.searchParams.delete('taxon1');
         currentUrl.searchParams.delete('taxon2');
         currentUrl.searchParams.delete('tags');
-        currentUrl.searchParams.delete('skillLevel');
+        currentUrl.searchParams.delete('level');
         currentUrl.searchParams.delete('setID');
 
         currentUrl.searchParams.set('taxon1', gameState.taxonImageOne);
@@ -38,9 +38,9 @@ const utils = {
             currentUrl.searchParams.set('tags', activeTags.join(','));
         }
 
-        // Add skillLevel only if it's set (not empty)
+        // Add level only if it's set (not empty)
         if (gameState.selectedLevel && gameState.selectedLevel !== '') {
-            currentUrl.searchParams.set('skillLevel', gameState.selectedLevel);
+            currentUrl.searchParams.set('level', gameState.selectedLevel);
         }
 
         // Add setID if available
@@ -217,7 +217,7 @@ const utils = {
             const { level, ranges, tags } = filters;
 
             let filteredPairs = taxonPairs.filter(pair => {
-                const matchesLevel = !level || pair.skillLevel === level;
+                const matchesLevel = !level || pair.level === level;
                 const matchesRanges = !ranges || ranges.length === 0 || 
                     (pair.range && pair.range.some(range => ranges.includes(range)));
                 const matchesTags = !tags || tags.length === 0 || 
@@ -232,7 +232,7 @@ const utils = {
             }
 
             const selectedPair = filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
-            logger.debug(`Selected pair: ${selectedPair.taxon1} / ${selectedPair.taxon2}, Skill Level: ${selectedPair.skillLevel}`);
+            logger.debug(`Selected pair: ${selectedPair.taxon1} / ${selectedPair.taxon2}, Skill Level: ${selectedPair.level}`);
 
             return selectedPair;
         } catch (error) {

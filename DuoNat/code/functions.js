@@ -22,7 +22,7 @@ import utils from './utils.js';
 
   //      dialogManager.openDialog('inat-down-dialog'); // for debugging
 
-        // Initialize gameState with easy skillLevel
+        // Initialize gameState with easy level
         updateGameState({ selectedLevel: '' });
         ui.updateLevelDropdown();
 
@@ -33,7 +33,7 @@ import utils from './utils.js';
             game.nextSelectedPair = {
                 taxon1: urlParams.taxon1,
                 taxon2: urlParams.taxon2,
-                skillLevel: urlParams.skillLevel,
+                level: urlParams.level,
                 setID: urlParams.setID
             };
         }
@@ -45,11 +45,20 @@ import utils from './utils.js';
             logger.debug("Tags from URL:", tags);
         }
 
-        // Handle skillLevel from URL
-        if (urlParams.skillLevel) {
-            updateGameState({ selectedLevel: urlParams.skillLevel });
+        // Handle level from URL
+        if (urlParams.level) {
+            updateGameState({ selectedLevel: urlParams.level });
             ui.updateLevelDropdown();
-            logger.debug("Skill level from URL:", urlParams.skillLevel);
+            logger.debug("Skill level from URL:", urlParams.level);
+        }
+
+        // Handle ranges from URL
+        if (urlParams.ranges) {
+            const ranges = urlParams.ranges.split(',');
+            updateGameState({ selectedRanges: ranges });
+            // You might need to create a function to update the range selector UI
+            // rangeSelector.updateSelectedRanges(ranges);
+            logger.debug("Ranges from URL:", ranges);
         }
 
         // Handle setID from URL

@@ -48,6 +48,17 @@ const rangeSelector = {
         this.updateTaxonList();
     },
 
+    getSelectedRanges() {
+        return Array.from(this.selectedContinents).map(fullName => this.continentMap[fullName]);
+    },
+
+    setSelectedRanges(ranges) {
+        this.selectedContinents = new Set(
+            ranges.map(abbr => Object.keys(this.continentMap).find(key => this.continentMap[key] === abbr))
+        );
+        this.initializeWorldMap(); // Redraw the map to reflect the changes
+    },
+
     toggleContinent(continent) {
         if (this.selectedContinents.has(continent)) {
             this.selectedContinents.delete(continent);
