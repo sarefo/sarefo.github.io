@@ -24,7 +24,7 @@ import utils from './utils.js';
   //      dialogManager.openDialog('inat-down-dialog'); // for debugging
 
         // Initialize gameState with easy level
-        updateGameState({ selectedLevel: '' });
+        updateGameState({ selectedLevel: '1' });
         ui.updateLevelDropdown();
 
         // Check for URL parameters
