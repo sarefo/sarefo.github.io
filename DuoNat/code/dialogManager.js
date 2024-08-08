@@ -6,6 +6,7 @@ import gameLogic from './gameLogic.js';
 import logger from './logger.js';
 import { gameState, updateGameState } from './state.js';
 import rangeSelector from './rangeSelector.js';
+import setManager from './setManager.js';
 import tagCloud from './tagCloud.js';
 import ui from './ui.js';
 
@@ -236,6 +237,8 @@ const dialogManager = {
             ranges: gameState.selectedRanges,
             tags: gameState.selectedTags
         });
+        
+        setManager.refreshSubset();
         
         this.closeDialog('select-set-dialog');
     },

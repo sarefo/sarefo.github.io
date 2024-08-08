@@ -58,6 +58,11 @@ const ui = {
 
             let filteredPairs = gameLogic.filterTaxonPairs(taxonPairs, filters);
 
+            const list = document.getElementById('taxon-set-list');
+            if (list) {
+                list.innerHTML = '';
+            }
+
             // Render only visible pairs initially
             await this.renderVisibleTaxonPairs(filteredPairs);
 
@@ -150,6 +155,11 @@ const ui = {
 
     renderVisibleTaxonPairs: async function (pairs) {
         const list = document.getElementById('taxon-set-list');
+        if (!list) return;
+
+        // Clear the list again, just to be safe
+        list.innerHTML = '';
+
         const visiblePairs = pairs.slice(0, 20); // Render first 20 pairs
 
         for (const pair of visiblePairs) {
@@ -161,7 +171,7 @@ const ui = {
         if (pairs.length > 20) {
             const loadMoreButton = document.createElement('button');
             loadMoreButton.textContent = 'Load More';
-            loadMoreButton.className = 'load-more-button'; // Add this line
+            loadMoreButton.className = 'load-more-button';
             loadMoreButton.addEventListener('click', () => this.loadMorePairs(pairs, 20));
             list.appendChild(loadMoreButton);
         }

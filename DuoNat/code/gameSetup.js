@@ -4,6 +4,7 @@ import game from './game.js';
 import { gameState, updateGameState, GameState, elements } from './state.js';
 import logger from './logger.js';
 import preloader from './preloader.js';
+import setManager from './setManager.js';
 import ui from './ui.js';
 import utils from './utils.js';
 import { createWorldMap, getFullContinentName } from './worldMap.js';
@@ -44,6 +45,10 @@ const gameSetup = {
 
             game.setState(GameState.PLAYING);
             game.hideLoadingScreen();
+
+            if (newPair) {
+                await setManager.refreshSubset();
+            }
 
             if (gameState.isInitialLoad) {
                 updateGameState({ isInitialLoad: false });

@@ -6,6 +6,7 @@ import gameSetup from './gameSetup.js';
 import gameUI from './gameUI.js';
 import logger from './logger.js';
 import preloader from './preloader.js';
+import setManager from './setManager.js';
 import ui from './ui.js';
 import utils from './utils.js';
 
@@ -213,43 +214,10 @@ const gameLogic = {
     },
 
     selectRandomPairFromCurrentCollection: async function() {
-        const taxonPairs = await api.fetchTaxonPairs();
-        logger.debug(`Total taxon pairs: ${taxonPairs.length}`);
-        
-        const filters = {
-            level: gameState.selectedLevel,
-            ranges: gameState.selectedRanges,
-            tags: gameState.selectedTags
-        };
-        
-        const filteredPairs = this.filterTaxonPairs(taxonPairs, filters);
-        logger.debug(`Filtered pairs: ${filteredPairs.length}`);
-        
-        if (filteredPairs.length === 0) {
-            logger.warn("No pairs match the current collection criteria");
-            return null;
-        }
-
-        // Ensure we're not selecting the current pair
-        const currentPair = gameState.currentTaxonImageCollection?.pair;
-        const availablePairs = currentPair 
-            ? filteredPairs.filter(pair => 
-                pair.taxon1 !== currentPair.taxon1 || pair.taxon2 !== currentPair.taxon2)
-            : filteredPairs;
-
-        if (availablePairs.length === 0) {
-            logger.warn("All filtered pairs have been used, resetting selection");
-            availablePairs = filteredPairs;
-        }
-
-        const randomIndex = Math.floor(Math.random() * availablePairs.length);
-        const selectedPair = availablePairs[randomIndex];
-        
-        logger.debug(`Selected random pair: ${selectedPair.taxon1} / ${selectedPair.taxon2}, Skill Level: ${selectedPair.level}`);
-        
-        return selectedPair;
+        const newPair = await setManager.getNextSet();
+        logger.debug(`Selected random pair: ${newPair.taxon1} / ${newPair.taxon2}, Skill Level: ${newPair.level}`);
+        return newPair;
     },
-
 };
 
 Object.keys(gameLogic).forEach(key => {
