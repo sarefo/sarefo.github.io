@@ -13553,5 +13553,231 @@
       "OC",
       "AS"
     ]
+  },
+  {
+    "setID": "647",
+    "setName": "Bristletails vs Silverfishes",
+    "level": "2",
+    "tags": [
+      "insects"
+    ],
+    "taxa": [
+      "461443",
+      "48301"
+    ],
+    "taxonNames": [
+      "Archaeognatha",
+      "Zygentoma"
+    ]
+  },
+  {
+    "setID": "648",
+    "setName": "Winged Insects vs Bristletails",
+    "level": "1",
+    "tags": [
+      "insects"
+    ],
+    "taxa": [
+      "184884",
+      "461443"
+    ],
+    "taxonNames": [
+      "Pterygota",
+      "Archaeognatha"
+    ]
+  },
+  {
+    "setID": "649",
+    "setName": "Winged Insects vs Silverfishes",
+    "level": "1",
+    "tags": [
+      "insects"
+    ],
+    "taxa": [
+      "184884",
+      "48301"
+    ],
+    "taxonNames": [
+      "Pterygota",
+      "Zygentoma"
+    ]
+  },
+  {
+    "setID": "650",
+    "setName": "Entognathans vs Insects",
+    "level": "1",
+    "tags": [
+      "insects"
+    ],
+    "taxa": [
+      "243773",
+      "47158"
+    ],
+    "taxonNames": [
+      "Entognatha",
+      "Insecta"
+    ]
+  },
+  {
+    "setID": "651",
+    "setName": "Hexapods vs Chelicerates",
+    "level": "1",
+    "tags": [
+      "arthropods"
+    ],
+    "taxa": [
+      "372739",
+      "245097"
+    ],
+    "taxonNames": [
+      "Hexapoda",
+      "Chelicerata"
+    ]
+  },
+  {
+    "setID": "652",
+    "setName": "Pseudoscorpions vs Scorpions",
+    "level": "2",
+    "tags": [
+      "arachnids"
+    ],
+    "taxa": [
+      "172373",
+      "48894"
+    ],
+    "taxonNames": [
+      "Pseudoscorpiones",
+      "Scorpiones"
+    ]
+  },
+  {
+    "setID": "653",
+    "setName": "Barnacles vs Malacostracans",
+    "level": "1",
+    "tags": [
+      "crustaceans"
+    ],
+    "taxa": [
+      "1091452",
+      "47187"
+    ],
+    "taxonNames": [
+      "Hexanauplia",
+      "Malacostraca"
+    ]
+  },
+  {
+    "setID": "655",
+    "setName": "Brachiopods vs Bivalves",
+    "level": "2",
+    "tags": [
+      "mollusks"
+    ],
+    "taxa": [
+      "122158",
+      "47584"
+    ],
+    "taxonNames": [
+      "Brachiopoda",
+      "Bivalvia"
+    ]
+  },
+  {
+    "setID": "656",
+    "setName": "Centipedes vs Millipedes",
+    "level": "1",
+    "tags": [
+      "millipedes"
+    ],
+    "taxa": [
+      "49556",
+      "47735"
+    ],
+    "taxonNames": [
+      "Chilopoda",
+      "Diplopoda"
+    ]
+  },
+  {
+    "setID": "657",
+    "setName": "Millipedes",
+    "level": "2",
+    "tags": [
+      "millipedes"
+    ],
+    "taxa": [
+      "372724",
+      "372784"
+    ],
+    "taxonNames": [
+      "Juliformia",
+      "Merocheta"
+    ]
+  },
+  {
+    "setID": "658",
+    "setName": "Cockroaches vs Beetles",
+    "level": "2",
+    "tags": [
+      "insects",
+      "beetles"
+    ],
+    "taxa": [
+      "81769",
+      "47208"
+    ],
+    "taxonNames": [
+      "Blattodea",
+      "Coleoptera"
+    ]
+  },
+  {
+    "setID": "659",
+    "setName": "Penguins vs Auks",
+    "level": "2",
+    "tags": [
+      "birds"
+    ],
+    "taxa": [
+      "67564",
+      "71295"
+    ],
+    "taxonNames": [
+      "Sphenisciformes",
+      "Alcidae"
+    ]
+  },
+  {
+    "setID": "660",
+    "setName": "Armadillos vs Pangolins",
+    "level": "1",
+    "tags": [
+      "mammals"
+    ],
+    "taxa": [
+      "67639",
+      "43357"
+    ],
+    "taxonNames": [
+      "Cingulata",
+      "Pholidota"
+    ]
+  },
+  {
+    "setID": "661",
+    "setName": "Black Flies vs Biting Midges",
+    "level": "3",
+    "tags": [
+      "insects",
+      "diptera"
+    ],
+    "taxa": [
+      "63164",
+      "69803"
+    ],
+    "taxonNames": [
+      "Simuliidae",
+      "Ceratopogonidae"
+    ]
   }
 ]

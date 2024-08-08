@@ -1,8 +1,8 @@
-please give me a list of three short infos on the taxa I'm going to provide to you in this and the following prompts. Each info should not be longer than twelve words or so.
+please give me a list of three interesting and true short infos on the taxa I'm going to provide to you in this and the following prompts. Each info should not be longer than twelve words or so.
 
-don't provide common name (such as "known as" or such) or visual characteristics, as these are covered elsewhere. if you have some really interesting trivia, which a general lay person would find engaging, include it.
+don't provide common name (such as "known as" or such) , as these are covered elsewhere. if you have some really interesting trivia, which a general lay person would find engaging, include it.
 
-Also tell me where the members of the taxon live, using the initals NA, SA, AF, EU, AS and OC for north america, south america, africa europe, asia and oceania, respectively.
+Also add in the "range" entry where the members of the taxon live, using the initals NA, SA, AF, EU, AS and OC for north america, south america, africa europe, asia and oceania, respectively.
 
 The format for each taxon should be:
 "<taxon name>": {
@@ -19,3 +19,4 @@ The format for each taxon should be:
 write the whole output in the format of a valid JSON file.
 
 Here are the first taxa:
+

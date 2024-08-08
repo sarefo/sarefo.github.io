@@ -34196,5 +34196,628 @@
       "AS",
       "OC"
     ]
+  },
+  "461443": {
+    "taxonName": "Archaeognatha",
+    "vernacularName": "Bristletails",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      461443
+    ],
+    "rank": "Order",
+    "taxonFacts": [
+      "Among the most evolutionarily primitive insects.",
+      "First appeared in the Devonian, 400 million years ago.",
+      "Can jump up to 30 cm to escape predators."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "48301": {
+    "taxonName": "Zygentoma",
+    "vernacularName": "Silverfishes",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      48301
+    ],
+    "rank": "Order",
+    "taxonFacts": [
+      "Possess three abdominal filaments of equal length.",
+      "Known for their metallic shine.",
+      "Commonly found in human dwellings."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "184884": {
+    "taxonName": "Pterygota",
+    "vernacularName": "Winged and once-winged insects",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884
+    ],
+    "rank": "Subclass",
+    "taxonFacts": [
+      "Includes all winged insects.",
+      "Comprises 99.9% of all insect species.",
+      "Oldest representatives appeared mid-Carboniferous."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "243773": {
+    "taxonName": "Entognatha",
+    "vernacularName": "Entognathans",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      243773
+    ],
+    "rank": "Class",
+    "taxonFacts": [
+      "Mouthparts are retracted within the head.",
+      "Includes Protura, Collembola, and Diplura.",
+      "Not considered true insects."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "47158": {
+    "taxonName": "Insecta",
+    "vernacularName": "Insects",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158
+    ],
+    "rank": "Class",
+    "taxonFacts": [
+      "Largest class of animals on Earth.",
+      "Characterized by three-part bodies.",
+      "Have compound eyes and antennae."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "372739": {
+    "taxonName": "Hexapoda",
+    "vernacularName": "Hexapods",
+    "ancestryIds": [
+      1,
+      47120,
+      372739
+    ],
+    "rank": "Subphylum",
+    "taxonFacts": [
+      "Includes all six-legged arthropods.",
+      "Comprises insects and three smaller groups.",
+      "Most diverse group of animals."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "245097": {
+    "taxonName": "Chelicerata",
+    "vernacularName": "Chelicerates",
+    "ancestryIds": [
+      1,
+      47120,
+      245097
+    ],
+    "rank": "Subphylum",
+    "taxonFacts": [
+      "Includes spiders, scorpions, and horseshoe crabs.",
+      "Named for their chelicerae mouthparts.",
+      "Lack antennae."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "172373": {
+    "taxonName": "Pseudoscorpiones",
+    "vernacularName": "Pseudoscorpions",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      172373
+    ],
+    "rank": "Order",
+    "taxonFacts": [
+      "Small arachnids resembling scorpions without tails.",
+      "Use silk for making nests.",
+      "Feed on small insects and mites."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "48894": {
+    "taxonName": "Scorpiones",
+    "vernacularName": "Scorpions",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      48894
+    ],
+    "rank": "Order",
+    "taxonFacts": [
+      "Characterized by pincers and a venomous sting.",
+      "Glow under ultraviolet light.",
+      "Exist in various habitats worldwide."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "1091452": {
+    "taxonName": "Hexanauplia",
+    "vernacularName": "Barnacles and copepods",
+    "ancestryIds": [
+      1,
+      47120,
+      85493,
+      473790,
+      1091452
+    ],
+    "rank": "Class",
+    "taxonFacts": [
+      "Includes copepods and barnacles.",
+      "Mostly aquatic crustaceans.",
+      "Important in aquatic food chains."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "47187": {
+    "taxonName": "Malacostraca",
+    "vernacularName": "Malacostracans",
+    "ancestryIds": [
+      1,
+      47120,
+      85493,
+      473790,
+      47187
+    ],
+    "rank": "Class",
+    "taxonFacts": [
+      "Largest class of crustaceans.",
+      "Includes crabs, lobsters, and shrimp.",
+      "Have a segmented body with a carapace."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "47186": {
+    "taxonName": "Decapoda",
+    "vernacularName": "Decapods",
+    "ancestryIds": [
+      1,
+      47120,
+      85493,
+      473790,
+      47187,
+      774775,
+      144113,
+      47186
+    ],
+    "rank": "Order",
+    "taxonFacts": [
+      "Includes ten-legged crustaceans like crabs and lobsters.",
+      "Have a hard exoskeleton.",
+      "Many are economically important seafood."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "122158": {
+    "taxonName": "Brachiopoda",
+    "vernacularName": "Brachiopods",
+    "ancestryIds": [
+      1,
+      122158
+    ],
+    "rank": "Phylum",
+    "taxonFacts": [
+      "Marine animals with hard shells.",
+      "Often mistaken for bivalves.",
+      "Filter feeders using lophophores."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "47584": {
+    "taxonName": "Bivalvia",
+    "vernacularName": "Bivalves",
+    "ancestryIds": [
+      1,
+      47115,
+      47584
+    ],
+    "rank": "Class",
+    "taxonFacts": [
+      "Includes clams, oysters, and mussels.",
+      "Have two-part shells.",
+      "Filter feeders living in aquatic habitats."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "49556": {
+    "taxonName": "Chilopoda",
+    "vernacularName": "Centipedes",
+    "ancestryIds": [
+      1,
+      47120,
+      144128,
+      49556
+    ],
+    "rank": "Class",
+    "taxonFacts": [
+      "Have one pair of legs per segment.",
+      "Predatory and venomous.",
+      "Live in moist environments."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "47735": {
+    "taxonName": "Diplopoda",
+    "vernacularName": "Millipedes",
+    "ancestryIds": [
+      1,
+      47120,
+      144128,
+      47735
+    ],
+    "rank": "Class",
+    "taxonFacts": [
+      "Have two pairs of legs per segment.",
+      "Detritivores feeding on decaying matter.",
+      "Can secrete defensive chemicals."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "372724": {
+    "taxonName": "Juliformia",
+    "vernacularName": "Round-backed millipedes",
+    "ancestryIds": [
+      1,
+      47120,
+      144128,
+      47735,
+      551278,
+      372763,
+      997267,
+      372724
+    ],
+    "rank": "Superorder",
+    "taxonFacts": [
+      "Order of millipedes with cylindrical bodies.",
+      "Includes the largest millipede species.",
+      "Often found in leaf litter."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "372784": {
+    "taxonName": "Merocheta",
+    "vernacularName": "",
+    "ancestryIds": [
+      1,
+      47120,
+      144128,
+      47735,
+      551278,
+      372763,
+      997267,
+      372784
+    ],
+    "rank": "Superorder",
+    "taxonFacts": [
+      "Suborder of millipedes.",
+      "Includes many common millipede species."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "81769": {
+    "taxonName": "Blattodea",
+    "vernacularName": "Cockroaches and termites",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      81769
+    ],
+    "rank": "Order",
+    "taxonFacts": [
+      "Includes cockroaches and termites.",
+      "Cockroaches are ancient insects.",
+      "Termites are social insects."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "67564": {
+    "taxonName": "Sphenisciformes",
+    "vernacularName": "Penguins",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67564
+    ],
+    "rank": "Order",
+    "taxonFacts": [
+      "Order of flightless seabirds.",
+      "Includes all penguin species.",
+      "Adapted to life in the water."
+    ],
+    "range": [
+      "SA",
+      "AF",
+      "OC"
+    ]
+  },
+  "71295": {
+    "taxonName": "Alcidae",
+    "vernacularName": "Auks, murres, guillemots, and puffins",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67561,
+      71295
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Family of seabirds including puffins and auks.",
+      "Excellent divers and swimmers.",
+      "Live in cold northern oceans."
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
+    ]
+  },
+  "67639": {
+    "taxonName": "Cingulata",
+    "vernacularName": "Armadillos",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848322,
+      67639
+    ],
+    "rank": "Order",
+    "taxonFacts": [
+      "Order of armored mammals.",
+      "Includes armadillos.",
+      "Found primarily in the Americas."
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ]
+  },
+  "43357": {
+    "taxonName": "Pholidota",
+    "vernacularName": "Pangolins",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      43357
+    ],
+    "rank": "Order",
+    "taxonFacts": [
+      "Order of mammals including pangolins.",
+      "Covered in protective scales.",
+      "Feed primarily on ants and termites."
+    ],
+    "range": [
+      "AF",
+      "AS"
+    ]
+  },
+  "63164": {
+    "taxonName": "Simuliidae",
+    "vernacularName": "Black flies",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47822,
+      154259,
+      153429,
+      509764,
+      63164
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Family of small biting flies.",
+      "Can transmit diseases like river blindness."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "69803": {
+    "taxonName": "Ceratopogonidae",
+    "vernacularName": "Biting midges",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47822,
+      154259,
+      153429,
+      509764,
+      69803
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Family of small biting midges.",
+      "Also known as no-see-ums.",
+      "Some species are vectors of diseases."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
   }
 }
