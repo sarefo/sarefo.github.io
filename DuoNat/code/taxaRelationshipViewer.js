@@ -195,13 +195,13 @@ const taxaRelationshipViewer = {
     const nodes = new vis.DataSet();
     const edges = new vis.DataSet();
 
+
     const allAncestorIds = new Set([...taxon1.ancestor_ids, ...taxon2.ancestor_ids]);
     const ancestorDetails = await this.fetchAncestorDetails(allAncestorIds, taxon1, taxon2);
 
-    let nodeCounter = 0;  // Add this line to keep track of node count
-
     const addNodeAndEdges = (taxon, parentId) => {
       const nodeData = ancestorDetails.get(taxon.id) || taxon;
+//      logger.debug('Adding node:', nodeData);
 
       var vernacularName = nodeData.preferred_common_name ?
         `\n(${utils.capitalizeFirstLetter(nodeData.preferred_common_name)})` : "";
@@ -214,17 +214,14 @@ const taxaRelationshipViewer = {
       if (taxonRank === "Species" || taxonRank === "Genus" || taxonRank === "Stateofmatter") { taxonRank = ""; }
 
       if (!nodes.get(nodeData.id)) {
-        const xOffset = (nodeCounter % 2 === 0) ? -10 : 10;  // Alternate small offsets
         nodes.add({
           id: nodeData.id,
           label: `${taxonRank} ${taxonName}${vernacularName}`,
           color: isSpecificTaxon ? '#ffa500' : '#74ac00',
           url: `https://www.inaturalist.org/taxa/${nodeData.id}`,
-          title: 'Click to view on iNaturalist',
-          x: xOffset  // Add this line to apply the offset
+          title: 'Click to view on iNaturalist'
         });
         if (parentId) edges.add({ from: parentId, to: nodeData.id });
-        nodeCounter++;  // Increment the counter
       }
     };
 
@@ -271,9 +268,6 @@ const taxaRelationshipViewer = {
           type: 'cubicBezier',
           forceDirection: 'vertical'
         }
-      },
-      physics: {
-        enabled: false  // Disable physics to maintain our layout
       }
     };
 
@@ -290,7 +284,6 @@ const taxaRelationshipViewer = {
       }
     });
   }
-
 };
 
 export default taxaRelationshipViewer;
