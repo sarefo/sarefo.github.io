@@ -1,10 +1,11 @@
 // iNat API
 
 import logger from './logger.js';
+import TaxonomyHierarchy from './taxonomyHierarchy.js';
 import utils from './utils.js';
 
 let taxonInfo = null;
-let ancestryInfo = null;
+let taxonomyHierarchy = null;
 
 const handleApiError = (error, context) => {
     logger.error(`API Error in ${context}:`, error);
@@ -12,33 +13,45 @@ const handleApiError = (error, context) => {
 };
 
 const api = (() => {
+    let taxonomyHierarchy = null;
     return {
 
         loadTaxonInfo: async function () {
             try {
                 if (taxonInfo === null) {
-                    const response = await fetch('./data/taxonInfo.json');
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
+                    const [taxonInfoResponse, hierarchyResponse] = await Promise.all([
+                        fetch('./data/taxonInfo.json'),
+                        fetch('./data/taxonHierarchy.json')
+                    ]);
+
+                    if (!taxonInfoResponse.ok || !hierarchyResponse.ok) {
+                        throw new Error(`HTTP error! status: ${taxonInfoResponse.status} or ${hierarchyResponse.status}`);
                     }
-                    taxonInfo = await response.json();
+
+                    taxonInfo = await taxonInfoResponse.json();
+                    const hierarchyData = await hierarchyResponse.json();
+
+                    // Use the pre-generated hierarchy
+                    taxonomyHierarchy = new TaxonomyHierarchy(hierarchyData);
+
+                    // Add any missing taxa from taxonInfo
+                    Object.entries(taxonInfo).forEach(([id, taxon]) => {
+                        if (!taxonomyHierarchy.getTaxonById(id)) {
+                            taxonomyHierarchy.addTaxon(taxon);
+                        }
+                    });
                 }
                 return taxonInfo;
             } catch (error) {
-                handleApiError(error, 'loadTaxonInfo');
+                logger.error('Error in loadTaxonInfo:', error);
+                throw error;
             }
         },
 
-        /*     getVernacularName: async function(taxonName) {
-                 try {
-                     const taxonInfo = await this.loadTaxonInfo();
-                     const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxonName.toLowerCase());
-                     return taxonData ? utils.capitalizeFirstLetter(taxonData.vernacularName) : '';
-                 } catch (error) {
-                     handleApiError(error, 'getVernacularName');
-                 }
-             },
-     */
+        getTaxonomyHierarchy: function() {
+            return taxonomyHierarchy;
+        },
+
         // fetch from JSON file
         fetchTaxonPairs: async function () {
             try {
