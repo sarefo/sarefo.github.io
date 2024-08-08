@@ -238,13 +238,15 @@ const ui = {
                     </div>
                     <div class="tags">${pair.tags.join(', ')}</div>
                 </div>
-                <div class="taxon-item">
-                    <div class="taxon-name">${pair.taxon1}</div>
-                    <div class="vernacular-name">${vernacular1}</div>
-                </div>
-                <div class="taxon-item">
-                    <div class="taxon-name">${pair.taxon2}</div>
-                    <div class="vernacular-name">${vernacular2}</div>
+                <div class="taxon-items">
+                    <div class="taxon-item">
+                        <div class="taxon-name">${pair.taxon1}</div>
+                        <div class="vernacular-name">${vernacular1}</div>
+                    </div>
+                    <div class="taxon-item">
+                        <div class="taxon-name">${pair.taxon2}</div>
+                        <div class="vernacular-name">${vernacular2}</div>
+                    </div>
                 </div>
             </div>
         `;
