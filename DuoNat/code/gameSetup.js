@@ -104,16 +104,19 @@ const gameSetup = {
 
         const filteredPairs = await utils.getFilteredTaxonPairs(filters);
 
-        if (urlParams.setID) {
+        // Use game.nextSelectedPair if available
+        if (game.nextSelectedPair) {
+            newPair = game.nextSelectedPair;
+            game.nextSelectedPair = null; // Clear the selected pair after using it
+            logger.debug(`Using selected pair: ${newPair.taxon1} / ${newPair.taxon2}`);
+        } else if (urlParams.setID) {
             newPair = filteredPairs.find(pair => pair.setID === urlParams.setID);
             if (newPair) {
                 logger.debug(`Found pair with setID: ${urlParams.setID}`);
             } else {
                 logger.warn(`SetID ${urlParams.setID} not found in filtered collection. Selecting random pair.`);
             }
-        }
-
-        if (!newPair && urlParams.taxon1 && urlParams.taxon2) {
+        } else if (urlParams.taxon1 && urlParams.taxon2) {
             newPair = filteredPairs.find(pair => 
                 (pair.taxon1 === urlParams.taxon1 && pair.taxon2 === urlParams.taxon2) ||
                 (pair.taxon1 === urlParams.taxon2 && pair.taxon2 === urlParams.taxon1)
