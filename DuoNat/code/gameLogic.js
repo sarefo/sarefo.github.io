@@ -69,7 +69,7 @@ const gameLogic = {
         try {
             let newPair;
             const preloadedImages = preloader.getPreloadedImagesForNextPair();
-            
+
             if (preloadedImages && preloadedImages.pair && this.isPairValidForCurrentFilters(preloadedImages.pair)) {
                 newPair = preloadedImages.pair;
                 await gameSetup.setupGameWithPreloadedPair(preloadedImages);
@@ -99,31 +99,31 @@ const gameLogic = {
     filterTaxonPairs: function (taxonPairs, filters) {
         return taxonPairs.filter(pair => {
             const matchesLevel = !filters.level || pair.level === filters.level;
-            const matchesRanges = !filters.ranges || filters.ranges.length === 0 || 
+            const matchesRanges = !filters.ranges || filters.ranges.length === 0 ||
                 (pair.range && pair.range.some(range => filters.ranges.includes(range)));
-            const matchesTags = filters.tags.length === 0 || 
+            const matchesTags = filters.tags.length === 0 ||
                 pair.tags.some(tag => filters.tags.includes(tag));
-            
+
             return matchesLevel && matchesRanges && matchesTags;
         });
     },
 
     isPairValidForCurrentFilters: function (pair) {
         const matchesLevel = gameState.selectedLevel === '' || pair.level === gameState.selectedLevel;
-        const matchesTags = gameState.selectedTags.length === 0 || 
+        const matchesTags = gameState.selectedTags.length === 0 ||
             pair.tags.some(tag => gameState.selectedTags.includes(tag));
-        const matchesRanges = gameState.selectedRanges.length === 0 || 
+        const matchesRanges = gameState.selectedRanges.length === 0 ||
             (pair.range && pair.range.some(range => gameState.selectedRanges.includes(range)));
 
         return matchesLevel && matchesTags && matchesRanges;
     },
 
     // Update this method to set the nextSelectedPair
-/*    async loadNewTaxonPair(newPair) {
-        this.nextSelectedPair = newPair;
-        await gameSetup.setupGame(true);
-    },
-    */
+    /*    async loadNewTaxonPair(newPair) {
+            this.nextSelectedPair = newPair;
+            await gameSetup.setupGame(true);
+        },
+        */
 
     applyFilters: function (newFilters) {
         updateGameState({
@@ -138,7 +138,7 @@ const gameLogic = {
         } else {
             preloader.preloadForNextPair();
         }
-        ui.updateFilterSummary(); 
+        ui.updateFilterSummary();
     },
 
     getCurrentTaxon(url) {
@@ -153,13 +153,13 @@ const gameLogic = {
     },
 
     // TODO should probably be somewhere with other select-set-dialog functionality
-    loadRandomPairFromCurrentCollection: async function() {
+    loadRandomPairFromCurrentCollection: async function () {
         logger.debug(`Loading pair. Selected level: ${gameState.selectedLevel}`);
 
-//        if (this.isCurrentPairInCollection()) {
-//            logger.debug("Current pair is in collection. No new pair loaded.");
-//            return;
-//        }
+        //        if (this.isCurrentPairInCollection()) {
+        //            logger.debug("Current pair is in collection. No new pair loaded.");
+        //            return;
+        //        }
 
         try {
             const newPair = await this.selectRandomPairFromCurrentCollection();
@@ -181,22 +181,7 @@ const gameLogic = {
         }
     },
 
-/*    isPairInCurrentCollection: function(pair) {
-        const selectedTags = gameState.selectedTags;
-        const selectedLevel = gameState.selectedLevel;
-        const selectedRanges = gameState.selectedRanges;
-
-        const matchesTags = selectedTags.length === 0 || 
-            pair.tags.some(tag => selectedTags.includes(tag));
-        const matchesLevel = selectedLevel === '' || 
-            pair.level === selectedLevel;
-        const matchesRanges = selectedRanges.length === 0 || 
-            (pair.range && pair.range.some(range => selectedRanges.includes(range)));
-
-        return matchesTags && matchesLevel && matchesRanges;
-    },*/
-
-    isCurrentPairInCollection: function() {
+    isCurrentPairInCollection: function () {
         if (!gameState.currentTaxonImageCollection || !gameState.currentTaxonImageCollection.pair) {
             return false;
         }
@@ -213,7 +198,7 @@ const gameLogic = {
         return matchesLevel; // Simplified for now to focus on skill level
     },
 
-    selectRandomPairFromCurrentCollection: async function() {
+    selectRandomPairFromCurrentCollection: async function () {
         const newPair = await setManager.getNextSet();
         logger.debug(`Selected random pair: ${newPair.taxon1} / ${newPair.taxon2}, Skill Level: ${newPair.level}`);
         return newPair;

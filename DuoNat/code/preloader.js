@@ -24,28 +24,6 @@ const preloader = {
         }
     },
 
-/*    async preloadImagesForCurrentPair() {
-        const { pair } = gameState.currentTaxonImageCollection;
-
-        try {
-            const [newImageOneURL, newImageTwoURL] = await Promise.all([
-                api.fetchRandomImageMetadata(pair.taxon1),
-                api.fetchRandomImageMetadata(pair.taxon2)
-            ]);
-
-            await Promise.all([
-                this.preloadImage(newImageOneURL),
-                this.preloadImage(newImageTwoURL)
-            ]);
-
-            this.preloadedImages.current.taxon1.push(newImageOneURL);
-            this.preloadedImages.current.taxon2.push(newImageTwoURL);
-
-        } catch (error) {
-            logger.error("Error preloading images for current pair:", error);
-        }
-    },*/
-
     preloadImage(url) {
         return new Promise((resolve, reject) => {
             const img = new Image();
@@ -119,7 +97,7 @@ const preloader = {
 
     async preloadForNextPair() {
         if (this.isPreloading) return;
-        
+
         this.isPreloading = true;
         try {
             const newPair = await gameLogic.selectRandomPairFromCurrentCollection();
@@ -151,11 +129,11 @@ const preloader = {
     isPairValid(pair) {
         const selectedLevel = gameState.selectedLevel;
         const matchesLevel = selectedLevel === '' || pair.level === selectedLevel;
-        
+
         if (!matchesLevel) {
             logger.debug(`Pair invalid - Skill level mismatch: Pair ${pair.level}, Selected ${selectedLevel}`);
         }
-        
+
         return matchesLevel; // Simplified for now to focus on skill level
     },
 
@@ -192,36 +170,36 @@ const preloader = {
             return;
         }
 
-    this.isPreloading = true;
-    logger.debug(`Preloading with selected tags: ${selectedTags}, level: ${selectedLevel}, and ranges: ${selectedRanges}`);
-    try {
-        let newPair;
-        let attempts = 0;
-        const maxAttempts = 10;
+        this.isPreloading = true;
+        logger.debug(`Preloading with selected tags: ${selectedTags}, level: ${selectedLevel}, and ranges: ${selectedRanges}`);
+        try {
+            let newPair;
+            let attempts = 0;
+            const maxAttempts = 10;
 
-        do {
-            newPair = await utils.selectTaxonPair();
-            attempts++;
+            do {
+                newPair = await utils.selectTaxonPair();
+                attempts++;
 
-            if (!newPair) {
-                logger.warn("No pair found matching selected criteria");
-                return;
-            }
+                if (!newPair) {
+                    logger.warn("No pair found matching selected criteria");
+                    return;
+                }
 
-            const isSamePair = gameState.currentTaxonImageCollection &&
-                newPair.taxon1 === gameState.currentTaxonImageCollection.pair.taxon1 &&
-                newPair.taxon2 === gameState.currentTaxonImageCollection.pair.taxon2;
+                const isSamePair = gameState.currentTaxonImageCollection &&
+                    newPair.taxon1 === gameState.currentTaxonImageCollection.pair.taxon1 &&
+                    newPair.taxon2 === gameState.currentTaxonImageCollection.pair.taxon2;
 
-            const matchesLevel = selectedLevel === '' || newPair.level === selectedLevel;
-            const matchesRanges = !selectedRanges || selectedRanges.length === 0 || 
-                (newPair.range && newPair.range.some(range => selectedRanges.includes(range)));
+                const matchesLevel = selectedLevel === '' || newPair.level === selectedLevel;
+                const matchesRanges = !selectedRanges || selectedRanges.length === 0 ||
+                    (newPair.range && newPair.range.some(range => selectedRanges.includes(range)));
 
-            if ((!isSamePair && matchesLevel && matchesRanges) || attempts >= maxAttempts) {
-                break;
-            }
+                if ((!isSamePair && matchesLevel && matchesRanges) || attempts >= maxAttempts) {
+                    break;
+                }
 
-            logger.debug("Selected pair doesn't match criteria, trying again");
-        } while (true);
+                logger.debug("Selected pair doesn't match criteria, trying again");
+            } while (true);
 
             if (attempts >= maxAttempts) {
                 logger.warn("Reached max attempts to find a different pair. Using the last selected pair.");

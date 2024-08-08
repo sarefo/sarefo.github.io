@@ -75,13 +75,13 @@ const gameUI = {
             const chiliSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
             chiliSvg.classList.add('icon', 'icon-chili');
             chiliSvg.setAttribute('viewBox', '0 0 24 24');
-   //         chiliSvg.style.display = 'inline-block'; // Ensure the SVG is visible
-            
+            //         chiliSvg.style.display = 'inline-block'; // Ensure the SVG is visible
+
             const useElement = document.createElementNS("http://www.w3.org/2000/svg", "use");
             useElement.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', './images/icons.svg#icon-spicy');
-            
+
             useElement.setAttribute('transform', 'scale(1.2) translate(-2, -2)'); // enlarge a bit
-            
+
             chiliSvg.appendChild(useElement);
             indicator.appendChild(chiliSvg);
         }

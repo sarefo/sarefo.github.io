@@ -111,7 +111,7 @@ const ui = {
         if (mapContainer) {
             // Clear the existing content
             mapContainer.innerHTML = '';
-            
+
             // Convert the selected ranges from abbreviations to full names
             const selectedContinents = new Set(gameState.selectedRanges.map(abbr => getFullContinentName(abbr)));
 
@@ -265,11 +265,11 @@ const ui = {
             game.nextSelectedPair = selectedPair;
             logger.debug('Selected pair:', selectedPair);
 
-//            logger.debug('Attempting to close select-set-dialog');
+            //            logger.debug('Attempting to close select-set-dialog');
             dialogManager.closeDialog('select-set-dialog');
 
             setTimeout(() => {
- //               logger.debug('Setting up game after dialog close');
+                //               logger.debug('Setting up game after dialog close');
                 gameSetup.setupGame(true);
             }, 300);
         };
@@ -387,85 +387,85 @@ const ui = {
         dialogManager.closeDialog();
     },
 
-  showTutorial: function () {
-    const steps = [
-      { message: "Welcome to DuoNat!<br>Let's learn how to play.", highlight: null, duration: 4000 },
-      { message: "You'll see two images of different taxa.", highlights: ['#image-container-1', '#image-container-2'], duration: 5000 },
-      { message: "Drag a name to the correct image.", highlight: '.name-pair', duration: 5000 },
-      { message: "If correct, you'll move to the next round.", highlight: null, duration: 4000 },
-      {
-        message: "Swipe left on an image for a new taxon set.",
-        highlight: null,
-        action: () => { this.tiltGameContainer(3200); },
-        duration: 6000
-      },
-      { message: "Get more info about a taxon.", highlights: ['#info-button-1', '#info-button-2'], duration: 6000 },
-      { message: "Share the current pair and collection.", highlight: '#share-button', duration: 6000 },
-      { message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => this.temporarilyOpenMenu(12000), duration: 6000 },
-      { message: "Set difficulty, range or tags here.", highlights: ['#level-indicator', '#select-set-button'], duration: 5000 },
-      { message: "Ready to start?<br>Let's go!", highlight: null, duration: 2000 }
-    ];
+    showTutorial: function () {
+        const steps = [
+            { message: "Welcome to DuoNat!<br>Let's learn how to play.", highlight: null, duration: 4000 },
+            { message: "You'll see two images of different taxa.", highlights: ['#image-container-1', '#image-container-2'], duration: 5000 },
+            { message: "Drag a name to the correct image.", highlight: '.name-pair', duration: 5000 },
+            { message: "If correct, you'll move to the next round.", highlight: null, duration: 4000 },
+            {
+                message: "Swipe left on an image for a new taxon set.",
+                highlight: null,
+                action: () => { this.tiltGameContainer(3200); },
+                duration: 6000
+            },
+            { message: "Get more info about a taxon.", highlights: ['#info-button-1', '#info-button-2'], duration: 6000 },
+            { message: "Share the current pair and collection.", highlight: '#share-button', duration: 6000 },
+            { message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => this.temporarilyOpenMenu(12000), duration: 6000 },
+            { message: "Set difficulty, range or tags here.", highlights: ['#level-indicator', '#select-set-button'], duration: 5000 },
+            { message: "Ready to start?<br>Let's go!", highlight: null, duration: 2000 }
+        ];
 
-    let currentStep = 0;
-    let highlightElements = [];
+        let currentStep = 0;
+        let highlightElements = [];
 
-    const showStep = () => {
-      if (currentStep < steps.length) {
-        const step = steps[currentStep];
-        
-        // Fade out current message
-        this.fadeOutOverlayMessage(() => {
-          // Update message content
-          this.updateOverlayMessage(step.message);
-          
-          // Clear previous highlights
-          highlightElements.forEach(el => el.remove());
-          highlightElements = [];
+        const showStep = () => {
+            if (currentStep < steps.length) {
+                const step = steps[currentStep];
 
-          // Add new highlights
-          if (step.highlight) {
-            const highlight = this.createHighlight(step.highlight);
-            if (highlight) highlightElements.push(highlight);
-          } else if (step.highlights) {
-            step.highlights.forEach(selector => {
-              const highlight = this.createHighlight(selector);
-              if (highlight) highlightElements.push(highlight);
-            });
-          }
+                // Fade out current message
+                this.fadeOutOverlayMessage(() => {
+                    // Update message content
+                    this.updateOverlayMessage(step.message);
 
-          // Perform any additional actions
-          if (step.action) {
-            step.action();
-          }
+                    // Clear previous highlights
+                    highlightElements.forEach(el => el.remove());
+                    highlightElements = [];
 
-          // Fade in new message
-          this.fadeInOverlayMessage();
+                    // Add new highlights
+                    if (step.highlight) {
+                        const highlight = this.createHighlight(step.highlight);
+                        if (highlight) highlightElements.push(highlight);
+                    } else if (step.highlights) {
+                        step.highlights.forEach(selector => {
+                            const highlight = this.createHighlight(selector);
+                            if (highlight) highlightElements.push(highlight);
+                        });
+                    }
 
-          currentStep++;
-          setTimeout(showStep, step.duration);
-        });
-      } else {
-        this.fadeOutOverlayMessage(() => {
-          this.hideOverlay();
-          highlightElements.forEach(el => el.remove());
-        });
-      }
-    };
+                    // Perform any additional actions
+                    if (step.action) {
+                        step.action();
+                    }
 
-    // Close the help dialog before starting the tutorial
-    //document.getElementById('help-dialog').close();
-    const helpDialog = document.getElementById('help-dialog');
-    if (helpDialog && helpDialog.open) {
-                helpDialog.close();
-                // If you have any custom close logic, call it here
-                // For example: dialogManager.handleDialogClose('help-dialog');
+                    // Fade in new message
+                    this.fadeInOverlayMessage();
+
+                    currentStep++;
+                    setTimeout(showStep, step.duration);
+                });
+            } else {
+                this.fadeOutOverlayMessage(() => {
+                    this.hideOverlay();
+                    highlightElements.forEach(el => el.remove());
+                });
             }
-    // Show the overlay at the start of the tutorial
-    this.showOverlay("", config.overlayColors.green);
+        };
 
-    // Start the tutorial
-    showStep();
-  },
+        // Close the help dialog before starting the tutorial
+        //document.getElementById('help-dialog').close();
+        const helpDialog = document.getElementById('help-dialog');
+        if (helpDialog && helpDialog.open) {
+            helpDialog.close();
+            // If you have any custom close logic, call it here
+            // For example: dialogManager.handleDialogClose('help-dialog');
+        }
+        // Show the overlay at the start of the tutorial
+        this.showOverlay("", config.overlayColors.green);
+
+        // Start the tutorial
+        showStep();
+    },
 
     fadeOutOverlayMessage: function (callback) {
         const overlayMessage = document.getElementById('overlay-message');
@@ -522,7 +522,7 @@ const ui = {
         highlight.className = 'tutorial-highlight';
         document.body.appendChild(highlight);
         const targetRect = target.getBoundingClientRect();
-        
+
         if (targetSelector === '#level-indicator') {
             // Create a custom shape for level-indicator
             highlight.style.width = `${targetRect.width}px`;
@@ -536,13 +536,13 @@ const ui = {
             highlight.style.height = `${targetRect.height}px`;
             highlight.style.top = `${targetRect.top}px`;
             highlight.style.left = `${targetRect.left}px`;
-            
+
             if (target.classList.contains('icon-button')) {
                 highlight.style.borderRadius = '50%';
             }
             highlight.style.animation = 'pulse-highlight 1.5s infinite';
         }
-        
+
         return highlight;
     },
 
@@ -612,7 +612,7 @@ const ui = {
         document.addEventListener('keydown', handleKeyPress);
     },
 
-    showPopupNotification: function(message, duration = 3000) {
+    showPopupNotification: function (message, duration = 3000) {
         const popup = document.createElement('div');
         popup.className = 'popup-notification';
         popup.textContent = message;

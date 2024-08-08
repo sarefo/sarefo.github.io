@@ -8,7 +8,7 @@ import api from './api.js';
 
 const rangeSelector = {
     selectedContinents: new Set(),
-    
+
     // Mapping between full names and abbreviations
     continentMap: {
         'North America': 'NA',
@@ -69,19 +69,19 @@ const rangeSelector = {
             this.selectedContinents.add(continent);
         }
         this.initializeWorldMap(); // Redraw the map to reflect the changes
-        
+
         // Update the gameState with the new selected ranges
         gameState.selectedRanges = this.getSelectedRanges();
-        
+
         // Update the filter summary to reflect the changes immediately
-       // ui.updateFilterSummary();
+        // ui.updateFilterSummary();
     },
 
     async updateTaxonList() {
         const selectedAbbreviations = Array.from(this.selectedContinents).map(fullName => this.continentMap[fullName]);
-        
+
         updateGameState({ selectedRanges: selectedAbbreviations });
-        
+
         try {
             const taxonSets = await api.fetchTaxonPairs();
             const filters = {
@@ -89,9 +89,9 @@ const rangeSelector = {
                 ranges: selectedAbbreviations,
                 tags: gameState.selectedTags
             };
-            
+
             const filteredPairs = gameLogic.filterTaxonPairs(taxonSets, filters);
-            
+
             ui.updateTaxonPairList(filteredPairs);
         } catch (error) {
             logger.error("Error updating taxon list:", error);

@@ -254,7 +254,7 @@ const dragAndDrop = {
                 return false;
             }
 
-//            logger.debug(`Checking answer: Dragged ${draggedTaxon}, Correct ${correctTaxon}`);
+            //            logger.debug(`Checking answer: Dragged ${draggedTaxon}, Correct ${correctTaxon}`);
             return draggedTaxon === correctTaxon;
         } catch (error) {
             logger.error('Error in checkAnswer:', error);

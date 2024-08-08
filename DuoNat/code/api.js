@@ -48,7 +48,7 @@ const api = (() => {
             }
         },
 
-        getTaxonomyHierarchy: function() {
+        getTaxonomyHierarchy: function () {
             return taxonomyHierarchy;
         },
 
@@ -221,7 +221,7 @@ const api = (() => {
                 const response = await fetch(apiUrl);
                 const data = await response.json();
                 const pages = data.query.pages;
-                
+
                 // If the page exists, it will have a positive page ID
                 return !pages[-1];
             } catch (error) {

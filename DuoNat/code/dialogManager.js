@@ -11,7 +11,7 @@ import tagCloud from './tagCloud.js';
 import ui from './ui.js';
 
 const dialogManager = {
-  /*  activeDialog: null,*/
+    /*  activeDialog: null,*/
     mainEventHandlers: {},
     eventListeners: {},
     openDialogs: [],
@@ -30,7 +30,7 @@ const dialogManager = {
         if (dialog && dialog.tagName.toLowerCase() === 'dialog') {
             dialog.showModal();
             this.openDialogs.push(dialogId);
-            
+
             // Remove any existing event listener before adding a new one
             dialog.removeEventListener('keydown', this.handleDialogKeydown);
             dialog.addEventListener('keydown', this.handleDialogKeydown.bind(this));
@@ -65,7 +65,7 @@ const dialogManager = {
 
             dialog.close();
             this.openDialogs.splice(index, 1);
-            
+
             dialog.removeEventListener('keydown', this.handleDialogKeydown);
 
             if (dialogId === 'range-dialog') {
@@ -231,15 +231,15 @@ const dialogManager = {
     handleSelectSetDone() {
         const levelDropdown = document.getElementById('level-filter-dropdown');
         const selectedLevel = levelDropdown.value;
-        
+
         gameLogic.applyFilters({
             level: selectedLevel,
             ranges: gameState.selectedRanges,
             tags: gameState.selectedTags
         });
-        
+
         setManager.refreshSubset();
-        
+
         this.closeDialog('select-set-dialog');
     },
 
@@ -324,7 +324,7 @@ const dialogManager = {
         }
     },
 
-    initializeReportDialog: function() {
+    initializeReportDialog: function () {
         const reportDialog = document.getElementById('report-dialog');
         if (!reportDialog) {
             logger.error('Report dialog not found in the DOM');
@@ -355,7 +355,7 @@ const dialogManager = {
         reportForm.addEventListener('submit', this.handleReportSubmit.bind(this));
     },
 
-    initializeReportDialog: function() {
+    initializeReportDialog: function () {
         const reportDialog = document.getElementById('report-dialog');
         if (!reportDialog) {
             logger.error('Report dialog not found in the DOM');
@@ -386,7 +386,7 @@ const dialogManager = {
         reportForm.addEventListener('submit', this.handleReportSubmit.bind(this));
     },
 
-    handleReportSubmit: function(event) {
+    handleReportSubmit: function (event) {
         event.preventDefault();
         const formData = new FormData(event.target);
         const reportTypes = formData.getAll('report-type');
@@ -429,7 +429,7 @@ const dialogManager = {
         this.sendReportEmail(emailBody);
     },
 
-    sendReportEmail: function(body) {
+    sendReportEmail: function (body) {
         const subject = "DuoNat Report";
         const recipient = "sarefo@gmail.com";
         const fullEmailContent = `To: ${recipient}\nSubject: ${subject}\n\n${body}`;
@@ -457,7 +457,7 @@ const dialogManager = {
         }, 6000);  // Increased to match notification duration
     },
 
-    copyToClipboard: function(text) {
+    copyToClipboard: function (text) {
         if (navigator.clipboard && window.isSecureContext) {
             // Use the Clipboard API when available
             navigator.clipboard.writeText(text).then(() => {
@@ -472,7 +472,7 @@ const dialogManager = {
         }
     },
 
-    fallbackCopyToClipboard: function(text) {
+    fallbackCopyToClipboard: function (text) {
         const textArea = document.createElement("textarea");
         textArea.value = text;
         textArea.style.position = "fixed";  // Avoid scrolling to bottom
@@ -490,7 +490,7 @@ const dialogManager = {
         document.body.removeChild(textArea);
     },
 
-    showPopupNotification: function(message, duration = 3000) {
+    showPopupNotification: function (message, duration = 3000) {
         const popup = document.createElement('div');
         popup.className = 'popup-notification';
         popup.textContent = message;
@@ -516,7 +516,7 @@ const dialogManager = {
         }, duration);
     },
 
-    resetReportDialog: function() {
+    resetReportDialog: function () {
         const reportForm = document.getElementById('report-dialog__form');
         const reportOptions = reportForm.querySelectorAll('input[name="report-type"]');
         const reportDetails = document.getElementById('report-dialog__details');
@@ -533,7 +533,7 @@ const dialogManager = {
         reportDetails.style.display = 'none';
     },
 
-    getReportTypeText: function(type) {
+    getReportTypeText: function (type) {
         const typeMap = {
             'wrong-image': 'The image is wrong',
             'wrong-range': 'Range is wrong',

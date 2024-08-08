@@ -42,8 +42,8 @@ const tagCloud = {
         clearAllFiltersButton.addEventListener('click', () => dialogManager.clearAllFilters());
 
         // Update active tags when the tag cloud is opened or closed
-//        this.on('tagCloudOpened', () => ui.updateFilterSummary());
-//        this.on('tagCloudClosed', () => ui.updateFilterSummary());
+        //        this.on('tagCloudOpened', () => ui.updateFilterSummary());
+        //        this.on('tagCloudClosed', () => ui.updateFilterSummary());
 
         const levelDropdown = document.getElementById('level-filter-dropdown');
         levelDropdown.addEventListener('change', () => this.updateTaxonList());
@@ -57,13 +57,13 @@ const tagCloud = {
         this.renderTagCloud(tagCounts);
         this.updateMatchingPairsCount();
         dialogManager.openDialog('tag-cloud-dialog');
-       // this.emit('tagCloudOpened');
+        // this.emit('tagCloudOpened');
     },
 
     closeTagCloud() {
         this.updateTaxonList();
         preloader.preloadNewPairWithTags(gameState.selectedTags, gameState.selectedLevel);
-       // this.emit('tagCloudClosed');
+        // this.emit('tagCloudClosed');
         dialogManager.closeDialog('tag-cloud-dialog', true);
         ui.updateFilterSummary();
     },
@@ -73,7 +73,7 @@ const tagCloud = {
         const selectedLevel = document.getElementById('level-filter-dropdown').value;
 
         // Update gameState
-        updateGameState({ 
+        updateGameState({
             selectedTags: selectedTags,
             selectedLevel: selectedLevel
         });
@@ -85,7 +85,7 @@ const tagCloud = {
         return taxonPairs.filter(pair => {
             const matchesLevel = selectedLevel === '' || pair.level === selectedLevel;
             const matchesTags = selectedTags.length === 0 || pair.tags.some(tag => selectedTags.includes(tag));
-            const matchesRanges = selectedRanges.length === 0 || 
+            const matchesRanges = selectedRanges.length === 0 ||
                 (pair.range && pair.range.some(range => selectedRanges.includes(range)));
             return matchesLevel && matchesTags && matchesRanges;
         });
@@ -98,9 +98,9 @@ const tagCloud = {
             ranges: gameState.selectedRanges,
             tags: Array.from(this.selectedTags)
         };
-        
+
         this.filteredPairs = gameLogic.filterTaxonPairs(taxonPairs, filters);
-        
+
         ui.renderTaxonPairList(this.filteredPairs);
         ui.updateActiveCollectionCount(this.filteredPairs.length);
         this.updateMatchingPairsCount();
@@ -111,13 +111,13 @@ const tagCloud = {
     },
 
     filterPairsByTags(pairs, selectedTags) {
-        return pairs.filter(pair => 
+        return pairs.filter(pair =>
             selectedTags.length === 0 || pair.tags.some(tag => selectedTags.includes(tag))
         );
     },
 
     filterPairsByRanges(pairs, selectedRanges) {
-        return pairs.filter(pair => 
+        return pairs.filter(pair =>
             selectedRanges.length === 0 || pair.range.some(range => selectedRanges.includes(range))
         );
     },
@@ -130,9 +130,9 @@ const tagCloud = {
             ranges: gameState.selectedRanges,
             tags: [] // Empty array to ignore tag filtering
         };
-        
+
         const filteredPairs = gameLogic.filterTaxonPairs(taxonPairs, filters);
-        
+
         filteredPairs.forEach(pair => {
             pair.tags.forEach(tag => {
                 tagCounts[tag] = (tagCounts[tag] || 0) + 1;
@@ -165,12 +165,12 @@ const tagCloud = {
             tagElement.textContent = tag;
             tagElement.className = 'tag-cloud-item';
             tagElement.style.fontSize = `${size}px`;
-            
+
             // Apply CSS class for tags with only one occurrence
             if (count === 1) {
                 tagElement.classList.add('tag-cloud-item--single');
             }
-            
+
             if (this.selectedTags.has(tag)) {
                 tagElement.classList.add('active');
             }
@@ -217,22 +217,6 @@ const tagCloud = {
         preloader.preloadNewPairWithTags([], gameState.selectedLevel, gameState.selectedRanges);
 
     },
-
-/*    updateActiveTags() {
-        const activeTagsContainer = document.getElementById('active-tags');
-        activeTagsContainer.innerHTML = '';
-
-        this.selectedTags.forEach(tag => {
-            const tagElement = document.createElement('span');
-            tagElement.className = 'active-tag';
-            tagElement.textContent = tag;
-            activeTagsContainer.appendChild(tagElement);
-        });
-
-        // Show or hide the container based on whether there are active tags
-        const container = document.getElementById('active-tags-container');
-        container.style.display = this.selectedTags.size > 0 ? 'flex' : 'none';
-    },*/
 
 };
 

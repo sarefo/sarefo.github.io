@@ -63,10 +63,10 @@ export const gameState = {
     randomized: false
   },
 
-    usedImages: {
-        taxon1: new Set(),
-        taxon2: new Set()
-    },
+  usedImages: {
+    taxon1: new Set(),
+    taxon2: new Set()
+  },
 
   preloadedTaxonImageCollection: null,
   currentTaxonImageCollection: null,

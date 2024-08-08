@@ -128,7 +128,7 @@ const eventHandlers = {
     initializeMainMenuListeners: function () {
         this.safeAddEventListener('share-button', 'click', () => {
             utils.shareCurrentPair();
-//            ui.closeMainMenu(); // Close menu after action
+            //            ui.closeMainMenu(); // Close menu after action
         });
         this.safeAddEventListener('phylogeny-button', 'click', () => {
             game.showTaxaRelationship();
@@ -210,7 +210,7 @@ const eventHandlers = {
 
     },
 
-    handleSearch: async function(event) {
+    handleSearch: async function (event) {
         const searchInput = event.target;
         const searchTerm = searchInput.value.toLowerCase();
         const clearButton = document.getElementById('clear-search');
@@ -258,7 +258,7 @@ const eventHandlers = {
         }, { once: true });
     },
 
-    handleSearchKeydown: function(event) {
+    handleSearchKeydown: function (event) {
         if (event.key === 'Enter') {
             event.preventDefault();
             this.openFirstTaxonSet();
@@ -266,7 +266,7 @@ const eventHandlers = {
         }
     },
 
-    handleClearSearch: async function() {
+    handleClearSearch: async function () {
         const searchInput = document.getElementById('taxon-search');
         if (searchInput) {
             searchInput.value = '';
@@ -281,7 +281,7 @@ const eventHandlers = {
         }
     },
 
-    openFirstTaxonSet: function() {
+    openFirstTaxonSet: function () {
         const firstTaxonSetButton = document.querySelector('.taxon-set-button');
         if (firstTaxonSetButton) {
             firstTaxonSetButton.click();

@@ -122,7 +122,7 @@ const gameSetup = {
                 logger.warn(`SetID ${urlParams.setID} not found in filtered collection. Selecting random pair.`);
             }
         } else if (urlParams.taxon1 && urlParams.taxon2) {
-            newPair = filteredPairs.find(pair => 
+            newPair = filteredPairs.find(pair =>
                 (pair.taxon1 === urlParams.taxon1 && pair.taxon2 === urlParams.taxon2) ||
                 (pair.taxon1 === urlParams.taxon2 && pair.taxon2 === urlParams.taxon1)
             );

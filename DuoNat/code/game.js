@@ -1,12 +1,12 @@
 import api from './api.js';
 import dialogManager from './dialogManager.js';
-import { elements } from './state.js'; 
+import { elements } from './state.js';
 import gameSetup from './gameSetup.js';
 import gameLogic from './gameLogic.js';
 import gameUI from './gameUI.js';
 import { GameState, gameState } from './state.js';
 import logger from './logger.js';
-import taxaRelationshipViewer from './taxaRelationshipViewer.js'; 
+import taxaRelationshipViewer from './taxaRelationshipViewer.js';
 
 const game = {
     loadingMessage: "",
@@ -120,36 +120,6 @@ const game = {
         };
     },
 
-/*    async loadCurrentTaxonImageCollection() {
-        if (!gameState.currentTaxonImageCollection || !gameState.currentTaxonImageCollection.pair) {
-            logger.error("currentTaxonImageCollection or its pair is null");
-            throw new Error("Invalid currentTaxonImageCollection");
-        }
-
-        const { taxon1, taxon2 } = gameState.currentTaxonImageCollection.pair;
-        // TODO not sure if for one or both pairs? one taxon should not have more than 12 images
-        const MAX_IMAGES = 24; // Adjust this number as needed
-
-        const [imageOneURLs, imageTwoURLs, imageOneVernacular, imageTwoVernacular] = await Promise.all([
-            api.fetchMultipleImages(taxon1),
-            api.fetchMultipleImages(taxon2),
-            api.fetchVernacular(taxon1),
-            api.fetchVernacular(taxon2)
-        ]);
-
-        updateGameState({
-            currentTaxonImageCollection: {
-                ...gameState.currentTaxonImageCollection,
-                imageOneURLs: imageOneURLs.slice(0, MAX_IMAGES),
-                imageTwoURLs: imageTwoURLs.slice(0, MAX_IMAGES),
-                imageOneVernacular,
-                imageTwoVernacular
-            }
-        });
-
-        await preloader.preloadImages(imageOneURLs.slice(0, MAX_IMAGES).concat(imageTwoURLs.slice(0, MAX_IMAGES)));
-    },*/
-
     loadImages: async function (leftImageSrc, rightImageSrc) {
         await Promise.all([
             this.loadImageAndRemoveLoadingClass(elements.imageOne, leftImageSrc),
@@ -185,7 +155,7 @@ const game = {
         }
 
         // Show the dialog
-    //    dialog.style.display = 'flex'; // Change to flex to match the CSS layout
+        //    dialog.style.display = 'flex'; // Change to flex to match the CSS layout
         dialogManager.openDialog('phylogeny-dialog');
 
         try {
@@ -205,7 +175,7 @@ const game = {
         } catch (error) {
             logger.error('Error showing taxa relationship:', error);
             alert('Failed to load the relationship graph. Please try again later.');
-     //       dialog.style.display = 'none'; // Hide the dialog on error
+            //       dialog.style.display = 'none'; // Hide the dialog on error
             dialogManager.closeDialog();
         }
     },
@@ -309,9 +279,9 @@ const game = {
             }
 
             // TODO enable when functionality added
-//            const hintButton = document.getElementById('hints-button');
-//            hintButton.classList.add('info-dialog__button--inactive');
-//            hintButton.disabled = true;
+            //            const hintButton = document.getElementById('hints-button');
+            //            hintButton.classList.add('info-dialog__button--inactive');
+            //            hintButton.disabled = true;
             const observationButton = document.getElementById('observation-button');
             observationButton.classList.add('info-dialog__button--inactive');
             observationButton.disabled = true;
@@ -341,7 +311,7 @@ const game = {
 
             // Position the dialog after content is loaded
             positionDialog();
-            
+
             // Reposition on window resize
             window.addEventListener('resize', positionDialog);
 
@@ -380,7 +350,7 @@ const game = {
         const photoButton = document.getElementById('photo-button');
         const observationButton = document.getElementById('observation-button');
         const taxonButton = document.getElementById('taxon-button');
-//        const hintsButton = document.getElementById('hints-button');
+        //        const hintsButton = document.getElementById('hints-button');
         const wikiButton = document.getElementById('wiki-button');
         const reportButton = document.getElementById('report-button');
 
@@ -404,10 +374,10 @@ const game = {
             }
         };
 
- //       hintsButton.onclick = () => {
- //           logger.debug("Taxon hints button clicked");
-            // Implement taxon hints functionality here
- //       };
+        //       hintsButton.onclick = () => {
+        //           logger.debug("Taxon hints button clicked");
+        // Implement taxon hints functionality here
+        //       };
 
         wikiButton.onclick = () => {
             try {

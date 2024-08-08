@@ -21,7 +21,7 @@ import utils from './utils.js';
     function initializeApp() {
         logger.info("Initializing app");
 
-  //      dialogManager.openDialog('inat-down-dialog'); // for debugging
+        //      dialogManager.openDialog('inat-down-dialog'); // for debugging
 
         // Initialize gameState with easy level
         updateGameState({ selectedLevel: '1' });
@@ -29,15 +29,15 @@ import utils from './utils.js';
 
         // Check for URL parameters
         const urlParams = utils.getURLParameters();
-/*
-        if (urlParams.taxon1 && urlParams.taxon2) {
-            logger.debug("Taxon parameters found:", urlParams);
-            game.nextSelectedPair = {
-                taxon1: urlParams.taxon1,
-                taxon2: urlParams.taxon2,
-            };
-        }
-*/
+        /*
+                if (urlParams.taxon1 && urlParams.taxon2) {
+                    logger.debug("Taxon parameters found:", urlParams);
+                    game.nextSelectedPair = {
+                        taxon1: urlParams.taxon1,
+                        taxon2: urlParams.taxon2,
+                    };
+                }
+        */
         if (urlParams.level) {
             updateGameState({ selectedLevel: urlParams.level });
             ui.updateLevelDropdown();

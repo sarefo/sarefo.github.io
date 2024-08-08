@@ -25,16 +25,16 @@ const utils = {
         const taxonPairs = await api.fetchTaxonPairs();
         return taxonPairs.filter(pair => {
             const matchesLevel = !filters.level || pair.level === filters.level;
-            const matchesRanges = !filters.ranges || filters.ranges.length === 0 || 
+            const matchesRanges = !filters.ranges || filters.ranges.length === 0 ||
                 (pair.range && pair.range.some(range => filters.ranges.includes(range)));
-            const matchesTags = !filters.tags || filters.tags.length === 0 || 
+            const matchesTags = !filters.tags || filters.tags.length === 0 ||
                 pair.tags.some(tag => filters.tags.includes(tag));
-            
+
             return matchesLevel && matchesRanges && matchesTags;
         });
     },
 
-    shareCurrentPair: function() {
+    shareCurrentPair: function () {
         let currentUrl = new URL(window.location.href);
         currentUrl.searchParams.delete('taxon1');
         currentUrl.searchParams.delete('taxon2');
@@ -45,11 +45,11 @@ const utils = {
 
         if (gameState.currentTaxonImageCollection && gameState.currentTaxonImageCollection.pair) {
             const { setID, taxon1, taxon2 } = gameState.currentTaxonImageCollection.pair;
-            
+
             if (setID) {
                 currentUrl.searchParams.set('setID', setID);
             }
-            
+
             currentUrl.searchParams.set('taxon1', taxon1);
             currentUrl.searchParams.set('taxon2', taxon2);
 
@@ -70,7 +70,7 @@ const utils = {
         // Copy to clipboard
         navigator.clipboard.writeText(shareUrl).then(() => {
             logger.info('Share URL copied to clipboard');
-            
+
             // Generate QR code
             const qrCodeContainer = document.getElementById('qr-container');
             qrCodeContainer.innerHTML = ''; // Clear previous QR code
@@ -230,11 +230,11 @@ const utils = {
 
             let filteredPairs = taxonPairs.filter(pair => {
                 const matchesLevel = !filters.level || pair.level === filters.level;
-                const matchesRanges = !filters.ranges || filters.ranges.length === 0 || 
+                const matchesRanges = !filters.ranges || filters.ranges.length === 0 ||
                     (pair.range && pair.range.some(range => filters.ranges.includes(range)));
-                const matchesTags = !filters.tags || filters.tags.length === 0 || 
+                const matchesTags = !filters.tags || filters.tags.length === 0 ||
                     pair.tags.some(tag => filters.tags.includes(tag));
-                
+
                 return matchesLevel && matchesRanges && matchesTags;
             });
 
@@ -253,7 +253,7 @@ const utils = {
         }
     },
 
-    arraysEqual: function(a, b) {
+    arraysEqual: function (a, b) {
         if (a === b) return true;
         if (a == null || b == null) return false;
         if (a.length !== b.length) return false;
