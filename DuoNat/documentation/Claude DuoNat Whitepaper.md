@@ -76,22 +76,30 @@ Indentation is four spaces.
 ## Project structure
 
 ### Main window
-The main window is presented to the user at startup. That's where they will be most of their time.
+The main window is presented to the user at startup. That's where they will be most of their time. The user is presented with two images, and needs to drag a name tile to one of them. if correct, the game proceeds to the next round of the same taxon pair. If incorrect, the user needs to try again.
 
-### Help dialog
-The help dialog contains information about the most important functions of the game.
+On each image, there's an info button, which opens an info dialog. There's also a mini world map, which shows the taxon's range.
 
 ### Info dialogs
-Each picture has its own info dialog. The user can access external information about the image, iNaturalist observation or taxon there. There are preliminary taxon facts (provided by Perplexity.ai on 20240726). It's also planned to implement taxon-specific identification hints that can be accessed from there.
+Each picture has its own info dialog. The user can access external information about the image, iNaturalist observation or taxon there. It also has a link to Wikipedia (if available). There are preliminary taxon facts (provided by Perplexity.ai on 20240726). The dialog displays over most of the UI, leaving just the image that belongs to the taxon visible.
+
+### Help dialog
+The help dialog contains information about the most important functions of the game. It has a link to a tutorial, which shows the main functions of the game.
 
 ### Collection manager dialog
-Currently this displays a list of all taxon sets, locally saved in a JSON file. The user can filter by tags, range or level for now.
+Currently this displays a list of all taxon sets, locally saved in a JSON file. The user can filter by tags, range or level for now. Below is a list of taxon sets. The user can click on one, and open it this way.
+
+#### Range selection dialog
+This displays a world map, where the user selects which continents to include in the "range" filter. Currently, if there are multiple continents selected, sets where all members occur at any of them are selected (eg. Africa + Oceania selected includes sets that have a range including Africa, or including Oceania).
+
+#### Tag cloud dialog
+This dialog currently displays all the available tags for the current filters. The idea is to replace this with a taxonomic hierarchy that's intuitive to browse, and only leave non-taxonomic tags (such as "mimicry" or "fun" here).
 
 ### Phylogeny dialog
 The phylogeny graph shows how the two active taxa are connected taxonomically. It's also a way to link to the iNaturalist taxon pages of the taxa in its entire hierarchy.
 
 ### Enter taxa dialog
-The user can currently input two taxa, which will be used in a new pair. Currently there's no server-side functionality, but when there is, those can also be stored for future use. Also, once taxon sets are implemented, the user will be able to input more than two taxa. Another idea is to only input one, and the app will create a taxon set from all the sister taxa at that level.
+This is currently unmaintained. The user can currently input two taxa, which will be used in a new pair. Currently there's no server-side functionality, but when there is, those can also be stored for future use. Also, once taxon sets are implemented, the user will be able to input more than two taxa. Another idea is to only input one, and the app will create a taxon set from all the sister taxa at that level.
 
 ## Architectural changes
 + you suggested some big changes in the past, and I'm willing to tackle them, if it helps me later to build a better app.
@@ -129,8 +137,11 @@ Here are some ideas I have regarding future functionality:
 + this could then be used for the user to browse for interesting taxon pairs
 + it could also be used to sort the taxonomic tags into a hierarchy
 
-### Update taxon set structure
-+ there should be an extra array where for every taxon, the ancestry hierarchy, the vernacular name, identification tips, and maybe tags and comments should be included
+### Improving the tagging system
++ the user should be able to organically create personal collections by combining at least tags, ranges and levels.
++ possible tags would be "mimicry", "fishes", or others. open for suggestions here!
++ another option would be to use ancestry information, so that users can select groups according to phylogeny.
+    + it would also help users to select for example "beetles" or "fungi", and then get only taxon pairs that fit this selection in their pairs
 
 ### Optionally use observation images
 + right now, the app uses the taxon gallery images (up to twelve per taxon) for displaying images. That leaves out a huge number of potentially useful images that reside in the observations for any given taxon.
@@ -140,12 +151,6 @@ Here are some ideas I have regarding future functionality:
 ### Indicate taxa with low number of gallery images
 + if a taxon has less than 10 images, this could be logged in the console
 + alternatively, it might make more sense to have a standalone script that runs for new taxon sets, resulting in a set of taxon sets with low image gallery numbers
-
-### Improving the tagging system
-+ the user should be able to organically create personal collections by combining at least tags, ranges and levels.
-+ possible tags would be "mimicry", "fishes", or others. open for suggestions here!
-+ another option would be to use ancestry information, so that users can select groups according to phylogeny.
-    + it would also help users to select for example "beetles" or "fungi", and then get only taxon pairs that fit this selection in their pairs
 
 ### Long-press information
 + show information on what buttons do when long-pressed (on touch devices), or hover (on mouse devices), or whatever the best practice to get this information is nowadays
@@ -189,7 +194,7 @@ Currently, the code is running on github.io, so there's no server-side functiona
 + taxon pairs with high failure rates might get a "hard" rating, with low failure rate "easy"
 + this might be assessed on a global level, taking in data from all users
 
-#### Spaced repitition, learning sets
+#### Spaced repetition, learning sets
 + it would be awesome for the app to have a system to feed the user the taxon sets that are right for them at the moment, for example according to the following criteria:
     + spaced repetition: haven't seen it in a while, but not too long
         + this would need internal stats that remember when the user played that set in the past, and how successful they were
@@ -211,11 +216,12 @@ Currently, the code is running on github.io, so there's no server-side functiona
     + what functions might be worth paying for?
 + alternatively, there could be a donation system
     + no idea if anybody ever made enough money from donations to be able to fully dedicate themselves to the creation of an app ;)
++ Patreon might be an option
 
 ## Problems
 
 ### Coding and AI problems
-+ while Claude was a big help in coming that far in creating the app, currently the complexity of the codebase, together with the limitations of Claude Sonnet 3.5, lead to many things breaking when trying to improve core functionality. This is time-consuming and frustrating Also, I'm not an expert programmer, so I hit my limit of understanding pretty fast. So it would be nice to keep an eye on how to improve the code so it's easier to understand the code (for AI and me), and so changes in one part don't easily break other parts. I'm very open to suggestions here!
++ while Claude was a big help in coming that far in creating the app, currently the complexity of the codebase, together with the limitations of Claude Sonnet 3.5, lead to many things breaking when trying to improve core functionality. This is time-consuming and frustrating. Also, I'm not an expert programmer, so I hit my limit of understanding pretty fast. So it would be nice to keep an eye on how to improve the code so it's easier to understand the code (for AI and me), and so changes in one part don't easily break other parts. I'm very open to suggestions here!
 + I keep losing track of what Claude suggests to me, and because Claude does not have persistent memory regarding user prompts, so does Claude. what would be a good way to make sure longer sub-projects don't get lost in the day-to-day, but keep getting pursued?
 
 Also, this is a long-term project. Whenever you notice that something would make sense to focus on at this moment, to make the code better, let me know. I'm happy to implement changes that help me to get more done in the future, and to end up with a more powerful, prettier and better running app.
@@ -240,7 +246,6 @@ Also, this is a long-term project. Whenever you notice that something would make
 + I currently have some functionality at the beginning of index.html to increase the version number, for cache busting
 + however, the version number needs to be manually incremented for this to work. not a big deal, but I sometimes forget, and then need to push to github again just for this
 + I kind of suspect that cache problems might be to blame for SVG icons not always loading properly from the ./images/icons.svg file
-    + I checked the file, and it's fine. I could not figure out what the problem with the loading was, also not with the help of Claude.
 
 ### Tools I'm using
 + I'm using Trello for keeping track of ideas and bugs
