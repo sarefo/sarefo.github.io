@@ -322,10 +322,11 @@
                     </div>
 
                     <div id="active-tags-container" class="select-set-dialog__active-tags">
+                        <div class="filter-summary__map">
+                          <!-- We'll insert the SVG map here -->
+                        </div>
+
                         <div class="filter-summary">
-                          <div class="filter-summary__map">
-                            <!-- We'll insert the SVG map here -->
-                          </div>
                           <div class="filter-summary__tags">
                             <!-- Active tags will be inserted here -->
                           </div>
@@ -335,6 +336,7 @@
                         <button id="clear-all-filters" class="select-set-dialog__clear-filters" aria-label="Clear All Filters (Alt-F)">Clear Filters</button>
                     </div>
 
+                <button id="select-set-done-button" class="select-set-dialog__done-button dialog-done-button">Done</button>
                 </div> <!-- top section -->
 
                 <div class="select-set-dialog__search">
@@ -348,7 +350,6 @@
                 <div id="taxon-set-list" class="select-set-dialog__list">
                     <!-- Taxon pairs will be dynamically inserted here -->
                 </div>
-            <button id="select-set-done-button" class="select-set-dialog__done-button dialog-done-button">Done</button>
         </div>
     </dialog>
 
