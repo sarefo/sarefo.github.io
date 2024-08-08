@@ -294,6 +294,15 @@ const api = (() => {
             }
         },
 
+        // TODO for now only gives photo page
+        getObservationURLFromImageURL(imageURL) {
+            const match = imageURL.match(/\/photos\/(\d+)\//);
+            if (match && match[1]) {
+                return `https://www.inaturalist.org/photos/${match[1]}`;
+            }
+            return null;
+        },
+
     };
 
 })();

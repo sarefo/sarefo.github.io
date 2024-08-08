@@ -10,11 +10,52 @@ const preloader = {
         nextPair: { taxon1: null, taxon2: null, pair: null }
     },
 
-    async preloadImage(url) {
+    async startPreloading(isNewPair) {
+        try {
+            await preloader.preloadForNextRound();
+            if (isNewPair || !preloader.hasPreloadedPair()) {
+                await preloader.preloadForNextPair();
+            }
+            logger.debug("Preloading completed for next round" + (isNewPair ? " and next pair" : ""));
+        } catch (error) {
+            logger.error("Error during preloading:", error);
+            // Optionally, you could reset the preloaded state here
+            // preloader.preloadedImages.nextPair = null;
+        }
+    },
+
+/*    async preloadImagesForCurrentPair() {
+        const { pair } = gameState.currentTaxonImageCollection;
+
+        try {
+            const [newImageOneURL, newImageTwoURL] = await Promise.all([
+                api.fetchRandomImageMetadata(pair.taxon1),
+                api.fetchRandomImageMetadata(pair.taxon2)
+            ]);
+
+            await Promise.all([
+                this.preloadImage(newImageOneURL),
+                this.preloadImage(newImageTwoURL)
+            ]);
+
+            this.preloadedImages.current.taxon1.push(newImageOneURL);
+            this.preloadedImages.current.taxon2.push(newImageTwoURL);
+
+        } catch (error) {
+            logger.error("Error preloading images for current pair:", error);
+        }
+    },*/
+
+    preloadImage(url) {
         return new Promise((resolve, reject) => {
             const img = new Image();
-            img.onload = () => resolve(url);
-            img.onerror = () => reject(new Error(`Failed to load image: ${url}`));
+            img.onload = () => {
+                resolve(url);
+            };
+            img.onerror = () => {
+                logger.error(`Failed to load image: ${url}`);
+                reject(url);
+            };
             img.src = url;
         });
     },

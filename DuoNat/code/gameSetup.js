@@ -58,7 +58,7 @@ const gameSetup = {
             ui.resetUIState();
 
             // Start preloading asynchronously
-            this.startPreloading(newPair);
+            preloader.startPreloading(newPair);
         } catch (error) {
             this.handleSetupError(error);
         }
@@ -185,15 +185,6 @@ const gameSetup = {
         }
     },
 
-    // TODO for now only gives photo page
-    getObservationURLFromImageURL(imageURL) {
-        const match = imageURL.match(/\/photos\/(\d+)\//);
-        if (match && match[1]) {
-            return `https://www.inaturalist.org/photos/${match[1]}`;
-        }
-        return null;
-    },
-
     async setupRound(isNewPair = false) {
         const { pair } = gameState.currentTaxonImageCollection;
         const randomized = Math.random() < 0.5;
@@ -222,8 +213,8 @@ const gameSetup = {
         await game.loadImages(leftImageSrc, rightImageSrc);
 
         // Set the observation URLs
-        game.currentObservationURLs.imageOne = this.getObservationURLFromImageURL(leftImageSrc);
-        game.currentObservationURLs.imageTwo = this.getObservationURLFromImageURL(rightImageSrc);
+        game.currentObservationURLs.imageOne = api.getObservationURLFromImageURL(leftImageSrc);
+        game.currentObservationURLs.imageTwo = api.getObservationURLFromImageURL(rightImageSrc);
 
         const [leftVernacular, rightVernacular] = await Promise.all([
             utils.capitalizeFirstLetter(await api.fetchVernacular(randomized ? pair.taxon1 : pair.taxon2)),
@@ -261,20 +252,6 @@ const gameSetup = {
 
     finishSetup() {
         ui.hideOverlay();
-    },
-
-    async startPreloading(isNewPair) {
-        try {
-            await preloader.preloadForNextRound();
-            if (isNewPair || !preloader.hasPreloadedPair()) {
-                await preloader.preloadForNextPair();
-            }
-            logger.debug("Preloading completed for next round" + (isNewPair ? " and next pair" : ""));
-        } catch (error) {
-            logger.error("Error during preloading:", error);
-            // Optionally, you could reset the preloaded state here
-            // preloader.preloadedImages.nextPair = null;
-        }
     },
 
     handleSetupError(error) {

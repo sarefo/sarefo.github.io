@@ -371,7 +371,7 @@ const ui = {
         const retryConnectionHandler = async () => {
             dialogManager.closeDialog();
             if (await api.isINaturalistReachable()) {
-                game.setupGame(true);
+                gameSetup.setupGame(true);
             } else {
                 this.showINatDownDialog();
             }

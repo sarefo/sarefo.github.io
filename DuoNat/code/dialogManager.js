@@ -294,7 +294,7 @@ const dialogManager = {
 
                     game.nextSelectedPair = newPair;
                     this.closeDialog();
-                    game.setupGame(true);
+                    gameSetup.setupGame(true);
                 } catch (error) {
                     logger.error('Error updating taxonPairs.json:', error);
                     this.dialogMessage.textContent = 'Error saving new pair. Please try again.';

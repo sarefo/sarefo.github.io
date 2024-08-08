@@ -4,6 +4,7 @@ import dialogManager from './dialogManager.js';
 import { elements, gameState, updateGameState } from './state.js';
 import eventHandlers from './eventHandlers.js';
 import game from './game.js';
+import gameSetup from './gameSetup.js';
 import logger, { LogLevel } from './logger.js';
 import rangeSelector from './rangeSelector.js';
 import tagCloud from './tagCloud.js';
@@ -59,7 +60,7 @@ import utils from './utils.js';
         }
 
         dialogManager.initializeDialogs();
-        game.setupGame(true, urlParams);
+        gameSetup.setupGame(true, urlParams);
         eventHandlers.initialize();
         ui.initialize();
         tagCloud.initialize();

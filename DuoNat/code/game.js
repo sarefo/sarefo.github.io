@@ -22,11 +22,6 @@ const game = {
         this.currentState = newState;
     },
 
-    // Expose necessary methods from other modules
-    setupGame: gameSetup.setupGame,
-    loadNewRandomPair: gameLogic.loadNewRandomPair,
-    updateLevelIndicator: gameUI.updateLevelIndicator,
-
     preloadedPair: null,
     preloadedImages: {
         current: {
@@ -125,7 +120,7 @@ const game = {
         };
     },
 
-    async loadCurrentTaxonImageCollection() {
+/*    async loadCurrentTaxonImageCollection() {
         if (!gameState.currentTaxonImageCollection || !gameState.currentTaxonImageCollection.pair) {
             logger.error("currentTaxonImageCollection or its pair is null");
             throw new Error("Invalid currentTaxonImageCollection");
@@ -153,43 +148,7 @@ const game = {
         });
 
         await preloader.preloadImages(imageOneURLs.slice(0, MAX_IMAGES).concat(imageTwoURLs.slice(0, MAX_IMAGES)));
-    },
-
-    async preloadImagesForCurrentPair() {
-        const { pair } = gameState.currentTaxonImageCollection;
-
-        try {
-            const [newImageOneURL, newImageTwoURL] = await Promise.all([
-                api.fetchRandomImageMetadata(pair.taxon1),
-                api.fetchRandomImageMetadata(pair.taxon2)
-            ]);
-
-            await Promise.all([
-                this.preloadImage(newImageOneURL),
-                this.preloadImage(newImageTwoURL)
-            ]);
-
-            this.preloadedImages.current.taxon1.push(newImageOneURL);
-            this.preloadedImages.current.taxon2.push(newImageTwoURL);
-
-        } catch (error) {
-            logger.error("Error preloading images for current pair:", error);
-        }
-    },
-
-    preloadImage(url) {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.onload = () => {
-                resolve(url);
-            };
-            img.onerror = () => {
-                logger.error(`Failed to load image: ${url}`);
-                reject(url);
-            };
-            img.src = url;
-        });
-    },
+    },*/
 
     loadImages: async function (leftImageSrc, rightImageSrc) {
         await Promise.all([

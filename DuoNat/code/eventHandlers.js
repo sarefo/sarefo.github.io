@@ -143,7 +143,7 @@ const eventHandlers = {
             ui.closeMainMenu(); // Close menu after action
         });
         this.safeAddEventListener('random-pair-button', 'click', () => {
-            game.loadNewRandomPair();
+            gameLogic.loadNewRandomPair();
             ui.closeMainMenu(); // Close menu after action
         });
         this.safeAddEventListener('like-button', 'click', () => {
@@ -348,7 +348,7 @@ const eventHandlers = {
                 if (!gameLogic.isCurrentPairInCollection()) {
                     gameLogic.loadRandomPairFromCurrentCollection();
                 } else {
-                    game.loadNewRandomPair();
+                    gameLogic.loadNewRandomPair();
                 }
             }, 500); // Match this with the animation duration
         } else {
@@ -401,7 +401,7 @@ const eventHandlers = {
             api.fetchTaxonPairs().then(taxonPairs => {
                 ui.showTaxonPairList(taxonPairs, (selectedPair) => {
                     game.nextSelectedPair = selectedPair;
-                    game.setupGame(true);
+                    gameSetup.setupGame(true);
                 });
             });
         },
@@ -430,7 +430,7 @@ const eventHandlers = {
                     event.preventDefault();
                     event.stopPropagation();
                     this.isLoadingNewPair = true;
-                    game.loadNewRandomPair().finally(() => {
+                    gameLogic.loadNewRandomPair().finally(() => {
                         this.isLoadingNewPair = false;
                     });
                 }
