@@ -222,7 +222,7 @@ z-index: 5000; /* debug */
 }
 
 .level-filter-dropdown option {
-    text-align: left;
+/*    text-align: left;*/
 }
 /* Active filters */
 
