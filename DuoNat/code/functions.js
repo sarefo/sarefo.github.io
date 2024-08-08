@@ -28,38 +28,31 @@ import utils from './utils.js';
 
         // Check for URL parameters
         const urlParams = utils.getURLParameters();
+/*
         if (urlParams.taxon1 && urlParams.taxon2) {
             logger.debug("Taxon parameters found:", urlParams);
             game.nextSelectedPair = {
                 taxon1: urlParams.taxon1,
                 taxon2: urlParams.taxon2,
-                level: urlParams.level,
-                setID: urlParams.setID
             };
         }
-
-        // Handle tags from URL
-        if (urlParams.tags) {
-            const tags = urlParams.tags.split(',');
-            tagCloud.setSelectedTags(tags);
-            logger.debug("Tags from URL:", tags);
-        }
-
-        // Handle level from URL
+*/
         if (urlParams.level) {
             updateGameState({ selectedLevel: urlParams.level });
             ui.updateLevelDropdown();
             logger.debug("Skill level from URL:", urlParams.level);
         }
-        // Handle ranges from URL
         if (urlParams.ranges) {
             const ranges = urlParams.ranges.split(',');
             updateGameState({ selectedRanges: ranges });
             rangeSelector.setSelectedRanges(ranges);
             logger.debug("Ranges from URL:", ranges);
         }
-
-        // Handle setID from URL
+        if (urlParams.tags) {
+            const tags = urlParams.tags.split(',');
+            tagCloud.setSelectedTags(tags);
+            logger.debug("Tags from URL:", tags);
+        }
         if (urlParams.setID) {
             updateGameState({ currentSetID: urlParams.setID });
             logger.debug("Set ID from URL:", urlParams.setID);

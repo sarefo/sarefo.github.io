@@ -21,6 +21,19 @@ const utils = {
         return { taxon1, taxon2, tags, level, setID, ranges };
     },
 
+    getFilteredTaxonPairs: async function (filters = {}) {
+        const taxonPairs = await api.fetchTaxonPairs();
+        return taxonPairs.filter(pair => {
+            const matchesLevel = !filters.level || pair.level === filters.level;
+            const matchesRanges = !filters.ranges || filters.ranges.length === 0 || 
+                (pair.range && pair.range.some(range => filters.ranges.includes(range)));
+            const matchesTags = !filters.tags || filters.tags.length === 0 || 
+                pair.tags.some(tag => filters.tags.includes(tag));
+            
+            return matchesLevel && matchesRanges && matchesTags;
+        });
+    },
+
     shareCurrentPair: function() {
         let currentUrl = new URL(window.location.href);
         currentUrl.searchParams.delete('taxon1');
@@ -28,31 +41,27 @@ const utils = {
         currentUrl.searchParams.delete('tags');
         currentUrl.searchParams.delete('level');
         currentUrl.searchParams.delete('setID');
+        currentUrl.searchParams.delete('ranges');
 
-        currentUrl.searchParams.set('taxon1', gameState.taxonImageOne);
-        currentUrl.searchParams.set('taxon2', gameState.taxonImageTwo);
-
-        // Add active tags to the URL
-        const activeTags = gameState.selectedTags;
-        if (activeTags && activeTags.length > 0) {
-            currentUrl.searchParams.set('tags', activeTags.join(','));
-        }
-
-        // Add level only if it's set (not empty)
-        if (gameState.selectedLevel && gameState.selectedLevel !== '') {
-            currentUrl.searchParams.set('level', gameState.selectedLevel);
-        }
-
-        // Add ranges to the URL
-        if (gameState.selectedRanges && gameState.selectedRanges.length > 0) {
-            currentUrl.searchParams.set('ranges', gameState.selectedRanges.join(','));
-        }
-
-        // Add setID if available
         if (gameState.currentTaxonImageCollection && gameState.currentTaxonImageCollection.pair) {
-            const { setID } = gameState.currentTaxonImageCollection.pair;
+            const { setID, taxon1, taxon2 } = gameState.currentTaxonImageCollection.pair;
+            
             if (setID) {
                 currentUrl.searchParams.set('setID', setID);
+            }
+            
+            currentUrl.searchParams.set('taxon1', taxon1);
+            currentUrl.searchParams.set('taxon2', taxon2);
+
+            const activeTags = gameState.selectedTags;
+            if (activeTags && activeTags.length > 0) {
+                currentUrl.searchParams.set('tags', activeTags.join(','));
+            }
+            if (gameState.selectedLevel && gameState.selectedLevel !== '') {
+                currentUrl.searchParams.set('level', gameState.selectedLevel);
+            }
+            if (gameState.selectedRanges && gameState.selectedRanges.length > 0) {
+                currentUrl.searchParams.set('ranges', gameState.selectedRanges.join(','));
             }
         }
 
