@@ -257,6 +257,12 @@ Also, this is a long-term project. Whenever you notice that something would make
 + Discord for community management (currently, there aren't any community members apart from me)
 + Photoshop at times for icon design etc.
 
+### External data processing
+As I'm currently without server-side functionality, I process some data using local python scripts.
++ taxonHierarchy.json is updated using the script data/processing/hierarchy/updateHierarchy.py
++ there's a workflow for adding taxon info and sets. this is in data/processing/taxonSets.
++ data/processing/range has a script to add range data to sets from single taxa.
+
 ## LLM behavior
 + Dear Claude: please don't start every answer with "Certainly!" :) and no need to apologize all the time.
 + if a task seems complicated, please think it through step by step, explaining your reasoning.
