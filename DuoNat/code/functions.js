@@ -66,7 +66,7 @@ import utils from './utils.js';
         }
 
         dialogManager.initializeDialogs();
-        game.setupGame(true);
+        game.setupGame(true, urlParams);
         eventHandlers.initialize();
         ui.initialize();
         tagCloud.initialize();

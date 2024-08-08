@@ -219,14 +219,12 @@ const utils = {
                 return null;
             }
 
-            const { level, ranges, tags } = filters;
-
             let filteredPairs = taxonPairs.filter(pair => {
-                const matchesLevel = !level || pair.level === level;
-                const matchesRanges = !ranges || ranges.length === 0 || 
-                    (pair.range && pair.range.some(range => ranges.includes(range)));
-                const matchesTags = !tags || tags.length === 0 || 
-                    pair.tags.some(tag => tags.includes(tag));
+                const matchesLevel = !filters.level || pair.level === filters.level;
+                const matchesRanges = !filters.ranges || filters.ranges.length === 0 || 
+                    (pair.range && pair.range.some(range => filters.ranges.includes(range)));
+                const matchesTags = !filters.tags || filters.tags.length === 0 || 
+                    pair.tags.some(tag => filters.tags.includes(tag));
                 
                 return matchesLevel && matchesRanges && matchesTags;
             });

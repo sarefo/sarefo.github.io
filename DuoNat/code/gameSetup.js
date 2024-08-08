@@ -21,7 +21,7 @@ const gameSetup = {
         return true;
     },
 
-    async setupGame(newPair = false) {
+    async setupGame(newPair = false, urlParams = {}) {
         game.setState(GameState.LOADING);
 
         if (!await this.checkINaturalistReachability()) { return; }
@@ -30,7 +30,7 @@ const gameSetup = {
 
         try {
             if (newPair || !gameState.currentTaxonImageCollection) {
-                await this.initializeNewPair();
+                await this.initializeNewPair(urlParams);
             } else {
                 await this.setupRound();
             }
@@ -93,7 +93,7 @@ const gameSetup = {
     },
 
 
-    async initializeNewPair() {
+    async initializeNewPair(urlParams = {}) {
         let newPair, imageOneURL, imageTwoURL;
 
 //        logger.debug("Initializing new pair");
@@ -104,18 +104,14 @@ const gameSetup = {
             logger.debug("Using nextSelectedPair:", newPair);
             game.nextSelectedPair = null;
         } else {
-            const preloadedPair = preloader.getPreloadedImagesForNextPair();
-            if (preloadedPair && preloadedPair.pair) {
-                logger.debug("Using preloaded pair:", preloadedPair.pair);
-                newPair = preloadedPair.pair;
-                imageOneURL = preloadedPair.taxon1;
-                imageTwoURL = preloadedPair.taxon2;
-            } else {
-                logger.debug("No preloaded pair available, selecting random pair");
-                newPair = await utils.selectTaxonPair(gameState.selectedLevel, gameState.currentSetID);
-                if (!newPair) {
-                    throw new Error("Failed to select a valid taxon pair");
-                }
+            const filters = {
+                level: urlParams.level || gameState.selectedLevel,
+                ranges: urlParams.ranges ? urlParams.ranges.split(',') : gameState.selectedRanges,
+                tags: urlParams.tags ? urlParams.tags.split(',') : gameState.selectedTags
+            };
+            newPair = await utils.selectTaxonPair(filters);
+            if (!newPair) {
+                throw new Error("Failed to select a valid taxon pair");
             }
         }
 
