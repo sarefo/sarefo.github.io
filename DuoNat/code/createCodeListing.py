@@ -13,7 +13,7 @@ SKIP_DIRECTORIES = ['tools', 'sound', 'images', 'data/old']
 # Directory to only include .js files
 CODE_DIRECTORY = 'code'
 
-# Directory to allow select/deselect
+# Directory for CSS files
 STYLES_DIRECTORY = 'styles'
 
 # Extensions to skip
@@ -24,6 +24,9 @@ ALWAYS_EXCLUDE_FILES = {'package-lock.json', 'package.json', 'webpack.config.js'
 
 # Root directory to list files from (parent directory)
 ROOT_DIRECTORY = '../'
+
+# JSON files to include sample entries from
+SAMPLE_JSON_FILES = ['data/taxonInfo.json', 'data/taxonSets.json']
 
 def save_selection(selection):
     with open(CONFIG_FILE, 'w') as f:
@@ -38,7 +41,7 @@ def load_selection():
 def list_files(directory):
     file_list = []
     for root, _, files in os.walk(directory):
-        if any(skip in root for skip in SKIP_DIRECTORIES):
+        if any(skip in root for skip in SKIP_DIRECTORIES) or root.startswith(os.path.join(directory, 'data')):
             continue
         for file in files:
             if any(file.endswith(ext) for ext in SKIP_EXTENSIONS) or file in ALWAYS_EXCLUDE_FILES:
@@ -53,11 +56,13 @@ def list_files(directory):
 
 def display_selection(selection, all_files):
     print("\nSelect files to include in the listing (Enter the number to toggle selection):")
-    directories = set(os.path.dirname(file) for file in all_files)
-    if STYLES_DIRECTORY in directories:
-        status = "[x]" if all(file.startswith(STYLES_DIRECTORY) for file in selection) else "[ ]"
-        print(f" 0. {status} {STYLES_DIRECTORY}/")
-    for i, file in enumerate(all_files):
+    css_files = [file for file in all_files if file.startswith(STYLES_DIRECTORY)]
+    non_css_files = [file for file in all_files if not file.startswith(STYLES_DIRECTORY)]
+    
+    status = "[x]" if all(file in selection for file in css_files) else "[ ]"
+    print(f" 0. {status} {STYLES_DIRECTORY}/ (CSS files)")
+    
+    for i, file in enumerate(non_css_files):
         status = "[x]" if file in selection else "[ ]"
         print(f"{i + 1:2}. {status} {file}")
     print("\nPress 's' to create the listing.\n")
@@ -67,12 +72,32 @@ def append_file_contents(file, output_file):
     with open(file_path, 'r') as f:
         content = f.read()
     with open(output_file, 'a') as out_f:
-        out_f.write(f"\n# {file}\n\n")
+        out_f.write(f"\n#==> Listing for {file}:\n\n")
         out_f.write(content)
+        out_f.write("\n\n")
+
+def append_json_sample(file, output_file):
+    file_path = os.path.join(ROOT_DIRECTORY, file)
+    with open(file_path, 'r') as f:
+        data = json.load(f)
+    
+    if file.endswith('taxonInfo.json'):
+        sample_data = dict(list(data.items())[:2])
+    elif file.endswith('taxonSets.json'):
+        sample_data = data[:2]
+    else:
+        sample_data = {}  # Default case, shouldn't occur with our current setup
+    
+    with open(output_file, 'a') as out_f:
+        out_f.write(f"\n# {file} (Sample entries)\n\n")
+        out_f.write("# These are two sample entries of this file:\n\n")
+        json.dump(sample_data, out_f, indent=2)
         out_f.write("\n\n")
 
 def main():
     all_files = list_files(ROOT_DIRECTORY)
+    css_files = [file for file in all_files if file.startswith(STYLES_DIRECTORY)]
+    non_css_files = [file for file in all_files if not file.startswith(STYLES_DIRECTORY)]
     selected_files = load_selection()
 
     while True:
@@ -84,16 +109,15 @@ def main():
             break
         elif user_input.lower() == 'q':
             break
-        elif user_input == '0' and STYLES_DIRECTORY in set(os.path.dirname(file) for file in all_files):
-            style_files = [file for file in all_files if file.startswith(STYLES_DIRECTORY)]
-            if all(file in selected_files for file in style_files):
+        elif user_input == '0':
+            if all(file in selected_files for file in css_files):
                 selected_files = [file for file in selected_files if not file.startswith(STYLES_DIRECTORY)]
             else:
-                selected_files.extend(file for file in style_files if file not in selected_files)
+                selected_files.extend(file for file in css_files if file not in selected_files)
         elif user_input.isdigit():
             index = int(user_input) - 1
-            if 0 <= index < len(all_files):
-                file = all_files[index]
+            if 0 <= index < len(non_css_files):
+                file = non_css_files[index]
                 if file in selected_files:
                     selected_files.remove(file)
                 else:
@@ -111,6 +135,11 @@ def main():
     for file in selected_files:
         append_file_contents(file, OUTPUT_FILE)
         print(f"Added content from: {file}")
+
+    # Add sample entries from specified JSON files
+    for json_file in SAMPLE_JSON_FILES:
+        append_json_sample(json_file, OUTPUT_FILE)
+        print(f"Added sample entries from: {json_file}")
 
 if __name__ == "__main__":
     main()
