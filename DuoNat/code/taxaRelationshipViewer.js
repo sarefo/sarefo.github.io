@@ -233,8 +233,6 @@ const taxaRelationshipViewer = {
             }
         }
 
-       console.log("End taxa IDs:", taxon1.id, taxon2.id);
-
         const addNodeAndEdges = (taxon, parentId) => {
             const nodeData = hierarchy.getTaxonById(taxon.id);
             if (!nodeData) {
@@ -242,12 +240,10 @@ const taxaRelationshipViewer = {
                 return;
             }
 
-            console.log("Processing node:", nodeData.id, nodeData.taxonName);
 
             const isEndTaxon = nodeData.id.toString() === taxon1.id.toString() || 
                                nodeData.id.toString() === taxon2.id.toString();
 
-            console.log("Is end taxon:", isEndTaxon);
 
             var taxonName = nodeData.taxonName || `Unknown Taxon ${nodeData.id}`;
             var taxonRank = utils.capitalizeFirstLetter(nodeData.rank || 'Unknown');
@@ -261,7 +257,6 @@ const taxaRelationshipViewer = {
             const existingNode = nodes.get(nodeData.id);
             if (!existingNode) {
                 const nodeColor = isEndTaxon ? '#ffa500' : '#74ac00';
-                console.log("Adding node. ID:", nodeData.id, "Color:", nodeColor);
 
                 nodes.add({
                     id: nodeData.id,
@@ -272,9 +267,7 @@ const taxaRelationshipViewer = {
                 });
                 if (parentId) edges.add({ from: parentId, to: nodeData.id });
             } else {
-                console.log("Node already exists. ID:", nodeData.id, "Existing color:", existingNode.color);
                 if (isEndTaxon && existingNode.color !== '#ffa500') {
-                    console.log("Updating existing node to end taxon color");
                     nodes.update({ id: nodeData.id, color: '#ffa500' });
                 }
             }
