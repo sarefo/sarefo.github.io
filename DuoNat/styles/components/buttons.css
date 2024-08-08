@@ -49,7 +49,7 @@
 .ui-buttons {
     display: flex;
     gap: 10px;
-         padding-right: 5px;
+    padding-right: 8px;
 }
 
 /* Level indicator on main screen */

@@ -33,7 +33,7 @@
     position: absolute;
     right: 0;
     top: 40px;
-         padding-right: 5px;
+    padding-right: 8px;
 }
 
 .main-menu__dropdown.show {
