@@ -14,8 +14,28 @@ class TaxonNode {
 }
 
 class TaxonomyHierarchy {
-    constructor() {
+    constructor(preGeneratedHierarchy = null) {
         this.nodes = new Map();
+        if (preGeneratedHierarchy) {
+            this.loadPreGeneratedHierarchy(preGeneratedHierarchy);
+        }
+    }
+
+    loadPreGeneratedHierarchy(hierarchy) {
+        for (const [id, nodeData] of Object.entries(hierarchy)) {
+            const node = new TaxonNode(id, nodeData.name, nodeData.rank);
+            this.nodes.set(id, node);
+        }
+        // Set up parent-child relationships
+        for (const [id, nodeData] of Object.entries(hierarchy)) {
+            const node = this.nodes.get(id);
+            if (nodeData.parentId) {
+                const parentNode = this.nodes.get(nodeData.parentId);
+                if (parentNode) {
+                    parentNode.addChild(node);
+                }
+            }
+        }
     }
 
     addTaxon(taxonInfo) {

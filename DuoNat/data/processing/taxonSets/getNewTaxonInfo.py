@@ -185,9 +185,9 @@ def process_taxa(input_file, existing_taxon_file, new_taxon_file, existing_sets_
 
 if __name__ == "__main__":
     input_file = "1newTaxonInputSets.txt"
-    existing_taxon_file = "../taxonInfo.json"
+    existing_taxon_file = "../../taxonInfo.json"
     new_taxon_file = "2newTaxonInfoForPerplexity.json"
-    existing_sets_file = "../taxonSets.json"
+    existing_sets_file = "../../taxonSets.json"
     new_sets_file = "3newTaxonSets.json"
     new_taxa_list_file = "4newTaxonListForPerplexity.txt"
     process_taxa(input_file, existing_taxon_file, new_taxon_file, existing_sets_file, new_sets_file, new_taxa_list_file)
