@@ -6,7 +6,7 @@ import logger from './logger.js';
 import preloader from './preloader.js';
 import ui from './ui.js';
 import utils from './utils.js';
-import { createWorldMap } from './worldMap.js';
+import { createWorldMap, getFullContinentName } from './worldMap.js';
 import gameUI from './gameUI.js';
 
 const gameSetup = {
@@ -152,19 +152,7 @@ const gameSetup = {
 
         if (taxonData && taxonData.range && taxonData.range.length > 0) {
             // Convert the continent codes to full names
-            const continentMap = {
-                'NA': 'North America',
-                'SA': 'South America',
-                'EU': 'Europe',
-                'AS': 'Asia',
-                'AF': 'Africa',
-                'OC': 'Oceania'
-            };
-
-            // Convert all continent codes to full names
-            const fullContinents = taxonData.range.map(code => continentMap[code]);
-
-            return fullContinents;
+            return taxonData.range.map(code => getFullContinentName(code));
         } else {
             logger.debug(`No range data found for ${taxon}. Using placeholder.`);
             return ['North America', 'South America', 'Europe', 'Africa', 'Asia', 'Oceania'];
