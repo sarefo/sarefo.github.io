@@ -67,7 +67,12 @@ const dialogManager = {
             
             dialog.removeEventListener('keydown', this.handleDialogKeydown);
 
-            this.handleDialogClose(dialog);
+            if (dialogId === 'range-dialog') {
+                rangeSelector.closeRangeDialog();
+            } else {
+                this.handleDialogClose(dialog);
+            }
+
             this.emit('dialogClose', dialogId);
 
             if (this.openDialogs.length === 0) {

@@ -74,7 +74,7 @@ const rangeSelector = {
         gameState.selectedRanges = this.getSelectedRanges();
         
         // Update the filter summary to reflect the changes immediately
-        ui.updateFilterSummary();
+       // ui.updateFilterSummary();
     },
 
     async updateTaxonList() {
