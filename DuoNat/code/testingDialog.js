@@ -46,7 +46,7 @@ const testingDialog = {
         graphContainer.innerHTML = ''; // Clear previous graph
 
         const hierarchyObj = api.getTaxonomyHierarchy();
-        console.log('Raw hierarchy data:', hierarchyObj);
+//        console.log('Raw hierarchy data:', hierarchyObj);
 
         if (!hierarchyObj || !hierarchyObj.nodes) {
             graphContainer.innerHTML = '<p>Error: Taxonomy hierarchy not loaded or invalid</p>';
@@ -54,7 +54,7 @@ const testingDialog = {
         }
 
         const rootNode = this.convertHierarchyToNestedObject(hierarchyObj);
-        console.log('Converted hierarchy:', JSON.stringify(rootNode, null, 2));
+//        console.log('Converted hierarchy:', JSON.stringify(rootNode, null, 2));
 
         switch (graphType) {
             case 'radial':
@@ -71,7 +71,7 @@ const testingDialog = {
         const nodeMap = new Map();
         let root = null;
 
-        console.log('Total nodes:', nodes.size);
+//        console.log('Total nodes:', nodes.size);
 
         // First pass: create all nodes
         for (const [id, node] of nodes) {
@@ -85,11 +85,11 @@ const testingDialog = {
             nodeMap.set(id, newNode);
             if (node.parentId === null) {
                 root = newNode;
-                console.log('Root node found:', newNode);
+//                console.log('Root node found:', newNode);
             }
         }
 
-        console.log('Nodes created:', nodeMap.size);
+//        console.log('Nodes created:', nodeMap.size);
 
         // Second pass: build the tree structure
         for (const [id, node] of nodes) {
@@ -97,20 +97,20 @@ const testingDialog = {
                 const parent = nodeMap.get(node.parentId);
                 if (parent) {
                     parent.children.push(nodeMap.get(id));
-                    console.log(`Added ${node.taxonName} to ${parent.taxonName}`);
+//                    console.log(`Added ${node.taxonName} to ${parent.taxonName}`);
                 } else {
-                    console.warn(`Parent node not found for ${node.taxonName} (ID: ${id})`);
+//                    console.warn(`Parent node not found for ${node.taxonName} (ID: ${id})`);
                 }
             }
         }
 
         if (!root) {
-            console.warn('No root node found, using first node as root');
+//            console.warn('No root node found, using first node as root');
             root = nodeMap.values().next().value;
         }
 
-        console.log('Root node children:', root.children.length);
-        console.log('First level children:', root.children.map(child => child.taxonName));
+//        console.log('Root node children:', root.children.length);
+//        console.log('First level children:', root.children.map(child => child.taxonName));
 
         return root;
     },
