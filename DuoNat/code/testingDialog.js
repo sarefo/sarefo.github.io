@@ -9,6 +9,17 @@ const testingDialog = {
         this.setupEventListeners();
     },
 
+    loadD3AndUpdateGraph() {
+        if (window.d3) {
+            this.updateGraph();
+        } else {
+            const script = document.createElement('script');
+            script.src = 'https://d3js.org/d3.v7.min.js';
+            script.onload = () => this.updateGraph();
+            document.body.appendChild(script);
+        }
+    },
+
     createDialog() {
         const dialog = document.createElement('dialog');
         dialog.id = 'testing-dialog';
@@ -37,7 +48,7 @@ const testingDialog = {
 
     openDialog() {
         dialogManager.openDialog('testing-dialog');
-        this.updateGraph();
+        this.loadD3AndUpdateGraph();
     },
 
     async updateGraph() {
