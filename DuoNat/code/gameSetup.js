@@ -97,7 +97,6 @@ const gameSetup = {
         gameState.isFirstLoad = false;
     },
 
-
     async initializeNewPair(urlParams = {}) {
         let newPair, imageOneURL, imageTwoURL;
 
@@ -123,8 +122,8 @@ const gameSetup = {
             }
         } else if (urlParams.taxon1 && urlParams.taxon2) {
             newPair = filteredPairs.find(pair =>
-                (pair.taxon1 === urlParams.taxon1 && pair.taxon2 === urlParams.taxon2) ||
-                (pair.taxon1 === urlParams.taxon2 && pair.taxon2 === urlParams.taxon1)
+                (pair.taxonNames[0] === urlParams.taxon1 && pair.taxonNames[1] === urlParams.taxon2) ||
+                (pair.taxonNames[0] === urlParams.taxon2 && pair.taxonNames[1] === urlParams.taxon1)
             );
             if (newPair) {
                 logger.debug(`Found pair with taxa: ${urlParams.taxon1} and ${urlParams.taxon2}`);
@@ -143,8 +142,8 @@ const gameSetup = {
         }
 
         [imageOneURL, imageTwoURL] = await Promise.all([
-            api.fetchRandomImageMetadata(newPair.taxon1),
-            api.fetchRandomImageMetadata(newPair.taxon2)
+            api.fetchRandomImageMetadata(newPair.taxonNames[0]),
+            api.fetchRandomImageMetadata(newPair.taxonNames[1])
         ]);
 
         updateGameState({

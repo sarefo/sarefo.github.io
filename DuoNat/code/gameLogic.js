@@ -199,10 +199,21 @@ const gameLogic = {
     },
 
     selectRandomPairFromCurrentCollection: async function () {
-        const newPair = await setManager.getNextSet();
-        logger.debug(`Selected random pair: ${newPair.taxon1} / ${newPair.taxon2}, Skill Level: ${newPair.level}`);
-        return newPair;
-    },
+        const taxonSets = await api.fetchTaxonPairs();
+        const filteredSets = this.filterTaxonPairs(taxonSets, {
+            level: gameState.selectedLevel,
+            ranges: gameState.selectedRanges,
+            tags: gameState.selectedTags
+        });
+        
+        if (filteredSets.length === 0) {
+            throw new Error("No pairs available in the current collection");
+        }
+        
+        const randomIndex = Math.floor(Math.random() * filteredSets.length);
+        return filteredSets[randomIndex];
+    }
+
 };
 
 Object.keys(gameLogic).forEach(key => {

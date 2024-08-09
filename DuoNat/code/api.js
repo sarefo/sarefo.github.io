@@ -60,14 +60,11 @@ const api = (() => {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const taxonSets = await response.json();
-                return taxonSets.map(set => ({
+                return Object.entries(taxonSets).map(([setID, set]) => ({
+                    ...set,
+                    setID,
                     taxon1: set.taxonNames[0],
-                    taxon2: set.taxonNames[1],
-                    setID: set.setID,
-                    level: set.level,
-                    setName: set.setName,
-                    tags: set.tags,
-                    range: set.range
+                    taxon2: set.taxonNames[1]
                 }));
             } catch (error) {
                 handleApiError(error, 'fetchTaxonPairs');
@@ -257,7 +254,7 @@ const api = (() => {
             }
         },
 
-        loadAncestryInfo: async function () {
+/*        loadAncestryInfo: async function () {
             try {
                 if (ancestryInfo === null) {
                     const response = await fetch('./data/ancestryInfo.json');
@@ -268,9 +265,9 @@ const api = (() => {
             } catch (error) {
                 handleApiError(error, 'loadAncestryInfo');
             }
-        },
+        },*/
 
-        async getAncestryFromLocalData(taxonName) {
+       async getAncestryFromLocalData(taxonName) {
             const taxonInfo = await this.loadTaxonInfo();
             const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxonName.toLowerCase());
             return taxonData ? taxonData.ancestryIds.map(id => parseInt(id)) : [];
@@ -279,10 +276,10 @@ const api = (() => {
         fetchAncestorDetails: async function (ancestorIds) {
             try {
                 const ancestorDetails = new Map();
-                const localAncestryInfo = await this.loadAncestryInfo();
+                const taxonInfo = await this.loadTaxonInfo();
 
                 for (const id of ancestorIds) {
-                    const localData = localAncestryInfo[id];
+                    const localData = taxonomyHierarchy.getTaxonById(id.toString());
                     if (localData) {
                         ancestorDetails.set(id, {
                             id: parseInt(id),

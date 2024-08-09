@@ -26,7 +26,7 @@ ALWAYS_EXCLUDE_FILES = {'package-lock.json', 'package.json', 'webpack.config.js'
 ROOT_DIRECTORY = '../'
 
 # JSON files to include sample entries from
-SAMPLE_JSON_FILES = ['data/taxonInfo.json', 'data/taxonSets.json']
+SAMPLE_JSON_FILES = ['data/taxonInfo.json', 'data/taxonSets.json', 'data/taxonHierarchy.json']
 
 def save_selection(selection):
     with open(CONFIG_FILE, 'w') as f:
@@ -81,12 +81,7 @@ def append_json_sample(file, output_file):
     with open(file_path, 'r') as f:
         data = json.load(f)
     
-    if file.endswith('taxonInfo.json'):
-        sample_data = dict(list(data.items())[:2])
-    elif file.endswith('taxonSets.json'):
-        sample_data = data[:2]
-    else:
-        sample_data = {}  # Default case, shouldn't occur with our current setup
+    sample_data = dict(list(data.items())[:2])
     
     with open(output_file, 'a') as out_f:
         out_f.write(f"\n# {file} (Sample entries)\n\n")

@@ -221,10 +221,10 @@ const ui = {
         const button = document.createElement('button');
         button.className = 'taxon-set-button';
 
-        let result = await getCachedVernacularName(pair.taxon1);
+        let result = await getCachedVernacularName(pair.taxonNames[0]);
         const vernacular1 = result === "n/a" ? "" : result;
 
-        result = await getCachedVernacularName(pair.taxon2);
+        result = await getCachedVernacularName(pair.taxonNames[1]);
         const vernacular2 = result === "n/a" ? "" : result;
 
         const chiliHtml = this.getChiliHtml(pair.level);
@@ -240,11 +240,11 @@ const ui = {
                 </div>
                 <div class="taxon-items">
                     <div class="taxon-item">
-                        <div class="taxon-name">${pair.taxon1}</div>
+                        <div class="taxon-name">${pair.taxonNames[0]}</div>
                         <div class="vernacular-name">${vernacular1}</div>
                     </div>
                     <div class="taxon-item">
-                        <div class="taxon-name">${pair.taxon2}</div>
+                        <div class="taxon-name">${pair.taxonNames[1]}</div>
                         <div class="vernacular-name">${vernacular2}</div>
                     </div>
                 </div>
@@ -254,8 +254,8 @@ const ui = {
         button.onclick = () => {
             // Create a new object with the pair data to ensure we're not using a reference
             const selectedPair = {
-                taxon1: pair.taxon1,
-                taxon2: pair.taxon2,
+                taxon1: pair.taxonNames[0],
+                taxon2: pair.taxonNames[1],
                 setName: pair.setName,
                 tags: [...pair.tags],
                 setID: pair.setID,
@@ -265,11 +265,9 @@ const ui = {
             game.nextSelectedPair = selectedPair;
             logger.debug('Selected pair:', selectedPair);
 
-            //            logger.debug('Attempting to close select-set-dialog');
             dialogManager.closeDialog('select-set-dialog');
 
             setTimeout(() => {
-                //               logger.debug('Setting up game after dialog close');
                 gameSetup.setupGame(true);
             }, 300);
         };

@@ -145,7 +145,7 @@ const taxaRelationshipViewer = {
       }
     }
 
-    // Fetch ancestor details from API (which now checks local ancestryInfo.json first)
+    // Fetch ancestor details from API (which now checks local taxonHierarchy.json first)
     const ancestorDetails = await api.fetchAncestorDetails(ancestorIds);
 
     // Merge API results with localAncestorDetails
@@ -240,10 +240,8 @@ const taxaRelationshipViewer = {
         return;
       }
 
-
       const isEndTaxon = nodeData.id.toString() === taxon1.id.toString() ||
         nodeData.id.toString() === taxon2.id.toString();
-
 
       var taxonName = nodeData.taxonName || `Unknown Taxon ${nodeData.id}`;
       var taxonRank = utils.capitalizeFirstLetter(nodeData.rank || 'Unknown');
