@@ -173,36 +173,35 @@ const preloader = {
         this.isPreloading = true;
         logger.debug(`Preloading with selected tags: ${selectedTags}, level: ${selectedLevel}, and ranges: ${selectedRanges}`);
         try {
+            const allPairs = await api.fetchTaxonPairs();
+            
+            // Ensure selectedTags and selectedRanges are arrays, and selectedLevel is a string
+            const tags = Array.isArray(selectedTags) ? selectedTags : [];
+            const ranges = Array.isArray(selectedRanges) ? selectedRanges : [];
+            const level = typeof selectedLevel === 'string' ? selectedLevel : '';
+
+            // Filter pairs based on criteria
+            const filteredPairs = allPairs.filter(pair => {
+                const matchesLevel = level === '' || pair.level === level;
+                const matchesRanges = ranges.length === 0 || 
+                    (pair.range && pair.range.some(range => ranges.includes(range)));
+                const matchesTags = tags.length === 0 || 
+                    (pair.tags && pair.tags.some(tag => tags.includes(tag)));
+                const isDifferentFromCurrent = !gameState.currentTaxonImageCollection ||
+                    !gameState.currentTaxonImageCollection.pair ||
+                    pair.taxon1 !== gameState.currentTaxonImageCollection.pair.taxon1 ||
+                    pair.taxon2 !== gameState.currentTaxonImageCollection.pair.taxon2;
+
+                return matchesLevel && matchesRanges && matchesTags && isDifferentFromCurrent;
+            });
+
             let newPair;
-            let attempts = 0;
-            const maxAttempts = 10;
-
-            do {
-                newPair = await utils.selectTaxonPair();
-                attempts++;
-
-                if (!newPair) {
-                    logger.warn("No pair found matching selected criteria");
-                    return;
-                }
-
-                const isSamePair = gameState.currentTaxonImageCollection &&
-                    newPair.taxon1 === gameState.currentTaxonImageCollection.pair.taxon1 &&
-                    newPair.taxon2 === gameState.currentTaxonImageCollection.pair.taxon2;
-
-                const matchesLevel = selectedLevel === '' || newPair.level === selectedLevel;
-                const matchesRanges = !selectedRanges || selectedRanges.length === 0 ||
-                    (newPair.range && newPair.range.some(range => selectedRanges.includes(range)));
-
-                if ((!isSamePair && matchesLevel && matchesRanges) || attempts >= maxAttempts) {
-                    break;
-                }
-
-                logger.debug("Selected pair doesn't match criteria, trying again");
-            } while (true);
-
-            if (attempts >= maxAttempts) {
-                logger.warn("Reached max attempts to find a different pair. Using the last selected pair.");
+            if (filteredPairs.length > 0) {
+                newPair = filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
+                logger.debug("Selected new pair matching criteria");
+            } else {
+                newPair = allPairs[Math.floor(Math.random() * allPairs.length)];
+                logger.warn("No pairs match the criteria. Selected a random pair from all pairs.");
             }
 
             const [imageOneURL, imageTwoURL] = await Promise.all([
@@ -227,7 +226,6 @@ const preloader = {
             this.isPreloading = false;
         }
     },
-
 };
 
 export default preloader;
