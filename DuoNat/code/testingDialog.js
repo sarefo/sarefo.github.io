@@ -272,60 +272,62 @@ const testingDialog = {
         update(root);
     },
 
-    createRadialTree(container, rootNode) {
-        const width = 800;
-        const height = 600;
-        const radius = Math.min(width, height) / 2 - 120;
+createRadialTree(container, rootNode) {
+    const containerRect = container.getBoundingClientRect();
+    const width = containerRect.width;
+    const height = containerRect.height;
+    const radius = Math.min(width, height) / 2 - 120;
 
-        const svg = d3.select(container)
-            .append('svg')
-            .attr('width', width)
-            .attr('height', height)
-            .append('g')
-            .attr('transform', `translate(${width / 2},${height / 2})`);
+    const svg = d3.select(container)
+        .append('svg')
+        .attr('width', '100%')
+        .attr('height', '100%')
+        .attr('viewBox', `0 0 ${width} ${height}`)
+        .append('g')
+        .attr('transform', `translate(${width / 2},${height / 2})`);
 
-        svg.append('style').text(`
-            .link {
-                fill: none;
-                stroke: #ccc;
-                stroke-width: 1.5px;
-            }
-            .node text {
-                font: 16px sans-serif;
-            }
-            .node--central circle {
-                fill: #74ac00;
-                r: 8;
-            }
-            .node--central text {
-                font-weight: bold;
-                fill: #74ac00;
-            }
-            .node--active circle {
-                stroke: #ff6600;
-                stroke-width: 3px;
-            }
-            .node--active text {
-                fill: #ff6600;
-                font-weight: bold;
-            }
-        `);
-
-        const root = d3.hierarchy(rootNode);
-        
-        if (!root) {
-            logger.error('Failed to create radial hierarchy from root node');
-            return;
+    svg.append('style').text(`
+        .link {
+            fill: none;
+            stroke: #ccc;
+            stroke-width: 1.5px;
         }
+        .node text {
+            font: 16px sans-serif;
+        }
+        .node--central circle {
+            fill: #74ac00;
+            r: 8;
+        }
+        .node--central text {
+            font-weight: bold;
+            fill: #74ac00;
+        }
+        .node--active circle {
+            stroke: #ff6600;
+            stroke-width: 3px;
+        }
+        .node--active text {
+            fill: #ff6600;
+            font-weight: bold;
+        }
+    `);
 
-        let centerNode = root;
-        let activeNode = root;
+    const root = d3.hierarchy(rootNode);
+    
+    if (!root) {
+        logger.error('Failed to create radial hierarchy from root node');
+        return;
+    }
 
-        const treeLayout = d3.tree()
-            .size([2 * Math.PI, radius])
-            .separation((a, b) => {
-                return (a.parent == b.parent ? 1 : 2) / a.depth;
-            });
+    let centerNode = root;
+    let activeNode = root;
+
+    const treeLayout = d3.tree()
+        .size([2 * Math.PI, radius])
+        .separation((a, b) => {
+            return (a.parent == b.parent ? 1 : 2) / a.depth;
+        });
 
         function update(source) {
             const duration = 750;
@@ -493,6 +495,23 @@ const testingDialog = {
         });
 
         update(root);
+
+    // Add resize listener
+    const resizeObserver = new ResizeObserver(() => {
+        const newContainerRect = container.getBoundingClientRect();
+        const newWidth = newContainerRect.width;
+        const newHeight = newContainerRect.height;
+        const newRadius = Math.min(newWidth, newHeight) / 2 - 120;
+
+        svg.attr('viewBox', `0 0 ${newWidth} ${newHeight}`);
+        svg.attr('transform', `translate(${newWidth / 2},${newHeight / 2})`);
+
+        treeLayout.size([2 * Math.PI, newRadius]);
+
+        update(centerNode);
+    });
+
+    resizeObserver.observe(container);
     },
 
 };
