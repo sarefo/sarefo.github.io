@@ -46,7 +46,7 @@ const eventHandlers = {
         this.initializeAllEventListeners();
         this.initializeSelectSetDialogShortcuts();
         this.initializeLevelIndicator();
-
+        this.initializeLongPressHandler(); // only used for testing dialog secret long-press on chili for now
         this.debouncedKeyboardHandler = utils.debounce(this._handleKeyboardShortcuts.bind(this), 300);
         document.addEventListener('keydown', this.debouncedKeyboardHandler);
 
@@ -70,6 +70,25 @@ const eventHandlers = {
 
         testingDialog.initialize();
 
+    },
+
+    initializeLongPressHandler() {
+        const levelIndicator = document.getElementById('level-indicator');
+        let longPressTimer;
+
+        levelIndicator.addEventListener('touchstart', (e) => {
+            longPressTimer = setTimeout(() => {
+                testingDialog.openDialog();
+            }, 1500); // 1.5 seconds long press
+        });
+
+        levelIndicator.addEventListener('touchend', (e) => {
+            clearTimeout(longPressTimer);
+        });
+
+        levelIndicator.addEventListener('touchmove', (e) => {
+            clearTimeout(longPressTimer);
+        });
     },
 
     initializeLevelIndicator() {
