@@ -284,96 +284,77 @@ const testingDialog = {
             .append('g')
             .attr('transform', `translate(${width / 2},${height / 2})`);
 
-        const root = d3.hierarchy(rootNode);
-        logger.debug('D3 radial hierarchy data:', root);
-        logger.debug('Root node children:', root.children ? root.children.length : 0);
-        logger.debug('First level children:', root.children ? root.children.map(child => child.data.taxonName) : 'None');
+        // Add CSS for link styling
+        svg.append('style').text(`
+            .link {
+                fill: none;
+                stroke: #ccc;
+                stroke-width: 1.5px;
+            }
+        `);
 
+        const root = d3.hierarchy(rootNode);
+        
         if (!root) {
             logger.error('Failed to create radial hierarchy from root node');
             return;
         }
 
+        let centerNode = root;
+
         const treeLayout = d3.tree()
             .size([2 * Math.PI, radius])
             .separation((a, b) => (a.parent == b.parent ? 1 : 2) / a.depth);
 
-          // Collapse all nodes initially except for the first two levels
-        root.descendants().forEach(d => {
-            if (d.depth > 1) {
-                d._children = d.children;
-                d.children = null;
-            }
-        });
-
-        // Expand the root node and its immediate children
-        expand(root);
-        root.children.forEach(expand);
-
-        // Initial update
-        update(root); 
-
         function update(source) {
             const duration = 750;
 
-            const tree = treeLayout(root);
-            const nodes = tree.descendants();
-            const links = tree.links();
+            const treeData = treeLayout(centerNode);
+            const nodes = treeData.descendants();
+            const links = treeData.links();
 
-            const node = svg.selectAll('.testing-dialog__node')
+            nodes.forEach(d => {
+                d.y = (d.depth - centerNode.depth) * 100;
+            });
+
+            const node = svg.selectAll('g.node')
                 .data(nodes, d => d.data.id);
 
             const nodeEnter = node.enter().append('g')
-                .attr('class', 'testing-dialog__node')
-                .attr('transform', d => {
-                    const [x, y] = radialPoint(source.x0, source.y0);
-                    return `translate(${isNaN(x) ? 0 : x},${isNaN(y) ? 0 : y})`;
-                })
-                .on('click', (event, d) => {
-                    if (d.children) {
-                        d._children = d.children;
-                        d.children = null;
-                    } else {
-                        d.children = d._children;
-                        d._children = null;
-                    }
-                    update(d);
-                });
+                .attr('class', 'node')
+                .attr('transform', d => `translate(${radialPoint(source.x0 || 0, source.y0 || 0)})`)
+                .on('click', click);
 
             nodeEnter.append('circle')
-                .attr('r', 5)
-                .attr('fill', d => d._children ? "lightsteelblue" : "#fff");
+                .attr('r', 1e-6)
+                .style('fill', d => d._children ? 'lightsteelblue' : '#fff')
+                .style('stroke', '#74ac00')
+                .style('stroke-width', '1.5px');
 
             nodeEnter.append('text')
                 .attr('dy', '.31em')
                 .attr('x', d => d.x < Math.PI === !d.children ? 6 : -6)
                 .attr('text-anchor', d => d.x < Math.PI === !d.children ? 'start' : 'end')
                 .attr('transform', d => `rotate(${(d.x < Math.PI ? d.x - Math.PI / 2 : d.x + Math.PI / 2) * 180 / Math.PI})`)
-                .text(d => d.data.taxonName);
+                .text(d => d.data.taxonName)
+                .style('fill-opacity', 1e-6);
 
             const nodeUpdate = nodeEnter.merge(node);
 
             nodeUpdate.transition()
                 .duration(duration)
-                .attr('transform', d => {
-                    const [x, y] = radialPoint(d.x, d.y);
-                    if (isNaN(x) || isNaN(y)) {
-                        logger.error('Invalid node position:', d);
-                        return 'translate(0,0)';
-                    }
-                    return `translate(${x},${y})`;
-                });
+                .attr('transform', d => `translate(${radialPoint(d.x, d.y)})`);
 
             nodeUpdate.select('circle')
                 .attr('r', 5)
-                .attr('fill', d => d._children ? "lightsteelblue" : "#fff");
+                .style('fill', d => d._children ? 'lightsteelblue' : '#fff');
+
+            nodeUpdate.select('text')
+                .style('fill-opacity', 1);
 
             const nodeExit = node.exit().transition()
                 .duration(duration)
-                .attr('transform', d => {
-                    const [x, y] = radialPoint(source.x, source.y);
-                    return `translate(${isNaN(x) ? 0 : x},${isNaN(y) ? 0 : y})`;
-                })
+                .attr('transform', d => `translate(${radialPoint(source.x, source.y)})`)
                 .remove();
 
             nodeExit.select('circle')
@@ -382,27 +363,25 @@ const testingDialog = {
             nodeExit.select('text')
                 .style('fill-opacity', 1e-6);
 
-            const link = svg.selectAll('.testing-dialog__link')
+            const link = svg.selectAll('path.link')
                 .data(links, d => d.target.data.id);
 
             const linkEnter = link.enter().insert('path', 'g')
-                .attr('class', 'testing-dialog__link')
+                .attr('class', 'link')
                 .attr('d', d => {
-                    const o = {x: source.x0, y: source.y0};
-                    return linkRadial({source: o, target: o});
+                    const o = {x: source.x0 || 0, y: source.y0 || 0};
+                    return diagonal({source: o, target: o});
                 });
 
-            const linkUpdate = linkEnter.merge(link);
-
-            linkUpdate.transition()
+            link.merge(linkEnter).transition()
                 .duration(duration)
-                .attr('d', linkRadial);
+                .attr('d', diagonal);
 
             link.exit().transition()
                 .duration(duration)
                 .attr('d', d => {
                     const o = {x: source.x, y: source.y};
-                    return linkRadial({source: o, target: o});
+                    return diagonal({source: o, target: o});
                 })
                 .remove();
 
@@ -412,27 +391,65 @@ const testingDialog = {
             });
         }
 
-        function linkRadial(d) {
-            const start = radialPoint(d.source.x, d.source.y);
-            const end = radialPoint(d.target.x, d.target.y);
-            const mx = (start[0] + end[0]) / 2;
-            const my = (start[1] + end[1]) / 2;
-            return `M${start}C${mx},${my} ${mx},${my} ${end}`;
+        function click(event, d) {
+            if (d.parent) {
+                centerNode = d.parent;
+            }
+
+            if (d.children) {
+                d._children = d.children;
+                d.children = null;
+            } else {
+                d.children = d._children;
+                d._children = null;
+            }
+
+            root.descendants().forEach(node => {
+                if (node !== centerNode && !isDescendantOf(node, centerNode) && !isAncestorOf(node, d)) {
+                    node._children = node.children || node._children;
+                    node.children = null;
+                }
+            });
+
+            update(d);
+        }
+
+        function diagonal(d) {
+            return d3.linkRadial()
+                .angle(d => d.x)
+                .radius(d => d.y)
+                (d);
         }
 
         function radialPoint(x, y) {
             return [(y = +y) * Math.cos(x -= Math.PI / 2), y * Math.sin(x)];
         }
 
-        function expand(d) {
-            if (d._children) {
-                d.children = d._children;
-                d.children.forEach(expand);
+        function isDescendantOf(node, target) {
+            while (node.parent) {
+                if (node.parent === target) return true;
+                node = node.parent;
             }
+            return false;
         }
-        // Initial update
+
+        function isAncestorOf(node, target) {
+            while (target.parent) {
+                if (target.parent === node) return true;
+                target = target.parent;
+            }
+            return false;
+        }
+
+        root.descendants().forEach(d => {
+            if (d.depth > 0) {
+                d._children = d.children;
+                d.children = null;
+            }
+        });
+
         update(root);
-    }
+    },
 
 };
 
