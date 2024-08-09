@@ -39,8 +39,66 @@ const game = {
         imageTwo: null
     },
 
-    setState(newState) {
-        this.currentState = newState;
+    initializeInfoButtons() {
+        const infoButton1 = document.getElementById('info-button-1');
+        const infoButton2 = document.getElementById('info-button-2');
+
+        infoButton1.addEventListener('click', () => this.showInfoDialog(this.currentObservationURLs.imageOne, 1));
+        infoButton2.addEventListener('click', () => this.showInfoDialog(this.currentObservationURLs.imageTwo, 2));
+
+        document.getElementById('info-dialog').addEventListener('close', () => {
+            document.querySelectorAll('.image-container').forEach(container => {
+                container.classList.remove('image-container--framed');
+            });
+        });
+    },
+
+    setupButtonHandlers(url, currentTaxon) {
+        const photoButton = document.getElementById('photo-button');
+        const observationButton = document.getElementById('observation-button');
+        const taxonButton = document.getElementById('taxon-button');
+        //        const hintsButton = document.getElementById('hints-button');
+        const wikiButton = document.getElementById('wiki-button');
+        const reportButton = document.getElementById('report-button');
+
+        photoButton.onclick = () => {
+            window.open(url, '_blank');
+            dialogManager.closeDialog('info-dialog');
+        };
+
+        observationButton.onclick = () => {
+            logger.debug("Observation button clicked");
+            // Implement observation functionality here
+        };
+
+        taxonButton.onclick = async () => {
+            try {
+                const taxonId = await api.fetchTaxonId(currentTaxon);
+                window.open(`https://www.inaturalist.org/taxa/${taxonId}`, '_blank');
+                dialogManager.closeDialog('info-dialog');
+            } catch (error) {
+                alert("Unable to open taxon page. Please try again.");
+            }
+        };
+
+        //       hintsButton.onclick = () => {
+        //           logger.debug("Taxon hints button clicked");
+        // Implement taxon hints functionality here
+        //       };
+
+        wikiButton.onclick = () => {
+            try {
+                window.open(`https://en.wikipedia.org/wiki/${currentTaxon}`, '_blank');
+                dialogManager.closeDialog('info-dialog');
+            } catch (error) {
+                alert("Unable to open Wikipedia page. Please try again.");
+            }
+        };
+
+        reportButton.onclick = () => {
+            logger.debug("Report button clicked");
+            // Implement report functionality here
+        };
     },
 
     showLoadingScreen: function () {
@@ -51,6 +109,33 @@ const game = {
         setTimeout(() => {
             document.getElementById('loading-screen').style.display = 'none';
         }, 500); // 500ms delay, adjust as needed
+    },
+
+    setState(newState) {
+        this.currentState = newState;
+    },
+
+    loadImages: async function (leftImageSrc, rightImageSrc) {
+        await Promise.all([
+            this.loadImageAndRemoveLoadingClass(elements.imageOne, leftImageSrc),
+            this.loadImageAndRemoveLoadingClass(elements.imageTwo, rightImageSrc)
+        ]);
+    },
+
+    async loadImageAndRemoveLoadingClass(imgElement, src) {
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.onload = () => {
+                imgElement.src = src;
+                imgElement.classList.remove('image-container__image--loading');
+                // Add a slight delay before adding the 'loaded' class
+                setTimeout(() => {
+                    imgElement.classList.add('image-container__image--loaded');
+                    resolve();
+                }, 50); // 50ms delay to ensure the browser has time to apply the new src
+            };
+            img.src = src;
+        });
     },
 
     async fetchTaxonImageCollection(newPair) {
@@ -120,29 +205,6 @@ const game = {
         };
     },
 
-    loadImages: async function (leftImageSrc, rightImageSrc) {
-        await Promise.all([
-            this.loadImageAndRemoveLoadingClass(elements.imageOne, leftImageSrc),
-            this.loadImageAndRemoveLoadingClass(elements.imageTwo, rightImageSrc)
-        ]);
-    },
-
-    async loadImageAndRemoveLoadingClass(imgElement, src) {
-        return new Promise((resolve) => {
-            const img = new Image();
-            img.onload = () => {
-                imgElement.src = src;
-                imgElement.classList.remove('image-container__image--loading');
-                // Add a slight delay before adding the 'loaded' class
-                setTimeout(() => {
-                    imgElement.classList.add('image-container__image--loaded');
-                    resolve();
-                }, 50); // 50ms delay to ensure the browser has time to apply the new src
-            };
-            img.src = src;
-        });
-    },
-
     async showTaxaRelationship() {
         const { taxonImageOne, taxonImageTwo } = gameState;
         const container = document.getElementById('phylogeny-dialog__graph');
@@ -177,37 +239,6 @@ const game = {
             alert('Failed to load the relationship graph. Please try again later.');
             //       dialog.style.display = 'none'; // Hide the dialog on error
             dialogManager.closeDialog();
-        }
-    },
-
-    initializeInfoButtons() {
-        const infoButton1 = document.getElementById('info-button-1');
-        const infoButton2 = document.getElementById('info-button-2');
-
-        infoButton1.addEventListener('click', () => this.showInfoDialog(this.currentObservationURLs.imageOne, 1));
-        infoButton2.addEventListener('click', () => this.showInfoDialog(this.currentObservationURLs.imageTwo, 2));
-
-        document.getElementById('info-dialog').addEventListener('close', () => {
-            document.querySelectorAll('.image-container').forEach(container => {
-                container.classList.remove('image-container--framed');
-            });
-        });
-    },
-
-    openObservationURL(url) {
-        if (url) {
-            this.showInfoDialog(url);
-        } else {
-            logger.error('Observation URL not available');
-        }
-    },
-
-    frameImage(imageIndex) {
-        if (imageIndex) {
-            const imageContainer = document.getElementById(`image-container-${imageIndex}`);
-            if (imageContainer) {
-                imageContainer.classList.add('image-container--framed');
-            }
         }
     },
 
@@ -346,52 +377,21 @@ const game = {
         dialog.style.left = `${(window.innerWidth - dialogRect.width) / 2}px`;
     },
 
-    setupButtonHandlers(url, currentTaxon) {
-        const photoButton = document.getElementById('photo-button');
-        const observationButton = document.getElementById('observation-button');
-        const taxonButton = document.getElementById('taxon-button');
-        //        const hintsButton = document.getElementById('hints-button');
-        const wikiButton = document.getElementById('wiki-button');
-        const reportButton = document.getElementById('report-button');
+    openObservationURL(url) {
+        if (url) {
+            this.showInfoDialog(url);
+        } else {
+            logger.error('Observation URL not available');
+        }
+    },
 
-        photoButton.onclick = () => {
-            window.open(url, '_blank');
-            dialogManager.closeDialog('info-dialog');
-        };
-
-        observationButton.onclick = () => {
-            logger.debug("Observation button clicked");
-            // Implement observation functionality here
-        };
-
-        taxonButton.onclick = async () => {
-            try {
-                const taxonId = await api.fetchTaxonId(currentTaxon);
-                window.open(`https://www.inaturalist.org/taxa/${taxonId}`, '_blank');
-                dialogManager.closeDialog('info-dialog');
-            } catch (error) {
-                alert("Unable to open taxon page. Please try again.");
+    frameImage(imageIndex) {
+        if (imageIndex) {
+            const imageContainer = document.getElementById(`image-container-${imageIndex}`);
+            if (imageContainer) {
+                imageContainer.classList.add('image-container--framed');
             }
-        };
-
-        //       hintsButton.onclick = () => {
-        //           logger.debug("Taxon hints button clicked");
-        // Implement taxon hints functionality here
-        //       };
-
-        wikiButton.onclick = () => {
-            try {
-                window.open(`https://en.wikipedia.org/wiki/${currentTaxon}`, '_blank');
-                dialogManager.closeDialog('info-dialog');
-            } catch (error) {
-                alert("Unable to open Wikipedia page. Please try again.");
-            }
-        };
-
-        reportButton.onclick = () => {
-            logger.debug("Report button clicked");
-            // Implement report functionality here
-        };
+        }
     },
 
 };
