@@ -272,77 +272,86 @@ const testingDialog = {
         update(root);
     },
 
-createRadialTree(container, rootNode) {
-    const containerRect = container.getBoundingClientRect();
-    const width = containerRect.width;
-    const height = containerRect.height;
-    const radius = Math.min(width, height) / 2 - 120;
+    createRadialTree(container, rootNode) {
+        const containerRect = container.getBoundingClientRect();
+        const width = containerRect.width;
+        const height = containerRect.height;
+        const radius = Math.min(width, height) / 2 - 120;
 
-    const svg = d3.select(container)
-        .append('svg')
-        .attr('width', '100%')
-        .attr('height', '100%')
-        .attr('viewBox', `0 0 ${width} ${height}`)
-        .append('g')
-        .attr('transform', `translate(${width / 2},${height / 2})`);
+        const svg = d3.select(container)
+            .append('svg')
+            .attr('width', '100%')
+            .attr('height', '100%')
+            .attr('viewBox', `0 0 ${width} ${height}`)
+            .append('g')
+            .attr('transform', `translate(${width / 2},${height / 2})`);
 
-    svg.append('style').text(`
-        .link {
-            fill: none;
-            stroke: #ccc;
-            stroke-width: 1.5px;
-        }
-        .node text {
-            font: 16px sans-serif;
-        }
-        .node--central circle {
-            fill: #74ac00;
-            r: 8;
-        }
-        .node--central text {
-            font-weight: bold;
-            fill: #74ac00;
-        }
-        .node--active circle {
-            stroke: #ff6600;
-            stroke-width: 3px;
-        }
-        .node--active text {
-            fill: #ff6600;
-            font-weight: bold;
-        }
-    `);
+        svg.append('style').text(`
+            .link {
+                fill: none;
+                stroke: #ccc;
+                stroke-width: 1.5px;
+            }
+            .node text {
+                font: 16px sans-serif;
+            }
+            .node--central circle {
+                fill: #74ac00;
+                r: 8;
+            }
+            .node--central text {
+                font-weight: bold;
+                fill: #74ac00;
+            }
+            .node--active circle {
+                stroke: #ff6600;
+                stroke-width: 3px;
+            }
+            .node--active text {
+                fill: #ff6600;
+                font-weight: bold;
+            }
+        `);
 
-    const root = d3.hierarchy(rootNode);
-    
-    if (!root) {
-        logger.error('Failed to create radial hierarchy from root node');
-        return;
-    }
+        const root = d3.hierarchy(rootNode);
+        
+        if (!root) {
+            logger.error('Failed to create radial hierarchy from root node');
+            return;
+        }
 
-    let centerNode = root;
-    let activeNode = root;
+        let centerNode = root;
+        let activeNode = root;
 
-    const treeLayout = d3.tree()
-        .size([2 * Math.PI, radius])
-        .separation((a, b) => {
-            return (a.parent == b.parent ? 1 : 2) / a.depth;
-        });
+        const treeLayout = d3.tree()
+            .size([2 * Math.PI, radius])
+            .separation((a, b) => {
+                return (a.parent == b.parent ? 1 : 2) / a.depth;
+            });
 
         function update(source) {
             const duration = 750;
 
-            const treeData = treeLayout(centerNode);
-            const nodes = treeData.descendants();
-            const links = treeData.links();
+            // Compute the new tree layout.
+            treeLayout(centerNode);
 
-            nodes.forEach(d => {
+            // Filter nodes to show only the center node, active node, and direct children of active node
+            const visibleNodes = [centerNode, activeNode, ...(activeNode.children || [])];
+
+            const links = centerNode.links().filter(link => 
+                visibleNodes.includes(link.source) && visibleNodes.includes(link.target)
+            );
+
+            // Normalize for fixed-depth.
+            visibleNodes.forEach(d => {
                 d.y = (d.depth - centerNode.depth) * 100;
             });
 
+            // Update the nodes...
             const node = svg.selectAll('g.node')
-                .data(nodes, d => d.data.id);
+                .data(visibleNodes, d => d.data.id);
 
+            // Enter any new nodes at the parent's previous position.
             const nodeEnter = node.enter().append('g')
                 .attr('class', d => `node ${d === centerNode ? 'node--central' : ''} ${d === activeNode ? 'node--active' : ''}`)
                 .attr('transform', d => `translate(${radialPoint(source.x0 || 0, source.y0 || 0)})`)
@@ -362,41 +371,42 @@ createRadialTree(container, rootNode) {
                 .text(d => d.data.taxonName)
                 .style('fill-opacity', 1e-6);
 
-       const nodeUpdate = nodeEnter.merge(node);
+            // Update the nodes
+            const nodeUpdate = nodeEnter.merge(node);
 
-        nodeUpdate.transition()
-            .duration(duration)
-            .attr('class', d => `node ${d === centerNode ? 'node--central' : ''} ${d === activeNode ? 'node--active' : ''}`)
-            .attr('transform', d => `translate(${radialPoint(d.x, d.y)})`);
+            nodeUpdate.transition()
+                .duration(duration)
+                .attr('class', d => `node ${d === centerNode ? 'node--central' : ''} ${d === activeNode ? 'node--active' : ''}`)
+                .attr('transform', d => `translate(${radialPoint(d.x, d.y)})`);
 
-        nodeUpdate.select('circle')
-            .attr('r', d => d === centerNode ? 8 : 5)
-            .style('fill', d => d === centerNode ? '#74ac00' : (d._children ? 'lightsteelblue' : '#fff'));
+            nodeUpdate.select('circle')
+                .attr('r', d => d === centerNode ? 8 : 5)
+                .style('fill', d => d === centerNode ? '#74ac00' : (d._children ? 'lightsteelblue' : '#fff'));
 
-        nodeUpdate.select('text')
-            .style('fill-opacity', 1)
-            .attr('transform', function(d) {
-                if (d === centerNode || d === activeNode) {
-                    // Position text above the node for central and active nodes
-                    return `translate(0,-12)`;
-                }
-                const angle = (d.x < Math.PI ? d.x - Math.PI / 2 : d.x + Math.PI / 2) * 180 / Math.PI;
-                const rotation = angle > 90 && angle < 270 ? 180 : 0;
-                const textAnchor = d.x < Math.PI ? "start" : "end";
-                const labelPadding = 15; // Adjust this value to control text distance from node
-                const x = (textAnchor === "start" ? labelPadding : -labelPadding);
-                return `rotate(${angle}) translate(${x},0) rotate(${rotation})`;
-            })
-            .attr('text-anchor', d => (d === centerNode || d === activeNode) ? 'middle' : (d.x < Math.PI ? 'start' : 'end'))
-            .attr('dy', d => (d === centerNode || d === activeNode) ? '-0.5em' : '.31em')
-            .attr('dx', 0) // Remove any horizontal offset
-            .style('font-weight', d => (d === centerNode || d === activeNode) ? 'bold' : 'normal')
-            .style('fill', d => {
-                if (d === centerNode) return '#74ac00';
-                if (d === activeNode) return '#ff6600';
-                return 'black';
-            });
+            nodeUpdate.select('text')
+                .style('fill-opacity', 1)
+                .attr('transform', function(d) {
+                    if (d === centerNode) {
+                        return `translate(0,-12)`;
+                    }
+                    const angle = (d.x < Math.PI ? d.x - Math.PI / 2 : d.x + Math.PI / 2) * 180 / Math.PI;
+                    const rotation = angle > 90 && angle < 270 ? 180 : 0;
+                    const textAnchor = d.x < Math.PI ? "start" : "end";
+                    const labelPadding = 15;
+                    const x = (textAnchor === "start" ? labelPadding : -labelPadding);
+                    return `rotate(${angle}) translate(${x},0) rotate(${rotation})`;
+                })
+                .attr('text-anchor', d => (d === centerNode) ? 'middle' : (d.x < Math.PI ? 'start' : 'end'))
+                .attr('dy', d => (d === centerNode) ? '-0.5em' : '.31em')
+                .attr('dx', 0)
+                .style('font-weight', d => (d === centerNode || d === activeNode) ? 'bold' : 'normal')
+                .style('fill', d => {
+                    if (d === centerNode) return '#ff6600';
+                    if (d === activeNode) return '#74ac00';
+                    return 'black';
+                });
 
+            // Remove any exiting nodes
             const nodeExit = node.exit().transition()
                 .duration(duration)
                 .attr('transform', d => `translate(${radialPoint(source.x, source.y)})`)
@@ -408,40 +418,47 @@ createRadialTree(container, rootNode) {
             nodeExit.select('text')
                 .style('fill-opacity', 1e-6);
 
-        const link = svg.selectAll('path.link')
-            .data(links, d => d.target.data.id);
+            // Update the links...
+            const link = svg.selectAll('path.link')
+                .data(links, d => d.target.data.id);
 
-        const linkEnter = link.enter().insert('path', 'g')
-            .attr('class', 'link')
-            .attr('d', d => {
-                const o = {x: source.x0 || 0, y: source.y0 || 0};
-                return diagonal(o, o);
-            });
+            // Enter any new links at the parent's previous position.
+            const linkEnter = link.enter().insert('path', 'g')
+                .attr('class', 'link')
+                .attr('d', d => {
+                    const o = {x: source.x0 || 0, y: source.y0 || 0};
+                    return diagonal(o, o);
+                });
 
-        link.merge(linkEnter).transition()
-            .duration(duration)
-            .attr('d', d => diagonal(d.source, d.target));
+            // Update position for new and existing links
+            link.merge(linkEnter).transition()
+                .duration(duration)
+                .attr('d', d => diagonal(d.source, d.target));
 
-        link.exit().transition()
-            .duration(duration)
-            .attr('d', d => {
-                const o = {x: source.x, y: source.y};
-                return diagonal(o, o);
-            })
-            .remove();
+            // Remove any exiting links
+            link.exit().transition()
+                .duration(duration)
+                .attr('d', d => {
+                    const o = {x: source.x, y: source.y};
+                    return diagonal(o, o);
+                })
+                .remove();
 
-            nodes.forEach(d => {
+            // Store the old positions for transition.
+            visibleNodes.forEach(d => {
                 d.x0 = d.x;
                 d.y0 = d.y;
             });
         }
 
-       function click(event, d) {
-            if (d.parent) {
+        function click(event, d) {
+            if (d !== centerNode) {
+                centerNode = d.parent || centerNode;
+                activeNode = d;
+            } else if (d.parent) {
                 centerNode = d.parent;
+                activeNode = d;
             }
-
-            activeNode = d;
 
             if (d.children) {
                 d._children = d.children;
@@ -450,13 +467,6 @@ createRadialTree(container, rootNode) {
                 d.children = d._children;
                 d._children = null;
             }
-
-            root.descendants().forEach(node => {
-                if (node !== centerNode && !isDescendantOf(node, centerNode) && !isAncestorOf(node, d)) {
-                    node._children = node.children || node._children;
-                    node.children = null;
-                }
-            });
 
             update(d);
         }
@@ -471,22 +481,6 @@ createRadialTree(container, rootNode) {
             return [(y = +y) * Math.cos(x -= Math.PI / 2), y * Math.sin(x)];
         }
 
-        function isDescendantOf(node, target) {
-            while (node.parent) {
-                if (node.parent === target) return true;
-                node = node.parent;
-            }
-            return false;
-        }
-
-        function isAncestorOf(node, target) {
-            while (target.parent) {
-                if (target.parent === node) return true;
-                target = target.parent;
-            }
-            return false;
-        }
-
         root.descendants().forEach(d => {
             if (d.depth > 0) {
                 d._children = d.children;
@@ -496,23 +490,22 @@ createRadialTree(container, rootNode) {
 
         update(root);
 
-    // Add resize listener
-    const resizeObserver = new ResizeObserver(() => {
-        const newContainerRect = container.getBoundingClientRect();
-        const newWidth = newContainerRect.width;
-        const newHeight = newContainerRect.height;
-        const newRadius = Math.min(newWidth, newHeight) / 2 - 120;
+        const resizeObserver = new ResizeObserver(() => {
+            const newContainerRect = container.getBoundingClientRect();
+            const newWidth = newContainerRect.width;
+            const newHeight = newContainerRect.height;
+            const newRadius = Math.min(newWidth, newHeight) / 2 - 120;
 
-        svg.attr('viewBox', `0 0 ${newWidth} ${newHeight}`);
-        svg.attr('transform', `translate(${newWidth / 2},${newHeight / 2})`);
+            svg.attr('viewBox', `0 0 ${newWidth} ${newHeight}`);
+            svg.attr('transform', `translate(${newWidth / 2},${newHeight / 2})`);
 
-        treeLayout.size([2 * Math.PI, newRadius]);
+            treeLayout.size([2 * Math.PI, newRadius]);
 
-        update(centerNode);
-    });
+            update(centerNode);
+        });
 
-    resizeObserver.observe(container);
-    },
+        resizeObserver.observe(container);
+    }
 
 };
 
