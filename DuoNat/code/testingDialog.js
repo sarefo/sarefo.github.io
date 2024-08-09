@@ -374,8 +374,9 @@ const testingDialog = {
         nodeUpdate.select('text')
             .style('fill-opacity', 1)
             .attr('transform', function(d) {
-                if (d === centerNode) {
-                    return `translate(0,-12)`; // Central node text positioning
+                if (d === centerNode || d === activeNode) {
+                    // Position text above the node for central and active nodes
+                    return `translate(0,-12)`;
                 }
                 const angle = (d.x < Math.PI ? d.x - Math.PI / 2 : d.x + Math.PI / 2) * 180 / Math.PI;
                 const rotation = angle > 90 && angle < 270 ? 180 : 0;
@@ -384,8 +385,8 @@ const testingDialog = {
                 const x = (textAnchor === "start" ? labelPadding : -labelPadding);
                 return `rotate(${angle}) translate(${x},0) rotate(${rotation})`;
             })
-            .attr('text-anchor', d => d === centerNode ? 'middle' : (d.x < Math.PI ? 'start' : 'end'))
-            .attr('dy', '.31em')
+            .attr('text-anchor', d => (d === centerNode || d === activeNode) ? 'middle' : (d.x < Math.PI ? 'start' : 'end'))
+            .attr('dy', d => (d === centerNode || d === activeNode) ? '-0.5em' : '.31em')
             .attr('dx', 0) // Remove any horizontal offset
             .style('font-weight', d => (d === centerNode || d === activeNode) ? 'bold' : 'normal')
             .style('fill', d => {
