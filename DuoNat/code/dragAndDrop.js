@@ -49,6 +49,8 @@ const dragAndDrop = {
 
         this.draggedElement.classList.add('name-pair__item--dragging');
         this.draggedElement.style.zIndex = '1000';
+        
+        // Trigger an initial position update
         this.updateElementPosition(e);
     },
 
@@ -68,6 +70,8 @@ const dragAndDrop = {
 
         this.draggedElement.classList.add('name-pair__item--dragging');
         this.draggedElement.style.zIndex = '1000';
+        
+        // Trigger an initial position update
         this.updateElementPosition(touch);
     },
 
@@ -162,39 +166,40 @@ const dragAndDrop = {
     updateElementPosition(event) {
         if (!this.draggedElement || !this.gameContainer) return;
 
+        // Batch all DOM reads
         const gameContainerRect = this.gameContainer.getBoundingClientRect();
         const elementWidth = this.draggedElement.offsetWidth;
-
-        // Calculate center position
-        const leftPosition = gameContainerRect.left + (gameContainerRect.width / 2) - (elementWidth / 2);
-
-        // Calculate vertical position
         const clientY = event.touches ? event.touches[0].clientY : event.clientY;
         const deltaY = clientY - this.initialY;
+
+        // Calculate new positions
+        const leftPosition = gameContainerRect.left + (gameContainerRect.width / 2) - (elementWidth / 2);
         const topPosition = clientY - this.touchOffset.y;
 
-        // Apply the positioning to the dragged element
-        this.draggedElement.style.position = 'fixed';
-        this.draggedElement.style.left = `${leftPosition}px`;
-        this.draggedElement.style.top = `${topPosition}px`;
+        // Batch all DOM writes
+        requestAnimationFrame(() => {
+            // Apply the positioning to the dragged element
+            this.draggedElement.style.position = 'fixed';
+            this.draggedElement.style.left = `${leftPosition}px`;
+            this.draggedElement.style.top = `${topPosition}px`;
 
-        // Mirror the other element
-        this.mirrorOtherElement(deltaY);
+            // Mirror the other element
+            this.mirrorOtherElement(deltaY, gameContainerRect, elementWidth);
+        });
     },
 
-    mirrorOtherElement(deltaY) {
+    mirrorOtherElement(deltaY, gameContainerRect, elementWidth) {
         const otherElement = this.draggedElement.id === 'left-name' ?
             document.getElementById('right-name') :
             document.getElementById('left-name');
 
         if (otherElement) {
-            const gameContainerRect = this.gameContainer.getBoundingClientRect();
-            const elementWidth = otherElement.offsetWidth;
             const leftPosition = gameContainerRect.left + (gameContainerRect.width / 2) - (elementWidth / 2);
+            const topPosition = this.otherElementInitialY - deltaY;
 
             otherElement.style.position = 'fixed';
             otherElement.style.left = `${leftPosition}px`;
-            otherElement.style.top = `${this.otherElementInitialY - deltaY}px`;
+            otherElement.style.top = `${topPosition}px`;
         }
     },
 
