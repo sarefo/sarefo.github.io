@@ -293,6 +293,22 @@ const testingDialog = {
             .node text {
                 font: 16px sans-serif;
             }
+            .node--central circle {
+                fill: #74ac00;
+                r: 8;
+            }
+            .node--central text {
+                font-weight: bold;
+                fill: #74ac00;
+            }
+            .node--active circle {
+                stroke: #ff6600;
+                stroke-width: 3px;
+            }
+            .node--active text {
+                fill: #ff6600;
+                font-weight: bold;
+            }
         `);
 
         const root = d3.hierarchy(rootNode);
@@ -303,6 +319,7 @@ const testingDialog = {
         }
 
         let centerNode = root;
+        let activeNode = root;
 
         const treeLayout = d3.tree()
             .size([2 * Math.PI, radius])
@@ -325,7 +342,7 @@ const testingDialog = {
                 .data(nodes, d => d.data.id);
 
             const nodeEnter = node.enter().append('g')
-                .attr('class', 'node')
+                .attr('class', d => `node ${d === centerNode ? 'node--central' : ''} ${d === activeNode ? 'node--active' : ''}`)
                 .attr('transform', d => `translate(${radialPoint(source.x0 || 0, source.y0 || 0)})`)
                 .on('click', click);
 
@@ -343,32 +360,39 @@ const testingDialog = {
                 .text(d => d.data.taxonName)
                 .style('fill-opacity', 1e-6);
 
-            const nodeUpdate = nodeEnter.merge(node);
+       const nodeUpdate = nodeEnter.merge(node);
 
-            nodeUpdate.transition()
-                .duration(duration)
-                .attr('transform', d => `translate(${radialPoint(d.x, d.y)})`);
+        nodeUpdate.transition()
+            .duration(duration)
+            .attr('class', d => `node ${d === centerNode ? 'node--central' : ''} ${d === activeNode ? 'node--active' : ''}`)
+            .attr('transform', d => `translate(${radialPoint(d.x, d.y)})`);
 
-            nodeUpdate.select('circle')
-                .attr('r', 5)
-                .style('fill', d => d._children ? 'lightsteelblue' : '#fff');
+        nodeUpdate.select('circle')
+            .attr('r', d => d === centerNode ? 8 : 5)
+            .style('fill', d => d === centerNode ? '#74ac00' : (d._children ? 'lightsteelblue' : '#fff'));
 
-            nodeUpdate.select('text')
-                .style('fill-opacity', 1)
-                .attr('transform', function(d) {
-                    const angle = (d.x < Math.PI ? d.x - Math.PI / 2 : d.x + Math.PI / 2) * 180 / Math.PI;
-                    const rotation = angle > 90 && angle < 270 ? 180 : 0;
-                    const x = 15;  // Increased distance from node
-                    return `rotate(${angle}) translate(${x},0) rotate(${rotation})`;
-                })
-                .attr('text-anchor', d => {
-                    const angle = d.x * 180 / Math.PI;
-                    return (angle < 180) ? 'start' : 'end';
-                })
-                .attr('dx', d => {
-                    const angle = d.x * 180 / Math.PI;
-                    return (angle < 180) ? '5' : '-5';
-                });
+        nodeUpdate.select('text')
+            .style('fill-opacity', 1)
+            .attr('transform', function(d) {
+                if (d === centerNode) {
+                    return `translate(0,-12)`; // Central node text positioning
+                }
+                const angle = (d.x < Math.PI ? d.x - Math.PI / 2 : d.x + Math.PI / 2) * 180 / Math.PI;
+                const rotation = angle > 90 && angle < 270 ? 180 : 0;
+                const textAnchor = d.x < Math.PI ? "start" : "end";
+                const labelPadding = 15; // Adjust this value to control text distance from node
+                const x = (textAnchor === "start" ? labelPadding : -labelPadding);
+                return `rotate(${angle}) translate(${x},0) rotate(${rotation})`;
+            })
+            .attr('text-anchor', d => d === centerNode ? 'middle' : (d.x < Math.PI ? 'start' : 'end'))
+            .attr('dy', '.31em')
+            .attr('dx', 0) // Remove any horizontal offset
+            .style('font-weight', d => (d === centerNode || d === activeNode) ? 'bold' : 'normal')
+            .style('fill', d => {
+                if (d === centerNode) return '#74ac00';
+                if (d === activeNode) return '#ff6600';
+                return 'black';
+            });
 
             const nodeExit = node.exit().transition()
                 .duration(duration)
@@ -381,27 +405,27 @@ const testingDialog = {
             nodeExit.select('text')
                 .style('fill-opacity', 1e-6);
 
-            const link = svg.selectAll('path.link')
-                .data(links, d => d.target.data.id);
+        const link = svg.selectAll('path.link')
+            .data(links, d => d.target.data.id);
 
-            const linkEnter = link.enter().insert('path', 'g')
-                .attr('class', 'link')
-                .attr('d', d => {
-                    const o = {x: source.x0 || 0, y: source.y0 || 0};
-                    return diagonal({source: o, target: o});
-                });
+        const linkEnter = link.enter().insert('path', 'g')
+            .attr('class', 'link')
+            .attr('d', d => {
+                const o = {x: source.x0 || 0, y: source.y0 || 0};
+                return diagonal(o, o);
+            });
 
-            link.merge(linkEnter).transition()
-                .duration(duration)
-                .attr('d', diagonal);
+        link.merge(linkEnter).transition()
+            .duration(duration)
+            .attr('d', d => diagonal(d.source, d.target));
 
-            link.exit().transition()
-                .duration(duration)
-                .attr('d', d => {
-                    const o = {x: source.x, y: source.y};
-                    return diagonal({source: o, target: o});
-                })
-                .remove();
+        link.exit().transition()
+            .duration(duration)
+            .attr('d', d => {
+                const o = {x: source.x, y: source.y};
+                return diagonal(o, o);
+            })
+            .remove();
 
             nodes.forEach(d => {
                 d.x0 = d.x;
@@ -409,10 +433,12 @@ const testingDialog = {
             });
         }
 
-        function click(event, d) {
+       function click(event, d) {
             if (d.parent) {
                 centerNode = d.parent;
             }
+
+            activeNode = d;
 
             if (d.children) {
                 d._children = d.children;
@@ -432,11 +458,10 @@ const testingDialog = {
             update(d);
         }
 
-        function diagonal(d) {
-            return d3.linkRadial()
-                .angle(d => d.x)
-                .radius(d => d.y)
-                (d);
+        function diagonal(source, target) {
+            const sourcePoint = radialPoint(source.x, source.y);
+            const targetPoint = radialPoint(target.x, target.y);
+            return `M${sourcePoint[0]},${sourcePoint[1]}L${targetPoint[0]},${targetPoint[1]}`;
         }
 
         function radialPoint(x, y) {
