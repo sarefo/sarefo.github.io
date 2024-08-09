@@ -284,12 +284,14 @@ const testingDialog = {
             .append('g')
             .attr('transform', `translate(${width / 2},${height / 2})`);
 
-        // Add CSS for link styling
         svg.append('style').text(`
             .link {
                 fill: none;
                 stroke: #ccc;
                 stroke-width: 1.5px;
+            }
+            .node text {
+                font: 16px sans-serif;
             }
         `);
 
@@ -304,7 +306,9 @@ const testingDialog = {
 
         const treeLayout = d3.tree()
             .size([2 * Math.PI, radius])
-            .separation((a, b) => (a.parent == b.parent ? 1 : 2) / a.depth);
+            .separation((a, b) => {
+                return (a.parent == b.parent ? 1 : 2) / a.depth;
+            });
 
         function update(source) {
             const duration = 750;
@@ -350,7 +354,21 @@ const testingDialog = {
                 .style('fill', d => d._children ? 'lightsteelblue' : '#fff');
 
             nodeUpdate.select('text')
-                .style('fill-opacity', 1);
+                .style('fill-opacity', 1)
+                .attr('transform', function(d) {
+                    const angle = (d.x < Math.PI ? d.x - Math.PI / 2 : d.x + Math.PI / 2) * 180 / Math.PI;
+                    const rotation = angle > 90 && angle < 270 ? 180 : 0;
+                    const x = 15;  // Increased distance from node
+                    return `rotate(${angle}) translate(${x},0) rotate(${rotation})`;
+                })
+                .attr('text-anchor', d => {
+                    const angle = d.x * 180 / Math.PI;
+                    return (angle < 180) ? 'start' : 'end';
+                })
+                .attr('dx', d => {
+                    const angle = d.x * 180 / Math.PI;
+                    return (angle < 180) ? '5' : '-5';
+                });
 
             const nodeExit = node.exit().transition()
                 .duration(duration)
