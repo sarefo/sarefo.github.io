@@ -7,6 +7,7 @@ import game from './game.js';
 import gameLogic from './gameLogic.js';
 import logger from './logger.js';
 import { elements, gameState } from './state.js';
+import testingDialog from './testingDialog.js';
 import ui from './ui.js';
 import utils from './utils.js';
 
@@ -66,6 +67,8 @@ const eventHandlers = {
         tagCloudCloseButton.addEventListener('click', () => {
             dialogManager.closeDialog('tag-cloud-dialog');
         });
+
+        testingDialog.initialize();
 
     },
 
@@ -474,6 +477,10 @@ const eventHandlers = {
             case 's':
                 event.preventDefault();
                 utils.shareCurrentPair();
+                break;
+            case 't':
+                event.preventDefault();
+                testingDialog.openDialog();
                 break;
             case 'w':
                 // createWorldMap.toggleAllWorldMaps();

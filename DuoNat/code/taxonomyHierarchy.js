@@ -16,6 +16,10 @@ class TaxonomyHierarchy {
         }
     }
 
+    addTaxon(id, taxonName, parentId, rank) {
+        this.nodes.set(id, { taxonName, parentId, rank });
+    }
+
     loadPreGeneratedHierarchy(hierarchy) {
         for (const [id, nodeData] of Object.entries(hierarchy)) {
             this.nodes.set(id, new TaxonNode(id, nodeData));

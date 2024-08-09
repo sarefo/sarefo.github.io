@@ -1153,3 +1153,39 @@ z-index: 5000; /* debug */
   background-color: var(--primary-color);
 }
 
+
+/* Graph testing dialog */
+.testing-dialog {
+  width: 90%;
+  height: 90%;
+  max-width: none;
+}
+
+.testing-dialog__graph-container {
+  width: 100%;
+  height: calc(100% - 60px);
+  overflow: auto;
+}
+
+.testing-dialog__link {
+  fill: none;
+  stroke: #555;
+  stroke-opacity: 0.4;
+  stroke-width: 1.5px;
+}
+
+.testing-dialog__node-circle {
+  fill: #999;
+}
+
+.testing-dialog__node-text {
+  font: 10px sans-serif;
+}
+
+.testing-dialog__node--internal .testing-dialog__node-circle {
+  fill: #555;
+}
+
+.testing-dialog__node--internal .testing-dialog__node-text {
+  text-shadow: 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff;
+}
