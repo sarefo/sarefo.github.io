@@ -92,4 +92,4 @@ updated_hierarchy = update_hierarchy()
 
 # Save the result
 save_json(updated_hierarchy, '../../taxonHierarchy.json.new')
-print("Updated hierarchy saved to ancestryInfoNew.json")
+print("Updated hierarchy saved to taxonHierarchy.json.new")

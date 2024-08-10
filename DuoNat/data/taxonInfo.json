@@ -34964,7 +34964,7 @@
   },
   "446946": {
     "taxonName": "Yangochiroptera",
-    "vernacularName": "most microbat families",
+    "vernacularName": "Most microbat families",
     "ancestryIds": [
       1,
       2,
@@ -34988,6 +34988,164 @@
       "AF",
       "EU",
       "AS"
+    ]
+  },
+  "42981": {
+    "taxonName": "Phascolarctidae",
+    "vernacularName": "Koalas",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848319,
+      42711,
+      1539326,
+      42981
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Mostly eat toxic eucalypt leaves",
+      "Closest relatives are wombats",
+      "Fossil record dates back to Oligocene"
+    ],
+    "range": [
+      "OC"
+    ]
+  },
+  "43001": {
+    "taxonName": "Vombatidae",
+    "vernacularName": "Wombats",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848319,
+      42711,
+      1539326,
+      43001
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Closest living relatives of koalas",
+      "Includes three species of wombats",
+      "Herbivorous marsupials found in Australia"
+    ],
+    "range": [
+      "OC"
+    ]
+  },
+  "20503": {
+    "taxonName": "Dromaius",
+    "vernacularName": "Emus",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      367702,
+      508252,
+      20503
+    ],
+    "rank": "Genus",
+    "taxonFacts": [
+      "Large flightless birds",
+      "A national symbol of Australia",
+      "Emus can run at speeds up to 50 km/h"
+    ],
+    "range": [
+      "OC"
+    ]
+  },
+  "20524": {
+    "taxonName": "Struthio",
+    "vernacularName": "Ostriches",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      20487,
+      20523,
+      20524
+    ],
+    "rank": "Genus",
+    "taxonFacts": [
+      "Largest living species of bird",
+      "Ostriches can run at speeds up to 70 km/h",
+      "Flightless birds native to Africa"
+    ],
+    "range": [
+      "AF"
+    ]
+  },
+  "20511": {
+    "taxonName": "Rhea",
+    "vernacularName": "Rheas",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      367701,
+      20510,
+      20511
+    ],
+    "rank": "Genus",
+    "taxonFacts": [
+      "Large flightless birds native to South America",
+      "Second largest living bird after the ostrich",
+      "Rheas can run at speeds up to 60 km/h"
+    ],
+    "range": [
+      "SA"
+    ]
+  },
+  "20498": {
+    "taxonName": "Casuarius",
+    "vernacularName": "Cassowaries",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      367702,
+      508252,
+      20498
+    ],
+    "rank": "Genus",
+    "taxonFacts": [
+      "Large flightless birds native to New Guinea and northeastern Australia",
+      "Cassowaries are known for their large, sharp claws",
+      "Considered one of the most dangerous birds in the world"
+    ],
+    "range": [
+      "OC"
+    ]
+  },
+  "905": {
+    "taxonName": "Meleagris",
+    "vernacularName": "Turkeys",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      573,
+      574,
+      905
+    ],
+    "rank": "Genus",
+    "taxonFacts": [
+      "Genus of large ground-feeding birds",
+      "Includes the wild turkey, a popular game bird",
+      "Around 250 million turkeys are slaughtered in the US each year"
+    ],
+    "range": [
+      "NA"
     ]
   }
 

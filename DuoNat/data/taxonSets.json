@@ -13199,5 +13199,83 @@
       "Yangochiroptera"
     ],
     "range": ["AF","AS"]
+  },
+  "666": {
+    "setName": "Koalas vs Wombats",
+    "level": "1",
+    "tags": [
+        "mammals",
+        "marsupials"
+    ],
+    "taxa": [
+      42981,
+      43001
+    ],
+    "taxonNames": [
+      "Phascolarctidae",
+      "Vombatidae"
+    ],
+    "range": [
+      "OC"
+    ]
+  },
+  "667": {
+    "setName": "Emus vs Ostrichs",
+    "level": "2",
+    "tags": [
+        "birds"
+    ],
+    "taxa": [
+      20503,
+      20524
+    ],
+    "taxonNames": [
+      "Dromaius",
+      "Struthio"
+    ],
+    "range": []
+  },
+  "668": {
+    "setName": "Emus vs Rheas",
+    "level": "2",
+    "tags": ["birds"],
+    "taxa": [
+      20503,
+      20511
+    ],
+    "taxonNames": [
+      "Dromaius",
+      "Rhea"
+    ],
+    "range": []
+  },
+  "669": {
+    "setName": "Rheas vs Ostrichs",
+    "level": "2",
+    "tags": ["birds"],
+    "taxa": [
+      20511,
+      20524
+    ],
+    "taxonNames": [
+      "Rhea",
+      "Struthio"
+    ],
+    "range": []
+  },
+  "670": {
+    "setName": "Cassowaries vs Turkeys",
+    "level": "0",
+    "tags": [],
+    "taxa": [
+      20498,
+      905
+    ],
+    "taxonNames": [
+      "Casuarius",
+      "Meleagris"
+    ],
+    "range": []
   }
+
 }

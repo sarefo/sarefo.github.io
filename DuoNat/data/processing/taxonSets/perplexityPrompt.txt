@@ -2,7 +2,7 @@ please give me a list of three interesting and true short infos on the taxa I'm 
 
 don't provide common name (such as "known as" or such) , as these are covered elsewhere. if you have some really interesting trivia, which a general lay person would find engaging, include it.
 
-Also add in the "range" entry where the members of the taxon live, using the initals NA, SA, AF, EU, AS and OC for north america, south america, africa europe, asia and oceania, respectively.
+Also add in the "range" entry where the members of the taxon live, using the initals NA, SA, AF, EU, AS and OC for north america, south america, africa europe, asia and oceania, respectively.  Don't use any other abbreviations!
 
 The format for each taxon should be:
 "<taxon name>": {
