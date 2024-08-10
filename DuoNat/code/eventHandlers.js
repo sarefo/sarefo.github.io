@@ -297,8 +297,13 @@ const eventHandlers = {
     handleSearchKeydown: function (event) {
         if (event.key === 'Enter') {
             event.preventDefault();
-            this.openFirstTaxonSet();
-            dialogManager.closeDialog('select-set-dialog');
+            const firstTaxonSetButton = document.querySelector('.taxon-set-button');
+            if (firstTaxonSetButton) {
+                firstTaxonSetButton.click();
+                setTimeout(() => {
+                    dialogManager.closeDialog('select-set-dialog');
+                }, 100);
+            }
         }
     },
 

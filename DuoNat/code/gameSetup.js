@@ -10,6 +10,8 @@ import utils from './utils.js';
 import { createWorldMap, getFullContinentName } from './worldMap.js';
 import gameUI from './gameUI.js';
 
+let isSettingUpGame = false;
+
 const gameSetup = {
 
     async checkINaturalistReachability() {
@@ -23,44 +25,55 @@ const gameSetup = {
     },
 
     async setupGame(newPair = false, urlParams = {}) {
-        game.setState(GameState.LOADING);
-
-        if (!await this.checkINaturalistReachability()) { return; }
-
-        this.prepareUIForLoading();
+        if (isSettingUpGame) {
+            logger.debug("Setup already in progress, skipping");
+            return;
+        }
+        isSettingUpGame = true;
 
         try {
-            if (newPair || !gameState.currentTaxonImageCollection) {
-                await this.initializeNewPair(urlParams);
-            } else {
-                await this.setupRound();
+            game.setState(GameState.LOADING);
+
+            if (!await this.checkINaturalistReachability()) { return; }
+
+            this.prepareUIForLoading();
+
+            try {
+                if (newPair || !gameState.currentTaxonImageCollection) {
+                    await this.initializeNewPair(urlParams);
+                } else {
+                    await this.setupRound();
+                }
+
+                // Update skill level indicator
+                const level = gameState.currentTaxonImageCollection.pair.level;
+                gameUI.updateLevelIndicator(level);
+
+                this.finishSetup();
+                gameUI.setNamePairHeight();
+
+                game.setState(GameState.PLAYING);
+                game.hideLoadingScreen();
+
+                if (newPair) {
+                    await setManager.refreshSubset();
+                }
+
+                if (gameState.isInitialLoad) {
+                    updateGameState({ isInitialLoad: false });
+                }
+
+                ui.hideOverlay();
+                ui.resetUIState();
+
+                // Start preloading asynchronously
+                preloader.startPreloading(newPair);
+            } catch (error) {
+                this.handleSetupError(error);
             }
 
-            // Update skill level indicator
-            const level = gameState.currentTaxonImageCollection.pair.level;
-            gameUI.updateLevelIndicator(level);
-
-            this.finishSetup();
-            gameUI.setNamePairHeight();
-
-            game.setState(GameState.PLAYING);
-            game.hideLoadingScreen();
-
-            if (newPair) {
-                await setManager.refreshSubset();
-            }
-
-            if (gameState.isInitialLoad) {
-                updateGameState({ isInitialLoad: false });
-            }
-
-            ui.hideOverlay();
-            ui.resetUIState();
-
-            // Start preloading asynchronously
-            preloader.startPreloading(newPair);
-        } catch (error) {
-            this.handleSetupError(error);
+        } finally {
+            isSettingUpGame = false;
         }
     },
 
