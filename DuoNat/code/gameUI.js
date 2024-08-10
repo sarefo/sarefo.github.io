@@ -47,15 +47,17 @@ const gameUI = {
         elements.leftName.style.zIndex = '10';
         elements.rightName.style.zIndex = '10';
 
-        // Create a span for the taxon name and a span for the vernacular name
+        // Create a span for the taxon name and a span for the vernacular name (if it exists and is not "n/a")
         elements.leftName.innerHTML = `
             <span class="name-pair__taxon-name">${nameOne}</span>
-            ${vernacularOne ? `<span class="name-pair__vernacular-name">${vernacularOne}</span>` : ''}
+            ${vernacularOne && vernacularOne !== "N/a" ? `<span class="name-pair__vernacular-name">${vernacularOne}</span>` : ''}
         `;
+        logger.debug(`vernacular one is ${vernacularOne}`);
         elements.rightName.innerHTML = `
             <span class="name-pair__taxon-name">${nameTwo}</span>
-            ${vernacularTwo ? `<span class="name-pair__vernacular-name">${vernacularTwo}</span>` : ''}
+            ${vernacularTwo && vernacularTwo !== "N/a" ? `<span class="name-pair__vernacular-name">${vernacularTwo}</span>` : ''}
         `;
+        logger.debug(`vernacular two is ${vernacularTwo}`);
 
         gameState.taxonLeftName = nameOne;
         gameState.taxonRightName = nameTwo;
