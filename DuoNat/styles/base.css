@@ -41,6 +41,8 @@ body {
 
 body * {
     text-align: center;
+    -webkit-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
 } /* percolate to child elements */
 
 /*
@@ -54,14 +56,12 @@ body::-webkit-scrollbar * {
 button {
     outline: none;
     box-shadow: none;
-    -webkit-tap-highlight-color: transparent;
 }
 
 /* remove black border when active */
 .no-outline {
     outline: none;
     box-shadow: none;
-    -webkit-tap-highlight-color: transparent;
 }
 
 .game-container {
