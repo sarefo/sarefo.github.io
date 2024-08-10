@@ -82,7 +82,7 @@ def get_last_set_id(file_path):
     try:
         with open(file_path, 'r') as f:
             data = json.load(f)
-            return max(int(set_data['setID']) for set_data in data)
+            return max(int(set_id) for set_id in data.keys())
     except FileNotFoundError:
         return 0
 
@@ -91,11 +91,11 @@ def load_existing_sets(file_path):
         with open(file_path, 'r') as f:
             return json.load(f)
     except FileNotFoundError:
-        return []
+        return {}
 
 def is_duplicate_set(new_set, existing_sets):
     new_set_taxa = set(new_set)
-    for existing_set in existing_sets:
+    for existing_set in existing_sets.values():
         if set(existing_set['taxa']) == new_set_taxa:
             return True
     return False
@@ -103,7 +103,7 @@ def is_duplicate_set(new_set, existing_sets):
 def process_taxa(input_file, existing_taxon_file, new_taxon_file, existing_sets_file, new_sets_file, new_taxa_list_file):
     existing_taxa = {}
     new_taxa = {}
-    new_sets = []
+    new_sets = {}
 
     # Load existing taxa
     try:
@@ -130,17 +130,17 @@ def process_taxa(input_file, existing_taxon_file, new_taxon_file, existing_sets_
             print(f"Processing: {taxon}")
             taxon_details = fetch_taxon_details(taxon)
             if taxon_details:
-                taxon_id = str(taxon_details['id'])
+                taxon_id = taxon_details['id']
                 taxon_ids.append(taxon_id)
                 taxon_names.append(taxon_details['name'])
 
-                if taxon_id not in existing_taxa and taxon_id not in new_taxa:
+                if str(taxon_id) not in existing_taxa and str(taxon_id) not in new_taxa:
                     ancestry = fetch_ancestry(taxon_id)
                     
-                    new_taxa[taxon_id] = {
+                    new_taxa[str(taxon_id)] = {
                         "taxonName": taxon_details['name'],
                         "vernacularName": taxon_details.get('preferred_common_name', '').capitalize(),
-                        "ancestryIds": [ancestor['id'] for ancestor in ancestry] + [int(taxon_id)],
+                        "ancestryIds": [ancestor['id'] for ancestor in ancestry] + [taxon_id],
                         "rank": taxon_details['rank'].capitalize(),
                         "taxonFacts": [],
                         "range": []
@@ -156,15 +156,15 @@ def process_taxa(input_file, existing_taxon_file, new_taxon_file, existing_sets_
             continue
 
         # Create new set entry
-        new_set = {
-            "setID": str(last_set_id + len(new_sets) + 1),
+        new_set_id = str(last_set_id + len(new_sets) + 1)
+        new_sets[new_set_id] = {
             "setName": "",
             "level": "0",
-            "tags": [""],
+            "tags": [],
             "taxa": taxon_ids,
-            "taxonNames": taxon_names
+            "taxonNames": taxon_names,
+            "range": []
         }
-        new_sets.append(new_set)
 
     # Write new taxa to file
     with open(new_taxon_file, 'w') as f:

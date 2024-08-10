@@ -13128,5 +13128,76 @@
       "Simuliidae",
       "Ceratopogonidae"
     ]
+  },
+  "662": {
+    "setName": "Decapods vs Krill",
+    "level": "2",
+    "tags": [
+        "crustaceans"
+    ],
+    "taxa": [
+      47186,
+      153112
+    ],
+    "taxonNames": [
+      "Decapoda",
+      "Euphausiacea"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "663": {
+    "setName": "Beautiful Jumping Spiders",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      53600,
+      420581
+    ],
+    "taxonNames": [
+      "Maratus",
+      "Saitis"
+    ],
+    "range": []
+  },
+  "664": {
+    "setName": "Nose-leaf and other bats",
+    "level": "2",
+    "tags": [
+        "mammals",
+        "bats"
+    ],
+    "taxa": [
+      446956,
+      1317244
+    ],
+    "taxonNames": [
+      "Rhinolophoidea",
+      "Pteropodoidea"
+    ],
+    "range": ["AF","AS"]
+  },
+  "665": {
+    "setName": "Fruit bats and other bats",
+    "level": "1",
+    "tags": [
+        "mammals",
+        "bats"
+    ],
+    "taxa": [
+      1317244,
+      446946
+    ],
+    "taxonNames": [
+      "Pteropodoidea",
+      "Yangochiroptera"
+    ],
+    "range": ["AF","AS"]
   }
 }
