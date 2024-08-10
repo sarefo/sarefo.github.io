@@ -234,7 +234,7 @@ const eventHandlers = {
 
     handleSearch: async function (event) {
         const searchInput = event.target;
-        const searchTerm = searchInput.value.toLowerCase();
+        const searchTerm = searchInput.value.trim();
         const clearButton = document.getElementById('clear-search');
 
         if (searchTerm.length > 0) {
@@ -248,6 +248,8 @@ const eventHandlers = {
         const selectedLevel = gameState.selectedLevel;
         const filteredPairs = [];
 
+        const isNumericSearch = /^\d+$/.test(searchTerm);
+
         for (const pair of taxonPairs) {
             const vernacular1 = await getCachedVernacularName(pair.taxon1);
             const vernacular2 = await getCachedVernacularName(pair.taxon2);
@@ -255,14 +257,20 @@ const eventHandlers = {
             const matchesTags = activeTags.length === 0 || pair.tags.some(tag => activeTags.includes(tag));
             const matchesLevel = selectedLevel === '' || pair.level === selectedLevel;
 
-            if (matchesTags && matchesLevel && (
-                pair.taxon1.toLowerCase().includes(searchTerm) ||
-                pair.taxon2.toLowerCase().includes(searchTerm) ||
-                (vernacular1 && vernacular1.toLowerCase().includes(searchTerm)) ||
-                (vernacular2 && vernacular2.toLowerCase().includes(searchTerm)) ||
-                pair.setName.toLowerCase().includes(searchTerm) ||
-                pair.tags.some(tag => tag.toLowerCase().includes(searchTerm))
-            )) {
+            let matches = false;
+
+            if (isNumericSearch) {
+                matches = pair.setID === searchTerm;
+            } else {
+                matches = pair.taxon1.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          pair.taxon2.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          (vernacular1 && vernacular1.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                          (vernacular2 && vernacular2.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                          pair.setName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          pair.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+            }
+
+            if (matchesTags && matchesLevel && matches) {
                 filteredPairs.push(pair);
             }
         }
