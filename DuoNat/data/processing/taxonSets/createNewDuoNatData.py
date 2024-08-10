@@ -111,7 +111,7 @@ def process_taxa(input_file, new_taxon_file):
     print(f"\nNew taxa data written to {new_taxon_file}")
 
     # Output perplexityPrompt.txt content
-    print("\nPerplexity Prompt:")
+    print("\nUse this prompt in Perplexity, then save its output in '3perplexityData.json':")
     try:
         with open('perplexityPrompt.txt', 'r') as f:
             print(f.read())
@@ -199,6 +199,34 @@ def is_duplicate_set(new_set, sets):
         if set(existing_set['taxa']) == new_set:
             return True
     return False
+
+def update_set_metadata(new_sets_file):
+    new_sets = load_existing_data(new_sets_file)
+    
+    print("Updating metadata for new taxon sets...")
+    for set_id, set_data in new_sets.items():
+        print(f"\nSet {set_id}: {', '.join(set_data['taxonNames'])}")
+        
+        # Update level
+        while True:
+            level = input("Enter level (1-3): ")
+            if level.isdigit() and 1 <= int(level) <= 3:
+                set_data['level'] = level
+                break
+            else:
+                print("Invalid input. Please enter a number between 1 and 3.")
+        
+        # Update tags
+        tags = input("Enter tags (comma-separated, or press Enter for no tags): ").strip()
+        set_data['tags'] = [tag.strip() for tag in tags.split(',')] if tags else []
+        
+        # Update set name
+        set_name = input("Enter a name for this set (or press Enter to skip): ").strip()
+        if set_name:
+            set_data['setName'] = set_name
+    
+    save_data(new_sets, new_sets_file)
+    print(f"Updated metadata saved to {new_sets_file}")
 
 def update_main_files(taxon_info_file, taxon_sets_file, new_taxon_file, new_sets_file):
     # Backup old files
@@ -310,13 +338,14 @@ def main():
     while True:
         print("\nChoose an action:")
         print("0. Exit")
-        print("1. Process taxa from input file > then get Perplexity data")
+        print("1. Process taxa from input file")
         print("2. Merge Perplexity data")
         print("3. Create taxon sets")
-        print("4. Update main files")
-        print("5. Update taxon hierarchy")
+        print("4. Update set metadata")
+        print("5. Update main files")
+        print("6. Update taxon hierarchy")
 
-        choice = input("Enter your choice (0-5): ")
+        choice = input("Enter your choice (0-6): ")
 
         if choice == '1':
             process_taxa(input_file, new_taxon_file)
@@ -328,8 +357,10 @@ def main():
         elif choice == '3':
             create_taxon_sets(merged_taxon_file, taxon_sets_file, new_sets_file, input_file)
         elif choice == '4':
-            update_main_files(taxon_info_file, taxon_sets_file, merged_taxon_file, new_sets_file)
+            update_set_metadata(new_sets_file)
         elif choice == '5':
+            update_main_files(taxon_info_file, taxon_sets_file, merged_taxon_file, new_sets_file)
+        elif choice == '6':
             update_hierarchy(taxon_info_file, taxon_hierarchy_file)
         elif choice == '0':
             break
@@ -337,4 +368,4 @@ def main():
             print("Invalid choice. Please try again.")
 
 if __name__ == "__main__":
-    main()
+    main() 

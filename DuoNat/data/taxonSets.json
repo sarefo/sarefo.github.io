@@ -13275,8 +13275,8 @@
   },
   "670": {
     "setName": "Cassowaries vs Turkeys",
-    "level": "0",
-    "tags": [],
+    "level": "1",
+    "tags": ["birds"],
     "taxa": [
       20498,
       905
@@ -13288,9 +13288,9 @@
     "range": []
   },
   "671": {
-    "setName": "",
-    "level": "0",
-    "tags": [],
+    "setName": "Dormice vs Mice",
+    "level": "2",
+    "tags": ["mammals","rodents"],
     "taxa": [
       71385,
       44185
@@ -13306,9 +13306,9 @@
     ]
   },
   "672": {
-    "setName": "",
-    "level": "0",
-    "tags": [],
+    "setName": "Colugos vs Flying squirrels",
+    "level": "2",
+    "tags": ["mammals","rodents"],
     "taxa": [
       42536,
       339576
@@ -13322,9 +13322,9 @@
     ]
   },
   "673": {
-    "setName": "",
-    "level": "0",
-    "tags": [],
+    "setName": "Flying squirrels vs. Wrist-wringed gliders",
+    "level": "2",
+    "tags": ["mammals","rodents"],
     "taxa": [
       42719,
       339576
@@ -13336,9 +13336,9 @@
     "range": []
   },
   "674": {
-    "setName": "",
-    "level": "0",
-    "tags": [],
+    "setName": "Colugos vs Fruit bats",
+    "level": "2",
+    "tags": ["mammals","bats"],
     "taxa": [
       42536,
       1317244
