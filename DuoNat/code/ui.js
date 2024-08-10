@@ -105,32 +105,27 @@ const ui = {
     },
 
     updateFilterSummary: function () {
-        const mapContainer = document.querySelector('.filter-summary__map');
-        const tagsContainer = document.querySelector('.filter-summary__tags');
+      const mapContainer = document.querySelector('.filter-summary__map');
+      const tagsContainer = document.querySelector('.filter-summary__tags');
 
-        if (mapContainer) {
-            // Clear the existing content
-            mapContainer.innerHTML = '';
-
-            // Convert the selected ranges from abbreviations to full names
-            const selectedContinents = new Set(gameState.selectedRanges.map(abbr => getFullContinentName(abbr)));
-
-            // Create a new non-clickable world map with the current selected ranges
-            createNonClickableWorldMap(mapContainer, selectedContinents);
-
-            // Add click event to open range dialog
-            mapContainer.addEventListener('click', () => {
-                dialogManager.openRangeDialog();
-            });
+      if (mapContainer) {
+        // Only redraw the map if the selected ranges have changed
+        const currentRanges = JSON.stringify(gameState.selectedRanges);
+        if (this.lastDrawnRanges !== currentRanges) {
+          mapContainer.innerHTML = '';
+          const selectedContinents = new Set(gameState.selectedRanges.map(abbr => getFullContinentName(abbr)));
+          createNonClickableWorldMap(mapContainer, selectedContinents);
+          this.lastDrawnRanges = currentRanges;
         }
+      }
 
-        if (tagsContainer) {
-            tagsContainer.innerHTML = gameState.selectedTags.length > 0
-                ? gameState.selectedTags
-                    .map(tag => `<span class="filter-summary__tag">${tag}</span>`)
-                    .join('')
-                : '<span class="filter-summary__no-tags">No active tags</span>';
-        }
+      if (tagsContainer) {
+        tagsContainer.innerHTML = gameState.selectedTags.length > 0
+          ? gameState.selectedTags
+              .map(tag => `<span class="filter-summary__tag">${tag}</span>`)
+              .join('')
+          : '<span class="filter-summary__no-tags">No active tags</span>';
+      }
     },
 
     renderTaxonPairList: async function (pairs) {

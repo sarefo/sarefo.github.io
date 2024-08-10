@@ -1,4 +1,4 @@
-const version = '1.5.5'; // Increment the version number
+const version = '1.5.6'; // Increment the version number
 
 function updateVersion() {
     // Update CSS, JS, and manifest files

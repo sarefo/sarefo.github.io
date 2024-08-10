@@ -70,6 +70,12 @@ const eventHandlers = {
 
         testingDialog.initialize();
 
+          const searchInput = document.getElementById('taxon-search');
+          if (searchInput) {
+            const debouncedHandleSearch = utils.debounce(this.handleSearch.bind(this), 300); // 300ms delay
+            searchInput.addEventListener('input', debouncedHandleSearch);
+            searchInput.addEventListener('keydown', this.handleSearchKeydown.bind(this));
+          }
     },
 
     initializeLongPressHandler() {
