@@ -5,14 +5,52 @@ import os
 import shutil
 
 def fetch_taxon_details(taxon_name):
-    base_url = "https://api.inaturalist.org/v1/taxa/autocomplete"
-    response = requests.get(f"{base_url}?q={taxon_name}")
+    """Fetch taxon details from iNat API using taxon name"""
+    url = f"https://api.inaturalist.org/v1/taxa/autocomplete?q={taxon_name}"
+    response = requests.get(url)
     if response.status_code == 200:
         data = response.json()
         if data['results']:
-            return data['results'][0]
+            result = data['results'][0]
+            taxon_id = result['id']
+            taxon_name = result['name']
+            vernacular_name = result.get('preferred_common_name', 'n/a').capitalize()
+            rank = result['rank'].capitalize()
+            print(f"  Found: {taxon_name} (ID: {taxon_id}, Vernacular: {vernacular_name}, Rank: {rank})")
+            return {
+                "id": taxon_id,
+                "taxonName": taxon_name,
+                "vernacularName": vernacular_name,
+                "rank": rank
+            }
+        else:
+            print(f"  No results found for taxon: {taxon_name}")
+    else:
+        print(f"  Error fetching details for taxon: {taxon_name}. Status code: {response.status_code}")
     return None
 
+def fetch_taxon_by_id(taxon_id):
+    """Fetch taxon details from iNat API using taxon ID"""
+    url = f"https://api.inaturalist.org/v1/taxa/{taxon_id}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        if data['results']:
+            result = data['results'][0]
+            taxon_name = result['name']
+            vernacular_name = result.get('preferred_common_name', 'n/a').capitalize()
+            rank = result['rank'].capitalize()
+            print(f"  Found: {taxon_name} (ID: {taxon_id}, Vernacular: {vernacular_name}, Rank: {rank})")
+            return {
+                "taxonName": taxon_name,
+                "vernacularName": vernacular_name,
+                "rank": rank
+            }
+        else:
+            print(f"  No results found for taxon ID: {taxon_id}")
+    else:
+        print(f"  Error fetching details for taxon ID: {taxon_id}. Status code: {response.status_code}")
+    return None
 def fetch_ancestry(taxon_id):
     base_url = f"https://api.inaturalist.org/v1/taxa/{taxon_id}"
     response = requests.get(base_url)
@@ -39,18 +77,12 @@ def clear_file(file_path):
 def process_taxa(input_file, new_taxon_file):
     clear_file(new_taxon_file)
     new_taxa = {}
+    taxon_names_list = []
 
     with open(input_file, 'r') as f:
         taxon_sets = f.read().splitlines()
-    # Output perplexityPrompt.txt content
-    try:
-        with open('perplexityPrompt.txt', 'r') as f:
-            print("\nPerplexity Prompt:")
-            print(f.read())
-    except FileNotFoundError:
-        print("perplexityPrompt.txt not found. Skipping prompt output.")
 
-    print("\nNew taxa names for Perplexity:")
+    print("Processing taxa...")
     for taxon_set in taxon_sets:
         taxa_in_set = [taxon.strip() for taxon in taxon_set.split(',')]
         for taxon in taxa_in_set:
@@ -62,14 +94,14 @@ def process_taxa(input_file, new_taxon_file):
                     ancestry = fetch_ancestry(taxon_id)
                     
                     new_taxa[taxon_id] = {
-                        "taxonName": taxon_details['name'],
-                        "vernacularName": taxon_details.get('preferred_common_name', 'n/a').capitalize(),
+                        "taxonName": taxon_details['taxonName'],
+                        "vernacularName": taxon_details['vernacularName'],
                         "ancestryIds": [ancestor['id'] for ancestor in ancestry] + [int(taxon_id)],
-                        "rank": taxon_details['rank'].capitalize(),
+                        "rank": taxon_details['rank'],
                         "taxonFacts": [],
                         "range": []
                     }
-                    print(taxon_details['name'])
+                    taxon_names_list.append(taxon_details['taxonName'])
                 else:
                     print(f"Taxon {taxon} (ID: {taxon_id}) already exists in the database.")
             
@@ -77,7 +109,20 @@ def process_taxa(input_file, new_taxon_file):
 
     save_data(new_taxa, new_taxon_file)
     print(f"\nNew taxa data written to {new_taxon_file}")
-    clear_file(perplexity_file) # clear prior to user pasting data
+
+    # Output perplexityPrompt.txt content
+    print("\nPerplexity Prompt:")
+    try:
+        with open('perplexityPrompt.txt', 'r') as f:
+            print(f.read())
+    except FileNotFoundError:
+        print("perplexityPrompt.txt not found. Skipping prompt output.")
+
+    # Output list of taxon names
+#    print("\nList of taxon names for Perplexity:")
+    for name in taxon_names_list:
+        print(name)
+    clear_file(perplexity_file)
 
 def merge_perplexity_data(new_taxon_file, perplexity_file, output_file):
     clear_file(output_file)
@@ -102,10 +147,10 @@ def merge_perplexity_data(new_taxon_file, perplexity_file, output_file):
     save_data(new_taxon_info, output_file)
     print(f"Merged data saved to {output_file}")
 
-def create_taxon_sets(new_taxon_file, existing_sets_file, new_sets_file, input_file):
+def create_taxon_sets(new_taxon_file, taxon_sets_file, new_sets_file, input_file):
     clear_file(new_sets_file)
     new_taxa = load_existing_data(new_taxon_file)
-    existing_sets = load_existing_data(existing_sets_file)
+    existing_sets = load_existing_data(taxon_sets_file)
     new_sets = {}
 
     # Find the last set ID
@@ -178,31 +223,6 @@ def update_main_files(taxon_info_file, taxon_sets_file, new_taxon_file, new_sets
     save_data(taxon_sets, taxon_sets_file)
     print(f"Files {taxon_info_file} and {taxon_sets_file} updated with new data.")
 
-def fetch_taxon_details(taxon_id):
-    """Fetch taxon details from iNat API"""
-    url = f"https://api.inaturalist.org/v1/taxa/{taxon_id}"
-#    print(f"Fetching details for taxon ID: {taxon_id}")
-    response = requests.get(url)
-    if response.status_code == 200:
-        data = response.json()
-        if data['results']:
-            result = data['results'][0]
-            taxon_name = result['name']
-            vernacular_name = result.get('preferred_common_name', 'n/a').capitalize()
-            rank = result['rank'].capitalize()
-            print(f"  Found: {taxon_name} (Vernacular: {vernacular_name}, Rank: {rank})")
-            return {
-                "taxonName": taxon_name,
-                "vernacularName": vernacular_name,
-                "rank": rank,
-                "parentId": None
-            }
-        else:
-            print(f"  No results found for taxon ID: {taxon_id}")
-    else:
-        print(f"  Error fetching details for taxon ID: {taxon_id}. Status code: {response.status_code}")
-    return None
-
 def update_hierarchy(taxon_info_file, taxon_hierarchy_file):
     # Backup old file
     shutil.move(taxon_hierarchy_file, f"{taxon_hierarchy_file}.old")
@@ -242,9 +262,8 @@ def update_hierarchy(taxon_info_file, taxon_hierarchy_file):
             
             # If this taxon isn't in our hierarchy yet, add it
             if current_id not in updated_hierarchy:
-#                print(f"Adding new taxon to hierarchy: ID {current_id}")
                 # Fetch details from iNat API
-                taxon_details = fetch_taxon_details(current_id)
+                taxon_details = fetch_taxon_by_id(current_id)
                 if taxon_details:
                     updated_hierarchy[current_id] = taxon_details
                 else:
@@ -262,16 +281,13 @@ def update_hierarchy(taxon_info_file, taxon_hierarchy_file):
                 parent_id = "48460"  # Life
             elif i > 0:
                 parent_id = str(ancestry_ids[i-1])
-#                print(f"Setting parent ID for {current_id} to {parent_id}")
             else:
                 parent_id = None
-#                print(f"Setting {current_id} as a root taxon (no parent)")
             
             updated_hierarchy[current_id]["parentId"] = parent_id
             
             # If this is the last ID in the ancestry, it's the taxon itself
             if i == len(ancestry_ids) - 1:
-#               print(f"Updating final taxon details for ID {current_id}")
                 updated_hierarchy[current_id]["taxonName"] = taxon_data["taxonName"]
                 updated_hierarchy[current_id]["vernacularName"] = taxon_data.get("vernacularName", "n/a")
                 updated_hierarchy[current_id]["rank"] = taxon_data["rank"]
@@ -285,8 +301,8 @@ def main():
     new_taxon_file = "2newTaxonSetsForPerplexity.json"
     perplexity_file = "3perplexityData.json"
     merged_taxon_file = "4newTaxonInfoWithPerplexity.json"
-    existing_sets_file = "../../taxonSets.json"
     new_sets_file = "5newTaxonSets.json"
+
     taxon_info_file = "../../taxonInfo.json"
     taxon_sets_file = "../../taxonSets.json"
     taxon_hierarchy_file = "../../taxonHierarchy.json"
@@ -294,7 +310,7 @@ def main():
     while True:
         print("\nChoose an action:")
         print("0. Exit")
-        print("1. Process taxa from input file")
+        print("1. Process taxa from input file > then get Perplexity data")
         print("2. Merge Perplexity data")
         print("3. Create taxon sets")
         print("4. Update main files")
@@ -310,7 +326,7 @@ def main():
             else:
                 print(f"Error: {perplexity_file} not found. Please create it first.")
         elif choice == '3':
-            create_taxon_sets(merged_taxon_file, existing_sets_file, new_sets_file, input_file)
+            create_taxon_sets(merged_taxon_file, taxon_sets_file, new_sets_file, input_file)
         elif choice == '4':
             update_main_files(taxon_info_file, taxon_sets_file, merged_taxon_file, new_sets_file)
         elif choice == '5':

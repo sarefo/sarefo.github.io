@@ -85,7 +85,7 @@
   },
   "184884": {
     "taxonName": "Pterygota",
-    "vernacularName": "Winged and Once-winged Insects",
+    "vernacularName": "Winged and once-winged insects",
     "rank": "Subclass",
     "parentId": "47158"
   },
@@ -373,7 +373,7 @@
   },
   "848320": {
     "taxonName": "Placentalia",
-    "vernacularName": "Placental Mammals",
+    "vernacularName": "Placental mammals",
     "rank": "Infraclass",
     "parentId": "848317"
   },
@@ -2173,7 +2173,7 @@
   },
   "446946": {
     "taxonName": "Yangochiroptera",
-    "vernacularName": "",
+    "vernacularName": "Most microbat families",
     "rank": "Suborder",
     "parentId": "40268"
   },
@@ -4981,7 +4981,7 @@
   },
   "446956": {
     "taxonName": "Rhinolophoidea",
-    "vernacularName": "Rhinolophoid Bats",
+    "vernacularName": "Rhinolophoid bats",
     "rank": "Superfamily",
     "parentId": "446945"
   },
@@ -5203,7 +5203,7 @@
   },
   "1317244": {
     "taxonName": "Pteropodoidea",
-    "vernacularName": "Fruit Bats",
+    "vernacularName": "Fruit bats",
     "rank": "Superfamily",
     "parentId": "446945"
   },
@@ -7603,7 +7603,7 @@
   },
   "85118": {
     "taxonName": "Gyromitra",
-    "vernacularName": "",
+    "vernacularName": "n/a",
     "rank": "Genus",
     "parentId": "85119"
   },
@@ -7633,7 +7633,7 @@
   },
   "1363898": {
     "taxonName": "Habronattus coecatus",
-    "vernacularName": "",
+    "vernacularName": "n/a",
     "rank": "Complex",
     "parentId": "61881"
   },
@@ -8179,7 +8179,7 @@
   },
   "47823": {
     "taxonName": "Pholcidae",
-    "vernacularName": "Cellar Spiders",
+    "vernacularName": "Cellar spiders",
     "rank": "Family",
     "parentId": "367163"
   },
@@ -11599,7 +11599,7 @@
   },
   "243698": {
     "taxonName": "Pancorius",
-    "vernacularName": "",
+    "vernacularName": "n/a",
     "rank": "Genus",
     "parentId": "1109199"
   },
@@ -14071,7 +14071,7 @@
   },
   "420581": {
     "taxonName": "Saitis",
-    "vernacularName": "Saitis Banner-legged Jumping Spiders",
+    "vernacularName": "Saitis banner-legged jumping spiders",
     "rank": "Genus",
     "parentId": "712073"
   },
@@ -17380,5 +17380,101 @@
     "vernacularName": "Biting midges",
     "rank": "Family",
     "parentId": "509764"
+  },
+  "153112": {
+    "taxonName": "Euphausiacea",
+    "vernacularName": "Krill",
+    "rank": "Order",
+    "parentId": "144113"
+  },
+  "53600": {
+    "taxonName": "Maratus",
+    "vernacularName": "Peacock spiders",
+    "rank": "Genus",
+    "parentId": "712073"
+  },
+  "42981": {
+    "taxonName": "Phascolarctidae",
+    "vernacularName": "Koalas",
+    "rank": "Family",
+    "parentId": "1539326"
+  },
+  "367702": {
+    "taxonName": "Casuariiformes",
+    "vernacularName": "Cassowaries and emu",
+    "rank": "Order",
+    "parentId": "3"
+  },
+  "508252": {
+    "taxonName": "Casuariidae",
+    "vernacularName": "Cassowaries and emus",
+    "rank": "Family",
+    "parentId": "367702"
+  },
+  "20503": {
+    "taxonName": "Dromaius",
+    "vernacularName": "Emus",
+    "rank": "Genus",
+    "parentId": "508252"
+  },
+  "20487": {
+    "taxonName": "Struthioniformes",
+    "vernacularName": "Ostriches",
+    "rank": "Order",
+    "parentId": "3"
+  },
+  "20523": {
+    "taxonName": "Struthionidae",
+    "vernacularName": "Ostriches",
+    "rank": "Family",
+    "parentId": "20487"
+  },
+  "20524": {
+    "taxonName": "Struthio",
+    "vernacularName": "Ostriches",
+    "rank": "Genus",
+    "parentId": "20523"
+  },
+  "367701": {
+    "taxonName": "Rheiformes",
+    "vernacularName": "Rheas",
+    "rank": "Order",
+    "parentId": "3"
+  },
+  "20510": {
+    "taxonName": "Rheidae",
+    "vernacularName": "Rheas",
+    "rank": "Family",
+    "parentId": "367701"
+  },
+  "20511": {
+    "taxonName": "Rhea",
+    "vernacularName": "Rheas",
+    "rank": "Genus",
+    "parentId": "20510"
+  },
+  "20498": {
+    "taxonName": "Casuarius",
+    "vernacularName": "Cassowaries",
+    "rank": "Genus",
+    "parentId": "508252"
+  },
+  "573": {
+    "taxonName": "Galliformes",
+    "vernacularName": "Landfowl",
+    "rank": "Order",
+    "parentId": "3"
+  },
+  "574": {
+    "taxonName": "Phasianidae",
+    "vernacularName": "Pheasants, grouse, and allies",
+    "rank": "Family",
+    "parentId": "573"
+  },
+  "905": {
+    "taxonName": "Meleagris",
+    "vernacularName": "Turkeys",
+    "rank": "Genus",
+    "parentId": "574"
   }
 }

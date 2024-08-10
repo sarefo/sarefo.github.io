@@ -13133,7 +13133,7 @@
     "setName": "Decapods vs Krill",
     "level": "2",
     "tags": [
-      "crustaceans"
+        "crustaceans"
     ],
     "taxa": [
       47186,
@@ -13170,8 +13170,8 @@
     "setName": "Nose-leaf and other bats",
     "level": "2",
     "tags": [
-      "mammals",
-      "bats"
+        "mammals",
+        "bats"
     ],
     "taxa": [
       446956,
@@ -13181,17 +13181,14 @@
       "Rhinolophoidea",
       "Pteropodoidea"
     ],
-    "range": [
-      "AF",
-      "AS"
-    ]
+    "range": ["AF","AS"]
   },
   "665": {
     "setName": "Fruit bats and other bats",
     "level": "1",
     "tags": [
-      "mammals",
-      "bats"
+        "mammals",
+        "bats"
     ],
     "taxa": [
       1317244,
@@ -13201,17 +13198,14 @@
       "Pteropodoidea",
       "Yangochiroptera"
     ],
-    "range": [
-      "AF",
-      "AS"
-    ]
+    "range": ["AF","AS"]
   },
   "666": {
     "setName": "Koalas vs Wombats",
     "level": "1",
     "tags": [
-      "mammals",
-      "marsupials"
+        "mammals",
+        "marsupials"
     ],
     "taxa": [
       42981,
@@ -13229,7 +13223,7 @@
     "setName": "Emus vs Ostrichs",
     "level": "2",
     "tags": [
-      "birds"
+        "birds"
     ],
     "taxa": [
       20503,
@@ -13244,9 +13238,7 @@
   "668": {
     "setName": "Emus vs Rheas",
     "level": "2",
-    "tags": [
-      "birds"
-    ],
+    "tags": ["birds"],
     "taxa": [
       20503,
       20511
@@ -13260,9 +13252,7 @@
   "669": {
     "setName": "Rheas vs Ostrichs",
     "level": "2",
-    "tags": [
-      "birds"
-    ],
+    "tags": ["birds"],
     "taxa": [
       20511,
       20524
@@ -13286,67 +13276,6 @@
       "Meleagris"
     ],
     "range": []
-  },
-  "671": {
-    "setName": "",
-    "level": "0",
-    "tags": [],
-    "taxa": [
-      71385,
-      44185
-    ],
-    "taxonNames": [
-      "Gliridae",
-      "Muridae"
-    ],
-    "range": [
-      "AF",
-      "EU",
-      "AS"
-    ]
-  },
-  "672": {
-    "setName": "",
-    "level": "0",
-    "tags": [],
-    "taxa": [
-      42536,
-      339576
-    ],
-    "taxonNames": [
-      "Cynocephalidae",
-      "Pteromyini"
-    ],
-    "range": [
-      "AS"
-    ]
-  },
-  "673": {
-    "setName": "",
-    "level": "0",
-    "tags": [],
-    "taxa": [
-      42719,
-      339576
-    ],
-    "taxonNames": [
-      "Petaurus",
-      "Pteromyini"
-    ],
-    "range": []
-  },
-  "674": {
-    "setName": "",
-    "level": "0",
-    "tags": [],
-    "taxa": [
-      42536,
-      1317244
-    ],
-    "taxonNames": [
-      "Cynocephalidae",
-      "Pteropodoidea"
-    ],
-    "range": []
   }
+
 }

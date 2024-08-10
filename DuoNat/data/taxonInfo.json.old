@@ -1462,7 +1462,7 @@
   },
   "354050": {
     "taxonName": "Amata huebneri",
-    "vernacularName": "H\u00fcbner's Wasp Moth",
+    "vernacularName": "Hübner's Wasp Moth",
     "ancestryIds": [
       48460,
       1,
@@ -8975,9 +8975,9 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Predatory robber fly that feeds on parasitic wasps and other insects",
-      "Adults can be found from May to July-August",
-      "Larvae develop as predators in the ground"
+        "Predatory robber fly that feeds on parasitic wasps and other insects",
+        "Adults can be found from May to July-August",
+        "Larvae develop as predators in the ground"
     ],
     "range": [
       "EU",
@@ -16067,8 +16067,8 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Has gills instead of pores on its fruiting bodies",
-      "Possesses medicinal properties, including antioxidant, antimicrobial, antitumor, and immunosuppressive activities"
+        "Has gills instead of pores on its fruiting bodies",
+        "Possesses medicinal properties, including antioxidant, antimicrobial, antitumor, and immunosuppressive activities"
     ],
     "range": [
       "NA",
@@ -16213,9 +16213,9 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Stick insect species endemic to the Iberian Peninsula",
-      "Exhibits parthenogenetic reproduction, with all-female populations",
-      "Named after Dutch entomologist Pijnacker"
+        "Stick insect species endemic to the Iberian Peninsula",
+        "Exhibits parthenogenetic reproduction, with all-female populations",
+        "Named after Dutch entomologist Pijnacker"
     ],
     "range": [
       "EU"
@@ -17320,9 +17320,9 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Robber fly species that preys on other insects",
-      "Found in various habitats including grasslands and forest edges",
-      "Active during summer months"
+        "Robber fly species that preys on other insects",
+        "Found in various habitats including grasslands and forest edges",
+        "Active during summer months"
     ],
     "range": [
       "EU"
@@ -17349,8 +17349,8 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Often found in open, sunny habitats",
-      "Males engage in territorial behavior"
+        "Often found in open, sunny habitats",
+        "Males engage in territorial behavior"
     ],
     "range": [
       "EU"
@@ -17994,9 +17994,9 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Bat species also known as the Indian false vampire bat",
-      "Largest microchiropteran bat in the Indian subcontinent",
-      "Uses echolocation for navigation and hunting"
+        "Bat species also known as the Indian false vampire bat",
+        "Largest microchiropteran bat in the Indian subcontinent",
+        "Uses echolocation for navigation and hunting"
     ],
     "range": [
       "AS"
@@ -18945,9 +18945,9 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Bat species endemic to eastern Australia",
-      "Roosts in tree hollows and buildings",
-      "Feeds on flying insects, particularly moths and beetles"
+        "Bat species endemic to eastern Australia",
+        "Roosts in tree hollows and buildings",
+        "Feeds on flying insects, particularly moths and beetles"
     ],
     "range": [
       "OC"
@@ -18975,9 +18975,9 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Bat species found in Australia",
-      "Formerly classified under the genus <i>Mormopterus</i>",
-      "Adapted to various habitats including urban areas"
+        "Bat species found in Australia",
+        "Formerly classified under the genus <i>Mormopterus</i>",
+        "Adapted to various habitats including urban areas"
     ],
     "range": [
       "OC"
@@ -19034,9 +19034,9 @@
     ],
     "rank": "Subspecies",
     "taxonFacts": [
-      "Subspecies of the <i>Morpho helenor</i> butterfly",
-      "Known for its iridescent blue wings",
-      "Found in tropical and subtropical forests"
+        "Subspecies of the <i>Morpho helenor</i> butterfly",
+        "Known for its iridescent blue wings",
+        "Found in tropical and subtropical forests"
     ],
     "range": [
       "SA"
@@ -20080,9 +20080,9 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Bat species native to southern Africa",
-      "Roosts in rock crevices and buildings",
-      "Feeds on small flying insects"
+        "Bat species native to southern Africa",
+        "Roosts in rock crevices and buildings",
+        "Feeds on small flying insects"
     ],
     "range": [
       "AF"
@@ -20111,9 +20111,9 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Small bat species found in sub-Saharan Africa",
-      "Formerly classified under the genus Neoromicia",
-      "Inhabits savanna and forest habitats"
+        "Small bat species found in sub-Saharan Africa",
+        "Formerly classified under the genus Neoromicia",
+        "Inhabits savanna and forest habitats"
     ],
     "range": [
       "AF"
@@ -21971,9 +21971,9 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Marine fish species belonging to the sandperch family",
-      "Found in coral reef environments",
-      "Can change sex from female to male"
+        "Marine fish species belonging to the sandperch family",
+        "Found in coral reef environments",
+        "Can change sex from female to male"
     ],
     "range": [
       "AS",
@@ -27582,9 +27582,9 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Cuttlefish species found in the Indo-Pacific region",
-      "Has specialized arm tips for capturing prey",
-      "Can change color and pattern for camouflage"
+        "Cuttlefish species found in the Indo-Pacific region",
+        "Has specialized arm tips for capturing prey",
+        "Can change color and pattern for camouflage"
     ],
     "range": [
       "AS",
@@ -30078,8 +30078,8 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Semi-aquatic, often found near water bodies",
-      "Primarily feeds on amphibians and small fish"
+        "Semi-aquatic, often found near water bodies",
+        "Primarily feeds on amphibians and small fish"
     ],
     "range": [
       "NA"
@@ -32476,9 +32476,9 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Found in tropical and subtropical waters of the Indo-Pacific",
-      "Lives for about 30 years",
-      "Named after Prince Alfred, son of Queen Victoria"
+        "Found in tropical and subtropical waters of the Indo-Pacific",
+        "Lives for about 30 years",
+        "Named after Prince Alfred, son of Queen Victoria"
     ],
     "range": [
       "AS",
@@ -32503,9 +32503,9 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Feeds primarily on plankton and small fishes",
-      "Found in tropical and subtropical waters worldwide",
-      "Can dive to depths over 1000 meters"
+        "Feeds primarily on plankton and small fishes",
+        "Found in tropical and subtropical waters worldwide",
+        "Can dive to depths over 1000 meters"
     ],
     "range": [
       "NA",
@@ -32535,13 +32535,11 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Named after Eric Carle, of 'Very Hungry Caterpillar fame'",
-      "Mimics a small caterpillar with defensive hair",
-      "Probably lives in trees"
+        "Named after Eric Carle, of 'Very Hungry Caterpillar fame'",
+        "Mimics a small caterpillar with defensive hair",
+        "Probably lives in trees"
     ],
-    "range": [
-      "AS"
-    ]
+    "range": ["AS"]
   },
   "985194": {
     "taxonName": "Miltochrista arcuata",
@@ -32563,12 +32561,10 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Found in parts of Asia",
-      "Caterpillar resembles the jumping spider <i>Uroballus carlei</i>"
+    "Found in parts of Asia",
+    "Caterpillar resembles the jumping spider <i>Uroballus carlei</i>"
     ],
-    "range": [
-      "AS"
-    ]
+    "range": ["AS"]
   },
   "43584": {
     "taxonName": "Homo sapiens",
@@ -32593,18 +32589,11 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Only extant species of the genus <i>Homo</i>.",
-      "Originated in Africa about 300,000 years ago.",
-      "Capable of complex language and some abstract thought."
+        "Only extant species of the genus <i>Homo</i>.",
+        "Originated in Africa about 300,000 years ago.",
+        "Capable of complex language and some abstract thought."
     ],
-    "range": [
-      "EU",
-      "AS",
-      "NA",
-      "SA",
-      "AF",
-      "OC"
-    ]
+    "range": [ "EU", "AS", "NA", "SA", "AF", "OC" ]
   },
   "83201": {
     "taxonName": "Thysanoptera",
@@ -32619,18 +32608,11 @@
     ],
     "rank": "Order",
     "taxonFacts": [
-      "Over 6,000 described species.",
-      "Some species are significant agricultural pests.",
-      "Thrips can transmit plant viruses."
+        "Over 6,000 described species.",
+        "Some species are significant agricultural pests.",
+        "Thrips can transmit plant viruses."
     ],
-    "range": [
-      "EU",
-      "AS",
-      "NA",
-      "SA",
-      "AF",
-      "OC"
-    ]
+    "range": [ "EU", "AS", "NA", "SA", "AF", "OC" ]
   },
   "47951": {
     "taxonName": "Staphylinidae",
@@ -32649,18 +32631,11 @@
     ],
     "rank": "Family",
     "taxonFacts": [
-      "Over 66,000 species in thousands of genera.",
-      "Fossilized rove beetles date back to the Triassic period.",
-      "Commonly found near water or in wet environments."
+        "Over 66,000 species in thousands of genera.",
+        "Fossilized rove beetles date back to the Triassic period.",
+        "Commonly found near water or in wet environments."
     ],
-    "range": [
-      "EU",
-      "AS",
-      "NA",
-      "SA",
-      "AF",
-      "OC"
-    ]
+    "range": [ "EU", "AS", "NA", "SA", "AF", "OC" ]
   },
   "47458": {
     "taxonName": "Octopoda",
@@ -32675,18 +32650,11 @@
     ],
     "rank": "Order",
     "taxonFacts": [
-      "Includes about 300 species of octopuses.",
-      "Can change color and texture for camouflage.",
-      "Have three hearts and blue blood."
+        "Includes about 300 species of octopuses.",
+        "Can change color and texture for camouflage.",
+        "Have three hearts and blue blood."
     ],
-    "range": [
-      "NA",
-      "SA",
-      "AF",
-      "EU",
-      "AS",
-      "OC"
-    ]
+    "range": [ "NA", "SA", "AF", "EU", "AS", "OC" ]
   },
   "61267": {
     "taxonName": "Heteroptera",
@@ -32702,18 +32670,11 @@
     ],
     "rank": "Suborder",
     "taxonFacts": [
-      "Suborder of about 40,000 species within Hemiptera.",
-      "Many have forewings with both membranous and hardened portions.",
-      "Some families are aquatic or semiaquatic insects."
+        "Suborder of about 40,000 species within Hemiptera.",
+        "Many have forewings with both membranous and hardened portions.",
+        "Some families are aquatic or semiaquatic insects."
     ],
-    "range": [
-      "NA",
-      "SA",
-      "AF",
-      "EU",
-      "AS",
-      "OC"
-    ]
+    "range": [ "NA", "SA", "AF", "EU", "AS", "OC" ]
   },
   "47208": {
     "taxonName": "Coleoptera",
@@ -32728,18 +32689,11 @@
     ],
     "rank": "Order",
     "taxonFacts": [
-      "Largest order of insects, with over 400,000 species.",
-      "First pair of wings hardened into elytra.",
-      "Evolved during the Permian period, over 250 million years ago."
+        "Largest order of insects, with over 400,000 species.",
+        "First pair of wings hardened into elytra.",
+        "Evolved during the Permian period, over 250 million years ago."
     ],
-    "range": [
-      "NA",
-      "SA",
-      "AF",
-      "EU",
-      "AS",
-      "OC"
-    ]
+    "range": [ "NA", "SA", "AF", "EU", "AS", "OC" ]
   },
   "47792": {
     "taxonName": "Odonata",
@@ -32754,18 +32708,11 @@
     ],
     "rank": "Order",
     "taxonFacts": [
-      "Comprises dragonflies and damselflies.",
-      "Diurnal insects with well-developed vision.",
-      "Some species can fly backwards and hover."
+        "Comprises dragonflies and damselflies.",
+        "Diurnal insects with well-developed vision.",
+        "Some species can fly backwards and hover."
     ],
-    "range": [
-      "NA",
-      "SA",
-      "AF",
-      "EU",
-      "AS",
-      "OC"
-    ]
+    "range": [ "NA", "SA", "AF", "EU", "AS", "OC" ]
   },
   "153097": {
     "taxonName": "Ascalaphinae",
@@ -32784,18 +32731,11 @@
     ],
     "rank": "Subfamily",
     "taxonFacts": [
-      "Subfamily of owlflies within Neuroptera.",
-      "Adults resemble dragonflies with long, clubbed antennae.",
-      "Larvae are predatory and often camouflage themselves."
+        "Subfamily of owlflies within Neuroptera.",
+        "Adults resemble dragonflies with long, clubbed antennae.",
+        "Larvae are predatory and often camouflage themselves."
     ],
-    "range": [
-      "NA",
-      "SA",
-      "AF",
-      "EU",
-      "AS",
-      "OC"
-    ]
+    "range": [ "NA", "SA", "AF", "EU", "AS", "OC" ]
   },
   "47201": {
     "taxonName": "Hymenoptera",
@@ -32810,18 +32750,11 @@
     ],
     "rank": "Order",
     "taxonFacts": [
-      "Over 150,000 living species described.",
-      "Many species are parasitic.",
-      "Females typically have a specialized ovipositor, often modified into a stinger."
+        "Over 150,000 living species described.",
+        "Many species are parasitic.",
+        "Females typically have a specialized ovipositor, often modified into a stinger."
     ],
-    "range": [
-      "NA",
-      "SA",
-      "AF",
-      "EU",
-      "AS",
-      "OC"
-    ]
+    "range": [ "NA", "SA", "AF", "EU", "AS", "OC" ]
   },
   "47822": {
     "taxonName": "Diptera",
@@ -32836,18 +32769,11 @@
     ],
     "rank": "Order",
     "taxonFacts": [
-      "Includes flies, mosquitoes, and gnats.",
-      "Second pair of wings reduced to halteres.",
-      "Many species are important pollinators."
+        "Includes flies, mosquitoes, and gnats.",
+        "Second pair of wings reduced to halteres.",
+        "Many species are important pollinators."
     ],
-    "range": [
-      "NA",
-      "SA",
-      "AF",
-      "EU",
-      "AS",
-      "OC"
-    ]
+    "range": [ "NA", "SA", "AF", "EU", "AS", "OC" ]
   },
   "20978": {
     "taxonName": "Amphibia",
@@ -32860,18 +32786,11 @@
     ],
     "rank": "Class",
     "taxonFacts": [
-      "Includes frogs, toads, salamanders, and caecilians.",
-      "Most undergo metamorphosis from aquatic larvae to terrestrial adults.",
-      "Breathe through moist skin as well as lungs."
+        "Includes frogs, toads, salamanders, and caecilians.",
+        "Most undergo metamorphosis from aquatic larvae to terrestrial adults.",
+        "Breathe through moist skin as well as lungs."
     ],
-    "range": [
-      "NA",
-      "SA",
-      "AF",
-      "EU",
-      "AS",
-      "OC"
-    ]
+    "range": [ "NA", "SA", "AF", "EU", "AS", "OC" ]
   },
   "26036": {
     "taxonName": "Reptilia",
@@ -32884,18 +32803,11 @@
     ],
     "rank": "Class",
     "taxonFacts": [
-      "Includes snakes, lizards, turtles, and crocodilians.",
-      "First fully terrestrial vertebrates.",
-      "Most lay amniotic eggs with hard or leathery shells."
+        "Includes snakes, lizards, turtles, and crocodilians.",
+        "First fully terrestrial vertebrates.",
+        "Most lay amniotic eggs with hard or leathery shells."
     ],
-    "range": [
-      "NA",
-      "SA",
-      "AF",
-      "EU",
-      "AS",
-      "OC"
-    ]
+    "range": [ "NA", "SA", "AF", "EU", "AS", "OC" ]
   },
   "848319": {
     "taxonName": "Marsupialia",
@@ -32910,15 +32822,11 @@
     ],
     "rank": "Infraclass",
     "taxonFacts": [
-      "Young are born very underdeveloped and continue to develop in pouch.",
-      "Includes kangaroos, koalas, and opossums.",
-      "Most diverse in Australia and nearby islands."
+        "Young are born very underdeveloped and continue to develop in pouch.",
+        "Includes kangaroos, koalas, and opossums.",
+        "Most diverse in Australia and nearby islands."
     ],
-    "range": [
-      "NA",
-      "SA",
-      "OC"
-    ]
+    "range": [ "NA", "SA", "OC" ]
   },
   "848320": {
     "taxonName": "Placentalia",
@@ -32933,18 +32841,11 @@
     ],
     "rank": "Infraclass",
     "taxonFacts": [
-      "Largest group of mammals, including humans.",
-      "Young develop in uterus, nourished by placenta.",
-      "Evolved around 65 million years ago."
+        "Largest group of mammals, including humans.",
+        "Young develop in uterus, nourished by placenta.",
+        "Evolved around 65 million years ago."
     ],
-    "range": [
-      "NA",
-      "SA",
-      "AF",
-      "EU",
-      "AS",
-      "OC"
-    ]
+    "range": [ "NA", "SA", "AF", "EU", "AS", "OC" ]
   },
   "43233": {
     "taxonName": "Monotremata",
@@ -32959,13 +32860,11 @@
     ],
     "rank": "Order",
     "taxonFacts": [
-      "Egg-laying mammals.",
-      "Includes platypuses and echidnas.",
-      "Have electroreception for hunting prey."
+        "Egg-laying mammals.",
+        "Includes platypuses and echidnas.",
+        "Have electroreception for hunting prey."
     ],
-    "range": [
-      "OC"
-    ]
+    "range": [ "OC" ]
   },
   "43236": {
     "taxonName": "Ornithorhynchus anatinus",
@@ -32983,13 +32882,11 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "One of few venomous mammals.",
-      "Uses electroreception to locate prey underwater.",
-      "Stores fat in its tail."
+        "One of few venomous mammals.",
+        "Uses electroreception to locate prey underwater.",
+        "Stores fat in its tail."
     ],
-    "range": [
-      "OC"
-    ]
+    "range": [ "OC" ]
   },
   "43792": {
     "taxonName": "Castor",
@@ -33009,14 +32906,10 @@
     ],
     "rank": "Genus",
     "taxonFacts": [
-      "Build dams and lodges, significantly altering their environment.",
-      "Second-largest rodents after capybaras."
+        "Build dams and lodges, significantly altering their environment.",
+        "Second-largest rodents after capybaras."
     ],
-    "range": [
-      "NA",
-      "EU",
-      "AS"
-    ]
+    "range": [ "NA", "EU", "AS" ]
   },
   "46078": {
     "taxonName": "Marmota",
@@ -33038,15 +32931,11 @@
     ],
     "rank": "Genus",
     "taxonFacts": [
-      "Genus of large ground squirrels.",
-      "Hibernate during winter months.",
-      "Some species are highly social."
+        "Genus of large ground squirrels.",
+        "Hibernate during winter months.",
+        "Some species are highly social."
     ],
-    "range": [
-      "NA",
-      "EU",
-      "AS"
-    ]
+    "range": [ "NA", "EU", "AS" ]
   },
   "526556": {
     "taxonName": "Lutrinae",
@@ -33065,18 +32954,11 @@
     ],
     "rank": "Subfamily",
     "taxonFacts": [
-      "Subfamily within Mustelidae.",
-      "Semi-aquatic mammals with dense, insulating fur.",
-      "Use tools like rocks to open shellfish."
+        "Subfamily within Mustelidae.",
+        "Semi-aquatic mammals with dense, insulating fur.",
+        "Use tools like rocks to open shellfish."
     ],
-    "range": [
-      "NA",
-      "SA",
-      "AF",
-      "EU",
-      "AS",
-      "OC"
-    ]
+    "range": [ "NA", "SA", "AF", "EU", "AS", "OC" ]
   },
   "372843": {
     "taxonName": "Phocoidea",
@@ -33094,18 +32976,11 @@
     ],
     "rank": "Superfamily",
     "taxonFacts": [
-      "Superfamily including seals, sea lions, and walruses.",
-      "Adapted for aquatic life with streamlined bodies.",
-      "Can dive to great depths and hold breath for extended periods."
+        "Superfamily including seals, sea lions, and walruses.",
+        "Adapted for aquatic life with streamlined bodies.",
+        "Can dive to great depths and hold breath for extended periods."
     ],
-    "range": [
-      "NA",
-      "SA",
-      "AF",
-      "EU",
-      "AS",
-      "OC"
-    ]
+    "range": [ "NA", "SA", "AF", "EU", "AS", "OC" ]
   },
   "46306": {
     "taxonName": "Sirenia",
@@ -33122,17 +32997,11 @@
     ],
     "rank": "Order",
     "taxonFacts": [
-      "Order of aquatic mammals including manatees and dugongs.",
-      "Herbivorous, feeding on aquatic plants.",
-      "Have pectoral mammary glands, inspiring mermaid legends."
+        "Order of aquatic mammals including manatees and dugongs.",
+        "Herbivorous, feeding on aquatic plants.",
+        "Have pectoral mammary glands, inspiring mermaid legends."
     ],
-    "range": [
-      "NA",
-      "SA",
-      "AF",
-      "AS",
-      "OC"
-    ]
+    "range": [ "NA", "SA", "AF", "AS", "OC" ]
   },
   "48139": {
     "taxonName": "Salticidae",
@@ -35082,8 +34951,16 @@
       1317244
     ],
     "rank": "Superfamily",
-    "taxonFacts": [],
-    "range": []
+    "taxonFacts": [
+      "Evolved about 30 million years ago.",
+      "Contains largest bat species with wing span of 1.7m",
+      "Mainly eat fruit at night."
+    ],
+    "range": [
+      "AF",
+      "AS",
+      "OC"
+    ]
   },
   "446946": {
     "taxonName": "Yangochiroptera",
@@ -35270,141 +35147,6 @@
     "range": [
       "NA"
     ]
-  },
-  "71385": {
-    "taxonName": "Gliridae",
-    "vernacularName": "Dormice",
-    "ancestryIds": [
-      1,
-      2,
-      355675,
-      40151,
-      848317,
-      848320,
-      848323,
-      43698,
-      129411,
-      71385
-    ],
-    "rank": "Family",
-    "taxonFacts": [
-      "Largest dormouse is the edible dormouse",
-      "Hibernate up to 7 months, live 9 years",
-      "Unique among rodents for long life, hibernation"
-    ],
-    "range": [
-      "AF",
-      "EU",
-      "AS"
-    ]
-  },
-  "44185": {
-    "taxonName": "Muridae",
-    "vernacularName": "Old world mice and rats",
-    "ancestryIds": [
-      1,
-      2,
-      355675,
-      40151,
-      848317,
-      848320,
-      848323,
-      43698,
-      870778,
-      488924,
-      44185
-    ],
-    "rank": "Family",
-    "taxonFacts": [
-      "Most diverse mammal family with over 700 species",
-      "Includes mice, rats and gerbils"
-    ],
-    "range": [
-      "NA",
-      "SA",
-      "AF",
-      "EU",
-      "AS",
-      "OC"
-    ]
-  },
-  "42536": {
-    "taxonName": "Cynocephalidae",
-    "vernacularName": "Colugos",
-    "ancestryIds": [
-      1,
-      2,
-      355675,
-      40151,
-      848317,
-      848320,
-      848323,
-      42535,
-      42536
-    ],
-    "rank": "Family",
-    "taxonFacts": [
-      "Only flying mammals that glide using skin flaps",
-      "Eat insects, fruit, leaves, and flowers",
-      "Unique prehensile tail used for climbing"
-    ],
-    "range": [
-      "AS"
-    ]
-  },
-  "339576": {
-    "taxonName": "Pteromyini",
-    "vernacularName": "Flying squirrels",
-    "ancestryIds": [
-      1,
-      2,
-      355675,
-      40151,
-      848317,
-      848320,
-      848323,
-      43698,
-      129411,
-      45933,
-      332614,
-      339576
-    ],
-    "rank": "Tribe",
-    "taxonFacts": [
-      "Glide up to 90 meters using skin membranes",
-      "Includes flying squirrels and gliding squirrels",
-      "Found in forests."
-    ],
-    "range": [
-      "NA",
-      "EU",
-      "AS"
-    ]
-  },
-  "42719": {
-    "taxonName": "Petaurus",
-    "vernacularName": "Wrist-winged gliders",
-    "ancestryIds": [
-      1,
-      2,
-      355675,
-      40151,
-      848317,
-      848319,
-      42711,
-      1539329,
-      42718,
-      846276,
-      42719
-    ],
-    "rank": "Genus",
-    "taxonFacts": [
-      "Colorful gliding possums of Australia and New Guinea",
-      "Glide up to 90 meters using skin membranes",
-      "Eat nectar, pollen, insects, and small birds"
-    ],
-    "range": [
-      "OC"
-    ]
   }
+
 }

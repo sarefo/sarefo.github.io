@@ -1873,7 +1873,7 @@
   },
   "44185": {
     "taxonName": "Muridae",
-    "vernacularName": "Old World Mice and Rats",
+    "vernacularName": "Old world mice and rats",
     "rank": "Family",
     "parentId": "488924"
   },
@@ -17476,5 +17476,47 @@
     "vernacularName": "Turkeys",
     "rank": "Genus",
     "parentId": "574"
+  },
+  "71385": {
+    "taxonName": "Gliridae",
+    "vernacularName": "Dormice",
+    "rank": "Family",
+    "parentId": "129411"
+  },
+  "42535": {
+    "taxonName": "Dermoptera",
+    "vernacularName": "Colugos",
+    "rank": "Order",
+    "parentId": "848323"
+  },
+  "42536": {
+    "taxonName": "Cynocephalidae",
+    "vernacularName": "Colugos",
+    "rank": "Family",
+    "parentId": "42535"
+  },
+  "339576": {
+    "taxonName": "Pteromyini",
+    "vernacularName": "Flying squirrels",
+    "rank": "Tribe",
+    "parentId": "332614"
+  },
+  "42718": {
+    "taxonName": "Petauridae",
+    "vernacularName": "Wrist-winged gliders, trioks, and allies",
+    "rank": "Family",
+    "parentId": "1539329"
+  },
+  "846276": {
+    "taxonName": "Petaurinae",
+    "vernacularName": "Wrist-winged gliders",
+    "rank": "Subfamily",
+    "parentId": "42718"
+  },
+  "42719": {
+    "taxonName": "Petaurus",
+    "vernacularName": "Wrist-winged gliders",
+    "rank": "Genus",
+    "parentId": "846276"
   }
 }
