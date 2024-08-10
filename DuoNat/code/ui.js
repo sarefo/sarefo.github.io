@@ -193,12 +193,23 @@ const ui = {
         const list = document.getElementById('taxon-set-list');
         list.innerHTML = ''; // Clear existing content
 
-        logger.debug(`Updating taxon pair list with ${filteredPairs ? filteredPairs.length : 0} pairs`);
+        logger.debug(`Updating taxon set list with ${filteredPairs ? filteredPairs.length : 0} pairs`);
 
         if (!filteredPairs || filteredPairs.length === 0) {
             const noResultsMessage = document.createElement('p');
-            noResultsMessage.textContent = 'No matching pairs found.';
             noResultsMessage.className = 'no-results-message';
+            
+            // Check if any filters are active
+            const hasActiveFilters = gameState.selectedLevel !== '' || 
+                                     gameState.selectedRanges.length > 0 || 
+                                     gameState.selectedTags.length > 0;
+
+            if (hasActiveFilters) {
+                noResultsMessage.innerHTML = 'No matching sets found.<br><span class="filter-warning">You have active filters. Try clearing some filters on top of this dialog to see more results.</span>';
+            } else {
+                noResultsMessage.textContent = 'No matching sets found.';
+            }
+            
             list.appendChild(noResultsMessage);
         } else {
             for (const pair of filteredPairs) {
