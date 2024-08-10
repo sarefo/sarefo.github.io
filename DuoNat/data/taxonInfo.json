@@ -2426,9 +2426,8 @@
   },
   "4954": {
     "taxonName": "Ardea cinerea",
-    "vernacularName": "Grey Heron",
+    "vernacularName": "Grey heron",
     "ancestryIds": [
-      48460,
       1,
       2,
       355675,
@@ -2441,14 +2440,14 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Widespread across Europe, Asia and parts of Africa",
-      "Wades in shallow water to hunt fish and other aquatic prey",
-      "Often seen standing motionless while hunting"
+      "Widespread and adaptable species",
+      "Nests in colonies in trees near water",
+      "Feeds on fish, amphibians, and small mammals"
     ],
     "range": [
       "EU",
-      "AS",
-      "AF"
+      "AF",
+      "AS"
     ]
   },
   "4951": {
@@ -9346,9 +9345,8 @@
   },
   "4943": {
     "taxonName": "Egretta garzetta",
-    "vernacularName": "Little Egret",
+    "vernacularName": "Little egret",
     "ancestryIds": [
-      48460,
       1,
       2,
       355675,
@@ -9361,14 +9359,14 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Found in many parts of the Old World",
-      "Often seen in shallow waters hunting for small fish and invertebrates",
-      "Breeds in colonies, often with other heron species"
+      "Nests in colonies near wetlands",
+      "Feeds on fish, amphibians, and insects",
+      "Distinctive black legs and yellow feet"
     ],
     "range": [
       "EU",
-      "AS",
       "AF",
+      "AS",
       "OC"
     ]
   },
@@ -19044,9 +19042,8 @@
   },
   "13695": {
     "taxonName": "Motacilla alba",
-    "vernacularName": "White Wagtail",
+    "vernacularName": "White wagtail",
     "ancestryIds": [
-      48460,
       1,
       2,
       355675,
@@ -19058,9 +19055,9 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Found across Europe, Asia, and parts of North Africa",
-      "Known for its distinctive tail-wagging behavior",
-      "Often seen near water bodies and in urban areas"
+      "Widespread and adaptable species",
+      "Nests on the ground or in low vegetation",
+      "Feeds on insects and small invertebrates"
     ],
     "range": [
       "EU",
@@ -28808,9 +28805,8 @@
   },
   "2969": {
     "taxonName": "Streptopelia decaocto",
-    "vernacularName": "Eurasian Collared-Dove",
+    "vernacularName": "Eurasian collared-dove",
     "ancestryIds": [
-      48460,
       1,
       2,
       355675,
@@ -28822,15 +28818,13 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Found in Europe, Asia, and introduced to North America",
-      "Known for its distinctive black collar and cooing call",
-      "Often found in urban and suburban areas"
+      "Expanded its range from Asia to Europe",
+      "Adapted well to urban environments",
+      "Distinctive black collar and white wing patches"
     ],
     "range": [
       "EU",
-      "AS",
-      "AF",
-      "NA"
+      "AS"
     ]
   },
   "2938": {
@@ -35582,6 +35576,992 @@
     ],
     "range": [
       "SA"
+    ]
+  },
+  "1455918": {
+    "taxonName": "Spilopelia chinensis",
+    "vernacularName": "Spotted dove",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      2708,
+      2715,
+      1425710,
+      1455918
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Introduced to many parts of the world",
+      "Plumage varies across its wide range",
+      "Flies from ground with explosive flutter"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "3017": {
+    "taxonName": "Columba livia",
+    "vernacularName": "Rock pigeon",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      2708,
+      2715,
+      3000,
+      3017
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Feral pigeons found worldwide",
+      "Nests in crevices along rocky seaside cliffs",
+      "Pairs formed for life"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS",
+      "NA"
+    ]
+  },
+  "2935": {
+    "taxonName": "Streptopelia tranquebarica",
+    "vernacularName": "Red collared-dove",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      2708,
+      2715,
+      2926,
+      2935
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Males perform courtship displays on the ground",
+      "Nests in trees and shrubs",
+      "Feeds on seeds and grains"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "2927": {
+    "taxonName": "Streptopelia orientalis",
+    "vernacularName": "Oriental turtle-dove",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      2708,
+      2715,
+      2926,
+      2927
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Migratory species in northern parts of range",
+      "Nests in trees and bushes",
+      "Feeds on seeds, grains, and berries"
+    ],
+    "range": [
+      "AS",
+      "EU"
+    ]
+  },
+  "508097": {
+    "taxonName": "Chalcophaps indica",
+    "vernacularName": "Asian emerald dove",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      2708,
+      2715,
+      3626,
+      508097
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Metallic green wings and red bill",
+      "Nests on the ground or in low vegetation",
+      "Feeds on seeds, grains, and berries"
+    ],
+    "range": [
+      "AS",
+      "OC"
+    ]
+  },
+  "14591": {
+    "taxonName": "Pycnonotus jocosus",
+    "vernacularName": "Red-whiskered bulbul",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      14556,
+      14587,
+      14591
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Distinctive red-whiskered tuft of feathers",
+      "Omnivorous, feeding on fruits and insects",
+      "Adaptable to urban environments"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "14621": {
+    "taxonName": "Pycnonotus sinensis",
+    "vernacularName": "Light-vented bulbul",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      14556,
+      14587,
+      14621
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Widespread and common in China",
+      "Nests in trees and shrubs",
+      "Feeds on fruits, seeds, and insects"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "14626": {
+    "taxonName": "Pycnonotus aurigaster",
+    "vernacularName": "Sooty-headed bulbul",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      14556,
+      14587,
+      14626
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Prominent yellow vent and white-tipped tail",
+      "Omnivorous, feeding on fruits and insects",
+      "Adaptable to urban environments"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "14684": {
+    "taxonName": "Hemixos castanonotus",
+    "vernacularName": "Chestnut bulbul",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      14556,
+      14682,
+      14684
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Endemic to Taiwan",
+      "Nests in trees and shrubs",
+      "Feeds on fruits and insects"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "145098": {
+    "taxonName": "Gracupica nigricollis",
+    "vernacularName": "Black-collared starling",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      14841,
+      144389,
+      145098
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Distinctive black head and white body",
+      "Nests in trees and shrubs",
+      "Feeds on seeds, grains, and insects"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "13688": {
+    "taxonName": "Motacilla cinerea",
+    "vernacularName": "Grey wagtail",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      71339,
+      13686,
+      13688
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Prefers mountainous areas and streams",
+      "Nests near water on the ground",
+      "Feeds on aquatic insects and small fish"
+    ],
+    "range": [
+      "EU",
+      "AS"
+    ]
+  },
+  "204491": {
+    "taxonName": "Copsychus saularis",
+    "vernacularName": "Oriental magpie-robin",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      12704,
+      13157,
+      204491
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Distinctive black and white plumage",
+      "Excellent mimic of other bird calls",
+      "Nests in tree cavities and shrubs"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "827401": {
+    "taxonName": "Pica serica",
+    "vernacularName": "Oriental magpie",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      7823,
+      8318,
+      827401
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Endemic to central China",
+      "Nests in trees and shrubs",
+      "Omnivorous, feeding on insects and small rodents"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "495200": {
+    "taxonName": "Urocissa erythroryncha",
+    "vernacularName": "Red-billed blue-magpie",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      7823,
+      8413,
+      495200
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Distinctive blue, white, and red plumage",
+      "Nests in trees and shrubs",
+      "Omnivorous, feeding on fruits and small animals"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "14872": {
+    "taxonName": "Acridotheres cristatellus",
+    "vernacularName": "Crested myna",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      14841,
+      14868,
+      14872
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Introduced to many parts of the world",
+      "Nests in tree cavities and buildings",
+      "Feeds on insects, seeds, and fruits"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "204454": {
+    "taxonName": "Acridotheres tristis",
+    "vernacularName": "Common myna",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      14841,
+      14868,
+      204454
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Introduced to many parts of the world",
+      "Nests in tree cavities and buildings",
+      "Feeds on insects, seeds, and fruits"
+    ],
+    "range": [
+      "AS",
+      "EU",
+      "AF",
+      "OC"
+    ]
+  },
+  "145102": {
+    "taxonName": "Sturnia sinensis",
+    "vernacularName": "White-shouldered starling",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      14841,
+      144390,
+      145102
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Migratory species in northern parts of range",
+      "Nests in tree cavities and shrubs",
+      "Feeds on insects, seeds, and berries"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "547178": {
+    "taxonName": "Spodiopsar sericeus",
+    "vernacularName": "Red-billed starling",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      14841,
+      547177,
+      547178
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Endemic to eastern China",
+      "Nests in trees and shrubs",
+      "Feeds on insects, seeds, and fruits"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "547179": {
+    "taxonName": "Spodiopsar cineraceus",
+    "vernacularName": "White-cheeked starling",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      14841,
+      547177,
+      547179
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Migratory species in northern parts of range",
+      "Nests in tree cavities and shrubs",
+      "Feeds on insects, seeds, and berries"
+    ],
+    "range": [
+      "AS",
+      "EU"
+    ]
+  },
+  "14870": {
+    "taxonName": "Acridotheres grandis",
+    "vernacularName": "Great myna",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      14841,
+      14868,
+      14870
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Endemic to the Philippines",
+      "Nests in tree cavities and buildings",
+      "Feeds on insects, seeds, and fruits"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "5268": {
+    "taxonName": "Milvus migrans",
+    "vernacularName": "Black kite",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      71261,
+      5067,
+      1542783,
+      5265,
+      5268
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Adaptable and widespread species",
+      "Nests in trees and on buildings",
+      "Feeds on small animals and carrion"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS",
+      "OC"
+    ]
+  },
+  "5158": {
+    "taxonName": "Spilornis cheela",
+    "vernacularName": "Crested serpent-eagle",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      71261,
+      5067,
+      1541532,
+      5156,
+      5158
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Distinctive crest and dark plumage",
+      "Nests in tall trees",
+      "Feeds on small animals and reptiles"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "486630": {
+    "taxonName": "Buteo japonicus",
+    "vernacularName": "Eastern buzzard",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      71261,
+      5067,
+      1542783,
+      5179,
+      486630
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Migratory species in northern parts of range",
+      "Nests in trees and on cliffs",
+      "Feeds on small mammals and birds"
+    ],
+    "range": [
+      "AS",
+      "EU"
+    ]
+  },
+  "4981": {
+    "taxonName": "Nycticorax nycticorax",
+    "vernacularName": "Black-crowned night heron",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67566,
+      4929,
+      597395,
+      4979,
+      4981
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Nests in colonies near wetlands",
+      "Feeds on fish, amphibians, and insects",
+      "Distinctive black and white plumage"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "EU",
+      "AF",
+      "AS",
+      "OC"
+    ]
+  },
+  "4990": {
+    "taxonName": "Ardeola bacchus",
+    "vernacularName": "Chinese pond heron",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67566,
+      4929,
+      597395,
+      4989,
+      4990
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Breeds in colonies near wetlands",
+      "Feeds on fish, amphibians, and insects",
+      "Distinctive yellow legs and feet"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "62528": {
+    "taxonName": "Butorides striata",
+    "vernacularName": "Striated heron",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67566,
+      4929,
+      597395,
+      5019,
+      62528
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Widespread and adaptable species",
+      "Nests in trees and shrubs near water",
+      "Feeds on small fish, amphibians, and insects"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "AS",
+      "OC"
+    ]
+  },
+  "1289400": {
+    "taxonName": "Pterorhinus perspicillatus",
+    "vernacularName": "Masked laughingthrush",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      980192,
+      1289299,
+      1289400
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Endemic to eastern China",
+      "Nests in trees and shrubs",
+      "Feeds on insects, fruits, and small animals"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "1289402": {
+    "taxonName": "Pterorhinus chinensis",
+    "vernacularName": "Black-throated laughingthrush",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      980192,
+      1289299,
+      1289402
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Widespread and common in China",
+      "Nests in trees and shrubs",
+      "Feeds on insects, fruits, and small animals"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "144455": {
+    "taxonName": "Ardea alba",
+    "vernacularName": "Great egret",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67566,
+      4929,
+      597395,
+      4950,
+      144455
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Largest heron species in the world",
+      "Nests in colonies near wetlands",
+      "Feeds on fish, amphibians, and small mammals"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "EU",
+      "AF",
+      "AS",
+      "OC"
+    ]
+  },
+  "558445": {
+    "taxonName": "Ardea intermedia",
+    "vernacularName": "Medium egret",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67566,
+      4929,
+      597395,
+      4950,
+      558445
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Breeds in colonies near wetlands",
+      "Feeds on fish, amphibians, and insects",
+      "Distinctive yellow eyes and bill"
+    ],
+    "range": [
+      "AS",
+      "OC"
+    ]
+  },
+  "4947": {
+    "taxonName": "Egretta sacra",
+    "vernacularName": "Pacific reef heron",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67566,
+      4929,
+      597395,
+      4933,
+      4947
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Nests on coastal cliffs and islands",
+      "Feeds on fish, crustaceans, and mollusks",
+      "Distinctive blue-grey plumage"
+    ],
+    "range": [
+      "AS",
+      "OC"
+    ]
+  },
+  "980257": {
+    "taxonName": "Zosterops simplex",
+    "vernacularName": "Swinhoe's white-eye",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      17438,
+      17439,
+      980257
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Endemic to eastern China",
+      "Nests in trees and shrubs",
+      "Feeds on insects, fruits, and nectar"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "980262": {
+    "taxonName": "Zosterops japonicus",
+    "vernacularName": "Warbling white-eye",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      17438,
+      17439,
+      980262
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Widespread and common in Japan",
+      "Nests in trees and shrubs",
+      "Feeds on insects, fruits, and nectar"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "15347": {
+    "taxonName": "Orthotomus sutorius",
+    "vernacularName": "Common tailorbird",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      7649,
+      15344,
+      15347
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Constructs a unique nest by sewing leaves",
+      "Feeds on insects and spiders",
+      "Widespread and common in Asia"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "68507": {
+    "taxonName": "Myophonus caeruleus",
+    "vernacularName": "Blue whistling-thrush",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      12704,
+      59847,
+      68507
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Distinctive iridescent blue plumage",
+      "Nests in tree cavities and crevices",
+      "Feeds on insects, fruits, and small animals"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "73078": {
+    "taxonName": "Myophonus insularis",
+    "vernacularName": "Taiwan whistling-thrush",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      12704,
+      59847,
+      73078
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Endemic to Taiwan",
+      "Nests in tree cavities and crevices",
+      "Feeds on insects, fruits, and small animals"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "472778": {
+    "taxonName": "Turdus mandarinus",
+    "vernacularName": "Chinese blackbird",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      15977,
+      12705,
+      472778
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Endemic to eastern China",
+      "Nests in trees and shrubs",
+      "Feeds on insects, fruits, and berries"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "4835": {
+    "taxonName": "Himantopus himantopus",
+    "vernacularName": "Black-winged stilt",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67561,
+      71361,
+      4831,
+      4835
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Distinctive black and white plumage",
+      "Nests on the ground near wetlands",
+      "Feeds on aquatic insects and small fish"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS",
+      "OC"
+    ]
+  },
+  "339692": {
+    "taxonName": "Parus minor",
+    "vernacularName": "Japanese tit",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      13547,
+      13548,
+      339692
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Widespread and common in Japan",
+      "Nests in tree cavities and nest boxes",
+      "Feeds on insects, seeds, and fruits"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "339691": {
+    "taxonName": "Parus cinereus",
+    "vernacularName": "Cinereous tit",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      13547,
+      13548,
+      339691
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Widespread and adaptable species",
+      "Nests in tree cavities and nest boxes",
+      "Feeds on insects, seeds, and fruits"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "204510": {
+    "taxonName": "Eudynamys scolopaceus",
+    "vernacularName": "Asian koel",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      1623,
+      1627,
+      1541355,
+      1878,
+      204510
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Brood parasite, lays eggs in other birds' nests",
+      "Feeds on insects, fruits, and small animals",
+      "Distinctive black and white plumage"
+    ],
+    "range": [
+      "AS"
     ]
   }
 }

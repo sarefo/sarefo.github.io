@@ -13458,5 +13458,667 @@
     "range": [
       "SA"
     ]
+  },
+  "680": {
+    "setName": "Spotted dove vs Rock pigeon",
+    "level": "1",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      1455918,
+      3017
+    ],
+    "taxonNames": [
+      "Spilopelia chinensis",
+      "Columba livia"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "681": {
+    "setName": "Red vs Eurasian collared-dove",
+    "level": "2",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      2969,
+      2935
+    ],
+    "taxonNames": [
+      "Streptopelia decaocto",
+      "Streptopelia tranquebarica"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "682": {
+    "setName": "Eurasian collared-dove vs Oriental turtle-dove",
+    "level": "1",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      2927,
+      2969
+    ],
+    "taxonNames": [
+      "Streptopelia orientalis",
+      "Streptopelia decaocto"
+    ],
+    "range": [
+      "EU",
+      "AS"
+    ]
+  },
+  "683": {
+    "setName": "Oriental turtle-dove vs Spotted dove",
+    "level": "2",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      1455918,
+      2927
+    ],
+    "taxonNames": [
+      "Spilopelia chinensis",
+      "Streptopelia orientalis"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "684": {
+    "setName": "Spotted dove vs Asian emerald dove",
+    "level": "1",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      508097,
+      1455918
+    ],
+    "taxonNames": [
+      "Chalcophaps indica",
+      "Spilopelia chinensis"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "685": {
+    "setName": "Light-vented vs Red-whiskered bulbul",
+    "level": "2",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      14591,
+      14621
+    ],
+    "taxonNames": [
+      "Pycnonotus jocosus",
+      "Pycnonotus sinensis"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "686": {
+    "setName": "Red-whiskered vs Sooty-headed bulbul",
+    "level": "1",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      14591,
+      14626
+    ],
+    "taxonNames": [
+      "Pycnonotus jocosus",
+      "Pycnonotus aurigaster"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "687": {
+    "setName": "Sooty-headed vs Chestnut bulbul",
+    "level": "1",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      14684,
+      14626
+    ],
+    "taxonNames": [
+      "Hemixos castanonotus",
+      "Pycnonotus aurigaster"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "688": {
+    "setName": "White wagtail vs Black-collared starling",
+    "level": "1",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      145098,
+      13695
+    ],
+    "taxonNames": [
+      "Gracupica nigricollis",
+      "Motacilla alba"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "689": {
+    "setName": "White vs Grey wagtail",
+    "level": "1",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      13695,
+      13688
+    ],
+    "taxonNames": [
+      "Motacilla alba",
+      "Motacilla cinerea"
+    ],
+    "range": [
+      "EU",
+      "AS"
+    ]
+  },
+  "690": {
+    "setName": "Oriental magpie-robin vs Oriental magpie",
+    "level": "3",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      204491,
+      827401
+    ],
+    "taxonNames": [
+      "Copsychus saularis",
+      "Pica serica"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "691": {
+    "setName": "",
+    "level": "1",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      495200,
+      204491
+    ],
+    "taxonNames": [
+      "Urocissa erythroryncha",
+      "Copsychus saularis"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "692": {
+    "setName": "Crested vs Common myna",
+    "level": "1",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      14872,
+      204454
+    ],
+    "taxonNames": [
+      "Acridotheres cristatellus",
+      "Acridotheres tristis"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "693": {
+    "setName": "White-shouldered vs Red-billed starling",
+    "level": "1",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      145102,
+      547178
+    ],
+    "taxonNames": [
+      "Sturnia sinensis",
+      "Spodiopsar sericeus"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "694": {
+    "setName": "White-cheeked vs Red-billed starling",
+    "level": "1",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      547178,
+      547179
+    ],
+    "taxonNames": [
+      "Spodiopsar sericeus",
+      "Spodiopsar cineraceus"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "695": {
+    "setName": "Crested vs Great myna",
+    "level": "3",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      14872,
+      14870
+    ],
+    "taxonNames": [
+      "Acridotheres cristatellus",
+      "Acridotheres grandis"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "696": {
+    "setName": "",
+    "level": "2",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      5268,
+      5158
+    ],
+    "taxonNames": [
+      "Milvus migrans",
+      "Spilornis cheela"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "697": {
+    "setName": "Eastern buzzard vs Black kite",
+    "level": "2",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      5268,
+      486630
+    ],
+    "taxonNames": [
+      "Milvus migrans",
+      "Buteo japonicus"
+    ],
+    "range": [
+      "EU",
+      "AS"
+    ]
+  },
+  "698": {
+    "setName": "",
+    "level": "2",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      4981,
+      4990
+    ],
+    "taxonNames": [
+      "Nycticorax nycticorax",
+      "Ardeola bacchus"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "699": {
+    "setName": "",
+    "level": "3",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      4981,
+      62528
+    ],
+    "taxonNames": [
+      "Nycticorax nycticorax",
+      "Butorides striata"
+    ],
+    "range": [
+      "AF",
+      "OC",
+      "SA",
+      "AS",
+      "NA"
+    ]
+  },
+  "700": {
+    "setName": "",
+    "level": "1",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      1289400,
+      1289402
+    ],
+    "taxonNames": [
+      "Pterorhinus perspicillatus",
+      "Pterorhinus chinensis"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "701": {
+    "setName": "",
+    "level": "1",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      1289400,
+      14591
+    ],
+    "taxonNames": [
+      "Pterorhinus perspicillatus",
+      "Pycnonotus jocosus"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "702": {
+    "setName": "Great vs Medium egret",
+    "level": "3",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      144455,
+      558445
+    ],
+    "taxonNames": [
+      "Ardea alba",
+      "Ardea intermedia"
+    ],
+    "range": [
+      "OC",
+      "AS"
+    ]
+  },
+  "703": {
+    "setName": "Little vs Great egret",
+    "level": "3",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      144455,
+      4943
+    ],
+    "taxonNames": [
+      "Ardea alba",
+      "Egretta garzetta"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "OC",
+      "AS"
+    ]
+  },
+  "704": {
+    "setName": "Grey heron vs Great egret",
+    "level": "1",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      144455,
+      4954
+    ],
+    "taxonNames": [
+      "Ardea alba",
+      "Ardea cinerea"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
+    ]
+  },
+  "705": {
+    "setName": "Little egret vs Pacific reef heron",
+    "level": "1",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      4943,
+      4947
+    ],
+    "taxonNames": [
+      "Egretta garzetta",
+      "Egretta sacra"
+    ],
+    "range": [
+      "OC",
+      "AS"
+    ]
+  },
+  "706": {
+    "setName": "",
+    "level": "3",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      980257,
+      980262
+    ],
+    "taxonNames": [
+      "Zosterops simplex",
+      "Zosterops japonicus"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "707": {
+    "setName": "",
+    "level": "2",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      15347,
+      980257
+    ],
+    "taxonNames": [
+      "Orthotomus sutorius",
+      "Zosterops simplex"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "708": {
+    "setName": "",
+    "level": "3",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      68507,
+      73078
+    ],
+    "taxonNames": [
+      "Myophonus caeruleus",
+      "Myophonus insularis"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "709": {
+    "setName": "",
+    "level": "1",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      68507,
+      472778
+    ],
+    "taxonNames": [
+      "Myophonus caeruleus",
+      "Turdus mandarinus"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "710": {
+    "setName": "",
+    "level": "1",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      4943
+    ],
+    "taxonNames": [
+      "Himantopus himantopus",
+      "Egretta garzetta"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "OC",
+      "AS"
+    ]
+  },
+  "711": {
+    "setName": "Japanese vs Cinereous tit",
+    "level": "2",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      339692,
+      339691
+    ],
+    "taxonNames": [
+      "Parus minor",
+      "Parus cinereus"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "712": {
+    "setName": "Tit vs Laughingthrush",
+    "level": "1",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      339692,
+      1289402
+    ],
+    "taxonNames": [
+      "Parus minor",
+      "Pterorhinus chinensis"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "713": {
+    "setName": "Asian koel vs Crested myna",
+    "level": "1",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      204510,
+      14872
+    ],
+    "taxonNames": [
+      "Eudynamys scolopaceus",
+      "Acridotheres cristatellus"
+    ],
+    "range": [
+      "AS"
+    ]
   }
 }

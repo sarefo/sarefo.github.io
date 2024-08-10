@@ -164,6 +164,12 @@ def create_taxon_sets(new_taxon_file, taxon_sets_file, new_sets_file, input_file
 
     for taxon_set in taxon_sets:
         taxa_in_set = [taxon.strip() for taxon in taxon_set.split(',')]
+        
+        # Check if the set contains exactly two taxa
+        if len(taxa_in_set) != 2:
+            print(f"WARNING: Skipping set with incorrect number of taxa: {taxon_set}")
+            continue
+
         taxon_ids = []
         taxon_names = []
         set_range = set()
@@ -180,8 +186,11 @@ def create_taxon_sets(new_taxon_file, taxon_sets_file, new_sets_file, input_file
                 else:
                     # Intersect the current set_range with the new taxon's range
                     set_range = set_range.intersection(set(new_taxa[taxon_id]['range']))
+            else:
+                print(f"WARNING: Taxon '{taxon}' not found in new_taxa. Skipping this set.")
+                break
 
-        if not is_duplicate_set(taxon_ids, existing_sets) and not is_duplicate_set(taxon_ids, new_sets):
+        if len(taxon_ids) == 2 and not is_duplicate_set(taxon_ids, existing_sets) and not is_duplicate_set(taxon_ids, new_sets):
             new_set_id = str(last_set_id + 1)
             last_set_id += 1
             new_sets[new_set_id] = {
@@ -192,9 +201,12 @@ def create_taxon_sets(new_taxon_file, taxon_sets_file, new_sets_file, input_file
                 "taxonNames": taxon_names,
                 "range": list(set_range)  # Convert set back to list
             }
+        elif len(taxon_ids) != 2:
+            print(f"WARNING: Set {taxon_set} does not have exactly two valid taxa. Skipping.")
 
     save_data(new_sets, new_sets_file)
     print(f"New sets data written to {new_sets_file}")
+    print(f"Total new sets created: {len(new_sets)}")
 
 def is_duplicate_set(new_set, sets):
     new_set = set(new_set)
@@ -245,32 +257,49 @@ def update_main_files_without_metadata(taxon_info_file, taxon_sets_file, new_tax
     new_taxon_info = load_existing_data(new_taxon_file)
     new_taxon_sets = load_existing_data(new_sets_file)
 
-    # Append new data
+    # Check and log new taxon info
+    for taxon_id, taxon_data in new_taxon_info.items():
+        if 'taxonName' not in taxon_data or not taxon_data['taxonName']:
+            print(f"Warning: Missing or empty taxonName for taxon ID {taxon_id}")
+        else:
+            print(f"Adding/Updating taxon: {taxon_data['taxonName']} (ID: {taxon_id})")
+
+    # Update taxon_info
     taxon_info.update(new_taxon_info)
     
-    # Add new sets with level=0
+    # Check and log new taxon sets
     for set_id, set_data in new_taxon_sets.items():
-        set_data['level'] = 0
-        taxon_sets[set_id] = set_data
+        if 'taxonNames' not in set_data or not set_data['taxonNames']:
+            print(f"Warning: Missing or empty taxonNames for set ID {set_id}")
+        else:
+            print(f"Adding new set: {set_data['taxonNames']} (ID: {set_id})")
+        set_data['level'] = "0"  # Ensure level is set as a string
+
+    # Update taxon_sets
+    taxon_sets.update(new_taxon_sets)
 
     # Save updated data
     save_data(taxon_info, taxon_info_file)
     save_data(taxon_sets, taxon_sets_file)
     print(f"Files {taxon_info_file} and {taxon_sets_file} updated with new data (level=0 for new sets).")
 
+    # Print summary
+    print(f"Total taxa in updated file: {len(taxon_info)}")
+    print(f"Total sets in updated file: {len(taxon_sets)}")
+
 def update_set_metadata_in_main_file(taxon_sets_file):
     taxon_sets = load_existing_data(taxon_sets_file)
     
     print("Updating metadata for new taxon sets (level=0)...")
     for set_id, set_data in taxon_sets.items():
-        if set_data.get('level') == 0:
+        if set_data.get('level') == "0":
             print(f"\nSet {set_id}: {', '.join(set_data['taxonNames'])}")
             
             # Update level
             while True:
                 level = input("Enter level (1-3): ")
                 if level.isdigit() and 1 <= int(level) <= 3:
-                    set_data['level'] = int(level)
+                    set_data['level'] = level
                     break
                 else:
                     print("Invalid input. Please enter a number between 1 and 3.")
@@ -286,79 +315,6 @@ def update_set_metadata_in_main_file(taxon_sets_file):
     
     save_data(taxon_sets, taxon_sets_file)
     print(f"Updated metadata saved to {taxon_sets_file}")
-
-def update_hierarchy(taxon_info_file, taxon_hierarchy_file):
-    # Backup old file
-    shutil.move(taxon_hierarchy_file, f"{taxon_hierarchy_file}.old")
-    print(f"Old {taxon_hierarchy_file} backed up with .old extension.")
-
-    # Load existing data
-    current_hierarchy = load_existing_data(f"{taxon_hierarchy_file}.old")
-    taxon_info = load_existing_data(taxon_info_file)
-    
-    # Create a new hierarchy dictionary
-    updated_hierarchy = {}
-    
-    # First, copy all existing taxa from current_hierarchy
-    for id, info in current_hierarchy.items():
-        updated_hierarchy[id] = {
-            "taxonName": info["taxonName"],
-            "vernacularName": info["vernacularName"],
-            "rank": info["rank"],
-            "parentId": info["parentId"]
-        }
-    
-    # Ensure the root "Life" taxon exists
-    if "48460" not in updated_hierarchy:
-        updated_hierarchy["48460"] = {
-            "taxonName": "Life",
-            "vernacularName": "n/a",
-            "rank": "Stateofmatter",
-            "parentId": None
-        }
-    
-    # Now, process taxon_info to add new taxa and update existing ones
-    for taxon_id, taxon_data in taxon_info.items():
-        ancestry_ids = taxon_data["ancestryIds"]
-        
-        for i, current_id in enumerate(ancestry_ids):
-            current_id = str(current_id)
-            
-            # If this taxon isn't in our hierarchy yet, add it
-            if current_id not in updated_hierarchy:
-                # Fetch details from iNat API
-                taxon_details = fetch_taxon_by_id(current_id)
-                if taxon_details:
-                    updated_hierarchy[current_id] = taxon_details
-                else:
-                    print(f"  Unable to fetch details for taxon ID: {current_id}. Using placeholder data.")
-                    updated_hierarchy[current_id] = {
-                        "taxonName": "Unknown",
-                        "vernacularName": "n/a",
-                        "rank": "Unknown",
-                        "parentId": None
-                    }
-                sleep(0.5)  # To avoid hitting API rate limits
-            
-            # Set the parentId
-            if current_id == "1":  # Animalia
-                parent_id = "48460"  # Life
-            elif i > 0:
-                parent_id = str(ancestry_ids[i-1])
-            else:
-                parent_id = None
-            
-            updated_hierarchy[current_id]["parentId"] = parent_id
-            
-            # If this is the last ID in the ancestry, it's the taxon itself
-            if i == len(ancestry_ids) - 1:
-                updated_hierarchy[current_id]["taxonName"] = taxon_data["taxonName"]
-                updated_hierarchy[current_id]["vernacularName"] = taxon_data.get("vernacularName", "n/a")
-                updated_hierarchy[current_id]["rank"] = taxon_data["rank"]
-    
-    # Save the updated hierarchy
-    save_data(updated_hierarchy, taxon_hierarchy_file)
-    print(f"Updated hierarchy saved to {taxon_hierarchy_file}")
 
 def main():
     input_file = "1newTaxonInputSets.txt"
