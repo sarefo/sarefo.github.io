@@ -2,7 +2,7 @@ Please give me a JSON object with entries for all taxa at the end of this prompt
 
 Each entry should have three interesting and true short infos on the taxon. Each info should not be longer than twelve words or so.
 
-Don't provide common names (such as "known as" or similar), as these are covered elsewhere. If you have some really interesting trivia, which a general lay person would find engaging, include it. Don't be too technical, this is to engage an interested lay audience.
+Don't include common names (such as "known as" or similar), as these are covered elsewhere. If you have some really interesting trivia, which a general lay person would find engaging, include it. Don't be too technical, this is to engage an interested lay audience. Don't focus on visual characteristics, these are also covered elsewhere.
 
 Also add the "range" entry where the members of the taxon live, using the initals NA, SA, AF, EU, AS and OC for north america, south america, africa europe, asia and oceania, respectively.  Don't use any other abbreviations! Make sure you use quotes like this "AF". And don't use abbreviations in the taxonFacts.
 

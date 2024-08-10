@@ -231,15 +231,15 @@ def update_set_metadata(new_sets_file):
     save_data(new_sets, new_sets_file)
     print(f"Updated metadata saved to {new_sets_file}")
 
-def update_main_files(taxon_info_file, taxon_sets_file, new_taxon_file, new_sets_file):
+def update_main_files_without_metadata(taxon_info_file, taxon_sets_file, new_taxon_file, new_sets_file):
     # Backup old files
-    shutil.move(taxon_info_file, f"{taxon_info_file}.old")
-    shutil.move(taxon_sets_file, f"{taxon_sets_file}.old")
-    print("Old files backed up with .old extension.")
+    shutil.copy(taxon_info_file, f"{taxon_info_file}.bak")
+    shutil.copy(taxon_sets_file, f"{taxon_sets_file}.bak")
+    print("Old files backed up with .bak extension.")
 
     # Load existing data
-    taxon_info = load_existing_data(f"{taxon_info_file}.old")
-    taxon_sets = load_existing_data(f"{taxon_sets_file}.old")
+    taxon_info = load_existing_data(taxon_info_file)
+    taxon_sets = load_existing_data(taxon_sets_file)
 
     # Load new data
     new_taxon_info = load_existing_data(new_taxon_file)
@@ -247,12 +247,45 @@ def update_main_files(taxon_info_file, taxon_sets_file, new_taxon_file, new_sets
 
     # Append new data
     taxon_info.update(new_taxon_info)
-    taxon_sets.update(new_taxon_sets)
+    
+    # Add new sets with level=0
+    for set_id, set_data in new_taxon_sets.items():
+        set_data['level'] = 0
+        taxon_sets[set_id] = set_data
 
     # Save updated data
     save_data(taxon_info, taxon_info_file)
     save_data(taxon_sets, taxon_sets_file)
-    print(f"Files {taxon_info_file} and {taxon_sets_file} updated with new data.")
+    print(f"Files {taxon_info_file} and {taxon_sets_file} updated with new data (level=0 for new sets).")
+
+def update_set_metadata_in_main_file(taxon_sets_file):
+    taxon_sets = load_existing_data(taxon_sets_file)
+    
+    print("Updating metadata for new taxon sets (level=0)...")
+    for set_id, set_data in taxon_sets.items():
+        if set_data.get('level') == 0:
+            print(f"\nSet {set_id}: {', '.join(set_data['taxonNames'])}")
+            
+            # Update level
+            while True:
+                level = input("Enter level (1-3): ")
+                if level.isdigit() and 1 <= int(level) <= 3:
+                    set_data['level'] = int(level)
+                    break
+                else:
+                    print("Invalid input. Please enter a number between 1 and 3.")
+            
+            # Update tags
+            tags = input("Enter tags (comma-separated, or press Enter for no tags): ").strip()
+            set_data['tags'] = [tag.strip() for tag in tags.split(',')] if tags else []
+            
+            # Update set name
+            set_name = input("Enter a name for this set (or press Enter to skip): ").strip()
+            if set_name:
+                set_data['setName'] = set_name
+    
+    save_data(taxon_sets, taxon_sets_file)
+    print(f"Updated metadata saved to {taxon_sets_file}")
 
 def update_hierarchy(taxon_info_file, taxon_hierarchy_file):
     # Backup old file
@@ -344,8 +377,8 @@ def main():
         print("1. Process taxa from input file")
         print("2. Merge Perplexity data")
         print("3. Create taxon sets")
-        print("4. Update set metadata")
-        print("5. Update main files")
+        print("4. Update main files without metadata")
+        print("5. Update set metadata in main file")
         print("6. Update taxon hierarchy")
 
         choice = input("Enter your choice (0-6): ")
@@ -360,9 +393,9 @@ def main():
         elif choice == '3':
             create_taxon_sets(merged_taxon_file, taxon_sets_file, new_sets_file, input_file)
         elif choice == '4':
-            update_set_metadata(new_sets_file)
+            update_main_files_without_metadata(taxon_info_file, taxon_sets_file, merged_taxon_file, new_sets_file)
         elif choice == '5':
-            update_main_files(taxon_info_file, taxon_sets_file, merged_taxon_file, new_sets_file)
+            update_set_metadata_in_main_file(taxon_sets_file)
         elif choice == '6':
             update_hierarchy(taxon_info_file, taxon_hierarchy_file)
         elif choice == '0':
@@ -371,4 +404,4 @@ def main():
             print("Invalid choice. Please try again.")
 
 if __name__ == "__main__":
-    main() 
+    main()
