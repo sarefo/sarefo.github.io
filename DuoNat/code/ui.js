@@ -388,9 +388,14 @@ const ui = {
     showTutorial: function () {
         const steps = [
             { message: "Welcome to DuoNat!<br>Let's learn how to play.", highlight: null, duration: 4000 },
-            { message: "You'll see two images of different taxa.", highlights: ['#image-container-1', '#image-container-2'], duration: 5000 },
-            { message: "Drag a name to the correct image.", highlight: '.name-pair', duration: 5000 },
-            { message: "If correct, you'll move to the next round.", highlight: null, duration: 4000 },
+            { message: "Learn to distinguish two different taxa.", highlights: ['#image-container-1', '#image-container-2'], duration: 5000 },
+            { 
+                message: "Drag a name to the correct image.",
+                highlight: '.name-pair',
+                duration: 5000,
+                action: () => this.animateDragDemo()
+            },
+            { message: "If correct, play another round of the same set.", highlight: null, duration: 4000 },
             {
                 message: "Swipe left on an image for a new taxon set.",
                 highlight: null,
@@ -398,9 +403,9 @@ const ui = {
                 duration: 6000
             },
             { message: "Get more info about a taxon.", highlights: ['#info-button-1', '#info-button-2'], duration: 6000 },
-            { message: "Share the current pair and collection.", highlight: '#share-button', duration: 6000 },
+            { message: "Share the current set and collection.", highlight: '#share-button', duration: 6000 },
             { message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => this.temporarilyOpenMenu(12000), duration: 6000 },
-            { message: "Set difficulty, range or tags here.", highlights: ['#level-indicator', '#select-set-button'], duration: 5000 },
+            { message: "Change difficulty, range or tags.", highlights: ['#level-indicator', '#select-set-button'], duration: 5000 },
             { message: "Ready to start?<br>Let's go!", highlight: null, duration: 2000 }
         ];
 
@@ -485,6 +490,46 @@ const ui = {
         setTimeout(() => {
             this.closeMainMenu(); // Close the menu after the specified duration
         }, duration);
+    },
+
+    animateDragDemo: function() {
+        return new Promise((resolve) => {
+            const leftName = document.getElementById('left-name');
+            const rightName = document.getElementById('right-name');
+            const drop1 = document.getElementById('drop-1');
+            const drop2 = document.getElementById('drop-2');
+
+            // Store original positions
+            const leftOriginalPos = leftName.getBoundingClientRect();
+            const rightOriginalPos = rightName.getBoundingClientRect();
+
+            // Function to animate an element
+            const animate = (element, target, duration) => {
+                const start = element.getBoundingClientRect();
+                const diffX = target.left - start.left;
+                const diffY = target.top - start.top;
+
+                element.style.transition = `transform ${duration}ms ease-in-out`;
+                element.style.transform = `translate(${diffX}px, ${diffY}px)`;
+
+                return new Promise(resolve => setTimeout(resolve, duration));
+            };
+
+            // Sequence of animations
+            Promise.resolve()
+                .then(() => animate(leftName, drop1.getBoundingClientRect(), 1000))
+                .then(() => animate(rightName, drop2.getBoundingClientRect(), 1000))
+                .then(() => new Promise(resolve => setTimeout(resolve, 1000))) // Pause
+                .then(() => {
+                    leftName.style.transition = rightName.style.transition = 'transform 500ms ease-in-out';
+                    leftName.style.transform = rightName.style.transform = '';
+                })
+                .then(() => new Promise(resolve => setTimeout(resolve, 500)))
+                .then(() => {
+                    leftName.style.transition = rightName.style.transition = '';
+                    resolve();
+                });
+        });
     },
 
     // for tutorial demo
