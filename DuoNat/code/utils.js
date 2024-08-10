@@ -36,6 +36,7 @@ const utils = {
 
     shareCurrentPair: function () {
         let currentUrl = new URL(window.location.href);
+
         currentUrl.searchParams.delete('taxon1');
         currentUrl.searchParams.delete('taxon2');
         currentUrl.searchParams.delete('tags');
@@ -71,19 +72,25 @@ const utils = {
         navigator.clipboard.writeText(shareUrl).then(() => {
             logger.info('Share URL copied to clipboard');
 
-            // Generate QR code
-            const qrCodeContainer = document.getElementById('qr-container');
-            qrCodeContainer.innerHTML = ''; // Clear previous QR code
-            new QRCode(qrCodeContainer, {
-                text: shareUrl,
-                width: 256,
-                height: 256
-            });
+            // Load QR code script if not already loaded
+            loadQRCodeScript().then(() => {
+                // Generate QR code
+                const qrCodeContainer = document.getElementById('qr-container');
+                qrCodeContainer.innerHTML = ''; // Clear previous QR code
+                new QRCode(qrCodeContainer, {
+                    text: shareUrl,
+                    width: 256,
+                    height: 256
+                });
 
-            // Open the QR code dialog
-            dialogManager.openDialog('qr-dialog');
+                // Open the QR code dialog
+                dialogManager.openDialog('qr-dialog');
+            }).catch(err => {
+                logger.error('Failed to load QR code script:', err);
+                alert('Failed to generate QR code. Please try again.');
+            });
         }).catch(err => {
-            logger.error('Failed to copy: ', err);
+            logger.error('Failed to copy:', err);
             alert('Failed to copy link. Please try again.');
         });
     },
