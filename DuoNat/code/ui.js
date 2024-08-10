@@ -205,7 +205,7 @@ const ui = {
                                      gameState.selectedTags.length > 0;
 
             if (hasActiveFilters) {
-                noResultsMessage.innerHTML = 'No matching sets found.<br><span class="filter-warning">You have active filters. Try clearing some filters on top of this dialog to see more results.</span>';
+                noResultsMessage.innerHTML = 'No matching sets found.<br><span class="filter-warning">You have active filters. Try clearing some filters at the top of this dialog to see more results.</span>';
             } else {
                 noResultsMessage.textContent = 'No matching sets found.';
             }
