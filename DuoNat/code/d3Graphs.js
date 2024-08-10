@@ -108,6 +108,7 @@ export async function createRadialTree(container, rootNode) {
             .style('fill-opacity', 1e-6);
 
         // Update the nodes
+
         const nodeUpdate = nodeEnter.merge(node);
 
         nodeUpdate.transition()
@@ -122,8 +123,8 @@ export async function createRadialTree(container, rootNode) {
         nodeUpdate.select('text')
             .style('fill-opacity', 1)
             .attr('transform', function(d) {
-                if (d === centerNode) {
-                    return `translate(0,-12)`;
+                if (d === centerNode || d === activeNode) {
+                    return `translate(0,-15)`;
                 }
                 const angle = (d.x < Math.PI ? d.x - Math.PI / 2 : d.x + Math.PI / 2) * 180 / Math.PI;
                 const rotation = angle > 90 && angle < 270 ? 180 : 0;
@@ -132,8 +133,8 @@ export async function createRadialTree(container, rootNode) {
                 const x = (textAnchor === "start" ? labelPadding : -labelPadding);
                 return `rotate(${angle}) translate(${x},0) rotate(${rotation})`;
             })
-            .attr('text-anchor', d => (d === centerNode) ? 'middle' : (d.x < Math.PI ? 'start' : 'end'))
-            .attr('dy', d => (d === centerNode) ? '-0.5em' : '.31em')
+            .attr('text-anchor', d => (d === centerNode || d === activeNode) ? 'middle' : (d.x < Math.PI ? 'start' : 'end'))
+            .attr('dy', d => (d === centerNode || d === activeNode) ? '-0.5em' : '.31em')
             .attr('dx', 0)
             .style('font-weight', d => (d === centerNode || d === activeNode) ? 'bold' : 'normal')
             .style('fill', d => {
@@ -142,7 +143,7 @@ export async function createRadialTree(container, rootNode) {
                 return 'black';
             });
 
-        // Remove any exiting nodes
+         // Remove any exiting nodes
         const nodeExit = node.exit().transition()
             .duration(duration)
             .attr('transform', d => `translate(${radialPoint(source.x, source.y)})`)
