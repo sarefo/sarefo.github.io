@@ -74,10 +74,11 @@ def save_data(data, file_path):
 def clear_file(file_path):
     open(file_path, 'w').close()
 
-def process_taxa(input_file, new_taxon_file):
+def process_taxa(input_file, new_taxon_file, perplexity_file):
     clear_file(new_taxon_file)
     new_taxa = {}
     taxon_names_list = []
+    processed_taxa = set()  # New set to keep track of processed taxa
 
     with open(input_file, 'r') as f:
         taxon_sets = f.read().splitlines()
@@ -86,26 +87,29 @@ def process_taxa(input_file, new_taxon_file):
     for taxon_set in taxon_sets:
         taxa_in_set = [taxon.strip() for taxon in taxon_set.split(',')]
         for taxon in taxa_in_set:
-            print(f"Processing: {taxon}")
-            taxon_details = fetch_taxon_details(taxon)
-            if taxon_details:
-                taxon_id = str(taxon_details['id'])
-                if taxon_id not in new_taxa:
-                    ancestry = fetch_ancestry(taxon_id)
-                    
-                    new_taxa[taxon_id] = {
-                        "taxonName": taxon_details['taxonName'],
-                        "vernacularName": taxon_details['vernacularName'],
-                        "ancestryIds": [ancestor['id'] for ancestor in ancestry] + [int(taxon_id)],
-                        "rank": taxon_details['rank'],
-                        "taxonFacts": [],
-                        "range": []
-                    }
-                    taxon_names_list.append(taxon_details['taxonName'])
-                else:
-                    print(f"Taxon {taxon} (ID: {taxon_id}) already exists in the database.")
-            
-            sleep(1)  # To avoid hitting API rate limits
+            if taxon not in processed_taxa:  # Check if taxon has already been processed
+#                print(f"Processing: {taxon}")
+                taxon_details = fetch_taxon_details(taxon)
+                if taxon_details:
+                    taxon_id = str(taxon_details['id'])
+                    if taxon_id not in new_taxa:
+                        ancestry = fetch_ancestry(taxon_id)
+                        
+                        new_taxa[taxon_id] = {
+                            "taxonName": taxon_details['taxonName'],
+                            "vernacularName": taxon_details['vernacularName'],
+                            "ancestryIds": [ancestor['id'] for ancestor in ancestry] + [int(taxon_id)],
+                            "rank": taxon_details['rank'],
+                            "taxonFacts": [],
+                            "range": []
+                        }
+                        taxon_names_list.append(taxon_details['taxonName'])
+                    else:
+                        print(f"Taxon {taxon} (ID: {taxon_id}) already exists in the database.")
+                processed_taxa.add(taxon)  # Add taxon to processed set
+                sleep(1)  # To avoid hitting API rate limits
+            else:
+                print(f"Taxon {taxon} has already been processed. Skipping.")
 
     save_data(new_taxa, new_taxon_file)
     print(f"\nNew taxa data written to {new_taxon_file}")
@@ -119,7 +123,6 @@ def process_taxa(input_file, new_taxon_file):
         print("perplexityPrompt.txt not found. Skipping prompt output.")
 
     # Output list of taxon names
-#    print("\nList of taxon names for Perplexity:")
     for name in taxon_names_list:
         print(name)
     clear_file(perplexity_file)
@@ -348,7 +351,7 @@ def main():
         choice = input("Enter your choice (0-6): ")
 
         if choice == '1':
-            process_taxa(input_file, new_taxon_file)
+            process_taxa(input_file, new_taxon_file, perplexity_file)
         elif choice == '2':
             if os.path.exists(perplexity_file):
                 merge_perplexity_data(new_taxon_file, perplexity_file, merged_taxon_file)

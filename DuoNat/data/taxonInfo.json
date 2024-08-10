@@ -35406,5 +35406,182 @@
     "range": [
       "OC"
     ]
+  },
+  "81542": {
+    "taxonName": "Camelus dromedarius",
+    "vernacularName": "Dromedary camel",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      152870,
+      925150,
+      42231,
+      1317268,
+      846209,
+      42232,
+      81542
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Domesticated about 4,000 years ago.",
+      "Can drink 100 liters of water quickly.",
+      "Stores fat in its hump, not water."
+    ],
+    "range": [
+      "AF",
+      "AS",
+      "OC"
+    ]
+  },
+  "524409": {
+    "taxonName": "Camelus bactrianus",
+    "vernacularName": "Domestic bactrian camel",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      152870,
+      925150,
+      42231,
+      1317268,
+      846209,
+      42232,
+      524409
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Has two humps for fat storage.",
+      "Adapted to cold desert climates.",
+      "Domesticated over 4,000 years ago."
+    ],
+    "range": [
+      "AS",
+      "AF"
+    ]
+  },
+  "42240": {
+    "taxonName": "Lama guanicoe",
+    "vernacularName": "Guanaco",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      152870,
+      925150,
+      42231,
+      1317268,
+      846262,
+      42237,
+      42240
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Wild ancestor of domestic llamas.",
+      "Primarily grazes on grasses and shrubs.",
+      "Has a thick coat for cold climates."
+    ],
+    "range": [
+      "SA"
+    ]
+  },
+  "42236": {
+    "taxonName": "Vicugna vicugna",
+    "vernacularName": "Vicu\u00f1a",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      152870,
+      925150,
+      42231,
+      1317268,
+      846262,
+      42235,
+      42236
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Produces highly valued alpaca wool.",
+      "Lives in high-altitude Andean regions.",
+      "Social animals that form family groups."
+    ],
+    "range": [
+      "SA"
+    ]
+  },
+  "121026": {
+    "taxonName": "Lama glama",
+    "vernacularName": "Llama",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      152870,
+      925150,
+      42231,
+      1317268,
+      846262,
+      42237,
+      121026
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Domesticated for wool and pack purposes.",
+      "Can spit when threatened or annoyed.",
+      "Very social and intelligent animals."
+    ],
+    "range": [
+      "SA"
+    ]
+  },
+  "119406": {
+    "taxonName": "Vicugna pacos",
+    "vernacularName": "Alpaca",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      152870,
+      925150,
+      42231,
+      1317268,
+      846262,
+      42235,
+      119406
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Domesticated version of the vicu\u00f1a.",
+      "Wool is softer than sheep wool.",
+      "Primarily found in Andean regions."
+    ],
+    "range": [
+      "SA"
+    ]
   }
 }

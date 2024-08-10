@@ -13276,7 +13276,9 @@
   "670": {
     "setName": "Cassowaries vs Turkeys",
     "level": "1",
-    "tags": ["birds"],
+    "tags": [
+      "birds"
+    ],
     "taxa": [
       20498,
       905
@@ -13290,7 +13292,10 @@
   "671": {
     "setName": "Dormice vs Mice",
     "level": "2",
-    "tags": ["mammals","rodents"],
+    "tags": [
+      "mammals",
+      "rodents"
+    ],
     "taxa": [
       71385,
       44185
@@ -13308,7 +13313,10 @@
   "672": {
     "setName": "Colugos vs Flying squirrels",
     "level": "2",
-    "tags": ["mammals","rodents"],
+    "tags": [
+      "mammals",
+      "rodents"
+    ],
     "taxa": [
       42536,
       339576
@@ -13324,7 +13332,10 @@
   "673": {
     "setName": "Flying squirrels vs. Wrist-wringed gliders",
     "level": "2",
-    "tags": ["mammals","rodents"],
+    "tags": [
+      "mammals",
+      "rodents"
+    ],
     "taxa": [
       42719,
       339576
@@ -13338,7 +13349,10 @@
   "674": {
     "setName": "Colugos vs Fruit bats",
     "level": "2",
-    "tags": ["mammals","bats"],
+    "tags": [
+      "mammals",
+      "bats"
+    ],
     "taxa": [
       42536,
       1317244
@@ -13348,5 +13362,101 @@
       "Pteropodoidea"
     ],
     "range": []
+  },
+  "675": {
+    "setName": "Dromedaries vs Bactrian camels",
+    "level": "1",
+    "tags": [
+      "mammals",
+      "ungulates"
+    ],
+    "taxa": [
+      81542,
+      524409
+    ],
+    "taxonNames": [
+      "Camelus dromedarius",
+      "Camelus bactrianus"
+    ],
+    "range": [
+      "AF",
+      "AS"
+    ]
+  },
+  "676": {
+    "setName": "Guanacos vs Vicu\u00f1as",
+    "level": "2",
+    "tags": [
+      "mammals",
+      "ungulates"
+    ],
+    "taxa": [
+      42240,
+      42236
+    ],
+    "taxonNames": [
+      "Lama guanicoe",
+      "Vicugna vicugna"
+    ],
+    "range": [
+      "SA"
+    ]
+  },
+  "677": {
+    "setName": "Llamas vs Alpacas",
+    "level": "2",
+    "tags": [
+      "mammals",
+      "ungulates"
+    ],
+    "taxa": [
+      121026,
+      119406
+    ],
+    "taxonNames": [
+      "Lama glama",
+      "Vicugna pacos"
+    ],
+    "range": [
+      "SA"
+    ]
+  },
+  "678": {
+    "setName": "Guanacos vs Llamas",
+    "level": "3",
+    "tags": [
+      "mammals",
+      "ungulates"
+    ],
+    "taxa": [
+      42240,
+      121026
+    ],
+    "taxonNames": [
+      "Lama guanicoe",
+      "Lama glama"
+    ],
+    "range": [
+      "SA"
+    ]
+  },
+  "679": {
+    "setName": "Vicu\u00f1as vs Alpacas",
+    "level": "3",
+    "tags": [
+      "mammals",
+      "ungulates"
+    ],
+    "taxa": [
+      42236,
+      119406
+    ],
+    "taxonNames": [
+      "Vicugna vicugna",
+      "Vicugna pacos"
+    ],
+    "range": [
+      "SA"
+    ]
   }
 }

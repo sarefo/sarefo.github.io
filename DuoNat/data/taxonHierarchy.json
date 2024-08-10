@@ -17518,5 +17518,89 @@
     "vernacularName": "Wrist-winged gliders",
     "rank": "Genus",
     "parentId": "846276"
+  },
+  "925150": {
+    "taxonName": "Tylopoda",
+    "vernacularName": "Tylopodans",
+    "rank": "Suborder",
+    "parentId": "152870"
+  },
+  "42231": {
+    "taxonName": "Camelidae",
+    "vernacularName": "Camelids",
+    "rank": "Family",
+    "parentId": "925150"
+  },
+  "1317268": {
+    "taxonName": "Camelinae",
+    "vernacularName": "Camelines",
+    "rank": "Subfamily",
+    "parentId": "42231"
+  },
+  "846209": {
+    "taxonName": "Camelini",
+    "vernacularName": "Camels",
+    "rank": "Tribe",
+    "parentId": "1317268"
+  },
+  "42232": {
+    "taxonName": "Camelus",
+    "vernacularName": "Camels",
+    "rank": "Genus",
+    "parentId": "846209"
+  },
+  "81542": {
+    "taxonName": "Camelus dromedarius",
+    "vernacularName": "Dromedary camel",
+    "rank": "Species",
+    "parentId": "42232"
+  },
+  "524409": {
+    "taxonName": "Camelus bactrianus",
+    "vernacularName": "Domestic bactrian camel",
+    "rank": "Species",
+    "parentId": "42232"
+  },
+  "846262": {
+    "taxonName": "Lamini",
+    "vernacularName": "New world camelids",
+    "rank": "Tribe",
+    "parentId": "1317268"
+  },
+  "42237": {
+    "taxonName": "Lama",
+    "vernacularName": "Llamas and guanacos",
+    "rank": "Genus",
+    "parentId": "846262"
+  },
+  "42240": {
+    "taxonName": "Lama guanicoe",
+    "vernacularName": "Guanaco",
+    "rank": "Species",
+    "parentId": "42237"
+  },
+  "42235": {
+    "taxonName": "Vicugna",
+    "vernacularName": "Vicu\u00f1as and alpacas",
+    "rank": "Genus",
+    "parentId": "846262"
+  },
+  "42236": {
+    "taxonName": "Vicugna vicugna",
+    "vernacularName": "Vicu\u00f1a",
+    "rank": "Species",
+    "parentId": "42235"
+  },
+  "121026": {
+    "taxonName": "Lama glama",
+    "vernacularName": "Llama",
+    "rank": "Species",
+    "parentId": "42237"
+  },
+  "119406": {
+    "taxonName": "Vicugna pacos",
+    "vernacularName": "Alpaca",
+    "rank": "Species",
+    "parentId": "42235"
   }
 }
