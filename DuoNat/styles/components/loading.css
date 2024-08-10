@@ -23,6 +23,15 @@
     margin-bottom: 20px;
 }
 
+.loading-screen__logo {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.loading-screen__logo.fade-in {
+    opacity: 1;
+}
+
 .loading-screen__title {
     font-size: 2.5em;
     margin-bottom: 10px;

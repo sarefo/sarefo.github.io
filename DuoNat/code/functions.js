@@ -60,6 +60,7 @@ import utils from './utils.js';
         }
 
         dialogManager.initializeDialogs();
+        dialogManager.initializeEnterSetDialog();
         gameSetup.setupGame(true, urlParams);
         eventHandlers.initialize();
         ui.initialize();

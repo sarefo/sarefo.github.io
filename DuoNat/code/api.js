@@ -74,14 +74,20 @@ const api = (() => {
         // for user input of new taxon pairs
         validateTaxon: async function (taxonName) {
             try {
+                if (!taxonName || typeof taxonName !== 'string') {
+                    logger.error(`Invalid taxon name: ${taxonName}`);
+                    return null;
+                }
                 const response = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${encodeURIComponent(taxonName)}`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
+                logger.debug(`API response for ${taxonName}:`, data);
                 return data.results.length > 0 ? data.results[0] : null;
             } catch (error) {
-                handleApiError(error, 'validateTaxon');
+                logger.error('Error in validateTaxon:', error);
+                return null;
             }
         },
 

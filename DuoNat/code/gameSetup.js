@@ -100,50 +100,52 @@ const gameSetup = {
     async initializeNewPair(urlParams = {}) {
         let newPair, imageOneURL, imageTwoURL;
 
-        const filters = {
-            level: urlParams.level || gameState.selectedLevel,
-            ranges: urlParams.ranges ? urlParams.ranges.split(',') : gameState.selectedRanges,
-            tags: urlParams.tags ? urlParams.tags.split(',') : gameState.selectedTags
-        };
-
-        const filteredPairs = await utils.getFilteredTaxonPairs(filters);
-
-        // Use game.nextSelectedPair if available
+        // Check if there's a user-entered pair first
         if (game.nextSelectedPair) {
             newPair = game.nextSelectedPair;
             game.nextSelectedPair = null; // Clear the selected pair after using it
-            logger.debug(`Using selected pair: ${newPair.taxon1} / ${newPair.taxon2}`);
-        } else if (urlParams.setID) {
-            newPair = filteredPairs.find(pair => pair.setID === urlParams.setID);
-            if (newPair) {
-                logger.debug(`Found pair with setID: ${urlParams.setID}`);
-            } else {
-                logger.warn(`SetID ${urlParams.setID} not found in filtered collection. Selecting random pair.`);
-            }
-        } else if (urlParams.taxon1 && urlParams.taxon2) {
-            newPair = filteredPairs.find(pair =>
-                (pair.taxonNames[0] === urlParams.taxon1 && pair.taxonNames[1] === urlParams.taxon2) ||
-                (pair.taxonNames[0] === urlParams.taxon2 && pair.taxonNames[1] === urlParams.taxon1)
-            );
-            if (newPair) {
-                logger.debug(`Found pair with taxa: ${urlParams.taxon1} and ${urlParams.taxon2}`);
-            } else {
-                logger.warn(`Taxa ${urlParams.taxon1} and ${urlParams.taxon2} not found in filtered collection. Selecting random pair.`);
-            }
-        }
+            logger.debug(`Using user-entered pair: ${newPair.taxon1} / ${newPair.taxon2}`);
+        } else {
+            const filters = {
+                level: urlParams.level || gameState.selectedLevel,
+                ranges: urlParams.ranges ? urlParams.ranges.split(',') : gameState.selectedRanges,
+                tags: urlParams.tags ? urlParams.tags.split(',') : gameState.selectedTags
+            };
 
-        if (!newPair) {
-            if (filteredPairs.length > 0) {
-                newPair = filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
-                logger.debug("Selected random pair from filtered collection");
-            } else {
-                throw new Error("No pairs available in the current filtered collection");
+            const filteredPairs = await utils.getFilteredTaxonPairs(filters);
+
+            if (urlParams.setID) {
+                newPair = filteredPairs.find(pair => pair.setID === urlParams.setID);
+                if (newPair) {
+                    logger.debug(`Found pair with setID: ${urlParams.setID}`);
+                } else {
+                    logger.warn(`SetID ${urlParams.setID} not found in filtered collection. Selecting random pair.`);
+                }
+            } else if (urlParams.taxon1 && urlParams.taxon2) {
+                newPair = filteredPairs.find(pair =>
+                    (pair.taxonNames[0] === urlParams.taxon1 && pair.taxonNames[1] === urlParams.taxon2) ||
+                    (pair.taxonNames[0] === urlParams.taxon2 && pair.taxonNames[1] === urlParams.taxon1)
+                );
+                if (newPair) {
+                    logger.debug(`Found pair with taxa: ${urlParams.taxon1} and ${urlParams.taxon2}`);
+                } else {
+                    logger.warn(`Taxa ${urlParams.taxon1} and ${urlParams.taxon2} not found in filtered collection. Selecting random pair.`);
+                }
+            }
+
+            if (!newPair) {
+                if (filteredPairs.length > 0) {
+                    newPair = filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
+                    logger.debug("Selected random pair from filtered collection");
+                } else {
+                    throw new Error("No pairs available in the current filtered collection");
+                }
             }
         }
 
         [imageOneURL, imageTwoURL] = await Promise.all([
-            api.fetchRandomImageMetadata(newPair.taxonNames[0]),
-            api.fetchRandomImageMetadata(newPair.taxonNames[1])
+            api.fetchRandomImageMetadata(newPair.taxon1 || newPair.taxonNames[0]),
+            api.fetchRandomImageMetadata(newPair.taxon2 || newPair.taxonNames[1])
         ]);
 
         updateGameState({
@@ -151,7 +153,7 @@ const gameSetup = {
                 pair: newPair,
                 imageOneURL,
                 imageTwoURL,
-                level: newPair.level
+                level: newPair.level || '1' // Default to level 1 if not specified
             },
             usedImages: {
                 taxon1: new Set([imageOneURL]),
@@ -161,7 +163,7 @@ const gameSetup = {
         });
 
         // Update the skill level indicator
-        gameUI.updateLevelIndicator(newPair.level);
+        gameUI.updateLevelIndicator(newPair.level || '1');
 
         await this.setupRound(true);
     },

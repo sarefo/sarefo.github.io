@@ -2,6 +2,7 @@ import api from './api.js';
 import config from './config.js';
 import eventHandlers from './eventHandlers.js';
 import game from './game.js';
+import gameSetup from './gameSetup.js';
 import gameLogic from './gameLogic.js';
 import logger from './logger.js';
 import { gameState, updateGameState } from './state.js';
@@ -542,6 +543,121 @@ const dialogManager = {
             'other': 'Something else is wrong'
         };
         return typeMap[type] || type;
+    },
+
+    initializeEnterSetDialog() {
+        logger.debug('Initializing Enter Set Dialog');
+        const dialog = document.getElementById('enter-set-dialog');
+        const form = dialog.querySelector('form');
+        const taxon1Input = document.getElementById('taxon1');
+        const taxon2Input = document.getElementById('taxon2');
+        const submitButton = document.getElementById('submit-dialog');
+        const dialogMessage = document.getElementById('dialog-message');
+
+        if (!form || !taxon1Input || !taxon2Input || !submitButton || !dialogMessage) {
+            logger.error('One or more elements not found in Enter Set Dialog');
+            return;
+        }
+
+        form.addEventListener('submit', async (event) => {
+            logger.debug('Form submitted');
+            event.preventDefault();
+            await this.handleEnterSetSubmit(taxon1Input.value, taxon2Input.value, dialogMessage, submitButton);
+        });
+
+        [taxon1Input, taxon2Input].forEach(input => {
+            input.addEventListener('input', () => {
+                submitButton.disabled = !taxon1Input.value || !taxon2Input.value;
+                logger.debug(`Input changed. Submit button disabled: ${submitButton.disabled}`);
+            });
+        });
+
+        logger.debug('Enter Set Dialog initialized');
+    },
+
+    async handleEnterSetSubmit(taxon1, taxon2, messageElement, submitButton) {
+        logger.debug(`Handling submit for taxa: ${taxon1}, ${taxon2}`);
+        messageElement.textContent = 'Validating taxa...';
+        submitButton.disabled = true;
+
+        try {
+            const [validatedTaxon1, validatedTaxon2] = await Promise.all([
+                this.validateTaxon(taxon1),
+                this.validateTaxon(taxon2)
+            ]);
+
+            logger.debug(`Validation results: Taxon1: ${JSON.stringify(validatedTaxon1)}, Taxon2: ${JSON.stringify(validatedTaxon2)}`);
+
+            if (validatedTaxon1 && validatedTaxon2) {
+                const newSet = {
+                    taxon1: validatedTaxon1.name,
+                    taxon2: validatedTaxon2.name,
+                    vernacular1: validatedTaxon1.preferred_common_name || '',
+                    vernacular2: validatedTaxon2.preferred_common_name || ''
+                };
+
+                logger.debug('New set created:', newSet);
+
+                // Set the new pair as the next selected pair
+                game.nextSelectedPair = newSet;
+
+                this.closeDialog('enter-set-dialog');
+                gameSetup.setupGame(true);
+            } else {
+                messageElement.textContent = 'One or both taxa are invalid. Please check and try again.';
+                logger.debug('Taxa validation failed');
+            }
+        } catch (error) {
+            logger.error('Error validating taxa:', error);
+            messageElement.textContent = 'Error validating taxa. Please try again.';
+        } finally {
+            submitButton.disabled = false;
+        }
+    },
+
+    async validateTaxon(taxonName) {
+        logger.debug(`Validating taxon: ${taxonName}`);
+        if (!taxonName || typeof taxonName !== 'string') {
+            logger.error(`Invalid taxon name: ${taxonName}`);
+            return null;
+        }
+        // First, check local data
+        const localTaxon = await this.checkLocalTaxonData(taxonName);
+        if (localTaxon) {
+            logger.debug('Taxon found in local data');
+            return localTaxon;
+        }
+
+        // If not found locally, fetch from iNat API
+        logger.debug('Taxon not found locally, checking iNat API');
+        return api.validateTaxon(taxonName);
+    },
+
+    async checkLocalTaxonData(taxonName) {
+        logger.debug(`Checking local data for taxon: ${taxonName}`);
+        if (!taxonName || typeof taxonName !== 'string') {
+            logger.error(`Invalid taxon name: ${taxonName}`);
+            return null;
+        }
+        const taxonInfo = await api.loadTaxonInfo();
+        const lowercaseTaxonName = taxonName.toLowerCase();
+        
+        for (const [id, info] of Object.entries(taxonInfo)) {
+            const infoTaxonName = info.taxonName || '';
+            const infoVernacularName = info.vernacularName || '';
+            
+            if (infoTaxonName.toLowerCase() === lowercaseTaxonName || 
+                infoVernacularName.toLowerCase() === lowercaseTaxonName) {
+                logger.debug(`Taxon found in local data: ${infoTaxonName}`);
+                return {
+                    id: parseInt(id),
+                    name: infoTaxonName,
+                    preferred_common_name: infoVernacularName
+                };
+            }
+        }
+        logger.debug('Taxon not found in local data');
+        return null;
     },
 
 };

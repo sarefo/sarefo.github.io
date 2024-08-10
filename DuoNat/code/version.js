@@ -1,4 +1,4 @@
-const version = '1.5.3'; // Increment the version number
+const version = '1.5.5'; // Increment the version number
 
 function updateVersion() {
     // Update CSS, JS, and manifest files
@@ -34,6 +34,14 @@ document.addEventListener('DOMContentLoaded', () => {
         icon.style.display = 'inline-block';
     });
     document.body.classList.add('loaded');
+
+    // Fade in the logo
+    const logo = document.querySelector('.loading-screen__logo');
+    if (logo) {
+        setTimeout(() => {
+            logo.classList.add('fade-in');
+        }, 100); // Small delay to ensure styles are applied
+    }
 });
 
 // Add this to ensure the loading screen is displayed as early as possible
