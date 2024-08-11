@@ -102,7 +102,7 @@ const gameLogic = {
             const matchesRanges = !filters.ranges || filters.ranges.length === 0 ||
                 (pair.range && pair.range.some(range => filters.ranges.includes(range)));
             const matchesTags = filters.tags.length === 0 ||
-                pair.tags.some(tag => filters.tags.includes(tag));
+                filters.tags.every(tag => pair.tags.includes(tag)); // Changed from 'some' to 'every'
 
             return matchesLevel && matchesRanges && matchesTags;
         });
@@ -111,7 +111,7 @@ const gameLogic = {
     isPairValidForCurrentFilters: function (pair) {
         const matchesLevel = gameState.selectedLevel === '' || pair.level === gameState.selectedLevel;
         const matchesTags = gameState.selectedTags.length === 0 ||
-            pair.tags.some(tag => gameState.selectedTags.includes(tag));
+            gameState.selectedTags.every(tag => pair.tags.includes(tag)); // Changed from 'some' to 'every'
         const matchesRanges = gameState.selectedRanges.length === 0 ||
             (pair.range && pair.range.some(range => gameState.selectedRanges.includes(range)));
 
