@@ -86,15 +86,15 @@ const eventHandlers = {
             longPressTimer = setTimeout(() => {
                 testingDialog.openDialog();
             }, 1500); // 1.5 seconds long press
-        });
+        }, { passive: true });
 
         levelIndicator.addEventListener('touchend', (e) => {
             clearTimeout(longPressTimer);
-        });
+        }, { passive: true });
 
         levelIndicator.addEventListener('touchmove', (e) => {
             clearTimeout(longPressTimer);
-        });
+        }, { passive: true });
     },
 
     initializeLevelIndicator() {
