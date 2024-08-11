@@ -14564,5 +14564,162 @@
     "range": [
       "AS"
     ]
+  },
+  "737": {
+    "setName": "Collared crow vs Oriental magpie",
+    "level": "1",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      979667,
+      827401
+    ],
+    "taxonNames": [
+      "Corvus pectoralis",
+      "Pica serica"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "738": {
+    "setName": "Greater necklaced laughingthrush vs Masked laughingthrush",
+    "level": "1",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      1289399,
+      1289400
+    ],
+    "taxonNames": [
+      "Pterorhinus pectoralis",
+      "Pterorhinus perspicillatus"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "739": {
+    "setName": "Greater necklaced laughingthrush vs Lesser necklaced laughingthrush",
+    "level": "3",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      1289399,
+      15154
+    ],
+    "taxonNames": [
+      "Pterorhinus pectoralis",
+      "Garrulax monileger"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "740": {
+    "setName": "Amur stonechat vs Siberian stonechat",
+    "level": "3",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      1286913,
+      201193
+    ],
+    "taxonNames": [
+      "Saxicola stejnegeri",
+      "Saxicola maurus"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "741": {
+    "setName": "Wood sandpiper vs Green sandpiper",
+    "level": "3",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      3888,
+      3885
+    ],
+    "taxonNames": [
+      "Tringa glareola",
+      "Tringa ochropus"
+    ],
+    "range": [
+      "AS",
+      "EU"
+    ]
+  },
+  "742": {
+    "setName": "Wood sandpiper vs Common sandpiper",
+    "level": "3",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      3888,
+      3978
+    ],
+    "taxonNames": [
+      "Tringa glareola",
+      "Actitis hypoleucos"
+    ],
+    "range": [
+      "AS",
+      "EU"
+    ]
+  },
+  "743": {
+    "setName": "Green-winged teal vs Northern shoveler",
+    "level": "2",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      6937,
+      558438
+    ],
+    "taxonNames": [
+      "Anas crecca",
+      "Spatula clypeata"
+    ],
+    "range": [
+      "AS",
+      "EU",
+      "SA",
+      "NA"
+    ]
+  },
+  "744": {
+    "setName": "Yellow-bellied prinia vs Plain prinia",
+    "level": "2",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      7716,
+      7710
+    ],
+    "taxonNames": [
+      "Prinia flaviventris",
+      "Prinia inornata"
+    ],
+    "range": [
+      "AS"
+    ]
   }
 }

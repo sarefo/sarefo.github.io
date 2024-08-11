@@ -37397,5 +37397,294 @@
     "range": [
       "AS"
     ]
+  },
+  "3888": {
+    "taxonName": "Tringa glareola",
+    "vernacularName": "Wood sandpiper",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67561,
+      3835,
+      3874,
+      3888
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Smallest shank species in the world",
+      "Breeds in subarctic wetlands across Eurasia",
+      "Migrates to Africa, South Asia and Australia"
+    ],
+    "range": [
+      "EU",
+      "AS"
+    ]
+  },
+  "6937": {
+    "taxonName": "Anas crecca",
+    "vernacularName": "Green-winged teal",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      6888,
+      6912,
+      6922,
+      6937
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Smallest dabbling duck in North America",
+      "Found in northern Canada, Alaska and Eurasia",
+      "Winters in southern US, Mexico and Africa"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "EU",
+      "AS"
+    ]
+  },
+  "3978": {
+    "taxonName": "Actitis hypoleucos",
+    "vernacularName": "Common sandpiper",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67561,
+      3835,
+      3977,
+      3978
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Widespread and adaptable shorebird in Eurasia",
+      "Breeds in May-June, lays 3-4 eggs",
+      "Vulnerable to predation before fledging"
+    ],
+    "range": [
+      "EU",
+      "AS",
+      "AF"
+    ]
+  },
+  "1289399": {
+    "taxonName": "Pterorhinus pectoralis",
+    "vernacularName": "Greater necklaced laughingthrush",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      980192,
+      1289299,
+      1289399
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Large laughingthrush species in Southeast Asia",
+      "Frequent in much of its range",
+      "Prefers dense, humid, subtropical or tropical forests"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "1286913": {
+    "taxonName": "Saxicola stejnegeri",
+    "vernacularName": "Amur stonechat",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      12704,
+      979942,
+      1286913
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Breeds in central and eastern Siberia",
+      "Migrates to southern China and Indochina",
+      "Closely similar to Siberian stonechat"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "7710": {
+    "taxonName": "Prinia inornata",
+    "vernacularName": "Plain prinia",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      7649,
+      7706,
+      7710
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Small warbler found in South and Southeast Asia",
+      "Builds dome-shaped nests in bushes or grass",
+      "Feeds on insects and spiders"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "979667": {
+    "taxonName": "Corvus pectoralis",
+    "vernacularName": "Collared crow",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      7823,
+      7998,
+      979667
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Medium-sized crow found in East Asia",
+      "Omnivorous, eats fruits, seeds, insects and carrion",
+      "Roosts communally in large numbers"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "3885": {
+    "taxonName": "Tringa ochropus",
+    "vernacularName": "Green sandpiper",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67561,
+      3835,
+      3874,
+      3885
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Breeds in northern Europe and Asia",
+      "Winters in Africa, southern Asia and Indonesia",
+      "Forages in shallow water and wet mud"
+    ],
+    "range": [
+      "EU",
+      "AS",
+      "AF"
+    ]
+  },
+  "201193": {
+    "taxonName": "Saxicola maurus",
+    "vernacularName": "Siberian stonechat",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      12704,
+      979942,
+      201193
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Breeds in central and eastern Siberia",
+      "Winters in southern Asia and northeast Africa",
+      "Closely related to Amur stonechat"
+    ],
+    "range": [
+      "AS",
+      "AF"
+    ]
+  },
+  "558438": {
+    "taxonName": "Spatula clypeata",
+    "vernacularName": "Northern shoveler",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      6888,
+      6912,
+      558404,
+      558438
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Large, distinctive duck found worldwide",
+      "Breeds in northern temperate regions",
+      "Winters in southern US, Mexico and Europe"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "EU",
+      "AS",
+      "AF"
+    ]
+  },
+  "15154": {
+    "taxonName": "Garrulax monileger",
+    "vernacularName": "Lesser necklaced laughingthrush",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      980192,
+      15151,
+      15154
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Large laughingthrush found in Southeast Asia",
+      "Prefers dense, humid, subtropical or tropical forests",
+      "Omnivorous, eats fruits, seeds and insects"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "7716": {
+    "taxonName": "Prinia flaviventris",
+    "vernacularName": "Yellow-bellied prinia",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      7649,
+      7706,
+      7716
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Small warbler found in South and Southeast Asia",
+      "Builds dome-shaped nests in bushes or grass",
+      "Feeds on insects and spiders"
+    ],
+    "range": [
+      "AS"
+    ]
   }
 }

@@ -929,6 +929,7 @@ dialog {
     content: "•";
     position: absolute;
     left: 8px;
+    top: -0.18em; /* align with center of first line */
     color: var(--primary-color);
     font-size: 1.3em;
 }
