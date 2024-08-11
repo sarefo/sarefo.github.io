@@ -305,12 +305,10 @@ const ui = {
 
             button.innerHTML = `
                 <div class="taxon-set-container">
-                    <div class="taxon-set-info">
-                        <div class="set-name-container">
-                            <div class="taxon-set__set-name">${pair.setName || 'Unnamed Set'}</div>
-                            <div class="taxon-set__level-chilis" aria-label="Skill level">${chiliHtml}</div>
-                            <div class="taxon-set__tags">${pair.tags.join(', ')}</div>
-                        </div>
+                    <div class="set-name-container">
+                        <div class="taxon-set__set-name">${pair.setName || 'Unnamed Set'}</div>
+                        <div class="taxon-set__level-chilis" aria-label="Skill level">${chiliHtml}</div>
+                        <div class="taxon-set__tags">${pair.tags.join(', ')}</div>
                     </div>
                     <div class="taxon-items">
                         <div class="taxon-item">
