@@ -175,11 +175,16 @@ const tagCloud = {
     },
 
     createTagElement(tag, count, isSelected, maxCount) {
-        const size = 14 + (count / maxCount) * 24; // Font size between 14px and 38px
+        const size = 14 + (count / maxCount) * 24;
         const tagElement = document.createElement('span');
         tagElement.textContent = tag;
         tagElement.className = 'tag-cloud-item';
         tagElement.style.fontSize = `${size}px`;
+        
+        // Prevent text selection
+ //       tagElement.style.userSelect = 'none';
+ //       tagElement.style.webkitUserSelect = 'none';
+ //       tagElement.style.msUserSelect = 'none';
 
         if (count === 1) {
             tagElement.classList.add('tag-cloud-item--single');
@@ -190,6 +195,7 @@ const tagCloud = {
         }
 
         tagElement.addEventListener('click', () => this.toggleTag(tagElement, tag));
+
         return tagElement;
     },
 

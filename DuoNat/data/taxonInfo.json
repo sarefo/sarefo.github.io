@@ -1462,7 +1462,7 @@
   },
   "354050": {
     "taxonName": "Amata huebneri",
-    "vernacularName": "H\u00fcbner's Wasp Moth",
+    "vernacularName": "Hübner's Wasp Moth",
     "ancestryIds": [
       48460,
       1,
@@ -35492,7 +35492,7 @@
   },
   "42236": {
     "taxonName": "Vicugna vicugna",
-    "vernacularName": "Vicu\u00f1a",
+    "vernacularName": "Vicuña",
     "ancestryIds": [
       1,
       2,
@@ -35569,7 +35569,7 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Domesticated version of the vicu\u00f1a.",
+      "Domesticated version of the vicuña.",
       "Wool is softer than sheep wool.",
       "Primarily found in Andean regions."
     ],

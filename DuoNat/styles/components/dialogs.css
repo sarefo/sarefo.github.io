@@ -230,6 +230,7 @@ dialog {
     padding: 2px 8px;
     border-radius: 12px;
     font-size: 0.9em;
+    user-select: none;
 }
 
 .filter-summary__no-tags {
@@ -609,6 +610,7 @@ dialog {
     border-radius: 15px;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
 }
 
 .tag-cloud-item:hover {
