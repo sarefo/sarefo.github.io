@@ -1,5 +1,6 @@
 import api from './api.js';
 import config from './config.js';
+import dialogManager from './dialogManager.js';
 import game from './game.js';
 import { gameState, updateGameState, GameState, elements } from './state.js';
 import logger from './logger.js';
@@ -16,11 +17,11 @@ const gameSetup = {
 
     async checkINaturalistReachability() {
         if (!await api.isINaturalistReachable()) {
-            ui.dialogs.showINatDownDialog();
+            dialogManager.showINatDownDialog();
             game.setState(GameState.IDLE);
             return false;
         }
-        ui.dialogs.hideINatDownDialog();
+        dialogManager.hideINatDownDialog();
         return true;
     },
 

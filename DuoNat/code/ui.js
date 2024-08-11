@@ -40,8 +40,6 @@ const ui = {
    core: {
 
         initialize() {
-            ui.dialogs.initializeHelpDialog();
-            ui.dialogs.initializeInfoDialog();
             ui.menu.initialize();
             ui.menu.close(); // Ensure menu is closed on initialization
             // Close the dropdown when clicking outside of it
@@ -165,106 +163,6 @@ const ui = {
                     bottomGroup.classList.remove('show');
                 }
             }
-        },
-    },
-
-    dialogs: {
-        initializeHelpDialog() {
-            document.getElementById('help-button').addEventListener('click', () => {
-                dialogManager.openDialog('help-dialog');
-                this.toggleKeyboardShortcuts();
-            });
-        },
-
-        initializeInfoDialog() {
-            const infoDialog = document.getElementById('info-dialog');
-
-            // Check if the device has a keyboard
-            if (utils.hasKeyboard()) {
-                document.body.classList.add('has-keyboard');
-            }
-
-            const handleKeyPress = (event) => {
-                if (!infoDialog.open) return; // Only handle keypresses when the dialog is open
-
-                // Ignore keypress events if the active element is a text input or textarea
-                if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
-                    return;
-                }
-
-                if (event.ctrlKey || event.altKey || event.shiftKey || event.metaKey) {
-                    return; // Exit the function if any modifier key is pressed
-                }
-
-                event.stopPropagation();
-                const key = event.key.toLowerCase();
-                const buttonMap = {
-                    'p': 'photo-button',
-                    'h': 'hints-button',
-                    'o': 'observation-button',
-                    't': 'taxon-button',
-                    'w': 'wiki-button',
-                    'r': 'report-button'
-                };
-
-                if (buttonMap[key]) {
-                    event.preventDefault();
-                    document.getElementById(buttonMap[key]).click();
-                } else if (key === 'escape') {
-                    event.preventDefault();
-                    infoDialog.close();
-                }
-            };
-
-            const reportButton = document.getElementById('report-button');
-            reportButton.addEventListener('click', () => {
-                dialogManager.closeDialog('info-dialog');
-                dialogManager.openDialog('report-dialog');
-            });
-
-            document.addEventListener('keydown', handleKeyPress);
-        },
-
-        toggleKeyboardShortcuts() {
-            logger.debug("toggling Keyboard shortcuts");
-            const keyboardShortcutsSection = document.getElementById('keyboard-shortcuts');
-            if (utils.hasKeyboard()) {
-                keyboardShortcutsSection.style.display = 'block';
-            } else {
-                keyboardShortcutsSection.style.display = 'none';
-            }
-        },
-
-        showINatDownDialog() {
-            const loadingScreen = document.getElementById('loading-screen');
-            if (loadingScreen) {
-                loadingScreen.style.display = 'none';
-            }
-
-            dialogManager.openDialog('inat-down-dialog');
-
-            const checkStatusBtn = document.getElementById('check-inat-status');
-            const retryConnectionBtn = document.getElementById('retry-connection');
-
-            const checkStatusHandler = () => {
-                window.open('https://inaturalist.org', '_blank');
-            };
-
-            const retryConnectionHandler = async () => {
-                dialogManager.closeDialog();
-                if (await api.isINaturalistReachable()) {
-                    gameSetup.setupGame(true);
-                } else {
-                    this.showINatDownDialog();
-                }
-            };
-
-            checkStatusBtn.addEventListener('click', checkStatusHandler);
-            retryConnectionBtn.addEventListener('click', retryConnectionHandler);
-        },
-
-        hideINatDownDialog() {
-            dialogManager.closeDialog();
         },
     },
 
@@ -577,7 +475,7 @@ const ui = {
                     // Fade out current message
                     this.fadeOutOverlayMessage(() => {
                         // Update message content
-                        this.updateOverlayMessage(step.message);
+                        ui.overlay.updateOverlayMessage(step.message);
 
                         // Clear previous highlights
                         highlightElements.forEach(el => el.remove());
@@ -607,7 +505,7 @@ const ui = {
                     });
                 } else {
                     this.fadeOutOverlayMessage(() => {
-                        this.hideOverlay();
+                        ui.overlay.hideOverlay();
                         highlightElements.forEach(el => el.remove());
                     });
                 }
@@ -622,7 +520,7 @@ const ui = {
                 // For example: dialogManager.handleDialogClose('help-dialog');
             }
             // Show the overlay at the start of the tutorial
-            this.showOverlay("", config.overlayColors.green);
+            ui.overlay.showOverlay("", config.overlayColors.green);
 
             // Start the tutorial
             showStep();
@@ -644,9 +542,9 @@ const ui = {
         },
 
         temporarilyOpenMenu: function (duration) {
-            this.toggleMainMenu(); // Open the menu
+            ui.menu.toggleMainMenu(); // Open the menu
             setTimeout(() => {
-                this.close(); // Close the menu after the specified duration
+                ui.menu.close(); // Close the menu after the specified duration
             }, duration);
         },
 

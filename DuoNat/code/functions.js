@@ -70,8 +70,7 @@ import utils from './utils.js';
         }
         ui.filters.updateLevelDropdown(); // display the current level
 
-        dialogManager.initializeDialogs();
-        dialogManager.initializeEnterSetDialog();
+        dialogManager.initialize();
         gameSetup.setupGame(true, urlParams);
         eventHandlers.initialize();
         ui.core.initialize();

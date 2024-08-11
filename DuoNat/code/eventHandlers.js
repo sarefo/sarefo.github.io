@@ -437,7 +437,6 @@ const eventHandlers = {
 
         if (dialogManager.isAnyDialogOpen() ||
             document.getElementById('info-dialog').open ||
-            dialogManager.activeDialog ||
             document.getElementById('enter-set-dialog').open) {
             return;
         }

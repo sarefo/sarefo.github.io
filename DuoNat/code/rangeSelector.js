@@ -24,7 +24,7 @@ const rangeSelector = {
         const rangeDialog = document.getElementById('range-dialog');
         const doneButton = document.getElementById('range-done-button');
 
-        selectRangeButton.addEventListener('click', () => dialogManager.openRangeDialog());
+        selectRangeButton.addEventListener('click', () => this.openRangeDialog());
         doneButton.addEventListener('click', () => this.closeRangeDialog());
 
         // Close button functionality
