@@ -14320,5 +14320,65 @@
     "range": [
       "AS"
     ]
+  },
+  "724": {
+    "setName": "Pale grass blue vs Lesser grass blue",
+    "level": "3",
+    "tags": [
+      "insects",
+      "butterflies",
+      "hk"
+    ],
+    "taxa": [
+      145642,
+      125537
+    ],
+    "taxonNames": [
+      "Pseudozizeeria maha",
+      "Zizina otis"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "725": {
+    "setName": "Dark-branded bushbrown vs Burmese bushbrown",
+    "level": "3",
+    "tags": [
+      "insects",
+      "moths",
+      "hk"
+    ],
+    "taxa": [
+      133717,
+      474727
+    ],
+    "taxonNames": [
+      "Mycalesis mineus",
+      "Mycalesis perseoides"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "726": {
+    "setName": "Dark-branded bushbrown vs Common five-ring",
+    "level": "2",
+    "tags": [
+      "insects",
+      "moths",
+      "hk"
+    ],
+    "taxa": [
+      133717,
+      52100
+    ],
+    "taxonNames": [
+      "Mycalesis mineus",
+      "Ypthima baldus"
+    ],
+    "range": [
+      "AS"
+    ]
   }
 }

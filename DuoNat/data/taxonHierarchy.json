@@ -18214,5 +18214,29 @@
     "vernacularName": "Red ring skirt",
     "rank": "Species",
     "parentId": "129161"
+  },
+  "977101": {
+    "taxonName": "Ypthimina",
+    "vernacularName": "N/a",
+    "rank": "Subtribe",
+    "parentId": "58598"
+  },
+  "52085": {
+    "taxonName": "Ypthima",
+    "vernacularName": "Ring butterflies",
+    "rank": "Genus",
+    "parentId": "977101"
+  },
+  "52100": {
+    "taxonName": "Ypthima baldus",
+    "vernacularName": "Common five-ring",
+    "rank": "Species",
+    "parentId": "52085"
+  },
+  "474727": {
+    "taxonName": "Mycalesis perseoides",
+    "vernacularName": "Burmese bushbrown",
+    "rank": "Species",
+    "parentId": "127879"
   }
 }

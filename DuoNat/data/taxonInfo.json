@@ -1462,7 +1462,7 @@
   },
   "354050": {
     "taxonName": "Amata huebneri",
-    "vernacularName": "Hübner's Wasp Moth",
+    "vernacularName": "H\u00fcbner's Wasp Moth",
     "ancestryIds": [
       48460,
       1,
@@ -21820,9 +21820,9 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Larvae feed on various citrus plants",
-      "Exhibits seasonal color variations",
-      "Used in traditional Japanese art and culture"
+      "Known for its rapid flight and agility.",
+      "Larvae are often found on citrus plants.",
+      "Can be seen in gardens and urban areas."
     ],
     "range": [
       "AS"
@@ -35492,7 +35492,7 @@
   },
   "42236": {
     "taxonName": "Vicugna vicugna",
-    "vernacularName": "Vicuña",
+    "vernacularName": "Vicu\u00f1a",
     "ancestryIds": [
       1,
       2,
@@ -35569,7 +35569,7 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Domesticated version of the vicuña.",
+      "Domesticated version of the vicu\u00f1a.",
       "Wool is softer than sheep wool.",
       "Primarily found in Andean regions."
     ],
@@ -36583,8 +36583,9 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Larvae feed on <i>Oxalis</i>, legumes and Acanthaceae plants",
-      "Migrates to northern climates, leading to wing color changes"
+      "Commonly found near grasslands and open areas.",
+      "Larvae feed on various legumes and oxalis plants.",
+      "Has shown adaptations to colder climates."
     ],
     "range": [
       "AS"
@@ -36610,13 +36611,12 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Caterpillars feed on native and introduced legumes",
-      "Caterpillars are green and well camouflaged",
-      "Ants sometimes tend the caterpillars and cocoons"
+      "Small butterfly often found in grassy areas.",
+      "Males are territorial and defend their space.",
+      "Adaptable to various habitats across Asia."
     ],
     "range": [
-      "AS",
-      "OC"
+      "AS"
     ]
   },
   "1007813": {
@@ -36751,13 +36751,13 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Larvae feed on various citrus plants",
-      "Exhibits seasonal color variations",
-      "Widely distributed across Asia and Africa"
+      "Widely distributed across tropical regions.",
+      "Known for its short adult lifespan.",
+      "Can be an invasive species in new areas."
     ],
     "range": [
       "AS",
-      "AF"
+      "OC"
     ]
   },
   "133717": {
@@ -36780,9 +36780,9 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Larvae feed on various grasses",
-      "Exhibits seasonal color variations",
-      "Found in dense forests and woodlands"
+      "Often found in shaded forest areas.",
+      "Camouflaged to blend with dry leaves.",
+      "Males engage in territorial behavior."
     ],
     "range": [
       "AS"
@@ -37007,6 +37007,62 @@
       "Larvae feed on various plants in the Acanthaceae family",
       "Exhibits seasonal color variations",
       "Found in East Asia and Southeast Asia"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "52100": {
+    "taxonName": "Ypthima baldus",
+    "vernacularName": "Common five-ring",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47157,
+      47224,
+      47922,
+      58597,
+      58598,
+      977101,
+      52085,
+      52100
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Found in diverse habitats across Asia.",
+      "Larvae primarily feed on grasses.",
+      "Can be seen in both wet and dry seasons."
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "474727": {
+    "taxonName": "Mycalesis perseoides",
+    "vernacularName": "Burmese bushbrown",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47157,
+      47224,
+      47922,
+      58597,
+      58598,
+      207974,
+      127879,
+      474727
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Prefers forested areas in Asia.",
+      "Mimics other butterfly species for protection.",
+      "Active during the day, often resting on leaves."
     ],
     "range": [
       "AS"
