@@ -49,7 +49,7 @@ const rangeSelector = {
     closeRangeDialog() {
         dialogManager.closeDialog('range-dialog');
         this.updateTaxonList();
-        ui.updateFilterSummary();
+        ui.taxonPairList.updateFilterSummary();
     },
 
     getSelectedRanges() {
@@ -59,7 +59,7 @@ const rangeSelector = {
     setSelectedRanges(ranges) {
         this.selectedContinents = new Set(ranges.map(abbr => getFullContinentName(abbr)));
         this.initializeWorldMap();
-        ui.updateFilterSummary();
+        ui.taxonPairList.updateFilterSummary();
     },
 
     toggleContinent(continent) {
@@ -72,9 +72,6 @@ const rangeSelector = {
 
         // Update the gameState with the new selected ranges
         gameState.selectedRanges = this.getSelectedRanges();
-
-        // Update the filter summary to reflect the changes immediately
-        // ui.updateFilterSummary();
     },
 
     async updateTaxonList() {
@@ -92,10 +89,10 @@ const rangeSelector = {
 
             const filteredPairs = gameLogic.filterTaxonPairs(taxonSets, filters);
 
-            ui.updateTaxonPairList(filteredPairs);
+            ui.taxonPairList.updateTaxonPairList(filteredPairs);
         } catch (error) {
             logger.error("Error updating taxon list:", error);
-            ui.updateTaxonPairList([]);
+            ui.taxonPairList.updateTaxonPairList([]);
         }
     }
 

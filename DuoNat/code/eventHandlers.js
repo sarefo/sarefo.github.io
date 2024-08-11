@@ -111,7 +111,7 @@ const eventHandlers = {
     },
 
     handleLevelIndicatorClick() {
-        ui.showTaxonPairList();
+        ui.taxonPairList.showTaxonPairList();
     },
 
     initializeSwipeFunctionality() {
@@ -156,35 +156,34 @@ const eventHandlers = {
     initializeMainMenuListeners: function () {
         this.safeAddEventListener('share-button', 'click', () => {
             utils.shareCurrentPair();
-            //            ui.closeMainMenu(); // Close menu after action
         });
         this.safeAddEventListener('phylogeny-button', 'click', () => {
             game.showTaxaRelationship();
-            ui.closeMainMenu(); // Close menu after action
+            ui.menu.closeMainMenu(); // Close menu after action
         });
         this.safeAddEventListener('select-set-button', 'click', () => {
-            ui.showTaxonPairList();
-            ui.closeMainMenu(); // Close menu after action
+            ui.taxonPairList.showTaxonPairList();
+            ui.menu.closeMainMenu(); // Close menu after action
         });
         this.safeAddEventListener('enter-set-button', 'click', () => {
             dialogManager.openDialog('enter-set-dialog');
-            ui.closeMainMenu(); // Close menu after action
+            ui.menu.closeMainMenu(); // Close menu after action
         });
         this.safeAddEventListener('random-pair-button', 'click', () => {
             gameLogic.loadNewRandomPair();
-            ui.closeMainMenu(); // Close menu after action
+            ui.menu.closeMainMenu(); // Close menu after action
         });
         this.safeAddEventListener('like-button', 'click', () => {
             this.likePair();
-            ui.closeMainMenu(); // Close menu after action
+            ui.menu.closeMainMenu(); // Close menu after action
         });
         this.safeAddEventListener('trash-button', 'click', () => {
             this.trashPair();
-            ui.closeMainMenu(); // Close menu after action
+            ui.menu.closeMainMenu(); // Close menu after action
         });
         this.safeAddEventListener('surprise-button', 'click', () => {
             utils.surprise();
-            ui.closeMainMenu(); // Close menu after action
+            ui.menu.closeMainMenu(); // Close menu after action
         });
     },
 
@@ -230,7 +229,7 @@ const eventHandlers = {
             dialogManager.openDialog('help-dialog');
         });
         document.getElementById('start-tutorial-button').addEventListener('click', () => {
-            ui.showTutorial();
+            ui.tutorial.showTutorial();
         });
         document.getElementById('discord-help-dialog').addEventListener('click', () => {
             window.open('https://discord.gg/DcWrhYHmeM', '_blank');
@@ -281,8 +280,8 @@ const eventHandlers = {
             }
         }
 
-        ui.updateTaxonPairList(filteredPairs);
-        ui.updateActiveCollectionCount(filteredPairs.length);
+        ui.taxonPairList.updateTaxonPairList(filteredPairs);
+        ui.taxonPairList.updateActiveCollectionCount(filteredPairs.length);
 
         if (this.hasLostFocus && searchInput.value.length > 1) {
             searchInput.select();
@@ -385,7 +384,7 @@ const eventHandlers = {
 
             setTimeout(() => {
                 document.querySelector('.game-container').classList.remove('swiping-left', 'swipe-out-left');
-                ui.resetGameContainerStyle();
+                ui.core.resetGameContainerStyle();
                 if (!gameLogic.isCurrentPairInCollection()) {
                     gameLogic.loadRandomPairFromCurrentCollection();
                 } else {
@@ -394,7 +393,7 @@ const eventHandlers = {
             }, 500); // Match this with the animation duration
         } else {
             // Reset if not swiped far enough or swiped vertically
-            ui.resetGameContainerStyle();
+            ui.core.resetGameContainerStyle();
 
             // Hide the swipe info message
             const swipeInfoMessage = document.getElementById('swipe-info-message');
@@ -438,15 +437,6 @@ const eventHandlers = {
         // Add any specific image interaction logic here
     },
 
-    /*    showTaxonPairList() {
-            api.fetchTaxonPairs().then(taxonPairs => {
-                ui.showTaxonPairList(taxonPairs, (selectedPair) => {
-                    game.nextSelectedPair = selectedPair;
-                    gameSetup.setupGame(true);
-                });
-            });
-        },
-    */
     _handleKeyboardShortcuts(event) {
 
         if (event.ctrlKey || event.altKey || event.shiftKey || event.metaKey) {
@@ -487,7 +477,7 @@ const eventHandlers = {
             case 'c':
             case 'l':
                 event.preventDefault();
-                ui.showTaxonPairList();
+                ui.taxonPairList.showTaxonPairList();
                 break;
             case 'e':
                 event.preventDefault();
@@ -510,7 +500,7 @@ const eventHandlers = {
                 break;
             case 'm':
                 event.preventDefault();
-                ui.toggleMainMenu();
+                ui.menu.toggleMainMenu();
                 break;
             case 's':
                 event.preventDefault();
@@ -590,9 +580,6 @@ const eventHandlers = {
             // Clear the drop zone and add the tile
             dropZone.innerHTML = '';
             dropZone.appendChild(tile);
-
-            // Highlight the moved tile
-            //ui.highlightTile(tile.id);
 
             // Trigger the answer check using the game's checkAnswer method
             gameLogic.checkAnswer(dropZone.id);

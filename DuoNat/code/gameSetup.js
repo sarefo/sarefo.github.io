@@ -16,11 +16,11 @@ const gameSetup = {
 
     async checkINaturalistReachability() {
         if (!await api.isINaturalistReachable()) {
-            ui.showINatDownDialog();
+            ui.dialogs.showINatDownDialog();
             game.setState(GameState.IDLE);
             return false;
         }
-        ui.hideINatDownDialog();
+        ui.dialogs.hideINatDownDialog();
         return true;
     },
 
@@ -47,16 +47,16 @@ const gameSetup = {
 
                 // Update skill level indicator
                 const level = gameState.currentTaxonImageCollection.pair.level;
-                gameUI.updateLevelIndicator(level);
+                gameUI.levelIndicator.updateLevelIndicator(level);
 
                 // If filters were cleared (which happens when '+' is pressed), update the UI
                 if (gameState.selectedTags.length === 0 && gameState.selectedRanges.length === 0 && gameState.selectedLevel === '') {
-                    ui.updateFilterSummary();
-                    ui.updateLevelDropdown();
+                    ui.taxonPairList.updateFilterSummary();
+                    ui.filters.updateLevelDropdown();
                 }
 
                 this.finishSetup();
-                gameUI.setNamePairHeight();
+                gameUI.layoutManagement.setNamePairHeight();
 
                 game.setState(GameState.PLAYING);
                 game.hideLoadingScreen();
@@ -69,8 +69,8 @@ const gameSetup = {
                     updateGameState({ isInitialLoad: false });
                 }
 
-                ui.hideOverlay();
-                ui.resetUIState();
+                ui.overlay.hideOverlay();
+                ui.core.resetUIState();
 
                 // Start preloading asynchronously
                 preloader.startPreloading(newPair);
@@ -110,9 +110,9 @@ const gameSetup = {
 
     prepareUIForLoading() {
         utils.resetDraggables();
-        gameUI.prepareImagesForLoading();
+        gameUI.imageHandling.prepareImagesForLoading();
         var startMessage = gameState.isFirstLoad ? "Drag the names!" : `${game.loadingMessage}`;
-        ui.showOverlay(startMessage, config.overlayColors.green);
+        ui.overlay.showOverlay(startMessage, config.overlayColors.green);
         gameState.isFirstLoad = false;
     },
 
@@ -188,7 +188,7 @@ const gameSetup = {
         });
 
         // Update the skill level indicator
-        gameUI.updateLevelIndicator(newPair.level || '1');
+        gameUI.levelIndicator.updateLevelIndicator(newPair.level || '1');
 
         await this.setupRound(true);
     },
@@ -247,7 +247,7 @@ const gameSetup = {
             utils.capitalizeFirstLetter(await api.fetchVernacular(randomized ? pair.taxon2 : pair.taxon1))
         ]);
 
-        gameUI.setupNameTilesUI(
+        gameUI.nameTiles.setupNameTilesUI(
             randomized ? pair.taxon1 : pair.taxon2,
             randomized ? pair.taxon2 : pair.taxon1,
             leftVernacular,
@@ -273,19 +273,19 @@ const gameSetup = {
             }
         });
 
-        setTimeout(() => gameUI.setNamePairHeight(), 100);
+        setTimeout(() => gameUI.layoutManagement.setNamePairHeight(), 100);
     },
 
     finishSetup() {
-        ui.hideOverlay();
+        ui.overlay.hideOverlay();
     },
 
     handleSetupError(error) {
         logger.error("Error setting up game:", error);
         if (error.message === "Failed to select a valid taxon pair") {
-            ui.showOverlay("No valid taxon pairs found. Please check your filters and try again.", config.overlayColors.red);
+            ui.overlay.showOverlay("No valid taxon pairs found. Please check your filters and try again.", config.overlayColors.red);
         } else {
-            ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
+            ui.overlay.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
         }
         game.setState(GameState.IDLE);
         if (gameState.isInitialLoad) {

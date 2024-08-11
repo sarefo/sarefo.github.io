@@ -68,13 +68,13 @@ import utils from './utils.js';
         if (urlParams.level || urlParams.ranges || urlParams.tags || urlParams.setID) {
             updateGameState({ selectedLevel: urlParams.level }); // set the initial level as "all"
         }
-        ui.updateLevelDropdown(); // display the current level
+        ui.filters.updateLevelDropdown(); // display the current level
 
         dialogManager.initializeDialogs();
         dialogManager.initializeEnterSetDialog();
         gameSetup.setupGame(true, urlParams);
         eventHandlers.initialize();
-        ui.initialize();
+        ui.core.initialize();
         tagCloud.initialize();
         rangeSelector.initialize();
         // tooltipManager.init(); /* need to remove bugs first */

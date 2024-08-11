@@ -42,7 +42,7 @@ const dialogManager = {
         }
 
         if (dialogId === 'select-set-dialog') {
-            ui.updateFilterSummary();
+            ui.taxonPairList.updateFilterSummary();
         }
 
         if (dialogId === 'report-dialog') {
@@ -98,7 +98,7 @@ const dialogManager = {
 
     handleDialogClose(dialog) {
         // Any additional cleanup needed when a dialog is closed
-        ui.resetUIState();
+        ui.core.resetUIState();
     },
 
     isAnyDialogOpen() {
@@ -222,11 +222,11 @@ const dialogManager = {
         rangeSelector.setSelectedRanges([]);
 
         // Update the UI
-        ui.updateTaxonPairList();
-        ui.updateFilterSummary();
+        ui.taxonPairList.updateTaxonPairList();
+        ui.taxonPairList.updateFilterSummary();
 
         // Optionally, you can add a notification here
-        ui.showPopupNotification('All filters cleared');
+        ui.notifications.showPopupNotification('All filters cleared');
     },
 
     handleSelectSetDone() {
@@ -394,7 +394,7 @@ const dialogManager = {
         const details = document.getElementById('report-dialog__details').value;
 
         if (reportTypes.length === 0) {
-            ui.showPopupNotification("Please select at least one issue to report.", 3000);
+            ui.notifications.showPopupNotification("Please select at least one issue to report.", 3000);
             return;
         }
 
@@ -443,7 +443,7 @@ const dialogManager = {
         window.location.href = mailtoLink;
 
         // Show popup notification
-        ui.showPopupNotification(
+        ui.notifications.showPopupNotification(
             "Attempting to open your email client. If it doesn't open, the report has been copied to your clipboard. Please paste it into your email client and send to " + recipient,
             6000  // Increased duration to 6 seconds for longer message
         );

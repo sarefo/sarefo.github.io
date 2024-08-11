@@ -46,25 +46,25 @@ const gameLogic = {
     },
 
     async handleCorrectAnswer() {
-        await ui.showOverlay('Correct!', config.overlayColors.green);
-        gameUI.prepareImagesForLoading();
+        await ui.overlay.showOverlay('Correct!', config.overlayColors.green);
+        gameUI.imageHandling.prepareImagesForLoading();
         await utils.sleep(2000); // Show "Correct!" for a while
-        ui.updateOverlayMessage(`${game.loadingMessage}`); // Update message without changing color
+        ui.overlay.updateOverlayMessage(`${game.loadingMessage}`); // Update message without changing color
         await gameSetup.setupGame(false);  // Start a new round with the same taxon pair
     },
 
     async handleIncorrectAnswer() {
         utils.resetDraggables();
-        await ui.showOverlay('Try again!', config.overlayColors.red);
+        await ui.overlay.showOverlay('Try again!', config.overlayColors.red);
         await utils.sleep(1200);
-        ui.hideOverlay();
+        ui.overlay.hideOverlay();
         game.setState(GameState.PLAYING);
     },
 
     async loadNewRandomPair() {
         game.setState(GameState.LOADING);
-        ui.showOverlay(`${game.loadingMessage}`, config.overlayColors.green);
-        gameUI.prepareImagesForLoading();
+        ui.overlay.showOverlay(`${game.loadingMessage}`, config.overlayColors.green);
+        gameUI.imageHandling.prepareImagesForLoading();
 
         try {
             let newPair;
@@ -83,11 +83,11 @@ const gameLogic = {
                 }
             }
 
-            ui.hideOverlay();
-            gameUI.updateLevelIndicator(newPair.level);
+            ui.overlay.hideOverlay();
+            gameUI.levelIndicator.updateLevelIndicator(newPair.level);
         } catch (error) {
             logger.error("Error loading new pair:", error);
-            ui.showOverlay("Error loading new pair. Please try again.", config.overlayColors.red);
+            ui.overlay.showOverlay("Error loading new pair. Please try again.", config.overlayColors.red);
         } finally {
             game.setState(GameState.PLAYING);
             preloader.clearPreloadedImagesForNextRound();
@@ -138,7 +138,7 @@ const gameLogic = {
         } else {
             preloader.preloadForNextPair();
         }
-        ui.updateFilterSummary();
+        ui.taxonPairList.updateFilterSummary();
     },
 
     getCurrentTaxon(url) {
@@ -172,7 +172,7 @@ const gameLogic = {
             }
         } catch (error) {
             logger.error("Error loading random pair:", error);
-            ui.showOverlay("Error loading new pair. Please try again.", config.overlayColors.red);
+            ui.overlay.showOverlay("Error loading new pair. Please try again.", config.overlayColors.red);
         } finally {
             game.setState(GameState.PLAYING);
             preloader.clearPreloadedImagesForNextRound();
@@ -225,8 +225,8 @@ const gameLogic = {
                 });
                 
                 // Update UI to reflect cleared filters
-                ui.updateFilterSummary();
-                ui.updateLevelDropdown();
+                ui.taxonPairList.updateFilterSummary();
+                ui.filters.updateLevelDropdown();
             }
 
             const newPair = await setManager.getSetByID(setID);

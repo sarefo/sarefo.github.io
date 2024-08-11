@@ -41,10 +41,6 @@ const tagCloud = {
         const clearAllFiltersButton = document.getElementById('clear-all-filters');
         clearAllFiltersButton.addEventListener('click', () => dialogManager.clearAllFilters());
 
-        // Update active tags when the tag cloud is opened or closed
-        //        this.on('tagCloudOpened', () => ui.updateFilterSummary());
-        //        this.on('tagCloudClosed', () => ui.updateFilterSummary());
-
         const levelDropdown = document.getElementById('level-filter-dropdown');
         levelDropdown.addEventListener('change', () => this.updateTaxonList());
 
@@ -65,7 +61,7 @@ const tagCloud = {
         preloader.preloadNewPairWithTags(gameState.selectedTags, gameState.selectedLevel);
         // this.emit('tagCloudClosed');
         dialogManager.closeDialog('tag-cloud-dialog', true);
-        ui.updateFilterSummary();
+        ui.taxonPairList.updateFilterSummary();
     },
 
     async updateTaxonList() {
@@ -101,8 +97,8 @@ const tagCloud = {
 
         this.filteredPairs = gameLogic.filterTaxonPairs(taxonPairs, filters);
 
-        ui.renderTaxonPairList(this.filteredPairs);
-        ui.updateActiveCollectionCount(this.filteredPairs.length);
+        await ui.taxonPairList.renderTaxonPairList(this.filteredPairs);
+        ui.taxonPairList.updateActiveCollectionCount(this.filteredPairs.length);
         this.updateMatchingPairsCount();
     },
 
@@ -209,7 +205,7 @@ const tagCloud = {
         const newSelectedTags = Array.from(this.selectedTags);
         updateGameState({ selectedTags: newSelectedTags });
         await this.updateFilteredPairs();
-        ui.updateFilterSummary();
+        ui.taxonPairList.updateFilterSummary();
         this.updateMatchingPairsCount();
         
         this.updateTagCloud();
@@ -222,7 +218,7 @@ const tagCloud = {
     async setSelectedTags(tags) {
         this.selectedTags = new Set(tags);
         updateGameState({ selectedTags: this.getSelectedTags() });
-        ui.updateFilterSummary();
+        ui.taxonPairList.updateFilterSummary();
         await this.updateFilteredPairs();
         logger.debug("Setting selected tags");
         // Trigger preloading of a new pair based on the selected tags
@@ -232,7 +228,7 @@ const tagCloud = {
     async clearAllTags() {
         this.selectedTags.clear();
         updateGameState({ selectedTags: [] });
-        ui.updateFilterSummary();
+        ui.taxonPairList.updateFilterSummary();
         await this.updateFilteredPairs();
 
         // Trigger preloading of a random pair from all available pairs
