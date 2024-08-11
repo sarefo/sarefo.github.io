@@ -66,7 +66,13 @@ const setManager = {
 
     isSetUsed(setID) {
         return this.usedSets.has(setID);
-    }
+    },
+
+    async getSetByID(setID) {
+        const allSets = await api.fetchTaxonPairs();
+        return allSets.find(set => set.setID === setID);
+    },
+
 };
 
 export default setManager;

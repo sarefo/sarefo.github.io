@@ -516,9 +516,13 @@ const eventHandlers = {
                 event.preventDefault();
                 utils.shareCurrentPair();
                 break;
-            case 't':
+            case 't': // hidden
                 event.preventDefault();
                 testingDialog.openDialog();
+                break;
+            case '+': // hidden
+                event.preventDefault();
+                this.incrementSetID();
                 break;
             case 'w':
                 // createWorldMap.toggleAllWorldMaps();
@@ -534,6 +538,14 @@ const eventHandlers = {
     initializeSelectSetDialogShortcuts() {
         const dialog = document.getElementById('select-set-dialog');
         dialog.addEventListener('keydown', this.handleSelectSetDialogKeydown.bind(this));
+    },
+
+    incrementSetID() {
+        const currentSetID = gameState.currentTaxonImageCollection?.pair?.setID;
+        if (currentSetID) {
+            const nextSetID = String(Number(currentSetID) + 1);
+            gameLogic.loadSetByID(nextSetID, true); // Pass true to indicate clearing filters
+        }
     },
 
     handleSelectSetDialogKeydown(event) {

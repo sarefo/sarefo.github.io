@@ -212,7 +212,36 @@ const gameLogic = {
         
         const randomIndex = Math.floor(Math.random() * filteredSets.length);
         return filteredSets[randomIndex];
-    }
+    },
+
+    async loadSetByID(setID, clearFilters = false) {
+        try {
+            if (clearFilters) {
+                // Clear all filters
+                updateGameState({
+                    selectedTags: [],
+                    selectedRanges: [],
+                    selectedLevel: ''
+                });
+                
+                // Update UI to reflect cleared filters
+                ui.updateFilterSummary();
+                ui.updateLevelDropdown();
+            }
+
+            const newPair = await setManager.getSetByID(setID);
+            if (newPair) {
+                game.nextSelectedPair = newPair;
+                await gameSetup.setupGame(true);
+                const nextSetID = String(Number(setID) + 1);
+                preloader.preloadSetByID(nextSetID);
+            } else {
+                logger.warn(`Set with ID ${setID} not found.`);
+            }
+        } catch (error) {
+            logger.error(`Error loading set with ID ${setID}:`, error);
+        }
+    },
 
 };
 

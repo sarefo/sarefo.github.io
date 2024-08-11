@@ -49,6 +49,12 @@ const gameSetup = {
                 const level = gameState.currentTaxonImageCollection.pair.level;
                 gameUI.updateLevelIndicator(level);
 
+                // If filters were cleared (which happens when '+' is pressed), update the UI
+                if (gameState.selectedTags.length === 0 && gameState.selectedRanges.length === 0 && gameState.selectedLevel === '') {
+                    ui.updateFilterSummary();
+                    ui.updateLevelDropdown();
+                }
+
                 this.finishSetup();
                 gameUI.setNamePairHeight();
 
@@ -113,11 +119,10 @@ const gameSetup = {
     async initializeNewPair(urlParams = {}) {
         let newPair, imageOneURL, imageTwoURL;
 
-        // Check if there's a user-entered pair first
         if (game.nextSelectedPair) {
             newPair = game.nextSelectedPair;
-            game.nextSelectedPair = null; // Clear the selected pair after using it
-            logger.debug(`Using user-entered pair: ${newPair.taxon1} / ${newPair.taxon2}`);
+            game.nextSelectedPair = null;
+            logger.debug(`Using selected pair: ${newPair.taxon1} / ${newPair.taxon2}`);
         } else {
             const filters = {
                 level: urlParams.level || gameState.selectedLevel,
@@ -156,10 +161,17 @@ const gameSetup = {
             }
         }
 
-        [imageOneURL, imageTwoURL] = await Promise.all([
-            api.fetchRandomImageMetadata(newPair.taxon1 || newPair.taxonNames[0]),
-            api.fetchRandomImageMetadata(newPair.taxon2 || newPair.taxonNames[1])
-        ]);
+        const preloadedImages = preloader.getPreloadedImagesForNextPair();
+        if (preloadedImages && preloadedImages.pair.setID === newPair.setID) {
+            imageOneURL = preloadedImages.taxon1;
+            imageTwoURL = preloadedImages.taxon2;
+            logger.debug(`Using preloaded images for set ID ${newPair.setID}`);
+        } else {
+            [imageOneURL, imageTwoURL] = await Promise.all([
+                preloader.fetchDifferentImage(newPair.taxon1 || newPair.taxonNames[0], null),
+                preloader.fetchDifferentImage(newPair.taxon2 || newPair.taxonNames[1], null)
+            ]);
+        }
 
         updateGameState({
             currentTaxonImageCollection: {

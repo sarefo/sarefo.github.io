@@ -2,6 +2,7 @@ import api from './api.js';
 import { gameState, updateGameState } from './state.js';
 import gameLogic from './gameLogic.js';
 import logger from './logger.js';
+import setManager from './setManager.js';
 import utils from './utils.js';
 
 const preloader = {
@@ -226,6 +227,35 @@ const preloader = {
             this.isPreloading = false;
         }
     },
+
+    async preloadSetByID(setID) {
+        try {
+            const nextPair = await setManager.getSetByID(setID);
+            if (nextPair) {
+                const [imageOneURL, imageTwoURL] = await Promise.all([
+                    this.fetchDifferentImage(nextPair.taxon1, null),
+                    this.fetchDifferentImage(nextPair.taxon2, null)
+                ]);
+
+                await Promise.all([
+                    this.preloadImage(imageOneURL),
+                    this.preloadImage(imageTwoURL)
+                ]);
+
+                this.preloadedImages.nextPair = {
+                    pair: nextPair,
+                    taxon1: imageOneURL,
+                    taxon2: imageTwoURL
+                };
+                logger.debug(`Preloaded set with ID ${setID}`);
+            } else {
+                logger.warn(`Set with ID ${setID} not found for preloading`);
+            }
+        } catch (error) {
+            logger.error(`Error preloading set with ID ${setID}:`, error);
+        }
+    },
+
 };
 
 export default preloader;

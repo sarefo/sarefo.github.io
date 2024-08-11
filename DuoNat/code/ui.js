@@ -97,35 +97,26 @@ const ui = {
         }
     },
 
-    updateLevelDropdown: function () {
+    updateLevelDropdown() {
         const levelDropdown = document.getElementById('level-filter-dropdown');
         if (levelDropdown) {
             levelDropdown.value = gameState.selectedLevel;
         }
     },
 
-    updateFilterSummary: function () {
-      const mapContainer = document.querySelector('.filter-summary__map');
-      const tagsContainer = document.querySelector('.filter-summary__tags');
+    updateFilterSummary() {
+        // This method should already exist, but make sure it handles empty filters correctly
+        const mapContainer = document.querySelector('.filter-summary__map');
+        const tagsContainer = document.querySelector('.filter-summary__tags');
 
-      if (mapContainer) {
-        // Only redraw the map if the selected ranges have changed
-        const currentRanges = JSON.stringify(gameState.selectedRanges);
-        if (this.lastDrawnRanges !== currentRanges) {
-          mapContainer.innerHTML = '';
-          const selectedContinents = new Set(gameState.selectedRanges.map(abbr => getFullContinentName(abbr)));
-          createNonClickableWorldMap(mapContainer, selectedContinents);
-          this.lastDrawnRanges = currentRanges;
+        if (mapContainer) {
+            mapContainer.innerHTML = ''; // Clear the map
+            createNonClickableWorldMap(mapContainer, new Set()); // Create an empty map
         }
-      }
 
-      if (tagsContainer) {
-        tagsContainer.innerHTML = gameState.selectedTags.length > 0
-          ? gameState.selectedTags
-              .map(tag => `<span class="filter-summary__tag">${tag}</span>`)
-              .join('')
-          : '<span class="filter-summary__no-tags">No active tags</span>';
-      }
+        if (tagsContainer) {
+            tagsContainer.innerHTML = '<span class="filter-summary__no-tags">No active tags</span>';
+        }
     },
 
     renderTaxonPairList: async function (pairs) {
