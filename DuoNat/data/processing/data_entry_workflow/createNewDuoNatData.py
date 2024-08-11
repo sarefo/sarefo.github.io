@@ -74,12 +74,41 @@ def save_data(data, file_path):
 def clear_file(file_path):
     open(file_path, 'w').close()
 
+def prompt_for_correction(taxon_name):
+    while True:
+        print(f"Taxon '{taxon_name}' not found. Please choose an option:")
+        print("1. Enter a correction")
+        print("2. Skip this taxon")
+        choice = input("Enter your choice (1 or 2): ")
+        
+        if choice == '1':
+            correction = input(f"Enter the correct name for '{taxon_name}': ").strip()
+            return correction
+        elif choice == '2':
+            return None
+        else:
+            print("Invalid choice. Please try again.")
+
+def update_input_file(input_file, corrections):
+    with open(input_file, 'r') as f:
+        lines = f.readlines()
+    
+    updated_lines = []
+    for line in lines:
+        taxa = line.strip().split(',')
+        updated_taxa = [corrections.get(taxon.strip(), taxon) for taxon in taxa]
+        updated_lines.append(','.join(updated_taxa) + '\n')
+    
+    with open(input_file, 'w') as f:
+        f.writelines(updated_lines)
+
 def process_taxa(input_file, new_taxon_file, perplexity_file, taxon_info_file):
     clear_file(new_taxon_file)
     new_taxa = {}
     taxon_names_list = []
     unique_taxa = set()
     existing_taxa = load_existing_data(taxon_info_file)
+    corrections = {}
 
     with open(input_file, 'r') as f:
         taxon_sets = f.read().splitlines()
@@ -91,8 +120,18 @@ def process_taxa(input_file, new_taxon_file, perplexity_file, taxon_info_file):
 
     print(f"Processing {len(unique_taxa)} unique taxa...")
     for taxon in unique_taxa:
-        print(f"Processing: {taxon}")
+#        print(f"Processing: {taxon}")
         taxon_details = fetch_taxon_details(taxon)
+        
+        if not taxon_details:
+            correction = prompt_for_correction(taxon)
+            if correction:
+                corrections[taxon] = correction
+                taxon_details = fetch_taxon_details(correction)
+            else:
+                print(f"Skipping taxon: {taxon}")
+                continue
+        
         if taxon_details:
             taxon_id = str(taxon_details['id'])
             if taxon_id not in existing_taxa:
@@ -116,6 +155,16 @@ def process_taxa(input_file, new_taxon_file, perplexity_file, taxon_info_file):
 
     save_data(new_taxa, new_taxon_file)
     print(f"\nNew taxa data written to {new_taxon_file}")
+
+    if corrections:
+        print("\nCorrections made during processing:")
+        for original, corrected in corrections.items():
+            print(f"  {original} -> {corrected}")
+        
+        update_input = input("Do you want to update the input file with these corrections? (y/n): ").lower()
+        if update_input == 'y':
+            update_input_file(input_file, corrections)
+            print(f"Input file {input_file} has been updated with corrections.")
 
     # Output perplexityPrompt.txt content
     print("\nUse this prompt in Perplexity, then save its output in '3perplexityData.json':")

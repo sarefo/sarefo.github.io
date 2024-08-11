@@ -18352,5 +18352,77 @@
     "vernacularName": "Long-tailed shrike",
     "rank": "Species",
     "parentId": "12016"
+  },
+  "18874": {
+    "taxonName": "Psittaciformes",
+    "vernacularName": "Parrots",
+    "rank": "Order",
+    "parentId": "3"
+  },
+  "119157": {
+    "taxonName": "Cacatuidae",
+    "vernacularName": "Cockatoos",
+    "rank": "Family",
+    "parentId": "18874"
+  },
+  "71671": {
+    "taxonName": "Cacatua",
+    "vernacularName": "White cockatoos and corellas",
+    "rank": "Genus",
+    "parentId": "119157"
+  },
+  "117152": {
+    "taxonName": "Cacatua goffiniana",
+    "vernacularName": "Tanimbar corella",
+    "rank": "Species",
+    "parentId": "71671"
+  },
+  "116759": {
+    "taxonName": "Cacatua sulphurea",
+    "vernacularName": "Yellow-crested cockatoo",
+    "rank": "Species",
+    "parentId": "71671"
+  },
+  "1542375": {
+    "taxonName": "Halcyoninae",
+    "vernacularName": "Tree kingfishers",
+    "rank": "Subfamily",
+    "parentId": "2314"
+  },
+  "2315": {
+    "taxonName": "Halcyon",
+    "vernacularName": "Typical woodland kingfishers",
+    "rank": "Genus",
+    "parentId": "1542375"
+  },
+  "204519": {
+    "taxonName": "Halcyon smyrnensis",
+    "vernacularName": "White-throated kingfisher",
+    "rank": "Species",
+    "parentId": "2315"
+  },
+  "1505722": {
+    "taxonName": "Bubulcus coromandus",
+    "vernacularName": "Eastern cattle-egret",
+    "rank": "Species",
+    "parentId": "5016"
+  },
+  "7849": {
+    "taxonName": "Pericrocotus",
+    "vernacularName": "Minivets",
+    "rank": "Genus",
+    "parentId": "71303"
+  },
+  "7850": {
+    "taxonName": "Pericrocotus solaris",
+    "vernacularName": "Gray-chinned minivet",
+    "rank": "Species",
+    "parentId": "7849"
+  },
+  "339679": {
+    "taxonName": "Pericrocotus speciosus",
+    "vernacularName": "Scarlet minivet",
+    "rank": "Species",
+    "parentId": "7849"
   }
 }

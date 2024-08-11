@@ -14487,5 +14487,81 @@
       "Plestiodon quadrilineatus"
     ],
     "range": []
+  },
+  "733": {
+    "setName": "Eastern cattle-egret vs Medium egret",
+    "level": "1",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      1505722,
+      558445
+    ],
+    "taxonNames": [
+      "Bubulcus coromandus",
+      "Ardea intermedia"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "734": {
+    "setName": "Yellow-crested cockatoo vs Tanimbar corella",
+    "level": "1",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      116759,
+      117152
+    ],
+    "taxonNames": [
+      "Cacatua sulphurea",
+      "Cacatua goffiniana"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "735": {
+    "setName": "White-throated kingfisher vs Common Kingfisher",
+    "level": "1",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      204519,
+      2599
+    ],
+    "taxonNames": [
+      "Halcyon smyrnensis",
+      "Alcedo atthis"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "736": {
+    "setName": "Scarlet minivet vs Gray-chinned minivet",
+    "level": "2",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      339679,
+      7850
+    ],
+    "taxonNames": [
+      "Pericrocotus speciosus",
+      "Pericrocotus solaris"
+    ],
+    "range": [
+      "AS"
+    ]
   }
 }

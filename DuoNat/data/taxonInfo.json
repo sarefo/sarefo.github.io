@@ -37257,5 +37257,145 @@
     "range": [
       "AS"
     ]
+  },
+  "117152": {
+    "taxonName": "Cacatua goffiniana",
+    "vernacularName": "Tanimbar corella",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      18874,
+      119157,
+      71671,
+      117152
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Smallest of the white cockatoos",
+      "Classified as Near Threatened due to deforestation and bird trade",
+      "Breeds well in captivity with a large avicultural population"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "116759": {
+    "taxonName": "Cacatua sulphurea",
+    "vernacularName": "Yellow-crested cockatoo",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      18874,
+      119157,
+      71671,
+      116759
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Critically endangered with declining numbers",
+      "Nests in tree cavities with white eggs",
+      "Incubation shared by both parents for about 28 days"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "204519": {
+    "taxonName": "Halcyon smyrnensis",
+    "vernacularName": "White-throated kingfisher",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      2114,
+      2314,
+      1542375,
+      2315,
+      204519
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Widely distributed in Asia from Sinai to China and Indonesia",
+      "Resident over much of its range, some make short distance movements",
+      "Feeds on a wide range of prey including small reptiles and rodents"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "1505722": {
+    "taxonName": "Bubulcus coromandus",
+    "vernacularName": "Eastern cattle-egret",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67566,
+      4929,
+      597395,
+      5016,
+      1505722
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Often seen in dry habitats and rice paddies",
+      "Bright orange head and breast during breeding season",
+      "Leg color varies from reddish/yellow to black seasonally"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "7850": {
+    "taxonName": "Pericrocotus solaris",
+    "vernacularName": "Gray-chinned minivet",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      71303,
+      7849,
+      7850
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Found from Himalayas to China, Taiwan and Southeast Asia",
+      "Natural habitat is montane forests at 1,000-2,000 m elevation",
+      "Sexually dimorphic with orange-yellow underparts in males, bright yellow in females"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "339679": {
+    "taxonName": "Pericrocotus speciosus",
+    "vernacularName": "Scarlet minivet",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      71303,
+      7849,
+      339679
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Widespread in South and Southeast Asia",
+      "Sexually dimorphic with bright orange and black plumage in males",
+      "Females have olive-yellow and grey plumage"
+    ],
+    "range": [
+      "AS"
+    ]
   }
 }
