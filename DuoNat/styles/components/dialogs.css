@@ -819,6 +819,29 @@ dialog {
     }
 }
 
+.tutorial-close-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--primary-counter-color);
+    color: white;
+    border: 2px solid white;
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 10001;
+    pointer-events: auto !important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add shadow for better visibility */
+    transition: all 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.tutorial-close-button:hover {
+    background-color: #8a0020;
+    transform: scale(1.05);
+}
+
 /* Info dialog */
 
 .info-dialog {

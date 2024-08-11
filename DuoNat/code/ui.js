@@ -441,7 +441,15 @@ const ui = {
     },
 
     tutorial: {
+        isActive: false,
+        shouldContinue: false,
+
         showTutorial: function () {
+
+            this.isActive = true;
+            this.shouldContinue = true;
+            this.disableInteractions();
+
             const steps = [
                 { message: "Welcome to DuoNat!<br>Let's learn how to play.", highlight: null, duration: 4000 },
                 { message: "Learn to distinguish two different taxa.", highlights: ['#image-container-1', '#image-container-2'], duration: 5000 },
@@ -469,7 +477,7 @@ const ui = {
             let highlightElements = [];
 
             const showStep = () => {
-                if (currentStep < steps.length) {
+                if (currentStep < steps.length && this.shouldContinue) {
                     const step = steps[currentStep];
 
                     // Fade out current message
@@ -504,26 +512,90 @@ const ui = {
                         setTimeout(showStep, step.duration);
                     });
                 } else {
-                    this.fadeOutOverlayMessage(() => {
-                        ui.overlay.hideOverlay();
-                        highlightElements.forEach(el => el.remove());
-                    });
+                    this.endTutorial();
                 }
             };
 
             // Close the help dialog before starting the tutorial
-            //document.getElementById('help-dialog').close();
             const helpDialog = document.getElementById('help-dialog');
             if (helpDialog && helpDialog.open) {
                 helpDialog.close();
-                // If you have any custom close logic, call it here
-                // For example: dialogManager.handleDialogClose('help-dialog');
             }
+
             // Show the overlay at the start of the tutorial
             ui.overlay.showOverlay("", config.overlayColors.green);
 
+            // Add close button to the overlay
+            const closeButton = document.createElement('button');
+            closeButton.textContent = 'Close Tutorial';
+            closeButton.className = 'tutorial-close-button';
+            closeButton.addEventListener('click', () => this.endTutorial());
+            document.body.appendChild(closeButton);
+
             // Start the tutorial
             showStep();
+        },
+
+        endTutorial: function() {
+            this.isActive = false;
+            this.shouldContinue = false;
+            this.enableInteractions();
+            this.fadeOutOverlayMessage(() => {
+                ui.overlay.hideOverlay();
+                const closeButton = document.querySelector('.tutorial-close-button');
+                if (closeButton) closeButton.remove();
+            });
+            document.querySelectorAll('.tutorial-highlight').forEach(el => el.remove());
+            
+            // Re-enable keyboard shortcuts
+            document.addEventListener('keydown', eventHandlers.debouncedKeyboardHandler);
+        },
+
+        disableInteractions: function() {
+            // Disable buttons and interactions
+            document.querySelectorAll('button, .icon-button, .name-pair__item--draggable').forEach(el => {
+                el.disabled = true;
+                el.style.pointerEvents = 'none';
+            });
+            // Disable swipe functionality
+            eventHandlers.disableSwipe();
+
+            // Disable level indicator
+            const levelIndicator = document.getElementById('level-indicator');
+            if (levelIndicator) {
+                levelIndicator.style.pointerEvents = 'none';
+            }
+
+            // Disable all buttons and clickable elements
+            document.body.style.pointerEvents = 'none';
+
+            // Disable keyboard shortcuts
+            document.removeEventListener('keydown', eventHandlers.debouncedKeyboardHandler);
+
+            // Enable pointer events only for the tutorial close button
+            const closeButton = document.querySelector('.tutorial-close-button');
+            if (closeButton) {
+                closeButton.style.pointerEvents = 'auto';
+            }
+        },
+
+        enableInteractions: function() {
+            // Re-enable buttons and interactions
+            document.querySelectorAll('button, .icon-button, .name-pair__item--draggable').forEach(el => {
+                el.disabled = false;
+                el.style.pointerEvents = 'auto';
+            });
+            // Re-enable swipe functionality
+            eventHandlers.enableSwipe();
+
+            // Re-enable level indicator
+            const levelIndicator = document.getElementById('level-indicator');
+            if (levelIndicator) {
+                levelIndicator.style.pointerEvents = 'auto';
+            }
+
+            // Re-enable all buttons and clickable elements
+            document.body.style.pointerEvents = 'auto';
         },
 
         fadeOutOverlayMessage: function (callback) {

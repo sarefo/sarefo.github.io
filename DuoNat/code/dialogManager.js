@@ -44,23 +44,28 @@ const dialogManager = {
 
     core: {
 
-        openDialog(dialogId) {
-            if (this.openDialogs.includes(dialogId)) {
+        openDialog: function(dialogId) {
+            if (ui.tutorial.isActive && dialogId !== 'help-dialog') {
                 return;
             }
 
             const dialog = document.getElementById(dialogId);
-            if (dialog && dialog.tagName.toLowerCase() === 'dialog') {
-                dialog.showModal();
-                dialogManager.openDialogs.push(dialogId);
+            if (!dialog) {
+                return;
+            }
 
-                // Remove any existing event listener before adding a new one
-                dialog.removeEventListener('keydown', dialogManager.core.handleDialogKeydown);
-                dialog.addEventListener('keydown', dialogManager.core.handleDialogKeydown.bind(this));
+            if (dialog.open) {
+                return;
+            }
 
-                if (dialogManager.openDialogs.length === 1) {
-                    dialogManager.utils.disableMainEventHandlers();
-                }
+            dialog.showModal();
+            this.openDialogs.push(dialogId);
+
+            dialog.removeEventListener('keydown', dialogManager.core.handleDialogKeydown);
+            dialog.addEventListener('keydown', dialogManager.core.handleDialogKeydown.bind(this));
+
+            if (this.openDialogs.length === 1) {
+                dialogManager.utils.disableMainEventHandlers();
             }
 
             if (dialogId === 'select-set-dialog') {
@@ -70,37 +75,23 @@ const dialogManager = {
             if (dialogId === 'report-dialog') {
                 this.resetReportDialog();
             }
-
         },
 
-        closeDialog(dialogId, fromTagCloud = false) {
+        closeDialog: function(dialogId) {
             const index = dialogManager.openDialogs.indexOf(dialogId);
             if (index === -1) {
                 return;
             }
 
             const dialog = document.getElementById(dialogId);
-            if (dialog && dialog.tagName.toLowerCase() === 'dialog') {
-                if (dialogId === 'tag-cloud-dialog' && !fromTagCloud) {
-                    tagCloud.closeTagCloud();
-                    return;
-                }
-
+            if (dialog && dialog instanceof HTMLDialogElement) {
                 dialog.close();
-                dialogManager.openDialogs.splice(index, 1);
+                this.openDialogs.splice(index, 1);
 
                 dialog.removeEventListener('keydown', dialogManager.core.handleDialogKeydown);
 
-                if (dialogId === 'range-dialog') {
-                    rangeSelector.closeRangeDialog();
-                } else {
-                    dialogManager.core.handleDialogClose(dialog);
-                }
-
-                dialogManager.events.emit('dialogClose', dialogId);
-
-                if (dialogManager.openDialogs.length === 0) {
-                    dialogManager.utils.enableMainEventHandlers();
+                if (this.openDialogs.length === 0) {
+                    this.utils.enableMainEventHandlers();
                 }
             }
         },
@@ -178,9 +169,15 @@ const dialogManager = {
         },
 
         initializeHelpDialog() {
-            document.getElementById('help-button').addEventListener('click', () => {
-                dialogManager.core.openDialog('help-dialog');
-                dialogManager.utils.toggleKeyboardShortcuts();
+            document.getElementById('help-button').addEventListener('click', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                if (!ui.tutorial.isActive) {
+                    dialogManager.core.openDialog('help-dialog');
+                    dialogManager.utils.toggleKeyboardShortcuts();
+                } else {
+                    logger.debug("Tutorial is active, help dialog not opened");
+                }
             });
         },
 
@@ -298,13 +295,11 @@ const dialogManager = {
 
     utils: {
         toggleKeyboardShortcuts() {
-            logger.debug("toggling Keyboard shortcuts");
             const keyboardShortcutsSection = document.getElementById('keyboard-shortcuts');
-            if (utils.hasKeyboard()) {
-                keyboardShortcutsSection.style.display = 'block';
-            } else {
-                keyboardShortcutsSection.style.display = 'none';
+            if (!keyboardShortcutsSection) {
+                return;
             }
+            keyboardShortcutsSection.style.display = utils.hasKeyboard() ? 'block' : 'none';
         },
 
         validateInputs() {

@@ -144,6 +144,20 @@ const eventHandlers = {
 
     },
 
+    disableSwipe: function() {
+        this.swipeDisabled = true;
+    },
+
+    enableSwipe: function() {
+        this.swipeDisabled = false;
+    },
+
+// Modify the handleSwipeOrDrag method
+    handleSwipeOrDrag: function(e) {
+        if (this.swipeDisabled || !this.isDragging) return;
+        // ... rest of the existing method
+    },
+
     safeAddEventListener(id, eventType, handler) {
         const element = document.getElementById(id);
         if (element) {
@@ -206,18 +220,28 @@ const eventHandlers = {
             searchInput.addEventListener('input', this.handleSearch);
             searchInput.addEventListener('keydown', this.handleSearchKeydown.bind(this));
         }
+
         const clearSearchButton = document.getElementById('clear-search');
         if (clearSearchButton) {
             clearSearchButton.addEventListener('click', this.handleClearSearch);
         }
 
         // Help button functionality
-        document.getElementById('help-button').addEventListener('click', () => {
-            dialogManager.openDialog('help-dialog');
+        document.getElementById('help-button').addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            if (!ui.tutorial.isActive) {
+                const helpDialog = document.getElementById('help-dialog');
+                if (helpDialog && !helpDialog.open) {
+                    dialogManager.openDialog('help-dialog');
+                }
+            }
         });
+
         document.getElementById('start-tutorial-button').addEventListener('click', () => {
             ui.tutorial.showTutorial();
         });
+
         document.getElementById('discord-help-dialog').addEventListener('click', () => {
             window.open('https://discord.gg/DcWrhYHmeM', '_blank');
         });
@@ -430,8 +454,8 @@ const eventHandlers = {
             return; // Exit the function if any modifier key is pressed
         }
 
-        if (dialogManager.isAnyDialogOpen()) {
-            // If any dialog is open, don't process keyboard shortcuts
+        if (dialogManager.isAnyDialogOpen() || ui.tutorial.isActive) {
+            // If any dialog or tutorial is open, don't process keyboard shortcuts
             return;
         }
 
@@ -481,8 +505,10 @@ const eventHandlers = {
                 game.showTaxaRelationship();
                 break;
             case 'h':
-                event.preventDefault();
-                dialogManager.openDialog('help-dialog');
+                if (!event.target.closest('button')) {  // Only trigger if not clicking a button
+                    event.preventDefault();
+                    dialogManager.openDialog('help-dialog');
+                }
                 break;
             case 'm':
                 event.preventDefault();

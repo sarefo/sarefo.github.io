@@ -56,12 +56,12 @@ const gameUI = {
                 <span class="name-pair__taxon-name">${nameOne}</span>
                 ${vernacularOne && vernacularOne !== "N/a" ? `<span class="name-pair__vernacular-name">${vernacularOne}</span>` : ''}
             `;
-            logger.debug(`vernacular one is ${vernacularOne}`);
+//            logger.debug(`vernacular one is ${vernacularOne}`);
             elements.rightName.innerHTML = `
                 <span class="name-pair__taxon-name">${nameTwo}</span>
                 ${vernacularTwo && vernacularTwo !== "N/a" ? `<span class="name-pair__vernacular-name">${vernacularTwo}</span>` : ''}
             `;
-            logger.debug(`vernacular two is ${vernacularTwo}`);
+ //           logger.debug(`vernacular two is ${vernacularTwo}`);
 
             gameState.taxonLeftName = nameOne;
             gameState.taxonRightName = nameTwo;
