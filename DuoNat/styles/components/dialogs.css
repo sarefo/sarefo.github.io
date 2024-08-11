@@ -119,8 +119,8 @@ dialog {
 #select-set-dialog {
     width: 95%;
     max-width: var(--max-image-width);
-    height: 90vh;
-    max-height: 90vh;
+    height: 95vh;
+    max-height: 95vh;
     padding: 10px;
 }
 
