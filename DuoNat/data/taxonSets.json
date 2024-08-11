@@ -14120,5 +14120,205 @@
     "range": [
       "AS"
     ]
+  },
+  "714": {
+    "setName": "Red-based jezebel vs Red-breast jezebel",
+    "level": "2",
+    "tags": [
+      "insects",
+      "moths",
+      "hk"
+    ],
+    "taxa": [
+      154590,
+      448213
+    ],
+    "taxonNames": [
+      "Delias pasithoe",
+      "Delias acalis"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "715": {
+    "setName": "Red-based jezebel vs Painted jezebel",
+    "level": "1",
+    "tags": [
+      "insects",
+      "moths",
+      "hk"
+    ],
+    "taxa": [
+      154590,
+      245891
+    ],
+    "taxonNames": [
+      "Delias pasithoe",
+      "Delias hyparete"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "716": {
+    "setName": "Red-based jezebel vs Red ring skirt",
+    "level": "1",
+    "tags": [
+      "insects",
+      "moths",
+      "hk"
+    ],
+    "taxa": [
+      154590,
+      324771
+    ],
+    "taxonNames": [
+      "Delias pasithoe",
+      "Hestina assimilis"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "717": {
+    "setName": "Common mormon swallowtail vs Spangle swallowtail",
+    "level": "2",
+    "tags": [
+      "insects",
+      "butterflies",
+      "hk"
+    ],
+    "taxa": [
+      51588,
+      125576
+    ],
+    "taxonNames": [
+      "Papilio polytes",
+      "Papilio protenor"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "718": {
+    "setName": "Common mormon swallowtail vs Red helen swallowtail",
+    "level": "3",
+    "tags": [
+      "insects",
+      "butterflies",
+      "hk"
+    ],
+    "taxa": [
+      51588,
+      141617
+    ],
+    "taxonNames": [
+      "Papilio polytes",
+      "Papilio helenus"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "719": {
+    "setName": "Lime swallowtail vs Chinese yellow swallowtail",
+    "level": "3",
+    "tags": [
+      "insects",
+      "butterflies",
+      "hk"
+    ],
+    "taxa": [
+      51583,
+      145586
+    ],
+    "taxonNames": [
+      "Papilio demoleus",
+      "Papilio xuthus"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "720": {
+    "setName": "Dark-branded bushbrown vs South china bushbrown",
+    "level": "2",
+    "tags": [
+      "insects",
+      "moths",
+      "hk"
+    ],
+    "taxa": [
+      133717,
+      1007813
+    ],
+    "taxonNames": [
+      "Mycalesis mineus",
+      "Mycalesis mucianus"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "721": {
+    "setName": "Pale grass blue vs Dark grass blue",
+    "level": "3",
+    "tags": [
+      "insects",
+      "butterflies",
+      "hk"
+    ],
+    "taxa": [
+      145642,
+      125512
+    ],
+    "taxonNames": [
+      "Pseudozizeeria maha",
+      "Zizeeria karsandra"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "722": {
+    "setName": "Pale grass blue vs Tiny grass blue",
+    "level": "3",
+    "tags": [
+      "insects",
+      "butterflies",
+      "hk"
+    ],
+    "taxa": [
+      145642,
+      198828
+    ],
+    "taxonNames": [
+      "Pseudozizeeria maha",
+      "Zizula hylax"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "723": {
+    "setName": "Plains cupid vs Gram blue",
+    "level": "3",
+    "tags": [
+      "insects",
+      "butterflies",
+      "hk"
+    ],
+    "taxa": [
+      1097646,
+      125551
+    ],
+    "taxonNames": [
+      "Luthrodes pandava",
+      "Euchrysops cnejus"
+    ],
+    "range": [
+      "AS"
+    ]
   }
 }

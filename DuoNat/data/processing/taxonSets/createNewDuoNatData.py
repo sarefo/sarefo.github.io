@@ -78,38 +78,37 @@ def process_taxa(input_file, new_taxon_file, perplexity_file):
     clear_file(new_taxon_file)
     new_taxa = {}
     taxon_names_list = []
-    processed_taxa = set()  # New set to keep track of processed taxa
+    unique_taxa = set()
 
     with open(input_file, 'r') as f:
         taxon_sets = f.read().splitlines()
 
-    print("Processing taxa...")
+    # Create a unique list of taxa
     for taxon_set in taxon_sets:
         taxa_in_set = [taxon.strip() for taxon in taxon_set.split(',')]
-        for taxon in taxa_in_set:
-            if taxon not in processed_taxa:  # Check if taxon has already been processed
-#                print(f"Processing: {taxon}")
-                taxon_details = fetch_taxon_details(taxon)
-                if taxon_details:
-                    taxon_id = str(taxon_details['id'])
-                    if taxon_id not in new_taxa:
-                        ancestry = fetch_ancestry(taxon_id)
-                        
-                        new_taxa[taxon_id] = {
-                            "taxonName": taxon_details['taxonName'],
-                            "vernacularName": taxon_details['vernacularName'],
-                            "ancestryIds": [ancestor['id'] for ancestor in ancestry] + [int(taxon_id)],
-                            "rank": taxon_details['rank'],
-                            "taxonFacts": [],
-                            "range": []
-                        }
-                        taxon_names_list.append(taxon_details['taxonName'])
-                    else:
-                        print(f"Taxon {taxon} (ID: {taxon_id}) already exists in the database.")
-                processed_taxa.add(taxon)  # Add taxon to processed set
-                sleep(1)  # To avoid hitting API rate limits
+        unique_taxa.update(taxa_in_set)
+
+#    print(f"Processing {len(unique_taxa)} unique taxa...")
+    for taxon in unique_taxa:
+#        print(f"Processing: {taxon}")
+        taxon_details = fetch_taxon_details(taxon)
+        if taxon_details:
+            taxon_id = str(taxon_details['id'])
+            if taxon_id not in new_taxa:
+                ancestry = fetch_ancestry(taxon_id)
+                
+                new_taxa[taxon_id] = {
+                    "taxonName": taxon_details['taxonName'],
+                    "vernacularName": taxon_details['vernacularName'],
+                    "ancestryIds": [ancestor['id'] for ancestor in ancestry] + [int(taxon_id)],
+                    "rank": taxon_details['rank'],
+                    "taxonFacts": [],
+                    "range": []
+                }
+                taxon_names_list.append(taxon_details['taxonName'])
             else:
-                print(f"Taxon {taxon} has already been processed. Skipping.")
+                print(f"Taxon {taxon} (ID: {taxon_id}) already exists in the database.")
+        sleep(1)  # To avoid hitting API rate limits
 
     save_data(new_taxa, new_taxon_file)
     print(f"\nNew taxa data written to {new_taxon_file}")
@@ -287,13 +286,27 @@ def update_main_files_without_metadata(taxon_info_file, taxon_sets_file, new_tax
     print(f"Total taxa in updated file: {len(taxon_info)}")
     print(f"Total sets in updated file: {len(taxon_sets)}")
 
-def update_set_metadata_in_main_file(taxon_sets_file):
+def update_set_metadata_in_main_file(taxon_sets_file, taxon_info_file):
     taxon_sets = load_existing_data(taxon_sets_file)
+    taxon_info = load_existing_data(taxon_info_file)
     
     print("Updating metadata for new taxon sets (level=0)...")
+    last_tags = []  # Initialize last_tags as an empty list
+    
     for set_id, set_data in taxon_sets.items():
         if set_data.get('level') == "0":
             print(f"\nSet {set_id}: {', '.join(set_data['taxonNames'])}")
+            
+            # Generate default name
+            taxon_a = taxon_info.get(str(set_data['taxa'][0]), {})
+            taxon_b = taxon_info.get(str(set_data['taxa'][1]), {})
+            name_a = taxon_a.get('vernacularName', taxon_a.get('taxonName', 'Unknown'))
+            name_b = taxon_b.get('vernacularName', taxon_b.get('taxonName', 'Unknown'))
+            default_name = f"{name_a} vs {name_b}"
+            
+            # Update set name
+            set_name = input(f"Enter a name for this set (press Enter to use '{default_name}'): ").strip()
+            set_data['setName'] = set_name if set_name else default_name
             
             # Update level
             while True:
@@ -305,16 +318,92 @@ def update_set_metadata_in_main_file(taxon_sets_file):
                     print("Invalid input. Please enter a number between 1 and 3.")
             
             # Update tags
-            tags = input("Enter tags (comma-separated, or press Enter for no tags): ").strip()
-            set_data['tags'] = [tag.strip() for tag in tags.split(',')] if tags else []
+            default_tags = ", ".join(last_tags) if last_tags else "no tags"
+            tags_input = input(f"Enter tags (comma-separated, or press Enter to use '{default_tags}'): ").strip()
             
-            # Update set name
-            set_name = input("Enter a name for this set (or press Enter to skip): ").strip()
-            if set_name:
-                set_data['setName'] = set_name
+            if tags_input:
+                new_tags = [tag.strip() for tag in tags_input.split(',') if tag.strip()]
+            else:
+                new_tags = last_tags.copy()  # Use the default tags
+            
+            set_data['tags'] = new_tags
+            last_tags = new_tags  # Update last_tags for the next iteration
     
     save_data(taxon_sets, taxon_sets_file)
     print(f"Updated metadata saved to {taxon_sets_file}")
+
+def update_hierarchy(taxon_info_file, taxon_hierarchy_file):
+    # Backup old file
+    shutil.move(taxon_hierarchy_file, f"{taxon_hierarchy_file}.old")
+    print(f"Old {taxon_hierarchy_file} backed up with .old extension.")
+
+    # Load existing data
+    current_hierarchy = load_existing_data(f"{taxon_hierarchy_file}.old")
+    taxon_info = load_existing_data(taxon_info_file)
+    
+    # Create a new hierarchy dictionary
+    updated_hierarchy = {}
+    
+    # First, copy all existing taxa from current_hierarchy
+    for id, info in current_hierarchy.items():
+        updated_hierarchy[id] = {
+            "taxonName": info["taxonName"],
+            "vernacularName": info["vernacularName"],
+            "rank": info["rank"],
+            "parentId": info["parentId"]
+        }
+    
+    # Ensure the root "Life" taxon exists
+    if "48460" not in updated_hierarchy:
+        updated_hierarchy["48460"] = {
+            "taxonName": "Life",
+            "vernacularName": "n/a",
+            "rank": "Stateofmatter",
+            "parentId": None
+        }
+    
+    # Now, process taxon_info to add new taxa and update existing ones
+    for taxon_id, taxon_data in taxon_info.items():
+        ancestry_ids = taxon_data["ancestryIds"]
+        
+        for i, current_id in enumerate(ancestry_ids):
+            current_id = str(current_id)
+            
+            # If this taxon isn't in our hierarchy yet, add it
+            if current_id not in updated_hierarchy:
+                # Fetch details from iNat API
+                taxon_details = fetch_taxon_by_id(current_id)
+                if taxon_details:
+                    updated_hierarchy[current_id] = taxon_details
+                else:
+                    print(f"  Unable to fetch details for taxon ID: {current_id}. Using placeholder data.")
+                    updated_hierarchy[current_id] = {
+                        "taxonName": "Unknown",
+                        "vernacularName": "n/a",
+                        "rank": "Unknown",
+                        "parentId": None
+                    }
+                sleep(0.5)  # To avoid hitting API rate limits
+            
+            # Set the parentId
+            if current_id == "1":  # Animalia
+                parent_id = "48460"  # Life
+            elif i > 0:
+                parent_id = str(ancestry_ids[i-1])
+            else:
+                parent_id = None
+            
+            updated_hierarchy[current_id]["parentId"] = parent_id
+            
+            # If this is the last ID in the ancestry, it's the taxon itself
+            if i == len(ancestry_ids) - 1:
+                updated_hierarchy[current_id]["taxonName"] = taxon_data["taxonName"]
+                updated_hierarchy[current_id]["vernacularName"] = taxon_data.get("vernacularName", "n/a")
+                updated_hierarchy[current_id]["rank"] = taxon_data["rank"]
+    
+    # Save the updated hierarchy
+    save_data(updated_hierarchy, taxon_hierarchy_file)
+    print(f"Updated hierarchy saved to {taxon_hierarchy_file}")
 
 def main():
     input_file = "1newTaxonInputSets.txt"
@@ -327,33 +416,49 @@ def main():
     taxon_sets_file = "../../taxonSets.json"
     taxon_hierarchy_file = "../../taxonHierarchy.json"
 
+    last_action = 0
     while True:
         print("\nChoose an action:")
         print("0. Exit")
-        print("1. Process taxa from input file")
-        print("2. Merge Perplexity data")
-        print("3. Create taxon sets")
-        print("4. Update main files without metadata")
-        print("5. Update set metadata in main file")
-        print("6. Update taxon hierarchy")
+        options = [
+            "Process taxa from input file",
+            "Merge Perplexity data",
+            "Create taxon sets",
+            "Update main files without metadata",
+            "Update set metadata in main file",
+            "Update taxon hierarchy"
+        ]
+        
+        for i, option in enumerate(options, 1):
+            if i == last_action + 1:
+                print(f"{i}. {option} <- Recommended next step")
+            else:
+                print(f"{i}. {option}")
 
         choice = input("Enter your choice (0-6): ")
 
         if choice == '1':
             process_taxa(input_file, new_taxon_file, perplexity_file)
+            last_action = 1
         elif choice == '2':
             if os.path.exists(perplexity_file):
                 merge_perplexity_data(new_taxon_file, perplexity_file, merged_taxon_file)
+                last_action = 2
             else:
                 print(f"Error: {perplexity_file} not found. Please create it first.")
+                last_action = 1  # Recommend creating the Perplexity file
         elif choice == '3':
             create_taxon_sets(merged_taxon_file, taxon_sets_file, new_sets_file, input_file)
+            last_action = 3
         elif choice == '4':
             update_main_files_without_metadata(taxon_info_file, taxon_sets_file, merged_taxon_file, new_sets_file)
+            last_action = 4
         elif choice == '5':
-            update_set_metadata_in_main_file(taxon_sets_file)
+            update_set_metadata_in_main_file(taxon_sets_file, taxon_info_file)
+            last_action = 5
         elif choice == '6':
             update_hierarchy(taxon_info_file, taxon_hierarchy_file)
+            last_action = 0  # Reset to beginning after completing all steps
         elif choice == '0':
             break
         else:

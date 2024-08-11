@@ -21802,9 +21802,8 @@
   },
   "145586": {
     "taxonName": "Papilio xuthus",
-    "vernacularName": "Chinese Yellow Swallowtail",
+    "vernacularName": "Chinese yellow swallowtail",
     "ancestryIds": [
-      48460,
       1,
       47120,
       372739,
@@ -21821,9 +21820,9 @@
     ],
     "rank": "Species",
     "taxonFacts": [
-      "Found in East Asia",
-      "Known for its yellow and black wing pattern",
-      "Larvae feed on citrus plants"
+      "Larvae feed on various citrus plants",
+      "Exhibits seasonal color variations",
+      "Used in traditional Japanese art and culture"
     ],
     "range": [
       "AS"
@@ -36559,6 +36558,455 @@
       "Brood parasite, lays eggs in other birds' nests",
       "Feeds on insects, fruits, and small animals",
       "Distinctive black and white plumage"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "145642": {
+    "taxonName": "Pseudozizeeria maha",
+    "vernacularName": "Pale grass blue",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47157,
+      47224,
+      47923,
+      58558,
+      125833,
+      522672,
+      145643,
+      145642
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Larvae feed on <i>Oxalis</i>, legumes and Acanthaceae plants",
+      "Migrates to northern climates, leading to wing color changes"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "125537": {
+    "taxonName": "Zizina otis",
+    "vernacularName": "Lesser grass blue",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47157,
+      47224,
+      47923,
+      58558,
+      125833,
+      522672,
+      125541,
+      125537
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Caterpillars feed on native and introduced legumes",
+      "Caterpillars are green and well camouflaged",
+      "Ants sometimes tend the caterpillars and cocoons"
+    ],
+    "range": [
+      "AS",
+      "OC"
+    ]
+  },
+  "1007813": {
+    "taxonName": "Mycalesis mucianus",
+    "vernacularName": "South china bushbrown",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47157,
+      47224,
+      47922,
+      58597,
+      58598,
+      207974,
+      127879,
+      1007813
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Larvae feed on various grasses",
+      "Exhibits seasonal color variations",
+      "Found in dense forests and woodlands"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "125551": {
+    "taxonName": "Euchrysops cnejus",
+    "vernacularName": "Gram blue",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47157,
+      47224,
+      47923,
+      58558,
+      125833,
+      1265015,
+      125604,
+      125551
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Larvae feed on various legumes",
+      "Exhibits seasonal color variations",
+      "Found from India to Australia"
+    ],
+    "range": [
+      "AS",
+      "OC"
+    ]
+  },
+  "245891": {
+    "taxonName": "Delias hyparete",
+    "vernacularName": "Painted jezebel",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47157,
+      47224,
+      48508,
+      209720,
+      321384,
+      123899,
+      245891
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Larvae feed on mistletoe plants",
+      "Bright colors serve as a warning to predators",
+      "Females have darker and thicker wing veins"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "1097646": {
+    "taxonName": "Luthrodes pandava",
+    "vernacularName": "Plains cupid",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47157,
+      47224,
+      47923,
+      58558,
+      125833,
+      522678,
+      472289,
+      1097646
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "One of the few butterflies that breed on cycads",
+      "Larvae feed on the leaves of cycads",
+      "Found in South Asia, Southeast Asia, and the Philippines"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "51583": {
+    "taxonName": "Papilio demoleus",
+    "vernacularName": "Lime swallowtail",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47157,
+      47224,
+      47223,
+      49973,
+      207785,
+      47225,
+      884946,
+      51583
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Larvae feed on various citrus plants",
+      "Exhibits seasonal color variations",
+      "Widely distributed across Asia and Africa"
+    ],
+    "range": [
+      "AS",
+      "AF"
+    ]
+  },
+  "133717": {
+    "taxonName": "Mycalesis mineus",
+    "vernacularName": "Dark-branded bushbrown",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47157,
+      47224,
+      47922,
+      58597,
+      58598,
+      207974,
+      127879,
+      133717
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Larvae feed on various grasses",
+      "Exhibits seasonal color variations",
+      "Found in dense forests and woodlands"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "154590": {
+    "taxonName": "Delias pasithoe",
+    "vernacularName": "Red-based jezebel",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47157,
+      47224,
+      48508,
+      209720,
+      321384,
+      123899,
+      154590
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Larvae feed on mistletoe plants",
+      "Bright colors serve as a warning to predators",
+      "Found in Southeast Asia and the Philippines"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "198828": {
+    "taxonName": "Zizula hylax",
+    "vernacularName": "Tiny grass blue",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47157,
+      47224,
+      47923,
+      58558,
+      125833,
+      522675,
+      52066,
+      198828
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Larvae feed on various legumes",
+      "One of the smallest butterflies in the world",
+      "Widely distributed across Africa, Asia, and Australia"
+    ],
+    "range": [
+      "AF",
+      "AS",
+      "OC"
+    ]
+  },
+  "141617": {
+    "taxonName": "Papilio helenus",
+    "vernacularName": "Red helen swallowtail",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47157,
+      47224,
+      47223,
+      49973,
+      207785,
+      47225,
+      775729,
+      141617
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Larvae feed on various citrus plants",
+      "Exhibits seasonal color variations",
+      "Found in Southeast Asia and the Philippines"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "125512": {
+    "taxonName": "Zizeeria karsandra",
+    "vernacularName": "Dark grass blue",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47157,
+      47224,
+      47923,
+      58558,
+      125833,
+      522672,
+      125514,
+      125512
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Larvae feed on various legumes",
+      "One of the smallest butterflies in the world",
+      "Found in Africa, Asia, and Australia"
+    ],
+    "range": [
+      "AF",
+      "AS",
+      "OC"
+    ]
+  },
+  "125576": {
+    "taxonName": "Papilio protenor",
+    "vernacularName": "Spangle swallowtail",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47157,
+      47224,
+      47223,
+      49973,
+      207785,
+      47225,
+      775729,
+      125576
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Larvae feed on various citrus plants",
+      "Exhibits seasonal color variations",
+      "Found in East Asia and Southeast Asia"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "448213": {
+    "taxonName": "Delias acalis",
+    "vernacularName": "Red-breast jezebel",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47157,
+      47224,
+      48508,
+      209720,
+      321384,
+      123899,
+      448213
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Larvae feed on mistletoe plants",
+      "Bright colors serve as a warning to predators",
+      "Found in Southeast Asia and the Philippines"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "51588": {
+    "taxonName": "Papilio polytes",
+    "vernacularName": "Common mormon swallowtail",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47157,
+      47224,
+      47223,
+      49973,
+      207785,
+      47225,
+      775729,
+      51588
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Larvae feed on various citrus plants",
+      "Exhibits seasonal color variations",
+      "Widely distributed across Asia and the Philippines"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "324771": {
+    "taxonName": "Hestina assimilis",
+    "vernacularName": "Red ring skirt",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47157,
+      47224,
+      47922,
+      134166,
+      129161,
+      324771
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Larvae feed on various plants in the Acanthaceae family",
+      "Exhibits seasonal color variations",
+      "Found in East Asia and Southeast Asia"
     ],
     "range": [
       "AS"

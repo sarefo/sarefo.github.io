@@ -2029,7 +2029,7 @@
   },
   "4954": {
     "taxonName": "Ardea cinerea",
-    "vernacularName": "Grey Heron",
+    "vernacularName": "Grey heron",
     "rank": "Species",
     "parentId": "4950"
   },
@@ -5995,7 +5995,7 @@
   },
   "4943": {
     "taxonName": "Egretta garzetta",
-    "vernacularName": "Little Egret",
+    "vernacularName": "Little egret",
     "rank": "Species",
     "parentId": "4933"
   },
@@ -10735,7 +10735,7 @@
   },
   "13695": {
     "taxonName": "Motacilla alba",
-    "vernacularName": "White Wagtail",
+    "vernacularName": "White wagtail",
     "rank": "Species",
     "parentId": "13686"
   },
@@ -11737,7 +11737,7 @@
   },
   "145586": {
     "taxonName": "Papilio xuthus",
-    "vernacularName": "Chinese Yellow Swallowtail",
+    "vernacularName": "Chinese yellow swallowtail",
     "rank": "Species",
     "parentId": "545183"
   },
@@ -14935,7 +14935,7 @@
   },
   "2969": {
     "taxonName": "Streptopelia decaocto",
-    "vernacularName": "Eurasian Collared-Dove",
+    "vernacularName": "Eurasian collared-dove",
     "rank": "Species",
     "parentId": "2926"
   },
@@ -17602,5 +17602,617 @@
     "vernacularName": "Alpaca",
     "rank": "Species",
     "parentId": "42235"
+  },
+  "1425710": {
+    "taxonName": "Spilopelia",
+    "vernacularName": "Laughing and spotted doves",
+    "rank": "Genus",
+    "parentId": "2715"
+  },
+  "1455918": {
+    "taxonName": "Spilopelia chinensis",
+    "vernacularName": "Spotted dove",
+    "rank": "Species",
+    "parentId": "1425710"
+  },
+  "3017": {
+    "taxonName": "Columba livia",
+    "vernacularName": "Rock pigeon",
+    "rank": "Species",
+    "parentId": "3000"
+  },
+  "2935": {
+    "taxonName": "Streptopelia tranquebarica",
+    "vernacularName": "Red collared-dove",
+    "rank": "Species",
+    "parentId": "2926"
+  },
+  "2927": {
+    "taxonName": "Streptopelia orientalis",
+    "vernacularName": "Oriental turtle-dove",
+    "rank": "Species",
+    "parentId": "2926"
+  },
+  "3626": {
+    "taxonName": "Chalcophaps",
+    "vernacularName": "Emerald doves",
+    "rank": "Genus",
+    "parentId": "2715"
+  },
+  "508097": {
+    "taxonName": "Chalcophaps indica",
+    "vernacularName": "Asian emerald dove",
+    "rank": "Species",
+    "parentId": "3626"
+  },
+  "14556": {
+    "taxonName": "Pycnonotidae",
+    "vernacularName": "Bulbuls",
+    "rank": "Family",
+    "parentId": "7251"
+  },
+  "14587": {
+    "taxonName": "Pycnonotus",
+    "vernacularName": "Typical bulbuls",
+    "rank": "Genus",
+    "parentId": "14556"
+  },
+  "14591": {
+    "taxonName": "Pycnonotus jocosus",
+    "vernacularName": "Red-whiskered bulbul",
+    "rank": "Species",
+    "parentId": "14587"
+  },
+  "14621": {
+    "taxonName": "Pycnonotus sinensis",
+    "vernacularName": "Light-vented bulbul",
+    "rank": "Species",
+    "parentId": "14587"
+  },
+  "14626": {
+    "taxonName": "Pycnonotus aurigaster",
+    "vernacularName": "Sooty-headed bulbul",
+    "rank": "Species",
+    "parentId": "14587"
+  },
+  "14682": {
+    "taxonName": "Hemixos",
+    "vernacularName": "Puff-throated bulbuls",
+    "rank": "Genus",
+    "parentId": "14556"
+  },
+  "14684": {
+    "taxonName": "Hemixos castanonotus",
+    "vernacularName": "Chestnut bulbul",
+    "rank": "Species",
+    "parentId": "14682"
+  },
+  "144389": {
+    "taxonName": "Gracupica",
+    "vernacularName": "Asian pied starlings",
+    "rank": "Genus",
+    "parentId": "14841"
+  },
+  "145098": {
+    "taxonName": "Gracupica nigricollis",
+    "vernacularName": "Black-collared starling",
+    "rank": "Species",
+    "parentId": "144389"
+  },
+  "13688": {
+    "taxonName": "Motacilla cinerea",
+    "vernacularName": "Grey wagtail",
+    "rank": "Species",
+    "parentId": "13686"
+  },
+  "13157": {
+    "taxonName": "Copsychus",
+    "vernacularName": "Magpie-robins and shamas",
+    "rank": "Genus",
+    "parentId": "12704"
+  },
+  "204491": {
+    "taxonName": "Copsychus saularis",
+    "vernacularName": "Oriental magpie-robin",
+    "rank": "Species",
+    "parentId": "13157"
+  },
+  "827401": {
+    "taxonName": "Pica serica",
+    "vernacularName": "Oriental magpie",
+    "rank": "Species",
+    "parentId": "8318"
+  },
+  "8413": {
+    "taxonName": "Urocissa",
+    "vernacularName": "Blue-magpies",
+    "rank": "Genus",
+    "parentId": "7823"
+  },
+  "495200": {
+    "taxonName": "Urocissa erythroryncha",
+    "vernacularName": "Red-billed blue-magpie",
+    "rank": "Species",
+    "parentId": "8413"
+  },
+  "14868": {
+    "taxonName": "Acridotheres",
+    "vernacularName": "Typical mynas",
+    "rank": "Genus",
+    "parentId": "14841"
+  },
+  "14872": {
+    "taxonName": "Acridotheres cristatellus",
+    "vernacularName": "Crested myna",
+    "rank": "Species",
+    "parentId": "14868"
+  },
+  "204454": {
+    "taxonName": "Acridotheres tristis",
+    "vernacularName": "Common myna",
+    "rank": "Species",
+    "parentId": "14868"
+  },
+  "144390": {
+    "taxonName": "Sturnia",
+    "vernacularName": "Sturnia starlings",
+    "rank": "Genus",
+    "parentId": "14841"
+  },
+  "145102": {
+    "taxonName": "Sturnia sinensis",
+    "vernacularName": "White-shouldered starling",
+    "rank": "Species",
+    "parentId": "144390"
+  },
+  "547177": {
+    "taxonName": "Spodiopsar",
+    "vernacularName": "White-cheeked and red-billed starlings",
+    "rank": "Genus",
+    "parentId": "14841"
+  },
+  "547178": {
+    "taxonName": "Spodiopsar sericeus",
+    "vernacularName": "Red-billed starling",
+    "rank": "Species",
+    "parentId": "547177"
+  },
+  "547179": {
+    "taxonName": "Spodiopsar cineraceus",
+    "vernacularName": "White-cheeked starling",
+    "rank": "Species",
+    "parentId": "547177"
+  },
+  "14870": {
+    "taxonName": "Acridotheres grandis",
+    "vernacularName": "Great myna",
+    "rank": "Species",
+    "parentId": "14868"
+  },
+  "5265": {
+    "taxonName": "Milvus",
+    "vernacularName": "Milvus kites",
+    "rank": "Genus",
+    "parentId": "1542783"
+  },
+  "5268": {
+    "taxonName": "Milvus migrans",
+    "vernacularName": "Black kite",
+    "rank": "Species",
+    "parentId": "5265"
+  },
+  "1541532": {
+    "taxonName": "Circaetinae",
+    "vernacularName": "Snake-eagles, serpent-eagles, and allies",
+    "rank": "Subfamily",
+    "parentId": "5067"
+  },
+  "5156": {
+    "taxonName": "Spilornis",
+    "vernacularName": "Serpent-eagles",
+    "rank": "Genus",
+    "parentId": "1541532"
+  },
+  "5158": {
+    "taxonName": "Spilornis cheela",
+    "vernacularName": "Crested serpent-eagle",
+    "rank": "Species",
+    "parentId": "5156"
+  },
+  "486630": {
+    "taxonName": "Buteo japonicus",
+    "vernacularName": "Eastern buzzard",
+    "rank": "Species",
+    "parentId": "5179"
+  },
+  "4979": {
+    "taxonName": "Nycticorax",
+    "vernacularName": "Typical night herons",
+    "rank": "Genus",
+    "parentId": "597395"
+  },
+  "4981": {
+    "taxonName": "Nycticorax nycticorax",
+    "vernacularName": "Black-crowned night heron",
+    "rank": "Species",
+    "parentId": "4979"
+  },
+  "4989": {
+    "taxonName": "Ardeola",
+    "vernacularName": "Pond herons",
+    "rank": "Genus",
+    "parentId": "597395"
+  },
+  "4990": {
+    "taxonName": "Ardeola bacchus",
+    "vernacularName": "Chinese pond heron",
+    "rank": "Species",
+    "parentId": "4989"
+  },
+  "5019": {
+    "taxonName": "Butorides",
+    "vernacularName": "Green-backed herons",
+    "rank": "Genus",
+    "parentId": "597395"
+  },
+  "62528": {
+    "taxonName": "Butorides striata",
+    "vernacularName": "Striated heron",
+    "rank": "Species",
+    "parentId": "5019"
+  },
+  "980192": {
+    "taxonName": "Leiothrichidae",
+    "vernacularName": "Laughingthrushes and allies",
+    "rank": "Family",
+    "parentId": "7251"
+  },
+  "1289299": {
+    "taxonName": "Pterorhinus",
+    "vernacularName": "N/a",
+    "rank": "Genus",
+    "parentId": "980192"
+  },
+  "1289400": {
+    "taxonName": "Pterorhinus perspicillatus",
+    "vernacularName": "Masked laughingthrush",
+    "rank": "Species",
+    "parentId": "1289299"
+  },
+  "1289402": {
+    "taxonName": "Pterorhinus chinensis",
+    "vernacularName": "Black-throated laughingthrush",
+    "rank": "Species",
+    "parentId": "1289299"
+  },
+  "144455": {
+    "taxonName": "Ardea alba",
+    "vernacularName": "Great egret",
+    "rank": "Species",
+    "parentId": "4950"
+  },
+  "558445": {
+    "taxonName": "Ardea intermedia",
+    "vernacularName": "Medium egret",
+    "rank": "Species",
+    "parentId": "4950"
+  },
+  "4947": {
+    "taxonName": "Egretta sacra",
+    "vernacularName": "Pacific reef heron",
+    "rank": "Species",
+    "parentId": "4933"
+  },
+  "17438": {
+    "taxonName": "Zosteropidae",
+    "vernacularName": "White-eyes, yuhinas, and allies",
+    "rank": "Family",
+    "parentId": "7251"
+  },
+  "17439": {
+    "taxonName": "Zosterops",
+    "vernacularName": "Typical white-eyes",
+    "rank": "Genus",
+    "parentId": "17438"
+  },
+  "980257": {
+    "taxonName": "Zosterops simplex",
+    "vernacularName": "Swinhoe's white-eye",
+    "rank": "Species",
+    "parentId": "17439"
+  },
+  "980262": {
+    "taxonName": "Zosterops japonicus",
+    "vernacularName": "Warbling white-eye",
+    "rank": "Species",
+    "parentId": "17439"
+  },
+  "7649": {
+    "taxonName": "Cisticolidae",
+    "vernacularName": "Cisticolas and allies",
+    "rank": "Family",
+    "parentId": "7251"
+  },
+  "15344": {
+    "taxonName": "Orthotomus",
+    "vernacularName": "Typical tailorbirds",
+    "rank": "Genus",
+    "parentId": "7649"
+  },
+  "15347": {
+    "taxonName": "Orthotomus sutorius",
+    "vernacularName": "Common tailorbird",
+    "rank": "Species",
+    "parentId": "15344"
+  },
+  "59847": {
+    "taxonName": "Myophonus",
+    "vernacularName": "Whistling-thrushes",
+    "rank": "Genus",
+    "parentId": "12704"
+  },
+  "68507": {
+    "taxonName": "Myophonus caeruleus",
+    "vernacularName": "Blue whistling-thrush",
+    "rank": "Species",
+    "parentId": "59847"
+  },
+  "73078": {
+    "taxonName": "Myophonus insularis",
+    "vernacularName": "Taiwan whistling-thrush",
+    "rank": "Species",
+    "parentId": "59847"
+  },
+  "472778": {
+    "taxonName": "Turdus mandarinus",
+    "vernacularName": "Chinese blackbird",
+    "rank": "Species",
+    "parentId": "12705"
+  },
+  "4831": {
+    "taxonName": "Himantopus",
+    "vernacularName": "Typical stilts",
+    "rank": "Genus",
+    "parentId": "71361"
+  },
+  "4835": {
+    "taxonName": "Himantopus himantopus",
+    "vernacularName": "Black-winged stilt",
+    "rank": "Species",
+    "parentId": "4831"
+  },
+  "339692": {
+    "taxonName": "Parus minor",
+    "vernacularName": "Japanese tit",
+    "rank": "Species",
+    "parentId": "13548"
+  },
+  "339691": {
+    "taxonName": "Parus cinereus",
+    "vernacularName": "Cinereous tit",
+    "rank": "Species",
+    "parentId": "13548"
+  },
+  "1878": {
+    "taxonName": "Eudynamys",
+    "vernacularName": "True koels",
+    "rank": "Genus",
+    "parentId": "1541355"
+  },
+  "204510": {
+    "taxonName": "Eudynamys scolopaceus",
+    "vernacularName": "Asian koel",
+    "rank": "Species",
+    "parentId": "1878"
+  },
+  "58558": {
+    "taxonName": "Polyommatinae",
+    "vernacularName": "Blues",
+    "rank": "Subfamily",
+    "parentId": "47923"
+  },
+  "125833": {
+    "taxonName": "Polyommatini",
+    "vernacularName": "Typical blues",
+    "rank": "Tribe",
+    "parentId": "58558"
+  },
+  "522672": {
+    "taxonName": "Zizeeriina",
+    "vernacularName": "N/a",
+    "rank": "Subtribe",
+    "parentId": "125833"
+  },
+  "145643": {
+    "taxonName": "Pseudozizeeria",
+    "vernacularName": "N/a",
+    "rank": "Genus",
+    "parentId": "522672"
+  },
+  "145642": {
+    "taxonName": "Pseudozizeeria maha",
+    "vernacularName": "Pale grass blue",
+    "rank": "Species",
+    "parentId": "145643"
+  },
+  "125541": {
+    "taxonName": "Zizina",
+    "vernacularName": "N/a",
+    "rank": "Genus",
+    "parentId": "522672"
+  },
+  "125537": {
+    "taxonName": "Zizina otis",
+    "vernacularName": "Lesser grass blue",
+    "rank": "Species",
+    "parentId": "125541"
+  },
+  "207974": {
+    "taxonName": "Mycalesina",
+    "vernacularName": "N/a",
+    "rank": "Subtribe",
+    "parentId": "58598"
+  },
+  "127879": {
+    "taxonName": "Mycalesis",
+    "vernacularName": "Bushbrowns",
+    "rank": "Genus",
+    "parentId": "207974"
+  },
+  "1007813": {
+    "taxonName": "Mycalesis mucianus",
+    "vernacularName": "South china bushbrown",
+    "rank": "Species",
+    "parentId": "127879"
+  },
+  "1265015": {
+    "taxonName": "Oboroniina",
+    "vernacularName": "N/a",
+    "rank": "Subtribe",
+    "parentId": "125833"
+  },
+  "125604": {
+    "taxonName": "Euchrysops",
+    "vernacularName": "Smoky blues",
+    "rank": "Genus",
+    "parentId": "1265015"
+  },
+  "125551": {
+    "taxonName": "Euchrysops cnejus",
+    "vernacularName": "Gram blue",
+    "rank": "Species",
+    "parentId": "125604"
+  },
+  "123899": {
+    "taxonName": "Delias",
+    "vernacularName": "Jezebels",
+    "rank": "Genus",
+    "parentId": "321384"
+  },
+  "245891": {
+    "taxonName": "Delias hyparete",
+    "vernacularName": "Painted jezebel",
+    "rank": "Species",
+    "parentId": "123899"
+  },
+  "522678": {
+    "taxonName": "Polyommatina",
+    "vernacularName": "N/a",
+    "rank": "Subtribe",
+    "parentId": "125833"
+  },
+  "472289": {
+    "taxonName": "Luthrodes",
+    "vernacularName": "N/a",
+    "rank": "Genus",
+    "parentId": "522678"
+  },
+  "1097646": {
+    "taxonName": "Luthrodes pandava",
+    "vernacularName": "Plains cupid",
+    "rank": "Species",
+    "parentId": "472289"
+  },
+  "884946": {
+    "taxonName": "Princeps",
+    "vernacularName": "Lime swallowtails & allies",
+    "rank": "Subgenus",
+    "parentId": "47225"
+  },
+  "51583": {
+    "taxonName": "Papilio demoleus",
+    "vernacularName": "Lime swallowtail",
+    "rank": "Species",
+    "parentId": "884946"
+  },
+  "133717": {
+    "taxonName": "Mycalesis mineus",
+    "vernacularName": "Dark-branded bushbrown",
+    "rank": "Species",
+    "parentId": "127879"
+  },
+  "154590": {
+    "taxonName": "Delias pasithoe",
+    "vernacularName": "Red-based jezebel",
+    "rank": "Species",
+    "parentId": "123899"
+  },
+  "522675": {
+    "taxonName": "Brephidiina",
+    "vernacularName": "N/a",
+    "rank": "Subtribe",
+    "parentId": "125833"
+  },
+  "52066": {
+    "taxonName": "Zizula",
+    "vernacularName": "Small grass blues",
+    "rank": "Genus",
+    "parentId": "522675"
+  },
+  "198828": {
+    "taxonName": "Zizula hylax",
+    "vernacularName": "Tiny grass blue",
+    "rank": "Species",
+    "parentId": "52066"
+  },
+  "775729": {
+    "taxonName": "Menelaides",
+    "vernacularName": "Helen and mormon swallowtails",
+    "rank": "Subgenus",
+    "parentId": "47225"
+  },
+  "141617": {
+    "taxonName": "Papilio helenus",
+    "vernacularName": "Red helen swallowtail",
+    "rank": "Species",
+    "parentId": "775729"
+  },
+  "125514": {
+    "taxonName": "Zizeeria",
+    "vernacularName": "N/a",
+    "rank": "Genus",
+    "parentId": "522672"
+  },
+  "125512": {
+    "taxonName": "Zizeeria karsandra",
+    "vernacularName": "Dark grass blue",
+    "rank": "Species",
+    "parentId": "125514"
+  },
+  "125576": {
+    "taxonName": "Papilio protenor",
+    "vernacularName": "Spangle swallowtail",
+    "rank": "Species",
+    "parentId": "775729"
+  },
+  "448213": {
+    "taxonName": "Delias acalis",
+    "vernacularName": "Red-breast jezebel",
+    "rank": "Species",
+    "parentId": "123899"
+  },
+  "51588": {
+    "taxonName": "Papilio polytes",
+    "vernacularName": "Common mormon swallowtail",
+    "rank": "Species",
+    "parentId": "775729"
+  },
+  "134166": {
+    "taxonName": "Apaturinae",
+    "vernacularName": "Emperors",
+    "rank": "Subfamily",
+    "parentId": "47922"
+  },
+  "129161": {
+    "taxonName": "Hestina",
+    "vernacularName": "N/a",
+    "rank": "Genus",
+    "parentId": "134166"
+  },
+  "324771": {
+    "taxonName": "Hestina assimilis",
+    "vernacularName": "Red ring skirt",
+    "rank": "Species",
+    "parentId": "129161"
   }
 }
