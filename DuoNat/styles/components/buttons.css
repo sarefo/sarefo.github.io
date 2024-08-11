@@ -160,17 +160,6 @@
     bottom: 10px;
     left: 60px;
     display: none; /* Initially hidden, shown when globe view is active */
-/*    background-color: rgba(255, 255, 255, 0.2);
-    border: none;
-    border-radius: 50%;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    cursor: pointer;*/
-/*    width: 36px;
-    height: 36px;*/
-/*    display: flex;*/
-/*    justify-content: center;
-    align-items: center;
-    transition: background-color var(--transition-speed) ease, transform 0.2s ease;*/
 }
 
 .image-container__button--globe:hover {

@@ -71,13 +71,54 @@ function drawWorldMap(container, highlightedContinents, isClickable = false, onC
         });
 }
 
-// Function to create a globe icon
+export function createWorldMap(container, highlightedContinents) {
+    const mapContainer = container.querySelector('.image-container__world-map');
+    if (!mapContainer) {
+        console.error('World map container not found');
+        return;
+    }
+
+    let svg = null;
+    let globeIcon = null;
+
+    function toggle() {
+        if (isGlobeView) {
+            // Remove any existing globe icon
+            const existingGlobeIcon = container.querySelector('.image-container__button--globe');
+            if (existingGlobeIcon) {
+                existingGlobeIcon.remove();
+            }
+            
+            // Create and add new globe icon
+            globeIcon = createGlobeIcon();
+            container.appendChild(globeIcon);
+            globeIcon.addEventListener('click', toggleAllWorldMaps);
+            
+            mapContainer.style.display = 'none';
+            globeIcon.style.display = 'flex';
+        } else {
+            if (globeIcon) {
+                globeIcon.remove();
+                globeIcon = null;
+            }
+            mapContainer.style.display = 'block';
+        }
+    }
+
+    drawWorldMap(container, highlightedContinents).then(createdSvg => {
+        svg = createdSvg;
+        if (svg) {
+            svg.addEventListener('click', toggleAllWorldMaps);
+        }
+        toggle(); // Set initial state
+    });
+
+    worldMaps.push({ toggle });
+}
+
 function createGlobeIcon() {
     const button = document.createElement('button');
     button.className = 'icon-button image-container__button image-container__button--globe';
-    //    button.style.position = 'absolute';
-    //    button.style.bottom = '10px';
-    //    button.style.left = '60px';
 
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg.setAttribute('class', 'icon');
@@ -95,46 +136,6 @@ function createGlobeIcon() {
 function toggleAllWorldMaps() {
     isGlobeView = !isGlobeView;
     worldMaps.forEach(map => map.toggle());
-}
-
-// Function to create a world map with toggle functionality
-export function createWorldMap(container, highlightedContinents) {
-    const mapContainer = container.querySelector('.image-container__world-map');
-    if (!mapContainer) {
-        console.error('World map container not found');
-        return;
-    }
-
-    let svg = null;
-    let globeIcon = null;
-
-    function toggle() {
-        if (isGlobeView) {
-            if (!globeIcon) {
-                globeIcon = createGlobeIcon();
-                container.appendChild(globeIcon);
-                globeIcon.addEventListener('click', toggleAllWorldMaps);
-            }
-            mapContainer.style.display = 'none';
-            globeIcon.style.display = 'flex';
-        } else {
-            if (globeIcon) {
-                globeIcon.style.display = 'none';
-            }
-            mapContainer.style.display = 'block';
-        }
-    }
-
-    drawWorldMap(container, highlightedContinents).then(createdSvg => {
-        svg = createdSvg;
-        if (svg) {
-            svg.addEventListener('click', toggleAllWorldMaps);
-        }
-        toggle(); // Set initial state
-    });
-
-    // Add this world map instance to the array
-    worldMaps.push({ toggle });
 }
 
 // Function to create a clickable world map (for range selection)
