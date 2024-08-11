@@ -480,22 +480,38 @@ dialog {
     position: relative;
     text-align: center;
     padding: 5px 0;
+    display: flex;
 }
 
-.set-name {
+.taxon-set__set-name,
+.taxon-set__tags {
+    width: 42%;
+    margin: 0 0px;
+    align-content: center;
+}
+
+.taxon-set__set-name {
     font-size: 1.2em;
     color: var(--dark-neutral-color);
     font-weight: bold;
     display: inline-block;
+    padding-left: 8%; /* correct for missing chili part*/
 }
 
-.level-chilis {
-    position: absolute;
+.taxon-set__tags {
+    font-size: 1em;
+    color: #666;
+    padding-right: 8%;
+}
+
+.taxon-set__level-chilis {
+/*    position: absolute;
     right: 5px;
     top: 50%;
     transform: translateY(-50%);
     display: flex;
-    align-items: center;
+    align-items: center;*/
+    width: 16%; /* correct for missing chili part*/
 }
 
 .taxon-set__icon-chili {
@@ -503,11 +519,6 @@ dialog {
     height: 16px;
     fill: var(--primary-counter-color); /* Adjust color as needed */
     /*margin-left: 2px;*/
-}
-
-.tags {
-    font-size: 1em;
-    color: #666;
 }
 
 .taxon-items {
