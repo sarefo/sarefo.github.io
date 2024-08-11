@@ -435,10 +435,10 @@ dialog {
     display: block;
     width: 100%;
     padding: 5px;
-    margin: 2px 0;
+    margin: 4px 0;
     background-color: rgba(116, 172, 0, 0.3); /* Light green background */
     border: none;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     cursor: pointer;
     transition: background-color 0.3s ease;
     box-sizing: border-box; /* Include padding in width calculation */
@@ -536,7 +536,7 @@ dialog {
     padding: 10px;
     background-color: var(--primary-color);
     color: var(--text-color);
-    border-radius: 5px;
+    border-radius: var(--border-radius);
 }
 
 .taxon-set-button:hover .taxon-item {
