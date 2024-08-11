@@ -434,7 +434,7 @@ dialog {
 .taxon-set-button {
     display: block;
     width: 100%;
-    padding: 5px;
+ /*   padding: 5px;*/
     margin: 4px 0;
     background-color: rgba(116, 172, 0, 0.3); /* Light green background */
     border: none;
@@ -472,59 +472,56 @@ dialog {
     flex-direction: column;
     justify-content: space-between;
     align-items: stretch;
-    gap: 5px; /* Small gap between the two "buttons" */
     width: 100%;
+    background-color: rgba(116, 172, 0, 0.2);
+    border-radius: 8px;
+    padding: 8px;
+/*    margin-bottom: 8px;*/
 }
 
 .set-name-container {
-    position: relative;
-    text-align: center;
-    padding: 5px 0;
     display: flex;
-}
-
-.taxon-set__set-name,
-.taxon-set__tags {
-    width: 42%;
-    margin: 0 0px;
-    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 0;
+    margin-bottom: 5px;
 }
 
 .taxon-set__set-name {
     font-size: 1.2em;
     color: var(--dark-neutral-color);
     font-weight: bold;
-    display: inline-block;
-    padding-left: 8%; /* correct for missing chili part*/
-}
-
-.taxon-set__tags {
-    font-size: 1em;
-    color: #666;
-    padding-right: 8%;
+/*    text-align: left;*/
+    flex: 1;
+    padding-left: 18px;
 }
 
 .taxon-set__level-chilis {
-/*    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
     display: flex;
-    align-items: center;*/
-    width: 16%; /* correct for missing chili part*/
+    justify-content: center;
+    align-items: center;
+    padding: 0 8px;
 }
 
 .taxon-set__icon-chili {
     width: 16px;
     height: 16px;
-    fill: var(--primary-counter-color); /* Adjust color as needed */
-    /*margin-left: 2px;*/
+    fill: var(--primary-counter-color);
+    margin: 0 2px;
+}
+
+.taxon-set__tags {
+    font-size: 1em;
+    color: #666;
+/*    text-align: right;*/
+    flex: 1;
+    padding-right: 18px;
 }
 
 .taxon-items {
     display: flex;
     flex-direction: row;
-    gap: 4px;
+    gap: 8px;
 }
 
 .taxon-item {
