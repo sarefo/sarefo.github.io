@@ -128,14 +128,16 @@ const tagCloud = {
         const filters = {
             level: gameState.selectedLevel,
             ranges: gameState.selectedRanges,
-            tags: [] // Empty array to ignore tag filtering
+            tags: Array.from(this.selectedTags) // Use the currently selected tags
         };
 
         const filteredPairs = gameLogic.filterTaxonPairs(taxonPairs, filters);
 
         filteredPairs.forEach(pair => {
             pair.tags.forEach(tag => {
-                tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+                if (!this.selectedTags.has(tag)) { // Only count tags that are not already selected
+                    tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+                }
             });
         });
         return tagCounts;
@@ -148,35 +150,47 @@ const tagCloud = {
         }
     },
 
-    updateTagCloud() {
-        const tagCounts = this.getTagCounts();
+    async updateTagCloud() {
+        const tagCounts = await this.getTagCounts();
         this.renderTagCloud(tagCounts);
         this.updateMatchingPairsCount();
     },
 
-    renderTagCloud(tagCounts) {
+    async renderTagCloud(tagCounts) {
         const container = document.getElementById('tag-cloud-container');
         container.innerHTML = '';
         const maxCount = Math.max(...Object.values(tagCounts));
 
-        Object.entries(tagCounts).forEach(([tag, count]) => {
-            const size = 14 + (count / maxCount) * 24; // Font size between 14px and 38px
-            const tagElement = document.createElement('span');
-            tagElement.textContent = tag;
-            tagElement.className = 'tag-cloud-item';
-            tagElement.style.fontSize = `${size}px`;
-
-            // Apply CSS class for tags with only one occurrence
-            if (count === 1) {
-                tagElement.classList.add('tag-cloud-item--single');
-            }
-
-            if (this.selectedTags.has(tag)) {
-                tagElement.classList.add('active');
-            }
-            tagElement.addEventListener('click', () => this.toggleTag(tagElement, tag));
+        // Add currently selected tags first
+        this.selectedTags.forEach(tag => {
+            const tagElement = this.createTagElement(tag, maxCount, true);
             container.appendChild(tagElement);
         });
+
+        // Add other available tags
+        Object.entries(tagCounts).forEach(([tag, count]) => {
+            const tagElement = this.createTagElement(tag, count, false, maxCount);
+            container.appendChild(tagElement);
+        });
+    },
+
+    createTagElement(tag, count, isSelected, maxCount) {
+        const size = 14 + (count / maxCount) * 24; // Font size between 14px and 38px
+        const tagElement = document.createElement('span');
+        tagElement.textContent = tag;
+        tagElement.className = 'tag-cloud-item';
+        tagElement.style.fontSize = `${size}px`;
+
+        if (count === 1) {
+            tagElement.classList.add('tag-cloud-item--single');
+        }
+
+        if (isSelected) {
+            tagElement.classList.add('active');
+        }
+
+        tagElement.addEventListener('click', () => this.toggleTag(tagElement, tag));
+        return tagElement;
     },
 
     async toggleTag(element, tag) {
@@ -191,6 +205,8 @@ const tagCloud = {
         await this.updateFilteredPairs();
         ui.updateFilterSummary();
         this.updateMatchingPairsCount();
+        
+        this.updateTagCloud();
     },
 
     getSelectedTags() {
