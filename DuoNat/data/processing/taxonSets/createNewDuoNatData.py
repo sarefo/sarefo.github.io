@@ -74,11 +74,12 @@ def save_data(data, file_path):
 def clear_file(file_path):
     open(file_path, 'w').close()
 
-def process_taxa(input_file, new_taxon_file, perplexity_file):
+def process_taxa(input_file, new_taxon_file, perplexity_file, taxon_info_file):
     clear_file(new_taxon_file)
     new_taxa = {}
     taxon_names_list = []
     unique_taxa = set()
+    existing_taxa = load_existing_data(taxon_info_file)
 
     with open(input_file, 'r') as f:
         taxon_sets = f.read().splitlines()
@@ -88,26 +89,29 @@ def process_taxa(input_file, new_taxon_file, perplexity_file):
         taxa_in_set = [taxon.strip() for taxon in taxon_set.split(',')]
         unique_taxa.update(taxa_in_set)
 
-#    print(f"Processing {len(unique_taxa)} unique taxa...")
+    print(f"Processing {len(unique_taxa)} unique taxa...")
     for taxon in unique_taxa:
-#        print(f"Processing: {taxon}")
+        print(f"Processing: {taxon}")
         taxon_details = fetch_taxon_details(taxon)
         if taxon_details:
             taxon_id = str(taxon_details['id'])
-            if taxon_id not in new_taxa:
-                ancestry = fetch_ancestry(taxon_id)
-                
-                new_taxa[taxon_id] = {
-                    "taxonName": taxon_details['taxonName'],
-                    "vernacularName": taxon_details['vernacularName'],
-                    "ancestryIds": [ancestor['id'] for ancestor in ancestry] + [int(taxon_id)],
-                    "rank": taxon_details['rank'],
-                    "taxonFacts": [],
-                    "range": []
-                }
-                taxon_names_list.append(taxon_details['taxonName'])
+            if taxon_id not in existing_taxa:
+                if taxon_id not in new_taxa:
+                    ancestry = fetch_ancestry(taxon_id)
+                    
+                    new_taxa[taxon_id] = {
+                        "taxonName": taxon_details['taxonName'],
+                        "vernacularName": taxon_details['vernacularName'],
+                        "ancestryIds": [ancestor['id'] for ancestor in ancestry] + [int(taxon_id)],
+                        "rank": taxon_details['rank'],
+                        "taxonFacts": [],
+                        "range": []
+                    }
+                    taxon_names_list.append(taxon_details['taxonName'])
+                else:
+                    print(f"Taxon {taxon} (ID: {taxon_id}) already exists in new taxa.")
             else:
-                print(f"Taxon {taxon} (ID: {taxon_id}) already exists in the database.")
+                print(f"Taxon {taxon} (ID: {taxon_id}) already exists in taxonInfo.json.")
         sleep(1)  # To avoid hitting API rate limits
 
     save_data(new_taxa, new_taxon_file)
@@ -149,9 +153,10 @@ def merge_perplexity_data(new_taxon_file, perplexity_file, output_file):
     save_data(new_taxon_info, output_file)
     print(f"Merged data saved to {output_file}")
 
-def create_taxon_sets(new_taxon_file, taxon_sets_file, new_sets_file, input_file):
+def create_taxon_sets(new_taxon_file, taxon_sets_file, new_sets_file, input_file, taxon_info_file):
     clear_file(new_sets_file)
     new_taxa = load_existing_data(new_taxon_file)
+    existing_taxa = load_existing_data(taxon_info_file)
     existing_sets = load_existing_data(taxon_sets_file)
     new_sets = {}
 
@@ -175,18 +180,24 @@ def create_taxon_sets(new_taxon_file, taxon_sets_file, new_sets_file, input_file
 
         for taxon in taxa_in_set:
             taxon_id = next((id for id, info in new_taxa.items() if info['taxonName'] == taxon), None)
+            if taxon_id is None:
+                taxon_id = next((id for id, info in existing_taxa.items() if info['taxonName'] == taxon), None)
+            
             if taxon_id:
                 taxon_ids.append(int(taxon_id))
                 taxon_names.append(taxon)
                 
+                # Get the taxon info from either new_taxa or existing_taxa
+                taxon_info = new_taxa.get(str(taxon_id)) or existing_taxa.get(str(taxon_id))
+                
                 # Initialize set_range with the first taxon's range
                 if not set_range:
-                    set_range = set(new_taxa[taxon_id]['range'])
+                    set_range = set(taxon_info['range'])
                 else:
                     # Intersect the current set_range with the new taxon's range
-                    set_range = set_range.intersection(set(new_taxa[taxon_id]['range']))
+                    set_range = set_range.intersection(set(taxon_info['range']))
             else:
-                print(f"WARNING: Taxon '{taxon}' not found in new_taxa. Skipping this set.")
+                print(f"WARNING: Taxon '{taxon}' not found in new_taxa or existing_taxa. Skipping this set.")
                 break
 
         if len(taxon_ids) == 2 and not is_duplicate_set(taxon_ids, existing_sets) and not is_duplicate_set(taxon_ids, new_sets):
@@ -244,9 +255,9 @@ def update_set_metadata(new_sets_file):
 
 def update_main_files_without_metadata(taxon_info_file, taxon_sets_file, new_taxon_file, new_sets_file):
     # Backup old files
-    shutil.copy(taxon_info_file, f"{taxon_info_file}.bak")
-    shutil.copy(taxon_sets_file, f"{taxon_sets_file}.bak")
-    print("Old files backed up with .bak extension.")
+    shutil.copy(taxon_info_file, f"{taxon_info_file}.old")
+    shutil.copy(taxon_sets_file, f"{taxon_sets_file}.old")
+    print("Old files backed up with .old extension.")
 
     # Load existing data
     taxon_info = load_existing_data(taxon_info_file)
@@ -438,7 +449,7 @@ def main():
         choice = input("Enter your choice (0-6): ")
 
         if choice == '1':
-            process_taxa(input_file, new_taxon_file, perplexity_file)
+            process_taxa(input_file, new_taxon_file, perplexity_file, taxon_info_file)
             last_action = 1
         elif choice == '2':
             if os.path.exists(perplexity_file):
@@ -448,7 +459,7 @@ def main():
                 print(f"Error: {perplexity_file} not found. Please create it first.")
                 last_action = 1  # Recommend creating the Perplexity file
         elif choice == '3':
-            create_taxon_sets(merged_taxon_file, taxon_sets_file, new_sets_file, input_file)
+            create_taxon_sets(merged_taxon_file, taxon_sets_file, new_sets_file, input_file, taxon_info_file)
             last_action = 3
         elif choice == '4':
             update_main_files_without_metadata(taxon_info_file, taxon_sets_file, merged_taxon_file, new_sets_file)

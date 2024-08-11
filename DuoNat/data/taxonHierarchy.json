@@ -18238,5 +18238,119 @@
     "vernacularName": "Burmese bushbrown",
     "rank": "Species",
     "parentId": "127879"
+  },
+  "3727": {
+    "taxonName": "Threskiornithidae",
+    "vernacularName": "Ibises and spoonbills",
+    "rank": "Family",
+    "parentId": "67566"
+  },
+  "3728": {
+    "taxonName": "Platalea",
+    "vernacularName": "Spoonbills",
+    "rank": "Genus",
+    "parentId": "3727"
+  },
+  "3729": {
+    "taxonName": "Platalea minor",
+    "vernacularName": "Black-faced spoonbill",
+    "rank": "Species",
+    "parentId": "3728"
+  },
+  "12015": {
+    "taxonName": "Laniidae",
+    "vernacularName": "Shrikes",
+    "rank": "Family",
+    "parentId": "7251"
+  },
+  "12016": {
+    "taxonName": "Lanius",
+    "vernacularName": "Typical shrikes",
+    "rank": "Genus",
+    "parentId": "12015"
+  },
+  "12021": {
+    "taxonName": "Lanius cristatus",
+    "vernacularName": "Brown shrike",
+    "rank": "Species",
+    "parentId": "12016"
+  },
+  "13273": {
+    "taxonName": "Nectariniidae",
+    "vernacularName": "Sunbirds and spiderhunters",
+    "rank": "Family",
+    "parentId": "7251"
+  },
+  "13414": {
+    "taxonName": "Aethopyga",
+    "vernacularName": "Red sunbirds and allies",
+    "rank": "Genus",
+    "parentId": "13273"
+  },
+  "13428": {
+    "taxonName": "Aethopyga christinae",
+    "vernacularName": "Fork-tailed sunbird",
+    "rank": "Species",
+    "parentId": "13414"
+  },
+  "36982": {
+    "taxonName": "Scincidae",
+    "vernacularName": "Skinks",
+    "rank": "Family",
+    "parentId": "85552"
+  },
+  "787700": {
+    "taxonName": "Scincinae",
+    "vernacularName": "Typical skinks",
+    "rank": "Subfamily",
+    "parentId": "36982"
+  },
+  "37763": {
+    "taxonName": "Plestiodon",
+    "vernacularName": "Toothy skinks",
+    "rank": "Genus",
+    "parentId": "787700"
+  },
+  "37769": {
+    "taxonName": "Plestiodon skiltonianus",
+    "vernacularName": "Western skink",
+    "rank": "Species",
+    "parentId": "37763"
+  },
+  "37772": {
+    "taxonName": "Plestiodon quadrilineatus",
+    "vernacularName": "Blue-tailed skink",
+    "rank": "Species",
+    "parentId": "37763"
+  },
+  "11921": {
+    "taxonName": "Hirundo tahitica",
+    "vernacularName": "Pacific swallow",
+    "rank": "Species",
+    "parentId": "11880"
+  },
+  "787704": {
+    "taxonName": "Eugongylinae",
+    "vernacularName": "Eugongyline skinks",
+    "rank": "Subfamily",
+    "parentId": "36982"
+  },
+  "38505": {
+    "taxonName": "Emoia",
+    "vernacularName": "Emo skinks",
+    "rank": "Genus",
+    "parentId": "787704"
+  },
+  "38573": {
+    "taxonName": "Emoia caeruleocauda",
+    "vernacularName": "Pacific bluetail skink",
+    "rank": "Species",
+    "parentId": "38505"
+  },
+  "12035": {
+    "taxonName": "Lanius schach",
+    "vernacularName": "Long-tailed shrike",
+    "rank": "Species",
+    "parentId": "12016"
   }
 }

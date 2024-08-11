@@ -37067,5 +37067,195 @@
     "range": [
       "AS"
     ]
+  },
+  "3729": {
+    "taxonName": "Platalea minor",
+    "vernacularName": "Black-faced spoonbill",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67566,
+      3727,
+      3728,
+      3729
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Rarest of the six spoonbill species.",
+      "Breeding population was critically low in the 1990s.",
+      "Breeds in northeastern China and Korean islands."
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "12021": {
+    "taxonName": "Lanius cristatus",
+    "vernacularName": "Brown shrike",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      12015,
+      12016,
+      12021
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for its distinctive black facial mask.",
+      "Breeds across a wide range in Asia.",
+      "Has four recognized subspecies."
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "13428": {
+    "taxonName": "Aethopyga christinae",
+    "vernacularName": "Fork-tailed sunbird",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      13273,
+      13414,
+      13428
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Features a soft, frequent 'zwink-zwink' call.",
+      "Commonly found in tropical moist lowland forests.",
+      "Appears on the most used postal stamp in Hong Kong."
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "37769": {
+    "taxonName": "Plestiodon skiltonianus",
+    "vernacularName": "Western skink",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26172,
+      85552,
+      36982,
+      787700,
+      37763,
+      37769
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Basks in the sun during the day.",
+      "Diet includes spiders and beetles.",
+      "Named after a 19th-century American naturalist."
+    ],
+    "range": [
+      "NA"
+    ]
+  },
+  "37772": {
+    "taxonName": "Plestiodon quadrilineatus",
+    "vernacularName": "Blue-tailed skink",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26172,
+      85552,
+      36982,
+      787700,
+      37763,
+      37772
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for its striking four-striped pattern.",
+      "Primarily found in sandy habitats.",
+      "Active during the warm seasons."
+    ],
+    "range": [
+      "NA"
+    ]
+  },
+  "11921": {
+    "taxonName": "Hirundo tahitica",
+    "vernacularName": "Pacific swallow",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      11853,
+      11880,
+      11921
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Builds nests using mud pellets.",
+      "Feeds on insects while in flight.",
+      "Breeds in tropical southern Asia."
+    ],
+    "range": [
+      "AS",
+      "OC"
+    ]
+  },
+  "38573": {
+    "taxonName": "Emoia caeruleocauda",
+    "vernacularName": "Pacific bluetail skink",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26172,
+      85552,
+      36982,
+      787704,
+      38505,
+      38573
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Widespread across many Pacific islands.",
+      "Prefers tropical forest habitats."
+    ],
+    "range": [
+      "OC"
+    ]
+  },
+  "12035": {
+    "taxonName": "Lanius schach",
+    "vernacularName": "Long-tailed shrike",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      12015,
+      12016,
+      12035
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Displays a distinctive rufous back.",
+      "Commonly found in open habitats.",
+      "Known for its predatory behavior."
+    ],
+    "range": [
+      "AS"
+    ]
   }
 }

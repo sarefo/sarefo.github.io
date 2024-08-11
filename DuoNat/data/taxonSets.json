@@ -14380,5 +14380,112 @@
     "range": [
       "AS"
     ]
+  },
+  "727": {
+    "setName": "Barn Swallow vs Pacific swallow",
+    "level": "3",
+    "tags": [
+      "birds"
+    ],
+    "taxa": [
+      11901,
+      11921
+    ],
+    "taxonNames": [
+      "Hirundo rustica",
+      "Hirundo tahitica"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "728": {
+    "setName": "Fork-tailed sunbird vs Swinhoe's white-eye",
+    "level": "1",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      13428,
+      980257
+    ],
+    "taxonNames": [
+      "Aethopyga christinae",
+      "Zosterops simplex"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "729": {
+    "setName": "Black-faced spoonbill vs Little egret",
+    "level": "1",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      3729,
+      4943
+    ],
+    "taxonNames": [
+      "Platalea minor",
+      "Egretta garzetta"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "730": {
+    "setName": "Brown shrike vs Long-tailed shrike",
+    "level": "2",
+    "tags": [
+      "birds",
+      "hk"
+    ],
+    "taxa": [
+      12021,
+      12035
+    ],
+    "taxonNames": [
+      "Lanius cristatus",
+      "Lanius schach"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "731": {
+    "setName": "Pacific bluetail skink vs Western skink",
+    "level": "3",
+    "tags": [
+      "reptiles"
+    ],
+    "taxa": [
+      38573,
+      37769
+    ],
+    "taxonNames": [
+      "Emoia caeruleocauda",
+      "Plestiodon skiltonianus"
+    ],
+    "range": []
+  },
+  "732": {
+    "setName": "Pacific bluetail skink vs Blue-tailed skink",
+    "level": "2",
+    "tags": [
+      "reptiles"
+    ],
+    "taxa": [
+      38573,
+      37772
+    ],
+    "taxonNames": [
+      "Emoia caeruleocauda",
+      "Plestiodon quadrilineatus"
+    ],
+    "range": []
   }
 }
