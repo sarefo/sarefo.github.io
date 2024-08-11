@@ -23,10 +23,6 @@ import utils from './utils.js';
 
         //      dialogManager.openDialog('inat-down-dialog'); // for debugging
 
-        // Initialize gameState with easy level
-        updateGameState({ selectedLevel: '1' });
-        ui.updateLevelDropdown();
-
         // Check for URL parameters
         const urlParams = utils.getURLParameters();
         /*
@@ -39,25 +35,40 @@ import utils from './utils.js';
                 }
         */
         if (urlParams.level) {
+            if (urlParams.level === 'all') {
+                urlParams.level = '';
+            }
             updateGameState({ selectedLevel: urlParams.level });
-            ui.updateLevelDropdown();
             logger.debug("Skill level from URL:", urlParams.level);
+        } else {
+            updateGameState({ selectedLevel: '1' }); // set default initial level here!
         }
+
         if (urlParams.ranges) {
             const ranges = urlParams.ranges.split(',');
             updateGameState({ selectedRanges: ranges });
             rangeSelector.setSelectedRanges(ranges);
             logger.debug("Ranges from URL:", ranges);
+            urlParams.level = ''; // reset level
         }
+
         if (urlParams.tags) {
             const tags = urlParams.tags.split(',');
             tagCloud.setSelectedTags(tags);
             logger.debug("Tags from URL:", tags);
+            urlParams.level = ''; // reset level
         }
+
         if (urlParams.setID) {
             updateGameState({ currentSetID: urlParams.setID });
             logger.debug("Set ID from URL:", urlParams.setID);
+            urlParams.level = ''; // reset level
         }
+
+        if (urlParams.level || urlParams.ranges || urlParams.tags || urlParams.setID) {
+            updateGameState({ selectedLevel: urlParams.level }); // set the initial level as "all"
+        }
+        ui.updateLevelDropdown(); // display the current level
 
         dialogManager.initializeDialogs();
         dialogManager.initializeEnterSetDialog();

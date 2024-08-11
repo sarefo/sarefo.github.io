@@ -98,7 +98,7 @@ const gameLogic = {
 
     filterTaxonPairs: function (taxonPairs, filters) {
         return taxonPairs.filter(pair => {
-            const matchesLevel = !filters.level || pair.level === filters.level;
+            const matchesLevel = filters.level === '' || pair.level === filters.level;
             const matchesRanges = !filters.ranges || filters.ranges.length === 0 ||
                 (pair.range && pair.range.some(range => filters.ranges.includes(range)));
             const matchesTags = filters.tags.length === 0 ||
