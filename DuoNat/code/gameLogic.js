@@ -84,7 +84,7 @@ const gameLogic = {
             }
 
             ui.overlay.hideOverlay();
-            gameUI.levelIndicator.updateLevelIndicator(newPair.level);
+            ui.levelIndicator.updateLevelIndicator(newPair.level);
         } catch (error) {
             logger.error("Error loading new pair:", error);
             ui.overlay.showOverlay("Error loading new pair. Please try again.", config.overlayColors.red);

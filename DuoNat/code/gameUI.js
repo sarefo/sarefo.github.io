@@ -71,32 +71,6 @@ const gameUI = {
         }
     },
 
-    levelIndicator: {
-        updateLevelIndicator(level) {
-            const indicator = document.getElementById('level-indicator');
-            if (!indicator) return;
-
-            const chiliCount = parseInt(level) || 0;
-            indicator.innerHTML = ''; // Clear existing content
-
-            for (let i = 0; i < chiliCount; i++) {
-                const chiliSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-                chiliSvg.classList.add('icon', 'icon-chili');
-                chiliSvg.setAttribute('viewBox', '0 0 24 24');
-
-                const useElement = document.createElementNS("http://www.w3.org/2000/svg", "use");
-                useElement.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', './images/icons.svg#icon-spicy');
-
-                useElement.setAttribute('transform', 'scale(1.2) translate(-2, -2)'); // enlarge a bit
-
-                chiliSvg.appendChild(useElement);
-                indicator.appendChild(chiliSvg);
-            }
-
-            // Adjust container width based on number of chilis
-            indicator.style.width = `${chiliCount * 26 + 16}px`; // Adjusted width calculation
-        }
-    }
 };
 
 // Bind all methods to ensure correct 'this' context

@@ -47,7 +47,7 @@ const gameSetup = {
 
                 // Update skill level indicator
                 const level = gameState.currentTaxonImageCollection.pair.level;
-                gameUI.levelIndicator.updateLevelIndicator(level);
+                ui.levelIndicator.updateLevelIndicator(level);
 
                 // If filters were cleared (which happens when '+' is pressed), update the UI
                 if (gameState.selectedTags.length === 0 && gameState.selectedRanges.length === 0 && gameState.selectedLevel === '') {
@@ -188,7 +188,7 @@ const gameSetup = {
         });
 
         // Update the skill level indicator
-        gameUI.levelIndicator.updateLevelIndicator(newPair.level || '1');
+        ui.levelIndicator.updateLevelIndicator(newPair.level || '1');
 
         await this.setupRound(true);
     },

@@ -42,18 +42,18 @@ const ui = {
         initialize() {
             ui.dialogs.initializeHelpDialog();
             ui.dialogs.initializeInfoDialog();
-            ui.menu.initializeMainMenu();
-            ui.menu.closeMainMenu(); // Ensure menu is closed on initialization
+            ui.menu.initialize();
+            ui.menu.close(); // Ensure menu is closed on initialization
             // Close the dropdown when clicking outside of it
             document.addEventListener('click', (event) => {
                 if (!event.target.closest('.main-menu')) {
-                    ui.menu.closeMainMenu();
+                    ui.menu.close();
                 }
             });
         },
 
         resetUIState() {
-            ui.menu.closeMainMenu();
+            ui.menu.close();
             // Add any other UI state resets here if needed
         },
 
@@ -102,7 +102,7 @@ const ui = {
     },
 
     menu: {
-        initializeMainMenu() {
+        initialize() {
             const menuToggle = document.getElementById('menu-toggle');
             if (menuToggle) {
                 menuToggle.addEventListener('click', (event) => {
@@ -121,7 +121,7 @@ const ui = {
             // Close the dropdown when clicking outside of it
             document.addEventListener('click', (event) => {
                 if (!event.target.closest('.main-menu')) {
-                    ui.menu.closeMainMenu();
+                    ui.menu.close();
                 }
             });
         },
@@ -155,7 +155,7 @@ const ui = {
             }
         },
 
-        closeMainMenu() {
+        close() {
             if (ui.state.isMenuOpen) {
                 const topGroup = document.querySelector('.main-menu__dropdown--top');
                 const bottomGroup = document.querySelector('.main-menu__dropdown--bottom');
@@ -646,7 +646,7 @@ const ui = {
         temporarilyOpenMenu: function (duration) {
             this.toggleMainMenu(); // Open the menu
             setTimeout(() => {
-                this.closeMainMenu(); // Close the menu after the specified duration
+                this.close(); // Close the menu after the specified duration
             }, duration);
         },
 
@@ -787,6 +787,33 @@ const ui = {
                 default: return 'Unknown';
             }
         },
+    },
+
+    levelIndicator: {
+        updateLevelIndicator(level) {
+            const indicator = document.getElementById('level-indicator');
+            if (!indicator) return;
+
+            const chiliCount = parseInt(level) || 0;
+            indicator.innerHTML = ''; // Clear existing content
+
+            for (let i = 0; i < chiliCount; i++) {
+                const chiliSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                chiliSvg.classList.add('icon', 'icon-chili');
+                chiliSvg.setAttribute('viewBox', '0 0 24 24');
+
+                const useElement = document.createElementNS("http://www.w3.org/2000/svg", "use");
+                useElement.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', './images/icons.svg#icon-spicy');
+
+                useElement.setAttribute('transform', 'scale(1.2) translate(-2, -2)'); // enlarge a bit
+
+                chiliSvg.appendChild(useElement);
+                indicator.appendChild(chiliSvg);
+            }
+
+            // Adjust container width based on number of chilis
+            indicator.style.width = `${chiliCount * 26 + 16}px`; // Adjusted width calculation
+        }
     },
 
 };

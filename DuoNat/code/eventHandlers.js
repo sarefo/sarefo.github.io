@@ -154,37 +154,24 @@ const eventHandlers = {
     },
 
     initializeMainMenuListeners: function () {
+        const addMenuListener = (buttonId, action) => {
+            this.safeAddEventListener(buttonId, 'click', () => {
+                action();
+                ui.menu.close(); // Close menu after action
+            });
+        };
+
         this.safeAddEventListener('share-button', 'click', () => {
             utils.shareCurrentPair();
         });
-        this.safeAddEventListener('phylogeny-button', 'click', () => {
-            game.showTaxaRelationship();
-            ui.menu.closeMainMenu(); // Close menu after action
-        });
-        this.safeAddEventListener('select-set-button', 'click', () => {
-            ui.taxonPairList.showTaxonPairList();
-            ui.menu.closeMainMenu(); // Close menu after action
-        });
-        this.safeAddEventListener('enter-set-button', 'click', () => {
-            dialogManager.openDialog('enter-set-dialog');
-            ui.menu.closeMainMenu(); // Close menu after action
-        });
-        this.safeAddEventListener('random-pair-button', 'click', () => {
-            gameLogic.loadNewRandomPair();
-            ui.menu.closeMainMenu(); // Close menu after action
-        });
-        this.safeAddEventListener('like-button', 'click', () => {
-            this.likePair();
-            ui.menu.closeMainMenu(); // Close menu after action
-        });
-        this.safeAddEventListener('trash-button', 'click', () => {
-            this.trashPair();
-            ui.menu.closeMainMenu(); // Close menu after action
-        });
-        this.safeAddEventListener('surprise-button', 'click', () => {
-            utils.surprise();
-            ui.menu.closeMainMenu(); // Close menu after action
-        });
+
+        addMenuListener('phylogeny-button', game.showTaxaRelationship);
+        addMenuListener('select-set-button', ui.taxonPairList.showTaxonPairList);
+        addMenuListener('enter-set-button', () => dialogManager.openDialog('enter-set-dialog'));
+        addMenuListener('random-pair-button', gameLogic.loadNewRandomPair);
+        addMenuListener('like-button', this.likePair.bind(this));
+        addMenuListener('trash-button', this.trashPair.bind(this));
+        addMenuListener('surprise-button', utils.surprise);
     },
 
     initializeAllEventListeners() {
