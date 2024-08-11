@@ -247,6 +247,7 @@ dialog {
     border-radius: var(--border-radius);
     cursor: pointer;
     font-size: 1.1em;
+    width: 160px; /* match world map */
 }
 
 .select-set-dialog__clear-filters:hover {
@@ -511,7 +512,7 @@ dialog {
 }
 
 .taxon-set__tags {
-    font-size: 1em;
+    font-size: 1.1em;
     color: #666;
 /*    text-align: right;*/
     flex: 1;
