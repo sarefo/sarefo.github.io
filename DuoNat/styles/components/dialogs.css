@@ -24,7 +24,7 @@ dialog[open] {
 
     width: 95%;
     max-width: 500px;
-    height: auto;
+/*    height: auto;*/
     overflow-y: auto;
     max-height: 95vh;
     padding: 40px 20px 20px;
