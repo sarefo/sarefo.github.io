@@ -27,15 +27,22 @@
     --center-min-height: 80px; /* consider relative to screen */
 }
 
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
 body {
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-    overflow: auto;
-/*    overflow-x: hidden;*/
-    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
     box-sizing: border-box;
     font-family: 'Open Sans', Arial, sans-serif;
     background-color: var(--light-green);
@@ -73,14 +80,14 @@ button {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    box-sizing: border-box;
-
-    overflow: hidden;
-    width: 100%;
-    height: 100vh;
-    padding: 0;
+/*    box-sizing: border-box;*/
 
     position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+
     z-index: 1;
     transform-origin: center center;
     transition: transform 0.3s ease-out, opacity 0.3s ease-out;
