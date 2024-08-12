@@ -18,6 +18,8 @@
     <script src="./code/version.js" defer></script>
 
     <link rel="manifest" href="./manifest.json">
+    <link rel="icon" href="./images/favicon.png" type="image/png">
+
     <script>
         window.loadQRCodeScript = function() {
             return new Promise((resolve, reject) => {
@@ -44,54 +46,113 @@
     </script>
 
     <script type="module" src="./code/functions.js" defer></script>
+    <!--  <link rel="preload" href="./images/icons.svg" as="image" type="image/svg+xml"> -->
 
     <!-- eliminate FOUC -->
+    <style>
+        body { opacity: 0; transition: opacity 0.3s ease-in; }
+        body.loaded { opacity: 1; }
+        #loading-screen {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: #f9f9f9;
+            display: flex; justify-content: center; align-items: center;
+            z-index: 9000;
+        }
+        .loading-screen__logo { opacity: 0; }
+    </style>
     <link rel="preload" href="./styles/main.css" as="style">
     <link rel="stylesheet" href="./styles/main.css">
-    <style>
-        body {
-            opacity: 0;
-            transition: opacity 0.3s ease-in;
-        }
-        body.loaded {
-            opacity: 1;
-        }
-        #loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #f9f9f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9000;
-        }
-    </style>
 
-    <link rel="icon" href="./images/favicon.png" type="image/png">
-  <!--  <link rel="preload" href="./images/icons.svg" as="image" type="image/svg+xml"> -->
-    <style>
-        #loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #f9f9f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9000;
-        }
-        .loading-screen__logo {
-            opacity: 0;
-        }
-    </style>
 </head>
 
 <body>
+
+<!-- Loading screen at app start -->
+<div id="loading-screen" class="loading-screen">
+    <div class="loading-screen__content">
+        <img src="./images/icon-512x512.png" alt="DuoNat logo" class="loading-screen__logo">
+        <h1 class="loading-screen__title">
+            <span class="loading-screen__title-duo">Duo</span><span class="loading-screen__title-nat">Nat</span>
+        </h1>
+        <p class="loading-screen__message">Loading amazing creatures...</p>
+        <div class="loading-screen__spinner"></div>
+    </div>
+</div>
+
+<!--                 -->
+<!-- App main screen -->
+<!--                 -->
+<div class="game-container">
+
+<div class="image-container" id="image-container-1">
+  <img class="image-container__image" src="" alt="Taxon 1 Image" id="image-1">
+
+  <div class="image-container__world-map" id="world-map-1"></div>
+
+  <div class="image-container__drop-zone" id="drop-1"></div>
+
+        <div id="drop-1" class="droppable"></div>
+
+        <div class="image-container__buttons" id="image-buttons-1">
+            <!-- enable when functionality added -->
+            <!--<button class="image-container__button image-container__button--thumbs-up" id="thumbs-up-1" title="Like this image" data-tooltip="Like this image">
+                <svg class="icon"><use href="./images/icons.svg#icon-thumb-up"/></svg>
+            </button>
+            <button class="image-container__button image-container__button--thumbs-down" id="thumbs-down-1" title="Dislike this image" data-tooltip="Dislike this image">
+                <svg class="icon"><use href="./images/icons.svg#icon-thumb-down"/></svg>
+            </button>-->
+            <button class="icon-button image-container__button image-container__button--info" id="info-button-1" title="Taxon info" aria-label="Taxon info">
+                <svg class="icon image-container__button-icon"><use href="./images/icons.svg#icon-info"/></svg>
+            </button>
+        </div>
+
+</div>
+
+    <div class="name-pair">
+
+        <div class="name-pair__container name-pair__container--left">
+            <div id="left-name" class="name-pair__item name-pair__item--draggable" draggable="true"></div>
+        </div>
+
+        <div class="name-pair__container name-pair__container--right">
+            <div id="right-name" class="name-pair__item name-pair__item--draggable" draggable="true"></div>
+        </div>
+
+        <div id="overlay" class="name-pair__overlay">
+            <div id="overlay-message" class="name-pair__overlay-message"></div>
+        </div>
+
+    </div>
+
+    <div class="image-container" id="image-container-2">
+      <img class="image-container__image" src="" alt="Taxon 2 Image" id="image-2">
+
+      <div class="image-container__world-map" id="world-map-2"></div>
+
+      <div class="image-container__drop-zone" id="drop-2"></div>
+            <div id="drop-2" class="droppable"></div>
+
+            <div class="image-container__buttons" id="image-buttons-2">
+                <!-- enable when functionality added -->
+                <!--<button class="icon-button image-container__button image-container__button--thumbs-up" id="thumbs-up-2" title="Like this image" data-tooltip="Like this image">
+                    <svg class="icon"><use href="./images/icons.svg#icon-thumb-up"/></svg>
+                </button>
+                <button class="icon-button image-container__button image-container__button--thumbs-down" id="thumbs-down-2" title="Dislike this image" data-tooltip="Dislike this image">
+                    <svg class="icon"><use href="./images/icons.svg#icon-thumb-down"/></svg>
+                </button>-->
+                <button class="icon-button image-container__button image-container__button--info" id="info-button-2" title="Taxon info" aria-label="Taxon info">
+                    <svg class="icon image-container__button-icon"><use href="./images/icons.svg#icon-info"/></svg>
+                </button>
+            </div>
+
+    </div>
+
+</div> <!-- game-container -->
+
+<div id="swipe-info-message" class="swipe-info-message">New random pair</div>
+
+<!-- overlay buttons on the main screen -->
 
 <div class="ui-container">
     <div id="level-indicator" class="level-indicator icon" title="Change level" aria-label="Change level" role="button" tabindex="0">
@@ -182,95 +243,6 @@
     </div> <!-- ui-buttons -->
 
 </div> <!-- ui-container -->
-
-<!-- Loading screen at app start -->
-<div id="loading-screen" class="loading-screen">
-
-    <div class="loading-screen__content">
-
-        <img src="./images/icon-512x512.png" alt="DuoNat logo" class="loading-screen__logo">
-
-        <h1 class="loading-screen__title">
-            <span class="loading-screen__title-duo">Duo</span><span class="loading-screen__title-nat">Nat</span>
-        </h1>
-
-        <p class="loading-screen__message">Loading amazing creatures...</p>
-
-        <div class="loading-screen__spinner"></div>
-
-    </div>
-
-</div>
-
-<!-- App main screen -->
-<div class="game-container">
-
-<div class="image-container" id="image-container-1">
-  <img class="image-container__image" src="" alt="Taxon 1 Image" id="image-1">
-
-  <div class="image-container__world-map" id="world-map-1"></div>
-
-  <div class="image-container__drop-zone" id="drop-1"></div>
-
-        <div id="drop-1" class="droppable"></div>
-
-        <div class="image-container__buttons" id="image-buttons-1">
-            <!-- enable when functionality added -->
-            <!--<button class="image-container__button image-container__button--thumbs-up" id="thumbs-up-1" title="Like this image" data-tooltip="Like this image">
-                <svg class="icon"><use href="./images/icons.svg#icon-thumb-up"/></svg>
-            </button>
-            <button class="image-container__button image-container__button--thumbs-down" id="thumbs-down-1" title="Dislike this image" data-tooltip="Dislike this image">
-                <svg class="icon"><use href="./images/icons.svg#icon-thumb-down"/></svg>
-            </button>-->
-            <button class="icon-button image-container__button image-container__button--info" id="info-button-1" title="Taxon info" aria-label="Taxon info">
-                <svg class="icon image-container__button-icon"><use href="./images/icons.svg#icon-info"/></svg>
-            </button>
-        </div>
-
-</div>
-
-    <div class="name-pair">
-
-        <div class="name-pair__container name-pair__container--left">
-            <div id="left-name" class="name-pair__item name-pair__item--draggable" draggable="true"></div>
-        </div>
-
-        <div class="name-pair__container name-pair__container--right">
-            <div id="right-name" class="name-pair__item name-pair__item--draggable" draggable="true"></div>
-        </div>
-
-        <div id="overlay" class="name-pair__overlay">
-            <div id="overlay-message" class="name-pair__overlay-message"></div>
-        </div>
-
-    </div>
-
-    <div class="image-container" id="image-container-2">
-      <img class="image-container__image" src="" alt="Taxon 2 Image" id="image-2">
-
-      <div class="image-container__world-map" id="world-map-2"></div>
-
-      <div class="image-container__drop-zone" id="drop-2"></div>
-            <div id="drop-2" class="droppable"></div>
-
-            <div class="image-container__buttons" id="image-buttons-2">
-                <!-- enable when functionality added -->
-                <!--<button class="icon-button image-container__button image-container__button--thumbs-up" id="thumbs-up-2" title="Like this image" data-tooltip="Like this image">
-                    <svg class="icon"><use href="./images/icons.svg#icon-thumb-up"/></svg>
-                </button>
-                <button class="icon-button image-container__button image-container__button--thumbs-down" id="thumbs-down-2" title="Dislike this image" data-tooltip="Dislike this image">
-                    <svg class="icon"><use href="./images/icons.svg#icon-thumb-down"/></svg>
-                </button>-->
-                <button class="icon-button image-container__button image-container__button--info" id="info-button-2" title="Taxon info" aria-label="Taxon info">
-                    <svg class="icon image-container__button-icon"><use href="./images/icons.svg#icon-info"/></svg>
-                </button>
-            </div>
-
-    </div>
-
-</div> <!-- game-container -->
-
-<!-- overlay buttons on the main screen -->
 
 
 <!-- Dialogs, only visible when opened in app: -->
@@ -534,7 +506,6 @@
 
 </dialog>
 
-<div id="swipe-info-message" class="swipe-info-message">New random pair</div>
 
 </body>
 </html>

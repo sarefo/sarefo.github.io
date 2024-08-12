@@ -60,7 +60,7 @@ const gameSetup = {
                     gameUI.layoutManagement.setNamePairHeight();
 
                     game.setState(GameState.PLAYING);
-                    game.hideLoadingScreen();
+                    this.uiSetup.hideLoadingScreen();
 
                     if (newPair) {
                         await setManager.refreshSubset();
@@ -212,7 +212,7 @@ const gameSetup = {
             const leftImageSrc = randomized ? imageOneURL : imageTwoURL;
             const rightImageSrc = randomized ? imageTwoURL : imageOneURL;
 
-            await game.loadImages(leftImageSrc, rightImageSrc);
+            await game.imageManagement.loadImages(leftImageSrc, rightImageSrc);
 
             return {
                 leftImageSrc,
@@ -245,6 +245,12 @@ const gameSetup = {
     },
     
     uiSetup: {
+
+        hideLoadingScreen: function () {
+            setTimeout(() => {
+                document.getElementById('loading-screen').style.display = 'none';
+            }, 500);
+        },
 
         prepareUIForLoading() {
             utils.game.resetDraggables();
@@ -321,7 +327,7 @@ const gameSetup = {
             }
             game.setState(GameState.IDLE);
             if (gameState.isInitialLoad) {
-                game.hideLoadingScreen();
+                this.uiSetup.hideLoadingScreen();
                 updateGameState({ isInitialLoad: false });
             }
         },

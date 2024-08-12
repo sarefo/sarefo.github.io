@@ -69,7 +69,6 @@ const gameUI = {
             this.layoutManagement.setNamePairHeight();
         }
     },
-
 };
 
 // Bind all methods to ensure correct 'this' context

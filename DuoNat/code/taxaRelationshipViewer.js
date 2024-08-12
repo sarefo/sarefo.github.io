@@ -1,196 +1,213 @@
 import api from './api.js';
 import logger from './logger.js';
 import utils from './utils.js';
+import { gameState } from './state.js';
+import dialogManager from './dialogManager.js';
 
 const taxaRelationshipViewer = {
-  container: null,
-  network: null,
-  initialized: false,
-  loadingIndicator: null,
-  currentData: null,
+    container: null,
+    network: null,
+    initialized: false,
+    loadingIndicator: null,
+    currentData: null,
+    currentGraphTaxa: null,
 
-  openTaxonPage(url) {
-    window.open(url, '_blank');
-  },
+    initialization: {
+        async initialize(container) {
+            taxaRelationshipViewer.container = container;
+            await taxaRelationshipViewer.utils.loadVisJs();
+            if (taxaRelationshipViewer.container) {
+                taxaRelationshipViewer.ui.createLoadingIndicator();
+            }
+            taxaRelationshipViewer.initialized = true;
+        },
+    },
 
-  async initialize(container) {
-    this.container = container;
-    await this.loadVisJs();
-    if (this.container) {
-      this.createLoadingIndicator();
-    }
-    this.initialized = true;
-  },
+    ui: {
+        createLoadingIndicator() {
+            if (!taxaRelationshipViewer.container) return;
+            taxaRelationshipViewer.loadingIndicator = document.createElement('div');
+            taxaRelationshipViewer.loadingIndicator.className = 'loading-indicator';
 
-  loadVisJs() {
-    return new Promise((resolve, reject) => {
-      if (window.vis) {
-        resolve();
-        return;
-      }
-      const script = document.createElement('script');
-      script.src = 'https://unpkg.com/vis-network/standalone/umd/vis-network.min.js';
-      script.onload = resolve;
-      script.onerror = reject;
-      document.head.appendChild(script);
-    });
-  },
+            const logo = document.createElement('img');
+            logo.src = './images/icon-512x512.png';
+            logo.alt = 'DuoNat logo';
+            logo.className = 'loading-indicator-logo';
 
-  createLoadingIndicator() {
-    if (!this.container) return;
-    this.loadingIndicator = document.createElement('div');
-    this.loadingIndicator.className = 'loading-indicator';
+            const spinner = document.createElement('div');
+            spinner.className = 'loading-spinner';
 
-    const logo = document.createElement('img');
-    logo.src = './images/icon-512x512.png';
-    logo.alt = 'DuoNat logo';
-    logo.className = 'loading-indicator-logo';
+            const message = document.createElement('p');
+            message.innerHTML = '<span>Building relationship graph...';
 
-    const spinner = document.createElement('div');
-    spinner.className = 'loading-spinner';
+            taxaRelationshipViewer.loadingIndicator.appendChild(logo);
+            taxaRelationshipViewer.loadingIndicator.appendChild(spinner);
+            taxaRelationshipViewer.loadingIndicator.appendChild(message);
 
-    const message = document.createElement('p');
-    message.innerHTML = '<span>Building relationship graph...';
+            taxaRelationshipViewer.loadingIndicator.style.display = 'none';
+            taxaRelationshipViewer.container.appendChild(taxaRelationshipViewer.loadingIndicator);
+        },
 
-    this.loadingIndicator.appendChild(logo);
-    this.loadingIndicator.appendChild(spinner);
-    this.loadingIndicator.appendChild(message);
+        showLoadingIndicator() {
+            if (taxaRelationshipViewer.loadingIndicator) {
+                taxaRelationshipViewer.loadingIndicator.style.display = 'block';
+            }
+        },
 
-    this.loadingIndicator.style.display = 'none';
-    this.container.appendChild(this.loadingIndicator);
-  },
+        hideLoadingIndicator() {
+            if (taxaRelationshipViewer.loadingIndicator) {
+                taxaRelationshipViewer.loadingIndicator.style.display = 'none';
+            }
+        },
 
-  showLoadingIndicator() {
-    if (this.loadingIndicator) {
-      this.loadingIndicator.style.display = 'block';
-    }
-  },
+        openTaxonPage(url) {
+            window.open(url, '_blank');
+        },
+    },
 
-  hideLoadingIndicator() {
-    if (this.loadingIndicator) {
-      this.loadingIndicator.style.display = 'none';
-    }
-  },
+    graphManagement: {
+        showExistingGraph() {
+            if (taxaRelationshipViewer.currentData && taxaRelationshipViewer.container) {
+                logger.debug("Showing existing graph");
+                if (taxaRelationshipViewer.network) {
+                    taxaRelationshipViewer.network.fit();
+                } else {
+                    taxaRelationshipViewer.graphRendering.renderGraph(
+                        taxaRelationshipViewer.currentData.taxon1,
+                        taxaRelationshipViewer.currentData.taxon2,
+                        taxaRelationshipViewer.currentData.commonAncestor
+                    );
+                }
+            } else {
+                logger.error("No existing graph data to show");
+            }
+        },
 
-  showExistingGraph() {
-    if (this.currentData && this.container) {
-      logger.debug("Showing existing graph");
-      if (this.network) {
-        // If the network already exists, just fit the view
-        this.network.fit();
-      } else {
-        // If the network doesn't exist (e.g., if the container was cleared), recreate it
-        this.renderGraph(this.currentData.taxon1, this.currentData.taxon2, this.currentData.commonAncestor);
-      }
-    } else {
-      logger.error("No existing graph data to show");
-    }
-  },
+        clearGraph() {
+            if (taxaRelationshipViewer.network) {
+                taxaRelationshipViewer.network.destroy();
+                taxaRelationshipViewer.network = null;
+            }
+            taxaRelationshipViewer.currentData = null;
+            if (taxaRelationshipViewer.container) {
+                taxaRelationshipViewer.container.innerHTML = '';
+                taxaRelationshipViewer.ui.createLoadingIndicator();
+            }
+        },
 
-  async findRelationship(taxonName1, taxonName2) {
-    if (!this.initialized) {
-      throw new Error('Viewer not initialized. Call initialize() first.');
-    }
+        async showTaxaRelationship() {
+            const { taxonImageOne, taxonImageTwo } = gameState;
+            const container = document.getElementById('phylogeny-dialog__graph');
+            const dialog = document.getElementById('phylogeny-dialog');
 
-    this.showLoadingIndicator();
+            if (!taxonImageOne || !taxonImageTwo) {
+                logger.error('Taxon names not available');
+                alert('Unable to show relationship. Please try again after starting a new game.');
+                return;
+            }
 
-    try {
-      const [taxon1, taxon2] = await Promise.all([
-        this.fetchTaxonData(taxonName1),
-        this.fetchTaxonData(taxonName2)
-      ]);
+            dialogManager.openDialog('phylogeny-dialog');
 
-      // Fetch ancestry from local data
-      const [ancestry1, ancestry2] = await Promise.all([
-        api.taxonomy.getAncestryFromLocalData(taxonName1),
-        api.taxonomy.getAncestryFromLocalData(taxonName2)
-      ]);
+            try {
+                await taxaRelationshipViewer.initialization.initialize(container);
 
-      // Convert Set to Array if necessary
-      taxon1.ancestor_ids = Array.isArray(taxon1.ancestor_ids) ? taxon1.ancestor_ids : Array.from(taxon1.ancestor_ids || []);
-      taxon2.ancestor_ids = Array.isArray(taxon2.ancestor_ids) ? taxon2.ancestor_ids : Array.from(taxon2.ancestor_ids || []);
+                if (taxaRelationshipViewer.currentGraphTaxa &&
+                    taxaRelationshipViewer.currentGraphTaxa[0] === taxonImageOne &&
+                    taxaRelationshipViewer.currentGraphTaxa[1] === taxonImageTwo) {
+                    logger.debug("Showing existing graph for the same taxa pair");
+                    taxaRelationshipViewer.graphManagement.showExistingGraph();
+                } else {
+                    logger.debug("Creating new graph for a different taxa pair");
+                    taxaRelationshipViewer.graphManagement.clearGraph();
+                    await taxaRelationshipViewer.dataProcessing.findRelationship(taxonImageOne, taxonImageTwo);
+                    taxaRelationshipViewer.currentGraphTaxa = [taxonImageOne, taxonImageTwo];
+                }
+            } catch (error) {
+                logger.error('Error showing taxa relationship:', error);
+                alert('Failed to load the relationship graph. Please try again later.');
+                dialogManager.closeDialog('phylogeny-dialog');
+            }
+        },
+    },
 
-      // Use local ancestry if available
-      if (ancestry1.length > 0) taxon1.ancestor_ids = ancestry1;
-      if (ancestry2.length > 0) taxon2.ancestor_ids = ancestry2;
+    dataProcessing: {
+        async findRelationship(taxonName1, taxonName2) {
+            if (!taxaRelationshipViewer.initialized) {
+                throw new Error('Viewer not initialized. Call initialize() first.');
+            }
 
-      const commonAncestor = this.findCommonAncestor(taxon1, taxon2);
-      this.currentData = { taxon1, taxon2, commonAncestor };
-      await this.renderGraph(taxon1, taxon2, commonAncestor);
-    } catch (error) {
-      logger.error('Error finding relationship:', error);
-      throw error;
-    } finally {
-      this.hideLoadingIndicator();
-    }
-  },
+            taxaRelationshipViewer.ui.showLoadingIndicator();
 
-  async fetchAncestorDetails(ancestorIds, taxon1, taxon2) {
-    ancestorIds = Array.isArray(ancestorIds) ? ancestorIds : Array.from(ancestorIds || []);
-    logger.debug('Fetching ancestor details for IDs:', ancestorIds);
+            try {
+                const [taxon1, taxon2] = await Promise.all([
+                    taxaRelationshipViewer.utils.fetchTaxonData(taxonName1),
+                    taxaRelationshipViewer.utils.fetchTaxonData(taxonName2)
+                ]);
 
-    const localAncestorDetails = new Map();
+                const [ancestry1, ancestry2] = await Promise.all([
+                    api.taxonomy.getAncestryFromLocalData(taxonName1),
+                    api.taxonomy.getAncestryFromLocalData(taxonName2)
+                ]);
 
-    // Add end nodes (taxon1 and taxon2) to localAncestorDetails
-    const endNodes = [taxon1, taxon2];
-    for (const taxon of endNodes) {
-      if (taxon && taxon.id) {
-        localAncestorDetails.set(taxon.id, {
-          id: taxon.id,
-          name: taxon.name,
-          rank: taxon.rank,
-          preferred_common_name: taxon.preferred_common_name
+                taxon1.ancestor_ids = Array.isArray(taxon1.ancestor_ids) ? taxon1.ancestor_ids : Array.from(taxon1.ancestor_ids || []);
+                taxon2.ancestor_ids = Array.isArray(taxon2.ancestor_ids) ? taxon2.ancestor_ids : Array.from(taxon2.ancestor_ids || []);
+
+                if (ancestry1.length > 0) taxon1.ancestor_ids = ancestry1;
+                if (ancestry2.length > 0) taxon2.ancestor_ids = ancestry2;
+
+                const commonAncestor = taxaRelationshipViewer.utils.findCommonAncestor(taxon1, taxon2);
+                taxaRelationshipViewer.currentData = { taxon1, taxon2, commonAncestor };
+                await taxaRelationshipViewer.graphRendering.renderGraph(taxon1, taxon2, commonAncestor);
+            } catch (error) {
+                logger.error('Error finding relationship:', error);
+                throw error;
+            } finally {
+                taxaRelationshipViewer.ui.hideLoadingIndicator();
+            }
+        },
+
+      async fetchAncestorDetails(ancestorIds, taxon1, taxon2) {
+        ancestorIds = Array.isArray(ancestorIds) ? ancestorIds : Array.from(ancestorIds || []);
+        logger.debug('Fetching ancestor details for IDs:', ancestorIds);
+
+        const localAncestorDetails = new Map();
+
+        // Add end nodes (taxon1 and taxon2) to localAncestorDetails
+        const endNodes = [taxon1, taxon2];
+        for (const taxon of endNodes) {
+          if (taxon && taxon.id) {
+            localAncestorDetails.set(taxon.id, {
+              id: taxon.id,
+              name: taxon.name,
+              rank: taxon.rank,
+              preferred_common_name: taxon.preferred_common_name
+            });
+            logger.debug(`Added local data for end node ${taxon.id}:`, localAncestorDetails.get(taxon.id));
+          }
+        }
+
+        // Fetch ancestor details from API (which now checks local taxonHierarchy.json first)
+        const ancestorDetails = await api.taxonomy.fetchAncestorDetails(ancestorIds);
+
+        // Merge API results with localAncestorDetails
+        ancestorDetails.forEach((value, key) => {
+          if (!localAncestorDetails.has(key)) {
+            localAncestorDetails.set(key, value);
+            //        logger.debug(`Added ancestry data for ID ${key}:`, value);
+          }
         });
-        logger.debug(`Added local data for end node ${taxon.id}:`, localAncestorDetails.get(taxon.id));
-      }
-    }
 
-    // Fetch ancestor details from API (which now checks local taxonHierarchy.json first)
-    const ancestorDetails = await api.taxonomy.fetchAncestorDetails(ancestorIds);
+        return localAncestorDetails;
+      },
 
-    // Merge API results with localAncestorDetails
-    ancestorDetails.forEach((value, key) => {
-      if (!localAncestorDetails.has(key)) {
-        localAncestorDetails.set(key, value);
-        //        logger.debug(`Added ancestry data for ID ${key}:`, value);
-      }
-    });
+    },
 
-    return localAncestorDetails;
-  },
-
-  clearGraph() {
-    if (this.network) {
-      this.network.destroy();
-      this.network = null;
-    }
-    this.currentData = null;
-    if (this.container) {
-      this.container.innerHTML = '';
-      this.createLoadingIndicator(); // Recreate the loading indicator
-    }
-  },
-
-  async fetchTaxonData(name) {
-    return api.taxonomy.fetchTaxonDetails(name);
-  },
-
-  findCommonAncestor(taxon1, taxon2) {
-    const ancestors1 = new Set(taxon1.ancestor_ids);
-    let commonAncestor = null;
-    for (const ancestorId of taxon2.ancestor_ids) {
-      if (ancestors1.has(ancestorId)) {
-        commonAncestor = ancestorId;
-        break;
-      }
-    }
-    return commonAncestor;
-  },
+    graphRendering: {
 
   async renderGraph(taxon1, taxon2, commonAncestorId) {
     // Clear any existing graph
-    if (this.network) {
-      this.network.destroy();
+    if (taxaRelationshipViewer.network) {
+      taxaRelationshipViewer.network.destroy();
     }
     const nodes = new vis.DataSet();
     const edges = new vis.DataSet();
@@ -307,10 +324,10 @@ const taxaRelationshipViewer = {
       }
     };
 
-    this.network = new vis.Network(this.container, data, options);
-    this.container.classList.add('clickable-network');
+    taxaRelationshipViewer.network = new vis.Network(taxaRelationshipViewer.container, data, options);
+    taxaRelationshipViewer.container.classList.add('clickable-network');
 
-    this.network.on("click", (params) => {
+    taxaRelationshipViewer.network.on("click", (params) => {
       if (params.nodes.length > 0) {
         const nodeId = params.nodes[0];
         const node = nodes.get(nodeId);
@@ -321,7 +338,50 @@ const taxaRelationshipViewer = {
     });
   }
 
+    },
+
+    utils: {
+        loadVisJs() {
+            return new Promise((resolve, reject) => {
+                if (window.vis) {
+                    resolve();
+                    return;
+                }
+                const script = document.createElement('script');
+                script.src = 'https://unpkg.com/vis-network/standalone/umd/vis-network.min.js';
+                script.onload = resolve;
+                script.onerror = reject;
+                document.head.appendChild(script);
+            });
+        },
+
+        async fetchTaxonData(name) {
+            return api.taxonomy.fetchTaxonDetails(name);
+        },
+
+        findCommonAncestor(taxon1, taxon2) {
+            const ancestors1 = new Set(taxon1.ancestor_ids);
+            let commonAncestor = null;
+            for (const ancestorId of taxon2.ancestor_ids) {
+                if (ancestors1.has(ancestorId)) {
+                    commonAncestor = ancestorId;
+                    break;
+                }
+            }
+            return commonAncestor;
+        },
+    },
 };
 
-export default taxaRelationshipViewer;
+// Bind all methods to ensure correct 'this' context
+Object.keys(taxaRelationshipViewer).forEach(key => {
+    if (taxaRelationshipViewer[key] && typeof taxaRelationshipViewer[key] === 'object') {
+        Object.keys(taxaRelationshipViewer[key]).forEach(subKey => {
+            if (typeof taxaRelationshipViewer[key][subKey] === 'function') {
+                taxaRelationshipViewer[key][subKey] = taxaRelationshipViewer[key][subKey].bind(taxaRelationshipViewer);
+            }
+        });
+    }
+});
 
+export default taxaRelationshipViewer;

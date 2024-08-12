@@ -7,6 +7,7 @@ import game from './game.js';
 import gameLogic from './gameLogic.js';
 import logger from './logger.js';
 import { elements, gameState } from './state.js';
+import taxaRelationshipViewer from './taxaRelationshipViewer.js';
 import testingDialog from './testingDialog.js';
 import ui from './ui.js';
 import utils from './utils.js';
@@ -176,7 +177,7 @@ const eventHandlers = {
             utils.url.shareCurrentPair();
         });
 
-        addMenuListener('phylogeny-button', game.showTaxaRelationship);
+        addMenuListener('phylogeny-button', taxaRelationshipViewer.graphManagement.showTaxaRelationship);
         addMenuListener('select-set-button', ui.taxonPairList.showTaxonPairList);
         addMenuListener('enter-set-button', () => dialogManager.openDialog('enter-set-dialog'));
         addMenuListener('random-pair-button', gameLogic.loadNewRandomPair);
@@ -389,11 +390,15 @@ const eventHandlers = {
         }
 
         this.isDragging = false;
+        
+        // Always reset the game container and swipe info message
+        this.gameContainer.style.transform = 'none';
+        this.gameContainer.style.opacity = '1';
+        document.getElementById('swipe-info-message').style.opacity = '0';
     },
 
     performSwipeOutAnimation(initialDeltaX) {
-      const swipeInfoMessage = document.getElementById('swipe-info-message');
-      swipeInfoMessage.style.opacity = 0;
+      document.getElementById('swipe-info-message').style.opacity = 0;
 
       const startRotation = (initialDeltaX / this.swipeOutThreshold) * -this.maxRotation;
       
@@ -428,8 +433,7 @@ const eventHandlers = {
     },
 
     resetSwipeAnimation() {
-      const swipeInfoMessage = document.getElementById('swipe-info-message');
-      swipeInfoMessage.style.opacity = 0;
+      document.getElementById('swipe-info-message').style.opacity = 0;
 
       this.gameContainer.animate([
         { transform: this.gameContainer.style.transform, opacity: this.gameContainer.style.opacity },
@@ -444,34 +448,36 @@ const eventHandlers = {
     },
 
     handleDragMove(e) {
-      if (!this.isDragging) return;
+        if (!this.isDragging) return;
 
-      let currentX, currentY;
-      if (e.type.includes('touch')) {
-        currentX = e.touches[0].clientX;
-        currentY = e.touches[0].clientY;
-      } else {
-        currentX = e.clientX;
-        currentY = e.clientY;
-      }
+        let currentX, currentY;
+        if (e.type.includes('touch')) {
+            currentX = e.touches[0].clientX;
+            currentY = e.touches[0].clientY;
+        } else {
+            currentX = e.clientX;
+            currentY = e.clientY;
+        }
 
-      const deltaX = this.startX - currentX;
-      const deltaY = Math.abs(this.startY - currentY);
+        const deltaX = this.startX - currentX;
+        const deltaY = Math.abs(this.startY - currentY);
 
-      if (deltaX > 0 && deltaY < this.swipeRestraint) {
-        const progress = Math.min(deltaX / this.swipeOutThreshold, 1);
-        const rotation = progress * -this.maxRotation;
-        const opacity = 1 - progress * 0.3;
+        if (deltaX > 0 && deltaY < this.swipeRestraint) {
+            const progress = Math.min(deltaX / this.swipeOutThreshold, 1);
+            const rotation = progress * -this.maxRotation;
+            const opacity = 1 - progress * 0.3;
 
-        requestAnimationFrame(() => {
-          this.gameContainer.style.transform = `rotate(${rotation}deg) translateX(${-deltaX}px)`;
-          this.gameContainer.style.opacity = opacity;
+            requestAnimationFrame(() => {
+                this.gameContainer.style.transform = `rotate(${rotation}deg) translateX(${-deltaX}px)`;
+                this.gameContainer.style.opacity = opacity;
 
-          // Update the swipe info message
-          const swipeInfoMessage = document.getElementById('swipe-info-message');
-          swipeInfoMessage.style.opacity = progress.toFixed(2);
-        });
-      }
+                // Update the swipe info message
+                document.getElementById('swipe-info-message').style.opacity = progress.toFixed(2);
+            });
+        } else {
+            // Reset animation if user moves back or vertically
+            this.resetSwipeAnimation();
+        }
     },
  
     handleImageInteraction(event) {
@@ -526,14 +532,14 @@ const eventHandlers = {
                 break;
             case 'i':
                 event.preventDefault();
-                game.showInfoDialog(game.currentObservationURLs.imageOne, 1);
+                game.dialogHandling.showInfoDialog(game.currentObservationURLs.imageOne, 1);
                 break;
             case 'o':
                 event.preventDefault();
-                game.showInfoDialog(game.currentObservationURLs.imageTwo, 2);
+                game.dialogHandling.showInfoDialog(game.currentObservationURLs.imageTwo, 2);
                 break;
             case 'g':
-                game.showTaxaRelationship();
+                taxaRelationshipViewer.graphManagement.showTaxaRelationship();
                 break;
             case 'h':
                 if (!event.target.closest('button')) {  // Only trigger if not clicking a button

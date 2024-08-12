@@ -2,7 +2,6 @@ import config from './config.js';
 import dialogManager from './dialogManager.js';
 import { elements, gameState, updateGameState } from './state.js';
 import eventHandlers from './eventHandlers.js';
-import game from './game.js';
 import gameSetup from './gameSetup.js';
 import logger, { LogLevel } from './logger.js';
 import rangeSelector from './rangeSelector.js';

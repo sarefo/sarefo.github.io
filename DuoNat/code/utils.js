@@ -1,5 +1,4 @@
 import api from './api.js';
-import game from './game.js';
 import dialogManager from './dialogManager.js';
 import { gameState, updateGameState } from './state.js';
 import logger from './logger.js';
