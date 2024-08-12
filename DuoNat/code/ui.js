@@ -8,7 +8,6 @@ import gameLogic from './gameLogic.js';
 import gameSetup from './gameSetup.js';
 import logger from './logger.js';
 import tagCloud from './tagCloud.js';
-import utils from './utils.js';
 import { createNonClickableWorldMap, getFullContinentName } from './worldMap.js';
 
 const bindAllMethods = (obj) => {

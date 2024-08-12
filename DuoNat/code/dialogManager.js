@@ -185,7 +185,7 @@ const dialogManager = {
             const infoDialog = document.getElementById('info-dialog');
 
             // Check if the device has a keyboard
-            if (utils.hasKeyboard()) {
+            if (utils.device.hasKeyboard()) {
                 document.body.classList.add('has-keyboard');
             }
 
@@ -299,7 +299,7 @@ const dialogManager = {
             if (!keyboardShortcutsSection) {
                 return;
             }
-            keyboardShortcutsSection.style.display = utils.hasKeyboard() ? 'block' : 'none';
+            keyboardShortcutsSection.style.display = utils.device.hasKeyboard() ? 'block' : 'none';
         },
 
         validateInputs() {

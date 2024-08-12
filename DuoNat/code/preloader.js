@@ -3,7 +3,6 @@ import { gameState, updateGameState } from './state.js';
 import gameLogic from './gameLogic.js';
 import logger from './logger.js';
 import setManager from './setManager.js';
-import utils from './utils.js';
 
 const preloader = {
     preloadedImages: {

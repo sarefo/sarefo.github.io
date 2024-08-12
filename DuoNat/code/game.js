@@ -8,6 +8,7 @@ import { GameState, gameState } from './state.js';
 import logger from './logger.js';
 import taxaRelationshipViewer from './taxaRelationshipViewer.js';
 import ui from './ui.js';
+import utils from './utils.js';
 
 const game = {
     loadingMessage: "",
@@ -184,14 +185,14 @@ const game = {
         if (error.message.includes("No images found")) {
             const taxonName = error.message.split("No images found for ")[1];
             ui.overlay.showOverlay(`Warning: No images found for ${taxonName}. Trying another pair...`, config.overlayColors.red);
-            await utils.sleep(2000);
+            await utils.ui.sleep(2000);
             this.nextSelectedPair = null;
         }
     },
 
     async initializeNewTaxonPair(pair = null) {
 
-        const newPair = pair || await utils.selectTaxonPair();
+        const newPair = pair || await utils.game.selectTaxonPair();
         const [imageOneURL, imageTwoURL] = await Promise.all([
             api.images.fetchRandomImage(newPair.taxon1),
             api.images.fetchRandomImage(newPair.taxon2)

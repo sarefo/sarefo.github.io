@@ -1,6 +1,5 @@
 import logger from './logger.js';
 import TaxonomyHierarchy from './taxonomyHierarchy.js';
-import utils from './utils.js';
 
 const handleApiError = (error, context) => {
     logger.error(`API Error in ${context}:`, error);

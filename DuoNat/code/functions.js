@@ -23,7 +23,7 @@ import utils from './utils.js';
         //      dialogManager.openDialog('inat-down-dialog'); // for debugging
 
         // Check for URL parameters
-        const urlParams = utils.getURLParameters();
+        const urlParams = utils.url.getURLParameters();
         /*
                 if (urlParams.taxon1 && urlParams.taxon2) {
                     logger.debug("Taxon parameters found:", urlParams);

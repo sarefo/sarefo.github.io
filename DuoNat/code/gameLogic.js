@@ -49,15 +49,15 @@ const gameLogic = {
         async handleCorrectAnswer() {
             await ui.overlay.showOverlay('Correct!', config.overlayColors.green);
             gameUI.imageHandling.prepareImagesForLoading();
-            await utils.sleep(2000); // Show "Correct!" for a while
+            await utils.ui.sleep(2000); // Show "Correct!" for a while
             ui.overlay.updateOverlayMessage(`${game.loadingMessage}`); // Update message without changing color
             await gameSetup.setupGame(false);  // Start a new round with the same taxon pair
         },
 
         async handleIncorrectAnswer() {
-            utils.resetDraggables();
+            utils.game.resetDraggables();
             await ui.overlay.showOverlay('Try again!', config.overlayColors.red);
-            await utils.sleep(1200);
+            await utils.ui.sleep(1200);
             ui.overlay.hideOverlay();
             game.setState(GameState.PLAYING);
         },

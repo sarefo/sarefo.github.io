@@ -244,12 +244,12 @@ const taxaRelationshipViewer = {
         nodeData.id.toString() === taxon2.id.toString();
 
       var taxonName = nodeData.taxonName || `Unknown Taxon ${nodeData.id}`;
-      var taxonRank = utils.capitalizeFirstLetter(nodeData.rank || 'Unknown');
+      var taxonRank = utils.string.capitalizeFirstLetter(nodeData.rank || 'Unknown');
       var vernacularName = nodeData.vernacularName ?
-        `\n(${utils.capitalizeFirstLetter(nodeData.vernacularName)})` : "";
+        `\n(${utils.string.capitalizeFirstLetter(nodeData.vernacularName)})` : "";
 
       if (taxonRank === "Species" || taxonRank === "Genus" || taxonRank === "Stateofmatter") { vernacularName = ""; }
-      if (taxonRank === "Species") { taxonName = utils.shortenSpeciesName(taxonName); }
+      if (taxonRank === "Species") { taxonName = utils.string.shortenSpeciesName(taxonName); }
       if (taxonRank === "Species" || taxonRank === "Genus" || taxonRank === "Stateofmatter") { taxonRank = ""; }
 
       const existingNode = nodes.get(nodeData.id);

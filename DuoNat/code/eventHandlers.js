@@ -47,7 +47,7 @@ const eventHandlers = {
         this.initializeSelectSetDialogShortcuts();
         this.initializeLevelIndicator();
         this.initializeLongPressHandler(); // only used for testing dialog secret long-press on chili for now
-        this.debouncedKeyboardHandler = utils.debounce(this._handleKeyboardShortcuts.bind(this), 300);
+        this.debouncedKeyboardHandler = utils.ui.debounce(this._handleKeyboardShortcuts.bind(this), 300);
         document.addEventListener('keydown', this.debouncedKeyboardHandler);
 
         // Ensure keyboard shortcuts are properly set up
@@ -72,7 +72,7 @@ const eventHandlers = {
 
           const searchInput = document.getElementById('taxon-search');
           if (searchInput) {
-            const debouncedHandleSearch = utils.debounce(this.handleSearch.bind(this), 300); // 300ms delay
+            const debouncedHandleSearch = utils.ui.debounce(this.handleSearch.bind(this), 300); // 300ms delay
             searchInput.addEventListener('input', debouncedHandleSearch);
             searchInput.addEventListener('keydown', this.handleSearchKeydown.bind(this));
           }
@@ -176,7 +176,7 @@ const eventHandlers = {
         };
 
         this.safeAddEventListener('share-button', 'click', () => {
-            utils.shareCurrentPair();
+            utils.url.shareCurrentPair();
         });
 
         addMenuListener('phylogeny-button', game.showTaxaRelationship);
@@ -185,7 +185,7 @@ const eventHandlers = {
         addMenuListener('random-pair-button', gameLogic.loadNewRandomPair);
         addMenuListener('like-button', this.likePair.bind(this));
         addMenuListener('trash-button', this.trashPair.bind(this));
-        addMenuListener('surprise-button', utils.surprise);
+        addMenuListener('surprise-button', utils.sound.surprise);
     },
 
     initializeAllEventListeners() {
@@ -516,7 +516,7 @@ const eventHandlers = {
                 break;
             case 's':
                 event.preventDefault();
-                utils.shareCurrentPair();
+                utils.url.shareCurrentPair();
                 break;
             case 't': // hidden
                 event.preventDefault();

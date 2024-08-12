@@ -123,7 +123,7 @@ const gameSetup = {
                     tags: urlParams.tags ? urlParams.tags.split(',') : gameState.selectedTags
                 };
 
-                const filteredPairs = await utils.getFilteredTaxonPairs(filters);
+                const filteredPairs = await utils.game.getFilteredTaxonPairs(filters);
 
                 if (urlParams.setID) {
                     newPair = filteredPairs.find(pair => pair.setID === urlParams.setID);
@@ -247,7 +247,7 @@ const gameSetup = {
     uiSetup: {
 
         prepareUIForLoading() {
-            utils.resetDraggables();
+            utils.game.resetDraggables();
             gameUI.imageHandling.prepareImagesForLoading();
             var startMessage = gameState.isFirstLoad ? "Drag the names!" : `${game.loadingMessage}`;
             ui.overlay.showOverlay(startMessage, config.overlayColors.green);
@@ -272,8 +272,8 @@ const gameSetup = {
             game.currentObservationURLs.imageTwo = api.utils.getObservationURLFromImageURL(rightImageSrc);
 
             const [leftVernacular, rightVernacular] = await Promise.all([
-                utils.capitalizeFirstLetter(await api.vernacular.fetchVernacular(randomized ? pair.taxon1 : pair.taxon2)),
-                utils.capitalizeFirstLetter(await api.vernacular.fetchVernacular(randomized ? pair.taxon2 : pair.taxon1))
+                utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(randomized ? pair.taxon1 : pair.taxon2)),
+                utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(randomized ? pair.taxon2 : pair.taxon1))
             ]);
 
             gameUI.nameTiles.setupNameTilesUI(
