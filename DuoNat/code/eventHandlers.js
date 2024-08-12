@@ -33,12 +33,15 @@ const eventHandlers = {
     touchEndX: 0,
     touchEndY: 0,
 
-    swipeThreshold: 50, // minimum distance to trigger a swipe
-    swipeRestraint: 100, // maximum vertical distance allowed during a swipe
 
     isLoadingNewPair: false,
     isOpeningDialog: false,
     hasLostFocus: true,
+
+    swipeOutThreshold: 30, // Minimum distance to trigger a swipe-out
+    swipeRestraint: 100, // maximum vertical distance allowed during a swipe
+    maxRotation: 15, // Maximum rotation angle in degrees
+    animationDuration: 300, // Duration of the swipe-out animation in milliseconds
 
     initialize() {
         this.initializeSwipeFunctionality();
@@ -150,12 +153,6 @@ const eventHandlers = {
 
     enableSwipe: function() {
         this.swipeDisabled = false;
-    },
-
-// Modify the handleSwipeOrDrag method
-    handleSwipeOrDrag: function(e) {
-        if (this.swipeDisabled || !this.isDragging) return;
-        // ... rest of the existing method
     },
 
     safeAddEventListener(id, eventType, handler) {
@@ -385,33 +382,65 @@ const eventHandlers = {
         const deltaX = this.startX - endX;
         const deltaY = Math.abs(this.startY - endY);
 
-        if (deltaX > this.swipeThreshold && deltaY < this.swipeRestraint) {
-            // Swipe left detected
-            document.querySelector('.game-container').classList.add('swipe-out-left');
-
-            // Hide the swipe info message
-            const swipeInfoMessage = document.getElementById('swipe-info-message');
-            swipeInfoMessage.style.opacity = 0;
-
-            setTimeout(() => {
-                document.querySelector('.game-container').classList.remove('swiping-left', 'swipe-out-left');
-                ui.core.resetGameContainerStyle();
-                if (!gameLogic.isCurrentPairInCollection()) {
-                    gameLogic.loadRandomPairFromCurrentCollection();
-                } else {
-                    gameLogic.loadNewRandomPair();
-                }
-            }, 500); // Match this with the animation duration
+        if (deltaX > this.swipeOutThreshold && deltaY < this.swipeRestraint) {
+            this.performSwipeOutAnimation(deltaX);
         } else {
-            // Reset if not swiped far enough or swiped vertically
-            ui.core.resetGameContainerStyle();
-
-            // Hide the swipe info message
-            const swipeInfoMessage = document.getElementById('swipe-info-message');
-            swipeInfoMessage.style.opacity = 0;
+            this.resetSwipeAnimation();
         }
 
         this.isDragging = false;
+    },
+
+    performSwipeOutAnimation(initialDeltaX) {
+        const swipeInfoMessage = document.getElementById('swipe-info-message');
+        swipeInfoMessage.style.opacity = 0;
+
+        const startRotation = (initialDeltaX / this.swipeOutThreshold) * -this.maxRotation;
+        
+        this.gameContainer.style.transition = `transform ${this.animationDuration}ms ease-out, opacity ${this.animationDuration}ms ease-out`;
+        this.gameContainer.style.transform = `rotate(${startRotation}deg) translateX(-${initialDeltaX}px)`;
+        
+        requestAnimationFrame(() => {
+            this.gameContainer.style.transform = `rotate(${-this.maxRotation}deg) translateX(-100%)`;
+            this.gameContainer.style.opacity = '0';
+        });
+
+        setTimeout(() => {
+            this.gameContainer.style.transition = '';
+            this.gameContainer.style.transform = '';
+            this.gameContainer.style.opacity = '0';
+
+            if (!gameLogic.isCurrentPairInCollection()) {
+                gameLogic.loadRandomPairFromCurrentCollection();
+            } else {
+                gameLogic.loadNewRandomPair();
+            }
+
+            requestAnimationFrame(() => {
+                this.gameContainer.style.transition = 'opacity 300ms ease-in';
+                this.gameContainer.style.opacity = '1';
+            });
+
+            setTimeout(() => {
+                this.gameContainer.style.transition = '';
+            }, 300);
+        }, this.animationDuration);
+    },
+
+    resetSwipeAnimation() {
+        const swipeInfoMessage = document.getElementById('swipe-info-message');
+        swipeInfoMessage.style.opacity = 0;
+
+        this.gameContainer.animate([
+            { transform: this.gameContainer.style.transform, opacity: this.gameContainer.style.opacity },
+            { transform: '', opacity: 1 }
+        ], {
+            duration: 150,
+            easing: 'ease-out'
+        });
+
+        this.gameContainer.style.transform = '';
+        this.gameContainer.style.opacity = '';
     },
 
     handleDragMove(e) {
@@ -430,16 +459,18 @@ const eventHandlers = {
         const deltaY = Math.abs(this.startY - currentY);
 
         if (deltaX > 0 && deltaY < this.swipeRestraint) {
-            const progress = Math.min(deltaX / 100, 1);
-            const rotation = progress * -5;
-            const opacity = 1 - progress * 0.5;
+            const progress = Math.min(deltaX / this.swipeOutThreshold, 1);
+            const rotation = progress * -this.maxRotation;
+            const opacity = 1 - progress * 0.3;
 
-            this.gameContainer.style.transform = `rotate(${rotation}deg) translateX(${-deltaX}px)`;
-            this.gameContainer.style.opacity = opacity;
+            requestAnimationFrame(() => {
+                this.gameContainer.style.transform = `rotate(${rotation}deg) translateX(${-deltaX}px)`;
+                this.gameContainer.style.opacity = opacity;
 
-            // Update the swipe info message
-            const swipeInfoMessage = document.getElementById('swipe-info-message');
-            swipeInfoMessage.style.opacity = progress.toFixed(2); // Fade in smoothly
+                // Update the swipe info message
+                const swipeInfoMessage = document.getElementById('swipe-info-message');
+                swipeInfoMessage.style.opacity = progress.toFixed(2);
+            });
         }
     },
 
