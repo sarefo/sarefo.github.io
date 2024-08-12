@@ -54,13 +54,6 @@ const eventHandlers = {
         this.debouncedKeyboardHandler = utils.ui.debounce(this._handleKeyboardShortcuts.bind(this), 300);
         document.addEventListener('keydown', this.debouncedKeyboardHandler);
 
-        window.addEventListener('blur', this.resetSwipeState);
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) {
-                this.resetSwipeState();
-            }
-        });
-
         // Ensure keyboard shortcuts are properly set up
         document.removeEventListener('keydown', this.debouncedKeyboardHandler);
         document.addEventListener('keydown', this.debouncedKeyboardHandler);
@@ -393,83 +386,65 @@ const eventHandlers = {
         if (deltaX > this.swipeOutThreshold && deltaY < this.swipeRestraint) {
             this.performSwipeOutAnimation(deltaX);
         } else {
-            this.resetSwipeState();
+            this.resetSwipeAnimation();
         }
 
         this.isDragging = false;
+        
+        // Always reset the game container and swipe info message
+        this.gameContainer.style.transform = 'none';
+        this.gameContainer.style.opacity = '1';
+        document.getElementById('swipe-info-message').style.opacity = '0';
     },
 
     performSwipeOutAnimation(initialDeltaX) {
-        document.getElementById('swipe-info-message').style.opacity = '0';
+      document.getElementById('swipe-info-message').style.opacity = 0;
 
-        const startRotation = (initialDeltaX / this.swipeOutThreshold) * -this.maxRotation;
-        
-        this.gameContainer.style.transition = `transform ${this.animationDuration}ms ease-out, opacity ${this.animationDuration}ms ease-out`;
-        this.gameContainer.style.transform = `rotate(${startRotation}deg) translateX(-${initialDeltaX}px)`;
-        
+      const startRotation = (initialDeltaX / this.swipeOutThreshold) * -this.maxRotation;
+      
+      this.gameContainer.style.transition = `transform ${this.animationDuration}ms ease-out, opacity ${this.animationDuration}ms ease-out`;
+      this.gameContainer.style.transform = `rotate(${startRotation}deg) translateX(-${initialDeltaX}px)`;
+      
+      requestAnimationFrame(() => {
+        this.gameContainer.style.transform = `rotate(${-this.maxRotation}deg) translateX(-100%)`;
+        this.gameContainer.style.opacity = '0';
+      });
+
+      setTimeout(() => {
+        this.gameContainer.style.transition = 'none';
+        this.gameContainer.style.transform = 'none';
+        this.gameContainer.style.opacity = '0';
+
+        if (!gameLogic.isCurrentPairInCollection()) {
+          gameLogic.loadRandomPairFromCurrentCollection();
+        } else {
+          gameLogic.loadNewRandomPair();
+        }
+
         requestAnimationFrame(() => {
-            this.gameContainer.style.transform = `rotate(${-this.maxRotation}deg) translateX(-100%)`;
-            this.gameContainer.style.opacity = '0';
+          this.gameContainer.style.transition = 'opacity 300ms ease-in';
+          this.gameContainer.style.opacity = '1';
         });
 
         setTimeout(() => {
-            this.resetSwipeState();
-
-            if (!gameLogic.isCurrentPairInCollection()) {
-                gameLogic.loadRandomPairFromCurrentCollection();
-            } else {
-                gameLogic.loadNewRandomPair();
-            }
-
-            // Ensure state is reset after loading new pair
-            setTimeout(this.resetSwipeState, 100);
-        }, this.animationDuration);
-    },
-
-    resetSwipeState() {
-        const swipeInfoMessage = document.getElementById('swipe-info-message');
-        const gameContainer = document.querySelector('.game-container');
-
-        // Cancel any ongoing animations
-        gameContainer.getAnimations().forEach(animation => animation.cancel());
-
-        // Reset game container
-        gameContainer.style.transition = 'none';
-        gameContainer.style.transform = 'none';
-        gameContainer.style.opacity = '1';
-
-        // Reset swipe info message
-        swipeInfoMessage.style.transition = 'none';
-        swipeInfoMessage.style.opacity = '0';
-
-        // Force a reflow to ensure changes take effect immediately
-        void gameContainer.offsetWidth;
-
-        // Re-enable transitions after a short delay
-        setTimeout(() => {
-            gameContainer.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
-            swipeInfoMessage.style.transition = 'opacity 0.3s ease-out';
-        }, 50);
+          this.gameContainer.style.transition = '';
+        }, 300);
+      }, this.animationDuration);
     },
 
     resetSwipeAnimation() {
-        const swipeInfoMessage = document.getElementById('swipe-info-message');
-        const gameContainer = document.querySelector('.game-container');
+      document.getElementById('swipe-info-message').style.opacity = 0;
 
-        // Reset game container
-        gameContainer.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
-        gameContainer.style.transform = 'none';
-        gameContainer.style.opacity = '1';
+      this.gameContainer.animate([
+        { transform: this.gameContainer.style.transform, opacity: this.gameContainer.style.opacity },
+        { transform: 'none', opacity: 1 }
+      ], {
+        duration: 150,
+        easing: 'ease-out'
+      });
 
-        // Reset swipe info message
-        swipeInfoMessage.style.transition = 'opacity 0.3s ease-out';
-        swipeInfoMessage.style.opacity = '0';
-
-        // After transitions complete, remove transition styles
-        setTimeout(() => {
-            gameContainer.style.transition = '';
-            swipeInfoMessage.style.transition = '';
-        }, 300);
+      this.gameContainer.style.transform = 'none';
+      this.gameContainer.style.opacity = '';
     },
 
     handleDragMove(e) {
@@ -494,11 +469,14 @@ const eventHandlers = {
 
             requestAnimationFrame(() => {
                 this.gameContainer.style.transform = `rotate(${rotation}deg) translateX(${-deltaX}px)`;
-                this.gameContainer.style.opacity = opacity.toString();
+                this.gameContainer.style.opacity = opacity;
+
+                // Update the swipe info message
                 document.getElementById('swipe-info-message').style.opacity = progress.toFixed(2);
             });
         } else {
-            this.resetSwipeState();
+            // Reset animation if user moves back or vertically
+            this.resetSwipeAnimation();
         }
     },
  
