@@ -511,7 +511,7 @@ const dialogManager = {
             }
 
             // Clear tags
-            tagCloud.clearAllTags();
+            tagCloud.tagSelection.clearAllTags();
 
             // Clear ranges
             rangeSelector.setSelectedRanges([]);

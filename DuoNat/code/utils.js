@@ -2,7 +2,6 @@ import api from './api.js';
 import dialogManager from './dialogManager.js';
 import { gameState, updateGameState } from './state.js';
 import logger from './logger.js';
-import tagCloud from './tagCloud.js';
 
 const utils = {
     url: {

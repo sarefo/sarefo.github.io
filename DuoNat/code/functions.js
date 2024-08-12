@@ -52,7 +52,7 @@ import utils from './utils.js';
 
         if (urlParams.tags) {
             const tags = urlParams.tags.split(',');
-            tagCloud.setSelectedTags(tags);
+            tagCloud.tagSelection.setSelectedTags(tags);
             logger.debug("Tags from URL:", tags);
             urlParams.level = ''; // reset level
         }
@@ -72,7 +72,7 @@ import utils from './utils.js';
         gameSetup.setupGame(true, urlParams);
         eventHandlers.initialize();
         ui.core.initialize();
-        tagCloud.initialize();
+        tagCloud.initialization.initialize();
         rangeSelector.initialize();
         // tooltipManager.init(); /* need to remove bugs first */
         logger.info("App initialization complete");
