@@ -30,6 +30,10 @@ dialog[open] {
     z-index: 5000; /* debug */
 }
 
+@media (max-width: 480px) {
+    height: 95vh;
+}
+
 .dialog-content {
     display: flex;
     flex-direction: column;
