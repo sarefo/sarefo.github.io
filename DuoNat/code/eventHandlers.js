@@ -50,10 +50,16 @@ const eventHandlers = {
         this.initializeAllEventListeners();
         this.initializeSelectSetDialogShortcuts();
         this.initializeLevelIndicator();
-        this.resetSwipeAnimation();
         this.initializeLongPressHandler(); // only used for testing dialog secret long-press on chili for now
         this.debouncedKeyboardHandler = utils.ui.debounce(this._handleKeyboardShortcuts.bind(this), 300);
         document.addEventListener('keydown', this.debouncedKeyboardHandler);
+
+        window.addEventListener('blur', this.resetSwipeState);
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                this.resetSwipeState();
+            }
+        });
 
         // Ensure keyboard shortcuts are properly set up
         document.removeEventListener('keydown', this.debouncedKeyboardHandler);
@@ -387,15 +393,14 @@ const eventHandlers = {
         if (deltaX > this.swipeOutThreshold && deltaY < this.swipeRestraint) {
             this.performSwipeOutAnimation(deltaX);
         } else {
-            this.resetSwipeAnimation();
+            this.resetSwipeState();
         }
 
         this.isDragging = false;
     },
 
     performSwipeOutAnimation(initialDeltaX) {
-        const swipeInfoMessage = document.getElementById('swipe-info-message');
-        swipeInfoMessage.style.opacity = 0;
+        document.getElementById('swipe-info-message').style.opacity = '0';
 
         const startRotation = (initialDeltaX / this.swipeOutThreshold) * -this.maxRotation;
         
@@ -408,9 +413,7 @@ const eventHandlers = {
         });
 
         setTimeout(() => {
-            this.gameContainer.style.transition = 'none';
-            this.gameContainer.style.transform = 'none';
-            this.gameContainer.style.opacity = '0';
+            this.resetSwipeState();
 
             if (!gameLogic.isCurrentPairInCollection()) {
                 gameLogic.loadRandomPairFromCurrentCollection();
@@ -418,11 +421,35 @@ const eventHandlers = {
                 gameLogic.loadNewRandomPair();
             }
 
-            // Reset animation after loading new pair
-            setTimeout(() => {
-                this.resetSwipeAnimation();
-            }, 100);
+            // Ensure state is reset after loading new pair
+            setTimeout(this.resetSwipeState, 100);
         }, this.animationDuration);
+    },
+
+    resetSwipeState() {
+        const swipeInfoMessage = document.getElementById('swipe-info-message');
+        const gameContainer = document.querySelector('.game-container');
+
+        // Cancel any ongoing animations
+        gameContainer.getAnimations().forEach(animation => animation.cancel());
+
+        // Reset game container
+        gameContainer.style.transition = 'none';
+        gameContainer.style.transform = 'none';
+        gameContainer.style.opacity = '1';
+
+        // Reset swipe info message
+        swipeInfoMessage.style.transition = 'none';
+        swipeInfoMessage.style.opacity = '0';
+
+        // Force a reflow to ensure changes take effect immediately
+        void gameContainer.offsetWidth;
+
+        // Re-enable transitions after a short delay
+        setTimeout(() => {
+            gameContainer.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
+            swipeInfoMessage.style.transition = 'opacity 0.3s ease-out';
+        }, 50);
     },
 
     resetSwipeAnimation() {
@@ -467,14 +494,11 @@ const eventHandlers = {
 
             requestAnimationFrame(() => {
                 this.gameContainer.style.transform = `rotate(${rotation}deg) translateX(${-deltaX}px)`;
-                this.gameContainer.style.opacity = opacity;
-
-                // Update the swipe info message
+                this.gameContainer.style.opacity = opacity.toString();
                 document.getElementById('swipe-info-message').style.opacity = progress.toFixed(2);
             });
         } else {
-            // Reset animation if user moves back or vertically
-            this.resetSwipeAnimation();
+            this.resetSwipeState();
         }
     },
  
