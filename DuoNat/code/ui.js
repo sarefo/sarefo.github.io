@@ -487,12 +487,10 @@ const ui = {
                         highlightElements = [];
 
                         // Add new highlights
-                        if (step.highlight) {
-                            const highlight = this.createHighlight(step.highlight);
-                            if (highlight) highlightElements.push(highlight);
-                        } else if (step.highlights) {
-                            step.highlights.forEach(selector => {
-                                const highlight = this.createHighlight(selector);
+                        if (step.highlight || step.highlights) {
+                            const highlights = step.highlight ? [step.highlight] : step.highlights;
+                            highlights.forEach(selector => {
+                                const highlight = this.createHighlight(selector, step.duration);
                                 if (highlight) highlightElements.push(highlight);
                             });
                         }
@@ -680,7 +678,7 @@ const ui = {
             }, duration);
         },
 
-        createHighlight: function (targetSelector) {
+        createHighlight: function (targetSelector, duration) {
             const target = document.querySelector(targetSelector);
             if (!target) {
                 logger.error(`Target element not found: ${targetSelector}`);
@@ -691,29 +689,29 @@ const ui = {
             document.body.appendChild(highlight);
             const targetRect = target.getBoundingClientRect();
 
-            if (targetSelector === '#level-indicator') {
-                // Create a custom shape for level-indicator
-                highlight.style.width = `${targetRect.width}px`;
-                highlight.style.height = `${targetRect.height}px`;
-                highlight.style.top = `${targetRect.top}px`;
-                highlight.style.left = `${targetRect.left}px`;
-                highlight.style.borderRadius = '20px'; // Match the level-indicator's border-radius
-            } else {
-                // Default highlight behavior for other elements
-                highlight.style.width = `${targetRect.width}px`;
-                highlight.style.height = `${targetRect.height}px`;
-                highlight.style.top = `${targetRect.top}px`;
-                highlight.style.left = `${targetRect.left}px`;
+            // Set position and size
+            highlight.style.width = `${targetRect.width}px`;
+            highlight.style.height = `${targetRect.height}px`;
+            highlight.style.top = `${targetRect.top}px`;
+            highlight.style.left = `${targetRect.left}px`;
 
-                if (target.classList.contains('icon-button')) {
-                    highlight.style.borderRadius = '50%';
-                }
-                highlight.style.animation = 'pulse-highlight 1.5s infinite';
+            // Calculate animation properties
+            const animationDuration = 1; // seconds
+            const iterationCount = Math.floor(duration / 1000 / animationDuration);
+            
+            // Set animation properties
+            highlight.style.animationDuration = `${animationDuration}s`;
+            highlight.style.animationIterationCount = iterationCount;
+
+            // Special handling for level indicator
+            if (targetSelector === '#level-indicator') {
+                highlight.style.borderRadius = '20px';
+            } else if (target.classList.contains('icon-button')) {
+                highlight.style.borderRadius = '50%';
             }
 
             return highlight;
         },
-
     },
 
     notifications: {

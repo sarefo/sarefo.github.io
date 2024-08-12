@@ -798,22 +798,20 @@ dialog {
 /* Styles for tutorial */
 .tutorial-highlight {
     position: absolute;
+    box-sizing: border-box;
     pointer-events: none;
     border-radius: var(--border-radius);
     z-index: 10000;
-    animation: pulse-highlight 1.5s infinite;
-    box-sizing: border-box;
+    animation: pulse-highlight 1s; /* Default duration, will be overridden by JS */
+    animation-iteration-count: 1; /* Will be set dynamically */
 }
 
 @keyframes pulse-highlight {
-    0% {
-        box-shadow: 0 0 0 2px rgba(172, 0, 40, 0.5), 0 0 0 4px rgba(255, 255, 255, 0.5);
+    0%, 100% {
+        box-shadow: 0 0 0 2px rgba(172, 0, 40, 0), 0 0 0 4px rgba(255, 255, 255, 0);
     }
     50% {
         box-shadow: 0 0 0 4px rgba(172, 0, 40, 0.7), 0 0 0 6px rgba(255, 255, 255, 0.7);
-    }
-    100% {
-        box-shadow: 0 0 0 2px rgba(172, 0, 40, 0.5), 0 0 0 4px rgba(255, 255, 255, 0.5);
     }
 }
 
