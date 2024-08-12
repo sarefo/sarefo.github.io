@@ -189,7 +189,7 @@ const eventHandlers = {
     },
 
     initializeAllEventListeners() {
-        dragAndDrop.initialize();
+        dragAndDrop.init.initialize();
 
         // touch events
         [elements.imageOneContainer, elements.imageTwoContainer].forEach(container => {
