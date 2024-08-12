@@ -50,6 +50,7 @@ const eventHandlers = {
         this.initializeAllEventListeners();
         this.initializeSelectSetDialogShortcuts();
         this.initializeLevelIndicator();
+        this.resetSwipeAnimation();
         this.initializeLongPressHandler(); // only used for testing dialog secret long-press on chili for now
         this.debouncedKeyboardHandler = utils.ui.debounce(this._handleKeyboardShortcuts.bind(this), 300);
         document.addEventListener('keydown', this.debouncedKeyboardHandler);
@@ -390,61 +391,58 @@ const eventHandlers = {
         }
 
         this.isDragging = false;
-        
-        // Always reset the game container and swipe info message
-        this.gameContainer.style.transform = 'none';
-        this.gameContainer.style.opacity = '1';
-        document.getElementById('swipe-info-message').style.opacity = '0';
     },
 
     performSwipeOutAnimation(initialDeltaX) {
-      document.getElementById('swipe-info-message').style.opacity = 0;
+        const swipeInfoMessage = document.getElementById('swipe-info-message');
+        swipeInfoMessage.style.opacity = 0;
 
-      const startRotation = (initialDeltaX / this.swipeOutThreshold) * -this.maxRotation;
-      
-      this.gameContainer.style.transition = `transform ${this.animationDuration}ms ease-out, opacity ${this.animationDuration}ms ease-out`;
-      this.gameContainer.style.transform = `rotate(${startRotation}deg) translateX(-${initialDeltaX}px)`;
-      
-      requestAnimationFrame(() => {
-        this.gameContainer.style.transform = `rotate(${-this.maxRotation}deg) translateX(-100%)`;
-        this.gameContainer.style.opacity = '0';
-      });
-
-      setTimeout(() => {
-        this.gameContainer.style.transition = 'none';
-        this.gameContainer.style.transform = 'none';
-        this.gameContainer.style.opacity = '0';
-
-        if (!gameLogic.isCurrentPairInCollection()) {
-          gameLogic.loadRandomPairFromCurrentCollection();
-        } else {
-          gameLogic.loadNewRandomPair();
-        }
-
+        const startRotation = (initialDeltaX / this.swipeOutThreshold) * -this.maxRotation;
+        
+        this.gameContainer.style.transition = `transform ${this.animationDuration}ms ease-out, opacity ${this.animationDuration}ms ease-out`;
+        this.gameContainer.style.transform = `rotate(${startRotation}deg) translateX(-${initialDeltaX}px)`;
+        
         requestAnimationFrame(() => {
-          this.gameContainer.style.transition = 'opacity 300ms ease-in';
-          this.gameContainer.style.opacity = '1';
+            this.gameContainer.style.transform = `rotate(${-this.maxRotation}deg) translateX(-100%)`;
+            this.gameContainer.style.opacity = '0';
         });
 
         setTimeout(() => {
-          this.gameContainer.style.transition = '';
-        }, 300);
-      }, this.animationDuration);
+            this.gameContainer.style.transition = 'none';
+            this.gameContainer.style.transform = 'none';
+            this.gameContainer.style.opacity = '0';
+
+            if (!gameLogic.isCurrentPairInCollection()) {
+                gameLogic.loadRandomPairFromCurrentCollection();
+            } else {
+                gameLogic.loadNewRandomPair();
+            }
+
+            // Reset animation after loading new pair
+            setTimeout(() => {
+                this.resetSwipeAnimation();
+            }, 100);
+        }, this.animationDuration);
     },
 
     resetSwipeAnimation() {
-      document.getElementById('swipe-info-message').style.opacity = 0;
+        const swipeInfoMessage = document.getElementById('swipe-info-message');
+        const gameContainer = document.querySelector('.game-container');
 
-      this.gameContainer.animate([
-        { transform: this.gameContainer.style.transform, opacity: this.gameContainer.style.opacity },
-        { transform: 'none', opacity: 1 }
-      ], {
-        duration: 150,
-        easing: 'ease-out'
-      });
+        // Reset game container
+        gameContainer.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
+        gameContainer.style.transform = 'none';
+        gameContainer.style.opacity = '1';
 
-      this.gameContainer.style.transform = 'none';
-      this.gameContainer.style.opacity = '';
+        // Reset swipe info message
+        swipeInfoMessage.style.transition = 'opacity 0.3s ease-out';
+        swipeInfoMessage.style.opacity = '0';
+
+        // After transitions complete, remove transition styles
+        setTimeout(() => {
+            gameContainer.style.transition = '';
+            swipeInfoMessage.style.transition = '';
+        }, 300);
     },
 
     handleDragMove(e) {
