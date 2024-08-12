@@ -341,7 +341,7 @@ const dialogManager = {
                 }
             });
 
-            document.removeEventListener('keydown', eventHandlers.debouncedKeyboardHandler);
+            document.removeEventListener('keydown', eventHandlers.keyboardShortcuts.debouncedKeyboardHandler);
             //logger.debug('Removed keydown event listener');
         },
 
@@ -354,7 +354,7 @@ const dialogManager = {
                 }
             });
 
-            document.addEventListener('keydown', eventHandlers.debouncedKeyboardHandler);
+            document.addEventListener('keydown', eventHandlers.keyboardShortcuts.debouncedKeyboardHandler);
             //logger.debug('Added keydown event listener');
 
             this.mainEventHandlers = {};

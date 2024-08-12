@@ -1,5 +1,3 @@
-import eventHandlers from './eventHandlers.js';
-
 const tooltipManager = {
     tooltip: null,
     longPressTimer: null,

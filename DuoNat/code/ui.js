@@ -543,7 +543,7 @@ const ui = {
             document.querySelectorAll('.tutorial-highlight').forEach(el => el.remove());
             
             // Re-enable keyboard shortcuts
-            document.addEventListener('keydown', eventHandlers.debouncedKeyboardHandler);
+            document.addEventListener('keydown', eventHandlers.keyboardShortcuts.debouncedKeyboardHandler);
         },
 
         disableInteractions: function() {
@@ -565,7 +565,7 @@ const ui = {
             document.body.style.pointerEvents = 'none';
 
             // Disable keyboard shortcuts
-            document.removeEventListener('keydown', eventHandlers.debouncedKeyboardHandler);
+            document.removeEventListener('keydown', eventHandlers.keyboardShortcuts.debouncedKeyboardHandler);
 
             // Enable pointer events only for the tutorial close button
             const closeButton = document.querySelector('.tutorial-close-button');
