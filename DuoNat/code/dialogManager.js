@@ -278,7 +278,7 @@ const dialogManager = {
             form.addEventListener('submit', async (event) => {
                 logger.debug('Form submitted');
                 event.preventDefault();
-                await this.handleEnterSetSubmit(taxon1Input.value, taxon2Input.value, dialogMessage, submitButton);
+                await dialogManager.handlers.handleEnterSetSubmit(taxon1Input.value, taxon2Input.value, dialogMessage, submitButton);
             });
 
             [taxon1Input, taxon2Input].forEach(input => {
@@ -380,8 +380,8 @@ const dialogManager = {
 
             try {
                 const [validatedTaxon1, validatedTaxon2] = await Promise.all([
-                    api.validateTaxon(taxon1),
-                    api.validateTaxon(taxon2)
+                    api.taxonomy.validateTaxon(taxon1),
+                    api.taxonomy.validateTaxon(taxon2)
                 ]);
 
                 if (validatedTaxon1 && validatedTaxon2) {
@@ -466,8 +466,8 @@ const dialogManager = {
 
             try {
                 const [validatedTaxon1, validatedTaxon2] = await Promise.all([
-                    this.validateTaxon(taxon1),
-                    this.validateTaxon(taxon2)
+                    api.taxonomy.validateTaxon(taxon1),
+                    api.taxonomy.validateTaxon(taxon2)
                 ]);
 
                 logger.debug(`Validation results: Taxon1: ${JSON.stringify(validatedTaxon1)}, Taxon2: ${JSON.stringify(validatedTaxon2)}`);
@@ -559,7 +559,7 @@ const dialogManager = {
 
             const retryConnectionHandler = async () => {
                 dialogManager.closeDialog();
-                if (await api.isINaturalistReachable()) {
+                if (await api.externalAPIs.isINaturalistReachable()) {
                     gameSetup.setupGame(true);
                 } else {
                     this.showINatDownDialog();
@@ -665,54 +665,6 @@ const dialogManager = {
             };
             return typeMap[type] || type;
         },
-    },
-
-    validation: {
-        async validateTaxon(taxonName) {
-            logger.debug(`Validating taxon: ${taxonName}`);
-            if (!taxonName || typeof taxonName !== 'string') {
-                logger.error(`Invalid taxon name: ${taxonName}`);
-                return null;
-            }
-            // First, check local data
-            const localTaxon = await this.checkLocalTaxonData(taxonName);
-            if (localTaxon) {
-                logger.debug('Taxon found in local data');
-                return localTaxon;
-            }
-
-            // If not found locally, fetch from iNat API
-            logger.debug('Taxon not found locally, checking iNat API');
-            return api.validateTaxon(taxonName);
-        },
-
-        async checkLocalTaxonData(taxonName) {
-            logger.debug(`Checking local data for taxon: ${taxonName}`);
-            if (!taxonName || typeof taxonName !== 'string') {
-                logger.error(`Invalid taxon name: ${taxonName}`);
-                return null;
-            }
-            const taxonInfo = await api.loadTaxonInfo();
-            const lowercaseTaxonName = taxonName.toLowerCase();
-            
-            for (const [id, info] of Object.entries(taxonInfo)) {
-                const infoTaxonName = info.taxonName || '';
-                const infoVernacularName = info.vernacularName || '';
-                
-                if (infoTaxonName.toLowerCase() === lowercaseTaxonName || 
-                    infoVernacularName.toLowerCase() === lowercaseTaxonName) {
-                    logger.debug(`Taxon found in local data: ${infoTaxonName}`);
-                    return {
-                        id: parseInt(id),
-                        name: infoTaxonName,
-                        preferred_common_name: infoVernacularName
-                    };
-                }
-            }
-            logger.debug('Taxon not found in local data');
-            return null;
-        },
-
     },
 
     // Public API

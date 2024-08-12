@@ -8,7 +8,7 @@ const setManager = {
     usedSets: new Set(),
 
     async initializeSubset() {
-        const allSets = await api.fetchTaxonPairs();
+        const allSets = await api.taxonomy.fetchTaxonPairs();
         const filteredSets = this.filterSets(allSets);
         this.currentSubset = this.getRandomSubset(filteredSets, 100);
         this.shuffleArray(this.currentSubset);
@@ -69,7 +69,7 @@ const setManager = {
     },
 
     async getSetByID(setID) {
-        const allSets = await api.fetchTaxonPairs();
+        const allSets = await api.taxonomy.fetchTaxonPairs();
         return allSets.find(set => set.setID === setID);
     },
 

@@ -80,7 +80,7 @@ const rangeSelector = {
         updateGameState({ selectedRanges: selectedAbbreviations });
 
         try {
-            const taxonSets = await api.fetchTaxonPairs();
+            const taxonSets = await api.taxonomy.fetchTaxonPairs();
             const filters = {
                 level: gameState.selectedLevel,
                 ranges: selectedAbbreviations,

@@ -56,7 +56,7 @@ const preloader = {
     },
 
     async fetchDifferentImage(taxonName, currentImageURL) {
-        const images = await api.fetchMultipleImages(taxonName, 12);
+        const images = await api.images.fetchMultipleImages(taxonName, 12);
         let usedImages;
 
         if (gameState.currentTaxonImageCollection) {
@@ -174,7 +174,7 @@ const preloader = {
         this.isPreloading = true;
         logger.debug(`Preloading with selected tags: ${selectedTags}, level: ${selectedLevel}, and ranges: ${selectedRanges}`);
         try {
-            const allPairs = await api.fetchTaxonPairs();
+            const allPairs = await api.taxonomy.fetchTaxonPairs();
             
             // Ensure selectedTags and selectedRanges are arrays, and selectedLevel is a string
             const tags = Array.isArray(selectedTags) ? selectedTags : [];

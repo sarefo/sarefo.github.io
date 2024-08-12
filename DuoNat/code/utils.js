@@ -22,7 +22,7 @@ const utils = {
     },
 
     getFilteredTaxonPairs: async function (filters = {}) {
-        const taxonPairs = await api.fetchTaxonPairs();
+        const taxonPairs = await api.taxonomy.fetchTaxonPairs();
         return taxonPairs.filter(pair => {
             const matchesLevel = !filters.level || pair.level === filters.level;
             const matchesRanges = !filters.ranges || filters.ranges.length === 0 ||
@@ -229,7 +229,7 @@ const utils = {
     // Returns a taxon pair from the index, or a random one if none indicated
     selectTaxonPair: async function (filters = {}) {
         try {
-            const taxonPairs = await api.fetchTaxonPairs();
+            const taxonPairs = await api.taxonomy.fetchTaxonPairs();
             if (taxonPairs.length === 0) {
                 logger.error("No taxon pairs available");
                 return null;

@@ -12,8 +12,8 @@ export class CurrentSet {
     async initialize(api) {
         // Fetch vernacular names and images for all taxa in the set
         for (let taxon of this.taxa) {
-            this.vernacularNames[taxon] = await api.fetchVernacular(taxon);
-            this.images[taxon] = await api.fetchMultipleImages(taxon, 12);
+            this.vernacularNames[taxon] = await api.vernacular.fetchVernacular(taxon);
+            this.images[taxon] = await api.images.fetchMultipleImages(taxon, 12);
         }
     }
 

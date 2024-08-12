@@ -102,8 +102,8 @@ const taxaRelationshipViewer = {
 
       // Fetch ancestry from local data
       const [ancestry1, ancestry2] = await Promise.all([
-        api.getAncestryFromLocalData(taxonName1),
-        api.getAncestryFromLocalData(taxonName2)
+        api.taxonomy.getAncestryFromLocalData(taxonName1),
+        api.taxonomy.getAncestryFromLocalData(taxonName2)
       ]);
 
       // Convert Set to Array if necessary
@@ -146,7 +146,7 @@ const taxaRelationshipViewer = {
     }
 
     // Fetch ancestor details from API (which now checks local taxonHierarchy.json first)
-    const ancestorDetails = await api.fetchAncestorDetails(ancestorIds);
+    const ancestorDetails = await api.taxonomy.fetchAncestorDetails(ancestorIds);
 
     // Merge API results with localAncestorDetails
     ancestorDetails.forEach((value, key) => {
@@ -172,7 +172,7 @@ const taxaRelationshipViewer = {
   },
 
   async fetchTaxonData(name) {
-    return api.fetchTaxonDetails(name);
+    return api.taxonomy.fetchTaxonDetails(name);
   },
 
   findCommonAncestor(taxon1, taxon2) {
@@ -195,7 +195,7 @@ const taxaRelationshipViewer = {
     const nodes = new vis.DataSet();
     const edges = new vis.DataSet();
 
-    const hierarchy = api.getTaxonomyHierarchy();
+    const hierarchy = api.taxonomy.getTaxonomyHierarchy();
 
     if (!hierarchy) {
       logger.error('Taxonomy hierarchy not loaded');

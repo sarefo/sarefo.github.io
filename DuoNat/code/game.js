@@ -74,7 +74,7 @@ const game = {
 
         taxonButton.onclick = async () => {
             try {
-                const taxonId = await api.fetchTaxonId(currentTaxon);
+                const taxonId = await api.taxonomy.fetchTaxonId(currentTaxon);
                 window.open(`https://www.inaturalist.org/taxa/${taxonId}`, '_blank');
                 dialogManager.closeDialog('info-dialog');
             } catch (error) {
@@ -193,8 +193,8 @@ const game = {
 
         const newPair = pair || await utils.selectTaxonPair();
         const [imageOneURL, imageTwoURL] = await Promise.all([
-            api.fetchRandomImage(newPair.taxon1),
-            api.fetchRandomImage(newPair.taxon2)
+            api.images.fetchRandomImage(newPair.taxon1),
+            api.images.fetchRandomImage(newPair.taxon2)
         ]);
 
         return {
@@ -285,10 +285,10 @@ const game = {
         taxonElement.textContent = currentTaxon;
 
         try {
-            const vernacularName = await api.fetchVernacular(currentTaxon);
+            const vernacularName = await api.vernacular.fetchVernacular(currentTaxon);
             vernacularElement.textContent = vernacularName;
 
-            const taxonInfo = await api.loadTaxonInfo();
+            const taxonInfo = await api.taxonomy.loadTaxonInfo();
             const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === currentTaxon.toLowerCase());
             if (taxonData && taxonData.taxonFacts && taxonData.taxonFacts.length > 0) {
                 factsElement.innerHTML = '<h3>Facts:</h3><ul>' +
@@ -299,7 +299,7 @@ const game = {
                 factsElement.style.display = 'none';
             }
 
-            const hasWikipediaPage = await api.checkWikipediaPage(currentTaxon);
+            const hasWikipediaPage = await api.externalAPIs.checkWikipediaPage(currentTaxon);
 
             const wikiButton = document.getElementById('wiki-button');
             if (hasWikipediaPage) {

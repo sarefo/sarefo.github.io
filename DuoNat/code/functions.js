@@ -1,4 +1,3 @@
-import api from './api.js';
 import config from './config.js';
 import dialogManager from './dialogManager.js';
 import { elements, gameState, updateGameState } from './state.js';

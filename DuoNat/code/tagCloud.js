@@ -88,7 +88,7 @@ const tagCloud = {
     },
 
     async updateFilteredPairs() {
-        const taxonPairs = await api.fetchTaxonPairs();
+        const taxonPairs = await api.taxonomy.fetchTaxonPairs();
         const filters = {
             level: gameState.selectedLevel,
             ranges: gameState.selectedRanges,
@@ -120,7 +120,7 @@ const tagCloud = {
 
     async getTagCounts() {
         const tagCounts = {};
-        const taxonPairs = await api.fetchTaxonPairs();
+        const taxonPairs = await api.taxonomy.fetchTaxonPairs();
         const filters = {
             level: gameState.selectedLevel,
             ranges: gameState.selectedRanges,

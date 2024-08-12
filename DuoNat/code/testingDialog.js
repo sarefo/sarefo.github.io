@@ -46,7 +46,7 @@ const testingDialog = {
         const graphContainer = document.getElementById('graph-container');
 /*        graphContainer.innerHTML = '<div class="loading-indicator">Loading graph...</div>';*/
 
-        const hierarchyObj = api.getTaxonomyHierarchy();
+        const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
 
         if (!hierarchyObj || !hierarchyObj.nodes) {
             graphContainer.innerHTML = '<p>Error: Taxonomy hierarchy not loaded or invalid</p>';

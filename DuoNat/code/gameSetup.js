@@ -16,7 +16,7 @@ let isSettingUpGame = false;
 const gameSetup = {
     initialization: {
         async checkINaturalistReachability() {
-            if (!await api.isINaturalistReachable()) {
+            if (!await api.externalAPIs.isINaturalistReachable()) {
                 dialogManager.showINatDownDialog();
                 game.setState(GameState.IDLE);
                 return false;
@@ -226,12 +226,12 @@ const gameSetup = {
     
     taxonHandling: {
         async getPairBySetID(setID) {
-            const taxonPairs = await api.fetchTaxonPairs();
+            const taxonPairs = await api.taxonomy.fetchTaxonPairs();
             return taxonPairs.find(pair => pair.setID === setID);
         },
 
         async getContinentForTaxon(taxon) {
-            const taxonInfo = await api.loadTaxonInfo();
+            const taxonInfo = await api.taxonomy.loadTaxonInfo();
             const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxon.toLowerCase());
 
             if (taxonData && taxonData.range && taxonData.range.length > 0) {
@@ -268,12 +268,12 @@ const gameSetup = {
             } = await gameSetup.imageHandling.loadImages(pair, isNewPair);
 
             // Set the observation URLs
-            game.currentObservationURLs.imageOne = api.getObservationURLFromImageURL(leftImageSrc);
-            game.currentObservationURLs.imageTwo = api.getObservationURLFromImageURL(rightImageSrc);
+            game.currentObservationURLs.imageOne = api.utils.getObservationURLFromImageURL(leftImageSrc);
+            game.currentObservationURLs.imageTwo = api.utils.getObservationURLFromImageURL(rightImageSrc);
 
             const [leftVernacular, rightVernacular] = await Promise.all([
-                utils.capitalizeFirstLetter(await api.fetchVernacular(randomized ? pair.taxon1 : pair.taxon2)),
-                utils.capitalizeFirstLetter(await api.fetchVernacular(randomized ? pair.taxon2 : pair.taxon1))
+                utils.capitalizeFirstLetter(await api.vernacular.fetchVernacular(randomized ? pair.taxon1 : pair.taxon2)),
+                utils.capitalizeFirstLetter(await api.vernacular.fetchVernacular(randomized ? pair.taxon2 : pair.taxon1))
             ]);
 
             gameUI.nameTiles.setupNameTilesUI(

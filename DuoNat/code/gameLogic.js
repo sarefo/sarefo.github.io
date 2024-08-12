@@ -110,7 +110,7 @@ const gameLogic = {
         },
 
         selectRandomPairFromCurrentCollection: async function () {
-            const taxonSets = await api.fetchTaxonPairs();
+            const taxonSets = await api.taxonomy.fetchTaxonPairs();
             const filteredSets = gameLogic.filterHandling.filterTaxonPairs(taxonSets, {
                 level: gameState.selectedLevel,
                 ranges: gameState.selectedRanges,

@@ -15,8 +15,8 @@ export class CurrentPair {
     }
 
     async initializeVernacularNames(api) {
-        this.vernacularNames[this.taxon1] = await api.fetchVernacular(this.taxon1);
-        this.vernacularNames[this.taxon2] = await api.fetchVernacular(this.taxon2);
+        this.vernacularNames[this.taxon1] = await api.vernacular.fetchVernacular(this.taxon1);
+        this.vernacularNames[this.taxon2] = await api.vernaculuar.fetchVernacular(this.taxon2);
     }
 
     fetchVernacular(taxon) {
@@ -24,8 +24,8 @@ export class CurrentPair {
     }
 
     async loadImages(api, count = 12) {
-        this.images.taxon1 = await api.fetchMultipleImages(this.taxon1, count);
-        this.images.taxon2 = await api.fetchMultipleImages(this.taxon2, count);
+        this.images.taxon1 = await api.images.fetchMultipleImages(this.taxon1, count);
+        this.images.taxon2 = await api.images.fetchMultipleImages(this.taxon2, count);
     }
 
     setupNewRound() {

@@ -25,7 +25,7 @@ const vernacularNameCache = new Map();
 
 async function getCachedVernacularName(taxonName) {
     if (!vernacularNameCache.has(taxonName)) {
-        const vernacularName = await api.fetchVernacular(taxonName);
+        const vernacularName = await api.vernacular.fetchVernacular(taxonName);
         vernacularNameCache.set(taxonName, vernacularName);
     }
     return vernacularNameCache.get(taxonName) || 'n/a';
@@ -170,7 +170,7 @@ const ui = {
         // display pair list for selection
         showTaxonPairList: async function () {
             try {
-                const taxonPairs = await api.fetchTaxonPairs();
+                const taxonPairs = await api.taxonomy.fetchTaxonPairs();
                 if (taxonPairs.length === 0) {
                     logger.error("No taxon pairs available");
                     return;

@@ -15,7 +15,7 @@ const vernacularNameCache = new Map();
 
 async function getCachedVernacularName(taxonName) {
     if (!vernacularNameCache.has(taxonName)) {
-        const vernacularName = await api.fetchVernacular(taxonName);
+        const vernacularName = await api.vernacular.fetchVernacular(taxonName);
         vernacularNameCache.set(taxonName, vernacularName);
     }
     return vernacularNameCache.get(taxonName);
@@ -259,7 +259,7 @@ const eventHandlers = {
             clearButton.style.display = 'none';
         }
 
-        const taxonPairs = await api.fetchTaxonPairs();
+        const taxonPairs = await api.taxonomy.fetchTaxonPairs();
         const activeTags = gameState.selectedTags;
         const selectedLevel = gameState.selectedLevel;
         const filteredPairs = [];
