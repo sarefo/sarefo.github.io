@@ -2,7 +2,7 @@
 
 Best of both worlds: easy and fun learning experience with polished UI like Duolingo - all the awesomeness of biodiversity from iNaturalist!
 
-DuoNat is an interactive web application designed to help users learn and distinguish between different taxa from iNaturalist. It provides an engaging and addictive way to explore biodiversity and improve identification skills.
+DuoNat (not affiliated with Duolingo or iNat) is an interactive web application designed to help users learn and distinguish between different taxa from iNaturalist. It provides an engaging and addictive way to explore biodiversity and improve identification skills.
 
 ## Features
 
