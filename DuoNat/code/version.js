@@ -48,3 +48,26 @@ document.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('load', () => {
     document.getElementById('loading-screen').style.display = 'flex';
 });
+
+window.loadQRCodeScript = function() {
+    return new Promise((resolve, reject) => {
+        if (window.QRCode) {
+            resolve();
+        } else {
+            var script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+            script.onload = resolve;
+            script.onerror = reject;
+            document.body.appendChild(script);
+        }
+    });
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+    const shareButton = document.getElementById('share-button');
+    if (shareButton) {
+        shareButton.addEventListener('click', window.loadQRCodeScript);
+    } else {
+        console.error('Share button not found');
+    }
+});

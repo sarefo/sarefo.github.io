@@ -14,40 +14,8 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#74ac00">
 
-    <!-- cache busting by appending version code. change code in script!-->
+    <!-- cache busting by appending version code. change code in script! also FOUC buster -->
     <script src="./code/version.js" defer></script>
-
-    <link rel="manifest" href="./manifest.json">
-    <link rel="icon" href="./images/favicon.png" type="image/png">
-
-    <script>
-        window.loadQRCodeScript = function() {
-            return new Promise((resolve, reject) => {
-                if (window.QRCode) {
-                    resolve();
-                } else {
-                    var script = document.createElement('script');
-                    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
-                    script.onload = resolve;
-                    script.onerror = reject;
-                    document.body.appendChild(script);
-                }
-            });
-        };
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const shareButton = document.getElementById('share-button');
-            if (shareButton) {
-                shareButton.addEventListener('click', window.loadQRCodeScript);
-            } else {
-                console.error('Share button not found');
-            }
-        });
-    </script>
-
-    <script type="module" src="./code/functions.js" defer></script>
-    <!--  <link rel="preload" href="./images/icons.svg" as="image" type="image/svg+xml"> -->
-
     <!-- eliminate FOUC -->
     <style>
         body { opacity: 0; transition: opacity 0.3s ease-in; }
@@ -63,6 +31,12 @@
     </style>
     <link rel="preload" href="./styles/main.css" as="style">
     <link rel="stylesheet" href="./styles/main.css">
+
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" href="./images/favicon.png" type="image/png">
+
+    <script type="module" src="./code/functions.js" defer></script>
+    <!--  <link rel="preload" href="./images/icons.svg" as="image" type="image/svg+xml"> -->
 
 </head>
 
