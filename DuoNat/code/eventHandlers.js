@@ -392,88 +392,88 @@ const eventHandlers = {
     },
 
     performSwipeOutAnimation(initialDeltaX) {
-        const swipeInfoMessage = document.getElementById('swipe-info-message');
-        swipeInfoMessage.style.opacity = 0;
+      const swipeInfoMessage = document.getElementById('swipe-info-message');
+      swipeInfoMessage.style.opacity = 0;
 
-        const startRotation = (initialDeltaX / this.swipeOutThreshold) * -this.maxRotation;
-        
-        this.gameContainer.style.transition = `transform ${this.animationDuration}ms ease-out, opacity ${this.animationDuration}ms ease-out`;
-        this.gameContainer.style.transform = `rotate(${startRotation}deg) translateX(-${initialDeltaX}px)`;
-        
+      const startRotation = (initialDeltaX / this.swipeOutThreshold) * -this.maxRotation;
+      
+      this.gameContainer.style.transition = `transform ${this.animationDuration}ms ease-out, opacity ${this.animationDuration}ms ease-out`;
+      this.gameContainer.style.transform = `rotate(${startRotation}deg) translateX(-${initialDeltaX}px)`;
+      
+      requestAnimationFrame(() => {
+        this.gameContainer.style.transform = `rotate(${-this.maxRotation}deg) translateX(-100%)`;
+        this.gameContainer.style.opacity = '0';
+      });
+
+      setTimeout(() => {
+        this.gameContainer.style.transition = 'none';
+        this.gameContainer.style.transform = 'none';
+        this.gameContainer.style.opacity = '0';
+
+        if (!gameLogic.isCurrentPairInCollection()) {
+          gameLogic.loadRandomPairFromCurrentCollection();
+        } else {
+          gameLogic.loadNewRandomPair();
+        }
+
         requestAnimationFrame(() => {
-            this.gameContainer.style.transform = `rotate(${-this.maxRotation}deg) translateX(-100%)`;
-            this.gameContainer.style.opacity = '0';
+          this.gameContainer.style.transition = 'opacity 300ms ease-in';
+          this.gameContainer.style.opacity = '1';
         });
 
         setTimeout(() => {
-            this.gameContainer.style.transition = '';
-            this.gameContainer.style.transform = '';
-            this.gameContainer.style.opacity = '0';
-
-            if (!gameLogic.isCurrentPairInCollection()) {
-                gameLogic.loadRandomPairFromCurrentCollection();
-            } else {
-                gameLogic.loadNewRandomPair();
-            }
-
-            requestAnimationFrame(() => {
-                this.gameContainer.style.transition = 'opacity 300ms ease-in';
-                this.gameContainer.style.opacity = '1';
-            });
-
-            setTimeout(() => {
-                this.gameContainer.style.transition = '';
-            }, 300);
-        }, this.animationDuration);
+          this.gameContainer.style.transition = '';
+        }, 300);
+      }, this.animationDuration);
     },
 
     resetSwipeAnimation() {
-        const swipeInfoMessage = document.getElementById('swipe-info-message');
-        swipeInfoMessage.style.opacity = 0;
+      const swipeInfoMessage = document.getElementById('swipe-info-message');
+      swipeInfoMessage.style.opacity = 0;
 
-        this.gameContainer.animate([
-            { transform: this.gameContainer.style.transform, opacity: this.gameContainer.style.opacity },
-            { transform: '', opacity: 1 }
-        ], {
-            duration: 150,
-            easing: 'ease-out'
-        });
+      this.gameContainer.animate([
+        { transform: this.gameContainer.style.transform, opacity: this.gameContainer.style.opacity },
+        { transform: 'none', opacity: 1 }
+      ], {
+        duration: 150,
+        easing: 'ease-out'
+      });
 
-        this.gameContainer.style.transform = '';
-        this.gameContainer.style.opacity = '';
+      this.gameContainer.style.transform = 'none';
+      this.gameContainer.style.opacity = '';
     },
 
     handleDragMove(e) {
-        if (!this.isDragging) return;
+      if (!this.isDragging) return;
 
-        let currentX, currentY;
-        if (e.type.includes('touch')) {
-            currentX = e.touches[0].clientX;
-            currentY = e.touches[0].clientY;
-        } else {
-            currentX = e.clientX;
-            currentY = e.clientY;
-        }
+      let currentX, currentY;
+      if (e.type.includes('touch')) {
+        currentX = e.touches[0].clientX;
+        currentY = e.touches[0].clientY;
+      } else {
+        currentX = e.clientX;
+        currentY = e.clientY;
+      }
 
-        const deltaX = this.startX - currentX;
-        const deltaY = Math.abs(this.startY - currentY);
+      const deltaX = this.startX - currentX;
+      const deltaY = Math.abs(this.startY - currentY);
 
-        if (deltaX > 0 && deltaY < this.swipeRestraint) {
-            const progress = Math.min(deltaX / this.swipeOutThreshold, 1);
-            const rotation = progress * -this.maxRotation;
-            const opacity = 1 - progress * 0.3;
+      if (deltaX > 0 && deltaY < this.swipeRestraint) {
+        const progress = Math.min(deltaX / this.swipeOutThreshold, 1);
+        const rotation = progress * -this.maxRotation;
+        const opacity = 1 - progress * 0.3;
 
-            requestAnimationFrame(() => {
-                this.gameContainer.style.transform = `rotate(${rotation}deg) translateX(${-deltaX}px)`;
-                this.gameContainer.style.opacity = opacity;
+        requestAnimationFrame(() => {
+          this.gameContainer.style.transform = `rotate(${rotation}deg) translateX(${-deltaX}px)`;
+          this.gameContainer.style.opacity = opacity;
 
-                // Update the swipe info message
-                const swipeInfoMessage = document.getElementById('swipe-info-message');
-                swipeInfoMessage.style.opacity = progress.toFixed(2);
-            });
-        }
+          // Update the swipe info message
+          const swipeInfoMessage = document.getElementById('swipe-info-message');
+          swipeInfoMessage.style.opacity = progress.toFixed(2);
+        });
+      }
     },
-
+ 
     handleImageInteraction(event) {
         if (!event) return;  // handle cases where event is undefined
         // Add any specific image interaction logic here

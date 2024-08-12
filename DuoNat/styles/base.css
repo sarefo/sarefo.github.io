@@ -33,7 +33,9 @@ body {
     height: 100vh;
     margin: 0;
     padding: 0;
-    overflow: auto;
+/*    overflow: auto;
+    overflow-x: hidden;*/
+overflow: hidden;
     box-sizing: border-box;
     font-family: 'Open Sans', Arial, sans-serif;
     background-color: var(--light-green);
@@ -66,17 +68,21 @@ button {
 }
 
 .game-container {
-    flex: none;
     display: flex;
+    flex: none;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    box-sizing: border-box;
+
+    overflow: hidden;
     width: 100%;
     height: 100vh;
     padding: 0;
-    overflow: hidden;
-    box-sizing: border-box;
-/*    transition: transform 0.1s ease-out, opacity 0.1s ease-out;*/
+
+    position: relative;
+    z-index: 1;
+    transform-origin: center center;
     transition: transform 0.3s ease-out, opacity 0.3s ease-out;
 }
 
