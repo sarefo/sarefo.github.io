@@ -39,12 +39,14 @@
     color: var(--primary-color);
     font-size: 36px;
     font-weight: bold;
+
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: var(--border-radius);
     pointer-events: none; /* Prevents the image from interfering with dragging */
     transition: opacity var(--transition-speed) ease-in-out;
+    user-select: none;
 }
 
 .image-container__image--loading {

@@ -88,7 +88,7 @@ const gameSetup = {
             logger.debug(`Setting up game with preloaded pair: ${preloadedPair.pair.taxon1} / ${preloadedPair.pair.taxon2}, Skill Level: ${preloadedPair.pair.level}`);
             logger.debug(`Current selected level: ${gameState.selectedLevel}`);
 
-            if (!preloader.isPairValid(preloadedPair.pair)) {
+            if (!preloader.pairPreloader.isPairValid(preloadedPair.pair)) {
                 logger.warn("Preloaded pair is no longer valid, fetching a new pair");
                 await this.initialization.setupGame(true);
                 return;
@@ -154,15 +154,15 @@ const gameSetup = {
                 }
             }
 
-            const preloadedImages = preloader.getPreloadedImagesForNextPair();
+            const preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
             if (preloadedImages && preloadedImages.pair.setID === newPair.setID) {
                 imageOneURL = preloadedImages.taxon1;
                 imageTwoURL = preloadedImages.taxon2;
                 logger.debug(`Using preloaded images for set ID ${newPair.setID}`);
             } else {
                 [imageOneURL, imageTwoURL] = await Promise.all([
-                    preloader.fetchDifferentImage(newPair.taxon1 || newPair.taxonNames[0], null),
-                    preloader.fetchDifferentImage(newPair.taxon2 || newPair.taxonNames[1], null)
+                    preloader.imageLoader.fetchDifferentImage(newPair.taxon1 || newPair.taxonNames[0], null),
+                    preloader.imageLoader.fetchDifferentImage(newPair.taxon2 || newPair.taxonNames[1], null)
                 ]);
             }
 
@@ -196,14 +196,14 @@ const gameSetup = {
                 imageOneURL = gameState.currentTaxonImageCollection.imageOneURL;
                 imageTwoURL = gameState.currentTaxonImageCollection.imageTwoURL;
             } else {
-                const preloadedImages = preloader.getPreloadedImagesForNextRound();
+                const preloadedImages = preloader.roundPreloader.getPreloadedImagesForNextRound();
                 if (preloadedImages && preloadedImages.taxon1 && preloadedImages.taxon2) {
                     imageOneURL = preloadedImages.taxon1;
                     imageTwoURL = preloadedImages.taxon2;
                 } else {
                     [imageOneURL, imageTwoURL] = await Promise.all([
-                        preloader.fetchDifferentImage(pair.taxon1, gameState.currentRound.imageOneURL),
-                        preloader.fetchDifferentImage(pair.taxon2, gameState.currentRound.imageTwoURL)
+                        preloader.imageLoader.fetchDifferentImage(pair.taxon1, gameState.currentRound.imageOneURL),
+                        preloader.imageLoader.fetchDifferentImage(pair.taxon2, gameState.currentRound.imageTwoURL)
                     ]);
                 }
             }

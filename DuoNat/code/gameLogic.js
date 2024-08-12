@@ -71,7 +71,7 @@ const gameLogic = {
 
         try {
             let newPair;
-            const preloadedImages = preloader.getPreloadedImagesForNextPair();
+            const preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
 
             if (preloadedImages && preloadedImages.pair && gameLogic.pairManagement.isPairValidForCurrentFilters(preloadedImages.pair)) {
                 newPair = preloadedImages.pair;
@@ -93,9 +93,9 @@ const gameLogic = {
             ui.overlay.showOverlay("Error loading new pair. Please try again.", config.overlayColors.red);
         } finally {
             game.setState(GameState.PLAYING);
-            preloader.clearPreloadedImagesForNextRound();
-            preloader.preloadForNextRound();
-            preloader.preloadForNextPair();
+            preloader.roundPreloader.clearPreloadedImagesForNextRound();
+            preloader.roundPreloader.preloadForNextRound();
+            preloader.pairPreloader.preloadForNextPair();
         }
     },
   
@@ -145,7 +145,7 @@ const gameLogic = {
                     game.nextSelectedPair = newPair;
                     await gameSetup.setupGame(true);
                     const nextSetID = String(Number(setID) + 1);
-                    preloader.preloadSetByID(nextSetID);
+                    preloader.pairPreloader.preloadSetByID(nextSetID);
                 } else {
                     logger.warn(`Set with ID ${setID} not found.`);
                 }
@@ -179,7 +179,7 @@ const gameLogic = {
             if (!gameLogic.pairManagement.isPairValidForCurrentFilters(currentPair)) {
                 gameLogic.pairManagement.loadNewRandomPair();
             } else {
-                preloader.preloadForNextPair();
+                preloader.pairPreloader.preloadForNextPair();
             }
             ui.taxonPairList.updateFilterSummary();
         },
@@ -221,9 +221,9 @@ const gameLogic = {
                 ui.overlay.showOverlay("Error loading new pair. Please try again.", config.overlayColors.red);
             } finally {
                 game.setState(GameState.PLAYING);
-                preloader.clearPreloadedImagesForNextRound();
-                preloader.preloadForNextRound();
-                preloader.preloadForNextPair();
+                preloader.roundPreloader.clearPreloadedImagesForNextRound();
+                preloader.roundPreloader.preloadForNextRound();
+                preloader.pairPreloader.preloadForNextPair();
             }
         },
 
