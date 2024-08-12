@@ -4,8 +4,15 @@ dialog {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.3s ease, transform 0.3s ease;
   margin: 0;
+}
+
+dialog[open] {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
 }
 
 .standard-dialog {
