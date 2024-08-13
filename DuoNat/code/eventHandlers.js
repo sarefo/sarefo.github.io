@@ -572,10 +572,9 @@ const eventHandlers = {
                 
                 // If all hints have been shown, reset the shown hints
                 if (shownHints.length >= hints.length) {
-                    shownHints = [];
-                    game.shownHints[`taxon${index}`] = [];
-                }
-                
+                    game.resetShownHints();
+                    shownHints = game.shownHints[`taxon${index}`];
+                }                
                 const availableHints = hints.filter(hint => !shownHints.includes(hint));
                 
                 if (availableHints.length > 0) {
