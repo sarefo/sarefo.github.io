@@ -3440,5 +3440,276 @@
       "Brighter colors than <i>P. polyxenes</i>",
       "Relatively pronounced yellow spots"
     ]
+  },
+  "Heliconius melpomene": {
+    "hints": [
+      "Wings have bright red and black patterns",
+      "White spots on forewings",
+      "Black borders on wings"
+    ]
+  },
+  "Heliconius erato": {
+    "hints": [
+      "Wings are orange with black markings",
+      "Relatively pronounced white spots on hindwings",
+      "Black lines on forewings"
+    ]
+  },
+  "Vanessa atalanta": {
+    "hints": [
+      "Wings have bold red and black colors",
+      "White spots on forewings",
+      "Dark edges on wings"
+    ]
+  },
+  "Vanessa indica": {
+    "hints": [
+      "Wings are brown with orange spots",
+      "Less vibrant than <i>V. atalanta</i>",
+      "Relatively rounded wing shape"
+    ]
+  },
+  "Pieris rapae": {
+    "hints": [
+      "White wings with black tips",
+      "Small size compared to other whites",
+      "Black spots on forewings"
+    ]
+  },
+  "Pieris napi": {
+    "hints": [
+      "Greenish-white wings",
+      "Relatively pronounced black spots",
+      "Larger than <i>P. rapae</i>"
+    ]
+  },
+  "Lycaena phlaeas": {
+    "hints": [
+      "Bright orange wings with black spots",
+      "Small size",
+      "Underside has a mottled appearance"
+    ]
+  },
+  "Lycaena dispar": {
+    "hints": [
+      "Relatively dark orange wings",
+      "Relatively pronounced black borders",
+      "Larger than <i>L. phlaeas</i>"
+    ]
+  },
+  "Aglais io": {
+    "hints": [
+      "Distinctive eye spots on wings",
+      "Dark brown and orange coloration",
+      "Wings are broad and rounded"
+    ]
+  },
+  "Aglais urticae": {
+    "hints": [
+      "More orange than <i>A. io</i>",
+      "Not very pronounced eye spots",
+      "Wings have a relatively pointed shape"
+    ]
+  },
+  "Gonepteryx rhamni": {
+    "hints": [
+      "Yellow wings resembling leaves",
+      "Distinctive wing shape",
+      "Hindwings have a rounded edge"
+    ]
+  },
+  "Gonepteryx cleopatra": {
+    "hints": [
+      "Brighter yellow than <i>G. rhamni</i>",
+      "Relatively pronounced black edges"
+    ]
+  },
+  "Polygonia c-album": {
+    "hints": [
+      "Wings have a jagged edge",
+      "Orange-brown coloration",
+      "Distinctive white 'C' mark"
+    ]
+  },
+  "Polygonia interrogationis": {
+    "hints": [
+      "Darker coloration than <i>P. c-album</i>",
+      "Not very pronounced 'C' mark",
+      "Relatively angular wing shape"
+    ]
+  },
+  "Nymphalis antiopa": {
+    "hints": [
+      "Dark blue and orange coloration",
+      "Large size",
+      "Wings have a velvety texture"
+    ]
+  },
+  "Nymphalis polychloros": {
+    "hints": [
+      "Brighter orange than <i>N. antiopa</i>",
+      "Relatively pronounced black markings",
+      "Wings are not very rounded"
+    ]
+  },
+  "Erebia ligea": {
+    "hints": [
+      "Dark brown wings with orange spots",
+      "Wings are narrow and elongated",
+      "Underside has a mottled pattern"
+    ]
+  },
+  "Erebia euryale": {
+    "hints": [
+      "Lighter brown than <i>E. ligea</i>",
+      "Relatively pronounced orange spots",
+      "Wings have a relatively rounded shape"
+    ]
+  },
+  "Danaus plexippus": {
+    "hints": [
+      "Bright orange wings with black edges",
+      "Black spots on forewings",
+      "Large size"
+    ]
+  },
+  "Danaus gilippus": {
+    "hints": [
+      "Darker orange than <i>D. plexippus</i>",
+      "Not very pronounced black spots",
+      "Relatively rounded wing shape"
+    ]
+  },
+  "Papilionoidea": {
+    "hints": [
+      "Diverse group with often colorful wings",
+      "Typically have a smooth wing texture",
+      "Variety of sizes and shapes"
+    ]
+  },
+  "Geometroidea": {
+    "hints": [
+      "Often have cryptic wing patterns",
+      "Wings held flat when resting",
+      "Relatively slender body shape"
+    ]
+  },
+  "Bombycoidea": {
+    "hints": [
+      "Robust body with large wings",
+      "Often have hairy bodies",
+      "Wings are held upright when resting"
+    ]
+  },
+  "Acherontia atropos": {
+    "hints": [
+      "Large size with skull-like markings",
+      "Distinctive yellow and black coloration",
+      "Wings are broad and rounded"
+    ]
+  },
+  "Acherontia styx": {
+    "hints": [
+      "Darker coloration than <i>A. atropos</i>",
+      "Not very pronounced skull markings",
+      "Relatively elongated body shape"
+    ]
+  },
+  "Laothoe populi": {
+    "hints": [
+      "Green wings resembling leaves",
+      "Large size",
+      "Wings have a smooth texture"
+    ]
+  },
+  "Smerinthus ocellata": {
+    "hints": [
+      "Wings have large eye spots",
+      "Brown and green coloration",
+      "Relatively pronounced wing patterns"
+    ]
+  },
+  "Catocala nupta": {
+    "hints": [
+      "Dark wings with bright hindwings",
+      "Distinctive color contrast",
+      "Wings are held flat when resting"
+    ]
+  },
+  "Catocala sponsa": {
+    "hints": [
+      "More muted colors than <i>C. nupta</i>",
+      "Not very pronounced hindwing colors",
+      "Wings are broader"
+    ]
+  },
+  "Automeris io": {
+    "hints": [
+      "Large eye spots on hindwings",
+      "Bright yellow and brown coloration",
+      "Wings are broad and rounded"
+    ]
+  },
+  "Automeris cecrops": {
+    "hints": [
+      "Darker coloration than <i>A. io</i>",
+      "Not very pronounced eye spots",
+      "Relatively elongated wing shape"
+    ]
+  },
+  "Saturnia pavonia": {
+    "hints": [
+      "Large size with colorful patterns",
+      "Wings have a velvety texture",
+      "Distinctive eye spots"
+    ]
+  },
+  "Saturnia pyri": {
+    "hints": [
+      "Darker coloration than <i>S. pavonia</i>",
+      "Not very pronounced eye spots",
+      "Relatively elongated wing shape"
+    ]
+  },
+  "Arctia caja": {
+    "hints": [
+      "Bright orange and black coloration",
+      "Wings have a hairy texture"
+    ]
+  },
+  "Arctia plantaginis": {
+    "hints": [
+      "Darker orange than <i>A. caja</i>",
+      "Not very pronounced black markings",
+      "Relatively slender body shape"
+    ]
+  },
+  "Xestia c-nigrum": {
+    "hints": [
+      "Dark wings with light markings",
+      "Relatively slender body shape",
+      "Wings are held flat when resting"
+    ]
+  },
+  "Xestia triangulum": {
+    "hints": [
+      "Lighter coloration than <i>X. c-nigrum</i>",
+      "Relatively pronounced triangular markings",
+      "Wings have a relatively smooth texture"
+    ]
+  },
+  "Euplagia quadripunctaria": {
+    "hints": [
+      "Distinctive black and yellow markings",
+      "Wings have a velvety texture",
+      "Relatively slender body shape"
+    ]
+  },
+  "Callimorpha dominula": {
+    "hints": [
+      "Brighter yellow than <i>E. quadripunctaria</i>",
+      "Not very pronounced black markings",
+      "Relatively rounded wing shape"
+    ]
   }
 }

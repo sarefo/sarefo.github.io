@@ -258,7 +258,6 @@ Gunnellichthys curiosus,Gunnellichthys viridescens
 Mobula alfredi,Mobula birostris
 Papilio machaon,Papilio xuthus
 Papilio polyxenes,Papilio zelicaon
-
 Heliconius melpomene,Heliconius erato
 Vanessa atalanta,Vanessa indica
 Pieris rapae,Pieris napi
@@ -279,6 +278,7 @@ Saturnia pavonia,Saturnia pyri
 Arctia caja,Arctia plantaginis
 Xestia c-nigrum,Xestia triangulum
 Euplagia quadripunctaria,Callimorpha dominula
+
 Phalera bucephala,Cerura vinula
 Cossus cossus,Zeuzera pyrina
 Manduca sexta,Manduca quinquemaculatus
