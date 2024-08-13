@@ -40,7 +40,6 @@ const game = {
     },
 
     resetShownHints() {
-        logger.debug('Resetting shown hints');
         this.shownHints = {
             taxon1: [],
             taxon2: []

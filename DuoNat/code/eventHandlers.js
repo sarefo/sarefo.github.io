@@ -308,7 +308,7 @@ const eventHandlers = {
         debouncedKeyboardHandler: null,
         _handleKeyboardShortcuts(event) {
 
-            if (event.ctrlKey || event.altKey || event.shiftKey || event.metaKey) {
+            if (event.ctrlKey || event.altKey || event.metaKey) {
                 return; // Exit the function if any modifier key is pressed
             }
 
@@ -336,11 +336,11 @@ const eventHandlers = {
                     break;
                 case 'arrowup':
                     event.preventDefault();
-                    eventHandlers.moveTileToDropZone('left', 'upper');
+                    eventHandlers.keyboardShortcuts.moveTileToDropZone('left', 'upper');
                     break;
                 case 'arrowdown':
                     event.preventDefault();
-                    eventHandlers.moveTileToDropZone('left', 'lower');
+                    eventHandlers.keyboardShortcuts.moveTileToDropZone('left', 'lower');
                     break;
                 case 'c':
                 case 'l':
@@ -359,10 +359,18 @@ const eventHandlers = {
                     event.preventDefault();
                     game.dialogHandling.showInfoDialog(game.currentObservationURLs.imageTwo, 2);
                     break;
+                case 'h':
+                    event.preventDefault();
+                    eventHandlers.hintButton.showHint(1); // Top hint button
+                    break;
+                case 'j':
+                    event.preventDefault();
+                    eventHandlers.hintButton.showHint(2); // Bottom hint button
+                    break;
                 case 'g':
                     taxaRelationshipViewer.graphManagement.showTaxaRelationship();
                     break;
-                case 'h':
+                case '?':
                     if (!event.target.closest('button')) {  // Only trigger if not clicking a button
                         event.preventDefault();
                         dialogManager.openDialog('help-dialog');
@@ -565,7 +573,6 @@ const eventHandlers = {
             }
             
             const hints = await api.taxonomy.fetchTaxonHints(taxonId);
-            logger.debug(`Fetched hints for ${taxonName}:`, hints);
             
             if (hints && hints.length > 0) {
                 let shownHints = game.shownHints[`taxon${index}`];
@@ -600,8 +607,8 @@ const eventHandlers = {
             const hintButton1 = document.getElementById('hint-button-1');
             const hintButton2 = document.getElementById('hint-button-2');
 
-            hintButton1.addEventListener('click', () => this.showHint(1));
-            hintButton2.addEventListener('click', () => this.showHint(2));
+            eventHandlers.uiInteractions.safeAddEventListener('hint-button-1', 'click', () => this.showHint(1));
+            eventHandlers.uiInteractions.safeAddEventListener('hint-button-2', 'click', () => this.showHint(2));
         }
     },
 
