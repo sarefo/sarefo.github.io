@@ -552,6 +552,36 @@ const eventHandlers = {
 
     },
 
+    hintButton: {
+        showHint: async function(index) {
+            const taxonId = gameState.currentTaxonImageCollection.pair[`taxon${index}`];
+            const taxonInfo = await api.taxonomy.loadTaxonInfo(taxonId);
+            
+            if (taxonInfo && taxonInfo.hints) {
+                const imageContainer = document.getElementById(`image-container-${index}`);
+                const hintOverlay = document.createElement('div');
+                hintOverlay.className = 'hint-overlay';
+                hintOverlay.textContent = taxonInfo.hint;
+                
+                imageContainer.appendChild(hintOverlay);
+                
+                setTimeout(() => {
+                    hintOverlay.remove();
+                }, 3000); // Show hint for 3 seconds
+            } else {
+                console.log('No hint available for this taxon');
+            }
+        },
+
+        initialize: function() {
+            const hintButton1 = document.getElementById('hint-button-1');
+            const hintButton2 = document.getElementById('hint-button-2');
+
+            hintButton1.addEventListener('click', () => this.showHint(1));
+            hintButton2.addEventListener('click', () => this.showHint(2));
+        }
+    },
+
     getSharedProperties() {
         return {
             isLoadingNewPair: this.isLoadingNewPair,
@@ -572,6 +602,7 @@ const eventHandlers = {
         this.keyboardShortcuts.initializeSelectSetDialogShortcuts();
         this.uiInteractions.initializeLevelIndicator();
         this.uiInteractions.initializeLongPressHandler();
+        this.hintButton.initialize();
         this.keyboardShortcuts.debouncedKeyboardHandler = utils.ui.debounce(this.keyboardShortcuts._handleKeyboardShortcuts.bind(this.keyboardShortcuts), 300);
         document.addEventListener('keydown', this.keyboardShortcuts.debouncedKeyboardHandler);
 
