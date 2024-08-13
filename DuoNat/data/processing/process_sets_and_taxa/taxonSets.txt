@@ -1,0 +1,735 @@
+Felidae,Canidae
+Canis lupus,Canis latrans
+Ursus arctos,Ursus americanus
+Panthera onca,Panthera pardus
+Otariidae,Phocidae
+Mysticeti,Odontoceti
+Haplorhini,Strepsirrhini
+Catarrhini,Platyrrhini
+Hominoidea,Cercopithecidae
+Elephas,Loxodonta
+Loxodonta africana,Loxodonta cyclotis
+Laurasiatheria,Euarchontoglires
+Xenarthra,Afrotheria
+Afrotheria,Laurasiatheria
+Puma concolor,Acinonyx jubatus
+Leopardus pardalis,Leopardus wiedii
+Lynx rufus,Lynx canadensis
+Vulpes vulpes,Vulpes corsac
+Canis lupus,Canis rufus
+Ursus americanus,Ursus thibetanus
+Zalophus californianus,Eumetopias jubatus
+Phoca vitulina,Halichoerus grypus
+Tursiops truncatus,Stenella frontalis
+Balaenoptera physalus,Balaenoptera borealis
+Balaenoptera physalus,Balaenoptera musculus
+Balaenoptera borealis,Balaenoptera edeni
+Balaenoptera acutorostrata,Balaenoptera bonaerensis
+Megaptera novaeangliae,Eubalaena glacialis
+Eubalaena glacialis,Eubalaena australis
+Physeter macrocephalus,Kogia breviceps
+Kogia breviceps,Kogia sima
+Orcinus orca,Pseudorca crassidens
+Globicephala melas,Globicephala macrorhynchus
+Tursiops truncatus,Tursiops aduncus
+Stenella attenuata,Stenella frontalis
+Stenella coeruleoalba,Stenella longirostris
+Leucopleurus acutus,Sagmatias obliquidens
+Lagenorhynchus albirostris,Sagmatias obscurus
+Grampus griseus,Steno bredanensis
+Phocoena phocoena,Phocoenoides dalli
+Mesoplodon bidens,Mesoplodon europaeus
+Ziphius cavirostris,Hyperoodon ampullatus
+Inia geoffrensis,Platanista gangetica
+Delphinapterus leucas,Monodon monoceros
+Cephalorhynchus hectori,Cephalorhynchus commersonii
+Sotalia fluviatilis,Sotalia guianensis
+Peponocephala electra,Feresa attenuata
+Lissodelphis borealis,Lissodelphis peronii
+Odocoileus virginianus,Odocoileus hemionus
+Cervus elaphus,Cervus canadensis
+Alces alces,Cervus canadensis
+Bison bison,Bos taurus
+Ovis canadensis,Ovis dalli
+Oreamnos americanus,Ovis dalli
+Rangifer tarandus,Alces alces
+Equus zebra,Equus quagga
+Loxodonta africana,Elephas maximus
+Hippopotamus amphibius,Choeropsis liberiensis
+Diceros bicornis,Ceratotherium simum
+Pan troglodytes,Pan paniscus
+Gorilla beringei,Gorilla gorilla
+Pongo abelii,Pongo pygmaeus
+Macaca mulatta,Macaca fascicularis
+Papio anubis,Papio hamadryas
+Lemur catta,Varecia variegata
+Sciurus carolinensis,Sciurus niger
+Tamias striatus,Eutamias sibiricus
+Marmota monax,Marmota flaviventris
+Cricetus cricetus,Mesocricetus auratus
+Rattus norvegicus,Rattus rattus
+Mus musculus,Apodemus sylvaticus
+Didelphis virginiana,Didelphis marsupialis
+Trichosurus vulpecula,Pseudocheirus peregrinus
+Osphranter rufus,Macropus giganteus
+Sarcophilus harrisii,Dasyurus maculatus
+Vombatus ursinus,Lasiorhinus latifrons
+Monotremata,Marsupialia
+Monotremata,Placentalia
+Ornithorhynchus anatinus,Castor
+Myotis myotis,Myotis blythii
+Myotis daubentonii,Myotis dasycneme
+Myotis nattereri,Myotis emarginatus
+Myotis bechsteinii,Plecotus auritus
+Myotis lucifugus,Myotis yumanensis
+Eptesicus serotinus,Eptesicus nilssonii
+Eptesicus fuscus,Lasionycteris noctivagans
+Nyctalus noctula,Nyctalus leisleri
+Pipistrellus pipistrellus,Pipistrellus pygmaeus
+Pipistrellus nathusii,Pipistrellus kuhlii
+Plecotus auritus,Plecotus austriacus
+Barbastella barbastellus,Myotis mystacinus
+Rhinolophus ferrumequinum,Rhinolophus hipposideros
+Rhinolophus euryale,Rhinolophus mehelyi
+Tadarida brasiliensis,Tadarida teniotis
+Miniopterus schreibersii,Miniopterus fuliginosus
+Pteronotus parnellii,Pteronotus davyi
+Artibeus jamaicensis,Artibeus lituratus
+Carollia perspicillata,Carollia brevicaudum
+Glossophaga soricina,Leptonycteris yerbabuenae
+Desmodus rotundus,Diaemus youngii
+Macrotus californicus,Macrotus waterhousii
+Hipposideros armiger,Hipposideros swinhoei
+Rousettus aegyptiacus,Rousettus leschenaultii
+Pteropus giganteus,Pteropus vampyrus
+Cynopterus brachyotis,Cynopterus sphinx
+Eonycteris spelaea,Macroglossus minimus
+Nycteris thebaica,Nycteris macrotis
+Lyroderma lyra,Megaderma spasma
+Taphozous melanopogon,Taphozous theobaldi
+Craseonycteris thonglongyai,Myotis siligorensis
+Murina cyclotis,Murina suilla
+Kerivoula papillosa,Kerivoula hardwickii
+Chalinolobus gouldii,Chalinolobus morio
+Nyctophilus geoffroyi,Nyctophilus gouldi
+Ozimops planiceps,Micronomus norfolkensis
+Scotophilus kuhlii,Scotophilus heathii
+Afronycteris nanus,Laephotis capensis
+Lasiurus cinereus,Lasiurus borealis
+Eumops perotis,Eumops underwoodi
+Erinaceus europaeus,Erinaceus roumanicus
+Sorex araneus,Sorex minutus
+Procyon lotor,Nasua nasua
+Meles meles,Taxidea taxus
+Neogale vison,Mustela putorius
+Accipiter nisus,Falco tinnunculus
+Corvus corax,Corvus corone
+Zenaida,Columba
+Columbidae,Corvidae
+Larus argentatus,Larus fuscus
+Passer domesticus,Passer montanus
+Corvus corone,Corvus frugilegus
+Parus major,Cyanistes caeruleus
+Erithacus rubecula,Luscinia svecica
+Turdus merula,Turdus philomelos
+Sylvia atricapilla,Sylvia borin
+Phylloscopus trochilus,Phylloscopus collybita
+Fringilla coelebs,Fringilla montifringilla
+Carduelis carduelis,Spinus spinus
+Emberiza citrinella,Emberiza schoeniclus
+Hirundo rustica,Delichon urbicum
+Alauda arvensis,Lullula arborea
+Motacilla alba,Motacilla flava
+Sturnus vulgaris,Sturnus unicolor
+Garrulus glandarius,Pica pica
+Buteo buteo,Pernis apivorus
+Accipiter nisus,Accipiter gentilis
+Falco tinnunculus,Falco naumanni
+Aquila chrysaetos,Haliaeetus albicilla
+Ardea cinerea,Ardea purpurea
+Egretta garzetta,Bubulcus ibis
+Ciconia ciconia,Ciconia nigra
+Sterna hirundo,Sterna paradisaea
+Alca torda,Uria aalge
+Columba palumbus,Columba oenas
+Streptopelia decaocto,Streptopelia turtur
+Cuculus canorus,Accipiter nisus
+Tyto alba,Asio flammeus
+Strix aluco,Strix nebulosa
+Apus apus,Hirundo rustica
+Alcedo atthis,Merops apiaster
+Upupa epops,Coracias garrulus
+Picus viridis,Picus canus
+Dendrocopos major,Dendrocoptes medius
+Anas platyrhynchos,Anas acuta
+Aythya ferina,Aythya fuligula
+Mergus merganser,Mergus serrator
+Podiceps cristatus,Podiceps grisegena
+Phalacrocorax carbo,Gulosus aristotelis
+Fulica atra,Gallinula chloropus
+Vanellus vanellus,Pluvialis apricaria
+Tringa totanus,Tringa nebularia
+Calidris alpina,Calidris ferruginea
+Numenius arquata,Numenius phaeopus
+Scolopax rusticola,Gallinago gallinago
+Haematopus ostralegus,Recurvirostra avosetta
+Burhinus oedicnemus,Pluvialis apricaria
+Stercorarius parasiticus,Stercorarius longicaudus
+Crocodylidae,Alligatoridae
+Pygopodidae,Colubridae
+Chelonia mydas,Eretmochelys imbricata
+Vipera berus,Natrix natrix
+Natrix natrix,Natrix helvetica
+Vipera berus,Vipera aspis
+Coronella austriaca,Vipera berus
+Zamenis longissimus,Hierophis viridiflavus
+Elaphe quatuorlineata,Elaphe sauromates
+Malpolon monspessulanus,Hierophis viridiflavus
+Naja naja,Naja kaouthia
+Naja naja,Naja atra
+Bungarus caeruleus,Bungarus candidus
+Dendroaspis polylepis,Dendroaspis angusticeps
+Crotalus atrox,Crotalus scutulatus
+Sistrurus catenatus,Sistrurus miliarius
+Agkistrodon contortrix,Agkistrodon piscivorus
+Bothrops atrox,Bothrops asper
+Bitis arietans,Bitis gabonica
+Echis carinatus,Echis coloratus
+Malayopython reticulatus,Python bivittatus
+Boa constrictor,Eunectes murinus
+Morelia spilota,Morelia bredli
+
+Pantherophis guttatus,Pantherophis alleghaniensis
+Lampropeltis getula,Lampropeltis californiae
+Thamnophis sirtalis,Thamnophis elegans
+Pituophis catenifer,Pantherophis obsoletus
+Coluber constrictor,Masticophis flagellum
+Heterodon platirhinos,Heterodon nasicus
+Opheodrys aestivus,Opheodrys vernalis
+Nerodia sipedon,Nerodia fasciata
+Regina septemvittata,Thamnophis saurita
+Storeria dekayi,Storeria occipitomaculata
+Diadophis punctatus,Contia tenuis
+Tantilla coronata,Tantilla relicta
+Lichanura trivirgata,Charina bottae
+Eryx johnii,Eryx conicus
+Acrochordus granulatus,Acrochordus javanicus
+Laticauda colubrina,Hydrophis platurus
+Micrurus fulvius,Micrurus tener
+Chilabothrus striatus,Chilabothrus inornatus
+Boiga irregularis,Boiga cynodon
+Oligodon octolineatus,Oligodon fasciolatus
+Trimeresurus albolabris,Trimeresurus popeiorum
+Fowlea piscator,Fowlea flavipunctata
+Platax teira,Platax orbicularis
+Platax boersii,Platax orbicularis
+Platax teira,Platax boersii
+Ostracion meleagris,Ostracion solorense
+Coradion chrysozonus,Chelmon rostratus
+Chaetodon vagabundus,Chaetodon lunulatus
+Heniochus varius,Heniochus chrysostomus
+Heniochus acuminatus,Heniochus diphreutes
+Lethrinidae,Lutjanidae
+Lutjanus malabaricus,Lutjanus erythropterus
+Diagramma pictum,Plectorhinchus chaetodonoides
+Caesio cuning,Caesio teres
+Scolopsis bilineata,Scolopsis lineata
+Salarias fasciatus,Salarias guttatus
+Flavocaranx bajad,Turrum fulvoguttatum
+Pardachirus pavoninus,Soleichthys heterorhinos
+Sphyraena flavicauda,Sphyraena jello
+Abudefduf bengalensis,Abudefduf sexfasciatus
+Abudefduf,Dascyllus
+Pomacentrus coelestis,Pomacentrus auriventris
+Amphiprion polymnus,Amphiprion clarkii
+Pomacentrus polyspinus,Pomacentrus tripunctatus
+Amblyeleotris gymnocephala,Amblyeleotris rubrimarginata
+Eviota guttata,Eviota sebreei
+Istigobius decoratus,Istigobius ornatus
+Ptereleotris hanae,Ptereleotris microlepis
+Ostorhinchus cyanosoma,Ostorhinchus wassinki
+Epinephelus coioides,Epinephelus fuscoguttatus
+Cheilinus chlorourus,Cheilinus trilobatus
+Halichoeres hortulanus,Halichoeres leucurus
+Scarus rivulatus,Scarus hypselopterus
+Parapercis xanthozona,Parapercis hexophtalma
+Pterois volitans,Pterois antennata
+Gnatholepis cauerensis,Gnatholepis anjerensis
+Gunnellichthys curiosus,Gunnellichthys viridescens
+Mobula alfredi,Mobula birostris
+Papilio machaon,Papilio xuthus
+Papilio polyxenes,Papilio zelicaon
+Heliconius melpomene,Heliconius erato
+Vanessa atalanta,Vanessa indica
+Pieris rapae,Pieris napi
+Lycaena phlaeas,Lycaena dispar
+Aglais io,Aglais urticae
+Gonepteryx rhamni,Gonepteryx cleopatra
+Polygonia c-album,Polygonia interrogationis
+Nymphalis antiopa,Nymphalis polychloros
+Erebia ligea,Erebia euryale
+Danaus plexippus,Danaus gilippus
+Papilionoidea,Geometroidea
+Papilionoidea,Bombycoidea
+Acherontia atropos,Acherontia styx
+Laothoe populi,Smerinthus ocellata
+Catocala nupta,Catocala sponsa
+Automeris io,Automeris cecrops
+Saturnia pavonia,Saturnia pyri
+Arctia caja,Arctia plantaginis
+Xestia c-nigrum,Xestia triangulum
+Euplagia quadripunctaria,Callimorpha dominula
+Phalera bucephala,Cerura vinula
+Cossus cossus,Zeuzera pyrina
+Manduca sexta,Manduca quinquemaculatus
+Actias luna,Actias dubernardi
+Psychidae,Tineidae
+Tortricidae,Zygaenidae
+Zygaenidae,Limacodidae
+Scopula propinquaria,Scopula limboundata
+Caeneressa diaphana,Amata huebneri
+Synanthedon,Vespoidea
+Acheron longus,Maezous formosana
+Bombus terrestris,Xylocopa violacea
+Vespa crabro,Vespa velutina
+Apis mellifera,Apis cerana
+Bombus pascuorum,Bombus muscorum
+Vespula vulgaris,Vespula germanica
+Formicidae,Myrmarachnini
+Formicinae,Myrmicinae
+Myrmeciinae,Myrmicinae
+Dolichoderinae,Camponotus
+Ponerinae,Camponotus
+Ponerinae,Paraponerinae
+Anoplolepis gracilipes,Solenopsis invicta
+Syrphidae,Vespoidea
+Lucanus cervus,Prionus coriarius
+Coccinella septempunctata,Harmonia axyridis
+Cicindela campestris,Cicindela hybrida
+Cerambyx cerdo,Cerambyx scopolii
+Melolontha melolontha,Amphimallon solstitiale
+Ips typographus,Ips sexdentatus
+Adalia bipunctata,Adalia decempunctata
+Propylea quatuordecimpunctata,Psyllobora vigintiduopunctata
+Hippodamia variegata,Hippodamia tredecimpunctata
+Anatis ocellata,Calvia quatuordecimguttata
+Coccinella undecimpunctata,Coccinella magnifica
+Halyzia sedecimguttata,Vibidia duodecimguttata
+Myrrha octodecimguttata,Sospita vigintiguttata
+Chilocorus renipustulatus,Chilocorus bipustulatus
+Exochomus quadripustulatus,Platynaspis luteorubra
+Subcoccinella vigintiquatuorpunctata,Cynegetis impunctata
+Anisosticta novemdecimpunctata,Coccinula quatuordecimpustulata
+Harmonia quadripunctata,Harmonia conformis
+Oenopia conglobata,Oenopia lyncea
+Coleomegilla maculata,Hippodamia convergens
+Coccinella hieroglyphica,Coccinella trifasciata
+Cheilomenes sexmaculata,Coccinella transversalis
+Mantis religiosa,Tenodera sinensis
+Empusa pennata,Empusa fasciata
+Ameles spallanzania,Ameles decolor
+Sphodromantis viridis,Hierodula membranacea
+Hierodula patellifera,Tropidomantis gressitti
+Gryllus campestris,Gryllus bimaculatus
+Tettigonia viridissima,Tettigonia cantans
+Phaneroptera falcata,Phaneroptera nana
+Conocephalus fuscus,Conocephalus dorsalis
+Meconema thalassinum,Meconema meridionale
+Caelifera,Ensifera
+Tettigoniidae,Acridoidea
+Forficula auricularia,Chelidurella acanthopygia
+Calopteryx virgo,Calopteryx splendens
+Aeshna cyanea,Aeshna mixta
+Sympetrum striolatum,Sympetrum vulgatum
+Libellula depressa,Libellula quadrimaculata
+Anax imperator,Anax parthenope
+Cordulegaster boltonii,Cordulegaster bidentata
+Gomphus vulgatissimus,Onychogomphus forcipatus
+Orthetrum cancellatum,Orthetrum albistylum
+Leucorrhinia dubia,Leucorrhinia rubicunda
+Somatochlora metallica,Cordulia aenea
+Pyrrhosoma nymphula,Ceriagrion tenellum
+Ischnura elegans,Ischnura pumilio
+Coenagrion puella,Coenagrion pulchellum
+Enallagma cyathigerum,Coenagrion hastulatum
+Lestes sponsa,Lestes dryas
+Platycnemis pennipes,Platycnemis latipes
+Erythromma najas,Erythromma viridulum
+Anisoptera,Zygoptera
+Odonata,Ascalaphinae
+Bacillus rossius,Bacillus atticus
+Clonopsis gallica,Pijnackeria hispanica
+Carausius morosus,Medauroidea extradentata
+Cicada orni,Lyristes plebejus
+Tibicina haematodes,Tibicina quadrisignata
+Cicadetta montana,Cicadetta brevipennis
+Cicadellidae,Fulgoroidea
+Auchenorrhyncha,Sternorrhyncha
+Erthesina fullo,Halyomorpha halys
+Halyomorpha halys,Rhaphigaster nebulosa
+Dindymus sanguineus,Antilochus nigripes
+Pseudococcidae,Icerya
+Icerya seychellarum,Icerya aegyptiaca
+Chrysopa perla,Chrysoperla carnea
+Panorpa communis,Panorpa germanica
+Asilus crabroniformis,Philonicus albiceps
+Dioctria rufipes,Dioctria atricapilla
+Laphria flava,Laphria gilva
+Tolmerus atricapillus,Tolmerus cingulatus
+Bibio marci,Bibio leucopterus
+Brachycera,Nematocera
+Cyclorrhapha,Orthorrhapha
+Acalyptratae,Calyptratae
+Nephila pilipes,Trichonephila clavata
+Hasarius adansoni,Chinattus tibialis
+Menemerus bivittatus,Menemerus nigli
+Menemerus bivittatus,Menemerus semilimbatus
+Rhene flavicomans,Irura bidenticulata
+Rhene flavicomans,Rhene atrata
+Thiania bhamoensis,Thiania suboppressa
+Carrhotus sannio,Carrhotus viduus
+Telamonia caprina,Telamonia festiva
+Epocilla calcarata,Telamonia festiva
+Pancorius crassipes,Epocilla calcarata
+Epocilla calcarata,Epocilla blairei
+Portia orientalis,Portia labiata
+Phintelloides versicolor,Phintella bifurcilinea
+Siler collingwoodi,Siler semiglaucus
+Phidippus audax,Phidippus regius
+Salticus scenicus,Salticus cingulatus
+Marpissa muscosa,Marpissa radiata
+Evarcha arcuata,Evarcha falcata
+Heliophanus flavipes,Heliophanus cupreus
+Plexippus paykulli,Plexippus petersi
+Attulus pubescens,Attulus fasciger
+Carrhotus xanthogramma,Carrhotus sannio
+Habronattus coecatus,Habronattus pyrrithrix
+Pellenes tripunctatus,Pellenes nigrociliatus
+Synageles venator,Synageles occidentalis
+Icius hamatus,Icius subinermis
+Saitis barbipes,Saitis tauricus
+Euophrys frontalis,Euophrys herbigrada
+Lyssomanes viridis,Lyssomanes portoricensis
+Portia fimbriata,Portia labiata
+Hyllus diardi,Hyllus semicupreus
+Thyene imperialis,Thyene coccineovittata
+Pseudicius encarpatus,Pseudicius badius
+Aelurillus v-insignitus,Aelurillus aeruginosus
+Cosmophasis thalassina,Cosmophasis micarioides
+Epeus flavobilineatus,Epeus indicus
+Icius,Pancorius
+Harmochirus brachiatus,Harmochirus luculentus
+Holcolaetis vellerea,Holcolaetis zuluensis
+Mopsus mormon,Sandalodes bipenicillatus
+Mopsus mormon,Epeus flavobilineatus
+Phintelloides versicolor,Phintella vittata
+Telamonia dimidiata,Telamonia festiva
+Araneus diadematus,Araneus marmoreus
+Argiope bruennichi,Argiope trifasciata
+Latrodectus mactans,Latrodectus hesperus
+Loxosceles reclusa,Loxosceles laeta
+Tegenaria domestica,Eratigena atrica
+Pholcus phalangioides,Holocnemus pluchei
+Misumena vatia,Thomisus onustus
+Salticus scenicus,Menemerus semilimbatus
+Lycosa tarantula,Hogna carolinensis
+Pisaurina mira,Dolomedes tenebrosus
+Trichonephila clavipes,Trichonephila clavata
+Steatoda grossa,Steatoda nobilis
+Zygiella x-notata,Neoscona crucifera
+Cupiennius salei,Phoneutria fera
+Theridion grallator,Theridula emertoni
+Argiope aurantia,Trichonephila clavipes
+Linyphia triangularis,Neriene radiata
+Dysdera crocata,Dysdera erythrina
+Segestria florentina,Segestria senoculata
+Amaurobius ferox,Amaurobius similis
+Clubiona corticalis,Clubiona pallidula
+Pardosa amentata,Pardosa pullata
+Alopecosa pulverulenta,Trochosa terricola
+Micrommata virescens,Cheiracanthium inclusum
+Xysticus cristatus,Xysticus audax
+Agelena labyrinthica,Allagelena gracilens
+Aculepeira ceropegia,Araniella cucurbitina
+Larinioides cornutus,Larinioides sclopetarius
+Nuctenea umbratica,Nuctenea silvicultrix
+Metellina segmentata,Metellina merianae
+Tetragnatha extensa,Tetragnatha montana
+Philodromus dispar,Philodromus aureolus
+Anyphaena accentuata,Anyphaena sabina
+Diaea dorsata,Synema globosum
+Eratigena agrestis,Tegenaria ferruginea
+Drassodes lapidosus,Drassodes cupreus
+Eucarida,Peracarida
+Eumalacostraca,Hoplocarida
+Dardanus lagopodes,Dardanus megistos
+Clibanarius infraspinatus,Clibanarius longitarsus
+Portunus pelagicus,Portunus sanguinolentus
+Atergatis floridus,Atergatis integerrimus
+Urocaridella antonbruunii,Urocaridella pulchella
+Tridacna crocea,Tridacna maxima
+Tridacna maxima,Tridacna squamosa
+Acanthosepion pharaonis,Ascarosepion latimanus
+Cypraea tigris,Mauritia arabica
+Sepiida,Myopsida
+Neritimorpha,Heterobranchia
+Vetigastropoda,Heterobranchia
+Vetigastropoda,Caenogastropoda
+Vetigastropoda,Patellogastropoda
+Lissachatina immaculata,Lissachatina fulica
+Unidentia aliciae,Unidentia angelvaldesi
+Armina scotti,Armina semperi
+Dermatobranchus fortunatus,Dermatobranchus striatus
+Goniobranchus sinensis,Goniobranchus trimarginatus
+Hypselodoris maculosa,Goniobranchus fidelis
+Hypselodoris katherinae,Hypselodoris tryoni
+Mexichromis mariei,Mexichromis multituberculata
+Costasiella kuroshimae,Costasiella usagi
+Coryphellina exoptata,Coryphellina rubrolineata
+Phyllidia elegans,Phyllidia coelestis
+Phyllidia elegans,Phyllidia picta
+Phyllidia elegans,Phyllidia varicosa
+Phyllidia coelestis,Phyllidia picta
+Phyllidia coelestis,Phyllidia varicosa
+Phyllidia varicosa,Phyllidia picta
+Phyllidiella pustulosa,Phyllidiopsis krempfi
+Plocamopherus imperialis,Plocamopherus tilesii
+Elysia asbecki,Elysia tomentosa
+Nudibranchia,Polycladida
+Chromodoris magnifica,Chromodoris kuiteri
+Hypselodoris bullockii,Hypselodoris infucata
+Goniobranchus splendidus,Goniobranchus tinctorius
+Felimare picta,Felimare villafranca
+Glossodoris cincta,Glossodoris hikuerensis
+Nembrotha kubaryana,Nembrotha cristata
+Tambja morosa,Tambja verconis
+Flabellinopsis iodinea,Edmundsella bertschi
+Berghia coerulescens,Berghia verrucicornis
+Doriopsilla areolata,Doriopsilla pelseneeri
+Dendrodoris fumata,Dendrodoris nigra
+Phyllidiella pustulosa,Phyllidiella nigra
+Phyllodesmium longicirrum,Phyllodesmium briareum
+Pteraeolidia ianthina,Pteraeolidia semperi
+Candiella odhneri,Candiella plebeia
+Antiopella cristata,Janolus hyalinus
+Polycera quadrilineata,Polycera faeroensis
+Diaphorodoris luteocincta,Diaphorodoris alba
+Rostanga pulchra,Rostanga arbutus
+Hexabranchus sanguineus,Hexabranchus morsomus
+Cadlina laevis,Cadlina pellucida
+Doto coronata,Doto pinnatifida
+Trapania lineata,Trapania tartanella
+Fromia monilis,Fromia heffernani
+Pseudobiceros bedfordi,Acanthozoon
+Octocorallia,Hexacorallia
+Plerogyra sinuosa,Physogyra lichtensteini
+Platygyra,Lobophyllia
+Pocillopora,Millepora
+Dendronephthya,Scleronephthya
+Acropora millepora,Acropora hyacinthus
+Acropora muricata,Acropora intermedia
+Montipora digitata,Montipora verrucosa
+Pachyseris foliosa,Pachyseris speciosa
+Pavona cactus,Pavona decussata
+Cyanea capillata,Versuriga anadyomene
+Heteractis doreensis,Radianthus magnifica
+Stichodactyla haddoni,Stichodactyla gigantea
+Amplexidiscus fenestrafer,Rhodactis inchoata
+Ctenophora,Scyphozoa
+Stichopus chloronotus,Holothuria leucospilota
+Amanita virosa,Agaricus campestris
+Gyromitra,Morchella
+Amanita muscaria,Amanita caesarea
+Amanita phalloides,Amanita verna
+Boletus edulis,Tylopilus felleus
+Cantharellus cibarius,Hygrophoropsis aurantiaca
+Morchella esculenta,Gyromitra esculenta
+Leccinum scabrum,Leccinum versipelle
+Lactarius deliciosus,Lactarius deterrimus
+Macrolepiota procera,Chlorophyllum molybdites
+Coprinus comatus,Coprinopsis atramentaria
+Ganoderma lucidum,Ganoderma applanatum
+Pleurotus ostreatus,Pleurocybella porrigens
+Armillaria mellea,Hypholoma fasciculare
+Agaricus bisporus,Agaricus xanthodermus
+Tricholoma matsutake,Tricholoma magnivelare
+Russula emetica,Russula paludosa
+Hydnum repandum,Hydnum rufescens
+Laetiporus sulphureus,Cerioporus squamosus
+Fistulina hepatica,Ganoderma resinaceum
+Craterellus cornucopioides,Craterellus cinereus
+Hericium erinaceus,Hericium coralloides
+Tremella mesenterica,Naematelia aurantia
+Auricularia auricula-judae,Exidia glandulosa
+Flammulina velutipes,Galerina marginata
+Psilocybe cubensis,Psilocybe semilanceata
+Suillus luteus,Suillus granulatus
+Cortinarius violaceus,Cortinarius iodes
+Lentinula edodes,Lentinus tigrinus
+Calvatia gigantea,Lycoperdon perlatum
+Inonotus obliquus,Fomes fomentarius
+Schizophyllum commune,Trametes betulina
+Trametes versicolor,Stereum ostrea
+Paxillus involutus,Tapinella atrotomentosa
+Xerocomellus chrysenteron,Xerocomellus pruinatus
+Amanita pantherina,Amanita rubescens
+Clitocybe nebularis,Entoloma sinuatum
+Coprinellus micaceus,Parasola plicatilis
+Fomitopsis pinicola,Fomitopsis betulina
+Phallus impudicus,Mutinus caninus
+Scleroderma citrinum,Pisolithus tinctorius
+Magnoliopsida,Liliopsida
+Asteraceae,Brassicaceae
+Apiaceae,Brassicaceae
+Quercus robur,Quercus petraea
+Betula pendula,Betula pubescens
+Pinus sylvestris,Picea abies
+Populus tremula,Populus alba
+Ranunculus acris,Ranunculus repens
+Taraxacum officinale,Leontodon hispidus
+Solanum nigrum,Solanum americanum
+Psychotria serpens,Ficus pumila
+Psychotria serpens,Lemmaphyllum microphyllum
+Ficus pumila,Lemmaphyllum microphyllum
+Rhaphiolepis indica,Rhodomyrtus tomentosa
+Stellaria graminea,Rabelera holostea
+Rhodophyta,Phaeophyceae
+Chlorophyta,Phaeophyceae
+Corallinales,Peyssonneliaceae
+Uroballus carlei,Miltochrista arcuata
+Sepiida,Octopoda
+Heteroptera,Coleoptera
+Thysanoptera,Staphylinidae
+Hymenoptera,Diptera
+Amphibia,Reptilia
+Marsupialia,Placentalia
+Castor,Marmota
+Castor,Lutrinae
+Lutrinae,Phocoidea
+Sirenia,Phocoidea
+Salticidae,Oxyopidae
+Pisauridae,Lycosidae
+Philodromidae,Thomisidae
+Thomisidae,Oxyopidae
+Sparassidae,Philodromidae
+Sparassidae,Corinnoidea
+Hippocampus bargibanti,Hippocampus denise
+Erinaceinae,Tachyglossidae
+Chaetodon octofasciatus,Acanthurus triostegus
+Acanthurus triostegus,Abudefduf sordidus
+Abudefduf saxatilis,Abudefduf vaigiensis
+Chaetodon wiebeli,Chaetodon lunula
+Chaetodon lunula,Chaetodon auripes
+Mephitis macroura,Mephitis mephitis
+Mellivora capensis,Mephitis mephitis
+Meles meles,Mephitis mephitis
+Meles meles,Mellivora capensis
+Gulo gulo,Pekania pennanti
+Acari,Araneae
+Pholcidae,Phalangiidae
+Pholcus phalangioides,Pholcus opilionoides
+Platydemus manokwari,Caenoplana coerulea
+Limenitis archippus,Danaus plexippus
+Micrurus,Lampropeltis elapsoides
+Buteo albonotatus,Cathartes aura
+Coracina bicolor,Philemon
+Hierococcyx,Accipiter
+Plagiotremus rhinorhynchos,Meiacanthus nigrolineatus
+Aspidontus taeniatus,Labroides dimidiatus
+Archaeognatha,Zygentoma
+Pterygota,Archaeognatha
+Pterygota,Zygentoma
+Entognatha,Insecta
+Hexapoda,Chelicerata
+Pseudoscorpiones,Scorpiones
+Hexanauplia,Malacostraca
+Brachiopoda,Bivalvia
+Chilopoda,Diplopoda
+Juliformia,Merocheta
+Blattodea,Coleoptera
+Sphenisciformes,Alcidae
+Cingulata,Pholidota
+Simuliidae,Ceratopogonidae
+Decapoda,Euphausiacea
+Maratus,Saitis
+Rhinolophoidea,Pteropodoidea
+Pteropodoidea,Yangochiroptera
+Phascolarctidae,Vombatidae
+Dromaius,Struthio
+Dromaius,Rhea
+Rhea,Struthio
+Casuarius,Meleagris
+Gliridae,Muridae
+Cynocephalidae,Pteromyini
+Petaurus,Pteromyini
+Cynocephalidae,Pteropodoidea
+Camelus dromedarius,Camelus bactrianus
+Lama guanicoe,Vicugna vicugna
+Lama glama,Vicugna pacos
+Lama guanicoe,Lama glama
+Vicugna vicugna,Vicugna pacos
+Spilopelia chinensis,Columba livia
+Streptopelia decaocto,Streptopelia tranquebarica
+Streptopelia orientalis,Streptopelia decaocto
+Spilopelia chinensis,Streptopelia orientalis
+Chalcophaps indica,Spilopelia chinensis
+Pycnonotus jocosus,Pycnonotus sinensis
+Pycnonotus jocosus,Pycnonotus aurigaster
+Hemixos castanonotus,Pycnonotus aurigaster
+Gracupica nigricollis,Motacilla alba
+Motacilla alba,Motacilla cinerea
+Copsychus saularis,Pica serica
+Urocissa erythroryncha,Copsychus saularis
+Acridotheres cristatellus,Acridotheres tristis
+Sturnia sinensis,Spodiopsar sericeus
+Spodiopsar sericeus,Spodiopsar cineraceus
+Acridotheres cristatellus,Acridotheres grandis
+Milvus migrans,Spilornis cheela
+Milvus migrans,Buteo japonicus
+Nycticorax nycticorax,Ardeola bacchus
+Nycticorax nycticorax,Butorides striata
+Pterorhinus perspicillatus,Pterorhinus chinensis
+Pterorhinus perspicillatus,Pycnonotus jocosus
+Ardea alba,Ardea intermedia
+Ardea alba,Egretta garzetta
+Ardea alba,Ardea cinerea
+Egretta garzetta,Egretta sacra
+Zosterops simplex,Zosterops japonicus
+Orthotomus sutorius,Zosterops simplex
+Myophonus caeruleus,Myophonus insularis
+Myophonus caeruleus,Turdus mandarinus
+Himantopus himantopus,Egretta garzetta
+Parus minor,Parus cinereus
+Parus minor,Pterorhinus chinensis
+Eudynamys scolopaceus,Acridotheres cristatellus
+Delias pasithoe,Delias acalis
+Delias pasithoe,Delias hyparete
+Delias pasithoe,Hestina assimilis
+Papilio polytes,Papilio protenor
+Papilio polytes,Papilio helenus
+Papilio demoleus,Papilio xuthus
+Mycalesis mineus,Mycalesis mucianus
+Pseudozizeeria maha,Zizeeria karsandra
+Pseudozizeeria maha,Zizula hylax
+Luthrodes pandava,Euchrysops cnejus
+Pseudozizeeria maha,Zizina otis
+Mycalesis mineus,Mycalesis perseoides
+Mycalesis mineus,Ypthima baldus
+Hirundo rustica,Hirundo tahitica
+Aethopyga christinae,Zosterops simplex
+Platalea minor,Egretta garzetta
+Lanius cristatus,Lanius schach
+Emoia caeruleocauda,Plestiodon skiltonianus
+Emoia caeruleocauda,Plestiodon quadrilineatus
+Bubulcus coromandus,Ardea intermedia
+Cacatua sulphurea,Cacatua goffiniana
+Halcyon smyrnensis,Alcedo atthis
+Pericrocotus speciosus,Pericrocotus solaris
+Corvus pectoralis,Pica serica
+Pterorhinus pectoralis,Pterorhinus perspicillatus
+Pterorhinus pectoralis,Garrulax monileger
+Saxicola stejnegeri,Saxicola maurus
+Tringa glareola,Tringa ochropus
+Tringa glareola,Actitis hypoleucos
+Anas crecca,Spatula clypeata
+Prinia flaviventris,Prinia inornata

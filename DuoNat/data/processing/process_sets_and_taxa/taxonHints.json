@@ -1,0 +1,2661 @@
+{
+"Felidae": {
+"hints": [
+"Retractable claws",
+"Slender body",
+"Excellent night vision"
+]
+},
+"Canidae": {
+"hints": [
+"Non-retractable claws",
+"Bushy tail",
+"Excellent sense of smell"
+]
+},
+"Canis lupus": {
+"hints": [
+"Large size",
+"Pointed ears",
+"Thick fur"
+]
+},
+"Canis latrans": {
+"hints": [
+"Medium size",
+"Pointed muzzle",
+"Coarse fur"
+]
+},
+"Ursus arctos": {
+"hints": [
+"Hump on shoulders",
+"Dish-shaped face",
+"Rounded ears"
+]
+},
+"Ursus americanus": {
+"hints": [
+"Straight face profile",
+"Pointed ears",
+"Black or brown fur"
+]
+},
+"Panthera onca": {
+"hints": [
+"Rosette-patterned fur",
+"Stocky build",
+"Rounded ears"
+]
+},
+"Panthera pardus": {
+"hints": [
+"Solid-colored fur",
+"Slender build",
+"Pointed ears"
+]
+},
+"Otariidae": {
+"hints": [
+"External ear flaps",
+"Able to walk on land",
+"Flippers with claws"
+]
+},
+"Phocidae": {
+"hints": [
+"No external ear flaps",
+"Wriggle on land",
+"Flippers without claws"
+]
+},
+"Mysticeti": {
+"hints": [
+"Baleen plates in mouth",
+"Blow hole on top of head",
+"Huge size"
+]
+},
+"Odontoceti": {
+"hints": [
+"Teeth in mouth",
+"Blow hole slightly off-center",
+"Variable size"
+]
+},
+"Haplorhini": {
+"hints": [
+"Dry nose",
+"Nails on fingers and toes",
+"Forward-facing eyes"
+]
+},
+"Strepsirrhini": {
+"hints": [
+"Wet nose",
+"Claws on fingers and toes",
+"Side-facing eyes"
+]
+},
+"Catarrhini": {
+"hints": [
+"Narrow nostrils",
+"Tail often reduced",
+"Cheek pouches common"
+]
+},
+"Platyrrhini": {
+"hints": [
+"Wide nostrils",
+"Prehensile tails common",
+"No cheek pouches"
+]
+},
+"Hominoidea": {
+"hints": [
+"No tail",
+"Opposable thumbs",
+"Large brain size"
+]
+},
+"Cercopithecidae": {
+"hints": [
+"Short tail",
+"Cheek pouches",
+"Ischial callosities"
+]
+},
+"Elephas": {
+"hints": [
+"Concave back",
+"Large ears",
+"Trunk with one finger-like extension"
+]
+},
+"Loxodonta": {
+"hints": [
+"Convex back",
+"Small ears",
+"Trunk with two finger-like extensions"
+]
+},
+"Loxodonta africana": {
+"hints": [
+"Larger size than <i>L. cyclotis</>",
+"Larger ears than <i>L. cyclotis</>",
+"Straighter tusks than <i>L. cyclotis</>"
+]
+},
+"Loxodonta cyclotis": {
+"hints": [
+"Smaller size than <i>L. africana</i>",
+"Smaller ears than <i>L. africana</i>",
+"Curved tusks"
+]
+},
+"Laurasiatheria": {
+"hints": [
+"Often have hooves"
+]
+},
+"Euarchontoglires": {
+"hints": [
+"Often have claws"
+]
+},
+"Xenarthra": {
+"hints": [
+"Often have bony plates"
+]
+},
+"Afrotheria": {
+"hints": [
+"Often have trunks or snouts"
+]
+},
+"Puma concolor": {
+"hints": [
+"Tan fur",
+"No spots or rosettes",
+"Long tail"
+]
+},
+"Acinonyx jubatus": {
+"hints": [
+"Spotted fur",
+"Tear-shaped facial markings",
+"Short tail"
+]
+},
+"Leopardus pardalis": {
+"hints": [
+"Rosette-patterned fur",
+"Stocky build",
+"Short tail"
+]
+},
+"Leopardus wiedii": {
+"hints": [
+"Solid-colored fur",
+"Slender build",
+"Long tail"
+]
+},
+"Lynx rufus": {
+"hints": [
+"Tufted ears",
+"Short tail",
+"Spotted fur"
+]
+},
+"Lynx canadensis": {
+"hints": [
+"Ear tufts larger than <i>L. rufus</i>",
+"Tail tip black",
+"Fur lighter in color"
+]
+},
+"Vulpes vulpes": {
+"hints": [
+"Bushy tail",
+"Black legs and feet",
+"White-tipped tail"
+]
+},
+"Vulpes corsac": {
+"hints": [
+"Less bushy tail than <i>V. vulpes</i>",
+"Pale legs and feet",
+"Tail not white-tipped"
+]
+},
+"Canis lupus": {
+"hints": [
+"Larger size than <i>C. rufus</i>",
+"Pointed ears",
+"Thick fur"
+]
+},
+"Canis rufus": {
+"hints": [
+"Smaller size than <i>C. lupus</i>",
+"Rounded ears",
+"Thinner fur than <i>C. lupus</i>"
+]
+},
+"Ursus americanus": {
+"hints": [
+"Straight face profile",
+"Pointed ears",
+"Black or brown fur"
+]
+},
+"Ursus thibetanus": {
+"hints": [
+"Dish-shaped face",
+"Rounded ears",
+"White chest patch"
+]
+},
+"Zalophus californianus": {
+"hints": [
+"Smaller size than Steller sea lions",
+"Longer, slender body than Stelles sea lions",
+"Tufted crown on older males"
+]
+},
+"Eumetopias jubatus": {
+"hints": [
+"Larger size than California sea lions",
+"Thicker neck",
+"Prominent mane on males"
+]
+},
+"Phoca vitulina": {
+"hints": [
+"Spotted fur",
+"Short snout",
+"Small size"
+]
+},
+"Halichoerus grypus": {
+"hints": [
+"Long, robust body",
+"Square-shaped snout",
+"Few spots on fur"
+]
+},
+"Tursiops truncatus": {
+"hints": [
+"Short, curved dorsal fin",
+"Gray coloration",
+"Friendly, social behavior"
+]
+},
+"Stenella frontalis": {
+"hints": [
+"Long, slender body",
+"Distinctive hourglass pattern",
+"Small dorsal fin"
+]
+},
+"Balaenoptera physalus": {
+"hints": [
+"Long, streamlined body",
+"Large dorsal fin far back",
+"Yellowish pleats on throat"
+]
+},
+"Balaenoptera borealis": {
+"hints": [
+"Shorter than blue whale",
+"Pointed snout",
+"Distinctive dorsal fin"
+]
+},
+"Balaenoptera musculus": {
+"hints": [
+"Largest animal on Earth",
+"Long, flat head",
+"Blue-gray coloration"
+]
+},
+"Balaenoptera edeni": {
+"hints": [
+"Smallest rorqual",
+"Short dorsal fin",
+"Blunt head"
+]
+},
+"Balaenoptera acutorostrata": {
+"hints": [
+"Small size",
+"Pointed snout",
+"Short dorsal fin"
+]
+},
+"Balaenoptera bonaerensis": {
+"hints": [
+"Distinctive dark gray color",
+"Long, slender body",
+"Small dorsal fin"
+]
+},
+"Megaptera novaeangliae": {
+"hints": [
+"Humpbacked body",
+"Long pectoral fins",
+"Distinctive tail flukes"
+]
+},
+"Eubalaena glacialis": {
+"hints": [
+"Large, robust body",
+"Callosities on head",
+"Slow-moving"
+]
+},
+"Eubalaena australis": {
+"hints": [
+"Similar to North Atlantic right whale",
+"Few callosities"
+]
+},
+"Physeter macrocephalus": {
+"hints": [
+"Large, square head",
+"Single blowhole",
+"Dark gray color"
+]
+},
+"Kogia breviceps": {
+"hints": [
+"Small size",
+"Short, rounded head",
+"Slender body"
+]
+},
+"Kogia sima": {
+"hints": [
+"Similar to <i>Kogia breviceps</>",
+"Long, slender body",
+"Pointed snout"
+]
+},
+"Orcinus orca": {
+"hints": [
+"Distinct black and white coloration",
+"Large dorsal fin",
+"Social pods"
+]
+},
+"Pseudorca crassidens": {
+"hints": [
+"Similar to orca but smaller",
+"Rounded head",
+"Less distinct color pattern than orca"
+]
+},
+"Globicephala melas": {
+"hints": [
+"Large, robust body",
+"Bulbous head",
+"Dark coloration"
+]
+},
+"Globicephala macrorhynchus": {
+"hints": [
+"Similar to <i>Globicephala melas</i>",
+"Slender body",
+"Small dorsal fin"
+]
+},
+"Tursiops aduncus": {
+"hints": [
+"Similar to <i>Tursiops truncatus</i>",
+"Slender body",
+"Long beak"
+]
+},
+"Stenella attenuata": {
+"hints": [
+"Slender body",
+"Long, narrow snout",
+"Distinctive color patterns"
+]
+},
+"Stenella coeruleoalba": {
+"hints": [
+"Blue-gray coloration",
+"Long, slender body",
+"Distinctive stripes"
+]
+},
+"Stenella longirostris": {
+"hints": [
+"Very slender body",
+"Long, narrow snout",
+"Distinctive dorsal fin"
+]
+},
+"Leucopleurus acutus": {
+"hints": [
+"Long, slender body",
+"Pointed snout",
+"Small dorsal fin"
+]
+},
+"Sagmatias obliquidens": {
+"hints": [
+"Similar to <i>Leucopleurus acutus</i>",
+"Robust body",
+"Short snout"
+]
+},
+"Lagenorhynchus albirostris": {
+"hints": [
+"White rostrum",
+"Short dorsal fin",
+"Dark gray body"
+]
+},
+"Sagmatias obscurus": {
+"hints": [
+"Similar to <i>Lagenorhynchus albirostris</i>",
+"Slender body",
+"Dark coloration"
+]
+},
+"Grampus griseus": {
+"hints": [
+"Large, rounded head",
+"Gray coloration",
+"Distinctive dorsal fin"
+]
+},
+"Steno bredanensis": {
+"hints": [
+"Slender body",
+"Long, narrow snout",
+"Small dorsal fin"
+]
+},
+"Phocoena phocoena": {
+"hints": [
+"Small size",
+"Rounded body",
+"Short snout"
+]
+},
+"Phocoenoides dalli": {
+"hints": [
+"Similar to <i>Phocoena phocoena</i>",
+"Distinctive color patterns",
+"Slender body"
+]
+},
+"Mesoplodon bidens": {
+"hints": [
+"Dark gray color with light speckling",
+"Medium size, about 4.5-5.5 m",
+"Blunt snout"
+]
+},
+"Mesoplodon europaeus": {
+"hints": [
+"Longer and slimmer than <i>M. bidens</i>",
+"Pronounced beak",
+"Light gray color"
+]
+},
+"Ziphius cavirostris": {
+"hints": [
+"Long, narrow head",
+"Distinctive rounded forehead",
+"Single pair of teeth"
+]
+},
+"Hyperoodon ampullatus": {
+"hints": [
+"Bulbous head",
+"Short beak",
+"Large, rounded body"
+]
+},
+"Inia geoffrensis": {
+"hints": [
+"Freshwater dolphin",
+"Long, slender body",
+"Prominent forehead"
+]
+},
+"Platanista gangetica": {
+"hints": [
+"Blind, with small eyes",
+"Long, slender beak",
+"Grayish color"
+]
+},
+"Delphinapterus leucas": {
+"hints": [
+"White coloration",
+"Round head",
+"Social pods"
+]
+},
+"Monodon monoceros": {
+"hints": [
+"Long tusk from upper jaw",
+"Grayish body",
+"Distinctive rounded head"
+]
+},
+"Cephalorhynchus hectori": {
+"hints": [
+"Small size",
+"Distinctive rounded dorsal fin",
+"Dark gray color"
+]
+},
+"Cephalorhynchus commersonii": {
+"hints": [
+"Black and white coloration",
+"Smaller than <i>C. hectori</i>",
+"Rounded dorsal fin"
+]
+},
+"Sotalia fluviatilis": {
+"hints": [
+"Grayish blue color",
+"Long, slender body"
+]
+},
+"Sotalia guianensis": {
+"hints": [
+"Distinctive color patterns",
+"Robust body"
+]
+},
+"Peponocephala electra": {
+"hints": [
+"Dark gray color",
+"Small, rounded body",
+"Short, curved dorsal fin"
+]
+},
+"Feresa attenuata": {
+"hints": [
+"Similar to <i>Peponocephala</i>",
+"Slender body",
+"Long snout"
+]
+},
+"Lissodelphis borealis": {
+"hints": [
+"Streamlined body",
+"Distinctive dorsal finless",
+"Light gray coloration"
+]
+},
+"Lissodelphis peronii": {
+"hints": [
+"Similar to <i>Lissodelphis borealis</i>",
+"Robust body",
+"Distinctive color patterns"
+]
+},
+"Odocoileus virginianus": {
+"hints": [
+"White tail",
+"Small size",
+"Antlers in males"
+]
+},
+"Odocoileus hemionus": {
+"hints": [
+"Black tail",
+"Larg size",
+"Forked antlers"
+]
+},
+"Cervus elaphus": {
+"hints": [
+"Larg body size",
+"Branching antlers",
+"Reddish-brown coat"
+]
+},
+"Cervus canadensis": {
+"hints": [
+"Larger than </i>Cervus elaphus</i>",
+"Dark coat",
+"Massive antlers"
+]
+},
+"Alces alces": {
+"hints": [
+"Large size",
+"Palmed antlers",
+"Long legs"
+]
+},
+"Bison bison": {
+"hints": [
+"Large hump on shoulders",
+"Thick fur",
+"Short legs"
+]
+},
+"Bos taurus": {
+"hints": [
+"Varied color patterns",
+"Long legs"
+]
+},
+"Ovis canadensis": {
+"hints": [
+"Curved horns",
+"Stocky build",
+"Mountain habitats"
+]
+},
+"Ovis dalli": {
+"hints": [
+"White coat",
+"Larg size",
+"Straight horns"
+]
+},
+"Oreamnos americanus": {
+"hints": [
+"Goat-like appearance",
+"Thick fur",
+"Climbing abilities"
+]
+},
+"Rangifer tarandus": {
+"hints": [
+"Antlers on both sexes",
+"Hoofed feet",
+]
+},
+"Equus zebra": {
+"hints": [
+"Distinctive stripes",
+"Stocky build",
+"Short mane"
+]
+},
+"Equus quagga": {
+"hints": [
+"Few stripes",
+"Horse-like body",
+"Long mane"
+]
+},
+"Loxodonta africana": {
+"hints": [
+"Larg size",
+"Large ears",
+"Curved tusks"
+]
+},
+"Elephas maximus": {
+"hints": [
+"Small size",
+"Small ears",
+"Straight tusks"
+]
+},
+"Hippopotamus amphibius": {
+"hints": [
+"Large, barrel-shaped body",
+"Short legs",
+"Large mouth"
+]
+},
+"Choeropsis liberiensis": {
+"hints": [
+"Small size",
+"Slender body",
+"Short snout"
+]
+},
+"Diceros bicornis": {
+"hints": [
+"Two horns on snout",
+"Thick skin",
+"Square-shaped mouth"
+]
+},
+"Ceratotherium simum": {
+"hints": [
+"Larg size",
+"Square-shaped mouth",
+"Single horn"
+]
+},
+"Pan troglodytes": {
+"hints": [
+"Large size",
+"Long arms"
+]
+},
+"Pan paniscus": {
+"hints": [
+"Small size",
+"Slender build"
+]
+},
+  "Gorilla beringei": {
+    "hints": [
+      "Smaller than <i>Gorilla gorilla</i>",
+      "Longer arms compared to legs",
+      "Relatively thin body build"
+    ]
+  },
+  "Gorilla gorilla": {
+    "hints": [
+      "Larger than <i>Gorilla beringei</i>",
+      "Relatively robust body structure",
+      "Prominent brow ridge"
+    ]
+  },
+  "Pongo abelii": {
+    "hints": [
+      "Redder fur than <i>Pongo pygmaeus</i>",
+      "Relatively Long facial hair"
+    ]
+  },
+  "Pongo pygmaeus": {
+    "hints": [
+      "Dark brown fur",
+      "Relatively short facial hair"
+    ]
+  },
+  "Macaca mulatta": {
+    "hints": [
+      "Short tail",
+      "Face has a pink hue",
+      "Thick fur on body"
+    ]
+  },
+  "Macaca fascicularis": {
+    "hints": [
+      "Longer tail than <i>Macaca mulatta</i>",
+      "Face is not very pink",
+      "Relatively slender build"
+    ]
+  },
+  "Papio anubis": {
+    "hints": [
+      "Relatively long face",
+      "Dark fur on back",
+      "Relatively short tail"
+    ]
+  },
+  "Papio hamadryas": {
+    "hints": [
+      "Distinctive mane around neck",
+      "Relatively longer tail",
+      "Pale fur overall"
+    ]
+  },
+  "Lemur catta": {
+    "hints": [
+      "Long, ringed tail",
+      "Black and white facial markings",
+      "Large, round eyes"
+    ]
+  },
+  "Varecia variegata": {
+    "hints": [
+      "Black and white fur",
+      "Relatively long limbs"
+    ]
+  },
+  "Sciurus carolinensis": {
+    "hints": [
+      "Grey fur",
+      "Bushy tail",
+      "White underbelly"
+    ]
+  },
+  "Sciurus niger": {
+    "hints": [
+      "Black or brown fur",
+      "Not very bushy tail",
+      "Relatively arge body size"
+    ]
+  },
+  "Tamias striatus": {
+    "hints": [
+      "Stripes along back",
+      "Smaller than <i>Eutamias sibiricus</i>",
+      "Relatively short tail"
+    ]
+  },
+  "Eutamias sibiricus": {
+    "hints": [
+      "Relatively thick body",
+      "Relatively long tail",
+      "Less pronounced stripes"
+    ]
+  },
+  "Marmota monax": {
+    "hints": [
+      "Stocky body",
+      "Short legs",
+      "Brown fur"
+    ]
+  },
+  "Marmota flaviventris": {
+    "hints": [
+      "Yellowish belly fur",
+      "Larger than <i>Marmota monax</i>",
+      "Relatively long tail"
+    ]
+  },
+  "Cricetus cricetus": {
+    "hints": [
+      "Large body size",
+      "Short tail",
+      "Brown fur with white patches"
+    ]
+  },
+  "Mesocricetus auratus": {
+    "hints": [
+      "Smaller than <i>Cricetus cricetus</i>",
+      "Golden fur",
+      "Relatively long tail"
+    ]
+  },
+  "Rattus norvegicus": {
+    "hints": [
+      "Relatively thick body",
+      "Relatively long tail",
+      "Brown fur"
+    ]
+  },
+  "Rattus rattus": {
+    "hints": [
+      "Slender body",
+      "Black fur",
+      "Relatively long ears"
+    ]
+  },
+  "Mus musculus": {
+    "hints": [
+      "Small size",
+      "Short tail",
+      "Light brown fur"
+    ]
+  },
+  "Apodemus sylvaticus": {
+    "hints": [
+      "Larger than <i>Mus musculus</i>",
+      "Relatively long legs",
+      "Striped back"
+    ]
+  },
+  "Didelphis virginiana": {
+    "hints": [
+      "Long snout",
+      "Prehensile tail",
+      "Gray fur"
+    ]
+  },
+  "Didelphis marsupialis": {
+    "hints": [
+      "Smaller than <i>Didelphis virginiana</i>",
+      "Not much fur on tail",
+      "Pale fur overall"
+    ]
+  },
+  "Trichosurus vulpecula": {
+    "hints": [
+      "Fluffy tail",
+      "Large ears",
+      "Grayish fur"
+    ]
+  },
+  "Pseudocheirus peregrinus": {
+    "hints": [
+      "Relatively long limbs",
+      "Not very fluffy tail",
+      "Brownish fur"
+    ]
+  },
+  "Osphranter rufus": {
+    "hints": [
+      "Red-brown fur",
+      "Long legs",
+      "Large size"
+    ]
+  },
+  "Macropus giganteus": {
+    "hints": [
+      "Larger than <i>Osphranter rufus</i>",
+      "Relatively long tail",
+      "Gray fur"
+    ]
+  },
+  "Sarcophilus harrisii": {
+    "hints": [
+      "Dark fur",
+      "Large head",
+      "Short tail"
+    ]
+  },
+  "Dasyurus maculatus": {
+    "hints": [
+      "Spotted fur",
+      "Relatively long tail",
+      "Relatively slender body"
+    ]
+  },
+  "Vombatus ursinus": {
+    "hints": [
+      "Stocky body",
+      "Short legs",
+      "Brown fur"
+    ]
+  },
+  "Lasiorhinus latifrons": {
+    "hints": [
+      "Relatively long snout",
+      "Relatively thin body",
+      "Relatively light fur"
+    ]
+  },
+  "Monotremata": {
+    "hints": [
+      "Egg-laying mammals",
+      "Beak-like snout",
+      "Webbed feet"
+    ]
+  },
+  "Marsupialia": {
+    "hints": [
+      "Pouch for young",
+      "Diverse body shapes"
+    ]
+  },
+  "Placentalia": {
+    "hints": [
+      "Diverse habitats and forms"
+    ]
+  },
+  "Ornithorhynchus anatinus": {
+    "hints": [
+      "Duck-bill shape",
+      "Webbed feet",
+      "Flat body"
+    ]
+  },
+  "Castor": {
+    "hints": [
+      "Large, flat tail",
+      "Brown fur",
+      "Strong teeth"
+    ]
+  },
+  "Myotis myotis": {
+    "hints": [
+      "Large ears",
+      "Brown fur",
+      "Long wings"
+    ]
+  },
+  "Myotis blythii": {
+    "hints": [
+      "Smaller than <i>Myotis myotis</i>",
+      "Relatively light fur",
+      "Relatively short ears"
+    ]
+  },
+  "Myotis daubentonii": {
+    "hints": [
+      "Light brown fur with a glossy appearance",
+      "Wings are long and narrow",
+      "Ears are large and rounded"
+    ]
+  },
+  "Myotis dasycneme": {
+    "hints": [
+      "Dark fur with a slightly pale belly",
+      "Distinctive long, pointed ears",
+      "Wings are broad and short"
+    ]
+  },
+  "Myotis nattereri": {
+    "hints": [
+      "Pale fur with a whitish belly",
+      "Ears are long and pointed",
+      "Tail extends beyond the tail membrane"
+    ]
+  },
+  "Myotis emarginatus": {
+    "hints": [
+      "Fur is dark brown to greyish",
+      "Notable notch in the ear",
+      "Wings are long and slender"
+    ]
+  },
+  "Myotis bechsteinii": {
+    "hints": [
+      "Soft, dense fur with a reddish hue",
+      "Ears are large and rounded",
+      "Tail is short and covered by fur"
+    ]
+  },
+  "Plecotus auritus": {
+    "hints": [
+      "Very large ears that can fold over the face",
+      "Fur is light brown to grey",
+      "Eyes are relatively small"
+    ]
+  },
+  "Myotis lucifugus": {
+    "hints": [
+      "Dark brown fur with a pale underbelly",
+      "Wings are long and narrow",
+      "Ears are rounded and not very large"
+    ]
+  },
+  "Myotis yumanensis": {
+    "hints": [
+      "Fur is light brown with a pale belly",
+      "Ears are small and rounded",
+      "Tail is short and covered by fur"
+    ]
+  },
+  "Eptesicus serotinus": {
+    "hints": [
+      "Medium-sized with a robust body",
+      "Fur is dark brown to black",
+      "Wings are broad and short"
+    ]
+  },
+  "Eptesicus nilssonii": {
+    "hints": [
+      "Fur is light brown with a pale belly",
+      "Wings are long and narrow",
+      "Ears are small and rounded"
+    ]
+  },
+  "Eptesicus fuscus": {
+    "hints": [
+      "Dark brown to black fur",
+      "Large body size",
+      "Wings are broad and short"
+    ]
+  },
+  "Lasionycteris noctivagans": {
+    "hints": [
+      "Distinctive black fur with white tips",
+      "Long, pointed ears",
+      "Wings are long and narrow"
+    ]
+  },
+  "Nyctalus noctula": {
+    "hints": [
+      "Large size with dark brown fur",
+      "Wings are long and narrow",
+      "Ears are large and pointed"
+    ]
+  },
+  "Nyctalus leisleri": {
+    "hints": [
+      "Smaller than <i>Nyctalus noctula</i>",
+      "Fur is reddish-brown",
+      "Ears are relatively short and round"
+    ]
+  },
+  "Pipistrellus pipistrellus": {
+    "hints": [
+      "Small size with brown fur",
+      "Wings are short and broad",
+      "Ears are small and rounded"
+    ]
+  },
+  "Pipistrellus pygmaeus": {
+    "hints": [
+      "Very small size",
+      "Fur is lighter than <i>Pipistrellus pipistrellus</i>",
+      "Distinctive short wings"
+    ]
+  },
+  "Pipistrellus nathusii": {
+    "hints": [
+      "Fur is brown with a pale belly",
+      "Ears are larger than <i>Pipistrellus pipistrellus</i>",
+      "Wings are long and narrow"
+    ]
+  },
+  "Pipistrellus kuhlii": {
+    "hints": [
+      "Fur is dark brown to black",
+      "Distinctive pale throat",
+      "Wings are long and slender"
+    ]
+  },
+  "Plecotus austriacus": {
+    "hints": [
+      "Large ears that can fold over the face",
+      "Fur is brown to grey",
+      "Wings are broad and short"
+    ]
+  },
+  "Barbastella barbastellus": {
+    "hints": [
+      "Fur is dark brown with a pale belly",
+      "Ears are large and rounded",
+      "Wings are short and broad"
+    ]
+  },
+  "Myotis mystacinus": {
+    "hints": [
+      "Fur is dark brown with a pale belly",
+      "Distinctive long whiskers",
+      "Ears are large and pointed"
+    ]
+  },
+  "Rhinolophus ferrumequinum": {
+    "hints": [
+      "Large size with a horseshoe-shaped nose",
+      "Fur is brown to grey",
+      "Wings are long and narrow"
+    ]
+  },
+  "Rhinolophus hipposideros": {
+    "hints": [
+      "Smaller than <i>Rhinolophus ferrumequinum</i>",
+      "Distinctive horseshoe-shaped nose",
+      "Fur is light brown"
+    ]
+  },
+  "Rhinolophus euryale": {
+    "hints": [
+      "Larger size with a broader nose",
+      "Fur is dark brown",
+      "Wings are long and slender"
+    ]
+  },
+  "Rhinolophus mehelyi": {
+    "hints": [
+      "Medium size with a pointed nose",
+      "Fur is reddish-brown",
+      "Wings are broad and short"
+    ]
+  },
+  "Tadarida brasiliensis": {
+    "hints": [
+      "Large size with long wings",
+      "Fur is dark brown",
+      "Ears are small and rounded"
+    ]
+  },
+  "Tadarida teniotis": {
+    "hints": [
+      "Similar in size to <i>Tadarida brasiliensis</i>",
+      "Fur is relatively light",
+      "Distinctive long wings"
+    ]
+  },
+  "Miniopterus schreibersii": {
+    "hints": [
+      "Medium size with long wings",
+      "Fur is dark brown",
+      "Ears are small and rounded"
+    ]
+  },
+  "Miniopterus fuliginosus": {
+    "hints": [
+      "Similar in size to <i>Miniopterus schreibersii</i>",
+      "Fur is lighter",
+      "Wings are long and narrow"
+    ]
+  },
+  "Pteronotus parnellii": {
+    "hints": [
+      "Medium size with long wings",
+      "Fur is dark brown",
+      "Ears are large and pointed"
+    ]
+  },
+  "Pteronotus davyi": {
+    "hints": [
+      "Similar in size to <i>Pteronotus parnellii</i>",
+      "Fur is relatively light",
+      "Distinctive long wings"
+    ]
+  },
+  "Artibeus jamaicensis": {
+    "hints": [
+      "Large size with a broad body",
+      "Fur is dark brown",
+      "Wings are long and broad"
+    ]
+  },
+  "Artibeus lituratus": {
+    "hints": [
+      "Similar in size to <i>Artibeus jamaicensis</i>",
+      "Fur is relatively light",
+      "Distinctive broad wings"
+    ]
+  },
+  "Carollia perspicillata": {
+    "hints": [
+      "Small size with a rounded body",
+      "Fur is dark brown",
+      "Ears are small and rounded"
+    ]
+  },
+  "Carollia brevicaudum": {
+    "hints": [
+      "Similar in size to <i>Carollia perspicillata</i>",
+      "Fur is relatively light",
+      "Distinctive short tail"
+    ]
+  },
+  "Glossophaga soricina": {
+    "hints": [
+      "Small size with a slender body",
+      "Fur is greyish-brown",
+      "Long, narrow snout"
+    ]
+  },
+  "Leptonycteris yerbabuenae": {
+    "hints": [
+      "Similar in size to <i>Glossophaga soricina</i>",
+      "Fur is relatively light",
+      "Distinctive long wings"
+    ]
+  },
+  "Desmodus rotundus": {
+    "hints": [
+      "Medium size with a robust body",
+      "Fur is dark brown",
+      "Wings are long and broad"
+    ]
+  },
+  "Diaemus youngii": {
+    "hints": [
+      "Similar in size to <i>Desmodus rotundus</i>",
+      "Fur is relatively light",
+      "Distinctive long wings"
+    ]
+  },
+  "Macrotus californicus": {
+    "hints": [
+      "Ears are large and rounded",
+      "Fur is light brown",
+      "Wings have a broad shape"
+    ]
+  },
+  "Macrotus waterhousii": {
+    "hints": [
+      "Fur is darker than <i>Macrotus californicus</i>",
+      "Tail is relatively long",
+      "Distinctive white patches on wings"
+    ]
+  },
+  "Hipposideros armiger": {
+    "hints": [
+      "Face has a pronounced nose leaf",
+      "Ears are large and rounded",
+      "Fur is a mix of brown and grey"
+    ]
+  },
+  "Hipposideros swinhoei": {
+    "hints": [
+      "Smaller nose leaf than <i>Hipposideros armiger</i>",
+      "Fur is relatively light",
+      "Distinctive ear shape"
+    ]
+  },
+  "Rousettus aegyptiacus": {
+    "hints": [
+      "Golden-brown fur",
+      "Large, rounded ears",
+      "Face has a distinctive shape"
+    ]
+  },
+  "Rousettus leschenaultii": {
+    "hints": [
+      "Fur is darker than <i>Rousettus aegyptiacus</i>",
+      "Relatively small size",
+      "Wings are relatively broad"
+    ]
+  },
+  "Pteropus giganteus": {
+    "hints": [
+      "Very large size",
+      "Long, pointed wings",
+      "Fur is dark brown to black"
+    ]
+  },
+  "Pteropus vampyrus": {
+    "hints": [
+      "Slightly smaller than <i>Pteropus giganteus</i>",
+      "Fur has reddish tones",
+      "Face is relatively elongated"
+    ]
+  },
+  "Cynopterus brachyotis": {
+    "hints": [
+      "Short, broad wings",
+      "Fur is light brown",
+      "Distinctive nose shape"
+    ]
+  },
+  "Cynopterus sphinx": {
+    "hints": [
+      "Long, narrow wings",
+      "Fur is darker than <i>Cynopterus brachyotis</i>",
+      "Face has a unique structure"
+    ]
+  },
+  "Eonycteris spelaea": {
+    "hints": [
+      "Small size",
+      "Fur is light grey",
+      "Wings are short and broad"
+    ]
+  },
+  "Macroglossus minimus": {
+    "hints": [
+      "Long, slender tongue",
+      "Fur is brown with lighter underparts",
+      "Distinctive nose shape"
+    ]
+  },
+  "Nycteris thebaica": {
+    "hints": [
+      "Long ears",
+      "Fur is dark brown",
+      "Wings have a pointed shape"
+    ]
+  },
+  "Nycteris macrotis": {
+    "hints": [
+      "Larger ears than <i>Nycteris thebaica</i>",
+      "Fur is relatively light",
+      "Wings are relatively broad"
+    ]
+  },
+  "Lyroderma lyra": {
+    "hints": [
+      "Distinctive lyre-shaped nose leaf",
+      "Fur is reddish-brown",
+      "Wings are long and narrow"
+    ]
+  },
+  "Megaderma spasma": {
+    "hints": [
+      "Large size",
+      "Face has a unique shape",
+      "Fur is greyish-brown"
+    ]
+  },
+  "Taphozous melanopogon": {
+    "hints": [
+      "Long, dark fur on the face",
+      "Wings are broad",
+      "Distinctive tail length"
+    ]
+  },
+  "Taphozous theobaldi": {
+    "hints": [
+      "Shorter fur than <i>Taphozous melanopogon</i>",
+      "Wings are relatively narrow",
+      "Distinctive ear shape"
+    ]
+  },
+  "Craseonycteris thonglongyai": {
+    "hints": [
+      "Very small size",
+      "Fur is light brown",
+      "Wings are short"
+    ]
+  },
+  "Myotis siligorensis": {
+    "hints": [
+      "Fur is dark brown",
+      "Ears are relatively small",
+      "Wings are broad"
+    ]
+  },
+  "Murina cyclotis": {
+    "hints": [
+      "Distinctive ear shape",
+      "Fur is greyish-brown",
+      "Wings are long and narrow"
+    ]
+  },
+  "Murina suilla": {
+    "hints": [
+      "Fur is lighter than <i>Murina cyclotis</i>",
+      "Ears are relatively large",
+      "Wings have a pointed shape"
+    ]
+  },
+  "Kerivoula papillosa": {
+    "hints": [
+      "Small size",
+      "Fur is bright yellow",
+      "Distinctive nose shape"
+    ]
+  },
+  "Kerivoula hardwickii": {
+    "hints": [
+      "Fur is darker than <i>Kerivoula papillosa</i>",
+      "Ears are relatively large",
+      "Wings are relatively broad"
+    ]
+  },
+  "Chalinolobus gouldii": {
+    "hints": [
+      "Fur is light brown",
+      "Wings are broad and rounded",
+      "Ears are relatively small"
+    ]
+  },
+  "Chalinolobus morio": {
+    "hints": [
+      "Darker fur than <i>Chalinolobus gouldii</i>",
+      "Wings are relatively long",
+      "Distinctive facial markings"
+    ]
+  },
+  "Nyctophilus geoffroyi": {
+    "hints": [
+      "Long ears",
+      "Fur is greyish-brown",
+      "Wings are broad"
+    ]
+  },
+  "Nyctophilus gouldi": {
+    "hints": [
+      "Smaller than <i>Nyctophilus geoffroyi</i>",
+      "Fur is relatively light",
+      "Distinctive nose shape"
+    ]
+  },
+  "Ozimops planiceps": {
+    "hints": [
+      "Flat head",
+      "Fur is light brown",
+      "Wings are narrow"
+    ]
+  },
+  "Micronomus norfolkensis": {
+    "hints": [
+      "Small size",
+      "Fur is dark brown",
+      "Distinctive ear shape"
+    ]
+  },
+  "Scotophilus kuhlii": {
+    "hints": [
+      "Fur is dark brown",
+      "Wings are broad",
+      "Ears are relatively small"
+    ]
+  },
+  "Scotophilus heathii": {
+    "hints": [
+      "Fur is lighter than <i>Scotophilus kuhlii</i>",
+      "Distinctive facial markings",
+      "Wings are long and narrow"
+    ]
+  },
+  "Afronycteris nanus": {
+    "hints": [
+      "Very small size",
+      "Fur is light brown",
+      "Distinctive nose shape"
+    ]
+  },
+  "Laephotis capensis": {
+    "hints": [
+      "Fur is darker than <i>Afronycteris nanus</i>",
+      "Ears are relatively large",
+      "Wings are relatively broad"
+    ]
+  },
+  "Lasiurus cinereus": {
+    "hints": [
+      "Fur is greyish-brown",
+      "Wings are long and narrow",
+      "Distinctive tail length"
+    ]
+  },
+  "Lasiurus borealis": {
+    "hints": [
+      "Fur is reddish-brown",
+      "Wings are relatively broad",
+      "Distinctive ear shape"
+    ]
+  },
+  "Eumops perotis": {
+    "hints": [
+      "Large size",
+      "Fur is dark brown",
+      "Wings are long and narrow"
+    ]
+  },
+  "Eumops underwoodi": {
+    "hints": [
+      "Slightly smaller than <i>Eumops perotis</i>",
+      "Fur is relatively light",
+      "Distinctive facial markings"
+    ]
+  },
+  "Erinaceus europaeus": {
+    "hints": [
+      "Spiny fur",
+      "Face is rounded",
+      "Body is relatively large"
+    ]
+  },
+  "Erinaceus roumanicus": {
+    "hints": [
+      "Smaller than <i>Erinaceus europaeus</i>",
+      "Fur is not very spiny",
+      "Distinctive facial markings"
+    ]
+  },
+  "Sorex araneus": {
+    "hints": [
+      "Relatively small size",
+      "Pointed snout",
+      "Small rounded ears"
+    ]
+  },
+  "Sorex minutus": {
+    "hints": [
+      "Smaller than *Sorex araneus*",
+      "Pointed snout",
+      "Small rounded ears"
+    ]
+  },
+  "Procyon lotor": {
+    "hints": [
+      "Mask-like facial markings",
+      "Bushy ringed tail",
+      "Rounded ears"
+    ]
+  },
+  "Nasua nasua": {
+    "hints": [
+      "Long snout",
+      "Banded tail",
+      "Pointed ears"
+    ]
+  },
+  "Meles meles": {
+    "hints": [
+      "Stocky build",
+      "Black and white facial stripes",
+      "Short legs"
+    ]
+  },
+  "Taxidea taxus": {
+    "hints": [
+      "Flattened body shape",
+      "White head patch",
+      "Prominent claws"
+    ]
+  },
+  "Neogale vison": {
+    "hints": [
+      "Sleek, streamlined body",
+      "Webbed feet",
+      "Pointed snout"
+    ]
+  },
+  "Mustela putorius": {
+    "hints": [
+      "Stocky build",
+      "Dark facial mask",
+      "Short legs"
+    ]
+  },
+  "Accipiter nisus": {
+    "hints": [
+      "Barred underparts",
+      "Long tail",
+      "Yellow eyes"
+    ]
+  },
+  "Falco tinnunculus": {
+    "hints": [
+      "Reddish back",
+      "Hooked beak",
+      "Pointed wings"
+    ]
+  },
+  "Corvus corax": {
+    "hints": [
+      "Very large size",
+      "Thick bill",
+      "Wedge-shaped tail"
+    ]
+  },
+  "Corvus corone": {
+    "hints": [
+      "Smaller than *Corvus corax*",
+      "Straight bill",
+      "Rounded tail"
+    ]
+  },
+  "Zenaida": {
+    "hints": [
+      "Rounded head",
+      "Short bill",
+      "Pointed wings"
+    ]
+  },
+  "Columba": {
+    "hints": [
+      "Larger than <i>Zenaida</i>",
+      "Relatively thick bill",
+      "Rounded wings"
+    ]
+  },
+  "Columbidae": {
+    "hints": [
+      "Small to medium size",
+      "Short legs",
+      "Rounded body shape"
+    ]
+  },
+  "Corvidae": {
+    "hints": [
+      "Medium to large size",
+      "Strong bills"
+    ]
+  },
+  "Larus argentatus": {
+    "hints": [
+      "Large size",
+      "Pale grey back",
+      "Yellow bill with red spot"
+    ]
+  },
+  "Larus fuscus": {
+    "hints": [
+      "Smaller than *Larus argentatus*",
+      "Dark grey back",
+      "Yellow bill with red spot"
+    ]
+  },
+  "Passer domesticus": {
+    "hints": [
+      "Small size",
+      "Brown and grey plumage",
+      "Thick bill"
+    ]
+  },
+  "Passer montanus": {
+    "hints": [
+      "Smaller than *Passer domesticus*",
+      "Chestnut crown",
+      "White cheek spot"
+    ]
+  },
+  "Corvus frugilegus": {
+    "hints": [
+      "Larger than *Corvus corone*",
+      "Pale base of bill",
+      "Not very glossy plumage"
+    ]
+  },
+  "Parus major": {
+    "hints": [
+      "Large size for a tit",
+      "Yellow breast",
+      "Black cap and bib"
+    ]
+  },
+  "Cyanistes caeruleus": {
+    "hints": [
+      "Smaller than *Parus major*",
+      "Blue crown and wings",
+      "Yellow underparts"
+    ]
+  },
+  "Erithacus rubecula": {
+    "hints": [
+      "Orange-red face and breast",
+      "Grey back",
+      "Large dark eye"
+    ]
+  },
+  "Luscinia svecica": {
+    "hints": [
+      "Blue throat patch",
+      "Brown back",
+      "White eye stripe"
+    ]
+  },
+  "Turdus merula": {
+    "hints": [
+      "Entirely black plumage",
+      "Yellow bill",
+      "Rounded body shape"
+    ]
+  },
+  "Turdus philomelos": {
+    "hints": [
+      "Spotted brown back",
+      "Pale belly",
+      "Pointed bill"
+    ]
+  },
+  "Sylvia atricapilla": {
+    "hints": [
+      "Black cap on male",
+      "Brown back",
+      "White throat"
+    ]
+  },
+  "Sylvia borin": {
+    "hints": [
+      "Greyish-brown plumage",
+      "Pale eye ring",
+      "Rounded head shape"
+    ]
+  },
+  "Phylloscopus trochilus": {
+    "hints": [
+      "Olive-green back",
+      "Pale eye stripe",
+      "Slender bill"
+    ]
+  },
+  "Phylloscopus collybita": {
+    "hints": [
+      "Smaller than *Phylloscopus trochilus*",
+      "Drab olive-brown plumage",
+      "Short bill"
+    ]
+  },
+  "Fringilla coelebs": {
+    "hints": [
+      "Pink bill",
+      "White wing patches",
+      "Chestnut sides"
+    ]
+  },
+  "Fringilla montifringilla": {
+    "hints": [
+      "Black head and back",
+      "Orange-yellow wing patches",
+      "White rump"
+    ]
+  },
+  "Carduelis carduelis": {
+    "hints": [
+      "Red face",
+      "Black and white wings",
+      "Pointed bill"
+    ]
+  },
+  "Spinus spinus": {
+    "hints": [
+      "Olive-green body",
+      "Black cap and bib",
+      "Yellow wing patches"
+    ]
+  },
+  "Emberiza citrinella": {
+    "hints": [
+      "Yellow head and underparts",
+      "Brown back",
+      "Conical bill"
+    ]
+  },
+  "Emberiza schoeniclus": {
+    "hints": [
+      "Black head on male",
+      "White moustache stripe",
+      "Streaked brown plumage"
+    ]
+  },
+  "Hirundo rustica": {
+    "hints": [
+      "Deeply forked tail",
+      "Metallic blue back",
+      "Chestnut forehead and throat"
+    ]
+  },
+  "Delichon urbicum": {
+    "hints": [
+      "Square tail",
+      "White rump patch",
+      "Feathered feet"
+    ]
+  },
+  "Alauda arvensis": {
+    "hints": [
+      "Brown streaked plumage",
+      "Distinctive, melodic song",
+      "Short tail with white edges"
+    ]
+  },
+  "Lullula arborea": {
+    "hints": [
+      "Longer wings than <i>Alauda arvensis</i>",
+      "Less streaking on the back",
+      "Tail feathers more rounded"
+    ]
+  },
+  "Motacilla alba": {
+    "hints": [
+      "Black cap on head",
+      "White body with black wings",
+      "Long, slender tail"
+    ]
+  },
+  "Motacilla flava": {
+    "hints": [
+      "Yellow underparts",
+      "Not much contrast between body and wings",
+      "Tail shorter than <i>Motacilla alba</i>"
+    ]
+  },
+  "Sturnus vulgaris": {
+    "hints": [
+      "Iridescent black plumage",
+      "Yellow beak in summer",
+      "White spots on feathers"
+    ]
+  },
+  "Sturnus unicolor": {
+    "hints": [
+      "Uniform dark brown plumage",
+      "Relatively short, thick beak",
+      "Less iridescence than <i>Sturnus vulgaris</i>"
+    ]
+  },
+  "Garrulus glandarius": {
+    "hints": [
+      "Prominent crest on head",
+      "Blue wing patches",
+      "Long tail with black tip"
+    ]
+  },
+  "Pica pica": {
+    "hints": [
+      "Black and white plumage",
+      "Long tail with a wedge shape"
+    ]
+  },
+  "Buteo buteo": {
+    "hints": [
+      "Broad wings and tail",
+      "Variable plumage colors",
+      "Heavy body with a rounded head"
+    ]
+  },
+  "Pernis apivorus": {
+    "hints": [
+      "Long, narrow wings",
+      "Pale underparts",
+      "Distinctive, flat face"
+    ]
+  },
+  "Accipiter nisus": {
+    "hints": [
+      "Short, rounded wings",
+      "Long tail with a narrow shape"
+    ]
+  },
+  "Accipiter gentilis": {
+    "hints": [
+      "Larger than <i>Accipiter nisus</i>",
+      "Broad wings with a more rounded tail",
+      "Relatively heavy body structure"
+    ]
+  },
+  "Falco tinnunculus": {
+    "hints": [
+      "Rusty-colored back",
+      "Long tail with pointed tips"
+    ]
+  },
+  "Falco naumanni": {
+    "hints": [
+      "Smaller than <i>Falco tinnunculus</i>",
+      "Relatively pale underparts",
+      "Relatively short wings and tail"
+    ]
+  },
+  "Aquila chrysaetos": {
+    "hints": [
+      "Golden feathers on the head",
+      "Broad wings with long fingers",
+      "Powerful build with large size"
+    ]
+  },
+  "Haliaeetus albicilla": {
+    "hints": [
+      "White tail and head",
+      "Large yellow beak",
+      "Broad wings and heavy body"
+    ]
+  },
+  "Ardea cinerea": {
+    "hints": [
+      "Grey body with long neck",
+      "Slow, deliberate movements",
+      "Long legs and sharp bill"
+    ]
+  },
+  "Ardea purpurea": {
+    "hints": [
+      "Reddish-brown plumage",
+      "Longer neck than <i>Ardea cinerea</i>",
+      "Distinctive purple hues"
+    ]
+  },
+  "Egretta garzetta": {
+    "hints": [
+      "All-white plumage",
+      "Long, slender legs",
+      "Sharp, pointed bill"
+    ]
+  },
+  "Bubulcus ibis": {
+    "hints": [
+      "Buff-colored plumage in breeding season",
+      "Shorter legs than <i>Egretta garzetta</i>",
+      "Relatively compact body shape"
+    ]
+  },
+  "Ciconia ciconia": {
+    "hints": [
+      "Black wing tips",
+      "Long, red legs",
+      "Large, white body"
+    ]
+  },
+  "Ciconia nigra": {
+    "hints": [
+      "Black plumage with white belly",
+      "Longer neck than <i>Ciconia ciconia</i>",
+      "Relatively slender body shape"
+    ]
+  },
+  "Sterna hirundo": {
+    "hints": [
+      "Black cap on head",
+      "Long, pointed wings",
+      "Red bill with a black tip"
+    ]
+  },
+  "Sterna paradisaea": {
+    "hints": [
+      "Longer wings than <i>Sterna hirundo</i>",
+      "Not very pronounced black cap",
+      "Relatively pale underparts"
+    ]
+  },
+  "Alca torda": {
+    "hints": [
+      "Black and white plumage",
+      "Short, stout body",
+      "Large, hooked bill"
+    ]
+  },
+  "Uria aalge": {
+    "hints": [
+      "Relatively long, thinn body",
+      "Distinctive black and white markings",
+      "Straight bill"
+    ]
+  },
+  "Columba palumbus": {
+    "hints": [
+      "Large size with a rounded shape",
+      "Grey body with white neck patches",
+      "Broad tail with white edges"
+    ]
+  },
+  "Columba oenas": {
+    "hints": [
+      "Smaller than <i>Columba palumbus</i>",
+      "Relatively slender body",
+      "Not very pronounced neck markings"
+    ]
+  },
+  "Streptopelia decaocto": {
+    "hints": [
+      "Light brown plumage",
+      "Distinctive black crescent on neck",
+      "Shorter tail than <i>Columba palumbus</i>"
+    ]
+  },
+  "Streptopelia turtur": {
+    "hints": [
+      "Colorful plumage",
+      "Relatively long tail with pointed tips",
+      "Not very pronounced neck markings"
+    ]
+  },
+  "Cuculus canorus": {
+    "hints": [
+      "Long, slender body",
+      "Distinctive cuckoo call",
+      "Barred underparts"
+    ]
+  },
+  "Tyto alba": {
+    "hints": [
+      "Heart-shaped facial disc",
+      "White underparts",
+      "Long wings with a rounded tail"
+    ]
+  },
+  "Asio flammeus": {
+    "hints": [
+      "Tufts on head resembling ears",
+      "Yellow eyes",
+      "Brown and buff streaked plumage"
+    ]
+  },
+  "Strix aluco": {
+    "hints": [
+      "Round face with no ear tufts",
+      "Brown and grey mottled feathers",
+      "Large, yellow eyes"
+    ]
+  },
+  "Strix nebulosa": {
+    "hints": [
+      "Larger than <i>Strix aluco</i>",
+      "Relatively pronounced facial disc",
+      "Relatively pale plumage overall"
+    ]
+  },
+  "Apus apus": {
+    "hints": [
+      "Long wings with a scythe shape",
+      "Dark plumage with a forked tail"
+    ]
+  },
+  "Hirundo rustica": {
+    "hints": [
+      "Long, forked tail",
+      "Bright blue upperparts",
+      "Rust-colored throat and belly"
+    ]
+  },
+  "Alcedo atthis": {
+    "hints": [
+      "Bright blue and orange plumage",
+      "Short tail and long bill"
+    ]
+  },
+  "Merops apiaster": {
+    "hints": [
+      "Colorful plumage with green and yellow",
+      "Long, pointed wings",
+      "Distinctive black face mask"
+    ]
+  },
+  "Upupa epops": {
+    "hints": [
+      "Distinct long, curved bill",
+      "Prominent crown of feathers",
+      "Black and white wing patterns"
+    ]
+  },
+  "Coracias garrulus": {
+    "hints": [
+      "Bright blue wings",
+      "Thick, short neck",
+      "Greenish body color"
+    ]
+  },
+  "Picus viridis": {
+    "hints": [
+      "Green body with red crown",
+      "Black mustache stripe",
+      "Long, pointed tail"
+    ]
+  },
+  "Picus canus": {
+    "hints": [
+      "Greyish body color",
+      "Less pronounced crown",
+      "Shorter tail than <i>Picus viridis</i>"
+    ]
+  },
+  "Dendrocopos major": {
+    "hints": [
+      "Black and white plumage",
+      "Red patch on the head",
+      "Distinctive loud call"
+    ]
+  },
+  "Dendrocoptes medius": {
+    "hints": [
+      "Brownish body color",
+      "Less contrasting plumage",
+      "Smaller than <i>Dendrocopos major</i>"
+    ]
+  },
+  "Anas platyrhynchos": {
+    "hints": [
+      "Male has a glossy green head",
+      "Orange bill",
+      "White neck ring"
+    ]
+  },
+  "Anas acuta": {
+    "hints": [
+      "Long, pointed tail",
+      "Narrow, elongated body",
+      "Male has a strikingly patterned head"
+    ]
+  },
+  "Aythya ferina": {
+    "hints": [
+      "Chestnut-colored head",
+      "Round body shape",
+      "Blackish chest"
+    ]
+  },
+  "Aythya fuligula": {
+    "hints": [
+      "Black head with a white face",
+      "Relatively steep forehead",
+      "Not very rounded body"
+    ]
+  },
+  "Mergus merganser": {
+    "hints": [
+      "Long, thin bill",
+      "White body with black back",
+      "Distinctive crest on the head"
+    ]
+  },
+  "Mergus serrator": {
+    "hints": [
+      "Smaller size than <i>Mergus merganser</i>",
+      "Relatively pronounced crest",
+      "Not much white on the body"
+    ]
+  },
+  "Podiceps cristatus": {
+    "hints": [
+      "Elaborate black and gold crest",
+      "Long, slender neck",
+      "Distinctive red eyes"
+    ]
+  },
+  "Podiceps grisegena": {
+    "hints": [
+      "Greyish body color",
+      "Not very pronounced crest",
+      "Shorter neck than <i>Podiceps cristatus</i>"
+    ]
+  },
+  "Phalacrocorax carbo": {
+    "hints": [
+      "All-black plumage",
+      "Long neck",
+      "Hooked bill"
+    ]
+  },
+  "Gulosus aristotelis": {
+    "hints": [
+      "Larger size than <i>Phalacrocorax carbo</i>",
+      "Distinctive white throat patch",
+      "Relatively robust body shape"
+    ]
+  },
+  "Fulica atra": {
+    "hints": [
+      "White frontal shield",
+      "Black plumage",
+      "Sturdy body shape"
+    ]
+  },
+  "Gallinula chloropus": {
+    "hints": [
+      "Red frontal shield",
+      "Greenish-black plumage",
+      "Long toes"
+    ]
+  },
+  "Vanellus vanellus": {
+    "hints": [
+      "Black and white plumage",
+      "Long, pointed wings",
+      "Distinctive crest on the head"
+    ]
+  },
+  "Pluvialis apricaria": {
+    "hints": [
+      "Golden speckled back",
+      "Relatively short legs",
+      "Black face during breeding"
+    ]
+  },
+  "Tringa totanus": {
+    "hints": [
+      "Long, straight bill",
+      "Red legs",
+      "White wing stripes"
+    ]
+  },
+  "Tringa nebularia": {
+    "hints": [
+      "Spotted plumage",
+      "Longer bill than <i>Tringa totanus</i>",
+      "Not very vibrant leg color"
+    ]
+  },
+  "Calidris alpina": {
+    "hints": [
+      "Small size",
+      "Brown and white mottled plumage",
+      "Short, straight bill"
+    ]
+  },
+  "Calidris ferruginea": {
+    "hints": [
+      "Reddish-brown plumage in summer",
+      "Relatively long legs",
+      "Distinctive black belly"
+    ]
+  },
+  "Numenius arquata": {
+    "hints": [
+      "Long, curved bill",
+      "Brown streaked plumage",
+      "Long legs"
+    ]
+  },
+  "Numenius phaeopus": {
+    "hints": [
+      "Shorter bill than <i>Numenius arquata</i>",
+      "Not very pronounced streaking",
+      "Relatively uniform body color"
+    ]
+  },
+  "Scolopax rusticola": {
+    "hints": [
+      "Camouflaged plumage",
+      "Short, stout body",
+      "Long, straight bill"
+    ]
+  },
+  "Gallinago gallinago": {
+    "hints": [
+      "Longer bill than <i>Scolopax rusticola</i>",
+      "Distinctive wing markings",
+      "Not very stout body shape"
+    ]
+  },
+  "Haematopus ostralegus": {
+    "hints": [
+      "Black and white plumage",
+      "Bright orange bill",
+      "Long legs"
+    ]
+  },
+  "Recurvirostra avosetta": {
+    "hints": [
+      "Curved bill",
+      "Long neck",
+      "Distinctive black cap"
+    ]
+  },
+  "Burhinus oedicnemus": {
+    "hints": [
+      "Large size",
+      "Thick neck",
+      "Distinctive eye markings"
+    ]
+  },
+  "Stercorarius parasiticus": {
+    "hints": [
+      "Dark plumage",
+      "Long wings"
+    ]
+  },
+  "Stercorarius longicaudus": {
+    "hints": [
+      "Longer tail than <i>Stercorarius parasiticus</i>",
+      "Relatively light body color",
+      "Relatively slender appearance"
+    ]
+  },
+  "Crocodylidae": {
+    "hints": [
+      "Long, powerful body",
+      "Broad snout",
+      "Visible teeth when mouth is closed"
+    ]
+  },
+  "Alligatoridae": {
+    "hints": [
+      "Relatively short, broad snout",
+      "Not very visible teeth when mouth is closed",
+      "Relatively robust body"
+    ]
+  },
+  "Pygopodidae": {
+    "hints": [
+      "Limb-reduced or limbless",
+      "Long, slender body",
+      "Smooth scales"
+    ]
+  },
+  "Colubridae": {
+    "hints": [
+      "Varied colors and patterns",
+      "Distinctive head shapes",
+      "Generally slender body"
+    ]
+  },
+  "Chelonia mydas": {
+    "hints": [
+      "Large, rounded shell",
+      "Flippers instead of legs",
+      "Dark green coloration"
+    ]
+  },
+  "Eretmochelys imbricata": {
+    "hints": [
+      "Hawksbill shape shell",
+      "Saw-like edges on shell",
+      "Colorful patterns on shell"
+    ]
+  },
+  "Vipera berus": {
+    "hints": [
+      "Distinct zigzag pattern on the back",
+      "Dark coloration with lighter edges",
+      "Pupil is vertical and slit-like"
+    ]
+  },
+  
+  "Natrix natrix": {
+    "hints": [
+      "Bright yellow or white collar behind the head",
+      "Smooth, shiny scales",
+      "Body often appears slender"
+    ]
+  },
+  
+  "Natrix helvetica": {
+    "hints": [
+      "Dark coloration with little contrast",
+      "Often found near water bodies",
+      "Slightly broader head than <i>Natrix natrix</i>"
+    ]
+  },
+  
+  "Vipera aspis": {
+    "hints": [
+      "Triangular-shaped head",
+      "Often has a reddish or orange hue",
+      "Body is robust and thick"
+    ]
+  },
+  
+  "Coronella austriaca": {
+    "hints": [
+      "Small, slender body",
+      "Often has a uniform brown or grey color",
+      "Head is not much wider than the neck"
+    ]
+  },
+  
+  "Zamenis longissimus": {
+    "hints": [
+      "Long, slender body",
+      "Distinctive yellow or greenish coloration",
+      "Smooth scales with a glossy appearance"
+    ]
+  },
+  
+  "Hierophis viridiflavus": {
+    "hints": [
+      "Bright green or yellowish-green color",
+      "Long, slender body",
+      "Often has a dark stripe along the back"
+    ]
+  },
+  
+  "Elaphe quatuorlineata": {
+    "hints": [
+      "Four distinct longitudinal stripes",
+      "Coloration varies from grey to brown",
+      "Relatively large size"
+    ]
+  },
+  
+  "Elaphe sauromates": {
+    "hints": [
+      "Often has a more muted color palette",
+      "Distinctive pattern of blotches",
+      "Longer and more slender than <i>Elaphe quatuorlineata</i>"
+    ]
+  },
+  
+  "Malpolon monspessulanus": {
+    "hints": [
+      "Long, slender body with a pointed snout",
+      "Often has a dark stripe along the back",
+      "Coloration can vary from grey to brown"
+    ]
+  },
+  
+  "Naja naja": {
+    "hints": [
+      "Hood expands when threatened",
+      "Distinctive markings on the hood",
+      "Body is relatively thick and robust"
+    ]
+  },
+  
+  "Naja kaouthia": {
+    "hints": [
+      "Hood has a more pronounced pattern",
+      "Coloration is often relatively dark",
+      "More slender body compared to <i>Naja naja</i>"
+    ]
+  },
+  
+  "Naja atra": {
+    "hints": [
+      "Typically has a black or dark coloration",
+      "Hood markings are less pronounced",
+      "Body is robust and thick"
+    ]
+  },
+  
+  "Bungarus caeruleus": {
+    "hints": [
+      "Distinct blue-black coloration",
+      "Body has a smooth appearance",
+      "Often has a banded pattern"
+    ]
+  },
+  
+  "Bungarus candidus": {
+    "hints": [
+      "Typically has a relatively light coloration",
+      "Banded pattern is relatively prominent",
+      "Body is relatively slender"
+    ]
+  },
+  
+  "Dendroaspis polylepis": {
+    "hints": [
+      "Bright green or yellow coloration",
+      "Long, slender body",
+      "Often found in trees"
+    ]
+  },
+  
+  "Dendroaspis angusticeps": {
+    "hints": [
+      "More slender than <i>Dendroaspis polylepis</i>",
+      "Typically has a relatively dark coloration",
+      "Head is relatively small"
+    ]
+  },
+  
+  "Crotalus atrox": {
+    "hints": [
+      "Distinct rattle on the tail",
+      "Body has a pattern of dark bands",
+      "Coloration varies from light to dark"
+    ]
+  },
+  
+  "Crotalus scutulatus": {
+    "hints": [
+      "Rattle is not very pronounced",
+      "Coloration often includes greenish hues",
+      "Body is relatively robust"
+    ]
+  },
+  
+  "Sistrurus catenatus": {
+    "hints": [
+      "Small size with a distinct rattle",
+      "Body has a pattern of dark spots",
+      "Coloration is often muted"
+    ]
+  },
+  
+  "Sistrurus miliarius": {
+    "hints": [
+      "Smaller than <i>Sistrurus catenatus</i>",
+      "Coloration is often relatively light",
+      "Rattle is not very pronounced"
+    ]
+  },
+  
+  "Agkistrodon contortrix": {
+    "hints": [
+      "Triangular-shaped head",
+      "Coloration includes reddish or brown hues",
+      "Often has a pattern of dark bands"
+    ]
+  },
+  
+  "Agkistrodon piscivorus": {
+    "hints": [
+      "Typically relatively dark coloration",
+      "Body is more robust than <i>Agkistrodon contortrix</i>",
+      "Often found in water"
+    ]
+  },
+  
+  "Bothrops atrox": {
+    "hints": [
+      "Distinct triangular head shape",
+      "Coloration varies from brown to green",
+      "Body has a pattern of dark bands"
+    ]
+  },
+  
+  "Bothrops asper": {
+    "hints": [
+      "More muted coloration than <i>Bothrops atrox</i>",
+      "Body is relatively slender",
+      "Head is not very pronounced"
+    ]
+  },
+  
+  "Bitis arietans": {
+    "hints": [
+      "Distinctively thick body",
+      "Coloration includes shades of brown",
+      "Often has a pattern of dark bands"
+    ]
+  },
+  
+  "Bitis gabonica": {
+    "hints": [
+      "Larger size compared to <i>Bitis arietans</i>",
+      "Coloration is often quite vibrant",
+      "Head is relatively wide and flat"
+    ]
+  },
+  
+  "Echis carinatus": {
+    "hints": [
+      "Small size with a distinctive pattern",
+      "Coloration includes shades of brown and grey",
+      "Body has a rough texture"
+    ]
+  },
+  
+  "Echis coloratus": {
+    "hints": [
+      "Typically has a relatively light coloration",
+      "Body is slightly larger than <i>Echis carinatus</i>",
+      "Pattern is not very pronounced"
+    ]
+  },
+  
+  "Malayopython reticulatus": {
+    "hints": [
+      "Very long and slender body",
+      "Distinctive reticulated pattern",
+      "Coloration varies from brown to yellow"
+    ]
+  },
+  
+  "Python bivittatus": {
+    "hints": [
+      "Typically larger than <i>Malayopython reticulatus</i>",
+      "Coloration is often relatively dark",
+      "Body has a quite robust appearance"
+    ]
+  },
+  
+  "Boa constrictor": {
+    "hints": [
+      "Thick, muscular body",
+      "Coloration includes shades of brown and red",
+      "Often has a pattern of dark spots"
+    ]
+  },
+  
+  "Eunectes murinus": {
+    "hints": [
+      "Larger size compared to <i>Boa constrictor</i>",
+      "Coloration is often relatively dark",
+      "Body is relatively elongated"
+    ]
+  },
+  
+  "Morelia spilota": {
+    "hints": [
+      "Distinctive pattern of yellow and black",
+      "Body is relatively slender",
+      "Often has a smooth appearance"
+    ]
+  },
+  
+  "Morelia bredli": {
+    "hints": [
+      "Typically has a vibrant coloration",
+      "Body is thicker than <i>Morelia spilota</i>",
+      "Pattern is often quite pronounced"
+    ]
+  }
+}
