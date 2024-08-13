@@ -873,6 +873,7 @@ dialog[open] {
 
 .info-dialog[open] {
     display: flex;
+    transform: translate(0, 0); /* override system-wide centering of dialogs */
 }
 
 .info-dialog__header {
