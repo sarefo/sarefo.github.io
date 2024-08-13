@@ -182,6 +182,21 @@ const ui = {
 
                 let filteredPairs = gameLogic.filterTaxonPairs(taxonPairs, filters);
 
+                // Get the current active set
+                const currentActiveSet = gameState.currentTaxonImageCollection?.pair;
+
+                // If there's an active set, move it to the beginning of the list
+                if (currentActiveSet) {
+                    const activeSetIndex = filteredPairs.findIndex(pair => 
+                        pair.taxonNames[0] === currentActiveSet.taxon1 && 
+                        pair.taxonNames[1] === currentActiveSet.taxon2
+                    );
+                    if (activeSetIndex !== -1) {
+                        const activeSet = filteredPairs.splice(activeSetIndex, 1)[0];
+                        filteredPairs.unshift(activeSet);
+                    }
+                }
+
                 const list = document.getElementById('taxon-set-list');
                 if (list) {
                     list.innerHTML = '';
@@ -216,6 +231,12 @@ const ui = {
                 if (clearButton) {
                     clearButton.style.display = searchInput.value.trim() !== '' ? 'block' : 'none';
                 }
+
+                const taxonSetList = document.getElementById('taxon-set-list');
+                if (taxonSetList) {
+                    taxonSetList.scrollTop = 0;
+                }
+
             } catch (error) {
                 logger.error("Error in showTaxonPairList:", error);
             }
