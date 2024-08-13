@@ -218,7 +218,6 @@ Micrurus fulvius,Micrurus tener
 Chilabothrus striatus,Chilabothrus inornatus
 Boiga irregularis,Boiga cynodon
 Oligodon octolineatus,Oligodon fasciolatus
-
 Trimeresurus albolabris,Trimeresurus popeiorum
 Fowlea piscator,Fowlea flavipunctata
 Platax teira,Platax orbicularis
@@ -259,6 +258,7 @@ Gunnellichthys curiosus,Gunnellichthys viridescens
 Mobula alfredi,Mobula birostris
 Papilio machaon,Papilio xuthus
 Papilio polyxenes,Papilio zelicaon
+
 Heliconius melpomene,Heliconius erato
 Vanessa atalanta,Vanessa indica
 Pieris rapae,Pieris napi

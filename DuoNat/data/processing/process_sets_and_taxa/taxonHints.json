@@ -2928,5 +2928,517 @@
       "Not very distinct banding",
       "Often found in grasslands"
     ]
+  },
+  "Trimeresurus albolabris": {
+    "hints": [
+      "Distinct white labial scales",
+      "Green coloration with yellowish spots",
+      "Eyes have vertical pupils"
+    ]
+  },
+  "Trimeresurus popeiorum": {
+    "hints": [
+      "Slender body shape",
+      "Bright green coloration",
+      "Not very pronounced yellow spots"
+    ]
+  },
+  "Fowlea piscator": {
+    "hints": [
+      "Long, slender body",
+      "Distinctive black markings on fins",
+      "Bright yellow spots on body"
+    ]
+  },
+  "Fowlea flavipunctata": {
+    "hints": [
+      "Smaller size than <i>Fowlea piscator</i>",
+      "Many yellow spots on body",
+      "Not very pronounced black markings"
+    ]
+  },
+  "Platax teira": {
+    "hints": [
+      "Long, flattened body",
+      "Vertical black stripes on body",
+      "Dorsal fin extends far back"
+    ]
+  },
+  "Platax orbicularis": {
+    "hints": [
+      "Relatively round body shape",
+      "Not very pronounced vertical stripes",
+      "Quite vibrant coloration overall"
+    ]
+  },
+  "Platax boersii": {
+    "hints": [
+      "Quite elongated body",
+      "Not very vibrant coloration",
+      "Distinctive long dorsal fin"
+    ]
+  },
+  "Ostracion meleagris": {
+    "hints": [
+      "Hexagonal body shape",
+      "Bright yellow with blue spots",
+      "Distinctive pattern on skin"
+    ]
+  },
+  "Ostracion solorense": {
+    "hints": [
+      "Muted coloration",
+      "Not very pronounced blue spots",
+      "Relatively mooth body texture"
+    ]
+  },
+  "Coradion chrysozonus": {
+    "hints": [
+      "Bright yellow body with black stripes",
+      "Long, pointed fins",
+      "Distinctive yellow tail"
+    ]
+  },
+  "Chelmon rostratus": {
+    "hints": [
+      "Long, slender snout",
+      "Orange and white striped body",
+      "Relatively rounded fins"
+    ]
+  },
+  "Chaetodon vagabundus": {
+    "hints": [
+      "Black stripe through the eye",
+      "Yellow body with black spots",
+      "Relatively elongated body shape"
+    ]
+  },
+  "Chaetodon lunulatus": {
+    "hints": [
+      "Distinctive crescent-shaped markings",
+      "Relatively rounded body",
+      "Not very pronounced black spots"
+    ]
+  },
+  "Heniochus varius": {
+    "hints": [
+      "Long, sweeping dorsal fin",
+      "Black and white striped body",
+      "Relatively slender body shape"
+    ]
+  },
+  "Heniochus chrysostomus": {
+    "hints": [
+      "Bright yellow head",
+      "Not very pronounced dorsal fin",
+      "Black and white striped body"
+    ]
+  },
+  "Heniochus acuminatus": {
+    "hints": [
+      "Relatively elongated body shape",
+      "Distinctive black and white pattern",
+      "Longer fins than <i>Heniochus diphreutes</i>"
+    ]
+  },
+  "Heniochus diphreutes": {
+    "hints": [
+      "Relatively rounded body shape",
+      "Not very pronounced black and white pattern",
+      "Relatively short fins"
+    ]
+  },
+  "Lethrinidae": {
+    "hints": [
+      "Long dorsal fin"
+    ]
+  },
+  "Lutjanidae": {
+    "hints": [
+      "Relatively streamlined body",
+      "Relatively short dorsal fin"
+    ]
+  },
+  "Lutjanus malabaricus": {
+    "hints": [
+      "Bright red coloration",
+      "Large, pronounced teeth",
+      "Relatively elongated body shape"
+    ]
+  },
+  "Lutjanus erythropterus": {
+    "hints": [
+      "Relatively subdued coloration",
+      "Relatively round body shape"
+    ]
+  },
+  "Diagramma pictum": {
+    "hints": [
+      "Distinctive blue spots on body",
+      "Relatively elongated shape",
+      "Not very pronounced dorsal fin"
+    ]
+  },
+  "Plectorhinchus chaetodonoides": {
+    "hints": [
+      "Blue spots not very pronounced",
+      "Relatively rounded body shape",
+      "Relatively short dorsal fin"
+    ]
+  },
+  "Caesio cuning": {
+    "hints": [
+      "Bright blue coloration",
+      "Distinctive forked tail",
+      "Relatively slender body shape"
+    ]
+  },
+  "Caesio teres": {
+    "hints": [
+      "Not very vibrant blue coloration",
+      "Relatively rounded tail",
+      "Relatively stocky body shape"
+    ]
+  },
+  "Scolopsis bilineata": {
+    "hints": [
+      "Two distinct black lines on body",
+      "Relatively elongated body shape",
+      "Not very vibrant coloration"
+    ]
+  },
+  "Scolopsis lineata": {
+    "hints": [
+      "Single black line on body",
+      "Relatively round body shape",
+      "Relatively vibrant coloration"
+    ]
+  },
+  "Salarias fasciatus": {
+    "hints": [
+      "Distinctive stripes on body",
+      "Relatively elongated body shape",
+      "Bright coloration"
+    ]
+  },
+  "Salarias guttatus": {
+    "hints": [
+      "Not very pronounced stripes",
+      "Relatively round body shape",
+      "Relatively coloration"
+    ]
+  },
+  "Flavocaranx bajad": {
+    "hints": [
+      "Bright yellow coloration",
+      "Long, slender body",
+      "Distinctive forked tail"
+    ]
+  },
+  "Turrum fulvoguttatum": {
+    "hints": [
+      "Not very vibrant yellow coloration",
+      "Relatively short body shape",
+      "Relatively short tail"
+    ]
+  },
+  "Pardachirus pavoninus": {
+    "hints": [
+      "Distinctive patterns on body",
+      "Relatively elongated body shape",
+      "Not very vibrant coloration"
+    ]
+  },
+  "Soleichthys heterorhinos": {
+    "hints": [
+      "Not very pronounced patterns",
+      "Relatively round body shape",
+      "Relatively dull coloration"
+    ]
+  },
+  "Sphyraena flavicauda": {
+    "hints": [
+      "Long, slender body",
+      "Distinctive yellow tail",
+      "Sharp teeth visible"
+    ]
+  },
+  "Sphyraena jello": {
+    "hints": [
+      "Relatively subdued coloration",
+      "Not very pronounced yellow tail",
+      "Relatively rounded body shape"
+    ]
+  },
+  "Abudefduf bengalensis": {
+    "hints": [
+      "Black stripes on yellow body",
+      "Relatively elongated body shape",
+      "Distinctive forked tail"
+    ]
+  },
+  "Abudefduf sexfasciatus": {
+    "hints": [
+      "Not very pronounced black stripes",
+      "Relatively round body shape",
+      "Relatively dull coloration"
+    ]
+  },
+  "Abudefduf": {
+    "hints": [
+      "Bright yellow body",
+      "Black stripes on the face",
+      "Small size compared to other fish"
+    ]
+  },
+  "Dascyllus": {
+    "hints": [
+      "Dark body with white spots",
+      "Distinctive triangular dorsal fin",
+      "Often found in groups"
+    ]
+  },
+  "Pomacentrus coelestis": {
+    "hints": [
+      "Vibrant blue coloration",
+      "Small size",
+      "Yellowish tail"
+    ]
+  },
+  "Pomacentrus auriventris": {
+    "hints": [
+      "Golden-yellow belly",
+      "Blue body",
+      "Black markings on fins"
+    ]
+  },
+  "Amphiprion polymnus": {
+    "hints": [
+      "Orange body with black stripes",
+      "Curved dorsal fin",
+      "Often found near anemones"
+    ]
+  },
+  "Amphiprion clarkii": {
+    "hints": [
+      "Yellow body with black stripes",
+      "Thicker black borders around stripes",
+      "Commonly associated with sea anemones"
+    ]
+  },
+  "Pomacentrus polyspinus": {
+    "hints": [
+      "Pale blue body",
+      "Small, scattered black spots",
+      "Long, slender shape"
+    ]
+  },
+  "Pomacentrus tripunctatus": {
+    "hints": [
+      "Three distinct black spots",
+      "Bright blue coloration",
+      "Small size"
+    ]
+  },
+  "Amblyeleotris gymnocephala": {
+    "hints": [
+      "Long, slender body",
+      "Brightly colored fins",
+      "Often found in sandy substrates"
+    ]
+  },
+  "Amblyeleotris rubrimarginata": {
+    "hints": [
+      "Red margins on fins",
+      "Slender body"
+    ]
+  },
+  "Eviota guttata": {
+    "hints": [
+      "Small size",
+      "Distinctive spotted pattern",
+      "Often found in coral rubble"
+    ]
+  },
+  "Eviota sebreei": {
+    "hints": [
+      "Brightly colored body",
+      "Not very pronounced spots"
+    ]
+  },
+  "Istigobius decoratus": {
+    "hints": [
+      "Colorful patterns on body",
+      "Small size",
+      "Often found in sandy areas"
+    ]
+  },
+  "Istigobius ornatus": {
+    "hints": [
+      "Relatively muted colors",
+      "Distinctive markings on head",
+      "Prefers rocky substrates"
+    ]
+  },
+  "Ptereleotris hanae": {
+    "hints": [
+      "Long, slender body",
+      "Brightly colored fins",
+      "Often seen hovering near the substrate"
+    ]
+  },
+  "Ptereleotris microlepis": {
+    "hints": [
+      "Smaller size than <i>P. hanae</i>",
+      "Not very vibrant coloration"
+    ]
+  },
+  "Ostorhinchus cyanosoma": {
+    "hints": [
+      "Blue body with yellow fins",
+      "Small size"
+    ]
+  },
+  "Ostorhinchus wassinki": {
+    "hints": [
+      "Relatively slender body",
+      "Not very vibrant colors"
+    ]
+  },
+  "Epinephelus coioides": {
+    "hints": [
+      "Large size",
+      "Brownish body with lighter spots"
+    ]
+  },
+  "Epinephelus fuscoguttatus": {
+    "hints": [
+      "Pronounced spots",
+      "Larger than <i>E. coioides</i>"
+    ]
+  },
+  "Cheilinus chlorourus": {
+    "hints": [
+      "Greenish body color",
+      "Large, robust shape"
+    ]
+  },
+  "Cheilinus trilobatus": {
+    "hints": [
+      "Relatively elongated body",
+      "Distinctive three-lobed dorsal fin",
+      "Brightly colored"
+    ]
+  },
+  "Halichoeres hortulanus": {
+    "hints": [
+      "Colorful body with stripes",
+      "Long, slender shape"
+    ]
+  },
+  "Halichoeres leucurus": {
+    "hints": [
+      "White tail fin",
+      "Relatively muted colors"
+    ]
+  },
+  "Scarus rivulatus": {
+    "hints": [
+      "Bright green coloration",
+      "Large size",
+      "Distinctive beak-like mouth"
+    ]
+  },
+  "Scarus hypselopterus": {
+    "hints": [
+      "Relatively vibrant blue-green colors",
+      "Not very pronounced beak"
+    ]
+  },
+  "Parapercis xanthozona": {
+    "hints": [
+      "Yellow stripes on body",
+      "Small size"
+    ]
+  },
+  "Parapercis hexophtalma": {
+    "hints": [
+      "Relatively pronounced markings",
+      "Relatively long body"
+    ]
+  },
+  "Pterois volitans": {
+    "hints": [
+      "Long, venomous spines",
+      "Striped body"
+    ]
+  },
+  "Pterois antennata": {
+    "hints": [
+      "Relatively pronounced antenna-like spines",
+      "Relatively bright coloration"
+    ]
+  },
+  "Gnatholepis cauerensis": {
+    "hints": [
+      "Brightly colored body",
+      "Small size"
+    ]
+  },
+  "Gnatholepis anjerensis": {
+    "hints": [
+      "Not very vibrant colors",
+      "Relatively elongated shape"
+    ]
+  },
+  "Gunnellichthys curiosus": {
+    "hints": [
+      "Long, slender body",
+      "Bright colors"
+    ]
+  },
+  "Gunnellichthys viridescens": {
+    "hints": [
+      "Relatively muted colors",
+      "Not very elongated shape"
+    ]
+  },
+  "Mobula alfredi": {
+    "hints": [
+      "Broad, flat body",
+      "Smaller than <i>M. birostris</i>"
+    ]
+  },
+  "Mobula birostris": {
+    "hints": [
+      "Larger size than <i>M. alfredi</i>",
+      "More pronounced wing-like fins than <i>M. alfredi</i>"
+    ]
+  },
+  "Papilio machaon": {
+    "hints": [
+      "Large size",
+      "Bright yellow wings",
+      "Black border on wings"
+    ]
+  },
+  "Papilio xuthus": {
+    "hints": [
+      "Relatively slender shape",
+      "Not very bright yellow",
+      "Distinctive black markings"
+    ]
+  },
+  "Papilio polyxenes": {
+    "hints": [
+      "Black wings with yellow spots",
+      "Medium size"
+    ]
+  },
+  "Papilio zelicaon": {
+    "hints": [
+      "Brighter colors than <i>P. polyxenes</i>",
+      "Relatively pronounced yellow spots"
+    ]
   }
 }
