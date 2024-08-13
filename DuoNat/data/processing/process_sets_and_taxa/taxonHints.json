@@ -2657,5 +2657,276 @@
       "Body is thicker than <i>Morelia spilota</i>",
       "Pattern is often quite pronounced"
     ]
+  },
+  "Pantherophis guttatus": {
+    "hints": [
+      "Distinct orange and red coloration",
+      "Black blotches on the back",
+      "Small, round head"
+    ]
+  },
+  "Pantherophis alleghaniensis": {
+    "hints": [
+      "Yellow and black coloration",
+      "Large, square-shaped head",
+      "Faint pattern on the body"
+    ]
+  },
+  "Lampropeltis getula": {
+    "hints": [
+      "Black body with yellow or white bands",
+      "Smooth scales",
+      "Relatively thick body"
+    ]
+  },
+  "Lampropeltis californiae": {
+    "hints": [
+      "Bright red and black bands",
+      "Thin body compared to others",
+      "No yellow bands"
+    ]
+  },
+  "Thamnophis sirtalis": {
+    "hints": [
+      "Three light stripes down the back",
+      "Greenish or brownish coloration",
+      "Long, slender body"
+    ]
+  },
+  "Thamnophis elegans": {
+    "hints": [
+      "Dark body with lighter stripes",
+      "More pronounced markings",
+      "Typically found in aquatic habitats"
+    ]
+  },
+  "Pituophis catenifer": {
+    "hints": [
+      "Large, heavy-bodied snake",
+      "Distinctive pattern resembling a chain",
+      "Broad head"
+    ]
+  },
+  "Pantherophis obsoletus": {
+    "hints": [
+      "Dark coloration, often black",
+      "Large and robust body",
+      "Faint patterns can be present"
+    ]
+  },
+  "Coluber constrictor": {
+    "hints": [
+      "Sleek, slender body",
+      "Uniform coloration, often black or brown",
+      "Large eyes"
+    ]
+  },
+  "Masticophis flagellum": {
+    "hints": [
+      "Long, slender body",
+      "Distinctive yellow or cream stripes"
+    ]
+  },
+  "Heterodon platirhinos": {
+    "hints": [
+      "Flat, broad head",
+      "Dark bands on lighter body",
+      "Upturned snout"
+    ]
+  },
+  "Heterodon nasicus": {
+    "hints": [
+      "Relatively pronounced upturned snout",
+      "Relatively small size",
+      "Not very distinct banding pattern"
+    ]
+  },
+  "Opheodrys aestivus": {
+    "hints": [
+      "Bright green coloration",
+      "Smooth scales",
+      "Long and slender body"
+    ]
+  },
+  "Opheodrys vernalis": {
+    "hints": [
+      "Quite subdued green or brown coloration",
+      "Not very shiny appearance",
+      "Typically found in wetlands"
+    ]
+  },
+  "Nerodia sipedon": {
+    "hints": [
+      "Dark blotches on a lighter background",
+      "Lateral stripes present",
+      "Often found near water"
+    ]
+  },
+  "Nerodia fasciata": {
+    "hints": [
+      "Distinct banding pattern",
+      "Relatively slender",
+      "Typically found in marshy areas"
+    ]
+  },
+  "Regina septemvittata": {
+    "hints": [
+      "Seven light stripes down the body",
+      "Small, slender body",
+      "Typically found in wetlands"
+    ]
+  },
+  "Thamnophis saurita": {
+    "hints": [
+      "Distinctive light stripes on a dark body",
+      "Relatively slender"
+    ]
+  },
+  "Storeria dekayi": {
+    "hints": [
+      "Brown or gray body with spots",
+      "Small size",
+      "Short, stout body"
+    ]
+  },
+  "Storeria occipitomaculata": {
+    "hints": [
+      "Distinctive spots on the head",
+      "Relatively pronounced coloration"
+    ]
+  },
+  "Diadophis punctatus": {
+    "hints": [
+      "Bright yellow or orange belly",
+      "Small size",
+      "Dark body with a smooth texture"
+    ]
+  },
+  "Contia tenuis": {
+    "hints": [
+      "Thin, elongated body",
+      "Less vibrant coloration",
+      "Often found in leaf litter"
+    ]
+  },
+  "Tantilla coronata": {
+    "hints": [
+      "Small size with a slender body",
+      "Dark coloration with lighter belly"
+    ]
+  },
+  "Tantilla relicta": {
+    "hints": [
+      "Relatively pronounced colors",
+      "Small and slender"
+    ]
+  },
+  "Lichanura trivirgata": {
+    "hints": [
+      "Distinct three stripes along the back",
+      "Relatively stout body",
+      "Smooth scales"
+    ]
+  },
+  "Charina bottae": {
+    "hints": [
+      "Uniform brown or gray coloration",
+      "Relatively thick body",
+      "Not very distinct markings"
+    ]
+  },
+  "Eryx johnii": {
+    "hints": [
+      "Robust body with smooth scales",
+      "Light brown or tan coloration",
+      "Relatively short length"
+    ]
+  },
+  "Eryx conicus": {
+    "hints": [
+      "Relatively pronounced patterns on the body",
+      "Typically found in arid regions",
+      "Relatively thick"
+    ]
+  },
+  "Acrochordus granulatus": {
+    "hints": [
+      "Distinctive rough texture",
+      "Dark coloration with lighter spots",
+      "Relatively short and stout"
+    ]
+  },
+  "Acrochordus javanicus": {
+    "hints": [
+      "Relatively elongated body",
+      "Not very pronounced rough texture",
+      "Typically found in freshwater"
+    ]
+  },
+  "Laticauda colubrina": {
+    "hints": [
+      "Distinct bands of black and yellow",
+      "Long, slender body"
+    ]
+  },
+  "Hydrophis platurus": {
+    "hints": [
+      "Relatively uniform coloration",
+      "Relatively flat body"
+    ]
+  },
+  "Micrurus fulvius": {
+    "hints": [
+      "Bright red, yellow, and black bands",
+      "Short and stout body"
+    ]
+  },
+  "Micrurus tener": {
+    "hints": [
+      "Not very vibrant coloration",
+      "Body relatively long"
+    ]
+  },
+  "Chilabothrus striatus": {
+    "hints": [
+      "Distinct stripes along the body",
+      "Large size",
+      "Typically found in forests"
+    ]
+  },
+  "Chilabothrus inornatus": {
+    "hints": [
+      "Relatively uniform coloration",
+      "Not very pronounced markings",
+      "Relatively thin body"
+    ]
+  },
+  "Boiga irregularis": {
+    "hints": [
+      "Long, slender body",
+      "Distinct banding pattern",
+      "Often found in trees"
+    ]
+  },
+  "Boiga cynodon": {
+    "hints": [
+      "Not very pronounced bands",
+      "Relatively vibrant coloration",
+      "Typically found on the ground"
+    ]
+  },
+  "Oligodon octolineatus": {
+    "hints": [
+      "Distinctive eight stripes",
+      "Small size",
+      "Typically found in leaf litter"
+    ]
+  },
+  "Oligodon fasciolatus": {
+    "hints": [
+      "Relatively subdued coloration",
+      "Not very distinct banding",
+      "Often found in grasslands"
+    ]
   }
 }
