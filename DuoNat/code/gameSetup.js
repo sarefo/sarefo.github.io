@@ -85,6 +85,8 @@ const gameSetup = {
         },
 
         async setupGameWithPreloadedPair(preloadedPair) {
+            game.resetShownHints();
+
             logger.debug(`Setting up game with preloaded pair: ${preloadedPair.pair.taxon1} / ${preloadedPair.pair.taxon2}, Skill Level: ${preloadedPair.pair.level}`);
             logger.debug(`Current selected level: ${gameState.selectedLevel}`);
 
@@ -111,6 +113,8 @@ const gameSetup = {
 
         async initializeNewPair(urlParams = {}) {
             let newPair, imageOneURL, imageTwoURL;
+
+            game.resetShownHints();
 
             if (game.nextSelectedPair) {
                 newPair = game.nextSelectedPair;
@@ -288,6 +292,9 @@ const gameSetup = {
                 leftVernacular,
                 rightVernacular
             );
+
+            elements.imageOne.alt = `${randomized ? pair.taxon1 : pair.taxon2} Image`;
+            elements.imageTwo.alt = `${randomized ? pair.taxon2 : pair.taxon1} Image`;
 
             // Add world maps
             const leftContinents = await gameSetup.taxonHandling.getContinentForTaxon(randomized ? pair.taxon1 : pair.taxon2);

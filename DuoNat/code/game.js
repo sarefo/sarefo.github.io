@@ -30,9 +30,21 @@ const game = {
             taxon2: []
         }
     },
+    shownHints: {
+        taxon1: [],
+        taxon2: []
+    },
 
     setState(newState) {
         this.currentState = newState;
+    },
+
+    resetShownHints() {
+        logger.debug('Resetting shown hints');
+        this.shownHints = {
+            taxon1: [],
+            taxon2: []
+        };
     },
 
     imageManagement: {

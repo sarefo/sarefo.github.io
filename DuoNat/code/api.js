@@ -150,6 +150,17 @@ const api = (() => {
                 }
             },
 
+            fetchTaxonHints: async function(taxonId) {
+                try {
+                    const taxonInfo = await this.loadTaxonInfo();
+                    const taxonData = taxonInfo[taxonId];
+                    return taxonData && taxonData.hints ? taxonData.hints : null;
+                } catch (error) {
+                    logger.error('Error in fetchTaxonHints:', error);
+                    return null;
+                }
+            },
+
             async getAncestryFromLocalData(taxonName) {
                 const taxonInfo = await api.taxonomy.loadTaxonInfo();
                 const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxonName.toLowerCase());

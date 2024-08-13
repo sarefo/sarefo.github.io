@@ -1,16 +1,16 @@
 {
 "Felidae": {
 "hints": [
-"Retractable claws",
-"Slender body",
-"Excellent night vision"
+"Relatively flat lower jaw",
+"Relatively triangular-shaped nose",
+"Eyes narrow to vertical slits"
 ]
 },
 "Canidae": {
 "hints": [
-"Non-retractable claws",
-"Bushy tail",
-"Excellent sense of smell"
+"Relatively long, narrow snout",
+"Round or oval-shaped nose",
+"Eyes narrow to small circles"
 ]
 },
 "Canis lupus": {

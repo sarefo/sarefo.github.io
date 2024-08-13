@@ -554,22 +554,46 @@ const eventHandlers = {
 
     hintButton: {
         showHint: async function(index) {
-            const taxonId = gameState.currentTaxonImageCollection.pair[`taxon${index}`];
-            const taxonInfo = await api.taxonomy.loadTaxonInfo(taxonId);
+            const imageContainer = document.getElementById(`image-container-${index}`);
+            const taxonName = imageContainer.querySelector('img').alt.split(' Image')[0];
+            const taxonInfo = await api.taxonomy.loadTaxonInfo();
+            const taxonId = Object.keys(taxonInfo).find(id => taxonInfo[id].taxonName === taxonName);
             
-            if (taxonInfo && taxonInfo.hints) {
-                const imageContainer = document.getElementById(`image-container-${index}`);
-                const hintOverlay = document.createElement('div');
-                hintOverlay.className = 'hint-overlay';
-                hintOverlay.textContent = taxonInfo.hint;
+            if (!taxonId) {
+                logger.warn(`Could not find ID for taxon: ${taxonName}`);
+                return;
+            }
+            
+            const hints = await api.taxonomy.fetchTaxonHints(taxonId);
+            logger.debug(`Fetched hints for ${taxonName}:`, hints);
+            
+            if (hints && hints.length > 0) {
+                let shownHints = game.shownHints[`taxon${index}`];
                 
-                imageContainer.appendChild(hintOverlay);
+                // If all hints have been shown, reset the shown hints
+                if (shownHints.length >= hints.length) {
+                    shownHints = [];
+                    game.shownHints[`taxon${index}`] = [];
+                }
                 
-                setTimeout(() => {
-                    hintOverlay.remove();
-                }, 3000); // Show hint for 3 seconds
+                const availableHints = hints.filter(hint => !shownHints.includes(hint));
+                
+                if (availableHints.length > 0) {
+                    const randomHint = availableHints[Math.floor(Math.random() * availableHints.length)];
+                    game.shownHints[`taxon${index}`].push(randomHint);
+                    
+                    const hintOverlay = document.createElement('div');
+                    hintOverlay.className = 'hint-overlay';
+                    hintOverlay.textContent = randomHint;
+                    
+                    imageContainer.appendChild(hintOverlay);
+                    
+                    setTimeout(() => {
+                        hintOverlay.remove();
+                    }, 3000); // Show hint for 3 seconds
+                }
             } else {
-                console.log('No hint available for this taxon');
+                logger.warn(`No hints available for ${taxonName} (ID: ${taxonId})`);
             }
         },
 
