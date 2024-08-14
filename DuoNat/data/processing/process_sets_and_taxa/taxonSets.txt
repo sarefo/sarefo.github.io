@@ -298,7 +298,6 @@ Formicidae,Myrmarachnini
 Formicinae,Myrmicinae
 Myrmeciinae,Myrmicinae
 Dolichoderinae,Camponotus
-
 Ponerinae,Camponotus
 Ponerinae,Paraponerinae
 Anoplolepis gracilipes,Solenopsis invicta
@@ -339,6 +338,7 @@ Caelifera,Ensifera
 Tettigoniidae,Acridoidea
 Forficula auricularia,Chelidurella acanthopygia
 Calopteryx virgo,Calopteryx splendens
+
 Aeshna cyanea,Aeshna mixta
 Sympetrum striolatum,Sympetrum vulgatum
 Libellula depressa,Libellula quadrimaculata
@@ -359,6 +359,7 @@ Anisoptera,Zygoptera
 Odonata,Ascalaphinae
 Bacillus rossius,Bacillus atticus
 Clonopsis gallica,Pijnackeria hispanica
+
 Carausius morosus,Medauroidea extradentata
 Cicada orni,Lyristes plebejus
 Tibicina haematodes,Tibicina quadrisignata

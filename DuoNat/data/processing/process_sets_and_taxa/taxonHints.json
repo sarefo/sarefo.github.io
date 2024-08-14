@@ -3973,5 +3973,508 @@
       "Robust body structure",
       "Usually black or bicolored"
     ]
+  },
+  "Ponerinae": {
+    "hints": [
+      "Relatively large ants",
+      "Powerful sting"
+    ]
+  },
+  "Camponotus": {
+    "hints": [
+      "Large ants",
+      "Diverse shapes"
+    ]
+  },
+  "Paraponerinae": {
+    "hints": [
+      "Relatively small ants"
+    ]
+  },
+  "Anoplolepis gracilipes": {
+    "hints": [
+      "Long legs and antennae",
+      "Reddish-brown color"
+    ]
+  },
+  "Solenopsis invicta": {
+    "hints": [
+      "Small ants"
+    ]
+  },
+  "Syrphidae": {
+    "hints": [
+      "Wasp-like appearance"
+    ]
+  },
+  "Vespoidea": {
+    "hints": [
+      "Narrow waist"
+    ]
+  },
+  "Lucanus cervus": {
+    "hints": [
+      "Antler-like mandibles in males"
+    ]
+  },
+  "Prionus coriarius": {
+    "hints": [
+      "Serrated antennae"
+    ]
+  },
+  "Coccinella septempunctata": {
+    "hints": [
+      "Seven black spots on red wing covers",
+      "Rounded body shape"
+    ]
+  },
+  "Harmonia axyridis": {
+    "hints": [
+      "Variable number of spots",
+      "Dome-shaped body"
+    ]
+  },
+  "Cicindela campestris": {
+    "hints": [
+      "Green metallic color",
+      "Long legs for running"
+    ]
+  },
+  "Cicindela hybrida": {
+    "hints": [
+      "Brownish-green color",
+      "White spots on wing covers"
+    ]
+  },
+  "Cerambyx cerdo": {
+    "hints": [
+      "Large longhorn beetle",
+      "Antennae longer than body"
+    ]
+  },
+  "Cerambyx scopolii": {
+    "hints": [
+      "Smaller than <i>Cerambyx cerdo</i>",
+      "Antennae not very long"
+    ]
+  },
+  "Melolontha melolontha": {
+    "hints": [
+      "Large brown beetle",
+      "White patches on wing covers"
+    ]
+  },
+  "Amphimallon solstitiale": {
+    "hints": [
+      "Smaller than <i>Melolontha melolontha</i>",
+      "Uniform brown color"
+    ]
+  },
+  "Ips typographus": {
+    "hints": [
+      "Striped pattern on wing covers"
+    ]
+  },
+  "Ips sexdentatus": {
+    "hints": [
+      "Larger than <i>Ips typographus</i>",
+      "Uniform brown color"
+    ]
+  },
+  "Adalia bipunctata": {
+    "hints": [
+      "Two black spots on red wing covers",
+      "Rounded body shape"
+    ]
+  },
+  "Adalia decempunctata": {
+    "hints": [
+      "Variable number of spots",
+      "Oval body shape"
+    ]
+  },
+  "Propylea quatuordecimpunctata": {
+    "hints": [
+      "Fourteen black spots on yellow wing covers",
+      "Oval body shape"
+    ]
+  },
+  "Psyllobora vigintiduopunctata": {
+    "hints": [
+      "Twenty-two white spots on yellow wing covers",
+      "Rounded body shape"
+    ]
+  },
+  "Hippodamia variegata": {
+    "hints": [
+      "White spots on red wing covers",
+      "Oval body shape"
+    ]
+  },
+  "Hippodamia tredecimpunctata": {
+    "hints": [
+      "Thirteen black spots on orange wing covers",
+      "Oval body shape"
+    ]
+  },
+  "Anatis ocellata": {
+    "hints": [
+      "Large ladybird",
+      "Eyespot-like spots on wing covers"
+    ]
+  },
+  "Calvia quatuordecimguttata": {
+    "hints": [
+      "Fourteen white spots on orange wing covers",
+      "Oval body shape"
+    ]
+  },
+  "Coccinella undecimpunctata": {
+    "hints": [
+      "Eleven black spots on red wing covers",
+      "Rounded body shape"
+    ]
+  },
+  "Coccinella magnifica": {
+    "hints": [
+      "Eleven black spots on orange wing covers",
+      "Oval body shape"
+    ]
+  },
+  "Halyzia sedecimguttata": {
+    "hints": [
+      "Sixteen white spots on yellow wing covers",
+      "Oval body shape"
+    ]
+  },
+  "Vibidia duodecimguttata": {
+    "hints": [
+      "Twelve white spots on yellow wing covers",
+      "Oval body shape"
+    ]
+  },
+  "Myrrha octodecimguttata": {
+    "hints": [
+      "Eighteen white spots on orange wing covers",
+      "Oval body shape"
+    ]
+  },
+  "Sospita vigintiguttata": {
+    "hints": [
+      "Twenty white spots on orange wing covers",
+      "Oval body shape"
+    ]
+  },
+  "Chilocorus renipustulatus": {
+    "hints": [
+      "Kidney-shaped spots on black wing covers",
+      "Dome-shaped body"
+    ]
+  },
+  "Chilocorus bipustulatus": {
+    "hints": [
+      "Two spots on black wing covers",
+      "Dome-shaped body"
+    ]
+  },
+  "Exochomus quadripustulatus": {
+    "hints": [
+      "Four spots on black wing covers",
+      "Dome-shaped body"
+    ]
+  },
+  "Platynaspis luteorubra": {
+    "hints": [
+      "Red and yellow wing covers",
+      "Oval body shape"
+    ]
+  },
+  "Subcoccinella vigintiquatuorpunctata": {
+    "hints": [
+      "Twenty-four spots on yellow wing covers",
+      "Oval body shape"
+    ]
+  },
+  "Cynegetis impunctata": {
+    "hints": [
+      "Uniform yellow wing covers",
+      "Oval body shape"
+    ]
+  },
+  "Anisosticta novemdecimpunctata": {
+    "hints": [
+      "Distinct black spots on yellow body",
+      "Wings have dark edges",
+      "Body shape is elongated"
+    ]
+  },
+  "Coccinula quatuordecimpustulata": {
+    "hints": [
+      "Body is round and small",
+      "Red with black spots",
+      "Spots are relatively large"
+    ]
+  },
+  "Harmonia quadripunctata": {
+    "hints": [
+      "Four black spots on red background",
+      "Body is oval-shaped",
+      "Spots are evenly spaced"
+    ]
+  },
+  "Harmonia conformis": {
+    "hints": [
+      "Smaller body than <i>Harmonia quadripunctata</i>",
+      "Not many spots, often absent",
+      "Body color varies from red to orange"
+    ]
+  },
+  "Oenopia conglobata": {
+    "hints": [
+      "Body is dome-shaped",
+      "White or yellow with black spots",
+      "Spots are irregularly shaped"
+    ]
+  },
+  "Oenopia lyncea": {
+    "hints": [
+      "More elongated body than <i>Oenopia conglobata</i>",
+      "Not many and small spots",
+      "Color is typically orange"
+    ]
+  },
+  "Coleomegilla maculata": {
+    "hints": [
+      "Body is elongated and oval",
+      "Distinct black and white markings",
+      "Often has orange coloration"
+    ]
+  },
+  "Hippodamia convergens": {
+    "hints": [
+      "Body is round and shiny",
+      "Typically has 12 black spots",
+      "Spots are evenly distributed"
+    ]
+  },
+  "Coccinella hieroglyphica": {
+    "hints": [
+      "Distinct hieroglyph-like markings",
+      "Body is oval and shiny",
+      "Color ranges from orange to red"
+    ]
+  },
+  "Coccinella trifasciata": {
+    "hints": [
+      "Three distinctive black stripes",
+      "Body is elongated and flat",
+      "Color is typically red"
+    ]
+  },
+  "Cheilomenes sexmaculata": {
+    "hints": [
+      "Six prominent black spots",
+      "Body is round and shiny",
+      "Color varies from yellow to orange"
+    ]
+  },
+  "Coccinella transversalis": {
+    "hints": [
+      "Two black transverse stripes",
+      "Body is oval-shaped",
+      "Color is usually yellow"
+    ]
+  },
+  "Mantis religiosa": {
+    "hints": [
+      "Long and slender body",
+      "Triangular head with bulging eyes",
+      "Front legs are adapted for grasping"
+    ]
+  },
+  "Tenodera sinensis": {
+    "hints": [
+      "Larger body than <i>Mantis religiosa</i>",
+      "Relatively long and slender antennae",
+      "Green coloration is common"
+    ]
+  },
+  "Empusa pennata": {
+    "hints": [
+      "Very elongated body",
+      "Fringed appearance on limbs",
+      "Color varies from brown to green"
+    ]
+  },
+  "Empusa fasciata": {
+    "hints": [
+      "Body has distinct banding",
+      "More robust than <i>Empusa pennata</i>",
+      "Often has a colorful appearance"
+    ]
+  },
+  "Ameles spallanzania": {
+    "hints": [
+      "Small and slender body",
+      "Color is typically brown",
+      "Camouflaged against vegetation"
+    ]
+  },
+  "Ameles decolor": {
+    "hints": [
+      "Lighter coloration than <i>Ameles spallanzania</i>",
+      "Pronounced markings"
+    ]
+  },
+  "Sphodromantis viridis": {
+    "hints": [
+      "Bright green coloration",
+      "Large size compared to others",
+      "Wings are often held flat"
+    ]
+  },
+  "Hierodula membranacea": {
+    "hints": [
+      "Long and slender limbs",
+      "Color ranges from green to brown",
+      "Wings are transparent"
+    ]
+  },
+  "Hierodula patellifera": {
+    "hints": [
+      "Broader body than <i>Hierodula membranacea</i>",
+      "Distinctive flat head shape",
+      "Color is typically brown or green"
+    ]
+  },
+  "Tropidomantis gressitti": {
+    "hints": [
+      "Body has leaf-like appearance",
+      "Color is usually green",
+      "Long antennae that resemble twigs"
+    ]
+  },
+  "Gryllus campestris": {
+    "hints": [
+      "Body is robust and dark",
+      "Long, slender antennae",
+      "Wings are short and rounded"
+    ]
+  },
+  "Gryllus bimaculatus": {
+    "hints": [
+      "Two distinctive light spots",
+      "Color is typically brown"
+    ]
+  },
+  "Tettigonia viridissima": {
+    "hints": [
+      "Large size with green coloration",
+      "Long hind legs for jumping",
+      "Distinctive leaf-like appearance"
+    ]
+  },
+  "Tettigonia cantans": {
+    "hints": [
+      "Smaller than <i>Tettigonia viridissima</i>",
+      "Color can be brown or green",
+      "Pronounced wing structure"
+    ]
+  },
+  "Phaneroptera falcata": {
+    "hints": [
+      "Body shape resembles a leaf",
+      "Color is typically green",
+      "Long, slender antennae"
+    ]
+  },
+  "Phaneroptera nana": {
+    "hints": [
+      "Smaller body than <i>Phaneroptera falcata</i>",
+      "Rounded leaf shape",
+      "Color ranges from green to brown"
+    ]
+  },
+  "Conocephalus fuscus": {
+    "hints": [
+      "Dark brown body color",
+      "Long, slender limbs",
+      "Wings are long and narrow"
+    ]
+  },
+  "Conocephalus dorsalis": {
+    "hints": [
+      "Lighter coloration than <i>Conocephalus fuscus</i>",
+      "Distinctive stripe along the back"
+    ]
+  },
+  "Meconema thalassinum": {
+    "hints": [
+      "Green coloration with slender body",
+      "Long antennae that are longer than body",
+      "Wings are short and rounded"
+    ]
+  },
+  "Meconema meridionale": {
+    "hints": [
+      "Body is more robust than <i>Meconema thalassinum</i>",
+      "Color can vary from brown to green",
+      "Relatively long wings that extend beyond body"
+    ]
+  },
+  "Caelifera": {
+    "hints": [
+      "Short antennae compared to body length",
+      "Body is typically stout",
+      "Color varies widely among species"
+    ]
+  },
+  "Ensifera": {
+    "hints": [
+      "Long antennae that exceed body length",
+      "Body is often slender",
+      "Relatively pronounced wings in many species"
+    ]
+  },
+  "Tettigoniidae": {
+    "hints": [
+      "Often green with leaf-like shapes",
+      "Long hind legs for jumping",
+      "Distinctive sound-producing organs"
+    ]
+  },
+  "Acridoidea": {
+    "hints": [
+      "Typically brown or tan coloration",
+      "Shorter antennae than <i>Tettigoniidae</i>",
+      "Body is relatively robust and stout"
+    ]
+  },
+  "Forficula auricularia": {
+    "hints": [
+      "Distinctive pincers on the rear",
+      "Body is elongated and flat",
+      "Color is typically brown"
+    ]
+  },
+  "Chelidurella acanthopygia": {
+    "hints": [
+      "More slender body than <i>Forficula auricularia</i>",
+      "Pincers are not very pronounced",
+      "Color can vary from dark to light brown"
+    ]
+  },
+  "Calopteryx virgo": {
+    "hints": [
+      "Metallic blue-green wings",
+      "Body is slender and elongated",
+      "Wings are held flat when resting"
+    ]
+  },
+  "Calopteryx splendens": {
+    "hints": [
+      "Brighter coloration than <i>Calopteryx virgo</i>",
+      "Wings have a rather iridescent appearance"
+    ]
   }
 }

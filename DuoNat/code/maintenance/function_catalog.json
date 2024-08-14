@@ -1,0 +1,618 @@
+{
+  "api.js": [
+    {
+      "name": "api",
+      "parameters": [],
+      "line": 9
+    },
+    {
+      "name": "getTaxonomyHierarchy",
+      "parameters": [],
+      "line": 47
+    },
+    {
+      "name": "handleApiError",
+      "parameters": [],
+      "line": 4
+    },
+    {
+      "name": "api",
+      "parameters": [],
+      "line": 9
+    }
+  ],
+  "config.js": [],
+  "currentPair.js": [],
+  "currentSet.js": [],
+  "d3Graphs.js": [
+    {
+      "name": "loadD3",
+      "parameters": [],
+      "line": 3
+    },
+    {
+      "name": "createRadialTree",
+      "parameters": [
+        "container",
+        "rootNode"
+      ],
+      "line": 10
+    },
+    {
+      "name": "update",
+      "parameters": [
+        "source"
+      ],
+      "line": 68
+    },
+    {
+      "name": "click",
+      "parameters": [
+        "event",
+        "d"
+      ],
+      "line": 191
+    },
+    {
+      "name": "diagonal",
+      "parameters": [
+        "source",
+        "target"
+      ],
+      "line": 211
+    },
+    {
+      "name": "radialPoint",
+      "parameters": [
+        "x",
+        "y"
+      ],
+      "line": 217
+    },
+    {
+      "name": "createHierarchicalTree",
+      "parameters": [
+        "container",
+        "rootNode"
+      ],
+      "line": 247
+    },
+    {
+      "name": "update",
+      "parameters": [
+        "source"
+      ],
+      "line": 287
+    },
+    {
+      "name": "diagonal",
+      "parameters": [
+        "s",
+        "d"
+      ],
+      "line": 388
+    },
+    {
+      "name": "expand",
+      "parameters": [
+        "d"
+      ],
+      "line": 395
+    }
+  ],
+  "dialogManager.js": [
+    {
+      "name": "openDialog",
+      "parameters": [
+        "dialogId"
+      ],
+      "line": 47
+    },
+    {
+      "name": "closeDialog",
+      "parameters": [
+        "dialogId"
+      ],
+      "line": 80
+    },
+    {
+      "name": "initializeReportDialog",
+      "parameters": [],
+      "line": 233
+    },
+    {
+      "name": "handleReportSubmit",
+      "parameters": [
+        "event"
+      ],
+      "line": 419
+    },
+    {
+      "name": "sendReportEmail",
+      "parameters": [
+        "body"
+      ],
+      "line": 580
+    },
+    {
+      "name": "copyToClipboard",
+      "parameters": [
+        "text"
+      ],
+      "line": 608
+    },
+    {
+      "name": "fallbackCopyToClipboard",
+      "parameters": [
+        "text"
+      ],
+      "line": 623
+    },
+    {
+      "name": "resetReportDialog",
+      "parameters": [],
+      "line": 641
+    },
+    {
+      "name": "getReportTypeText",
+      "parameters": [
+        "type"
+      ],
+      "line": 658
+    },
+    {
+      "name": "handleKeyPress",
+      "parameters": [],
+      "line": 192
+    },
+    {
+      "name": "checkStatusHandler",
+      "parameters": [],
+      "line": 556
+    },
+    {
+      "name": "bindMethodsInObject",
+      "parameters": [],
+      "line": 681
+    }
+  ],
+  "dragAndDrop.js": [],
+  "eventHandlers.js": [
+    {
+      "name": "getCachedVernacularName",
+      "parameters": [
+        "taxonName"
+      ],
+      "line": 15
+    },
+    {
+      "name": "initializeMainMenuListeners",
+      "parameters": [],
+      "line": 225
+    },
+    {
+      "name": "likePair",
+      "parameters": [],
+      "line": 294
+    },
+    {
+      "name": "trashPair",
+      "parameters": [],
+      "line": 300
+    },
+    {
+      "name": "handleSearchKeydown",
+      "parameters": [
+        "event"
+      ],
+      "line": 526
+    },
+    {
+      "name": "openFirstTaxonSet",
+      "parameters": [],
+      "line": 554
+    },
+    {
+      "name": "initialize",
+      "parameters": [],
+      "line": 606
+    },
+    {
+      "name": "disableSwipe",
+      "parameters": [],
+      "line": 724
+    },
+    {
+      "name": "enableSwipe",
+      "parameters": [],
+      "line": 728
+    },
+    {
+      "name": "addMenuListener",
+      "parameters": [],
+      "line": 226
+    }
+  ],
+  "functions.js": [
+    {
+      "name": "initializeApp",
+      "parameters": [],
+      "line": 19
+    }
+  ],
+  "game.js": [
+    {
+      "name": "shouldRetryFetch",
+      "parameters": [
+        "error",
+        "attempts",
+        "maxAttempts"
+      ],
+      "line": 109
+    },
+    {
+      "name": "initializeInfoButtons",
+      "parameters": [],
+      "line": 140
+    },
+    {
+      "name": "setupButtonHandlers",
+      "parameters": [
+        "url",
+        "currentTaxon"
+      ],
+      "line": 154
+    },
+    {
+      "name": "positionDialog",
+      "parameters": [
+        "dialog",
+        "imageIndex"
+      ],
+      "line": 305
+    },
+    {
+      "name": "frameImage",
+      "parameters": [
+        "imageIndex"
+      ],
+      "line": 328
+    },
+    {
+      "name": "onload",
+      "parameters": [],
+      "line": 60
+    },
+    {
+      "name": "onclick",
+      "parameters": [],
+      "line": 161
+    },
+    {
+      "name": "onclick",
+      "parameters": [],
+      "line": 166
+    },
+    {
+      "name": "onclick",
+      "parameters": [],
+      "line": 181
+    },
+    {
+      "name": "onclick",
+      "parameters": [],
+      "line": 190
+    },
+    {
+      "name": "positionDialog",
+      "parameters": [],
+      "line": 208
+    },
+    {
+      "name": "onclick",
+      "parameters": [],
+      "line": 275
+    }
+  ],
+  "gameLogic.js": [
+    {
+      "name": "isPairValidForCurrentFilters",
+      "parameters": [
+        "pair"
+      ],
+      "line": 102
+    },
+    {
+      "name": "filterTaxonPairs",
+      "parameters": [
+        "taxonPairs",
+        "filters"
+      ],
+      "line": 159
+    },
+    {
+      "name": "applyFilters",
+      "parameters": [
+        "newFilters"
+      ],
+      "line": 171
+    }
+  ],
+  "gameSetup.js": [
+    {
+      "name": "hideLoadingScreen",
+      "parameters": [],
+      "line": 253
+    }
+  ],
+  "gameUI.js": [],
+  "logger.js": [],
+  "preloader.js": [
+    {
+      "name": "onload",
+      "parameters": [],
+      "line": 18
+    },
+    {
+      "name": "onerror",
+      "parameters": [],
+      "line": 19
+    }
+  ],
+  "rangeSelector.js": [],
+  "setManager.js": [],
+  "state.js": [
+    {
+      "name": "updateGameState",
+      "parameters": [
+        "newState"
+      ],
+      "line": 81
+    }
+  ],
+  "tagCloud.js": [],
+  "taxaRelationshipViewer.js": [
+    {
+      "name": "getAncestors",
+      "parameters": [],
+      "line": 230
+    },
+    {
+      "name": "addNodeAndEdges",
+      "parameters": [],
+      "line": 253
+    },
+    {
+      "name": "processAncestry",
+      "parameters": [],
+      "line": 291
+    }
+  ],
+  "taxonomyHierarchy.js": [],
+  "testingDialog.js": [],
+  "tooltipManager.js": [],
+  "ui.js": [
+    {
+      "name": "getCachedVernacularName",
+      "parameters": [
+        "taxonName"
+      ],
+      "line": 24
+    },
+    {
+      "name": "getChiliHtml",
+      "parameters": [
+        "level"
+      ],
+      "line": 420
+    },
+    {
+      "name": "focusSearchInput",
+      "parameters": [],
+      "line": 429
+    },
+    {
+      "name": "updateActiveCollectionCount",
+      "parameters": [
+        "count"
+      ],
+      "line": 443
+    },
+    {
+      "name": "showTutorial",
+      "parameters": [],
+      "line": 464
+    },
+    {
+      "name": "endTutorial",
+      "parameters": [],
+      "line": 554
+    },
+    {
+      "name": "disableInteractions",
+      "parameters": [],
+      "line": 569
+    },
+    {
+      "name": "enableInteractions",
+      "parameters": [],
+      "line": 597
+    },
+    {
+      "name": "fadeOutOverlayMessage",
+      "parameters": [
+        "callback"
+      ],
+      "line": 616
+    },
+    {
+      "name": "fadeInOverlayMessage",
+      "parameters": [],
+      "line": 625
+    },
+    {
+      "name": "temporarilyOpenMenu",
+      "parameters": [
+        "duration"
+      ],
+      "line": 631
+    },
+    {
+      "name": "animateDragDemo",
+      "parameters": [],
+      "line": 638
+    },
+    {
+      "name": "tiltGameContainer",
+      "parameters": [
+        "duration = 3200"
+      ],
+      "line": 679
+    },
+    {
+      "name": "createHighlight",
+      "parameters": [
+        "targetSelector",
+        "duration"
+      ],
+      "line": 701
+    },
+    {
+      "name": "bindAllMethods",
+      "parameters": [],
+      "line": 12
+    },
+    {
+      "name": "onclick",
+      "parameters": [],
+      "line": 345
+    },
+    {
+      "name": "action",
+      "parameters": [],
+      "line": 477
+    },
+    {
+      "name": "action",
+      "parameters": [],
+      "line": 483
+    },
+    {
+      "name": "action",
+      "parameters": [],
+      "line": 488
+    },
+    {
+      "name": "showStep",
+      "parameters": [],
+      "line": 496
+    },
+    {
+      "name": "animate",
+      "parameters": [],
+      "line": 650
+    }
+  ],
+  "utils.js": [
+    {
+      "name": "shareCurrentPair",
+      "parameters": [],
+      "line": 20
+    },
+    {
+      "name": "resetDraggables",
+      "parameters": [],
+      "line": 131
+    },
+    {
+      "name": "executedFunction",
+      "parameters": [
+        "...args"
+      ],
+      "line": 150
+    },
+    {
+      "name": "later",
+      "parameters": [],
+      "line": 151
+    }
+  ],
+  "version.js": [
+    {
+      "name": "updateVersion",
+      "parameters": [],
+      "line": 3
+    },
+    {
+      "name": "loadQRCodeScript",
+      "parameters": [],
+      "line": 52
+    }
+  ],
+  "worldMap.js": [
+    {
+      "name": "getFullContinentName",
+      "parameters": [
+        "abbreviation"
+      ],
+      "line": 13
+    },
+    {
+      "name": "getContinentAbbreviation",
+      "parameters": [
+        "fullName"
+      ],
+      "line": 17
+    },
+    {
+      "name": "drawWorldMap",
+      "parameters": [
+        "container",
+        "highlightedContinents",
+        "isClickable = false",
+        "onContinentClick = null"
+      ],
+      "line": 22
+    },
+    {
+      "name": "createWorldMap",
+      "parameters": [
+        "container",
+        "highlightedContinents"
+      ],
+      "line": 74
+    },
+    {
+      "name": "toggle",
+      "parameters": [],
+      "line": 84
+    },
+    {
+      "name": "createGlobeIcon",
+      "parameters": [],
+      "line": 119
+    },
+    {
+      "name": "toggleAllWorldMaps",
+      "parameters": [],
+      "line": 136
+    },
+    {
+      "name": "createClickableWorldMap",
+      "parameters": [
+        "container",
+        "selectedContinents",
+        "onContinentClick"
+      ],
+      "line": 142
+    },
+    {
+      "name": "createNonClickableWorldMap",
+      "parameters": [
+        "container",
+        "selectedContinents"
+      ],
+      "line": 147
+    }
+  ]
+}

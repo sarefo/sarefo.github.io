@@ -4,6 +4,8 @@ Taxa on the same line are compared to each other, so focus on differences betwee
 
 Each entry should have one to five helpful hints that help a user to distinguish taxa based on random photographs. That means that only features that are visible on wildlife pictures should be considered! So things like behavior, sounds or gestation periods would not be allowed. Also, body size is sometimes tricky to estimate on pictures.
 
+Don't give any other information, such as vernacular name.
+
 Each hint should not be longer than twelve words or so.
 
 This is for a lay audience, so don't be technical.
