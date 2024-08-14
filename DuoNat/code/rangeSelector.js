@@ -9,34 +9,6 @@ import api from './api.js';
 const rangeSelector = {
     selectedContinents: new Set(),
 
-    // Mapping between full names and abbreviations
-    continentMap: {
-        'North America': 'NA',
-        'South America': 'SA',
-        'Europe': 'EU',
-        'Africa': 'AF',
-        'Asia': 'AS',
-        'Oceania': 'OC'
-    },
-
-    initialize() {
-        const selectRangeButton = document.getElementById('select-range-button');
-        const rangeDialog = document.getElementById('range-dialog');
-        const doneButton = document.getElementById('range-done-button');
-
-        selectRangeButton.addEventListener('click', () => this.openRangeDialog());
-        doneButton.addEventListener('click', () => this.closeRangeDialog());
-
-        // Close button functionality
-        const closeButton = rangeDialog.querySelector('.dialog-close-button');
-        closeButton.addEventListener('click', () => this.closeRangeDialog());
-    },
-
-    openRangeDialog() {
-        dialogManager.openDialog('range-dialog');
-        this.initializeWorldMap();
-    },
-
     initializeWorldMap() {
         const container = document.getElementById('range-map-container');
         if (!container) {
@@ -44,22 +16,6 @@ const rangeSelector = {
             return;
         }
         createClickableWorldMap(container, this.selectedContinents, (continent) => this.toggleContinent(continent));
-    },
-
-    closeRangeDialog() {
-        dialogManager.closeDialog('range-dialog');
-        this.updateTaxonList();
-        ui.taxonPairList.updateFilterSummary();
-    },
-
-    getSelectedRanges() {
-        return Array.from(this.selectedContinents).map(fullName => getContinentAbbreviation(fullName));
-    },
-
-    setSelectedRanges(ranges) {
-        this.selectedContinents = new Set(ranges.map(abbr => getFullContinentName(abbr)));
-        this.initializeWorldMap();
-        ui.taxonPairList.updateFilterSummary();
     },
 
     toggleContinent(continent) {
@@ -75,7 +31,7 @@ const rangeSelector = {
     },
 
     async updateTaxonList() {
-        const selectedAbbreviations = Array.from(this.selectedContinents).map(fullName => this.continentMap[fullName]);
+        const selectedAbbreviations = Array.from(this.selectedContinents).map(fullName => getContinentAbbreviation(fullName));
 
         updateGameState({ selectedRanges: selectedAbbreviations });
 
@@ -94,8 +50,44 @@ const rangeSelector = {
             logger.error("Error updating taxon list:", error);
             ui.taxonPairList.updateTaxonPairList([]);
         }
-    }
+    },
 
+    // Not sure these two should be in public API
+    openRangeDialog() {
+        dialogManager.openDialog('range-dialog');
+        this.initializeWorldMap();
+    },
+
+    closeRangeDialog() {
+        dialogManager.closeDialog('range-dialog');
+        this.updateTaxonList();
+        ui.taxonPairList.updateFilterSummary();
+    },
+
+    // Public API:
+
+    getSelectedRanges() {
+        return Array.from(this.selectedContinents).map(fullName => getContinentAbbreviation(fullName));
+    },
+
+    setSelectedRanges(ranges) {
+        this.selectedContinents = new Set(ranges.map(abbr => getFullContinentName(abbr)));
+        this.initializeWorldMap();
+        ui.taxonPairList.updateFilterSummary();
+    },
+
+    initialize() {
+        const selectRangeButton = document.getElementById('select-range-button');
+        const rangeDialog = document.getElementById('range-dialog');
+        const doneButton = document.getElementById('range-done-button');
+
+        selectRangeButton.addEventListener('click', () => this.openRangeDialog());
+        doneButton.addEventListener('click', () => this.closeRangeDialog());
+
+        // Close button functionality
+        const closeButton = rangeDialog.querySelector('.dialog-close-button');
+        closeButton.addEventListener('click', () => this.closeRangeDialog());
+    },
 };
 
 export default rangeSelector;

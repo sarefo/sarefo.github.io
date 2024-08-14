@@ -71,3 +71,5 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Share button not found');
     }
 });
+
+// No Public API - no calls from other modules

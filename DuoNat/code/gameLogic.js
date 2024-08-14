@@ -283,7 +283,7 @@ const gameLogic = {
     // this function is very popular for some reason… too popular ;)
     filterTaxonPairs(taxonPairs, filters) {
         return this.filterHandling.filterTaxonPairs(taxonPairs, filters);
-    }
+    },
 
     applyFilters(newFilters) {
         this.filterHandling.applyFilters(newFilters);

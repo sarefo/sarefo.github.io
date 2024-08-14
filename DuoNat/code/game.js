@@ -1,7 +1,6 @@
 import api from './api.js';
 import dialogManager from './dialogManager.js';
 import { elements } from './state.js';
-import gameSetup from './gameSetup.js';
 import gameLogic from './gameLogic.js';
 import gameUI from './gameUI.js';
 import { GameState, gameState } from './state.js';
@@ -205,7 +204,7 @@ const game = {
         },
 
         showInfoDialog: async function (url, imageIndex) {
-            const currentTaxon = gameLogic.getCurrentTaxon(url);
+            const currentTaxon = gameLogic.getCurrentTaxon(url); // TODO FIX looks like unnecessary fetch from gameLogic?
             if (!currentTaxon) return;
 
             const dialog = document.getElementById('info-dialog');

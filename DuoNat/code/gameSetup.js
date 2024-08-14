@@ -13,6 +13,7 @@ import gameUI from './gameUI.js';
 
 let isSettingUpGame = false;
 
+
 const gameSetup = {
     initialization: {
         async checkINaturalistReachability() {
@@ -25,173 +26,260 @@ const gameSetup = {
             return true;
         },
 
-        async setupGame(newPair = false, urlParams = {}) {
-            if (isSettingUpGame) {
-                logger.debug("Setup already in progress, skipping");
-                return;
+        async runSetupSequence(newPair, urlParams) {
+            game.setState(GameState.LOADING);
+            if (!await this.initialization.checkINaturalistReachability()) return;
+
+            this.initialization.prepareUIForLoading();
+
+            if (newPair || !gameState.currentTaxonImageCollection) {
+                await this.initialization.initializeNewPair(urlParams);
+            } else {
+                await this.initialization.setupRound();
             }
-            isSettingUpGame = true;
 
-            try {
-                game.setState(GameState.LOADING);
-
-                if (!await this.initialization.checkINaturalistReachability()) { return; }
-
-                this.uiSetup.prepareUIForLoading();
-
-                try {
-                    if (newPair || !gameState.currentTaxonImageCollection) {
-                        await this.initialization.initializeNewPair(urlParams);
-                    } else {
-                        await this.uiSetup.setupRound();
-                    }
-
-                    // Update skill level indicator
-                    const level = gameState.currentTaxonImageCollection.pair.level;
-                    ui.levelIndicator.updateLevelIndicator(level);
-
-                    // If filters were cleared (which happens when '+' is pressed), update the UI
-                    if (gameState.selectedTags.length === 0 && gameState.selectedRanges.length === 0 && gameState.selectedLevel === '') {
-                        ui.taxonPairList.updateFilterSummary();
-                        ui.filters.updateLevelDropdown();
-                    }
-
-                    this.uiSetup.finishSetup();
-                    gameUI.layoutManagement.setNamePairHeight();
-
-                    game.setState(GameState.PLAYING);
-                    this.uiSetup.hideLoadingScreen();
-
-                    if (newPair) {
-                        await setManager.refreshSubset();
-                    }
-
-                    if (gameState.isInitialLoad) {
-                        updateGameState({ isInitialLoad: false });
-                    }
-
-                    ui.overlay.hideOverlay();
-                    ui.core.resetUIState();
-
-                    // Start preloading asynchronously
-                    preloader.startPreloading(newPair);
-                } catch (error) {
-                    this.errorHandling.handleSetupError(error);
-                }
-
-            } finally {
-                isSettingUpGame = false;
-            }
+            this.initialization.updateUIAfterSetup(newPair);
         },
 
-        async setupGameWithPreloadedPair(preloadedPair) {
-            game.resetShownHints();
+        prepareUIForLoading() {
+            utils.game.resetDraggables();
+            gameUI.imageHandling.prepareImagesForLoading();
+            const startMessage = gameState.isFirstLoad ? "Drag the names!" : game.getLoadingMessage();
+            ui.overlay.showOverlay(startMessage, config.overlayColors.green);
+            gameState.isFirstLoad = false;
+        },
 
+        async initializeNewPair(urlParams) {
+            const newPair = await this.initialization.selectNewPair(urlParams);
+            const images = await this.initialization.loadImagesForNewPair(newPair);
+            this.initialization.updateGameStateForNewPair(newPair, images);
+            await this.initialization.setupRound(true);
+        },
+
+        async selectNewPair(urlParams) {
+            game.resetShownHints();
+            let nextSelectedPair = game.getNextSelectedPair();
+            if (nextSelectedPair) {
+                game.setNextSelectedPair(null);
+                return nextSelectedPair;
+            }
+            return await this.initialization.selectPairFromFilters(urlParams);
+        },
+
+        async selectPairFromFilters(urlParams) {
+            const filters = this.initialization.createFiltersFromUrlParams(urlParams);
+            const filteredPairs = await utils.game.getFilteredTaxonPairs(filters);
+            return this.initialization.findOrSelectRandomPair(filteredPairs, urlParams);
+        },
+
+        createFiltersFromUrlParams(urlParams) {
+            return {
+                level: urlParams.level || gameState.selectedLevel,
+                ranges: urlParams.ranges ? urlParams.ranges.split(',') : gameState.selectedRanges,
+                tags: urlParams.tags ? urlParams.tags.split(',') : gameState.selectedTags,
+            };
+        },
+
+        findOrSelectRandomPair(filteredPairs, urlParams) {
+            let pair = this.initialization.findPairByUrlParams(filteredPairs, urlParams);
+            if (!pair) {
+                if (filteredPairs.length > 0) {
+                    pair = filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
+                    logger.debug("Selected random pair from filtered collection");
+                } else {
+                    throw new Error("No pairs available in the current filtered collection");
+                }
+            }
+            return pair;
+        },
+
+        findPairByUrlParams(filteredPairs, urlParams) {
+            if (urlParams.setID) {
+                return this.initialization.findPairBySetID(filteredPairs, urlParams.setID);
+            } else if (urlParams.taxon1 && urlParams.taxon2) {
+                return this.initialization.findPairByTaxa(filteredPairs, urlParams.taxon1, urlParams.taxon2);
+            }
+            return null;
+        },
+
+        findPairBySetID(filteredPairs, setID) {
+            const pair = filteredPairs.find(pair => pair.setID === setID);
+            if (pair) {
+                logger.debug(`Found pair with setID: ${setID}`);
+            } else {
+                logger.warn(`SetID ${setID} not found in filtered collection. Selecting random pair.`);
+            }
+            return pair;
+        },
+
+        findPairByTaxa(filteredPairs, taxon1, taxon2) {
+            const pair = filteredPairs.find(pair =>
+                (pair.taxonNames[0] === taxon1 && pair.taxonNames[1] === taxon2) ||
+                (pair.taxonNames[0] === taxon2 && pair.taxonNames[1] === taxon1)
+            );
+            if (pair) {
+                logger.debug(`Found pair with taxa: ${taxon1} and ${taxon2}`);
+            } else {
+                logger.warn(`Taxa ${taxon1} and ${taxon2} not found in filtered collection. Selecting random pair.`);
+            }
+            return pair;
+        },
+
+        async loadImagesForNewPair(newPair) {
+            const preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
+            if (preloadedImages && preloadedImages.pair.setID === newPair.setID) {
+                logger.debug(`Using preloaded images for set ID ${newPair.setID}`);
+                return preloadedImages;
+            }
+            return {
+                taxon1: await preloader.imageLoader.fetchDifferentImage(newPair.taxon1 || newPair.taxonNames[0], null),
+                taxon2: await preloader.imageLoader.fetchDifferentImage(newPair.taxon2 || newPair.taxonNames[1], null),
+            };
+        },
+
+        updateGameStateForNewPair(newPair, images) {
+            updateGameState({
+                currentTaxonImageCollection: {
+                    pair: newPair,
+                    imageOneURL: images.taxon1,
+                    imageTwoURL: images.taxon2,
+                    level: newPair.level || '1',
+                },
+                usedImages: {
+                    taxon1: new Set([images.taxon1]),
+                    taxon2: new Set([images.taxon2]),
+                },
+                currentSetID: newPair.setID || gameState.currentSetID,
+            });
+            ui.levelIndicator.updateLevelIndicator(newPair.level || '1');
+        },
+
+        async setupWithPreloadedPair(preloadedPair) {
+            game.resetShownHints();
             logger.debug(`Setting up game with preloaded pair: ${preloadedPair.pair.taxon1} / ${preloadedPair.pair.taxon2}, Skill Level: ${preloadedPair.pair.level}`);
             logger.debug(`Current selected level: ${gameState.selectedLevel}`);
 
             if (!preloader.pairPreloader.isPairValid(preloadedPair.pair)) {
                 logger.warn("Preloaded pair is no longer valid, fetching a new pair");
-                await this.initialization.setupGame(true);
+                await this.initialization.runSetupSequence(true, {});
                 return;
             }
 
+            this.initialization.updateGameStateForPreloadedPair(preloadedPair);
+            await this.initialization.setupRound(true);
+        },
+
+        updateGameStateForPreloadedPair(preloadedPair) {
             updateGameState({
                 currentTaxonImageCollection: {
                     pair: preloadedPair.pair,
                     imageOneURL: preloadedPair.taxon1,
-                    imageTwoURL: preloadedPair.taxon2
+                    imageTwoURL: preloadedPair.taxon2,
                 },
                 usedImages: {
                     taxon1: new Set([preloadedPair.taxon1]),
-                    taxon2: new Set([preloadedPair.taxon2])
-                }
+                    taxon2: new Set([preloadedPair.taxon2]),
+                },
             });
-
-            await this.uiSetup.setupRound(true);
         },
 
-        async initializeNewPair(urlParams = {}) {
-            let newPair, imageOneURL, imageTwoURL;
+        async setupRound(isNewPair = false) {
+            const { pair } = gameState.currentTaxonImageCollection;
+            const imageData = await this.initialization.loadAndSetupImages(pair, isNewPair);
+            await this.initialization.setupNameTiles(pair, imageData);
+            await this.initialization.setupWorldMaps(pair, imageData);
+            this.initialization.updateGameStateForRound(pair, imageData);
+        },
 
-            game.resetShownHints();
-            let nextSelectedPair = game.getNextSelectedPair();
-            if (nextSelectedPair) {
-                newPair = nextSelectedPair;
-                game.setNextSelectedPair(null);
-                logger.debug(`Using selected pair: ${newPair.taxon1} / ${newPair.taxon2}`);
-            } else {
-                const filters = {
-                    level: urlParams.level || gameState.selectedLevel,
-                    ranges: urlParams.ranges ? urlParams.ranges.split(',') : gameState.selectedRanges,
-                    tags: urlParams.tags ? urlParams.tags.split(',') : gameState.selectedTags
-                };
+        async loadAndSetupImages(pair, isNewPair) {
+            const imageData = await gameSetup.imageHandling.loadImages(pair, isNewPair);
+            game.currentObservationURLs.imageOne = api.utils.getObservationURLFromImageURL(imageData.leftImageSrc);
+            game.currentObservationURLs.imageTwo = api.utils.getObservationURLFromImageURL(imageData.rightImageSrc);
+            return imageData;
+        },
 
-                const filteredPairs = await utils.game.getFilteredTaxonPairs(filters);
+        async setupNameTiles(pair, imageData) {
+            const [leftVernacular, rightVernacular] = await Promise.all([
+                utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(imageData.randomized ? pair.taxon1 : pair.taxon2)),
+                utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(imageData.randomized ? pair.taxon2 : pair.taxon1)),
+            ]);
 
-                if (urlParams.setID) {
-                    newPair = filteredPairs.find(pair => pair.setID === urlParams.setID);
-                    if (newPair) {
-                        logger.debug(`Found pair with setID: ${urlParams.setID}`);
-                    } else {
-                        logger.warn(`SetID ${urlParams.setID} not found in filtered collection. Selecting random pair.`);
-                    }
-                } else if (urlParams.taxon1 && urlParams.taxon2) {
-                    newPair = filteredPairs.find(pair =>
-                        (pair.taxonNames[0] === urlParams.taxon1 && pair.taxonNames[1] === urlParams.taxon2) ||
-                        (pair.taxonNames[0] === urlParams.taxon2 && pair.taxonNames[1] === urlParams.taxon1)
-                    );
-                    if (newPair) {
-                        logger.debug(`Found pair with taxa: ${urlParams.taxon1} and ${urlParams.taxon2}`);
-                    } else {
-                        logger.warn(`Taxa ${urlParams.taxon1} and ${urlParams.taxon2} not found in filtered collection. Selecting random pair.`);
-                    }
-                }
+            gameUI.nameTiles.setupNameTilesUI(
+                imageData.randomized ? pair.taxon1 : pair.taxon2,
+                imageData.randomized ? pair.taxon2 : pair.taxon1,
+                leftVernacular,
+                rightVernacular,
+            );
 
-                if (!newPair) {
-                    if (filteredPairs.length > 0) {
-                        newPair = filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
-                        logger.debug("Selected random pair from filtered collection");
-                    } else {
-                        throw new Error("No pairs available in the current filtered collection");
-                    }
-                }
-            }
+            elements.imageOne.alt = `${imageData.randomized ? pair.taxon1 : pair.taxon2} Image`;
+            elements.imageTwo.alt = `${imageData.randomized ? pair.taxon2 : pair.taxon1} Image`;
 
-            const preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
-            if (preloadedImages && preloadedImages.pair.setID === newPair.setID) {
-                imageOneURL = preloadedImages.taxon1;
-                imageTwoURL = preloadedImages.taxon2;
-                logger.debug(`Using preloaded images for set ID ${newPair.setID}`);
-            } else {
-                [imageOneURL, imageTwoURL] = await Promise.all([
-                    preloader.imageLoader.fetchDifferentImage(newPair.taxon1 || newPair.taxonNames[0], null),
-                    preloader.imageLoader.fetchDifferentImage(newPair.taxon2 || newPair.taxonNames[1], null)
-                ]);
-            }
+            return { leftVernacular, rightVernacular };
+        },
 
+        async setupWorldMaps(pair, imageData) {
+            const leftContinents = await gameSetup.taxonHandling.getContinentForTaxon(imageData.randomized ? pair.taxon1 : pair.taxon2);
+            const rightContinents = await gameSetup.taxonHandling.getContinentForTaxon(imageData.randomized ? pair.taxon2 : pair.taxon1);
+            createWorldMap(elements.imageOneContainer, leftContinents);
+            createWorldMap(elements.imageTwoContainer, rightContinents);
+        },
+
+        updateGameStateForRound(pair, imageData) {
             updateGameState({
-                currentTaxonImageCollection: {
-                    pair: newPair,
-                    imageOneURL,
-                    imageTwoURL,
-                    level: newPair.level || '1' // Default to level 1 if not specified
+                taxonImageOne: imageData.randomized ? pair.taxon1 : pair.taxon2,
+                taxonImageTwo: imageData.randomized ? pair.taxon2 : pair.taxon1,
+                currentRound: {
+                    pair,
+                    imageOneURL: imageData.imageOneURL,
+                    imageTwoURL: imageData.imageTwoURL,
+                    imageOneVernacular: imageData.leftVernacular,
+                    imageTwoVernacular: imageData.rightVernacular,
+                    randomized: imageData.randomized,
                 },
-                usedImages: {
-                    taxon1: new Set([imageOneURL]),
-                    taxon2: new Set([imageTwoURL])
-                },
-                currentSetID: newPair.setID || gameState.currentSetID
             });
-
-            // Update the skill level indicator
-            ui.levelIndicator.updateLevelIndicator(newPair.level || '1');
-
-            await this.uiSetup.setupRound(true);
         },
 
+        updateUIAfterSetup(newPair) {
+            ui.levelIndicator.updateLevelIndicator(gameState.currentTaxonImageCollection.pair.level);
+            if (this.initialization.filtersWereCleared()) {
+                this.initialization.updateUIForClearedFilters();
+            }
+            this.initialization.finishSetup(newPair);
+        },
+
+        filtersWereCleared() {
+            return gameState.selectedTags.length === 0 &&
+                   gameState.selectedRanges.length === 0 &&
+                   gameState.selectedLevel === '';
+        },
+
+        updateUIForClearedFilters() {
+            ui.taxonPairList.updateFilterSummary();
+            ui.filters.updateLevelDropdown();
+        },
+
+        async finishSetup(newPair) {
+            gameUI.layoutManagement.setNamePairHeight();
+            game.setState(GameState.PLAYING);
+            this.initialization.hideLoadingScreen();
+            if (newPair) {
+                await setManager.refreshSubset();
+            }
+            if (gameState.isInitialLoad) {
+                updateGameState({ isInitialLoad: false });
+            }
+            ui.overlay.hideOverlay();
+            ui.core.resetUIState();
+            preloader.startPreloading(newPair);
+        },
+
+        hideLoadingScreen() {
+            setTimeout(() => {
+                document.getElementById('loading-screen').style.display = 'none';
+            }, 500);
+        },
     },
-    
+
     imageHandling: {
         async loadImages(pair, isNewPair) {
             let imageOneURL, imageTwoURL;
@@ -200,16 +288,7 @@ const gameSetup = {
                 imageOneURL = gameState.currentTaxonImageCollection.imageOneURL;
                 imageTwoURL = gameState.currentTaxonImageCollection.imageTwoURL;
             } else {
-                const preloadedImages = preloader.roundPreloader.getPreloadedImagesForNextRound();
-                if (preloadedImages && preloadedImages.taxon1 && preloadedImages.taxon2) {
-                    imageOneURL = preloadedImages.taxon1;
-                    imageTwoURL = preloadedImages.taxon2;
-                } else {
-                    [imageOneURL, imageTwoURL] = await Promise.all([
-                        preloader.imageLoader.fetchDifferentImage(pair.taxon1, gameState.currentRound.imageOneURL),
-                        preloader.imageLoader.fetchDifferentImage(pair.taxon2, gameState.currentRound.imageTwoURL)
-                    ]);
-                }
+                ({ imageOneURL, imageTwoURL } = await this.imageHandling.getImagesForRound(pair));
             }
 
             const randomized = Math.random() < 0.5;
@@ -218,16 +297,21 @@ const gameSetup = {
 
             await game.loadImages(leftImageSrc, rightImageSrc);
 
+            return { leftImageSrc, rightImageSrc, randomized, imageOneURL, imageTwoURL };
+        },
+
+        async getImagesForRound(pair) {
+            const preloadedImages = preloader.roundPreloader.getPreloadedImagesForNextRound();
+            if (preloadedImages && preloadedImages.taxon1 && preloadedImages.taxon2) {
+                return { imageOneURL: preloadedImages.taxon1, imageTwoURL: preloadedImages.taxon2 };
+            }
             return {
-                leftImageSrc,
-                rightImageSrc,
-                randomized,
-                imageOneURL,
-                imageTwoURL
+                imageOneURL: await preloader.imageLoader.fetchDifferentImage(pair.taxon1, gameState.currentRound.imageOneURL),
+                imageTwoURL: await preloader.imageLoader.fetchDifferentImage(pair.taxon2, gameState.currentRound.imageTwoURL),
             };
-        }
+        },
     },
-    
+
     taxonHandling: {
         async getPairBySetID(setID) {
             const taxonPairs = await api.taxonomy.fetchTaxonPairs();
@@ -239,97 +323,14 @@ const gameSetup = {
             const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxon.toLowerCase());
 
             if (taxonData && taxonData.range && taxonData.range.length > 0) {
-                // Convert the continent codes to full names
                 return taxonData.range.map(code => getFullContinentName(code));
-            } else {
-                logger.debug(`No range data found for ${taxon}. Using placeholder.`);
-                return ['North America', 'South America', 'Europe', 'Africa', 'Asia', 'Oceania'];
             }
+            logger.debug(`No range data found for ${taxon}. Using placeholder.`);
+            return ['North America', 'South America', 'Europe', 'Africa', 'Asia', 'Oceania'];
         },
     },
-    
-    uiSetup: {
 
-        hideLoadingScreen: function () {
-            setTimeout(() => {
-                document.getElementById('loading-screen').style.display = 'none';
-            }, 500);
-        },
-
-        prepareUIForLoading() {
-            utils.game.resetDraggables();
-            gameUI.imageHandling.prepareImagesForLoading();
-            var startMessage = gameState.isFirstLoad ? "Drag the names!" : `${game.getLoadingMessage()}`;
-            ui.overlay.showOverlay(startMessage, config.overlayColors.green);
-            gameState.isFirstLoad = false;
-        },
-
-        // TODO Move image loading to imageHandling.loadImages!
-        async setupRound(isNewPair = false) {
-
-            const { pair } = gameState.currentTaxonImageCollection;
-
-            const {
-                leftImageSrc,
-                rightImageSrc,
-                randomized,
-                imageOneURL,
-                imageTwoURL
-            } = await gameSetup.imageHandling.loadImages(pair, isNewPair);
-
-            // Set the observation URLs
-            // TODO FIX when I use the following way, the loading of the pictures gets significantly delayed, why??
-            /*game.setObservationURLs({
-                imageOne: api.utils.getObservationURLFromImageURL(leftImageSrc),
-                imageTwo: api.utils.getObservationURLFromImageURL(rightImageSrc)
-            }); */
-            game.currentObservationURLs.imageOne = api.utils.getObservationURLFromImageURL(leftImageSrc);
-            game.currentObservationURLs.imageTwo = api.utils.getObservationURLFromImageURL(rightImageSrc);
-
-            const [leftVernacular, rightVernacular] = await Promise.all([
-                utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(randomized ? pair.taxon1 : pair.taxon2)),
-                utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(randomized ? pair.taxon2 : pair.taxon1))
-            ]);
-
-            gameUI.nameTiles.setupNameTilesUI(
-                randomized ? pair.taxon1 : pair.taxon2,
-                randomized ? pair.taxon2 : pair.taxon1,
-                leftVernacular,
-                rightVernacular
-            );
-
-            elements.imageOne.alt = `${randomized ? pair.taxon1 : pair.taxon2} Image`;
-            elements.imageTwo.alt = `${randomized ? pair.taxon2 : pair.taxon1} Image`;
-
-            // Add world maps
-            const leftContinents = await gameSetup.taxonHandling.getContinentForTaxon(randomized ? pair.taxon1 : pair.taxon2);
-            const rightContinents = await gameSetup.taxonHandling.getContinentForTaxon(randomized ? pair.taxon2 : pair.taxon1);
-            createWorldMap(elements.imageOneContainer, leftContinents);
-            createWorldMap(elements.imageTwoContainer, rightContinents);
-
-            updateGameState({
-                taxonImageOne: randomized ? pair.taxon1 : pair.taxon2,
-                taxonImageTwo: randomized ? pair.taxon2 : pair.taxon1,
-                currentRound: {
-                    pair,
-                    imageOneURL,
-                    imageTwoURL,
-                    imageOneVernacular: leftVernacular,
-                    imageTwoVernacular: rightVernacular,
-                    randomized
-                }
-            });
-
-            setTimeout(() => gameUI.layoutManagement.setNamePairHeight(), 100);
-        },
-
-        finishSetup() {
-            ui.overlay.hideOverlay();
-        },
-    },
-    
     errorHandling: {
-
         handleSetupError(error) {
             logger.error("Error setting up game:", error);
             if (error.message === "Failed to select a valid taxon pair") {
@@ -339,20 +340,36 @@ const gameSetup = {
             }
             game.setState(GameState.IDLE);
             if (gameState.isInitialLoad) {
-                this.uiSetup.hideLoadingScreen();
+                gameSetup.initialization.hideLoadingScreen();
                 updateGameState({ isInitialLoad: false });
             }
         },
-
     },
 
-    setupGame(newPair = false, urlParams = {}) {
-        return this.initialization.setupGame(newPair, urlParams);
+
+    // Public API //
+
+    async setupGame(newPair = false, urlParams = {}) {
+        if (isSettingUpGame) {
+            logger.debug("Setup already in progress, skipping");
+            return;
+        }
+        isSettingUpGame = true;
+
+        try {
+            await this.initialization.runSetupSequence(newPair, urlParams);
+        } catch (error) {
+            this.errorHandling.handleSetupError(error);
+        } finally {
+            isSettingUpGame = false;
+        }
     },
 
-    setupGameWithPreloadedPair(preloadedPair) {
-        return this.initialization.setupGameWithPreloadedPair(preloadedPair);
-    }
+    // used once in gameLogic
+    async setupGameWithPreloadedPair(preloadedPair) {
+        await this.initialization.setupWithPreloadedPair(preloadedPair);
+    },
+
 
 };
 
@@ -366,3 +383,4 @@ Object.keys(gameSetup).forEach(key => {
 });
 
 export default gameSetup;
+
