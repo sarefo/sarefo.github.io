@@ -13,12 +13,13 @@ import config from './config.js';
 const game = {
     loadingMessage: "", // "Loading..."
     nextSelectedPair: null,
-    currentState: GameState.IDLE,
-    currentGraphTaxa: null,
     currentObservationURLs: {
         imageOne: null,
         imageTwo: null
     },
+    currentState: GameState.IDLE,
+
+    currentGraphTaxa: null,
     preloadedPair: null,
     preloadedImages: {
         current: {
@@ -33,17 +34,6 @@ const game = {
     shownHints: {
         taxon1: [],
         taxon2: []
-    },
-
-    setState(newState) {
-        this.currentState = newState;
-    },
-
-    resetShownHints() {
-        this.shownHints = {
-            taxon1: [],
-            taxon2: []
-        };
     },
 
     imageManagement: {
@@ -338,6 +328,45 @@ const game = {
             }
         }
     },
+
+
+    // Public API
+
+    setState(newState) {
+        this.currentState = newState;
+    },
+
+    getState() {
+        return this.currentState;
+    },
+
+    setNextSelectedPair(pair) {
+        this.nextSelectedPair = pair;
+    },
+
+    getNextSelectedPair() {
+        return this.nextSelectedPair;
+    },
+
+    getLoadingMessage() {
+        return this.loadingMessage;
+    },
+
+    setObservationURLs(urls) {
+        this.currentObservationURLs = urls;
+    },
+
+    getObservationURLs() {
+        return this.currentObservationURLs;
+    },
+
+    resetShownHints() {
+        this.shownHints = {
+            taxon1: [],
+            taxon2: []
+        };
+    },
+
 };
 
 // Bind all methods to ensure correct 'this' context

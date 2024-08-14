@@ -352,8 +352,8 @@ const ui = {
                     setID: pair.setID,
                     level: pair.level
                 };
+                game.setNextSelectedPair(selectedPair);
 
-                game.nextSelectedPair = selectedPair;
                 logger.debug('Selected pair:', selectedPair);
 
                 dialogManager.closeDialog('select-set-dialog');

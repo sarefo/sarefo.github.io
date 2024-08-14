@@ -430,7 +430,7 @@ const dialogManager = {
             this.dialogMessage.textContent = 'Saving new pair...';
             try {
                 await this.savePairToJson(newPair);
-                game.nextSelectedPair = newPair;
+                game.setNextSelectedPair(newPair);
                 this.closeDialog();
                 gameSetup.setupGame(true);
             } catch (error) {
@@ -513,9 +513,11 @@ const dialogManager = {
 
         getCurrentImageURLs() {
             let urls = "";
-            if (game.currentObservationURLs) {
-                urls += `Image 1 URL: ${game.currentObservationURLs.imageOne || 'N/A'}\n`;
-                urls += `Image 2 URL: ${game.currentObservationURLs.imageTwo || 'N/A'}\n`;
+            logger.debug("in getCurrentImageURLs");
+            let currentObservationURLs = game.getObservationURLs();
+            if (currentObservationURLs) {
+                urls += `Image 1 URL: ${currentObservationURLs.imageOne || 'N/A'}\n`;
+                urls += `Image 2 URL: ${currentObservationURLs.imageTwo || 'N/A'}\n`;
             } else {
                 urls += "Current image URLs not available\n";
             }
@@ -563,7 +565,7 @@ const dialogManager = {
             };
 
             logger.debug('New set created:', newSet);
-            game.nextSelectedPair = newSet;
+            game.setNextSelectedPair(newSet);
             this.closeDialog('enter-set-dialog');
             gameSetup.setupGame(true);
         },
