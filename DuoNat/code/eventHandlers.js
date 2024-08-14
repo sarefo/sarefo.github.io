@@ -662,6 +662,8 @@ const eventHandlers = {
             this.initializeHelpButton();
             this.initializeTutorialButton();
             this.initializeDiscordButton();
+            this.initializeDialogCloseButtons();
+            this.initializeSearchInput();
         },
 
         initializeDragAndDrop() {
@@ -742,22 +744,66 @@ const eventHandlers = {
                 });
             }
         },
+
+        initializeDialogCloseButtons() {
+            this.initializeDialogCloseButton('select-set-dialog');
+            this.initializeDialogCloseButton('tag-cloud-dialog');
+        },
+
+        initializeDialogCloseButton(dialogId) {
+            const dialog = document.getElementById(dialogId);
+            const closeButton = dialog.querySelector('.dialog-close-button');
+            if (closeButton) {
+                closeButton.addEventListener('click', () => {
+                    dialogManager.closeDialog(dialogId);
+                });
+            }
+        },
+
+        initializeSearchInput() {
+            const searchInput = document.getElementById('taxon-search');
+            if (searchInput) {
+                const debouncedHandleSearch = utils.ui.debounce(eventHandlers.search.handleSearch.bind(eventHandlers.search), 300);
+                searchInput.addEventListener('input', debouncedHandleSearch);
+                searchInput.addEventListener('keydown', eventHandlers.search.handleSearchKeydown.bind(eventHandlers.search));
+            }
+        },
     },
 
-    // Methods that don't fit into the above categories
-
-    getSharedProperties() {
-        return {
-            isLoadingNewPair: this.isLoadingNewPair,
-            isOpeningDialog: this.isOpeningDialog,
-            hasLostFocus: this.hasLostFocus,
-            swipeOutThreshold: this.swipeOutThreshold,
-            swipeRestraint: this.swipeRestraint,
-            maxRotation: this.maxRotation,
-            animationDuration: this.animationDuration
-        };
+    initializeKeyboardShortcuts() {
+        this.keyboardShortcuts.initializeSelectSetDialogShortcuts();
+        this.keyboardShortcuts.debouncedKeyboardHandler = utils.ui.debounce(
+            this.keyboardShortcuts._handleKeyboardShortcuts.bind(this.keyboardShortcuts),
+            300
+        );
+        document.addEventListener('keydown', this.keyboardShortcuts.debouncedKeyboardHandler);
     },
 
+    initializeUIComponents() {
+        this.swipeAndDrag.initializeSwipeFunctionality();
+        this.uiInteractions.initializeMainMenuListeners();
+        this.uiInteractions.initializeLevelIndicator();
+        this.uiInteractions.initializeLongPressHandler();
+        this.hintButton.initialize();
+    },
+
+    // Main initialization method, called from functions.js
+    initialize() {
+        this.initializeUIComponents();
+        this.initializeKeyboardShortcuts();
+        this.eventInitializer.initialize();
+        testingDialog.initialize();
+    },             
+
+
+    // Public API //
+    enableKeyboardShortcuts() {
+        document.addEventListener('keydown', this.keyboardShortcuts.debouncedKeyboardHandler);
+    },
+
+    disableKeyboardShortcuts() {
+        document.removeEventListener('keydown', this.keyboardShortcuts.debouncedKeyboardHandler);
+    },
     disableSwipe: function() {
         this.swipeDisabled = true;
     },
@@ -765,48 +811,10 @@ const eventHandlers = {
     enableSwipe: function() {
         this.swipeDisabled = false;
     },
-
-    // Main initialization method
-    initialize() {
-        this.swipeAndDrag.initializeSwipeFunctionality();
-        this.uiInteractions.initializeMainMenuListeners();
-        this.initializeAllEventListeners();
-        this.keyboardShortcuts.initializeSelectSetDialogShortcuts();
-        this.uiInteractions.initializeLevelIndicator();
-        this.uiInteractions.initializeLongPressHandler();
-        this.hintButton.initialize();
-        this.eventInitializer.initialize();
-        this.keyboardShortcuts.debouncedKeyboardHandler = utils.ui.debounce(this.keyboardShortcuts._handleKeyboardShortcuts.bind(this.keyboardShortcuts), 300);
-        document.addEventListener('keydown', this.keyboardShortcuts.debouncedKeyboardHandler);
-
-        // Select set dialog close button
-        const selectSetDialog = document.getElementById('select-set-dialog');
-        const selectSetCloseButton = selectSetDialog.querySelector('.dialog-close-button');
-        selectSetCloseButton.addEventListener('click', () => {
-            dialogManager.closeDialog('select-set-dialog');
-        });
-
-        // Tag cloud dialog close button
-        const tagCloudDialog = document.getElementById('tag-cloud-dialog');
-        const tagCloudCloseButton = tagCloudDialog.querySelector('.dialog-close-button');
-        tagCloudCloseButton.addEventListener('click', () => {
-            dialogManager.closeDialog('tag-cloud-dialog');
-        });
-
-        testingDialog.initialize();
-
-        const searchInput = document.getElementById('taxon-search');
-        if (searchInput) {
-            const debouncedHandleSearch = utils.ui.debounce(this.search.handleSearch.bind(this.search), 300);
-            searchInput.addEventListener('input', debouncedHandleSearch);
-            searchInput.addEventListener('keydown', this.search.handleSearchKeydown.bind(this.search));
-        }
-    },
-
-    initializeAllEventListeners() {
-        this.eventInitializer.initialize();
-    },
-
+   
+    setFocusLost(value) {
+        this.hasLostFocus = value;
+    }, 
 };
 
 export default eventHandlers;

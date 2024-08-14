@@ -434,8 +434,7 @@ const ui = {
                     if (searchInput.value.length > 0) {
                         searchInput.select();
                     }
-                    // Assuming eventHandlers is accessible here, if not, you may need to expose this flag differently
-                    eventHandlers.hasLostFocus = false;
+                    eventHandlers.setFocusLost(false);
                 }, 100);
             }
         },
@@ -562,8 +561,7 @@ const ui = {
             });
             document.querySelectorAll('.tutorial-highlight').forEach(el => el.remove());
             
-            // Re-enable keyboard shortcuts
-            document.addEventListener('keydown', eventHandlers.keyboardShortcuts.debouncedKeyboardHandler);
+            eventHandlers.enableKeyboardShortcuts();
         },
 
         disableInteractions: function() {
@@ -584,8 +582,7 @@ const ui = {
             // Disable all buttons and clickable elements
             document.body.style.pointerEvents = 'none';
 
-            // Disable keyboard shortcuts
-            document.removeEventListener('keydown', eventHandlers.keyboardShortcuts.debouncedKeyboardHandler);
+            eventHandlers.disableKeyboardShortcuts();
 
             // Enable pointer events only for the tutorial close button
             const closeButton = document.querySelector('.tutorial-close-button');

@@ -378,7 +378,6 @@ Tolmerus atricapillus,Tolmerus cingulatus
 Bibio marci,Bibio leucopterus
 Brachycera,Nematocera
 Cyclorrhapha,Orthorrhapha
-
 Acalyptratae,Calyptratae
 Nephila pilipes,Trichonephila clavata
 Hasarius adansoni,Chinattus tibialis

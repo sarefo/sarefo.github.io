@@ -348,7 +348,6 @@ const dialogManager = {
         },
 
         disableMainEventHandlers() {
-            //logger.debug('Disabling main event handlers');
             const mainElements = ['#random-pair-button', '#select-set-button', '#enter-set-button', '#share-button', '#help-button'];
             mainElements.forEach(selector => {
                 const element = document.querySelector(selector);
@@ -357,22 +356,17 @@ const dialogManager = {
                     element.onclick = null;
                 }
             });
-
-            document.removeEventListener('keydown', eventHandlers.keyboardShortcuts.debouncedKeyboardHandler);
-            //logger.debug('Removed keydown event listener');
+            eventHandlers.disableKeyboardShortcuts();
         },
 
         enableMainEventHandlers() {
-            //logger.debug('Enabling main event handlers');
             Object.entries(this.mainEventHandlers).forEach(([selector, handler]) => {
                 const element = document.querySelector(selector);
                 if (element) {
                     element.onclick = handler;
                 }
             });
-
-            document.addEventListener('keydown', eventHandlers.keyboardShortcuts.debouncedKeyboardHandler);
-            //logger.debug('Added keydown event listener');
+            eventHandlers.enableKeyboardShortcuts();
 
             this.mainEventHandlers = {};
         },
