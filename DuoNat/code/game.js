@@ -359,6 +359,11 @@ const game = {
         return this.currentObservationURLs;
     },
 
+    // Images
+    loadImages(leftImageSrc, rightImageSrc) {
+        this.imageManagement.loadImages(leftImageSrc, rightImageSrc);
+    },
+
     // Info dialog
     showInfoDialog(url, imageIndex) {
         return this.dialogHandling.showInfoDialog(url, imageIndex);

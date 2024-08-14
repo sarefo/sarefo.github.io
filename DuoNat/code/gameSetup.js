@@ -115,10 +115,10 @@ const gameSetup = {
             let newPair, imageOneURL, imageTwoURL;
 
             game.resetShownHints();
-
-            if (game.nextSelectedPair) {
-                newPair = game.nextSelectedPair;
-                game.nextSelectedPair = null;
+            let nextSelectedPair = game.getNextSelectedPair();
+            if (nextSelectedPair) {
+                newPair = nextSelectedPair;
+                game.setNextSelectedPair(null);
                 logger.debug(`Using selected pair: ${newPair.taxon1} / ${newPair.taxon2}`);
             } else {
                 const filters = {
@@ -216,7 +216,7 @@ const gameSetup = {
             const leftImageSrc = randomized ? imageOneURL : imageTwoURL;
             const rightImageSrc = randomized ? imageTwoURL : imageOneURL;
 
-            await game.imageManagement.loadImages(leftImageSrc, rightImageSrc);
+            await game.loadImages(leftImageSrc, rightImageSrc);
 
             return {
                 leftImageSrc,
@@ -259,7 +259,7 @@ const gameSetup = {
         prepareUIForLoading() {
             utils.game.resetDraggables();
             gameUI.imageHandling.prepareImagesForLoading();
-            var startMessage = gameState.isFirstLoad ? "Drag the names!" : `${game.loadingMessage}`;
+            var startMessage = gameState.isFirstLoad ? "Drag the names!" : `${game.getLoadingMessage()}`;
             ui.overlay.showOverlay(startMessage, config.overlayColors.green);
             gameState.isFirstLoad = false;
         },
@@ -278,6 +278,11 @@ const gameSetup = {
             } = await gameSetup.imageHandling.loadImages(pair, isNewPair);
 
             // Set the observation URLs
+            // TODO FIX when I use the following way, the loading of the pictures gets significantly delayed, why??
+            /*game.setObservationURLs({
+                imageOne: api.utils.getObservationURLFromImageURL(leftImageSrc),
+                imageTwo: api.utils.getObservationURLFromImageURL(rightImageSrc)
+            }); */
             game.currentObservationURLs.imageOne = api.utils.getObservationURLFromImageURL(leftImageSrc);
             game.currentObservationURLs.imageTwo = api.utils.getObservationURLFromImageURL(rightImageSrc);
 

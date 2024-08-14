@@ -14,7 +14,7 @@ const gameLogic = {
     answerHandling: {
 
         checkAnswer(droppedZoneId) {
-            if (game.currentState !== GameState.PLAYING) {
+            if (game.getState() !== GameState.PLAYING) {
                 logger.debug("Cannot check answer when not in PLAYING state");
                 return;
             }
@@ -50,7 +50,7 @@ const gameLogic = {
             await ui.overlay.showOverlay('Correct!', config.overlayColors.green);
             gameUI.imageHandling.prepareImagesForLoading();
             await utils.ui.sleep(2000); // Show "Correct!" for a while
-            ui.overlay.updateOverlayMessage(`${game.loadingMessage}`); // Update message without changing color
+            ui.overlay.updateOverlayMessage(`${game.getLoadingMessage()}`); // Update message without changing color
             await gameSetup.setupGame(false);  // Start a new round with the same taxon pair
         },
 
@@ -66,7 +66,7 @@ const gameLogic = {
     pairManagement: {
     async loadNewRandomPair() {
         game.setState(GameState.LOADING);
-        ui.overlay.showOverlay(`${game.loadingMessage}`, config.overlayColors.green);
+        ui.overlay.showOverlay(`${game.getLoadingMessage()}`, config.overlayColors.green);
         gameUI.imageHandling.prepareImagesForLoading();
 
         try {
@@ -79,7 +79,7 @@ const gameLogic = {
             } else {
                 newPair = await this.selectRandomPairFromCurrentCollection();
                 if (newPair) {
-                    game.nextSelectedPair = newPair;
+                    game.setNextSelectedPair(newPair);
                     await gameSetup.setupGame(true);
                 } else {
                     throw new Error("No pairs available in the current collection");
@@ -142,7 +142,7 @@ const gameLogic = {
 
                 const newPair = await setManager.getSetByID(setID);
                 if (newPair) {
-                    game.nextSelectedPair = newPair;
+                    game.setNextSelectedPair(newPair);
                     await gameSetup.setupGame(true);
                     const nextSetID = String(Number(setID) + 1);
                     preloader.pairPreloader.preloadSetByID(nextSetID);
@@ -187,9 +187,10 @@ const gameLogic = {
     
     taxonHandling: {
         getCurrentTaxon(url) {
-            if (url === game.currentObservationURLs.imageOne) {
+            let currentObservationURLs = game.getObservationURLs();
+            if (url === currentObservationURLs.imageOne) {
                 return gameState.taxonImageOne;
-            } else if (url === game.currentObservationURLs.imageTwo) {
+            } else if (url === currentObservationURLs.imageTwo) {
                 return gameState.taxonImageTwo;
             } else {
                 logger.error("Unable to determine current taxon name");
@@ -211,7 +212,7 @@ const gameLogic = {
                 const newPair = await gameLogic.pairManagement.selectRandomPairFromCurrentCollection();
                 if (newPair) {
                     logger.debug(`New pair selected: ${newPair.taxon1} / ${newPair.taxon2}, Level: ${newPair.level}`);
-                    game.nextSelectedPair = newPair;
+                    game.setNextSelectedPair(newPair);
                     await gameSetup.setupGame(true);
                 } else {
                     throw new Error("No pairs available in the current collection");
