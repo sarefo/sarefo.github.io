@@ -246,11 +246,9 @@ const gameLogic = {
         },
     },
 
-    // Outward-facing API
-    applyFilters(newFilters) {
-        this.filterHandling.applyFilters(newFilters);
-    },
+    // Public API
 
+    // Pairs
     isCurrentPairInCollection() {
         return this.collectionManagement.isCurrentPairInCollection();
     },
@@ -270,18 +268,26 @@ const gameLogic = {
     loadSetByID(setID, clearFilters = false) {
         return this.pairManagement.loadSetByID(setID, clearFilters);
     },
-
+    
+    // Game
     checkAnswer(droppedZoneId) {
         this.answerHandling.checkAnswer(droppedZoneId);
     },
-
+    
+    // No idea
     getCurrentTaxon(url) {
         return this.taxonHandling.getCurrentTaxon(url);
     },
 
+    // Filters
+    // this function is very popular for some reason… too popular ;)
     filterTaxonPairs(taxonPairs, filters) {
         return this.filterHandling.filterTaxonPairs(taxonPairs, filters);
     }
+
+    applyFilters(newFilters) {
+        this.filterHandling.applyFilters(newFilters);
+    },
 };
 
 // Bind all methods to ensure correct 'this' context
