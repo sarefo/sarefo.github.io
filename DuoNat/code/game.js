@@ -330,8 +330,9 @@ const game = {
     },
 
 
-    // Public API
+    // Public API //
 
+    // State
     setState(newState) {
         this.currentState = newState;
     },
@@ -340,6 +341,7 @@ const game = {
         return this.currentState;
     },
 
+    // Pair
     setNextSelectedPair(pair) {
         this.nextSelectedPair = pair;
     },
@@ -348,10 +350,7 @@ const game = {
         return this.nextSelectedPair;
     },
 
-    getLoadingMessage() {
-        return this.loadingMessage;
-    },
-
+    // Observation URLs
     setObservationURLs(urls) {
         this.currentObservationURLs = urls;
     },
@@ -360,11 +359,34 @@ const game = {
         return this.currentObservationURLs;
     },
 
+    // Info dialog
+    showInfoDialog(url, imageIndex) {
+        return this.dialogHandling.showInfoDialog(url, imageIndex);
+    },
+
+    // Hints
+    getShownHints(taxonIndex) {
+        return [...this.shownHints[`taxon${taxonIndex}`]];
+    },
+
+    addShownHint(taxonIndex, hint) {
+        this.shownHints[`taxon${taxonIndex}`].push(hint);
+    },
+
+    areAllHintsShown(taxonIndex, totalHints) {
+        return this.shownHints[`taxon${taxonIndex}`].length >= totalHints;
+    },
+
     resetShownHints() {
         this.shownHints = {
             taxon1: [],
             taxon2: []
         };
+    },
+
+    // Misc
+    getLoadingMessage() {
+        return this.loadingMessage;
     },
 
 };

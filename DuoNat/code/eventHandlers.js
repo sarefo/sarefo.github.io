@@ -355,7 +355,10 @@ const eventHandlers = {
     keyboardShortcuts: {
         debouncedKeyboardHandler: null,
         _handleKeyboardShortcuts(event) {
+
             if (this.shouldIgnoreKeyboardShortcut(event)) return;
+
+            let currentObservationURLs = game.getObservationURLs();
 
             const shortcutActions = {
                 'arrowleft': this.handleArrowLeft.bind(this),
@@ -364,8 +367,8 @@ const eventHandlers = {
                 'c': ui.taxonPairList.showTaxonPairList,
                 'l': ui.taxonPairList.showTaxonPairList,
                 'e': () => dialogManager.openDialog('enter-set-dialog'),
-                'i': () => game.dialogHandling.showInfoDialog(game.currentObservationURLs.imageOne, 1),
-                'o': () => game.dialogHandling.showInfoDialog(game.currentObservationURLs.imageTwo, 2),
+                'i': () => game.showInfoDialog(currentObservationURLs.imageOne, 1),
+                'o': () => game.showInfoDialog(currentObservationURLs.imageTwo, 2),
                 'h': () => eventHandlers.hintButton.showHint(1),
                 'j': () => eventHandlers.hintButton.showHint(2),
                 'g': taxaRelationshipViewer.graphManagement.showTaxaRelationship,
@@ -616,18 +619,16 @@ const eventHandlers = {
         },
 
         displayRandomHint(hints, index) {
-            let shownHints = game.shownHints[`taxon${index}`];
-            
-            if (shownHints.length >= hints.length) {
+            if (game.areAllHintsShown(index, hints.length)) {
                 game.resetShownHints();
-                shownHints = game.shownHints[`taxon${index}`];
             }
             
+            const shownHints = game.getShownHints(index);
             const availableHints = hints.filter(hint => !shownHints.includes(hint));
             
             if (availableHints.length > 0) {
                 const randomHint = availableHints[Math.floor(Math.random() * availableHints.length)];
-                game.shownHints[`taxon${index}`].push(randomHint);
+                game.addShownHint(index, randomHint);
                 
                 this.showHintOverlay(randomHint, index);
             }
