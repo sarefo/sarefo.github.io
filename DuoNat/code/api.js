@@ -298,6 +298,7 @@ const api = (() => {
                     return this.fetchVernacularFromAPI(taxonName);
                 }
             },
+
             fetchVernacularFromAPI: async function (taxonName) {
                 logger.debug("Fetching vernacular from iNat API for: " + taxonName);
                 try {

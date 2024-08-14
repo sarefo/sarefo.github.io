@@ -4476,5 +4476,755 @@
       "Brighter coloration than <i>Calopteryx virgo</i>",
       "Wings have a rather iridescent appearance"
     ]
+  },
+
+{
+"Aeshna cyanea": {
+"hints": [
+"Relatively large dragonfly",
+"Blue eyes",
+"Greenish-brown body",
+"Distinct yellow spots on abdomen"
+]
+},
+"Aeshna mixta": {
+"hints": [
+"Blue eyes",
+"Reddish-brown body",
+"Distinct yellow spots on abdomen"
+]
+},
+"Sympetrum striolatum": {
+"hints": [
+"Reddish-brown body",
+"Distinct black veins on wings",
+"Yellowish-brown eyes"
+]
+},
+"Sympetrum vulgatum": {
+"hints": [
+"Reddish-brown body",
+"Distinct black veins on wings",
+"Reddish-brown eyes"
+]
+},
+"Libellula depressa": {
+"hints": [
+"Flattened abdomen",
+"Bluish-grey body",
+"Distinct black markings on wings"
+]
+},
+"Libellula quadrimaculata": {
+"hints": [
+"Cylindrical abdomen",
+"Brownish-yellow body",
+"Distinct black markings on wings"
+]
+},
+"Anax imperator": {
+"hints": [
+"Green eyes",
+"Blue-green body",
+"Distinct yellow spots on abdomen"
+]
+},
+"Anax parthenope": {
+"hints": [
+"Green eyes",
+"Brownish-green body",
+"Distinct yellow spots on abdomen"
+]
+},
+"Cordulegaster boltonii": {
+"hints": [
+"Black and yellow striped body",
+"Distinct yellow spots on abdomen",
+"Relatively short wings"
+]
+},
+"Cordulegaster bidentata": {
+"hints": [
+"Black and yellow striped body",
+"Distinct yellow spots on abdomen",
+"Relatively long wings"
+]
+},
+"Gomphus vulgatissimus": {
+"hints": [
+"Black and yellow striped body",
+"Distinct yellow spots on abdomen",
+"Relatively short wings"
+]
+},
+"Onychogomphus forcipatus": {
+"hints": [
+"Black and yellow striped body",
+"Distinct yellow spots on abdomen",
+"Relatively long wings"
+]
+},
+"Orthetrum cancellatum": {
+"hints": [
+"Blue eyes",
+"Bluish-grey body",
+"Distinct black veins on wings"
+]
+},
+"Orthetrum albistylum": {
+"hints": [
+"Blue eyes",
+"Bluish-grey body",
+"Distinct white veins on wings"
+]
+},
+"Leucorrhinia dubia": {
+"hints": [
+"Black and yellow body",
+"Distinct yellow spots on abdomen",
+"Relatively short wings"
+]
+},
+"Leucorrhinia rubicunda": {
+"hints": [
+"Black and red body",
+"Distinct red spots on abdomen",
+"Relatively short wings"
+]
+},
+"Somatochlora metallica": {
+"hints": [
+"Green eyes",
+"Metallic green body",
+"Distinct black veins on wings"
+]
+},
+"Cordulia aenea": {
+"hints": [
+"Green eyes",
+"Metallic green body",
+"Distinct yellow veins on wings"
+]
+},
+"Pyrrhosoma nymphula": {
+"hints": [
+"Red body",
+"Distinct black markings on abdomen"
+]
+},
+"Ceriagrion tenellum": {
+"hints": [
+"Orange body",
+"Distinct black markings on abdomen"
+]
+},
+"Ischnura elegans": {
+"hints": [
+"Black and blue body",
+"Distinct black markings on abdomen"
+]
+},
+"Ischnura pumilio": {
+"hints": [
+"Black and orange body",
+"Distinct black markings on abdomen"
+]
+},
+"Coenagrion puella": {
+"hints": [
+"Blue and black body",
+"Distinct black markings on abdomen"
+]
+},
+"Coenagrion pulchellum": {
+"hints": [
+"Blue and black body",
+"Distinct black markings on abdomen"
+]
+},
+"Enallagma cyathigerum": {
+"hints": [
+"Blue and black body",
+"Distinct black markings on abdomen"
+]
+},
+"Coenagrion hastulatum": {
+"hints": [
+"Blue and black body",
+"Distinct black markings on abdomen"
+]
+},
+"Lestes sponsa": {
+"hints": [
+"Metallic green body",
+"Distinct black markings on abdomen",
+"Relatively long wings"
+]
+},
+"Lestes dryas": {
+"hints": [
+"Metallic green body",
+"Distinct black markings on abdomen",
+"Relatively long wings"
+]
+},
+"Platycnemis pennipes": {
+"hints": [
+"White legs",
+"Distinct black markings on abdomen",
+"Relatively short wings"
+]
+},
+"Platycnemis latipes": {
+"hints": [
+"White legs",
+"Distinct black markings on abdomen",
+"Relatively short wings"
+]
+},
+"Erythromma najas": {
+"hints": [
+"Red eyes",
+"Distinct black markings on abdomen",
+"Relatively short wings"
+]
+},
+"Erythromma viridulum": {
+"hints": [
+"Green eyes",
+"Distinct black markings on abdomen",
+"Relatively short wings"
+]
+},
+"Anisoptera": {
+"hints": [
+"Distinct black veins on wings",
+"Cylindrical abdomen"
+]
+},
+"Zygoptera": {
+"hints": [
+"Distinct black markings on abdomen",
+"Slender abdomen"
+]
+},
+"Odonata": {
+"hints": [
+"Relatively large eyes",
+"Distinct wings"
+]
+},
+"Ascalaphinae": {
+"hints": [
+"Distinct clubbed antennae",
+"Distinct black veins on wings"
+]
+},
+"Bacillus rossius": {
+"hints": [
+"Relatively large stick insect",
+"Reddish-brown body"
+]
+},
+"Bacillus atticus": {
+"hints": [
+"Relatively large stick insect",
+"Brownish-grey body"
+]
+},
+"Clonopsis gallica": {
+"hints": [
+"Medium-sized stick insect",
+"Brownish-green body"
+]
+},
+"Pijnackeria hispanica": {
+"hints": [
+"Medium-sized stick insect",
+"Brownish-grey body"
+]
+},
+  "Carausius morosus": {
+    "hints": [
+      "Body is slender and elongated",
+      "Green or brown coloration",
+      "Mimics twigs or leaves",
+      "Long antennae"
+    ]
+  },
+  "Medauroidea extradentata": {
+    "hints": [
+      "Thicker body compared to others",
+      "Distinctively spiny legs",
+      "Brown or grey coloration",
+      "Relatively short antennae"
+    ]
+  },
+  "Cicada orni": {
+    "hints": [
+      "Wings have a clear pattern",
+      "Green body with brown markings"
+    ]
+  },
+  "Lyristes plebejus": {
+    "hints": [
+      "Brown body with pale stripes",
+      "Wings are rather transparent",
+      "Not very pronounced wing pattern"
+    ]
+  },
+  "Tibicina haematodes": {
+    "hints": [
+      "Red eyes",
+      "Dark body with yellow markings",
+      "Wings are relatively short"
+    ]
+  },
+  "Tibicina quadrisignata": {
+    "hints": [
+      "Four distinct black spots on wings",
+      "Relatively light body coloration",
+      "Wings are longer than <i>Tibicina haematodes</i>",
+      "Not very pronounced eye color"
+    ]
+  },
+  "Cicadetta montana": {
+    "hints": [
+      "Rounded body",
+      "Greenish coloration",
+      "Wings are held roof-like"
+    ]
+  },
+  "Cicadetta brevipennis": {
+    "hints": [
+      "Shorter wings compared to <i>Cicadetta montana</i>",
+      "Relatively elongated body shape",
+      "Brownish coloration",
+      "Not very pronounced wing pattern"
+    ]
+  },
+  "Cicadellidae": {
+    "hints": [
+      "Small size with a wedge-shaped body",
+      "Often brightly colored",
+      "Hind legs are long, spined and jumpy"
+    ]
+  },
+  "Fulgoroidea": {
+    "hints": [
+      "Flat body shape",
+      "Often brightly colored or patterned",
+      "Long, slender antennae",
+      "Wings held roof-like over body"
+    ]
+  },
+  "Auchenorrhyncha": {
+    "hints": [
+      "Small size with rounded bodies",
+      "Hind legs are adapted for jumping",
+      "Distinctive head shape"
+    ]
+  },
+  "Sternorrhyncha": {
+    "hints": [
+      "Body often covered with wax",
+      "Small size, often less than 5 mm",
+      "Soft-bodied appearance",
+      "Tend to cluster on host plants"
+    ]
+  },
+  "Erthesina fullo": {
+    "hints": [
+      "Brightly colored with orange and black",
+      "Distinctive shield-shaped body",
+      "Long antennae"
+    ]
+  },
+  "Halyomorpha halys": {
+    "hints": [
+      "Shield-shaped body",
+      "Brown coloration with white markings",
+      "Long antennae"
+    ]
+  },
+  "Rhaphigaster nebulosa": {
+    "hints": [
+      "Relatively pronounced mottled pattern",
+      "Body is slightly elongated"
+    ]
+  },
+  "Dindymus sanguineus": {
+    "hints": [
+      "Bright red body",
+      "Distinctive black spots",
+      "Relatively short antennae"
+    ]
+  },
+  "Antilochus nigripes": {
+    "hints": [
+      "Black legs",
+      "Relatively elongated shape"
+    ]
+  },
+  "Pseudococcidae": {
+    "hints": [
+      "Small, soft-bodied appearance",
+      "Often covered in white wax",
+      "Tend to cluster together"
+    ]
+  },
+  "Icerya": {
+    "hints": [
+      "Body covered in white waxy filaments",
+      "Often found on woody plants",
+      "Larger than typical mealybugs",
+      "Distinctive oval shape"
+    ]
+  },
+  "Icerya seychellarum": {
+    "hints": [
+      "Lighter coloration than <i>Icerya aegyptiaca</i>",
+      "Relatively elongated body shape",
+      "Not very pronounced waxy filaments"
+    ]
+  },
+  "Icerya aegyptiaca": {
+    "hints": [
+      "Darker coloration compared to <i>Icerya seychellarum</i>",
+      "Relatively rounded body shape",
+      "Relatively heavy wax coverage"
+    ]
+  },
+  "Chrysopa perla": {
+    "hints": [
+      "Green body with large, prominent eyes",
+      "Long, slender antennae",
+      "Wings are held roof-like",
+      "Distinctive lace-like wing pattern"
+    ]
+  },
+  "Chrysoperla carnea": {
+    "hints": [
+      "Relatively light green body",
+      "Wing pattern not very pronounced"
+    ]
+  },
+  "Panorpa communis": {
+    "hints": [
+      "Long, slender body",
+      "Males have distinctive claspers",
+      "Wings are held flat"
+    ]
+  },
+  "Panorpa germanica": {
+    "hints": [
+      "Darker coloration compared to <i>Panorpa communis</i>",
+      "Not very pronounced claspers in males",
+      "Wings have a mottled appearance"
+    ]
+  },
+  "Asilus crabroniformis": {
+    "hints": [
+      "Robust body with a distinctive shape",
+      "Often has yellow markings",
+      "Long, spiny legs"
+    ]
+  },
+  "Philonicus albiceps": {
+    "hints": [
+      "White head with dark body",
+      "Relatively slender body shape",
+      "Shorter legs than <i>Asilus crabroniformis</i>"
+    ]
+  },
+  "Dioctria rufipes": {
+    "hints": [
+      "Red legs",
+      "Long, slender body",
+      "Distinctive black markings"
+    ]
+  },
+  "Dioctria atricapilla": {
+    "hints": [
+      "Black head with relatively light body",
+      "Not very pronounced markings",
+      "Shorter legs than <i>Dioctria rufipes</i>"
+    ]
+  },
+  "Laphria flava": {
+    "hints": [
+      "Bright yellow body",
+      "Long, hairy appearance",
+      "Distinctive black markings"
+    ]
+  },
+  "Laphria gilva": {
+    "hints": [
+      "Relatively dark yellow body",
+      "Not very pronounced black markings",
+      "Relatively slender body shape"
+    ]
+  },
+  "Tolmerus atricapillus": {
+    "hints": [
+      "Black head with yellow body",
+      "Long, slender legs",
+      "Distinctive wing pattern"
+    ]
+  },
+  "Tolmerus cingulatus": {
+    "hints": [
+      "Relatively pronounced yellow band on body",
+      "Not very distinct wing pattern",
+      "Shorter legs than <i>Tolmerus atricapillus</i>"
+    ]
+  },
+  "Bibio marci": {
+    "hints": [
+      "Black body with white wings",
+      "Long, slender appearance",
+      "Distinctive long antennae"
+    ]
+  },
+  "Bibio leucopterus": {
+    "hints": [
+      "Relatively light body coloration",
+      "Wings are more transparent",
+      "Less pronounced white markings"
+    ]
+  },
+  "Brachycera": {
+    "hints": [
+      "Robust body shape",
+      "Short antennae",
+      "Distinctive large eyes"
+    ]
+  },
+  "Nematocera": {
+    "hints": [
+      "Slender body shape",
+      "Long, delicate legs",
+      "Longer antennae than Brachycera"
+    ]
+  },
+  "Cyclorrhapha": {
+    "hints": [
+      "Robust body with short antennae",
+      "Distinctive mouthparts",
+      "Less slender than Nematocera"
+    ]
+  },
+  "Orthorrhapha": {
+    "hints": [
+      "Relatively elongated body shape",
+      "Longer antennae than Cyclorrhapha",
+      "Distinctive wing structure"
+    ]
+  },
+  "Acalyptratae": {
+    "hints": [
+      "Lack a distinct calypter structure",
+      "Often have a relatively elongated body shape",
+      "Typically feature a wide range of colors"
+    ]
+  },
+  "Calyptratae": {
+    "hints": [
+      "Presence of a distinct calypter structure",
+      "Body often appears relatively compact",
+      "Commonly exhibits muted color patterns"
+    ]
+  },
+  "Nephila pilipes": {
+    "hints": [
+      "Large, vibrant yellow and black body",
+      "Distinctive long, thin legs"
+    ]
+  },
+  "Trichonephila clavata": {
+    "hints": [
+      "Body has a reddish hue",
+      "Legs are relatively thick and short",
+      "Web is often not very organized"
+    ]
+  },
+  "Hasarius adansoni": {
+    "hints": [
+      "Males are black with white markings",
+      "Females are brown",
+      "Eyes are large and prominent",
+      "Body shape is somewhat flattened"
+    ]
+  },
+  "Chinattus tibialis": {
+    "hints": [
+      "Males are black with white markings"
+    ]
+  },
+  "Menemerus bivittatus": {
+    "hints": [
+      "Distinctive black and white stripes on body",
+      "Legs are relatively long",
+      "Often found in urban areas"
+    ]
+  },
+  "Menemerus nigli": {
+    "hints": [
+      "Body has a relatively uniform brown color",
+      "Stripes are not very pronounced",
+      "Legs appear relatively short and thick"
+    ]
+  },
+  "Menemerus semilimbatus": {
+    "hints": [
+      "Body features a mix of brown and white",
+      "Stripes are faint and irregular",
+      "Legs have a relatively robust appearance"
+    ]
+  },
+  "Rhene flavicomans": {
+    "hints": [
+      "Bright yellow markings on the body",
+      "Male pattern mimics wasp shape"
+    ]
+  },
+  "Irura bidenticulata": {
+    "hints": [
+      "Metallic appearance",
+      "Distinctive two-pronged projection on head"
+    ]
+  },
+  "Rhene atrata": {
+    "hints": [
+      "Relatively long"
+    ]
+  },
+  "Thiania bhamoensis": {
+    "hints": [
+      "Green metallic body coloration",
+      "Distinctive long, thin legs"
+    ]
+  },
+  "Thiania suboppressa": {
+    "hints": [
+      "Body has a rather brownish hue",
+      "Less vibrant than <i>Thiania bhamoensis</i>"
+    ]
+  },
+  "Carrhotus sannio": {
+    "hints": [
+    ]
+  },
+  "Carrhotus viduus": {
+    "hints": [
+      "Body features a relatively muted color scheme"
+    ]
+  },
+  "Telamonia caprina": {
+    "hints": [
+      "Distinctive yellow and black patterns",
+      "Body is relatively elongated",
+      "Legs are slender and long"
+    ]
+  },
+  "Telamonia festiva": {
+    "hints": [
+      "Body has a relatively compact shape",
+      "Patterns are not very vibrant"
+    ]
+  },
+  "Epocilla calcarata": {
+    "hints": [
+      "Body has a relatively rounded shape",
+      "Distinctive spines on the body"
+    ]
+  },
+  "Pancorius crassipes": {
+    "hints": [
+      "Sturdy appearance",
+      "Legs are robust and short"
+    ]
+  },
+  "Epocilla blairei": {
+    "hints": [
+      "Body features a relatively elongated shape",
+      "Not very pronounced spines",
+      "Often has a relatively light color"
+    ]
+  },
+  "Portia orientalis": {
+    "hints": [
+      "Legs are long and slender",
+      "Eyes are large and prominent"
+    ]
+  },
+  "Portia labiata": {
+    "hints": [
+      "More muted coloration compared to <i>Portia orientalis</i>",
+      "Features a white mustache"
+    ]
+  },
+  "Phintelloides versicolor": {
+    "hints": [
+      "Body has a mix of bright colors"
+    ]
+  },
+  "Phintella bifurcilinea": {
+    "hints": [
+      "Relatively subdued color patterns"
+    ]
+  },
+  "Siler collingwoodi": {
+    "hints": [
+    ]
+  },
+  "Siler semiglaucus": {
+    "hints": [
+      "Body has a bluish tint"
+    ]
+  },
+  "Phidippus audax": {
+    "hints": [
+      "Brightly colored with striking patterns"
+    ]
+  },
+  "Phidippus regius": {
+    "hints": [
+    ]
+  },
+  "Salticus scenicus": {
+    "hints": [
+      "Distinctive black and white markings",
+      "Body is relatively compact"
+    ]
+  },
+  "Salticus cingulatus": {
+    "hints": [
+      "Coloration is relatively uniform",
+      "Not very pronounced markings"
+    ]
+  },
+  "Marpissa muscosa": {
+    "hints": [
+      "Body has a relatively elongated shape",
+      "Coloration features browns and greens"
+    ]
+  },
+  "Marpissa radiata": {
+    "hints": [
+      "Body is relatively compact",
+      "Coloration is relatively light"
+    ]
+  },
+  "Evarcha arcuata": {
+    "hints": [
+      "Body features bright coloration"
+    ]
+  },
+  "Evarcha falcata": {
+    "hints": [
+      "Coloration is relatively muted",
+      "Body shape is relatively compact"
+    ]
   }
 }

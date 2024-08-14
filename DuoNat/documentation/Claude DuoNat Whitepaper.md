@@ -73,6 +73,8 @@ If you provide code, please either provide whole functions, or exactly tell me w
 
 Indentation is four spaces.
 
+Try not to have functions that are longer than 50 lines. Instead, break them into subfunctions, so that the flow can be easily understood by a human. Let's adhere to the Single Responsibility Principle.
+
 ## Project structure
 
 ### Main window

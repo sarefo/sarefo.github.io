@@ -7,91 +7,217 @@ async function loadD3() {
     return d3;
 }
 
-export async function createRadialTree(container, rootNode) {
-    const d3 = await loadD3();
-    const containerRect = container.getBoundingClientRect();
-    const width = containerRect.width;
-    const height = containerRect.height;
-    const radius = Math.min(width, height) / 2 - 120;
-
-    const svg = d3.select(container)
-        .append('svg')
-        .attr('width', '100%')
-        .attr('height', '100%')
-        .attr('viewBox', `0 0 ${width} ${height}`)
-        .append('g')
-        .attr('transform', `translate(${width / 2},${height / 2})`);
-
-    svg.append('style').text(`
-        .link {
-            fill: none;
-            stroke: #ccc;
-            stroke-width: 1.5px;
-        }
-        .node text {
-            font: 16px sans-serif;
-        }
-        .node--central circle {
-            fill: #74ac00;
-            r: 8;
-        }
-        .node--central text {
-            font-weight: bold;
-            fill: #74ac00;
-        }
-        .node--active circle {
-            stroke: #ff6600;
-            stroke-width: 3px;
-        }
-        .node--active text {
-            fill: #ff6600;
-            font-weight: bold;
-        }
-    `);
-
-    const root = d3.hierarchy(rootNode);
-    
-    if (!root) {
-        logger.error('Failed to create radial hierarchy from root node');
-        return;
+class BaseTree {
+    constructor(container, rootNode) {
+        this.container = container;
+        this.rootNode = rootNode;
+        this.svg = null;
+        this.treeLayout = null;
+        this.d3 = null;
+        this.root = null;
     }
 
-    let centerNode = root;
-    let activeNode = root;
+    async initialize() {
+        this.d3 = await loadD3();
+        this.root = this.d3.hierarchy(this.rootNode);
+        if (!this.root) {
+            logger.error('Failed to create hierarchy from root node');
+            return false;
+        }
+        return true;
+    }
 
-    const treeLayout = d3.tree()
-        .size([2 * Math.PI, radius])
-        .separation((a, b) => {
-            return (a.parent == b.parent ? 1 : 2) / a.depth;
+    _setupSvg(width, height) {
+        this.svg = this.d3.select(this.container)
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height)
+            .append('g');
+        return this.svg;
+    }
+
+    _setupTreeLayout(width, height) {
+        // Default implementation, can be overridden by subclasses
+        return this.d3.tree().size([height, width]);
+    }
+
+    _addStyles() {
+        // Default styles, can be overridden or extended by subclasses
+        this.svg.append('style').text(`
+            .node circle {
+                fill: #fff;
+                stroke: steelblue;
+                stroke-width: 3px;
+            }
+            .node text {
+                font: 12px sans-serif;
+            }
+            .link {
+                fill: none;
+                stroke: #ccc;
+                stroke-width: 2px;
+            }
+        `);
+    }
+
+    _updateNodes(nodes, source, duration) {
+        // This method should be implemented by subclasses
+        throw new Error('_updateNodes must be implemented by subclass');
+    }
+
+    _updateLinks(links, source, duration) {
+        // This method should be implemented by subclasses
+        throw new Error('_updateLinks must be implemented by subclass');
+    }
+
+    update(source) {
+        // Default implementation, can be overridden by subclasses
+        const duration = 750;
+        const nodes = this.root.descendants();
+        const links = this.root.links();
+
+        this._updateNodes(nodes, source, duration);
+        this._updateLinks(links, source, duration);
+    }
+
+    _getDimensions() {
+        const containerRect = this.container.getBoundingClientRect();
+        return {
+            width: containerRect.width,
+            height: containerRect.height
+        };
+    }
+
+    _setupResizeObserver() {
+        const resizeObserver = new ResizeObserver(() => {
+            const { width, height } = this._getDimensions();
+            this.svg.attr('width', width).attr('height', height);
+            this.treeLayout.size([height, width - 200]);
+            this.update(this.root);
         });
 
-    function update(source) {
-        const duration = 750;
+        resizeObserver.observe(this.container);
+    }
 
-        // Compute the new tree layout.
-        treeLayout(centerNode);
+    async create() {
+        if (!await this.initialize()) return;
 
-        // Filter nodes to show only the center node, active node, and direct children of active node
-        const visibleNodes = [centerNode, activeNode, ...(activeNode.children || [])];
+        const { width, height } = this._getDimensions();
+        this._setupSvg(width, height);
+        this._addStyles();
+        this.treeLayout = this._setupTreeLayout(width, height);
+        this.update(this.root);
+        this._setupResizeObserver();
+    }
+}
 
-        const links = centerNode.links().filter(link => 
+class RadialTree extends BaseTree {
+    constructor(container, rootNode) {
+        super(container, rootNode);
+        this.centerNode = null;
+        this.activeNode = null;
+    }
+
+    async create() {
+        if (!await this.initialize()) return;
+
+        const { width, height, radius } = this._getDimensions();
+        this._setupSvg(width, height);
+        this._addStyles();
+        
+        this.centerNode = this.root;
+        this.activeNode = this.root;
+        this.treeLayout = this._setupTreeLayout(radius);
+
+        // Initialize nodes directly here instead of calling _initializeNodes
+        this.root.descendants().forEach(d => {
+            if (d.depth > 0) {
+                d._children = d.children;
+                d.children = null;
+            }
+        });
+
+        this.update(this.root);
+        this._setupResizeObserver();
+    }
+
+    _getDimensions() {
+        const containerRect = this.container.getBoundingClientRect();
+        const width = containerRect.width;
+        const height = containerRect.height;
+        const radius = Math.min(width, height) / 2 - 120;
+        return { width, height, radius };
+    }
+
+    _setupSvg(width, height) {
+        this.svg = this.d3.select(this.container)
+            .append('svg')
+            .attr('width', '100%')
+            .attr('height', '100%')
+            .attr('viewBox', `0 0 ${width} ${height}`)
+            .append('g')
+            .attr('transform', `translate(${width / 2},${height / 2})`);
+    }
+
+    _addStyles() {
+        this.svg.append('style').text(`
+            .link {
+                fill: none;
+                stroke: #ccc;
+                stroke-width: 1.5px;
+            }
+            .node text {
+                font: 16px sans-serif;
+            }
+            .node--central circle {
+                fill: #74ac00;
+                r: 8;
+            }
+            .node--central text {
+                font-weight: bold;
+                fill: #74ac00;
+            }
+            .node--active circle {
+                stroke: #ff6600;
+                stroke-width: 3px;
+            }
+            .node--active text {
+                fill: #ff6600;
+                font-weight: bold;
+            }
+        `);
+    }
+
+    _setupTreeLayout(radius) {
+        return this.d3.tree()
+            .size([2 * Math.PI, radius])
+            .separation((a, b) => (a.parent == b.parent ? 1 : 2) / a.depth);
+    }
+
+    _getVisibleNodes() {
+        return [this.centerNode, this.activeNode, ...(this.activeNode.children || [])];
+    }
+
+    _getVisibleLinks(visibleNodes) {
+        return this.centerNode.links().filter(link => 
             visibleNodes.includes(link.source) && visibleNodes.includes(link.target)
         );
+    }
 
-        // Normalize for fixed-depth.
+    _normalizeDepth(visibleNodes) {
         visibleNodes.forEach(d => {
-            d.y = (d.depth - centerNode.depth) * 100;
+            d.y = (d.depth - this.centerNode.depth) * 100;
         });
+    }
 
-        // Update the nodes...
-        const node = svg.selectAll('g.node')
+    _updateNodes(visibleNodes, source, duration) {
+        const node = this.svg.selectAll('g.node')
             .data(visibleNodes, d => d.data.id);
 
-        // Enter any new nodes at the parent's previous position.
         const nodeEnter = node.enter().append('g')
-            .attr('class', d => `node ${d === centerNode ? 'node--central' : ''} ${d === activeNode ? 'node--active' : ''}`)
-            .attr('transform', d => `translate(${radialPoint(source.x0 || 0, source.y0 || 0)})`)
-            .on('click', click);
+            .attr('class', d => `node ${d === this.centerNode ? 'node--central' : ''} ${d === this.activeNode ? 'node--active' : ''}`)
+            .attr('transform', d => `translate(${this._radialPoint(source.x0 || 0, source.y0 || 0)})`)
+            .on('click', (event, d) => this._handleClick(d));
 
         nodeEnter.append('circle')
             .attr('r', 1e-6)
@@ -107,23 +233,21 @@ export async function createRadialTree(container, rootNode) {
             .text(d => d.data.taxonName)
             .style('fill-opacity', 1e-6);
 
-        // Update the nodes
-
         const nodeUpdate = nodeEnter.merge(node);
 
         nodeUpdate.transition()
             .duration(duration)
-            .attr('class', d => `node ${d === centerNode ? 'node--central' : ''} ${d === activeNode ? 'node--active' : ''}`)
-            .attr('transform', d => `translate(${radialPoint(d.x, d.y)})`);
+            .attr('class', d => `node ${d === this.centerNode ? 'node--central' : ''} ${d === this.activeNode ? 'node--active' : ''}`)
+            .attr('transform', d => `translate(${this._radialPoint(d.x, d.y)})`);
 
         nodeUpdate.select('circle')
-            .attr('r', d => d === centerNode ? 8 : 5)
-            .style('fill', d => d === centerNode ? '#74ac00' : (d._children ? 'lightsteelblue' : '#fff'));
+            .attr('r', d => d === this.centerNode ? 8 : 5)
+            .style('fill', d => d === this.centerNode ? '#74ac00' : (d._children ? 'lightsteelblue' : '#fff'));
 
         nodeUpdate.select('text')
             .style('fill-opacity', 1)
-            .attr('transform', function(d) {
-                if (d === centerNode || d === activeNode) {
+            .attr('transform', d => {
+                if (d === this.centerNode || d === this.activeNode) {
                     return `translate(0,-15)`;
                 }
                 const angle = (d.x < Math.PI ? d.x - Math.PI / 2 : d.x + Math.PI / 2) * 180 / Math.PI;
@@ -133,20 +257,19 @@ export async function createRadialTree(container, rootNode) {
                 const x = (textAnchor === "start" ? labelPadding : -labelPadding);
                 return `rotate(${angle}) translate(${x},0) rotate(${rotation})`;
             })
-            .attr('text-anchor', d => (d === centerNode || d === activeNode) ? 'middle' : (d.x < Math.PI ? 'start' : 'end'))
-            .attr('dy', d => (d === centerNode || d === activeNode) ? '-0.5em' : '.31em')
+            .attr('text-anchor', d => (d === this.centerNode || d === this.activeNode) ? 'middle' : (d.x < Math.PI ? 'start' : 'end'))
+            .attr('dy', d => (d === this.centerNode || d === this.activeNode) ? '-0.5em' : '.31em')
             .attr('dx', 0)
-            .style('font-weight', d => (d === centerNode || d === activeNode) ? 'bold' : 'normal')
+            .style('font-weight', d => (d === this.centerNode || d === this.activeNode) ? 'bold' : 'normal')
             .style('fill', d => {
-                if (d === centerNode) return '#ff6600';
-                if (d === activeNode) return '#74ac00';
+                if (d === this.centerNode) return '#ff6600';
+                if (d === this.activeNode) return '#74ac00';
                 return 'black';
             });
 
-         // Remove any exiting nodes
         const nodeExit = node.exit().transition()
             .duration(duration)
-            .attr('transform', d => `translate(${radialPoint(source.x, source.y)})`)
+            .attr('transform', d => `translate(${this._radialPoint(source.x, source.y)})`)
             .remove();
 
         nodeExit.select('circle')
@@ -154,47 +277,49 @@ export async function createRadialTree(container, rootNode) {
 
         nodeExit.select('text')
             .style('fill-opacity', 1e-6);
+    }
 
-        // Update the links...
-        const link = svg.selectAll('path.link')
+    _updateLinks(links, source, duration) {
+        const link = this.svg.selectAll('path.link')
             .data(links, d => d.target.data.id);
 
-        // Enter any new links at the parent's previous position.
         const linkEnter = link.enter().insert('path', 'g')
             .attr('class', 'link')
             .attr('d', d => {
                 const o = {x: source.x0 || 0, y: source.y0 || 0};
-                return diagonal(o, o);
+                return this._diagonal(o, o);
             });
 
-        // Update position for new and existing links
         link.merge(linkEnter).transition()
             .duration(duration)
-            .attr('d', d => diagonal(d.source, d.target));
+            .attr('d', d => this._diagonal(d.source, d.target));
 
-        // Remove any exiting links
         link.exit().transition()
             .duration(duration)
             .attr('d', d => {
                 const o = {x: source.x, y: source.y};
-                return diagonal(o, o);
+                return this._diagonal(o, o);
             })
             .remove();
-
-        // Store the old positions for transition.
-        visibleNodes.forEach(d => {
-            d.x0 = d.x;
-            d.y0 = d.y;
-        });
     }
 
-    function click(event, d) {
-        if (d !== centerNode) {
-            centerNode = d.parent || centerNode;
-            activeNode = d;
+    _diagonal(source, target) {
+        const sourcePoint = this._radialPoint(source.x, source.y);
+        const targetPoint = this._radialPoint(target.x, target.y);
+        return `M${sourcePoint[0]},${sourcePoint[1]}L${targetPoint[0]},${targetPoint[1]}`;
+    }
+
+    _radialPoint(x, y) {
+        return [(y = +y) * Math.cos(x -= Math.PI / 2), y * Math.sin(x)];
+    }
+
+    _handleClick(d) {
+        if (d !== this.centerNode) {
+            this.centerNode = d.parent || this.centerNode;
+            this.activeNode = d;
         } else if (d.parent) {
-            centerNode = d.parent;
-            activeNode = d;
+            this.centerNode = d.parent;
+            this.activeNode = d;
         }
 
         if (d.children) {
@@ -205,95 +330,114 @@ export async function createRadialTree(container, rootNode) {
             d._children = null;
         }
 
-        update(d);
+        this.update(d);
     }
 
-    function diagonal(source, target) {
-        const sourcePoint = radialPoint(source.x, source.y);
-        const targetPoint = radialPoint(target.x, target.y);
-        return `M${sourcePoint[0]},${sourcePoint[1]}L${targetPoint[0]},${targetPoint[1]}`;
+    update(source) {
+        const duration = 750;
+        this.treeLayout(this.centerNode);
+        const visibleNodes = this._getVisibleNodes();
+        const links = this._getVisibleLinks(visibleNodes);
+        this._normalizeDepth(visibleNodes);
+        
+        this._updateNodes(visibleNodes, source, duration);
+        this._updateLinks(links, source, duration);
+        
+        // Store old positions directly here
+        visibleNodes.forEach(d => {
+            d.x0 = d.x;
+            d.y0 = d.y;
+        });
     }
 
-    function radialPoint(x, y) {
-        return [(y = +y) * Math.cos(x -= Math.PI / 2), y * Math.sin(x)];
+    _setupResizeObserver() {
+        const resizeObserver = new ResizeObserver(() => {
+            const { width, height, radius } = this._getDimensions();
+            this.svg.attr('viewBox', `0 0 ${width} ${height}`);
+            this.svg.attr('transform', `translate(${width / 2},${height / 2})`);
+            this.treeLayout.size([2 * Math.PI, radius]);
+            this.update(this.centerNode);
+        });
+
+        resizeObserver.observe(this.container);
     }
 
-    root.descendants().forEach(d => {
-        if (d.depth > 0) {
-            d._children = d.children;
-            d.children = null;
-        }
-    });
-
-    update(root);
-
-    const resizeObserver = new ResizeObserver(() => {
-        const newContainerRect = container.getBoundingClientRect();
-        const newWidth = newContainerRect.width;
-        const newHeight = newContainerRect.height;
-        const newRadius = Math.min(newWidth, newHeight) / 2 - 120;
-
-        svg.attr('viewBox', `0 0 ${newWidth} ${newHeight}`);
-        svg.attr('transform', `translate(${newWidth / 2},${newHeight / 2})`);
-
-        treeLayout.size([2 * Math.PI, newRadius]);
-
-        update(centerNode);
-    });
-
-    resizeObserver.observe(container);
 }
 
-export async function createHierarchicalTree(container, rootNode) {
-    const d3 = await loadD3();
-    const width = 800;
-    const height = 600;
-
-    const svg = d3.select(container)
-        .append('svg')
-        .attr('width', width)
-        .attr('height', height)
-        .append('g')
-        .attr('transform', 'translate(40,0)');
-
-    const root = d3.hierarchy(rootNode);
-    logger.debug('D3 hierarchy data:', root);
-    logger.debug('Root node children:', root.children ? root.children.length : 0);
-    logger.debug('First level children:', root.children ? root.children.map(child => child.data.taxonName) : 'None');
-
-    if (!root) {
-        logger.error('Failed to create hierarchy from root node');
-        return;
+class HierarchicalTree extends BaseTree {
+    constructor(container, rootNode) {
+        super(container, rootNode);
     }
 
-    // Initialize the tree layout
-    const treeLayout = d3.tree().size([height, width - 200]);
+    async create() {
+        if (!await this.initialize()) return;
 
-    // Collapse all nodes initially except for the first two levels
-    root.descendants().forEach(d => {
-        if (d.depth > 1) {
-            d._children = d.children;
-            d.children = null;
+        const width = 800;
+        const height = 600;
+
+        this._setupSvg(width, height);
+        this._addStyles();
+        this.treeLayout = this._setupTreeLayout(width, height);
+
+        this._initializeNodes();
+        this._expandInitialNodes();
+        this.update(this.root);
+    }
+
+    _setupSvg(width, height) {
+        this.svg = this.d3.select(this.container)
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height)
+            .append('g')
+            .attr('transform', 'translate(40,0)');
+    }
+
+    _addStyles() {
+        this.svg.append('style').text(`
+            .testing-dialog__node circle {
+                fill: #fff;
+                stroke: steelblue;
+                stroke-width: 3px;
+            }
+            .testing-dialog__node text {
+                font: 12px sans-serif;
+            }
+            .testing-dialog__link {
+                fill: none;
+                stroke: #ccc;
+                stroke-width: 2px;
+            }
+        `);
+    }
+
+    _setupTreeLayout(width, height) {
+        return this.d3.tree().size([height, width - 200]);
+    }
+
+    _initializeNodes() {
+        this.root.descendants().forEach(d => {
+            if (d.depth > 1) {
+                d._children = d.children;
+                d.children = null;
+            }
+        });
+    }
+
+    _expandInitialNodes() {
+        this._expandNode(this.root);
+        this.root.children.forEach(this._expandNode);
+    }
+
+    _expandNode(d) {
+        if (d._children) {
+            d.children = d._children;
+            d.children.forEach(this._expandNode);
         }
-    });
+    }
 
-    // Expand the root node and its immediate children
-    expand(root);
-    root.children.forEach(expand);
-
-    // Initial update
-    update(root);
-
-    function update(source) {
-        const duration = 750;
-
-        const tree = treeLayout(root);
-        const nodes = tree.descendants();
-        const links = tree.links();
-
-        nodes.forEach(d => d.y = d.depth * 180);
-
-        const node = svg.selectAll('.testing-dialog__node')
+    _updateNodes(nodes, links, source, duration) {
+        const node = this.svg.selectAll('.testing-dialog__node')
             .data(nodes, d => d.data.id);
 
         const nodeEnter = node.enter().append('g')
@@ -311,11 +455,11 @@ export async function createHierarchicalTree(container, rootNode) {
                     d.children = d._children;
                     d._children = null;
                 }
-                update(d);
+                this.update(d);
             });
 
         nodeEnter.append('circle')
-            .attr('r', 5)
+            .attr('r', 1e-6)
             .attr('fill', d => d._children ? "lightsteelblue" : "#fff");
 
         nodeEnter.append('text')
@@ -342,11 +486,7 @@ export async function createHierarchicalTree(container, rootNode) {
 
         const nodeExit = node.exit().transition()
             .duration(duration)
-            .attr('transform', d => {
-                const x = isNaN(source.x) ? 0 : source.x;
-                const y = isNaN(source.y) ? 0 : source.y;
-                return `translate(${y},${x})`;
-            })
+            .attr('transform', d => `translate(${source.y},${source.x})`)
             .remove();
 
         nodeExit.select('circle')
@@ -355,50 +495,66 @@ export async function createHierarchicalTree(container, rootNode) {
         nodeExit.select('text')
             .style('fill-opacity', 1e-6);
 
-        const link = svg.selectAll('.testing-dialog__link')
+        this._updateLinks(links, source, duration);
+    }
+
+    _updateLinks(links, source, duration) {
+        const link = this.svg.selectAll('.testing-dialog__link')
             .data(links, d => d.target.data.id);
 
         const linkEnter = link.enter().insert('path', 'g')
             .attr('class', 'testing-dialog__link')
             .attr('d', d => {
                 const o = {x: source.x0, y: source.y0};
-                return diagonal(o, o);
+                return this._diagonal(o, o);
             });
 
         const linkUpdate = linkEnter.merge(link);
 
         linkUpdate.transition()
             .duration(duration)
-            .attr('d', d => diagonal(d.source, d.target));
+            .attr('d', d => this._diagonal(d.source, d.target));
 
         link.exit().transition()
             .duration(duration)
             .attr('d', d => {
                 const o = {x: source.x, y: source.y};
-                return diagonal(o, o);
+                return this._diagonal(o, o);
             })
             .remove();
-
-        nodes.forEach(d => {
-            d.x0 = d.x;
-            d.y0 = d.y;
-        });
     }
 
-    function diagonal(s, d) {
+    _diagonal(s, d) {
         return `M ${s.y} ${s.x}
                 C ${(s.y + d.y) / 2} ${s.x},
                   ${(s.y + d.y) / 2} ${d.x},
                   ${d.y} ${d.x}`;
     }
 
-    function expand(d) {
-        if (d._children) {
-            d.children = d._children;
-            d.children.forEach(expand);
-        }
+    update(source) {
+        const duration = 750;
+        const tree = this.treeLayout(source);
+        const nodes = tree.descendants();
+        const links = tree.links();
+
+        nodes.forEach(d => d.y = d.depth * 180);
+
+        this._updateNodes(nodes, links, source, duration);
+        this._updateLinks(links, source, duration);
+
+        nodes.forEach(d => {
+            d.x0 = d.x;
+            d.y0 = d.y;
+        });
     }
-    // Initial update
-    update(root);
 }
 
+export async function createRadialTree(container, rootNode) {
+    const tree = new RadialTree(container, rootNode);
+    await tree.create();
+}
+
+export async function createHierarchicalTree(container, rootNode) {
+    const tree = new HierarchicalTree(container, rootNode);
+    await tree.create();
+}

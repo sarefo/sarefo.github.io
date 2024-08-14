@@ -44,7 +44,7 @@ const testingDialog = {
     async updateGraph() {
         const graphType = document.getElementById('graph-type-select').value;
         const graphContainer = document.getElementById('graph-container');
-/*        graphContainer.innerHTML = '<div class="loading-indicator">Loading graph...</div>';*/
+        graphContainer.innerHTML = '<div class="loading-indicator">Loading graph...</div>';
 
         const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
 
@@ -56,6 +56,7 @@ const testingDialog = {
         const rootNode = this.convertHierarchyToNestedObject(hierarchyObj);
 
         try {
+            graphContainer.innerHTML = ''; // Clear the loading indicator
             switch (graphType) {
                 case 'radial':
                     await createRadialTree(graphContainer, rootNode);
@@ -63,10 +64,12 @@ const testingDialog = {
                 case 'hierarchical':
                     await createHierarchicalTree(graphContainer, rootNode);
                     break;
+                default:
+                    throw new Error('Invalid graph type');
             }
         } catch (error) {
             logger.error('Error creating graph:', error);
-            graphContainer.innerHTML = '<p>Error creating graph. Please try again.</p>';
+            graphContainer.innerHTML = `<p>Error creating graph: ${error.message}. Please try again.</p>`;
         }
     },
 
@@ -74,8 +77,6 @@ const testingDialog = {
         const nodes = hierarchyObj.nodes;
         const nodeMap = new Map();
         let root = null;
-
-//        console.log('Total nodes:', nodes.size);
 
         // First pass: create all nodes
         for (const [id, node] of nodes) {
@@ -89,11 +90,8 @@ const testingDialog = {
             nodeMap.set(id, newNode);
             if (node.parentId === null) {
                 root = newNode;
-//                console.log('Root node found:', newNode);
             }
         }
-
-//        console.log('Nodes created:', nodeMap.size);
 
         // Second pass: build the tree structure
         for (const [id, node] of nodes) {
@@ -101,24 +99,19 @@ const testingDialog = {
                 const parent = nodeMap.get(node.parentId);
                 if (parent) {
                     parent.children.push(nodeMap.get(id));
-//                    console.log(`Added ${node.taxonName} to ${parent.taxonName}`);
                 } else {
-//                    console.warn(`Parent node not found for ${node.taxonName} (ID: ${id})`);
+                    logger.warn(`Parent node not found for ${node.taxonName} (ID: ${id})`);
                 }
             }
         }
 
         if (!root) {
-//            console.warn('No root node found, using first node as root');
+            logger.warn('No root node found, using first node as root');
             root = nodeMap.values().next().value;
         }
 
-//        console.log('Root node children:', root.children.length);
-//        console.log('First level children:', root.children.map(child => child.taxonName));
-
         return root;
     },
-
 };
 
 export default testingDialog;

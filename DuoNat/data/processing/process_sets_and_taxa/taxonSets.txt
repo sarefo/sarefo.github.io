@@ -338,7 +338,6 @@ Caelifera,Ensifera
 Tettigoniidae,Acridoidea
 Forficula auricularia,Chelidurella acanthopygia
 Calopteryx virgo,Calopteryx splendens
-
 Aeshna cyanea,Aeshna mixta
 Sympetrum striolatum,Sympetrum vulgatum
 Libellula depressa,Libellula quadrimaculata
@@ -359,7 +358,6 @@ Anisoptera,Zygoptera
 Odonata,Ascalaphinae
 Bacillus rossius,Bacillus atticus
 Clonopsis gallica,Pijnackeria hispanica
-
 Carausius morosus,Medauroidea extradentata
 Cicada orni,Lyristes plebejus
 Tibicina haematodes,Tibicina quadrisignata
@@ -380,6 +378,7 @@ Tolmerus atricapillus,Tolmerus cingulatus
 Bibio marci,Bibio leucopterus
 Brachycera,Nematocera
 Cyclorrhapha,Orthorrhapha
+
 Acalyptratae,Calyptratae
 Nephila pilipes,Trichonephila clavata
 Hasarius adansoni,Chinattus tibialis
@@ -400,6 +399,7 @@ Phidippus audax,Phidippus regius
 Salticus scenicus,Salticus cingulatus
 Marpissa muscosa,Marpissa radiata
 Evarcha arcuata,Evarcha falcata
+
 Heliophanus flavipes,Heliophanus cupreus
 Plexippus paykulli,Plexippus petersi
 Attulus pubescens,Attulus fasciger

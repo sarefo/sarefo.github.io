@@ -54,28 +54,22 @@ const eventHandlers = {
                 logger.error('Game container not found');
                 return;
             }
+            this.addSwipeListeners();
+        },
 
-            [elements.imageOneContainer, elements.imageTwoContainer].forEach((container, index) => {
-                container.addEventListener('mousedown', (e) => {
-                    this.handleMouseDown(e);
-                });
-                container.addEventListener('touchstart', (e) => {
-                    this.handleTouchStart(e);
-                }, { passive: true });
-                container.addEventListener('mousemove', (e) => {
-                    this.handleDragMove(e);
-                });
-                container.addEventListener('touchmove', (e) => {
-                    this.handleDragMove(e);
-                }, { passive: true });
-                container.addEventListener('mouseup', (e) => {
-                    this.handleSwipeOrDrag(e);
-                });
-                container.addEventListener('touchend', (e) => {
-                    this.handleSwipeOrDrag(e);
-                });
+        addSwipeListeners() {
+            [elements.imageOneContainer, elements.imageTwoContainer].forEach((container) => {
+                this.addContainerListeners(container);
             });
+        },
 
+        addContainerListeners(container) {
+            container.addEventListener('mousedown', this.handleMouseDown.bind(this));
+            container.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: true });
+            container.addEventListener('mousemove', this.handleDragMove.bind(this));
+            container.addEventListener('touchmove', this.handleDragMove.bind(this), { passive: true });
+            container.addEventListener('mouseup', this.handleSwipeOrDrag.bind(this));
+            container.addEventListener('touchend', this.handleSwipeOrDrag.bind(this));
         },
 
         handleMouseDown(e) {
@@ -100,27 +94,36 @@ const eventHandlers = {
         handleSwipeOrDrag(e) {
             if (!this.isDragging) return;
 
-            let endX, endY;
-            if (e.type.includes('touch')) {
-                endX = e.changedTouches[0].clientX;
-                endY = e.changedTouches[0].clientY;
-            } else {
-                endX = e.clientX;
-                endY = e.clientY;
-            }
-
+            const { endX, endY } = this.getEndCoordinates(e);
             const deltaX = this.startX - endX;
             const deltaY = Math.abs(this.startY - endY);
 
-            if (deltaX > eventHandlers.swipeOutThreshold && deltaY < eventHandlers.swipeRestraint) {
+            if (this.isValidSwipe(deltaX, deltaY)) {
                 this.performSwipeOutAnimation(deltaX);
             } else {
                 this.resetSwipeAnimation();
             }
 
+            this.finishSwipeOrDrag();
+        },
+
+        getEndCoordinates(e) {
+            if (e.type.includes('touch')) {
+                return { endX: e.changedTouches[0].clientX, endY: e.changedTouches[0].clientY };
+            }
+            return { endX: e.clientX, endY: e.clientY };
+        },
+
+        isValidSwipe(deltaX, deltaY) {
+            return deltaX > eventHandlers.swipeOutThreshold && deltaY < eventHandlers.swipeRestraint;
+        },
+
+        finishSwipeOrDrag() {
             this.isDragging = false;
-            
-            // Always reset the game container and swipe info message
+            this.resetGameContainer();
+        },
+
+        resetGameContainer() {
             this.gameContainer.style.transform = 'none';
             this.gameContainer.style.opacity = '1';
             document.getElementById('swipe-info-message').style.opacity = '0';
@@ -160,38 +163,64 @@ const eventHandlers = {
         },
 
         performSwipeOutAnimation(initialDeltaX) {
-          document.getElementById('swipe-info-message').style.opacity = 0;
+            this.hideSwipeInfoMessage();
+            this.animateSwipeOut(initialDeltaX);
+            this.scheduleNewPairLoad();
+        },
 
-          const startRotation = (initialDeltaX / eventHandlers.swipeOutThreshold) * -eventHandlers.maxRotation;
-          
-          this.gameContainer.style.transition = `transform ${eventHandlers.animationDuration}ms ease-out, opacity ${eventHandlers.animationDuration}ms ease-out`;
-          this.gameContainer.style.transform = `rotate(${startRotation}deg) translateX(-${initialDeltaX}px)`;
-          
-          requestAnimationFrame(() => {
-            this.gameContainer.style.transform = `rotate(${-eventHandlers.maxRotation}deg) translateX(-100%)`;
-            this.gameContainer.style.opacity = '0';
-          });
+        hideSwipeInfoMessage() {
+            document.getElementById('swipe-info-message').style.opacity = 0;
+        },
 
-          setTimeout(() => {
+        animateSwipeOut(initialDeltaX) {
+            const startRotation = (initialDeltaX / eventHandlers.swipeOutThreshold) * -eventHandlers.maxRotation;
+            this.setInitialSwipeOutStyles(startRotation, initialDeltaX);
+            this.setFinalSwipeOutStyles();
+        },
+
+        setInitialSwipeOutStyles(startRotation, initialDeltaX) {
+            this.gameContainer.style.transition = `transform ${eventHandlers.animationDuration}ms ease-out, opacity ${eventHandlers.animationDuration}ms ease-out`;
+            this.gameContainer.style.transform = `rotate(${startRotation}deg) translateX(-${initialDeltaX}px)`;
+        },
+
+        setFinalSwipeOutStyles() {
+            requestAnimationFrame(() => {
+                this.gameContainer.style.transform = `rotate(${-eventHandlers.maxRotation}deg) translateX(-100%)`;
+                this.gameContainer.style.opacity = '0';
+            });
+        },
+
+        scheduleNewPairLoad() {
+            setTimeout(() => {
+                this.resetContainerForNewPair();
+                this.loadNewPair();
+                this.fadeInNewPair();
+            }, eventHandlers.animationDuration);
+        },
+
+        resetContainerForNewPair() {
             this.gameContainer.style.transition = 'none';
             this.gameContainer.style.transform = 'none';
             this.gameContainer.style.opacity = '0';
+        },
 
+        loadNewPair() {
             if (!gameLogic.isCurrentPairInCollection()) {
-              gameLogic.loadRandomPairFromCurrentCollection();
+                gameLogic.loadRandomPairFromCurrentCollection();
             } else {
-              gameLogic.loadNewRandomPair();
+                gameLogic.loadNewRandomPair();
             }
+        },
 
+        fadeInNewPair() {
             requestAnimationFrame(() => {
-              this.gameContainer.style.transition = 'opacity 300ms ease-in';
-              this.gameContainer.style.opacity = '1';
+                this.gameContainer.style.transition = 'opacity 300ms ease-in';
+                this.gameContainer.style.opacity = '1';
             });
 
             setTimeout(() => {
-              this.gameContainer.style.transition = '';
+                this.gameContainer.style.transition = '';
             }, 300);
-          }, eventHandlers.animationDuration);
         },
 
         resetSwipeAnimation() {
@@ -222,25 +251,36 @@ const eventHandlers = {
             }
         },
 
-        initializeMainMenuListeners: function () {
-            const addMenuListener = (buttonId, action) => {
-                this.safeAddEventListener(buttonId, 'click', () => {
-                    action();
-                    ui.menu.close(); // Close menu after action
-                });
+        initializeMainMenuListeners() {
+            this.addMenuButtonListeners();
+            this.addShareButtonListener();
+        },
+
+        addMenuButtonListeners() {
+            const menuActions = {
+                'phylogeny-button': taxaRelationshipViewer.graphManagement.showTaxaRelationship,
+                'select-set-button': ui.taxonPairList.showTaxonPairList,
+                'enter-set-button': () => dialogManager.openDialog('enter-set-dialog'),
+                'random-pair-button': gameLogic.loadNewRandomPair,
+                'like-button': this.likePair.bind(this),
+                'trash-button': this.trashPair.bind(this),
+                'surprise-button': utils.sound.surprise
             };
 
-            this.safeAddEventListener('share-button', 'click', () => {
-                utils.url.shareCurrentPair();
+            Object.entries(menuActions).forEach(([buttonId, action]) => {
+                this.addMenuListener(buttonId, action);
             });
+        },
 
-            addMenuListener('phylogeny-button', taxaRelationshipViewer.graphManagement.showTaxaRelationship);
-            addMenuListener('select-set-button', ui.taxonPairList.showTaxonPairList);
-            addMenuListener('enter-set-button', () => dialogManager.openDialog('enter-set-dialog'));
-            addMenuListener('random-pair-button', gameLogic.loadNewRandomPair);
-            addMenuListener('like-button', this.likePair.bind(this));
-            addMenuListener('trash-button', this.trashPair.bind(this));
-            addMenuListener('surprise-button', utils.sound.surprise);
+        addMenuListener(buttonId, action) {
+            this.safeAddEventListener(buttonId, 'click', () => {
+                action();
+                ui.menu.close();
+            });
+        },
+
+        addShareButtonListener() {
+            this.safeAddEventListener('share-button', 'click', utils.url.shareCurrentPair);
         },
 
         initializeLevelIndicator() {
@@ -307,99 +347,55 @@ const eventHandlers = {
     keyboardShortcuts: {
         debouncedKeyboardHandler: null,
         _handleKeyboardShortcuts(event) {
+            if (this.shouldIgnoreKeyboardShortcut(event)) return;
 
-            if (event.ctrlKey || event.altKey || event.metaKey) {
-                return; // Exit the function if any modifier key is pressed
+            const shortcutActions = {
+                'arrowleft': this.handleArrowLeft.bind(this),
+                'arrowup': () => this.moveTileToDropZone('left', 'upper'),
+                'arrowdown': () => this.moveTileToDropZone('left', 'lower'),
+                'c': ui.taxonPairList.showTaxonPairList,
+                'l': ui.taxonPairList.showTaxonPairList,
+                'e': () => dialogManager.openDialog('enter-set-dialog'),
+                'i': () => game.dialogHandling.showInfoDialog(game.currentObservationURLs.imageOne, 1),
+                'o': () => game.dialogHandling.showInfoDialog(game.currentObservationURLs.imageTwo, 2),
+                'h': () => eventHandlers.hintButton.showHint(1),
+                'j': () => eventHandlers.hintButton.showHint(2),
+                'g': taxaRelationshipViewer.graphManagement.showTaxaRelationship,
+                '?': () => this.handleQuestionMark(event),
+                'm': ui.menu.toggleMainMenu,
+                's': utils.url.shareCurrentPair,
+                't': testingDialog.openDialog,
+                '+': this.incrementSetID.bind(this),
+                'x': () => document.getElementById('surprise-button').click()
+            };
+
+            const action = shortcutActions[event.key.toLowerCase()];
+            if (action) {
+                event.preventDefault();
+                action();
             }
+        },
 
-            if (dialogManager.isAnyDialogOpen() || ui.tutorial.isActive) {
-                // If any dialog or tutorial is open, don't process keyboard shortcuts
-                return;
+        shouldIgnoreKeyboardShortcut(event) {
+            return event.ctrlKey || event.altKey || event.metaKey ||
+                   dialogManager.isAnyDialogOpen() || 
+                   ui.tutorial.isActive ||
+                   document.getElementById('info-dialog').open ||
+                   document.getElementById('enter-set-dialog').open;
+        },
+
+        handleArrowLeft() {
+            if (!eventHandlers.isLoadingNewPair) {
+                eventHandlers.isLoadingNewPair = true;
+                gameLogic.loadNewRandomPair().finally(() => {
+                    eventHandlers.isLoadingNewPair = false;
+                });
             }
+        },
 
-            if (dialogManager.isAnyDialogOpen() ||
-                document.getElementById('info-dialog').open ||
-                document.getElementById('enter-set-dialog').open) {
-                return;
-            }
-
-            switch (event.key.toLowerCase()) {
-                case 'arrowleft':
-                    if (!eventHandlers.isLoadingNewPair) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                        eventHandlers.isLoadingNewPair = true;
-                        gameLogic.loadNewRandomPair().finally(() => {
-                            eventHandlers.isLoadingNewPair = false;
-                        });
-                    }
-                    break;
-                case 'arrowup':
-                    event.preventDefault();
-                    eventHandlers.keyboardShortcuts.moveTileToDropZone('left', 'upper');
-                    break;
-                case 'arrowdown':
-                    event.preventDefault();
-                    eventHandlers.keyboardShortcuts.moveTileToDropZone('left', 'lower');
-                    break;
-                case 'c':
-                case 'l':
-                    event.preventDefault();
-                    ui.taxonPairList.showTaxonPairList();
-                    break;
-                case 'e':
-                    event.preventDefault();
-                    dialogManager.openDialog('enter-set-dialog');
-                    break;
-                case 'i':
-                    event.preventDefault();
-                    game.dialogHandling.showInfoDialog(game.currentObservationURLs.imageOne, 1);
-                    break;
-                case 'o':
-                    event.preventDefault();
-                    game.dialogHandling.showInfoDialog(game.currentObservationURLs.imageTwo, 2);
-                    break;
-                case 'h':
-                    event.preventDefault();
-                    eventHandlers.hintButton.showHint(1); // Top hint button
-                    break;
-                case 'j':
-                    event.preventDefault();
-                    eventHandlers.hintButton.showHint(2); // Bottom hint button
-                    break;
-                case 'g':
-                    taxaRelationshipViewer.graphManagement.showTaxaRelationship();
-                    break;
-                case '?':
-                    if (!event.target.closest('button')) {  // Only trigger if not clicking a button
-                        event.preventDefault();
-                        dialogManager.openDialog('help-dialog');
-                    }
-                    break;
-                case 'm':
-                    event.preventDefault();
-                    ui.menu.toggleMainMenu();
-                    break;
-                case 's':
-                    event.preventDefault();
-                    utils.url.shareCurrentPair();
-                    break;
-                case 't': // hidden
-                    event.preventDefault();
-                    testingDialog.openDialog();
-                    break;
-                case '+': // hidden
-                    event.preventDefault();
-                    this.incrementSetID();
-                    break;
-                case 'w':
-                    // createWorldMap.toggleAllWorldMaps();
-                    // TODO need to find a way to trigger from here
-                    break;
-                case 'x':
-                    event.preventDefault();
-                    document.getElementById('surprise-button').click();
-                    break;
+        handleQuestionMark(event) {
+            if (event && event.target && !event.target.closest('button')) {
+                dialogManager.openDialog('help-dialog');
             }
         },
 

@@ -73,7 +73,7 @@ const dialogManager = {
             }
 
             if (dialogId === 'report-dialog') {
-                this.resetReportDialog();
+                dialogManager.reporting.resetReportDialog();
             }
         },
 
@@ -124,13 +124,19 @@ const dialogManager = {
     },
 
     initialization: {
-
         initializeDialogs() {
-            this.initialization.initializeHelpDialog();
-            this.initialization.initializeInfoDialog();
-            this.initialization.initializeReportDialog();
-            this.initialization.initializeEnterSetDialog();
+            dialogManager.initialization.initializeHelpDialog();
+            dialogManager.initialization.initializeInfoDialog();
+            dialogManager.initialization.initializeReportDialog();
+            dialogManager.initialization.initializeEnterSetDialog();
+            dialogManager.initialization.initializeCloseButtons();
+            dialogManager.initialization.initializeFilterSummaryMap();
+            dialogManager.initialization.initializeClearFiltersButton();
+            dialogManager.initialization.initializeSelectSetDoneButton();
+            dialogManager.initialization.initializeDialogCloseEvent();
+        },
 
+        initializeCloseButtons() {
             const dialogs = ['select-set-dialog', 'tag-cloud-dialog', 'range-dialog',
                   'enter-set-dialog', 'qr-dialog', 'help-dialog', 'info-dialog',
                   'report-dialog', 'phylogeny-dialog', 'inat-down-dialog'];
@@ -141,31 +147,35 @@ const dialogManager = {
                     closeButton.addEventListener('click', () => dialogManager.core.closeDialog(dialogId));
                 }
             });
+        },
 
-            // TODO should be in its own module somewhere I think
+        initializeFilterSummaryMap() {
             const filterSummaryMap = document.querySelector('.filter-summary__map');
             if (filterSummaryMap) {
                 filterSummaryMap.addEventListener('click', () => {
                     rangeSelector.openRangeDialog();
                 });
             }
+        },
 
+        initializeClearFiltersButton() {
             const clearFiltersButton = document.getElementById('clear-all-filters');
             if (clearFiltersButton) {
                 clearFiltersButton.addEventListener('click', dialogManager.handlers.clearAllFilters.bind(this));
             }
+        },
+
+        initializeSelectSetDoneButton() {
             const selectSetDoneButton = document.getElementById('select-set-done-button');
             if (selectSetDoneButton) {
                 selectSetDoneButton.addEventListener('click', dialogManager.handlers.handleSelectSetDone.bind(this));
             }
+        },
 
-
+        initializeDialogCloseEvent() {
             dialogManager.events.on('dialogClose', (dialogId) => {
                 // Add any specific actions you want to perform when a dialog is closed
             });
-
-            this.initialization.initializeReportDialog();
-
         },
 
         initializeHelpDialog() {
@@ -183,51 +193,59 @@ const dialogManager = {
 
         initializeInfoDialog() {
             const infoDialog = document.getElementById('info-dialog');
+            dialogManager.initialization.addKeyboardClass();
+            dialogManager.initialization.addInfoDialogKeyListener(infoDialog);
+            dialogManager.initialization.initializeReportButton();
+        },
 
-            // Check if the device has a keyboard
+        addKeyboardClass() {
             if (utils.device.hasKeyboard()) {
                 document.body.classList.add('has-keyboard');
             }
+        },
 
-            const handleKeyPress = (event) => {
-                if (!infoDialog.open) return; // Only handle keypresses when the dialog is open
+        addInfoDialogKeyListener(infoDialog) {
+            const handleKeyPress = dialogManager.initialization.createInfoDialogKeyPressHandler(infoDialog);
+            document.addEventListener('keydown', handleKeyPress);
+        },
 
-                // Ignore keypress events if the active element is a text input or textarea
-                if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
-                    return;
-                }
-
-                if (event.ctrlKey || event.altKey || event.shiftKey || event.metaKey) {
-                    return; // Exit the function if any modifier key is pressed
-                }
+        createInfoDialogKeyPressHandler(infoDialog) {
+            return (event) => {
+                if (!infoDialog.open) return;
+                if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') return;
+                if (event.ctrlKey || event.altKey || event.shiftKey || event.metaKey) return;
 
                 event.stopPropagation();
                 const key = event.key.toLowerCase();
-                const buttonMap = {
-                    'p': 'photo-button',
-                    'h': 'hints-button',
-                    'o': 'observation-button',
-                    't': 'taxon-button',
-                    'w': 'wiki-button',
-                    'r': 'report-button'
-                };
+                dialogManager.initialization.handleInfoDialogKeyPress(key, event, infoDialog);
+            };
+        },
 
-                if (buttonMap[key]) {
-                    event.preventDefault();
-                    document.getElementById(buttonMap[key]).click();
-                } else if (key === 'escape') {
-                    event.preventDefault();
-                    infoDialog.close();
-                }
+        handleInfoDialogKeyPress(key, event, infoDialog) {
+            const buttonMap = {
+                'p': 'photo-button',
+                'h': 'hints-button',
+                'o': 'observation-button',
+                't': 'taxon-button',
+                'w': 'wiki-button',
+                'r': 'report-button'
             };
 
+            if (buttonMap[key]) {
+                event.preventDefault();
+                document.getElementById(buttonMap[key]).click();
+            } else if (key === 'escape') {
+                event.preventDefault();
+                infoDialog.close();
+            }
+        },
+
+        initializeReportButton() {
             const reportButton = document.getElementById('report-button');
             reportButton.addEventListener('click', () => {
                 dialogManager.core.closeDialog('info-dialog');
                 dialogManager.core.openDialog('report-dialog');
             });
-
-            document.addEventListener('keydown', handleKeyPress);
         },
 
         initializeReportDialog: function () {
@@ -290,7 +308,6 @@ const dialogManager = {
 
             logger.debug('Enter Set Dialog initialized');
         },
-
     },
 
     utils: {
@@ -365,138 +382,206 @@ const dialogManager = {
 
         async handleNewPairSubmit(event) {
             event.preventDefault();
+            const { taxon1, taxon2 } = this.getAndValidateInputs();
+            if (!taxon1 || !taxon2) return;
 
-            const taxon1 = this.taxon1Input.value.trim();
-            const taxon2 = this.taxon2Input.value.trim();
-
-            if (!taxon1 || !taxon2) {
-                this.dialogMessage.textContent = 'Please enter both taxa.';
-                return;
-            }
-
-            this.dialogMessage.textContent = 'Validating taxa...';
-            this.submitButton.disabled = true;
-            this.addLoadingSpinner();
-
+            this.setSubmitState(true);
+            
             try {
-                const [validatedTaxon1, validatedTaxon2] = await Promise.all([
-                    api.taxonomy.validateTaxon(taxon1),
-                    api.taxonomy.validateTaxon(taxon2)
-                ]);
-
-                if (validatedTaxon1 && validatedTaxon2) {
-                    const newPair = {
-                        taxon1: validatedTaxon1.name,
-                        taxon2: validatedTaxon2.name
-                    };
-
-                    this.dialogMessage.textContent = 'Saving new pair...';
-
-                    try {
-                        const response = await fetch('./data/taxonPairs.json');
-                        const taxonPairs = await response.json();
-                        taxonPairs.push(newPair);
-
-                        game.nextSelectedPair = newPair;
-                        this.closeDialog();
-                        gameSetup.setupGame(true);
-                    } catch (error) {
-                        logger.error('Error updating taxonPairs.json:', error);
-                        this.dialogMessage.textContent = 'Error saving new pair. Please try again.';
-                    }
+                const validatedTaxa = await this.validateTaxa(taxon1, taxon2);
+                if (validatedTaxa) {
+                    await this.saveAndSetupNewPair(validatedTaxa);
                 } else {
-                    this.dialogMessage.textContent = 'One or both taxa are invalid. Please check and try again.';
+                    this.displayValidationError();
                 }
             } catch (error) {
-                logger.error('Error validating taxa:', error);
-                this.dialogMessage.textContent = 'Error validating taxa. Please try again.';
+                this.handleSubmitError(error);
             } finally {
-                this.submitButton.disabled = false;
+                this.setSubmitState(false);
+            }
+        },
+
+        getAndValidateInputs() {
+            const taxon1 = this.taxon1Input.value.trim();
+            const taxon2 = this.taxon2Input.value.trim();
+            if (!taxon1 || !taxon2) {
+                this.dialogMessage.textContent = 'Please enter both taxa.';
+            }
+            return { taxon1, taxon2 };
+        },
+
+        setSubmitState(isSubmitting) {
+            this.dialogMessage.textContent = isSubmitting ? 'Validating taxa...' : '';
+            this.submitButton.disabled = isSubmitting;
+            if (isSubmitting) {
+                this.addLoadingSpinner();
+            } else {
                 this.removeLoadingSpinner();
             }
         },
 
+        async validateTaxa(taxon1, taxon2) {
+            const [validatedTaxon1, validatedTaxon2] = await Promise.all([
+                api.taxonomy.validateTaxon(taxon1),
+                api.taxonomy.validateTaxon(taxon2)
+            ]);
+            return validatedTaxon1 && validatedTaxon2 ? { validatedTaxon1, validatedTaxon2 } : null;
+        },
+
+        async saveAndSetupNewPair({ validatedTaxon1, validatedTaxon2 }) {
+            const newPair = {
+                taxon1: validatedTaxon1.name,
+                taxon2: validatedTaxon2.name
+            };
+            this.dialogMessage.textContent = 'Saving new pair...';
+            try {
+                await this.savePairToJson(newPair);
+                game.nextSelectedPair = newPair;
+                this.closeDialog();
+                gameSetup.setupGame(true);
+            } catch (error) {
+                throw new Error('Error saving new pair');
+            }
+        },
+
+        async savePairToJson(newPair) {
+            const response = await fetch('./data/taxonPairs.json');
+            const taxonPairs = await response.json();
+            taxonPairs.push(newPair);
+            // Here you would typically save the updated taxonPairs back to the server
+            // For now, we'll just simulate that it was saved successfully
+        },
+
+        displayValidationError() {
+            this.dialogMessage.textContent = 'One or both taxa are invalid. Please check and try again.';
+        },
+
+        handleSubmitError(error) {
+            logger.error('Error in handleNewPairSubmit:', error);
+            this.dialogMessage.textContent = 'An error occurred. Please try again.';
+        },
+
         handleReportSubmit: function (event) {
             event.preventDefault();
-            const formData = new FormData(event.target);
-            const reportTypes = formData.getAll('report-type');
-            const details = document.getElementById('report-dialog__details').value;
+            const reportData = dialogManager.handlers.collectReportData(event.target);
+            if (!dialogManager.handlers.validateReportData(reportData)) return;
 
-            if (reportTypes.length === 0) {
+            const emailBody = dialogManager.handlers.constructEmailBody(reportData);
+            dialogManager.reporting.sendReportEmail(emailBody);
+        },
+
+        collectReportData(form) {
+            const formData = new FormData(form);
+            return {
+                reportTypes: formData.getAll('report-type'),
+                details: document.getElementById('report-dialog__details').value
+            };
+        },
+
+        validateReportData(reportData) {
+            if (reportData.reportTypes.length === 0) {
                 ui.notifications.showPopupNotification("Please select at least one issue to report.", 3000);
-                return;
+                return false;
             }
+            return true;
+        },
 
+        constructEmailBody(reportData) {
             let emailBody = "Report Types:\n";
-            reportTypes.forEach(type => {
-                emailBody += `- ${this.getReportTypeText(type)}\n`;
+            reportData.reportTypes.forEach(type => {
+                emailBody += `- ${dialogManager.reporting.getReportTypeText(type)}\n`;
             });
 
-            if (details.trim() !== '') {
-                emailBody += `\nAdditional Details:\n${details}\n`;
+            if (reportData.details.trim() !== '') {
+                emailBody += `\nAdditional Details:\n${reportData.details}\n`;
             }
 
-            emailBody += "\nGame State Information:\n";
+            emailBody += dialogManager.handlers.getGameStateInfo();
+            emailBody += dialogManager.handlers.getCurrentImageURLs();
+
+            return emailBody;
+        },
+
+        getGameStateInfo() {
+            let info = "\nGame State Information:\n";
             if (gameState.currentTaxonImageCollection && gameState.currentTaxonImageCollection.pair) {
                 const pair = gameState.currentTaxonImageCollection.pair;
-                emailBody += `Taxon 1: ${pair.taxon1}\n`;
-                emailBody += `Taxon 2: ${pair.taxon2}\n`;
-                emailBody += `Set Name: ${pair.setName || 'N/A'}\n`;
-                emailBody += `Set ID: ${pair.setID || 'N/A'}\n`;
-                emailBody += `Level: ${pair.level || 'N/A'}\n`;
+                info += `Taxon 1: ${pair.taxon1}\n`;
+                info += `Taxon 2: ${pair.taxon2}\n`;
+                info += `Set Name: ${pair.setName || 'N/A'}\n`;
+                info += `Set ID: ${pair.setID || 'N/A'}\n`;
+                info += `Level: ${pair.level || 'N/A'}\n`;
             } else {
-                emailBody += "Current taxon pair information not available\n";
+                info += "Current taxon pair information not available\n";
             }
+            return info;
+        },
 
-            // Include current image URLs
+        getCurrentImageURLs() {
+            let urls = "";
             if (game.currentObservationURLs) {
-                emailBody += `Image 1 URL: ${game.currentObservationURLs.imageOne || 'N/A'}\n`;
-                emailBody += `Image 2 URL: ${game.currentObservationURLs.imageTwo || 'N/A'}\n`;
+                urls += `Image 1 URL: ${game.currentObservationURLs.imageOne || 'N/A'}\n`;
+                urls += `Image 2 URL: ${game.currentObservationURLs.imageTwo || 'N/A'}\n`;
             } else {
-                emailBody += "Current image URLs not available\n";
+                urls += "Current image URLs not available\n";
             }
-
-            this.sendReportEmail(emailBody);
+            return urls;
         },
 
         async handleEnterSetSubmit(taxon1, taxon2, messageElement, submitButton) {
             logger.debug(`Handling submit for taxa: ${taxon1}, ${taxon2}`);
-            messageElement.textContent = 'Validating taxa...';
-            submitButton.disabled = true;
+            this.setSubmitState(messageElement, submitButton, true);
 
             try {
-                const [validatedTaxon1, validatedTaxon2] = await Promise.all([
-                    api.taxonomy.validateTaxon(taxon1),
-                    api.taxonomy.validateTaxon(taxon2)
-                ]);
-
-                logger.debug(`Validation results: Taxon1: ${JSON.stringify(validatedTaxon1)}, Taxon2: ${JSON.stringify(validatedTaxon2)}`);
-
-                if (validatedTaxon1 && validatedTaxon2) {
-                    const newSet = {
-                        taxon1: validatedTaxon1.name,
-                        taxon2: validatedTaxon2.name,
-                        vernacular1: validatedTaxon1.preferred_common_name || '',
-                        vernacular2: validatedTaxon2.preferred_common_name || ''
-                    };
-
-                    logger.debug('New set created:', newSet);
-
-                    // Set the new pair as the next selected pair
-                    game.nextSelectedPair = newSet;
-
-                    this.closeDialog('enter-set-dialog');
-                    gameSetup.setupGame(true);
-                } else {
-                    messageElement.textContent = 'One or both taxa are invalid. Please check and try again.';
-                    logger.debug('Taxa validation failed');
-                }
+                const [validatedTaxon1, validatedTaxon2] = await this.validateTaxa(taxon1, taxon2);
+                this.handleValidationResult(validatedTaxon1, validatedTaxon2, messageElement);
             } catch (error) {
-                logger.error('Error validating taxa:', error);
-                messageElement.textContent = 'Error validating taxa. Please try again.';
+                this.handleValidationError(error, messageElement);
             } finally {
-                submitButton.disabled = false;
+                this.setSubmitState(messageElement, submitButton, false);
             }
+        },
+
+        async validateTaxa(taxon1, taxon2) {
+            return await Promise.all([
+                api.taxonomy.validateTaxon(taxon1),
+                api.taxonomy.validateTaxon(taxon2)
+            ]);
+        },
+
+        handleValidationResult(validatedTaxon1, validatedTaxon2, messageElement) {
+            logger.debug(`Validation results: Taxon1: ${JSON.stringify(validatedTaxon1)}, Taxon2: ${JSON.stringify(validatedTaxon2)}`);
+
+            if (validatedTaxon1 && validatedTaxon2) {
+                this.processValidTaxa(validatedTaxon1, validatedTaxon2);
+            } else {
+                messageElement.textContent = 'One or both taxa are invalid. Please check and try again.';
+                logger.debug('Taxa validation failed');
+            }
+        },
+
+        processValidTaxa(validatedTaxon1, validatedTaxon2) {
+            const newSet = {
+                taxon1: validatedTaxon1.name,
+                taxon2: validatedTaxon2.name,
+                vernacular1: validatedTaxon1.preferred_common_name || '',
+                vernacular2: validatedTaxon2.preferred_common_name || ''
+            };
+
+            logger.debug('New set created:', newSet);
+            game.nextSelectedPair = newSet;
+            this.closeDialog('enter-set-dialog');
+            gameSetup.setupGame(true);
+        },
+
+        handleValidationError(error, messageElement) {
+            logger.error('Error validating taxa:', error);
+            messageElement.textContent = 'Error validating taxa. Please try again.';
+        },
+
+        setSubmitState(messageElement, submitButton, isSubmitting) {
+            messageElement.textContent = isSubmitting ? 'Validating taxa...' : '';
+            submitButton.disabled = isSubmitting;
         },
 
         clearAllFilters() {
@@ -541,33 +626,42 @@ const dialogManager = {
     },
 
     specialDialogs: {
-
         showINatDownDialog() {
+            this.hideLoadingScreen();
+            this.openINatDownDialog();
+            this.setupINatDownDialogButtons();
+        },
+
+        hideLoadingScreen() {
             const loadingScreen = document.getElementById('loading-screen');
             if (loadingScreen) {
                 loadingScreen.style.display = 'none';
             }
+        },
 
+        openINatDownDialog() {
             dialogManager.openDialog('inat-down-dialog');
+        },
 
+        setupINatDownDialogButtons() {
             const checkStatusBtn = document.getElementById('check-inat-status');
             const retryConnectionBtn = document.getElementById('retry-connection');
 
-            const checkStatusHandler = () => {
-                window.open('https://inaturalist.org', '_blank');
-            };
+            checkStatusBtn.addEventListener('click', this.handleCheckStatus);
+            retryConnectionBtn.addEventListener('click', this.handleRetryConnection);
+        },
 
-            const retryConnectionHandler = async () => {
-                dialogManager.closeDialog();
-                if (await api.externalAPIs.isINaturalistReachable()) {
-                    gameSetup.setupGame(true);
-                } else {
-                    this.showINatDownDialog();
-                }
-            };
+        handleCheckStatus() {
+            window.open('https://inaturalist.org', '_blank');
+        },
 
-            checkStatusBtn.addEventListener('click', checkStatusHandler);
-            retryConnectionBtn.addEventListener('click', retryConnectionHandler);
+        async handleRetryConnection() {
+            dialogManager.closeDialog();
+            if (await api.externalAPIs.isINaturalistReachable()) {
+                gameSetup.setupGame(true);
+            } else {
+                this.showINatDownDialog();
+            }
         },
 
         hideINatDownDialog() {
@@ -583,7 +677,7 @@ const dialogManager = {
             const fullEmailContent = `To: ${recipient}\nSubject: ${subject}\n\n${body}`;
 
             // Copy to clipboard
-            this.copyToClipboard(fullEmailContent);
+            dialogManager.reporting.copyToClipboard(fullEmailContent);
 
             // Attempt to open email client
             const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
@@ -601,7 +695,7 @@ const dialogManager = {
             // Close the report dialog and reset it
             setTimeout(() => {
                 this.closeDialog('report-dialog');
-                this.resetReportDialog();
+                dialogManager.reporting.resetReportDialog();
             }, 6000);  // Increased to match notification duration
         },
 
