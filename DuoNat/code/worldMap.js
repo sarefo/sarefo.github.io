@@ -1,21 +1,38 @@
-let isGlobeView = false; // Session-wide setting
-let worldMaps = []; // Array to store all world map instances
-
-export const continentMap = {
+// Constants and global variables
+const continentMap = {
     'North America': 'NA',
     'South America': 'SA',
     'Europe': 'EU',
     'Africa': 'AF',
     'Asia': 'AS',
-    'Oceania': 'OC'
+    'Oceania': 'OC',
 };
 
-export function getFullContinentName(abbreviation) {
-    return Object.keys(continentMap).find(key => continentMap[key] === abbreviation);
+let isGlobeView = false;
+let worldMaps = [];
+
+// SVG manipulation functions
+function setSVGAttributes(svg) {
+    svg.setAttribute('width', '100%');
+    svg.setAttribute('height', '100%');
+    svg.setAttribute('viewBox', '0 0 1775.8327 853.5303');
+    svg.style.maxWidth = '100%';
+    svg.style.height = 'auto';
 }
 
-export function getContinentAbbreviation(fullName) {
-    return continentMap[fullName];
+function colorContinents(svg, highlightedContinents, isClickable, onContinentClick) {
+    const paths = svg.querySelectorAll('path');
+    paths.forEach(path => {
+        const continentName = path.getAttribute('inkscape:label');
+        path.setAttribute('fill', highlightedContinents.includes(continentName) ? '#ac0028' : '#888');
+        path.setAttribute('stroke', '#33a02c');
+        path.setAttribute('stroke-width', '0.5');
+
+        if (isClickable && onContinentClick) {
+            path.style.cursor = 'pointer';
+            path.addEventListener('click', () => onContinentClick(continentName));
+        }
+    });
 }
 
 // Core function to draw the world map
@@ -26,39 +43,15 @@ function drawWorldMap(container, highlightedContinents, isClickable = false, onC
         return null;
     }
 
-    const width = 100;
-    const height = 60;
-
     return fetch('./images/world.svg')
         .then(response => response.text())
         .then(svgData => {
             const parser = new DOMParser();
             const svgDOM = parser.parseFromString(svgData, "image/svg+xml");
-
             const svg = svgDOM.documentElement;
-            svg.setAttribute('width', '100%');
-            svg.setAttribute('height', '100%');
-            svg.setAttribute('viewBox', '0 0 1775.8327 853.5303');
-            svg.style.maxWidth = '100%';
-            svg.style.height = 'auto';
 
-            // Color the continents
-            const paths = svg.querySelectorAll('path');
-            paths.forEach(path => {
-                const continentName = path.getAttribute('inkscape:label');
-                if (highlightedContinents.includes(continentName)) {
-                    path.setAttribute('fill', '#ac0028');
-                } else {
-                    path.setAttribute('fill', '#888');
-                }
-                path.setAttribute('stroke', '#33a02c');
-                path.setAttribute('stroke-width', '0.5');
-
-                if (isClickable && onContinentClick) {
-                    path.style.cursor = 'pointer';
-                    path.addEventListener('click', () => onContinentClick(continentName));
-                }
-            });
+            setSVGAttributes(svg);
+            colorContinents(svg, highlightedContinents, isClickable, onContinentClick);
 
             mapContainer.innerHTML = '';
             mapContainer.appendChild(svg);
@@ -71,51 +64,7 @@ function drawWorldMap(container, highlightedContinents, isClickable = false, onC
         });
 }
 
-export function createWorldMap(container, highlightedContinents) {
-    const mapContainer = container.querySelector('.image-container__world-map');
-    if (!mapContainer) {
-        console.error('World map container not found');
-        return;
-    }
-
-    let svg = null;
-    let globeIcon = null;
-
-    function toggle() {
-        if (isGlobeView) {
-            // Remove any existing globe icon
-            const existingGlobeIcon = container.querySelector('.image-container__button--globe');
-            if (existingGlobeIcon) {
-                existingGlobeIcon.remove();
-            }
-            
-            // Create and add new globe icon
-            globeIcon = createGlobeIcon();
-            container.appendChild(globeIcon);
-            globeIcon.addEventListener('click', toggleAllWorldMaps);
-            
-            mapContainer.style.display = 'none';
-            globeIcon.style.display = 'flex';
-        } else {
-            if (globeIcon) {
-                globeIcon.remove();
-                globeIcon = null;
-            }
-            mapContainer.style.display = 'block';
-        }
-    }
-
-    drawWorldMap(container, highlightedContinents).then(createdSvg => {
-        svg = createdSvg;
-        if (svg) {
-            svg.addEventListener('click', toggleAllWorldMaps);
-        }
-        toggle(); // Set initial state
-    });
-
-    worldMaps.push({ toggle });
-}
-
+// Globe icon creation
 function createGlobeIcon() {
     const button = document.createElement('button');
     button.className = 'icon-button image-container__button image-container__button--globe';
@@ -132,18 +81,74 @@ function createGlobeIcon() {
     return button;
 }
 
-// Function to toggle between map and globe view
+// Toggle functions
 function toggleAllWorldMaps() {
     isGlobeView = !isGlobeView;
     worldMaps.forEach(map => map.toggle());
 }
 
-// Function to create a clickable world map (for range selection)
+function toggleMapView(container, mapContainer, globeIcon) {
+    if (isGlobeView) {
+        const existingGlobeIcon = container.querySelector('.image-container__button--globe');
+        if (existingGlobeIcon) {
+            existingGlobeIcon.remove();
+        }
+        
+        globeIcon = createGlobeIcon();
+        container.appendChild(globeIcon);
+        globeIcon.addEventListener('click', toggleAllWorldMaps);
+        
+        mapContainer.style.display = 'none';
+        globeIcon.style.display = 'flex';
+    } else {
+        if (globeIcon) {
+            globeIcon.remove();
+            globeIcon = null;
+        }
+        mapContainer.style.display = 'block';
+    }
+    return globeIcon;
+}
+
+// Public API
+
+export function createWorldMap(container, highlightedContinents) {
+    const mapContainer = container.querySelector('.image-container__world-map');
+    if (!mapContainer) {
+        console.error('World map container not found');
+        return;
+    }
+
+    let svg = null;
+    let globeIcon = null;
+
+    function toggle() {
+        globeIcon = toggleMapView(container, mapContainer, globeIcon);
+    }
+
+    drawWorldMap(container, highlightedContinents).then(createdSvg => {
+        svg = createdSvg;
+        if (svg) {
+            svg.addEventListener('click', toggleAllWorldMaps);
+        }
+        toggle(); // Set initial state
+    });
+
+    worldMaps.push({ toggle });
+}
+
+export function getFullContinentName(abbreviation) {
+    return Object.keys(continentMap).find(key => continentMap[key] === abbreviation);
+}
+
+export function getContinentAbbreviation(fullName) {
+    return continentMap[fullName];
+}
+
 export function createClickableWorldMap(container, selectedContinents, onContinentClick) {
     drawWorldMap(container, Array.from(selectedContinents), true, onContinentClick);
 }
 
-// Function to create a non-clickable world map (for filter summary)
 export function createNonClickableWorldMap(container, selectedContinents) {
     drawWorldMap(container, Array.from(selectedContinents), false);
 }
