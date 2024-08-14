@@ -591,11 +591,10 @@ const eventHandlers = {
     },
 
     hintButton: {
-        showHint: async function(index) {
+        async showHint(index) {
             const imageContainer = document.getElementById(`image-container-${index}`);
             const taxonName = imageContainer.querySelector('img').alt.split(' Image')[0];
-            const taxonInfo = await api.taxonomy.loadTaxonInfo();
-            const taxonId = Object.keys(taxonInfo).find(id => taxonInfo[id].taxonName === taxonName);
+            const taxonId = await this.getTaxonId(taxonName);
             
             if (!taxonId) {
                 logger.warn(`Could not find ID for taxon: ${taxonName}`);
@@ -605,42 +604,147 @@ const eventHandlers = {
             const hints = await api.taxonomy.fetchTaxonHints(taxonId);
             
             if (hints && hints.length > 0) {
-                let shownHints = game.shownHints[`taxon${index}`];
-                
-                // If all hints have been shown, reset the shown hints
-                if (shownHints.length >= hints.length) {
-                    game.resetShownHints();
-                    shownHints = game.shownHints[`taxon${index}`];
-                }                
-                const availableHints = hints.filter(hint => !shownHints.includes(hint));
-                
-                if (availableHints.length > 0) {
-                    const randomHint = availableHints[Math.floor(Math.random() * availableHints.length)];
-                    game.shownHints[`taxon${index}`].push(randomHint);
-                    
-                    const hintOverlay = document.createElement('div');
-                    hintOverlay.className = 'hint-overlay';
-                    hintOverlay.textContent = randomHint;
-                    
-                    imageContainer.appendChild(hintOverlay);
-                    
-                    setTimeout(() => {
-                        hintOverlay.remove();
-                    }, 3000); // Show hint for 3 seconds
-                }
+                this.displayRandomHint(hints, index);
             } else {
                 logger.warn(`No hints available for ${taxonName} (ID: ${taxonId})`);
             }
         },
 
-        initialize: function() {
-            const hintButton1 = document.getElementById('hint-button-1');
-            const hintButton2 = document.getElementById('hint-button-2');
+        async getTaxonId(taxonName) {
+            const taxonInfo = await api.taxonomy.loadTaxonInfo();
+            return Object.keys(taxonInfo).find(id => taxonInfo[id].taxonName === taxonName);
+        },
 
+        displayRandomHint(hints, index) {
+            let shownHints = game.shownHints[`taxon${index}`];
+            
+            if (shownHints.length >= hints.length) {
+                game.resetShownHints();
+                shownHints = game.shownHints[`taxon${index}`];
+            }
+            
+            const availableHints = hints.filter(hint => !shownHints.includes(hint));
+            
+            if (availableHints.length > 0) {
+                const randomHint = availableHints[Math.floor(Math.random() * availableHints.length)];
+                game.shownHints[`taxon${index}`].push(randomHint);
+                
+                this.showHintOverlay(randomHint, index);
+            }
+        },
+
+        showHintOverlay(hint, index) {
+            const imageContainer = document.getElementById(`image-container-${index}`);
+            const hintOverlay = document.createElement('div');
+            hintOverlay.className = 'hint-overlay';
+            hintOverlay.textContent = hint;
+            
+            imageContainer.appendChild(hintOverlay);
+            
+            setTimeout(() => {
+                hintOverlay.remove();
+            }, 3000); // Show hint for 3 seconds
+        },
+
+        initialize: function() {
             eventHandlers.uiInteractions.safeAddEventListener('hint-button-1', 'click', () => this.showHint(1));
             eventHandlers.uiInteractions.safeAddEventListener('hint-button-2', 'click', () => this.showHint(2));
         }
     },
+
+    eventInitializer: {
+        initialize() {
+            this.initializeDragAndDrop();
+            this.initializeTouchEvents();
+            this.initializeThumbsEvents();
+            this.initializeKeyboardEvents();
+            this.initializeSearchFunctionality();
+            this.initializeHelpButton();
+            this.initializeTutorialButton();
+            this.initializeDiscordButton();
+        },
+
+        initializeDragAndDrop() {
+            dragAndDrop.init.initialize();
+        },
+
+        initializeTouchEvents() {
+            const containers = [elements.imageOneContainer, elements.imageTwoContainer];
+            containers.forEach(container => {
+                container.addEventListener('touchstart', eventHandlers.swipeAndDrag.handleTouchStart.bind(eventHandlers.swipeAndDrag), { passive: true });
+                container.addEventListener('touchend', eventHandlers.swipeAndDrag.handleImageInteraction.bind(eventHandlers.swipeAndDrag));
+                container.addEventListener('mousedown', eventHandlers.swipeAndDrag.handleMouseDown.bind(eventHandlers.swipeAndDrag));
+                container.addEventListener('mouseup', eventHandlers.swipeAndDrag.handleImageInteraction.bind(eventHandlers.swipeAndDrag));
+            });
+        },
+
+        initializeThumbsEvents() {
+            ['1', '2'].forEach(index => {
+                eventHandlers.uiInteractions.safeAddEventListener(`thumbs-up-${index}`, 'click', () => eventHandlers.uiInteractions.handleThumbsUp(index));
+                eventHandlers.uiInteractions.safeAddEventListener(`thumbs-down-${index}`, 'click', () => eventHandlers.uiInteractions.handleThumbsDown(index));
+            });
+        },
+
+        initializeKeyboardEvents() {
+            document.addEventListener('keydown', eventHandlers.keyboardShortcuts.debouncedKeyboardHandler);
+            document.addEventListener('keydown', this.handleEscapeKey);
+        },
+
+        handleEscapeKey(event) {
+            if (event.key === 'Escape') {
+                dialogManager.closeAllDialogs();
+            }
+        },
+
+        initializeSearchFunctionality() {
+            const searchInput = document.getElementById('taxon-search');
+            if (searchInput) {
+                searchInput.addEventListener('input', eventHandlers.search.handleSearch.bind(eventHandlers.search));
+                searchInput.addEventListener('keydown', eventHandlers.search.handleSearchKeydown.bind(eventHandlers.search));
+            }
+
+            const clearSearchButton = document.getElementById('clear-search');
+            if (clearSearchButton) {
+                clearSearchButton.addEventListener('click', eventHandlers.search.handleClearSearch.bind(eventHandlers.search));
+            }
+        },
+
+        initializeHelpButton() {
+            const helpButton = document.getElementById('help-button');
+            if (helpButton) {
+                helpButton.addEventListener('click', this.handleHelpButtonClick);
+            }
+        },
+
+        handleHelpButtonClick(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            if (!ui.tutorial.isActive) {
+                const helpDialog = document.getElementById('help-dialog');
+                if (helpDialog && !helpDialog.open) {
+                    dialogManager.openDialog('help-dialog');
+                }
+            }
+        },
+
+        initializeTutorialButton() {
+            const tutorialButton = document.getElementById('start-tutorial-button');
+            if (tutorialButton) {
+                tutorialButton.addEventListener('click', ui.tutorial.showTutorial);
+            }
+        },
+
+        initializeDiscordButton() {
+            const discordButton = document.getElementById('discord-help-dialog');
+            if (discordButton) {
+                discordButton.addEventListener('click', () => {
+                    window.open('https://discord.gg/DcWrhYHmeM', '_blank');
+                });
+            }
+        },
+    },
+
+    // Methods that don't fit into the above categories
 
     getSharedProperties() {
         return {
@@ -654,6 +758,14 @@ const eventHandlers = {
         };
     },
 
+    disableSwipe: function() {
+        this.swipeDisabled = true;
+    },
+
+    enableSwipe: function() {
+        this.swipeDisabled = false;
+    },
+
     // Main initialization method
     initialize() {
         this.swipeAndDrag.initializeSwipeFunctionality();
@@ -663,6 +775,7 @@ const eventHandlers = {
         this.uiInteractions.initializeLevelIndicator();
         this.uiInteractions.initializeLongPressHandler();
         this.hintButton.initialize();
+        this.eventInitializer.initialize();
         this.keyboardShortcuts.debouncedKeyboardHandler = utils.ui.debounce(this.keyboardShortcuts._handleKeyboardShortcuts.bind(this.keyboardShortcuts), 300);
         document.addEventListener('keydown', this.keyboardShortcuts.debouncedKeyboardHandler);
 
@@ -690,73 +803,8 @@ const eventHandlers = {
         }
     },
 
-    // Other methods that don't fit into the above categories
-
     initializeAllEventListeners() {
-        dragAndDrop.init.initialize();
-
-        // touch events
-        [elements.imageOneContainer, elements.imageTwoContainer].forEach(container => {
-            container.addEventListener('touchstart', this.swipeAndDrag.handleTouchStart.bind(this.swipeAndDrag), { passive: true });
-            container.addEventListener('touchend', this.swipeAndDrag.handleImageInteraction.bind(this.swipeAndDrag));
-            container.addEventListener('mousedown', this.swipeAndDrag.handleMouseDown.bind(this.swipeAndDrag));
-            container.addEventListener('mouseup', this.swipeAndDrag.handleImageInteraction.bind(this.swipeAndDrag));
-        });
-
-        ['1', '2'].forEach(index => {
-            this.uiInteractions.safeAddEventListener(`thumbs-up-${index}`, 'click', () => this.uiInteractions.handleThumbsUp(index));
-            this.uiInteractions.safeAddEventListener(`thumbs-down-${index}`, 'click', () => this.uiInteractions.handleThumbsDown(index));
-        });
-
-        // Keyboard shortcuts
-        document.addEventListener('keydown', this.keyboardShortcuts.debouncedKeyboardHandler);
-
-        // Failsafe to ensure all dialogs can be closed
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape') {
-                dialogManager.closeAllDialogs();
-            }
-        });
-
-        // Add search functionality
-        const searchInput = document.getElementById('taxon-search');
-        if (searchInput) {
-            searchInput.addEventListener('input', this.search.handleSearch.bind(this.search));
-            searchInput.addEventListener('keydown', this.search.handleSearchKeydown.bind(this.search));
-        }
-
-        const clearSearchButton = document.getElementById('clear-search');
-        if (clearSearchButton) {
-            clearSearchButton.addEventListener('click', this.search.handleClearSearch.bind(this.search));
-        }
-
-        // Help button functionality
-        document.getElementById('help-button').addEventListener('click', (event) => {
-            event.preventDefault();
-            event.stopPropagation();
-            if (!ui.tutorial.isActive) {
-                const helpDialog = document.getElementById('help-dialog');
-                if (helpDialog && !helpDialog.open) {
-                    dialogManager.openDialog('help-dialog');
-                }
-            }
-        });
-
-        document.getElementById('start-tutorial-button').addEventListener('click', () => {
-            ui.tutorial.showTutorial();
-        });
-
-        document.getElementById('discord-help-dialog').addEventListener('click', () => {
-            window.open('https://discord.gg/DcWrhYHmeM', '_blank');
-        });
-    },
-
-    disableSwipe: function() {
-        this.swipeDisabled = true;
-    },
-
-    enableSwipe: function() {
-        this.swipeDisabled = false;
+        this.eventInitializer.initialize();
     },
 
 };
