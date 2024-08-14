@@ -46,7 +46,7 @@ const handleRangesParameter = (urlParams) => {
 const handleTagsParameter = (urlParams) => {
     if (urlParams.tags) {
         const tags = urlParams.tags.split(',');
-        tagCloud.tagSelection.setSelectedTags(tags);
+        tagCloud.setSelectedTags(tags);
         logger.debug("Tags from URL:", tags);
         urlParams.level = '';
     }
@@ -71,7 +71,7 @@ const initializeComponents = () => {
     dialogManager.initialize();
     eventHandlers.initialize();
     ui.core.initialize();
-    tagCloud.initialization.initialize();
+    tagCloud.initialize();
     rangeSelector.initialize();
     // tooltipManager.init(); /* need to remove bugs first */
 };

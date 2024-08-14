@@ -224,13 +224,6 @@ const tagCloud = {
         dialogManager.openDialog('tag-cloud-dialog');
     },
 
-    closeTagCloud() {
-        this.updateTaxonList();
-        preloader.pairPreloader.preloadNewPairWithTags(gameState.selectedTags, gameState.selectedLevel);
-        dialogManager.closeDialog('tag-cloud-dialog', true);
-        ui.taxonPairList.updateFilterSummary();
-    },
-
     async updateTaxonList() {
         const selectedTags = this.tagSelection.getSelectedTags();
         const selectedLevel = document.getElementById('level-filter-dropdown').value;
@@ -248,7 +241,26 @@ const tagCloud = {
         const tagCounts = await this.dataManager.getTagCounts();
         this.uiManager.renderTagCloud(tagCounts);
         this.uiManager.updateMatchingPairsCount();
-    }
+    },
+
+    // Public API:
+    initialize() {
+        this.initialization.initialize();
+    },
+
+    setSelectedTags(tags) {
+        this.tagSelection.setSelectedTags(tags);
+    },
+    clearAllTags() {
+        this.tagSelection.clearAllTags();
+    },
+
+    closeTagCloud() {
+        this.updateTaxonList();
+        preloader.pairPreloader.preloadNewPairWithTags(gameState.selectedTags, gameState.selectedLevel);
+        dialogManager.closeDialog('tag-cloud-dialog', true);
+        ui.taxonPairList.updateFilterSummary();
+    },
 };
 
 export default tagCloud;
