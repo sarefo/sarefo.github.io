@@ -8,10 +8,10 @@ import { GameState, gameState } from './state.js';
 import logger from './logger.js';
 import ui from './ui.js';
 import utils from './utils.js';
+import config from './config.js';
 
 const game = {
-    loadingMessage: "",
-    //loadingMessage: "Loading...",
+    loadingMessage: "", // "Loading..."
     nextSelectedPair: null,
     currentState: GameState.IDLE,
     currentGraphTaxa: null,
@@ -92,18 +92,20 @@ const game = {
         attemptFetchTaxonImageCollection: async function (newPair) {
             if (newPair || !gameState.currentTaxonImageCollection) {
                 if (game.nextSelectedPair) {
-                    const collection = await this.initializeNewTaxonPair(game.nextSelectedPair);
-                    game.nextSelectedPair = null;
-                    return collection;
+                    return await this.initializeNewTaxonPair(game.nextSelectedPair);
                 } else if (game.preloadedPair) {
-                    const collection = game.preloadedPair;
-                    game.preloadedPair = null;
-                    return collection;
+                    return this.usePreloadedPair();
                 } else {
                     return await this.initializeNewTaxonPair();
                 }
             }
             return gameState.currentTaxonImageCollection;
+        },
+
+        usePreloadedPair: function () {
+            const collection = game.preloadedPair;
+            game.preloadedPair = null;
+            return collection;
         },
 
         shouldRetryFetch: function (error, attempts, maxAttempts) {
@@ -144,6 +146,10 @@ const game = {
             infoButton1.addEventListener('click', () => this.showInfoDialog(game.currentObservationURLs.imageOne, 1));
             infoButton2.addEventListener('click', () => this.showInfoDialog(game.currentObservationURLs.imageTwo, 2));
 
+            this.setupInfoDialogCloseHandler();
+        },
+
+        setupInfoDialogCloseHandler: function () {
             document.getElementById('info-dialog').addEventListener('close', () => {
                 document.querySelectorAll('.image-container').forEach(container => {
                     container.classList.remove('image-container--framed');
@@ -152,22 +158,31 @@ const game = {
         },
 
         setupButtonHandlers: function (url, currentTaxon) {
-            const photoButton = document.getElementById('photo-button');
-            const observationButton = document.getElementById('observation-button');
-            const taxonButton = document.getElementById('taxon-button');
-            const wikiButton = document.getElementById('wiki-button');
-            const reportButton = document.getElementById('report-button');
+            this.setupPhotoButton(url);
+            this.setupObservationButton();
+            this.setupTaxonButton(currentTaxon);
+            this.setupWikiButton(currentTaxon);
+            this.setupReportButton();
+        },
 
+        setupPhotoButton: function (url) {
+            const photoButton = document.getElementById('photo-button');
             photoButton.onclick = () => {
                 window.open(url, '_blank');
                 dialogManager.closeDialog('info-dialog');
             };
+        },
 
+        setupObservationButton: function () {
+            const observationButton = document.getElementById('observation-button');
             observationButton.onclick = () => {
                 logger.debug("Observation button clicked");
                 // Implement observation functionality here
             };
+        },
 
+        setupTaxonButton: function (currentTaxon) {
+            const taxonButton = document.getElementById('taxon-button');
             taxonButton.onclick = async () => {
                 try {
                     const taxonId = await api.taxonomy.fetchTaxonId(currentTaxon);
@@ -177,7 +192,10 @@ const game = {
                     alert("Unable to open taxon page. Please try again.");
                 }
             };
+        },
 
+        setupWikiButton: function (currentTaxon) {
+            const wikiButton = document.getElementById('wiki-button');
             wikiButton.onclick = () => {
                 try {
                     window.open(`https://en.wikipedia.org/wiki/${currentTaxon}`, '_blank');
@@ -186,7 +204,10 @@ const game = {
                     alert("Unable to open Wikipedia page. Please try again.");
                 }
             };
+        },
 
+        setupReportButton: function () {
+            const reportButton = document.getElementById('report-button');
             reportButton.onclick = () => {
                 logger.debug("Report button clicked");
                 // Implement report functionality here
@@ -198,108 +219,93 @@ const game = {
             if (!currentTaxon) return;
 
             const dialog = document.getElementById('info-dialog');
-
-            // Get the image containers
-            const topImageContainer = document.getElementById('image-container-1');
-            const bottomImageContainer = document.getElementById('image-container-2');
-            const namePairContainer = document.querySelector('.name-pair');
-
-            // Position the dialog
-            const positionDialog = () => {
-                const dialogRect = dialog.getBoundingClientRect();
-                const topContainerRect = topImageContainer.getBoundingClientRect();
-                const bottomContainerRect = bottomImageContainer.getBoundingClientRect();
-                const namePairRect = namePairContainer.getBoundingClientRect();
-
-                if (imageIndex === 1) {
-                    // For the top image
-                    dialog.style.top = `${namePairRect.top}px`;
-                    dialog.style.bottom = `${window.innerHeight - bottomContainerRect.bottom}px`;
-                    dialog.style.height = 'auto'; // Let the height adjust automatically
-                } else {
-                    // For the bottom image
-                    dialog.style.top = `${topContainerRect.top}px`;
-                    dialog.style.bottom = `${window.innerHeight - namePairRect.bottom}px`;
-                    dialog.style.height = 'auto'; // Let the height adjust automatically
-                }
-
-                // Center horizontally
-                dialog.style.left = `${(window.innerWidth - dialogRect.width) / 2}px`;
-            };
-
             this.frameImage(imageIndex);
+            
+            await this.populateDialogContent(currentTaxon);
+            this.setupDialogButtons(url, currentTaxon);
+            this.positionDialog(dialog, imageIndex);
+            this.setupDialogEventListeners(dialog, imageIndex);
 
+            if (!dialog.open) {
+                dialog.showModal();
+            }
+        },
+
+        populateDialogContent: async function (currentTaxon) {
             const taxonElement = document.getElementById('info-dialog-taxon');
             const vernacularElement = document.getElementById('info-dialog-vernacular');
             const factsElement = document.getElementById('info-dialog-facts');
+            
             taxonElement.textContent = currentTaxon;
-
+            
             try {
                 const vernacularName = await api.vernacular.fetchVernacular(currentTaxon);
                 vernacularElement.textContent = vernacularName;
 
-                const taxonInfo = await api.taxonomy.loadTaxonInfo();
-                const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === currentTaxon.toLowerCase());
-                if (taxonData && taxonData.taxonFacts && taxonData.taxonFacts.length > 0) {
-                    factsElement.innerHTML = '<h3>Facts:</h3><ul>' +
-                        taxonData.taxonFacts.map(fact => `<li>${fact}</li>`).join('') +
-                        '</ul>';
-                    factsElement.style.display = 'block';
-                } else {
-                    factsElement.style.display = 'none';
-                }
-
-                const hasWikipediaPage = await api.externalAPIs.checkWikipediaPage(currentTaxon);
-
-                const wikiButton = document.getElementById('wiki-button');
-                if (hasWikipediaPage) {
-                    wikiButton.classList.remove('info-dialog__button--inactive');
-                    wikiButton.disabled = false;
-                } else {
-                    wikiButton.classList.add('info-dialog__button--inactive');
-                    wikiButton.disabled = true;
-                }
-
-                // TODO enable when functionality added
-                //const hintButton = document.getElementById('hints-button');
-                //hintButton.classList.add('info-dialog__button--inactive');
-                //hintButton.disabled = true;
-                const observationButton = document.getElementById('observation-button');
-                observationButton.classList.add('info-dialog__button--inactive');
-                observationButton.disabled = true;
-
-                this.setupButtonHandlers(url, currentTaxon);
-
-                // TODO: let dialogManager take over
-                const closeButton = document.getElementById('info-close-button');
-                closeButton.onclick = () => {
-                    dialog.close();
-                    document.querySelectorAll('.image-container').forEach(container => {
-                        container.classList.remove('image-container--framed');
-                    });
-                };
-
-                dialog.addEventListener('close', () => {
-                    // Remove framing from all containers when dialog is closed
-                    document.querySelectorAll('.image-container').forEach(container => {
-                        container.classList.remove('image-container--framed');
-                    });
-                });
-
-                // Check if the dialog is already open
-                if (!dialog.open) {
-                    dialog.showModal();
-                }
-
-                // Position the dialog after content is loaded
-                positionDialog();
-
-                // Reposition on window resize
-                window.addEventListener('resize', positionDialog);
-
+                await this.populateTaxonFacts(currentTaxon, factsElement);
             } catch (error) {
-                logger.error('Error in showInfoDialog:', error);
+                logger.error('Error in populateDialogContent:', error);
             }
+        },
+
+        populateTaxonFacts: async function (currentTaxon, factsElement) {
+            const taxonInfo = await api.taxonomy.loadTaxonInfo();
+            const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === currentTaxon.toLowerCase());
+            
+            if (taxonData && taxonData.taxonFacts && taxonData.taxonFacts.length > 1) {
+                factsElement.innerHTML = '<h4>Facts:</h3><ul>' +
+                    taxonData.taxonFacts.map(fact => `<li>${fact}</li>`).join('') +
+                    '</ul>';
+                factsElement.style.display = 'block';
+            } else {
+                factsElement.style.display = 'none';
+            }
+        },
+
+        setupDialogButtons: async function (url, currentTaxon) {
+            const wikiButton = document.getElementById('wiki-button');
+            const hasWikipediaPage = await api.externalAPIs.checkWikipediaPage(currentTaxon);
+            
+            this.toggleButtonState(wikiButton, hasWikipediaPage);
+            this.toggleButtonState(document.getElementById('observation-button'), false);
+            // TODO: Enable when functionality added
+            // this.toggleButtonState(document.getElementById('hints-button'), false);
+
+            this.setupButtonHandlers(url, currentTaxon);
+        },
+
+        toggleButtonState: function (button, isEnabled) {
+            if (isEnabled) {
+                button.classList.remove('info-dialog__button--inactive');
+                button.disabled = false;
+            } else {
+                button.classList.add('info-dialog__button--inactive');
+                button.disabled = true;
+            }
+        },
+
+        setupDialogEventListeners: function (dialog, imageIndex) {
+            const closeButton = document.getElementById('info-close-button');
+            closeButton.onclick = () => this.closeInfoDialog(dialog);
+
+            dialog.addEventListener('close', this.handleDialogClose);
+
+            window.addEventListener('resize', () => this.positionDialog(dialog, imageIndex));
+        },
+
+        closeInfoDialog: function (dialog) {
+            dialog.close();
+            this.removeImageFraming();
+        },
+
+        handleDialogClose: function () {
+            this.removeImageFraming();
+        },
+
+        removeImageFraming: function () {
+            document.querySelectorAll('.image-container').forEach(container => {
+                container.classList.remove('image-container--framed');
+            });
         },
 
         positionDialog: function (dialog, imageIndex) {
@@ -315,13 +321,11 @@ const game = {
             if (imageIndex === 1) {
                 dialog.style.top = `${namePairRect.top}px`;
                 dialog.style.bottom = `${window.innerHeight - bottomContainerRect.bottom}px`;
-                dialog.style.height = 'auto';
             } else {
                 dialog.style.top = `${topContainerRect.top}px`;
                 dialog.style.bottom = `${window.innerHeight - namePairRect.bottom}px`;
-                dialog.style.height = 'auto';
             }
-
+            dialog.style.height = 'auto';
             dialog.style.left = `${(window.innerWidth - dialogRect.width) / 2}px`;
         },
 
@@ -333,9 +337,7 @@ const game = {
                 }
             }
         }
-
     },
-
 };
 
 // Bind all methods to ensure correct 'this' context

@@ -855,11 +855,10 @@ dialog[open] {
 
 .info-dialog {
     position: fixed;
-    transform: translate(0, 0); /* override system-wide centering of dialogs */
-    padding: 20px;
-    display: none;
     flex-direction: column;
     box-sizing: border-box;
+    padding: 20px;
+    display: none;
     padding: 20px;
     background-color: #f1f7e5;
     border-radius: var(--border-radius);
@@ -873,7 +872,7 @@ dialog[open] {
 
 .info-dialog[open] {
     display: flex;
-    transform: translate(0, 0); /* override system-wide centering of dialogs */
+    transform: translateX(-50%); /* override system-wide centering of dialogs */
 }
 
 .info-dialog__header {
