@@ -132,34 +132,42 @@ const eventHandlers = {
         handleDragMove(e) {
             if (!this.isDragging) return;
 
-            let currentX, currentY;
-            if (e.type.includes('touch')) {
-                currentX = e.touches[0].clientX;
-                currentY = e.touches[0].clientY;
-            } else {
-                currentX = e.clientX;
-                currentY = e.clientY;
-            }
-
+            const { currentX, currentY } = this.getCurrentCoordinates(e);
             const deltaX = this.startX - currentX;
             const deltaY = Math.abs(this.startY - currentY);
 
-            if (deltaX > 0 && deltaY < eventHandlers.swipeRestraint) {
-                const progress = Math.min(deltaX / eventHandlers.swipeOutThreshold, 1);
-                const rotation = progress * -eventHandlers.maxRotation;
-                const opacity = 1 - progress * 0.3;
-
-                requestAnimationFrame(() => {
-                    this.gameContainer.style.transform = `rotate(${rotation}deg) translateX(${-deltaX}px)`;
-                    this.gameContainer.style.opacity = opacity;
-
-                    // Update the swipe info message
-                    document.getElementById('swipe-info-message').style.opacity = progress.toFixed(2);
-                });
+            if (this.isValidDragMove(deltaX, deltaY)) {
+                this.updateDragAnimation(deltaX);
             } else {
-                // Reset animation if user moves back or vertically
                 this.resetSwipeAnimation();
             }
+        },
+
+        getCurrentCoordinates(e) {
+            if (e.type.includes('touch')) {
+                return { currentX: e.touches[0].clientX, currentY: e.touches[0].clientY };
+            }
+            return { currentX: e.clientX, currentY: e.clientY };
+        },
+
+        isValidDragMove(deltaX, deltaY) {
+            return deltaX > 0 && deltaY < eventHandlers.swipeRestraint;
+        },
+
+        updateDragAnimation(deltaX) {
+            const progress = Math.min(deltaX / eventHandlers.swipeOutThreshold, 1);
+            const rotation = progress * -eventHandlers.maxRotation;
+            const opacity = 1 - progress * 0.3;
+
+            requestAnimationFrame(() => {
+                this.gameContainer.style.transform = `rotate(${rotation}deg) translateX(${-deltaX}px)`;
+                this.gameContainer.style.opacity = opacity;
+                this.updateSwipeInfoMessage(progress);
+            });
+        },
+
+        updateSwipeInfoMessage(progress) {
+            document.getElementById('swipe-info-message').style.opacity = progress.toFixed(2);
         },
 
         performSwipeOutAnimation(initialDeltaX) {
@@ -466,49 +474,75 @@ const eventHandlers = {
         handleSearch: async function (event) {
             const searchInput = event.target;
             const searchTerm = searchInput.value.trim();
-            const clearButton = document.getElementById('clear-search');
-
-            if (searchTerm.length > 0) {
-                clearButton.style.display = 'block';
-            } else {
-                clearButton.style.display = 'none';
-            }
-
+            
+            this.updateClearButtonVisibility(searchTerm);
+            
             const taxonPairs = await api.taxonomy.fetchTaxonPairs();
+            const filteredPairs = await this.filterTaxonPairs(taxonPairs, searchTerm);
+            
+            this.updateUI(filteredPairs);
+            this.handleSearchInputFocus(searchInput);
+        },
+
+        updateClearButtonVisibility(searchTerm) {
+            const clearButton = document.getElementById('clear-search');
+            clearButton.style.display = searchTerm.length > 0 ? 'block' : 'none';
+        },
+
+        async filterTaxonPairs(taxonPairs, searchTerm) {
             const activeTags = gameState.selectedTags;
             const selectedLevel = gameState.selectedLevel;
+            const isNumericSearch = /^\d+$/.test(searchTerm);
             const filteredPairs = [];
 
-            const isNumericSearch = /^\d+$/.test(searchTerm);
-
             for (const pair of taxonPairs) {
-                const vernacular1 = await getCachedVernacularName(pair.taxon1);
-                const vernacular2 = await getCachedVernacularName(pair.taxon2);
-
-                const matchesTags = activeTags.length === 0 || pair.tags.some(tag => activeTags.includes(tag));
-                const matchesLevel = selectedLevel === '' || pair.level === selectedLevel;
-
-                let matches = false;
-
-                if (isNumericSearch) {
-                    matches = pair.setID === searchTerm;
-                } else {
-                    matches = pair.taxon1.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                              pair.taxon2.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                              (vernacular1 && vernacular1.toLowerCase().includes(searchTerm.toLowerCase())) ||
-                              (vernacular2 && vernacular2.toLowerCase().includes(searchTerm.toLowerCase())) ||
-                              pair.setName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                              pair.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-                }
-
-                if (matchesTags && matchesLevel && matches) {
+                if (await this.isPairMatching(pair, searchTerm, activeTags, selectedLevel, isNumericSearch)) {
                     filteredPairs.push(pair);
                 }
             }
 
+            return filteredPairs;
+        },
+
+        async isPairMatching(pair, searchTerm, activeTags, selectedLevel, isNumericSearch) {
+            const vernacular1 = await getCachedVernacularName(pair.taxon1);
+            const vernacular2 = await getCachedVernacularName(pair.taxon2);
+
+            const matchesTags = this.matchesTags(pair, activeTags);
+            const matchesLevel = this.matchesLevel(pair, selectedLevel);
+            const matchesSearch = this.matchesSearch(pair, searchTerm, vernacular1, vernacular2, isNumericSearch);
+
+            return matchesTags && matchesLevel && matchesSearch;
+        },
+
+        matchesTags(pair, activeTags) {
+            return activeTags.length === 0 || pair.tags.some(tag => activeTags.includes(tag));
+        },
+
+        matchesLevel(pair, selectedLevel) {
+            return selectedLevel === '' || pair.level === selectedLevel;
+        },
+
+        matchesSearch(pair, searchTerm, vernacular1, vernacular2, isNumericSearch) {
+            if (isNumericSearch) {
+                return pair.setID === searchTerm;
+            }
+
+            const searchTermLower = searchTerm.toLowerCase();
+            return pair.taxon1.toLowerCase().includes(searchTermLower) ||
+                   pair.taxon2.toLowerCase().includes(searchTermLower) ||
+                   (vernacular1 && vernacular1.toLowerCase().includes(searchTermLower)) ||
+                   (vernacular2 && vernacular2.toLowerCase().includes(searchTermLower)) ||
+                   pair.setName.toLowerCase().includes(searchTermLower) ||
+                   pair.tags.some(tag => tag.toLowerCase().includes(searchTermLower));
+        },
+
+        updateUI(filteredPairs) {
             ui.taxonPairList.updateTaxonPairList(filteredPairs);
             ui.taxonPairList.updateActiveCollectionCount(filteredPairs.length);
+        },
 
+        handleSearchInputFocus(searchInput) {
             if (eventHandlers.hasLostFocus && searchInput.value.length > 1) {
                 searchInput.select();
             }
