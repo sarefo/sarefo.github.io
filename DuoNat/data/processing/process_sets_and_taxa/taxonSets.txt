@@ -278,7 +278,6 @@ Saturnia pavonia,Saturnia pyri
 Arctia caja,Arctia plantaginis
 Xestia c-nigrum,Xestia triangulum
 Euplagia quadripunctaria,Callimorpha dominula
-
 Phalera bucephala,Cerura vinula
 Cossus cossus,Zeuzera pyrina
 Manduca sexta,Manduca quinquemaculatus
@@ -299,6 +298,7 @@ Formicidae,Myrmarachnini
 Formicinae,Myrmicinae
 Myrmeciinae,Myrmicinae
 Dolichoderinae,Camponotus
+
 Ponerinae,Camponotus
 Ponerinae,Paraponerinae
 Anoplolepis gracilipes,Solenopsis invicta

@@ -3711,5 +3711,267 @@
       "Not very pronounced black markings",
       "Relatively rounded wing shape"
     ]
+  },
+  "Phalera bucephala": {
+    "hints": [
+      "Distinctive large, rounded head",
+      "White spots on dark wings",
+      "Wings held flat when resting"
+    ]
+  },
+  "Cerura vinula": {
+    "hints": [
+      "Long, slender body",
+      "Prominent, feather-like antennae",
+      "Greenish coloration with dark spots"
+    ]
+  },
+  "Cossus cossus": {
+    "hints": [
+      "Thick, robust body",
+      "Brownish-grey coloration",
+      "Wings have a mottled appearance"
+    ]
+  },
+  "Zeuzera pyrina": {
+    "hints": [
+      "White body with black spots",
+      "Long, slender form",
+      "Wings are transparent with dark edges"
+    ]
+  },
+  "Manduca sexta": {
+    "hints": [
+      "Large size with a stout body",
+      "Distinctive yellow and black stripes",
+      "Wings have a dark border"
+    ]
+  },
+  "Manduca quinquemaculatus": {
+    "hints": [
+      "Smaller than <i>Manduca sexta</i>",
+      "Five distinct spots on forewings",
+      "Pronounced yellow stripes"
+    ]
+  },
+  "Actias luna": {
+    "hints": [
+      "Large, pale green wings",
+      "Long, feathery antennae",
+      "Eyespots on hindwings"
+    ]
+  },
+  "Actias dubernardi": {
+    "hints": [
+      "vibrant green color",
+      "Not very pronounced eyespots",
+      "Wings are slightly elongated"
+    ]
+  },
+  "Psychidae": {
+    "hints": [
+      "Case-making larvae",
+      "Wings often held roof-like"
+    ]
+  },
+  "Tineidae": {
+    "hints": [
+      "Wings often narrow and elongated",
+      "Coloration varies widely",
+      "Rest with wings folded over body"
+    ]
+  },
+  "Tortricidae": {
+    "hints": [
+      "Distinctive folded wings",
+      "Often patterned with spots"
+    ]
+  },
+  "Zygaenidae": {
+    "hints": [
+      "Brightly colored bodies",
+      "Often with metallic sheen",
+      "Wings held flat when resting"
+    ]
+  },
+  "Limacodidae": {
+    "hints": [
+      "Slug-like appearance",
+      "Rounded, broad body",
+      "Often green or brown"
+    ]
+  },
+  "Scopula propinquaria": {
+    "hints": [
+      "Light brown coloration",
+      "Distinctive wavy lines on wings",
+      "Wings held flat when resting"
+    ]
+  },
+  "Scopula limboundata": {
+    "hints": [
+      "Darker coloration than <i>Scopula propinquaria</i>",
+      "Not very pronounced wavy lines",
+      "Relatively elongated body shape"
+    ]
+  },
+  "Caeneressa diaphana": {
+    "hints": [
+      "Translucent wings",
+      "Light green body",
+      "Wings held upright when resting"
+    ]
+  },
+  "Amata huebneri": {
+    "hints": [
+      "Black body with bright yellow spots",
+      "Wings are broad and rounded"
+    ]
+  },
+  "Synanthedon": {
+    "hints": [
+      "Clear wings with dark borders",
+      "Slender body shape",
+      "Often resembles a wasp"
+    ]
+  },
+  "Vespoidea": {
+    "hints": [
+      "Distinctive wasp-like appearance",
+      "Narrow waist",
+      "Often brightly colored"
+    ]
+  },
+  "Acheron longus": {
+    "hints": [
+      "Long, slender body",
+      "Dark coloration with light spots",
+      "Wings are narrow and elongated"
+    ]
+  },
+  "Maezous formosana": {
+    "hints": [
+      "Broader body compared to <i>Acheron longus</i>",
+      "colorful markings",
+      "Wings are not very elongated"
+    ]
+  },
+  "Bombus terrestris": {
+    "hints": [
+      "Large size with fuzzy body",
+      "Black and yellow banding",
+      "Short antennae"
+    ]
+  },
+  "Xylocopa violacea": {
+    "hints": [
+      "Metallic blue-black coloration",
+      "Slender body",
+      "Wings are relatively iridescent"
+    ]
+  },
+  "Vespa crabro": {
+    "hints": [
+      "Large size with yellow and black stripes",
+      "Broad head",
+      "Narrow waist"
+    ]
+  },
+  "Vespa velutina": {
+    "hints": [
+      "Smaller than <i>Vespa crabro</i>",
+      "Pronounced orange markings",
+      "Not very robust body shape"
+    ]
+  },
+  "Apis mellifera": {
+    "hints": [
+      "Fuzzy body with black and yellow stripes",
+      "Distinctive pollen baskets on legs"
+    ]
+  },
+  "Apis cerana": {
+    "hints": [
+      "Slightly smaller than <i>Apis mellifera</i>",
+      "Relatively slender body shape",
+      "Not very pronounced banding"
+    ]
+  },
+  "Bombus pascuorum": {
+    "hints": [
+      "Smaller than <i>Bombus terrestris</i>",
+      "Relatively pronounced yellow face",
+      "Not very fuzzy overall appearance"
+    ]
+  },
+  "Bombus muscorum": {
+    "hints": [
+      "Darker coloration than <i>Bombus pascuorum</i>",
+      "Robust body",
+      "Not very pronounced facial markings"
+    ]
+  },
+  "Vespula vulgaris": {
+    "hints": [
+      "Small size with yellow and black stripes",
+      "Broad head",
+      "Distinctive round shape"
+    ]
+  },
+  "Vespula germanica": {
+    "hints": [
+      "Slightly larger than <i>Vespula vulgaris</i>",
+      "Pronounced yellow markings",
+      "Not very rounded body shape"
+    ]
+  },
+  "Formicidae": {
+    "hints": [
+      "Segmented body with narrow waist",
+      "Insects with six legs",
+      "Often found in colonies"
+    ]
+  },
+  "Myrmarachnini": {
+    "hints": [
+      "Distinctive long legs",
+      "Spiders with eight legs",
+      "More slender body shape"
+    ]
+  },
+  "Formicinae": {
+    "hints": [
+      "Larger than <i>Myrmarachnini</i>",
+      "Not very pronounced waist",
+      "Often brown or black"
+    ]
+  },
+  "Myrmicinae": {
+    "hints": [
+      "Small size with distinct petiole",
+      "Often brightly colored",
+      "Diverse body shapes"
+    ]
+  },
+  "Myrmeciinae": {
+    "hints": [
+      "Large size compared to others",
+      "Distinctive long mandibles",
+      "Robust body shape"
+    ]
+  },
+  "Dolichoderinae": {
+    "hints": [
+      "Thin, elongated body",
+      "Often dark in color",
+      "Not very pronounced waist"
+    ]
+  },
+  "Camponotus": {
+    "hints": [
+      "Sometimes relatively large",
+      "Robust body structure",
+      "Usually black or bicolored"
+    ]
   }
 }

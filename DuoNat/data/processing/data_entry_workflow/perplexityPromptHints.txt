@@ -1,10 +1,8 @@
 Please give me a valid JSON object with entries for all taxa at the end of this prompt, and in the following prompts. If a taxon appears more than once, don't repeat it. One JSON entry per taxon only.
 
-Taxa on the same line are compared to each other, so focus on differences between the two.
+Taxa on the same line are compared to each other, so focus on differences between the two. 
 
-Each entry should have one to five helpful hints that help a user to distinguish taxa based on random photographs. That means that only hints that are visible on wildlife pictures should be considered! So behavior, sounds or gestation periods would not be allowed. Also, size is sometimes tricky to estimate on pictures.
-
-You have a tendency to say "more … than" on a hint that follows one with a taxon mentioned. That does not work. I remind you, each hint has to work independently, the user won't see them together! Remind yourself of this after each entry, so you don't forget midway, as you tend to do.
+Each entry should have one to five helpful hints that help a user to distinguish taxa based on random photographs. That means that only features that are visible on wildlife pictures should be considered! So things like behavior, sounds or gestation periods would not be allowed. Also, body size is sometimes tricky to estimate on pictures.
 
 Each hint should not be longer than twelve words or so.
 
@@ -12,7 +10,9 @@ This is for a lay audience, so don't be technical.
 
 Put genera and species names in italics (<i>…</i>). Don't use markdown, it won't work!
 
-When you write the hints, don't directly compare. Here are some bad examples, with suggestions for better ones:
+You have a tendency to use comparisons such as "more … than" and so on on a hint. That does not work. Each hint has to work independently, the user won't see them together! The user will only see one hint.
+
+Here are some bad examples, with suggestions for better ones:
 • don't write "longer beak". Instead write "Relatively long beak".
 • don't write "Fur is lighter". Instead write "Fur is relatively light".
 • don't write "Face less pink". Instead write "Face not very pink".
@@ -20,7 +20,7 @@ When you write the hints, don't directly compare. Here are some bad examples, wi
 
 Generally, remember to avoid words like "less/more" and other comparatives.
 
-The reason is that the hints will appear in isolation (not in conjunction with the other hints, and not necessarily with this specific other taxon), so each hint has to stand by itself.
+Every time you compare without saying what you compare it to in the same hint, you will get punished.
 
 Good examples would be:
 • "Long, curved beak"
@@ -35,12 +35,10 @@ The format for each taxon entry should be:
 "hints": [
 "<hint_1>",
 "<hint_2>",
-"<hint_3>"
+"<hint_3>",
 …
 ]
 }
-
-Provide a button to copy/paste the JSON data.
 
 Here are the first taxa:
 
