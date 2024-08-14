@@ -351,6 +351,7 @@ const game = {
     },
 
     // Observation URLs
+    // TODO FIX can't use properly in gameSetup.uiSetup.setupRound() for some reason
     setObservationURLs(urls) {
         this.currentObservationURLs = urls;
     },
