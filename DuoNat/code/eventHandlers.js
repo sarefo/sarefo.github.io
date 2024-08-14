@@ -787,7 +787,7 @@ const eventHandlers = {
         this.hintButton.initialize();
     },
 
-    // Main initialization method, called from functions.js
+    // Main initialization method, called from main.js
     initialize() {
         this.initializeUIComponents();
         this.initializeKeyboardShortcuts();

@@ -14,7 +14,7 @@ The DuoNat project is primarily written in JavaScript, with HTML and CSS for the
 
 ### Core Application Logic
 
-1. `functions.js`: Entry point for the application, initializes various components.
+1. `main.js`: Entry point for the application, initializes various components.
 2. `game.js`: Contains core game logic and state management.
 3. `gameSetup.js`: Handles setting up new games and rounds.
 4. `gameLogic.js`: Implements game rules and mechanics.

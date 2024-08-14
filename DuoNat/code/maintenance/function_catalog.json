@@ -233,7 +233,7 @@
       "line": 226
     }
   ],
-  "functions.js": [
+  "main.js": [
     {
       "name": "initializeApp",
       "parameters": [],
