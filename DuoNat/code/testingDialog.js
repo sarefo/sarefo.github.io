@@ -1,13 +1,13 @@
 import api from './api.js';
-import { createHierarchicalTree, createRadialTree } from './d3Graphs.js';
+import d3Graphs from './d3Graphs.js';
 import dialogManager from './dialogManager.js';
 import { gameState } from './state.js';
 import logger from './logger.js';
 
 const testingDialog = {
     initialize() {
-        this.createDialog();
-        this.setupEventListeners();
+        testingDialog.createDialog();
+        testingDialog.setupEventListeners();
     },
 
     createDialog() {
@@ -33,12 +33,12 @@ const testingDialog = {
         closeButton.addEventListener('click', () => dialogManager.closeDialog('testing-dialog'));
 
         const graphTypeSelect = document.getElementById('graph-type-select');
-        graphTypeSelect.addEventListener('change', () => this.updateGraph());
+        graphTypeSelect.addEventListener('change', () => testingDialog.updateGraph());
     },
 
     openDialog() {
         dialogManager.openDialog('testing-dialog');
-        this.updateGraph();
+        testingDialog.updateGraph();
     },
 
     async updateGraph() {
@@ -53,16 +53,16 @@ const testingDialog = {
             return;
         }
 
-        const rootNode = this.convertHierarchyToNestedObject(hierarchyObj);
+        const rootNode = testingDialog.convertHierarchyToNestedObject(hierarchyObj);
 
         try {
             graphContainer.innerHTML = ''; // Clear the loading indicator
             switch (graphType) {
                 case 'radial':
-                    await createRadialTree(graphContainer, rootNode);
+                    await d3Graphs.createRadialTree(graphContainer, rootNode);
                     break;
                 case 'hierarchical':
-                    await createHierarchicalTree(graphContainer, rootNode);
+                    await d3Graphs.createHierarchicalTree(graphContainer, rootNode);
                     break;
                 default:
                     throw new Error('Invalid graph type');
@@ -114,4 +114,10 @@ const testingDialog = {
     },
 };
 
-export default testingDialog;
+const publicAPI = {
+    initialize: testingDialog.initialize,
+    openDialog: testingDialog.openDialog
+};
+
+export default publicAPI;
+//export default testingDialog;

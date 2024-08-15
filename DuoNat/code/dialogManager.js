@@ -59,12 +59,12 @@ const dialogManager = {
             }
 
             dialog.showModal();
-            this.openDialogs.push(dialogId);
+            dialogManager.openDialogs.push(dialogId);
 
             dialog.removeEventListener('keydown', dialogManager.core.handleDialogKeydown);
             dialog.addEventListener('keydown', dialogManager.core.handleDialogKeydown.bind(this));
 
-            if (this.openDialogs.length === 1) {
+            if (dialogManager.openDialogs.length === 1) {
                 dialogManager.utils.disableMainEventHandlers();
             }
 
@@ -86,12 +86,12 @@ const dialogManager = {
             const dialog = document.getElementById(dialogId);
             if (dialog && dialog instanceof HTMLDialogElement) {
                 dialog.close();
-                this.openDialogs.splice(index, 1);
+                dialogManager.openDialogs.splice(index, 1);
 
                 dialog.removeEventListener('keydown', dialogManager.core.handleDialogKeydown);
 
-                if (this.openDialogs.length === 0) {
-                    this.utils.enableMainEventHandlers();
+                if (dialogManager.openDialogs.length === 0) {
+                    dialogManager.utils.enableMainEventHandlers();
                 }
             }
         },
@@ -101,7 +101,7 @@ const dialogManager = {
         },
 
         closeAllDialogs() {
-            [...dialogManager.openDialogs].forEach(dialogId => this.closeDialog(dialogId));
+            [...dialogManager.openDialogs].forEach(dialogId => dialogManager.core.closeDialog(dialogId));
         },
 
         handleDialogKeydown(event) {
@@ -112,7 +112,7 @@ const dialogManager = {
                 if (topDialogId === 'tag-cloud-dialog') {
                     tagCloud.closeTagCloud();
                 } else {
-                    this.closeDialog(topDialogId);
+                    dialogManager.core.closeDialog(topDialogId);
                 }
             }
         },
@@ -431,7 +431,7 @@ const dialogManager = {
             try {
                 await this.savePairToJson(newPair);
                 game.setNextSelectedPair(newPair);
-                this.closeDialog();
+                dialogManager.core.closeDialog();
                 gameSetup.setupGame(true);
             } catch (error) {
                 throw new Error('Error saving new pair');
@@ -566,7 +566,7 @@ const dialogManager = {
 
             logger.debug('New set created:', newSet);
             game.setNextSelectedPair(newSet);
-            this.closeDialog('enter-set-dialog');
+            dialogManager.core.closeDialog('enter-set-dialog');
             gameSetup.setupGame(true);
         },
 
@@ -617,7 +617,7 @@ const dialogManager = {
 
             setManager.refreshSubset();
 
-            this.closeDialog('select-set-dialog');
+            dialogManager.core.closeDialog('select-set-dialog');
         },
     },
 
@@ -652,7 +652,7 @@ const dialogManager = {
         },
 
         async handleRetryConnection() {
-            dialogManager.closeDialog();
+            dialogManager.core.closeDialog();
             if (await api.externalAPIs.isINaturalistReachable()) {
                 gameSetup.setupGame(true);
             } else {
@@ -661,7 +661,7 @@ const dialogManager = {
         },
 
         hideINatDownDialog() {
-            dialogManager.closeDialog();
+            dialogManager.core.closeDialog();
         },
     },
 
@@ -690,7 +690,7 @@ const dialogManager = {
 
             // Close the report dialog and reset it
             setTimeout(() => {
-                this.closeDialog('report-dialog');
+                dialogManager.core.closeDialog('report-dialog');
                 dialogManager.reporting.resetReportDialog();
             }, 6000);  // Increased to match notification duration
         },
@@ -757,14 +757,13 @@ const dialogManager = {
         },
     },
 
-    // Public API
     initialize() {
-        this.bindAllMethods();
-        this.initialization.initializeDialogs();
+        dialogManager.bindAllMethods();
+        dialogManager.initialization.initializeDialogs();
 
-        this.handlers.handleNewPairSubmit = this.handlers.handleNewPairSubmit.bind(this.handlers);
-        this.handlers.handleReportSubmit = this.handlers.handleReportSubmit.bind(this.handlers);
-        this.handlers.handleEnterSetSubmit = this.handlers.handleEnterSetSubmit.bind(this.handlers);
+        dialogManager.handlers.handleNewPairSubmit = dialogManager.handlers.handleNewPairSubmit.bind(this.handlers);
+        dialogManager.handlers.handleReportSubmit = dialogManager.handlers.handleReportSubmit.bind(this.handlers);
+        dialogManager.handlers.handleEnterSetSubmit = dialogManager.handlers.handleEnterSetSubmit.bind(this.handlers);
     },
 
     bindAllMethods() {
@@ -781,30 +780,17 @@ const dialogManager = {
         bindMethodsInObject(this);
     },
 
-    openDialog(dialogId) {
-        this.core.openDialog(dialogId);
-    },
-    closeDialog(dialogId, fromTagCloud = false) {
-        this.core.closeDialog(dialogId, fromTagCloud);
-    },
-
-    isAnyDialogOpen() {
-        return this.core.isAnyDialogOpen();
-    },
-    closeAllDialogs() {
-        this.core.closeAllDialogs();
-    },
-
-    showINatDownDialog() {
-        this.specialDialogs.showINatDownDialog();
-    },
-    hideINatDownDialog() {
-        this.specialDialogs.hideINatDownDialog();
-    },
-
-    clearAllFilters() {
-        dialogManager.handlers.clearAllFilters();
-    }
 };
 
-export default dialogManager;
+const publicAPI = {
+    initialize: dialogManager.initialize,
+    openDialog: dialogManager.core.openDialog,
+    closeDialog: dialogManager.core.closeDialog,
+    isAnyDialogOpen: dialogManager.core.isAnyDialogOpen,
+    closeAllDialogs: dialogManager.core.closeAllDialogs,
+    showINatDownDialog: dialogManager.specialDialogs.showINatDownDialog,
+    hideINatDownDialog: dialogManager.specialDialogs.hideINatDownDialog,
+    clearAllFilters: dialogManager.handlers.clearAllFilters
+};
+
+export default publicAPI;

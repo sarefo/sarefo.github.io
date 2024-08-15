@@ -10,7 +10,7 @@ const logger = {
 
     setLevel(level) {
         this.level = level;
-        console.log(`Log level set to: ${this.getLevelName(level)}`);
+        console.log(`Log level set to: ${logger.getLevelName(level)}`);
     },
 
     getLevelName(level) {
@@ -49,5 +49,16 @@ const logger = {
     }
 };
 
-export default logger;
+const publicAPI = {
+    setLevel: logger.setLevel,
+    getLevelname: logger.getLevelName,
+
+    debug: logger.debug,
+    warn: logger.warn,
+    error: logger.error,
+    info: logger.info
+};
+
+export default publicAPI;
+
 export { LogLevel };

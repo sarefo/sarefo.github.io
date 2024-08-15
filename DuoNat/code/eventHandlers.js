@@ -41,7 +41,6 @@ const eventHandlers = {
         touchStartY: 0,
         touchEndX: 0,
         touchEndY: 0,
-        // ... other properties ...
 
         handleImageInteraction(event) {
             if (!event) return;  // handle cases where event is undefined
@@ -668,7 +667,7 @@ const eventHandlers = {
         },
 
         initializeDragAndDrop() {
-            dragAndDrop.init.initialize();
+            dragAndDrop.initialize();
         },
 
         initializeTouchEvents() {
@@ -790,32 +789,42 @@ const eventHandlers = {
 
     // Main initialization method, called from main.js
     initialize() {
-        this.initializeUIComponents();
-        this.initializeKeyboardShortcuts();
-        this.eventInitializer.initialize();
+        eventHandlers.initializeUIComponents();
+        eventHandlers.initializeKeyboardShortcuts();
+        eventHandlers.eventInitializer.initialize();
         testingDialog.initialize();
     },             
 
 
     // Public API //
     enableKeyboardShortcuts() {
-        document.addEventListener('keydown', this.keyboardShortcuts.debouncedKeyboardHandler);
+        document.addEventListener('keydown', eventHandlers.keyboardShortcuts.debouncedKeyboardHandler);
     },
 
     disableKeyboardShortcuts() {
-        document.removeEventListener('keydown', this.keyboardShortcuts.debouncedKeyboardHandler);
+        document.removeEventListener('keydown', eventHandlers.keyboardShortcuts.debouncedKeyboardHandler);
     },
     disableSwipe: function() {
-        this.swipeDisabled = true;
+        eventHandlers.swipeDisabled = true;
     },
 
     enableSwipe: function() {
-        this.swipeDisabled = false;
+        eventHandlers.swipeDisabled = false;
     },
    
     setFocusLost(value) {
-        this.hasLostFocus = value;
+        eventHandlers.hasLostFocus = value;
     }, 
+
 };
 
-export default eventHandlers;
+const publicAPI = {
+    initialize: eventHandlers.initialize,
+    enableKeyboardShortcuts: eventHandlers.enableKeyboardShortcuts,
+    disableKeyboardShortcuts: eventHandlers.disableKeyboardShortcuts,
+    disableSwipe: eventHandlers.disableSwipe,
+    enableSwipe: eventHandlers.enableSwipe,
+    setFocusLost: eventHandlers.setFocusLost
+};
+
+export default publicAPI;

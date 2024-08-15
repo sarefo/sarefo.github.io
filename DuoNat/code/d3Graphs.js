@@ -549,12 +549,16 @@ class HierarchicalTree extends BaseTree {
     }
 }
 
-export async function createRadialTree(container, rootNode) {
-    const tree = new RadialTree(container, rootNode);
-    await tree.create();
-}
+const publicAPI = {
+    createRadialTree: async function (container, rootNode) {
+        const tree = new RadialTree(container, rootNode);
+        await tree.create();
+    },
 
-export async function createHierarchicalTree(container, rootNode) {
-    const tree = new HierarchicalTree(container, rootNode);
-    await tree.create();
-}
+    createHierarchicalTree: async function (container, rootNode) {
+        const tree = new HierarchicalTree(container, rootNode);
+        await tree.create();
+    },
+};
+
+export default publicAPI

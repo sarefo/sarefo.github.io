@@ -367,4 +367,8 @@ Object.keys(dragAndDrop).forEach(key => {
     }
 });
 
-export default dragAndDrop;
+const publicAPI = {
+    initialize: dragAndDrop.init.initialize
+};
+
+export default publicAPI;

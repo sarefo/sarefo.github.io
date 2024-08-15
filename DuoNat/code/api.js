@@ -359,7 +359,37 @@ const api = (() => {
                 return null;
             },
         }
+
     };
 })();
 
-export default api;
+const publicAPI = {
+    taxonomy: {
+        validateTaxon: api.taxonomy.validateTaxon,
+        fetchTaxonPairs: api.taxonomy.fetchTaxonPairs,
+        fetchTaxonHints: api.taxonomy.fetchTaxonHints,
+        loadTaxonInfo: api.taxonomy.loadTaxonInfo,
+        fetchTaxonId: api.taxonomy.fetchTaxonId,
+        getAncestryFromLocalData: api.taxonomy.getAncestryFromLocalData,
+        fetchAncestorDetails: api.taxonomy.fetchAncestorDetails,
+        getTaxonomyHierarchy: api.taxonomy.getTaxonomyHierarchy,
+        fetchTaxonDetails: api.taxonomy.fetchTaxonDetails
+    },
+    images: {
+        fetchRandomImage: api.images.fetchRandomImage,
+        fetchMultipleImages: api.images.fetchMultipleImages
+    },
+    vernacular: {
+        fetchVernacular: api.vernacular.fetchVernacular
+    },
+    externalAPIs: {
+        isINaturalistReachable: api.externalAPIs.isINaturalistReachable,
+        checkWikipediaPage: api.externalAPIs.checkWikipediaPage
+    },
+    utils: {
+        getObservationURLFromImageURL: api.utils.getObservationURLFromImageURL
+    }
+};
+
+export default publicAPI;
+//export default api;
