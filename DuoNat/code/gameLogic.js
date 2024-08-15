@@ -28,18 +28,15 @@ const gameLogic = {
             const leftAnswer = dropOne.children[0]?.getAttribute('data-taxon');
             const rightAnswer = dropTwo.children[0]?.getAttribute('data-taxon');
 
-            if (leftAnswer || rightAnswer) {
-                let isCorrect = false;
-                if (droppedZoneId === 'drop-1') {
-                    isCorrect = leftAnswer === state.getTaxonImageOne;
-                } else {
-                    isCorrect = rightAnswer === state.getTaxonImageTwo;
-                }
+            if (leftAnswer && rightAnswer) {
+                const isCorrect = 
+                    leftAnswer === state.getTaxonImageOne() &&
+                    rightAnswer === state.getTaxonImageTwo();
 
                 if (isCorrect) {
-                    gameLogic.answerHandling.handleCorrectAnswer();
+                    this.answerHandling.handleCorrectAnswer();
                 } else {
-                    gameLogic.answerHandling.handleIncorrectAnswer();
+                    this.answerHandling.handleIncorrectAnswer();
                 }
             } else {
                 logger.debug("Incomplete answer. Returning to PLAYING state.");
@@ -192,16 +189,16 @@ const gameLogic = {
     taxonHandling: {
         getCurrentTaxon(url) {
             let currentObservationURLs = state.getObservationURLs();
-            logger.debug(`getCurrentTaxon called with URL: ${url}`);
-            logger.debug(`Current observation URLs: ${JSON.stringify(currentObservationURLs)}`);
+//            logger.debug(`getCurrentTaxon called with URL: ${url}`);
+//            logger.debug(`Current observation URLs: ${JSON.stringify(currentObservationURLs)}`);
             
             if (url === currentObservationURLs.imageOne) {
                 const taxon = state.getTaxonImageOne();
-                logger.debug(`Matched imageOne, returning taxon: ${taxon}`);
+//                logger.debug(`Matched imageOne, returning taxon: ${taxon}`);
                 return taxon;
             } else if (url === currentObservationURLs.imageTwo) {
                 const taxon = state.getTaxonImageTwo();
-                logger.debug(`Matched imageTwo, returning taxon: ${taxon}`);
+//                logger.debug(`Matched imageTwo, returning taxon: ${taxon}`);
                 return taxon;
             } else {
                 logger.error(`Unable to determine current taxon name. URL: ${url} does not match any current observation URL.`);
