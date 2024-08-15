@@ -6,7 +6,7 @@ import gameLogic from './gameLogic.js';
 import gameSetup from './gameSetup.js';
 import logger from './logger.js';
 import state from './state.js';
-import { createNonClickableWorldMap, getFullContinentName } from './worldMap.js';
+import worldMap from './worldMap.js';
 
 const bindAllMethods = (obj) => {
     for (let prop in obj) {
@@ -309,8 +309,8 @@ const ui = {
                 const currentRanges = JSON.stringify(selectedRanges);
                 if (this.lastDrawnRanges !== currentRanges) {
                     mapContainer.innerHTML = '';
-                    const selectedContinents = new Set(selectedRanges.map(abbr => getFullContinentName(abbr)));
-                    createNonClickableWorldMap(mapContainer, selectedContinents);
+                    const selectedContinents = new Set(selectedRanges.map(abbr => worldMap.getFullContinentName(abbr)));
+                    worldMap.createNonClickableWorldMap(mapContainer, selectedContinents);
                     this.lastDrawnRanges = currentRanges;
                 }
             }

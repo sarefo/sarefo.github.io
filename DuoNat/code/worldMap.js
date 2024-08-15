@@ -152,3 +152,13 @@ export function createClickableWorldMap(container, selectedContinents, onContine
 export function createNonClickableWorldMap(container, selectedContinents) {
     drawWorldMap(container, Array.from(selectedContinents), false);
 }
+
+const publicAPI = {
+    createWorldMap,
+    getFullContinentName,
+    getContinentAbbreviation,
+    createClickableWorldMap,
+    createNonClickableWorldMap,
+};
+
+export default publicAPI;

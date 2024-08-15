@@ -8,7 +8,7 @@ import setManager from './setManager.js';
 import state from './state.js';
 import ui from './ui.js';
 import utils from './utils.js';
-import { createWorldMap, getFullContinentName } from './worldMap.js';
+import worldMap from './worldMap.js';
 import gameUI from './gameUI.js';
 
 let isSettingUpGame = false;
@@ -221,8 +221,8 @@ const gameSetup = {
         async setupWorldMaps(pair, imageData) {
             const leftContinents = await gameSetup.taxonHandling.getContinentForTaxon(imageData.randomized ? pair.taxon1 : pair.taxon2);
             const rightContinents = await gameSetup.taxonHandling.getContinentForTaxon(imageData.randomized ? pair.taxon2 : pair.taxon1);
-            createWorldMap(state.getElement('imageOneContainer'), leftContinents);
-            createWorldMap(state.getElement('imageTwoContainer'), rightContinents);
+            worldMap.createWorldMap(state.getElement('imageOneContainer'), leftContinents);
+            worldMap.createWorldMap(state.getElement('imageTwoContainer'), rightContinents);
         },
 
         updateGameStateForRound(pair, imageData) {
@@ -325,7 +325,7 @@ const gameSetup = {
             const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxon.toLowerCase());
 
             if (taxonData && taxonData.range && taxonData.range.length > 0) {
-                return taxonData.range.map(code => getFullContinentName(code));
+                return taxonData.range.map(code => worldMap.getFullContinentName(code));
             }
             logger.debug(`No range data found for ${taxon}. Using placeholder.`);
             return ['North America', 'South America', 'Europe', 'Africa', 'Asia', 'Oceania'];

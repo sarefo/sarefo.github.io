@@ -1,10 +1,10 @@
+import api from './api.js';
 import dialogManager from './dialogManager.js';
-import { createClickableWorldMap, getContinentAbbreviation, getFullContinentName } from './worldMap.js';
 import gameLogic from './gameLogic.js';
 import logger from './logger.js';
 import state from './state.js';
 import ui from './ui.js';
-import api from './api.js';
+import worldMap from './worldMap.js';
 
 const rangeSelector = {
     selectedContinents: new Set(),
@@ -15,7 +15,7 @@ const rangeSelector = {
             console.error('Range map container not found');
             return;
         }
-        createClickableWorldMap(container, this.selectedContinents, (continent) => this.toggleContinent(continent));
+        worldMap.createClickableWorldMap(container, this.selectedContinents, (continent) => this.toggleContinent(continent));
     },
 
     toggleContinent(continent) {
@@ -31,7 +31,7 @@ const rangeSelector = {
     },
 
     async updateTaxonList() {
-        const selectedAbbreviations = Array.from(this.selectedContinents).map(fullName => getContinentAbbreviation(fullName));
+        const selectedAbbreviations = Array.from(this.selectedContinents).map(fullName => worldMap.getContinentAbbreviation(fullName));
 
         state.updateGameStateMultiple({ selectedRanges: selectedAbbreviations });
 
@@ -64,11 +64,11 @@ const rangeSelector = {
     },
 
     getSelectedRanges() {
-        return Array.from(this.selectedContinents).map(fullName => getContinentAbbreviation(fullName));
+        return Array.from(this.selectedContinents).map(fullName => worldMap.getContinentAbbreviation(fullName));
     },
 
     setSelectedRanges(ranges) {
-        this.selectedContinents = new Set(ranges.map(abbr => getFullContinentName(abbr)));
+        this.selectedContinents = new Set(ranges.map(abbr => worldMap.getFullContinentName(abbr)));
         this.initializeWorldMap();
         ui.updateFilterSummary();
     },
