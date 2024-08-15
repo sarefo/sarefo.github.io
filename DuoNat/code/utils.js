@@ -1,7 +1,7 @@
 import api from './api.js';
 import dialogManager from './dialogManager.js';
-import { gameState, updateGameState } from './state.js';
 import logger from './logger.js';
+import state from './state.js';
 
 const utils = {
     url: {
@@ -26,9 +26,9 @@ const utils = {
             currentUrl.searchParams.delete('level');
             currentUrl.searchParams.delete('setID');
             currentUrl.searchParams.delete('ranges');
-
-            if (gameState.currentTaxonImageCollection && gameState.currentTaxonImageCollection.pair) {
-                const { setID, taxon1, taxon2 } = gameState.currentTaxonImageCollection.pair;
+            let currentTaxonImageCollection = state.getCurrentTaxonImageCollection();
+            if (currentTaxonImageCollection && currentTaxonImageCollection.pair) {
+                const { setID, taxon1, taxon2 } = currentTaxonImageCollection.pair;
 
                 if (setID) {
                     currentUrl.searchParams.set('setID', setID);
@@ -37,15 +37,17 @@ const utils = {
                 currentUrl.searchParams.set('taxon1', taxon1);
                 currentUrl.searchParams.set('taxon2', taxon2);
 
-                const activeTags = gameState.selectedTags;
+                const activeTags = state.getSelectedTags();
                 if (activeTags && activeTags.length > 0) {
                     currentUrl.searchParams.set('tags', activeTags.join(','));
                 }
-                if (gameState.selectedLevel && gameState.selectedLevel !== '') {
-                    currentUrl.searchParams.set('level', gameState.selectedLevel);
+                let selectedLevel = state.getSelectedLevel();
+                if (selectedLevel && selectedLevel !== '') {
+                    currentUrl.searchParams.set('level', selectedLevel);
                 }
-                if (gameState.selectedRanges && gameState.selectedRanges.length > 0) {
-                    currentUrl.searchParams.set('ranges', gameState.selectedRanges.join(','));
+                let selectedRanges = state.getSelectedRanges();
+                if (selectedRanges && selectedRanges.length > 0) {
+                    currentUrl.searchParams.set('ranges', selectedRanges.join(','));
                 }
             }
 

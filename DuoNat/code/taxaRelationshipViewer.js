@@ -1,7 +1,6 @@
 import api from './api.js';
 import logger from './logger.js';
 import utils from './utils.js';
-import { gameState } from './state.js';
 import dialogManager from './dialogManager.js';
 
 const taxaRelationshipViewer = {
@@ -96,7 +95,7 @@ const taxaRelationshipViewer = {
         },
 
         async showTaxaRelationship() {
-            const { taxonImageOne, taxonImageTwo } = gameState;
+            const { taxonImageOne, taxonImageTwo } = state.getGameState();
             const container = document.getElementById('phylogeny-dialog__graph');
             const dialog = document.getElementById('phylogeny-dialog');
 

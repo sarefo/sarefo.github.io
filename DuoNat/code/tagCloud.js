@@ -1,8 +1,8 @@
 import api from './api.js';
 import dialogManager from './dialogManager.js';
 import gameLogic from './gameLogic.js';
-import { gameState, updateGameState } from './state.js';
 import preloader from './preloader.js';
+import state from './state.js';
 import ui from './ui.js';
 import logger from './logger.js';
 
@@ -62,7 +62,7 @@ const tagCloud = {
                 tagCloud.selectedTags.add(tag);
             }
             const newSelectedTags = Array.from(tagCloud.selectedTags);
-            updateGameState({ selectedTags: newSelectedTags });
+            state.updateGameStateMultiple({ selectedTags: newSelectedTags });
             await tagCloud.dataManager.updateFilteredPairs();
             ui.updateFilterSummary();
             tagCloud.uiManager.updateMatchingPairsCount();
@@ -76,22 +76,22 @@ const tagCloud = {
 
         async setSelectedTags(tags) {
             tagCloud.selectedTags = new Set(tags);
-            updateGameState({ selectedTags: tagCloud.tagSelection.getSelectedTags() });
+            state.updateGameStateMultiple({ selectedTags: tagCloud.tagSelection.getSelectedTags() });
             ui.updateFilterSummary();
             await tagCloud.dataManager.updateFilteredPairs();
             logger.debug("Setting selected tags");
             // Trigger preloading of a new pair based on the selected tags
-            preloader.pairPreloader.preloadNewPairWithTags(tagCloud.tagSelection.getSelectedTags(), gameState.selectedLevel, gameState.selectedRanges || []);
+            preloader.pairPreloader.preloadNewPairWithTags(tagCloud.tagSelection.getSelectedTags(), state.getSelectedLevel(), state.getSelectedRanges() || []);
         },
 
         async clearAllTags() {
             tagCloud.selectedTags.clear();
-            updateGameState({ selectedTags: [] });
+            state.updateGameStateMultiple({ selectedTags: [] });
             ui.updateFilterSummary();
             await tagCloud.dataManager.updateFilteredPairs();
 
             // Trigger preloading of a random pair from all available pairs
-            preloader.pairPreloader.preloadNewPairWithTags([], gameState.selectedLevel, gameState.selectedRanges);
+            preloader.pairPreloader.preloadNewPairWithTags([], state.getSelectedLevel(), state.getSelectedRanges());
 
         },
 
@@ -156,8 +156,8 @@ const tagCloud = {
             const tagCounts = {};
             const taxonPairs = await api.taxonomy.fetchTaxonPairs();
             const filters = {
-                level: gameState.selectedLevel,
-                ranges: gameState.selectedRanges,
+                level: state.getSelectedLevel(),
+                ranges: state.getSelectedRanges(),
                 tags: Array.from(tagCloud.selectedTags) // Use the currently selected tags
             };
 
@@ -176,8 +176,8 @@ const tagCloud = {
         async updateFilteredPairs() {
             const taxonPairs = await api.taxonomy.fetchTaxonPairs();
             const filters = {
-                level: gameState.selectedLevel,
-                ranges: gameState.selectedRanges,
+                level: state.getSelectedLevel(),
+                ranges: state.getSelectedRanges(),
                 tags: Array.from(tagCloud.selectedTags)
             };
 
@@ -229,7 +229,7 @@ const tagCloud = {
         const selectedLevel = document.getElementById('level-filter-dropdown').value;
 
         // Update gameState
-        updateGameState({
+        state.updateGameStateMultiple({
             selectedTags: selectedTags,
             selectedLevel: selectedLevel
         });
@@ -257,7 +257,7 @@ const tagCloud = {
 
     closeTagCloud() {
         this.updateTaxonList();
-        preloader.pairPreloader.preloadNewPairWithTags(gameState.selectedTags, gameState.selectedLevel);
+        preloader.pairPreloader.preloadNewPairWithTags(state.getSelectedTags(), state.getSelectedLevel());
         dialogManager.closeDialog('tag-cloud-dialog', true);
         ui.updateFilterSummary();
     },

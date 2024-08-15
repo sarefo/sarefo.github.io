@@ -1,9 +1,8 @@
 import api from './api.js';
 import dialogManager from './dialogManager.js';
-import { elements } from './state.js';
 import gameLogic from './gameLogic.js';
-import { GameState, gameState } from './state.js';
 import logger from './logger.js';
+import state from './state.js';
 import ui from './ui.js';
 import utils from './utils.js';
 import config from './config.js';
@@ -15,7 +14,7 @@ const game = {
         imageOne: null,
         imageTwo: null
     },
-    currentState: GameState.IDLE,
+    currentState: state.GameState.IDLE,
 
     currentGraphTaxa: null,
     preloadedPair: null,
@@ -37,8 +36,8 @@ const game = {
     imageManagement: {
         loadImages: async function (leftImageSrc, rightImageSrc) {
             await Promise.all([
-                this.loadImageAndRemoveLoadingClass(elements.imageOne, leftImageSrc),
-                this.loadImageAndRemoveLoadingClass(elements.imageTwo, rightImageSrc)
+                this.loadImageAndRemoveLoadingClass(state.getElement('imageOne'), leftImageSrc),
+                this.loadImageAndRemoveLoadingClass(state.getElement('imageTwo'), rightImageSrc)
             ]);
         },
 
@@ -78,7 +77,8 @@ const game = {
         },
 
         attemptFetchTaxonImageCollection: async function (newPair) {
-            if (newPair || !gameState.currentTaxonImageCollection) {
+            let currentTaxonImageCollection = state.getCurrrentTaxonImageCollection();
+            if (newPair || !currentTaxonImageCollection) {
                 if (game.nextSelectedPair) {
                     return await this.initializeNewTaxonPair(game.nextSelectedPair);
                 } else if (game.preloadedPair) {
@@ -87,7 +87,7 @@ const game = {
                     return await this.initializeNewTaxonPair();
                 }
             }
-            return gameState.currentTaxonImageCollection;
+            return currentTaxonImageCollection;
         },
 
         usePreloadedPair: function () {
@@ -327,9 +327,6 @@ const game = {
         }
     },
 
-
-    // Public API //
-
     // State
     setState(newState) {
         this.currentState = newState;
@@ -349,9 +346,12 @@ const game = {
     },
 
     // Observation URLs
-    // TODO FIX can't use properly in gameSetup.uiSetup.setupRound() for some reason
-    setObservationURLs(urls) {
-        this.currentObservationURLs = urls;
+    setObservationURL(url, index) {
+        if (index===1) {
+            this.currentObservationURLs.imageOne = url;
+        } else {
+            this.currentObservationURLs.imageTwo = url;
+        }
     },
 
     getObservationURLs() {
@@ -408,7 +408,23 @@ Object.keys(game).forEach(key => {
     }
 });
 
+const publicAPI = {
+    setState: game.setState,
+    getState: game.getState,
+    setNextSelectedPair: game.setNextSelectedPair,
+    getNextSelectedPair: game.getNextSelectedPair,
+    setObservationURL: game.setObservationURL,
+    getObservationURLs: game.getObservationURLs,
+    loadImages: game.imageManagement.loadImages,
+    showInfoDialog: game.dialogHandling.showInfoDialog,
+    getShownHints: game.getShownHints,
+    addShownHint: game.addShownHint,
+    areAllHintsShown: game.areAllHintsShown,
+    resetShownHints: game.resetShownHints,
+    getLoadingMessage: game.getLoadingMessage
+};
+
 // Initialize info buttons
 game.dialogHandling.initializeInfoButtons();
 
-export default game;
+export default publicAPI;

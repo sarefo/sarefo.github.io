@@ -1,10 +1,10 @@
 import config from './config.js';
 import dialogManager from './dialogManager.js';
-import { elements, gameState, updateGameState } from './state.js';
 import eventHandlers from './eventHandlers.js';
 import gameSetup from './gameSetup.js';
 import logger, { LogLevel } from './logger.js';
 import rangeSelector from './rangeSelector.js';
+import state from './state.js';
 import tagCloud from './tagCloud.js';
 import tooltipManager from './tooltipManager.js';
 import ui from './ui.js';
@@ -26,17 +26,17 @@ const handleUrlParameters = () => {
 
 const handleLevelParameter = (urlParams) => {
     if (urlParams.level) {
-        updateGameState({ selectedLevel: urlParams.level === 'all' ? '' : urlParams.level });
+        state.updateGameStateMultiple({ selectedLevel: urlParams.level === 'all' ? '' : urlParams.level });
         logger.debug("Skill level from URL:", urlParams.level);
     } else {
-        updateGameState({ selectedLevel: '1' });
+        state.updateGameStateMultiple({ selectedLevel: '1' });
     }
 };
 
 const handleRangesParameter = (urlParams) => {
     if (urlParams.ranges) {
         const ranges = urlParams.ranges.split(',');
-        updateGameState({ selectedRanges: ranges });
+        state.updateGameStateMultiple({ selectedRanges: ranges });
         rangeSelector.setSelectedRanges(ranges);
         logger.debug("Ranges from URL:", ranges);
         urlParams.level = '';
@@ -54,7 +54,7 @@ const handleTagsParameter = (urlParams) => {
 
 const handleSetIDParameter = (urlParams) => {
     if (urlParams.setID) {
-        updateGameState({ currentSetID: urlParams.setID });
+        state.updateGameStateMultiple({ currentSetID: urlParams.setID });
         logger.debug("Set ID from URL:", urlParams.setID);
         urlParams.level = '';
     }
@@ -62,7 +62,7 @@ const handleSetIDParameter = (urlParams) => {
 
 const updateLevelBasedOnParams = (urlParams) => {
     if (urlParams.level || urlParams.ranges || urlParams.tags || urlParams.setID) {
-        updateGameState({ selectedLevel: urlParams.level });
+        state.updateGameStateMultiple({ selectedLevel: urlParams.level });
     }
     ui.updateLevelDropdown();
 };

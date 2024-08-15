@@ -2,10 +2,10 @@ import api from './api.js';
 import config from './config.js';
 import dialogManager from './dialogManager.js';
 import game from './game.js';
-import { gameState, updateGameState, GameState, elements } from './state.js';
 import logger from './logger.js';
 import preloader from './preloader.js';
 import setManager from './setManager.js';
+import state from './state.js';
 import ui from './ui.js';
 import utils from './utils.js';
 import { createWorldMap, getFullContinentName } from './worldMap.js';
@@ -19,7 +19,7 @@ const gameSetup = {
         async checkINaturalistReachability() {
             if (!await api.externalAPIs.isINaturalistReachable()) {
                 dialogManager.showINatDownDialog();
-                game.setState(GameState.IDLE);
+                game.setState(state.GameState.IDLE);
                 return false;
             }
             dialogManager.hideINatDownDialog();
@@ -27,33 +27,33 @@ const gameSetup = {
         },
 
         async runSetupSequence(newPair, urlParams) {
-            game.setState(GameState.LOADING);
-            if (!await this.initialization.checkINaturalistReachability()) return;
+            game.setState(state.GameState.LOADING);
+            if (!await gameSetup.initialization.checkINaturalistReachability()) return;
 
-            this.initialization.prepareUIForLoading();
+            gameSetup.initialization.prepareUIForLoading();
 
-            if (newPair || !gameState.currentTaxonImageCollection) {
-                await this.initialization.initializeNewPair(urlParams);
+            if (newPair || !state.getCurrentTaxonImageCollection()) {
+                await gameSetup.initialization.initializeNewPair(urlParams);
             } else {
-                await this.initialization.setupRound();
+                await gameSetup.initialization.setupRound();
             }
 
-            this.initialization.updateUIAfterSetup(newPair);
+            gameSetup.initialization.updateUIAfterSetup(newPair);
         },
 
         prepareUIForLoading() {
             utils.game.resetDraggables();
             gameUI.prepareImagesForLoading();
-            const startMessage = gameState.isFirstLoad ? "Drag the names!" : game.getLoadingMessage();
+            const startMessage = state.getIsFirstLoad() ? "Drag the names!" : game.getLoadingMessage();
             ui.showOverlay(startMessage, config.overlayColors.green);
-            gameState.isFirstLoad = false;
+            state.setIsFirstLoad(false);
         },
 
         async initializeNewPair(urlParams) {
-            const newPair = await this.initialization.selectNewPair(urlParams);
-            const images = await this.initialization.loadImagesForNewPair(newPair);
-            this.initialization.updateGameStateForNewPair(newPair, images);
-            await this.initialization.setupRound(true);
+            const newPair = await gameSetup.initialization.selectNewPair(urlParams);
+            const images = await gameSetup.initialization.loadImagesForNewPair(newPair);
+            gameSetup.initialization.updateGameStateForNewPair(newPair, images);
+            await gameSetup.initialization.setupRound(true);
         },
 
         async selectNewPair(urlParams) {
@@ -63,25 +63,25 @@ const gameSetup = {
                 game.setNextSelectedPair(null);
                 return nextSelectedPair;
             }
-            return await this.initialization.selectPairFromFilters(urlParams);
+            return await gameSetup.initialization.selectPairFromFilters(urlParams);
         },
 
         async selectPairFromFilters(urlParams) {
-            const filters = this.initialization.createFiltersFromUrlParams(urlParams);
+            const filters = gameSetup.initialization.createFiltersFromUrlParams(urlParams);
             const filteredPairs = await utils.game.getFilteredTaxonPairs(filters);
-            return this.initialization.findOrSelectRandomPair(filteredPairs, urlParams);
+            return gameSetup.initialization.findOrSelectRandomPair(filteredPairs, urlParams);
         },
 
         createFiltersFromUrlParams(urlParams) {
             return {
-                level: urlParams.level || gameState.selectedLevel,
-                ranges: urlParams.ranges ? urlParams.ranges.split(',') : gameState.selectedRanges,
-                tags: urlParams.tags ? urlParams.tags.split(',') : gameState.selectedTags,
+                level: urlParams.level || state.getSelectedLevel(),
+                ranges: urlParams.ranges ? urlParams.ranges.split(',') : state.getSelectedRanges(),
+                tags: urlParams.tags ? urlParams.tags.split(',') : state.getSelectedTags(),
             };
         },
 
         findOrSelectRandomPair(filteredPairs, urlParams) {
-            let pair = this.initialization.findPairByUrlParams(filteredPairs, urlParams);
+            let pair = gameSetup.initialization.findPairByUrlParams(filteredPairs, urlParams);
             if (!pair) {
                 if (filteredPairs.length > 0) {
                     pair = filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
@@ -95,9 +95,9 @@ const gameSetup = {
 
         findPairByUrlParams(filteredPairs, urlParams) {
             if (urlParams.setID) {
-                return this.initialization.findPairBySetID(filteredPairs, urlParams.setID);
+                return gameSetup.initialization.findPairBySetID(filteredPairs, urlParams.setID);
             } else if (urlParams.taxon1 && urlParams.taxon2) {
-                return this.initialization.findPairByTaxa(filteredPairs, urlParams.taxon1, urlParams.taxon2);
+                return gameSetup.initialization.findPairByTaxa(filteredPairs, urlParams.taxon1, urlParams.taxon2);
             }
             return null;
         },
@@ -138,7 +138,7 @@ const gameSetup = {
         },
 
         updateGameStateForNewPair(newPair, images) {
-            updateGameState({
+            state.updateGameStateMultiple({
                 currentTaxonImageCollection: {
                     pair: newPair,
                     imageOneURL: images.taxon1,
@@ -149,28 +149,28 @@ const gameSetup = {
                     taxon1: new Set([images.taxon1]),
                     taxon2: new Set([images.taxon2]),
                 },
-                currentSetID: newPair.setID || gameState.currentSetID,
             });
+            state.setCurrentSetID(newPair.setID || state.getCurrentSetID());
             ui.updateLevelIndicator(newPair.level || '1');
         },
 
         async setupWithPreloadedPair(preloadedPair) {
             game.resetShownHints();
             logger.debug(`Setting up game with preloaded pair: ${preloadedPair.pair.taxon1} / ${preloadedPair.pair.taxon2}, Skill Level: ${preloadedPair.pair.level}`);
-            logger.debug(`Current selected level: ${gameState.selectedLevel}`);
+            logger.debug(`Current selected level: ${state.getSelectedLevel()}`);
 
             if (!preloader.pairPreloader.isPairValid(preloadedPair.pair)) {
                 logger.warn("Preloaded pair is no longer valid, fetching a new pair");
-                await this.initialization.runSetupSequence(true, {});
+                await gameSetup.initialization.runSetupSequence(true, {});
                 return;
             }
 
-            this.initialization.updateGameStateForPreloadedPair(preloadedPair);
-            await this.initialization.setupRound(true);
+            gameSetup.initialization.updateGameStateForPreloadedPair(preloadedPair);
+            await gameSetup.initialization.setupRound(true);
         },
 
         updateGameStateForPreloadedPair(preloadedPair) {
-            updateGameState({
+            state.updateGameStateMultiple({
                 currentTaxonImageCollection: {
                     pair: preloadedPair.pair,
                     imageOneURL: preloadedPair.taxon1,
@@ -184,17 +184,18 @@ const gameSetup = {
         },
 
         async setupRound(isNewPair = false) {
-            const { pair } = gameState.currentTaxonImageCollection;
-            const imageData = await this.initialization.loadAndSetupImages(pair, isNewPair);
-            await this.initialization.setupNameTiles(pair, imageData);
-            await this.initialization.setupWorldMaps(pair, imageData);
-            this.initialization.updateGameStateForRound(pair, imageData);
+            const { pair } = state.getCurrentTaxonImageCollection();
+            const imageData = await gameSetup.initialization.loadAndSetupImages(pair, isNewPair);
+            await gameSetup.initialization.setupNameTiles(pair, imageData);
+            await gameSetup.initialization.setupWorldMaps(pair, imageData);
+            gameSetup.initialization.updateGameStateForRound(pair, imageData);
         },
 
         async loadAndSetupImages(pair, isNewPair) {
             const imageData = await gameSetup.imageHandling.loadImages(pair, isNewPair);
-            game.currentObservationURLs.imageOne = api.utils.getObservationURLFromImageURL(imageData.leftImageSrc);
-            game.currentObservationURLs.imageTwo = api.utils.getObservationURLFromImageURL(imageData.rightImageSrc);
+            game.setObservationURL(api.utils.getObservationURLFromImageURL(imageData.leftImageSrc), 1);
+            game.setObservationURL(api.utils.getObservationURLFromImageURL(imageData.rightImageSrc) ,2);
+
             return imageData;
         },
 
@@ -211,8 +212,8 @@ const gameSetup = {
                 rightVernacular,
             );
 
-            elements.imageOne.alt = `${imageData.randomized ? pair.taxon1 : pair.taxon2} Image`;
-            elements.imageTwo.alt = `${imageData.randomized ? pair.taxon2 : pair.taxon1} Image`;
+            state.getElement('imageOne').alt = `${imageData.randomized ? pair.taxon1 : pair.taxon2} Image`;
+            state.getElement('imageTwo').alt = `${imageData.randomized ? pair.taxon2 : pair.taxon1} Image`;
 
             return { leftVernacular, rightVernacular };
         },
@@ -220,12 +221,12 @@ const gameSetup = {
         async setupWorldMaps(pair, imageData) {
             const leftContinents = await gameSetup.taxonHandling.getContinentForTaxon(imageData.randomized ? pair.taxon1 : pair.taxon2);
             const rightContinents = await gameSetup.taxonHandling.getContinentForTaxon(imageData.randomized ? pair.taxon2 : pair.taxon1);
-            createWorldMap(elements.imageOneContainer, leftContinents);
-            createWorldMap(elements.imageTwoContainer, rightContinents);
+            createWorldMap(state.getElement('imageOneContainer'), leftContinents);
+            createWorldMap(state.getElement('imageTwoContainer'), rightContinents);
         },
 
         updateGameStateForRound(pair, imageData) {
-            updateGameState({
+            state.updateGameStateMultiple({
                 taxonImageOne: imageData.randomized ? pair.taxon1 : pair.taxon2,
                 taxonImageTwo: imageData.randomized ? pair.taxon2 : pair.taxon1,
                 currentRound: {
@@ -240,17 +241,17 @@ const gameSetup = {
         },
 
         updateUIAfterSetup(newPair) {
-            ui.updateLevelIndicator(gameState.currentTaxonImageCollection.pair.level);
-            if (this.initialization.filtersWereCleared()) {
-                this.initialization.updateUIForClearedFilters();
+            ui.updateLevelIndicator(state.getCurrentTaxonImageCollection().pair.level);
+            if (gameSetup.initialization.filtersWereCleared()) {
+                gameSetup.initialization.updateUIForClearedFilters();
             }
-            this.initialization.finishSetup(newPair);
+            gameSetup.initialization.finishSetup(newPair);
         },
 
         filtersWereCleared() {
-            return gameState.selectedTags.length === 0 &&
-                   gameState.selectedRanges.length === 0 &&
-                   gameState.selectedLevel === '';
+            return state.getSelectedTags().length === 0 &&
+                   state.getSelectedRanges().length === 0 &&
+                   state.getSelectedLevel() === '';
         },
 
         updateUIForClearedFilters() {
@@ -260,16 +261,17 @@ const gameSetup = {
 
         async finishSetup(newPair) {
             gameUI.setNamePairHeight();
-            game.setState(GameState.PLAYING);
-            this.initialization.hideLoadingScreen();
+            game.setState(state.GameState.PLAYING);
+            gameSetup.initialization.hideLoadingScreen();
             if (newPair) {
                 await setManager.refreshSubset();
             }
-            if (gameState.isInitialLoad) {
-                updateGameState({ isInitialLoad: false });
+            if (state.getIsInitialLoad()) {
+                state.updateGameStateMultiple({ isInitialLoad: false });
             }
             ui.hideOverlay();
             ui.resetUIState();
+            game.setState(state.GameState.PLAYING);
             preloader.startPreloading(newPair);
         },
 
@@ -285,10 +287,10 @@ const gameSetup = {
             let imageOneURL, imageTwoURL;
 
             if (isNewPair) {
-                imageOneURL = gameState.currentTaxonImageCollection.imageOneURL;
-                imageTwoURL = gameState.currentTaxonImageCollection.imageTwoURL;
+                imageOneURL = state.getCurrentTaxonImageCollection().imageOneURL;
+                imageTwoURL = state.getCurrentTaxonImageCollection().imageTwoURL;
             } else {
-                ({ imageOneURL, imageTwoURL } = await this.imageHandling.getImagesForRound(pair));
+                ({ imageOneURL, imageTwoURL } = await gameSetup.imageHandling.getImagesForRound(pair));
             }
 
             const randomized = Math.random() < 0.5;
@@ -306,8 +308,8 @@ const gameSetup = {
                 return { imageOneURL: preloadedImages.taxon1, imageTwoURL: preloadedImages.taxon2 };
             }
             return {
-                imageOneURL: await preloader.imageLoader.fetchDifferentImage(pair.taxon1, gameState.currentRound.imageOneURL),
-                imageTwoURL: await preloader.imageLoader.fetchDifferentImage(pair.taxon2, gameState.currentRound.imageTwoURL),
+                imageOneURL: await preloader.imageLoader.fetchDifferentImage(pair.taxon1, state.getCurrentRound().imageOneURL),
+                imageTwoURL: await preloader.imageLoader.fetchDifferentImage(pair.taxon2, state.getCurrentRound().imageTwoURL),
             };
         },
     },
@@ -338,10 +340,10 @@ const gameSetup = {
             } else {
                 ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
             }
-            game.setState(GameState.IDLE);
-            if (gameState.isInitialLoad) {
+            game.setState(state.GameState.IDLE);
+            if (state.getIsInitialLoad()) {
                 gameSetup.initialization.hideLoadingScreen();
-                updateGameState({ isInitialLoad: false });
+                state.updateGameStateMultiple({ isInitialLoad: false });
             }
         },
     },
@@ -357,9 +359,9 @@ const gameSetup = {
         isSettingUpGame = true;
 
         try {
-            await this.initialization.runSetupSequence(newPair, urlParams);
+            await gameSetup.initialization.runSetupSequence(newPair, urlParams);
         } catch (error) {
-            this.errorHandling.handleSetupError(error);
+            gameSetup.errorHandling.handleSetupError(error);
         } finally {
             isSettingUpGame = false;
         }
@@ -367,20 +369,15 @@ const gameSetup = {
 
     // used once in gameLogic
     async setupGameWithPreloadedPair(preloadedPair) {
-        await this.initialization.setupWithPreloadedPair(preloadedPair);
+        await gameSetup.initialization.setupWithPreloadedPair(preloadedPair);
     },
 
 
 };
 
-// Bind all methods to ensure correct 'this' context
-Object.keys(gameSetup).forEach(key => {
-    Object.keys(gameSetup[key]).forEach(methodKey => {
-        if (typeof gameSetup[key][methodKey] === 'function') {
-            gameSetup[key][methodKey] = gameSetup[key][methodKey].bind(gameSetup);
-        }
-    });
-});
+const publicAPI = {
+    setupGame: gameSetup.setupGame.bind(gameSetup),
+    setupGameWithPreloadedPair: gameSetup.setupGameWithPreloadedPair.bind(gameSetup)
+};
 
-export default gameSetup;
-
+export default publicAPI;

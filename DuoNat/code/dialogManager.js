@@ -5,9 +5,9 @@ import game from './game.js';
 import gameSetup from './gameSetup.js';
 import gameLogic from './gameLogic.js';
 import logger from './logger.js';
-import { gameState, updateGameState } from './state.js';
 import rangeSelector from './rangeSelector.js';
 import setManager from './setManager.js';
+import state from './state.js';
 import tagCloud from './tagCloud.js';
 import ui from './ui.js';
 import utils from './utils.js';
@@ -498,8 +498,9 @@ const dialogManager = {
 
         getGameStateInfo() {
             let info = "\nGame State Information:\n";
-            if (gameState.currentTaxonImageCollection && gameState.currentTaxonImageCollection.pair) {
-                const pair = gameState.currentTaxonImageCollection.pair;
+            let currentTaxonImageCollection = state.getCurrentTaxonImageCollection();
+            if (currentTaxonImageCollection && currentTaxonImageCollection.pair) {
+                const pair = currentTaxonImageCollection.pair;
                 info += `Taxon 1: ${pair.taxon1}\n`;
                 info += `Taxon 2: ${pair.taxon2}\n`;
                 info += `Set Name: ${pair.setName || 'N/A'}\n`;
@@ -581,9 +582,9 @@ const dialogManager = {
         },
 
         clearAllFilters() {
-            gameState.selectedTags = [];
-            gameState.selectedRanges = [];
-            gameState.selectedLevel = '';
+            state.setSelectedTags([]);
+            state.setSelectedRanges([]);
+            state.setSelectedLevel('');
 
             // Reset the level dropdown
             const levelDropdown = document.getElementById('level-filter-dropdown');
@@ -611,8 +612,8 @@ const dialogManager = {
 
             gameLogic.applyFilters({
                 level: selectedLevel,
-                ranges: gameState.selectedRanges,
-                tags: gameState.selectedTags
+                ranges: state.getSelectedRanges(),
+                tags: state.getSelectedTags()
             });
 
             setManager.refreshSubset();

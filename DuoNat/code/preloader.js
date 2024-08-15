@@ -1,8 +1,8 @@
 import api from './api.js';
-import { gameState, updateGameState } from './state.js';
 import gameLogic from './gameLogic.js';
 import logger from './logger.js';
 import setManager from './setManager.js';
+import state from './state.js';
 
 const preloader = {
     preloadedImages: {
@@ -27,10 +27,10 @@ const preloader = {
         async fetchDifferentImage(taxonName, currentImageURL) {
             const images = await api.images.fetchMultipleImages(taxonName, 12);
             let usedImages;
-
-            if (gameState.currentTaxonImageCollection) {
-                const taxonKey = taxonName === gameState.currentTaxonImageCollection.pair.taxon1 ? 'taxon1' : 'taxon2';
-                usedImages = gameState.usedImages[taxonKey];
+            let currentTaxonImageCollection = state.getCurrentTaxonImageCollection();
+            if (currentTaxonImageCollection) {
+                const taxonKey = taxonName === currentTaxonImageCollection.pair.taxon1 ? 'taxon1' : 'taxon2';
+                usedImages = state.getUsedImages()[taxonKey] || new Set();
             } else {
                 usedImages = new Set();
             }
@@ -48,11 +48,11 @@ const preloader = {
             if (availableImages.length > 0) {
                 const selectedImage = availableImages[Math.floor(Math.random() * availableImages.length)];
                 usedImages.add(selectedImage);
-                if (gameState.currentTaxonImageCollection) {
-                    const taxonKey = taxonName === gameState.currentTaxonImageCollection.pair.taxon1 ? 'taxon1' : 'taxon2';
-                    updateGameState({
+                if (currentTaxonImageCollection) {
+                    const taxonKey = taxonName === currentTaxonImageCollection.pair.taxon1 ? 'taxon1' : 'taxon2';
+                    state.updateGameStateMultiple({
                         usedImages: {
-                            ...gameState.usedImages,
+                            ...state.getUsedImages(),
                             [taxonKey]: usedImages
                         }
                     });
@@ -64,11 +64,12 @@ const preloader = {
                 return currentImageURL || images[0]; // Return the first image if no current image
             }
         },
+
     },
 
     roundPreloader: {
         async preloadForNextRound() {
-            const { pair, imageOneURL, imageTwoURL } = gameState.currentTaxonImageCollection;
+            const { pair, imageOneURL, imageTwoURL } = state.getCurrentTaxonImageCollection();
             const [newImageOneURL, newImageTwoURL] = await Promise.all([
                 preloader.imageLoader.fetchDifferentImage(pair.taxon1, imageOneURL),
                 preloader.imageLoader.fetchDifferentImage(pair.taxon2, imageTwoURL)
@@ -128,7 +129,7 @@ const preloader = {
         },
 
         isPairValid(pair) {
-            const selectedLevel = gameState.selectedLevel;
+            const selectedLevel = state.getSelectedLevel();
             const matchesLevel = selectedLevel === '' || pair.level === selectedLevel;
 
             if (!matchesLevel) {
@@ -139,7 +140,7 @@ const preloader = {
         },
 
         getPreloadedImagesForNextPair() {
-            if (this.hasPreloadedPair()) {
+            if (preloader.pairPreloader.hasPreloadedPair()) {
                 const images = preloader.preloadedImages.nextPair;
                 logger.debug(`Retrieving preloaded pair: ${images.pair.taxon1} / ${images.pair.taxon2}, Skill Level: ${images.pair.level}`);
                 preloader.preloadedImages.nextPair = null;
@@ -155,12 +156,12 @@ const preloader = {
         },
 
         async preloadNewPairWithTags(selectedTags, selectedLevel, selectedRanges) {
-            if (this.isPreloading) {
+            if (preloader.isPreloading) {
                 logger.debug("Preloading already in progress, skipping tag-based preload");
                 return;
             }
 
-            this.isPreloading = true;
+            preloader.isPreloading = true;
             logger.debug(`Preloading with selected tags: ${selectedTags}, level: ${selectedLevel}, and ranges: ${selectedRanges}`);
             try {
                 const allPairs = await api.taxonomy.fetchTaxonPairs();
@@ -177,10 +178,11 @@ const preloader = {
                         (pair.range && pair.range.some(range => ranges.includes(range)));
                     const matchesTags = tags.length === 0 || 
                         (pair.tags && pair.tags.some(tag => tags.includes(tag)));
-                    const isDifferentFromCurrent = !gameState.currentTaxonImageCollection ||
-                        !gameState.currentTaxonImageCollection.pair ||
-                        pair.taxon1 !== gameState.currentTaxonImageCollection.pair.taxon1 ||
-                        pair.taxon2 !== gameState.currentTaxonImageCollection.pair.taxon2;
+                    let currentTaxonImageCollection = state.getCurrentTaxonImageCollection();
+                    const isDifferentFromCurrent = !currentTaxonImageCollection ||
+                        !currentTaxonImageCollection.pair ||
+                        pair.taxon1 !== currentTaxonImageCollection.pair.taxon1 ||
+                        pair.taxon2 !== currentTaxonImageCollection.pair.taxon2;
 
                     return matchesLevel && matchesRanges && matchesTags && isDifferentFromCurrent;
                 });
@@ -262,4 +264,34 @@ const preloader = {
 
 };
 
-export default preloader;
+// Bind all methods to ensure correct 'this' context
+Object.keys(preloader).forEach(key => {
+    if (typeof preloader[key] === 'object') {
+        Object.keys(preloader[key]).forEach(subKey => {
+            if (typeof preloader[key][subKey] === 'function') {
+                preloader[key][subKey] = preloader[key][subKey].bind(preloader);
+            }
+        });
+    }
+});
+
+const publicAPI = {
+    startPreloading: preloader.startPreloading,
+    pairPreloader: {
+        getPreloadedImagesForNextPair: preloader.pairPreloader.getPreloadedImagesForNextPair,
+        isPairValid: preloader.pairPreloader.isPairValid,
+        preloadNewPairWithTags: preloader.pairPreloader.preloadNewPairWithTags,
+        preloadSetByID: preloader.pairPreloader.preloadSetByID,
+        preloadForNextPair: preloader.pairPreloader.preloadForNextPair,
+    },
+    roundPreloader: {
+        getPreloadedImagesForNextRound: preloader.roundPreloader.getPreloadedImagesForNextRound,
+        clearPreloadedImagesForNextRound: preloader.roundPreloader.clearPreloadedImagesForNextRound,
+        preloadForNextRound: preloader.roundPreloader.preloadForNextRound,
+    },
+    imageLoader: {
+        fetchDifferentImage: preloader.imageLoader.fetchDifferentImage,
+    }
+};
+
+export default publicAPI;

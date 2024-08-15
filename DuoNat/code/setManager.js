@@ -1,7 +1,7 @@
 import api from './api.js';
 import gameLogic from './gameLogic.js';
-import { gameState, updateGameState } from './state.js';
 import logger from './logger.js';
+import state from './state.js';
 
 const setManager = {
     currentSubset: [],
@@ -18,9 +18,9 @@ const setManager = {
 
     filterSets(sets) {
         const filters = {
-            level: gameState.selectedLevel,
-            ranges: gameState.selectedRanges,
-            tags: gameState.selectedTags
+            level: state.getSelectedLevel(),
+            ranges: state.getSelectedRanges(),
+            tags: state.getSelectedTags()
         };
         return gameLogic.filterTaxonPairs(sets, filters);
     },
@@ -75,4 +75,11 @@ const setManager = {
 
 };
 
-export default setManager;
+const publicAPI = {
+    initializeSubset: setManager.initializeSubset.bind(setManager),
+    getNextSet: setManager.getNextSet.bind(setManager),
+    refreshSubset: setManager.refreshSubset.bind(setManager),
+    getSetByID: setManager.getSetByID.bind(setManager),
+};
+
+export default publicAPI;

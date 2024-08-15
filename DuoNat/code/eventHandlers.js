@@ -4,7 +4,7 @@ import dragAndDrop from './dragAndDrop.js';
 import game from './game.js';
 import gameLogic from './gameLogic.js';
 import logger from './logger.js';
-import { elements, gameState } from './state.js';
+import state from './state.js';
 import taxaRelationshipViewer from './taxaRelationshipViewer.js';
 import testingDialog from './testingDialog.js';
 import ui from './ui.js';
@@ -57,7 +57,7 @@ const eventHandlers = {
         },
 
         addSwipeListeners() {
-            [elements.imageOneContainer, elements.imageTwoContainer].forEach((container) => {
+            [state.getElement('imageOneContainer'), state.getElement('imageTwoContainer')].forEach((container) => {
                 this.addContainerListeners(container);
             });
         },
@@ -410,7 +410,7 @@ const eventHandlers = {
         },
 
         incrementSetID() {
-            const currentSetID = gameState.currentTaxonImageCollection?.pair?.setID;
+            const currentSetID = state.getCurrentTaxonImageCollection()?.pair?.setID;
             if (currentSetID) {
                 const nextSetID = String(Number(currentSetID) + 1);
                 gameLogic.loadSetByID(nextSetID, true); // Pass true to indicate clearing filters
@@ -492,8 +492,8 @@ const eventHandlers = {
         },
 
         async filterTaxonPairs(taxonPairs, searchTerm) {
-            const activeTags = gameState.selectedTags;
-            const selectedLevel = gameState.selectedLevel;
+            const activeTags = state.getSelectedTags;
+            const selectedLevel = state.getSelectedLevel;
             const isNumericSearch = /^\d+$/.test(searchTerm);
             const filteredPairs = [];
 
@@ -671,7 +671,7 @@ const eventHandlers = {
         },
 
         initializeTouchEvents() {
-            const containers = [elements.imageOneContainer, elements.imageTwoContainer];
+            const containers = [state.getElement('imageOneContainer'), state.getElement('imageTwoContainer')];
             containers.forEach(container => {
                 container.addEventListener('touchstart', eventHandlers.swipeAndDrag.handleTouchStart.bind(eventHandlers.swipeAndDrag), { passive: true });
                 container.addEventListener('touchend', eventHandlers.swipeAndDrag.handleImageInteraction.bind(eventHandlers.swipeAndDrag));

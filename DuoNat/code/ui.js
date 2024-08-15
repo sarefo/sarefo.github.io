@@ -1,12 +1,12 @@
 import api from './api.js';
 import config from './config.js';
 import dialogManager from './dialogManager.js';
-import { elements, gameState } from './state.js';
 import eventHandlers from './eventHandlers.js';
 import game from './game.js';
 import gameLogic from './gameLogic.js';
 import gameSetup from './gameSetup.js';
 import logger from './logger.js';
+import state from './state.js';
 import { createNonClickableWorldMap, getFullContinentName } from './worldMap.js';
 
 const bindAllMethods = (obj) => {
@@ -78,17 +78,17 @@ const ui = {
         showOverlay(message = "", color) {
             this.setOverlayContent(message, color);
             this.adjustFontSize(message);
-            elements.overlay.classList.add('show');
+            state.getElement('overlay').classList.add('show');
         },
 
         setOverlayContent(message, color) {
-            elements.overlayMessage.innerHTML = message;
-            elements.overlay.style.backgroundColor = color;
+            state.getElement('overlayMessage').innerHTML = message;
+            state.getElement('overlay').style.backgroundColor = color;
         },
 
         adjustFontSize(message) {
             const fontSize = message.length > 20 ? '1.4em' : '2.4em';
-            elements.overlayMessage.style.fontSize = fontSize;
+            state.getElement('overlayMessage').style.fontSize = fontSize;
         },
 
         updateOverlayMessage(message) {
@@ -98,7 +98,7 @@ const ui = {
         },
 
         hideOverlay() {
-            elements.overlay.classList.remove('show');
+            state.getElement('overlay').classList.remove('show');
         },
     },
 
@@ -212,14 +212,14 @@ const ui = {
 
         getCurrentFilters() {
             return {
-                level: gameState.selectedLevel,
-                ranges: gameState.selectedRanges,
-                tags: gameState.selectedTags
+                level: state.getSelectedLevel(),
+                ranges: state.getSelectedRanges(),
+                tags: state.getSelectedTags()
             };
         },
 
         prioritizeCurrentActiveSet(filteredPairs) {
-            const currentActiveSet = gameState.currentTaxonImageCollection?.pair;
+            const currentActiveSet = state.getCurrentTaxonImageCollection()?.pair;
             if (currentActiveSet) {
                 const activeSetIndex = filteredPairs.findIndex(pair => 
                     pair.taxonNames[0] === currentActiveSet.taxon1 && 
@@ -278,7 +278,7 @@ const ui = {
         setLevelDropdownValue() {
             const levelDropdown = document.getElementById('level-filter-dropdown');
             if (levelDropdown) {
-                levelDropdown.value = gameState.selectedLevel;
+                levelDropdown.value = state.getSelectedLevel();
             }
         },
 
@@ -306,10 +306,11 @@ const ui = {
         updateMapInFilterSummary() {
             const mapContainer = document.querySelector('.filter-summary__map');
             if (mapContainer) {
-                const currentRanges = JSON.stringify(gameState.selectedRanges);
+                let selectedRanges = state.getSelectedRanges();
+                const currentRanges = JSON.stringify(selectedRanges);
                 if (this.lastDrawnRanges !== currentRanges) {
                     mapContainer.innerHTML = '';
-                    const selectedContinents = new Set(gameState.selectedRanges.map(abbr => getFullContinentName(abbr)));
+                    const selectedContinents = new Set(selectedRanges.map(abbr => getFullContinentName(abbr)));
                     createNonClickableWorldMap(mapContainer, selectedContinents);
                     this.lastDrawnRanges = currentRanges;
                 }
@@ -324,8 +325,9 @@ const ui = {
         },
 
         getTagsHTML() {
-            return gameState.selectedTags.length > 0
-                ? gameState.selectedTags
+            let selectedTags = state.getSelectedTags();
+            return selectedTags.length > 0
+                ? selectedTags
                     .map(tag => `<span class="filter-summary__tag">${tag}</span>`)
                     .join('')
                 : '<span class="filter-summary__no-tags">No active tags</span>';
@@ -437,9 +439,9 @@ const ui = {
         },
 
         checkForActiveFilters() {
-            return gameState.selectedLevel !== '' || 
-                   gameState.selectedRanges.length > 0 || 
-                   gameState.selectedTags.length > 0;
+            return state.getSelectedLevel() !== '' || 
+                   state.getSelectedRanges().length > 0 || 
+                   state.getSelectedTags().length > 0;
         },
 
         getNoResultsMessageContent(hasActiveFilters) {
@@ -845,7 +847,7 @@ const ui = {
         updateLevelDropdown() {
             const levelDropdown = document.getElementById('level-filter-dropdown');
             if (levelDropdown) {
-                levelDropdown.value = gameState.selectedLevel;
+                levelDropdown.value = state.getSelectedLevel();
             }
         },
 

@@ -1,11 +1,11 @@
-import { elements, gameState } from './state.js';
 import logger from './logger.js';
+import state from './state.js';
 
 const gameUI = {
     imageHandling: {
         prepareImagesForLoading() {
-            elements.imageOne.classList.add('image-container__image--loading');
-            elements.imageTwo.classList.add('image-container__image--loading');
+            state.getElement('imageOne').classList.add('image-container__image--loading');
+            state.getElement('imageTwo').classList.add('image-container__image--loading');
         }
     },
 
@@ -62,15 +62,15 @@ const gameUI = {
         },
 
         _setNameAttributes(nameOne, nameTwo) {
-            elements.leftName.setAttribute('data-taxon', nameOne);
-            elements.rightName.setAttribute('data-taxon', nameTwo);
-            elements.leftName.style.zIndex = '10';
-            elements.rightName.style.zIndex = '10';
+            state.getElement('leftName').setAttribute('data-taxon', nameOne);
+            state.getElement('rightName').setAttribute('data-taxon', nameTwo);
+            state.getElement('leftName').style.zIndex = '10';
+            state.getElement('rightName').style.zIndex = '10';
         },
 
         _setNameContent(nameOne, nameTwo, vernacularOne, vernacularTwo) {
-            elements.leftName.innerHTML = gameUI.nameTiles._createNameHTML(nameOne, vernacularOne);
-            elements.rightName.innerHTML = gameUI.nameTiles._createNameHTML(nameTwo, vernacularTwo);
+            state.getElement('leftName').innerHTML = gameUI.nameTiles._createNameHTML(nameOne, vernacularOne);
+            state.getElement('rightName').innerHTML = gameUI.nameTiles._createNameHTML(nameTwo, vernacularTwo);
         },
 
         _createNameHTML(name, vernacular) {
@@ -81,26 +81,17 @@ const gameUI = {
         },
 
         _updateGameState(nameOne, nameTwo) {
-            gameState.taxonLeftName = nameOne;
-            gameState.taxonRightName = nameTwo;
+            state.setTaxonLeftName = nameOne;
+            state.setTaxonRightName = nameTwo;
         }
     },
+};
 
-
-    // Public API
-
-    setNamePairHeight() {
-        this.layoutManagement.setNamePairHeight();
-    },
-
-    setupNameTilesUI(leftName, rightName, leftNameVernacular, rightNameVernacular) {
-        this.nameTiles.setupNameTilesUI(leftName, rightName, leftNameVernacular, rightNameVernacular);
-    },
-
-    prepareImagesForLoading() {
-        this.imageHandling.prepareImagesForLoading();    
-    },
-
+// Create the public API
+const publicAPI = {
+    setNamePairHeight: gameUI.layoutManagement.setNamePairHeight,
+    setupNameTilesUI: gameUI.nameTiles.setupNameTilesUI,
+    prepareImagesForLoading: gameUI.imageHandling.prepareImagesForLoading
 };
 
 // Bind all methods to ensure correct 'this' context
@@ -114,4 +105,9 @@ Object.keys(gameUI).forEach(key => {
     }
 });
 
-export default gameUI;
+// Bind the public API methods to the gameUI object
+Object.keys(publicAPI).forEach(key => {
+    publicAPI[key] = publicAPI[key].bind(gameUI);
+});
+
+export default publicAPI;

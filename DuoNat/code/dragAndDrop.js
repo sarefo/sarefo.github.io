@@ -1,6 +1,6 @@
 import gameLogic from './gameLogic.js';
-import { gameState } from './state.js';
 import logger from './logger.js';
+import state from './state.js';
 
 const dragAndDrop = {
     state: {
@@ -199,6 +199,7 @@ const dragAndDrop = {
 
                 const draggedTaxon = draggedElement.getAttribute('data-taxon');
 
+                let gameState = state.getGameState();
                 if (!gameState) {
                     logger.error('gameState is undefined');
                     return false;

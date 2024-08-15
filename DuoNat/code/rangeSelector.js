@@ -1,8 +1,8 @@
 import dialogManager from './dialogManager.js';
 import { createClickableWorldMap, getContinentAbbreviation, getFullContinentName } from './worldMap.js';
-import { gameState, updateGameState } from './state.js';
 import gameLogic from './gameLogic.js';
 import logger from './logger.js';
+import state from './state.js';
 import ui from './ui.js';
 import api from './api.js';
 
@@ -27,20 +27,20 @@ const rangeSelector = {
         this.initializeWorldMap(); // Redraw the map to reflect the changes
 
         // Update the gameState with the new selected ranges
-        gameState.selectedRanges = this.getSelectedRanges();
+        state.setSelectedRanges(this.getSelectedRanges());
     },
 
     async updateTaxonList() {
         const selectedAbbreviations = Array.from(this.selectedContinents).map(fullName => getContinentAbbreviation(fullName));
 
-        updateGameState({ selectedRanges: selectedAbbreviations });
+        state.updateGameStateMultiple({ selectedRanges: selectedAbbreviations });
 
         try {
             const taxonSets = await api.taxonomy.fetchTaxonPairs();
             const filters = {
-                level: gameState.selectedLevel,
+                level: state.getSelectedLevel(),
                 ranges: selectedAbbreviations,
-                tags: gameState.selectedTags
+                tags: state.getSelectedTags()
             };
 
             const filteredPairs = gameLogic.filterTaxonPairs(taxonSets, filters);
@@ -52,7 +52,6 @@ const rangeSelector = {
         }
     },
 
-    // Not sure these two should be in public API
     openRangeDialog() {
         dialogManager.openDialog('range-dialog');
         this.initializeWorldMap();
@@ -63,8 +62,6 @@ const rangeSelector = {
         this.updateTaxonList();
         ui.updateFilterSummary();
     },
-
-    // Public API:
 
     getSelectedRanges() {
         return Array.from(this.selectedContinents).map(fullName => getContinentAbbreviation(fullName));
@@ -90,4 +87,13 @@ const rangeSelector = {
     },
 };
 
-export default rangeSelector;
+const publicAPI = {
+    initialize: rangeSelector.initialize.bind(rangeSelector),
+    getSelectedRanges: rangeSelector.getSelectedRanges.bind(rangeSelector),
+    setSelectedRanges: rangeSelector.setSelectedRanges.bind(rangeSelector),
+    // Not sure these two should be in public API
+    openRangeDialog: rangeSelector.openRangeDialog.bind(rangeSelector),
+    closeRangeDialog: rangeSelector.closeRangeDialog.bind(rangeSelector),
+};
+
+export default publicAPI;
