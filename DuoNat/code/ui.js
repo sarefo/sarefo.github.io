@@ -35,12 +35,18 @@ const ui = {
         isMenuOpen: false,
     },
 
-   core: {
-
+    core: {
         initialize() {
+            this.initializeMenu();
+            this.setupOutsideClickHandler(); // Close the dropdown when clicking outside of it
+        },
+
+        initializeMenu() {
             ui.menu.initialize();
-            ui.menu.close(); // Ensure menu is closed on initialization
-            // Close the dropdown when clicking outside of it
+            ui.menu.close();
+        },
+
+        setupOutsideClickHandler() {
             document.addEventListener('click', (event) => {
                 if (!event.target.closest('.main-menu')) {
                     ui.menu.close();
@@ -54,42 +60,41 @@ const ui = {
         },
 
         resetGameContainerStyle() {
-            const gameContainer = document.querySelector('.game-container');
-            if (gameContainer) {
-                gameContainer.style.transform = '';
-                gameContainer.style.opacity = '';
+            ['.game-container', '#image-container-1', '#image-container-2'].forEach(selector => 
+                this.resetContainerTransform(selector)
+            );
+        },
+
+        resetContainerTransform(selector) {
+            const container = document.querySelector(selector);
+            if (container) {
+                container.style.transform = '';
+                container.style.opacity = '';
             }
-            elements.imageOneContainer.style.transform = '';
-            elements.imageOneContainer.style.opacity = '';
-            elements.imageTwoContainer.style.transform = '';
-            elements.imageTwoContainer.style.opacity = '';
         },
     },
 
     overlay: {
         showOverlay(message = "", color) {
+            this.setOverlayContent(message, color);
+            this.adjustFontSize(message);
+            elements.overlay.classList.add('show');
+        },
+
+        setOverlayContent(message, color) {
             elements.overlayMessage.innerHTML = message;
             elements.overlay.style.backgroundColor = color;
-            elements.overlay.classList.add('show');
+        },
 
-            // Adjust font size for longer messages
-            if (message.length > 20) {
-                elements.overlayMessage.style.fontSize = '1.4em';
-            } else {
-                elements.overlayMessage.style.fontSize = '2.4em';
-            }
+        adjustFontSize(message) {
+            const fontSize = message.length > 20 ? '1.4em' : '2.4em';
+            elements.overlayMessage.style.fontSize = fontSize;
         },
 
         updateOverlayMessage(message) {
             const overlayMessage = document.getElementById('overlay-message');
             overlayMessage.innerHTML = message;
-
-            // Adjust font size for longer messages
-            if (message.length > 20) {
-                overlayMessage.style.fontSize = '1.6em';
-            } else {
-                overlayMessage.style.fontSize = '2.4em';
-            }
+            this.adjustFontSize(message);
         },
 
         hideOverlay() {
@@ -99,32 +104,46 @@ const ui = {
 
     menu: {
         initialize() {
+            this.setupMenuToggle();
+            this.setupResizeHandler();
+            this.setupOutsideClickHandler();
+        },
+
+        setupMenuToggle() {
             const menuToggle = document.getElementById('menu-toggle');
             if (menuToggle) {
-                menuToggle.addEventListener('click', (event) => {
-                    event.stopPropagation();
-                    ui.menu.toggleMainMenu();
-                });
+                menuToggle.addEventListener('click', this.handleMenuToggleClick);
             } else {
                 logger.error('Menu toggle button not found');
             }
+        },
 
-            window.addEventListener('resize', () => ui.menu.positionBottomGroup());
+        setupResizeHandler() {
+            window.addEventListener('resize', this.positionBottomGroup);
+            this.positionBottomGroup();
+        },
 
-            // Call once to set initial position
-            ui.menu.positionBottomGroup();
+        setupOutsideClickHandler() {
+            document.addEventListener('click', this.handleOutsideClick);
+        },
 
-            // Close the dropdown when clicking outside of it
-            document.addEventListener('click', (event) => {
-                if (!event.target.closest('.main-menu')) {
-                    ui.menu.close();
-                }
-            });
+        handleMenuToggleClick(event) {
+            event.stopPropagation();
+            this.toggleMainMenu();
+        },
+
+        handleOutsideClick(event) {
+            if (!event.target.closest('.main-menu')) {
+                this.close();
+            }
         },
 
         toggleMainMenu() {
             ui.state.isMenuOpen = !ui.state.isMenuOpen;
+            this.toggleDropdownGroups();
+        },
 
+        toggleDropdownGroups() {
             const topGroup = document.querySelector('.main-menu__dropdown--top');
             const bottomGroup = document.querySelector('.main-menu__dropdown--bottom');
 
@@ -133,7 +152,7 @@ const ui = {
                 bottomGroup.classList.toggle('show');
 
                 if (ui.state.isMenuOpen) {
-                    ui.menu.positionBottomGroup();
+                    this.positionBottomGroup();
                 }
             } else {
                 logger.error('Dropdown groups not found');
@@ -147,151 +166,146 @@ const ui = {
             if (bottomGroup && lowerImageContainer) {
                 const rect = lowerImageContainer.getBoundingClientRect();
                 bottomGroup.style.top = `${rect.top}px`;
-                bottomGroup.style.right = `0px`; // Adjust if needed
+                bottomGroup.style.right = '0px'; // Adjust if needed
             }
         },
 
         close() {
             if (ui.state.isMenuOpen) {
-                const topGroup = document.querySelector('.main-menu__dropdown--top');
-                const bottomGroup = document.querySelector('.main-menu__dropdown--bottom');
-                if (topGroup && bottomGroup) {
-                    ui.state.isMenuOpen = false;
-                    topGroup.classList.remove('show');
-                    bottomGroup.classList.remove('show');
-                }
+                this.closeDropdownGroups();
+            }
+        },
+
+        closeDropdownGroups() {
+            const topGroup = document.querySelector('.main-menu__dropdown--top');
+            const bottomGroup = document.querySelector('.main-menu__dropdown--bottom');
+            if (topGroup && bottomGroup) {
+                ui.state.isMenuOpen = false;
+                topGroup.classList.remove('show');
+                bottomGroup.classList.remove('show');
             }
         },
     },
 
     taxonPairList: {
-        // display pair list for selection
-        showTaxonPairList: async function () {
+        async showTaxonPairList() {
             try {
-                const taxonPairs = await api.taxonomy.fetchTaxonPairs();
-                if (taxonPairs.length === 0) {
-                    logger.error("No taxon pairs available");
-                    return;
-                }
-
-                const filters = {
-                    level: gameState.selectedLevel,
-                    ranges: gameState.selectedRanges,
-                    tags: gameState.selectedTags
-                };
-
-                let filteredPairs = gameLogic.filterTaxonPairs(taxonPairs, filters);
-
-                // Get the current active set
-                const currentActiveSet = gameState.currentTaxonImageCollection?.pair;
-
-                // If there's an active set, move it to the beginning of the list
-                if (currentActiveSet) {
-                    const activeSetIndex = filteredPairs.findIndex(pair => 
-                        pair.taxonNames[0] === currentActiveSet.taxon1 && 
-                        pair.taxonNames[1] === currentActiveSet.taxon2
-                    );
-                    if (activeSetIndex !== -1) {
-                        const activeSet = filteredPairs.splice(activeSetIndex, 1)[0];
-                        filteredPairs.unshift(activeSet);
-                    }
-                }
-
-                const list = document.getElementById('taxon-set-list');
-                if (list) {
-                    list.innerHTML = '';
-                }
-
-                // Render only visible pairs initially
-                await this.renderVisibleTaxonPairs(filteredPairs);
-
-                // Update the count
-                this.updateActiveCollectionCount(filteredPairs.length);
-
-                // Set the correct value in the level dropdown
-                const levelDropdown = document.getElementById('level-filter-dropdown');
-                if (levelDropdown) {
-                    levelDropdown.value = gameState.selectedLevel;
-                }
-
-                dialogManager.openDialog('select-set-dialog');
-                this.updateFilterSummary();
-                // Focus on the search input after opening the dialog
-                this.focusSearchInput();
-
-                // Trigger the search if there's text in the search input
-                const searchInput = document.getElementById('taxon-search');
-                if (searchInput && searchInput.value.trim() !== '') {
-                    const event = new Event('input', { bubbles: true, cancelable: true });
-                    searchInput.dispatchEvent(event);
-                }
-
-                // Show/hide clear button based on search input content
-                const clearButton = document.getElementById('clear-search');
-                if (clearButton) {
-                    clearButton.style.display = searchInput.value.trim() !== '' ? 'block' : 'none';
-                }
-
-                const taxonSetList = document.getElementById('taxon-set-list');
-                if (taxonSetList) {
-                    taxonSetList.scrollTop = 0;
-                }
-
+                const taxonPairs = await this.fetchAndFilterTaxonPairs();
+                await this.renderTaxonPairList(taxonPairs);
+                this.setupDialogAndFilters();
             } catch (error) {
                 logger.error("Error in showTaxonPairList:", error);
             }
         },
 
-        renderTaxonPairList: async function (pairs) {
-            const list = document.getElementById('taxon-set-list');
-            list.innerHTML = ''; // Clear existing content
-
-            if (pairs.length === 0) {
-                const noResultsMessage = document.createElement('p');
-                noResultsMessage.textContent = 'No matching pairs found.';
-                noResultsMessage.className = 'no-results-message';
-                list.appendChild(noResultsMessage);
-            } else {
-                for (const pair of pairs) {
-                    const button = await this.createTaxonPairButton(pair);
-                    list.appendChild(button);
-                }
+        async fetchAndFilterTaxonPairs() {
+            const taxonPairs = await api.taxonomy.fetchTaxonPairs();
+            if (taxonPairs.length === 0) {
+                logger.error("No taxon pairs available");
+                return [];
             }
 
-            // Update the count
+            const filters = this.getCurrentFilters();
+            let filteredPairs = gameLogic.filterTaxonPairs(taxonPairs, filters);
+            return this.prioritizeCurrentActiveSet(filteredPairs);
+        },
+
+        getCurrentFilters() {
+            return {
+                level: gameState.selectedLevel,
+                ranges: gameState.selectedRanges,
+                tags: gameState.selectedTags
+            };
+        },
+
+        prioritizeCurrentActiveSet(filteredPairs) {
+            const currentActiveSet = gameState.currentTaxonImageCollection?.pair;
+            if (currentActiveSet) {
+                const activeSetIndex = filteredPairs.findIndex(pair => 
+                    pair.taxonNames[0] === currentActiveSet.taxon1 && 
+                    pair.taxonNames[1] === currentActiveSet.taxon2
+                );
+                if (activeSetIndex !== -1) {
+                    const activeSet = filteredPairs.splice(activeSetIndex, 1)[0];
+                    filteredPairs.unshift(activeSet);
+                }
+            }
+            return filteredPairs;
+        },
+
+        async renderTaxonPairList(pairs) {
+            const list = document.getElementById('taxon-set-list');
+            if (list) {
+                list.innerHTML = '';
+            }
+            await this.renderVisibleTaxonPairs(pairs);
             this.updateActiveCollectionCount(pairs.length);
         },
 
-        renderVisibleTaxonPairs: async function (pairs) {
+        async renderVisibleTaxonPairs(pairs) {
             const list = document.getElementById('taxon-set-list');
             if (!list) return;
 
-            // Clear the list again, just to be safe
             list.innerHTML = '';
-
-            const visiblePairs = pairs.slice(0, 20); // Render first 20 pairs
+            const visiblePairs = pairs.slice(0, 20);
 
             for (const pair of visiblePairs) {
                 const button = await this.createTaxonPairButton(pair);
                 list.appendChild(button);
             }
 
-            // Implement lazy loading for remaining pairs
             if (pairs.length > 20) {
-                const loadMoreButton = document.createElement('button');
-                loadMoreButton.textContent = 'Load More';
-                loadMoreButton.className = 'load-more-button';
-                loadMoreButton.addEventListener('click', () => this.loadMorePairs(pairs, 20));
-                list.appendChild(loadMoreButton);
+                this.addLoadMoreButton(list, pairs);
+            }
+        },
+
+        addLoadMoreButton(list, pairs) {
+            const loadMoreButton = document.createElement('button');
+            loadMoreButton.textContent = 'Load More';
+            loadMoreButton.className = 'load-more-button';
+            loadMoreButton.addEventListener('click', () => this.loadMorePairs(pairs, 20));
+            list.appendChild(loadMoreButton);
+        },
+
+        setupDialogAndFilters() {
+            this.setLevelDropdownValue();
+            dialogManager.openDialog('select-set-dialog');
+            this.updateFilterSummary();
+            this.focusSearchInput();
+            this.handleExistingSearch();
+        },
+
+        setLevelDropdownValue() {
+            const levelDropdown = document.getElementById('level-filter-dropdown');
+            if (levelDropdown) {
+                levelDropdown.value = gameState.selectedLevel;
+            }
+        },
+
+        handleExistingSearch() {
+            const searchInput = document.getElementById('taxon-search');
+            if (searchInput && searchInput.value.trim() !== '') {
+                const event = new Event('input', { bubbles: true, cancelable: true });
+                searchInput.dispatchEvent(event);
+            }
+            this.toggleClearButton(searchInput);
+        },
+
+        toggleClearButton(searchInput) {
+            const clearButton = document.getElementById('clear-search');
+            if (clearButton) {
+                clearButton.style.display = searchInput.value.trim() !== '' ? 'block' : 'none';
             }
         },
 
         updateFilterSummary() {
-            const mapContainer = document.querySelector('.filter-summary__map');
-            const tagsContainer = document.querySelector('.filter-summary__tags');
+            this.updateMapInFilterSummary();
+            this.updateTagsInFilterSummary();
+        },
 
+        updateMapInFilterSummary() {
+            const mapContainer = document.querySelector('.filter-summary__map');
             if (mapContainer) {
-                // Only redraw the map if the selected ranges have changed
                 const currentRanges = JSON.stringify(gameState.selectedRanges);
                 if (this.lastDrawnRanges !== currentRanges) {
                     mapContainer.innerHTML = '';
@@ -300,70 +314,79 @@ const ui = {
                     this.lastDrawnRanges = currentRanges;
                 }
             }
+        },
 
+        updateTagsInFilterSummary() {
+            const tagsContainer = document.querySelector('.filter-summary__tags');
             if (tagsContainer) {
-                tagsContainer.innerHTML = gameState.selectedTags.length > 0
-                    ? gameState.selectedTags
-                        .map(tag => `<span class="filter-summary__tag">${tag}</span>`)
-                        .join('')
-                    : '<span class="filter-summary__no-tags">No active tags</span>';
+                tagsContainer.innerHTML = this.getTagsHTML();
             }
         },
 
-        createTaxonPairButton: async function (pair) {
+        getTagsHTML() {
+            return gameState.selectedTags.length > 0
+                ? gameState.selectedTags
+                    .map(tag => `<span class="filter-summary__tag">${tag}</span>`)
+                    .join('')
+                : '<span class="filter-summary__no-tags">No active tags</span>';
+        },
+
+        async createTaxonPairButton(pair) {
             const button = document.createElement('button');
             button.className = 'taxon-set-button';
 
-            let result = await getCachedVernacularName(pair.taxonNames[0]);
-            const vernacular1 = result === "n/a" ? "" : result;
+            const vernacular1 = await this.getVernacularName(pair.taxonNames[0]);
+            const vernacular2 = await this.getVernacularName(pair.taxonNames[1]);
 
-            result = await getCachedVernacularName(pair.taxonNames[1]);
-            const vernacular2 = result === "n/a" ? "" : result;
+            button.innerHTML = this.createButtonHTML(pair, vernacular1, vernacular2);
+            button.onclick = () => this.handleTaxonPairSelection(pair);
 
-            const chiliHtml = this.getChiliHtml(pair.level);
+            return button;
+        },
 
-            button.innerHTML = `
+        async getVernacularName(taxonName) {
+            const result = await getCachedVernacularName(taxonName);
+            return result === "n/a" ? "" : result;
+        },
+
+        createButtonHTML(pair, vernacular1, vernacular2) {
+            return `
                 <div class="taxon-set-container">
                     <div class="set-name-container">
                         <div class="taxon-set__set-name">${pair.setName || 'Unnamed Set'}</div>
-                        <div class="taxon-set__level-chilis" aria-label="Skill level">${chiliHtml}</div>
+                        <div class="taxon-set__level-chilis" aria-label="Skill level">${this.getChiliHtml(pair.level)}</div>
                         <div class="taxon-set__tags">${pair.tags.join(', ')}</div>
                     </div>
                     <div class="taxon-items">
-                        <div class="taxon-item">
-                            <div class="taxon-name">${pair.taxonNames[0]}</div>
-                            <div class="vernacular-name">${vernacular1}</div>
-                        </div>
-                        <div class="taxon-item">
-                            <div class="taxon-name">${pair.taxonNames[1]}</div>
-                            <div class="vernacular-name">${vernacular2}</div>
-                        </div>
+                        ${this.createTaxonItemHTML(pair.taxonNames[0], vernacular1)}
+                        ${this.createTaxonItemHTML(pair.taxonNames[1], vernacular2)}
                     </div>
                 </div>
             `;
+        },
 
-            button.onclick = () => {
-                // Create a new object with the pair data to ensure we're not using a reference
-                const selectedPair = {
-                    taxon1: pair.taxonNames[0],
-                    taxon2: pair.taxonNames[1],
-                    setName: pair.setName,
-                    tags: [...pair.tags],
-                    setID: pair.setID,
-                    level: pair.level
-                };
-                game.setNextSelectedPair(selectedPair);
+        createTaxonItemHTML(taxonName, vernacularName) {
+            return `
+                <div class="taxon-item">
+                    <div class="taxon-name">${taxonName}</div>
+                    <div class="vernacular-name">${vernacularName}</div>
+                </div>
+            `;
+        },
 
-                logger.debug('Selected pair:', selectedPair);
-
-                dialogManager.closeDialog('select-set-dialog');
-
-                setTimeout(() => {
-                    gameSetup.setupGame(true);
-                }, 300);
+        handleTaxonPairSelection(pair) {
+            const selectedPair = {
+                taxon1: pair.taxonNames[0],
+                taxon2: pair.taxonNames[1],
+                setName: pair.setName,
+                tags: [...pair.tags],
+                setID: pair.setID,
+                level: pair.level
             };
-
-            return button;
+            game.setNextSelectedPair(selectedPair);
+            logger.debug('Selected pair:', selectedPair);
+            dialogManager.closeDialog('select-set-dialog');
+            setTimeout(() => gameSetup.setupGame(true), 300);
         },
 
         loadMorePairs: async function (pairs, startIndex) {
@@ -375,8 +398,12 @@ const ui = {
                 list.insertBefore(button, list.lastChild);
             }
 
+            this.updateLoadMoreButton(list, pairs, startIndex);
+        },
+
+        updateLoadMoreButton(list, pairs, startIndex) {
             if (startIndex + 20 >= pairs.length) {
-                list.removeChild(list.lastChild); // Remove "Load More" button
+                list.removeChild(list.lastChild);
             } else {
                 const loadMoreButton = list.lastChild;
                 loadMoreButton.addEventListener('click', () => this.loadMorePairs(pairs, startIndex + 20));
@@ -385,45 +412,52 @@ const ui = {
 
         updateTaxonPairList: async function (filteredPairs) {
             const list = document.getElementById('taxon-set-list');
-            list.innerHTML = ''; // Clear existing content
+            list.innerHTML = '';
 
             logger.debug(`Updating taxon set list with ${filteredPairs ? filteredPairs.length : 0} pairs`);
 
             if (!filteredPairs || filteredPairs.length === 0) {
-                const noResultsMessage = document.createElement('p');
-                noResultsMessage.className = 'no-results-message';
-                
-                // Check if any filters are active
-                const hasActiveFilters = gameState.selectedLevel !== '' || 
-                                         gameState.selectedRanges.length > 0 || 
-                                         gameState.selectedTags.length > 0;
-
-                if (hasActiveFilters) {
-                    noResultsMessage.innerHTML = 'No matching sets found.<br><span class="filter-warning">You have active filters. Try clearing some filters at the top of this dialog to see more results.</span>';
-                } else {
-                    noResultsMessage.textContent = 'No matching sets found.';
-                }
-                
-                list.appendChild(noResultsMessage);
+                this.displayNoResultsMessage(list);
             } else {
-                for (const pair of filteredPairs) {
-                    const button = await this.createTaxonPairButton(pair);
-                    list.appendChild(button);
-                }
+                await this.populateListWithPairs(list, filteredPairs);
             }
 
-            // Update the count
             this.updateActiveCollectionCount(filteredPairs ? filteredPairs.length : 0);
             this.updateFilterSummary();
         },
 
+        displayNoResultsMessage(list) {
+            const noResultsMessage = document.createElement('p');
+            noResultsMessage.className = 'no-results-message';
+            
+            const hasActiveFilters = this.checkForActiveFilters();
+            noResultsMessage.innerHTML = this.getNoResultsMessageContent(hasActiveFilters);
+            
+            list.appendChild(noResultsMessage);
+        },
+
+        checkForActiveFilters() {
+            return gameState.selectedLevel !== '' || 
+                   gameState.selectedRanges.length > 0 || 
+                   gameState.selectedTags.length > 0;
+        },
+
+        getNoResultsMessageContent(hasActiveFilters) {
+            return hasActiveFilters
+                ? 'No matching sets found.<br><span class="filter-warning">You have active filters. Try clearing some filters at the top of this dialog to see more results.</span>'
+                : 'No matching sets found.';
+        },
+
+        async populateListWithPairs(list, pairs) {
+            for (const pair of pairs) {
+                const button = await this.createTaxonPairButton(pair);
+                list.appendChild(button);
+            }
+        },
+
         getChiliHtml: function (level) {
             const chiliCount = parseInt(level) || 0;
-            let chiliHtml = '';
-            for (let i = 0; i < chiliCount; i++) {
-                chiliHtml += '<svg class="icon taxon-set__icon-chili"><use href="./images/icons.svg#icon-spicy"/></svg>';
-            }
-            return chiliHtml;
+            return Array(chiliCount).fill('<svg class="icon taxon-set__icon-chili"><use href="./images/icons.svg#icon-spicy"/></svg>').join('');
         },
 
         focusSearchInput: function () {
@@ -456,17 +490,74 @@ const ui = {
         },
     },
 
+    levelIndicator: {
+        updateLevelIndicator(level) {
+            const indicator = document.getElementById('level-indicator');
+            if (!indicator) return;
+
+            indicator.innerHTML = this.generateChiliIcons(level);
+            this.adjustIndicatorWidth(indicator, level);
+        },
+
+        generateChiliIcons(level) {
+            const chiliCount = parseInt(level) || 0;
+            return Array(chiliCount).fill().map(() => this.createChiliSVG()).join('');
+        },
+
+        createChiliSVG() {
+            return `
+                <svg class="icon icon-chili" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use xlink:href="./images/icons.svg#icon-spicy" transform="scale(1.2) translate(-2, -2)"></use>
+                </svg>
+            `;
+        },
+
+        adjustIndicatorWidth(indicator, level) {
+            const chiliCount = parseInt(level) || 0;
+            indicator.style.width = `${chiliCount * 26 + 16}px`;
+        }
+    },
+
     tutorial: {
         isActive: false,
         shouldContinue: false,
 
         showTutorial: function () {
+            this.initializeTutorial();
+            this.setupTutorialSteps();
+            this.startTutorial();
+        },
 
+        initializeTutorial: function() {
             this.isActive = true;
             this.shouldContinue = true;
             this.disableInteractions();
+            this.closeHelpDialog();
+            this.showInitialOverlay();
+            this.addCloseButton();
+        },
 
-            const steps = [
+        closeHelpDialog: function() {
+            const helpDialog = document.getElementById('help-dialog');
+            if (helpDialog && helpDialog.open) {
+                helpDialog.close();
+            }
+        },
+
+        showInitialOverlay: function() {
+            ui.overlay.showOverlay("", config.overlayColors.green);
+        },
+
+        addCloseButton: function() {
+            const closeButton = document.createElement('button');
+            closeButton.textContent = 'Close Tutorial';
+            closeButton.className = 'tutorial-close-button';
+            closeButton.addEventListener('click', () => this.endTutorial());
+            document.body.appendChild(closeButton);
+        },
+
+        setupTutorialSteps: function() {
+            this.steps = [
                 { message: "Welcome to DuoNat!<br>Let's learn how to play.", highlight: null, duration: 4000 },
                 { message: "Learn to distinguish two different taxa.", highlights: ['#image-container-1', '#image-container-2'], duration: 5000 },
                 { 
@@ -488,66 +579,50 @@ const ui = {
                 { message: "Change difficulty, range or tags.", highlights: ['#level-indicator', '#select-set-button'], duration: 5000 },
                 { message: "Ready to start?<br>Let's go!", highlight: null, duration: 2000 }
             ];
+        },
 
-            let currentStep = 0;
-            let highlightElements = [];
+        startTutorial: function() {
+            this.currentStep = 0;
+            this.highlightElements = [];
+            this.showNextStep();
+        },
 
-            const showStep = () => {
-                if (currentStep < steps.length && this.shouldContinue) {
-                    const step = steps[currentStep];
-
-                    // Fade out current message
-                    this.fadeOutOverlayMessage(() => {
-                        // Update message content
-                        ui.overlay.updateOverlayMessage(step.message);
-
-                        // Clear previous highlights
-                        highlightElements.forEach(el => el.remove());
-                        highlightElements = [];
-
-                        // Add new highlights
-                        if (step.highlight || step.highlights) {
-                            const highlights = step.highlight ? [step.highlight] : step.highlights;
-                            highlights.forEach(selector => {
-                                const highlight = this.createHighlight(selector, step.duration);
-                                if (highlight) highlightElements.push(highlight);
-                            });
-                        }
-
-                        // Perform any additional actions
-                        if (step.action) {
-                            step.action();
-                        }
-
-                        // Fade in new message
-                        this.fadeInOverlayMessage();
-
-                        currentStep++;
-                        setTimeout(showStep, step.duration);
-                    });
-                } else {
-                    this.endTutorial();
-                }
-            };
-
-            // Close the help dialog before starting the tutorial
-            const helpDialog = document.getElementById('help-dialog');
-            if (helpDialog && helpDialog.open) {
-                helpDialog.close();
+        showNextStep: function() {
+            if (this.currentStep < this.steps.length && this.shouldContinue) {
+                const step = this.steps[this.currentStep];
+                this.fadeOutOverlayMessage(() => {
+                    this.updateStepContent(step);
+                    this.fadeInOverlayMessage();
+                    this.currentStep++;
+                    setTimeout(() => this.showNextStep(), step.duration);
+                });
+            } else {
+                this.endTutorial();
             }
+        },
 
-            // Show the overlay at the start of the tutorial
-            ui.overlay.showOverlay("", config.overlayColors.green);
+        updateStepContent: function(step) {
+            ui.overlay.updateOverlayMessage(step.message);
+            this.clearPreviousHighlights();
+            this.addNewHighlights(step);
+            if (step.action) {
+                step.action();
+            }
+        },
 
-            // Add close button to the overlay
-            const closeButton = document.createElement('button');
-            closeButton.textContent = 'Close Tutorial';
-            closeButton.className = 'tutorial-close-button';
-            closeButton.addEventListener('click', () => this.endTutorial());
-            document.body.appendChild(closeButton);
+        clearPreviousHighlights: function() {
+            this.highlightElements.forEach(el => el.remove());
+            this.highlightElements = [];
+        },
 
-            // Start the tutorial
-            showStep();
+        addNewHighlights: function(step) {
+            if (step.highlight || step.highlights) {
+                const highlights = step.highlight ? [step.highlight] : step.highlights;
+                highlights.forEach(selector => {
+                    const highlight = this.createHighlight(selector, step.duration);
+                    if (highlight) this.highlightElements.push(highlight);
+                });
+            }
         },
 
         endTutorial: function() {
@@ -733,23 +808,36 @@ const ui = {
 
     notifications: {
         showPopupNotification(message, duration = 3000) {
+            const popup = this.createPopup(message);
+            this.showPopup(popup);
+            this.schedulePopupRemoval(popup, duration);
+        },
+
+        createPopup(message) {
             const popup = document.createElement('div');
             popup.className = 'popup-notification';
             popup.textContent = message;
-
             document.body.appendChild(popup);
+            return popup;
+        },
 
+        showPopup(popup) {
             // Trigger a reflow before adding the 'show' class
             popup.offsetHeight;
-
             popup.classList.add('show');
+        },
 
+        schedulePopupRemoval(popup, duration) {
             setTimeout(() => {
-                popup.classList.remove('show');
-                setTimeout(() => {
-                    document.body.removeChild(popup);
-                }, 300); // Wait for the fade out animation to complete
+                this.removePopup(popup);
             }, duration);
+        },
+
+        removePopup(popup) {
+            popup.classList.remove('show');
+            setTimeout(() => {
+                document.body.removeChild(popup);
+            }, 300); // Wait for the fade out animation to complete
         },
     },
 
@@ -762,40 +850,13 @@ const ui = {
         },
 
         getLevelText(level) {
-            switch (level) {
-                case '1': return 'Easy';
-                case '2': return 'Medium';
-                case '3': return 'Hard';
-                default: return 'Unknown';
-            }
+            const levelTexts = {
+                '1': 'Easy',
+                '2': 'Medium',
+                '3': 'Hard',
+            };
+            return levelTexts[level] || 'Unknown';
         },
-    },
-
-    levelIndicator: {
-        updateLevelIndicator(level) {
-            const indicator = document.getElementById('level-indicator');
-            if (!indicator) return;
-
-            const chiliCount = parseInt(level) || 0;
-            indicator.innerHTML = ''; // Clear existing content
-
-            for (let i = 0; i < chiliCount; i++) {
-                const chiliSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-                chiliSvg.classList.add('icon', 'icon-chili');
-                chiliSvg.setAttribute('viewBox', '0 0 24 24');
-
-                const useElement = document.createElementNS("http://www.w3.org/2000/svg", "use");
-                useElement.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', './images/icons.svg#icon-spicy');
-
-                useElement.setAttribute('transform', 'scale(1.2) translate(-2, -2)'); // enlarge a bit
-
-                chiliSvg.appendChild(useElement);
-                indicator.appendChild(chiliSvg);
-            }
-
-            // Adjust container width based on number of chilis
-            indicator.style.width = `${chiliCount * 26 + 16}px`; // Adjusted width calculation
-        }
     },
 
 };
@@ -803,3 +864,4 @@ const ui = {
 bindAllMethods(ui);
 
 export default ui;
+
