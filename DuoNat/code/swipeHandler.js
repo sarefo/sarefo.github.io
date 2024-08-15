@@ -4,7 +4,10 @@ import gameLogic from './gameLogic.js';
 
 const swipeHandler = {
     isLoadingNewPair: false,
-    swipeOutThreshold: 30,
+
+    swipeOutThreshold: 50, // Increased from 30 to make it less sensitive
+    resetThreshold: 20, // New property to determine when to reset the swipe
+
     swipeRestraint: 100,
     maxRotation: 15,
     animationDuration: 300,
@@ -107,7 +110,7 @@ const swipeHandler = {
 
         if (this.isValidDragMove(deltaX, deltaY)) {
             this.updateDragAnimation(deltaX);
-        } else {
+        } else if (deltaX < this.resetThreshold) {
             this.resetSwipeAnimation();
         }
     },
@@ -146,7 +149,9 @@ const swipeHandler = {
     },
 
     hideSwipeInfoMessage() {
-        document.getElementById('swipe-info-message').style.opacity = 0;
+        const swipeInfoMessage = document.getElementById('swipe-info-message');
+        swipeInfoMessage.style.transition = 'opacity 0.3s ease';
+        swipeInfoMessage.style.opacity = 0;
     },
 
     animateSwipeOut(initialDeltaX) {
@@ -201,18 +206,15 @@ const swipeHandler = {
     },
 
     resetSwipeAnimation() {
-        document.getElementById('swipe-info-message').style.opacity = 0;
+        this.hideSwipeInfoMessage();
 
-        this.gameContainer.animate([
-            { transform: this.gameContainer.style.transform, opacity: this.gameContainer.style.opacity },
-            { transform: 'none', opacity: 1 }
-        ], {
-            duration: 150,
-            easing: 'ease-out'
-        });
-
+        this.gameContainer.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
         this.gameContainer.style.transform = 'none';
-        this.gameContainer.style.opacity = '';
+        this.gameContainer.style.opacity = '1';
+
+        setTimeout(() => {
+            this.gameContainer.style.transition = '';
+        }, 300);
     },
 
     disable() {
