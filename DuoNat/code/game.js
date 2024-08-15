@@ -130,8 +130,23 @@ const game = {
             const infoButton1 = document.getElementById('info-button-1');
             const infoButton2 = document.getElementById('info-button-2');
 
-            infoButton1.addEventListener('click', () => this.showInfoDialog(game.currentObservationURLs.imageOne, 1));
-            infoButton2.addEventListener('click', () => this.showInfoDialog(game.currentObservationURLs.imageTwo, 2));
+            infoButton1.addEventListener('click', () => {
+                logger.debug(`Info button 1 clicked. Current URL: ${game.currentObservationURLs.imageOne}`);
+                if (!game.currentObservationURLs.imageOne) {
+                    logger.error('Info button 1 clicked, but imageOne URL is null or undefined');
+                    return;
+                }
+                this.showInfoDialog(game.currentObservationURLs.imageOne, 1);
+            });
+
+            infoButton2.addEventListener('click', () => {
+                logger.debug(`Info button 2 clicked. Current URL: ${game.currentObservationURLs.imageTwo}`);
+                if (!game.currentObservationURLs.imageTwo) {
+                    logger.error('Info button 2 clicked, but imageTwo URL is null or undefined');
+                    return;
+                }
+                this.showInfoDialog(game.currentObservationURLs.imageTwo, 2);
+            });
 
             this.setupInfoDialogCloseHandler();
         },
@@ -202,8 +217,20 @@ const game = {
         },
 
         showInfoDialog: async function (url, imageIndex) {
+            logger.debug(`showInfoDialog called with URL: ${url}, imageIndex: ${imageIndex}`);
+            
+            if (!url) {
+                logger.error(`showInfoDialog: URL is null or undefined for imageIndex: ${imageIndex}`);
+                return;
+            }
+            
             const currentTaxon = gameLogic.getCurrentTaxon(url); // TODO FIX looks like unnecessary fetch from gameLogic?
-            if (!currentTaxon) return;
+            if (!currentTaxon) {
+                logger.error(`showInfoDialog: Unable to get current taxon for URL: ${url}`);
+                return;
+            }
+            
+            logger.debug(`showInfoDialog: Current taxon determined as: ${currentTaxon}`);
 
             const dialog = document.getElementById('info-dialog');
             this.frameImage(imageIndex);
@@ -324,16 +351,6 @@ const game = {
                 }
             }
         }
-    },
-
-    // Images
-    loadImages(leftImageSrc, rightImageSrc) {
-        this.imageManagement.loadImages(leftImageSrc, rightImageSrc);
-    },
-
-    // Info dialog
-    showInfoDialog(url, imageIndex) {
-        return this.dialogHandling.showInfoDialog(url, imageIndex);
     },
 
     // Misc

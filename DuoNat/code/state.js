@@ -168,16 +168,27 @@ const publicAPI = {
   },
 
   // Observation URLs
-  getObservationURLs: () => ({ ...gameState.currentObservationURLs }),
-  setObservationURL: (url, index) => {
-    if (index === 1) {
-      gameState.currentObservationURLs.imageOne = url;
-    } else if (index === 2) {
-      gameState.currentObservationURLs.imageTwo = url;
-    } else {
-      console.error(`Invalid index for setObservationURL: ${index}`);
-    }
-  },
+    getObservationURL: (index) => {
+      if (index === 1) {
+        return gameState.currentObservationURLs.imageOne;
+      } else if (index === 2) {
+        return gameState.currentObservationURLs.imageTwo;
+      } else {
+        console.error(`Invalid index for getObservationURL: ${index}`);
+        return null;
+      }
+    },
+
+    setObservationURL: (url, index) => {
+      if (index === 1) {
+        gameState.currentObservationURLs.imageOne = url;
+      } else if (index === 2) {
+        gameState.currentObservationURLs.imageTwo = url;
+      } else {
+        console.error(`Invalid index for setObservationURL: ${index}`);
+      }
+    },
+
 
   // Preloaded Pair
   getPreloadedPair: () => gameState.preloadedPair,

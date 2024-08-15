@@ -192,12 +192,19 @@ const gameLogic = {
     taxonHandling: {
         getCurrentTaxon(url) {
             let currentObservationURLs = state.getObservationURLs();
+            logger.debug(`getCurrentTaxon called with URL: ${url}`);
+            logger.debug(`Current observation URLs: ${JSON.stringify(currentObservationURLs)}`);
+            
             if (url === currentObservationURLs.imageOne) {
-                return state.getTaxonImageOne();
+                const taxon = state.getTaxonImageOne();
+                logger.debug(`Matched imageOne, returning taxon: ${taxon}`);
+                return taxon;
             } else if (url === currentObservationURLs.imageTwo) {
-                return state.getTaxonImageTwo();
+                const taxon = state.getTaxonImageTwo();
+                logger.debug(`Matched imageTwo, returning taxon: ${taxon}`);
+                return taxon;
             } else {
-                logger.error("Unable to determine current taxon name");
+                logger.error(`Unable to determine current taxon name. URL: ${url} does not match any current observation URL.`);
                 return null;
             }
         },
