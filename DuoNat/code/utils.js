@@ -17,136 +17,133 @@ const utils = {
             };
         },
 
-        shareCurrentPair: function () {
+        buildShareUrl() {
             let currentUrl = new URL(window.location.href);
-
-            currentUrl.searchParams.delete('taxon1');
-            currentUrl.searchParams.delete('taxon2');
-            currentUrl.searchParams.delete('tags');
-            currentUrl.searchParams.delete('level');
-            currentUrl.searchParams.delete('setID');
-            currentUrl.searchParams.delete('ranges');
+            currentUrl.search = ''; // Clear existing parameters
             let currentTaxonImageCollection = state.getCurrentTaxonImageCollection();
+            
             if (currentTaxonImageCollection && currentTaxonImageCollection.pair) {
                 const { setID, taxon1, taxon2 } = currentTaxonImageCollection.pair;
-
-                if (setID) {
-                    currentUrl.searchParams.set('setID', setID);
-                }
-
+                if (setID) currentUrl.searchParams.set('setID', setID);
                 currentUrl.searchParams.set('taxon1', taxon1);
                 currentUrl.searchParams.set('taxon2', taxon2);
-
-                const activeTags = state.getSelectedTags();
-                if (activeTags && activeTags.length > 0) {
-                    currentUrl.searchParams.set('tags', activeTags.join(','));
-                }
-                let selectedLevel = state.getSelectedLevel();
-                if (selectedLevel && selectedLevel !== '') {
-                    currentUrl.searchParams.set('level', selectedLevel);
-                }
-                let selectedRanges = state.getSelectedRanges();
-                if (selectedRanges && selectedRanges.length > 0) {
-                    currentUrl.searchParams.set('ranges', selectedRanges.join(','));
-                }
             }
 
-            let shareUrl = currentUrl.toString();
+            utils.url.addOptionalParameters(currentUrl);
+            return currentUrl.toString();
+        },
 
-            // Copy to clipboard
-            navigator.clipboard.writeText(shareUrl).then(() => {
-                logger.info('Share URL copied to clipboard');
+        addOptionalParameters(url) {
+            const activeTags = state.getSelectedTags();
+            if (activeTags && activeTags.length > 0) {
+                url.searchParams.set('tags', activeTags.join(','));
+            }
 
-                // Load QR code script if not already loaded
-                loadQRCodeScript().then(() => {
-                    // Generate QR code
+            const selectedLevel = state.getSelectedLevel();
+            if (selectedLevel && selectedLevel !== '') {
+                url.searchParams.set('level', selectedLevel);
+            }
+
+            const selectedRanges = state.getSelectedRanges();
+            if (selectedRanges && selectedRanges.length > 0) {
+                url.searchParams.set('ranges', selectedRanges.join(','));
+            }
+        },
+
+        shareCurrentPair() {
+            const shareUrl = utils.url.buildShareUrl();
+            utils.url.copyToClipboard(shareUrl)
+                .then(() => utils.url.generateAndShowQRCode(shareUrl))
+                .catch(utils.url.handleShareError);
+        },
+
+        copyToClipboard(text) {
+            return navigator.clipboard.writeText(text)
+                .then(() => logger.info('Share URL copied to clipboard'));
+        },
+
+        generateAndShowQRCode(url) {
+            loadQRCodeScript()
+                .then(() => {
                     const qrCodeContainer = document.getElementById('qr-container');
-                    qrCodeContainer.innerHTML = ''; // Clear previous QR code
+                    qrCodeContainer.innerHTML = '';
                     new QRCode(qrCodeContainer, {
-                        text: shareUrl,
+                        text: url,
                         width: 256,
                         height: 256
                     });
-
-                    // Open the QR code dialog
                     dialogManager.openDialog('qr-dialog');
-                }).catch(err => {
+                })
+                .catch(err => {
                     logger.error('Failed to load QR code script:', err);
                     alert('Failed to generate QR code. Please try again.');
                 });
-            }).catch(err => {
-                logger.error('Failed to copy:', err);
-                alert('Failed to copy link. Please try again.');
-            });
         },
-   
+
+        handleShareError(err) {
+            logger.error('Failed to copy:', err);
+            alert('Failed to copy link. Please try again.');
+        }
     },
 
     game: {
-        getFilteredTaxonPairs: async function (filters = {}) {
+        async getFilteredTaxonPairs(filters = {}) {
             const taxonPairs = await api.taxonomy.fetchTaxonPairs();
-            return taxonPairs.filter(pair => {
-                const matchesLevel = !filters.level || pair.level === filters.level;
-                const matchesRanges = !filters.ranges || filters.ranges.length === 0 ||
-                    (pair.range && pair.range.some(range => filters.ranges.includes(range)));
-                const matchesTags = !filters.tags || filters.tags.length === 0 ||
-                    pair.tags.some(tag => filters.tags.includes(tag));
-
-                return matchesLevel && matchesRanges && matchesTags;
-            });
+            return taxonPairs.filter(pair => utils.game.pairMatchesFilters(pair, filters));
         },
 
-        // Returns a taxon pair from the index, or a random one if none indicated
-        selectTaxonPair: async function (filters = {}) {
+        pairMatchesFilters(pair, filters) {
+            const matchesLevel = !filters.level || pair.level === filters.level;
+            const matchesRanges = !filters.ranges || filters.ranges.length === 0 ||
+                (pair.range && pair.range.some(range => filters.ranges.includes(range)));
+            const matchesTags = !filters.tags || filters.tags.length === 0 ||
+                pair.tags.some(tag => filters.tags.includes(tag));
+
+            return matchesLevel && matchesRanges && matchesTags;
+        },
+
+        async selectTaxonPair(filters = {}) {
             try {
-                const taxonPairs = await api.taxonomy.fetchTaxonPairs();
-                if (taxonPairs.length === 0) {
-                    logger.error("No taxon pairs available");
-                    return null;
-                }
-
-                let filteredPairs = taxonPairs.filter(pair => {
-                    const matchesLevel = !filters.level || pair.level === filters.level;
-                    const matchesRanges = !filters.ranges || filters.ranges.length === 0 ||
-                        (pair.range && pair.range.some(range => filters.ranges.includes(range)));
-                    const matchesTags = !filters.tags || filters.tags.length === 0 ||
-                        pair.tags.some(tag => filters.tags.includes(tag));
-
-                    return matchesLevel && matchesRanges && matchesTags;
-                });
-
+                const filteredPairs = await utils.game.getFilteredTaxonPairs(filters);
+                
                 if (filteredPairs.length === 0) {
                     logger.warn("No pairs match the selected criteria. Using all pairs.");
-                    filteredPairs = taxonPairs;
+                    return utils.game.selectRandomPair(await api.taxonomy.fetchTaxonPairs());
                 }
 
-                const selectedPair = filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
-                logger.debug(`Selected pair: ${selectedPair.taxon1} / ${selectedPair.taxon2}, Skill Level: ${selectedPair.level}`);
-
-                return selectedPair;
+                return utils.game.selectRandomPair(filteredPairs);
             } catch (error) {
                 logger.error("Error in selectTaxonPair:", error);
                 return null;
             }
         },
 
-        resetDraggables: function () {
+        selectRandomPair(pairs) {
+            if (pairs.length === 0) {
+                logger.error("No taxon pairs available");
+                return null;
+            }
+
+            const selectedPair = pairs[Math.floor(Math.random() * pairs.length)];
+            logger.debug(`Selected pair: ${selectedPair.taxon1} / ${selectedPair.taxon2}, Skill Level: ${selectedPair.level}`);
+            return selectedPair;
+        },
+
+        resetDraggables() {
             const leftNameContainer = document.getElementsByClassName('name-pair__container--left')[0];
             const rightNameContainer = document.getElementsByClassName('name-pair__container--right')[0];
             const dropOne = document.getElementById('drop-1');
             const dropTwo = document.getElementById('drop-2');
 
-            // Move draggables back to the names container
             leftNameContainer.appendChild(document.getElementById('left-name'));
             rightNameContainer.appendChild(document.getElementById('right-name'));
 
-            // Clear drop zones
-            dropOne.innerHTML = ''; dropTwo.innerHTML = '';
+            dropOne.innerHTML = ''; 
+            dropTwo.innerHTML = '';
         },
     },
 
     ui: {
-
         debounce(func, wait) {
             let timeout;
             return function executedFunction(...args) {
@@ -175,42 +172,38 @@ const utils = {
     sound: {
         surprise() {
             logger.debug("Surprise!");
-            this.randomAnimalSound();
+            utils.sound.randomAnimalSound();
         },
 
-        randomAnimalSound: async function () {
+        async randomAnimalSound() {
             try {
-                // Fetch random observations with sounds
-                const url = "https://api.inaturalist.org/v1/observations?order_by=random&sounds=true";
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch observations');
-                }
-                const data = await response.json();
-
-                // Filter observations with sounds
-                const observationsWithSounds = data.results.filter(obs => obs.sounds && obs.sounds.length > 0);
-
-                if (observationsWithSounds.length > 0) {
-                    // Choose a random observation
-                    const randomObservation = observationsWithSounds[Math.floor(Math.random() * observationsWithSounds.length)];
-
-                    // Extract the sound URL
-                    const soundUrl = randomObservation.sounds[0].file_url;
-
-                    if (soundUrl) {
-                        // Create and play the audio
-                        const audio = new Audio(soundUrl);
-                        await audio.play();
-                        logger.info(`Playing sound from observation: ${randomObservation.species_guess || 'Unknown species'}`);
-                    } else {
-                        logger.warn("Sound URL not found in the selected observation.");
-                    }
-                } else {
-                    logger.warn("No observations with sounds found.");
+                const observation = await utils.sound.fetchRandomObservationWithSound();
+                if (observation) {
+                    await utils.sound.playSound(observation.sounds[0].file_url);
+                    logger.info(`Playing sound from observation: ${observation.species_guess || 'Unknown species'}`);
                 }
             } catch (error) {
                 logger.error('Could not play animal sound:', error);
+            }
+        },
+
+        async fetchRandomObservationWithSound() {
+            const url = "https://api.inaturalist.org/v1/observations?order_by=random&sounds=true";
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Failed to fetch observations');
+            }
+            const data = await response.json();
+            const observationsWithSounds = data.results.filter(obs => obs.sounds && obs.sounds.length > 0);
+            return observationsWithSounds.length > 0 ? observationsWithSounds[Math.floor(Math.random() * observationsWithSounds.length)] : null;
+        },
+
+        async playSound(soundUrl) {
+            if (soundUrl) {
+                const audio = new Audio(soundUrl);
+                await audio.play();
+            } else {
+                logger.warn("Sound URL not found in the selected observation.");
             }
         },
 
@@ -228,7 +221,6 @@ const utils = {
             return string ? string.charAt(0).toUpperCase() + string.slice(1) : '';
         },
 
-        // Canis lupus to C. lupus
         shortenSpeciesName(string) {
             if (!string) return '';
             let parts = string.split(' ');
@@ -249,7 +241,37 @@ const utils = {
             }
             return true;
         }
+    },
+};
+
+const publicAPI = {
+    url: {
+        getURLParameters: utils.url.getURLParameters,
+        shareCurrentPair: utils.url.shareCurrentPair
+    },
+    game: {
+        selectTaxonPair: utils.game.selectTaxonPair,
+        getFilteredTaxonPairs: utils.game.getFilteredTaxonPairs,
+        resetDraggables: utils.game.resetDraggables
+    },
+    ui: {
+        debounce: utils.ui.debounce,
+        sleep: utils.ui.sleep
+    },
+    device: {
+        hasKeyboard: utils.device.hasKeyboard
+    },
+    sound: {
+        surprise: utils.sound.surprise,
+        fart: utils.sound.fart
+    },
+    string: {
+        capitalizeFirstLetter: utils.string.capitalizeFirstLetter,
+        shortenSpeciesName: utils.string.shortenSpeciesName
+    },
+    array: {
+        arraysEqual: utils.array.arraysEqual
     }
 };
 
-export default utils;
+export default publicAPI;
