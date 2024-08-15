@@ -45,7 +45,7 @@ const gameSetup = {
             utils.game.resetDraggables();
             gameUI.prepareImagesForLoading();
             const startMessage = gameState.isFirstLoad ? "Drag the names!" : game.getLoadingMessage();
-            ui.overlay.showOverlay(startMessage, config.overlayColors.green);
+            ui.showOverlay(startMessage, config.overlayColors.green);
             gameState.isFirstLoad = false;
         },
 
@@ -151,7 +151,7 @@ const gameSetup = {
                 },
                 currentSetID: newPair.setID || gameState.currentSetID,
             });
-            ui.levelIndicator.updateLevelIndicator(newPair.level || '1');
+            ui.updateLevelIndicator(newPair.level || '1');
         },
 
         async setupWithPreloadedPair(preloadedPair) {
@@ -240,7 +240,7 @@ const gameSetup = {
         },
 
         updateUIAfterSetup(newPair) {
-            ui.levelIndicator.updateLevelIndicator(gameState.currentTaxonImageCollection.pair.level);
+            ui.updateLevelIndicator(gameState.currentTaxonImageCollection.pair.level);
             if (this.initialization.filtersWereCleared()) {
                 this.initialization.updateUIForClearedFilters();
             }
@@ -254,8 +254,8 @@ const gameSetup = {
         },
 
         updateUIForClearedFilters() {
-            ui.taxonPairList.updateFilterSummary();
-            ui.filters.updateLevelDropdown();
+            ui.updateFilterSummary();
+            ui.updateLevelDropdown();
         },
 
         async finishSetup(newPair) {
@@ -268,8 +268,8 @@ const gameSetup = {
             if (gameState.isInitialLoad) {
                 updateGameState({ isInitialLoad: false });
             }
-            ui.overlay.hideOverlay();
-            ui.core.resetUIState();
+            ui.hideOverlay();
+            ui.resetUIState();
             preloader.startPreloading(newPair);
         },
 
@@ -334,9 +334,9 @@ const gameSetup = {
         handleSetupError(error) {
             logger.error("Error setting up game:", error);
             if (error.message === "Failed to select a valid taxon pair") {
-                ui.overlay.showOverlay("No valid taxon pairs found. Please check your filters and try again.", config.overlayColors.red);
+                ui.showOverlay("No valid taxon pairs found. Please check your filters and try again.", config.overlayColors.red);
             } else {
-                ui.overlay.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
+                ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
             }
             game.setState(GameState.IDLE);
             if (gameState.isInitialLoad) {

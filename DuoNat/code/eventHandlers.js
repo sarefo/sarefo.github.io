@@ -267,7 +267,7 @@ const eventHandlers = {
         addMenuButtonListeners() {
             const menuActions = {
                 'phylogeny-button': taxaRelationshipViewer.graphManagement.showTaxaRelationship,
-                'select-set-button': ui.taxonPairList.showTaxonPairList,
+                'select-set-button': ui.showTaxonPairList,
                 'enter-set-button': () => dialogManager.openDialog('enter-set-dialog'),
                 'random-pair-button': gameLogic.loadNewRandomPair,
                 'like-button': this.likePair.bind(this),
@@ -283,7 +283,7 @@ const eventHandlers = {
         addMenuListener(buttonId, action) {
             this.safeAddEventListener(buttonId, 'click', () => {
                 action();
-                ui.menu.close();
+                ui.closeMenu();
             });
         },
 
@@ -305,7 +305,7 @@ const eventHandlers = {
         },
 
         handleLevelIndicatorClick() {
-            ui.taxonPairList.showTaxonPairList();
+            ui.showTaxonPairList();
         },
 
         initializeLongPressHandler() {
@@ -364,8 +364,8 @@ const eventHandlers = {
                 'arrowleft': this.handleArrowLeft.bind(this),
                 'arrowup': () => this.moveTileToDropZone('left', 'upper'),
                 'arrowdown': () => this.moveTileToDropZone('left', 'lower'),
-                'c': ui.taxonPairList.showTaxonPairList,
-                'l': ui.taxonPairList.showTaxonPairList,
+                'c': ui.showTaxonPairList,
+                'l': ui.showTaxonPairList,
                 'e': () => dialogManager.openDialog('enter-set-dialog'),
                 'i': () => game.showInfoDialog(currentObservationURLs.imageOne, 1),
                 'o': () => game.showInfoDialog(currentObservationURLs.imageTwo, 2),
@@ -373,7 +373,7 @@ const eventHandlers = {
                 'j': () => eventHandlers.hintButton.showHint(2),
                 'g': taxaRelationshipViewer.graphManagement.showTaxaRelationship,
                 '?': () => this.handleQuestionMark(event),
-                'm': ui.menu.toggleMainMenu,
+                'm': ui.toggleMainMenu,
                 's': utils.url.shareCurrentPair,
                 't': testingDialog.openDialog,
                 '+': this.incrementSetID.bind(this),
@@ -390,7 +390,7 @@ const eventHandlers = {
         shouldIgnoreKeyboardShortcut(event) {
             return event.ctrlKey || event.altKey || event.metaKey ||
                    dialogManager.isAnyDialogOpen() || 
-                   ui.tutorial.isActive ||
+                   ui.isTutorialActive() ||
                    document.getElementById('info-dialog').open ||
                    document.getElementById('enter-set-dialog').open;
         },
@@ -541,8 +541,8 @@ const eventHandlers = {
         },
 
         updateUI(filteredPairs) {
-            ui.taxonPairList.updateTaxonPairList(filteredPairs);
-            ui.taxonPairList.updateActiveCollectionCount(filteredPairs.length);
+            ui.updateTaxonPairList(filteredPairs);
+            ui.updateActiveCollectionCount(filteredPairs.length);
         },
 
         handleSearchInputFocus(searchInput) {
@@ -722,7 +722,7 @@ const eventHandlers = {
         handleHelpButtonClick(event) {
             event.preventDefault();
             event.stopPropagation();
-            if (!ui.tutorial.isActive) {
+            if (!ui.isTutorialActive()) {
                 const helpDialog = document.getElementById('help-dialog');
                 if (helpDialog && !helpDialog.open) {
                     dialogManager.openDialog('help-dialog');
@@ -733,7 +733,7 @@ const eventHandlers = {
         initializeTutorialButton() {
             const tutorialButton = document.getElementById('start-tutorial-button');
             if (tutorialButton) {
-                tutorialButton.addEventListener('click', ui.tutorial.showTutorial);
+                tutorialButton.addEventListener('click', ui.showTutorial);
             }
         },
 

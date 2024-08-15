@@ -103,7 +103,7 @@ const game = {
         handleFetchError: async function (error) {
             if (error.message.includes("No images found")) {
                 const taxonName = error.message.split("No images found for ")[1];
-                ui.overlay.showOverlay(`Warning: No images found for ${taxonName}. Trying another pair...`, config.overlayColors.red);
+                ui.showOverlay(`Warning: No images found for ${taxonName}. Trying another pair...`, config.overlayColors.red);
                 await utils.ui.sleep(2000);
                 game.nextSelectedPair = null;
             }

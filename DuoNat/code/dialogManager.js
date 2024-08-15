@@ -45,7 +45,7 @@ const dialogManager = {
     core: {
 
         openDialog: function(dialogId) {
-            if (ui.tutorial.isActive && dialogId !== 'help-dialog') {
+            if (ui.isTutorialActive() && dialogId !== 'help-dialog') {
                 return;
             }
 
@@ -69,7 +69,7 @@ const dialogManager = {
             }
 
             if (dialogId === 'select-set-dialog') {
-                ui.taxonPairList.updateFilterSummary();
+                ui.updateFilterSummary();
             }
 
             if (dialogId === 'report-dialog') {
@@ -119,7 +119,7 @@ const dialogManager = {
 
         handleDialogClose(dialog) {
             // Any additional cleanup needed when a dialog is closed
-            ui.core.resetUIState();
+            ui.resetUIState();
         },
     },
 
@@ -182,7 +182,7 @@ const dialogManager = {
             document.getElementById('help-button').addEventListener('click', (event) => {
                 event.preventDefault();
                 event.stopPropagation();
-                if (!ui.tutorial.isActive) {
+                if (!ui.isTutorialActive()) {
                     dialogManager.core.openDialog('help-dialog');
                     dialogManager.utils.toggleKeyboardShortcuts();
                 } else {
@@ -474,7 +474,7 @@ const dialogManager = {
 
         validateReportData(reportData) {
             if (reportData.reportTypes.length === 0) {
-                ui.notifications.showPopupNotification("Please select at least one issue to report.", 3000);
+                ui.showPopupNotification("Please select at least one issue to report.", 3000);
                 return false;
             }
             return true;
@@ -598,11 +598,11 @@ const dialogManager = {
             rangeSelector.setSelectedRanges([]);
 
             // Update the UI
-            ui.taxonPairList.updateTaxonPairList();
-            ui.taxonPairList.updateFilterSummary();
+            ui.updateTaxonPairList();
+            ui.updateFilterSummary();
 
             // Optionally, you can add a notification here
-            ui.notifications.showPopupNotification('All filters cleared');
+            ui.showPopupNotification('All filters cleared');
         },
 
         handleSelectSetDone() {
@@ -680,7 +680,7 @@ const dialogManager = {
             window.location.href = mailtoLink;
 
             // Show popup notification
-            ui.notifications.showPopupNotification(
+            ui.showPopupNotification(
                 "Attempting to open your email client. If it doesn't open, the report has been copied to your clipboard. Please paste it into your email client and send to " + recipient,
                 6000  // Increased duration to 6 seconds for longer message
             );

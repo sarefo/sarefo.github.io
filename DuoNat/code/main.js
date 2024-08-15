@@ -64,13 +64,13 @@ const updateLevelBasedOnParams = (urlParams) => {
     if (urlParams.level || urlParams.ranges || urlParams.tags || urlParams.setID) {
         updateGameState({ selectedLevel: urlParams.level });
     }
-    ui.filters.updateLevelDropdown();
+    ui.updateLevelDropdown();
 };
 
 const initializeComponents = () => {
     dialogManager.initialize();
     eventHandlers.initialize();
-    ui.core.initialize();
+    ui.initialize();
     tagCloud.initialize();
     rangeSelector.initialize();
     // tooltipManager.init(); /* need to remove bugs first */

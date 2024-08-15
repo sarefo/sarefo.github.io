@@ -863,5 +863,35 @@ const ui = {
 
 bindAllMethods(ui);
 
-export default ui;
+const publicAPI = {
+    // Overlay
+    showOverlay: ui.overlay.showOverlay,
+    updateOverlayMessage: ui.overlay.updateOverlayMessage,
+    hideOverlay: ui.overlay.hideOverlay,
+    // Taxon pairs
+    showTaxonPairList: ui.taxonPairList.showTaxonPairList,
+    updateTaxonPairList: ui.taxonPairList.updateTaxonPairList,
+    renderTaxonPairList: ui.taxonPairList.renderTaxonPairList,
+    // Menu
+    toggleMainMenu: ui.menu.toggleMainMenu,
+    closeMenu: ui.menu.close,
+    //Tutorial
+    isTutorialActive() {
+        return ui.tutorial.isActive;
+    },
+    showTutorial: ui.tutorial.showTutorial,
+    // Core
+    resetUIState: ui.core.resetUIState,
+    initialize: ui.core.initialize,
+    // Level
+    updateLevelIndicator: ui.levelIndicator.updateLevelIndicator,
+    updateLevelDropdown: ui.filters.updateLevelDropdown,
+    // Misc
+    updateFilterSummary: ui.taxonPairList.updateFilterSummary,
+    updateActiveCollectionCount: ui.taxonPairList.updateActiveCollectionCount,
+    showPopupNotification: ui.notifications.showPopupNotification,
+};
+
+export default publicAPI;
+//export default ui;
 

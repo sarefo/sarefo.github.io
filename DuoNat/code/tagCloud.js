@@ -64,7 +64,7 @@ const tagCloud = {
             const newSelectedTags = Array.from(tagCloud.selectedTags);
             updateGameState({ selectedTags: newSelectedTags });
             await tagCloud.dataManager.updateFilteredPairs();
-            ui.taxonPairList.updateFilterSummary();
+            ui.updateFilterSummary();
             tagCloud.uiManager.updateMatchingPairsCount();
             
             tagCloud.updateTagCloud();
@@ -77,7 +77,7 @@ const tagCloud = {
         async setSelectedTags(tags) {
             tagCloud.selectedTags = new Set(tags);
             updateGameState({ selectedTags: tagCloud.tagSelection.getSelectedTags() });
-            ui.taxonPairList.updateFilterSummary();
+            ui.updateFilterSummary();
             await tagCloud.dataManager.updateFilteredPairs();
             logger.debug("Setting selected tags");
             // Trigger preloading of a new pair based on the selected tags
@@ -87,7 +87,7 @@ const tagCloud = {
         async clearAllTags() {
             tagCloud.selectedTags.clear();
             updateGameState({ selectedTags: [] });
-            ui.taxonPairList.updateFilterSummary();
+            ui.updateFilterSummary();
             await tagCloud.dataManager.updateFilteredPairs();
 
             // Trigger preloading of a random pair from all available pairs
@@ -183,8 +183,8 @@ const tagCloud = {
 
             tagCloud.filteredPairs = gameLogic.filterTaxonPairs(taxonPairs, filters);
 
-            await ui.taxonPairList.renderTaxonPairList(tagCloud.filteredPairs);
-            ui.taxonPairList.updateActiveCollectionCount(tagCloud.filteredPairs.length);
+            await ui.renderTaxonPairList(tagCloud.filteredPairs);
+            ui.updateActiveCollectionCount(tagCloud.filteredPairs.length);
             tagCloud.uiManager.updateMatchingPairsCount();
         },
 
@@ -259,7 +259,7 @@ const tagCloud = {
         this.updateTaxonList();
         preloader.pairPreloader.preloadNewPairWithTags(gameState.selectedTags, gameState.selectedLevel);
         dialogManager.closeDialog('tag-cloud-dialog', true);
-        ui.taxonPairList.updateFilterSummary();
+        ui.updateFilterSummary();
     },
 };
 
