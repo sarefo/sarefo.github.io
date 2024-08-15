@@ -9,6 +9,7 @@ const config = {
         gray: "rgba(100, 100, 100, 0.8)"
     },
     debug: true, // set to false for less console output
+    loadingMessage: "", // used to be "Loading..."
 };
 
 export default config;

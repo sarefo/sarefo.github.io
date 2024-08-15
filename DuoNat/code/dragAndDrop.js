@@ -170,7 +170,8 @@ const dragAndDrop = {
 
             setTimeout(() => {
                 this.utils.finalizeDropAnimation(draggedElement, otherElement, dropZone, isCorrect);
-                // Call gameLogic.checkAnswer here
+                // Ensure the game is in PLAYING state before checking the answer
+                state.setState(state.GameState.PLAYING);
                 gameLogic.checkAnswer(dropZone.id);
             }, 300);
         },

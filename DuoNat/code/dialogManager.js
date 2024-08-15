@@ -1,7 +1,6 @@
 import api from './api.js';
 import config from './config.js';
 import eventHandlers from './eventHandlers.js';
-import game from './game.js';
 import gameSetup from './gameSetup.js';
 import gameLogic from './gameLogic.js';
 import logger from './logger.js';
@@ -430,7 +429,7 @@ const dialogManager = {
             this.dialogMessage.textContent = 'Saving new pair...';
             try {
                 await this.savePairToJson(newPair);
-                game.setNextSelectedPair(newPair);
+                state.setNextSelectedPair(newPair);
                 dialogManager.core.closeDialog();
                 gameSetup.setupGame(true);
             } catch (error) {
@@ -515,7 +514,7 @@ const dialogManager = {
         getCurrentImageURLs() {
             let urls = "";
             logger.debug("in getCurrentImageURLs");
-            let currentObservationURLs = game.getObservationURLs();
+            let currentObservationURLs = state.getObservationURLs();
             if (currentObservationURLs) {
                 urls += `Image 1 URL: ${currentObservationURLs.imageOne || 'N/A'}\n`;
                 urls += `Image 2 URL: ${currentObservationURLs.imageTwo || 'N/A'}\n`;
@@ -566,7 +565,7 @@ const dialogManager = {
             };
 
             logger.debug('New set created:', newSet);
-            game.setNextSelectedPair(newSet);
+            state.setNextSelectedPair(newSet);
             dialogManager.core.closeDialog('enter-set-dialog');
             gameSetup.setupGame(true);
         },

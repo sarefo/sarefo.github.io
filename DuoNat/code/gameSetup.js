@@ -19,7 +19,7 @@ const gameSetup = {
         async checkINaturalistReachability() {
             if (!await api.externalAPIs.isINaturalistReachable()) {
                 dialogManager.showINatDownDialog();
-                game.setState(state.GameState.IDLE);
+                state.setState(state.GameState.IDLE);
                 return false;
             }
             dialogManager.hideINatDownDialog();
@@ -27,7 +27,7 @@ const gameSetup = {
         },
 
         async runSetupSequence(newPair, urlParams) {
-            game.setState(state.GameState.LOADING);
+            state.setState(state.GameState.LOADING);
             if (!await gameSetup.initialization.checkINaturalistReachability()) return;
 
             gameSetup.initialization.prepareUIForLoading();
@@ -57,10 +57,10 @@ const gameSetup = {
         },
 
         async selectNewPair(urlParams) {
-            game.resetShownHints();
-            let nextSelectedPair = game.getNextSelectedPair();
+            state.resetShownHints();
+            let nextSelectedPair = state.getNextSelectedPair();
             if (nextSelectedPair) {
-                game.setNextSelectedPair(null);
+                state.setNextSelectedPair(null);
                 return nextSelectedPair;
             }
             return await gameSetup.initialization.selectPairFromFilters(urlParams);
@@ -155,7 +155,7 @@ const gameSetup = {
         },
 
         async setupWithPreloadedPair(preloadedPair) {
-            game.resetShownHints();
+            state.resetShownHints();
             logger.debug(`Setting up game with preloaded pair: ${preloadedPair.pair.taxon1} / ${preloadedPair.pair.taxon2}, Skill Level: ${preloadedPair.pair.level}`);
             logger.debug(`Current selected level: ${state.getSelectedLevel()}`);
 
@@ -193,8 +193,8 @@ const gameSetup = {
 
         async loadAndSetupImages(pair, isNewPair) {
             const imageData = await gameSetup.imageHandling.loadImages(pair, isNewPair);
-            game.setObservationURL(api.utils.getObservationURLFromImageURL(imageData.leftImageSrc), 1);
-            game.setObservationURL(api.utils.getObservationURLFromImageURL(imageData.rightImageSrc) ,2);
+            state.setObservationURL(api.utils.getObservationURLFromImageURL(imageData.leftImageSrc), 1);
+            state.setObservationURL(api.utils.getObservationURLFromImageURL(imageData.rightImageSrc) ,2);
 
             return imageData;
         },
@@ -261,7 +261,7 @@ const gameSetup = {
 
         async finishSetup(newPair) {
             gameUI.setNamePairHeight();
-            game.setState(state.GameState.PLAYING);
+            state.setState(state.GameState.PLAYING);
             gameSetup.initialization.hideLoadingScreen();
             if (newPair) {
                 await setManager.refreshSubset();
@@ -271,7 +271,7 @@ const gameSetup = {
             }
             ui.hideOverlay();
             ui.resetUIState();
-            game.setState(state.GameState.PLAYING);
+            state.setState(state.GameState.PLAYING);
             preloader.startPreloading(newPair);
         },
 
@@ -340,7 +340,7 @@ const gameSetup = {
             } else {
                 ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
             }
-            game.setState(state.GameState.IDLE);
+            state.setState(state.GameState.IDLE);
             if (state.getIsInitialLoad()) {
                 gameSetup.initialization.hideLoadingScreen();
                 state.updateGameStateMultiple({ isInitialLoad: false });

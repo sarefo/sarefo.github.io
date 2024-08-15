@@ -2,7 +2,6 @@ import api from './api.js';
 import config from './config.js';
 import dialogManager from './dialogManager.js';
 import eventHandlers from './eventHandlers.js';
-import game from './game.js';
 import gameLogic from './gameLogic.js';
 import gameSetup from './gameSetup.js';
 import logger from './logger.js';
@@ -385,7 +384,7 @@ const ui = {
                 setID: pair.setID,
                 level: pair.level
             };
-            game.setNextSelectedPair(selectedPair);
+            state.setNextSelectedPair(selectedPair);
             logger.debug('Selected pair:', selectedPair);
             dialogManager.closeDialog('select-set-dialog');
             setTimeout(() => gameSetup.setupGame(true), 300);

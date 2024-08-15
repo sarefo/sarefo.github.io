@@ -1,6 +1,6 @@
 import api from './api.js';
 import config from './config.js';
-import game from './game.js';
+import game from './game.js'; // TODO move loadingMessage to config, then remove
 import gameSetup from './gameSetup.js';
 import gameUI from './gameUI.js';
 import logger from './logger.js';
@@ -14,12 +14,13 @@ const gameLogic = {
     answerHandling: {
 
         checkAnswer(droppedZoneId) {
-            if (game.getState() !== state.GameState.PLAYING) {
-                logger.debug("Cannot check answer when not in PLAYING state");
+            const currentState = state.getState();
+            if (currentState !== state.GameState.PLAYING) {
+                logger.debug(`Cannot check answer when not in PLAYING state. Current state: ${currentState}`);
                 return;
             }
 
-            game.setState(state.GameState.CHECKING);
+            state.setState(state.GameState.CHECKING);
 
             const dropOne = document.getElementById('drop-1');
             const dropTwo = document.getElementById('drop-2');
@@ -42,7 +43,7 @@ const gameLogic = {
                 }
             } else {
                 logger.debug("Incomplete answer. Returning to PLAYING state.");
-                game.setState(state.GameState.PLAYING);
+                state.setState(state.GameState.PLAYING);
             }
         },
 
@@ -59,13 +60,13 @@ const gameLogic = {
             await ui.showOverlay('Try again!', config.overlayColors.red);
             await utils.ui.sleep(1200);
             ui.hideOverlay();
-            game.setState(state.GameState.PLAYING);
+            state.setState(state.GameState.PLAYING);
         },
     },
     
     pairManagement: {
     async loadNewRandomPair() {
-        game.setState(state.GameState.LOADING);
+        state.setState(state.GameState.LOADING);
         ui.showOverlay(`${game.getLoadingMessage()}`, config.overlayColors.green);
         gameUI.prepareImagesForLoading();
 
@@ -79,7 +80,7 @@ const gameLogic = {
             } else {
                 newPair = await this.selectRandomPairFromCurrentCollection();
                 if (newPair) {
-                    game.setNextSelectedPair(newPair);
+                    state.setNextSelectedPair(newPair);
                     await gameSetup.setupGame(true);
                 } else {
                     throw new Error("No pairs available in the current collection");
@@ -92,7 +93,7 @@ const gameLogic = {
             logger.error("Error loading new pair:", error);
             ui.showOverlay("Error loading new pair. Please try again.", config.overlayColors.red);
         } finally {
-            game.setState(state.GameState.PLAYING);
+            state.setState(state.GameState.PLAYING);
             preloader.roundPreloader.clearPreloadedImagesForNextRound();
             preloader.roundPreloader.preloadForNextRound();
             preloader.pairPreloader.preloadForNextPair();
@@ -145,7 +146,7 @@ const gameLogic = {
 
                 const newPair = await setManager.getSetByID(setID);
                 if (newPair) {
-                    game.setNextSelectedPair(newPair);
+                    state.setNextSelectedPair(newPair);
                     await gameSetup.setupGame(true);
                     const nextSetID = String(Number(setID) + 1);
                     preloader.pairPreloader.preloadSetByID(nextSetID);
@@ -190,7 +191,7 @@ const gameLogic = {
     
     taxonHandling: {
         getCurrentTaxon(url) {
-            let currentObservationURLs = game.getObservationURLs();
+            let currentObservationURLs = state.getObservationURLs();
             if (url === currentObservationURLs.imageOne) {
                 return state.getTaxonImageOne();
             } else if (url === currentObservationURLs.imageTwo) {
@@ -215,7 +216,7 @@ const gameLogic = {
                 const newPair = await gameLogic.pairManagement.selectRandomPairFromCurrentCollection();
                 if (newPair) {
                     logger.debug(`New pair selected: ${newPair.taxon1} / ${newPair.taxon2}, Level: ${newPair.level}`);
-                    game.setNextSelectedPair(newPair);
+                    state.setNextSelectedPair(newPair);
                     await gameSetup.setupGame(true);
                 } else {
                     throw new Error("No pairs available in the current collection");
@@ -224,7 +225,7 @@ const gameLogic = {
                 logger.error("Error loading random pair:", error);
                 ui.showOverlay("Error loading new pair. Please try again.", config.overlayColors.red);
             } finally {
-                game.setState(state.GameState.PLAYING);
+                state.setState(state.GameState.PLAYING);
                 preloader.roundPreloader.clearPreloadedImagesForNextRound();
                 preloader.roundPreloader.preloadForNextRound();
                 preloader.pairPreloader.preloadForNextPair();

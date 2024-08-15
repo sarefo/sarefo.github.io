@@ -24,6 +24,28 @@ const GameState = {
 };
 
 let gameState = {
+  nextSelectedPair: null,
+  currentObservationURLs: {
+    imageOne: null,
+    imageTwo: null
+  },
+  preloadedPair: null,
+  preloadedImages: {
+    current: {
+      taxon1: [],
+      taxon2: []
+    },
+    next: {
+      taxon1: [],
+      taxon2: []
+    }
+  },
+  shownHints: {
+    taxon1: [],
+    taxon2: []
+  },
+
+
   preloadState: {
     currentRound: {
       taxon1: null,
@@ -46,7 +68,6 @@ let gameState = {
   isFirstLoad: true,
   isInitialLoad: true,
   isPreloading: false,
-  preloadedPair: null,
   currentSession: 1,
   /*   currentRound: 1, */
   roundPreload: null,
@@ -131,13 +152,58 @@ const publicAPI = {
   getElement: (elementName) => elements[elementName],
   
   // Specific state getters and setters
-  getCurrentState: () => gameState.currentState,
-  setCurrentState: (state) => {
+  getState: () => gameState.currentState,
+  setState: (state) => {
     if (GameState.hasOwnProperty(state)) {
       gameState.currentState = GameState[state];
     } else {
       console.error(`Invalid game state: ${state}`);
     }
+  },
+
+  // Next Selected Pair
+  getNextSelectedPair: () => gameState.nextSelectedPair,
+  setNextSelectedPair: (pair) => {
+    gameState.nextSelectedPair = pair;
+  },
+
+  // Observation URLs
+  getObservationURLs: () => ({ ...gameState.currentObservationURLs }),
+  setObservationURL: (url, index) => {
+    if (index === 1) {
+      gameState.currentObservationURLs.imageOne = url;
+    } else if (index === 2) {
+      gameState.currentObservationURLs.imageTwo = url;
+    } else {
+      console.error(`Invalid index for setObservationURL: ${index}`);
+    }
+  },
+
+  // Preloaded Pair
+  getPreloadedPair: () => gameState.preloadedPair,
+  setPreloadedPair: (pair) => {
+    gameState.preloadedPair = pair;
+  },
+
+  // Preloaded Images
+  getPreloadedImages: () => ({ ...gameState.preloadedImages }),
+  setPreloadedImages: (images) => {
+    gameState.preloadedImages = { ...images };
+  },
+
+  // Shown Hints
+  getShownHints: (taxonIndex) => [...gameState.shownHints[`taxon${taxonIndex}`]],
+  addShownHint: (taxonIndex, hint) => {
+    gameState.shownHints[`taxon${taxonIndex}`].push(hint);
+  },
+  areAllHintsShown: (taxonIndex, totalHints) => {
+    return gameState.shownHints[`taxon${taxonIndex}`].length >= totalHints;
+  },
+  resetShownHints: () => {
+    gameState.shownHints = {
+      taxon1: [],
+      taxon2: []
+    };
   },
 
   getCurrentSetID: () => gameState.currentSetID,

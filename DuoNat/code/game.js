@@ -1,14 +1,13 @@
 import api from './api.js';
+import config from './config.js';
 import dialogManager from './dialogManager.js';
 import gameLogic from './gameLogic.js';
 import logger from './logger.js';
 import state from './state.js';
 import ui from './ui.js';
 import utils from './utils.js';
-import config from './config.js';
 
 const game = {
-    loadingMessage: "", // "Loading..."
     nextSelectedPair: null,
     currentObservationURLs: {
         imageOne: null,
@@ -91,9 +90,9 @@ const game = {
         },
 
         usePreloadedPair: function () {
-            const collection = game.preloadedPair;
-            game.preloadedPair = null;
-            return collection;
+          const collection = state.getPreloadedPair();
+          state.setPreloadedPair(null);
+          return collection;
         },
 
         shouldRetryFetch: function (error, attempts, maxAttempts) {
@@ -327,37 +326,6 @@ const game = {
         }
     },
 
-    // State
-    setState(newState) {
-        this.currentState = newState;
-    },
-
-    getState() {
-        return this.currentState;
-    },
-
-    // Pair
-    setNextSelectedPair(pair) {
-        this.nextSelectedPair = pair;
-    },
-
-    getNextSelectedPair() {
-        return this.nextSelectedPair;
-    },
-
-    // Observation URLs
-    setObservationURL(url, index) {
-        if (index===1) {
-            this.currentObservationURLs.imageOne = url;
-        } else {
-            this.currentObservationURLs.imageTwo = url;
-        }
-    },
-
-    getObservationURLs() {
-        return this.currentObservationURLs;
-    },
-
     // Images
     loadImages(leftImageSrc, rightImageSrc) {
         this.imageManagement.loadImages(leftImageSrc, rightImageSrc);
@@ -368,29 +336,10 @@ const game = {
         return this.dialogHandling.showInfoDialog(url, imageIndex);
     },
 
-    // Hints
-    getShownHints(taxonIndex) {
-        return [...this.shownHints[`taxon${taxonIndex}`]];
-    },
-
-    addShownHint(taxonIndex, hint) {
-        this.shownHints[`taxon${taxonIndex}`].push(hint);
-    },
-
-    areAllHintsShown(taxonIndex, totalHints) {
-        return this.shownHints[`taxon${taxonIndex}`].length >= totalHints;
-    },
-
-    resetShownHints() {
-        this.shownHints = {
-            taxon1: [],
-            taxon2: []
-        };
-    },
-
     // Misc
+    // TODO move to config.js
     getLoadingMessage() {
-        return this.loadingMessage;
+        return config.loadingMessage;
     },
 
 };
@@ -409,18 +358,8 @@ Object.keys(game).forEach(key => {
 });
 
 const publicAPI = {
-    setState: game.setState,
-    getState: game.getState,
-    setNextSelectedPair: game.setNextSelectedPair,
-    getNextSelectedPair: game.getNextSelectedPair,
-    setObservationURL: game.setObservationURL,
-    getObservationURLs: game.getObservationURLs,
     loadImages: game.imageManagement.loadImages,
     showInfoDialog: game.dialogHandling.showInfoDialog,
-    getShownHints: game.getShownHints,
-    addShownHint: game.addShownHint,
-    areAllHintsShown: game.areAllHintsShown,
-    resetShownHints: game.resetShownHints,
     getLoadingMessage: game.getLoadingMessage
 };
 

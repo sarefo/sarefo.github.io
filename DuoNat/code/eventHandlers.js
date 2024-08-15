@@ -357,7 +357,7 @@ const eventHandlers = {
 
             if (this.shouldIgnoreKeyboardShortcut(event)) return;
 
-            let currentObservationURLs = game.getObservationURLs();
+            let currentObservationURLs = state.getObservationURLs();
 
             const shortcutActions = {
                 'arrowleft': this.handleArrowLeft.bind(this),
@@ -618,16 +618,16 @@ const eventHandlers = {
         },
 
         displayRandomHint(hints, index) {
-            if (game.areAllHintsShown(index, hints.length)) {
-                game.resetShownHints();
+            if (state.areAllHintsShown(index, hints.length)) {
+                state.resetShownHints();
             }
             
-            const shownHints = game.getShownHints(index);
+            const shownHints = state.getShownHints(index);
             const availableHints = hints.filter(hint => !shownHints.includes(hint));
             
             if (availableHints.length > 0) {
                 const randomHint = availableHints[Math.floor(Math.random() * availableHints.length)];
-                game.addShownHint(index, randomHint);
+                state.addShownHint(index, randomHint);
                 
                 this.showHintOverlay(randomHint, index);
             }
