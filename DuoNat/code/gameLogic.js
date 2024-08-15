@@ -75,7 +75,7 @@ const gameLogic = {
                 newPair = preloadedImages.pair;
                 await gameSetup.setupGameWithPreloadedPair(preloadedImages);
             } else {
-                newPair = await this.selectRandomPairFromCurrentCollection();
+                newPair = await gameLogic.pairManagement.selectRandomPairFromCurrentCollection();
                 if (newPair) {
                     state.setNextSelectedPair(newPair);
                     await gameSetup.setupGame(true);
