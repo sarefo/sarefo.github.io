@@ -43,7 +43,7 @@ const gameSetup = {
 
         prepareUIForLoading() {
             utils.game.resetDraggables();
-            gameUI.imageHandling.prepareImagesForLoading();
+            gameUI.prepareImagesForLoading();
             const startMessage = gameState.isFirstLoad ? "Drag the names!" : game.getLoadingMessage();
             ui.overlay.showOverlay(startMessage, config.overlayColors.green);
             gameState.isFirstLoad = false;
@@ -204,7 +204,7 @@ const gameSetup = {
                 utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(imageData.randomized ? pair.taxon2 : pair.taxon1)),
             ]);
 
-            gameUI.nameTiles.setupNameTilesUI(
+            gameUI.setupNameTilesUI(
                 imageData.randomized ? pair.taxon1 : pair.taxon2,
                 imageData.randomized ? pair.taxon2 : pair.taxon1,
                 leftVernacular,
@@ -259,7 +259,7 @@ const gameSetup = {
         },
 
         async finishSetup(newPair) {
-            gameUI.layoutManagement.setNamePairHeight();
+            gameUI.setNamePairHeight();
             game.setState(GameState.PLAYING);
             this.initialization.hideLoadingScreen();
             if (newPair) {

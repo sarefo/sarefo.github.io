@@ -48,7 +48,7 @@ const gameLogic = {
 
         async handleCorrectAnswer() {
             await ui.overlay.showOverlay('Correct!', config.overlayColors.green);
-            gameUI.imageHandling.prepareImagesForLoading();
+            gameUI.prepareImagesForLoading();
             await utils.ui.sleep(2000); // Show "Correct!" for a while
             ui.overlay.updateOverlayMessage(`${game.getLoadingMessage()}`); // Update message without changing color
             await gameSetup.setupGame(false);  // Start a new round with the same taxon pair
@@ -67,7 +67,7 @@ const gameLogic = {
     async loadNewRandomPair() {
         game.setState(GameState.LOADING);
         ui.overlay.showOverlay(`${game.getLoadingMessage()}`, config.overlayColors.green);
-        gameUI.imageHandling.prepareImagesForLoading();
+        gameUI.prepareImagesForLoading();
 
         try {
             let newPair;

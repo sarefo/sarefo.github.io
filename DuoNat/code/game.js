@@ -2,7 +2,6 @@ import api from './api.js';
 import dialogManager from './dialogManager.js';
 import { elements } from './state.js';
 import gameLogic from './gameLogic.js';
-import gameUI from './gameUI.js';
 import { GameState, gameState } from './state.js';
 import logger from './logger.js';
 import ui from './ui.js';
