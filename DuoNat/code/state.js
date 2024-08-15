@@ -167,6 +167,7 @@ const publicAPI = {
     gameState.nextSelectedPair = pair;
   },
 
+    getObservationURLs: () => ({ ...gameState.currentObservationURLs }),
   // Observation URLs
     getObservationURL: (index) => {
       if (index === 1) {

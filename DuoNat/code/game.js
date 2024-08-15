@@ -115,6 +115,10 @@ const game = {
                 api.images.fetchRandomImage(newPair.taxon2)
             ]);
 
+            // Set the observation URLs in the state
+            state.setObservationURL(imageOneURL, 1);
+            state.setObservationURL(imageTwoURL, 2);
+
             return {
                 pair: newPair,
                 imageOneURL,
@@ -122,7 +126,7 @@ const game = {
                 imageOneVernacular: null,
                 imageTwoVernacular: null
             };
-        }
+        },
     },
 
     dialogHandling: {
@@ -131,21 +135,23 @@ const game = {
             const infoButton2 = document.getElementById('info-button-2');
 
             infoButton1.addEventListener('click', () => {
-                logger.debug(`Info button 1 clicked. Current URL: ${game.currentObservationURLs.imageOne}`);
-                if (!game.currentObservationURLs.imageOne) {
-                    logger.error('Info button 1 clicked, but imageOne URL is null or undefined');
-                    return;
-                }
-                this.showInfoDialog(game.currentObservationURLs.imageOne, 1);
-            });
+                const imageOneURL = state.getObservationURL(1);
+            logger.debug(`Info button 1 clicked. Current URL: ${imageOneURL}`);
+            if (!imageOneURL) {
+                logger.error('Info button 1 clicked, but imageOne URL is null or undefined');
+                return;
+            }
+            this.showInfoDialog(imageOneURL, 1);
+        });
 
             infoButton2.addEventListener('click', () => {
-                logger.debug(`Info button 2 clicked. Current URL: ${game.currentObservationURLs.imageTwo}`);
-                if (!game.currentObservationURLs.imageTwo) {
+                const imageTwoURL = state.getObservationURL(2);
+                logger.debug(`Info button 2 clicked. Current URL: ${imageTwoURL}`);
+                if (!imageTwoURL) {
                     logger.error('Info button 2 clicked, but imageTwo URL is null or undefined');
                     return;
                 }
-                this.showInfoDialog(game.currentObservationURLs.imageTwo, 2);
+                this.showInfoDialog(imageTwoURL, 2);
             });
 
             this.setupInfoDialogCloseHandler();
