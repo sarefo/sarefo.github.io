@@ -244,7 +244,7 @@ const tagCloud = {
     },
 
     closeTagCloud() {
-        this.updateTaxonList();
+        tagCloud.updateTaxonList();
         preloader.pairPreloader.preloadNewPairWithTags(state.getSelectedTags(), state.getSelectedLevel());
         dialogManager.closeDialog('tag-cloud-dialog', true);
         ui.updateFilterSummary();

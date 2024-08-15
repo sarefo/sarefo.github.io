@@ -1,6 +1,7 @@
 import api from './api.js';
 import config from './config.js';
-import eventHandlers from './eventHandlers.js';
+import mainEventHandler from './mainEventHandler.js';
+//import keyboardShortcuts from './keyboardShortcuts.js';
 import gameSetup from './gameSetup.js';
 import gameLogic from './gameLogic.js';
 import logger from './logger.js';
@@ -65,6 +66,7 @@ const dialogManager = {
 
             if (dialogManager.openDialogs.length === 1) {
                 dialogManager.utils.disableMainEventHandlers();
+                mainEventHandler.disableShortcuts();
             }
 
             if (dialogId === 'select-set-dialog') {
@@ -91,6 +93,7 @@ const dialogManager = {
 
                 if (dialogManager.openDialogs.length === 0) {
                     dialogManager.utils.enableMainEventHandlers();
+                    mainEventHandler.enableShortcuts();
                 }
             }
         },
@@ -101,6 +104,7 @@ const dialogManager = {
 
         closeAllDialogs() {
             [...dialogManager.openDialogs].forEach(dialogId => dialogManager.core.closeDialog(dialogId));
+            mainEventHandler.enableShortcuts();
         },
 
         handleDialogKeydown(event) {
@@ -114,6 +118,7 @@ const dialogManager = {
                     dialogManager.core.closeDialog(topDialogId);
                 }
             }
+            // Allow other keys to propagate for input fields
         },
 
         handleDialogClose(dialog) {
@@ -355,7 +360,7 @@ const dialogManager = {
                     element.onclick = null;
                 }
             });
-            eventHandlers.disableKeyboardShortcuts();
+            mainEventHandler.disableKeyboardShortcuts();
         },
 
         enableMainEventHandlers() {
@@ -365,7 +370,7 @@ const dialogManager = {
                     element.onclick = handler;
                 }
             });
-            eventHandlers.enableKeyboardShortcuts();
+            mainEventHandler.enableKeyboardShortcuts();
 
             this.mainEventHandlers = {};
         },

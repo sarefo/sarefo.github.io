@@ -1,7 +1,7 @@
 import api from './api.js';
 import config from './config.js';
 import dialogManager from './dialogManager.js';
-import eventHandlers from './eventHandlers.js';
+import mainEventHandler from './mainEventHandler.js';
 import gameLogic from './gameLogic.js';
 import gameSetup from './gameSetup.js';
 import logger from './logger.js';
@@ -469,7 +469,7 @@ const ui = {
                     if (searchInput.value.length > 0) {
                         searchInput.select();
                     }
-                    eventHandlers.setFocusLost(false);
+                    mainEventHandler.setFocusLost(false);
                 }, 100);
             }
         },
@@ -637,7 +637,7 @@ const ui = {
             });
             document.querySelectorAll('.tutorial-highlight').forEach(el => el.remove());
             
-            eventHandlers.enableKeyboardShortcuts();
+            mainEventHandler.enableKeyboardShortcuts();
         },
 
         disableInteractions: function() {
@@ -647,7 +647,7 @@ const ui = {
                 el.style.pointerEvents = 'none';
             });
             // Disable swipe functionality
-            eventHandlers.disableSwipe();
+            mainEventHandler.disableSwipe();
 
             // Disable level indicator
             const levelIndicator = document.getElementById('level-indicator');
@@ -658,7 +658,7 @@ const ui = {
             // Disable all buttons and clickable elements
             document.body.style.pointerEvents = 'none';
 
-            eventHandlers.disableKeyboardShortcuts();
+            mainEventHandler.disableKeyboardShortcuts();
 
             // Enable pointer events only for the tutorial close button
             const closeButton = document.querySelector('.tutorial-close-button');
@@ -674,7 +674,7 @@ const ui = {
                 el.style.pointerEvents = 'auto';
             });
             // Re-enable swipe functionality
-            eventHandlers.enableSwipe();
+            mainEventHandler.enableSwipe();
 
             // Re-enable level indicator
             const levelIndicator = document.getElementById('level-indicator');

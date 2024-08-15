@@ -1,6 +1,6 @@
 import config from './config.js';
 import dialogManager from './dialogManager.js';
-import eventHandlers from './eventHandlers.js';
+import mainEventHandler from './mainEventHandler.js';
 import gameSetup from './gameSetup.js';
 import logger, { LogLevel } from './logger.js';
 import rangeSelector from './rangeSelector.js';
@@ -68,7 +68,7 @@ const updateLevelBasedOnParams = (urlParams) => {
 
 const initializeComponents = () => {
     dialogManager.initialize();
-    eventHandlers.initialize();
+    mainEventHandler.initialize();
     ui.initialize();
     tagCloud.initialize();
     rangeSelector.initialize();
