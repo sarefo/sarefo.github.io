@@ -52,11 +52,6 @@ const rangeSelector = {
         }
     },
 
-    openRangeDialog() {
-        dialogManager.openDialog('range-dialog');
-        this.initializeWorldMap();
-    },
-
     closeRangeDialog() {
         dialogManager.closeDialog('range-dialog');
         this.updateTaxonList();
@@ -73,6 +68,12 @@ const rangeSelector = {
         ui.updateFilterSummary();
     },
 
+    openRangeDialog() {
+        dialogManager.openDialog('range-dialog');
+        // We'll initialize the world map here, keeping this logic within rangeSelector
+        this.initializeWorldMap();
+    },
+
     initialize() {
         const selectRangeButton = document.getElementById('select-range-button');
         const rangeDialog = document.getElementById('range-dialog');
@@ -85,15 +86,14 @@ const rangeSelector = {
         const closeButton = rangeDialog.querySelector('.dialog-close-button');
         closeButton.addEventListener('click', () => this.closeRangeDialog());
     },
+
 };
 
 const publicAPI = {
     initialize: rangeSelector.initialize.bind(rangeSelector),
     getSelectedRanges: rangeSelector.getSelectedRanges.bind(rangeSelector),
     setSelectedRanges: rangeSelector.setSelectedRanges.bind(rangeSelector),
-    // Not sure these two should be in public API
     openRangeDialog: rangeSelector.openRangeDialog.bind(rangeSelector),
-    closeRangeDialog: rangeSelector.closeRangeDialog.bind(rangeSelector),
 };
 
 export default publicAPI;
