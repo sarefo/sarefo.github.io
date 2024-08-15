@@ -265,7 +265,7 @@ const eventHandlers = {
 
         addMenuButtonListeners() {
             const menuActions = {
-                'phylogeny-button': taxaRelationshipViewer.graphManagement.showTaxaRelationship,
+                'phylogeny-button': taxaRelationshipViewer.showTaxaRelationship,
                 'select-set-button': ui.showTaxonPairList,
                 'enter-set-button': () => dialogManager.openDialog('enter-set-dialog'),
                 'random-pair-button': gameLogic.loadNewRandomPair,
@@ -370,7 +370,7 @@ const eventHandlers = {
                 'o': () => game.showInfoDialog(currentObservationURLs.imageTwo, 2),
                 'h': () => eventHandlers.hintButton.showHint(1),
                 'j': () => eventHandlers.hintButton.showHint(2),
-                'g': taxaRelationshipViewer.graphManagement.showTaxaRelationship,
+                'g': taxaRelationshipViewer.showTaxaRelationship,
                 '?': () => this.handleQuestionMark(event),
                 'm': ui.toggleMainMenu,
                 's': utils.url.shareCurrentPair,

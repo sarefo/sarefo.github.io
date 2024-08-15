@@ -349,7 +349,6 @@ const publicAPI = {
     return info;
   },
 
-  // Add more getters and setters as needed for other state properties
 };
 
 export default publicAPI;

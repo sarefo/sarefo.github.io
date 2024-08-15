@@ -243,18 +243,6 @@ const tagCloud = {
         this.uiManager.updateMatchingPairsCount();
     },
 
-    // Public API:
-    initialize() {
-        this.initialization.initialize();
-    },
-
-    setSelectedTags(tags) {
-        this.tagSelection.setSelectedTags(tags);
-    },
-    clearAllTags() {
-        this.tagSelection.clearAllTags();
-    },
-
     closeTagCloud() {
         this.updateTaxonList();
         preloader.pairPreloader.preloadNewPairWithTags(state.getSelectedTags(), state.getSelectedLevel());
@@ -263,4 +251,11 @@ const tagCloud = {
     },
 };
 
-export default tagCloud;
+const publicAPI = {
+    initialize: tagCloud.initialization.initialize,
+    closeTagCloud: tagCloud.closeTagCloud,
+    setSelectedTags: tagCloud.tagSelection.setSelectedTags,
+    clearAllTags: tagCloud.tagSelection.clearAllTags,
+};
+
+export default publicAPI;
