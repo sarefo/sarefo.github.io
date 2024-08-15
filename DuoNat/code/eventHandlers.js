@@ -492,13 +492,14 @@ const eventHandlers = {
         },
 
         async filterTaxonPairs(taxonPairs, searchTerm) {
-            const activeTags = state.getSelectedTags;
-            const selectedLevel = state.getSelectedLevel;
+            const activeTags = state.getSelectedTags();
+            const selectedLevel = state.getSelectedLevel();
             const isNumericSearch = /^\d+$/.test(searchTerm);
             const filteredPairs = [];
 
             for (const pair of taxonPairs) {
-                if (await this.isPairMatching(pair, searchTerm, activeTags, selectedLevel, isNumericSearch)) {
+                const isMatching = await this.isPairMatching(pair, searchTerm, activeTags, selectedLevel, isNumericSearch);
+                if (isMatching) {
                     filteredPairs.push(pair);
                 }
             }
@@ -507,8 +508,8 @@ const eventHandlers = {
         },
 
         async isPairMatching(pair, searchTerm, activeTags, selectedLevel, isNumericSearch) {
-            const vernacular1 = await getCachedVernacularName(pair.taxon1);
-            const vernacular2 = await getCachedVernacularName(pair.taxon2);
+            const vernacular1 = await getCachedVernacularName(pair.taxonNames[0]);
+            const vernacular2 = await getCachedVernacularName(pair.taxonNames[1]);
 
             const matchesTags = this.matchesTags(pair, activeTags);
             const matchesLevel = this.matchesLevel(pair, selectedLevel);
@@ -526,17 +527,21 @@ const eventHandlers = {
         },
 
         matchesSearch(pair, searchTerm, vernacular1, vernacular2, isNumericSearch) {
+            if (searchTerm === '') return true;
+            
             if (isNumericSearch) {
                 return pair.setID === searchTerm;
             }
 
             const searchTermLower = searchTerm.toLowerCase();
-            return pair.taxon1.toLowerCase().includes(searchTermLower) ||
-                   pair.taxon2.toLowerCase().includes(searchTermLower) ||
-                   (vernacular1 && vernacular1.toLowerCase().includes(searchTermLower)) ||
-                   (vernacular2 && vernacular2.toLowerCase().includes(searchTermLower)) ||
-                   pair.setName.toLowerCase().includes(searchTermLower) ||
-                   pair.tags.some(tag => tag.toLowerCase().includes(searchTermLower));
+            const matchesTaxon = pair.taxonNames[0].toLowerCase().includes(searchTermLower) ||
+                                 pair.taxonNames[1].toLowerCase().includes(searchTermLower);
+            const matchesVernacular = (vernacular1 && vernacular1.toLowerCase().includes(searchTermLower)) ||
+                                      (vernacular2 && vernacular2.toLowerCase().includes(searchTermLower));
+            const matchesSetName = pair.setName.toLowerCase().includes(searchTermLower);
+            const matchesTags = pair.tags.some(tag => tag.toLowerCase().includes(searchTermLower));
+
+            return matchesTaxon || matchesVernacular || matchesSetName || matchesTags;
         },
 
         updateUI(filteredPairs) {

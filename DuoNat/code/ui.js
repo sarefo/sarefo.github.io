@@ -415,7 +415,7 @@ const ui = {
             const list = document.getElementById('taxon-set-list');
             list.innerHTML = '';
 
-            logger.debug(`Updating taxon set list with ${filteredPairs ? filteredPairs.length : 0} pairs`);
+//            logger.debug(`Updating taxon set list with ${filteredPairs ? filteredPairs.length : 0} pairs`);
 
             if (!filteredPairs || filteredPairs.length === 0) {
                 this.displayNoResultsMessage(list);
