@@ -1,4 +1,5 @@
 import api from './api.js';
+import dialogManager from './dialogManager.js';
 import state from './state.js';
 import ui from './ui.js';
 
@@ -44,6 +45,13 @@ const searchHandler = {
     updateClearButtonVisibility(searchTerm) {
         const clearButton = document.getElementById('clear-search');
         clearButton.style.display = searchTerm.length > 0 ? 'block' : 'none';
+    },
+
+    resetScrollPosition() {
+        const taxonSetList = document.getElementById('taxon-set-list');
+        if (taxonSetList) {
+            taxonSetList.scrollTop = 0;
+        }
     },
 
     async filterTaxonPairs(taxonPairs, searchTerm) {

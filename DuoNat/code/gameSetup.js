@@ -328,7 +328,7 @@ const gameSetup = {
                 return taxonData.range.map(code => worldMap.getFullContinentName(code));
             }
             logger.debug(`No range data found for ${taxon}. Using placeholder.`);
-            return ['North America', 'South America', 'Europe', 'Africa', 'Asia', 'Oceania'];
+            return []; // no continents
         },
     },
 

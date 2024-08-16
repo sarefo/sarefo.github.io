@@ -71,6 +71,8 @@ const dialogManager = {
 
             if (dialogId === 'select-set-dialog') {
                 ui.updateFilterSummary();
+                mainEventHandler.clearSearch();
+                mainEventHandler.resetScrollPosition();
             }
 
             if (dialogId === 'report-dialog') {
@@ -531,15 +533,15 @@ const dialogManager = {
 
         async handleEnterSetSubmit(taxon1, taxon2, messageElement, submitButton) {
             logger.debug(`Handling submit for taxa: ${taxon1}, ${taxon2}`);
-            this.setSubmitState(messageElement, submitButton, true);
+            this.handlers.setSubmitState(messageElement, submitButton, true);
 
             try {
-                const [validatedTaxon1, validatedTaxon2] = await this.validateTaxa(taxon1, taxon2);
-                this.handleValidationResult(validatedTaxon1, validatedTaxon2, messageElement);
+                const [validatedTaxon1, validatedTaxon2] = await this.handlers.validateTaxa(taxon1, taxon2);
+                this.handlers.handleValidationResult(validatedTaxon1, validatedTaxon2, messageElement);
             } catch (error) {
-                this.handleValidationError(error, messageElement);
+                this.handlers.handleValidationError(error, messageElement);
             } finally {
-                this.setSubmitState(messageElement, submitButton, false);
+                this.handlers.setSubmitState(messageElement, submitButton, false);
             }
         },
 
@@ -554,7 +556,7 @@ const dialogManager = {
             logger.debug(`Validation results: Taxon1: ${JSON.stringify(validatedTaxon1)}, Taxon2: ${JSON.stringify(validatedTaxon2)}`);
 
             if (validatedTaxon1 && validatedTaxon2) {
-                this.processValidTaxa(validatedTaxon1, validatedTaxon2);
+                this.handlers.processValidTaxa(validatedTaxon1, validatedTaxon2);
             } else {
                 messageElement.textContent = 'One or both taxa are invalid. Please check and try again.';
                 logger.debug('Taxa validation failed');
@@ -628,9 +630,9 @@ const dialogManager = {
 
     specialDialogs: {
         showINatDownDialog() {
-            this.hideLoadingScreen();
-            this.openINatDownDialog();
-            this.setupINatDownDialogButtons();
+            this.specialDialogs.hideLoadingScreen();
+            this.specialDialogs.openINatDownDialog();
+            this.specialDialogs.setupINatDownDialogButtons();
         },
 
         hideLoadingScreen() {
@@ -648,8 +650,8 @@ const dialogManager = {
             const checkStatusBtn = document.getElementById('check-inat-status');
             const retryConnectionBtn = document.getElementById('retry-connection');
 
-            checkStatusBtn.addEventListener('click', this.handleCheckStatus);
-            retryConnectionBtn.addEventListener('click', this.handleRetryConnection);
+            checkStatusBtn.addEventListener('click', this.specialDialogs.handleCheckStatus);
+            retryConnectionBtn.addEventListener('click', this.specialDialogs.handleRetryConnection);
         },
 
         handleCheckStatus() {
@@ -661,7 +663,7 @@ const dialogManager = {
             if (await api.externalAPIs.isINaturalistReachable()) {
                 gameSetup.setupGame(true);
             } else {
-                this.showINatDownDialog();
+                this.specialDialogs.showINatDownDialog();
             }
         },
 
@@ -707,11 +709,11 @@ const dialogManager = {
                     logger.debug('Text successfully copied to clipboard using Clipboard API');
                 }).catch(err => {
                     logger.error('Failed to copy text using Clipboard API: ', err);
-                    this.fallbackCopyToClipboard(text);
+                    this.reporting.fallbackCopyToClipboard(text);
                 });
             } else {
                 // Fallback to older method
-                this.fallbackCopyToClipboard(text);
+                this.reporting.fallbackCopyToClipboard(text);
             }
         },
 
@@ -728,7 +730,7 @@ const dialogManager = {
                 logger.debug('Fallback: Copying text command was ' + msg);
             } catch (err) {
                 logger.error('Fallback: Unable to copy to clipboard', err);
-                this.showPopupNotification("Failed to copy report. Please try again.");
+                this.reporting.showPopupNotification("Failed to copy report. Please try again.");
             }
             document.body.removeChild(textArea);
         },

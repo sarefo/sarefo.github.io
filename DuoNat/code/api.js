@@ -103,7 +103,7 @@ const api = (() => {
                     }
 
                     // First, check local data
-                    const localTaxon = await this.checkLocalTaxonData(taxonName);
+                    const localTaxon = await api.taxonomy.checkLocalTaxonData(taxonName);
                     if (localTaxon) {
                         logger.debug('Taxon found in local data');
                         return localTaxon;
@@ -152,7 +152,7 @@ const api = (() => {
 
             fetchTaxonHints: async function(taxonId) {
                 try {
-                    const taxonInfo = await this.loadTaxonInfo();
+                    const taxonInfo = await api.taxonomy.loadTaxonInfo();
                     const taxonData = taxonInfo[taxonId];
                     return taxonData && taxonData.hints ? taxonData.hints : null;
                 } catch (error) {
@@ -203,7 +203,7 @@ const api = (() => {
         images: {
             fetchRandomImage: async function (taxonName) {
                 try {
-                    const images = await this.fetchMultipleImages(taxonName, 12);
+                    const images = await api.images.fetchMultipleImages(taxonName, 12);
                     if (images.length === 0) {
                         throw new Error(`No images found for ${taxonName}`);
                     }
@@ -218,7 +218,7 @@ const api = (() => {
 
             fetchRandomImageMetadata: async function (taxonName) {
                 //            logger.debug(`Fetching random image metadata for ${taxonName}`);
-                const images = await this.fetchImageMetadata(taxonName, 12); // Fetch metadata for 12 images
+                const images = await api.images.fetchImageMetadata(taxonName, 12); // Fetch metadata for 12 images
                 if (images.length === 0) {
                     logger.error(`No image metadata found for ${taxonName}`);
                     return null;
@@ -295,7 +295,7 @@ const api = (() => {
                 } else {
                     logger.warn(`Taxon not found in local data: ${taxonName}`);
                     // Only fetch from API if the taxon is not in our local data at all
-                    return this.fetchVernacularFromAPI(taxonName);
+                    return api.vernacular.fetchVernacularFromAPI(taxonName);
                 }
             },
 

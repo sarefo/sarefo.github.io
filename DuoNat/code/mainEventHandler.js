@@ -24,7 +24,9 @@ const mainEventHandler = {
     enableSwipe: swipeHandler.enable,
     disableSwipe: swipeHandler.disable,
 
-    setFocusLost: searchHandler.setFocusLost
+    setFocusLost: searchHandler.setFocusLost,
+    resetScrollPosition: searchHandler.resetScrollPosition,
+    clearSearch: searchHandler.handleClearSearch,
 };
 
 export default mainEventHandler;
