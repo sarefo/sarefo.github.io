@@ -6,6 +6,7 @@ import gameLogic from './gameLogic.js';
 import gameSetup from './gameSetup.js';
 import logger from './logger.js';
 import state from './state.js';
+import tutorial from './tutorial.js';
 import worldMap from './worldMap.js';
 
 const bindAllMethods = (obj) => {
@@ -172,6 +173,15 @@ const ui = {
         close() {
             if (ui.state.isMenuOpen) {
                 this.closeDropdownGroups();
+            }
+        },
+
+        close() {
+            if (tutorial.isActive() && tutorial.isMenuForcedOpen) {
+                return; // Don't close the menu if it's forced open during the tutorial
+            }
+            if (ui.state.isMenuOpen) {
+                ui.menu.closeDropdownGroups();
             }
         },
 
@@ -544,294 +554,6 @@ const ui = {
         }
     },
 
-    tutorial: {
-        isActive: false,
-        shouldContinue: false,
-
-        showTutorial: function () {
-            this.initializeTutorial();
-            this.setupTutorialSteps();
-            this.startTutorial();
-        },
-
-        initializeTutorial: function() {
-            this.isActive = true;
-            this.shouldContinue = true;
-            this.disableInteractions();
-            this.closeHelpDialog();
-            this.showInitialOverlay();
-            this.addCloseButton();
-        },
-
-        closeHelpDialog: function() {
-            const helpDialog = document.getElementById('help-dialog');
-            if (helpDialog && helpDialog.open) {
-                helpDialog.close();
-            }
-        },
-
-        showInitialOverlay: function() {
-            ui.overlay.showOverlay("", config.overlayColors.green);
-        },
-
-        addCloseButton: function() {
-            const closeButton = document.createElement('button');
-            closeButton.textContent = 'Close Tutorial';
-            closeButton.className = 'tutorial-close-button';
-            closeButton.addEventListener('click', () => this.endTutorial());
-            document.body.appendChild(closeButton);
-        },
-
-        setupTutorialSteps: function() {
-            this.steps = [
-                { message: "Welcome to DuoNat!<br>Let's learn how to play.", highlight: null, duration: 4000 },
-                { message: "Learn to distinguish two different taxa.", highlights: ['#image-container-1', '#image-container-2'], duration: 5000 },
-                { 
-                    message: "Drag a name to the correct image.",
-                    highlight: '.name-pair',
-                    duration: 5000,
-                    action: () => this.animateDragDemo()
-                },
-                { message: "If correct, play another round of the same set.", highlight: null, duration: 4000 },
-                {
-                    message: "Swipe left on an image for a new taxon set.",
-                    highlight: null,
-                    action: () => { this.tiltGameContainer(3200); },
-                    duration: 6000
-                },
-                { message: "Get more info about a taxon.", highlights: ['#info-button-1', '#info-button-2'], duration: 6000 },
-                { message: "Share the current set and collection.", highlight: '#share-button', duration: 6000 },
-                { message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => this.temporarilyOpenMenu(12000), duration: 6000 },
-                { message: "Change difficulty, range or tags.", highlights: ['#level-indicator', '#select-set-button'], duration: 5000 },
-                { message: "Ready to start?<br>Let's go!", highlight: null, duration: 2000 }
-            ];
-        },
-
-        startTutorial: function() {
-            this.currentStep = 0;
-            this.highlightElements = [];
-            this.showNextStep();
-        },
-
-        showNextStep: function() {
-            if (this.currentStep < this.steps.length && this.shouldContinue) {
-                const step = this.steps[this.currentStep];
-                this.fadeOutOverlayMessage(() => {
-                    this.updateStepContent(step);
-                    this.fadeInOverlayMessage();
-                    this.currentStep++;
-                    setTimeout(() => this.showNextStep(), step.duration);
-                });
-            } else {
-                this.endTutorial();
-            }
-        },
-
-        updateStepContent: function(step) {
-            ui.overlay.updateOverlayMessage(step.message);
-            this.clearPreviousHighlights();
-            this.addNewHighlights(step);
-            if (step.action) {
-                step.action();
-            }
-        },
-
-        clearPreviousHighlights: function() {
-            this.highlightElements.forEach(el => el.remove());
-            this.highlightElements = [];
-        },
-
-        addNewHighlights: function(step) {
-            if (step.highlight || step.highlights) {
-                const highlights = step.highlight ? [step.highlight] : step.highlights;
-                highlights.forEach(selector => {
-                    const highlight = this.createHighlight(selector, step.duration);
-                    if (highlight) this.highlightElements.push(highlight);
-                });
-            }
-        },
-
-        endTutorial: function() {
-            this.isActive = false;
-            this.shouldContinue = false;
-            this.enableInteractions();
-            this.fadeOutOverlayMessage(() => {
-                ui.overlay.hideOverlay();
-                const closeButton = document.querySelector('.tutorial-close-button');
-                if (closeButton) closeButton.remove();
-            });
-            document.querySelectorAll('.tutorial-highlight').forEach(el => el.remove());
-            
-            mainEventHandler.enableKeyboardShortcuts();
-        },
-
-        disableInteractions: function() {
-            // Disable buttons and interactions
-            document.querySelectorAll('button, .icon-button, .name-pair__item--draggable').forEach(el => {
-                el.disabled = true;
-                el.style.pointerEvents = 'none';
-            });
-            // Disable swipe functionality
-            mainEventHandler.disableSwipe();
-
-            // Disable level indicator
-            const levelIndicator = document.getElementById('level-indicator');
-            if (levelIndicator) {
-                levelIndicator.style.pointerEvents = 'none';
-            }
-
-            // Disable all buttons and clickable elements
-            document.body.style.pointerEvents = 'none';
-
-            mainEventHandler.disableKeyboardShortcuts();
-
-            // Enable pointer events only for the tutorial close button
-            const closeButton = document.querySelector('.tutorial-close-button');
-            if (closeButton) {
-                closeButton.style.pointerEvents = 'auto';
-            }
-        },
-
-        enableInteractions: function() {
-            // Re-enable buttons and interactions
-            document.querySelectorAll('button, .icon-button, .name-pair__item--draggable').forEach(el => {
-                el.disabled = false;
-                el.style.pointerEvents = 'auto';
-            });
-            // Re-enable swipe functionality
-            mainEventHandler.enableSwipe();
-
-            // Re-enable level indicator
-            const levelIndicator = document.getElementById('level-indicator');
-            if (levelIndicator) {
-                levelIndicator.style.pointerEvents = 'auto';
-            }
-
-            // Re-enable all buttons and clickable elements
-            document.body.style.pointerEvents = 'auto';
-        },
-
-        fadeOutOverlayMessage: function (callback) {
-            const overlayMessage = document.getElementById('overlay-message');
-            overlayMessage.style.transition = 'opacity 0.3s ease-out';
-            overlayMessage.style.opacity = '0';
-            setTimeout(() => {
-                if (callback) callback();
-            }, 300);
-        },
-
-        fadeInOverlayMessage: function () {
-            const overlayMessage = document.getElementById('overlay-message');
-            overlayMessage.style.transition = 'opacity 0.3s ease-in';
-            overlayMessage.style.opacity = '1';
-        },
-
-        temporarilyOpenMenu: function (duration) {
-            ui.menu.toggleMainMenu(); // Open the menu
-            setTimeout(() => {
-                ui.menu.close(); // Close the menu after the specified duration
-            }, duration);
-        },
-
-        animateDragDemo: function() {
-            return new Promise((resolve) => {
-                const leftName = document.getElementById('left-name');
-                const rightName = document.getElementById('right-name');
-                const drop1 = document.getElementById('drop-1');
-                const drop2 = document.getElementById('drop-2');
-
-                // Store original positions
-                const leftOriginalPos = leftName.getBoundingClientRect();
-                const rightOriginalPos = rightName.getBoundingClientRect();
-
-                // Function to animate an element
-                const animate = (element, target, duration) => {
-                    const start = element.getBoundingClientRect();
-                    const diffX = target.left - start.left;
-                    const diffY = target.top - start.top;
-
-                    element.style.transition = `transform ${duration}ms ease-in-out`;
-                    element.style.transform = `translate(${diffX}px, ${diffY}px)`;
-
-                    return new Promise(resolve => setTimeout(resolve, duration));
-                };
-
-                // Sequence of animations
-                Promise.resolve()
-                    .then(() => animate(leftName, drop1.getBoundingClientRect(), 1000))
-                    .then(() => animate(rightName, drop2.getBoundingClientRect(), 1000))
-                    .then(() => new Promise(resolve => setTimeout(resolve, 1000))) // Pause
-                    .then(() => {
-                        leftName.style.transition = rightName.style.transition = 'transform 500ms ease-in-out';
-                        leftName.style.transform = rightName.style.transform = '';
-                    })
-                    .then(() => new Promise(resolve => setTimeout(resolve, 500)))
-                    .then(() => {
-                        leftName.style.transition = rightName.style.transition = '';
-                        resolve();
-                    });
-            });
-        },
-
-        // for tutorial demo
-        tiltGameContainer: function (duration = 3200) {
-            const gameContainer = document.querySelector('.game-container');
-            const midpoint = duration / 2;
-
-            // Initial tilt
-            gameContainer.style.transition = `transform ${midpoint}ms ease-out, opacity ${midpoint}ms ease-out`;
-            gameContainer.style.transform = 'rotate(-3deg) translateX(-50px)';
-            gameContainer.style.opacity = '0.7';
-
-            // Return to original position
-            setTimeout(() => {
-                gameContainer.style.transition = `transform ${midpoint}ms ease-in, opacity ${midpoint}ms ease-in`;
-                gameContainer.style.transform = '';
-                gameContainer.style.opacity = '';
-            }, midpoint);
-
-            // Clean up
-            setTimeout(() => {
-                gameContainer.style.transition = '';
-            }, duration);
-        },
-
-        createHighlight: function (targetSelector, duration) {
-            const target = document.querySelector(targetSelector);
-            if (!target) {
-                logger.error(`Target element not found: ${targetSelector}`);
-                return null;
-            }
-            const highlight = document.createElement('div');
-            highlight.className = 'tutorial-highlight';
-            document.body.appendChild(highlight);
-            const targetRect = target.getBoundingClientRect();
-
-            // Set position and size
-            highlight.style.width = `${targetRect.width}px`;
-            highlight.style.height = `${targetRect.height}px`;
-            highlight.style.top = `${targetRect.top}px`;
-            highlight.style.left = `${targetRect.left}px`;
-
-            // Calculate animation properties
-            const animationDuration = 1; // seconds
-            const iterationCount = Math.floor(duration / 1000 / animationDuration);
-            
-            // Set animation properties
-            highlight.style.animationDuration = `${animationDuration}s`;
-            highlight.style.animationIterationCount = iterationCount;
-
-            // Special handling for level indicator
-            if (targetSelector === '#level-indicator') {
-                highlight.style.borderRadius = '20px';
-            } else if (target.classList.contains('icon-button')) {
-                highlight.style.borderRadius = '50%';
-            }
-
-            return highlight;
-        },
-    },
-
     notifications: {
         showPopupNotification(message, duration = 3000) {
             const popup = this.createPopup(message);
@@ -901,11 +623,6 @@ const publicAPI = {
     // Menu
     toggleMainMenu: ui.menu.toggleMainMenu,
     closeMenu: ui.menu.close,
-    //Tutorial
-    isTutorialActive() {
-        return ui.tutorial.isActive;
-    },
-    showTutorial: ui.tutorial.showTutorial,
     // Core
     resetUIState: ui.core.resetUIState,
     initialize: ui.core.initialize,

@@ -3,6 +3,7 @@ import dialogManager from './dialogManager.js';
 import swipeHandler from './swipeHandler.js';
 import searchHandler from './searchHandler.js';
 import state from './state.js';
+import tutorial from './tutorial.js';
 import ui from './ui.js';
 import utils from './utils.js';
 import uiInteractions from './uiInteractions.js';
@@ -81,7 +82,7 @@ const eventInitializer = {
     handleHelpButtonClick(event) {
         event.preventDefault();
         event.stopPropagation();
-        if (!ui.isTutorialActive()) {
+        if (!tutorial.isActive()) {
             const helpDialog = document.getElementById('help-dialog');
             if (helpDialog && !helpDialog.open) {
                 dialogManager.openDialog('help-dialog');
@@ -92,7 +93,7 @@ const eventInitializer = {
     initializeTutorialButton() {
         const tutorialButton = document.getElementById('start-tutorial-button');
         if (tutorialButton) {
-            tutorialButton.addEventListener('click', ui.showTutorial);
+            tutorialButton.addEventListener('click', () => tutorial.show());
         }
     },
 

@@ -5,6 +5,7 @@ import hintSystem from './hintSystem.js';
 import state from './state.js';
 import taxaRelationshipViewer from './taxaRelationshipViewer.js';
 import testingDialog from './testingDialog.js';
+import tutorial from './tutorial.js';
 import ui from './ui.js';
 import utils from './utils.js';
 
@@ -69,7 +70,7 @@ const keyboardShortcuts = {
         }
 
         return event.ctrlKey || event.altKey || event.metaKey ||
-               ui.isTutorialActive() ||
+               tutorial.isActive() ||
                document.getElementById('info-dialog').open ||
                document.getElementById('enter-set-dialog').open;
     },

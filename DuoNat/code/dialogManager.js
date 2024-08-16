@@ -1,7 +1,6 @@
 import api from './api.js';
 import config from './config.js';
 import mainEventHandler from './mainEventHandler.js';
-//import keyboardShortcuts from './keyboardShortcuts.js';
 import gameSetup from './gameSetup.js';
 import gameLogic from './gameLogic.js';
 import logger from './logger.js';
@@ -9,6 +8,7 @@ import rangeSelector from './rangeSelector.js';
 import setManager from './setManager.js';
 import state from './state.js';
 import tagCloud from './tagCloud.js';
+import tutorial from './tutorial.js';
 import ui from './ui.js';
 import utils from './utils.js';
 
@@ -45,7 +45,7 @@ const dialogManager = {
     core: {
 
         openDialog: function(dialogId) {
-            if (ui.isTutorialActive() && dialogId !== 'help-dialog') {
+            if (tutorial.isActive() && dialogId !== 'help-dialog') {
                 return;
             }
 
@@ -188,7 +188,7 @@ const dialogManager = {
             document.getElementById('help-button').addEventListener('click', (event) => {
                 event.preventDefault();
                 event.stopPropagation();
-                if (!ui.isTutorialActive()) {
+                if (!tutorial.isActive()) {
                     dialogManager.core.openDialog('help-dialog');
                     dialogManager.utils.toggleKeyboardShortcuts();
                 } else {
