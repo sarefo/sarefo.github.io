@@ -47,7 +47,7 @@ const tutorial = {
 
     setupTutorialSteps() {
         tutorial.steps = [
-            { message: "Welcome to DuoNat!<br>Let's learn how to play.", highlight: null, duration: 4000 },
+ /*           { message: "Welcome to DuoNat!<br>Let's learn how to play.", highlight: null, duration: 4000 },
             { message: "Learn to distinguish two different taxa.", highlights: ['#image-container-1', '#image-container-2'], duration: 5000 },
             { 
                 message: "Drag a name to the correct image.",
@@ -63,7 +63,7 @@ const tutorial = {
                 duration: 6000
             },
             { message: "Get more info about a taxon.", highlights: ['#info-button-1', '#info-button-2'], duration: 6000 },
-            { message: "Share the current set and collection.", highlight: '#share-button', duration: 6000 },
+            { message: "Share the current set and collection.", highlight: '#share-button', duration: 6000 },*/
             { message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => tutorial.temporarilyOpenMenu(12000), duration: 6000 },
             { message: "Change difficulty, range or tags.", highlights: ['#level-indicator', '#select-set-button'], duration: 5000 },
             { message: "Ready to start?<br>Let's go!", highlight: null, duration: 2000 }
@@ -126,6 +126,7 @@ const tutorial = {
         document.querySelectorAll('.tutorial-highlight').forEach(el => el.remove());
         
         mainEventHandler.enableKeyboardShortcuts();
+        mainEventHandler.enableSwipe();
     },
 
     disableInteractions() {
@@ -135,7 +136,6 @@ const tutorial = {
             el.style.pointerEvents = 'none';
         });
         mainEventHandler.disableSwipe();
-//        tutorial.disableMenu();
 
         const levelIndicator = document.getElementById('level-indicator');
         if (levelIndicator) {
@@ -152,6 +152,12 @@ const tutorial = {
         if (closeButton) {
             closeButton.style.pointerEvents = 'auto';
         }
+
+        // Prevent menu from closing
+        const mainMenu = document.querySelector('.main-menu');
+        if (mainMenu) {
+            mainMenu.style.pointerEvents = 'none';
+        }
     },
 
     enableInteractions() {
@@ -160,14 +166,18 @@ const tutorial = {
             el.style.pointerEvents = 'auto';
         });
         mainEventHandler.enableSwipe();
- //       tutorial.enableMenu();
+        tutorial.enableMenu();
+
         const levelIndicator = document.getElementById('level-indicator');
         if (levelIndicator) {
             levelIndicator.style.pointerEvents = 'auto';
         }
 
         document.body.style.pointerEvents = 'auto';
+
+        mainEventHandler.enableKeyboardShortcuts();
     },
+
 /*
     disableMenu() {
         const menuToggle = document.getElementById('menu-toggle');
@@ -180,6 +190,7 @@ const tutorial = {
         });
     },
 
+    */
     enableMenu() {
         const menuToggle = document.getElementById('menu-toggle');
         if (menuToggle) {
@@ -190,7 +201,7 @@ const tutorial = {
             dropdown.style.pointerEvents = 'auto';
         });
     },
-*/
+
     fadeOutOverlayMessage(callback) {
         const overlayMessage = document.getElementById('overlay-message');
         overlayMessage.style.transition = 'opacity 0.3s ease-out';
@@ -208,20 +219,19 @@ const tutorial = {
 
     temporarilyOpenMenu(duration) {
         this.isMenuForcedOpen = true;
-        ui.toggleMainMenu(); // Open the menu
-        
-        // Override the close menu function temporarily
-        const originalCloseMenu = ui.closeMenu;
-        ui.closeMenu = () => {
-            if (!this.isMenuForcedOpen) {
-                originalCloseMenu();
-            }
+        ui.openMenu(); // Use a new 'open' method instead of toggle
+
+        // Prevent any clicks from closing the menu
+        const preventMenuClose = (event) => {
+            event.stopPropagation();
         };
+        
+        document.addEventListener('click', preventMenuClose, true);
 
         setTimeout(() => {
             this.isMenuForcedOpen = false;
-            ui.closeMenu(); // Close the menu after the specified duration
-            ui.closeMenu = originalCloseMenu; // Restore the original close function
+            ui.closeMenu();
+            document.removeEventListener('click', preventMenuClose, true);
         }, duration);
     },
 

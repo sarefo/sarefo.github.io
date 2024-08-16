@@ -109,6 +109,11 @@ const ui = {
             this.setupOutsideClickHandler();
         },
 
+        open() {
+            ui.state.isMenuOpen = true;
+            this.toggleDropdownGroups();
+        },
+
         setupMenuToggle() {
             const menuToggle = document.getElementById('menu-toggle');
             if (menuToggle) {
@@ -127,20 +132,22 @@ const ui = {
             document.addEventListener('click', this.handleOutsideClick);
         },
 
+        handleOutsideClick(event) {
+            if (!event.target.closest('.main-menu') && !tutorial.isActive()) {
+                ui.menu.close();
+            }
+        },
+
         handleMenuToggleClick(event) {
             event.stopPropagation();
             this.toggleMainMenu();
         },
 
-        handleOutsideClick(event) {
-            if (!event.target.closest('.main-menu')) {
-                this.close();
-            }
-        },
-
         toggleMainMenu() {
-            ui.state.isMenuOpen = !ui.state.isMenuOpen;
-            this.toggleDropdownGroups();
+            if (!tutorial.isActive() || this.isMenuForcedOpen) {
+                ui.state.isMenuOpen = !ui.state.isMenuOpen;
+                this.toggleDropdownGroups();
+            }
         },
 
         toggleDropdownGroups() {
@@ -622,6 +629,7 @@ const publicAPI = {
     renderTaxonPairList: ui.taxonPairList.renderTaxonPairList,
     // Menu
     toggleMainMenu: ui.menu.toggleMainMenu,
+    openMenu: ui.menu.open,
     closeMenu: ui.menu.close,
     // Core
     resetUIState: ui.core.resetUIState,

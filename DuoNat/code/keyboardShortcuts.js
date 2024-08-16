@@ -148,10 +148,12 @@ const keyboardShortcuts = {
 
     enable() {
         document.addEventListener('keydown', this.debouncedKeyboardHandler);
+        shortcutsEnabled = true;
     },
 
     disable() {
         document.removeEventListener('keydown', this.debouncedKeyboardHandler);
+        shortcutsEnabled = false;
     }
 };
 
