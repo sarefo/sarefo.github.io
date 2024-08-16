@@ -69,6 +69,10 @@ const dialogManager = {
                 mainEventHandler.disableShortcuts();
             }
 
+            if (dialogId === 'help-dialog') {
+                this.initialization.updateKeyboardShortcutsButton();
+            }
+
             if (dialogId === 'select-set-dialog') {
                 ui.updateFilterSummary();
                 mainEventHandler.resetSearch();
@@ -190,11 +194,31 @@ const dialogManager = {
                 event.stopPropagation();
                 if (!tutorial.isActive()) {
                     dialogManager.core.openDialog('help-dialog');
-                    dialogManager.utils.toggleKeyboardShortcuts();
+                    this.updateKeyboardShortcutsButton();
                 } else {
                     logger.debug("Tutorial is active, help dialog not opened");
                 }
             });
+        },
+
+        updateKeyboardShortcutsButton() {
+            const container = document.getElementById('keyboard-shortcuts-button-container');
+            if (container) {
+                if (utils.device.hasKeyboard()) {
+                    container.innerHTML = `
+                        <button id="keyboard-shortcuts-button" class="dialog-button help-dialog__button">
+                            Keyboard Shortcuts
+                        </button>
+                    `;
+                    const button = document.getElementById('keyboard-shortcuts-button');
+                    button.addEventListener('click', () => {
+                        dialogManager.core.closeDialog('help-dialog');
+                        dialogManager.core.openDialog('keyboard-shortcuts-dialog');
+                    });
+                } else {
+                    container.innerHTML = ''; // Remove the button if no keyboard is detected
+                }
+            }
         },
 
         initializeKeyboardShortcutsDialog() {

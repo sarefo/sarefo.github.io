@@ -692,14 +692,14 @@ dialog[open] {
 
 .help-dialog {
     padding-top: 0px;
-    max-height: 95%;
+/*    max-height: 95%;*/
 }
 
 /* .help-dialog__content naming triggers some weird extension behavior :P */
 .help-dialog_content {
     gap: 20px;
 /*    max-height:95%;*/
-    padding: 0 20px;
+/*    padding: 0 20px;*/
 }
 
 .help-dialog__header {
@@ -788,17 +788,11 @@ dialog[open] {
     padding: 2px;
 }
 
+#keyboard-shortcuts-button-container {
+    width: 100%;
+}
+
 .help-dialog__button {
-    background-color: var(--primary-color);
-    color: var(--text-color);
-    border: none;
-    padding: 12px 24px;
-    border-radius: 12px;
-    cursor: pointer;
-    text-align: center;
-    font-size: 20px;
-    font-weight: bold;
-    transition: background-color var(--transition-speed) ease, transform 0.1s ease;
     width: 100%;
 }
 

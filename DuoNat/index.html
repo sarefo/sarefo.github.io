@@ -254,6 +254,8 @@
             </h2>
         </div>
 
+        <button id="start-tutorial-button" class="dialog-button help-dialog__button">Start Tutorial</button>
+
         <div class="help-dialog__items">
             <div class="help-dialog__item">
                 <svg class="icon"><use href="./images/icons.svg#icon-drag"/></svg>
@@ -274,24 +276,19 @@
                 <svg class="icon"> <use href="./images/icons.svg#icon-info"/></svg>
                 <p class="help-dialog__item-text">Get info on taxon</p>
             </div>
-<!--
-            <div class="help-dialog__item">
-                <svg class="icon"> <use href="./images/icons.svg#icon-menu"/></svg>
-                <p class="help-dialog__item-text">Menu for more</p>
-            </div>-->
         </div>
 
-        <button id="keyboard-shortcuts-button" class="help-dialog__button">Keyboard Shortcuts (K)</button>
+        <div id="keyboard-shortcuts-button-container">
+            <!-- The button will be inserted here dynamically if a keyboard is detected -->
+        </div>
 
-        <button id="start-tutorial-button" class="help-dialog__button">Start Tutorial</button>
-        <button id="discord-help-dialog" class="help-dialog__button">Join us on Discord</button>
+        <button id="discord-help-dialog" class="dialog-button help-dialog__button">Join us on Discord</button>
         <div id="version-id" class="help-dialog__version"></div>
 
     </div>
 </dialog>
 
-<!-- Keyboard shortcut dialog-->
-<!-- Keyboard Shortcuts dialog -->
+<!-- Keyboard shortcuts dialog-->
 <dialog id="keyboard-shortcuts-dialog" class="standard-dialog keyboard-shortcuts-dialog">
     <button class="dialog-close-button icon" aria-label="Close">×</button>
     <div class="dialog-content">
