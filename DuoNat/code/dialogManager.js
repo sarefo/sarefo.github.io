@@ -120,7 +120,6 @@ const dialogManager = {
                     dialogManager.core.closeDialog(topDialogId);
                 }
             }
-            // Allow other keys to propagate for input fields
         },
 
         handleDialogClose(dialog) {
@@ -132,6 +131,7 @@ const dialogManager = {
     initialization: {
         initializeDialogs() {
             dialogManager.initialization.initializeHelpDialog();
+            dialogManager.initialization.initializeKeyboardShortcutsDialog();
             dialogManager.initialization.initializeInfoDialog();
             dialogManager.initialization.initializeReportDialog();
             dialogManager.initialization.initializeEnterSetDialog();
@@ -195,6 +195,16 @@ const dialogManager = {
                     logger.debug("Tutorial is active, help dialog not opened");
                 }
             });
+        },
+
+        initializeKeyboardShortcutsDialog() {
+            const dialog = document.getElementById('keyboard-shortcuts-dialog');
+            if (dialog) {
+                const closeButton = dialog.querySelector('.dialog-close-button');
+                if (closeButton) {
+                    closeButton.addEventListener('click', () => dialogManager.core.closeDialog('keyboard-shortcuts-dialog'));
+                }
+            }
         },
 
         initializeInfoDialog() {
@@ -792,12 +802,16 @@ const dialogManager = {
         bindMethodsInObject(this);
     },
 
+    getOpenDialogs() {
+        return [...dialogManager.openDialogs];
+    },
 };
 
 const publicAPI = {
     initialize: dialogManager.initialize,
     openDialog: dialogManager.core.openDialog,
     closeDialog: dialogManager.core.closeDialog,
+    getOpenDialogs: dialogManager.getOpenDialogs,
     isAnyDialogOpen: dialogManager.core.isAnyDialogOpen,
     closeAllDialogs: dialogManager.core.closeAllDialogs,
     showINatDownDialog: dialogManager.specialDialogs.showINatDownDialog,

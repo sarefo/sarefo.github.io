@@ -16,6 +16,7 @@ const keyboardShortcuts = {
 
     initialize() {
         this.initializeSelectSetDialogShortcuts();
+        this.initializeKeyboardShortcutsButton();
         this.debouncedKeyboardHandler = utils.ui.debounce(
             this._handleKeyboardShortcuts.bind(this),
             300
@@ -25,6 +26,7 @@ const keyboardShortcuts = {
 
     _handleKeyboardShortcuts(event) {
         if (!shortcutsEnabled || this.shouldIgnoreKeyboardShortcut(event)) return;
+
         let currentObservationURLs = state.getObservationURLs();
 
         const shortcutActions = {
@@ -32,7 +34,6 @@ const keyboardShortcuts = {
             'arrowup': () => this.moveTileToDropZone('left', 'upper'),
             'arrowdown': () => this.moveTileToDropZone('left', 'lower'),
             'c': ui.showTaxonPairList,
-            'l': ui.showTaxonPairList,
             'e': () => dialogManager.openDialog('enter-set-dialog'),
             'i': () => game.showInfoDialog(currentObservationURLs.imageOne, 1),
             'o': () => game.showInfoDialog(currentObservationURLs.imageTwo, 2),
@@ -40,6 +41,7 @@ const keyboardShortcuts = {
             'j': () => hintSystem.showHint(2),
             'g': taxaRelationshipViewer.showTaxaRelationship,
             '?': () => this.handleQuestionMark(event),
+            'k': () => dialogManager.openDialog('keyboard-shortcuts-dialog'),
             'm': ui.toggleMainMenu,
             's': utils.url.shareCurrentPair,
             't': testingDialog.openDialog,
@@ -54,6 +56,7 @@ const keyboardShortcuts = {
         }
     },
 
+
     enableShortcuts() {
         shortcutsEnabled = true;
     },
@@ -62,17 +65,20 @@ const keyboardShortcuts = {
         shortcutsEnabled = false;
     },
 
-    shouldIgnoreKeyboardShortcut(event) {
-        // Check if any dialog is open, including the collection manager
-        if (dialogManager.isAnyDialogOpen()) {
-            // Allow only Escape key when dialogs are open
-            return event.key !== 'Escape';
+    initializeKeyboardShortcutsButton() {
+        const keyboardShortcutsButton = document.getElementById('keyboard-shortcuts-button');
+        if (keyboardShortcutsButton) {
+            keyboardShortcutsButton.addEventListener('click', () => {
+                /*dialogManager.closeDialog('help-dialog');*/
+                dialogManager.openDialog('keyboard-shortcuts-dialog');
+            });
         }
+    },
 
-        return event.ctrlKey || event.altKey || event.metaKey ||
+    shouldIgnoreKeyboardShortcut(event) {
+        return event.ctrlKey || event.altKey || event.metaKey || 
                tutorial.isActive() ||
-               document.getElementById('info-dialog').open ||
-               document.getElementById('enter-set-dialog').open;
+               dialogManager.isAnyDialogOpen();  // Ignore all shortcuts when any dialog is open
     },
 
     handleArrowLeft() {

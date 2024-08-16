@@ -55,7 +55,7 @@ const eventInitializer = {
         document.addEventListener('keydown', (event) => {
             if (event.key === 'Escape') {
                 this.handleEscapeKey(event);
-            } else {
+            } else if (!dialogManager.isAnyDialogOpen()) {
                 keyboardShortcuts.debouncedKeyboardHandler(event);
             }
         });
