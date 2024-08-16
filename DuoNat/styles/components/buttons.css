@@ -26,8 +26,8 @@
     font-weight: bold;
 }
 
-.dialog-button.hover,
-.dialog-button.focus {
+.dialog-button:hover,
+.dialog-button:focus {
     background-color: #5c8a00;
 }
 

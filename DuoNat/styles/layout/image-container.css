@@ -14,6 +14,10 @@
     overflow: hidden;
     z-index: 1;
     cursor: default;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
 }
 .image-container--drag-over {
     cursor: copy;
@@ -46,7 +50,11 @@
     border-radius: var(--border-radius);
     pointer-events: none; /* Prevents the image from interfering with dragging */
     transition: opacity var(--transition-speed) ease-in-out;
+    -webkit-user-select: none;
+    -moz-user-select: none;
     user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .image-container__image--loading {
