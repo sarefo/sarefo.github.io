@@ -80,24 +80,31 @@ const hintSystem = {
 
         const imageContainer = document.getElementById(`image-container-${index}`);
         const taxonName = imageContainer.querySelector('img').alt.split(' Image')[0];
-        const taxonId = await hintSystem.getTaxonId(taxonName);
+        const taxonId = await this.getTaxonId(taxonName);
 
         if (!taxonId) {
             logger.warn(`Could not find ID for taxon: ${taxonName}`);
-            hintButton.classList.add('inactive');
-            hintButton.disabled = true;
+            this.disableHintButton(hintButton);
             return;
         }
 
         const hints = await api.taxonomy.fetchTaxonHints(taxonId);
 
         if (hints && hints.length > 0) {
-            hintButton.classList.remove('inactive');
-            hintButton.disabled = false;
+            this.enableHintButton(hintButton);
         } else {
-            hintButton.classList.add('inactive');
-            hintButton.disabled = true;
+            this.disableHintButton(hintButton);
         }
+    },
+
+    enableHintButton(button) {
+        button.classList.remove('inactive');
+        button.disabled = false;
+    },
+
+    disableHintButton(button) {
+        button.classList.add('inactive');
+        button.disabled = true;
     },
 
     async updateAllHintButtons() {
