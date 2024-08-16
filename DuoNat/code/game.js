@@ -74,7 +74,6 @@ const game = {
             this.setupObservationButton();
             this.setupTaxonButton(currentTaxon);
             this.setupWikiButton(currentTaxon);
-            this.setupReportButton();
         },
 
         setupPhotoButton: function (url) {
@@ -115,14 +114,6 @@ const game = {
                 } catch (error) {
                     alert("Unable to open Wikipedia page. Please try again.");
                 }
-            };
-        },
-
-        setupReportButton: function () {
-            const reportButton = document.getElementById('report-button');
-            reportButton.onclick = () => {
-                logger.debug("Report button clicked");
-                // Implement report functionality here
             };
         },
 

@@ -62,42 +62,50 @@ const gameLogic = {
     },
     
     pairManagement: {
-    async loadNewRandomPair() {
-        state.setState(state.GameState.LOADING);
-        ui.showOverlay(`${game.getLoadingMessage()}`, config.overlayColors.green);
-        gameUI.prepareImagesForLoading();
+        async loadNewRandomPair(usePreloadedPair = true) {
+            state.setState(state.GameState.LOADING);
+            ui.showOverlay(`${game.getLoadingMessage()}`, config.overlayColors.green);
+            gameUI.prepareImagesForLoading();
 
-        try {
-            let newPair;
-            const preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
-
-            if (preloadedImages && preloadedImages.pair && gameLogic.pairManagement.isPairValidForCurrentFilters(preloadedImages.pair)) {
-                newPair = preloadedImages.pair;
-                await gameSetup.setupGameWithPreloadedPair(preloadedImages);
-            } else {
-                newPair = await gameLogic.pairManagement.selectRandomPairFromCurrentCollection();
-                if (newPair) {
-                    state.setNextSelectedPair(newPair);
-                    await gameSetup.setupGame(true);
-                } else {
-                    throw new Error("No pairs available in the current collection");
+            try {
+                let newPair;
+                if (usePreloadedPair) {
+                    const preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
+                    if (preloadedImages && preloadedImages.pair && gameLogic.pairManagement.isPairValidForCurrentFilters(preloadedImages.pair)) {
+                        newPair = preloadedImages.pair;
+                        await gameSetup.setupGameWithPreloadedPair(preloadedImages);
+                    }
                 }
-            }
+                
+                if (!newPair) {
+                    newPair = await gameLogic.pairManagement.selectRandomPairFromCurrentCollection();
+                    if (newPair) {
+                        state.setNextSelectedPair(newPair);
+                        await gameSetup.setupGame(true);
+                    } else {
+                        throw new Error("No pairs available in the current collection");
+                    }
+                }
 
-            ui.hideOverlay();
-            ui.updateLevelIndicator(newPair.level);
-        } catch (error) {
-            logger.error("Error loading new pair:", error);
-            ui.showOverlay("Error loading new pair. Please try again.", config.overlayColors.red);
-        } finally {
-            state.setState(state.GameState.PLAYING);
-            preloader.roundPreloader.clearPreloadedImagesForNextRound();
-            preloader.roundPreloader.preloadForNextRound();
-            preloader.pairPreloader.preloadForNextPair();
-        }
-    },
+                ui.hideOverlay();
+                ui.updateLevelIndicator(newPair.level);
+            } catch (error) {
+                logger.error("Error loading new pair:", error);
+                ui.showOverlay("Error loading new pair. Please try again.", config.overlayColors.red);
+            } finally {
+                state.setState(state.GameState.PLAYING);
+                preloader.roundPreloader.clearPreloadedImagesForNextRound();
+                preloader.roundPreloader.preloadForNextRound();
+                preloader.pairPreloader.preloadForNextPair();
+            }
+        },
 
         isPairValidForCurrentFilters: function (pair) {
+            if (!pair) {
+                logger.warn("Received undefined pair in isPairValidForCurrentFilters");
+                return false;
+            }
+
             let selectedLevel = state.getSelectedLevel();
             let selectedTags = state.getSelectedTags();
             let selectedRanges = state.getSelectedRanges();
@@ -105,16 +113,17 @@ const gameLogic = {
 
             const matchesLevel = selectedLevel === '' || pair.level === selectedLevel;
             const matchesTags = selectedTags.length === 0 ||
-                selectedTags.every(tag => pair.tags.includes(tag));
+                (pair.tags && selectedTags.every(tag => pair.tags.includes(tag)));
             const matchesRanges = selectedRanges.length === 0 ||
                 (pair.range && pair.range.some(range => selectedRanges.includes(range)));
             const matchesSearch = !searchTerm || 
-                pair.taxonNames.some(name => name.toLowerCase().includes(searchTerm.toLowerCase())) ||
-                pair.setName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                pair.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+                (pair.taxonNames && pair.taxonNames.some(name => name.toLowerCase().includes(searchTerm.toLowerCase()))) ||
+                (pair.setName && pair.setName.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                (pair.tags && pair.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())));
 
             return matchesLevel && matchesTags && matchesRanges && matchesSearch;
         },
+
 
         selectRandomPairFromCurrentCollection: async function () {
             const taxonSets = await api.taxonomy.fetchTaxonPairs();
@@ -220,7 +229,8 @@ const gameLogic = {
     },
 
     collectionManagement: {
-        async loadRandomPairFromCurrentCollection() {
+
+        loadRandomPairFromCurrentCollection: async function() {
             logger.debug(`Loading pair. Selected level: ${state.getSelectedLevel()}`);
 
             if (gameLogic.collectionManagement.isCurrentPairInCollection()) {
@@ -228,43 +238,8 @@ const gameLogic = {
                 return;
             }
 
-            try {
-                const newPair = await gameLogic.pairManagement.selectRandomPairFromCurrentCollection();
-                if (newPair) {
-                    logger.debug(`New pair selected: ${newPair.taxon1} / ${newPair.taxon2}, Level: ${newPair.level}`);
-                    state.setNextSelectedPair(newPair);
-                    await gameSetup.setupGame(true);
-                } else {
-                    throw new Error("No pairs available in the current collection");
-                }
-            } catch (error) {
-                logger.error("Error loading random pair:", error);
-                ui.showOverlay("Error loading new pair. Please try again.", config.overlayColors.red);
-            } finally {
-                state.setState(state.GameState.PLAYING);
-                preloader.roundPreloader.clearPreloadedImagesForNextRound();
-                preloader.roundPreloader.preloadForNextRound();
-                preloader.pairPreloader.preloadForNextPair();
-            }
+            await loadNewPair(false);
         },
-/*
-        isCurrentPairInCollection() {
-            let currentTaxonImageCollection = state.getCurrentTaxonImageCollection();
-            if (!currentTaxonImageCollection || !currentTaxonImageCollection.pair) {
-                return false;
-            }
-
-            const currentPair = currentTaxonImageCollection.pair;
-            const selectedLevel = state.getSelectedLevel();
-
-            const matchesLevel = selectedLevel === '' || currentPair.level === selectedLevel;
-
-            if (!matchesLevel) {
-                logger.debug(`Current pair not in collection - Skill level mismatch: Pair ${currentPair.level}, Selected ${selectedLevel}`);
-            }
-
-            return matchesLevel; // Simplified for now to focus on skill level
-        },*/
 
         isCurrentPairInCollection() {
             let currentTaxonImageCollection = state.getCurrentTaxonImageCollection();

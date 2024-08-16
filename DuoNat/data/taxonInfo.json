@@ -38692,8 +38692,12 @@
       1317244
     ],
     "rank": "Superfamily",
-    "taxonFacts": [],
-    "range": []
+    "taxonFacts": [
+        "Often rather large",
+        "Mostly eat fruit",
+        "Active at night"
+    ],
+    "range": ["AF", "AS", "OC"]
   },
   "446946": {
     "taxonName": "Yangochiroptera",

@@ -187,10 +187,14 @@ const swipeHandler = {
     },
 
     loadNewPair() {
-        if (!gameLogic.isCurrentPairInCollection()) {
-            gameLogic.loadRandomPairFromCurrentCollection();
-        } else {
-            gameLogic.loadNewRandomPair();
+        try {
+            if (!gameLogic.isCurrentPairInCollection()) {
+                gameLogic.loadRandomPairFromCurrentCollection();
+            } else {
+                gameLogic.loadNewRandomPair();
+            }
+        } catch (error) {
+            logger.error("Error loading new pair:", error);
         }
     },
 
