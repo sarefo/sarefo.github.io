@@ -19,23 +19,23 @@ const dialogManager = {
 
     events: {
         on(eventName, callback) {
-            if (!this.eventListeners[eventName]) {
-                this.eventListeners[eventName] = [];
+            if (!dialogManager.eventListeners[eventName]) {
+                dialogManager.eventListeners[eventName] = [];
             }
-            this.eventListeners[eventName].push(callback);
+            dialogManager.eventListeners[eventName].push(callback);
         },
 
         off(eventName, callback) {
-            if (this.eventListeners[eventName]) {
-                this.eventListeners[eventName] = this.eventListeners[eventName].filter(
+            if (dialogManager.eventListeners[eventName]) {
+                dialogManager.eventListeners[eventName] = dialogManager.eventListeners[eventName].filter(
                     listener => listener !== callback
                 );
             }
         },
 
         emit(eventName, data) {
-            if (this.eventListeners[eventName]) {
-                this.eventListeners[eventName].forEach(callback => callback(data));
+            if (dialogManager.eventListeners[eventName]) {
+                dialogManager.eventListeners[eventName].forEach(callback => callback(data));
             } else {
                 //logger.debug(`No listeners for event: ${eventName}`);
             }
@@ -70,7 +70,7 @@ const dialogManager = {
             }
 
             if (dialogId === 'help-dialog') {
-                this.initialization.updateKeyboardShortcutsButton();
+                dialogManager.initialization.updateKeyboardShortcutsButton();
             }
 
             if (dialogId === 'select-set-dialog') {
@@ -194,7 +194,7 @@ const dialogManager = {
                 event.stopPropagation();
                 if (!tutorial.isActive()) {
                     dialogManager.core.openDialog('help-dialog');
-                    this.updateKeyboardShortcutsButton();
+                    dialogManager.updateKeyboardShortcutsButton();
                 } else {
                     logger.debug("Tutorial is active, help dialog not opened");
                 }
@@ -360,8 +360,8 @@ const dialogManager = {
         },
 
         validateInputs() {
-            const isValid = this.taxon1Input.value.trim() !== '' && this.taxon2Input.value.trim() !== '';
-            this.submitButton.disabled = !isValid;
+            const isValid = dialogManager.taxon1Input.value.trim() !== '' && dialogManager.taxon2Input.value.trim() !== '';
+            dialogManager.submitButton.disabled = !isValid;
         },
 
         clearEnterPairInputs() {
@@ -371,17 +371,17 @@ const dialogManager = {
             taxon1Input.value = '';
             taxon2Input.value = '';
             dialogMessage.textContent = '';
-            this.validateInputs();
+            dialogManager.validateInputs();
         },
 
         addLoadingSpinner() {
             const spinner = document.createElement('div');
             spinner.className = 'loading-spinner';
-            this.dialogMessage.appendChild(spinner);
+            dialogManager.dialogMessage.appendChild(spinner);
         },
 
         removeLoadingSpinner() {
-            const spinner = this.dialogMessage.querySelector('.loading-spinner');
+            const spinner = dialogManager.dialogMessage.querySelector('.loading-spinner');
             if (spinner) {
                 spinner.remove();
             }
@@ -392,7 +392,7 @@ const dialogManager = {
             mainElements.forEach(selector => {
                 const element = document.querySelector(selector);
                 if (element) {
-                    this.mainEventHandlers[selector] = element.onclick;
+                    dialogManager.mainEventHandlers[selector] = element.onclick;
                     element.onclick = null;
                 }
             });
@@ -400,7 +400,7 @@ const dialogManager = {
         },
 
         enableMainEventHandlers() {
-            Object.entries(this.mainEventHandlers).forEach(([selector, handler]) => {
+            Object.entries(dialogManager.mainEventHandlers).forEach(([selector, handler]) => {
                 const element = document.querySelector(selector);
                 if (element) {
                     element.onclick = handler;
@@ -408,7 +408,7 @@ const dialogManager = {
             });
             mainEventHandler.enableKeyboardShortcuts();
 
-            this.mainEventHandlers = {};
+            dialogManager.mainEventHandlers = {};
         },
     },
 
@@ -416,41 +416,41 @@ const dialogManager = {
 
         async handleNewPairSubmit(event) {
             event.preventDefault();
-            const { taxon1, taxon2 } = this.getAndValidateInputs();
+            const { taxon1, taxon2 } = dialogManager.getAndValidateInputs();
             if (!taxon1 || !taxon2) return;
 
-            this.setSubmitState(true);
+            dialogManager.setSubmitState(true);
             
             try {
-                const validatedTaxa = await this.validateTaxa(taxon1, taxon2);
+                const validatedTaxa = await dialogManager.validateTaxa(taxon1, taxon2);
                 if (validatedTaxa) {
-                    await this.saveAndSetupNewPair(validatedTaxa);
+                    await dialogManager.saveAndSetupNewPair(validatedTaxa);
                 } else {
-                    this.displayValidationError();
+                    dialogManager.displayValidationError();
                 }
             } catch (error) {
-                this.handleSubmitError(error);
+                dialogManager.handleSubmitError(error);
             } finally {
-                this.setSubmitState(false);
+                dialogManager.setSubmitState(false);
             }
         },
 
         getAndValidateInputs() {
-            const taxon1 = this.taxon1Input.value.trim();
-            const taxon2 = this.taxon2Input.value.trim();
+            const taxon1 = dialogManager.taxon1Input.value.trim();
+            const taxon2 = dialogManager.taxon2Input.value.trim();
             if (!taxon1 || !taxon2) {
-                this.dialogMessage.textContent = 'Please enter both taxa.';
+                dialogManager.dialogMessage.textContent = 'Please enter both taxa.';
             }
             return { taxon1, taxon2 };
         },
 
         setSubmitState(isSubmitting) {
-            this.dialogMessage.textContent = isSubmitting ? 'Validating taxa...' : '';
-            this.submitButton.disabled = isSubmitting;
+            dialogManager.dialogMessage.textContent = isSubmitting ? 'Validating taxa...' : '';
+            dialogManager.submitButton.disabled = isSubmitting;
             if (isSubmitting) {
-                this.addLoadingSpinner();
+                dialogManager.addLoadingSpinner();
             } else {
-                this.removeLoadingSpinner();
+                dialogManager.removeLoadingSpinner();
             }
         },
 
@@ -467,9 +467,9 @@ const dialogManager = {
                 taxon1: validatedTaxon1.name,
                 taxon2: validatedTaxon2.name
             };
-            this.dialogMessage.textContent = 'Saving new pair...';
+            dialogManager.dialogMessage.textContent = 'Saving new pair...';
             try {
-                await this.savePairToJson(newPair);
+                await dialogManager.savePairToJson(newPair);
                 state.setNextSelectedPair(newPair);
                 dialogManager.core.closeDialog();
                 gameSetup.setupGame(true);
@@ -487,12 +487,12 @@ const dialogManager = {
         },
 
         displayValidationError() {
-            this.dialogMessage.textContent = 'One or both taxa are invalid. Please check and try again.';
+            dialogManager.dialogMessage.textContent = 'One or both taxa are invalid. Please check and try again.';
         },
 
         handleSubmitError(error) {
             logger.error('Error in handleNewPairSubmit:', error);
-            this.dialogMessage.textContent = 'An error occurred. Please try again.';
+            dialogManager.dialogMessage.textContent = 'An error occurred. Please try again.';
         },
 
         handleReportSubmit: function (event) {
@@ -567,15 +567,15 @@ const dialogManager = {
 
         async handleEnterSetSubmit(taxon1, taxon2, messageElement, submitButton) {
             logger.debug(`Handling submit for taxa: ${taxon1}, ${taxon2}`);
-            this.handlers.setSubmitState(messageElement, submitButton, true);
+            dialogManager.handlers.setSubmitState(messageElement, submitButton, true);
 
             try {
-                const [validatedTaxon1, validatedTaxon2] = await this.handlers.validateTaxa(taxon1, taxon2);
-                this.handlers.handleValidationResult(validatedTaxon1, validatedTaxon2, messageElement);
+                const [validatedTaxon1, validatedTaxon2] = await dialogManager.handlers.validateTaxa(taxon1, taxon2);
+                dialogManager.handlers.handleValidationResult(validatedTaxon1, validatedTaxon2, messageElement);
             } catch (error) {
-                this.handlers.handleValidationError(error, messageElement);
+                dialogManager.handlers.handleValidationError(error, messageElement);
             } finally {
-                this.handlers.setSubmitState(messageElement, submitButton, false);
+                dialogManager.handlers.setSubmitState(messageElement, submitButton, false);
             }
         },
 
@@ -590,7 +590,7 @@ const dialogManager = {
             logger.debug(`Validation results: Taxon1: ${JSON.stringify(validatedTaxon1)}, Taxon2: ${JSON.stringify(validatedTaxon2)}`);
 
             if (validatedTaxon1 && validatedTaxon2) {
-                this.handlers.processValidTaxa(validatedTaxon1, validatedTaxon2);
+                dialogManager.handlers.processValidTaxa(validatedTaxon1, validatedTaxon2);
             } else {
                 messageElement.textContent = 'One or both taxa are invalid. Please check and try again.';
                 logger.debug('Taxa validation failed');
@@ -669,9 +669,9 @@ const dialogManager = {
 
     specialDialogs: {
         showINatDownDialog() {
-            this.specialDialogs.hideLoadingScreen();
-            this.specialDialogs.openINatDownDialog();
-            this.specialDialogs.setupINatDownDialogButtons();
+            dialogManager.specialDialogs.hideLoadingScreen();
+            dialogManager.specialDialogs.openINatDownDialog();
+            dialogManager.specialDialogs.setupINatDownDialogButtons();
         },
 
         hideLoadingScreen() {
@@ -689,8 +689,8 @@ const dialogManager = {
             const checkStatusBtn = document.getElementById('check-inat-status');
             const retryConnectionBtn = document.getElementById('retry-connection');
 
-            checkStatusBtn.addEventListener('click', this.specialDialogs.handleCheckStatus);
-            retryConnectionBtn.addEventListener('click', this.specialDialogs.handleRetryConnection);
+            checkStatusBtn.addEventListener('click', dialogManager.specialDialogs.handleCheckStatus);
+            retryConnectionBtn.addEventListener('click', dialogManager.specialDialogs.handleRetryConnection);
         },
 
         handleCheckStatus() {
@@ -702,7 +702,7 @@ const dialogManager = {
             if (await api.externalAPIs.isINaturalistReachable()) {
                 gameSetup.setupGame(true);
             } else {
-                this.specialDialogs.showINatDownDialog();
+                dialogManager.specialDialogs.showINatDownDialog();
             }
         },
 
@@ -748,11 +748,11 @@ const dialogManager = {
                     logger.debug('Text successfully copied to clipboard using Clipboard API');
                 }).catch(err => {
                     logger.error('Failed to copy text using Clipboard API: ', err);
-                    this.reporting.fallbackCopyToClipboard(text);
+                    dialogManager.reporting.fallbackCopyToClipboard(text);
                 });
             } else {
                 // Fallback to older method
-                this.reporting.fallbackCopyToClipboard(text);
+                dialogManager.reporting.fallbackCopyToClipboard(text);
             }
         },
 
@@ -769,7 +769,7 @@ const dialogManager = {
                 logger.debug('Fallback: Copying text command was ' + msg);
             } catch (err) {
                 logger.error('Fallback: Unable to copy to clipboard', err);
-                this.reporting.showPopupNotification("Failed to copy report. Please try again.");
+                dialogManager.reporting.showPopupNotification("Failed to copy report. Please try again.");
             }
             document.body.removeChild(textArea);
         },
@@ -807,9 +807,9 @@ const dialogManager = {
         dialogManager.bindAllMethods();
         dialogManager.initialization.initializeDialogs();
 
-        dialogManager.handlers.handleNewPairSubmit = dialogManager.handlers.handleNewPairSubmit.bind(this.handlers);
-        dialogManager.handlers.handleReportSubmit = dialogManager.handlers.handleReportSubmit.bind(this.handlers);
-        dialogManager.handlers.handleEnterSetSubmit = dialogManager.handlers.handleEnterSetSubmit.bind(this.handlers);
+        dialogManager.handlers.handleNewPairSubmit = dialogManager.handlers.handleNewPairSubmit.bind(dialogManager.handlers);
+        dialogManager.handlers.handleReportSubmit = dialogManager.handlers.handleReportSubmit.bind(dialogManager.handlers);
+        dialogManager.handlers.handleEnterSetSubmit = dialogManager.handlers.handleEnterSetSubmit.bind(dialogManager.handlers);
     },
 
     bindAllMethods() {

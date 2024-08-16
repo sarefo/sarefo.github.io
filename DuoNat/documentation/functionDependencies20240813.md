@@ -1,3 +1,5 @@
+Function dependencies as of 2024-08-13. Might be outdated by now.
+
 | Module Name            | Function Name                                 | Modules that call this function                                                         |
 |------------------------|-----------------------------------------------|-----------------------------------------------------------------------------------------|
 | api                    | taxonomy.loadTaxonInfo                        | game, gameLogic, taxaRelationshipViewer                                                 |
