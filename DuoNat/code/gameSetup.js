@@ -368,17 +368,12 @@ const gameSetup = {
         }
     },
 
-    // used once in gameLogic
-    async setupGameWithPreloadedPair(preloadedPair) {
-        await gameSetup.initialization.setupWithPreloadedPair(preloadedPair);
-    },
-
-
 };
 
 const publicAPI = {
     setupGame: gameSetup.setupGame.bind(gameSetup),
-    setupGameWithPreloadedPair: gameSetup.setupGameWithPreloadedPair.bind(gameSetup)
+    // used once in gameLogic
+    setupGameWithPreloadedPair: gameSetup.initialization.setupWithPreloadedPair.bind(this)
 };
 
 export default publicAPI;

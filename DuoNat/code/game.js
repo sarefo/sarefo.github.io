@@ -8,29 +8,6 @@ import ui from './ui.js';
 import utils from './utils.js';
 
 const game = {
-    nextSelectedPair: null,
-    currentObservationURLs: {
-        imageOne: null,
-        imageTwo: null
-    },
-    currentState: state.GameState.IDLE,
-
-    currentGraphTaxa: null,
-    preloadedPair: null,
-    preloadedImages: {
-        current: {
-            taxon1: [],
-            taxon2: []
-        },
-        next: {
-            taxon1: [],
-            taxon2: []
-        }
-    },
-    shownHints: {
-        taxon1: [],
-        taxon2: []
-    },
 
     imageManagement: {
         loadImages: async function (leftImageSrc, rightImageSrc) {
@@ -53,79 +30,6 @@ const game = {
                 };
                 img.src = src;
             });
-        },
-
-        fetchTaxonImageCollection: async function (newPair) {
-            let attempts = 0;
-            const maxAttempts = 3;
-
-            while (attempts < maxAttempts) {
-                try {
-                    return await this.attemptFetchTaxonImageCollection(newPair);
-                } catch (error) {
-                    attempts++;
-                    if (this.shouldRetryFetch(error, attempts, maxAttempts)) {
-                        await this.handleFetchError(error);
-                    } else {
-                        throw error;
-                    }
-                }
-            }
-
-            throw new Error("Failed to load images after multiple attempts");
-        },
-
-        attemptFetchTaxonImageCollection: async function (newPair) {
-            let currentTaxonImageCollection = state.getCurrrentTaxonImageCollection();
-            if (newPair || !currentTaxonImageCollection) {
-                if (game.nextSelectedPair) {
-                    return await this.initializeNewTaxonPair(game.nextSelectedPair);
-                } else if (game.preloadedPair) {
-                    return this.usePreloadedPair();
-                } else {
-                    return await this.initializeNewTaxonPair();
-                }
-            }
-            return currentTaxonImageCollection;
-        },
-
-        usePreloadedPair: function () {
-          const collection = state.getPreloadedPair();
-          state.setPreloadedPair(null);
-          return collection;
-        },
-
-        shouldRetryFetch: function (error, attempts, maxAttempts) {
-            return attempts < maxAttempts && error.message.includes("No images found");
-        },
-
-        handleFetchError: async function (error) {
-            if (error.message.includes("No images found")) {
-                const taxonName = error.message.split("No images found for ")[1];
-                ui.showOverlay(`Warning: No images found for ${taxonName}. Trying another pair...`, config.overlayColors.red);
-                await utils.ui.sleep(2000);
-                game.nextSelectedPair = null;
-            }
-        },
-
-        initializeNewTaxonPair: async function (pair = null) {
-            const newPair = pair || await utils.game.selectTaxonPair();
-            const [imageOneURL, imageTwoURL] = await Promise.all([
-                api.images.fetchRandomImage(newPair.taxon1),
-                api.images.fetchRandomImage(newPair.taxon2)
-            ]);
-
-            // Set the observation URLs in the state
-            state.setObservationURL(imageOneURL, 1);
-            state.setObservationURL(imageTwoURL, 2);
-
-            return {
-                pair: newPair,
-                imageOneURL,
-                imageTwoURL,
-                imageOneVernacular: null,
-                imageTwoVernacular: null
-            };
         },
     },
 

@@ -178,12 +178,6 @@ const ui = {
         },
 
         close() {
-            if (ui.state.isMenuOpen) {
-                this.closeDropdownGroups();
-            }
-        },
-
-        close() {
             if (tutorial.isActive() && tutorial.isMenuForcedOpen) {
                 return; // Don't close the menu if it's forced open during the tutorial
             }
@@ -226,28 +220,6 @@ const ui = {
             } catch (error) {
                 logger.error("Error in showTaxonPairList:", error);
             }
-        },
-
-        /*async showTaxonPairList() {
-            try {
-                const taxonPairs = await this.fetchAndFilterTaxonPairs();
-                await this.renderTaxonPairList(taxonPairs);
-                this.setupDialogAndFilters();
-            } catch (error) {
-                logger.error("Error in showTaxonPairList:", error);
-            }
-        },*/
-
-        async fetchAndFilterTaxonPairs() {
-            const taxonPairs = await api.taxonomy.fetchTaxonPairs();
-            if (taxonPairs.length === 0) {
-                logger.error("No taxon pairs available");
-                return [];
-            }
-
-            const filters = this.getCurrentFilters();
-            let filteredPairs = gameLogic.filterTaxonPairs(taxonPairs, filters);
-            return this.prioritizeCurrentActiveSet(filteredPairs);
         },
 
         getCurrentFilters() {
@@ -604,14 +576,6 @@ const ui = {
             }
         },
 
-        getLevelText(level) {
-            const levelTexts = {
-                '1': 'Easy',
-                '2': 'Medium',
-                '3': 'Hard',
-            };
-            return levelTexts[level] || 'Unknown';
-        },
     },
 
 };
