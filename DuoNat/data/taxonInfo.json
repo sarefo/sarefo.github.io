@@ -26,6 +26,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Bright yellow body",
+      "Black stripes on the face",
+      "Small size compared to other fish"
     ]
   },
   "337754": {
@@ -52,6 +57,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Black stripes on yellow body",
+      "Relatively elongated body shape",
+      "Distinctive forked tail"
     ]
   },
   "49401": {
@@ -79,6 +89,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Not very pronounced black stripes",
+      "Relatively round body shape",
+      "Relatively dull coloration"
     ]
   },
   "48088": {
@@ -110,6 +125,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Lack a distinct calypter structure",
+      "Often have a relatively elongated body shape",
+      "Typically feature a wide range of colors"
     ]
   },
   "1500642": {
@@ -189,6 +209,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Larger than <i>Accipiter nisus</i>",
+      "Broad wings with a more rounded tail",
+      "Relatively heavy body structure"
     ]
   },
   "5106": {
@@ -216,6 +241,10 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Short, rounded wings",
+      "Long tail with a narrow shape"
     ]
   },
   "1290471": {
@@ -244,6 +273,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Long, slender body",
+      "Dark coloration with light spots",
+      "Wings are narrow and elongated"
     ]
   },
   "56530": {
@@ -275,6 +309,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Large size with skull-like markings",
+      "Distinctive yellow and black coloration",
+      "Wings are broad and rounded"
     ]
   },
   "82830": {
@@ -304,6 +343,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Darker coloration than <i>A. atropos</i>",
+      "Not very pronounced skull markings",
+      "Relatively elongated body shape"
     ]
   },
   "41955": {
@@ -333,6 +377,11 @@
     "range": [
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Spotted fur",
+      "Tear-shaped facial markings",
+      "Short tail"
     ]
   },
   "47650": {
@@ -363,6 +412,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Typically brown or tan coloration",
+      "Shorter antennae than <i>Tettigoniidae</i>",
+      "Body is relatively robust and stout"
     ]
   },
   "26182": {
@@ -389,6 +443,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Distinctive rough texture",
+      "Dark coloration with lighter spots",
+      "Relatively short and stout"
     ]
   },
   "26179": {
@@ -415,6 +474,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Relatively elongated body",
+      "Not very pronounced rough texture",
+      "Typically found in freshwater"
     ]
   },
   "93272": {
@@ -546,6 +610,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "vibrant green color",
+      "Not very pronounced eyespots",
+      "Wings are slightly elongated"
     ]
   },
   "47916": {
@@ -574,6 +643,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Large, pale green wings",
+      "Long, feathery antennae",
+      "Eyespots on hindwings"
     ]
   },
   "121775": {
@@ -635,6 +709,10 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Two black spots on red wing covers",
+      "Rounded body shape"
     ]
   },
   "130414": {
@@ -666,6 +744,10 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Variable number of spots",
+      "Oval body shape"
     ]
   },
   "786749": {
@@ -756,6 +838,12 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Relatively large dragonfly",
+      "Blue eyes",
+      "Greenish-brown body",
+      "Distinct yellow spots on abdomen"
     ]
   },
   "93437": {
@@ -785,6 +873,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Blue eyes",
+      "Reddish-brown body",
+      "Distinct yellow spots on abdomen"
     ]
   },
   "848321": {
@@ -808,6 +901,9 @@
     ],
     "range": [
       "AF"
+    ],
+    "hints": [
+      "Often have trunks or snouts"
     ]
   },
   "61395": {
@@ -988,6 +1084,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Triangular-shaped head",
+      "Coloration includes reddish or brown hues",
+      "Often has a pattern of dark bands"
     ]
   },
   "904170": {
@@ -1014,6 +1115,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Typically relatively dark coloration",
+      "Body is more robust than <i>Agkistrodon contortrix</i>",
+      "Often found in water"
     ]
   },
   "207977": {
@@ -1043,6 +1149,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Distinctive eye spots on wings",
+      "Dark brown and orange coloration",
+      "Wings are broad and rounded"
     ]
   },
   "54468": {
@@ -1072,6 +1183,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "More orange than <i>A. io</i>",
+      "Not very pronounced eye spots",
+      "Wings have a relatively pointed shape"
     ]
   },
   "7347": {
@@ -1098,6 +1214,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Brown streaked plumage",
+      "Distinctive, melodic song",
+      "Short tail with white edges"
     ]
   },
   "4501": {
@@ -1123,6 +1244,11 @@
     "range": [
       "NA",
       "EU"
+    ],
+    "hints": [
+      "Black and white plumage",
+      "Short, stout body",
+      "Large, hooked bill"
     ]
   },
   "2599": {
@@ -1150,6 +1276,10 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Bright blue and orange plumage",
+      "Short tail and long bill"
     ]
   },
   "522193": {
@@ -1182,6 +1312,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Large size",
+      "Palmed antlers",
+      "Long legs"
     ]
   },
   "121038": {
@@ -1206,6 +1341,11 @@
       "NA",
       "SA",
       "AS"
+    ],
+    "hints": [
+      "Relatively short, broad snout",
+      "Not very visible teeth when mouth is closed",
+      "Relatively robust body"
     ]
   },
   "1466371": {
@@ -1486,6 +1626,10 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Black body with bright yellow spots",
+      "Wings are broad and rounded"
     ]
   },
   "1487329": {
@@ -1574,6 +1718,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Long, slender body",
+      "Brightly colored fins",
+      "Often found in sandy substrates"
     ]
   },
   "194063": {
@@ -1601,6 +1750,10 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Red margins on fins",
+      "Slender body"
     ]
   },
   "476105": {
@@ -1631,6 +1784,10 @@
     "range": [
       "EU",
       "AF"
+    ],
+    "hints": [
+      "Lighter coloration than <i>Ameles spallanzania</i>",
+      "Pronounced markings"
     ]
   },
   "430051": {
@@ -1660,6 +1817,11 @@
     ],
     "range": [
       "EU"
+    ],
+    "hints": [
+      "Small and slender body",
+      "Color is typically brown",
+      "Camouflaged against vegetation"
     ]
   },
   "451915": {
@@ -1691,6 +1853,10 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Smaller than <i>Melolontha melolontha</i>",
+      "Uniform brown color"
     ]
   },
   "136345": {
@@ -1717,6 +1883,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Yellow body with black stripes",
+      "Thicker black borders around stripes",
+      "Commonly associated with sea anemones"
     ]
   },
   "119430": {
@@ -1743,6 +1914,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Orange body with black stripes",
+      "Curved dorsal fin",
+      "Often found near anemones"
     ]
   },
   "472113": {
@@ -1795,6 +1971,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Long, pointed tail",
+      "Narrow, elongated body",
+      "Male has a strikingly patterned head"
     ]
   },
   "6930": {
@@ -1822,6 +2003,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Male has a glossy green head",
+      "Orange bill",
+      "White neck ring"
     ]
   },
   "321535": {
@@ -1854,6 +2040,10 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Large ladybird",
+      "Eyespot-like spots on wing covers"
     ]
   },
   "94043": {
@@ -1883,6 +2073,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Green eyes",
+      "Blue-green body",
+      "Distinct yellow spots on abdomen"
     ]
   },
   "94048": {
@@ -1912,6 +2107,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Green eyes",
+      "Brownish-green body",
+      "Distinct yellow spots on abdomen"
     ]
   },
   "47927": {
@@ -1940,6 +2140,10 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Distinct black veins on wings",
+      "Cylindrical abdomen"
     ]
   },
   "130575": {
@@ -1971,6 +2175,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Distinct black spots on yellow body",
+      "Wings have dark edges",
+      "Body shape is elongated"
     ]
   },
   "123386": {
@@ -2003,6 +2212,10 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Long legs and antennae",
+      "Reddish-brown color"
     ]
   },
   "362680": {
@@ -2031,6 +2244,10 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Black legs",
+      "Relatively elongated shape"
     ]
   },
   "319828": {
@@ -2147,6 +2364,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Slightly smaller than <i>Apis mellifera</i>",
+      "Relatively slender body shape",
+      "Not very pronounced banding"
     ]
   },
   "47219": {
@@ -2184,6 +2406,10 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Fuzzy body with black and yellow stripes",
+      "Distinctive pollen baskets on legs"
     ]
   },
   "45562": {
@@ -2217,6 +2443,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Larger than <i>Mus musculus</i>",
+      "Relatively long legs",
+      "Striped back"
     ]
   },
   "6638": {
@@ -2243,6 +2474,10 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Long wings with a scythe shape",
+      "Dark plumage with a forked tail"
     ]
   },
   "5074": {
@@ -2271,6 +2506,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Golden feathers on the head",
+      "Broad wings with long fingers",
+      "Powerful build with large size"
     ]
   },
   "52628": {
@@ -2391,6 +2631,10 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Bright orange and black coloration",
+      "Wings have a hairy texture"
     ]
   },
   "824510": {
@@ -2422,6 +2666,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Darker orange than <i>A. caja</i>",
+      "Not very pronounced black markings",
+      "Relatively slender body shape"
     ]
   },
   "4954": {
@@ -2448,6 +2697,11 @@
       "EU",
       "AF",
       "AS"
+    ],
+    "hints": [
+      "Grey body with long neck",
+      "Slow, deliberate movements",
+      "Long legs and sharp bill"
     ]
   },
   "4951": {
@@ -2475,6 +2729,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Reddish-brown plumage",
+      "Longer neck than <i>Ardea cinerea</i>",
+      "Distinctive purple hues"
     ]
   },
   "67707": {
@@ -2687,6 +2946,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Large size with a broad body",
+      "Fur is dark brown",
+      "Wings are long and broad"
     ]
   },
   "41006": {
@@ -2719,6 +2983,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Similar in size to <i>Artibeus jamaicensis</i>",
+      "Fur is relatively light",
+      "Distinctive broad wings"
     ]
   },
   "465458": {
@@ -2750,6 +3019,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Robust body with a distinctive shape",
+      "Often has yellow markings",
+      "Long, spiny legs"
     ]
   },
   "20315": {
@@ -2778,6 +3052,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Tufts on head resembling ears",
+      "Yellow eyes",
+      "Brown and buff streaked plumage"
     ]
   },
   "47604": {
@@ -2901,6 +3180,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Small size with rounded bodies",
+      "Hind legs are adapted for jumping",
+      "Distinctive head shape"
     ]
   },
   "1138427": {
@@ -2956,6 +3240,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Darker coloration than <i>A. io</i>",
+      "Not very pronounced eye spots",
+      "Relatively elongated wing shape"
     ]
   },
   "82279": {
@@ -2984,6 +3273,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Large eye spots on hindwings",
+      "Bright yellow and brown coloration",
+      "Wings are broad and rounded"
     ]
   },
   "7045": {
@@ -3010,6 +3304,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Chestnut-colored head",
+      "Round body shape",
+      "Blackish chest"
     ]
   },
   "7046": {
@@ -3036,6 +3335,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Black head with a white face",
+      "Relatively steep forehead",
+      "Not very rounded body"
     ]
   },
   "742219": {
@@ -3066,6 +3370,10 @@
     ],
     "range": [
       "EU"
+    ],
+    "hints": [
+      "Relatively large stick insect",
+      "Brownish-grey body"
     ]
   },
   "357169": {
@@ -3096,6 +3404,10 @@
     ],
     "range": [
       "EU"
+    ],
+    "hints": [
+      "Relatively large stick insect",
+      "Reddish-brown body"
     ]
   },
   "41550": {
@@ -3131,6 +3443,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Small size",
+      "Pointed snout",
+      "Short dorsal fin"
     ]
   },
   "41549": {
@@ -3163,6 +3480,11 @@
       "SA",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Distinctive dark gray color",
+      "Long, slender body",
+      "Small dorsal fin"
     ]
   },
   "41559": {
@@ -3198,6 +3520,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Shorter than blue whale",
+      "Pointed snout",
+      "Distinctive dorsal fin"
     ]
   },
   "41558": {
@@ -3232,6 +3559,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Smallest rorqual",
+      "Short dorsal fin",
+      "Blunt head"
     ]
   },
   "41553": {
@@ -3267,6 +3599,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Largest animal on Earth",
+      "Long, flat head",
+      "Blue-gray coloration"
     ]
   },
   "41562": {
@@ -3302,6 +3639,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Long, streamlined body",
+      "Large dorsal fin far back",
+      "Yellowish pleats on throat"
     ]
   },
   "40581": {
@@ -3335,6 +3677,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Fur is dark brown with a pale belly",
+      "Ears are large and rounded",
+      "Wings are short and broad"
     ]
   },
   "56645": {
@@ -3475,6 +3822,11 @@
     ],
     "range": [
       "EU"
+    ],
+    "hints": [
+      "Relatively light body coloration",
+      "Wings are more transparent",
+      "Less pronounced white markings"
     ]
   },
   "56096": {
@@ -3504,6 +3856,11 @@
     ],
     "range": [
       "EU"
+    ],
+    "hints": [
+      "Black body with white wings",
+      "Long, slender appearance",
+      "Distinctive long antennae"
     ]
   },
   "42408": {
@@ -3534,6 +3891,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Large hump on shoulders",
+      "Thick fur",
+      "Short legs"
     ]
   },
   "30851": {
@@ -3560,6 +3922,11 @@
     ],
     "range": [
       "AF"
+    ],
+    "hints": [
+      "Distinctively thick body",
+      "Coloration includes shades of brown",
+      "Often has a pattern of dark bands"
     ]
   },
   "30853": {
@@ -3586,6 +3953,11 @@
     ],
     "range": [
       "AF"
+    ],
+    "hints": [
+      "Larger size compared to <i>Bitis arietans</i>",
+      "Coloration is often quite vibrant",
+      "Head is relatively wide and flat"
     ]
   },
   "32093": {
@@ -3613,6 +3985,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Thick, muscular body",
+      "Coloration includes shades of brown and red",
+      "Often has a pattern of dark spots"
     ]
   },
   "27700": {
@@ -3639,6 +4016,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Not very pronounced bands",
+      "Relatively vibrant coloration",
+      "Typically found on the ground"
     ]
   },
   "27686": {
@@ -3666,6 +4048,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Long, slender body",
+      "Distinct banding pattern",
+      "Often found in trees"
     ]
   },
   "48701": {
@@ -3727,6 +4114,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Darker coloration than <i>Bombus pascuorum</i>",
+      "Robust body",
+      "Not very pronounced facial markings"
     ]
   },
   "55637": {
@@ -3760,6 +4152,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Smaller than <i>Bombus terrestris</i>",
+      "Relatively pronounced yellow face",
+      "Not very fuzzy overall appearance"
     ]
   },
   "57516": {
@@ -3794,6 +4191,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Large size with fuzzy body",
+      "Black and yellow banding",
+      "Short antennae"
     ]
   },
   "47214": {
@@ -3822,6 +4224,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Robust body with large wings",
+      "Often have hairy bodies",
+      "Wings are held upright when resting"
     ]
   },
   "74113": {
@@ -3857,6 +4264,10 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Varied color patterns",
+      "Long legs"
     ]
   },
   "30798": {
@@ -3884,6 +4295,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "More muted coloration than <i>Bothrops atrox</i>",
+      "Body is relatively slender",
+      "Head is not very pronounced"
     ]
   },
   "49001": {
@@ -3910,6 +4326,11 @@
     ],
     "range": [
       "SA"
+    ],
+    "hints": [
+      "Distinct triangular head shape",
+      "Coloration varies from brown to green",
+      "Body has a pattern of dark bands"
     ]
   },
   "48091": {
@@ -3938,6 +4359,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Robust body shape",
+      "Short antennae",
+      "Distinctive large eyes"
     ]
   },
   "47204": {
@@ -3995,6 +4421,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Buff-colored plumage in breeding season",
+      "Shorter legs than <i>Egretta garzetta</i>",
+      "Relatively compact body shape"
     ]
   },
   "96224": {
@@ -4020,6 +4451,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Distinct blue-black coloration",
+      "Body has a smooth appearance",
+      "Often has a banded pattern"
     ]
   },
   "96225": {
@@ -4045,6 +4481,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Typically has a relatively light coloration",
+      "Banded pattern is relatively prominent",
+      "Body is relatively slender"
     ]
   },
   "4923": {
@@ -4071,6 +4512,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Large size",
+      "Thick neck",
+      "Distinctive eye markings"
     ]
   },
   "204472": {
@@ -4098,6 +4544,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Broad wings and tail",
+      "Variable plumage colors",
+      "Heavy body with a rounded head"
     ]
   },
   "492412": {
@@ -4188,6 +4639,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Short antennae compared to body length",
+      "Body is typically stout",
+      "Color varies widely among species"
     ]
   },
   "366952": {
@@ -4216,6 +4672,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Translucent wings",
+      "Light green body",
+      "Wings held upright when resting"
     ]
   },
   "246139": {
@@ -4267,6 +4728,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Bright blue coloration",
+      "Distinctive forked tail",
+      "Relatively slender body shape"
     ]
   },
   "68021": {
@@ -4293,6 +4759,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Not very vibrant blue coloration",
+      "Relatively rounded tail",
+      "Relatively stocky body shape"
     ]
   },
   "3857": {
@@ -4320,6 +4791,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Small size",
+      "Brown and white mottled plumage",
+      "Short, straight bill"
     ]
   },
   "3863": {
@@ -4347,6 +4823,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Reddish-brown plumage in summer",
+      "Relatively long legs",
+      "Distinctive black belly"
     ]
   },
   "125312": {
@@ -4377,6 +4858,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Brighter yellow than <i>E. quadripunctaria</i>",
+      "Not very pronounced black markings",
+      "Relatively rounded wing shape"
     ]
   },
   "51824": {
@@ -4406,6 +4892,10 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Brighter coloration than <i>Calopteryx virgo</i>",
+      "Wings have a rather iridescent appearance"
     ]
   },
   "61536": {
@@ -4434,6 +4924,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Metallic blue-green wings",
+      "Body is slender and elongated",
+      "Wings are held flat when resting"
     ]
   },
   "57692": {
@@ -4494,6 +4989,10 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Fourteen white spots on orange wing covers",
+      "Oval body shape"
     ]
   },
   "342767": {
@@ -4525,6 +5024,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Presence of a distinct calypter structure",
+      "Body often appears relatively compact",
+      "Commonly exhibits muted color patterns"
     ]
   },
   "62781": {
@@ -4559,6 +5063,10 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Large ants",
+      "Diverse shapes"
     ]
   },
   "42043": {
@@ -4588,6 +5096,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Relatively long, narrow snout",
+      "Round or oval-shaped nose",
+      "Eyes narrow to small circles"
     ]
   },
   "42051": {
@@ -4615,6 +5128,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Medium size",
+      "Pointed muzzle",
+      "Coarse fur"
     ]
   },
   "42048": {
@@ -4644,6 +5162,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Larger size than <i>C. rufus</i>",
+      "Pointed ears",
+      "Thick fur"
     ]
   },
   "42052": {
@@ -4671,6 +5194,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Smaller size than <i>C. lupus</i>",
+      "Rounded ears",
+      "Thinner fur than <i>C. lupus</i>"
     ]
   },
   "47347": {
@@ -4728,6 +5256,12 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Body is slender and elongated",
+      "Green or brown coloration",
+      "Mimics twigs or leaves",
+      "Long antennae"
     ]
   },
   "9398": {
@@ -4754,6 +5288,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Red face",
+      "Black and white wings",
+      "Pointed bill"
     ]
   },
   "145303": {
@@ -4779,6 +5318,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Olive-green body",
+      "Black cap and bib",
+      "Yellow wing patches"
     ]
   },
   "41112": {
@@ -4809,6 +5353,11 @@
     ],
     "range": [
       "SA"
+    ],
+    "hints": [
+      "Similar in size to <i>Carollia perspicillata</i>",
+      "Fur is relatively light",
+      "Distinctive short tail"
     ]
   },
   "41110": {
@@ -4840,6 +5389,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Small size with a rounded body",
+      "Fur is dark brown",
+      "Ears are small and rounded"
     ]
   },
   "334660": {
@@ -4869,7 +5423,8 @@
     ],
     "range": [
       "AS"
-    ]
+    ],
+    "hints": []
   },
   "154610": {
     "taxonName": "Carrhotus viduus",
@@ -4898,6 +5453,9 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Body features a relatively muted color scheme"
     ]
   },
   "343255": {
@@ -4957,6 +5515,11 @@
       "AF",
       "AS",
       "EU"
+    ],
+    "hints": [
+      "Narrow nostrils",
+      "Tail often reduced",
+      "Cheek pouches common"
     ]
   },
   "116385": {
@@ -4986,6 +5549,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Dark wings with bright hindwings",
+      "Distinctive color contrast",
+      "Wings are held flat when resting"
     ]
   },
   "128245": {
@@ -5015,6 +5583,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "More muted colors than <i>C. nupta</i>",
+      "Not very pronounced hindwing colors",
+      "Wings are broader"
     ]
   },
   "41514": {
@@ -5047,6 +5620,11 @@
     ],
     "range": [
       "SA"
+    ],
+    "hints": [
+      "Black and white coloration",
+      "Smaller than <i>C. hectori</i>",
+      "Rounded dorsal fin"
     ]
   },
   "41515": {
@@ -5079,6 +5657,11 @@
     ],
     "range": [
       "OC"
+    ],
+    "hints": [
+      "Small size",
+      "Distinctive rounded dorsal fin",
+      "Dark gray color"
     ]
   },
   "97022": {
@@ -5111,6 +5694,10 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Large longhorn beetle",
+      "Antennae longer than body"
     ]
   },
   "416290": {
@@ -5142,6 +5729,10 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Smaller than <i>Cerambyx cerdo</i>",
+      "Antennae not very long"
     ]
   },
   "43348": {
@@ -5169,6 +5760,11 @@
     ],
     "range": [
       "AF"
+    ],
+    "hints": [
+      "Larg size",
+      "Square-shaped mouth",
+      "Single horn"
     ]
   },
   "43443": {
@@ -5198,6 +5794,11 @@
     "range": [
       "AF",
       "AS"
+    ],
+    "hints": [
+      "Short tail",
+      "Cheek pouches",
+      "Ischial callosities"
     ]
   },
   "130407": {
@@ -5226,6 +5827,10 @@
     "range": [
       "EU",
       "AF"
+    ],
+    "hints": [
+      "Orange body",
+      "Distinct black markings on abdomen"
     ]
   },
   "56226": {
@@ -5254,6 +5859,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Long, slender body",
+      "Prominent, feather-like antennae",
+      "Greenish coloration with dark spots"
     ]
   },
   "204114": {
@@ -5285,6 +5895,11 @@
     "range": [
       "NA",
       "AS"
+    ],
+    "hints": [
+      "Larger than </i>Cervus elaphus</i>",
+      "Dark coat",
+      "Massive antlers"
     ]
   },
   "204113": {
@@ -5318,6 +5933,11 @@
       "AS",
       "AF",
       "NA"
+    ],
+    "hints": [
+      "Larg body size",
+      "Branching antlers",
+      "Reddish-brown coat"
     ]
   },
   "48743": {
@@ -5344,6 +5964,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Distinctive crescent-shaped markings",
+      "Relatively rounded body",
+      "Not very pronounced black spots"
     ]
   },
   "48747": {
@@ -5370,6 +5995,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Black stripe through the eye",
+      "Yellow body with black spots",
+      "Relatively elongated body shape"
     ]
   },
   "40544": {
@@ -5401,6 +6031,11 @@
     ],
     "range": [
       "OC"
+    ],
+    "hints": [
+      "Fur is light brown",
+      "Wings are broad and rounded",
+      "Ears are relatively small"
     ]
   },
   "40543": {
@@ -5432,6 +6067,11 @@
     ],
     "range": [
       "OC"
+    ],
+    "hints": [
+      "Darker fur than <i>Chalinolobus gouldii</i>",
+      "Wings are relatively long",
+      "Distinctive facial markings"
     ]
   },
   "243962": {
@@ -5458,6 +6098,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Uniform brown or gray coloration",
+      "Relatively thick body",
+      "Not very distinct markings"
     ]
   },
   "97307": {
@@ -5485,6 +6130,10 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Greenish body color",
+      "Large, robust shape"
     ]
   },
   "97311": {
@@ -5512,6 +6161,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Relatively elongated body",
+      "Distinctive three-lobed dorsal fin",
+      "Brightly colored"
     ]
   },
   "319910": {
@@ -5544,6 +6198,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Six prominent black spots",
+      "Body is round and shiny",
+      "Color varies from yellow to orange"
     ]
   },
   "127401": {
@@ -5607,6 +6266,11 @@
     ],
     "range": [
       "EU"
+    ],
+    "hints": [
+      "More slender body than <i>Forficula auricularia</i>",
+      "Pincers are not very pronounced",
+      "Color can vary from dark to light brown"
     ]
   },
   "97340": {
@@ -5633,6 +6297,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Long, slender snout",
+      "Orange and white striped body",
+      "Relatively rounded fins"
     ]
   },
   "39659": {
@@ -5664,6 +6333,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Large, rounded shell",
+      "Flippers instead of legs",
+      "Dark green coloration"
     ]
   },
   "539461": {
@@ -5690,6 +6364,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Relatively uniform coloration",
+      "Not very pronounced markings",
+      "Relatively thin body"
     ]
   },
   "474355": {
@@ -5716,6 +6395,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Distinct stripes along the body",
+      "Large size",
+      "Typically found in forests"
     ]
   },
   "123596": {
@@ -5748,6 +6432,10 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Two spots on black wing covers",
+      "Dome-shaped body"
     ]
   },
   "126636": {
@@ -5779,6 +6467,10 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Kidney-shaped spots on black wing covers",
+      "Dome-shaped body"
     ]
   },
   "829262": {
@@ -5808,6 +6500,9 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Males are black with white markings"
     ]
   },
   "117308": {
@@ -5891,6 +6586,11 @@
     ],
     "range": [
       "AF"
+    ],
+    "hints": [
+      "Small size",
+      "Slender body",
+      "Short snout"
     ]
   },
   "418351": {
@@ -5984,6 +6684,12 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Green body with large, prominent eyes",
+      "Long, slender antennae",
+      "Wings are held roof-like",
+      "Distinctive lace-like wing pattern"
     ]
   },
   "858297": {
@@ -6015,6 +6721,10 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Relatively light green body",
+      "Wing pattern not very pronounced"
     ]
   },
   "243961": {
@@ -6048,6 +6758,10 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Wings have a clear pattern",
+      "Green body with brown markings"
     ]
   },
   "53237": {
@@ -6079,6 +6793,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Small size with a wedge-shaped body",
+      "Often brightly colored",
+      "Hind legs are long, spined and jumpy"
     ]
   },
   "739580": {
@@ -6111,6 +6830,12 @@
     ],
     "range": [
       "EU"
+    ],
+    "hints": [
+      "Shorter wings compared to <i>Cicadetta montana</i>",
+      "Relatively elongated body shape",
+      "Brownish coloration",
+      "Not very pronounced wing pattern"
     ]
   },
   "1353539": {
@@ -6143,6 +6868,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Rounded body",
+      "Greenish coloration",
+      "Wings are held roof-like"
     ]
   },
   "130143": {
@@ -6176,6 +6906,10 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Green metallic color",
+      "Long legs for running"
     ]
   },
   "367148": {
@@ -6208,6 +6942,10 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Brownish-green color",
+      "White spots on wing covers"
     ]
   },
   "4733": {
@@ -6234,6 +6972,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Black wing tips",
+      "Long, red legs",
+      "Large, white body"
     ]
   },
   "4736": {
@@ -6260,6 +7003,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Black plumage with white belly",
+      "Longer neck than <i>Ciconia ciconia</i>",
+      "Relatively slender body shape"
     ]
   },
   "506276": {
@@ -6380,6 +7128,10 @@
     ],
     "range": [
       "EU"
+    ],
+    "hints": [
+      "Medium-sized stick insect",
+      "Brownish-green body"
     ]
   },
   "538406": {
@@ -6469,6 +7221,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Distinct hieroglyph-like markings",
+      "Body is oval and shiny",
+      "Color ranges from orange to red"
     ]
   },
   "490612": {
@@ -6500,6 +7257,10 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Eleven black spots on orange wing covers",
+      "Oval body shape"
     ]
   },
   "51702": {
@@ -6533,6 +7294,10 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Seven black spots on red wing covers",
+      "Rounded body shape"
     ]
   },
   "349064": {
@@ -6564,6 +7329,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Two black transverse stripes",
+      "Body is oval-shaped",
+      "Color is usually yellow"
     ]
   },
   "207616": {
@@ -6596,6 +7366,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Three distinctive black stripes",
+      "Body is elongated and flat",
+      "Color is typically red"
     ]
   },
   "205977": {
@@ -6628,6 +7403,10 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Eleven black spots on red wing covers",
+      "Rounded body shape"
     ]
   },
   "473042": {
@@ -6659,6 +7438,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Body is round and small",
+      "Red with black spots",
+      "Spots are relatively large"
     ]
   },
   "98273": {
@@ -6687,6 +7471,10 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Blue and black body",
+      "Distinct black markings on abdomen"
     ]
   },
   "51678": {
@@ -6715,6 +7503,10 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Blue and black body",
+      "Distinct black markings on abdomen"
     ]
   },
   "208111": {
@@ -6743,6 +7535,10 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Blue and black body",
+      "Distinct black markings on abdomen"
     ]
   },
   "126267": {
@@ -6774,6 +7570,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Body is elongated and oval",
+      "Distinct black and white markings",
+      "Often has orange coloration"
     ]
   },
   "27137": {
@@ -6800,6 +7601,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Sleek, slender body",
+      "Uniform coloration, often black or brown",
+      "Large eyes"
     ]
   },
   "26504": {
@@ -6828,6 +7634,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Varied colors and patterns",
+      "Distinctive head shapes",
+      "Generally slender body"
     ]
   },
   "3000": {
@@ -6856,6 +7667,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Larger than <i>Zenaida</i>",
+      "Relatively thick bill",
+      "Rounded wings"
     ]
   },
   "3033": {
@@ -6882,6 +7698,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Smaller than <i>Columba palumbus</i>",
+      "Relatively slender body",
+      "Not very pronounced neck markings"
     ]
   },
   "3048": {
@@ -6908,6 +7729,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Large size with a rounded shape",
+      "Grey body with white neck patches",
+      "Broad tail with white edges"
     ]
   },
   "2715": {
@@ -6935,6 +7761,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Small to medium size",
+      "Short legs",
+      "Rounded body shape"
     ]
   },
   "335582": {
@@ -6967,6 +7798,10 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Lighter coloration than <i>Conocephalus fuscus</i>",
+      "Distinctive stripe along the back"
     ]
   },
   "466317": {
@@ -7000,6 +7835,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Dark brown body color",
+      "Long, slender limbs",
+      "Wings are long and narrow"
     ]
   },
   "26916": {
@@ -7026,6 +7866,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Thin, elongated body",
+      "Less vibrant coloration",
+      "Often found in leaf litter"
     ]
   },
   "56318": {
@@ -7136,6 +7981,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Bright blue wings",
+      "Thick, short neck",
+      "Greenish body color"
     ]
   },
   "98391": {
@@ -7162,6 +8012,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Bright yellow body with black stripes",
+      "Long, pointed fins",
+      "Distinctive yellow tail"
     ]
   },
   "117827": {
@@ -7217,6 +8072,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Black and yellow striped body",
+      "Distinct yellow spots on abdomen",
+      "Relatively long wings"
     ]
   },
   "85057": {
@@ -7246,6 +8106,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Black and yellow striped body",
+      "Distinct yellow spots on abdomen",
+      "Relatively short wings"
     ]
   },
   "61429": {
@@ -7274,6 +8139,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Green eyes",
+      "Metallic green body",
+      "Distinct yellow veins on wings"
     ]
   },
   "26904": {
@@ -7301,6 +8171,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Small, slender body",
+      "Often has a uniform brown or grey color",
+      "Head is not much wider than the neck"
     ]
   },
   "154583": {
@@ -7384,6 +8259,10 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Medium to large size",
+      "Strong bills"
     ]
   },
   "8010": {
@@ -7411,6 +8290,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Very large size",
+      "Thick bill",
+      "Wedge-shaped tail"
     ]
   },
   "204496": {
@@ -7436,6 +8320,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Smaller than *Corvus corax*",
+      "Straight bill",
+      "Rounded tail"
     ]
   },
   "8029": {
@@ -7461,6 +8350,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Larger than *Corvus corone*",
+      "Pale base of bill",
+      "Not very glossy plumage"
     ]
   },
   "368446": {
@@ -7549,6 +8443,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Thick, robust body",
+      "Brownish-grey coloration",
+      "Wings have a mottled appearance"
     ]
   },
   "469221": {
@@ -7634,6 +8533,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Very small size",
+      "Fur is light brown",
+      "Wings are short"
     ]
   },
   "350509": {
@@ -7717,6 +8621,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Large body size",
+      "Short tail",
+      "Brown fur with white patches"
     ]
   },
   "26041": {
@@ -7743,6 +8652,11 @@
       "AF",
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Long, powerful body",
+      "Broad snout",
+      "Visible teeth when mouth is closed"
     ]
   },
   "30764": {
@@ -7769,6 +8683,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Distinct rattle on the tail",
+      "Body has a pattern of dark bands",
+      "Coloration varies from light to dark"
     ]
   },
   "30719": {
@@ -7795,6 +8714,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Rattle is not very pronounced",
+      "Coloration often includes greenish hues",
+      "Body is relatively robust"
     ]
   },
   "51508": {
@@ -7845,6 +8769,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Long, slender body",
+      "Distinctive cuckoo call",
+      "Barred underparts"
     ]
   },
   "53392": {
@@ -7927,6 +8856,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Smaller than *Parus major*",
+      "Blue crown and wings",
+      "Yellow underparts"
     ]
   },
   "372853": {
@@ -7956,6 +8890,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Robust body with short antennae",
+      "Distinctive mouthparts",
+      "Less slender than Nematocera"
     ]
   },
   "553449": {
@@ -7987,6 +8926,10 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Uniform yellow wing covers",
+      "Oval body shape"
     ]
   },
   "40793": {
@@ -8018,6 +8961,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Short, broad wings",
+      "Fur is light brown",
+      "Distinctive nose shape"
     ]
   },
   "40792": {
@@ -8049,6 +8997,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Long, narrow wings",
+      "Fur is darker than <i>Cynopterus brachyotis</i>",
+      "Face has a unique structure"
     ]
   },
   "84107": {
@@ -8108,6 +9061,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Darker orange than <i>D. plexippus</i>",
+      "Not very pronounced black spots",
+      "Relatively rounded wing shape"
     ]
   },
   "48662": {
@@ -8142,6 +9100,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Bright orange wings with black edges",
+      "Black spots on forewings",
+      "Large size"
     ]
   },
   "319352": {
@@ -8230,6 +9193,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Dark body with white spots",
+      "Distinctive triangular dorsal fin",
+      "Often found in groups"
     ]
   },
   "40166": {
@@ -8258,6 +9226,11 @@
     ],
     "range": [
       "OC"
+    ],
+    "hints": [
+      "Spotted fur",
+      "Relatively long tail",
+      "Relatively slender body"
     ]
   },
   "64705": {
@@ -8284,6 +9257,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Square tail",
+      "White rump patch",
+      "Feathered feet"
     ]
   },
   "41461": {
@@ -8317,6 +9295,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "White coloration",
+      "Round head",
+      "Social pods"
     ]
   },
   "41526": {
@@ -8378,6 +9361,11 @@
     ],
     "range": [
       "AF"
+    ],
+    "hints": [
+      "More slender than <i>Dendroaspis polylepis</i>",
+      "Typically has a relatively dark coloration",
+      "Head is relatively small"
     ]
   },
   "30405": {
@@ -8403,6 +9391,11 @@
     ],
     "range": [
       "AF"
+    ],
+    "hints": [
+      "Bright green or yellow coloration",
+      "Long, slender body",
+      "Often found in trees"
     ]
   },
   "17871": {
@@ -8429,6 +9422,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Black and white plumage",
+      "Red patch on the head",
+      "Distinctive loud call"
     ]
   },
   "792985": {
@@ -8454,6 +9452,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Brownish body color",
+      "Less contrasting plumage",
+      "Smaller than <i>Dendrocopos major</i>"
     ]
   },
   "50227": {
@@ -8633,6 +9636,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Medium size with a robust body",
+      "Fur is dark brown",
+      "Wings are long and broad"
     ]
   },
   "26575": {
@@ -8659,6 +9667,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Bright yellow or orange belly",
+      "Small size",
+      "Dark body with a smooth texture"
     ]
   },
   "207955": {
@@ -8720,6 +9733,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Similar in size to <i>Desmodus rotundus</i>",
+      "Fur is relatively light",
+      "Distinctive long wings"
     ]
   },
   "132396": {
@@ -8746,6 +9764,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Distinctive blue spots on body",
+      "Relatively elongated shape",
+      "Not very pronounced dorsal fin"
     ]
   },
   "515995": {
@@ -8833,6 +9856,11 @@
     ],
     "range": [
       "AF"
+    ],
+    "hints": [
+      "Two horns on snout",
+      "Thick skin",
+      "Square-shaped mouth"
     ]
   },
   "42649": {
@@ -8862,6 +9890,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Smaller than <i>Didelphis virginiana</i>",
+      "Not much fur on tail",
+      "Pale fur overall"
     ]
   },
   "42652": {
@@ -8890,6 +9923,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Long snout",
+      "Prehensile tail",
+      "Gray fur"
     ]
   },
   "567663": {
@@ -8919,6 +9957,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Bright red body",
+      "Distinctive black spots",
+      "Relatively short antennae"
     ]
   },
   "547115": {
@@ -8950,6 +9993,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Black head with relatively light body",
+      "Not very pronounced markings",
+      "Shorter legs than <i>Dioctria rufipes</i>"
     ]
   },
   "547018": {
@@ -8981,6 +10029,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Red legs",
+      "Long, slender body",
+      "Distinctive black markings"
     ]
   },
   "244394": {
@@ -9013,6 +10066,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Thin, elongated body",
+      "Often dark in color",
+      "Not very pronounced waist"
     ]
   },
   "82117": {
@@ -9314,6 +10372,11 @@
     "range": [
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Small size with a distinctive pattern",
+      "Coloration includes shades of brown and grey",
+      "Body has a rough texture"
     ]
   },
   "31085": {
@@ -9341,6 +10404,11 @@
     "range": [
       "AF",
       "AS"
+    ],
+    "hints": [
+      "Typically has a relatively light coloration",
+      "Body is slightly larger than <i>Echis carinatus</i>",
+      "Pattern is not very pronounced"
     ]
   },
   "4943": {
@@ -9368,6 +10436,11 @@
       "AF",
       "AS",
       "OC"
+    ],
+    "hints": [
+      "All-white plumage",
+      "Long, slender legs",
+      "Sharp, pointed bill"
     ]
   },
   "30237": {
@@ -9395,6 +10468,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Four distinct longitudinal stripes",
+      "Coloration varies from grey to brown",
+      "Relatively large size"
     ]
   },
   "30285": {
@@ -9422,6 +10500,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Often has a more muted color palette",
+      "Distinctive pattern of blotches",
+      "Longer and more slender than <i>Elaphe quatuorlineata</i>"
     ]
   },
   "43696": {
@@ -9448,6 +10531,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Concave back",
+      "Large ears",
+      "Trunk with one finger-like extension"
     ]
   },
   "43697": {
@@ -9475,6 +10563,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Small size",
+      "Small ears",
+      "Straight tusks"
     ]
   },
   "564895": {
@@ -9556,6 +10649,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Yellow head and underparts",
+      "Brown back",
+      "Conical bill"
     ]
   },
   "9201": {
@@ -9581,6 +10679,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Black head on male",
+      "White moustache stripe",
+      "Streaked brown plumage"
     ]
   },
   "342541": {
@@ -9614,6 +10717,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Body has distinct banding",
+      "More robust than <i>Empusa pennata</i>",
+      "Often has a colorful appearance"
     ]
   },
   "55122": {
@@ -9647,6 +10755,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Very elongated body",
+      "Fringed appearance on limbs",
+      "Color varies from brown to green"
     ]
   },
   "99901": {
@@ -9676,6 +10789,10 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Blue and black body",
+      "Distinct black markings on abdomen"
     ]
   },
   "132694": {
@@ -9704,6 +10821,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Long antennae that exceed body length",
+      "Body is often slender",
+      "Relatively pronounced wings in many species"
     ]
   },
   "510199": {
@@ -9764,6 +10886,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Small size",
+      "Fur is light grey",
+      "Wings are short and broad"
     ]
   },
   "543152": {
@@ -9850,6 +10977,10 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Large size",
+      "Brownish body with lighter spots"
     ]
   },
   "56559": {
@@ -9876,6 +11007,10 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Pronounced spots",
+      "Larger than <i>E. coioides</i>"
     ]
   },
   "209653": {
@@ -9905,6 +11040,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Body features a relatively elongated shape",
+      "Not very pronounced spines",
+      "Often has a relatively light color"
     ]
   },
   "417718": {
@@ -9934,6 +11074,10 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Body has a relatively rounded shape",
+      "Distinctive spines on the body"
     ]
   },
   "40509": {
@@ -9967,6 +11111,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Dark brown to black fur",
+      "Large body size",
+      "Wings are broad and short"
     ]
   },
   "74314": {
@@ -10000,6 +11149,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Fur is light brown with a pale belly",
+      "Wings are long and narrow",
+      "Ears are small and rounded"
     ]
   },
   "207811": {
@@ -10034,6 +11188,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Medium-sized with a robust body",
+      "Fur is dark brown to black",
+      "Wings are broad and short"
     ]
   },
   "43335": {
@@ -10061,6 +11220,11 @@
     ],
     "range": [
       "AF"
+    ],
+    "hints": [
+      "Few stripes",
+      "Horse-like body",
+      "Long mane"
     ]
   },
   "43330": {
@@ -10088,6 +11252,11 @@
     ],
     "range": [
       "AF"
+    ],
+    "hints": [
+      "Distinctive stripes",
+      "Stocky build",
+      "Short mane"
     ]
   },
   "454859": {
@@ -10176,6 +11345,11 @@
     ],
     "range": [
       "EU"
+    ],
+    "hints": [
+      "Lighter brown than <i>E. ligea</i>",
+      "Relatively pronounced orange spots",
+      "Wings have a relatively rounded shape"
     ]
   },
   "62381": {
@@ -10207,6 +11381,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Dark brown wings with orange spots",
+      "Wings are narrow and elongated",
+      "Underside has a mottled pattern"
     ]
   },
   "39672": {
@@ -10238,6 +11417,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Hawksbill shape shell",
+      "Saw-like edges on shell",
+      "Colorful patterns on shell"
     ]
   },
   "43042": {
@@ -10267,6 +11451,11 @@
     ],
     "range": [
       "EU"
+    ],
+    "hints": [
+      "Spiny fur",
+      "Face is rounded",
+      "Body is relatively large"
     ]
   },
   "43048": {
@@ -10297,6 +11486,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Smaller than <i>Erinaceus europaeus</i>",
+      "Fur is not very spiny",
+      "Distinctive facial markings"
     ]
   },
   "13094": {
@@ -10323,6 +11517,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Orange-red face and breast",
+      "Grey back",
+      "Large dark eye"
     ]
   },
   "359008": {
@@ -10353,6 +11552,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Brightly colored with orange and black",
+      "Distinctive shield-shaped body",
+      "Long antennae"
     ]
   },
   "209688": {
@@ -10381,6 +11585,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Red eyes",
+      "Distinct black markings on abdomen",
+      "Relatively short wings"
     ]
   },
   "209683": {
@@ -10410,6 +11619,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Green eyes",
+      "Distinct black markings on abdomen",
+      "Relatively short wings"
     ]
   },
   "32227": {
@@ -10436,6 +11650,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Robust body with smooth scales",
+      "Light brown or tan coloration",
+      "Relatively short length"
     ]
   },
   "848323": {
@@ -10464,6 +11683,9 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Often have claws"
     ]
   },
   "41571": {
@@ -10496,6 +11718,10 @@
       "SA",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Similar to North Atlantic right whale",
+      "Few callosities"
     ]
   },
   "41570": {
@@ -10527,6 +11753,11 @@
     "range": [
       "NA",
       "EU"
+    ],
+    "hints": [
+      "Large, robust body",
+      "Callosities on head",
+      "Slow-moving"
     ]
   },
   "144113": {
@@ -10611,6 +11842,11 @@
     "range": [
       "NA",
       "AS"
+    ],
+    "hints": [
+      "Larger size than California sea lions",
+      "Thicker neck",
+      "Prominent mane on males"
     ]
   },
   "41277": {
@@ -10642,6 +11878,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Large size",
+      "Fur is dark brown",
+      "Wings are long and narrow"
     ]
   },
   "41276": {
@@ -10673,6 +11914,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Slightly smaller than <i>Eumops perotis</i>",
+      "Fur is relatively light",
+      "Distinctive facial markings"
     ]
   },
   "32213": {
@@ -10699,6 +11945,11 @@
     ],
     "range": [
       "SA"
+    ],
+    "hints": [
+      "Larger size compared to <i>Boa constrictor</i>",
+      "Coloration is often relatively dark",
+      "Body is relatively elongated"
     ]
   },
   "362098": {
@@ -10788,6 +12039,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Distinctive black and yellow markings",
+      "Wings have a velvety texture",
+      "Relatively slender body shape"
     ]
   },
   "357413": {
@@ -10819,6 +12075,9 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Body features bright coloration"
     ]
   },
   "61761": {
@@ -10850,6 +12109,10 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Coloration is relatively muted",
+      "Body shape is relatively compact"
     ]
   },
   "196632": {
@@ -10877,6 +12140,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Small size",
+      "Distinctive spotted pattern",
+      "Often found in coral rubble"
     ]
   },
   "179877": {
@@ -10904,6 +12172,10 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Brightly colored body",
+      "Not very pronounced spots"
     ]
   },
   "55568": {
@@ -10960,6 +12232,10 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Four spots on black wing covers",
+      "Dome-shaped body"
     ]
   },
   "59845": {
@@ -10986,6 +12262,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Smaller than <i>Falco tinnunculus</i>",
+      "Relatively pale underparts",
+      "Relatively short wings and tail"
     ]
   },
   "472766": {
@@ -11012,6 +12293,10 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Rusty-colored back",
+      "Long tail with pointed tips"
     ]
   },
   "41944": {
@@ -11041,6 +12326,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Relatively flat lower jaw",
+      "Relatively triangular-shaped nose",
+      "Eyes narrow to vertical slits"
     ]
   },
   "469400": {
@@ -11140,6 +12430,11 @@
       "AF",
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Similar to <i>Peponocephala</i>",
+      "Slender body",
+      "Long snout"
     ]
   },
   "162972": {
@@ -11368,6 +12663,11 @@
       "AF",
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Bright yellow coloration",
+      "Long, slender body",
+      "Distinctive forked tail"
     ]
   },
   "127510": {
@@ -11480,6 +12780,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Distinctive pincers on the rear",
+      "Body is elongated and flat",
+      "Color is typically brown"
     ]
   },
   "47336": {
@@ -11511,6 +12816,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Segmented body with narrow waist",
+      "Insects with six legs",
+      "Often found in colonies"
     ]
   },
   "244834": {
@@ -11543,6 +12853,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Larger than <i>Myrmarachnini</i>",
+      "Not very pronounced waist",
+      "Often brown or black"
     ]
   },
   "10070": {
@@ -11569,6 +12884,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Pink bill",
+      "White wing patches",
+      "Chestnut sides"
     ]
   },
   "10069": {
@@ -11594,6 +12914,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Black head and back",
+      "Orange-yellow wing patches",
+      "White rump"
     ]
   },
   "897560": {
@@ -11676,6 +13001,12 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Flat body shape",
+      "Often brightly colored or patterned",
+      "Long, slender antennae",
+      "Wings held roof-like over body"
     ]
   },
   "482": {
@@ -11703,6 +13034,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "White frontal shield",
+      "Black plumage",
+      "Sturdy body shape"
     ]
   },
   "154735": {
@@ -11758,6 +13094,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Longer bill than <i>Scolopax rusticola</i>",
+      "Distinctive wing markings",
+      "Not very stout body shape"
     ]
   },
   "201282": {
@@ -11787,6 +13128,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Red frontal shield",
+      "Greenish-black plumage",
+      "Long toes"
     ]
   },
   "1129535": {
@@ -11896,6 +13242,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Prominent crest on head",
+      "Blue wing patches",
+      "Long tail with black tip"
     ]
   },
   "49531": {
@@ -11924,6 +13275,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Often have cryptic wing patterns",
+      "Wings held flat when resting",
+      "Relatively slender body shape"
     ]
   },
   "41532": {
@@ -11961,6 +13317,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Similar to <i>Globicephala melas</i>",
+      "Slender body",
+      "Small dorsal fin"
     ]
   },
   "41529": {
@@ -11998,6 +13359,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Large, robust body",
+      "Bulbous head",
+      "Dark coloration"
     ]
   },
   "126093": {
@@ -12093,6 +13459,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Small size with a slender body",
+      "Fur is greyish-brown",
+      "Long, narrow snout"
     ]
   },
   "196628": {
@@ -12120,6 +13491,10 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Not very vibrant colors",
+      "Relatively elongated shape"
     ]
   },
   "62598": {
@@ -12147,6 +13522,10 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Brightly colored body",
+      "Small size"
     ]
   },
   "57454": {
@@ -12175,6 +13554,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Black and yellow striped body",
+      "Distinct yellow spots on abdomen",
+      "Relatively short wings"
     ]
   },
   "123815": {
@@ -12204,6 +13588,10 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Brighter yellow than <i>G. rhamni</i>",
+      "Relatively pronounced black edges"
     ]
   },
   "52771": {
@@ -12233,6 +13621,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Yellow wings resembling leaves",
+      "Distinctive wing shape",
+      "Hindwings have a rounded edge"
     ]
   },
   "32205": {
@@ -12258,6 +13651,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Relatively pronounced patterns on the body",
+      "Typically found in arid regions",
+      "Relatively thick"
     ]
   },
   "469421": {
@@ -12450,6 +13848,11 @@
     ],
     "range": [
       "AF"
+    ],
+    "hints": [
+      "Smaller than <i>Gorilla gorilla</i>",
+      "Longer arms compared to legs",
+      "Relatively thin body build"
     ]
   },
   "43580": {
@@ -12482,6 +13885,11 @@
     ],
     "range": [
       "AF"
+    ],
+    "hints": [
+      "Larger than <i>Gorilla beringei</i>",
+      "Relatively robust body structure",
+      "Prominent brow ridge"
     ]
   },
   "41541": {
@@ -12519,6 +13927,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Large, rounded head",
+      "Gray coloration",
+      "Distinctive dorsal fin"
     ]
   },
   "71247": {
@@ -12553,6 +13966,10 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Two distinctive light spots",
+      "Color is typically brown"
     ]
   },
   "71248": {
@@ -12586,6 +14003,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Body is robust and dark",
+      "Long, slender antennae",
+      "Wings are short and rounded"
     ]
   },
   "196484": {
@@ -12613,6 +14035,10 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Long, slender body",
+      "Bright colors"
     ]
   },
   "473687": {
@@ -12640,6 +14066,10 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Relatively muted colors",
+      "Not very elongated shape"
     ]
   },
   "85118": {
@@ -12779,6 +14209,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Black and white plumage",
+      "Bright orange bill",
+      "Long legs"
     ]
   },
   "5309": {
@@ -12805,6 +14240,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "White tail and head",
+      "Large yellow beak",
+      "Broad wings and heavy body"
     ]
   },
   "102045": {
@@ -12832,6 +14272,10 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Colorful body with stripes",
+      "Long, slender shape"
     ]
   },
   "102052": {
@@ -12859,6 +14303,10 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "White tail fin",
+      "Relatively muted colors"
     ]
   },
   "41733": {
@@ -12888,6 +14336,11 @@
     "range": [
       "NA",
       "EU"
+    ],
+    "hints": [
+      "Long, robust body",
+      "Square-shaped snout",
+      "Few spots on fur"
     ]
   },
   "81923": {
@@ -12920,6 +14373,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Shield-shaped body",
+      "Brown coloration with white markings",
+      "Long antennae"
     ]
   },
   "52881": {
@@ -12951,6 +14409,10 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Sixteen white spots on yellow wing covers",
+      "Oval body shape"
     ]
   },
   "786045": {
@@ -12980,6 +14442,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Dry nose",
+      "Nails on fingers and toes",
+      "Forward-facing eyes"
     ]
   },
   "358015": {
@@ -13072,6 +14539,10 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Variable number of spots",
+      "Dome-shaped body"
     ]
   },
   "210509": {
@@ -13103,6 +14574,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Smaller body than <i>Harmonia quadripunctata</i>",
+      "Not many spots, often absent",
+      "Body color varies from red to orange"
     ]
   },
   "131091": {
@@ -13134,6 +14610,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Four black spots on red background",
+      "Body is oval-shaped",
+      "Spots are evenly spaced"
     ]
   },
   "347886": {
@@ -13168,6 +14649,12 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Males are black with white markings",
+      "Females are brown",
+      "Eyes are large and prominent",
+      "Body shape is somewhat flattened"
     ]
   },
   "81744": {
@@ -13197,6 +14684,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Wings are orange with black markings",
+      "Relatively pronounced white spots on hindwings",
+      "Black lines on forewings"
     ]
   },
   "147200": {
@@ -13226,6 +14718,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Wings have bright red and black patterns",
+      "White spots on forewings",
+      "Black borders on wings"
     ]
   },
   "141758": {
@@ -13312,6 +14809,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Bright yellow head",
+      "Not very pronounced dorsal fin",
+      "Black and white striped body"
     ]
   },
   "102633": {
@@ -13338,6 +14840,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Relatively rounded body shape",
+      "Not very pronounced black and white pattern",
+      "Relatively short fins"
     ]
   },
   "102631": {
@@ -13363,6 +14870,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Relatively elongated body shape",
+      "Distinctive black and white pattern",
+      "Longer fins than <i>Heniochus diphreutes</i>"
     ]
   },
   "102638": {
@@ -13389,6 +14901,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Long, sweeping dorsal fin",
+      "Black and white striped body",
+      "Relatively slender body shape"
     ]
   },
   "49162": {
@@ -13545,6 +15062,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Relatively pronounced upturned snout",
+      "Relatively small size",
+      "Not very distinct banding pattern"
     ]
   },
   "29925": {
@@ -13571,6 +15093,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Flat, broad head",
+      "Dark bands on lighter body",
+      "Upturned snout"
     ]
   },
   "244851": {
@@ -13687,6 +15214,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Long and slender limbs",
+      "Color ranges from green to brown",
+      "Wings are transparent"
     ]
   },
   "328037": {
@@ -13717,6 +15249,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Broader body than <i>Hierodula membranacea</i>",
+      "Distinctive flat head shape",
+      "Color is typically brown or green"
     ]
   },
   "73823": {
@@ -13743,6 +15280,11 @@
     ],
     "range": [
       "EU"
+    ],
+    "hints": [
+      "Bright green or yellowish-green color",
+      "Long, slender body",
+      "Often has a dark stripe along the back"
     ]
   },
   "48987": {
@@ -13774,6 +15316,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Body is round and shiny",
+      "Typically has 12 black spots",
+      "Spots are evenly distributed"
     ]
   },
   "221381": {
@@ -13806,6 +15353,10 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Thirteen black spots on orange wing covers",
+      "Oval body shape"
     ]
   },
   "143034": {
@@ -13839,6 +15390,10 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "White spots on red wing covers",
+      "Oval body shape"
     ]
   },
   "42149": {
@@ -13868,6 +15423,11 @@
     ],
     "range": [
       "AF"
+    ],
+    "hints": [
+      "Large, barrel-shaped body",
+      "Short legs",
+      "Large mouth"
     ]
   },
   "40717": {
@@ -13897,6 +15457,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Face has a pronounced nose leaf",
+      "Ears are large and rounded",
+      "Fur is a mix of brown and grey"
     ]
   },
   "1431113": {
@@ -13926,6 +15491,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Smaller nose leaf than <i>Hipposideros armiger</i>",
+      "Fur is relatively light",
+      "Distinctive ear shape"
     ]
   },
   "11901": {
@@ -13954,6 +15524,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Long, forked tail",
+      "Bright blue upperparts",
+      "Rust-colored throat and belly"
     ]
   },
   "122621": {
@@ -14133,6 +15708,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "No tail",
+      "Opposable thumbs",
+      "Large brain size"
     ]
   },
   "774772": {
@@ -14246,6 +15826,10 @@
       "SA",
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Relatively uniform coloration",
+      "Relatively flat body"
     ]
   },
   "63538": {
@@ -14365,6 +15949,11 @@
     "range": [
       "NA",
       "EU"
+    ],
+    "hints": [
+      "Bulbous head",
+      "Short beak",
+      "Large, rounded body"
     ]
   },
   "48767": {
@@ -14584,6 +16173,12 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Body covered in white waxy filaments",
+      "Often found on woody plants",
+      "Larger than typical mealybugs",
+      "Distinctive oval shape"
     ]
   },
   "489608": {
@@ -14612,6 +16207,11 @@
     "range": [
       "AF",
       "AS"
+    ],
+    "hints": [
+      "Darker coloration compared to <i>Icerya seychellarum</i>",
+      "Relatively rounded body shape",
+      "Relatively heavy wax coverage"
     ]
   },
   "424764": {
@@ -14640,6 +16240,11 @@
     "range": [
       "AF",
       "AS"
+    ],
+    "hints": [
+      "Lighter coloration than <i>Icerya aegyptiaca</i>",
+      "Relatively elongated body shape",
+      "Not very pronounced waxy filaments"
     ]
   },
   "172570": {
@@ -14759,6 +16364,11 @@
     ],
     "range": [
       "SA"
+    ],
+    "hints": [
+      "Freshwater dolphin",
+      "Long, slender body",
+      "Prominent forehead"
     ]
   },
   "127021": {
@@ -14816,6 +16426,10 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Larger than <i>Ips typographus</i>",
+      "Uniform brown color"
     ]
   },
   "222281": {
@@ -14847,6 +16461,9 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Striped pattern on wing covers"
     ]
   },
   "838255": {
@@ -14877,6 +16494,10 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Metallic appearance",
+      "Distinctive two-pronged projection on head"
     ]
   },
   "61508": {
@@ -14906,6 +16527,10 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Black and blue body",
+      "Distinct black markings on abdomen"
     ]
   },
   "318452": {
@@ -14935,6 +16560,10 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Black and orange body",
+      "Distinct black markings on abdomen"
     ]
   },
   "196654": {
@@ -14962,6 +16591,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Colorful patterns on body",
+      "Small size",
+      "Often found in sandy areas"
     ]
   },
   "368493": {
@@ -14989,6 +16623,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Relatively muted colors",
+      "Distinctive markings on head",
+      "Prefers rocky substrates"
     ]
   },
   "889135": {
@@ -15077,6 +16716,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Fur is darker than <i>Kerivoula papillosa</i>",
+      "Ears are relatively large",
+      "Wings are relatively broad"
     ]
   },
   "40464": {
@@ -15107,6 +16751,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Small size",
+      "Fur is bright yellow",
+      "Distinctive nose shape"
     ]
   },
   "41464": {
@@ -15143,6 +16792,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Small size",
+      "Short, rounded head",
+      "Slender body"
     ]
   },
   "41465": {
@@ -15179,6 +16833,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Similar to <i>Kogia breviceps</>",
+      "Long, slender body",
+      "Pointed snout"
     ]
   },
   "155197": {
@@ -15291,6 +16950,11 @@
     "range": [
       "NA",
       "EU"
+    ],
+    "hints": [
+      "Long, slender body",
+      "Pointed snout",
+      "Small dorsal fin"
     ]
   },
   "41505": {
@@ -15323,6 +16987,11 @@
     "range": [
       "NA",
       "EU"
+    ],
+    "hints": [
+      "White rostrum",
+      "Short dorsal fin",
+      "Dark gray body"
     ]
   },
   "1368491": {
@@ -15355,6 +17024,11 @@
     "range": [
       "NA",
       "AS"
+    ],
+    "hints": [
+      "Similar to <i>Leucopleurus acutus</i>",
+      "Robust body",
+      "Short snout"
     ]
   },
   "1368492": {
@@ -15390,6 +17064,11 @@
       "SA",
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Similar to <i>Lagenorhynchus albirostris</i>",
+      "Slender body",
+      "Dark coloration"
     ]
   },
   "146199": {
@@ -15416,6 +17095,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Bright red and black bands",
+      "Thin body compared to others",
+      "No yellow bands"
     ]
   },
   "29813": {
@@ -15442,6 +17126,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Black body with yellow or white bands",
+      "Smooth scales",
+      "Relatively thick body"
     ]
   },
   "62331": {
@@ -15471,6 +17160,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Green wings resembling leaves",
+      "Large size",
+      "Wings have a smooth texture"
     ]
   },
   "51574": {
@@ -15501,6 +17195,11 @@
     ],
     "range": [
       "EU"
+    ],
+    "hints": [
+      "Bright yellow body",
+      "Long, hairy appearance",
+      "Distinctive black markings"
     ]
   },
   "633011": {
@@ -15531,6 +17230,11 @@
     ],
     "range": [
       "EU"
+    ],
+    "hints": [
+      "Relatively dark yellow body",
+      "Not very pronounced black markings",
+      "Relatively slender body shape"
     ]
   },
   "1541384": {
@@ -15618,6 +17322,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Large size",
+      "Pale grey back",
+      "Yellow bill with red spot"
     ]
   },
   "4381": {
@@ -15645,6 +17354,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Smaller than *Larus argentatus*",
+      "Dark grey back",
+      "Yellow bill with red spot"
     ]
   },
   "40629": {
@@ -15676,6 +17390,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Distinctive black fur with white tips",
+      "Long, pointed ears",
+      "Wings are long and narrow"
     ]
   },
   "43007": {
@@ -15703,6 +17422,11 @@
     ],
     "range": [
       "OC"
+    ],
+    "hints": [
+      "Relatively long snout",
+      "Relatively thin body",
+      "Relatively light fur"
     ]
   },
   "40522": {
@@ -15735,6 +17459,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Fur is reddish-brown",
+      "Wings are relatively broad",
+      "Distinctive ear shape"
     ]
   },
   "40523": {
@@ -15768,6 +17497,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Fur is greyish-brown",
+      "Wings are long and narrow",
+      "Distinctive tail length"
     ]
   },
   "68343": {
@@ -15795,6 +17529,10 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Distinct bands of black and yellow",
+      "Long, slender body"
     ]
   },
   "47382": {
@@ -15880,6 +17618,9 @@
       "AS",
       "OC",
       "AF"
+    ],
+    "hints": [
+      "Often have hooves"
     ]
   },
   "63232": {
@@ -15995,6 +17736,11 @@
     ],
     "range": [
       "AF"
+    ],
+    "hints": [
+      "Long, ringed tail",
+      "Black and white facial markings",
+      "Large, round eyes"
     ]
   },
   "123351": {
@@ -16129,6 +17875,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Rosette-patterned fur",
+      "Stocky build",
+      "Short tail"
     ]
   },
   "41988": {
@@ -16158,6 +17909,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Solid-colored fur",
+      "Slender build",
+      "Long tail"
     ]
   },
   "41143": {
@@ -16188,6 +17944,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Similar in size to <i>Glossophaga soricina</i>",
+      "Fur is relatively light",
+      "Distinctive long wings"
     ]
   },
   "568702": {
@@ -16217,6 +17978,10 @@
     ],
     "range": [
       "EU"
+    ],
+    "hints": [
+      "Medium-sized stick insect",
+      "Brownish-grey body"
     ]
   },
   "104429": {
@@ -16246,6 +18011,11 @@
       "EU",
       "AS",
       "NA"
+    ],
+    "hints": [
+      "Metallic green body",
+      "Distinct black markings on abdomen",
+      "Relatively long wings"
     ]
   },
   "130408": {
@@ -16274,6 +18044,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Metallic green body",
+      "Distinct black markings on abdomen",
+      "Relatively long wings"
     ]
   },
   "55207": {
@@ -16297,6 +18072,9 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Long dorsal fin"
     ]
   },
   "104547": {
@@ -16325,6 +18103,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Black and yellow body",
+      "Distinct yellow spots on abdomen",
+      "Relatively short wings"
     ]
   },
   "134099": {
@@ -16353,6 +18136,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Black and red body",
+      "Distinct red spots on abdomen",
+      "Relatively short wings"
     ]
   },
   "563098": {
@@ -16381,6 +18169,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Flattened abdomen",
+      "Bluish-grey body",
+      "Distinct black markings on wings"
     ]
   },
   "57443": {
@@ -16410,6 +18203,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Cylindrical abdomen",
+      "Brownish-yellow body",
+      "Distinct black markings on wings"
     ]
   },
   "236842": {
@@ -16436,6 +18234,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Distinct three stripes along the back",
+      "Relatively stout body",
+      "Smooth scales"
     ]
   },
   "47163": {
@@ -16490,6 +18293,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Slug-like appearance",
+      "Rounded, broad body",
+      "Often green or brown"
     ]
   },
   "199374": {
@@ -16617,6 +18425,11 @@
     "range": [
       "NA",
       "AS"
+    ],
+    "hints": [
+      "Streamlined body",
+      "Distinctive dorsal finless",
+      "Light gray coloration"
     ]
   },
   "41536": {
@@ -16651,6 +18464,11 @@
       "SA",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Similar to <i>Lissodelphis borealis</i>",
+      "Robust body",
+      "Distinctive color patterns"
     ]
   },
   "503597": {
@@ -16700,6 +18518,11 @@
     ],
     "range": [
       "AF"
+    ],
+    "hints": [
+      "Convex back",
+      "Small ears",
+      "Trunk with two finger-like extensions"
     ]
   },
   "43694": {
@@ -16727,6 +18550,11 @@
     ],
     "range": [
       "AF"
+    ],
+    "hints": [
+      "Larg size",
+      "Large ears",
+      "Curved tusks"
     ]
   },
   "357910": {
@@ -16754,6 +18582,11 @@
     ],
     "range": [
       "AF"
+    ],
+    "hints": [
+      "Smaller size than <i>L. africana</i>",
+      "Smaller ears than <i>L. africana</i>",
+      "Curved tusks"
     ]
   },
   "224147": {
@@ -16844,6 +18677,9 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Antler-like mandibles in males"
     ]
   },
   "7363": {
@@ -16869,6 +18705,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Longer wings than <i>Alauda arvensis</i>",
+      "Less streaking on the back",
+      "Tail feathers more rounded"
     ]
   },
   "13071": {
@@ -16894,6 +18735,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Blue throat patch",
+      "Brown back",
+      "White eye stripe"
     ]
   },
   "47295": {
@@ -16917,6 +18763,10 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Relatively streamlined body",
+      "Relatively short dorsal fin"
     ]
   },
   "530234": {
@@ -16943,6 +18793,10 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Relatively subdued coloration",
+      "Relatively round body shape"
     ]
   },
   "530235": {
@@ -16969,6 +18823,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Bright red coloration",
+      "Large, pronounced teeth",
+      "Relatively elongated body shape"
     ]
   },
   "104875": {
@@ -16998,6 +18857,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Relatively dark orange wings",
+      "Relatively pronounced black borders",
+      "Larger than <i>L. phlaeas</i>"
     ]
   },
   "55655": {
@@ -17029,6 +18893,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Bright orange wings with black spots",
+      "Small size",
+      "Underside has a mottled appearance"
     ]
   },
   "48443": {
@@ -17115,6 +18984,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Ear tufts larger than <i>L. rufus</i>",
+      "Tail tip black",
+      "Fur lighter in color"
     ]
   },
   "41976": {
@@ -17143,6 +19017,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Tufted ears",
+      "Short tail",
+      "Spotted fur"
     ]
   },
   "361905": {
@@ -17175,6 +19054,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Brown body with pale stripes",
+      "Wings are rather transparent",
+      "Not very pronounced wing pattern"
     ]
   },
   "464555": {
@@ -17263,6 +19147,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Longer tail than <i>Macaca mulatta</i>",
+      "Face is not very pink",
+      "Relatively slender build"
     ]
   },
   "43460": {
@@ -17295,6 +19184,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Short tail",
+      "Face has a pink hue",
+      "Thick fur on body"
     ]
   },
   "505623": {
@@ -17324,6 +19218,11 @@
     ],
     "range": [
       "EU"
+    ],
+    "hints": [
+      "Black head with yellow body",
+      "Long, slender legs",
+      "Distinctive wing pattern"
     ]
   },
   "502158": {
@@ -17352,6 +19251,11 @@
     ],
     "range": [
       "EU"
+    ],
+    "hints": [
+      "Relatively pronounced yellow band on body",
+      "Not very distinct wing pattern",
+      "Shorter legs than <i>Tolmerus atricapillus</i>"
     ]
   },
   "40946": {
@@ -17383,6 +19287,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Long, slender tongue",
+      "Fur is brown with lighter underparts",
+      "Distinctive nose shape"
     ]
   },
   "63401": {
@@ -17441,6 +19350,11 @@
     ],
     "range": [
       "OC"
+    ],
+    "hints": [
+      "Larger than <i>Osphranter rufus</i>",
+      "Relatively long tail",
+      "Gray fur"
     ]
   },
   "1453439": {
@@ -17469,6 +19383,11 @@
     ],
     "range": [
       "OC"
+    ],
+    "hints": [
+      "Red-brown fur",
+      "Long legs",
+      "Large size"
     ]
   },
   "41147": {
@@ -17499,6 +19418,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Ears are large and rounded",
+      "Fur is light brown",
+      "Wings have a broad shape"
     ]
   },
   "41146": {
@@ -17530,6 +19454,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Fur is darker than <i>Macrotus californicus</i>",
+      "Tail is relatively long",
+      "Distinctive white patches on wings"
     ]
   },
   "737209": {
@@ -17557,6 +19486,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Broader body compared to <i>Acheron longus</i>",
+      "colorful markings",
+      "Wings are not very elongated"
     ]
   },
   "47124": {
@@ -17609,6 +19543,11 @@
       "EU",
       "AF",
       "AS"
+    ],
+    "hints": [
+      "Long, slender body with a pointed snout",
+      "Often has a dark stripe along the back",
+      "Coloration can vary from grey to brown"
     ]
   },
   "224420": {
@@ -17638,6 +19577,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Smaller than <i>Manduca sexta</i>",
+      "Five distinct spots on forewings",
+      "Pronounced yellow stripes"
     ]
   },
   "61505": {
@@ -17668,6 +19612,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Large size with a stout body",
+      "Distinctive yellow and black stripes",
+      "Wings have a dark border"
     ]
   },
   "53905": {
@@ -17700,6 +19649,11 @@
       "AS",
       "AF",
       "NA"
+    ],
+    "hints": [
+      "Long and slender body",
+      "Triangular head with bulging eyes",
+      "Front legs are adapted for grasping"
     ]
   },
   "46086": {
@@ -17731,6 +19685,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Yellowish belly fur",
+      "Larger than <i>Marmota monax</i>",
+      "Relatively long tail"
     ]
   },
   "46095": {
@@ -17762,6 +19721,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Stocky body",
+      "Short legs",
+      "Brown fur"
     ]
   },
   "146723": {
@@ -17793,6 +19757,10 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Body has a relatively elongated shape",
+      "Coloration features browns and greens"
     ]
   },
   "360744": {
@@ -17824,6 +19792,10 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Body is relatively compact",
+      "Coloration is relatively light"
     ]
   },
   "547193": {
@@ -17850,6 +19822,10 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Long, slender body",
+      "Distinctive yellow or cream stripes"
     ]
   },
   "368274": {
@@ -17909,6 +19885,11 @@
     ],
     "range": [
       "EU"
+    ],
+    "hints": [
+      "Body is more robust than <i>Meconema thalassinum</i>",
+      "Color can vary from brown to green",
+      "Relatively long wings that extend beyond body"
     ]
   },
   "119170": {
@@ -17940,6 +19921,11 @@
     ],
     "range": [
       "EU"
+    ],
+    "hints": [
+      "Green coloration with slender body",
+      "Long antennae that are longer than body",
+      "Wings are short and rounded"
     ]
   },
   "504195": {
@@ -17969,6 +19955,12 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Thicker body compared to others",
+      "Distinctively spiny legs",
+      "Brown or grey coloration",
+      "Relatively short antennae"
     ]
   },
   "1370818": {
@@ -17998,6 +19990,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Distinctive lyre-shaped nose leaf",
+      "Fur is reddish-brown",
+      "Wings are long and narrow"
     ]
   },
   "41321": {
@@ -18027,6 +20024,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Large size",
+      "Face has a unique shape",
+      "Fur is greyish-brown"
     ]
   },
   "41566": {
@@ -18062,6 +20064,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Humpbacked body",
+      "Long pectoral fins",
+      "Distinctive tail flukes"
     ]
   },
   "855297": {
@@ -18091,6 +20098,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Stocky build",
+      "Black and white facial stripes",
+      "Short legs"
     ]
   },
   "48197": {
@@ -18122,6 +20134,10 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Large brown beetle",
+      "White patches on wing covers"
     ]
   },
   "68062": {
@@ -18156,6 +20172,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Distinctive black and white stripes on body",
+      "Legs are relatively long",
+      "Often found in urban areas"
     ]
   },
   "819143": {
@@ -18185,6 +20206,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Body has a relatively uniform brown color",
+      "Stripes are not very pronounced",
+      "Legs appear relatively short and thick"
     ]
   },
   "157990": {
@@ -18216,6 +20242,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Body features a mix of brown and white",
+      "Stripes are faint and irregular",
+      "Legs have a relatively robust appearance"
     ]
   },
   "7004": {
@@ -18242,6 +20273,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Long, thin bill",
+      "White body with black back",
+      "Distinctive crest on the head"
     ]
   },
   "6996": {
@@ -18268,6 +20304,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Smaller size than <i>Mergus merganser</i>",
+      "Relatively pronounced crest",
+      "Not much white on the body"
     ]
   },
   "2191": {
@@ -18294,6 +20335,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Colorful plumage with green and yellow",
+      "Long, pointed wings",
+      "Distinctive black face mask"
     ]
   },
   "44919": {
@@ -18324,6 +20370,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Smaller than <i>Cricetus cricetus</i>",
+      "Golden fur",
+      "Relatively long tail"
     ]
   },
   "41413": {
@@ -18356,6 +20407,11 @@
     "range": [
       "NA",
       "EU"
+    ],
+    "hints": [
+      "Dark gray color with light speckling",
+      "Medium size, about 4.5-5.5 m",
+      "Blunt snout"
     ]
   },
   "41407": {
@@ -18388,6 +20444,11 @@
     "range": [
       "NA",
       "EU"
+    ],
+    "hints": [
+      "Longer and slimmer than <i>M. bidens</i>",
+      "Pronounced beak",
+      "Light gray color"
     ]
   },
   "437909": {
@@ -18561,6 +20622,10 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Bright red, yellow, and black bands",
+      "Short and stout body"
     ]
   },
   "30494": {
@@ -18586,6 +20651,10 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Not very vibrant coloration",
+      "Body relatively long"
     ]
   },
   "89967": {
@@ -18643,6 +20712,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Similar in size to <i>Miniopterus schreibersii</i>",
+      "Fur is lighter",
+      "Wings are long and narrow"
     ]
   },
   "57534": {
@@ -18674,6 +20748,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Medium size with long wings",
+      "Fur is dark brown",
+      "Ears are small and rounded"
     ]
   },
   "55746": {
@@ -18738,6 +20817,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Long tusk from upper jaw",
+      "Grayish body",
+      "Distinctive rounded head"
     ]
   },
   "106085": {
@@ -18894,6 +20978,11 @@
     ],
     "range": [
       "OC"
+    ],
+    "hints": [
+      "Typically has a vibrant coloration",
+      "Body is thicker than <i>Morelia spilota</i>",
+      "Pattern is often quite pronounced"
     ]
   },
   "50238": {
@@ -18919,6 +21008,11 @@
     ],
     "range": [
       "OC"
+    ],
+    "hints": [
+      "Distinctive pattern of yellow and black",
+      "Body is relatively slender",
+      "Often has a smooth appearance"
     ]
   },
   "1370802": {
@@ -18949,6 +21043,11 @@
     ],
     "range": [
       "OC"
+    ],
+    "hints": [
+      "Small size",
+      "Fur is dark brown",
+      "Distinctive ear shape"
     ]
   },
   "1370825": {
@@ -18979,6 +21078,11 @@
     ],
     "range": [
       "OC"
+    ],
+    "hints": [
+      "Flat head",
+      "Fur is light brown",
+      "Wings are narrow"
     ]
   },
   "81741": {
@@ -19063,6 +21167,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Black cap on head",
+      "White body with black wings",
+      "Long, slender tail"
     ]
   },
   "204545": {
@@ -19089,6 +21198,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Yellow underparts",
+      "Not much contrast between body and wings",
+      "Tail shorter than <i>Motacilla alba</i>"
     ]
   },
   "40601": {
@@ -19119,6 +21233,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Distinctive ear shape",
+      "Fur is greyish-brown",
+      "Wings are long and narrow"
     ]
   },
   "40604": {
@@ -19149,6 +21268,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Fur is lighter than <i>Murina cyclotis</i>",
+      "Ears are relatively large",
+      "Wings have a pointed shape"
     ]
   },
   "44705": {
@@ -19186,6 +21310,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Small size",
+      "Short tail",
+      "Light brown fur"
     ]
   },
   "41812": {
@@ -19215,6 +21344,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Stocky build",
+      "Dark facial mask",
+      "Short legs"
     ]
   },
   "63580": {
@@ -19301,6 +21435,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Soft, dense fur with a reddish hue",
+      "Ears are large and rounded",
+      "Tail is short and covered by fur"
     ]
   },
   "40317": {
@@ -19334,6 +21473,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Smaller than <i>Myotis myotis</i>",
+      "Relatively light fur",
+      "Relatively short ears"
     ]
   },
   "40308": {
@@ -19366,6 +21510,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Dark fur with a slightly pale belly",
+      "Distinctive long, pointed ears",
+      "Wings are broad and short"
     ]
   },
   "424254": {
@@ -19398,6 +21547,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Light brown fur with a glossy appearance",
+      "Wings are long and narrow",
+      "Ears are large and rounded"
     ]
   },
   "40281": {
@@ -19431,6 +21585,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Fur is dark brown to greyish",
+      "Notable notch in the ear",
+      "Wings are long and slender"
     ]
   },
   "40346": {
@@ -19462,6 +21621,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Dark brown fur with a pale underbelly",
+      "Wings are long and narrow",
+      "Ears are rounded and not very large"
     ]
   },
   "1150085": {
@@ -19494,6 +21658,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Large ears",
+      "Brown fur",
+      "Long wings"
     ]
   },
   "40314": {
@@ -19526,6 +21695,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Fur is dark brown with a pale belly",
+      "Distinctive long whiskers",
+      "Ears are large and pointed"
     ]
   },
   "210400": {
@@ -19558,6 +21732,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Pale fur with a whitish belly",
+      "Ears are long and pointed",
+      "Tail extends beyond the tail membrane"
     ]
   },
   "40340": {
@@ -19589,6 +21768,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Fur is dark brown",
+      "Ears are relatively small",
+      "Wings are broad"
     ]
   },
   "40325": {
@@ -19620,6 +21804,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Fur is light brown with a pale belly",
+      "Ears are small and rounded",
+      "Tail is short and covered by fur"
     ]
   },
   "135289": {
@@ -19683,6 +21872,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Distinctive long legs",
+      "Spiders with eight legs",
+      "More slender body shape"
     ]
   },
   "428222": {
@@ -19710,6 +21904,11 @@
     ],
     "range": [
       "OC"
+    ],
+    "hints": [
+      "Large size compared to others",
+      "Distinctive long mandibles",
+      "Robust body shape"
     ]
   },
   "69143": {
@@ -19742,6 +21941,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Small size with distinct petiole",
+      "Often brightly colored",
+      "Diverse body shapes"
     ]
   },
   "318777": {
@@ -19773,6 +21977,10 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Eighteen white spots on orange wing covers",
+      "Oval body shape"
     ]
   },
   "424321": {
@@ -19805,6 +22013,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Baleen plates in mouth",
+      "Blow hole on top of head",
+      "Huge size"
     ]
   },
   "30492": {
@@ -19830,6 +22043,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Typically has a black or dark coloration",
+      "Hood markings are less pronounced",
+      "Body is robust and thick"
     ]
   },
   "106447": {
@@ -19855,6 +22073,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Hood has a more pronounced pattern",
+      "Coloration is often relatively dark",
+      "More slender body compared to <i>Naja naja</i>"
     ]
   },
   "53492": {
@@ -19880,6 +22103,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Hood expands when threatened",
+      "Distinctive markings on the hood",
+      "Body is relatively thick and robust"
     ]
   },
   "41670": {
@@ -19907,6 +22135,11 @@
     ],
     "range": [
       "SA"
+    ],
+    "hints": [
+      "Long snout",
+      "Banded tail",
+      "Pointed ears"
     ]
   },
   "851211": {
@@ -19933,6 +22166,11 @@
     ],
     "range": [
       "EU"
+    ],
+    "hints": [
+      "Dark coloration with little contrast",
+      "Often found near water bodies",
+      "Slightly broader head than <i>Natrix natrix</i>"
     ]
   },
   "966787": {
@@ -19960,6 +22198,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Bright yellow or white collar behind the head",
+      "Smooth, shiny scales",
+      "Body often appears slender"
     ]
   },
   "154259": {
@@ -19988,6 +22231,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Slender body shape",
+      "Long, delicate legs",
+      "Longer antennae than Brachycera"
     ]
   },
   "119438": {
@@ -20083,6 +22331,11 @@
     ],
     "range": [
       "AF"
+    ],
+    "hints": [
+      "Fur is darker than <i>Afronycteris nanus</i>",
+      "Ears are relatively large",
+      "Wings are relatively broad"
     ]
   },
   "1431034": {
@@ -20114,6 +22367,11 @@
     ],
     "range": [
       "AF"
+    ],
+    "hints": [
+      "Very small size",
+      "Fur is light brown",
+      "Distinctive nose shape"
     ]
   },
   "85034": {
@@ -20169,6 +22427,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Sleek, streamlined body",
+      "Webbed feet",
+      "Pointed snout"
     ]
   },
   "904336": {
@@ -20224,6 +22487,10 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Large, vibrant yellow and black body",
+      "Distinctive long, thin legs"
     ]
   },
   "225815": {
@@ -20305,6 +22572,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Distinct banding pattern",
+      "Relatively slender",
+      "Typically found in marshy areas"
     ]
   },
   "29305": {
@@ -20331,6 +22603,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Dark blotches on a lighter background",
+      "Lateral stripes present",
+      "Often found near water"
     ]
   },
   "531175": {
@@ -20444,6 +22721,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Long, curved bill",
+      "Brown streaked plumage",
+      "Long legs"
     ]
   },
   "3901": {
@@ -20471,6 +22753,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Shorter bill than <i>Numenius arquata</i>",
+      "Not very pronounced streaking",
+      "Relatively uniform body color"
     ]
   },
   "40573": {
@@ -20504,6 +22791,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Smaller than <i>Nyctalus noctula</i>",
+      "Fur is reddish-brown",
+      "Ears are relatively short and round"
     ]
   },
   "40572": {
@@ -20537,6 +22829,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Large size with dark brown fur",
+      "Wings are long and narrow",
+      "Ears are large and pointed"
     ]
   },
   "41189": {
@@ -20566,6 +22863,11 @@
     ],
     "range": [
       "AF"
+    ],
+    "hints": [
+      "Larger ears than <i>Nycteris thebaica</i>",
+      "Fur is relatively light",
+      "Wings are relatively broad"
     ]
   },
   "41192": {
@@ -20596,6 +22898,11 @@
     "range": [
       "AF",
       "AS"
+    ],
+    "hints": [
+      "Long ears",
+      "Fur is dark brown",
+      "Wings have a pointed shape"
     ]
   },
   "40558": {
@@ -20627,6 +22934,11 @@
     ],
     "range": [
       "OC"
+    ],
+    "hints": [
+      "Long ears",
+      "Fur is greyish-brown",
+      "Wings are broad"
     ]
   },
   "40557": {
@@ -20658,6 +22970,11 @@
     ],
     "range": [
       "OC"
+    ],
+    "hints": [
+      "Smaller than <i>Nyctophilus geoffroyi</i>",
+      "Fur is relatively light",
+      "Distinctive nose shape"
     ]
   },
   "56832": {
@@ -20688,6 +23005,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Dark blue and orange coloration",
+      "Large size",
+      "Wings have a velvety texture"
     ]
   },
   "324088": {
@@ -20718,6 +23040,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Brighter orange than <i>N. antiopa</i>",
+      "Relatively pronounced black markings",
+      "Wings are not very rounded"
     ]
   },
   "340493": {
@@ -20773,6 +23100,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Black tail",
+      "Larg size",
+      "Forked antlers"
     ]
   },
   "42223": {
@@ -20804,6 +23136,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "White tail",
+      "Small size",
+      "Antlers in males"
     ]
   },
   "424322": {
@@ -20836,6 +23173,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Teeth in mouth",
+      "Blow hole slightly off-center",
+      "Variable size"
     ]
   },
   "56731": {
@@ -20867,6 +23209,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Body is dome-shaped",
+      "White or yellow with black spots",
+      "Spots are irregularly shaped"
     ]
   },
   "701664": {
@@ -20898,6 +23245,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "More elongated body than <i>Oenopia conglobata</i>",
+      "Not many and small spots",
+      "Color is typically orange"
     ]
   },
   "29263": {
@@ -20924,6 +23276,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Relatively subdued coloration",
+      "Not very distinct banding",
+      "Often found in grasslands"
     ]
   },
   "29239": {
@@ -20950,6 +23307,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Distinctive eight stripes",
+      "Small size",
+      "Typically found in leaf litter"
     ]
   },
   "132663": {
@@ -20978,6 +23340,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Black and yellow striped body",
+      "Distinct yellow spots on abdomen",
+      "Relatively long wings"
     ]
   },
   "29200": {
@@ -21004,6 +23371,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Bright green coloration",
+      "Smooth scales",
+      "Long and slender body"
     ]
   },
   "146314": {
@@ -21030,6 +23402,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Quite subdued green or brown coloration",
+      "Not very shiny appearance",
+      "Typically found in wetlands"
     ]
   },
   "41521": {
@@ -21066,6 +23443,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Distinct black and white coloration",
+      "Large dorsal fin",
+      "Social pods"
     ]
   },
   "42414": {
@@ -21096,6 +23478,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Goat-like appearance",
+      "Thick fur",
+      "Climbing abilities"
     ]
   },
   "107942": {
@@ -21124,6 +23511,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Blue eyes",
+      "Bluish-grey body",
+      "Distinct white veins on wings"
     ]
   },
   "62067": {
@@ -21153,6 +23545,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Blue eyes",
+      "Bluish-grey body",
+      "Distinct black veins on wings"
     ]
   },
   "372865": {
@@ -21182,6 +23579,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Relatively elongated body shape",
+      "Longer antennae than Cyclorrhapha",
+      "Distinctive wing structure"
     ]
   },
   "425261": {
@@ -21209,6 +23611,10 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Blue body with yellow fins",
+      "Small size"
     ]
   },
   "425294": {
@@ -21236,6 +23642,10 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Relatively slender body",
+      "Not very vibrant colors"
     ]
   },
   "47527": {
@@ -21262,6 +23672,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Hexagonal body shape",
+      "Bright yellow with blue spots",
+      "Distinctive pattern on skin"
     ]
   },
   "196832": {
@@ -21288,6 +23703,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Muted coloration",
+      "Not very pronounced blue spots",
+      "Relatively mooth body texture"
     ]
   },
   "41736": {
@@ -21318,6 +23738,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "External ear flaps",
+      "Able to walk on land",
+      "Flippers with claws"
     ]
   },
   "42391": {
@@ -21348,6 +23773,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Curved horns",
+      "Stocky build",
+      "Mountain habitats"
     ]
   },
   "42390": {
@@ -21378,6 +23808,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "White coat",
+      "Larg size",
+      "Straight horns"
     ]
   },
   "520311": {
@@ -21458,6 +23893,10 @@
     ],
     "range": [
       "AF"
+    ],
+    "hints": [
+      "Small size",
+      "Slender build"
     ]
   },
   "43577": {
@@ -21490,6 +23929,10 @@
     ],
     "range": [
       "AF"
+    ],
+    "hints": [
+      "Large size",
+      "Long arms"
     ]
   },
   "243698": {
@@ -21549,6 +23992,10 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Sturdy appearance",
+      "Legs are robust and short"
     ]
   },
   "51699": {
@@ -21576,6 +24023,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Long, slender body",
+      "Males have distinctive claspers",
+      "Wings are held flat"
     ]
   },
   "326851": {
@@ -21602,6 +24054,11 @@
     ],
     "range": [
       "EU"
+    ],
+    "hints": [
+      "Darker coloration compared to <i>Panorpa communis</i>",
+      "Not very pronounced claspers in males",
+      "Wings have a mottled appearance"
     ]
   },
   "41970": {
@@ -21631,6 +24088,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Rosette-patterned fur",
+      "Stocky build",
+      "Rounded ears"
     ]
   },
   "41963": {
@@ -21660,6 +24122,11 @@
     "range": [
       "AF",
       "AS"
+    ],
+    "hints": [
+      "Solid-colored fur",
+      "Slender build",
+      "Pointed ears"
     ]
   },
   "857190": {
@@ -21686,6 +24153,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Yellow and black coloration",
+      "Large, square-shaped head",
+      "Faint pattern on the body"
     ]
   },
   "73887": {
@@ -21712,6 +24184,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Distinct orange and red coloration",
+      "Black blotches on the back",
+      "Small, round head"
     ]
   },
   "73888": {
@@ -21738,6 +24215,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Dark coloration, often black",
+      "Large and robust body",
+      "Faint patterns can be present"
     ]
   },
   "56529": {
@@ -21769,6 +24251,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Large size",
+      "Bright yellow wings",
+      "Black border on wings"
     ]
   },
   "58523": {
@@ -21798,6 +24285,10 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Black wings with yellow spots",
+      "Medium size"
     ]
   },
   "145586": {
@@ -21826,6 +24317,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Relatively slender shape",
+      "Not very bright yellow",
+      "Distinctive black markings"
     ]
   },
   "51097": {
@@ -21855,6 +24351,10 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Brighter colors than <i>P. polyxenes</i>",
+      "Relatively pronounced yellow spots"
     ]
   },
   "47224": {
@@ -21883,6 +24383,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Diverse group with often colorful wings",
+      "Typically have a smooth wing texture",
+      "Variety of sizes and shapes"
     ]
   },
   "74832": {
@@ -21915,6 +24420,11 @@
     ],
     "range": [
       "AF"
+    ],
+    "hints": [
+      "Relatively long face",
+      "Dark fur on back",
+      "Relatively short tail"
     ]
   },
   "43535": {
@@ -21948,6 +24458,11 @@
     "range": [
       "AF",
       "AS"
+    ],
+    "hints": [
+      "Distinctive mane around neck",
+      "Relatively longer tail",
+      "Pale fur overall"
     ]
   },
   "196574": {
@@ -21974,6 +24489,10 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Relatively pronounced markings",
+      "Relatively long body"
     ]
   },
   "108646": {
@@ -22000,6 +24519,10 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Yellow stripes on body",
+      "Small size"
     ]
   },
   "428225": {
@@ -22027,6 +24550,9 @@
     ],
     "range": [
       "SA"
+    ],
+    "hints": [
+      "Relatively small ants"
     ]
   },
   "63583": {
@@ -22082,6 +24608,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Distinctive patterns on body",
+      "Relatively elongated body shape",
+      "Not very vibrant coloration"
     ]
   },
   "133499": {
@@ -22170,6 +24701,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Large size for a tit",
+      "Yellow breast",
+      "Black cap and bib"
     ]
   },
   "13858": {
@@ -22199,6 +24735,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Small size",
+      "Brown and grey plumage",
+      "Thick bill"
     ]
   },
   "13851": {
@@ -22224,6 +24765,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Smaller than *Passer domesticus*",
+      "Chestnut crown",
+      "White cheek spot"
     ]
   },
   "47679": {
@@ -22426,6 +24972,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Dark gray color",
+      "Small, rounded body",
+      "Short, curved dorsal fin"
     ]
   },
   "144114": {
@@ -22481,6 +25032,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Long, narrow wings",
+      "Pale underparts",
+      "Distinctive, flat face"
     ]
   },
   "131372": {
@@ -22558,6 +25114,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Larger size than <i>Phalacrocorax carbo</i>",
+      "Distinctive white throat patch",
+      "Relatively robust body shape"
     ]
   },
   "4270": {
@@ -22586,6 +25147,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "All-black plumage",
+      "Long neck",
+      "Hooked bill"
     ]
   },
   "55361": {
@@ -22614,6 +25180,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Distinctive large, rounded head",
+      "White spots on dark wings",
+      "Wings held flat when resting"
     ]
   },
   "54594": {
@@ -22673,6 +25244,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Body shape resembles a leaf",
+      "Color is typically green",
+      "Long, slender antennae"
     ]
   },
   "132070": {
@@ -22706,6 +25282,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Smaller body than <i>Phaneroptera falcata</i>",
+      "Rounded leaf shape",
+      "Color ranges from green to brown"
     ]
   },
   "1362557": {
@@ -22736,6 +25317,9 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Brightly colored with striking patterns"
     ]
   },
   "179749": {
@@ -22767,7 +25351,8 @@
     ],
     "range": [
       "NA"
-    ]
+    ],
+    "hints": []
   },
   "1406617": {
     "taxonName": "Philodromus aureolus",
@@ -22856,6 +25441,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "White head with dark body",
+      "Relatively slender body shape",
+      "Shorter legs than <i>Asilus crabroniformis</i>"
     ]
   },
   "360478": {
@@ -22885,6 +25475,9 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Relatively subdued color patterns"
     ]
   },
   "967406": {
@@ -22914,6 +25507,9 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Body has a mix of bright colors"
     ]
   },
   "154357": {
@@ -22973,6 +25569,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Spotted fur",
+      "Short snout",
+      "Small size"
     ]
   },
   "41687": {
@@ -23004,6 +25605,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "No external ear flaps",
+      "Wriggle on land",
+      "Flippers without claws"
     ]
   },
   "41440": {
@@ -23037,6 +25643,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Small size",
+      "Rounded body",
+      "Short snout"
     ]
   },
   "41446": {
@@ -23069,6 +25680,11 @@
     "range": [
       "NA",
       "AS"
+    ],
+    "hints": [
+      "Similar to <i>Phocoena phocoena</i>",
+      "Distinctive color patterns",
+      "Slender body"
     ]
   },
   "67328": {
@@ -23435,6 +26051,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Smaller than *Phylloscopus trochilus*",
+      "Drab olive-brown plumage",
+      "Short bill"
     ]
   },
   "117055": {
@@ -23461,6 +26082,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Olive-green back",
+      "Pale eye stripe",
+      "Slender bill"
     ]
   },
   "74890": {
@@ -23497,6 +26123,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Large, square head",
+      "Single blowhole",
+      "Dark gray color"
     ]
   },
   "109498": {
@@ -23549,6 +26180,10 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Black and white plumage",
+      "Long tail with a wedge shape"
     ]
   },
   "63567": {
@@ -23599,6 +26234,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Greyish body color",
+      "Less pronounced crown",
+      "Shorter tail than <i>Picus viridis</i>"
     ]
   },
   "144243": {
@@ -23624,6 +26264,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Green body with red crown",
+      "Black mustache stripe",
+      "Long, pointed tail"
     ]
   },
   "54087": {
@@ -23655,6 +26300,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Greenish-white wings",
+      "Relatively pronounced black spots",
+      "Larger than <i>P. rapae</i>"
     ]
   },
   "55626": {
@@ -23688,6 +26338,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "White wings with black tips",
+      "Small size compared to other whites",
+      "Black spots on forewings"
     ]
   },
   "58722": {
@@ -23748,6 +26403,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Fur is dark brown to black",
+      "Distinctive pale throat",
+      "Wings are long and slender"
     ]
   },
   "40391": {
@@ -23780,6 +26440,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Fur is brown with a pale belly",
+      "Ears are larger than <i>Pipistrellus pipistrellus</i>",
+      "Wings are long and narrow"
     ]
   },
   "40364": {
@@ -23813,6 +26478,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Small size with brown fur",
+      "Wings are short and broad",
+      "Ears are small and rounded"
     ]
   },
   "74908": {
@@ -23845,6 +26515,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Very small size",
+      "Fur is lighter than <i>Pipistrellus pipistrellus</i>",
+      "Distinctive short wings"
     ]
   },
   "84109": {
@@ -23931,6 +26606,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Large, heavy-bodied snake",
+      "Distinctive pattern resembling a chain",
+      "Broad head"
     ]
   },
   "41431": {
@@ -23962,6 +26642,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Blind, with small eyes",
+      "Long, slender beak",
+      "Grayish color"
     ]
   },
   "120990": {
@@ -23987,6 +26672,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Quite elongated body",
+      "Not very vibrant coloration",
+      "Distinctive long dorsal fin"
     ]
   },
   "69858": {
@@ -24012,6 +26702,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Relatively round body shape",
+      "Not very pronounced vertical stripes",
+      "Quite vibrant coloration overall"
     ]
   },
   "69859": {
@@ -24037,6 +26732,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Long, flattened body",
+      "Vertical black stripes on body",
+      "Dorsal fin extends far back"
     ]
   },
   "109646": {
@@ -24064,6 +26764,11 @@
     ],
     "range": [
       "EU"
+    ],
+    "hints": [
+      "White legs",
+      "Distinct black markings on abdomen",
+      "Relatively short wings"
     ]
   },
   "109650": {
@@ -24092,6 +26797,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "White legs",
+      "Distinct black markings on abdomen",
+      "Relatively short wings"
     ]
   },
   "503635": {
@@ -24147,6 +26857,10 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Red and yellow wing covers",
+      "Oval body shape"
     ]
   },
   "554251": {
@@ -24175,6 +26889,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Wide nostrils",
+      "Prehensile tails common",
+      "No cheek pouches"
     ]
   },
   "40416": {
@@ -24207,6 +26926,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Very large ears that can fold over the face",
+      "Fur is light brown to grey",
+      "Eyes are relatively small"
     ]
   },
   "40415": {
@@ -24240,6 +26964,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Large ears that can fold over the face",
+      "Fur is brown to grey",
+      "Wings are broad and short"
     ]
   },
   "122002": {
@@ -24266,6 +26995,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Blue spots not very pronounced",
+      "Relatively rounded body shape",
+      "Relatively short dorsal fin"
     ]
   },
   "503699": {
@@ -24503,6 +27237,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Golden speckled back",
+      "Relatively short legs",
+      "Black face during breeding"
     ]
   },
   "60547": {
@@ -24554,6 +27293,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Elaborate black and gold crest",
+      "Long, slender neck",
+      "Distinctive red eyes"
     ]
   },
   "4224": {
@@ -24580,6 +27324,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Greyish body color",
+      "Not very pronounced crest",
+      "Shorter neck than <i>Podiceps cristatus</i>"
     ]
   },
   "338031": {
@@ -24697,6 +27446,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Wings have a jagged edge",
+      "Orange-brown coloration",
+      "Distinctive white 'C' mark"
     ]
   },
   "58579": {
@@ -24725,6 +27479,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Darker coloration than <i>P. c-album</i>",
+      "Not very pronounced 'C' mark",
+      "Relatively angular wing shape"
     ]
   },
   "940028": {
@@ -24777,6 +27536,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Golden-yellow belly",
+      "Blue body",
+      "Black markings on fins"
     ]
   },
   "132371": {
@@ -24803,6 +27567,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Vibrant blue coloration",
+      "Small size",
+      "Yellowish tail"
     ]
   },
   "619683": {
@@ -24829,6 +27598,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Pale blue body",
+      "Small, scattered black spots",
+      "Long, slender shape"
     ]
   },
   "55185": {
@@ -24855,6 +27629,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Three distinct black spots",
+      "Bright blue coloration",
+      "Small size"
     ]
   },
   "338275": {
@@ -24887,6 +27666,10 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Relatively large ants",
+      "Powerful sting"
     ]
   },
   "569678": {
@@ -24919,6 +27702,10 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Redder fur than <i>Pongo pygmaeus</i>",
+      "Relatively Long facial hair"
     ]
   },
   "43582": {
@@ -24951,6 +27738,10 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Dark brown fur",
+      "Relatively short facial hair"
     ]
   },
   "47570": {
@@ -25065,6 +27856,10 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "More muted coloration compared to <i>Portia orientalis</i>",
+      "Features a white mustache"
     ]
   },
   "819932": {
@@ -25095,6 +27890,10 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Legs are long and slender",
+      "Eyes are large and prominent"
     ]
   },
   "127703": {
@@ -25195,6 +27994,9 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Serrated antennae"
     ]
   },
   "41663": {
@@ -25223,6 +28025,11 @@
     "range": [
       "NA",
       "EU"
+    ],
+    "hints": [
+      "Mask-like facial markings",
+      "Bushy ringed tail",
+      "Rounded ears"
     ]
   },
   "61532": {
@@ -25255,6 +28062,10 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Fourteen black spots on yellow wing covers",
+      "Oval body shape"
     ]
   },
   "786768": {
@@ -25367,6 +28178,11 @@
     ],
     "range": [
       "OC"
+    ],
+    "hints": [
+      "Relatively long limbs",
+      "Not very fluffy tail",
+      "Brownish fur"
     ]
   },
   "49574": {
@@ -25397,6 +28213,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Small, soft-bodied appearance",
+      "Often covered in white wax",
+      "Tend to cluster together"
     ]
   },
   "41539": {
@@ -25434,6 +28255,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Similar to orca but smaller",
+      "Rounded head",
+      "Less distinct color pattern than orca"
     ]
   },
   "328244": {
@@ -25521,6 +28347,10 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Case-making larvae",
+      "Wings often held roof-like"
     ]
   },
   "425191": {
@@ -25578,6 +28408,10 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Twenty-two white spots on yellow wing covers",
+      "Rounded body shape"
     ]
   },
   "559553": {
@@ -25665,6 +28499,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Long, slender body",
+      "Brightly colored fins",
+      "Often seen hovering near the substrate"
     ]
   },
   "196485": {
@@ -25692,6 +28531,10 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Smaller size than <i>P. hanae</i>",
+      "Not very vibrant coloration"
     ]
   },
   "119428": {
@@ -25719,6 +28562,10 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Relatively pronounced antenna-like spines",
+      "Relatively bright coloration"
     ]
   },
   "47280": {
@@ -25748,6 +28595,10 @@
       "SA",
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Long, venomous spines",
+      "Striped body"
     ]
   },
   "41219": {
@@ -25778,6 +28629,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Similar in size to <i>Pteronotus parnellii</i>",
+      "Fur is relatively light",
+      "Distinctive long wings"
     ]
   },
   "41221": {
@@ -25808,6 +28664,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Medium size with long wings",
+      "Fur is dark brown",
+      "Ears are large and pointed"
     ]
   },
   "40917": {
@@ -25839,6 +28700,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Very large size",
+      "Long, pointed wings",
+      "Fur is dark brown to black"
     ]
   },
   "40902": {
@@ -25870,6 +28736,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Slightly smaller than <i>Pteropus giganteus</i>",
+      "Fur has reddish tones",
+      "Face is relatively elongated"
     ]
   },
   "42007": {
@@ -25899,6 +28770,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Tan fur",
+      "No spots or rosettes",
+      "Long tail"
     ]
   },
   "36925": {
@@ -25923,6 +28799,11 @@
     ],
     "range": [
       "OC"
+    ],
+    "hints": [
+      "Limb-reduced or limbless",
+      "Long, slender body",
+      "Smooth scales"
     ]
   },
   "61152": {
@@ -25951,6 +28832,10 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Red body",
+      "Distinct black markings on abdomen"
     ]
   },
   "238252": {
@@ -25976,6 +28861,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Typically larger than <i>Malayopython reticulatus</i>",
+      "Coloration is often relatively dark",
+      "Body has a quite robust appearance"
     ]
   },
   "491869": {
@@ -26000,6 +28890,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Very long and slender body",
+      "Distinctive reticulated pattern",
+      "Coloration varies from brown to yellow"
     ]
   },
   "200942": {
@@ -26112,6 +29007,10 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Antlers on both sexes",
+      "Hoofed feet"
     ]
   },
   "56064": {
@@ -26204,6 +29103,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Relatively thick body",
+      "Relatively long tail",
+      "Brown fur"
     ]
   },
   "44575": {
@@ -26240,6 +29144,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Slender body",
+      "Black fur",
+      "Relatively long ears"
     ]
   },
   "4883": {
@@ -26266,6 +29175,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Curved bill",
+      "Long neck",
+      "Distinctive black cap"
     ]
   },
   "28850": {
@@ -26292,6 +29206,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Seven light stripes down the body",
+      "Small, slender body",
+      "Typically found in wetlands"
     ]
   },
   "142936": {
@@ -26323,6 +29242,10 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Relatively pronounced mottled pattern",
+      "Body is slightly elongated"
     ]
   },
   "179305": {
@@ -26379,6 +29302,9 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Relatively long"
     ]
   },
   "416293": {
@@ -26409,6 +29335,10 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Bright yellow markings on the body",
+      "Male pattern mimics wasp shape"
     ]
   },
   "40677": {
@@ -26440,6 +29370,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Larger size with a broader nose",
+      "Fur is dark brown",
+      "Wings are long and slender"
     ]
   },
   "40645": {
@@ -26471,6 +29406,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Large size with a horseshoe-shaped nose",
+      "Fur is brown to grey",
+      "Wings are long and narrow"
     ]
   },
   "40695": {
@@ -26502,6 +29442,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Smaller than <i>Rhinolophus ferrumequinum</i>",
+      "Distinctive horseshoe-shaped nose",
+      "Fur is light brown"
     ]
   },
   "40691": {
@@ -26533,6 +29478,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Medium size with a pointed nose",
+      "Fur is reddish-brown",
+      "Wings are broad and short"
     ]
   },
   "508830": {
@@ -26703,6 +29653,11 @@
     "range": [
       "AF",
       "AS"
+    ],
+    "hints": [
+      "Golden-brown fur",
+      "Large, rounded ears",
+      "Face has a distinctive shape"
     ]
   },
   "75044": {
@@ -26734,6 +29689,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Fur is darker than <i>Rousettus aegyptiacus</i>",
+      "Relatively small size",
+      "Wings are relatively broad"
     ]
   },
   "49449": {
@@ -26875,6 +29835,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Distinctive stripes on body",
+      "Relatively elongated body shape",
+      "Bright coloration"
     ]
   },
   "318935": {
@@ -26902,6 +29867,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Not very pronounced stripes",
+      "Relatively round body shape",
+      "Relatively coloration"
     ]
   },
   "344761": {
@@ -26932,6 +29902,10 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Coloration is relatively uniform",
+      "Not very pronounced markings"
     ]
   },
   "68901": {
@@ -26963,6 +29937,10 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Distinctive black and white markings",
+      "Body is relatively compact"
     ]
   },
   "368364": {
@@ -27020,6 +29998,11 @@
     ],
     "range": [
       "OC"
+    ],
+    "hints": [
+      "Dark fur",
+      "Large head",
+      "Short tail"
     ]
   },
   "59346": {
@@ -27050,6 +30033,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Large size with colorful patterns",
+      "Wings have a velvety texture",
+      "Distinctive eye spots"
     ]
   },
   "56532": {
@@ -27080,6 +30068,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Darker coloration than <i>S. pavonia</i>",
+      "Not very pronounced eye spots",
+      "Relatively elongated wing shape"
     ]
   },
   "112150": {
@@ -27107,6 +30100,10 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Relatively vibrant blue-green colors",
+      "Not very pronounced beak"
     ]
   },
   "112161": {
@@ -27134,6 +30131,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Bright green coloration",
+      "Large size",
+      "Distinctive beak-like mouth"
     ]
   },
   "54573": {
@@ -27197,6 +30199,11 @@
     "range": [
       "NA",
       "EU"
+    ],
+    "hints": [
+      "Grey fur",
+      "Bushy tail",
+      "White underbelly"
     ]
   },
   "46020": {
@@ -27228,6 +30235,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Black or brown fur",
+      "Not very bushy tail",
+      "Relatively arge body size"
     ]
   },
   "55927": {
@@ -27305,6 +30317,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Camouflaged plumage",
+      "Short, stout body",
+      "Long, straight bill"
     ]
   },
   "471636": {
@@ -27330,6 +30347,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Two distinct black lines on body",
+      "Relatively elongated body shape",
+      "Not very vibrant coloration"
     ]
   },
   "201023": {
@@ -27355,6 +30377,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Single black line on body",
+      "Relatively round body shape",
+      "Relatively vibrant coloration"
     ]
   },
   "81680": {
@@ -27383,6 +30410,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Darker coloration than <i>Scopula propinquaria</i>",
+      "Not very pronounced wavy lines",
+      "Relatively elongated body shape"
     ]
   },
   "121878": {
@@ -27411,6 +30443,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Light brown coloration",
+      "Distinctive wavy lines on wings",
+      "Wings held flat when resting"
     ]
   },
   "75069": {
@@ -27442,6 +30479,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Fur is lighter than <i>Scotophilus kuhlii</i>",
+      "Distinctive facial markings",
+      "Wings are long and narrow"
     ]
   },
   "40432": {
@@ -27473,6 +30515,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Fur is dark brown",
+      "Wings are broad",
+      "Ears are relatively small"
     ]
   },
   "48332": {
@@ -27641,7 +30688,8 @@
     ],
     "range": [
       "AS"
-    ]
+    ],
+    "hints": []
   },
   "423673": {
     "taxonName": "Siler semiglaucus",
@@ -27670,6 +30718,9 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Body has a bluish tint"
     ]
   },
   "520469": {
@@ -27696,6 +30747,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Small size with a distinct rattle",
+      "Body has a pattern of dark spots",
+      "Coloration is often muted"
     ]
   },
   "30983": {
@@ -27722,6 +30778,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Smaller than <i>Sistrurus catenatus</i>",
+      "Coloration is often relatively light",
+      "Rattle is not very pronounced"
     ]
   },
   "1070908": {
@@ -27811,6 +30872,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Wings have large eye spots",
+      "Brown and green coloration",
+      "Relatively pronounced wing patterns"
     ]
   },
   "59035": {
@@ -27900,6 +30966,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Not very pronounced patterns",
+      "Relatively round body shape",
+      "Relatively dull coloration"
     ]
   },
   "67598": {
@@ -27934,6 +31005,9 @@
       "SA",
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Small ants"
     ]
   },
   "112801": {
@@ -27963,6 +31037,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Green eyes",
+      "Metallic green body",
+      "Distinct black veins on wings"
     ]
   },
   "46414": {
@@ -27995,6 +31074,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Relatively small size",
+      "Pointed snout",
+      "Small rounded ears"
     ]
   },
   "46471": {
@@ -28027,6 +31111,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Smaller than *Sorex araneus*",
+      "Pointed snout",
+      "Small rounded ears"
     ]
   },
   "776545": {
@@ -28058,6 +31147,10 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Twenty white spots on orange wing covers",
+      "Oval body shape"
     ]
   },
   "41490": {
@@ -28090,6 +31183,10 @@
     ],
     "range": [
       "SA"
+    ],
+    "hints": [
+      "Grayish blue color",
+      "Long, slender body"
     ]
   },
   "112853": {
@@ -28122,6 +31219,10 @@
     ],
     "range": [
       "SA"
+    ],
+    "hints": [
+      "Distinctive color patterns",
+      "Robust body"
     ]
   },
   "126571": {
@@ -28153,6 +31254,11 @@
     ],
     "range": [
       "AF"
+    ],
+    "hints": [
+      "Bright green coloration",
+      "Large size compared to others",
+      "Wings are often held flat"
     ]
   },
   "182586": {
@@ -28179,6 +31285,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Long, slender body",
+      "Distinctive yellow tail",
+      "Sharp teeth visible"
     ]
   },
   "47256": {
@@ -28205,6 +31316,11 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Relatively subdued coloration",
+      "Not very pronounced yellow tail",
+      "Relatively rounded body shape"
     ]
   },
   "61997": {
@@ -28331,6 +31447,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Slender body",
+      "Long, narrow snout",
+      "Distinctive color patterns"
     ]
   },
   "41494": {
@@ -28368,6 +31489,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Blue-gray coloration",
+      "Long, slender body",
+      "Distinctive stripes"
     ]
   },
   "41503": {
@@ -28403,6 +31529,11 @@
       "SA",
       "EU",
       "AF"
+    ],
+    "hints": [
+      "Long, slender body",
+      "Distinctive hourglass pattern",
+      "Small dorsal fin"
     ]
   },
   "41496": {
@@ -28439,6 +31570,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Very slender body",
+      "Long, narrow snout",
+      "Distinctive dorsal fin"
     ]
   },
   "41545": {
@@ -28476,6 +31612,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Slender body",
+      "Long, narrow snout",
+      "Small dorsal fin"
     ]
   },
   "4481": {
@@ -28502,6 +31643,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Longer tail than <i>Stercorarius parasiticus</i>",
+      "Relatively light body color",
+      "Relatively slender appearance"
     ]
   },
   "4489": {
@@ -28528,6 +31674,10 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Dark plumage",
+      "Long wings"
     ]
   },
   "55496": {
@@ -28584,6 +31734,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Black cap on head",
+      "Long, pointed wings",
+      "Red bill with a black tip"
     ]
   },
   "4449": {
@@ -28614,6 +31769,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Longer wings than <i>Sterna hirundo</i>",
+      "Not very pronounced black cap",
+      "Relatively pale underparts"
     ]
   },
   "334037": {
@@ -28642,6 +31802,12 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Body often covered with wax",
+      "Small size, often less than 5 mm",
+      "Soft-bodied appearance",
+      "Tend to cluster on host plants"
     ]
   },
   "51239": {
@@ -28748,6 +31914,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Brown or gray body with spots",
+      "Small size",
+      "Short, stout body"
     ]
   },
   "28557": {
@@ -28774,6 +31945,10 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Distinctive spots on the head",
+      "Relatively pronounced coloration"
     ]
   },
   "936382": {
@@ -28800,6 +31975,11 @@
     "range": [
       "AF",
       "AS"
+    ],
+    "hints": [
+      "Wet nose",
+      "Claws on fingers and toes",
+      "Side-facing eyes"
     ]
   },
   "2969": {
@@ -28824,6 +32004,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Light brown plumage",
+      "Distinctive black crescent on neck",
+      "Shorter tail than <i>Columba palumbus</i>"
     ]
   },
   "2938": {
@@ -28850,6 +32035,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Colorful plumage",
+      "Relatively long tail with pointed tips",
+      "Not very pronounced neck markings"
     ]
   },
   "19898": {
@@ -28875,6 +32065,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Round face with no ear tufts",
+      "Brown and grey mottled feathers",
+      "Large, yellow eyes"
     ]
   },
   "19890": {
@@ -28901,6 +32096,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Larger than <i>Strix aluco</i>",
+      "Relatively pronounced facial disc",
+      "Relatively pale plumage overall"
     ]
   },
   "14849": {
@@ -28926,6 +32126,11 @@
     "range": [
       "EU",
       "AF"
+    ],
+    "hints": [
+      "Uniform dark brown plumage",
+      "Relatively short, thick beak",
+      "Less iridescence than <i>Sturnus vulgaris</i>"
     ]
   },
   "14850": {
@@ -28954,6 +32159,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Iridescent black plumage",
+      "Yellow beak in summer",
+      "White spots on feathers"
     ]
   },
   "61937": {
@@ -28985,6 +32195,10 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Twenty-four spots on yellow wing covers",
+      "Oval body shape"
     ]
   },
   "179065": {
@@ -29067,6 +32281,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Black cap on male",
+      "Brown back",
+      "White throat"
     ]
   },
   "15302": {
@@ -29093,6 +32312,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Greyish-brown plumage",
+      "Pale eye ring",
+      "Rounded head shape"
     ]
   },
   "55625": {
@@ -29122,6 +32346,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Reddish-brown body",
+      "Distinct black veins on wings",
+      "Yellowish-brown eyes"
     ]
   },
   "132657": {
@@ -29150,6 +32379,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Reddish-brown body",
+      "Distinct black veins on wings",
+      "Reddish-brown eyes"
     ]
   },
   "245656": {
@@ -29271,6 +32505,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Clear wings with dark borders",
+      "Slender body shape",
+      "Often resembles a wasp"
     ]
   },
   "49995": {
@@ -29302,6 +32541,9 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Wasp-like appearance"
     ]
   },
   "41301": {
@@ -29333,6 +32575,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Large size with long wings",
+      "Fur is dark brown",
+      "Ears are small and rounded"
     ]
   },
   "41298": {
@@ -29365,6 +32612,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Similar in size to <i>Tadarida brasiliensis</i>",
+      "Fur is relatively light",
+      "Distinctive long wings"
     ]
   },
   "120948": {
@@ -29458,6 +32710,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Relatively thick body",
+      "Relatively long tail",
+      "Less pronounced stripes"
     ]
   },
   "46217": {
@@ -29488,6 +32745,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Stripes along back",
+      "Smaller than <i>Eutamias sibiricus</i>",
+      "Relatively short tail"
     ]
   },
   "28516": {
@@ -29514,6 +32776,10 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Small size with a slender body",
+      "Dark coloration with lighter belly"
     ]
   },
   "28484": {
@@ -29540,6 +32806,10 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Relatively pronounced colors",
+      "Small and slender"
     ]
   },
   "41376": {
@@ -29571,6 +32841,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Long, dark fur on the face",
+      "Wings are broad",
+      "Distinctive tail length"
     ]
   },
   "41375": {
@@ -29602,6 +32877,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Shorter fur than <i>Taphozous melanopogon</i>",
+      "Wings are relatively narrow",
+      "Distinctive ear shape"
     ]
   },
   "154450": {
@@ -29690,6 +32970,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Flattened body shape",
+      "White head patch",
+      "Prominent claws"
     ]
   },
   "153507": {
@@ -29782,6 +33067,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Distinctive yellow and black patterns",
+      "Body is relatively elongated",
+      "Legs are slender and long"
     ]
   },
   "148396": {
@@ -29842,6 +33132,10 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Body has a relatively compact shape",
+      "Patterns are not very vibrant"
     ]
   },
   "71034": {
@@ -29874,6 +33168,11 @@
     "range": [
       "NA",
       "AS"
+    ],
+    "hints": [
+      "Larger body than <i>Mantis religiosa</i>",
+      "Relatively long and slender antennae",
+      "Green coloration is common"
     ]
   },
   "153757": {
@@ -29962,6 +33261,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Smaller than <i>Tettigonia viridissima</i>",
+      "Color can be brown or green",
+      "Pronounced wing structure"
     ]
   },
   "133250": {
@@ -29994,6 +33298,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Large size with green coloration",
+      "Long hind legs for jumping",
+      "Distinctive leaf-like appearance"
     ]
   },
   "48124": {
@@ -30025,6 +33334,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Often green with leaf-like shapes",
+      "Long hind legs for jumping",
+      "Distinctive sound-producing organs"
     ]
   },
   "28398": {
@@ -30051,6 +33365,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Dark body with lighter stripes",
+      "More pronounced markings",
+      "Typically found in aquatic habitats"
     ]
   },
   "558951": {
@@ -30076,6 +33395,10 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Distinctive light stripes on a dark body",
+      "Relatively slender"
     ]
   },
   "28362": {
@@ -30102,6 +33425,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Three light stripes down the back",
+      "Greenish or brownish coloration",
+      "Long, slender body"
     ]
   },
   "122011": {
@@ -30186,6 +33514,10 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Green metallic body coloration",
+      "Distinctive long, thin legs"
     ]
   },
   "707913": {
@@ -30215,6 +33547,10 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Body has a rather brownish hue",
+      "Less vibrant than <i>Thiania bhamoensis</i>"
     ]
   },
   "59281": {
@@ -30338,6 +33674,11 @@
     ],
     "range": [
       "EU"
+    ],
+    "hints": [
+      "Red eyes",
+      "Dark body with yellow markings",
+      "Wings are relatively short"
     ]
   },
   "1189320": {
@@ -30369,6 +33710,12 @@
     ],
     "range": [
       "EU"
+    ],
+    "hints": [
+      "Four distinct black spots on wings",
+      "Relatively light body coloration",
+      "Wings are longer than <i>Tibicina haematodes</i>",
+      "Not very pronounced eye color"
     ]
   },
   "124262": {
@@ -30398,6 +33745,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Wings often narrow and elongated",
+      "Coloration varies widely",
+      "Rest with wings folded over body"
     ]
   },
   "47155": {
@@ -30427,6 +33779,10 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Distinctive folded wings",
+      "Often patterned with spots"
     ]
   },
   "1153556": {
@@ -30650,6 +34006,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Body has a reddish hue",
+      "Legs are relatively thick and short",
+      "Web is often not very organized"
     ]
   },
   "42808": {
@@ -30678,6 +34039,11 @@
     ],
     "range": [
       "OC"
+    ],
+    "hints": [
+      "Fluffy tail",
+      "Large ears",
+      "Grayish fur"
     ]
   },
   "50590": {
@@ -30793,6 +34159,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Distinct white labial scales",
+      "Green coloration with yellowish spots",
+      "Eyes have vertical pupils"
     ]
   },
   "110068": {
@@ -30818,6 +34189,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Slender body shape",
+      "Bright green coloration",
+      "Not very pronounced yellow spots"
     ]
   },
   "3878": {
@@ -30844,6 +34220,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Spotted plumage",
+      "Longer bill than <i>Tringa totanus</i>",
+      "Not very vibrant leg color"
     ]
   },
   "3879": {
@@ -30870,6 +34251,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Long, straight bill",
+      "Red legs",
+      "White wing stripes"
     ]
   },
   "1496145": {
@@ -30992,6 +34378,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Body has leaf-like appearance",
+      "Color is usually green",
+      "Long antennae that resemble twigs"
     ]
   },
   "12716": {
@@ -31019,6 +34410,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Entirely black plumage",
+      "Yellow bill",
+      "Rounded body shape"
     ]
   },
   "12748": {
@@ -31045,6 +34441,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Spotted brown back",
+      "Pale belly",
+      "Pointed bill"
     ]
   },
   "1360115": {
@@ -31073,6 +34474,11 @@
       "AF",
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Not very vibrant yellow coloration",
+      "Relatively short body shape",
+      "Relatively short tail"
     ]
   },
   "41481": {
@@ -31107,6 +34513,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Similar to <i>Tursiops truncatus</i>",
+      "Slender body",
+      "Long beak"
     ]
   },
   "41482": {
@@ -31143,6 +34554,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Short, curved dorsal fin",
+      "Gray coloration",
+      "Friendly, social behavior"
     ]
   },
   "63489": {
@@ -31198,6 +34614,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Heart-shaped facial disc",
+      "White underparts",
+      "Long wings with a rounded tail"
     ]
   },
   "870525": {
@@ -31282,6 +34703,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Distinct long, curved bill",
+      "Prominent crown of feathers",
+      "Black and white wing patterns"
     ]
   },
   "4519": {
@@ -31307,6 +34733,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Relatively long, thinn body",
+      "Distinctive black and white markings",
+      "Straight bill"
     ]
   },
   "123395": {
@@ -31396,6 +34827,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Straight face profile",
+      "Pointed ears",
+      "Black or brown fur"
     ]
   },
   "41641": {
@@ -31425,6 +34861,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Hump on shoulders",
+      "Dish-shaped face",
+      "Rounded ears"
     ]
   },
   "41647": {
@@ -31452,6 +34893,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Dish-shaped face",
+      "Rounded ears",
+      "White chest patch"
     ]
   },
   "4857": {
@@ -31476,6 +34922,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Black and white plumage",
+      "Long, pointed wings",
+      "Distinctive crest on the head"
     ]
   },
   "49133": {
@@ -31506,6 +34957,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Wings have bold red and black colors",
+      "White spots on forewings",
+      "Dark edges on wings"
     ]
   },
   "125573": {
@@ -31534,6 +34990,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Wings are brown with orange spots",
+      "Less vibrant than <i>V. atalanta</i>",
+      "Relatively rounded wing shape"
     ]
   },
   "43615": {
@@ -31564,6 +35025,10 @@
     ],
     "range": [
       "AF"
+    ],
+    "hints": [
+      "Black and white fur",
+      "Relatively long limbs"
     ]
   },
   "776823": {
@@ -31622,6 +35087,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Large size with yellow and black stripes",
+      "Broad head",
+      "Narrow waist"
     ]
   },
   "119019": {
@@ -31652,6 +35122,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Smaller than <i>Vespa crabro</i>",
+      "Pronounced orange markings",
+      "Not very robust body shape"
     ]
   },
   "48740": {
@@ -31682,6 +35157,9 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Narrow waist"
     ]
   },
   "126155": {
@@ -31716,6 +35194,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Slightly larger than <i>Vespula vulgaris</i>",
+      "Pronounced yellow markings",
+      "Not very rounded body shape"
     ]
   },
   "127777": {
@@ -31747,6 +35230,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Small size with yellow and black stripes",
+      "Broad head",
+      "Distinctive round shape"
     ]
   },
   "85549": {
@@ -31803,6 +35291,10 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Twelve white spots on yellow wing covers",
+      "Oval body shape"
     ]
   },
   "30929": {
@@ -31829,6 +35321,11 @@
     ],
     "range": [
       "EU"
+    ],
+    "hints": [
+      "Triangular-shaped head",
+      "Often has a reddish or orange hue",
+      "Body is robust and thick"
     ]
   },
   "966698": {
@@ -31856,6 +35353,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Distinct zigzag pattern on the back",
+      "Dark coloration with lighter edges",
+      "Pupil is vertical and slit-like"
     ]
   },
   "43009": {
@@ -31883,6 +35385,11 @@
     ],
     "range": [
       "OC"
+    ],
+    "hints": [
+      "Stocky body",
+      "Short legs",
+      "Brown fur"
     ]
   },
   "42065": {
@@ -31910,6 +35417,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Less bushy tail than <i>V. vulpes</i>",
+      "Pale legs and feet",
+      "Tail not white-tipped"
     ]
   },
   "42069": {
@@ -31940,6 +35452,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "Bushy tail",
+      "Black legs and feet",
+      "White-tipped tail"
     ]
   },
   "848322": {
@@ -31963,6 +35480,9 @@
     ],
     "range": [
       "SA"
+    ],
+    "hints": [
+      "Often have bony plates"
     ]
   },
   "966797": {
@@ -31989,6 +35509,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Smaller size than <i>Fowlea piscator</i>",
+      "Many yellow spots on body",
+      "Not very pronounced black markings"
     ]
   },
   "966799": {
@@ -32015,6 +35540,11 @@
     ],
     "range": [
       "AS"
+    ],
+    "hints": [
+      "Long, slender body",
+      "Distinctive black markings on fins",
+      "Bright yellow spots on body"
     ]
   },
   "438013": {
@@ -32102,6 +35632,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Dark wings with light markings",
+      "Relatively slender body shape",
+      "Wings are held flat when resting"
     ]
   },
   "324189": {
@@ -32132,6 +35667,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Lighter coloration than <i>X. c-nigrum</i>",
+      "Relatively pronounced triangular markings",
+      "Wings have a relatively smooth texture"
     ]
   },
   "124145": {
@@ -32164,6 +35704,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Metallic blue-black coloration",
+      "Slender body",
+      "Wings are relatively iridescent"
     ]
   },
   "783848": {
@@ -32252,6 +35797,11 @@
     ],
     "range": [
       "NA"
+    ],
+    "hints": [
+      "Smaller size than Steller sea lions",
+      "Longer, slender body than Stelles sea lions",
+      "Tufted crown on older males"
     ]
   },
   "74009": {
@@ -32278,6 +35828,11 @@
     "range": [
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Long, slender body",
+      "Distinctive yellow or greenish coloration",
+      "Smooth scales with a glossy appearance"
     ]
   },
   "3438": {
@@ -32302,6 +35857,11 @@
     "range": [
       "NA",
       "SA"
+    ],
+    "hints": [
+      "Rounded head",
+      "Short bill",
+      "Pointed wings"
     ]
   },
   "200930": {
@@ -32330,6 +35890,11 @@
       "EU",
       "AS",
       "AF"
+    ],
+    "hints": [
+      "White body with black spots",
+      "Long, slender form",
+      "Wings are transparent with dark edges"
     ]
   },
   "41428": {
@@ -32365,6 +35930,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Long, narrow head",
+      "Distinctive rounded forehead",
+      "Single pair of teeth"
     ]
   },
   "52028": {
@@ -32393,6 +35963,11 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Brightly colored bodies",
+      "Often with metallic sheen",
+      "Wings held flat when resting"
     ]
   },
   "155279": {
@@ -32449,6 +36024,10 @@
       "AS",
       "AF",
       "OC"
+    ],
+    "hints": [
+      "Distinct black markings on abdomen",
+      "Slender abdomen"
     ]
   },
   "623965": {
@@ -32476,6 +36055,10 @@
     "range": [
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Broad, flat body",
+      "Smaller than <i>M. birostris</i>"
     ]
   },
   "623966": {
@@ -32505,6 +36088,10 @@
       "SA",
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Larger size than <i>M. alfredi</i>",
+      "More pronounced wing-like fins than <i>M. alfredi</i>"
     ]
   },
   "881846": {
@@ -32758,6 +36345,10 @@
       "EU",
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Relatively large eyes",
+      "Distinct wings"
     ]
   },
   "153097": {
@@ -32788,6 +36379,10 @@
       "EU",
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Distinct clubbed antennae",
+      "Distinct black veins on wings"
     ]
   },
   "47201": {
@@ -32911,6 +36506,10 @@
       "NA",
       "SA",
       "OC"
+    ],
+    "hints": [
+      "Pouch for young",
+      "Diverse body shapes"
     ]
   },
   "848320": {
@@ -32937,6 +36536,9 @@
       "EU",
       "AS",
       "OC"
+    ],
+    "hints": [
+      "Diverse habitats and forms"
     ]
   },
   "43233": {
@@ -32958,6 +36560,11 @@
     ],
     "range": [
       "OC"
+    ],
+    "hints": [
+      "Egg-laying mammals",
+      "Beak-like snout",
+      "Webbed feet"
     ]
   },
   "43236": {
@@ -32982,6 +36589,11 @@
     ],
     "range": [
       "OC"
+    ],
+    "hints": [
+      "Duck-bill shape",
+      "Webbed feet",
+      "Flat body"
     ]
   },
   "43792": {
@@ -33009,6 +36621,11 @@
       "NA",
       "EU",
       "AS"
+    ],
+    "hints": [
+      "Large, flat tail",
+      "Brown fur",
+      "Strong teeth"
     ]
   },
   "46078": {

@@ -1,4 +1,4 @@
-const version = '1.5.23'; // Increment the version number
+const version = '1.5.24'; // Increment the version number
 
 function updateUrlParams(element, attributeName) {
     const url = new URL(element[attributeName], window.location.href);

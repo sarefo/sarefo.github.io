@@ -4,7 +4,7 @@ import logger from './logger.js';
 
 const hintSystem = {
     initialize() {
-        this.addHintButtonListeners();
+        hintSystem.addHintButtonListeners();
     },
 
     addHintButtonListeners() {
@@ -17,14 +17,14 @@ const hintSystem = {
             }
         };
 
-        safeAddEventListener('hint-button-1', 'click', () => this.showHint(1));
-        safeAddEventListener('hint-button-2', 'click', () => this.showHint(2));
+        safeAddEventListener('hint-button-1', 'click', () => hintSystem.showHint(1));
+        safeAddEventListener('hint-button-2', 'click', () => hintSystem.showHint(2));
     },
 
     async showHint(index) {
         const imageContainer = document.getElementById(`image-container-${index}`);
         const taxonName = imageContainer.querySelector('img').alt.split(' Image')[0];
-        const taxonId = await this.getTaxonId(taxonName);
+        const taxonId = await hintSystem.getTaxonId(taxonName);
         
         if (!taxonId) {
             logger.warn(`Could not find ID for taxon: ${taxonName}`);
@@ -34,7 +34,7 @@ const hintSystem = {
         const hints = await api.taxonomy.fetchTaxonHints(taxonId);
         
         if (hints && hints.length > 0) {
-            this.displayRandomHint(hints, index);
+            hintSystem.displayRandomHint(hints, index);
         } else {
             logger.warn(`No hints available for ${taxonName} (ID: ${taxonId})`);
         }
@@ -57,7 +57,7 @@ const hintSystem = {
             const randomHint = availableHints[Math.floor(Math.random() * availableHints.length)];
             state.addShownHint(index, randomHint);
             
-            this.showHintOverlay(randomHint, index);
+            hintSystem.showHintOverlay(randomHint, index);
         }
     },
 
@@ -72,7 +72,45 @@ const hintSystem = {
         setTimeout(() => {
             hintOverlay.remove();
         }, 3000);
+    },
+
+    async updateHintButtonState(index) {
+        const hintButton = document.getElementById(`hint-button-${index}`);
+        if (!hintButton) return;
+
+        const imageContainer = document.getElementById(`image-container-${index}`);
+        const taxonName = imageContainer.querySelector('img').alt.split(' Image')[0];
+        const taxonId = await hintSystem.getTaxonId(taxonName);
+
+        if (!taxonId) {
+            logger.warn(`Could not find ID for taxon: ${taxonName}`);
+            hintButton.classList.add('inactive');
+            hintButton.disabled = true;
+            return;
+        }
+
+        const hints = await api.taxonomy.fetchTaxonHints(taxonId);
+
+        if (hints && hints.length > 0) {
+            hintButton.classList.remove('inactive');
+            hintButton.disabled = false;
+        } else {
+            hintButton.classList.add('inactive');
+            hintButton.disabled = true;
+        }
+    },
+
+    async updateAllHintButtons() {
+        await hintSystem.updateHintButtonState(1);
+        await hintSystem.updateHintButtonState(2);
     }
+
 };
 
-export default hintSystem;
+const publicAPI = {
+    initialize: hintSystem.initialize,
+    showHint: hintSystem.showHint,
+    updateAllHintButtons: hintSystem.updateAllHintButtons,
+};
+
+export default publicAPI;

@@ -154,11 +154,19 @@
 }
 
 /* Hint button */
-/*.image-container__button--hint {
-    position: absolute;
+.image-container__button--hint {
+/*    position: absolute;
     bottom: 10px;
-    left: 55px;
-*/
+    left: 55px;*/
+}
+.image-container__button--hint.inactive {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.image-container__button--hint.inactive:hover {
+    background-color: transparent;
+}
 
 /* Globe icon button */
 

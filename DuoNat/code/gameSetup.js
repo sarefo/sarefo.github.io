@@ -2,6 +2,7 @@ import api from './api.js';
 import config from './config.js';
 import dialogManager from './dialogManager.js';
 import game from './game.js';
+import hintSystem from './hintSystem.js';
 import logger from './logger.js';
 import preloader from './preloader.js';
 import setManager from './setManager.js';
@@ -31,7 +32,6 @@ const gameSetup = {
             if (!await gameSetup.initialization.checkINaturalistReachability()) return;
 
             gameSetup.initialization.prepareUIForLoading();
-
             if (newPair || !state.getCurrentTaxonImageCollection()) {
                 await gameSetup.initialization.initializeNewPair(urlParams);
             } else {
@@ -189,6 +189,7 @@ const gameSetup = {
             await gameSetup.initialization.setupNameTiles(pair, imageData);
             await gameSetup.initialization.setupWorldMaps(pair, imageData);
             gameSetup.initialization.updateGameStateForRound(pair, imageData);
+            await hintSystem.updateAllHintButtons();
         },
 
         async loadAndSetupImages(pair, isNewPair) {
