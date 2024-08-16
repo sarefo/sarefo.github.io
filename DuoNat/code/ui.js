@@ -189,13 +189,37 @@ const ui = {
     taxonPairList: {
         async showTaxonPairList() {
             try {
-                const taxonPairs = await this.fetchAndFilterTaxonPairs();
+                const taxonPairs = await api.taxonomy.fetchTaxonPairs();
+                if (taxonPairs.length === 0) {
+                    logger.error("No taxon pairs available");
+                    return;
+                }
+
+                const filters = {
+                    level: state.getSelectedLevel(),
+                    ranges: state.getSelectedRanges(),
+                    tags: state.getSelectedTags(),
+                    searchTerm: state.getSearchTerm()
+                };
+
+                let filteredPairs = gameLogic.filterTaxonPairs(taxonPairs, filters);
+                
                 await this.renderTaxonPairList(taxonPairs);
                 this.setupDialogAndFilters();
             } catch (error) {
                 logger.error("Error in showTaxonPairList:", error);
             }
         },
+
+        /*async showTaxonPairList() {
+            try {
+                const taxonPairs = await this.fetchAndFilterTaxonPairs();
+                await this.renderTaxonPairList(taxonPairs);
+                this.setupDialogAndFilters();
+            } catch (error) {
+                logger.error("Error in showTaxonPairList:", error);
+            }
+        },*/
 
         async fetchAndFilterTaxonPairs() {
             const taxonPairs = await api.taxonomy.fetchTaxonPairs();
@@ -213,7 +237,8 @@ const ui = {
             return {
                 level: state.getSelectedLevel(),
                 ranges: state.getSelectedRanges(),
-                tags: state.getSelectedTags()
+                tags: state.getSelectedTags(),
+                searchTerm: state.getSearchTerm()
             };
         },
 

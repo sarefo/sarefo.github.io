@@ -178,7 +178,8 @@ const tagCloud = {
             const filters = {
                 level: state.getSelectedLevel(),
                 ranges: state.getSelectedRanges(),
-                tags: Array.from(tagCloud.selectedTags)
+                tags: Array.from(tagCloud.selectedTags),
+                searchTerm: state.getSearchTerm()
             };
 
             tagCloud.filteredPairs = gameLogic.filterTaxonPairs(taxonPairs, filters);
@@ -227,11 +228,13 @@ const tagCloud = {
     async updateTaxonList() {
         const selectedTags = this.tagSelection.getSelectedTags();
         const selectedLevel = document.getElementById('level-filter-dropdown').value;
+        const searchTerm = state.getSearchTerm();
 
         // Update gameState
         state.updateGameStateMultiple({
             selectedTags: selectedTags,
-            selectedLevel: selectedLevel
+            selectedLevel: selectedLevel,
+            searchTerm: searchTerm
         });
 
         await this.dataManager.updateFilteredPairs();

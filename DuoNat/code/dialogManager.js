@@ -71,7 +71,7 @@ const dialogManager = {
 
             if (dialogId === 'select-set-dialog') {
                 ui.updateFilterSummary();
-                mainEventHandler.clearSearch();
+                mainEventHandler.resetSearch();
                 mainEventHandler.resetScrollPosition();
             }
 
@@ -591,6 +591,7 @@ const dialogManager = {
             state.setSelectedTags([]);
             state.setSelectedRanges([]);
             state.setSelectedLevel('');
+            state.setSearchTerm('');
 
             // Reset the level dropdown
             const levelDropdown = document.getElementById('level-filter-dropdown');
@@ -598,11 +599,12 @@ const dialogManager = {
                 levelDropdown.value = '';
             }
 
-            // Clear tags
+            // Clear tags, ranges
             tagCloud.clearAllTags();
-
-            // Clear ranges
             rangeSelector.setSelectedRanges([]);
+
+            // Clear search input
+            mainEventHandler.resetSearch();
 
             // Update the UI
             ui.updateTaxonPairList();
@@ -615,14 +617,17 @@ const dialogManager = {
         handleSelectSetDone() {
             const levelDropdown = document.getElementById('level-filter-dropdown');
             const selectedLevel = levelDropdown.value;
+            const searchTerm = state.getSearchTerm();
 
             gameLogic.applyFilters({
                 level: selectedLevel,
                 ranges: state.getSelectedRanges(),
-                tags: state.getSelectedTags()
+                tags: state.getSelectedTags(),
+                searchTerm: searchTerm
             });
 
             setManager.refreshSubset();
+            ui.showTaxonPairList();
 
             dialogManager.core.closeDialog('select-set-dialog');
         },

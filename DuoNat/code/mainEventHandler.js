@@ -26,7 +26,7 @@ const mainEventHandler = {
 
     setFocusLost: searchHandler.setFocusLost,
     resetScrollPosition: searchHandler.resetScrollPosition,
-    clearSearch: searchHandler.handleClearSearch,
+    resetSearch: searchHandler.resetSearch,
 };
 
 export default mainEventHandler;

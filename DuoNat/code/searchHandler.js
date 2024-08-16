@@ -1,5 +1,7 @@
 import api from './api.js';
 import dialogManager from './dialogManager.js';
+import gameLogic from './gameLogic.js';
+import logger from './logger.js';
 import state from './state.js';
 import ui from './ui.js';
 
@@ -19,13 +21,13 @@ const searchHandler = {
     initialize() {
         const searchInput = document.getElementById('taxon-search');
         if (searchInput) {
-            searchInput.addEventListener('input', this.handleSearch.bind(this));
-            searchInput.addEventListener('keydown', this.handleSearchKeydown.bind(this));
+            searchInput.addEventListener('input', searchHandler.handleSearch.bind(this));
+            searchInput.addEventListener('keydown', searchHandler.handleSearchKeydown.bind(this));
         }
 
         const clearSearchButton = document.getElementById('clear-search');
         if (clearSearchButton) {
-            clearSearchButton.addEventListener('click', this.handleClearSearch.bind(this));
+            clearSearchButton.addEventListener('click', searchHandler.handleClearSearch.bind(this));
         }
     },
 
@@ -33,13 +35,26 @@ const searchHandler = {
         const searchInput = event.target;
         const searchTerm = searchInput.value.trim();
         
-        this.updateClearButtonVisibility(searchTerm);
+        searchHandler.updateClearButtonVisibility(searchTerm);
         
+        state.setSearchTerm(searchTerm);
+
         const taxonPairs = await api.taxonomy.fetchTaxonPairs();
-        const filteredPairs = await this.filterTaxonPairs(taxonPairs, searchTerm);
+        const isNumericSearch = /^\d+$/.test(searchTerm);
         
-        this.updateUI(filteredPairs);
-        this.handleSearchInputFocus(searchInput);
+        let filteredPairs;
+        if (isNumericSearch) {
+            filteredPairs = taxonPairs.filter(pair => pair.setID.toString() === searchTerm);
+        } else {
+            filteredPairs = await gameLogic.filterTaxonPairs(taxonPairs, {
+                level: state.getSelectedLevel(),
+                ranges: state.getSelectedRanges(),
+                tags: state.getSelectedTags(),
+                searchTerm: searchTerm
+            });
+        }
+        
+        searchHandler.updateUI(filteredPairs);
     },
 
     updateClearButtonVisibility(searchTerm) {
@@ -54,33 +69,6 @@ const searchHandler = {
         }
     },
 
-    async filterTaxonPairs(taxonPairs, searchTerm) {
-        const activeTags = state.getSelectedTags();
-        const selectedLevel = state.getSelectedLevel();
-        const isNumericSearch = /^\d+$/.test(searchTerm);
-        const filteredPairs = [];
-
-        for (const pair of taxonPairs) {
-            const isMatching = await this.isPairMatching(pair, searchTerm, activeTags, selectedLevel, isNumericSearch);
-            if (isMatching) {
-                filteredPairs.push(pair);
-            }
-        }
-
-        return filteredPairs;
-    },
-
-    async isPairMatching(pair, searchTerm, activeTags, selectedLevel, isNumericSearch) {
-        const vernacular1 = await getCachedVernacularName(pair.taxonNames[0]);
-        const vernacular2 = await getCachedVernacularName(pair.taxonNames[1]);
-
-        const matchesTags = this.matchesTags(pair, activeTags);
-        const matchesLevel = this.matchesLevel(pair, selectedLevel);
-        const matchesSearch = this.matchesSearch(pair, searchTerm, vernacular1, vernacular2, isNumericSearch);
-
-        return matchesTags && matchesLevel && matchesSearch;
-    },
-
     matchesTags(pair, activeTags) {
         return activeTags.length === 0 || pair.tags.some(tag => activeTags.includes(tag));
     },
@@ -89,12 +77,12 @@ const searchHandler = {
         return selectedLevel === '' || pair.level === selectedLevel;
     },
 
-    matchesSearch(pair, searchTerm, vernacular1, vernacular2, isNumericSearch) {
+    matchesRanges(pair, selectedRanges) {
+        return selectedRanges.length === 0 || (pair.range && pair.range.some(range => selectedRanges.includes(range)));
+    },
+
+    matchesSearch(pair, searchTerm, vernacular1, vernacular2) {
         if (searchTerm === '') return true;
-        
-        if (isNumericSearch) {
-            return pair.setID === searchTerm;
-        }
 
         const searchTermLower = searchTerm.toLowerCase();
         const matchesTaxon = pair.taxonNames[0].toLowerCase().includes(searchTermLower) ||
@@ -113,13 +101,13 @@ const searchHandler = {
     },
 
     handleSearchInputFocus(searchInput) {
-        if (this.hasLostFocus && searchInput.value.length > 1) {
+        if (searchHandler.hasLostFocus && searchInput.value.length > 1) {
             searchInput.select();
         }
-        this.hasLostFocus = false;
+        searchHandler.hasLostFocus = false;
 
         searchInput.addEventListener('blur', () => {
-            this.hasLostFocus = true;
+            searchHandler.hasLostFocus = true;
         }, { once: true });
     },
 
@@ -139,11 +127,19 @@ const searchHandler = {
     async handleClearSearch() {
         const searchInput = document.getElementById('taxon-search');
         if (searchInput) {
+            searchHandler.resetSearch();
+            searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+            searchHandler.hasLostFocus = true;
+            searchInput.focus();
+        }
+    },
+
+    resetSearch() {
+        const searchInput = document.getElementById('taxon-search');
+        if (searchInput) {
             searchInput.value = '';
             document.getElementById('clear-search').style.display = 'none';
-            searchInput.dispatchEvent(new Event('input', { bubbles: true }));
-            this.hasLostFocus = true;
-            searchInput.focus();
+            state.setSearchTerm('');
         }
     },
 
@@ -155,7 +151,7 @@ const searchHandler = {
     },
 
     setFocusLost(value) {
-        this.hasLostFocus = value;
+        searchHandler.hasLostFocus = value;
     }
 };
 

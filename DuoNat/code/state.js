@@ -45,6 +45,7 @@ let gameState = {
     taxon2: []
   },
 
+  searchTerm: "",
 
   preloadState: {
     currentRound: {
@@ -216,6 +217,11 @@ const publicAPI = {
       taxon1: [],
       taxon2: []
     };
+  },
+
+  getSearchTerm: () => gameState.searchTerm,
+  setSearchTerm: (searchTerm) => {
+    gameState.searchTerm = searchTerm;
   },
 
   getCurrentSetID: () => gameState.currentSetID,

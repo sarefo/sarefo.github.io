@@ -40,7 +40,8 @@ const rangeSelector = {
             const filters = {
                 level: state.getSelectedLevel(),
                 ranges: selectedAbbreviations,
-                tags: state.getSelectedTags()
+                tags: state.getSelectedTags(),
+                searchTerm: state.getSearchTerm()
             };
 
             const filteredPairs = gameLogic.filterTaxonPairs(taxonSets, filters);

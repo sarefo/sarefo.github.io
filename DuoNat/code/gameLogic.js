@@ -96,18 +96,24 @@ const gameLogic = {
             preloader.pairPreloader.preloadForNextPair();
         }
     },
-  
+
         isPairValidForCurrentFilters: function (pair) {
             let selectedLevel = state.getSelectedLevel();
             let selectedTags = state.getSelectedTags();
             let selectedRanges = state.getSelectedRanges();
+            let searchTerm = state.getSearchTerm();
+
             const matchesLevel = selectedLevel === '' || pair.level === selectedLevel;
             const matchesTags = selectedTags.length === 0 ||
                 selectedTags.every(tag => pair.tags.includes(tag));
             const matchesRanges = selectedRanges.length === 0 ||
                 (pair.range && pair.range.some(range => selectedRanges.includes(range)));
+            const matchesSearch = !searchTerm || 
+                pair.taxonNames.some(name => name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                pair.setName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                pair.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
 
-            return matchesLevel && matchesTags && matchesRanges;
+            return matchesLevel && matchesTags && matchesRanges && matchesSearch;
         },
 
         selectRandomPairFromCurrentCollection: async function () {
@@ -115,7 +121,8 @@ const gameLogic = {
             const filteredSets = gameLogic.filterHandling.filterTaxonPairs(taxonSets, {
                 level: state.getSelectedLevel(),
                 ranges: state.getSelectedRanges(),
-                tags: state.getSelectedTags()
+                tags: state.getSelectedTags(),
+                searchTerm: state.getSearchTerm()
             });
             
             if (filteredSets.length === 0) {
@@ -163,9 +170,13 @@ const gameLogic = {
                 const matchesRanges = !filters.ranges || filters.ranges.length === 0 ||
                     (pair.range && pair.range.some(range => filters.ranges.includes(range)));
                 const matchesTags = filters.tags.length === 0 ||
-                    filters.tags.every(tag => pair.tags.includes(tag)); // Changed from 'some' to 'every'
+                    filters.tags.every(tag => pair.tags.includes(tag));
+                const matchesSearch = !filters.searchTerm || 
+                    pair.taxonNames.some(name => name.toLowerCase().includes(filters.searchTerm.toLowerCase())) ||
+                    pair.setName.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
+                    pair.tags.some(tag => tag.toLowerCase().includes(filters.searchTerm.toLowerCase()));
 
-                return matchesLevel && matchesRanges && matchesTags;
+                return matchesLevel && matchesRanges && matchesTags && matchesSearch;
             });
         },
 
@@ -173,7 +184,8 @@ const gameLogic = {
             state.updateGameStateMultiple({
                 selectedLevel: newFilters.level ?? state.getSelectedLevel(),
                 selectedRanges: newFilters.ranges ?? state.getSelectedRanges(),
-                selectedTags: newFilters.tags ?? state.getSelectedTags()
+                selectedTags: newFilters.tags ?? state.getSelectedTags(),
+                searchTerm: newFilters.searchTerm ?? state.getSearchTerm()
             });
 
             const currentPair = state.getCurrentTaxonImageCollection().pair;
@@ -235,7 +247,7 @@ const gameLogic = {
                 preloader.pairPreloader.preloadForNextPair();
             }
         },
-
+/*
         isCurrentPairInCollection() {
             let currentTaxonImageCollection = state.getCurrentTaxonImageCollection();
             if (!currentTaxonImageCollection || !currentTaxonImageCollection.pair) {
@@ -252,6 +264,16 @@ const gameLogic = {
             }
 
             return matchesLevel; // Simplified for now to focus on skill level
+        },*/
+
+        isCurrentPairInCollection() {
+            let currentTaxonImageCollection = state.getCurrentTaxonImageCollection();
+            if (!currentTaxonImageCollection || !currentTaxonImageCollection.pair) {
+                return false;
+            }
+
+            const currentPair = currentTaxonImageCollection.pair;
+            return gameLogic.pairManagement.isPairValidForCurrentFilters(currentPair);
         },
     },
 };
