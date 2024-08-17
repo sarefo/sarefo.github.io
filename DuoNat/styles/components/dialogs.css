@@ -260,7 +260,8 @@ dialog[open] {
     border-radius: var(--border-radius);
     cursor: pointer;
     font-size: 1.1em;
-    width: 160px; /* match world map */
+    width: 100px; /* match world map */
+    flex-shrink: 0;
 }
 
 .select-set-dialog__clear-filters:hover {
