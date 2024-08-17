@@ -6,7 +6,6 @@ const swipeHandler = {
     isLoadingNewPair: false,
 
     swipeOutThreshold: 50, // Increased from 30 to make it less sensitive
-    resetThreshold: 50, // New property to determine when to reset the swipe
 
     swipeRestraint: 100,
     maxRotation: 15,
@@ -29,6 +28,7 @@ const swipeHandler = {
             return;
         }
         this.addSwipeListeners();
+        this.hideSwipeInfoMessage();
     },
 
     addSwipeListeners() {
@@ -110,7 +110,7 @@ const swipeHandler = {
 
         if (this.isValidDragMove(deltaX, deltaY)) {
             this.updateDragAnimation(deltaX);
-        } else if (deltaX < this.resetThreshold) {
+        } else {
             this.resetSwipeAnimation();
         }
     },
@@ -134,12 +134,13 @@ const swipeHandler = {
         requestAnimationFrame(() => {
             this.gameContainer.style.transform = `rotate(${rotation}deg) translateX(${-deltaX}px)`;
             this.gameContainer.style.opacity = opacity;
-            this.updateSwipeInfoMessage(progress);
+            
+            if (progress > 0) {
+                this.showSwipeInfoMessage();
+            } else {
+                this.hideSwipeInfoMessage();
+            }
         });
-    },
-
-    updateSwipeInfoMessage(progress) {
-        document.getElementById('swipe-info-message').style.opacity = progress.toFixed(2);
     },
 
     performSwipeOutAnimation(initialDeltaX) {
@@ -148,10 +149,26 @@ const swipeHandler = {
         this.scheduleNewPairLoad();
     },
 
+    showSwipeInfoMessage() {
+        const swipeInfoMessage = document.getElementById('swipe-info-message');
+        swipeInfoMessage.style.display = 'block';
+        
+        // Force a reflow to ensure the transition is applied
+        void swipeInfoMessage.offsetWidth;
+        
+        swipeInfoMessage.style.transition = 'opacity 0.3s ease';
+        swipeInfoMessage.style.opacity = '1';
+    },
+
     hideSwipeInfoMessage() {
         const swipeInfoMessage = document.getElementById('swipe-info-message');
         swipeInfoMessage.style.transition = 'opacity 0.3s ease';
-        swipeInfoMessage.style.opacity = 0;
+        swipeInfoMessage.style.opacity = '0';
+        
+        // Ensure the message is hidden after the transition
+        setTimeout(() => {
+            swipeInfoMessage.style.display = 'none';
+        }, 300);
     },
 
     animateSwipeOut(initialDeltaX) {
@@ -215,6 +232,9 @@ const swipeHandler = {
         this.gameContainer.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
         this.gameContainer.style.transform = 'none';
         this.gameContainer.style.opacity = '1';
+
+        // Force a reflow to ensure the transition is applied
+        void this.gameContainer.offsetWidth;
 
         setTimeout(() => {
             this.gameContainer.style.transition = '';
