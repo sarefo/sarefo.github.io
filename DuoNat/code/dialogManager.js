@@ -1,10 +1,10 @@
 import api from './api.js';
+import collectionManager from './collectionManager.js';
 import config from './config.js';
 import mainEventHandler from './mainEventHandler.js';
 import gameSetup from './gameSetup.js';
 import gameLogic from './gameLogic.js';
 import logger from './logger.js';
-import rangeSelector from './rangeSelector.js';
 import setManager from './setManager.js';
 import state from './state.js';
 import tagCloud from './tagCloud.js';
@@ -74,9 +74,7 @@ const dialogManager = {
             }
 
             if (dialogId === 'select-set-dialog') {
-                ui.updateFilterSummary();
-                mainEventHandler.resetSearch();
-                mainEventHandler.resetScrollPosition();
+                collectionManager.openCollectionManagerDialog();
             }
 
             if (dialogId === 'report-dialog') {
@@ -140,9 +138,6 @@ const dialogManager = {
             dialogManager.initialization.initializeReportDialog();
             dialogManager.initialization.initializeEnterSetDialog();
             dialogManager.initialization.initializeCloseButtons();
-            dialogManager.initialization.initializeFilterSummaryMap();
-            dialogManager.initialization.initializeClearFiltersButton();
-            dialogManager.initialization.initializeSelectSetDoneButton();
             dialogManager.initialization.initializeDialogCloseEvent();
         },
 
@@ -157,29 +152,6 @@ const dialogManager = {
                     closeButton.addEventListener('click', () => dialogManager.core.closeDialog(dialogId));
                 }
             });
-        },
-
-        initializeFilterSummaryMap() {
-            const filterSummaryMap = document.querySelector('.filter-summary__map');
-            if (filterSummaryMap) {
-                filterSummaryMap.addEventListener('click', () => {
-                    rangeSelector.openRangeDialog();
-                });
-            }
-        },
-
-        initializeClearFiltersButton() {
-            const clearFiltersButton = document.getElementById('clear-all-filters');
-            if (clearFiltersButton) {
-                clearFiltersButton.addEventListener('click', dialogManager.handlers.clearAllFilters.bind(this));
-            }
-        },
-
-        initializeSelectSetDoneButton() {
-            const selectSetDoneButton = document.getElementById('select-set-done-button');
-            if (selectSetDoneButton) {
-                selectSetDoneButton.addEventListener('click', dialogManager.handlers.handleSelectSetDone.bind(this));
-            }
         },
 
         initializeDialogCloseEvent() {
@@ -619,51 +591,6 @@ const dialogManager = {
         setSubmitState(messageElement, submitButton, isSubmitting) {
             messageElement.textContent = isSubmitting ? 'Validating taxa...' : '';
             submitButton.disabled = isSubmitting;
-        },
-
-        clearAllFilters() {
-            state.setSelectedTags([]);
-            state.setSelectedRanges([]);
-            state.setSelectedLevel('');
-            state.setSearchTerm('');
-
-            // Reset the level dropdown
-            const levelDropdown = document.getElementById('level-filter-dropdown');
-            if (levelDropdown) {
-                levelDropdown.value = '';
-            }
-
-            // Clear tags, ranges
-            tagCloud.clearAllTags();
-            rangeSelector.setSelectedRanges([]);
-
-            // Clear search input
-            mainEventHandler.resetSearch();
-
-            // Update the UI
-            ui.updateTaxonPairList();
-            ui.updateFilterSummary();
-
-            // Optionally, you can add a notification here
-            ui.showPopupNotification('All filters cleared');
-        },
-
-        handleSelectSetDone() {
-            const levelDropdown = document.getElementById('level-filter-dropdown');
-            const selectedLevel = levelDropdown.value;
-            const searchTerm = state.getSearchTerm();
-
-            gameLogic.applyFilters({
-                level: selectedLevel,
-                ranges: state.getSelectedRanges(),
-                tags: state.getSelectedTags(),
-                searchTerm: searchTerm
-            });
-
-            setManager.refreshSubset();
-            ui.showTaxonPairList();
-
-            dialogManager.core.closeDialog('select-set-dialog');
         },
     },
 
