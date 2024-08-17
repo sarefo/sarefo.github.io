@@ -1,4 +1,5 @@
 import api from './api.js';
+import collectionManager from './collectionManager.js';
 import config from './config.js';
 import dialogManager from './dialogManager.js';
 import game from './game.js';
@@ -244,7 +245,7 @@ const gameSetup = {
         updateUIAfterSetup(newPair) {
             ui.updateLevelIndicator(state.getCurrentTaxonImageCollection().pair.level);
             if (gameSetup.initialization.filtersWereCleared()) {
-                gameSetup.initialization.updateUIForClearedFilters();
+                collectionManager.updateUIForClearedFilters();
             }
             gameSetup.initialization.finishSetup(newPair);
         },
@@ -255,10 +256,7 @@ const gameSetup = {
                    state.getSelectedLevel() === '';
         },
 
-        updateUIForClearedFilters() {
-            ui.updateFilterSummary();
-            ui.updateLevelDropdown();
-        },
+
 
         async finishSetup(newPair) {
             gameUI.setNamePairHeight();

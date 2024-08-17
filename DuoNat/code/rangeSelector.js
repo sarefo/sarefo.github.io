@@ -47,17 +47,17 @@ const rangeSelector = {
 
             const filteredPairs = gameLogic.filterTaxonPairs(taxonSets, filters);
 
-            ui.updateTaxonPairList(filteredPairs);
+            collectionManager.updateTaxonPairList(filteredPairs);
         } catch (error) {
             logger.error("Error updating taxon list:", error);
-            ui.updateTaxonPairList([]);
+            collectionManager.updateTaxonPairList([]);
         }
     },
 
     closeRangeDialog() {
         dialogManager.closeDialog('range-dialog');
         this.updateTaxonList();
-        ui.updateFilterSummary();
+        collectionManager.updateFilterSummary();
     },
 
     getSelectedRanges() {
@@ -67,7 +67,7 @@ const rangeSelector = {
     setSelectedRanges(ranges) {
         this.selectedContinents = new Set(ranges.map(abbr => worldMap.getFullContinentName(abbr)));
         this.initializeWorldMap();
-        ui.updateFilterSummary();
+        collectionManager.updateFilterSummary();
     },
 
     openRangeDialog() {

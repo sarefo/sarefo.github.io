@@ -1,3 +1,4 @@
+import collectionManager from './collectionManager.js';
 import config from './config.js';
 import dialogManager from './dialogManager.js';
 import mainEventHandler from './mainEventHandler.js';
@@ -69,7 +70,7 @@ const initializeApp = () => {
     initializeLogger();
     handleUrlParameters();
     initializeComponents();
-    ui.updateLevelDropdown();
+    collectionManager.updateLevelDropdown();
     gameSetup.setupGame(true, utils.url.getURLParameters());
     logger.info("App initialization complete");
 };

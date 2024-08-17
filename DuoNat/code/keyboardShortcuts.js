@@ -1,3 +1,4 @@
+import collectionManager from './collectionManager.js';
 import dialogManager from './dialogManager.js';
 import game from './game.js';
 import gameLogic from './gameLogic.js';
@@ -33,7 +34,8 @@ const keyboardShortcuts = {
             'arrowleft': this.handleArrowLeft.bind(this),
             'arrowup': () => this.moveTileToDropZone('left', 'upper'),
             'arrowdown': () => this.moveTileToDropZone('left', 'lower'),
-            'c': ui.showTaxonPairList,
+//            'c': ui.showTaxonPairList,
+            'c': collectionManager.openCollectionManagerDialog,
             'e': () => dialogManager.openDialog('enter-set-dialog'),
             'i': () => game.showInfoDialog(currentObservationURLs.imageOne, 1),
             'o': () => game.showInfoDialog(currentObservationURLs.imageTwo, 2),

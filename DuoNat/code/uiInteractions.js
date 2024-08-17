@@ -1,3 +1,4 @@
+import collectionManager from './collectionManager.js';
 import dialogManager from './dialogManager.js';
 import gameLogic from './gameLogic.js';
 import logger from './logger.js';
@@ -30,7 +31,7 @@ const uiInteractions = {
     addMenuButtonListeners() {
         const menuActions = {
             'phylogeny-button': taxaRelationshipViewer.showTaxaRelationship,
-            'select-set-button': ui.showTaxonPairList,
+            'select-set-button': collectionManager.openCollectionManagerDialog,
             'enter-set-button': () => dialogManager.openDialog('enter-set-dialog'),
             'random-pair-button': gameLogic.loadNewRandomPair,
             'like-button': this.likePair.bind(this),
@@ -68,7 +69,7 @@ const uiInteractions = {
     },
 
     handleLevelIndicatorClick() {
-        ui.showTaxonPairList();
+        collectionManager.openCollectionManagerDialog();
     },
 
     initializeLongPressHandler() {

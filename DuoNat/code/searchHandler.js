@@ -1,4 +1,5 @@
 import api from './api.js';
+import collectionManager from './collectionManager.js';
 import dialogManager from './dialogManager.js';
 import gameLogic from './gameLogic.js';
 import logger from './logger.js';
@@ -96,8 +97,8 @@ const searchHandler = {
     },
 
     updateUI(filteredPairs) {
-        ui.updateTaxonPairList(filteredPairs);
-        ui.updateActiveCollectionCount(filteredPairs.length);
+        collectionManager.updateTaxonPairList(filteredPairs);
+        collectionManager.updateActiveCollectionCount(filteredPairs.length);
     },
 
     handleSearchInputFocus(searchInput) {

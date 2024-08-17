@@ -65,7 +65,7 @@ const tagCloud = {
             const newSelectedTags = Array.from(tagCloud.selectedTags);
             state.updateGameStateMultiple({ selectedTags: newSelectedTags });
             await tagCloud.dataManager.updateFilteredPairs();
-            ui.updateFilterSummary();
+            collectionManager.updateFilterSummary();
             tagCloud.uiManager.updateMatchingPairsCount();
             
             tagCloud.updateTagCloud();
@@ -78,7 +78,7 @@ const tagCloud = {
         async setSelectedTags(tags) {
             tagCloud.selectedTags = new Set(tags);
             state.updateGameStateMultiple({ selectedTags: tagCloud.tagSelection.getSelectedTags() });
-            ui.updateFilterSummary();
+            collectionManager.updateFilterSummary();
             await tagCloud.dataManager.updateFilteredPairs();
 //            logger.debug("Setting selected tags");
             // Trigger preloading of a new pair based on the selected tags
@@ -88,7 +88,7 @@ const tagCloud = {
         async clearAllTags() {
             tagCloud.selectedTags.clear();
             state.updateGameStateMultiple({ selectedTags: [] });
-            ui.updateFilterSummary();
+            collectionManager.updateFilterSummary();
             await tagCloud.dataManager.updateFilteredPairs();
 
             // Trigger preloading of a random pair from all available pairs
@@ -125,11 +125,6 @@ const tagCloud = {
             tagElement.className = 'tag-cloud-item';
             tagElement.style.fontSize = `${size}px`;
             
-            // Prevent text selection
-     //       tagElement.style.userSelect = 'none';
-     //       tagElement.style.webkitUserSelect = 'none';
-     //       tagElement.style.msUserSelect = 'none';
-
             if (count === 1) {
                 tagElement.classList.add('tag-cloud-item--single');
             }
@@ -185,8 +180,8 @@ const tagCloud = {
 
             tagCloud.filteredPairs = gameLogic.filterTaxonPairs(taxonPairs, filters);
 
-            await ui.renderTaxonPairList(tagCloud.filteredPairs);
-            ui.updateActiveCollectionCount(tagCloud.filteredPairs.length);
+            await collectionManager.renderTaxonPairList(tagCloud.filteredPairs);
+            collectionManager.updateActiveCollectionCount(tagCloud.filteredPairs.length);
             tagCloud.uiManager.updateMatchingPairsCount();
         },
 
@@ -258,7 +253,7 @@ const tagCloud = {
         tagCloud.updateTaxonList();
         preloader.pairPreloader.preloadNewPairWithTags(state.getSelectedTags(), state.getSelectedLevel());
         dialogManager.closeDialog('tag-cloud-dialog', true);
-        ui.updateFilterSummary();
+        collectionManager.updateFilterSummary();
     },*/
 };
 
