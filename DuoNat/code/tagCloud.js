@@ -227,13 +227,15 @@ const tagCloud = {
 
     async updateTaxonList() {
         const selectedTags = this.tagSelection.getSelectedTags();
-        const selectedLevel = document.getElementById('level-filter-dropdown').value;
+        const selectedLevel = state.getSelectedLevel();
+        const selectedRanges = state.getSelectedRanges();
         const searchTerm = state.getSearchTerm();
 
         // Update gameState
         state.updateGameStateMultiple({
             selectedTags: selectedTags,
             selectedLevel: selectedLevel,
+            selectedRanges: selectedRanges,
             searchTerm: searchTerm
         });
 
@@ -259,6 +261,7 @@ const publicAPI = {
     closeTagCloud: tagCloud.closeTagCloud,
     setSelectedTags: tagCloud.tagSelection.setSelectedTags,
     clearAllTags: tagCloud.tagSelection.clearAllTags,
+    updateTaxonList: tagCloud.updateTaxonList, // move to coll.manager
 };
 
 export default publicAPI;

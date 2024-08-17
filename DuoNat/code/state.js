@@ -105,7 +105,7 @@ function updateGameState(key, value) {
   if (gameState.hasOwnProperty(key)) {
     const oldValue = gameState[key];
     gameState[key] = value;
-    logger.debug(`State updated: ${key}`, { oldValue, newValue: value });
+//    logger.debug(`State updated: ${key}`, { oldValue, newValue: value });
   } else {
     logger.warn(`Attempted to update non-existent gameState property: ${key}`);
   }

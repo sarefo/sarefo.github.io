@@ -47,10 +47,14 @@ const collectionManager = {
 
     openCollectionManagerDialog() {
         dialogManager.openDialog('select-set-dialog');
+        this.updateCollectionManager();
+        mainEventHandler.resetSearch();
+        mainEventHandler.resetScrollPosition();
+    },
+
+    updateCollectionManager() {
+        tagCloud.updateTaxonList();
         ui.updateFilterSummary();
-        // Reset search and scroll position
-         mainEventHandler.resetSearch();
-         mainEventHandler.resetScrollPosition();
     },
 
     setupSelectSetDialog: function() {
@@ -80,14 +84,22 @@ const collectionManager = {
 
         mainEventHandler.resetSearch();
 
-        ui.updateTaxonPairList();
-        ui.updateFilterSummary();
-
+        this.updateFilteredList(); // Add this line
     },
 
     handleSelectSetDone() {
+        this.updateCollectionManager();
+        setManager.refreshSubset();
+        dialogManager.closeDialog('select-set-dialog');
+
+        setTimeout(() => {
+            gameSetup.setupGame(true);
+        }, 100);
+    },
+
+    /*handleSelectSetDone() {
         const levelDropdown = document.getElementById('level-filter-dropdown');
-        const selectedLevel = levelDropdown ? levelDropdown.value : 'No level dropdown found';
+        const selectedLevel = levelDropdown ? levelDropdown.value : '';
         const searchTerm = state.getSearchTerm();
 
         gameLogic.applyFilters({
@@ -99,16 +111,34 @@ const collectionManager = {
 
         setManager.refreshSubset();
 
-        // Remove this line for now as it might be causing the reload
-        // ui.showTaxonPairList();
-
         dialogManager.closeDialog('select-set-dialog');
 
-        // Add a small delay before setting up the game
         setTimeout(() => {
             gameSetup.setupGame(true);
         }, 100);
-    }
+    },*/
+
+    updateFilteredList() {
+        const filteredSets = gameLogic.getFilteredTaxonSets();
+        ui.updateTaxonSetList(filteredSets);
+        ui.updateFilterSummary();
+    },
+
+    async onFiltersChanged() {
+        try {
+            const taxonPairs = await api.taxonomy.fetchTaxonPairs();
+            const filters = {
+                level: state.getSelectedLevel(),
+                ranges: state.getSelectedRanges(),
+                tags: state.getSelectedTags(),
+                searchTerm: state.getSearchTerm()
+            };
+            const filteredPairs = gameLogic.filterTaxonPairs(taxonPairs, filters);
+            ui.updateTaxonPairList(filteredPairs);
+        } catch (error) {
+            logger.error("Error in onFiltersChanged:", error);
+        }
+    },
 
 };
 

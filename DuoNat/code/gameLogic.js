@@ -1,4 +1,5 @@
 import api from './api.js';
+import collectionManager from './config.js';
 import config from './config.js';
 import game from './game.js'; // TODO move loadingMessage to config, then remove
 import gameSetup from './gameSetup.js';
@@ -204,6 +205,9 @@ const gameLogic = {
                 preloader.pairPreloader.preloadForNextPair();
             }
             ui.updateFilterSummary();
+            
+            // Add this line to update the collection manager
+            collectionManager.onFiltersChanged();
         },
     },
     
