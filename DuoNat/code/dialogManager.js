@@ -770,7 +770,6 @@ const publicAPI = {
     closeAllDialogs: dialogManager.core.closeAllDialogs,
     showINatDownDialog: dialogManager.specialDialogs.showINatDownDialog,
     hideINatDownDialog: dialogManager.specialDialogs.hideINatDownDialog,
-    clearAllFilters: dialogManager.handlers.clearAllFilters
 };
 
 export default publicAPI;

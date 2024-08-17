@@ -1,3 +1,4 @@
+import api from './api.js';
 import dialogManager from './dialogManager.js';
 import gameLogic from './gameLogic.js';
 import gameSetup from './gameSetup.js';
@@ -45,15 +46,44 @@ const collectionManager = {
         }
     },
 
-    openCollectionManagerDialog() {
+    async updateTaxonList() {
+        const selectedTags = state.getSelectedTags();
+        const selectedLevel = state.getSelectedLevel();
+        const selectedRanges = state.getSelectedRanges();
+        const searchTerm = state.getSearchTerm();
+
+        try {
+            const taxonPairs = await api.taxonomy.fetchTaxonPairs();
+            const filters = {
+                level: selectedLevel,
+                ranges: selectedRanges,
+                tags: selectedTags,
+                searchTerm: searchTerm
+            };
+            const filteredPairs = gameLogic.filterTaxonPairs(taxonPairs, filters);
+            ui.updateTaxonPairList(filteredPairs);
+            ui.updateFilterSummary();
+        } catch (error) {
+            logger.error("Error in updateTaxonList:", error);
+        }
+    },
+
+    /*openCollectionManagerDialog() {
         dialogManager.openDialog('select-set-dialog');
         this.updateCollectionManager();
+        mainEventHandler.resetSearch();
+        mainEventHandler.resetScrollPosition();
+    },*/
+
+    openCollectionManagerDialog() {
+        dialogManager.openDialog('select-set-dialog');
+        this.updateTaxonList();
         mainEventHandler.resetSearch();
         mainEventHandler.resetScrollPosition();
     },
 
     updateCollectionManager() {
-        tagCloud.updateTaxonList();
+        this.updateTaxonList();
         ui.updateFilterSummary();
     },
 
@@ -87,8 +117,9 @@ const collectionManager = {
         this.updateFilteredList(); // Add this line
     },
 
+
     handleSelectSetDone() {
-        this.updateCollectionManager();
+        this.updateTaxonList();
         setManager.refreshSubset();
         dialogManager.closeDialog('select-set-dialog');
 

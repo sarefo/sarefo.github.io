@@ -1,4 +1,5 @@
 import api from './api.js';
+import collectionManager from './collectionManager.js';
 import dialogManager from './dialogManager.js';
 import gameLogic from './gameLogic.js';
 import preloader from './preloader.js';
@@ -28,10 +29,10 @@ const tagCloud = {
 
             // TODO not sure this should be in tagCloud.js
             const clearAllFiltersButton = document.getElementById('clear-all-filters');
-            clearAllFiltersButton.addEventListener('click', () => dialogManager.clearAllFilters());
+            clearAllFiltersButton.addEventListener('click', () => collectionManager.clearAllFilters());
 
             const levelDropdown = document.getElementById('level-filter-dropdown');
-            levelDropdown.addEventListener('change', () => tagCloud.updateTaxonList());
+            levelDropdown.addEventListener('change', () => collectionManager.updateTaxonList());
 
             // Initialize filteredPairs
             await tagCloud.dataManager.updateFilteredPairs();
@@ -225,7 +226,7 @@ const tagCloud = {
         dialogManager.openDialog('tag-cloud-dialog');
     },
 
-    async updateTaxonList() {
+    /*async updateTaxonList() {
         const selectedTags = this.tagSelection.getSelectedTags();
         const selectedLevel = state.getSelectedLevel();
         const selectedRanges = state.getSelectedRanges();
@@ -240,7 +241,7 @@ const tagCloud = {
         });
 
         await this.dataManager.updateFilteredPairs();
-    },
+    },*/
 
     async updateTagCloud() {
         const tagCounts = await this.dataManager.getTagCounts();
@@ -249,11 +250,16 @@ const tagCloud = {
     },
 
     closeTagCloud() {
+        collectionManager.updateTaxonList();
+        dialogManager.closeDialog('tag-cloud-dialog', true);
+    },
+
+  /*closeTagCloud() {
         tagCloud.updateTaxonList();
         preloader.pairPreloader.preloadNewPairWithTags(state.getSelectedTags(), state.getSelectedLevel());
         dialogManager.closeDialog('tag-cloud-dialog', true);
         ui.updateFilterSummary();
-    },
+    },*/
 };
 
 const publicAPI = {
@@ -261,7 +267,6 @@ const publicAPI = {
     closeTagCloud: tagCloud.closeTagCloud,
     setSelectedTags: tagCloud.tagSelection.setSelectedTags,
     clearAllTags: tagCloud.tagSelection.clearAllTags,
-    updateTaxonList: tagCloud.updateTaxonList, // move to coll.manager
 };
 
 export default publicAPI;

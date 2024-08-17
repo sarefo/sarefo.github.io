@@ -206,8 +206,23 @@ const gameLogic = {
             }
             ui.updateFilterSummary();
             
-            // Add this line to update the collection manager
-            collectionManager.onFiltersChanged();
+            //collectionManager.onFiltersChanged();
+            collectionManager.updateTaxonList();
+        },
+
+        getFilteredTaxonSets() {
+            // Implement the logic to get the filtered taxon sets based on current filters
+            const allSets = setManager.getAllSets();
+            const { level, ranges, tags, searchTerm } = state.getFilters();
+
+            return allSets.filter(set => {
+                const matchesLevel = !level || set.level === level;
+                const matchesRanges = ranges.length === 0 || ranges.some(range => set.range.includes(range));
+                const matchesTags = tags.length === 0 || tags.every(tag => set.tags.includes(tag));
+                const matchesSearch = !searchTerm || set.setName.toLowerCase().includes(searchTerm.toLowerCase());
+
+                return matchesLevel && matchesRanges && matchesTags && matchesSearch;
+            });
         },
     },
     
