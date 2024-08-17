@@ -212,23 +212,6 @@ const tagCloud = {
         dialogManager.openDialog('tag-cloud-dialog');
     },
 
-    /*async updateTaxonList() {
-        const selectedTags = this.tagSelection.getSelectedTags();
-        const selectedLevel = state.getSelectedLevel();
-        const selectedRanges = state.getSelectedRanges();
-        const searchTerm = state.getSearchTerm();
-
-        // Update gameState
-        state.updateGameStateMultiple({
-            selectedTags: selectedTags,
-            selectedLevel: selectedLevel,
-            selectedRanges: selectedRanges,
-            searchTerm: searchTerm
-        });
-
-        await this.dataManager.updateFilteredPairs();
-    },*/
-
     async updateTagCloud() {
         const tagCounts = await this.dataManager.getTagCounts();
         this.uiManager.renderTagCloud(tagCounts);

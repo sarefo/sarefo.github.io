@@ -32,7 +32,7 @@ const rangeSelector = {
         state.setSelectedRanges(this.getSelectedRanges());
     },
 
-    async updateTaxonList() {
+    /*async updateTaxonList() {
         const selectedAbbreviations = Array.from(this.selectedContinents).map(fullName => worldMap.getContinentAbbreviation(fullName));
 
         state.updateGameStateMultiple({ selectedRanges: selectedAbbreviations });
@@ -53,11 +53,11 @@ const rangeSelector = {
             logger.error("Error updating taxon list:", error);
             collectionManager.updateTaxonPairList([]);
         }
-    },
+    },*/
 
     closeRangeDialog() {
         dialogManager.closeDialog('range-dialog');
-        this.updateTaxonList();
+        collectionManager.updateTaxonList();
         collectionManager.updateFilterSummary();
     },
 

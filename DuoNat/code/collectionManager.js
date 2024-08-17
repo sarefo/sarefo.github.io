@@ -85,40 +85,25 @@ const collectionManager = {
     },
 
     taxonList: {
+
         async updateTaxonList() {
             const filters = filtering.getActiveFilters();
 
             try {
                 const taxonPairs = await api.taxonomy.fetchTaxonPairs();
                 const filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
-                this.updateTaxonPairList(filteredPairs);
+                
+                // Update UI
+                await collectionManager.taxonList.renderTaxonPairList(filteredPairs);
+                collectionManager.ui.updateActiveCollectionCount(filteredPairs.length);
                 collectionManager.ui.updateFilterSummary();
+                
+                return filteredPairs;
             } catch (error) {
                 logger.error("Error in updateTaxonList:", error);
+                return [];
             }
         },
-
-    /*async updateTaxonList() {
-        const selectedTags = state.getSelectedTags();
-        const selectedLevel = state.getSelectedLevel();
-        const selectedRanges = state.getSelectedRanges();
-        const searchTerm = state.getSearchTerm();
-
-        try {
-            const taxonPairs = await api.taxonomy.fetchTaxonPairs();
-            const filters = {
-                level: selectedLevel,
-                ranges: selectedRanges,
-                tags: selectedTags,
-                searchTerm: searchTerm
-            };
-            const filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
-            collectionManager.updateTaxonPairList(filteredPairs);
-            collectionManager.updateFilterSummary();
-        } catch (error) {
-            logger.error("Error in updateTaxonList:", error);
-        }
-    },*/
 
         async renderTaxonPairList(pairs) {
             const list = document.getElementById('taxon-set-list');
