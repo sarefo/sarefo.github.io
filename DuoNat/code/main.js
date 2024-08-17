@@ -20,14 +20,15 @@ const handleUrlParameters = () => {
     handleRangesParameter(urlParams);
     handleTagsParameter(urlParams);
     handleSetIDParameter(urlParams);
-    updateLevelBasedOnParams(urlParams);
+//    updateLevelBasedOnParams(urlParams);
 };
 
 const handleLevelParameter = (urlParams) => {
     if (urlParams.level) {
-        state.updateGameStateMultiple({ selectedLevel: urlParams.level === 'all' ? '' : urlParams.level });
+        const level = urlParams.level === 'all' ? '' : urlParams.level;
+        state.updateGameStateMultiple({ selectedLevel: level });
         logger.debug("Skill level from URL:", urlParams.level);
-    } else {
+    } else if (!state.getSelectedLevel()) {
         state.updateGameStateMultiple({ selectedLevel: '1' });
     }
 };
@@ -36,9 +37,7 @@ const handleRangesParameter = (urlParams) => {
     if (urlParams.ranges) {
         const ranges = urlParams.ranges.split(',');
         state.updateGameStateMultiple({ selectedRanges: ranges });
-        rangeSelector.setSelectedRanges(ranges);
         logger.debug("Ranges from URL:", ranges);
-        urlParams.level = '';
     }
 };
 
@@ -47,7 +46,6 @@ const handleTagsParameter = (urlParams) => {
         const tags = urlParams.tags.split(',');
         tagCloud.setSelectedTags(tags);
         logger.debug("Tags from URL:", tags);
-        urlParams.level = '';
     }
 };
 
@@ -55,15 +53,7 @@ const handleSetIDParameter = (urlParams) => {
     if (urlParams.setID) {
         state.updateGameStateMultiple({ currentSetID: urlParams.setID });
         logger.debug("Set ID from URL:", urlParams.setID);
-        urlParams.level = '';
     }
-};
-
-const updateLevelBasedOnParams = (urlParams) => {
-    if (urlParams.level || urlParams.ranges || urlParams.tags || urlParams.setID) {
-        state.updateGameStateMultiple({ selectedLevel: urlParams.level });
-    }
-    ui.updateLevelDropdown();
 };
 
 const initializeComponents = () => {
@@ -79,6 +69,7 @@ const initializeApp = () => {
     initializeLogger();
     handleUrlParameters();
     initializeComponents();
+    ui.updateLevelDropdown();
     gameSetup.setupGame(true, utils.url.getURLParameters());
     logger.info("App initialization complete");
 };

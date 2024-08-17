@@ -79,7 +79,7 @@ const tagCloud = {
             state.updateGameStateMultiple({ selectedTags: tagCloud.tagSelection.getSelectedTags() });
             ui.updateFilterSummary();
             await tagCloud.dataManager.updateFilteredPairs();
-            logger.debug("Setting selected tags");
+//            logger.debug("Setting selected tags");
             // Trigger preloading of a new pair based on the selected tags
             preloader.pairPreloader.preloadNewPairWithTags(tagCloud.tagSelection.getSelectedTags(), state.getSelectedLevel(), state.getSelectedRanges() || []);
         },

@@ -1,3 +1,4 @@
+import logger from './logger.js';
 // DOM elements
 const elements = {
   imageOne: document.getElementById('image-1'),
@@ -100,8 +101,14 @@ let gameState = {
 };
 
 // Private functions
-function updateGameState(newState) {
-  Object.assign(gameState, newState);
+function updateGameState(key, value) {
+  if (gameState.hasOwnProperty(key)) {
+    const oldValue = gameState[key];
+    gameState[key] = value;
+    logger.debug(`State updated: ${key}`, { oldValue, newValue: value });
+  } else {
+    logger.warn(`Attempted to update non-existent gameState property: ${key}`);
+  }
 }
 
 
@@ -152,7 +159,7 @@ const publicAPI = {
   // Elements
   getElement: (elementName) => elements[elementName],
   
-  // Specific state getters and setters
+  // GameState (IDLE/PLAYING/…)
   getState: () => gameState.currentState,
   setState: (state) => {
     if (GameState.hasOwnProperty(state)) {
@@ -165,7 +172,7 @@ const publicAPI = {
   // Next Selected Pair
   getNextSelectedPair: () => gameState.nextSelectedPair,
   setNextSelectedPair: (pair) => {
-    gameState.nextSelectedPair = pair;
+    updateGameState('nextSelectedPair', pair);
   },
 
     getObservationURLs: () => ({ ...gameState.currentObservationURLs }),
@@ -180,28 +187,27 @@ const publicAPI = {
         return null;
       }
     },
-
     setObservationURL: (url, index) => {
-      if (index === 1) {
-        gameState.currentObservationURLs.imageOne = url;
-      } else if (index === 2) {
-        gameState.currentObservationURLs.imageTwo = url;
+      if (index === 1 || index === 2) {
+        updateGameState('currentObservationURLs', {
+          ...gameState.currentObservationURLs,
+          [`image${index}`]: url
+        });
       } else {
         console.error(`Invalid index for setObservationURL: ${index}`);
       }
     },
 
-
   // Preloaded Pair
   getPreloadedPair: () => gameState.preloadedPair,
   setPreloadedPair: (pair) => {
-    gameState.preloadedPair = pair;
+    updateGameState('preloadedPair', pair);
   },
 
   // Preloaded Images
   getPreloadedImages: () => ({ ...gameState.preloadedImages }),
   setPreloadedImages: (images) => {
-    gameState.preloadedImages = { ...images };
+    updateGameState('preloadedImages', { ...images });
   },
 
   // Shown Hints
@@ -221,94 +227,94 @@ const publicAPI = {
 
   getSearchTerm: () => gameState.searchTerm,
   setSearchTerm: (searchTerm) => {
-    gameState.searchTerm = searchTerm;
+    updateGameState('searchTerm', searchTerm);
   },
 
   getCurrentSetID: () => gameState.currentSetID,
   setCurrentSetID: (id) => {
-    gameState.currentSetID = id;
-  }, 
+    updateGameState('currentSetID', id);
+  },
 
   getSelectedTags: () => [...gameState.selectedTags],
   setSelectedTags: (tags) => {
     if (Array.isArray(tags)) {
-      gameState.selectedTags = [...tags];
+      updateGameState('selectedTags', [...tags]);
     } else {
-      console.error('Selected tags must be an array');
+      logger.error('Selected tags must be an array');
     }
   },
   
   getSelectedLevel: () => gameState.selectedLevel,
   setSelectedLevel: (level) => {
     if (typeof level === 'string') {
-      gameState.selectedLevel = level;
+      updateGameState('selectedLevel', level);
     } else {
-      console.error('Selected level must be a string');
+      logger.error('Selected level must be a string');
     }
   },
-  
+
   getSelectedRanges: () => [...gameState.selectedRanges],
   setSelectedRanges: (ranges) => {
     if (Array.isArray(ranges)) {
-      gameState.selectedRanges = [...ranges];
+      updateGameState('selectedRanges', [...ranges]);
     } else {
-      console.error('Selected ranges must be an array');
+      logger.error('Selected ranges must be an array');
     }
   },
   
   getCurrentRound: () => ({ ...gameState.currentRound }),
   setCurrentRound: (round) => {
     if (typeof round === 'object' && round !== null) {
-      gameState.currentRound = { ...round };
+      updateGameState('currentRound', { ...round });
     } else {
-      console.error('Current round must be an object');
+      logger.error('Current round must be an object');
     }
   },
   
   getCurrentTaxonImageCollection: () => gameState.currentTaxonImageCollection ? { ...gameState.currentTaxonImageCollection } : null,
   setCurrentTaxonImageCollection: (collection) => {
     if (typeof collection === 'object' && collection !== null) {
-      gameState.currentTaxonImageCollection = { ...collection };
+      updateGameState('currentTaxonImageCollection', { ...collection });
     } else {
-      console.error('Current taxon image collection must be an object');
+      logger.error('Current taxon image collection must be an object');
     }
   },
 
   getTaxonImageOne: () => gameState.taxonImageOne,
   setTaxonImageOne: (taxon) => {
-    gameState.taxonImageOne = taxon;
+    updateGameState('taxonImageOne', taxon);
   },
 
   getTaxonImageTwo: () => gameState.taxonImageTwo,
   setTaxonImageTwo: (taxon) => {
-    gameState.taxonImageTwo = taxon;
+    updateGameState('taxonImageTwo', taxon);
   },
 
   getTaxonLeftName: () => gameState.taxonLeftName,
   setTaxonLeftName: (name) => {
-    gameState.taxonLeftName = name;
+    updateGameState('taxonLeftName', name);
   },
 
   getTaxonRightName: () => gameState.taxonRightName,
   setTaxonRightName: (name) => {
-    gameState.taxonRightName = name;
+    updateGameState('taxonRightName', name);
   },
 
   getIsFirstLoad: () => gameState.isFirstLoad,
   setIsFirstLoad: (value) => {
     if (typeof value === 'boolean') {
-      gameState.isFirstLoad = value;
+      updateGameState('isFirstLoad', value);
     } else {
-      console.error('isFirstLoad must be a boolean');
+      logger.error('isFirstLoad must be a boolean');
     }
   },
 
   getIsInitialLoad: () => gameState.isInitialLoad,
   setIsInitialLoad: (value) => {
     if (typeof value === 'boolean') {
-      gameState.isInitialLoad = value;
+      updateGameState('isInitialLoad', value);
     } else {
-      console.error('isInitialLoad must be a boolean');
+      logger.error('isInitialLoad must be a boolean');
     }
   },
 
@@ -333,9 +339,9 @@ const publicAPI = {
   updateGameStateMultiple: (updates) => {
     Object.entries(updates).forEach(([key, value]) => {
       if (gameState.hasOwnProperty(key)) {
-        gameState[key] = value;
+        updateGameState(key, value);
       } else {
-        console.warn(`Attempted to update non-existent gameState property: ${key}`);
+        logger.warn(`Attempted to update non-existent gameState property: ${key}`);
       }
     });
   },
