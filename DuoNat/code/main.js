@@ -61,6 +61,7 @@ const initializeComponents = () => {
     dialogManager.initialize();
     mainEventHandler.initialize();
     ui.initialize();
+    collectionManager.initialize();
     tagCloud.initialize();
     rangeSelector.initialize();
 };

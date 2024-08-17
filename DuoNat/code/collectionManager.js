@@ -30,6 +30,7 @@ const collectionManager = {
             this.initializeFilterSummaryMap();
             this.initializeClearFiltersButton();
             this.initializeSelectSetDoneButton();
+            this.initializeLevelDropdown();
         },
 
         initializeSelectSetDialog() {
@@ -69,6 +70,16 @@ const collectionManager = {
                 });
             } else {
                 logger.error('Play button not found in select-set-dialog');
+            }
+        },
+
+        initializeLevelDropdown() {
+            const levelDropdown = document.getElementById('level-filter-dropdown');
+            if (levelDropdown) {
+                levelDropdown.addEventListener('change', (event) => {
+                    state.setSelectedLevel(event.target.value);
+                    collectionManager.taxonList.onFiltersChanged();
+                });
             }
         },
     },
@@ -269,12 +280,11 @@ const collectionManager = {
                     searchTerm: state.getSearchTerm()
                 };
                 const filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
-                collectionManager.updateTaxonPairList(filteredPairs);
+                collectionManager.taxonList.updateTaxonPairList(filteredPairs);
             } catch (error) {
                 logger.error("Error in onFiltersChanged:", error);
             }
         },
-
     },
 
     ui: {
@@ -328,14 +338,14 @@ const collectionManager = {
         },
 
         updateUIForClearedFilters() {
-            collectionManager.updateFilterSummary();
-            collectionManager.updateLevelDropdown();
+            collectionManager.ui.updateFilterSummary();
+            collectionManager.ui.updateLevelDropdown();
         },
 
         openCollectionManagerDialog() {
             dialogManager.openDialog('select-set-dialog');
             collectionManager.taxonList.updateTaxonList();
-            mainEventHandler.resetSearch();
+//            mainEventHandler.resetSearch();
             mainEventHandler.resetScrollPosition();
         },
 
@@ -378,6 +388,7 @@ const collectionManager = {
             dialogManager.closeDialog('select-set-dialog');
             setTimeout(() => gameSetup.setupGame(true), 300);
         },
+
     },
 };
 

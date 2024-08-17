@@ -3,6 +3,7 @@ import dialogManager from './dialogManager.js';
 import game from './game.js';
 import gameLogic from './gameLogic.js';
 import hintSystem from './hintSystem.js';
+import searchHandler from './searchHandler.js';
 import state from './state.js';
 import taxaRelationshipViewer from './taxaRelationshipViewer.js';
 import testingDialog from './testingDialog.js';

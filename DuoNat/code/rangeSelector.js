@@ -88,6 +88,15 @@ const rangeSelector = {
         // Close button functionality
         const closeButton = rangeDialog.querySelector('.dialog-close-button');
         closeButton.addEventListener('click', () => this.closeRangeDialog());
+
+        // Initialize the selected continents from the game state
+        this.syncWithGameState();
+    },
+
+    syncWithGameState() {
+        const selectedRanges = state.getSelectedRanges();
+        this.selectedContinents = new Set(selectedRanges.map(abbr => worldMap.getFullContinentName(abbr)));
+        this.initializeWorldMap();
     },
 
 };
