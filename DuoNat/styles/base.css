@@ -11,7 +11,7 @@
 :root {
     --primary-color: #74ac00; /* iNat green rgb(116, 172, 0) */
     --primary-counter-color: #ac0028; /* red rgb(172, 0, 40) */
-    --light-green: rgba(116, 172, 0, 0.1);
+    --light-green: rgba(116, 172, 0, 0.2);
     --dark-neutral-color: #444;
     --background-color: #ffffff;
     --text-color: #ffffff;
@@ -43,9 +43,9 @@ body {
     right: 0;
     bottom: 0;
 
-/*    box-sizing: border-box;*/
     font-family: 'Open Sans', Arial, sans-serif;
     background-color: var(--light-green);
+    --light-green: rgba(116, 172, 0, 0.2);
 }
 
 body * {
@@ -150,17 +150,3 @@ button {
     z-index: 1000;
 }
 
-/* for clean startup */
-/*svg.icon {
-    display: none;
-}
-
-body {
-    opacity: 0;
-    transition: opacity 0.3s ease-in;
-}
-
-body.loaded {
-    opacity: 1;
-}
-*/

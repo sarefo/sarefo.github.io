@@ -899,6 +899,7 @@ dialog[open] {
     display: none;
     padding: 20px;
     background-color: #f1f7e5;
+    background-color: #dfe9c8;
     border-radius: var(--border-radius);
     border-color: var(--primary-color);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
