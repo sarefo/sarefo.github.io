@@ -65,13 +65,13 @@ const hintSystem = {
         const imageContainer = document.getElementById(`image-container-${index}`);
         const hintOverlay = document.createElement('div');
         hintOverlay.className = 'hint-overlay';
-        hintOverlay.textContent = hint;
+        hintOverlay.innerHTML = hint;
         
         imageContainer.appendChild(hintOverlay);
         
         setTimeout(() => {
             hintOverlay.remove();
-        }, 3000);
+        }, 2000);
     },
 
     async updateHintButtonState(index) {
