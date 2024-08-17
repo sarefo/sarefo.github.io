@@ -1,6 +1,7 @@
 import api from './api.js';
 import collectionManager from './config.js';
 import config from './config.js';
+import filtering from './filtering.js';
 import game from './game.js'; // TODO move loadingMessage to config, then remove
 import gameSetup from './gameSetup.js';
 import gameUI from './gameUI.js';
@@ -128,7 +129,7 @@ const gameLogic = {
 
         selectRandomPairFromCurrentCollection: async function () {
             const taxonSets = await api.taxonomy.fetchTaxonPairs();
-            const filteredSets = gameLogic.filterHandling.filterTaxonPairs(taxonSets, {
+            const filteredSets = filtering.filterTaxonPairs(taxonSets, {
                 level: state.getSelectedLevel(),
                 ranges: state.getSelectedRanges(),
                 tags: state.getSelectedTags(),
@@ -169,44 +170,6 @@ const gameLogic = {
             } catch (error) {
                 logger.error(`Error loading set with ID ${setID}:`, error);
             }
-        },
-    },
-    
-    filterHandling: {
-        filterTaxonPairs: function (taxonPairs, filters) {
-            return taxonPairs.filter(pair => {
-                const matchesLevel = filters.level === '' || pair.level === filters.level;
-                const matchesRanges = !filters.ranges || filters.ranges.length === 0 ||
-                    (pair.range && pair.range.some(range => filters.ranges.includes(range)));
-                const matchesTags = filters.tags.length === 0 ||
-                    filters.tags.every(tag => pair.tags.includes(tag));
-                const matchesSearch = !filters.searchTerm || 
-                    pair.taxonNames.some(name => name.toLowerCase().includes(filters.searchTerm.toLowerCase())) ||
-                    pair.setName.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
-                    pair.tags.some(tag => tag.toLowerCase().includes(filters.searchTerm.toLowerCase()));
-
-                return matchesLevel && matchesRanges && matchesTags && matchesSearch;
-            });
-        },
-
-        applyFilters: function (newFilters) {
-            state.updateGameStateMultiple({
-                selectedLevel: newFilters.level ?? state.getSelectedLevel(),
-                selectedRanges: newFilters.ranges ?? state.getSelectedRanges(),
-                selectedTags: newFilters.tags ?? state.getSelectedTags(),
-                searchTerm: newFilters.searchTerm ?? state.getSearchTerm()
-            });
-
-            const currentPair = state.getCurrentTaxonImageCollection().pair;
-            if (!gameLogic.pairManagement.isPairValidForCurrentFilters(currentPair)) {
-                gameLogic.pairManagement.loadNewRandomPair();
-            } else {
-                preloader.pairPreloader.preloadForNextPair();
-            }
-            collectionManager.updateFilterSummary();
-            
-            //collectionManager.onFiltersChanged();
-            collectionManager.updateTaxonList();
         },
     },
     
@@ -265,10 +228,6 @@ const publicAPI = {
     loadSetByID: gameLogic.pairManagement.loadSetByID,
     // Game
     checkAnswer: gameLogic.answerHandling.checkAnswer,
-    // Filters
-    // this function is very popular for some reason… too popular ;)
-    filterTaxonPairs: gameLogic.filterHandling.filterTaxonPairs,
-    applyFilters: gameLogic.filterHandling.applyFilters,
     // Misc 
     getCurrentTaxon: gameLogic.taxonHandling.getCurrentTaxon,
 };

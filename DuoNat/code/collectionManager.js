@@ -1,6 +1,7 @@
 import api from './api.js';
 import config from './config.js';
 import dialogManager from './dialogManager.js';
+import filtering from './filtering.js';
 import gameLogic from './gameLogic.js';
 import gameSetup from './gameSetup.js';
 import logger from './logger.js';
@@ -48,7 +49,7 @@ const collectionManager = {
         initializeClearFiltersButton() {
             const clearFiltersButton = document.getElementById('clear-all-filters');
             if (clearFiltersButton) {
-                clearFiltersButton.addEventListener('click', collectionManager.filters.clearAllFilters);
+                clearFiltersButton.addEventListener('click', filtering.clearAllFilters);
             }
         },
 
@@ -72,48 +73,13 @@ const collectionManager = {
         },
     },
 
-    filters: {
-        clearAllFilters() {
-            state.setSelectedTags([]);
-            state.setSelectedRanges([]);
-            state.setSelectedLevel('');
-            state.setSearchTerm('');
-
-            const levelDropdown = document.getElementById('level-filter-dropdown');
-            if (levelDropdown) {
-                levelDropdown.value = '';
-            }
-
-            tagCloud.clearAllTags();
-            rangeSelector.setSelectedRanges([]);
-
-            mainEventHandler.resetSearch();
-        },
-
-        getActiveFilters() {
-            return {
-                level: state.getSelectedLevel(),
-                ranges: state.getSelectedRanges(),
-                tags: state.getSelectedTags(),
-                searchTerm: state.getSearchTerm()
-            };
-        },
-
-        applyFilters(filters) {
-            state.setSelectedLevel(filters.level);
-            state.setSelectedRanges(filters.ranges);
-            state.setSelectedTags(filters.tags);
-            state.setSearchTerm(filters.searchTerm);
-        },
-    },
-
     taxonList: {
         async updateTaxonList() {
-            const filters = collectionManager.filters.getActiveFilters();
+            const filters = filtering.getActiveFilters();
 
             try {
                 const taxonPairs = await api.taxonomy.fetchTaxonPairs();
-                const filteredPairs = gameLogic.filterTaxonPairs(taxonPairs, filters);
+                const filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
                 this.updateTaxonPairList(filteredPairs);
                 collectionManager.ui.updateFilterSummary();
             } catch (error) {
@@ -135,7 +101,7 @@ const collectionManager = {
                 tags: selectedTags,
                 searchTerm: searchTerm
             };
-            const filteredPairs = gameLogic.filterTaxonPairs(taxonPairs, filters);
+            const filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
             collectionManager.updateTaxonPairList(filteredPairs);
             collectionManager.updateFilterSummary();
         } catch (error) {
@@ -302,7 +268,7 @@ const collectionManager = {
                     tags: state.getSelectedTags(),
                     searchTerm: state.getSearchTerm()
                 };
-                const filteredPairs = gameLogic.filterTaxonPairs(taxonPairs, filters);
+                const filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
                 collectionManager.updateTaxonPairList(filteredPairs);
             } catch (error) {
                 logger.error("Error in onFiltersChanged:", error);
@@ -427,7 +393,6 @@ const publicAPI = {
     renderTaxonPairList: collectionManager.taxonList.renderTaxonPairList.bind(collectionManager.taxonList),
     updateTaxonPairList: collectionManager.taxonList.updateTaxonPairList.bind(collectionManager.taxonList),
 
-    clearAllFilters: collectionManager.filters.clearAllFilters.bind(collectionManager.filters),
     updateFilterSummary: collectionManager.ui.updateFilterSummary.bind(collectionManager.ui),
     updateUIForClearedFilters: collectionManager.ui.updateUIForClearedFilters.bind(collectionManager.ui),
 

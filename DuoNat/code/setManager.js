@@ -1,4 +1,5 @@
 import api from './api.js';
+import filtering from './filtering.js';
 import gameLogic from './gameLogic.js';
 import logger from './logger.js';
 import state from './state.js';
@@ -22,7 +23,7 @@ const setManager = {
             ranges: state.getSelectedRanges(),
             tags: state.getSelectedTags()
         };
-        return gameLogic.filterTaxonPairs(sets, filters);
+        return filtering.filterTaxonPairs(sets, filters);
     },
 
     getRandomSubset(array, maxSize) {

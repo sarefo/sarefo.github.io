@@ -2,6 +2,7 @@ import api from './api.js';
 import collectionManager from './collectionManager.js';
 import config from './config.js';
 import dialogManager from './dialogManager.js';
+import filtering from './filtering.js';
 import game from './game.js';
 import hintSystem from './hintSystem.js';
 import logger from './logger.js';
@@ -69,7 +70,7 @@ const gameSetup = {
 
         async selectPairFromFilters(urlParams) {
             const filters = gameSetup.initialization.createFiltersFromUrlParams(urlParams);
-            const filteredPairs = await utils.game.getFilteredTaxonPairs(filters);
+            const filteredPairs = await filtering.getFilteredTaxonPairs(filters);
             return gameSetup.initialization.findOrSelectRandomPair(filteredPairs, urlParams);
         },
 

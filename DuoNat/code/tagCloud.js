@@ -1,6 +1,7 @@
 import api from './api.js';
 import collectionManager from './collectionManager.js';
 import dialogManager from './dialogManager.js';
+import filtering from './filtering.js';
 import gameLogic from './gameLogic.js';
 import preloader from './preloader.js';
 import state from './state.js';
@@ -29,7 +30,7 @@ const tagCloud = {
 
             // TODO not sure this should be in tagCloud.js
             const clearAllFiltersButton = document.getElementById('clear-all-filters');
-            clearAllFiltersButton.addEventListener('click', () => collectionManager.clearAllFilters());
+            clearAllFiltersButton.addEventListener('click', () => filtering.clearAllFilters());
 
             const levelDropdown = document.getElementById('level-filter-dropdown');
             levelDropdown.addEventListener('change', () => collectionManager.updateTaxonList());
@@ -157,7 +158,7 @@ const tagCloud = {
                 tags: Array.from(tagCloud.selectedTags) // Use the currently selected tags
             };
 
-            const filteredPairs = gameLogic.filterTaxonPairs(taxonPairs, filters);
+            const filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
 
             filteredPairs.forEach(pair => {
                 pair.tags.forEach(tag => {
@@ -178,21 +179,11 @@ const tagCloud = {
                 searchTerm: state.getSearchTerm()
             };
 
-            tagCloud.filteredPairs = gameLogic.filterTaxonPairs(taxonPairs, filters);
+            tagCloud.filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
 
             await collectionManager.renderTaxonPairList(tagCloud.filteredPairs);
             collectionManager.updateActiveCollectionCount(tagCloud.filteredPairs.length);
             tagCloud.uiManager.updateMatchingPairsCount();
-        },
-
-        filterTaxonPairs(taxonPairs, selectedTags, selectedLevel, selectedRanges) {
-            return taxonPairs.filter(pair => {
-                const matchesLevel = selectedLevel === '' || pair.level === selectedLevel;
-                const matchesTags = selectedTags.length === 0 || pair.tags.some(tag => selectedTags.includes(tag));
-                const matchesRanges = selectedRanges.length === 0 ||
-                    (pair.range && pair.range.some(range => selectedRanges.includes(range)));
-                return matchesLevel && matchesTags && matchesRanges;
-            });
         },
 
         filterPairsByLevel(taxonPairs, selectedLevel) {

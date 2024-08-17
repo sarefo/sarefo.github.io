@@ -1,6 +1,7 @@
 import api from './api.js';
 import collectionManager from './collectionManager.js';
 import dialogManager from './dialogManager.js';
+import filtering from './filtering.js';
 import gameLogic from './gameLogic.js';
 import logger from './logger.js';
 import state from './state.js';
@@ -47,7 +48,7 @@ const searchHandler = {
         if (isNumericSearch) {
             filteredPairs = taxonPairs.filter(pair => pair.setID.toString() === searchTerm);
         } else {
-            filteredPairs = await gameLogic.filterTaxonPairs(taxonPairs, {
+            filteredPairs = await filtering.filterTaxonPairs(taxonPairs, {
                 level: state.getSelectedLevel(),
                 ranges: state.getSelectedRanges(),
                 tags: state.getSelectedTags(),

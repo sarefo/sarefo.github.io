@@ -1,6 +1,7 @@
 import api from './api.js';
 import collectionManager from './collectionManager.js';
 import dialogManager from './dialogManager.js';
+import filtering from './filtering.js';
 import gameLogic from './gameLogic.js';
 import logger from './logger.js';
 import state from './state.js';
@@ -45,7 +46,7 @@ const rangeSelector = {
                 searchTerm: state.getSearchTerm()
             };
 
-            const filteredPairs = gameLogic.filterTaxonPairs(taxonSets, filters);
+            const filteredPairs = filtering.filterTaxonPairs(taxonSets, filters);
 
             collectionManager.updateTaxonPairList(filteredPairs);
         } catch (error) {

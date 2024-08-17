@@ -1,5 +1,6 @@
 import api from './api.js';
 import dialogManager from './dialogManager.js';
+import filtering from './filtering.js';
 import logger from './logger.js';
 import state from './state.js';
 
@@ -87,24 +88,9 @@ const utils = {
     },
 
     game: {
-        async getFilteredTaxonPairs(filters = {}) {
-            const taxonPairs = await api.taxonomy.fetchTaxonPairs();
-            return taxonPairs.filter(pair => utils.game.pairMatchesFilters(pair, filters));
-        },
-
-        pairMatchesFilters(pair, filters) {
-            const matchesLevel = !filters.level || pair.level === filters.level;
-            const matchesRanges = !filters.ranges || filters.ranges.length === 0 ||
-                (pair.range && pair.range.some(range => filters.ranges.includes(range)));
-            const matchesTags = !filters.tags || filters.tags.length === 0 ||
-                pair.tags.some(tag => filters.tags.includes(tag));
-
-            return matchesLevel && matchesRanges && matchesTags;
-        },
-
         async selectTaxonPair(filters = {}) {
             try {
-                const filteredPairs = await utils.game.getFilteredTaxonPairs(filters);
+                const filteredPairs = await filtering.getFilteredTaxonPairs(filters);
                 
                 if (filteredPairs.length === 0) {
                     logger.warn("No pairs match the selected criteria. Using all pairs.");
@@ -251,7 +237,6 @@ const publicAPI = {
     },
     game: {
         selectTaxonPair: utils.game.selectTaxonPair,
-        getFilteredTaxonPairs: utils.game.getFilteredTaxonPairs,
         resetDraggables: utils.game.resetDraggables
     },
     ui: {
