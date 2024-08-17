@@ -1,8 +1,6 @@
-// collectionManager.js
-
-import api from './api.js';
 import dialogManager from './dialogManager.js';
 import gameLogic from './gameLogic.js';
+import gameSetup from './gameSetup.js';
 import logger from './logger.js';
 import mainEventHandler from './mainEventHandler.js';
 import rangeSelector from './rangeSelector.js';
@@ -55,6 +53,17 @@ const collectionManager = {
          mainEventHandler.resetScrollPosition();
     },
 
+    setupSelectSetDialog: function() {
+        const playButton = document.getElementById('select-set-done-button');
+        if (playButton) {
+            playButton.addEventListener('click', (event) => {
+                event.preventDefault(); // Prevent default button behavior
+                collectionManager.handleSelectSetDone();
+            });
+        } else {
+            logger.error('Play button not found in select-set-dialog');
+        }
+    },
     clearAllFilters() {
         state.setSelectedTags([]);
         state.setSelectedRanges([]);
@@ -74,12 +83,11 @@ const collectionManager = {
         ui.updateTaxonPairList();
         ui.updateFilterSummary();
 
-        //ui.showPopupNotification('All filters cleared');
     },
 
     handleSelectSetDone() {
         const levelDropdown = document.getElementById('level-filter-dropdown');
-        const selectedLevel = levelDropdown.value;
+        const selectedLevel = levelDropdown ? levelDropdown.value : 'No level dropdown found';
         const searchTerm = state.getSearchTerm();
 
         gameLogic.applyFilters({
@@ -90,10 +98,18 @@ const collectionManager = {
         });
 
         setManager.refreshSubset();
-        ui.showTaxonPairList();
+
+        // Remove this line for now as it might be causing the reload
+        // ui.showTaxonPairList();
 
         dialogManager.closeDialog('select-set-dialog');
+
+        // Add a small delay before setting up the game
+        setTimeout(() => {
+            gameSetup.setupGame(true);
+        }, 100);
     }
+
 };
 
 export default collectionManager;

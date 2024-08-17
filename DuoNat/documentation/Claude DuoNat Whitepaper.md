@@ -73,6 +73,10 @@ If you provide code, please either provide whole functions, or exactly tell me w
 
 Indentation is four spaces.
 
+Every module has a public API at the end. keep using this style.
+
+for console output, use logger.debug() (or logger.warn() / logger.error()).
+!!/<Mouse>C!!0<Mouse>C!!1
 Try not to have functions that are longer than 50 lines. Instead, break them into subfunctions, so that the flow can be easily understood by a human. Let's adhere to the Single Responsibility Principle.
 
 ## Project structure

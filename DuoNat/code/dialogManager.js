@@ -74,7 +74,8 @@ const dialogManager = {
             }
 
             if (dialogId === 'select-set-dialog') {
-                collectionManager.openCollectionManagerDialog();
+//                collectionManager.openCollectionManagerDialog();
+                collectionManager.setupSelectSetDialog();
             }
 
             if (dialogId === 'report-dialog') {
@@ -99,6 +100,8 @@ const dialogManager = {
                     dialogManager.utils.enableMainEventHandlers();
                     mainEventHandler.enableShortcuts();
                 }
+            } else {
+                logger.error(`Dialog element not found or not an HTMLDialogElement: ${dialogId}`);
             }
         },
 
