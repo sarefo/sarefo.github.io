@@ -6,7 +6,7 @@ const swipeHandler = {
     isLoadingNewPair: false,
 
     swipeOutThreshold: 50, // Increased from 30 to make it less sensitive
-    resetThreshold: 20, // New property to determine when to reset the swipe
+    resetThreshold: 50, // New property to determine when to reset the swipe
 
     swipeRestraint: 100,
     maxRotation: 15,
