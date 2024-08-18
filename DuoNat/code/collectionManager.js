@@ -9,6 +9,7 @@ import mainEventHandler from './mainEventHandler.js';
 import rangeSelector from './rangeSelector.js';
 import setManager from './setManager.js';
 import state from './state.js';
+import tagSelector from './tagSelector.js';
 import ui from './ui.js';
 import worldMap from './worldMap.js';
 
@@ -26,7 +27,9 @@ const collectionManager = {
     initialization: {
         initialize() {
             this.initializeSelectSetDialog();
+            this.initializeFilterTagsButton();
             this.initializeFilterSummaryMap();
+            this.initializeFilterSummaryTags();
             this.initializeClearFiltersButton();
             this.initializeSelectSetDoneButton();
             this.initializeLevelDropdown();
@@ -42,6 +45,20 @@ const collectionManager = {
             if (filterSummaryMap) {
                 filterSummaryMap.addEventListener('click', () => {
                     rangeSelector.openRangeDialog();
+                });
+            }
+        },
+
+        initializeFilterTagsButton() {
+            const selectTagsButton = document.getElementById('select-tags-button');
+            selectTagsButton.addEventListener('click', () => tagSelector.openTagSelector());
+        },
+
+        initializeFilterSummaryTags() {
+            const filterSummaryTags = document.querySelector('.filter-summary');
+            if (filterSummaryTags) {
+                filterSummaryTags.addEventListener('click', () => {
+                    tagSelector.openTagSelector();
                 });
             }
         },

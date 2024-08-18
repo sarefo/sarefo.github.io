@@ -18,9 +18,6 @@ const tagSelector = {
         async initialize() {
             const tagSelectorDialog = document.getElementById('tag-dialog');
 
-            const selectTagsButton = document.getElementById('select-tags-button');
-            selectTagsButton.addEventListener('click', () => tagSelector.openTagSelector());
-
             const doneButton = document.getElementById('tag-done-button');
             doneButton.addEventListener('click', () => tagSelector.closeTagSelector());
 
@@ -206,9 +203,9 @@ const tagSelector = {
 
     // Functions that don't fit neatly into the above categories can remain at the top level
     async openTagSelector() {
-        const tagCounts = await this.dataManager.getTagCounts();
-        this.uiManager.renderTagCloud(tagCounts);
-        this.uiManager.updateMatchingPairsCount();
+        const tagCounts = await tagSelector.dataManager.getTagCounts();
+        tagSelector.uiManager.renderTagCloud(tagCounts);
+        tagSelector.uiManager.updateMatchingPairsCount();
         dialogManager.openDialog('tag-dialog');
     },
 
@@ -233,6 +230,7 @@ const tagSelector = {
 
 const publicAPI = {
     initialize: tagSelector.initialization.initialize,
+    openTagSelector: tagSelector.openTagSelector,
     closeTagSelector: tagSelector.closeTagSelector,
     setSelectedTags: tagSelector.tagSelection.setSelectedTags,
     clearAllTags: tagSelector.tagSelection.clearAllTags,

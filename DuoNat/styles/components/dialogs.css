@@ -210,6 +210,7 @@ dialog[open] {
     padding: 4px;
     width: 100%;
     height: 100%;
+    cursor: pointer;
 }
 
 .filter-summary__map {
@@ -669,9 +670,6 @@ dialog[open] {
 }
 
 .range-map-container {
-/*    width: 100%;
-    height: 300px;
-    margin-bottom: 20px;*/
 }
 
 /* QR share dialog */
