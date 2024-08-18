@@ -15,7 +15,8 @@ const utils = {
                 tags: params.get('tags'),
                 level: params.get('level'),
                 setID: params.get('setID'),
-                ranges: params.get('ranges')
+                ranges: params.get('ranges'),
+                phylogenyID: params.get('phylogenyID'),
             };
         },
 
@@ -49,6 +50,11 @@ const utils = {
             const selectedRanges = state.getSelectedRanges();
             if (selectedRanges && selectedRanges.length > 0) {
                 url.searchParams.set('ranges', selectedRanges.join(','));
+            }
+
+            const phylogenyID = state.getPhylogenyId();
+            if (phylogenyID) {
+                url.searchParams.set('phylogenyID', phylogenyID);
             }
         },
 

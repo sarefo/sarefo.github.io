@@ -20,7 +20,7 @@ const handleUrlParameters = () => {
     handleRangesParameter(urlParams);
     handleTagsParameter(urlParams);
     handleSetIDParameter(urlParams);
-    //    updateLevelBasedOnParams(urlParams);
+    handlePhylogenyIDParameter(urlParams)
 };
 
 const handleLevelParameter = (urlParams) => {
@@ -53,6 +53,13 @@ const handleSetIDParameter = (urlParams) => {
     if (urlParams.setID) {
         state.updateGameStateMultiple({ currentSetID: urlParams.setID });
         logger.debug("Set ID from URL:", urlParams.setID);
+    }
+};
+
+const handlePhylogenyIDParameter = (urlParams) => {
+    if (urlParams.phylogenyID) {
+        state.setPhylogenyId(urlParams.phylogenyID);
+        logger.debug("Phylogeny ID from URL:", urlParams.phylogenyID);
     }
 };
 
