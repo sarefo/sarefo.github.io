@@ -120,7 +120,7 @@ const searchHandler = {
             if (firstTaxonSetButton) {
                 firstTaxonSetButton.click();
                 setTimeout(() => {
-                    dialogManager.closeDialog('select-set-dialog');
+                    dialogManager.closeDialog('collection-dialog');
                 }, 100);
             }
         }

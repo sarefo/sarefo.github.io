@@ -66,7 +66,7 @@ const tutorial = {
             { message: "Get hints to distinguish taxa.", highlights: ['#hint-button-1', '#hint-button-2'], duration: 6000 },
             { message: "Share the current set and collection.", highlight: '#share-button', duration: 6000 },
             { message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => tutorial.temporarilyOpenMenu(12000), duration: 6000 },
-            { message: "Change difficulty, range or tags.", highlights: ['#level-indicator', '#select-set-button'], duration: 5000 },
+            { message: "Change difficulty, range or tags.", highlights: ['#level-indicator', '#collection-button'], duration: 5000 },
             { message: "Ready to start?<br>Let's go!", highlight: null, duration: 2000 }
         ];
     },

@@ -1,0 +1,30 @@
+.inat-down-dialog {
+    z-index: 10000;
+}
+
+.inat-down-dialog__message {
+  margin-bottom: 1rem;
+  color: var(--counter-text-color);
+}
+
+.inat-down-dialog__button {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 0.5rem;
+    width: 80vw;
+  transition: background-color var(--transition-speed) ease;
+}
+
+.inat-down-dialog__button:hover {
+    background-color: #5c8a00;
+}
+
+.inat-down-dialog__button--status {
+  background-color: var(--primary-color);
+}
+

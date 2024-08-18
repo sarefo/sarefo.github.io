@@ -6,6 +6,7 @@ import gameLogic from './gameLogic.js';
 import gameSetup from './gameSetup.js';
 import logger from './logger.js';
 import mainEventHandler from './mainEventHandler.js';
+import phylogenySelector from './phylogenySelector.js';
 import rangeSelector from './rangeSelector.js';
 import setManager from './setManager.js';
 import state from './state.js';
@@ -33,10 +34,16 @@ const collectionManager = {
             this.initializeClearFiltersButton();
             this.initializeSelectSetDoneButton();
             this.initializeLevelDropdown();
+
+            // TODO HACK to open the phyl selector
+            const titleElement = document.getElementById('manage-collections');
+            titleElement.addEventListener('click', () => {
+                phylogenySelector.openDialog();
+            });
         },
 
         initializeSelectSetDialog() {
-            const selectSetButton = document.getElementById('select-set-button');
+            const selectSetButton = document.getElementById('collection-button');
             selectSetButton.addEventListener('click', () => collectionManager.ui.openCollectionManagerDialog());
         },
 
@@ -71,21 +78,21 @@ const collectionManager = {
         },
 
         initializeSelectSetDoneButton() {
-            const selectSetDoneButton = document.getElementById('select-set-done-button');
+            const selectSetDoneButton = document.getElementById('collection-done-button');
             if (selectSetDoneButton) {
                 selectSetDoneButton.addEventListener('click', collectionManager.eventHandlers.handleSelectSetDone);
             }
         },
 
         setupSelectSetDialog() {
-            const playButton = document.getElementById('select-set-done-button');
+            const playButton = document.getElementById('collection-done-button');
             if (playButton) {
                 playButton.addEventListener('click', (event) => {
                     event.preventDefault();
                     collectionManager.eventHandlers.handleSelectSetDone();
                 });
             } else {
-                logger.error('Play button not found in select-set-dialog');
+                logger.error('Play button not found in collection-dialog');
             }
         },
 
@@ -345,7 +352,7 @@ const collectionManager = {
         },
 
         openCollectionManagerDialog() {
-            dialogManager.openDialog('select-set-dialog');
+            dialogManager.openDialog('collection-dialog');
             collectionManager.taxonList.updateTaxonList();
             //            mainEventHandler.resetSearch();
             mainEventHandler.resetScrollPosition();
@@ -369,7 +376,7 @@ const collectionManager = {
         handleSelectSetDone() {
             collectionManager.taxonList.updateTaxonList();
             setManager.refreshSubset();
-            dialogManager.closeDialog('select-set-dialog');
+            dialogManager.closeDialog('collection-dialog');
 
             setTimeout(() => {
                 gameSetup.setupGame(true);
@@ -387,7 +394,7 @@ const collectionManager = {
             };
             state.setNextSelectedPair(selectedPair);
             logger.debug('Selected pair:', selectedPair);
-            dialogManager.closeDialog('select-set-dialog');
+            dialogManager.closeDialog('collection-dialog');
             setTimeout(() => gameSetup.setupGame(true), 300);
         },
 

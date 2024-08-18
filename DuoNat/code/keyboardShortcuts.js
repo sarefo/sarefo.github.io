@@ -106,7 +106,7 @@ const keyboardShortcuts = {
     },
 
     initializeSelectSetDialogShortcuts() {
-        const dialog = document.getElementById('select-set-dialog');
+        const dialog = document.getElementById('collection-dialog');
         dialog.addEventListener('keydown', this.handleSelectSetDialogKeydown.bind(this));
     },
 

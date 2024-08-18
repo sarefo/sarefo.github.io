@@ -1,0 +1,45 @@
+#keyboard-shortcuts-button-container {
+    width: 100%;
+}
+.keyboard-shortcuts-dialog .dialog-content {
+    max-width: 400px;
+}
+
+.keyboard-shortcuts__list {
+    display: grid;
+    gap: 10px;
+    justify-items: center;
+}
+
+.keyboard-shortcuts__group {
+    padding: 10px;
+}
+
+.keyboard-shortcuts__title {
+    font-size: larger;
+    padding: 8px;
+    color: var(--primary-color);
+}
+
+.keyboard-shortcuts__item {
+    display: flex;
+    align-items: center;
+}
+
+.keyboard-shortcuts__key {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: larger;
+    font-family: monospace;
+    margin-right: 10px;
+    min-width: 20px;
+    text-align: center;
+}
+
+.keyboard-shortcuts__description {
+    flex-grow: 1;
+    font-size: larger;
+    text-align: left;
+}

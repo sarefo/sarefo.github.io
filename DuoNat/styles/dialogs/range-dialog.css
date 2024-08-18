@@ -1,0 +1,14 @@
+.range-dialog {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.range-dialog * {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.range-map-container {
+}
+

@@ -107,7 +107,7 @@ const eventInitializer = {
     },
 
     initializeDialogCloseButtons() {
-        this.initializeDialogCloseButton('select-set-dialog');
+        this.initializeDialogCloseButton('collection-dialog');
         this.initializeDialogCloseButton('tag-dialog');
     },
 

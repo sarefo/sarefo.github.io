@@ -31,7 +31,7 @@ const uiInteractions = {
     addMenuButtonListeners() {
         const menuActions = {
             'ancestry-button': ancestryDialog.showTaxaRelationship,
-            'select-set-button': collectionManager.openCollectionManagerDialog,
+            'collection-button': collectionManager.openCollectionManagerDialog,
             'enter-set-button': () => dialogManager.openDialog('enter-set-dialog'),
             'random-pair-button': gameLogic.loadNewRandomPair,
             'like-button': this.likePair.bind(this),

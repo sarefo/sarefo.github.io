@@ -6,6 +6,7 @@ import gameLogic from './gameLogic.js';
 import infoDialog from './infoDialog.js';
 import logger from './logger.js';
 import mainEventHandler from './mainEventHandler.js';
+import phylogenySelector from './phylogenySelector.js';
 import setManager from './setManager.js';
 import state from './state.js';
 import tagSelector from './tagSelector.js';
@@ -19,7 +20,7 @@ const dialogManager = {
         'help-dialog',
         'keyboard-shortcuts-dialog',
         'info-dialog',
-        'select-set-dialog',
+        'collection-dialog',
         'tag-dialog',
         'range-dialog',
         'ancestry-dialog',
@@ -89,7 +90,7 @@ const dialogManager = {
                 dialogManager.initialization.updateKeyboardShortcutsButton();
             }
 
-            if (dialogId === 'select-set-dialog') {
+            if (dialogId === 'collection-dialog') {
                 //                collectionManager.openCollectionManagerDialog();
                 collectionManager.setupSelectSetDialog();
             }
@@ -156,6 +157,7 @@ const dialogManager = {
             dialogManager.initialization.initializeKeyboardShortcutsDialog();
             infoDialog.initialize();
             collectionManager.initialize();
+            phylogenySelector.initialize();
             testingDialog.initialize();
             dialogManager.initialization.initializeReportDialog();
             dialogManager.initialization.initializeEnterSetDialog();
@@ -337,7 +339,7 @@ const dialogManager = {
         },
 
         disableMainEventHandlers() {
-            const mainElements = ['#random-pair-button', '#select-set-button', '#enter-set-button', '#share-button', '#help-button'];
+            const mainElements = ['#random-pair-button', '#collection-button', '#enter-set-button', '#share-button', '#help-button'];
             mainElements.forEach(selector => {
                 const element = document.querySelector(selector);
                 if (element) {

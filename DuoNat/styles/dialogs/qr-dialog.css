@@ -1,0 +1,15 @@
+/* QR share dialog */
+.qr-dialog {
+    max-width: 400px;
+}
+
+#qr-container {
+    margin: 20px 0;
+}
+
+#qr-dialog__share-message {
+    font-size: larger;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+

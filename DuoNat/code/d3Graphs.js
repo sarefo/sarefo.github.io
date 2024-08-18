@@ -362,6 +362,10 @@ class RadialTree extends BaseTree {
         }
     }
 
+    getActiveNodeId() {
+        return this.activeNode ? this.activeNode.data.id : null;
+    }
+
     update(source) {
         const duration = 750;
         this.treeLayout(this.parentNode);
@@ -594,11 +598,18 @@ const publicAPI = {
     createRadialTree: async function (container, rootNode) {
         const tree = new RadialTree(container, rootNode);
         await tree.create();
+        this.lastCreatedTree = tree;
+        return tree; // Return the tree instance
     },
 
     createHierarchicalTree: async function (container, rootNode) {
         const tree = new HierarchicalTree(container, rootNode);
         await tree.create();
+    },
+
+    getActiveNodeId: function () {
+        // This assumes that the last created tree is the active one
+        return this.lastCreatedTree ? this.lastCreatedTree.getActiveNodeId() : null;
     },
 };
 
