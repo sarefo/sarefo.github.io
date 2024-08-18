@@ -180,7 +180,6 @@ const publicAPI = {
     getObservationURL: (index) => {
         if (index === 1 || index === 2) {
             const url = gameState.currentObservationURLs[`image${index}`];
-            logger.debug(`Getting observation URL for image ${index}: ${url}`);
             return url;
         } else {
             logger.error(`Invalid index for getObservationURL: ${index}`);
@@ -194,7 +193,6 @@ const publicAPI = {
                 [`image${index}`]: url
             };
             updateGameState('currentObservationURLs', updatedUrls);
-            logger.debug(`Set observation URL for image ${index}: ${url}`);
         } else {
             logger.error(`Invalid index for setObservationURL: ${index}`);
         }

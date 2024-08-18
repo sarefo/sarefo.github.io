@@ -40,8 +40,6 @@ const game = {
 
             infoButton1.addEventListener('click', () => {
                 const imageOneURL = state.getObservationURL(1);
-                logger.debug(`Info button 1 clicked. Current URL: ${imageOneURL}`);
-                logger.debug(`Current state: ${JSON.stringify(state.getGameState())}`);
                 if (!imageOneURL) {
                     logger.error('Info button 1 clicked, but imageOne URL is null or undefined');
                     return;
@@ -51,8 +49,6 @@ const game = {
 
             infoButton2.addEventListener('click', () => {
                 const imageTwoURL = state.getObservationURL(2);
-                logger.debug(`Info button 2 clicked. Current URL: ${imageTwoURL}`);
-                logger.debug(`Current state: ${JSON.stringify(state.getGameState())}`);
                 if (!imageTwoURL) {
                     logger.error('Info button 2 clicked, but imageTwo URL is null or undefined');
                     return;
@@ -60,8 +56,24 @@ const game = {
                 this.showInfoDialog(imageTwoURL, 2);
             });
 
+            // Add keyboard shortcut handlers
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'i' || event.key === 'I') {
+                    const imageOneURL = state.getObservationURL(1);
+                    if (imageOneURL) {
+                        this.showInfoDialog(imageOneURL, 1);
+                    }
+                } else if (event.key === 'o' || event.key === 'O') {
+                    const imageTwoURL = state.getObservationURL(2);
+                    if (imageTwoURL) {
+                        this.showInfoDialog(imageTwoURL, 2);
+                    }
+                }
+            });
+
             this.setupInfoDialogCloseHandler();
         },
+
 
         setupInfoDialogCloseHandler: function () {
             document.getElementById('info-dialog').addEventListener('close', () => {
@@ -120,8 +132,6 @@ const game = {
         },
 
         showInfoDialog: async function (url, imageIndex) {
-            logger.debug(`showInfoDialog called with URL: ${url}, imageIndex: ${imageIndex}`);
-            logger.debug(`Current state: ${JSON.stringify(state.getGameState())}`);
             
             if (!url) {
                 logger.error(`showInfoDialog: URL is null or undefined for imageIndex: ${imageIndex}`);
@@ -129,7 +139,6 @@ const game = {
             }
             
             const currentTaxonImageCollection = state.getCurrentTaxonImageCollection();
-            logger.debug(`Current taxon image collection: ${JSON.stringify(currentTaxonImageCollection)}`);
             if (!currentTaxonImageCollection) {
                 logger.error('showInfoDialog: currentTaxonImageCollection is null or undefined');
                 return;
@@ -141,8 +150,6 @@ const game = {
                 return;
             }
             
-            logger.debug(`showInfoDialog: Current taxon determined as: ${currentTaxon}`);
-
             const dialog = document.getElementById('info-dialog');
             this.frameImage(imageIndex);
             
@@ -251,7 +258,7 @@ const game = {
                 dialog.style.bottom = `${window.innerHeight - namePairRect.bottom}px`;
             }
             dialog.style.height = 'auto';
-            dialog.style.left = `${(window.innerWidth - dialogRect.width) / 2}px`;
+           // dialog.style.left = `${(window.innerWidth - dialogRect.width) / 2}px`;
         },
 
         frameImage: function (imageIndex) {

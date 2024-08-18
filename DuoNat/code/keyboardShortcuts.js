@@ -29,8 +29,6 @@ const keyboardShortcuts = {
     _handleKeyboardShortcuts(event) {
         if (!shortcutsEnabled || this.shouldIgnoreKeyboardShortcut(event)) return;
 
-        let currentObservationURLs = state.getObservationURLs();
-
         const shortcutActions = {
             'arrowleft': this.handleArrowLeft.bind(this),
             'arrowup': () => this.moveTileToDropZone('left', 'upper'),
@@ -38,8 +36,8 @@ const keyboardShortcuts = {
 //            'c': ui.showTaxonPairList,
             'c': collectionManager.openCollectionManagerDialog,
             'e': () => dialogManager.openDialog('enter-set-dialog'),
-            'i': () => game.showInfoDialog(currentObservationURLs.imageOne, 1),
-            'o': () => game.showInfoDialog(currentObservationURLs.imageTwo, 2),
+            'i': () => game.showInfoDialog(state.getObservationURL(1), 1),
+            'o': () => game.showInfoDialog(state.getObservationURL(2), 2),
             'h': () => hintSystem.showHint(1),
             'j': () => hintSystem.showHint(2),
             'g': taxaRelationshipViewer.showTaxaRelationship,
