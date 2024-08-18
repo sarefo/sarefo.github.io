@@ -50,7 +50,7 @@ The DuoNat project is primarily written in JavaScript, with HTML and CSS for the
 ### Visualization and Special Features
 
 + `worldMap.js`: Handles rendering and interaction with world maps.
-+ `taxaRelationshipViewer.js`: Visualizes taxonomic relationships.
++ `ancestryViewer.js`: Visualizes taxonomic relationships between two active taxa.
 + `d3Graphs.js`: Creates D3.js-based graphs for data visualization.
 
 ### Component-Specific Modules

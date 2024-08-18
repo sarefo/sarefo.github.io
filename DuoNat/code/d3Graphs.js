@@ -308,6 +308,7 @@ class RadialTree extends BaseTree {
     }
 
     _handleClick(d) {
+        logger.debug(`Clicked node: Taxon ID = ${d.data.id}, Taxon Name = ${d.data.taxonName}`);
         // If the clicked node is the central node, do nothing for now
         if (d === this.activeNode) {
             logger.debug("Active node is not clickable.");

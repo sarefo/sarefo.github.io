@@ -22,7 +22,7 @@ const dialogManager = {
         'select-set-dialog',
         'tag-dialog',
         'range-dialog',
-        'phylogeny-dialog',
+        'ancestry-dialog',
         'enter-set-dialog',
         'qr-dialog',
         'report-dialog',

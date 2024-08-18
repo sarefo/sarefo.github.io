@@ -13,7 +13,7 @@ const filtering = {
             ranges: state.getSelectedRanges(),
             tags: state.getSelectedTags(),
             searchTerm: state.getSearchTerm(),
-            phylogeneticNode: state.getSelectedPhylogeneticNode()
+            phylogenyId: state.getPhylogenyId()
         };
     },
 
@@ -45,8 +45,8 @@ const filtering = {
                 pair.taxonNames.some(name => name.toLowerCase().includes(filters.searchTerm.toLowerCase())) ||
                 pair.setName.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
                 pair.tags.some(tag => tag.toLowerCase().includes(filters.searchTerm.toLowerCase()));
-            const matchesPhylogeny = !filters.phylogeneticNode ||
-                pair.taxa.some(taxonId => this.isDescendantOf(taxonId, filters.phylogeneticNode));
+            const matchesPhylogeny = !filters.phylogenyId ||
+                pair.taxa.some(taxonId => this.isDescendantOf(taxonId, filters.phylogenyId));
 
 
             return matchesLevel && matchesRanges && matchesTags && matchesSearch && matchesPhylogeny;

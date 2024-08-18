@@ -4,7 +4,7 @@ import state from './state.js';
 import utils from './utils.js';
 import dialogManager from './dialogManager.js';
 
-const taxaRelationshipViewer = {
+const ancestryDialog = {
     container: null,
     network: null,
     initialized: false,
@@ -14,20 +14,20 @@ const taxaRelationshipViewer = {
 
     initialization: {
         async initialize(container) {
-            taxaRelationshipViewer.container = container;
-            await taxaRelationshipViewer.utils.loadVisJs();
-            if (taxaRelationshipViewer.container) {
-                taxaRelationshipViewer.ui.createLoadingIndicator();
+            ancestryDialog.container = container;
+            await ancestryDialog.utils.loadVisJs();
+            if (ancestryDialog.container) {
+                ancestryDialog.ui.createLoadingIndicator();
             }
-            taxaRelationshipViewer.initialized = true;
+            ancestryDialog.initialized = true;
         },
     },
 
     ui: {
         createLoadingIndicator() {
-            if (!taxaRelationshipViewer.container) return;
-            taxaRelationshipViewer.loadingIndicator = this.ui.createLoadingElement();
-            taxaRelationshipViewer.container.appendChild(taxaRelationshipViewer.loadingIndicator);
+            if (!ancestryDialog.container) return;
+            ancestryDialog.loadingIndicator = this.ui.createLoadingElement();
+            ancestryDialog.container.appendChild(ancestryDialog.loadingIndicator);
         },
 
         createLoadingElement() {
@@ -66,14 +66,14 @@ const taxaRelationshipViewer = {
         },
 
         showLoadingIndicator() {
-            if (taxaRelationshipViewer.loadingIndicator) {
-                taxaRelationshipViewer.loadingIndicator.style.display = 'block';
+            if (ancestryDialog.loadingIndicator) {
+                ancestryDialog.loadingIndicator.style.display = 'block';
             }
         },
 
         hideLoadingIndicator() {
-            if (taxaRelationshipViewer.loadingIndicator) {
-                taxaRelationshipViewer.loadingIndicator.style.display = 'none';
+            if (ancestryDialog.loadingIndicator) {
+                ancestryDialog.loadingIndicator.style.display = 'none';
             }
         },
 
@@ -84,15 +84,15 @@ const taxaRelationshipViewer = {
 
     graphManagement: {
         showExistingGraph() {
-            if (taxaRelationshipViewer.currentData && taxaRelationshipViewer.container) {
+            if (ancestryDialog.currentData && ancestryDialog.container) {
                 logger.debug("Showing existing graph");
-                if (taxaRelationshipViewer.network) {
-                    taxaRelationshipViewer.network.fit();
+                if (ancestryDialog.network) {
+                    ancestryDialog.network.fit();
                 } else {
-                    taxaRelationshipViewer.graphRendering.renderGraph(
-                        taxaRelationshipViewer.currentData.taxon1,
-                        taxaRelationshipViewer.currentData.taxon2,
-                        taxaRelationshipViewer.currentData.commonAncestor
+                    ancestryDialog.graphRendering.renderGraph(
+                        ancestryDialog.currentData.taxon1,
+                        ancestryDialog.currentData.taxon2,
+                        ancestryDialog.currentData.commonAncestor
                     );
                 }
             } else {
@@ -101,27 +101,27 @@ const taxaRelationshipViewer = {
         },
 
         clearGraph() {
-            if (taxaRelationshipViewer.network) {
-                taxaRelationshipViewer.network.destroy();
-                taxaRelationshipViewer.network = null;
+            if (ancestryDialog.network) {
+                ancestryDialog.network.destroy();
+                ancestryDialog.network = null;
             }
-            taxaRelationshipViewer.currentData = null;
-            if (taxaRelationshipViewer.container) {
-                taxaRelationshipViewer.container.innerHTML = '';
-                taxaRelationshipViewer.ui.createLoadingIndicator();
+            ancestryDialog.currentData = null;
+            if (ancestryDialog.container) {
+                ancestryDialog.container.innerHTML = '';
+                ancestryDialog.ui.createLoadingIndicator();
             }
         },
 
         async showTaxaRelationship() {
             const { taxonImageOne, taxonImageTwo } = state.getGameState();
-            const container = document.getElementById('phylogeny-dialog__graph');
+            const container = document.getElementById('ancestry-dialog__graph');
 
             if (!this.graphManagement.validateTaxonNames(taxonImageOne, taxonImageTwo)) return;
 
-            dialogManager.openDialog('phylogeny-dialog');
+            dialogManager.openDialog('ancestry-dialog');
 
             try {
-                await taxaRelationshipViewer.initialization.initialize(container);
+                await ancestryDialog.initialization.initialize(container);
                 await this.graphManagement.handleGraphDisplay(taxonImageOne, taxonImageTwo);
             } catch (error) {
                 this.graphManagement.handleGraphError(error);
@@ -140,7 +140,7 @@ const taxaRelationshipViewer = {
         async handleGraphDisplay(taxonImageOne, taxonImageTwo) {
             if (this.graphManagement.isSameTaxaPair(taxonImageOne, taxonImageTwo)) {
                 logger.debug("Showing existing graph for the same taxa pair");
-                taxaRelationshipViewer.graphManagement.showExistingGraph();
+                ancestryDialog.graphManagement.showExistingGraph();
             } else {
                 logger.debug("Creating new graph for a different taxa pair");
                 await this.graphManagement.createNewGraph(taxonImageOne, taxonImageTwo);
@@ -148,31 +148,31 @@ const taxaRelationshipViewer = {
         },
 
         isSameTaxaPair(taxonImageOne, taxonImageTwo) {
-            return taxaRelationshipViewer.currentGraphTaxa &&
-                taxaRelationshipViewer.currentGraphTaxa[0] === taxonImageOne &&
-                taxaRelationshipViewer.currentGraphTaxa[1] === taxonImageTwo;
+            return ancestryDialog.currentGraphTaxa &&
+                ancestryDialog.currentGraphTaxa[0] === taxonImageOne &&
+                ancestryDialog.currentGraphTaxa[1] === taxonImageTwo;
         },
 
         async createNewGraph(taxonImageOne, taxonImageTwo) {
-            taxaRelationshipViewer.graphManagement.clearGraph();
-            await taxaRelationshipViewer.dataProcessing.findRelationship(taxonImageOne, taxonImageTwo);
-            taxaRelationshipViewer.currentGraphTaxa = [taxonImageOne, taxonImageTwo];
+            ancestryDialog.graphManagement.clearGraph();
+            await ancestryDialog.dataProcessing.findRelationship(taxonImageOne, taxonImageTwo);
+            ancestryDialog.currentGraphTaxa = [taxonImageOne, taxonImageTwo];
         },
 
         handleGraphError(error) {
             logger.error('Error showing taxa relationship:', error);
             alert('Failed to load the relationship graph. Please try again later.');
-            dialogManager.closeDialog('phylogeny-dialog');
+            dialogManager.closeDialog('ancestry-dialog');
         },
     },
 
     dataProcessing: {
         async findRelationship(taxonName1, taxonName2) {
-            if (!taxaRelationshipViewer.initialized) {
+            if (!ancestryDialog.initialized) {
                 throw new Error('Viewer not initialized. Call initialize() first.');
             }
 
-            taxaRelationshipViewer.ui.showLoadingIndicator();
+            ancestryDialog.ui.showLoadingIndicator();
 
             try {
                 const [taxon1, taxon2] = await this.dataProcessing.fetchTaxonData(taxonName1, taxonName2);
@@ -181,21 +181,21 @@ const taxaRelationshipViewer = {
                 this.dataProcessing.updateTaxonAncestry(taxon1, ancestry1);
                 this.dataProcessing.updateTaxonAncestry(taxon2, ancestry2);
 
-                const commonAncestor = taxaRelationshipViewer.utils.findCommonAncestor(taxon1, taxon2);
-                taxaRelationshipViewer.currentData = { taxon1, taxon2, commonAncestor };
-                await taxaRelationshipViewer.graphRendering.renderGraph(taxon1, taxon2, commonAncestor);
+                const commonAncestor = ancestryDialog.utils.findCommonAncestor(taxon1, taxon2);
+                ancestryDialog.currentData = { taxon1, taxon2, commonAncestor };
+                await ancestryDialog.graphRendering.renderGraph(taxon1, taxon2, commonAncestor);
             } catch (error) {
                 logger.error('Error finding relationship:', error);
                 throw error;
             } finally {
-                taxaRelationshipViewer.ui.hideLoadingIndicator();
+                ancestryDialog.ui.hideLoadingIndicator();
             }
         },
 
         async fetchTaxonData(taxonName1, taxonName2) {
             return Promise.all([
-                taxaRelationshipViewer.utils.fetchTaxonData(taxonName1),
-                taxaRelationshipViewer.utils.fetchTaxonData(taxonName2)
+                ancestryDialog.utils.fetchTaxonData(taxonName1),
+                ancestryDialog.utils.fetchTaxonData(taxonName2)
             ]);
         },
 
@@ -250,8 +250,8 @@ const taxaRelationshipViewer = {
     graphRendering: {
         async renderGraph(taxon1, taxon2, commonAncestorId) {
             // Clear any existing graph
-            if (taxaRelationshipViewer.network) {
-                taxaRelationshipViewer.network.destroy();
+            if (ancestryDialog.network) {
+                ancestryDialog.network.destroy();
             }
             const nodes = new vis.DataSet();
             const edges = new vis.DataSet();
@@ -361,10 +361,10 @@ const taxaRelationshipViewer = {
                 }
             };
 
-            taxaRelationshipViewer.network = new vis.Network(taxaRelationshipViewer.container, data, options);
-            taxaRelationshipViewer.container.classList.add('clickable-network');
+            ancestryDialog.network = new vis.Network(ancestryDialog.container, data, options);
+            ancestryDialog.container.classList.add('clickable-network');
 
-            taxaRelationshipViewer.network.on("click", (params) => {
+            ancestryDialog.network.on("click", (params) => {
                 if (params.nodes.length > 0) {
                     const nodeId = params.nodes[0];
                     const node = nodes.get(nodeId);
@@ -410,18 +410,18 @@ const taxaRelationshipViewer = {
 };
 
 // Bind all methods to ensure correct 'this' context
-Object.keys(taxaRelationshipViewer).forEach(key => {
-    if (taxaRelationshipViewer[key] && typeof taxaRelationshipViewer[key] === 'object') {
-        Object.keys(taxaRelationshipViewer[key]).forEach(subKey => {
-            if (typeof taxaRelationshipViewer[key][subKey] === 'function') {
-                taxaRelationshipViewer[key][subKey] = taxaRelationshipViewer[key][subKey].bind(taxaRelationshipViewer);
+Object.keys(ancestryDialog).forEach(key => {
+    if (ancestryDialog[key] && typeof ancestryDialog[key] === 'object') {
+        Object.keys(ancestryDialog[key]).forEach(subKey => {
+            if (typeof ancestryDialog[key][subKey] === 'function') {
+                ancestryDialog[key][subKey] = ancestryDialog[key][subKey].bind(ancestryDialog);
             }
         });
     }
 });
 
 const publicAPI = {
-    showTaxaRelationship: taxaRelationshipViewer.graphManagement.showTaxaRelationship
+    showTaxaRelationship: ancestryDialog.graphManagement.showTaxaRelationship
 };
 
 export default publicAPI;

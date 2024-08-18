@@ -1129,9 +1129,9 @@ dialog[open] {
     margin-top: 20px;
 }
 
-/* Phylogeny graph dialog */
+/* Ancestry graph dialog */
 
-.phylogeny-dialog {
+.ancestry-dialog {
     flex-direction: column;
     opacity: 0.92;
     width: 95%;
@@ -1139,11 +1139,11 @@ dialog[open] {
     padding: 20px 5px 5px;
 }
 
-.phylogeny-dialog__title {
+.ancestry-dialog__title {
     margin-bottom: 5px;
 }
 
-.phylogeny-dialog__hint {
+.ancestry-dialog__hint {
     /*background-color: rgba(255, 255, 255, 0.6);*/
     color: var(--dark-neutral-color);
 /*    padding: 5px 10px;
@@ -1152,7 +1152,7 @@ dialog[open] {
     opacity: 0.6;
 }
 
-.phylogeny-dialog__graph {
+.ancestry-dialog__graph {
     flex-grow: 1;
     overflow: hidden;
     width: 100%;
@@ -1161,12 +1161,12 @@ dialog[open] {
 }
 
 /* hide when dialog is hidden */
-#phylogeny-dialog.hidden .phylogeny-dialog__graph {
+#ancestry-dialog.hidden .ancestry-dialog__graph {
     display: none;
     visibility: hidden;
 }
 
-.phylogeny-dialog__graph {
+.ancestry-dialog__graph {
     flex-grow: 1;
     overflow: hidden;
 }

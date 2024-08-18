@@ -2,7 +2,7 @@ import collectionManager from './collectionManager.js';
 import dialogManager from './dialogManager.js';
 import gameLogic from './gameLogic.js';
 import logger from './logger.js';
-import taxaRelationshipViewer from './taxaRelationshipViewer.js';
+import ancestryDialog from './ancestryDialog.js';
 import testingDialog from './testingDialog.js';
 import ui from './ui.js';
 import utils from './utils.js';
@@ -30,7 +30,7 @@ const uiInteractions = {
 
     addMenuButtonListeners() {
         const menuActions = {
-            'phylogeny-button': taxaRelationshipViewer.showTaxaRelationship,
+            'ancestry-button': ancestryDialog.showTaxaRelationship,
             'select-set-button': collectionManager.openCollectionManagerDialog,
             'enter-set-button': () => dialogManager.openDialog('enter-set-dialog'),
             'random-pair-button': gameLogic.loadNewRandomPair,

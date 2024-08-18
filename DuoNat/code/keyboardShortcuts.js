@@ -5,7 +5,7 @@ import hintSystem from './hintSystem.js';
 import infoDialog from './infoDialog.js';
 import searchHandler from './searchHandler.js';
 import state from './state.js';
-import taxaRelationshipViewer from './taxaRelationshipViewer.js';
+import ancestryDialog from './ancestryDialog.js';
 import testingDialog from './testingDialog.js';
 import tutorial from './tutorial.js';
 import ui from './ui.js';
@@ -40,7 +40,7 @@ const keyboardShortcuts = {
             'o': () => infoDialog.showInfoDialog(state.getObservationURL(2), 2),
             'h': () => hintSystem.showHint(1),
             'j': () => hintSystem.showHint(2),
-            'g': taxaRelationshipViewer.showTaxaRelationship,
+            'a': ancestryDialog.showTaxaRelationship,
             '?': () => this.handleQuestionMark(event),
             'k': () => dialogManager.openDialog('keyboard-shortcuts-dialog'),
             'm': ui.toggleMainMenu,

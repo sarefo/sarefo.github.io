@@ -90,7 +90,7 @@ let gameState = {
     },
 
     currentSetID: null,
-    selectedPhylogeneticNode: null,
+    phylogenyId: null,
 
     preloadedTaxonImageCollection: null,
     currentTaxonImageCollection: null,
@@ -263,9 +263,9 @@ const publicAPI = {
         }
     },
 
-    getSelectedPhylogeneticNode: () => gameState.selectedPhylogeneticNode,
-    setSelectedPhylogeneticNode: (nodeId) => {
-        upateGameState('selectedPhylogeneticNode', nodeId);
+    getPhylogenyId: () => gameState.phylogenyId,
+    setPhylogenyId: (nodeId) => {
+        upateGameState('phylogenyId', nodeId);
     },
 
     getCurrentRound: () => ({ ...gameState.currentRound }),
