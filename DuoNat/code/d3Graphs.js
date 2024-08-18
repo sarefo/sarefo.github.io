@@ -1,3 +1,5 @@
+import logger from './logger.js';
+
 let d3;
 
 async function loadD3() {
@@ -116,7 +118,7 @@ class BaseTree {
 class RadialTree extends BaseTree {
     constructor(container, rootNode) {
         super(container, rootNode);
-        this.centerNode = null;
+        this.parentNode = null;
         this.activeNode = null;
     }
 
@@ -127,7 +129,7 @@ class RadialTree extends BaseTree {
         this._setupSvg(width, height);
         this._addStyles();
         
-        this.centerNode = this.root;
+        this.parentNode = this.root;
         this.activeNode = this.root;
         this.treeLayout = this._setupTreeLayout(radius);
 
@@ -197,18 +199,18 @@ class RadialTree extends BaseTree {
     }
 
     _getVisibleNodes() {
-        return [this.centerNode, this.activeNode, ...(this.activeNode.children || [])];
+        return [this.parentNode, this.activeNode, ...(this.activeNode.children || [])];
     }
 
     _getVisibleLinks(visibleNodes) {
-        return this.centerNode.links().filter(link => 
+        return this.parentNode.links().filter(link => 
             visibleNodes.includes(link.source) && visibleNodes.includes(link.target)
         );
     }
 
     _normalizeDepth(visibleNodes) {
         visibleNodes.forEach(d => {
-            d.y = (d.depth - this.centerNode.depth) * 100;
+            d.y = (d.depth - this.parentNode.depth) * 100;
         });
     }
 
@@ -217,7 +219,7 @@ class RadialTree extends BaseTree {
             .data(visibleNodes, d => d.data.id);
 
         const nodeEnter = node.enter().append('g')
-            .attr('class', d => `node ${d === this.centerNode ? 'node--central' : ''} ${d === this.activeNode ? 'node--active' : ''}`)
+            .attr('class', d => `node ${d === this.parentNode ? 'node--central' : ''} ${d === this.activeNode ? 'node--active' : ''}`)
             .attr('transform', d => `translate(${this._radialPoint(source.x0 || 0, source.y0 || 0)})`)
             .on('click', (event, d) => this._handleClick(d));
 
@@ -238,12 +240,12 @@ class RadialTree extends BaseTree {
 
         nodeUpdate.transition()
             .duration(duration)
-            .attr('class', d => `node ${d === this.centerNode ? 'node--central' : ''} ${d === this.activeNode ? 'node--active' : ''}`)
+            .attr('class', d => `node ${d === this.parentNode ? 'node--central' : ''} ${d === this.activeNode ? 'node--active' : ''}`)
             .attr('transform', d => `translate(${this._radialPoint(d.x, d.y)})`);
 
         nodeUpdate.select('circle')
-            .attr('r', d => d === this.centerNode ? 8 : 5)
-            .style('fill', d => d === this.centerNode ? '#74ac00' : (d._children ? 'lightsteelblue' : '#fff'));
+            .attr('r', d => d === this.parentNode ? 8 : 5)
+            .style('fill', d => d === this.parentNode ? '#74ac00' : (d._children ? 'lightsteelblue' : '#fff'));
 
         nodeUpdate.select('text')
             .style('fill-opacity', 1)
@@ -251,9 +253,9 @@ class RadialTree extends BaseTree {
             .attr('text-anchor', 'middle') // Center text horizontally
             .attr('dy', '.35em') // Center text vertically
             .attr('x', 0)
-            .style('font-weight', d => (d === this.centerNode || d === this.activeNode) ? 'bold' : 'normal')
+            .style('font-weight', d => (d === this.parentNode || d === this.activeNode) ? 'bold' : 'normal')
             .style('fill', d => {
-                if (d === this.centerNode) return '#ff6600';
+                if (d === this.parentNode) return '#ff6600';
                 if (d === this.activeNode) return '#74ac00';
                 return 'black';
             });
@@ -306,30 +308,41 @@ class RadialTree extends BaseTree {
     }
 
 _handleClick(d) {
-    if (d !== this.centerNode) {
+    // If the clicked node is the central node, do nothing for now
+    if (d === this.activeNode) {
+        //return;
+        logger.debug("This node will be de-activated eventually.");
+    }
+
+    if (d !== this.parentNode) {
         // Make the clicked node's parent the new center node (root)
-        this.centerNode = d.parent || this.centerNode;
+        this.parentNode = d.parent || this.parentNode;
         this.activeNode = d;
     } else if (d.parent) {
         // If the center node is clicked again, make its parent the new center node
-        this.centerNode = d.parent;
+        this.parentNode = d.parent;
         this.activeNode = d;
     }
 
-    if (d.children) {
+    // Ensure that the active node's children are always expanded
+    if (d._children) {
+        d.children = d._children;
+        d._children = null;
+    }
+    /*if (d.children) {
         d._children = d.children;
         d.children = null;
     } else {
         d.children = d._children;
         d._children = null;
-    }
+    }*/
 
     this.update(d);
 }
 
 update(source) {
     const duration = 750;
-    this.treeLayout(this.centerNode);
+    this.treeLayout(this.parentNode);
     const visibleNodes = this._getVisibleNodes();
     const links = this._getVisibleLinks(visibleNodes);
     this._normalizeDepth(visibleNodes);
@@ -362,7 +375,7 @@ update(source) {
             this.svg.attr('viewBox', `0 0 ${width} ${height}`);
             this.svg.attr('transform', `translate(${width / 2},${height / 2})`);
             this.treeLayout.size([2 * Math.PI, radius]);
-            this.update(this.centerNode);
+            this.update(this.parentNode);
         });
 
         resizeObserver.observe(this.container);
