@@ -1,8 +1,10 @@
 {
   "name": "duonat",
-  "version": "1.0.0",
+  "version": "1.5.28",
+  "author": "Stefan Obenauer",
   "description": "DuoNat - iNat Taxonomy Trainer",
   "main": "index.html",
+  "license": "ISC",
   "type": "module",
   "dependencies": {
     "vis-network": "^9.1.2"
@@ -11,8 +13,6 @@
     "start": "echo 'Add a start script if needed'",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config jest.config.js"
   },
-  "author": "Stefan Obenauer",
-  "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.22.10",
     "@babel/preset-env": "^7.22.10",

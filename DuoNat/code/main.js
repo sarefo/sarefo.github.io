@@ -12,7 +12,6 @@ import utils from './utils.js';
 
 const initializeLogger = () => {
     logger.setLevel(config.debug ? LogLevel.DEBUG : LogLevel.INFO);
-    document.getElementById('version-id').innerHTML = `Version: <i>${document.lastModified}</i>`;
 };
 
 const handleUrlParameters = () => {
