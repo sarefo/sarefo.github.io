@@ -40,17 +40,19 @@ const game = {
 
             infoButton1.addEventListener('click', () => {
                 const imageOneURL = state.getObservationURL(1);
-            logger.debug(`Info button 1 clicked. Current URL: ${imageOneURL}`);
-            if (!imageOneURL) {
-                logger.error('Info button 1 clicked, but imageOne URL is null or undefined');
-                return;
-            }
-            this.showInfoDialog(imageOneURL, 1);
-        });
+                logger.debug(`Info button 1 clicked. Current URL: ${imageOneURL}`);
+                logger.debug(`Current state: ${JSON.stringify(state.getGameState())}`);
+                if (!imageOneURL) {
+                    logger.error('Info button 1 clicked, but imageOne URL is null or undefined');
+                    return;
+                }
+                this.showInfoDialog(imageOneURL, 1);
+            });
 
             infoButton2.addEventListener('click', () => {
                 const imageTwoURL = state.getObservationURL(2);
                 logger.debug(`Info button 2 clicked. Current URL: ${imageTwoURL}`);
+                logger.debug(`Current state: ${JSON.stringify(state.getGameState())}`);
                 if (!imageTwoURL) {
                     logger.error('Info button 2 clicked, but imageTwo URL is null or undefined');
                     return;
@@ -119,15 +121,23 @@ const game = {
 
         showInfoDialog: async function (url, imageIndex) {
             logger.debug(`showInfoDialog called with URL: ${url}, imageIndex: ${imageIndex}`);
+            logger.debug(`Current state: ${JSON.stringify(state.getGameState())}`);
             
             if (!url) {
                 logger.error(`showInfoDialog: URL is null or undefined for imageIndex: ${imageIndex}`);
                 return;
             }
             
-            const currentTaxon = gameLogic.getCurrentTaxon(url); // TODO FIX looks like unnecessary fetch from gameLogic?
+            const currentTaxonImageCollection = state.getCurrentTaxonImageCollection();
+            logger.debug(`Current taxon image collection: ${JSON.stringify(currentTaxonImageCollection)}`);
+            if (!currentTaxonImageCollection) {
+                logger.error('showInfoDialog: currentTaxonImageCollection is null or undefined');
+                return;
+            }
+
+            const currentTaxon = imageIndex === 1 ? currentTaxonImageCollection.pair.taxon1 : currentTaxonImageCollection.pair.taxon2;
             if (!currentTaxon) {
-                logger.error(`showInfoDialog: Unable to get current taxon for URL: ${url}`);
+                logger.error(`showInfoDialog: Unable to get current taxon for imageIndex: ${imageIndex}`);
                 return;
             }
             

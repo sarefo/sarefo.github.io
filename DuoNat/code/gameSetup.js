@@ -196,8 +196,12 @@ const gameSetup = {
 
         async loadAndSetupImages(pair, isNewPair) {
             const imageData = await gameSetup.imageHandling.loadImages(pair, isNewPair);
-            state.setObservationURL(api.utils.getObservationURLFromImageURL(imageData.leftImageSrc), 1);
-            state.setObservationURL(api.utils.getObservationURLFromImageURL(imageData.rightImageSrc) ,2);
+            logger.debug(`Setting observation URLs: Left - ${imageData.leftImageSrc}, Right - ${imageData.rightImageSrc}`);
+            state.setObservationURL(imageData.leftImageSrc, 1);
+            state.setObservationURL(imageData.rightImageSrc, 2);
+
+            // Add this logging
+            logger.debug(`After setting, URLs are: Left - ${state.getObservationURL(1)}, Right - ${state.getObservationURL(2)}`);
 
             return imageData;
         },

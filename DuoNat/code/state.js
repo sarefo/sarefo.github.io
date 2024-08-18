@@ -178,24 +178,26 @@ const publicAPI = {
     getObservationURLs: () => ({ ...gameState.currentObservationURLs }),
   // Observation URLs
     getObservationURL: (index) => {
-      if (index === 1) {
-        return gameState.currentObservationURLs.imageOne;
-      } else if (index === 2) {
-        return gameState.currentObservationURLs.imageTwo;
-      } else {
-        console.error(`Invalid index for getObservationURL: ${index}`);
-        return null;
-      }
+        if (index === 1 || index === 2) {
+            const url = gameState.currentObservationURLs[`image${index}`];
+            logger.debug(`Getting observation URL for image ${index}: ${url}`);
+            return url;
+        } else {
+            logger.error(`Invalid index for getObservationURL: ${index}`);
+            return null;
+        }
     },
     setObservationURL: (url, index) => {
-      if (index === 1 || index === 2) {
-        updateGameState('currentObservationURLs', {
-          ...gameState.currentObservationURLs,
-          [`image${index}`]: url
-        });
-      } else {
-        console.error(`Invalid index for setObservationURL: ${index}`);
-      }
+        if (index === 1 || index === 2) {
+            const updatedUrls = {
+                ...gameState.currentObservationURLs,
+                [`image${index}`]: url
+            };
+            updateGameState('currentObservationURLs', updatedUrls);
+            logger.debug(`Set observation URL for image ${index}: ${url}`);
+        } else {
+            logger.error(`Invalid index for setObservationURL: ${index}`);
+        }
     },
 
   // Preloaded Pair
