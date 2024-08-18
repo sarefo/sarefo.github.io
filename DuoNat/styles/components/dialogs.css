@@ -1213,8 +1213,8 @@ dialog[open] {
 
 /* Graph testing dialog */
 .testing-dialog {
-  width: 90%;
-  height: 90%;
+  width: 95%;
+  height: 95%;
   max-width: none;
 }
 

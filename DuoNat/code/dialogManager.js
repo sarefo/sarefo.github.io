@@ -9,6 +9,7 @@ import mainEventHandler from './mainEventHandler.js';
 import setManager from './setManager.js';
 import state from './state.js';
 import tagCloud from './tagCloud.js';
+import testingDialog from './testingDialog.js';
 import tutorial from './tutorial.js';
 import ui from './ui.js';
 import utils from './utils.js';
@@ -140,6 +141,7 @@ const dialogManager = {
             dialogManager.initialization.initializeKeyboardShortcutsDialog();
             infoDialog.initialize();
             collectionManager.initialize();
+            testingDialog.initialize();
             dialogManager.initialization.initializeReportDialog();
             dialogManager.initialization.initializeEnterSetDialog();
             dialogManager.initialization.initializeCloseButtons();
