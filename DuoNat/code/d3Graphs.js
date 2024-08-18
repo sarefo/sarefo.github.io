@@ -154,6 +154,9 @@ class RadialTree extends BaseTree {
     }
 
     _setupSvg(width, height) {
+        // Remove any existing SVG elements
+        this.d3.select(this.container).selectAll("svg").remove();
+
         this.svg = this.d3.select(this.container)
             .append('svg')
             .attr('width', '100%')
@@ -161,6 +164,34 @@ class RadialTree extends BaseTree {
             .attr('viewBox', `0 0 ${width} ${height}`)
             .append('g')
             .attr('transform', `translate(${width / 2},${height / 2})`);
+
+        // Add styles directly to the SVG
+        this.svg.append('style').text(`
+            .link {
+                fill: none;
+                stroke: #ccc;
+                stroke-width: 1.5px;
+            }
+            .node text {
+                font: 16px sans-serif;
+            }
+            .node--central circle {
+                fill: #74ac00;
+                r: 8;
+            }
+            .node--central text {
+                font-weight: bold;
+                fill: #74ac00;
+            }
+            .node--active circle {
+                stroke: #ff6600;
+                stroke-width: 3px;
+            }
+            .node--active text {
+                fill: #ff6600;
+                font-weight: bold;
+            }
+        `);
     }
 
     _addStyles() {
