@@ -5,6 +5,7 @@
 The DuoNat project is primarily written in JavaScript, with HTML and CSS for the frontend. The codebase is organized into several key directories and files:
 
 - `index.html`: The main HTML file for the application.
+- `html/dialogs/*`: The HTML files for the app's dialogs. 
 - `code/`: Contains most of the JavaScript modules.
 - `styles/`: Contains CSS files for styling the application.
 - `data/`: Contains JSON files with taxon information and sets.
