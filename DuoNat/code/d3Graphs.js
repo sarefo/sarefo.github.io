@@ -120,6 +120,7 @@ class RadialTree extends BaseTree {
         super(container, rootNode);
         this.parentNode = null;
         this.activeNode = null;
+        this.dragOffset = [0, 0];
     }
 
     async create() {
@@ -128,6 +129,7 @@ class RadialTree extends BaseTree {
         const { width, height, radius } = this._getDimensions();
         this._setupSvg(width, height);
         this._addStyles();
+        this._setupDrag();
 
         this.parentNode = this.root;
         this.activeNode = this.root;
@@ -163,7 +165,8 @@ class RadialTree extends BaseTree {
             .attr('height', '100%')
             .attr('viewBox', `0 0 ${width} ${height}`)
             .append('g')
-            .attr('transform', `translate(${width / 2},${height / 2})`);
+            .attr('transform', `translate(${width / 2},${height / 2})`)
+            .attr('class', 'draggable-group');
 
         // Add styles directly to the SVG
         this.svg.append('style').text(`
@@ -192,6 +195,31 @@ class RadialTree extends BaseTree {
                 font-weight: bold;
             }
         `);
+    }
+
+    _setupDrag() {
+        const drag = this.d3.drag()
+            .on('start', this._dragStarted.bind(this))
+            .on('drag', this._dragged.bind(this))
+            .on('end', this._dragEnded.bind(this));
+
+        this.svg.call(drag);
+    }
+
+    _dragStarted() {
+        this.d3.select(this.container).style('cursor', 'grabbing');
+    }
+
+    _dragged(event) {
+        const [x, y] = this.d3.pointer(event, this.svg.node());
+        const transform = this.d3.zoomTransform(this.svg.node());
+        this.dragOffset[0] += event.dx;
+        this.dragOffset[1] += event.dy;
+        this.svg.attr('transform', `translate(${this.dragOffset[0] + this.container.clientWidth / 2},${this.dragOffset[1] + this.container.clientHeight / 2})`);
+    }
+
+    _dragEnded() {
+        this.d3.select(this.container).style('cursor', 'grab');
     }
 
     _addStyles() {
@@ -424,7 +452,7 @@ class RadialTree extends BaseTree {
 
         // Center the active node on the screen
         const activeNodeCoords = this._radialPoint(this.activeNode.x, this.activeNode.y);
-        const svgGroupTransform = `translate(${this.container.clientWidth / 2 - activeNodeCoords[0]},${this.container.clientHeight / 2 - activeNodeCoords[1]})`;
+        const svgGroupTransform = `translate(${this.dragOffset[0] + this.container.clientWidth / 2 - activeNodeCoords[0]},${this.dragOffset[1] + this.container.clientHeight / 2 - activeNodeCoords[1]})`;
 
         this.svg.transition()
             .duration(duration)

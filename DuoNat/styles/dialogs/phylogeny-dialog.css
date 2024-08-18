@@ -20,6 +20,11 @@
     align-items: center;
     height: 100%;
     width: 100%;
+    cursor: grab;
+}
+
+.phylogeny-dialog__graph-container:active {
+    cursor: grabbing;
 }
 
 .phylogeny-dialog__controls {
