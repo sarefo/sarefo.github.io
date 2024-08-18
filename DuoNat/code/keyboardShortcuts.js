@@ -1,8 +1,8 @@
 import collectionManager from './collectionManager.js';
 import dialogManager from './dialogManager.js';
-import game from './game.js';
 import gameLogic from './gameLogic.js';
 import hintSystem from './hintSystem.js';
+import infoDialog from './infoDialog.js';
 import searchHandler from './searchHandler.js';
 import state from './state.js';
 import taxaRelationshipViewer from './taxaRelationshipViewer.js';
@@ -36,8 +36,8 @@ const keyboardShortcuts = {
 //            'c': ui.showTaxonPairList,
             'c': collectionManager.openCollectionManagerDialog,
             'e': () => dialogManager.openDialog('enter-set-dialog'),
-            'i': () => game.showInfoDialog(state.getObservationURL(1), 1),
-            'o': () => game.showInfoDialog(state.getObservationURL(2), 2),
+            'i': () => infoDialog.showInfoDialog(state.getObservationURL(1), 1),
+            'o': () => infoDialog.showInfoDialog(state.getObservationURL(2), 2),
             'h': () => hintSystem.showHint(1),
             'j': () => hintSystem.showHint(2),
             'g': taxaRelationshipViewer.showTaxaRelationship,

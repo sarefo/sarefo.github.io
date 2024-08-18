@@ -1,10 +1,11 @@
 import api from './api.js';
 import collectionManager from './collectionManager.js';
 import config from './config.js';
-import mainEventHandler from './mainEventHandler.js';
 import gameSetup from './gameSetup.js';
 import gameLogic from './gameLogic.js';
+import infoDialog from './infoDialog.js';
 import logger from './logger.js';
+import mainEventHandler from './mainEventHandler.js';
 import setManager from './setManager.js';
 import state from './state.js';
 import tagCloud from './tagCloud.js';
@@ -137,7 +138,8 @@ const dialogManager = {
         initializeDialogs() {
             dialogManager.initialization.initializeHelpDialog();
             dialogManager.initialization.initializeKeyboardShortcutsDialog();
-            dialogManager.initialization.initializeInfoDialog();
+            infoDialog.initialize();
+            collectionManager.initialize();
             dialogManager.initialization.initializeReportDialog();
             dialogManager.initialization.initializeEnterSetDialog();
             dialogManager.initialization.initializeCloseButtons();
@@ -204,63 +206,6 @@ const dialogManager = {
                     closeButton.addEventListener('click', () => dialogManager.core.closeDialog('keyboard-shortcuts-dialog'));
                 }
             }
-        },
-
-        initializeInfoDialog() {
-            const infoDialog = document.getElementById('info-dialog');
-            dialogManager.initialization.addKeyboardClass();
-            dialogManager.initialization.addInfoDialogKeyListener(infoDialog);
-            dialogManager.initialization.initializeReportButton();
-        },
-
-        addKeyboardClass() {
-            if (utils.device.hasKeyboard()) {
-                document.body.classList.add('has-keyboard');
-            }
-        },
-
-        addInfoDialogKeyListener(infoDialog) {
-            const handleKeyPress = dialogManager.initialization.createInfoDialogKeyPressHandler(infoDialog);
-            document.addEventListener('keydown', handleKeyPress);
-        },
-
-        createInfoDialogKeyPressHandler(infoDialog) {
-            return (event) => {
-                if (!infoDialog.open) return;
-                if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') return;
-                if (event.ctrlKey || event.altKey || event.shiftKey || event.metaKey) return;
-
-                event.stopPropagation();
-                const key = event.key.toLowerCase();
-                dialogManager.initialization.handleInfoDialogKeyPress(key, event, infoDialog);
-            };
-        },
-
-        handleInfoDialogKeyPress(key, event, infoDialog) {
-            const buttonMap = {
-                'p': 'photo-button',
-                'h': 'hints-button',
-                'o': 'observation-button',
-                't': 'taxon-button',
-                'w': 'wiki-button',
-                'r': 'report-button'
-            };
-
-            if (buttonMap[key]) {
-                event.preventDefault();
-                document.getElementById(buttonMap[key]).click();
-            } else if (key === 'escape') {
-                event.preventDefault();
-                infoDialog.close();
-            }
-        },
-
-        initializeReportButton() {
-            const reportButton = document.getElementById('report-button');
-            reportButton.addEventListener('click', () => {
-                dialogManager.core.closeDialog('info-dialog');
-                dialogManager.core.openDialog('report-dialog');
-            });
         },
 
         initializeReportDialog: function () {

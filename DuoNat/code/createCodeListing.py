@@ -40,7 +40,11 @@ def load_selection():
 
 def list_files(directory):
     file_list = []
-    for root, _, files in os.walk(directory):
+    for root, dirs, files in os.walk(directory):
+        # Skip the node_modules directory entirely
+        if 'node_modules' in dirs:
+            dirs.remove('node_modules')
+        # Skip other directories you don't want to include
         if any(skip in root for skip in SKIP_DIRECTORIES) or root.startswith(os.path.join(directory, 'data')):
             continue
         for file in files:

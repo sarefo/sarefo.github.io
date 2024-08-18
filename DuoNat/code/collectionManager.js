@@ -81,6 +81,7 @@ const collectionManager = {
                     collectionManager.taxonList.onFiltersChanged();
                 });
             }
+            collectionManager.ui.updateLevelDropdown();
         },
     },
 

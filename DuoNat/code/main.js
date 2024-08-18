@@ -1,9 +1,9 @@
-import collectionManager from './collectionManager.js';
 import config from './config.js';
 import dialogManager from './dialogManager.js';
-import mainEventHandler from './mainEventHandler.js';
 import gameSetup from './gameSetup.js';
+import infoDialog from './infoDialog.js';
 import logger, { LogLevel } from './logger.js';
+import mainEventHandler from './mainEventHandler.js';
 import rangeSelector from './rangeSelector.js';
 import state from './state.js';
 import tagCloud from './tagCloud.js';
@@ -61,7 +61,6 @@ const initializeComponents = () => {
     dialogManager.initialize();
     mainEventHandler.initialize();
     ui.initialize();
-    collectionManager.initialize();
     tagCloud.initialize();
     rangeSelector.initialize();
 };
@@ -71,7 +70,6 @@ const initializeApp = () => {
     initializeLogger();
     handleUrlParameters();
     initializeComponents();
-    collectionManager.updateLevelDropdown();
     gameSetup.setupGame(true, utils.url.getURLParameters());
     logger.info("App initialization complete");
 };
