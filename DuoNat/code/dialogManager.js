@@ -169,7 +169,7 @@ const dialogManager = {
                 event.stopPropagation();
                 if (!tutorial.isActive()) {
                     dialogManager.core.openDialog('help-dialog');
-                    dialogManager.updateKeyboardShortcutsButton();
+                    dialogManager.initialization.updateKeyboardShortcutsButton();
                 } else {
                     logger.debug("Tutorial is active, help dialog not opened");
                 }
