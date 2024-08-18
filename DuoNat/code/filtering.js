@@ -22,6 +22,7 @@ const filtering = {
         state.setSelectedRanges([]);
         state.setSelectedLevel('');
         state.setSearchTerm('');
+        state.setPhylogenyId(null);
 
         const levelDropdown = document.getElementById('level-filter-dropdown');
         if (levelDropdown) {

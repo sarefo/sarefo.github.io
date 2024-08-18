@@ -2,7 +2,7 @@ import os
 import json
 
 # Configuration file to save the selected files
-CONFIG_FILE = 'file_selection.json'
+CONFIG_FILE = '_file_selection.json'
 
 # Output file
 OUTPUT_FILE = 'claude_code_listing.txt'

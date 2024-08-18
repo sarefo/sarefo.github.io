@@ -393,6 +393,15 @@ class RadialTree extends BaseTree {
         }
     }
 
+    setActiveNode(nodeId) {
+        const node = this.root.descendants().find(d => d.data.id === nodeId);
+        if (node) {
+            this._handleClick(node);
+        } else {
+            logger.warn(`Node with id ${nodeId} not found in the tree`);
+        }
+    }
+
     getActiveNodeId() {
         return this.activeNode ? this.activeNode.data.id : null;
     }
@@ -641,6 +650,13 @@ const publicAPI = {
     getActiveNodeId: function () {
         // This assumes that the last created tree is the active one
         return this.lastCreatedTree ? this.lastCreatedTree.getActiveNodeId() : null;
+    },
+    setActiveNode: function (nodeId) {
+        if (this.lastCreatedTree) {
+            this.lastCreatedTree.setActiveNode(nodeId);
+        } else {
+            logger.warn('No tree instance available to set active node');
+        }
     },
 };
 

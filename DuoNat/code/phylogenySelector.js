@@ -16,9 +16,6 @@ const phylogenySelector = {
         const graphContainer = document.getElementById('phylogeny-graph-container');
         if (!graphContainer) return;
 
-        // Clear existing content
-        //graphContainer.innerHTML = '';
-
         graphContainer.innerHTML = '<div class="loading-indicator">Loading phylogeny...</div>';
 
         const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
@@ -29,10 +26,14 @@ const phylogenySelector = {
         }
 
         const rootNode = this.convertHierarchyToNestedObject(hierarchyObj);
+        const currentPhylogenyId = state.getPhylogenyId();
 
         try {
             graphContainer.innerHTML = '';
-            await d3Graphs.createRadialTree(graphContainer, rootNode);
+            const tree = await d3Graphs.createRadialTree(graphContainer, rootNode);
+            if (currentPhylogenyId) {
+                tree.setActiveNode(currentPhylogenyId);
+            }
         } catch (error) {
             logger.error('Error creating phylogeny graph:', error);
             graphContainer.innerHTML = `<p>Error creating graph: ${error.message}. Please try again.</p>`;
