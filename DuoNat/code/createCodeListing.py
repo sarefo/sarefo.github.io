@@ -69,7 +69,7 @@ def display_selection(selection, all_files):
     for i, file in enumerate(non_css_files):
         status = "[x]" if file in selection else "[ ]"
         print(f"{i + 1:2}. {status} {file}")
-    print("\nPress 's' to create the listing.\n")
+    print("\nPress 's' to create the listing. 'q' to quit.\n")
 
 def append_file_contents(file, output_file):
     file_path = os.path.join(ROOT_DIRECTORY, file)
@@ -99,12 +99,15 @@ def main():
     non_css_files = [file for file in all_files if not file.startswith(STYLES_DIRECTORY)]
     selected_files = load_selection()
 
+    save_file = False  # Flag to control file saving
+
     while True:
         display_selection(selected_files, all_files)
         user_input = input("Your choice: ").strip()
 
         if user_input.lower() == 's':
             save_selection(selected_files)
+            save_file = True  # Set flag to save file
             break
         elif user_input.lower() == 'q':
             break
@@ -123,22 +126,22 @@ def main():
                     selected_files.append(file)
         else:
             print("Invalid input. Please try again.")
+    if save_file:
+        # Generate the final listing
+        with open(OUTPUT_FILE, 'w') as out_f:
+            out_f.write("")  # Clear the output file
 
-    # Generate the final listing
-    with open(OUTPUT_FILE, 'w') as out_f:
-        out_f.write("")  # Clear the output file
+        with open(OUTPUT_FILE, 'a') as out_f:
+            out_f.write(f"This file provides up to date listings of relevant parts of my code base. These are up-to-date versions, so everything you see in here will be exactly like this in my project. Every file is indicated with '# <file name>' at the start. Be aware that there may be other files in my code that are not included. If you need them, please tell me so during the conversation. Do not just make up stuff instead.\n\n")
 
-    with open(OUTPUT_FILE, 'a') as out_f:
-        out_f.write(f"This file provides up to date listings of relevant parts of my code base. These are up-to-date versions, so everything you see in here will be exactly like this in my project. Every file is indicated with '# <file name>' at the start. Be aware that there may be other files in my code that are not included. If you need them, please tell me so during the conversation. Do not just make up stuff instead.\n\n")
+        for file in selected_files:
+            append_file_contents(file, OUTPUT_FILE)
+            print(f"Added content from: {file}")
 
-    for file in selected_files:
-        append_file_contents(file, OUTPUT_FILE)
-        print(f"Added content from: {file}")
-
-    # Add sample entries from specified JSON files
-    for json_file in SAMPLE_JSON_FILES:
-        append_json_sample(json_file, OUTPUT_FILE)
-        print(f"Added sample entries from: {json_file}")
+        # Add sample entries from specified JSON files
+        for json_file in SAMPLE_JSON_FILES:
+            append_json_sample(json_file, OUTPUT_FILE)
+            print(f"Added sample entries from: {json_file}")
 
 if __name__ == "__main__":
     main()
