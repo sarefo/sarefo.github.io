@@ -265,7 +265,7 @@ const publicAPI = {
 
     getPhylogenyId: () => gameState.phylogenyId,
     setPhylogenyId: (nodeId) => {
-        upateGameState('phylogenyId', nodeId);
+        updateGameState('phylogenyId', nodeId);
     },
 
     getCurrentRound: () => ({ ...gameState.currentRound }),

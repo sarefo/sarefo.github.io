@@ -1,0 +1,35 @@
+.phylogeny-dialog {
+    width: 95vw !important;
+    max-width: 95vw !important;
+    height: 95vh !important;
+}
+
+.phylogeny-dialog__content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+}
+
+.phylogeny-dialog__graph-container {
+    flex-grow: 1;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.phylogeny-dialog__controls {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.phylogeny-dialog .dialog-title {
+    /*padding: 15px 0;
+    margin: 0;*/
+}
+

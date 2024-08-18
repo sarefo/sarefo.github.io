@@ -34,11 +34,14 @@ const collectionManager = {
             this.initializeClearFiltersButton();
             this.initializeSelectSetDoneButton();
             this.initializeLevelDropdown();
+            this.initializePhylogenySelector();
+        },
 
-            // TODO HACK to open the phyl selector
+        initializePhylogenySelector() {
             const titleElement = document.getElementById('manage-collections');
             titleElement.addEventListener('click', () => {
-                phylogenySelector.openDialog();
+                dialogManager.openDialog('phylogeny-dialog');
+                phylogenySelector.updateGraph();
             });
         },
 

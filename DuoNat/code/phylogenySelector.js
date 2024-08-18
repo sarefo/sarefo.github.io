@@ -6,40 +6,19 @@ import state from './state.js';
 
 const phylogenySelector = {
     initialize() {
-        phylogenySelector.createDialog();
-        phylogenySelector.setupEventListeners();
-    },
-
-    createDialog() {
-        const dialog = document.createElement('dialog');
-        dialog.id = 'phylogeny-selector-dialog';
-        dialog.className = 'standard-dialog phylogeny-selector-dialog';
-
-        dialog.innerHTML = `
-            <button class="dialog-close-button icon" aria-label="Close">×</button>
-            <h3 class="dialog-title">Phylogeny Selector</h3>
-            <div id="phylogeny-graph-container" class="phylogeny-selector-dialog__graph-container"></div>
-            <button id="phylogeny-done-button" class="button">Done</button>
-        `;
-
-        document.body.appendChild(dialog);
-    },
-
-    setupEventListeners() {
-        const closeButton = document.querySelector('#phylogeny-selector-dialog .dialog-close-button');
-        closeButton.addEventListener('click', () => dialogManager.closeDialog('phylogeny-selector-dialog'));
-
         const doneButton = document.getElementById('phylogeny-done-button');
-        doneButton.addEventListener('click', () => phylogenySelector.handleDoneButton());
-    },
-
-    openDialog() {
-        dialogManager.openDialog('phylogeny-selector-dialog');
-        phylogenySelector.updateGraph();
+        if (doneButton) {
+            doneButton.addEventListener('click', this.handleDoneButton.bind(this));
+        }
     },
 
     async updateGraph() {
         const graphContainer = document.getElementById('phylogeny-graph-container');
+        if (!graphContainer) return;
+
+        // Clear existing content
+        //graphContainer.innerHTML = '';
+
         graphContainer.innerHTML = '<div class="loading-indicator">Loading phylogeny...</div>';
 
         const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
@@ -49,10 +28,10 @@ const phylogenySelector = {
             return;
         }
 
-        const rootNode = phylogenySelector.convertHierarchyToNestedObject(hierarchyObj);
+        const rootNode = this.convertHierarchyToNestedObject(hierarchyObj);
 
         try {
-            graphContainer.innerHTML = ''; // Clear the loading indicator
+            graphContainer.innerHTML = '';
             await d3Graphs.createRadialTree(graphContainer, rootNode);
         } catch (error) {
             logger.error('Error creating phylogeny graph:', error);
@@ -108,13 +87,13 @@ const phylogenySelector = {
         } else {
             logger.warn('No active node selected');
         }
-        dialogManager.closeDialog('phylogeny-selector-dialog');
+        dialogManager.closeDialog('phylogeny-dialog');
     }
 };
 
 const publicAPI = {
-    initialize: phylogenySelector.initialize,
-    openDialog: phylogenySelector.openDialog
+    initialize: phylogenySelector.initialize.bind(phylogenySelector),
+    updateGraph: phylogenySelector.updateGraph.bind(phylogenySelector),
 };
 
 export default publicAPI;
