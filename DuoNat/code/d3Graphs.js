@@ -305,42 +305,56 @@ class RadialTree extends BaseTree {
         return [(y = +y) * Math.cos(x -= Math.PI / 2), y * Math.sin(x)];
     }
 
-    _handleClick(d) {
-        if (d !== this.centerNode) {
-            this.centerNode = d.parent || this.centerNode;
-            this.activeNode = d;
-        } else if (d.parent) {
-            this.centerNode = d.parent;
-            this.activeNode = d;
-        }
-
-        if (d.children) {
-            d._children = d.children;
-            d.children = null;
-        } else {
-            d.children = d._children;
-            d._children = null;
-        }
-
-        this.update(d);
+_handleClick(d) {
+    if (d !== this.centerNode) {
+        // Make the clicked node's parent the new center node (root)
+        this.centerNode = d.parent || this.centerNode;
+        this.activeNode = d;
+    } else if (d.parent) {
+        // If the center node is clicked again, make its parent the new center node
+        this.centerNode = d.parent;
+        this.activeNode = d;
     }
 
-    update(source) {
-        const duration = 750;
-        this.treeLayout(this.centerNode);
-        const visibleNodes = this._getVisibleNodes();
-        const links = this._getVisibleLinks(visibleNodes);
-        this._normalizeDepth(visibleNodes);
-        
-        this._updateNodes(visibleNodes, source, duration);
-        this._updateLinks(links, source, duration);
-        
-        // Store old positions directly here
-        visibleNodes.forEach(d => {
-            d.x0 = d.x;
-            d.y0 = d.y;
-        });
+    if (d.children) {
+        d._children = d.children;
+        d.children = null;
+    } else {
+        d.children = d._children;
+        d._children = null;
     }
+
+    this.update(d);
+}
+
+update(source) {
+    const duration = 750;
+    this.treeLayout(this.centerNode);
+    const visibleNodes = this._getVisibleNodes();
+    const links = this._getVisibleLinks(visibleNodes);
+    this._normalizeDepth(visibleNodes);
+    
+    this._updateNodes(visibleNodes, source, duration);
+    this._updateLinks(links, source, duration);
+    
+    // Store old positions directly here
+    visibleNodes.forEach(d => {
+        d.x0 = d.x;
+        d.y0 = d.y;
+    });
+
+    // Center the active node on the screen
+    const activeNodeCoords = this._radialPoint(this.activeNode.x, this.activeNode.y);
+    const svgGroupTransform = `translate(${this.container.clientWidth / 2 - activeNodeCoords[0]},${this.container.clientHeight / 2 - activeNodeCoords[1]})`;
+
+    this.svg.transition()
+        .duration(duration)
+        .attr('transform', svgGroupTransform);
+}
+
+/*_radialPoint(x, y) {
+    return [(y = +y) * Math.cos(x - Math.PI / 2), y * Math.sin(x - Math.PI / 2)];
+}*/
 
     _setupResizeObserver() {
         const resizeObserver = new ResizeObserver(() => {
