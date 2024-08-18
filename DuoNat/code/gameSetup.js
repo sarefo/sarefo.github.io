@@ -3,7 +3,6 @@ import collectionManager from './collectionManager.js';
 import config from './config.js';
 import dialogManager from './dialogManager.js';
 import filtering from './filtering.js';
-import game from './game.js';
 import hintSystem from './hintSystem.js';
 import logger from './logger.js';
 import preloader from './preloader.js';
@@ -46,7 +45,7 @@ const gameSetup = {
         prepareUIForLoading() {
             utils.game.resetDraggables();
             gameUI.prepareImagesForLoading();
-            const startMessage = state.getIsFirstLoad() ? "Drag the names!" : game.getLoadingMessage();
+            const startMessage = state.getIsFirstLoad() ? "Drag the names!" : utils.ui.getLoadingMessage();
             ui.showOverlay(startMessage, config.overlayColors.green);
             state.setIsFirstLoad(false);
         },
@@ -297,9 +296,27 @@ const gameSetup = {
             const leftImageSrc = randomized ? imageOneURL : imageTwoURL;
             const rightImageSrc = randomized ? imageTwoURL : imageOneURL;
 
-            await game.loadImages(leftImageSrc, rightImageSrc);
+            await Promise.all([
+                gameSetup.imageHandling.loadImageAndRemoveLoadingClass(state.getElement('imageOne'), leftImageSrc),
+                gameSetup.imageHandling.loadImageAndRemoveLoadingClass(state.getElement('imageTwo'), rightImageSrc)
+            ]);
 
             return { leftImageSrc, rightImageSrc, randomized, imageOneURL, imageTwoURL };
+        },
+
+        async loadImageAndRemoveLoadingClass(imgElement, src) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => {
+                    imgElement.src = src;
+                    imgElement.classList.remove('image-container__image--loading');
+                    setTimeout(() => {
+                        imgElement.classList.add('image-container__image--loaded');
+                        resolve();
+                    }, 50); // 50ms delay to ensure the browser has time to apply the new src
+                };
+                img.src = src;
+            });
         },
 
         async getImagesForRound(pair) {

@@ -2,7 +2,6 @@ import api from './api.js';
 import collectionManager from './config.js';
 import config from './config.js';
 import filtering from './filtering.js';
-import game from './game.js'; // TODO move loadingMessage to config, then remove
 import gameSetup from './gameSetup.js';
 import gameUI from './gameUI.js';
 import logger from './logger.js';
@@ -50,7 +49,7 @@ const gameLogic = {
             await ui.showOverlay('Correct!', config.overlayColors.green);
             gameUI.prepareImagesForLoading();
             await utils.ui.sleep(2000); // Show "Correct!" for a while
-            ui.updateOverlayMessage(`${game.getLoadingMessage()}`); // Update message without changing color
+            ui.updateOverlayMessage(`${utils.ui.getLoadingMessage()}`); // Update message without changing color
             await gameSetup.setupGame(false);  // Start a new round with the same taxon pair
         },
 
@@ -66,7 +65,7 @@ const gameLogic = {
     pairManagement: {
         async loadNewRandomPair(usePreloadedPair = true) {
             state.setState(state.GameState.LOADING);
-            ui.showOverlay(`${game.getLoadingMessage()}`, config.overlayColors.green);
+            ui.showOverlay(`${utils.ui.getLoadingMessage()}`, config.overlayColors.green);
             gameUI.prepareImagesForLoading();
 
             try {

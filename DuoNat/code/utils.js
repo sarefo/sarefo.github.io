@@ -144,7 +144,12 @@ const utils = {
 
         sleep(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
-        }
+        },
+
+        // TODO move to config.js
+        getLoadingMessage() {
+            return config.loadingMessage;
+        },
     },
 
     device: {
@@ -241,7 +246,8 @@ const publicAPI = {
     },
     ui: {
         debounce: utils.ui.debounce,
-        sleep: utils.ui.sleep
+        sleep: utils.ui.sleep,
+        getLoadingMessage: utils.ui.getLoadingMessage
     },
     device: {
         hasKeyboard: utils.device.hasKeyboard
