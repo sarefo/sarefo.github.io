@@ -16,12 +16,12 @@ const tagSelector = {
     initialization: {
 
         async initialize() {
-            const tagSelectorDialog = document.getElementById('tag-cloud-dialog');
+            const tagSelectorDialog = document.getElementById('tag-dialog');
 
             const selectTagsButton = document.getElementById('select-tags-button');
             selectTagsButton.addEventListener('click', () => tagSelector.openTagSelector());
 
-            const doneButton = document.getElementById('tag-cloud-done-button');
+            const doneButton = document.getElementById('tag-done-button');
             doneButton.addEventListener('click', () => tagSelector.closeTagSelector());
 
             // Close button functionality
@@ -102,7 +102,7 @@ const tagSelector = {
     uiManager: {
 
         async renderTagCloud(tagCounts) {
-            const container = document.getElementById('tag-cloud-container');
+            const container = document.getElementById('tag-container');
             container.innerHTML = '';
             const maxCount = Math.max(...Object.values(tagCounts));
 
@@ -123,11 +123,11 @@ const tagSelector = {
             const size = 14 + (count / maxCount) * 24;
             const tagElement = document.createElement('span');
             tagElement.textContent = tag;
-            tagElement.className = 'tag-cloud-item';
+            tagElement.className = 'tag-item';
             tagElement.style.fontSize = `${size}px`;
 
             if (count === 1) {
-                tagElement.classList.add('tag-cloud-item--single');
+                tagElement.classList.add('tag-item--single');
             }
 
             if (isSelected) {
@@ -209,7 +209,7 @@ const tagSelector = {
         const tagCounts = await this.dataManager.getTagCounts();
         this.uiManager.renderTagCloud(tagCounts);
         this.uiManager.updateMatchingPairsCount();
-        dialogManager.openDialog('tag-cloud-dialog');
+        dialogManager.openDialog('tag-dialog');
     },
 
     async updateTagCloud() {
@@ -220,13 +220,13 @@ const tagSelector = {
 
     closeTagSelector() {
         collectionManager.updateTaxonList();
-        dialogManager.closeDialog('tag-cloud-dialog', true);
+        dialogManager.closeDialog('tag-dialog', true);
     },
 
     /*closeTagSelector() {
           tagSelector.updateTaxonList();
           preloader.pairPreloader.preloadNewPairWithTags(state.getSelectedTags(), state.getSelectedLevel());
-          dialogManager.closeDialog('tag-cloud-dialog', true);
+          dialogManager.closeDialog('tag-dialog', true);
           collectionManager.updateFilterSummary();
       },*/
 };

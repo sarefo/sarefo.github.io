@@ -1,0 +1,29 @@
+<!-- Enter set dialog -->
+
+<dialog id="enter-set-dialog" class="standard-dialog enter-set-dialog">
+    <button class="dialog-close-button icon" aria-label="Close">×</button>
+
+    <div class="dialog-content">
+
+        <form method="dialog" class="enter-set-dialog__form">
+            <h2 class="dialog-title">Enter New Taxon Set</h2>
+
+            <div>
+                <label for="taxon1" class="enter-set-dialog__label">Taxon 1:</label>
+                <input type="text" id="taxon1" class="enter-set-dialog__input" required>
+            </div>
+
+            <div>
+                <label for="taxon2" class="enter-set-dialog__label">Taxon 2:</label>
+                <input type="text" id="taxon2" class="enter-set-dialog__input" required>
+            </div>
+
+            <div id="dialog-message" class="enter-set-dialog__message" aria-live="polite"></div>
+
+            <button type="submit" id="submit-dialog" class="dialog-button">Submit</button>
+
+        </form>
+
+    </div>
+
+</dialog>

@@ -57,22 +57,26 @@ const handleSetIDParameter = (urlParams) => {
     }
 };
 
-const initializeComponents = () => {
-    dialogManager.initialize();
+async function initializeComponents() {
+    await dialogManager.initialize();
     mainEventHandler.initialize();
     ui.initialize();
     tagSelector.initialize();
     rangeSelector.initialize();
-};
+}
 
-const initializeApp = () => {
+async function initializeApp() {
     logger.info("Initializing app");
     initializeLogger();
     handleUrlParameters();
-    initializeComponents();
+    await initializeComponents();
     gameSetup.setupGame(true, utils.url.getURLParameters());
     logger.info("App initialization complete");
-};
+}
+
+initializeApp().catch(error => {
+    logger.error('Error initializing app:', error);
+});
 
 // Expose initializeApp to the global scope
 window.initializeApp = initializeApp;

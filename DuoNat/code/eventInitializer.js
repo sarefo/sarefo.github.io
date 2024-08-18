@@ -108,7 +108,7 @@ const eventInitializer = {
 
     initializeDialogCloseButtons() {
         this.initializeDialogCloseButton('select-set-dialog');
-        this.initializeDialogCloseButton('tag-cloud-dialog');
+        this.initializeDialogCloseButton('tag-dialog');
     },
 
     initializeDialogCloseButton(dialogId) {

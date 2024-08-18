@@ -15,6 +15,20 @@ import ui from './ui.js';
 import utils from './utils.js';
 
 const dialogManager = {
+    dialogIds: [
+        'help-dialog',
+        'keyboard-shortcuts-dialog',
+        'info-dialog',
+        'select-set-dialog',
+        'tag-dialog',
+        'range-dialog',
+        'phylogeny-dialog',
+        'enter-set-dialog',
+        'qr-dialog',
+        'report-dialog',
+        'inat-down-dialog',
+    ],
+
     mainEventHandlers: {},
     eventListeners: {},
     openDialogs: [],
@@ -121,7 +135,7 @@ const dialogManager = {
                 event.preventDefault();
                 event.stopPropagation();
                 const topDialogId = dialogManager.openDialogs[dialogManager.openDialogs.length - 1];
-                if (topDialogId === 'tag-cloud-dialog') {
+                if (topDialogId === 'tag-dialog') {
                     tagSelector.closeTagSelector();
                 } else {
                     dialogManager.core.closeDialog(topDialogId);
@@ -136,7 +150,8 @@ const dialogManager = {
     },
 
     initialization: {
-        initializeDialogs() {
+        async initializeDialogs() {
+            await dialogManager.initialization.loadDialogs();
             dialogManager.initialization.initializeHelpDialog();
             dialogManager.initialization.initializeKeyboardShortcutsDialog();
             infoDialog.initialize();
@@ -149,14 +164,15 @@ const dialogManager = {
         },
 
         initializeCloseButtons() {
-            const dialogs = ['select-set-dialog', 'tag-cloud-dialog', 'range-dialog',
-                'enter-set-dialog', 'qr-dialog', 'help-dialog', 'info-dialog',
-                'report-dialog', 'phylogeny-dialog', 'inat-down-dialog'];
-            dialogs.forEach(dialogId => {
+            dialogManager.dialogIds.forEach(dialogId => {
                 const dialog = document.getElementById(dialogId);
-                const closeButton = dialog.querySelector('.dialog-close-button');
-                if (closeButton) {
-                    closeButton.addEventListener('click', () => dialogManager.core.closeDialog(dialogId));
+                if (dialog) {
+                    const closeButton = dialog.querySelector('.dialog-close-button');
+                    if (closeButton) {
+                        closeButton.addEventListener('click', () => dialogManager.core.closeDialog(dialogId));
+                    }
+                } else {
+                    logger.warn(`Dialog with id "${dialogId}" not found in the DOM`);
                 }
             });
         },
@@ -269,6 +285,17 @@ const dialogManager = {
             });
 
             logger.debug('Enter Set Dialog initialized');
+        },
+
+        loadDialogs: async function () {
+            const loadPromises = dialogManager.dialogIds.map(id => dialogManager.initialization.loadDialog(id));
+            await Promise.all(loadPromises);
+        },
+
+        loadDialog: async function (id) {
+            const response = await fetch(`./html/dialogs/${id}.html`);
+            const html = await response.text();
+            document.body.insertAdjacentHTML('beforeend', html);
         },
     },
 
@@ -717,9 +744,9 @@ const dialogManager = {
         },
     },
 
-    initialize() {
+    async initialize() {
         dialogManager.bindAllMethods();
-        dialogManager.initialization.initializeDialogs();
+        await dialogManager.initialization.initializeDialogs();
 
         dialogManager.handlers.handleNewPairSubmit = dialogManager.handlers.handleNewPairSubmit.bind(dialogManager.handlers);
         dialogManager.handlers.handleReportSubmit = dialogManager.handlers.handleReportSubmit.bind(dialogManager.handlers);
@@ -747,11 +774,16 @@ const dialogManager = {
 
 const publicAPI = {
     initialize: dialogManager.initialize,
+
+//    loadDialog: dialogManager.initialization.loadDialog,
+
     openDialog: dialogManager.core.openDialog,
     closeDialog: dialogManager.core.closeDialog,
-    getOpenDialogs: dialogManager.getOpenDialogs,
-    isAnyDialogOpen: dialogManager.core.isAnyDialogOpen,
     closeAllDialogs: dialogManager.core.closeAllDialogs,
+
+    isAnyDialogOpen: dialogManager.core.isAnyDialogOpen,
+    getOpenDialogs: dialogManager.getOpenDialogs,
+
     showINatDownDialog: dialogManager.specialDialogs.showINatDownDialog,
     hideINatDownDialog: dialogManager.specialDialogs.hideINatDownDialog,
 };

@@ -603,19 +603,19 @@ dialog[open] {
 
 /* Tag cloud dialog */
 
-#tag-cloud-dialog {
+#tag-dialog {
     width: 95%;
     max-width: var(--max-image-width);
     height: 90vh;
     display: none; /* Hide the dialog by default */
 }
 
-#tag-cloud-dialog[open] {
+#tag-dialog[open] {
     display: flex;
     flex-direction: column;
 }
 
-#tag-cloud-container {
+#tag-container {
     flex-grow: 1;
     display: flex;
     flex-wrap: wrap;
@@ -626,7 +626,7 @@ dialog[open] {
     overflow-y: auto;
 }
 
-.tag-cloud-item {
+.tag-item {
     margin: 5px;
     padding: 5px 10px;
     background-color: #f0f0f0;
@@ -636,22 +636,22 @@ dialog[open] {
     user-select: none;
 }
 
-.tag-cloud-item:hover {
+.tag-item:hover {
   transform: scale(1.1);
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 /* only one set for this tag */
-.tag-cloud-item--single {
+.tag-item--single {
     color: #999999;
 }
 
-.tag-cloud-item.active {
+.tag-item.active {
     background-color: var(--primary-color);
     color: white;
 }
 
-.tag-cloud-dialog__done-button {
+.tag-dialog__done-button {
     margin-top: 10px;
 }
 

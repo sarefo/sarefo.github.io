@@ -1,0 +1,27 @@
+<!-- Report dialog -->
+
+<dialog id="report-dialog" class="standard-dialog report-dialog">
+    <button class="dialog-close-button icon" aria-label="Close">×</button>
+
+    <div class="dialog-content">
+        <h3 class="dialog-title">Report an Issue</h3>
+
+        <form id="report-dialog__form">
+
+            <div class="report-dialog__options">
+                <label><input type="checkbox" name="report-type" value="wrong-image"> The image is wrong</label>
+                <label><input type="checkbox" name="report-type" value="wrong-range"> Range is wrong</label>
+                <label><input type="checkbox" name="report-type" value="wrong-name"> Name is wrong</label>
+                <label><input type="checkbox" name="report-type" value="wrong-info"> Info is wrong</label>
+                <label><input type="checkbox" name="report-type" value="other"> Something else is wrong</label>
+            </div>
+
+            <textarea id="report-dialog__details" placeholder="Please provide more details..." style="display: none;"></textarea>
+
+            <button type="submit" id="report-dialog__submit" class="dialog-button report-dialog__submit">Send Report</button>
+
+        </form>
+
+    </div>
+
+</dialog>
