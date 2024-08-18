@@ -1114,7 +1114,7 @@ dialog[open] {
 .report-dialog__submit:hover {
     background-color: #5c8a00;
 }
-
+/*
 .popup-notification {
     position: fixed;
     top: 20px;
@@ -1136,6 +1136,22 @@ dialog[open] {
 
 .popup-notification.show {
     opacity: 1;
+}
+*/
+.report-dialog__confirmation {
+    margin-top: 20px;
+}
+
+.report-dialog__confirmation pre {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 4px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.report-dialog__close-button {
+    margin-top: 20px;
 }
 
 /* Relationship graph dialog */

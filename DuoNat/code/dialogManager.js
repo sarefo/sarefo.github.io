@@ -421,7 +421,8 @@ const dialogManager = {
             if (!dialogManager.handlers.validateReportData(reportData)) return;
 
             const emailBody = dialogManager.handlers.constructEmailBody(reportData);
-            dialogManager.reporting.sendReportEmail(emailBody);
+            //dialogManager.reporting.sendReportEmail(emailBody);
+            dialogManager.handlers.showReportConfirmation(emailBody);
         },
 
         collectReportData(form) {
@@ -454,6 +455,36 @@ const dialogManager = {
             emailBody += dialogManager.handlers.getCurrentImageURLs();
 
             return emailBody;
+        },
+
+        showReportConfirmation: function (emailBody) {
+            const dialog = document.getElementById('report-dialog');
+            const form = dialog.querySelector('#report-dialog__form');
+            const confirmationMessage = document.createElement('div');
+            confirmationMessage.className = 'report-dialog__confirmation';
+            confirmationMessage.innerHTML = `
+                <p>Attempting to open your email client. If it doesn't open, the report has been copied to your clipboard. Please paste it into your email client and send to sarefo@gmail.com</p>
+                <p>Report content:</p>
+                <pre>${emailBody}</pre>
+            `;
+
+            // Replace the form with the confirmation message
+            form.replaceWith(confirmationMessage);
+
+            // Copy to clipboard and open mailto link
+            dialogManager.reporting.copyToClipboard(emailBody);
+            const mailtoLink = `mailto:sarefo@gmail.com?subject=${encodeURIComponent("DuoNat Report")}&body=${encodeURIComponent(emailBody)}`;
+            window.location.href = mailtoLink;
+
+            // Add a close button
+            const closeButton = document.createElement('button');
+            closeButton.textContent = 'Close';
+            closeButton.className = 'dialog-button report-dialog__close-button';
+            closeButton.addEventListener('click', () => {
+                dialogManager.core.closeDialog('report-dialog');
+                dialogManager.reporting.resetReportDialog();
+            });
+            confirmationMessage.appendChild(closeButton);
         },
 
         getGameStateInfo() {
@@ -650,8 +681,15 @@ const dialogManager = {
         },
 
         resetReportDialog: function () {
-            const reportForm = document.getElementById('report-dialog__form');
-            const reportOptions = reportForm.querySelectorAll('input[name="report-type"]');
+            const dialog = document.getElementById('report-dialog');
+            const form = document.getElementById('report-dialog__form');
+            const confirmationMessage = dialog.querySelector('.report-dialog__confirmation');
+            
+            if (confirmationMessage) {
+                confirmationMessage.replaceWith(form);
+            }
+
+            const reportOptions = form.querySelectorAll('input[name="report-type"]');
             const reportDetails = document.getElementById('report-dialog__details');
 
             // Uncheck all checkboxes
