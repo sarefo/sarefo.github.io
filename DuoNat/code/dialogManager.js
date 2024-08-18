@@ -504,12 +504,11 @@ const dialogManager = {
         },
 
         getCurrentImageURLs() {
-            let urls = "";
-            logger.debug("in getCurrentImageURLs");
-            let currentObservationURLs = state.getObservationURLs();
-            if (currentObservationURLs) {
-                urls += `Image 1 URL: ${currentObservationURLs.imageOne || 'N/A'}\n`;
-                urls += `Image 2 URL: ${currentObservationURLs.imageTwo || 'N/A'}\n`;
+            let urls = "\nCurrent Image URLs:\n";
+            const currentRound = state.getCurrentRound();
+            if (currentRound) {
+                urls += `Image 1 URL: ${currentRound.imageOneURL || 'N/A'}\n`;
+                urls += `Image 2 URL: ${currentRound.imageTwoURL || 'N/A'}\n`;
             } else {
                 urls += "Current image URLs not available\n";
             }
