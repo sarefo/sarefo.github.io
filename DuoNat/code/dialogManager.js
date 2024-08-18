@@ -17,17 +17,18 @@ import utils from './utils.js';
 
 const dialogManager = {
     dialogIds: [
-        'help-dialog',
-        'keyboard-shortcuts-dialog',
-        'info-dialog',
-        'collection-dialog',
-        'tag-dialog',
-        'range-dialog',
         'ancestry-dialog',
+        'collection-dialog',
         'enter-set-dialog',
-        'qr-dialog',
-        'report-dialog',
+        'help-dialog',
         'inat-down-dialog',
+        'info-dialog',
+        'keyboard-shortcuts-dialog',
+        'phylogeny-dialog',
+        'qr-dialog',
+        'range-dialog',
+        'report-dialog',
+        'tag-dialog',
     ],
 
     mainEventHandlers: {},

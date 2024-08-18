@@ -1,13 +1,15 @@
-@import 'help-dialog.css';
-@import 'keyboard-shortcuts-dialog.css';
-@import 'info-dialog.css';
+@import 'ancestry-dialog';
 @import 'collection-dialog.css';
-@import 'tag-dialog.css';
-@import 'range-dialog.css';
 @import 'enter-set-dialog.css';
-@import 'qr-dialog.css';
-@import 'report-dialog.css';
+@import 'help-dialog.css';
 @import 'inat-down-dialog.css';
+@import 'info-dialog.css';
+@import 'keyboard-shortcuts-dialog.css';
+@import 'phylogeny-dialog.css';
+@import 'qr-dialog.css';
+@import 'range-dialog.css';
+@import 'report-dialog.css';
+@import 'tag-dialog.css';
 
 /* Generic dialog style */
 
