@@ -9,7 +9,6 @@ import mainEventHandler from './mainEventHandler.js';
 import rangeSelector from './rangeSelector.js';
 import setManager from './setManager.js';
 import state from './state.js';
-import tagCloud from './tagCloud.js';
 import ui from './ui.js';
 import worldMap from './worldMap.js';
 

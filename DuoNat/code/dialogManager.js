@@ -8,7 +8,7 @@ import logger from './logger.js';
 import mainEventHandler from './mainEventHandler.js';
 import setManager from './setManager.js';
 import state from './state.js';
-import tagCloud from './tagCloud.js';
+import tagSelector from './tagSelector.js';
 import testingDialog from './testingDialog.js';
 import tutorial from './tutorial.js';
 import ui from './ui.js';
@@ -122,7 +122,7 @@ const dialogManager = {
                 event.stopPropagation();
                 const topDialogId = dialogManager.openDialogs[dialogManager.openDialogs.length - 1];
                 if (topDialogId === 'tag-cloud-dialog') {
-                    tagCloud.closeTagCloud();
+                    tagSelector.closeTagSelector();
                 } else {
                     dialogManager.core.closeDialog(topDialogId);
                 }

@@ -8,7 +8,7 @@ import state from './state.js';
 import ui from './ui.js';
 import logger from './logger.js';
 
-const tagCloud = {
+const tagSelector = {
     selectedTags: new Set(),
     eventListeners: {},
     filteredPairs: [],
@@ -16,19 +16,19 @@ const tagCloud = {
     initialization: {
 
         async initialize() {
-            const tagCloudDialog = document.getElementById('tag-cloud-dialog');
+            const tagSelectorDialog = document.getElementById('tag-cloud-dialog');
 
             const selectTagsButton = document.getElementById('select-tags-button');
-            selectTagsButton.addEventListener('click', () => tagCloud.openTagCloud());
+            selectTagsButton.addEventListener('click', () => tagSelector.openTagSelector());
 
             const doneButton = document.getElementById('tag-cloud-done-button');
-            doneButton.addEventListener('click', () => tagCloud.closeTagCloud());
+            doneButton.addEventListener('click', () => tagSelector.closeTagSelector());
 
             // Close button functionality
-            const closeButton = tagCloudDialog.querySelector('.dialog-close-button');
-            closeButton.addEventListener('click', () => tagCloud.closeTagCloud());
+            const closeButton = tagSelectorDialog.querySelector('.dialog-close-button');
+            closeButton.addEventListener('click', () => tagSelector.closeTagSelector());
 
-            // TODO not sure this should be in tagCloud.js
+            // TODO not sure this should be in tagSelector.js
             const clearAllFiltersButton = document.getElementById('clear-all-filters');
             clearAllFiltersButton.addEventListener('click', () => filtering.clearAllFilters());
 
@@ -36,7 +36,7 @@ const tagCloud = {
             levelDropdown.addEventListener('change', () => collectionManager.updateTaxonList());
 
             // Initialize filteredPairs
-            await tagCloud.dataManager.updateFilteredPairs();
+            await tagSelector.dataManager.updateFilteredPairs();
         },
 
         on(eventName, callback) {
@@ -58,39 +58,39 @@ const tagCloud = {
 
         async toggleTag(element, tag) {
             element.classList.toggle('active');
-            if (tagCloud.selectedTags.has(tag)) {
-                tagCloud.selectedTags.delete(tag);
+            if (tagSelector.selectedTags.has(tag)) {
+                tagSelector.selectedTags.delete(tag);
             } else {
-                tagCloud.selectedTags.add(tag);
+                tagSelector.selectedTags.add(tag);
             }
-            const newSelectedTags = Array.from(tagCloud.selectedTags);
+            const newSelectedTags = Array.from(tagSelector.selectedTags);
             state.updateGameStateMultiple({ selectedTags: newSelectedTags });
-            await tagCloud.dataManager.updateFilteredPairs();
+            await tagSelector.dataManager.updateFilteredPairs();
             collectionManager.updateFilterSummary();
-            tagCloud.uiManager.updateMatchingPairsCount();
+            tagSelector.uiManager.updateMatchingPairsCount();
             
-            tagCloud.updateTagCloud();
+            tagSelector.updateTagCloud();
         },
 
         getSelectedTags() {
-            return Array.from(tagCloud.selectedTags);
+            return Array.from(tagSelector.selectedTags);
         },
 
         async setSelectedTags(tags) {
-            tagCloud.selectedTags = new Set(tags);
-            state.updateGameStateMultiple({ selectedTags: tagCloud.tagSelection.getSelectedTags() });
+            tagSelector.selectedTags = new Set(tags);
+            state.updateGameStateMultiple({ selectedTags: tagSelector.tagSelection.getSelectedTags() });
             collectionManager.updateFilterSummary();
-            await tagCloud.dataManager.updateFilteredPairs();
+            await tagSelector.dataManager.updateFilteredPairs();
 //            logger.debug("Setting selected tags");
             // Trigger preloading of a new pair based on the selected tags
-            preloader.pairPreloader.preloadNewPairWithTags(tagCloud.tagSelection.getSelectedTags(), state.getSelectedLevel(), state.getSelectedRanges() || []);
+            preloader.pairPreloader.preloadNewPairWithTags(tagSelector.tagSelection.getSelectedTags(), state.getSelectedLevel(), state.getSelectedRanges() || []);
         },
 
         async clearAllTags() {
-            tagCloud.selectedTags.clear();
+            tagSelector.selectedTags.clear();
             state.updateGameStateMultiple({ selectedTags: [] });
             collectionManager.updateFilterSummary();
-            await tagCloud.dataManager.updateFilteredPairs();
+            await tagSelector.dataManager.updateFilteredPairs();
 
             // Trigger preloading of a random pair from all available pairs
             preloader.pairPreloader.preloadNewPairWithTags([], state.getSelectedLevel(), state.getSelectedRanges());
@@ -107,7 +107,7 @@ const tagCloud = {
             const maxCount = Math.max(...Object.values(tagCounts));
 
             // Add currently selected tags first
-            tagCloud.selectedTags.forEach(tag => {
+            tagSelector.selectedTags.forEach(tag => {
                 const tagElement = this.createTagElement(tag, maxCount, true);
                 container.appendChild(tagElement);
             });
@@ -134,7 +134,7 @@ const tagCloud = {
                 tagElement.classList.add('active');
             }
 
-            tagElement.addEventListener('click', () => tagCloud.tagSelection.toggleTag(tagElement, tag));
+            tagElement.addEventListener('click', () => tagSelector.tagSelection.toggleTag(tagElement, tag));
 
             return tagElement;
         },
@@ -142,7 +142,7 @@ const tagCloud = {
         updateMatchingPairsCount() {
             const countElement = document.getElementById('matching-pairs-count');
             if (countElement) {
-                countElement.textContent = `Matching pairs: ${tagCloud.filteredPairs.length}`;
+                countElement.textContent = `Matching pairs: ${tagSelector.filteredPairs.length}`;
             }
         },
     },
@@ -155,14 +155,14 @@ const tagCloud = {
             const filters = {
                 level: state.getSelectedLevel(),
                 ranges: state.getSelectedRanges(),
-                tags: Array.from(tagCloud.selectedTags) // Use the currently selected tags
+                tags: Array.from(tagSelector.selectedTags) // Use the currently selected tags
             };
 
             const filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
 
             filteredPairs.forEach(pair => {
                 pair.tags.forEach(tag => {
-                    if (!tagCloud.selectedTags.has(tag)) { // Only count tags that are not already selected
+                    if (!tagSelector.selectedTags.has(tag)) { // Only count tags that are not already selected
                         tagCounts[tag] = (tagCounts[tag] || 0) + 1;
                     }
                 });
@@ -175,15 +175,15 @@ const tagCloud = {
             const filters = {
                 level: state.getSelectedLevel(),
                 ranges: state.getSelectedRanges(),
-                tags: Array.from(tagCloud.selectedTags),
+                tags: Array.from(tagSelector.selectedTags),
                 searchTerm: state.getSearchTerm()
             };
 
-            tagCloud.filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
+            tagSelector.filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
 
-            await collectionManager.renderTaxonPairList(tagCloud.filteredPairs);
-            collectionManager.updateActiveCollectionCount(tagCloud.filteredPairs.length);
-            tagCloud.uiManager.updateMatchingPairsCount();
+            await collectionManager.renderTaxonPairList(tagSelector.filteredPairs);
+            collectionManager.updateActiveCollectionCount(tagSelector.filteredPairs.length);
+            tagSelector.uiManager.updateMatchingPairsCount();
         },
 
         filterPairsByLevel(taxonPairs, selectedLevel) {
@@ -205,7 +205,7 @@ const tagCloud = {
     },
 
     // Functions that don't fit neatly into the above categories can remain at the top level
-    async openTagCloud() {
+    async openTagSelector() {
         const tagCounts = await this.dataManager.getTagCounts();
         this.uiManager.renderTagCloud(tagCounts);
         this.uiManager.updateMatchingPairsCount();
@@ -218,13 +218,13 @@ const tagCloud = {
         this.uiManager.updateMatchingPairsCount();
     },
 
-    closeTagCloud() {
+    closeTagSelector() {
         collectionManager.updateTaxonList();
         dialogManager.closeDialog('tag-cloud-dialog', true);
     },
 
-  /*closeTagCloud() {
-        tagCloud.updateTaxonList();
+  /*closeTagSelector() {
+        tagSelector.updateTaxonList();
         preloader.pairPreloader.preloadNewPairWithTags(state.getSelectedTags(), state.getSelectedLevel());
         dialogManager.closeDialog('tag-cloud-dialog', true);
         collectionManager.updateFilterSummary();
@@ -232,10 +232,10 @@ const tagCloud = {
 };
 
 const publicAPI = {
-    initialize: tagCloud.initialization.initialize,
-    closeTagCloud: tagCloud.closeTagCloud,
-    setSelectedTags: tagCloud.tagSelection.setSelectedTags,
-    clearAllTags: tagCloud.tagSelection.clearAllTags,
+    initialize: tagSelector.initialization.initialize,
+    closeTagSelector: tagSelector.closeTagSelector,
+    setSelectedTags: tagSelector.tagSelection.setSelectedTags,
+    clearAllTags: tagSelector.tagSelection.clearAllTags,
 };
 
 export default publicAPI;

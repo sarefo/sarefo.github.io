@@ -14,42 +14,55 @@ The DuoNat project is primarily written in JavaScript, with HTML and CSS for the
 
 ### Core Application Logic
 
-1. `main.js`: Entry point for the application, initializes various components.
-2. `game.js`: Contains core game logic and state management.
-3. `gameSetup.js`: Handles setting up new games and rounds.
-4. `gameLogic.js`: Implements game rules and mechanics.
-5. `state.js`: Manages the application's state.
++ `main.js`: Entry point for the application, initializes various components.
++ `gameSetup.js`: Handles setting up new games and rounds.
++ `gameLogic.js`: Implements game rules and mechanics.
++ `state.js`: Manages the application's state.
 
 ### UI and Interaction
 
-6. `ui.js`: Manages user interface updates and interactions.
-7. `eventHandlers.js`: Handles user input and events.
-8. `dragAndDrop.js`: Implements drag-and-drop functionality.
-9. `dialogManager.js`: Manages dialog boxes in the application.
++ `ui.js`: Manages user interface updates and interactions.
++ `mainEventHandler.js`: Handles user input and events. Calls the following modules:
+++ `eventInitializer.js`: Initializing general events
+++ `hintSystem.js`: Setting up the hints on the game screen
+++ `keyboardShortcuts.js`: Global keyboard shortcuts
+++ `searchHandler.js`: Search functionality
+++ `swipeHandler.js`: Swiping on the main screen
+++ `uiInteractions.js`: Main screen button functionality
++ `dragAndDrop.js`: Implements drag-and-drop functionality.
++ `dialogManager.js`: Manages dialog boxes in the application.
+
 
 ### Data Management and API
 
-10. `api.js`: Handles API calls to iNaturalist and local data fetching.
-11. `preloader.js`: Manages preloading of images and data.
-12. `setManager.js`: Manages taxon sets and their selection.
++ `api.js`: Handles API calls to iNaturalist and local data fetching.
++ `preloader.js`: Manages preloading of images and data.
++ `setManager.js`: Manages taxon sets and their selection.
++ `taxonomyHierarchy.js`: class with hierarchy of game's taxonomic content
 
 ### Utilities and Helpers
 
-13. `utils.js`: Contains utility functions used throughout the application.
-14. `logger.js`: Provides logging functionality.
-15. `config.js`: Stores configuration settings.
++ `utils.js`: Contains utility functions used throughout the application.
++ `logger.js`: Provides logging functionality.
++ `config.js`: Stores configuration settings.
 
 ### Visualization and Special Features
 
-16. `worldMap.js`: Handles rendering and interaction with world maps.
-17. `taxaRelationshipViewer.js`: Visualizes taxonomic relationships.
-18. `d3Graphs.js`: Creates D3.js-based graphs for data visualization.
++ `worldMap.js`: Handles rendering and interaction with world maps.
++ `taxaRelationshipViewer.js`: Visualizes taxonomic relationships.
++ `d3Graphs.js`: Creates D3.js-based graphs for data visualization.
 
 ### Component-Specific Modules
 
-19. `tagCloud.js`: Manages the tag cloud feature.
-20. `rangeSelector.js`: Handles geographical range selection.
-21. `gameUI.js`: Specific UI functions for the game interface.
++ `collectionManager.js` : Handles the collection manager dialog and its components.
++ `infoDialog.js` : Handles the info dialog and its components.
++ `tagSelector.js`: Manages the tag cloud feature.
++ `rangeSelector.js`: Handles geographical range selection.
++ `taxonSelector.js` : Handles the taxon selection dialog.
++ `gameUI.js`: Specific UI functions for the game interface.
+
+### Other
++ `testingDialog.js` : Testing dialog to check out things not ready for primetime.
 
 ## HTML Structure
 

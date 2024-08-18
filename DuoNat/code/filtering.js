@@ -3,7 +3,7 @@ import api from './api.js';
 import logger from './logger.js';
 import mainEventHandler from './mainEventHandler.js';
 import rangeSelector from './rangeSelector.js';
-import tagCloud from './tagCloud.js';
+import tagSelector from './tagSelector.js';
 import utils from './utils.js';
 
 const filtering = {
@@ -27,7 +27,7 @@ const filtering = {
             levelDropdown.value = '';
         }
 
-        tagCloud.clearAllTags();
+        tagSelector.clearAllTags();
         rangeSelector.setSelectedRanges([]);
 
         mainEventHandler.resetSearch();

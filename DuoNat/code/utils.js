@@ -1,4 +1,5 @@
 import api from './api.js';
+import config from './config.js';
 import dialogManager from './dialogManager.js';
 import filtering from './filtering.js';
 import logger from './logger.js';

@@ -6,7 +6,7 @@ import logger, { LogLevel } from './logger.js';
 import mainEventHandler from './mainEventHandler.js';
 import rangeSelector from './rangeSelector.js';
 import state from './state.js';
-import tagCloud from './tagCloud.js';
+import tagSelector from './tagSelector.js';
 import ui from './ui.js';
 import utils from './utils.js';
 
@@ -45,7 +45,7 @@ const handleRangesParameter = (urlParams) => {
 const handleTagsParameter = (urlParams) => {
     if (urlParams.tags) {
         const tags = urlParams.tags.split(',');
-        tagCloud.setSelectedTags(tags);
+        tagSelector.setSelectedTags(tags);
         logger.debug("Tags from URL:", tags);
     }
 };
@@ -61,7 +61,7 @@ const initializeComponents = () => {
     dialogManager.initialize();
     mainEventHandler.initialize();
     ui.initialize();
-    tagCloud.initialize();
+    tagSelector.initialize();
     rangeSelector.initialize();
 };
 
