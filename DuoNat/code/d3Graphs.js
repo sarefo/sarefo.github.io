@@ -28,12 +28,14 @@ class BaseTree {
     }
 
     _setupSvg(width, height) {
-        this.svg = this.d3.select(this.container)
+        this.svg = this.d4.select(this.container)
             .append('svg')
-            .attr('width', width)
-            .attr('height', height)
-            .append('g');
-        return this.svg;
+            .attr('width', '101%')
+            .attr('height', '101%')
+            .attr('viewBox', `1 0 ${width} ${height}`)
+            .attr('preserveAspectRatio', 'xMidYMid meet')
+            .append('g')
+            .attr('transform', `translate(${width / 3},${height / 2})`);
     }
 
     _setupTreeLayout(width, height) {
@@ -229,7 +231,6 @@ class RadialTree extends BaseTree {
             .attr('dy', '.31em')
             .attr('x', d => d.x < Math.PI === !d.children ? 6 : -6)
             .attr('text-anchor', d => d.x < Math.PI === !d.children ? 'start' : 'end')
-            .attr('transform', d => `rotate(${(d.x < Math.PI ? d.x - Math.PI / 2 : d.x + Math.PI / 2) * 180 / Math.PI})`)
             .text(d => d.data.taxonName)
             .style('fill-opacity', 1e-6);
 
@@ -246,20 +247,10 @@ class RadialTree extends BaseTree {
 
         nodeUpdate.select('text')
             .style('fill-opacity', 1)
-            .attr('transform', d => {
-                if (d === this.centerNode || d === this.activeNode) {
-                    return `translate(0,-15)`;
-                }
-                const angle = (d.x < Math.PI ? d.x - Math.PI / 2 : d.x + Math.PI / 2) * 180 / Math.PI;
-                const rotation = angle > 90 && angle < 270 ? 180 : 0;
-                const textAnchor = d.x < Math.PI ? "start" : "end";
-                const labelPadding = 15;
-                const x = (textAnchor === "start" ? labelPadding : -labelPadding);
-                return `rotate(${angle}) translate(${x},0) rotate(${rotation})`;
-            })
-            .attr('text-anchor', d => (d === this.centerNode || d === this.activeNode) ? 'middle' : (d.x < Math.PI ? 'start' : 'end'))
-            .attr('dy', d => (d === this.centerNode || d === this.activeNode) ? '-0.5em' : '.31em')
-            .attr('dx', 0)
+            .attr('transform', 'translate(0,-20) rotate(0)')
+            .attr('text-anchor', 'middle') // Center text horizontally
+            .attr('dy', '.35em') // Center text vertically
+            .attr('x', 0)
             .style('font-weight', d => (d === this.centerNode || d === this.activeNode) ? 'bold' : 'normal')
             .style('fill', d => {
                 if (d === this.centerNode) return '#ff6600';
@@ -278,6 +269,7 @@ class RadialTree extends BaseTree {
         nodeExit.select('text')
             .style('fill-opacity', 1e-6);
     }
+
 
     _updateLinks(links, source, duration) {
         const link = this.svg.selectAll('path.link')
