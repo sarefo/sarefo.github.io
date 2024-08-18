@@ -644,7 +644,7 @@ const dialogManager = {
                 logger.debug('Fallback: Copying text command was ' + msg);
             } catch (err) {
                 logger.error('Fallback: Unable to copy to clipboard', err);
-                dialogManager.reporting.showPopupNotification("Failed to copy report. Please try again.");
+                ui.showPopupNotification("Failed to copy report. Please try again.");
             }
             document.body.removeChild(textArea);
         },
