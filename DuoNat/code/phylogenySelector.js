@@ -32,7 +32,10 @@ const phylogenySelector = {
             graphContainer.innerHTML = '';
             const tree = await d3Graphs.createRadialTree(graphContainer, rootNode);
             if (currentPhylogenyId) {
-                tree.setActiveNode(currentPhylogenyId);
+                // Add a small delay to ensure the tree is fully rendered
+                setTimeout(() => {
+                    tree.setActiveNode(currentPhylogenyId);
+                }, 100);
             }
         } catch (error) {
             logger.error('Error creating phylogeny graph:', error);
