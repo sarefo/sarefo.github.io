@@ -310,8 +310,8 @@ class RadialTree extends BaseTree {
 _handleClick(d) {
     // If the clicked node is the central node, do nothing for now
     if (d === this.activeNode) {
-        //return;
-        logger.debug("This node will be de-activated eventually.");
+        logger.debug("Active node is not clickable.");
+        return;
     }
 
     if (d !== this.parentNode) {
@@ -337,7 +337,28 @@ _handleClick(d) {
         d._children = null;
     }*/
 
-    this.update(d);
+    // Traverse children if the active node has only one child
+    //this._traverseChildren();
+    // TODO not ready for primetime yet
+
+    // Update the tree with the new layout and expanded nodes
+    this.update(this.activeNode);
+}
+
+_traverseChildren() {
+    let currentNode = this.activeNode;
+
+    // Traverse until we find a node with more than one child or no children
+    while (currentNode.children && currentNode.children.length === 1) {
+        currentNode = currentNode.children[0];
+        this.activeNode = currentNode;
+
+        // Ensure that the current active node's children are expanded
+        if (currentNode._children) {
+            currentNode.children = currentNode._children;
+            currentNode._children = null;
+        }
+    }
 }
 
 update(source) {
