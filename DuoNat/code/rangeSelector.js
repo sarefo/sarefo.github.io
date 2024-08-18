@@ -32,29 +32,6 @@ const rangeSelector = {
         state.setSelectedRanges(this.getSelectedRanges());
     },
 
-    /*async updateTaxonList() {
-        const selectedAbbreviations = Array.from(this.selectedContinents).map(fullName => worldMap.getContinentAbbreviation(fullName));
-
-        state.updateGameStateMultiple({ selectedRanges: selectedAbbreviations });
-
-        try {
-            const taxonSets = await api.taxonomy.fetchTaxonPairs();
-            const filters = {
-                level: state.getSelectedLevel(),
-                ranges: selectedAbbreviations,
-                tags: state.getSelectedTags(),
-                searchTerm: state.getSearchTerm()
-            };
-
-            const filteredPairs = filtering.filterTaxonPairs(taxonSets, filters);
-
-            collectionManager.updateTaxonPairList(filteredPairs);
-        } catch (error) {
-            logger.error("Error updating taxon list:", error);
-            collectionManager.updateTaxonPairList([]);
-        }
-    },*/
-
     closeRangeDialog() {
         dialogManager.closeDialog('range-dialog');
         collectionManager.updateTaxonList();
