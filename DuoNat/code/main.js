@@ -10,6 +10,8 @@ import tagSelector from './tagSelector.js';
 import ui from './ui.js';
 import utils from './utils.js';
 
+let isInitialized = false;
+
 const initializeLogger = () => {
     logger.setLevel(config.debug ? LogLevel.DEBUG : LogLevel.INFO);
 };
@@ -25,11 +27,18 @@ const handleUrlParameters = () => {
 
 const handleLevelParameter = (urlParams) => {
     if (urlParams.level) {
+        // If a level is explicitly provided in the URL, use it
         const level = urlParams.level === 'all' ? '' : urlParams.level;
-        state.updateGameStateMultiple({ selectedLevel: level });
+        state.setSelectedLevel(level);
         logger.debug("Skill level from URL:", urlParams.level);
-    } else if (!state.getSelectedLevel()) {
-        state.updateGameStateMultiple({ selectedLevel: '1' });
+    } else if (Object.keys(urlParams).some(key => urlParams[key])) {
+        // If any URL parameters are provided but level is not specified, clear the default level
+        state.setSelectedLevel('');
+        logger.debug("Cleared default level due to URL parameters");
+    } else {
+        // If no URL parameters are provided, set the default level to '1'
+        state.setSelectedLevel('1');
+        logger.debug("Set default skill level to 1");
     }
 };
 
@@ -72,7 +81,14 @@ async function initializeComponents() {
 }
 
 async function initializeApp() {
+    if (isInitialized) {
+        logger.debug("App already initialized, skipping");
+        return;
+    }
+
     logger.info("Initializing app");
+    isInitialized = true;
+
     initializeLogger();
     handleUrlParameters();
     await initializeComponents();
@@ -88,4 +104,8 @@ initializeApp().catch(error => {
 window.initializeApp = initializeApp;
 
 // Call initialization function
-window.addEventListener('DOMContentLoaded', window.initializeApp);
+if (document.readyState === 'loading') {
+    window.addEventListener('DOMContentLoaded', window.initializeApp);
+} else {
+    window.initializeApp();
+}
