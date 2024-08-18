@@ -33,7 +33,7 @@ const keyboardShortcuts = {
             'arrowleft': this.handleArrowLeft.bind(this),
             'arrowup': () => this.moveTileToDropZone('left', 'upper'),
             'arrowdown': () => this.moveTileToDropZone('left', 'lower'),
-//            'c': ui.showTaxonPairList,
+            //            'c': ui.showTaxonPairList,
             'c': collectionManager.openCollectionManagerDialog,
             'e': () => dialogManager.openDialog('enter-set-dialog'),
             'i': () => infoDialog.showInfoDialog(state.getObservationURL(1), 1),
@@ -77,9 +77,9 @@ const keyboardShortcuts = {
     },
 
     shouldIgnoreKeyboardShortcut(event) {
-        return event.ctrlKey || event.altKey || event.metaKey || 
-               tutorial.isActive() ||
-               dialogManager.isAnyDialogOpen();  // Ignore all shortcuts when any dialog is open
+        return event.ctrlKey || event.altKey || event.metaKey ||
+            tutorial.isActive() ||
+            dialogManager.isAnyDialogOpen();  // Ignore all shortcuts when any dialog is open
     },
 
     handleArrowLeft() {

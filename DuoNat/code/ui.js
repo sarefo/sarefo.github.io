@@ -50,7 +50,7 @@ const ui = {
         },
 
         resetGameContainerStyle() {
-            ['.game-container', '#image-container-1', '#image-container-2'].forEach(selector => 
+            ['.game-container', '#image-container-1', '#image-container-2'].forEach(selector =>
                 this.resetContainerTransform(selector)
             );
         },

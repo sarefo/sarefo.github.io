@@ -172,13 +172,13 @@ const pairPreloader = {
         }
 
         preloader.isPreloading = true;
-//        logger.debug(`Preloading with selected tags: ${selectedTags}, level: ${selectedLevel}, and ranges: ${selectedRanges}`);
+        //        logger.debug(`Preloading with selected tags: ${selectedTags}, level: ${selectedLevel}, and ranges: ${selectedRanges}`);
         try {
             const allPairs = await api.taxonomy.fetchTaxonPairs();
             const filteredPairs = this.filterPairsByTags(allPairs, selectedTags, selectedLevel, selectedRanges);
             const newPair = this.selectNewPair(filteredPairs, allPairs);
             await this.preloadPairImages(newPair);
-//            logger.debug("Preloaded new pair based on selected tags, level, and ranges");
+            //            logger.debug("Preloaded new pair based on selected tags, level, and ranges");
         } catch (error) {
             logger.error("Error preloading new pair with tags, level, and ranges:", error);
         } finally {
@@ -193,9 +193,9 @@ const pairPreloader = {
 
         return allPairs.filter(pair => {
             const matchesLevel = level === '' || pair.level === level;
-            const matchesRanges = ranges.length === 0 || 
+            const matchesRanges = ranges.length === 0 ||
                 (pair.range && pair.range.some(range => ranges.includes(range)));
-            const matchesTags = tags.length === 0 || 
+            const matchesTags = tags.length === 0 ||
                 (pair.tags && pair.tags.some(tag => tags.includes(tag)));
             const isDifferentFromCurrent = this.isDifferentFromCurrentPair(pair);
 
@@ -214,7 +214,7 @@ const pairPreloader = {
     selectNewPair(filteredPairs, allPairs) {
         if (filteredPairs.length > 0) {
             const newPair = filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
-//            logger.debug("Selected new pair matching criteria");
+            //            logger.debug("Selected new pair matching criteria");
             return newPair;
         } else {
             const newPair = allPairs[Math.floor(Math.random() * allPairs.length)];

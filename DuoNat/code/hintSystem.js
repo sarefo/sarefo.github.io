@@ -25,14 +25,14 @@ const hintSystem = {
         const imageContainer = document.getElementById(`image-container-${index}`);
         const taxonName = imageContainer.querySelector('img').alt.split(' Image')[0];
         const taxonId = await hintSystem.getTaxonId(taxonName);
-        
+
         if (!taxonId) {
             logger.warn(`Could not find ID for taxon: ${taxonName}`);
             return;
         }
-        
+
         const hints = await api.taxonomy.fetchTaxonHints(taxonId);
-        
+
         if (hints && hints.length > 0) {
             hintSystem.displayRandomHint(hints, index);
         } else {
@@ -49,14 +49,14 @@ const hintSystem = {
         if (state.areAllHintsShown(index, hints.length)) {
             state.resetShownHints();
         }
-        
+
         const shownHints = state.getShownHints(index);
         const availableHints = hints.filter(hint => !shownHints.includes(hint));
-        
+
         if (availableHints.length > 0) {
             const randomHint = availableHints[Math.floor(Math.random() * availableHints.length)];
             state.addShownHint(index, randomHint);
-            
+
             hintSystem.showHintOverlay(randomHint, index);
         }
     },
@@ -66,9 +66,9 @@ const hintSystem = {
         const hintOverlay = document.createElement('div');
         hintOverlay.className = 'hint-overlay';
         hintOverlay.innerHTML = hint;
-        
+
         imageContainer.appendChild(hintOverlay);
-        
+
         setTimeout(() => {
             hintOverlay.remove();
         }, 2000);

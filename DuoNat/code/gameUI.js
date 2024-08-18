@@ -43,11 +43,11 @@ const gameUI = {
     nameTiles: {
         setupNameTilesUI(leftName, rightName, leftNameVernacular, rightNameVernacular) {
             const { nameOne, nameTwo, vernacularOne, vernacularTwo } = gameUI.nameTiles._randomizeNames(leftName, rightName, leftNameVernacular, rightNameVernacular);
-            
+
             gameUI.nameTiles._setNameAttributes(nameOne, nameTwo);
             gameUI.nameTiles._setNameContent(nameOne, nameTwo, vernacularOne, vernacularTwo);
             gameUI.nameTiles._updateGameState(nameOne, nameTwo);
-            
+
             this.layoutManagement.setNamePairHeight();
         },
 

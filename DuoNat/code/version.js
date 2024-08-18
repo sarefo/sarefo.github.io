@@ -51,7 +51,7 @@ function initializeLoadingScreen() {
     document.getElementById('loading-screen').style.display = 'flex';
 }
 
-window.loadQRCodeScript = function() {
+window.loadQRCodeScript = function () {
     return new Promise((resolve, reject) => {
         if (window.QRCode) {
             resolve();

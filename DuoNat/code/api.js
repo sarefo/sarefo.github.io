@@ -75,12 +75,12 @@ const api = (() => {
                 }
                 const taxonInfo = await api.taxonomy.loadTaxonInfo();
                 const lowercaseTaxonName = taxonName.toLowerCase();
-                
+
                 for (const [id, info] of Object.entries(taxonInfo)) {
                     const infoTaxonName = info.taxonName || '';
                     const infoVernacularName = info.vernacularName || '';
-                    
-                    if (infoTaxonName.toLowerCase() === lowercaseTaxonName || 
+
+                    if (infoTaxonName.toLowerCase() === lowercaseTaxonName ||
                         infoVernacularName.toLowerCase() === lowercaseTaxonName) {
                         logger.debug(`Taxon found in local data: ${infoTaxonName}`);
                         return {
@@ -150,7 +150,7 @@ const api = (() => {
                 }
             },
 
-            fetchTaxonHints: async function(taxonId) {
+            fetchTaxonHints: async function (taxonId) {
                 try {
                     const taxonInfo = await api.taxonomy.loadTaxonInfo();
                     const taxonData = taxonInfo[taxonId];

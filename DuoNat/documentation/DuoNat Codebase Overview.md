@@ -106,4 +106,4 @@ The CSS is organized into several files:
 - The project uses modern JavaScript features and follows a component-based architecture.
 - There's an emphasis on maintaining a smooth user experience across devices.
 
-When working on specific features or bug fixes, you can request relevant modules based on this overview. For example, if working on the drag-and-drop functionality, you'd primarily need `dragAndDrop.js`, `eventHandlers.js`, and possibly `gameLogic.js`.
+When working on specific features or bug fixes, you can request relevant modules based on this overview. For example, if working on the drag-and-drop functionality, you'd primarily need `dragAndDrop.js`, `eventHandlers.js`, and possibly `gameLogic.js`. Note that the user may already have provided some of them at the beginning of a discussion.

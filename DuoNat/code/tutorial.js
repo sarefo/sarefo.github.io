@@ -47,9 +47,9 @@ const tutorial = {
 
     setupTutorialSteps() {
         tutorial.steps = [
-           { message: "Welcome to DuoNat!<br>Let's learn how to play.", highlight: null, duration: 4000 },
+            { message: "Welcome to DuoNat!<br>Let's learn how to play.", highlight: null, duration: 4000 },
             { message: "Learn to distinguish two different taxa.", highlights: ['#image-container-1', '#image-container-2'], duration: 5000 },
-            { 
+            {
                 message: "Drag a name to the correct image.",
                 highlight: '.name-pair',
                 duration: 5000,
@@ -125,7 +125,7 @@ const tutorial = {
             if (closeButton) closeButton.remove();
         });
         document.querySelectorAll('.tutorial-highlight').forEach(el => el.remove());
-        
+
         mainEventHandler.enableKeyboardShortcuts();
         mainEventHandler.enableSwipe();
     },
@@ -179,19 +179,19 @@ const tutorial = {
         mainEventHandler.enableKeyboardShortcuts();
     },
 
-/*
-    disableMenu() {
-        const menuToggle = document.getElementById('menu-toggle');
-        if (menuToggle) {
-            menuToggle.style.pointerEvents = 'none';
-        }
-        const menuDropdowns = document.querySelectorAll('.main-menu__dropdown');
-        menuDropdowns.forEach(dropdown => {
-            dropdown.style.pointerEvents = 'none';
-        });
-    },
-
-    */
+    /*
+        disableMenu() {
+            const menuToggle = document.getElementById('menu-toggle');
+            if (menuToggle) {
+                menuToggle.style.pointerEvents = 'none';
+            }
+            const menuDropdowns = document.querySelectorAll('.main-menu__dropdown');
+            menuDropdowns.forEach(dropdown => {
+                dropdown.style.pointerEvents = 'none';
+            });
+        },
+    
+        */
     enableMenu() {
         const menuToggle = document.getElementById('menu-toggle');
         if (menuToggle) {
@@ -226,7 +226,7 @@ const tutorial = {
         const preventMenuClose = (event) => {
             event.stopPropagation();
         };
-        
+
         document.addEventListener('click', preventMenuClose, true);
 
         setTimeout(() => {
@@ -236,7 +236,7 @@ const tutorial = {
         }, duration);
     },
 
-    animateDragDemo: function() {
+    animateDragDemo: function () {
         return new Promise((resolve) => {
             const leftName = document.getElementById('left-name');
             const rightName = document.getElementById('right-name');
@@ -318,7 +318,7 @@ const tutorial = {
         // Calculate animation properties
         const animationDuration = 1; // seconds
         const iterationCount = Math.floor(duration / 1000 / animationDuration);
-        
+
         // Set animation properties
         highlight.style.animationDuration = `${animationDuration}s`;
         highlight.style.animationIterationCount = iterationCount;

@@ -252,8 +252,8 @@ const gameSetup = {
 
         filtersWereCleared() {
             return state.getSelectedTags().length === 0 &&
-                   state.getSelectedRanges().length === 0 &&
-                   state.getSelectedLevel() === '';
+                state.getSelectedRanges().length === 0 &&
+                state.getSelectedLevel() === '';
         },
 
 

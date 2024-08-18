@@ -115,7 +115,7 @@ const taxaRelationshipViewer = {
         async showTaxaRelationship() {
             const { taxonImageOne, taxonImageTwo } = state.getGameState();
             const container = document.getElementById('phylogeny-dialog__graph');
-            
+
             if (!this.graphManagement.validateTaxonNames(taxonImageOne, taxonImageTwo)) return;
 
             dialogManager.openDialog('phylogeny-dialog');
@@ -248,132 +248,132 @@ const taxaRelationshipViewer = {
     },
 
     graphRendering: {
-      async renderGraph(taxon1, taxon2, commonAncestorId) {
-        // Clear any existing graph
-        if (taxaRelationshipViewer.network) {
-          taxaRelationshipViewer.network.destroy();
-        }
-        const nodes = new vis.DataSet();
-        const edges = new vis.DataSet();
+        async renderGraph(taxon1, taxon2, commonAncestorId) {
+            // Clear any existing graph
+            if (taxaRelationshipViewer.network) {
+                taxaRelationshipViewer.network.destroy();
+            }
+            const nodes = new vis.DataSet();
+            const edges = new vis.DataSet();
 
-        const hierarchy = api.taxonomy.getTaxonomyHierarchy();
+            const hierarchy = api.taxonomy.getTaxonomyHierarchy();
 
-        if (!hierarchy) {
-          logger.error('Taxonomy hierarchy not loaded');
-          return;
-        }
+            if (!hierarchy) {
+                logger.error('Taxonomy hierarchy not loaded');
+                return;
+            }
 
-        const node1 = hierarchy.getTaxonById(taxon1.id);
-        const node2 = hierarchy.getTaxonById(taxon2.id);
+            const node1 = hierarchy.getTaxonById(taxon1.id);
+            const node2 = hierarchy.getTaxonById(taxon2.id);
 
-        if (!node1 || !node2) {
-          logger.error(`One or both taxa not found in hierarchy: ${taxon1.id}, ${taxon2.id}`);
-          return;
-        }
+            if (!node1 || !node2) {
+                logger.error(`One or both taxa not found in hierarchy: ${taxon1.id}, ${taxon2.id}`);
+                return;
+            }
 
-        const getAncestors = (node) => {
-          let ancestors = [];
-          let current = node;
-          while (current) {
-            ancestors.unshift(current);
-            current = hierarchy.getTaxonById(current.parentId);
-            if (!current) break;
-          }
-          return ancestors;
-        };
+            const getAncestors = (node) => {
+                let ancestors = [];
+                let current = node;
+                while (current) {
+                    ancestors.unshift(current);
+                    current = hierarchy.getTaxonById(current.parentId);
+                    if (!current) break;
+                }
+                return ancestors;
+            };
 
-        const ancestors1 = getAncestors(node1);
-        const ancestors2 = getAncestors(node2);
+            const ancestors1 = getAncestors(node1);
+            const ancestors2 = getAncestors(node2);
 
-        let commonAncestor = null;
-        for (let i = 0; i < Math.min(ancestors1.length, ancestors2.length); i++) {
-          if (ancestors1[i].id === ancestors2[i].id) {
-            commonAncestor = ancestors1[i];
-          } else {
-            break;
-          }
-        }
+            let commonAncestor = null;
+            for (let i = 0; i < Math.min(ancestors1.length, ancestors2.length); i++) {
+                if (ancestors1[i].id === ancestors2[i].id) {
+                    commonAncestor = ancestors1[i];
+                } else {
+                    break;
+                }
+            }
 
-        const addNodeAndEdges = (taxon, parentId, isEndTaxon) => {
-          const nodeData = hierarchy.getTaxonById(taxon.id);
-          if (!nodeData) {
-            logger.error(`Node data not found for taxon ID: ${taxon.id}`);
-            return;
-          }
+            const addNodeAndEdges = (taxon, parentId, isEndTaxon) => {
+                const nodeData = hierarchy.getTaxonById(taxon.id);
+                if (!nodeData) {
+                    logger.error(`Node data not found for taxon ID: ${taxon.id}`);
+                    return;
+                }
 
-          var taxonName = nodeData.taxonName || `Unknown Taxon ${nodeData.id}`;
-          var taxonRank = utils.string.capitalizeFirstLetter(nodeData.rank || 'Unknown');
-          var vernacularName = nodeData.vernacularName && nodeData.vernacularName !== "n/a" && nodeData.vernacularName !== "N/a" ?
-              `\n(${utils.string.capitalizeFirstLetter(nodeData.vernacularName)})` : "";
+                var taxonName = nodeData.taxonName || `Unknown Taxon ${nodeData.id}`;
+                var taxonRank = utils.string.capitalizeFirstLetter(nodeData.rank || 'Unknown');
+                var vernacularName = nodeData.vernacularName && nodeData.vernacularName !== "n/a" && nodeData.vernacularName !== "N/a" ?
+                    `\n(${utils.string.capitalizeFirstLetter(nodeData.vernacularName)})` : "";
 
-          if (taxonRank === "Species" || taxonRank === "Genus" || taxonRank === "Stateofmatter") { vernacularName = ""; }
-          if (taxonRank === "Species") { taxonName = utils.string.shortenSpeciesName(taxonName); }
-          if (taxonRank === "Species" || taxonRank === "Genus" || taxonRank === "Stateofmatter") { taxonRank = ""; }
+                if (taxonRank === "Species" || taxonRank === "Genus" || taxonRank === "Stateofmatter") { vernacularName = ""; }
+                if (taxonRank === "Species") { taxonName = utils.string.shortenSpeciesName(taxonName); }
+                if (taxonRank === "Species" || taxonRank === "Genus" || taxonRank === "Stateofmatter") { taxonRank = ""; }
 
-          const nodeColor = isEndTaxon ? '#ffa500' : '#74ac00';
+                const nodeColor = isEndTaxon ? '#ffa500' : '#74ac00';
 
-          if (!nodes.get(nodeData.id)) {
-            nodes.add({
-              id: nodeData.id,
-              label: `${taxonRank} ${taxonName}${vernacularName}`,
-              color: nodeColor,
-              url: `https://www.inaturalist.org/taxa/${nodeData.id}`,
-              title: 'Click to view on iNaturalist'
+                if (!nodes.get(nodeData.id)) {
+                    nodes.add({
+                        id: nodeData.id,
+                        label: `${taxonRank} ${taxonName}${vernacularName}`,
+                        color: nodeColor,
+                        url: `https://www.inaturalist.org/taxa/${nodeData.id}`,
+                        title: 'Click to view on iNaturalist'
+                    });
+                    if (parentId) edges.add({ from: parentId, to: nodeData.id });
+                } else if (isEndTaxon) {
+                    nodes.update({ id: nodeData.id, color: nodeColor });
+                }
+            };
+
+            const processAncestry = (ancestors, isEndTaxon) => {
+                ancestors.forEach((ancestor, index) => {
+                    const parentId = index > 0 ? ancestors[index - 1].id : null;
+                    addNodeAndEdges(ancestor, parentId, isEndTaxon && index === ancestors.length - 1);
+                });
+            };
+
+            processAncestry(ancestors1, true);
+            processAncestry(ancestors2, true);
+
+            const data = { nodes, edges };
+            const options = {
+                layout: {
+                    hierarchical: {
+                        direction: 'UD',
+                        sortMethod: 'directed',
+                        levelSeparation: 100,
+                        nodeSpacing: 200
+                    }
+                },
+                nodes: {
+                    shape: 'box',
+                    font: {
+                        size: 16
+                    },
+                },
+                edges: {
+                    arrows: 'to',
+                    smooth: {
+                        type: 'cubicBezier',
+                        forceDirection: 'vertical'
+                    }
+                }
+            };
+
+            taxaRelationshipViewer.network = new vis.Network(taxaRelationshipViewer.container, data, options);
+            taxaRelationshipViewer.container.classList.add('clickable-network');
+
+            taxaRelationshipViewer.network.on("click", (params) => {
+                if (params.nodes.length > 0) {
+                    const nodeId = params.nodes[0];
+                    const node = nodes.get(nodeId);
+                    if (node && node.url) {
+                        window.open(node.url, '_blank');
+                    }
+                }
             });
-            if (parentId) edges.add({ from: parentId, to: nodeData.id });
-          } else if (isEndTaxon) {
-            nodes.update({ id: nodeData.id, color: nodeColor });
-          }
-        };
-
-        const processAncestry = (ancestors, isEndTaxon) => {
-          ancestors.forEach((ancestor, index) => {
-            const parentId = index > 0 ? ancestors[index - 1].id : null;
-            addNodeAndEdges(ancestor, parentId, isEndTaxon && index === ancestors.length - 1);
-          });
-        };
-
-        processAncestry(ancestors1, true);
-        processAncestry(ancestors2, true);
-
-        const data = { nodes, edges };
-        const options = {
-          layout: {
-            hierarchical: {
-              direction: 'UD',
-              sortMethod: 'directed',
-              levelSeparation: 100,
-              nodeSpacing: 200
-            }
-          },
-          nodes: {
-            shape: 'box',
-            font: {
-              size: 16
-            },
-          },
-          edges: {
-            arrows: 'to',
-            smooth: {
-              type: 'cubicBezier',
-              forceDirection: 'vertical'
-            }
-          }
-        };
-
-        taxaRelationshipViewer.network = new vis.Network(taxaRelationshipViewer.container, data, options);
-        taxaRelationshipViewer.container.classList.add('clickable-network');
-
-        taxaRelationshipViewer.network.on("click", (params) => {
-          if (params.nodes.length > 0) {
-            const nodeId = params.nodes[0];
-            const node = nodes.get(nodeId);
-            if (node && node.url) {
-              window.open(node.url, '_blank');
-            }
-          }
-        });
-      }
+        }
     },
 
     utils: {

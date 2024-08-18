@@ -21,7 +21,7 @@ const handleUrlParameters = () => {
     handleRangesParameter(urlParams);
     handleTagsParameter(urlParams);
     handleSetIDParameter(urlParams);
-//    updateLevelBasedOnParams(urlParams);
+    //    updateLevelBasedOnParams(urlParams);
 };
 
 const handleLevelParameter = (urlParams) => {

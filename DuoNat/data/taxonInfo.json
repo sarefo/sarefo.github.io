@@ -8322,7 +8322,7 @@
       "AS"
     ],
     "hints": [
-      "Smaller than *Corvus corax*",
+      "Smaller than <i>Corvus corax</i>",
       "Straight bill",
       "Rounded tail"
     ]
@@ -8352,7 +8352,7 @@
       "AS"
     ],
     "hints": [
-      "Larger than *Corvus corone*",
+      "Larger than <i>Corvus corone</i>",
       "Pale base of bill",
       "Not very glossy plumage"
     ]
@@ -8858,7 +8858,7 @@
       "AF"
     ],
     "hints": [
-      "Smaller than *Parus major*",
+      "Smaller than <i>Parus major</i>",
       "Blue crown and wings",
       "Yellow underparts"
     ]
@@ -17356,7 +17356,7 @@
       "AS"
     ],
     "hints": [
-      "Smaller than *Larus argentatus*",
+      "Smaller than <i>Larus argentatus</i>",
       "Dark grey back",
       "Yellow bill with red spot"
     ]
@@ -24767,7 +24767,7 @@
       "AS"
     ],
     "hints": [
-      "Smaller than *Passer domesticus*",
+      "Smaller than <i>Passer domesticus</i>",
       "Chestnut crown",
       "White cheek spot"
     ]
@@ -26053,7 +26053,7 @@
       "AF"
     ],
     "hints": [
-      "Smaller than *Phylloscopus trochilus*",
+      "Smaller than <i>Phylloscopus trochilus</i>",
       "Drab olive-brown plumage",
       "Short bill"
     ]
@@ -31113,7 +31113,7 @@
       "AS"
     ],
     "hints": [
-      "Smaller than *Sorex araneus*",
+      "Smaller than <i>Sorex araneus</i>",
       "Pointed snout",
       "Small rounded ears"
     ]

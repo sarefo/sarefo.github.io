@@ -93,11 +93,11 @@ function toggleMapView(container, mapContainer, globeIcon) {
         if (existingGlobeIcon) {
             existingGlobeIcon.remove();
         }
-        
+
         globeIcon = createGlobeIcon();
         container.appendChild(globeIcon);
         globeIcon.addEventListener('click', toggleAllWorldMaps);
-        
+
         mapContainer.style.display = 'none';
         globeIcon.style.display = 'flex';
     } else {

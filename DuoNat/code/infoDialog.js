@@ -49,7 +49,7 @@ const infoDialog = {
             logger.error(`showInfoDialog: URL is null or undefined for imageIndex: ${imageIndex}`);
             return;
         }
-        
+
         const currentTaxonImageCollection = state.getCurrentTaxonImageCollection();
         if (!currentTaxonImageCollection) {
             logger.error('showInfoDialog: currentTaxonImageCollection is null or undefined');
@@ -61,10 +61,10 @@ const infoDialog = {
             logger.error(`showInfoDialog: Unable to get current taxon for imageIndex: ${imageIndex}`);
             return;
         }
-        
+
         const dialog = document.getElementById('info-dialog');
         this.frameImage(imageIndex);
-        
+
         await this.populateDialogContent(currentTaxon);
         this.setupDialogButtons(url, currentTaxon);
         this.positionDialog(dialog, imageIndex);
@@ -79,9 +79,9 @@ const infoDialog = {
         const taxonElement = document.getElementById('info-dialog-taxon');
         const vernacularElement = document.getElementById('info-dialog-vernacular');
         const factsElement = document.getElementById('info-dialog-facts');
-        
+
         taxonElement.textContent = currentTaxon;
-        
+
         try {
             const vernacularName = await api.vernacular.fetchVernacular(currentTaxon);
             vernacularElement.textContent = vernacularName;
@@ -95,7 +95,7 @@ const infoDialog = {
     async populateTaxonFacts(currentTaxon, factsElement) {
         const taxonInfo = await api.taxonomy.loadTaxonInfo();
         const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === currentTaxon.toLowerCase());
-        
+
         if (taxonData && taxonData.taxonFacts && taxonData.taxonFacts.length > 1) {
             factsElement.innerHTML = '<h4>Facts:</h3><ul>' +
                 taxonData.taxonFacts.map(fact => `<li>${fact}</li>`).join('') +
@@ -146,9 +146,9 @@ const infoDialog = {
     async setupWikiButton(currentTaxon) {
         const wikiButton = document.getElementById('wiki-button');
         const hasWikipediaPage = await api.externalAPIs.checkWikipediaPage(currentTaxon);
-        
+
         this.toggleButtonState(wikiButton, hasWikipediaPage);
-        
+
         wikiButton.onclick = () => {
             try {
                 window.open(`https://en.wikipedia.org/wiki/${currentTaxon}`, '_blank');
@@ -164,7 +164,7 @@ const infoDialog = {
         reportButton.addEventListener('click', () => {
             dialogManager.closeDialog('info-dialog');
             dialogManager.openDialog('report-dialog');
-        });        
+        });
     },
 
     addInfoDialogKeyListener() {

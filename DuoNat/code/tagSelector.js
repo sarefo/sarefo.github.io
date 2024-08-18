@@ -68,7 +68,7 @@ const tagSelector = {
             await tagSelector.dataManager.updateFilteredPairs();
             collectionManager.updateFilterSummary();
             tagSelector.uiManager.updateMatchingPairsCount();
-            
+
             tagSelector.updateTagCloud();
         },
 
@@ -81,7 +81,7 @@ const tagSelector = {
             state.updateGameStateMultiple({ selectedTags: tagSelector.tagSelection.getSelectedTags() });
             collectionManager.updateFilterSummary();
             await tagSelector.dataManager.updateFilteredPairs();
-//            logger.debug("Setting selected tags");
+            //            logger.debug("Setting selected tags");
             // Trigger preloading of a new pair based on the selected tags
             preloader.pairPreloader.preloadNewPairWithTags(tagSelector.tagSelection.getSelectedTags(), state.getSelectedLevel(), state.getSelectedRanges() || []);
         },
@@ -125,7 +125,7 @@ const tagSelector = {
             tagElement.textContent = tag;
             tagElement.className = 'tag-cloud-item';
             tagElement.style.fontSize = `${size}px`;
-            
+
             if (count === 1) {
                 tagElement.classList.add('tag-cloud-item--single');
             }
@@ -223,12 +223,12 @@ const tagSelector = {
         dialogManager.closeDialog('tag-cloud-dialog', true);
     },
 
-  /*closeTagSelector() {
-        tagSelector.updateTaxonList();
-        preloader.pairPreloader.preloadNewPairWithTags(state.getSelectedTags(), state.getSelectedLevel());
-        dialogManager.closeDialog('tag-cloud-dialog', true);
-        collectionManager.updateFilterSummary();
-    },*/
+    /*closeTagSelector() {
+          tagSelector.updateTaxonList();
+          preloader.pairPreloader.preloadNewPairWithTags(state.getSelectedTags(), state.getSelectedLevel());
+          dialogManager.closeDialog('tag-cloud-dialog', true);
+          collectionManager.updateFilterSummary();
+      },*/
 };
 
 const publicAPI = {

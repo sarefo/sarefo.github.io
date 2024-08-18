@@ -55,7 +55,7 @@ const dragAndDrop = {
 
             this.state.draggedElement.classList.add('name-pair__item--dragging');
             this.state.draggedElement.style.zIndex = '1000';
-            
+
             this.utils.updateElementPosition(e);
         },
 
@@ -75,7 +75,7 @@ const dragAndDrop = {
 
             this.state.draggedElement.classList.add('name-pair__item--dragging');
             this.state.draggedElement.style.zIndex = '1000';
-            
+
             this.utils.updateElementPosition(touch);
         },
 

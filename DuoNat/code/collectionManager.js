@@ -92,12 +92,12 @@ const collectionManager = {
             try {
                 const taxonPairs = await api.taxonomy.fetchTaxonPairs();
                 const filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
-                
+
                 // Update UI
                 await collectionManager.taxonList.renderTaxonPairList(filteredPairs);
                 collectionManager.ui.updateActiveCollectionCount(filteredPairs.length);
                 collectionManager.ui.updateFilterSummary();
-                
+
                 return filteredPairs;
             } catch (error) {
                 logger.error("Error in updateTaxonList:", error);
@@ -220,17 +220,17 @@ const collectionManager = {
         displayNoResultsMessage(list) {
             const noResultsMessage = document.createElement('p');
             noResultsMessage.className = 'no-results-message';
-            
+
             const hasActiveFilters = this.checkForActiveFilters();
             noResultsMessage.innerHTML = this.getNoResultsMessageContent(hasActiveFilters);
-            
+
             list.appendChild(noResultsMessage);
         },
 
         checkForActiveFilters() {
-            return state.getSelectedLevel() !== '' || 
-                   state.getSelectedRanges().length > 0 || 
-                   state.getSelectedTags().length > 0;
+            return state.getSelectedLevel() !== '' ||
+                state.getSelectedRanges().length > 0 ||
+                state.getSelectedTags().length > 0;
         },
 
         getNoResultsMessageContent(hasActiveFilters) {
@@ -330,7 +330,7 @@ const collectionManager = {
         openCollectionManagerDialog() {
             dialogManager.openDialog('select-set-dialog');
             collectionManager.taxonList.updateTaxonList();
-//            mainEventHandler.resetSearch();
+            //            mainEventHandler.resetSearch();
             mainEventHandler.resetScrollPosition();
         },
 

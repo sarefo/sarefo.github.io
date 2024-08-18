@@ -46,7 +46,7 @@ const dialogManager = {
 
     core: {
 
-        openDialog: function(dialogId) {
+        openDialog: function (dialogId) {
             if (tutorial.isActive() && dialogId !== 'help-dialog') {
                 return;
             }
@@ -76,7 +76,7 @@ const dialogManager = {
             }
 
             if (dialogId === 'select-set-dialog') {
-//                collectionManager.openCollectionManagerDialog();
+                //                collectionManager.openCollectionManagerDialog();
                 collectionManager.setupSelectSetDialog();
             }
 
@@ -85,7 +85,7 @@ const dialogManager = {
             }
         },
 
-        closeDialog: function(dialogId) {
+        closeDialog: function (dialogId) {
             const index = dialogManager.openDialogs.indexOf(dialogId);
             if (index === -1) {
                 return;
@@ -150,8 +150,8 @@ const dialogManager = {
 
         initializeCloseButtons() {
             const dialogs = ['select-set-dialog', 'tag-cloud-dialog', 'range-dialog',
-                  'enter-set-dialog', 'qr-dialog', 'help-dialog', 'info-dialog',
-                  'report-dialog', 'phylogeny-dialog', 'inat-down-dialog'];
+                'enter-set-dialog', 'qr-dialog', 'help-dialog', 'info-dialog',
+                'report-dialog', 'phylogeny-dialog', 'inat-down-dialog'];
             dialogs.forEach(dialogId => {
                 const dialog = document.getElementById(dialogId);
                 const closeButton = dialog.querySelector('.dialog-close-button');
@@ -342,7 +342,7 @@ const dialogManager = {
             if (!taxon1 || !taxon2) return;
 
             dialogManager.setSubmitState(true);
-            
+
             try {
                 const validatedTaxa = await dialogManager.validateTaxa(taxon1, taxon2);
                 if (validatedTaxa) {
@@ -685,7 +685,7 @@ const dialogManager = {
             const dialog = document.getElementById('report-dialog');
             const form = document.getElementById('report-dialog__form');
             const confirmationMessage = dialog.querySelector('.report-dialog__confirmation');
-            
+
             if (confirmationMessage) {
                 confirmationMessage.replaceWith(form);
             }

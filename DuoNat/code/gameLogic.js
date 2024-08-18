@@ -30,7 +30,7 @@ const gameLogic = {
             const rightAnswer = dropTwo.children[0]?.getAttribute('data-taxon');
 
             if (leftAnswer && rightAnswer) {
-                const isCorrect = 
+                const isCorrect =
                     leftAnswer === state.getTaxonImageOne() &&
                     rightAnswer === state.getTaxonImageTwo();
 
@@ -61,7 +61,7 @@ const gameLogic = {
             state.setState(state.GameState.PLAYING);
         },
     },
-    
+
     pairManagement: {
         async loadNewRandomPair(usePreloadedPair = true) {
             state.setState(state.GameState.LOADING);
@@ -77,7 +77,7 @@ const gameLogic = {
                         await gameSetup.setupGameWithPreloadedPair(preloadedImages);
                     }
                 }
-                
+
                 if (!newPair) {
                     newPair = await gameLogic.pairManagement.selectRandomPairFromCurrentCollection();
                     if (newPair) {
@@ -117,7 +117,7 @@ const gameLogic = {
                 (pair.tags && selectedTags.every(tag => pair.tags.includes(tag)));
             const matchesRanges = selectedRanges.length === 0 ||
                 (pair.range && pair.range.some(range => selectedRanges.includes(range)));
-            const matchesSearch = !searchTerm || 
+            const matchesSearch = !searchTerm ||
                 (pair.taxonNames && pair.taxonNames.some(name => name.toLowerCase().includes(searchTerm.toLowerCase()))) ||
                 (pair.setName && pair.setName.toLowerCase().includes(searchTerm.toLowerCase())) ||
                 (pair.tags && pair.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())));
@@ -134,11 +134,11 @@ const gameLogic = {
                 tags: state.getSelectedTags(),
                 searchTerm: state.getSearchTerm()
             });
-            
+
             if (filteredSets.length === 0) {
                 throw new Error("No pairs available in the current collection");
             }
-            
+
             const randomIndex = Math.floor(Math.random() * filteredSets.length);
             return filteredSets[randomIndex];
         },
@@ -152,7 +152,7 @@ const gameLogic = {
                         selectedRanges: [],
                         selectedLevel: ''
                     });
-                    
+
                     // Update UI to reflect cleared filters
                     collectionManager.updateUIForClearedFilters();
                 }
@@ -171,20 +171,20 @@ const gameLogic = {
             }
         },
     },
-    
+
     taxonHandling: {
         getCurrentTaxon(url) {
             let currentObservationURLs = state.getObservationURLs();
-//            logger.debug(`getCurrentTaxon called with URL: ${url}`);
-//            logger.debug(`Current observation URLs: ${JSON.stringify(currentObservationURLs)}`);
-            
+            //            logger.debug(`getCurrentTaxon called with URL: ${url}`);
+            //            logger.debug(`Current observation URLs: ${JSON.stringify(currentObservationURLs)}`);
+
             if (url === currentObservationURLs.imageOne) {
                 const taxon = state.getTaxonImageOne();
-//                logger.debug(`Matched imageOne, returning taxon: ${taxon}`);
+                //                logger.debug(`Matched imageOne, returning taxon: ${taxon}`);
                 return taxon;
             } else if (url === currentObservationURLs.imageTwo) {
                 const taxon = state.getTaxonImageTwo();
-//                logger.debug(`Matched imageTwo, returning taxon: ${taxon}`);
+                //                logger.debug(`Matched imageTwo, returning taxon: ${taxon}`);
                 return taxon;
             } else {
                 logger.error(`Unable to determine current taxon name. URL: ${url} does not match any current observation URL.`);
@@ -195,7 +195,7 @@ const gameLogic = {
 
     collectionManagement: {
 
-        loadRandomPairFromCurrentCollection: async function() {
+        loadRandomPairFromCurrentCollection: async function () {
             logger.debug(`Loading pair. Selected level: ${state.getSelectedLevel()}`);
 
             if (gameLogic.collectionManagement.isCurrentPairInCollection()) {

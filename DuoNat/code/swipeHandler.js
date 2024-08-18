@@ -134,7 +134,7 @@ const swipeHandler = {
         requestAnimationFrame(() => {
             this.gameContainer.style.transform = `rotate(${rotation}deg) translateX(${-deltaX}px)`;
             this.gameContainer.style.opacity = opacity;
-            
+
             if (progress > 0) {
                 this.showSwipeInfoMessage();
             } else {
@@ -152,10 +152,10 @@ const swipeHandler = {
     showSwipeInfoMessage() {
         const swipeInfoMessage = document.getElementById('swipe-info-message');
         swipeInfoMessage.style.display = 'block';
-        
+
         // Force a reflow to ensure the transition is applied
         void swipeInfoMessage.offsetWidth;
-        
+
         swipeInfoMessage.style.transition = 'opacity 0.3s ease';
         swipeInfoMessage.style.opacity = '1';
     },
@@ -164,7 +164,7 @@ const swipeHandler = {
         const swipeInfoMessage = document.getElementById('swipe-info-message');
         swipeInfoMessage.style.transition = 'opacity 0.3s ease';
         swipeInfoMessage.style.opacity = '0';
-        
+
         // Ensure the message is hidden after the transition
         setTimeout(() => {
             swipeInfoMessage.style.display = 'none';

@@ -128,7 +128,7 @@ class RadialTree extends BaseTree {
         const { width, height, radius } = this._getDimensions();
         this._setupSvg(width, height);
         this._addStyles();
-        
+
         this.parentNode = this.root;
         this.activeNode = this.root;
         this.treeLayout = this._setupTreeLayout(radius);
@@ -203,7 +203,7 @@ class RadialTree extends BaseTree {
     }
 
     _getVisibleLinks(visibleNodes) {
-        return this.parentNode.links().filter(link => 
+        return this.parentNode.links().filter(link =>
             visibleNodes.includes(link.source) && visibleNodes.includes(link.target)
         );
     }
@@ -280,7 +280,7 @@ class RadialTree extends BaseTree {
         const linkEnter = link.enter().insert('path', 'g')
             .attr('class', 'link')
             .attr('d', d => {
-                const o = {x: source.x0 || 0, y: source.y0 || 0};
+                const o = { x: source.x0 || 0, y: source.y0 || 0 };
                 return this._diagonal(o, o);
             });
 
@@ -291,7 +291,7 @@ class RadialTree extends BaseTree {
         link.exit().transition()
             .duration(duration)
             .attr('d', d => {
-                const o = {x: source.x, y: source.y};
+                const o = { x: source.x, y: source.y };
                 return this._diagonal(o, o);
             })
             .remove();
@@ -307,88 +307,88 @@ class RadialTree extends BaseTree {
         return [(y = +y) * Math.cos(x -= Math.PI / 2), y * Math.sin(x)];
     }
 
-_handleClick(d) {
-    // If the clicked node is the central node, do nothing for now
-    if (d === this.activeNode) {
-        logger.debug("Active node is not clickable.");
-        return;
+    _handleClick(d) {
+        // If the clicked node is the central node, do nothing for now
+        if (d === this.activeNode) {
+            logger.debug("Active node is not clickable.");
+            return;
+        }
+
+        if (d !== this.parentNode) {
+            // Make the clicked node's parent the new center node (root)
+            this.parentNode = d.parent || this.parentNode;
+            this.activeNode = d;
+        } else if (d.parent) {
+            // If the center node is clicked again, make its parent the new center node
+            this.parentNode = d.parent;
+            this.activeNode = d;
+        }
+
+        // Ensure that the active node's children are always expanded
+        if (d._children) {
+            d.children = d._children;
+            d._children = null;
+        }
+        /*if (d.children) {
+            d._children = d.children;
+            d.children = null;
+        } else {
+            d.children = d._children;
+            d._children = null;
+        }*/
+
+        // Traverse children if the active node has only one child
+        //this._traverseChildren();
+        // TODO not ready for primetime yet
+
+        // Update the tree with the new layout and expanded nodes
+        this.update(this.activeNode);
     }
 
-    if (d !== this.parentNode) {
-        // Make the clicked node's parent the new center node (root)
-        this.parentNode = d.parent || this.parentNode;
-        this.activeNode = d;
-    } else if (d.parent) {
-        // If the center node is clicked again, make its parent the new center node
-        this.parentNode = d.parent;
-        this.activeNode = d;
-    }
+    _traverseChildren() {
+        let currentNode = this.activeNode;
 
-    // Ensure that the active node's children are always expanded
-    if (d._children) {
-        d.children = d._children;
-        d._children = null;
-    }
-    /*if (d.children) {
-        d._children = d.children;
-        d.children = null;
-    } else {
-        d.children = d._children;
-        d._children = null;
-    }*/
+        // Traverse until we find a node with more than one child or no children
+        while (currentNode.children && currentNode.children.length === 1) {
+            currentNode = currentNode.children[0];
+            this.activeNode = currentNode;
 
-    // Traverse children if the active node has only one child
-    //this._traverseChildren();
-    // TODO not ready for primetime yet
-
-    // Update the tree with the new layout and expanded nodes
-    this.update(this.activeNode);
-}
-
-_traverseChildren() {
-    let currentNode = this.activeNode;
-
-    // Traverse until we find a node with more than one child or no children
-    while (currentNode.children && currentNode.children.length === 1) {
-        currentNode = currentNode.children[0];
-        this.activeNode = currentNode;
-
-        // Ensure that the current active node's children are expanded
-        if (currentNode._children) {
-            currentNode.children = currentNode._children;
-            currentNode._children = null;
+            // Ensure that the current active node's children are expanded
+            if (currentNode._children) {
+                currentNode.children = currentNode._children;
+                currentNode._children = null;
+            }
         }
     }
-}
 
-update(source) {
-    const duration = 750;
-    this.treeLayout(this.parentNode);
-    const visibleNodes = this._getVisibleNodes();
-    const links = this._getVisibleLinks(visibleNodes);
-    this._normalizeDepth(visibleNodes);
-    
-    this._updateNodes(visibleNodes, source, duration);
-    this._updateLinks(links, source, duration);
-    
-    // Store old positions directly here
-    visibleNodes.forEach(d => {
-        d.x0 = d.x;
-        d.y0 = d.y;
-    });
+    update(source) {
+        const duration = 750;
+        this.treeLayout(this.parentNode);
+        const visibleNodes = this._getVisibleNodes();
+        const links = this._getVisibleLinks(visibleNodes);
+        this._normalizeDepth(visibleNodes);
 
-    // Center the active node on the screen
-    const activeNodeCoords = this._radialPoint(this.activeNode.x, this.activeNode.y);
-    const svgGroupTransform = `translate(${this.container.clientWidth / 2 - activeNodeCoords[0]},${this.container.clientHeight / 2 - activeNodeCoords[1]})`;
+        this._updateNodes(visibleNodes, source, duration);
+        this._updateLinks(links, source, duration);
 
-    this.svg.transition()
-        .duration(duration)
-        .attr('transform', svgGroupTransform);
-}
+        // Store old positions directly here
+        visibleNodes.forEach(d => {
+            d.x0 = d.x;
+            d.y0 = d.y;
+        });
 
-/*_radialPoint(x, y) {
-    return [(y = +y) * Math.cos(x - Math.PI / 2), y * Math.sin(x - Math.PI / 2)];
-}*/
+        // Center the active node on the screen
+        const activeNodeCoords = this._radialPoint(this.activeNode.x, this.activeNode.y);
+        const svgGroupTransform = `translate(${this.container.clientWidth / 2 - activeNodeCoords[0]},${this.container.clientHeight / 2 - activeNodeCoords[1]})`;
+
+        this.svg.transition()
+            .duration(duration)
+            .attr('transform', svgGroupTransform);
+    }
+
+    /*_radialPoint(x, y) {
+        return [(y = +y) * Math.cos(x - Math.PI / 2), y * Math.sin(x - Math.PI / 2)];
+    }*/
 
     _setupResizeObserver() {
         const resizeObserver = new ResizeObserver(() => {
@@ -545,7 +545,7 @@ class HierarchicalTree extends BaseTree {
         const linkEnter = link.enter().insert('path', 'g')
             .attr('class', 'testing-dialog__link')
             .attr('d', d => {
-                const o = {x: source.x0, y: source.y0};
+                const o = { x: source.x0, y: source.y0 };
                 return this._diagonal(o, o);
             });
 
@@ -558,7 +558,7 @@ class HierarchicalTree extends BaseTree {
         link.exit().transition()
             .duration(duration)
             .attr('d', d => {
-                const o = {x: source.x, y: source.y};
+                const o = { x: source.x, y: source.y };
                 return this._diagonal(o, o);
             })
             .remove();

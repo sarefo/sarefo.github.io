@@ -1,8 +1,8 @@
-import state from './state.js';
 import api from './api.js';
 import logger from './logger.js';
 import mainEventHandler from './mainEventHandler.js';
 import rangeSelector from './rangeSelector.js';
+import state from './state.js';
 import tagSelector from './tagSelector.js';
 import utils from './utils.js';
 
@@ -12,7 +12,8 @@ const filtering = {
             level: state.getSelectedLevel(),
             ranges: state.getSelectedRanges(),
             tags: state.getSelectedTags(),
-            searchTerm: state.getSearchTerm()
+            searchTerm: state.getSearchTerm(),
+            phylogeneticNode: state.getSelectedPhylogeneticNode()
         };
     },
 
@@ -40,13 +41,39 @@ const filtering = {
                 (pair.range && pair.range.some(range => filters.ranges.includes(range)));
             const matchesTags = filters.tags.length === 0 ||
                 filters.tags.every(tag => pair.tags.includes(tag));
-            const matchesSearch = !filters.searchTerm || 
+            const matchesSearch = !filters.searchTerm ||
                 pair.taxonNames.some(name => name.toLowerCase().includes(filters.searchTerm.toLowerCase())) ||
                 pair.setName.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
                 pair.tags.some(tag => tag.toLowerCase().includes(filters.searchTerm.toLowerCase()));
+            const matchesPhylogeny = !filters.phylogeneticNode ||
+                pair.taxa.some(taxonId => this.isDescendantOf(taxonId, filters.phylogeneticNode));
 
-            return matchesLevel && matchesRanges && matchesTags && matchesSearch;
+
+            return matchesLevel && matchesRanges && matchesTags && matchesSearch && matchesPhylogeny;
         });
+    },
+
+    isDescendantOf(taxonId, ancestorId) {
+        const hierarchy = api.taxonomy.getTaxonomyHierarchy();
+        if (!hierarchy) {
+            logger.error('Taxonomy hierarchy not loaded');
+            return false;
+        }
+
+        let currentNode = hierarchy.getTaxonById(taxonId);
+        if (!currentNode) {
+            logger.error(`Taxon not found in hierarchy: ${taxonId}`);
+            return false;
+        }
+
+        while (currentNode) {
+            if (currentNode.id === ancestorId) {
+                return true;
+            }
+            currentNode = hierarchy.getTaxonById(currentNode.parentId);
+        }
+
+        return false;
     },
 
     pairMatchesFilters(pair, filters) {

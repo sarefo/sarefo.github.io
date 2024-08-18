@@ -23,7 +23,7 @@ const utils = {
             let currentUrl = new URL(window.location.href);
             currentUrl.search = ''; // Clear existing parameters
             let currentTaxonImageCollection = state.getCurrentTaxonImageCollection();
-            
+
             if (currentTaxonImageCollection && currentTaxonImageCollection.pair) {
                 const { setID, taxon1, taxon2 } = currentTaxonImageCollection.pair;
                 if (setID) currentUrl.searchParams.set('setID', setID);
@@ -92,7 +92,7 @@ const utils = {
         async selectTaxonPair(filters = {}) {
             try {
                 const filteredPairs = await filtering.getFilteredTaxonPairs(filters);
-                
+
                 if (filteredPairs.length === 0) {
                     logger.warn("No pairs match the selected criteria. Using all pairs.");
                     return utils.game.selectRandomPair(await api.taxonomy.fetchTaxonPairs());
@@ -125,7 +125,7 @@ const utils = {
             leftNameContainer.appendChild(document.getElementById('left-name'));
             rightNameContainer.appendChild(document.getElementById('right-name'));
 
-            dropOne.innerHTML = ''; 
+            dropOne.innerHTML = '';
             dropTwo.innerHTML = '';
         },
     },

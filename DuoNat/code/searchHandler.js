@@ -36,14 +36,14 @@ const searchHandler = {
     async handleSearch(event) {
         const searchInput = event.target;
         const searchTerm = searchInput.value.trim();
-        
+
         searchHandler.updateClearButtonVisibility(searchTerm);
-        
+
         state.setSearchTerm(searchTerm);
 
         const taxonPairs = await api.taxonomy.fetchTaxonPairs();
         const isNumericSearch = /^\d+$/.test(searchTerm);
-        
+
         let filteredPairs;
         if (isNumericSearch) {
             filteredPairs = taxonPairs.filter(pair => pair.setID.toString() === searchTerm);
@@ -55,7 +55,7 @@ const searchHandler = {
                 searchTerm: searchTerm
             });
         }
-        
+
         searchHandler.updateUI(filteredPairs);
     },
 
@@ -88,9 +88,9 @@ const searchHandler = {
 
         const searchTermLower = searchTerm.toLowerCase();
         const matchesTaxon = pair.taxonNames[0].toLowerCase().includes(searchTermLower) ||
-                             pair.taxonNames[1].toLowerCase().includes(searchTermLower);
+            pair.taxonNames[1].toLowerCase().includes(searchTermLower);
         const matchesVernacular = (vernacular1 && vernacular1.toLowerCase().includes(searchTermLower)) ||
-                                  (vernacular2 && vernacular2.toLowerCase().includes(searchTermLower));
+            (vernacular2 && vernacular2.toLowerCase().includes(searchTermLower));
         const matchesSetName = pair.setName.toLowerCase().includes(searchTermLower);
         const matchesTags = pair.tags.some(tag => tag.toLowerCase().includes(searchTermLower));
 
