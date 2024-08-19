@@ -3,7 +3,6 @@ import collectionManager from './config.js';
 import config from './config.js';
 import filtering from './filtering.js';
 import gameSetup from './gameSetup.js';
-import gameUI from './gameUI.js';
 import logger from './logger.js';
 import preloader from './preloader.js';
 import setManager from './setManager.js';
@@ -47,7 +46,7 @@ const gameLogic = {
 
         async handleCorrectAnswer() {
             await ui.showOverlay('Correct!', config.overlayColors.green);
-            gameUI.prepareImagesForLoading();
+            ui.prepareImagesForLoading();
             await utils.ui.sleep(2000); // Show "Correct!" for a while
             ui.updateOverlayMessage(`${utils.ui.getLoadingMessage()}`); // Update message without changing color
             await gameSetup.setupGame(false);  // Start a new round with the same taxon pair
@@ -66,7 +65,7 @@ const gameLogic = {
         async loadNewRandomPair(usePreloadedPair = true) {
             state.setState(state.GameState.LOADING);
             ui.showOverlay(`${utils.ui.getLoadingMessage()}`, config.overlayColors.green);
-            gameUI.prepareImagesForLoading();
+            ui.prepareImagesForLoading();
 
             try {
                 let newPair;

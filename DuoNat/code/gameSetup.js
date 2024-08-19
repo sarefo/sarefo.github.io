@@ -11,7 +11,6 @@ import state from './state.js';
 import ui from './ui.js';
 import utils from './utils.js';
 import worldMap from './worldMap.js';
-import gameUI from './gameUI.js';
 
 let isSettingUpGame = false;
 
@@ -44,7 +43,7 @@ const gameSetup = {
 
         prepareUIForLoading() {
             utils.game.resetDraggables();
-            gameUI.prepareImagesForLoading();
+            ui.prepareImagesForLoading();
             const startMessage = state.getIsFirstLoad() ? "Drag the names!" : utils.ui.getLoadingMessage();
             ui.showOverlay(startMessage, config.overlayColors.green);
             state.setIsFirstLoad(false);
@@ -214,7 +213,7 @@ const gameSetup = {
                 utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(imageData.randomized ? pair.taxon2 : pair.taxon1)),
             ]);
 
-            gameUI.setupNameTilesUI(
+            ui.setupNameTilesUI(
                 imageData.randomized ? pair.taxon1 : pair.taxon2,
                 imageData.randomized ? pair.taxon2 : pair.taxon1,
                 leftVernacular,
@@ -266,7 +265,7 @@ const gameSetup = {
 
 
         async finishSetup(newPair) {
-            gameUI.setNamePairHeight();
+            ui.setNamePairHeight();
             state.setState(state.GameState.PLAYING);
             gameSetup.initialization.hideLoadingScreen();
             if (newPair) {

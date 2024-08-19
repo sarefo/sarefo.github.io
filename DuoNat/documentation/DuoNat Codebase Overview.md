@@ -60,7 +60,6 @@ The DuoNat project is primarily written in JavaScript, with HTML and CSS for the
 + `tagSelector.js`: Manages the tag cloud feature.
 + `rangeSelector.js`: Handles geographical range selection.
 + `phylogenySelector.js` : Handles the phylogeny selection dialog.
-+ `gameUI.js`: Specific UI functions for the game interface.
 
 ### Other
 + `testingDialog.js` : Testing dialog to check out things not ready for primetime.
