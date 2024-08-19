@@ -199,7 +199,9 @@ const collectionManager = {
             return `
                 <div class="taxon-item">
                     <div class="taxon-name">${taxonName}</div>
-                    <div class="vernacular-name">${vernacularName}</div>
+                    ${vernacularName && vernacularName.toLowerCase() !== 'n/a' 
+                        ? `<div class="vernacular-name">${vernacularName}</div>`
+                        : ''}
                 </div>
             `;
         },
