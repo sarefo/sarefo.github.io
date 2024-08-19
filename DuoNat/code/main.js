@@ -1,3 +1,4 @@
+import api from './api.js';
 import config from './config.js';
 import dialogManager from './dialogManager.js';
 import gameSetup from './gameSetup.js';
@@ -17,6 +18,7 @@ const initializeLogger = () => {
 
 
 async function initializeComponents() {
+    api.taxonomy.getTaxonomyHierarchy();
     await dialogManager.initialize();
     mainEventHandler.initialize();
     ui.initialize();

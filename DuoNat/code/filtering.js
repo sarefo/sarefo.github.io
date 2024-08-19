@@ -89,16 +89,19 @@ const filtering = {
             (pair.range && pair.range.some(range => filters.ranges.includes(range)));
         const matchesTags = !filters.tags || filters.tags.length === 0 ||
             pair.tags.some(tag => filters.tags.includes(tag));
+        const matchesPhylogeny = !filters.phylogenyId ||
+            pair.taxa.some(taxonId => filtering.isDescendantOf(taxonId, filters.phylogenyId));
+        const matchesSearch = !filters.searchTerm ||
+            pair.taxonNames.some(name => name.toLowerCase().includes(filters.searchTerm.toLowerCase())) ||
+            pair.setName.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
+            pair.tags.some(tag => tag.toLowerCase().includes(filters.searchTerm.toLowerCase()));
 
-        return matchesLevel && matchesRanges && matchesTags;
+        return matchesLevel && matchesRanges && matchesTags && matchesPhylogeny && matchesSearch;
     },
-
 
     async getFilteredTaxonPairs(filters = {}) {
         const taxonPairs = await api.taxonomy.fetchTaxonPairs();
-        // Remove phylogeny filter for this operation
-        const { phylogenyId, ...otherFilters } = filters;
-        return taxonPairs.filter(pair => filtering.pairMatchesFilters(pair, otherFilters));
+        return taxonPairs.filter(pair => filtering.pairMatchesFilters(pair, filters));
     },
 
     isPairValidForCurrentFilters(pair) {

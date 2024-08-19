@@ -302,6 +302,7 @@ const collectionManager = {
     ui: {
         updateFilterSummary() {
             this.updateMapInFilterSummary();
+            this.updatePhylogenyDisplay();
             this.updateTagsInFilterSummary();
         },
 
@@ -323,6 +324,30 @@ const collectionManager = {
             const tagsContainer = document.querySelector('.filter-summary__tags');
             if (tagsContainer) {
                 tagsContainer.innerHTML = this.getTagsHTML();
+            }
+        },
+
+        updatePhylogenyDisplay: async function() {
+            const phylogenyElement = document.querySelector('.filter-summary__phylogeny');
+            const activePhylogenyId = state.getPhylogenyId();
+
+            if (activePhylogenyId) {
+                const taxonomyHierarchy = api.taxonomy.getTaxonomyHierarchy();
+                const taxon = taxonomyHierarchy.getTaxonById(activePhylogenyId);
+
+                if (taxon) {
+                    const taxonName = taxon.taxonName;
+                    const vernacularName = taxon.vernacularName;
+                    
+                    phylogenyElement.innerHTML = `
+                        <span class="phylogeny-taxon">${taxonName}</span>
+                        ${vernacularName ? `<span class="phylogeny-vernacular">(${vernacularName})</span>` : ''}
+                    `;
+                } else {
+                    phylogenyElement.textContent = 'No active phylogeny';
+                }
+            } else {
+                phylogenyElement.textContent = 'All taxa';
             }
         },
 
@@ -381,7 +406,13 @@ const collectionManager = {
             setManager.refreshSubset();
             dialogManager.closeDialog('collection-dialog');
 
-            setTimeout(() => {
+            setTimeout(async () => {
+                const filters = filtering.getActiveFilters();
+                const filteredPairs = await filtering.getFilteredTaxonPairs(filters);
+                if (filteredPairs.length > 0) {
+                    const randomPair = filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
+                    state.setNextSelectedPair(randomPair);
+                }
                 gameSetup.setupGame(true);
             }, 100);
         },

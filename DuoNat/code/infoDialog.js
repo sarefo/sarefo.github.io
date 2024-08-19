@@ -97,7 +97,7 @@ const infoDialog = {
         const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === currentTaxon.toLowerCase());
 
         if (taxonData && taxonData.taxonFacts && taxonData.taxonFacts.length > 1) {
-            factsElement.innerHTML = '<h4>Facts:</h3><ul>' +
+            factsElement.innerHTML = '<h3>Facts:</h3><ul>' +
                 taxonData.taxonFacts.map(fact => `<li>${fact}</li>`).join('') +
                 '</ul>';
             factsElement.style.display = 'block';

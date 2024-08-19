@@ -72,7 +72,13 @@ const gameSetup = {
         },
 
         async selectPairFromFilters(urlParams) {
-            const filters = gameSetup.initialization.createFiltersFromUrlParams(urlParams);
+            const filters = {
+                level: urlParams.level || state.getSelectedLevel(),
+                ranges: urlParams.ranges ? urlParams.ranges.split(',') : state.getSelectedRanges(),
+                tags: urlParams.tags ? urlParams.tags.split(',') : state.getSelectedTags(),
+                phylogenyId: urlParams.phylogenyId || state.getPhylogenyId(),
+                searchTerm: urlParams.searchTerm || state.getSearchTerm()
+            };
             const filteredPairs = await filtering.getFilteredTaxonPairs(filters);
             return gameSetup.initialization.findOrSelectRandomPair(filteredPairs, urlParams);
         },

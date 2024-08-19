@@ -28,10 +28,15 @@
 }
 
 .phylogeny-dialog__controls {
-    margin-top: 20px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+#phylogeny-clear-button {
+    background-color: var(--primary-counter-color);
 }
 
 .phylogeny-dialog .dialog-title {

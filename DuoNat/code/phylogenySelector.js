@@ -12,6 +12,11 @@ const phylogenySelector = {
         if (doneButton) {
             doneButton.addEventListener('click', this.handleDoneButton.bind(this));
         }
+
+        const clearButton = document.getElementById('phylogeny-clear-button');
+        if (clearButton) {
+            clearButton.addEventListener('click', this.clearSelection.bind(this));
+        }
     },
 
     async updateGraph() {
@@ -160,19 +165,28 @@ const phylogenySelector = {
         if (activeNodeId) {
             state.setPhylogenyId(activeNodeId);
             logger.debug(`Phylogeny ID set to: ${activeNodeId}`);
-            collectionManager.onFiltersChanged();
         } else {
             // If no node is selected, clear the phylogeny filter
             state.setPhylogenyId(null);
             logger.debug('Phylogeny filter cleared');
         }
+        collectionManager.updateFilterSummary(); // Add this line
+        collectionManager.onFiltersChanged();
         dialogManager.closeDialog('phylogeny-dialog');
-    }
+    },
+
+    clearSelection() {
+        state.setPhylogenyId(null);
+        logger.debug('Phylogeny filter cleared');
+        collectionManager.updateFilterSummary();
+        this.updateGraph();
+    },
 };
 
 const publicAPI = {
     initialize: phylogenySelector.initialize.bind(phylogenySelector),
     updateGraph: phylogenySelector.updateGraph.bind(phylogenySelector),
+    clearSelection: phylogenySelector.clearSelection.bind(phylogenySelector),
 };
 
 export default publicAPI;
