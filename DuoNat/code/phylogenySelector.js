@@ -19,6 +19,26 @@ const phylogenySelector = {
         }
     },
 
+    updateActiveTaxonDisplay(nodeId) {
+        const activeNameEl = document.getElementById('active-taxon-name');
+        const activeVernacularEl = document.getElementById('active-taxon-vernacular');
+
+        if (nodeId) {
+            const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
+            const node = hierarchyObj.getTaxonById(nodeId);
+            if (node) {
+                activeNameEl.textContent = node.taxonName;
+                activeVernacularEl.textContent = node.vernacularName ? ` (${node.vernacularName})` : '';
+            } else {
+                activeNameEl.textContent = 'Unknown Taxon';
+                activeVernacularEl.textContent = '';
+            }
+        } else {
+            activeNameEl.textContent = 'No taxon selected';
+            activeVernacularEl.textContent = '';
+        }
+    },
+
     async updateGraph() {
         const graphContainer = document.getElementById('phylogeny-graph-container');
         if (!graphContainer) return;
@@ -48,6 +68,12 @@ const phylogenySelector = {
 
             graphContainer.innerHTML = '';
             const tree = await d3Graphs.createRadialTree(graphContainer, rootNode);
+
+            tree.onNodeSelect = (nodeId) => {
+                this.updateActiveTaxonDisplay(nodeId);
+            };
+            this.updateActiveTaxonDisplay(currentPhylogenyId);
+
             if (currentPhylogenyId) {
                 console.log(`Current phylogeny ID: ${currentPhylogenyId}`);
                 const pathToRoot = this.getPathToRoot(hierarchyObj, currentPhylogenyId);

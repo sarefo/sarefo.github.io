@@ -41,6 +41,7 @@
 
 .phylogeny-dialog__message {
     color: var(--dark-neutral-color);
+    padding-bottom: 1px;
 }
 
 #phylogeny-dialog__message-tap {
@@ -85,6 +86,17 @@
 .node--active circle {
     stroke: #ac0028;
     stroke-width: 2px;
+}
+
+.phylogeny-dialog__active-taxon {
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.phylogeny-dialog__active-taxon #active-taxon-vernacular {
+    font-style: italic;
+    font-weight: normal;
 }
 
 /*

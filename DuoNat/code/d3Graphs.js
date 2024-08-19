@@ -195,6 +195,7 @@ class RadialTree extends BaseTree {
         this.activeNode = null;
         this.dragOffset = [0, 0];
         this.radius = 120;  // Initialize with the same value as the slider's default
+        this.onNodeSelect = null;
         this.simulation = null;
     }
 
@@ -526,6 +527,11 @@ class RadialTree extends BaseTree {
 
         // Update the tree with the new layout and expanded nodes
         this.update(this.activeNode);
+
+        // Call the onNodeSelect callback if it exists
+        if (this.onNodeSelect) {
+            this.onNodeSelect(this.activeNode.data.id);
+        }
     }
 
     _traverseChildren() {
