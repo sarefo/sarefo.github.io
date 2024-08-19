@@ -57,13 +57,18 @@ const gameSetup = {
             await gameSetup.initialization.setupRound(true);
         },
 
-        async selectNewPair(urlParams) {
+        /*async selectNewPair(urlParams) {
             state.resetShownHints();
             let nextSelectedPair = state.getNextSelectedPair();
             if (nextSelectedPair) {
                 state.setNextSelectedPair(null);
                 return nextSelectedPair;
             }
+            return await gameSetup.initialization.selectPairFromFilters(urlParams);
+        },*/
+
+        async selectNewPair(urlParams) {
+            state.resetShownHints();
             return await gameSetup.initialization.selectPairFromFilters(urlParams);
         },
 
@@ -78,6 +83,8 @@ const gameSetup = {
                 level: urlParams.level || state.getSelectedLevel(),
                 ranges: urlParams.ranges ? urlParams.ranges.split(',') : state.getSelectedRanges(),
                 tags: urlParams.tags ? urlParams.tags.split(',') : state.getSelectedTags(),
+                phylogenyId: urlParams.phylogenyId || state.getPhylogenyId(),
+                searchTerm: urlParams.searchTerm || state.getSearchTerm()
             };
         },
 

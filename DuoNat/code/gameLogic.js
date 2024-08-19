@@ -129,16 +129,10 @@ const gameLogic = {
             return matchesLevel && matchesTags && matchesRanges && matchesSearch;
         },
 
-
-        selectRandomPairFromCurrentCollection: async function () {
+        async selectRandomPairFromCurrentCollection() {
+            const filters = filtering.getActiveFilters();
             const taxonSets = await api.taxonomy.fetchTaxonPairs();
-            const filteredSets = filtering.filterTaxonPairs(taxonSets, {
-                level: state.getSelectedLevel(),
-                ranges: state.getSelectedRanges(),
-                tags: state.getSelectedTags(),
-                searchTerm: state.getSearchTerm(),
-                phylogenyId: state.getPhylogenyId()
-            });
+            const filteredSets = filtering.filterTaxonPairs(taxonSets, filters);
 
             if (filteredSets.length === 0) {
                 throw new Error("No pairs available in the current collection");
@@ -199,25 +193,20 @@ const gameLogic = {
     },
 
     collectionManagement: {
-
         loadRandomPairFromCurrentCollection: async function () {
             logger.debug(`Loading pair. Selected level: ${state.getSelectedLevel()}`);
 
             if (gameLogic.collectionManagement.isCurrentPairInCollection()) {
-                logger.debug("Current pair is in collection. No new pair loaded.");
-                return;
+                logger.debug("Current pair is in collection. Loading new random pair.");
+                await gameLogic.pairManagement.loadNewRandomPair();
+            } else {
+                await gameLogic.pairManagement.loadNewRandomPair();
             }
-
-            await gameLogic.collectionManagement.loadNewPair(false);
         },
 
         loadNewPair() {
             try {
-                if (!gameLogic.collectionManagement.isCurrentPairInCollection()) {
-                    gameLogic.collectionManagement.loadRandomPairFromCurrentCollection();
-                } else {
-                    gameLogic.pairManagement.loadNewRandomPair();
-                }
+                gameLogic.pairManagement.loadNewRandomPair();
             } catch (error) {
                 logger.error("Error loading new pair:", error);
             }
