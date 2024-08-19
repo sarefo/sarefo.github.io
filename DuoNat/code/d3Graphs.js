@@ -192,7 +192,7 @@ class RadialTree extends BaseTree {
             .attr('class', 'draggable-group');
 
         // Add styles directly to the SVG
-        this.svg.append('style').text(`
+        /*this.svg.append('style').text(`
             .link {
                 fill: none;
                 stroke: #ccc;
@@ -202,22 +202,22 @@ class RadialTree extends BaseTree {
                 font: 16px sans-serif;
             }
             .node--central circle {
-                fill: #74ac00;
+                fill: #333;
                 r: 8;
             }
             .node--central text {
                 font-weight: bold;
-                fill: #74ac00;
+                fill: #333;
             }
             .node--active circle {
-                stroke: #ff6600;
+                stroke: #99f;
                 stroke-width: 3px;
             }
             .node--active text {
-                fill: #ff6600;
+                fill: #99f;
                 font-weight: bold;
             }
-        `);
+        `);*/
     }
 
     _setupDrag() {
@@ -252,26 +252,27 @@ class RadialTree extends BaseTree {
                 stroke: #ccc;
                 stroke-width: 1.5px;
             }
-            .node text {
+            `);
+/*            .node text {
                 font: 16px sans-serif;
             }
             .node--central circle {
-                fill: #74ac00;
+                fill: #00f;
                 r: 8;
             }
             .node--central text {
                 font-weight: bold;
-                fill: #74ac00;
+                fill: #00f;
             }
             .node--active circle {
-                stroke: #ff6600;
+                stroke: #00f;
                 stroke-width: 3px;
             }
             .node--active text {
-                fill: #ff6600;
+                fill: #00f;
                 font-weight: bold;
             }
-        `);
+        `);*/
     }
 
     _setupTreeLayout() {
@@ -306,6 +307,7 @@ class RadialTree extends BaseTree {
             .attr('transform', d => `translate(${this._radialPoint(source.x0 || 0, source.y0 || 0)})`)
             .on('click', (event, d) => this._handleClick(d));
 
+        // circle around all nodes
         nodeEnter.append('circle')
             .attr('r', 1e-6)
             .style('fill', d => d._children ? 'lightsteelblue' : '#fff')
@@ -338,8 +340,8 @@ class RadialTree extends BaseTree {
             .attr('x', 0)
             .style('font-weight', d => (d === this.parentNode || d === this.activeNode) ? 'bold' : 'normal')
             .style('fill', d => {
-                if (d === this.parentNode) return '#ff6600';
-                if (d === this.activeNode) return '#74ac00';
+                if (d === this.parentNode) return '#74ac00';
+                if (d === this.activeNode) return '#ac0028';
                 return 'black';
             });
 
@@ -504,6 +506,21 @@ class RadialTree extends BaseTree {
             console.log(`Found target node: ${currentNode.data.taxonName}`);
             this.parentNode = currentNode.parent || this.root;
             this.activeNode = currentNode;
+
+            // Expand children of the active node
+            if (this.activeNode._children) {
+                this.activeNode.children = this.activeNode._children;
+            }
+
+            // If the active node has no children, expand its siblings
+            if (!this.activeNode.children && this.parentNode.children) {
+                this.parentNode.children.forEach(sibling => {
+                    if (sibling._children) {
+                        sibling.children = sibling._children;
+                    }
+                });
+            }
+
             this.update(this.activeNode);
         } else {
             console.warn(`Failed to reach target node ${pathToRoot[pathToRoot.length - 1]}`);
@@ -536,11 +553,18 @@ class RadialTree extends BaseTree {
         this.svg.transition()
             .duration(duration)
             .attr('transform', svgGroupTransform);
-    }
 
-    /*_radialPoint(x, y) {
-        return [(y = +y) * Math.cos(x - Math.PI / 2), y * Math.sin(x - Math.PI / 2)];
-    }*/
+        // style active note
+        this.svg.selectAll('.node')
+            .filter(d => d === this.activeNode)
+            .raise() // Bring the active node to the front
+            .select('circle')
+            .transition()
+            .duration(duration)
+            .style('stroke', '#ac0028')
+            .attr('r', 8) // Make the active node slightly larger
+            .style('fill', '#ac0028'); // Highlight color
+    }
 
     _setupResizeObserver() {
         const resizeObserver = new ResizeObserver(() => {
