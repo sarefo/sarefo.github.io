@@ -15,14 +15,14 @@
 
 .collection-dialog__top-section {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     align-items: flex-start;
-  /*  margin-bottom: 15px;*/
+    /*  margin-bottom: 15px;*/
 }
 
 .collection-dialog__button-group {
     display: flex;
-    flex-direction: row;    
+    flex-direction: row;
     justify-content: space-between;
     gap: 8px;
     width: 100%;
@@ -68,8 +68,9 @@
 }
 
 .level-filter-dropdown option {
-/*    text-align: left;*/
+    /*    text-align: left;*/
 }
+
 /* Active filters */
 
 .filter-summary {
@@ -163,7 +164,8 @@
     border-radius: var(--border-radius);
     cursor: pointer;
     font-size: 1.1em;
-    width: 100px; /* match world map */
+    width: 100px;
+    /* match world map */
     flex-shrink: 0;
 }
 
@@ -173,12 +175,12 @@
 
 /* Add this if you want the map to appear clickable */
 .filter-summary__map {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 /* Add a subtle hover effect */
 .filter-summary__map:hover {
-  opacity: 0.8;
+    opacity: 0.8;
 }
 
 
@@ -192,7 +194,8 @@
     gap: 4px;
     margin-bottom: 8px;
     width: 100%;
-   /* display: none;*/ /* Initially hidden */
+    /* display: none;*/
+    /* Initially hidden */
 }
 
 .collection-dialog__tags-list {
@@ -228,58 +231,58 @@
 }
 
 .collection-dialog__search {
-  position: relative;
-  margin-bottom: 8px;
+    position: relative;
+    margin-bottom: 8px;
 }
 
 .collection-dialog__search-input {
-  width: 100%;
-  padding: 10px 15px;
-  padding-left: 40px;
-  border: 1px solid #ddd;
-  border-radius: var(--border-radius);
-  font-size: 16px;
-  transition: border-color 0.3s ease;
+    width: 100%;
+    padding: 10px 15px;
+    padding-left: 40px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    transition: border-color 0.3s ease;
 }
 
 .collection-dialog__search-input:focus {
-  outline: none;
-  border-color: var(--primary-color);
+    outline: none;
+    border-color: var(--primary-color);
 }
 
 .collection-dialog__search-icon {
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
-  color: #888;
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: #888;
 }
 
 .collection-dialog__clear-search {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  width: 20px;
-  height: 20px;
-  color: #888;
-  display: none;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    color: #888;
+    display: none;
 }
 
 .collection-dialog__clear-search:hover {
-  color: var(--primary-color);
+    color: var(--primary-color);
 }
 
 .collection-dialog__done-button {
     position: relative;
     flex-grow: 1;
-/*    margin-top: 20px;*/
+    /*    margin-top: 20px;*/
     max-height: 40px;
     padding: 4px;
     width: 100%;
@@ -314,9 +317,11 @@
     overflow-y: auto;
     overflow-x: hidden;
     /* padding-bottom: 10px;*/
-    /*padding-right: 5px;*/ /* Add some padding for the scrollbar */
+    /*padding-right: 5px;*/
+    /* Add some padding for the scrollbar */
     margin-bottom: 0;
-    scrollbar-width: none; /* For Firefox */
+    scrollbar-width: none;
+    /* For Firefox */
     scroll-behavior: smooth;
 }
 
@@ -352,14 +357,16 @@
 .taxon-set-button {
     display: block;
     width: 100%;
- /*   padding: 5px;*/
+    /*   padding: 5px;*/
     margin: 4px 0;
-    background-color: rgba(116, 172, 0, 0.3); /* Light green background */
+    background-color: rgba(116, 172, 0, 0.3);
+    /* Light green background */
     border: none;
     border-radius: var(--border-radius);
     cursor: pointer;
     transition: background-color 0.3s ease;
-    box-sizing: border-box; /* Include padding in width calculation */
+    box-sizing: border-box;
+    /* Include padding in width calculation */
 }
 
 .taxon-set-button:focus {
@@ -373,16 +380,20 @@
 }
 
 .taxon-set-button--selected {
-    background-color: rgba(116, 172, 0, 0.5); /* Darker green background */
-    box-shadow: 0 0 0 2px var(--primary-color); /* Green outline */
+    background-color: rgba(116, 172, 0, 0.5);
+    /* Darker green background */
+    box-shadow: 0 0 0 2px var(--primary-color);
+    /* Green outline */
 }
 
 .taxon-set-button--selected .taxon-item {
-    background-color: #5c8a00; /* Darker green for the taxon items */
+    background-color: #5c8a00;
+    /* Darker green for the taxon items */
 }
 
 .taxon-set-button--selected:hover {
-    background-color: rgba(116, 172, 0, 0.6); /* Even darker on hover */
+    background-color: rgba(116, 172, 0, 0.6);
+    /* Even darker on hover */
 }
 
 .taxon-set-container {
@@ -394,7 +405,7 @@
     background-color: rgba(116, 172, 0, 0.2);
     border-radius: 8px;
     padding: 8px;
-/*    margin-bottom: 8px;*/
+    /*    margin-bottom: 8px;*/
 }
 
 .set-name-container {
@@ -409,7 +420,7 @@
     font-size: 1.2em;
     color: var(--dark-neutral-color);
     font-weight: bold;
-/*    text-align: left;*/
+    /*    text-align: left;*/
     flex: 1;
     padding-left: 18px;
 }
@@ -431,7 +442,7 @@
 .taxon-set__tags {
     font-size: 1.1em;
     color: #666;
-/*    text-align: right;*/
+    /*    text-align: right;*/
     flex: 1;
     padding-right: 18px;
 }
@@ -471,6 +482,7 @@
     color: rgba(255, 255, 255, 0.8);
     text-align: center;
 }
+
 /*
 .taxon-pair-content {
     background-color: white;
@@ -503,5 +515,3 @@
     z-index: 1000;
 }
 */
-
-

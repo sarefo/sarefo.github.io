@@ -3,21 +3,21 @@
 }
 
 .inat-down-dialog__message {
-  margin-bottom: 1rem;
-  color: var(--counter-text-color);
+    margin-bottom: 1rem;
+    color: var(--counter-text-color);
 }
 
 .inat-down-dialog__button {
-  background-color: var(--primary-color);
-  color: var(--text-color);
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: var(--border-radius);
-  cursor: pointer;
-  font-size: 1rem;
-  margin: 0.5rem;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1rem;
+    margin: 0.5rem;
     width: 80vw;
-  transition: background-color var(--transition-speed) ease;
+    transition: background-color var(--transition-speed) ease;
 }
 
 .inat-down-dialog__button:hover {
@@ -25,6 +25,5 @@
 }
 
 .inat-down-dialog__button--status {
-  background-color: var(--primary-color);
+    background-color: var(--primary-color);
 }
-

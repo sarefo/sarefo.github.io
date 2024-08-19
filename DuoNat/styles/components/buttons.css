@@ -1,17 +1,19 @@
 /* For icons in general */
 .icon {
-  width: 24px;
-  height: 24px;
-  fill: var(--dark-neutral-color);
-  transition: transform 0.2s ease, fill 0.2s ease;
+    width: 24px;
+    height: 24px;
+    fill: var(--dark-neutral-color);
+    transition: transform 0.2s ease, fill 0.2s ease;
 }
 
-.icon:hover, .icon-button:hover {
-  transform: scale(1.1);
+.icon:hover,
+.icon-button:hover {
+    transform: scale(1.1);
 }
 
-.icon:active, .icon-button:active {
-  transform: scale(0.95);
+.icon:active,
+.icon-button:active {
+    transform: scale(0.95);
 }
 
 .dialog-button {
@@ -33,21 +35,21 @@
 
 /* For buttons containing icons */
 .icon-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.6);
-  border: none;
-  border-radius: 50%;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  width: 40px;
-  height: 40px;
-  transition: background-color var(--transition-speed) ease, transform 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.6);
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    transition: background-color var(--transition-speed) ease, transform 0.2s ease;
 }
 
 .icon-button:hover {
-  background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.8);
 }
 
 .ui-container {
@@ -115,6 +117,7 @@
 #like-button {
     fill: var(--primary-color);
 }
+
 #trash-button {
     fill: var(--primary-counter-color);
 }
@@ -155,10 +158,11 @@
 
 /* Hint button */
 .image-container__button--hint {
-/*    position: absolute;
+    /*    position: absolute;
     bottom: 10px;
     left: 55px;*/
 }
+
 .image-container__button--hint.inactive {
     opacity: 0.5;
     cursor: not-allowed;
@@ -175,8 +179,9 @@
     position: absolute;
     bottom: 10px;
     left: 60px;
-/*    left: 120px;*/
-    display: none; /* Initially hidden, shown when globe view is active */
+    /*    left: 120px;*/
+    display: none;
+    /* Initially hidden, shown when globe view is active */
 }
 
 .image-container__button--globe:hover {

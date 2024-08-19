@@ -14,13 +14,13 @@
 /* Generic dialog style */
 
 dialog {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  opacity: 0;
-  transform: scale(0.95);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  margin: 0;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    margin: 0;
 }
 
 dialog[open] {
@@ -37,10 +37,11 @@ dialog[open] {
     width: 95%;
     max-width: 500px;
     max-height: 95vh;
-/*    height: auto;*/
+    /*    height: auto;*/
     overflow-y: auto;
     padding: 40px 20px 20px;
-    z-index: 5000; /* debug */
+    z-index: 5000;
+    /* debug */
 }
 
 @media (max-width: 480px) {
@@ -69,11 +70,12 @@ dialog[open] {
     right: 10px;
     background: none;
     font-size: 2em;
-    color: var(--primary-counter-color);                
+    color: var(--primary-counter-color);
     outline: none;
     border: none;
     box-shadow: none;
-    -webkit-tap-highlight-color: transparent; /* Removes tap highlight on iOS */
+    -webkit-tap-highlight-color: transparent;
+    /* Removes tap highlight on iOS */
     cursor: pointer;
     padding: 5px;
     display: flex;
@@ -100,36 +102,36 @@ dialog[open] {
 
 /* Graph testing dialog */
 .testing-dialog {
-  width: 95%;
-  height: 95%;
-  max-width: none;
+    width: 95%;
+    height: 95%;
+    max-width: none;
 }
 
 .testing-dialog__graph-container {
-  width: 100%;
-  height: calc(100% - 60px);
-  overflow: auto;
+    width: 100%;
+    height: calc(100% - 60px);
+    overflow: auto;
 }
 
 .testing-dialog__link {
-  fill: none;
-  stroke: #555;
-  stroke-opacity: 0.4;
-  stroke-width: 1.5px;
+    fill: none;
+    stroke: #555;
+    stroke-opacity: 0.4;
+    stroke-width: 1.5px;
 }
 
 .testing-dialog__node-circle {
-  fill: #999;
+    fill: #999;
 }
 
 .testing-dialog__node-text {
-  font: 10px sans-serif;
+    font: 10px sans-serif;
 }
 
 .testing-dialog__node--internal .testing-dialog__node-circle {
-  fill: #555;
+    fill: #555;
 }
 
 .testing-dialog__node--internal .testing-dialog__node-text {
-  text-shadow: 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff;
+    text-shadow: 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff;
 }

@@ -16,7 +16,8 @@
 
 .info-dialog[open] {
     display: flex;
-    transform: translateX(-50%); /* override system-wide centering of dialogs */
+    transform: translateX(-50%);
+    /* override system-wide centering of dialogs */
 }
 
 .info-dialog__header {
@@ -75,14 +76,15 @@
     word-break: normal;
     overflow-wrap: break-word;
     hyphens: auto;
-/*    text-shadow: 1px 1px 2px var(--shadow-color);*/
+    /*    text-shadow: 1px 1px 2px var(--shadow-color);*/
 }
 
 .info-dialog__facts li::before {
     content: "•";
     position: absolute;
     left: 8px;
-    top: -0.18em; /* align with center of first line */
+    top: -0.18em;
+    /* align with center of first line */
     color: var(--primary-color);
     font-size: 1.3em;
 }
@@ -102,7 +104,8 @@
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: calc(50% + 24px); /* Adjust based on your needs */
+    width: calc(50% + 24px);
+    /* Adjust based on your needs */
     height: 100%;
     background-color: rgba(116, 172, 0, 0.3);
     border-radius: 20px;
@@ -118,7 +121,8 @@
     padding: 8px;
     margin: 0;
     transition: background-color 0.3s ease;
-    z-index: 1; /* Ensures buttons are above the iNat container */
+    z-index: 1;
+    /* Ensures buttons are above the iNat container */
     position: relative;
 }
 
@@ -143,7 +147,8 @@
 }
 
 .inat-button {
-    pointer-events: auto; /* Re-enables clicks for these buttons */
+    pointer-events: auto;
+    /* Re-enables clicks for these buttons */
 }
 
 .inat-button:hover {
@@ -158,5 +163,3 @@
     opacity: 0.5;
     cursor: not-allowed;
 }
-
-

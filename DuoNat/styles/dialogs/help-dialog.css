@@ -1,17 +1,16 @@
 .help-dialog {
     padding-top: 0px;
-/*    max-height: 95%;*/
+    /*    max-height: 95%;*/
 }
 
 /* .help-dialog__content naming triggers some weird extension behavior :P */
 .help-dialog_content {
     gap: 20px;
-/*    max-height:95%;*/
-/*    padding: 0 20px;*/
+    /*    max-height:95%;*/
+    /*    padding: 0 20px;*/
 }
 
-.help-dialog__header {
-}
+.help-dialog__header {}
 
 .help-dialog__logo {
     position: relative;
@@ -63,7 +62,8 @@
     font-size: 18px;
     line-height: 1.4;
     color: var(--dark-neutral-color);
-    text-align: left; /* TODO doesn't work */
+    text-align: left;
+    /* TODO doesn't work */
 }
 
 .help-dialog__shortcuts {
@@ -105,4 +105,3 @@
     font-size: 14px;
     color: var(--counter-text-color);
 }
-

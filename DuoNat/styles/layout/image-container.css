@@ -19,6 +19,7 @@
     user-select: none;
     -webkit-touch-callout: none;
 }
+
 .image-container--drag-over {
     cursor: copy;
 }
@@ -27,9 +28,11 @@
 #image-container-1 {
     margin-top: 4px;
 }
+
 #image-container-2 {
     margin-bottom: 4px;
 }
+
 .image-container__image {
     position: absolute;
     top: 50%;
@@ -48,7 +51,8 @@
     justify-content: center;
     align-items: center;
     border-radius: var(--border-radius);
-    pointer-events: none; /* Prevents the image from interfering with dragging */
+    pointer-events: none;
+    /* Prevents the image from interfering with dragging */
     transition: opacity var(--transition-speed) ease-in-out;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -59,7 +63,7 @@
 
 .image-container__image--loading {
     opacity: 0.5;
-    transition: opacity var(--transition-speed) ease-in-out;    
+    transition: opacity var(--transition-speed) ease-in-out;
 }
 
 /* Hint overlay */
@@ -117,7 +121,8 @@
     z-index: 10;
     width: 300px;
     max-width: calc(var(--max-image-width)-50px);
-    height: 80px; /* Add a fixed height */
+    height: 80px;
+    /* Add a fixed height */
     transition: all 0.3s ease-out;
     pointer-events: none;
 }
@@ -129,4 +134,3 @@
     transition: box-shadow 0.3s ease;
     z-index: 1000;
 }
-
