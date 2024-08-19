@@ -49,7 +49,6 @@ const filtering = {
             const matchesPhylogeny = !filters.phylogenyId ||
                 pair.taxa.some(taxonId => filtering.isDescendantOf(taxonId, filters.phylogenyId));
 
-
             return matchesLevel && matchesRanges && matchesTags && matchesSearch && matchesPhylogeny;
         });
     },

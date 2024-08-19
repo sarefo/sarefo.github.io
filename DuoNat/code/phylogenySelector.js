@@ -1,4 +1,5 @@
 import api from './api.js';
+import collectionManager from './collectionManager.js';
 import d3Graphs from './d3Graphs.js';
 import dialogManager from './dialogManager.js';
 import logger from './logger.js';
@@ -124,6 +125,7 @@ const phylogenySelector = {
         if (activeNodeId) {
             state.setPhylogenyId(activeNodeId);
             logger.debug(`Phylogeny ID set to: ${activeNodeId}`);
+            collectionManager.onFiltersChanged();
         } else {
             logger.warn('No active node selected');
         }
