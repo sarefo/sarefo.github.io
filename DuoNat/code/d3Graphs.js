@@ -449,12 +449,29 @@ class RadialTree extends BaseTree {
         }
     }
 
+    logTreeStructure() {
+        const logNode = (node, depth = 0) => {
+            console.log(' '.repeat(depth * 2) + `${node.data.id}: ${node.data.taxonName}`);
+            if (node.children) {
+                node.children.forEach(child => logNode(child, depth + 1));
+            }
+        };
+        console.log("Tree structure:");
+        logNode(this.root);
+    }
+
     setActiveNode(nodeId) {
+        console.log(`Attempting to set active node: ${nodeId}`);
+        this.logTreeStructure(); // Log the tree structure for debugging
+
         const node = this.root.descendants().find(d => d.data.id === nodeId);
         if (node) {
-            this._handleClick(node);
+            console.log(`Found node: ${node.data.taxonName}`);
+            this.parentNode = node.parent || this.root;
+            this.activeNode = node;
+            this.update(this.activeNode);
         } else {
-            logger.warn(`Node with id ${nodeId} not found in the tree`);
+            console.warn(`Node with id ${nodeId} not found in the tree`);
         }
     }
 

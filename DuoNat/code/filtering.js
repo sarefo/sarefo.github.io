@@ -47,7 +47,7 @@ const filtering = {
                 pair.setName.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
                 pair.tags.some(tag => tag.toLowerCase().includes(filters.searchTerm.toLowerCase()));
             const matchesPhylogeny = !filters.phylogenyId ||
-                pair.taxa.some(taxonId => this.isDescendantOf(taxonId, filters.phylogenyId));
+                pair.taxa.some(taxonId => filtering.isDescendantOf(taxonId, filters.phylogenyId));
 
 
             return matchesLevel && matchesRanges && matchesTags && matchesSearch && matchesPhylogeny;
@@ -109,8 +109,8 @@ const filtering = {
             return false;
         }
 
-        const activeFilters = this.getActiveFilters();
-        return this.filterTaxonPairs([pair], activeFilters).length > 0;
+        const activeFilters = filtering.getActiveFilters();
+        return filtering.filterTaxonPairs([pair], activeFilters).length > 0;
     }
 };
 

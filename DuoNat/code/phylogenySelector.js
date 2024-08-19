@@ -32,15 +32,38 @@ const phylogenySelector = {
             graphContainer.innerHTML = '';
             const tree = await d3Graphs.createRadialTree(graphContainer, rootNode);
             if (currentPhylogenyId) {
+                console.log(`Current phylogeny ID: ${currentPhylogenyId}`);
                 // Add a small delay to ensure the tree is fully rendered
                 setTimeout(() => {
-                    tree.setActiveNode(currentPhylogenyId);
+                    const node = this.findNodeById(rootNode, currentPhylogenyId);
+                    if (node) {
+                        console.log(`Found node in hierarchy: ${node.taxonName}`);
+                        tree.setActiveNode(currentPhylogenyId);
+                    } else {
+                        console.warn(`Node with id ${currentPhylogenyId} not found in the hierarchy`);
+                        console.log("Root node:", rootNode);
+                    }
                 }, 100);
             }
         } catch (error) {
             logger.error('Error creating phylogeny graph:', error);
             graphContainer.innerHTML = `<p>Error creating graph: ${error.message}. Please try again.</p>`;
         }
+    },
+
+    findNodeById(node, id) {
+        if (node.id === id) {
+            return node;
+        }
+        if (node.children) {
+            for (const child of node.children) {
+                const found = this.findNodeById(child, id);
+                if (found) {
+                    return found;
+                }
+            }
+        }
+        return null;
     },
 
     convertHierarchyToNestedObject(hierarchyObj) {
@@ -51,7 +74,7 @@ const phylogenySelector = {
         // First pass: create all nodes
         for (const [id, node] of nodes) {
             const newNode = {
-                id: id,
+                id: id, // Ensure this is a string
                 taxonName: node.taxonName,
                 vernacularName: node.vernacularName,
                 rank: node.rank,
@@ -70,13 +93,13 @@ const phylogenySelector = {
                 if (parent) {
                     parent.children.push(nodeMap.get(id));
                 } else {
-                    logger.warn(`Parent node not found for ${node.taxonName} (ID: ${id})`);
+                    console.warn(`Parent node not found for ${node.taxonName} (ID: ${id})`);
                 }
             }
         }
 
         if (!root) {
-            logger.warn('No root node found, using first node as root');
+            console.warn('No root node found, using first node as root');
             root = nodeMap.values().next().value;
         }
 
