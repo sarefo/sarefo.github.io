@@ -38,8 +38,8 @@ const collectionManager = {
         },
 
         initializePhylogenySelector() {
-            const titleElement = document.getElementById('manage-collections');
-            titleElement.addEventListener('click', () => {
+            const phylogenyButton = document.getElementById('select-phylogeny-button');
+            phylogenyButton.addEventListener('click', () => {
                 dialogManager.openDialog('phylogeny-dialog');
                 phylogenySelector.updateGraph();
             });

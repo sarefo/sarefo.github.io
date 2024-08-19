@@ -3,6 +3,7 @@ import dialogManager from './dialogManager.js';
 import gameLogic from './gameLogic.js';
 import hintSystem from './hintSystem.js';
 import infoDialog from './infoDialog.js';
+import rangeSelector from './rangeSelector.js';
 import searchHandler from './searchHandler.js';
 import state from './state.js';
 import ancestryDialog from './ancestryDialog.js';
@@ -123,7 +124,11 @@ const keyboardShortcuts = {
                     break;
                 case 'r':
                     event.preventDefault();
-                    document.getElementById('select-range-button').click();
+                    rangeSelector.openRangeDialog();
+                    break;
+                case 'p':
+                    event.preventDefault();
+                    document.getElementById('select-phylogeny-button').click();
                     break;
                 case 'l':
                     event.preventDefault();

@@ -149,17 +149,13 @@ const tagSelector = {
         async getTagCounts() {
             const tagCounts = {};
             const taxonPairs = await api.taxonomy.fetchTaxonPairs();
-            const filters = {
-                level: state.getSelectedLevel(),
-                ranges: state.getSelectedRanges(),
-                tags: Array.from(tagSelector.selectedTags) // Use the currently selected tags
-            };
+            const filters = filtering.getActiveFilters();
 
             const filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
 
             filteredPairs.forEach(pair => {
                 pair.tags.forEach(tag => {
-                    if (!tagSelector.selectedTags.has(tag)) { // Only count tags that are not already selected
+                    if (!tagSelector.selectedTags.has(tag)) {
                         tagCounts[tag] = (tagCounts[tag] || 0) + 1;
                     }
                 });

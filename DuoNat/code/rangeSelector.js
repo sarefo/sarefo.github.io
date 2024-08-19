@@ -55,11 +55,11 @@ const rangeSelector = {
     },
 
     initialize() {
-        const selectRangeButton = document.getElementById('select-range-button');
+        //const selectRangeButton = document.getElementById('select-range-button');
         const rangeDialog = document.getElementById('range-dialog');
         const doneButton = document.getElementById('range-done-button');
 
-        selectRangeButton.addEventListener('click', () => this.openRangeDialog());
+        //selectRangeButton.addEventListener('click', () => this.openRangeDialog());
         doneButton.addEventListener('click', () => this.closeRangeDialog());
 
         // Close button functionality
