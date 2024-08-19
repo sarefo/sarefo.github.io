@@ -116,8 +116,10 @@ const infoDialog = {
 
     setupPhotoButton(url) {
         const photoButton = document.getElementById('photo-button');
+        const photoID = url.split("/").slice(-2, -1)[0];
+        const photoURL = `https://www.inaturalist.org/photos/${photoID}`;
         photoButton.onclick = () => {
-            window.open(url, '_blank');
+            window.open(photoURL, '_blank');
             dialogManager.closeDialog('info-dialog');
         };
     },
