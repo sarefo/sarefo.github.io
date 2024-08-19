@@ -74,7 +74,8 @@ const phylogenySelector = {
                 taxonName: node.taxonName,
                 vernacularName: node.vernacularName,
                 rank: node.rank,
-                children: []
+                children: [],
+                count: 0
             };
             nodeMap.set(id, newNode);
             if (node.parentId === null) {
@@ -112,8 +113,21 @@ const phylogenySelector = {
         };
 
         filterNodes(root);
+        this.countAvailablePairs(root, availableTaxonIds);
 
         return root;
+    },
+
+    countAvailablePairs(node, availableTaxonIds) {
+        if (availableTaxonIds.includes(node.id)) {
+            node.count = 1;
+        } else {
+            node.count = 0;
+        }
+        for (const child of node.children) {
+            node.count += this.countAvailablePairs(child, availableTaxonIds);
+        }
+        return node.count;
     },
 
     nodeHasAvailableTaxa(node, availableTaxonIds) {
