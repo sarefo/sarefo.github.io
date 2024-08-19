@@ -192,7 +192,7 @@ const swipeHandler = {
     scheduleNewPairLoad() {
         setTimeout(() => {
             this.resetContainerForNewPair();
-            this.loadNewPair();
+            gameLogic.loadNewPair();
             this.fadeInNewPair();
         }, this.animationDuration);
     },
@@ -203,17 +203,6 @@ const swipeHandler = {
         this.gameContainer.style.opacity = '0';
     },
 
-    loadNewPair() {
-        try {
-            if (!gameLogic.isCurrentPairInCollection()) {
-                gameLogic.loadRandomPairFromCurrentCollection();
-            } else {
-                gameLogic.loadNewRandomPair();
-            }
-        } catch (error) {
-            logger.error("Error loading new pair:", error);
-        }
-    },
 
     fadeInNewPair() {
         requestAnimationFrame(() => {

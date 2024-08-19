@@ -31,7 +31,10 @@ const phylogenySelector = {
             // Get filtered taxon pairs and available taxon IDs
             const filters = filtering.getActiveFilters();
             const taxonPairs = await api.taxonomy.fetchTaxonPairs();
-            const filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
+
+            const { phylogenyId, ...otherFilters } = filters;
+            const filteredPairs = filtering.filterTaxonPairs(taxonPairs, otherFilters);
+            
             const availableTaxonIds = filtering.getAvailableTaxonIds(filteredPairs);
 
             const rootNode = this.convertHierarchyToNestedObject(hierarchyObj, availableTaxonIds);
@@ -159,7 +162,9 @@ const phylogenySelector = {
             logger.debug(`Phylogeny ID set to: ${activeNodeId}`);
             collectionManager.onFiltersChanged();
         } else {
-            logger.warn('No active node selected');
+            // If no node is selected, clear the phylogeny filter
+            state.setPhylogenyId(null);
+            logger.debug('Phylogeny filter cleared');
         }
         dialogManager.closeDialog('phylogeny-dialog');
     }

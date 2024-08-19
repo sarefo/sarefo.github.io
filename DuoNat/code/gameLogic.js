@@ -111,6 +111,7 @@ const gameLogic = {
             let selectedTags = state.getSelectedTags();
             let selectedRanges = state.getSelectedRanges();
             let searchTerm = state.getSearchTerm();
+            let phylogenyId = state.getPhylogenyId();
 
             const matchesLevel = selectedLevel === '' || pair.level === selectedLevel;
             const matchesTags = selectedTags.length === 0 ||
@@ -122,6 +123,9 @@ const gameLogic = {
                 (pair.setName && pair.setName.toLowerCase().includes(searchTerm.toLowerCase())) ||
                 (pair.tags && pair.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())));
 
+            const matchesPhylogeny = !phylogenyId ||
+                pair.taxa.some(taxonId => filtering.isDescendantOf(taxonId, phylogenyId));
+
             return matchesLevel && matchesTags && matchesRanges && matchesSearch;
         },
 
@@ -132,7 +136,8 @@ const gameLogic = {
                 level: state.getSelectedLevel(),
                 ranges: state.getSelectedRanges(),
                 tags: state.getSelectedTags(),
-                searchTerm: state.getSearchTerm()
+                searchTerm: state.getSearchTerm(),
+                phylogenyId: state.getPhylogenyId()
             });
 
             if (filteredSets.length === 0) {
@@ -203,7 +208,19 @@ const gameLogic = {
                 return;
             }
 
-            await loadNewPair(false);
+            await gameLogic.collectionManagement.loadNewPair(false);
+        },
+
+        loadNewPair() {
+            try {
+                if (!gameLogic.collectionManagement.isCurrentPairInCollection()) {
+                    gameLogic.collectionManagement.loadRandomPairFromCurrentCollection();
+                } else {
+                    gameLogic.pairManagement.loadNewRandomPair();
+                }
+            } catch (error) {
+                logger.error("Error loading new pair:", error);
+            }
         },
 
         isCurrentPairInCollection() {
@@ -225,6 +242,7 @@ const publicAPI = {
     selectRandomPairFromCurrentCollection: gameLogic.pairManagement.selectRandomPairFromCurrentCollection,
     loadNewRandomPair: gameLogic.pairManagement.loadNewRandomPair,
     loadSetByID: gameLogic.pairManagement.loadSetByID,
+    loadNewPair: gameLogic.collectionManagement.loadNewPair,
     // Game
     checkAnswer: gameLogic.answerHandling.checkAnswer,
     // Misc 

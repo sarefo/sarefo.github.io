@@ -93,20 +93,12 @@ const filtering = {
         return matchesLevel && matchesRanges && matchesTags;
     },
 
-    /*async getFilteredTaxonPairs() {
-        try {
-            const taxonPairs = await api.taxonomy.fetchTaxonPairs();
-            const activeFilters = this.getActiveFilters();
-            return this.filterTaxonPairs(taxonPairs, activeFilters);
-        } catch (error) {
-            logger.error("Error fetching filtered taxon pairs:", error);
-            return [];
-        }
-    },*/
 
     async getFilteredTaxonPairs(filters = {}) {
         const taxonPairs = await api.taxonomy.fetchTaxonPairs();
-        return taxonPairs.filter(pair => filtering.pairMatchesFilters(pair, filters));
+        // Remove phylogeny filter for this operation
+        const { phylogenyId, ...otherFilters } = filters;
+        return taxonPairs.filter(pair => filtering.pairMatchesFilters(pair, otherFilters));
     },
 
     isPairValidForCurrentFilters(pair) {
@@ -127,6 +119,7 @@ const publicAPI = {
     getActiveFilters: filtering.getActiveFilters,
     getFilteredTaxonPairs: filtering.getFilteredTaxonPairs,
     getAvailableTaxonIds: filtering.getAvailableTaxonIds,
+    isDescendantOf: filtering.isDescendantOf,
 };
 
 export default publicAPI;
