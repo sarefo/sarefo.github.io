@@ -1,7 +1,6 @@
 import config from './config.js';
 import dialogManager from './dialogManager.js';
 import gameSetup from './gameSetup.js';
-import infoDialog from './infoDialog.js';
 import logger, { LogLevel } from './logger.js';
 import mainEventHandler from './mainEventHandler.js';
 import rangeSelector from './rangeSelector.js';
@@ -9,7 +8,6 @@ import state from './state.js';
 import tagSelector from './tagSelector.js';
 import ui from './ui.js';
 import url from './url.js';
-import utils from './utils.js';
 
 let isInitialized = false;
 
@@ -38,7 +36,7 @@ async function initializeApp() {
     initializeLogger();
     url.handleUrlParameters();
     await initializeComponents();
-    gameSetup.setupGame(true, utils.url.getURLParameters());
+    gameSetup.setupGame(true, url.getURLParameters());
     logger.info("App initialization complete");
 }
 

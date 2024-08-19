@@ -6,94 +6,6 @@ import logger from './logger.js';
 import state from './state.js';
 
 const utils = {
-    url: {
-        getURLParameters() {
-            const params = new URLSearchParams(window.location.search);
-            return {
-                taxon1: params.get('taxon1'),
-                taxon2: params.get('taxon2'),
-                tags: params.get('tags'),
-                level: params.get('level'),
-                setID: params.get('setID'),
-                ranges: params.get('ranges'),
-                phylogenyID: params.get('phylogenyID'),
-            };
-        },
-
-        buildShareUrl() {
-            let currentUrl = new URL(window.location.href);
-            currentUrl.search = ''; // Clear existing parameters
-            let currentTaxonImageCollection = state.getCurrentTaxonImageCollection();
-
-            if (currentTaxonImageCollection && currentTaxonImageCollection.pair) {
-                const { setID, taxon1, taxon2 } = currentTaxonImageCollection.pair;
-                if (setID) currentUrl.searchParams.set('setID', setID);
-                currentUrl.searchParams.set('taxon1', taxon1);
-                currentUrl.searchParams.set('taxon2', taxon2);
-            }
-
-            utils.url.addOptionalParameters(currentUrl);
-            return currentUrl.toString();
-        },
-
-        addOptionalParameters(url) {
-            const activeTags = state.getSelectedTags();
-            if (activeTags && activeTags.length > 0) {
-                url.searchParams.set('tags', activeTags.join(','));
-            }
-
-            const selectedLevel = state.getSelectedLevel();
-            if (selectedLevel && selectedLevel !== '') {
-                url.searchParams.set('level', selectedLevel);
-            }
-
-            const selectedRanges = state.getSelectedRanges();
-            if (selectedRanges && selectedRanges.length > 0) {
-                url.searchParams.set('ranges', selectedRanges.join(','));
-            }
-
-            const phylogenyID = state.getPhylogenyId();
-            if (phylogenyID) {
-                url.searchParams.set('phylogenyID', phylogenyID);
-            }
-        },
-
-        shareCurrentPair() {
-            const shareUrl = utils.url.buildShareUrl();
-            utils.url.copyToClipboard(shareUrl)
-                .then(() => utils.url.generateAndShowQRCode(shareUrl))
-                .catch(utils.url.handleShareError);
-        },
-
-        copyToClipboard(text) {
-            return navigator.clipboard.writeText(text)
-                .then(() => logger.info('Share URL copied to clipboard'));
-        },
-
-        generateAndShowQRCode(url) {
-            loadQRCodeScript()
-                .then(() => {
-                    const qrCodeContainer = document.getElementById('qr-container');
-                    qrCodeContainer.innerHTML = '';
-                    new QRCode(qrCodeContainer, {
-                        text: url,
-                        width: 256,
-                        height: 256
-                    });
-                    dialogManager.openDialog('qr-dialog');
-                })
-                .catch(err => {
-                    logger.error('Failed to load QR code script:', err);
-                    alert('Failed to generate QR code. Please try again.');
-                });
-        },
-
-        handleShareError(err) {
-            logger.error('Failed to copy:', err);
-            alert('Failed to copy link. Please try again.');
-        }
-    },
-
     game: {
         async selectTaxonPair(filters = {}) {
             try {
@@ -243,10 +155,6 @@ const utils = {
 };
 
 const publicAPI = {
-    url: {
-        getURLParameters: utils.url.getURLParameters,
-        shareCurrentPair: utils.url.shareCurrentPair
-    },
     game: {
         selectTaxonPair: utils.game.selectTaxonPair,
         resetDraggables: utils.game.resetDraggables

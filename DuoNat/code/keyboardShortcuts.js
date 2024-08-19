@@ -10,6 +10,7 @@ import ancestryDialog from './ancestryDialog.js';
 import testingDialog from './testingDialog.js';
 import tutorial from './tutorial.js';
 import ui from './ui.js';
+import url from './url.js';
 import utils from './utils.js';
 
 let shortcutsEnabled = true;
@@ -45,7 +46,7 @@ const keyboardShortcuts = {
             '?': () => this.handleQuestionMark(event),
             'k': () => dialogManager.openDialog('keyboard-shortcuts-dialog'),
             'm': ui.toggleMainMenu,
-            's': utils.url.shareCurrentPair,
+            's': url.shareCurrentPair,
             't': testingDialog.openDialog,
             '+': this.incrementSetID.bind(this),
             'x': () => document.getElementById('surprise-button').click()
