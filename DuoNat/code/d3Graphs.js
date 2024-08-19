@@ -121,6 +121,7 @@ class RadialTree extends BaseTree {
         this.parentNode = null;
         this.activeNode = null;
         this.dragOffset = [0, 0];
+        this.radius = 120;  // Initialize with the same value as the slider's default
     }
 
     async create() {
@@ -130,6 +131,7 @@ class RadialTree extends BaseTree {
         this._setupSvg(width, height);
         this._addStyles();
         this._setupDrag();
+        this._setupSlider();
 
         this.parentNode = this.root;
         this.activeNode = this.root;
@@ -147,12 +149,35 @@ class RadialTree extends BaseTree {
         this._setupResizeObserver();
     }
 
+    _setupSlider() {
+        const slider = document.getElementById('radiusSlider');
+        slider.addEventListener('input', (event) => {
+            const oldRadius = this.radius;
+            this.radius = +event.target.value;
+            console.log(`Slider value changed from ${oldRadius} to ${this.radius}`);
+            this._redrawGraph();
+        });
+    }
+
+    _redrawGraph() {
+        console.log('Redrawing graph with new radius:', this.radius);
+        // Remove all existing nodes and links
+        this.svg.selectAll('g.node').remove();
+        this.svg.selectAll('path.link').remove();
+
+        // Recompute the layout
+        this.treeLayout(this.parentNode);
+
+        // Update the graph
+        this.update(this.parentNode);
+    }
+
     _getDimensions() {
         const containerRect = this.container.getBoundingClientRect();
         const width = containerRect.width;
         const height = containerRect.height;
-        const radius = Math.min(width, height) / 2 - 120;
-        return { width, height, radius };
+        //const radius = Math.min(width, height) / 2 - 120;
+        return { width, height };//, radius };
     }
 
     _setupSvg(width, height) {
@@ -251,9 +276,10 @@ class RadialTree extends BaseTree {
         `);
     }
 
-    _setupTreeLayout(radius) {
+    _setupTreeLayout() {
+        console.log('Setting up tree layout with radius:', this.radius);
         return this.d3.tree()
-            .size([2 * Math.PI, radius])
+            .size([2 * Math.PI, 1]) // Use a fixed size of 1 for the radius
             .separation((a, b) => (a.parent == b.parent ? 1 : 2) / a.depth);
     }
 
@@ -268,8 +294,9 @@ class RadialTree extends BaseTree {
     }
 
     _normalizeDepth(visibleNodes) {
+        const maxDepth = Math.max(...visibleNodes.map(d => d.depth - this.parentNode.depth));
         visibleNodes.forEach(d => {
-            d.y = (d.depth - this.parentNode.depth) * 100;
+            d.y = ((d.depth - this.parentNode.depth) / maxDepth);
         });
     }
 
@@ -345,7 +372,11 @@ class RadialTree extends BaseTree {
 
         link.merge(linkEnter).transition()
             .duration(duration)
-            .attr('d', d => this._diagonal(d.source, d.target));
+            .attr('d', d => {
+                const sourcePoint = this._radialPoint(d.source.x, d.source.y);
+                const targetPoint = this._radialPoint(d.target.x, d.target.y);
+                return `M${sourcePoint[0]},${sourcePoint[1]}L${targetPoint[0]},${targetPoint[1]}`;
+            });
 
         link.exit().transition()
             .duration(duration)
@@ -363,7 +394,7 @@ class RadialTree extends BaseTree {
     }
 
     _radialPoint(x, y) {
-        return [(y = +y) * Math.cos(x -= Math.PI / 2), y * Math.sin(x)];
+        return [(y * this.radius) * Math.cos(x - Math.PI / 2), (y * this.radius) * Math.sin(x - Math.PI / 2)];
     }
 
     _handleClick(d) {
@@ -436,7 +467,10 @@ class RadialTree extends BaseTree {
 
     update(source) {
         const duration = 750;
+        console.log('Updating graph with radius:', this.radius);
+        
         this.treeLayout(this.parentNode);
+
         const visibleNodes = this._getVisibleNodes();
         const links = this._getVisibleLinks(visibleNodes);
         this._normalizeDepth(visibleNodes);
@@ -477,7 +511,7 @@ class RadialTree extends BaseTree {
 
 }
 
-class HierarchicalTree extends BaseTree {
+/*class HierarchicalTree extends BaseTree {
     constructor(container, rootNode) {
         super(container, rootNode);
     }
@@ -593,6 +627,11 @@ class HierarchicalTree extends BaseTree {
                 return `translate(${d.y},${d.x})`;
             });
 
+        nodeUpdate.attr('transform', d => {
+            const point = this._radialPoint(d.x, d.y);
+            return `translate(${point[0]},${point[1]})`;
+        });
+
         nodeUpdate.select('circle')
             .attr('r', 5)
             .attr('fill', d => d._children ? "lightsteelblue" : "#fff");
@@ -660,7 +699,7 @@ class HierarchicalTree extends BaseTree {
             d.y0 = d.y;
         });
     }
-}
+}*/
 
 const publicAPI = {
     createRadialTree: async function (container, rootNode) {
@@ -670,10 +709,10 @@ const publicAPI = {
         return tree; // Return the tree instance
     },
 
-    createHierarchicalTree: async function (container, rootNode) {
+/*    createHierarchicalTree: async function (container, rootNode) {
         const tree = new HierarchicalTree(container, rootNode);
         await tree.create();
-    },
+    },*/
 
     getActiveNodeId: function () {
         // This assumes that the last created tree is the active one
