@@ -173,7 +173,7 @@ const collectionManager = {
             const vernacular1 = await getCachedVernacularName(pair.taxonNames[0]);
             const vernacular2 = await getCachedVernacularName(pair.taxonNames[1]);
 
-            button.innerHTML = this.createButtonHTML(pair, vernacular1, vernacular2);
+            button.innerHTML = collectionManager.taxonList.createButtonHTML(pair, vernacular1, vernacular2);
             button.onclick = () => collectionManager.eventHandlers.handleTaxonPairSelection(pair);
 
             return button;
