@@ -154,13 +154,11 @@ class RadialTree extends BaseTree {
         slider.addEventListener('input', (event) => {
             const oldRadius = this.radius;
             this.radius = +event.target.value;
-            console.log(`Slider value changed from ${oldRadius} to ${this.radius}`);
             this._redrawGraph();
         });
     }
 
     _redrawGraph() {
-        console.log('Redrawing graph with new radius:', this.radius);
         // Remove all existing nodes and links
         this.svg.selectAll('g.node').remove();
         this.svg.selectAll('path.link').remove();
@@ -277,7 +275,6 @@ class RadialTree extends BaseTree {
     }
 
     _setupTreeLayout() {
-        console.log('Setting up tree layout with radius:', this.radius);
         return this.d3.tree()
             .size([2 * Math.PI, 1]) // Use a fixed size of 1 for the radius
             .separation((a, b) => (a.parent == b.parent ? 1 : 2) / a.depth);
@@ -467,7 +464,6 @@ class RadialTree extends BaseTree {
 
     update(source) {
         const duration = 750;
-        console.log('Updating graph with radius:', this.radius);
         
         this.treeLayout(this.parentNode);
 
