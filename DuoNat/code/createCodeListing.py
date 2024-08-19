@@ -88,8 +88,8 @@ def append_json_sample(file, output_file):
     sample_data = dict(list(data.items())[:2])
     
     with open(output_file, 'a') as out_f:
-        out_f.write(f"\n# {file} (Sample entries)\n\n")
-        out_f.write("# These are two sample entries of this file:\n\n")
+        out_f.write(f"\n#==> {file} (Sample entries)\n\n")
+        out_f.write("#==> These are two sample entries of this file:\n\n")
         json.dump(sample_data, out_f, indent=2)
         out_f.write("\n\n")
 
