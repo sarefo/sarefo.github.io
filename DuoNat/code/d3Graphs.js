@@ -1,4 +1,5 @@
 import logger from './logger.js';
+import phylogenySelector from './phylogenySelector.js';
 
 let d3;
 
@@ -491,9 +492,15 @@ class RadialTree extends BaseTree {
 
     _handleClick(d) {
         logger.debug(`Clicked node: Taxon ID = ${d.data.id}, Taxon Name = ${d.data.taxonName}`);
-        // If the clicked node is the central node, do nothing for now
+
         if (d === this.activeNode) {
             logger.debug("Active node is not clickable.");
+            return;
+        }
+
+        if (d.data.taxonName === "Life") {
+            logger.debug("Life node clicked. Clearing selection.");
+            phylogenySelector.clearSelection();
             return;
         }
 
@@ -512,13 +519,6 @@ class RadialTree extends BaseTree {
             d.children = d._children;
             d._children = null;
         }
-        /*if (d.children) {
-            d._children = d.children;
-            d.children = null;
-        } else {
-            d.children = d._children;
-            d._children = null;
-        }*/
 
         // Traverse children if the active node has only one child
         //this._traverseChildren();
