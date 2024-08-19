@@ -20,7 +20,7 @@ const url = {
                 // If a level is explicitly provided in the URL, use it
                 const level = urlParams.level === 'all' ? '' : urlParams.level;
                 state.setSelectedLevel(level);
-                logger.debug("Skill level from URL:", urlParams.level);
+                logger.debug("Skill level from URL:", urlParams.level, "Stored as:", level);
             } else if (Object.keys(urlParams).some(key => urlParams[key])) {
                 // If any URL parameters are provided but level is not specified, clear the default level
                 state.setSelectedLevel('');

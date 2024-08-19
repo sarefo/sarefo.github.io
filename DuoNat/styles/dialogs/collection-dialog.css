@@ -112,6 +112,10 @@
     margin: 2px;
 }
 
+@media (max-width: 480px) {
+    flex-direction: column;
+}
+
 .phylogeny-taxon {
     font-weight: bold;
     font-style: italic;

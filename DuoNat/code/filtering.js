@@ -83,25 +83,45 @@ const filtering = {
         });
     },
 
-   pairMatchesFilters(pair, filters) {
-        const matchesLevel = !filters.level || pair.level === filters.level;
+    pairMatchesFilters(pair, filters) {
+        const matchesLevel = filters.level === '' || filters.level === 'all' || pair.level === filters.level;
+        if (!matchesLevel) logger.debug(`Pair ${pair.setID} excluded due to level mismatch. Pair level: ${pair.level}, Filter level: ${filters.level}`);
+
         const matchesRanges = !filters.ranges || filters.ranges.length === 0 ||
             (pair.range && pair.range.some(range => filters.ranges.includes(range)));
+        if (!matchesRanges) logger.debug(`Pair ${pair.setID} excluded due to range mismatch`);
+
         const matchesTags = !filters.tags || filters.tags.length === 0 ||
             pair.tags.some(tag => filters.tags.includes(tag));
+        if (!matchesTags) logger.debug(`Pair ${pair.setID} excluded due to tag mismatch`);
+
         const matchesPhylogeny = !filters.phylogenyId ||
             pair.taxa.some(taxonId => filtering.isDescendantOf(taxonId, filters.phylogenyId));
+        if (!matchesPhylogeny) logger.debug(`Pair ${pair.setID} excluded due to phylogeny mismatch`);
+
         const matchesSearch = !filters.searchTerm ||
             pair.taxonNames.some(name => name.toLowerCase().includes(filters.searchTerm.toLowerCase())) ||
             pair.setName.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
             pair.tags.some(tag => tag.toLowerCase().includes(filters.searchTerm.toLowerCase()));
+        if (!matchesSearch) logger.debug(`Pair ${pair.setID} excluded due to search term mismatch`);
 
         return matchesLevel && matchesRanges && matchesTags && matchesPhylogeny && matchesSearch;
     },
 
     async getFilteredTaxonPairs(filters = {}) {
         const taxonPairs = await api.taxonomy.fetchTaxonPairs();
-        return taxonPairs.filter(pair => filtering.pairMatchesFilters(pair, filters));
+        logger.debug('Fetched taxon pairs:', taxonPairs.length);
+        logger.debug('Applied filters:', JSON.stringify(filters));
+        logger.debug('Level filter value:', filters.level);
+        
+        const filteredPairs = taxonPairs.filter(pair => filtering.pairMatchesFilters(pair, filters));
+        logger.debug('Filtered pairs:', filteredPairs.length);
+        
+        if (filteredPairs.length === 0) {
+            logger.warn('No pairs match the current filters');
+        }
+        
+        return filteredPairs;
     },
 
     isPairValidForCurrentFilters(pair) {
