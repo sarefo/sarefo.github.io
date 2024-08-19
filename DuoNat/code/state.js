@@ -247,10 +247,10 @@ const publicAPI = {
 
     getSelectedLevel: () => gameState.selectedLevel,
     setSelectedLevel: (level) => {
-        if (typeof level === 'string') {
-            updateGameState('selectedLevel', level);
+        if (level === '' || (typeof level === 'string' && !isNaN(level) && level.trim() !== '')) {
+            updateGameState('selectedLevel', level === 'all' ? '' : level);
         } else {
-            logger.error('Selected level must be a string');
+            logger.error('Selected level must be an empty string or a valid number string');
         }
     },
 
