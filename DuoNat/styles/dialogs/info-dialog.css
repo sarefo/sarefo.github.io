@@ -6,7 +6,7 @@
     display: none;
     padding: 20px !important;
     /*background-color: #f1f7e5;*/
-    background-color: #dfe9c8 !important;
+    background-color: var(--light-green-not-transparent) !important;
     /*border-radius: var(--border-radius);*/
     /*border-color: var(--primary-color);*/
     max-width: var(--max-image-width) !important;

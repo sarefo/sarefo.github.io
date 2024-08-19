@@ -362,26 +362,6 @@ class RadialTree extends BaseTree {
                 stroke-width: 1.5px;
             }
             `);
-/*            .node text {
-                font: 16px sans-serif;
-            }
-            .node--central circle {
-                fill: #00f;
-                r: 8;
-            }
-            .node--central text {
-                font-weight: bold;
-                fill: #00f;
-            }
-            .node--active circle {
-                stroke: #00f;
-                stroke-width: 3px;
-            }
-            .node--active text {
-                fill: #00f;
-                font-weight: bold;
-            }
-        `);*/
     }
 
     _setupTreeLayout() {
@@ -420,7 +400,7 @@ class RadialTree extends BaseTree {
         // circle around all nodes
         nodeEnter.append('circle')
             .attr('r', d => this.calculateRadius(d.data.pairCount, maxCount))
-            .style('fill', d => d._children ? 'rgba(116, 172, 0, 0.2)' : '#fff')
+            .style('fill', d => d._children ? '#dfe9c8' : '#fff')
             .style('stroke', '#74ac00')
             .style('stroke-width', '1.5px');
 
@@ -443,7 +423,7 @@ class RadialTree extends BaseTree {
 
         nodeUpdate.select('circle')
             .attr('r', d => this.calculateRadius(d.data.pairCount, maxCount))
-            .style('fill', d => d === this.parentNode ? '#74ac00' : (d._children ? 'rgba(116, 172, 0, 0.2)' : '#fff'));
+            .style('fill', d => d === this.parentNode ? '#74ac00' : (d._children ? '#dfe9c8' : '#fff'));
 
         nodeUpdate.select('text')
             .style('fill-opacity', 1)
