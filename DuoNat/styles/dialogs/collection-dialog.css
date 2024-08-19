@@ -108,11 +108,8 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 5px;
-    background-color: rgba(116, 172, 0, 0.1);
-    border-radius: 8px;
-    margin: 4px;
-    min-height: 40px;
+    /*background-color: rgba(116, 172, 0, 0.1);*/
+    margin: 2px;
 }
 
 .phylogeny-taxon {
@@ -132,6 +129,7 @@
     gap: 5px;
     flex-grow: 1;
     justify-content: space-evenly;
+    align-items: center;
 }
 
 .filter-summary__tag {

@@ -335,16 +335,16 @@ const collectionManager = {
                 const taxonomyHierarchy = api.taxonomy.getTaxonomyHierarchy();
                 const taxon = taxonomyHierarchy.getTaxonById(activePhylogenyId);
 
-                if (taxon) {
+                if (taxon && taxon.id != "48460") { // 48460 = root node
                     const taxonName = taxon.taxonName;
                     const vernacularName = taxon.vernacularName;
                     
                     phylogenyElement.innerHTML = `
                         <span class="phylogeny-taxon">${taxonName}</span>
-                        ${vernacularName ? `<span class="phylogeny-vernacular">(${vernacularName})</span>` : ''}
+                        ${vernacularName && vernacularName !== 'n/a' ? `<span class="phylogeny-vernacular">(${vernacularName})</span>` : ''}
                     `;
                 } else {
-                    phylogenyElement.textContent = 'No active phylogeny';
+                    phylogenyElement.textContent = 'All taxa';
                 }
             } else {
                 phylogenyElement.textContent = 'All taxa';

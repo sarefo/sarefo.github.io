@@ -178,8 +178,9 @@ const phylogenySelector = {
     clearSelection() {
         state.setPhylogenyId(null);
         logger.debug('Phylogeny filter cleared');
-        collectionManager.updateFilterSummary();
         this.updateGraph();
+        collectionManager.updateFilterSummary();
+        collectionManager.onFiltersChanged();
     },
 };
 
