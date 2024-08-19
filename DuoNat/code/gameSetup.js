@@ -73,7 +73,7 @@ const gameSetup = {
 
         async selectPairFromFilters(urlParams) {
             const filters = {
-                level: urlParams.level || state.getSelectedLevel(),
+                level: urlParams.level === 'all' ? '' : (urlParams.level || state.getSelectedLevel()),
                 ranges: urlParams.ranges ? urlParams.ranges.split(',') : state.getSelectedRanges(),
                 tags: urlParams.tags ? urlParams.tags.split(',') : state.getSelectedTags(),
                 phylogenyId: urlParams.phylogenyId || state.getPhylogenyId(),
