@@ -50,11 +50,11 @@ class BaseTree {
         this.svg.append('style').text(`
             .node circle {
                 fill: #fff;
-                stroke: steelblue;
+                stroke: #74ac00;
                 stroke-width: 3px;
             }
             .node text {
-                font: 12px sans-serif;
+                font: 18px sans-serif;
             }
             .link {
                 fill: none;
@@ -197,6 +197,20 @@ class RadialTree extends BaseTree {
         this.simulation = null;
     }
 
+    calculateRadius(pairCount, maxCount) {
+        const minRadius = 3;
+        const maxRadius = 15;
+        const minCount = 1;
+        
+        if (pairCount === 0) return minRadius;
+        
+        const scale = this.d3.scaleLog()
+            .domain([minCount, maxCount])
+            .range([minRadius, maxRadius]);
+        
+        return scale(pairCount);
+    }
+
     async create() {
         if (!await this.initialize()) return;
 
@@ -205,7 +219,7 @@ class RadialTree extends BaseTree {
         this._addStyles();
         this._setupDrag();
         this._setupZoom();
-        this._setupSlider();
+        //this._setupSlider();
 
         this.parentNode = this.root;
         this.activeNode = this.root;
@@ -270,7 +284,7 @@ class RadialTree extends BaseTree {
         const width = containerRect.width;
         const height = containerRect.height;
         //const radius = Math.min(width, height) / 2 - 120;
-        return { width, height };//, radius };
+        return { width, height };
     }
 
     _setupSvg(width, height) {
@@ -394,6 +408,7 @@ class RadialTree extends BaseTree {
     }
 
     _updateNodes(visibleNodes, source, duration) {
+        const maxCount = Math.max(...visibleNodes.map(d => d.data.pairCount));
         const node = this.svg.selectAll('g.node')
             .data(visibleNodes, d => d.data.id);
 
@@ -404,19 +419,19 @@ class RadialTree extends BaseTree {
 
         // circle around all nodes
         nodeEnter.append('circle')
-            .attr('r', 1e-6)
-            .style('fill', d => d._children ? 'lightsteelblue' : '#fff')
+            .attr('r', d => this.calculateRadius(d.data.pairCount, maxCount))
+            .style('fill', d => d._children ? 'rgba(116, 172, 0, 0.2)' : '#fff')
             .style('stroke', '#74ac00')
             .style('stroke-width', '1.5px');
 
         nodeEnter.append('text')
-            .attr('dy', '.31em')
-            .attr('x', d => d.x < Math.PI === !d.children ? 6 : -6)
-            .attr('text-anchor', d => d.x < Math.PI === !d.children ? 'start' : 'end')
-            .text(d => {
-                console.log(`Node ${d.data.taxonName}: pairCount = ${d.data.pairCount}`);  // Debug log
-                return `${d.data.taxonName} (${d.data.pairCount})`;
+            .attr('dy', d => {
+                const radius = this.calculateRadius(d.data.pairCount, maxCount);
+                return -radius - 5; // Position text 5px above the circle's border
             })
+            .attr('x', 0)
+            .attr('text-anchor', 'middle')
+            .text(d => `${d.data.taxonName} (${d.data.pairCount})`)
             .style('fill-opacity', 1e-6);
 
         const nodeUpdate = nodeEnter.merge(node);
@@ -427,14 +442,15 @@ class RadialTree extends BaseTree {
             .attr('transform', d => `translate(${this._radialPoint(d.x, d.y)})`);
 
         nodeUpdate.select('circle')
-            .attr('r', d => d === this.parentNode ? 8 : 5)
-            .style('fill', d => d === this.parentNode ? '#74ac00' : (d._children ? 'lightsteelblue' : '#fff'));
+            .attr('r', d => this.calculateRadius(d.data.pairCount, maxCount))
+            .style('fill', d => d === this.parentNode ? '#74ac00' : (d._children ? 'rgba(116, 172, 0, 0.2)' : '#fff'));
 
         nodeUpdate.select('text')
             .style('fill-opacity', 1)
-            .attr('transform', 'translate(0,-20) rotate(0)')
-            .attr('text-anchor', 'middle') // Center text horizontally
-            .attr('dy', '.35em') // Center text vertically
+            .attr('dy', d => {
+                const radius = this.calculateRadius(d.data.pairCount, maxCount);
+                return -radius - 5; // Update position during transitions
+            })
             .attr('x', 0)
             .style('font-weight', d => (d === this.parentNode || d === this.activeNode) ? 'bold' : 'normal')
             .style('fill', d => {
@@ -442,7 +458,6 @@ class RadialTree extends BaseTree {
                 if (d === this.activeNode) return '#ac0028';
                 return 'black';
             });
-
         const nodeExit = node.exit().transition()
             .duration(duration)
             .attr('transform', d => `translate(${this._radialPoint(source.x, source.y)})`)
