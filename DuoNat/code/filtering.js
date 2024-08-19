@@ -1,3 +1,4 @@
+// reset here
 import api from './api.js';
 import logger from './logger.js';
 import mainEventHandler from './mainEventHandler.js';
@@ -46,11 +47,22 @@ const filtering = {
                 pair.taxonNames.some(name => name.toLowerCase().includes(filters.searchTerm.toLowerCase())) ||
                 pair.setName.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
                 pair.tags.some(tag => tag.toLowerCase().includes(filters.searchTerm.toLowerCase()));
+            
             const matchesPhylogeny = !filters.phylogenyId ||
                 pair.taxa.some(taxonId => filtering.isDescendantOf(taxonId, filters.phylogenyId));
 
             return matchesLevel && matchesRanges && matchesTags && matchesSearch && matchesPhylogeny;
         });
+    },
+
+    getAvailableTaxonIds(filteredPairs) {
+        const taxonIds = new Set();
+        filteredPairs.forEach(pair => {
+            if (Array.isArray(pair.taxa)) {
+                pair.taxa.forEach(taxonId => taxonIds.add(taxonId.toString()));
+            }
+        });
+        return Array.from(taxonIds);
     },
 
     isDescendantOf(taxonId, ancestorId) {
@@ -61,11 +73,6 @@ const filtering = {
         }
 
         let currentNode = hierarchy.getTaxonById(taxonId);
-        if (!currentNode) {
-            logger.error(`Taxon not found in hierarchy: ${taxonId}`);
-            return false;
-        }
-
         while (currentNode) {
             if (currentNode.id === ancestorId) {
                 return true;
@@ -119,6 +126,7 @@ const publicAPI = {
     filterTaxonPairs: filtering.filterTaxonPairs,
     getActiveFilters: filtering.getActiveFilters,
     getFilteredTaxonPairs: filtering.getFilteredTaxonPairs,
+    getAvailableTaxonIds: filtering.getAvailableTaxonIds,
 };
 
 export default publicAPI;

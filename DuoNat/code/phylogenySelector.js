@@ -2,6 +2,7 @@ import api from './api.js';
 import collectionManager from './collectionManager.js';
 import d3Graphs from './d3Graphs.js';
 import dialogManager from './dialogManager.js';
+import filtering from './filtering.js';
 import logger from './logger.js';
 import state from './state.js';
 
@@ -26,10 +27,16 @@ const phylogenySelector = {
             return;
         }
 
-        const rootNode = this.convertHierarchyToNestedObject(hierarchyObj);
-        const currentPhylogenyId = state.getPhylogenyId();
-
         try {
+            // Get filtered taxon pairs and available taxon IDs
+            const filters = filtering.getActiveFilters();
+            const taxonPairs = await api.taxonomy.fetchTaxonPairs();
+            const filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
+            const availableTaxonIds = filtering.getAvailableTaxonIds(filteredPairs);
+
+            const rootNode = this.convertHierarchyToNestedObject(hierarchyObj, availableTaxonIds);
+            const currentPhylogenyId = state.getPhylogenyId();
+
             graphContainer.innerHTML = '';
             const tree = await d3Graphs.createRadialTree(graphContainer, rootNode);
             if (currentPhylogenyId) {
@@ -45,6 +52,71 @@ const phylogenySelector = {
             logger.error('Error creating phylogeny graph:', error);
             graphContainer.innerHTML = `<p>Error creating graph: ${error.message}. Please try again.</p>`;
         }
+    },
+
+    convertHierarchyToNestedObject(hierarchyObj, availableTaxonIds) {
+        const nodes = hierarchyObj.nodes;
+        const nodeMap = new Map();
+        let root = null;
+
+        // First pass: create all nodes
+        for (const [id, node] of nodes) {
+            const newNode = {
+                id: id,
+                taxonName: node.taxonName,
+                vernacularName: node.vernacularName,
+                rank: node.rank,
+                children: []
+            };
+            nodeMap.set(id, newNode);
+            if (node.parentId === null) {
+                root = newNode;
+            }
+        }
+
+        // Second pass: build the tree structure
+        for (const [id, node] of nodes) {
+            if (node.parentId !== null) {
+                const parent = nodeMap.get(node.parentId);
+                if (parent) {
+                    parent.children.push(nodeMap.get(id));
+                } else {
+                    console.warn(`Parent node not found for ${node.taxonName} (ID: ${id})`);
+                }
+            }
+        }
+
+        if (!root) {
+            console.warn('No root node found, using first node as root');
+            root = nodeMap.values().next().value;
+        }
+
+        // Filter out nodes that don't have available taxon sets
+        const filterNodes = (node) => {
+            node.children = node.children.filter(child => {
+                const hasAvailableTaxa = this.nodeHasAvailableTaxa(child, availableTaxonIds);
+                if (hasAvailableTaxa) {
+                    filterNodes(child);
+                    return true;
+                }
+                return false;
+            });
+        };
+
+        filterNodes(root);
+
+        return root;
+    },
+
+    nodeHasAvailableTaxa(node, availableTaxonIds) {
+        if (!Array.isArray(availableTaxonIds)) {
+            console.warn('availableTaxonIds is not an array:', availableTaxonIds);
+            return false;
+        }
+        if (availableTaxonIds.includes(node.id)) {
+            return true;
+        }
+        return node.children.some(child => this.nodeHasAvailableTaxa(child, availableTaxonIds));
     },
 
     getPathToRoot(hierarchyObj, nodeId) {
@@ -78,46 +150,6 @@ const phylogenySelector = {
             }
         }
         return null;
-    },
-
-    convertHierarchyToNestedObject(hierarchyObj) {
-        const nodes = hierarchyObj.nodes;
-        const nodeMap = new Map();
-        let root = null;
-
-        // First pass: create all nodes
-        for (const [id, node] of nodes) {
-            const newNode = {
-                id: id, // Ensure this is a string
-                taxonName: node.taxonName,
-                vernacularName: node.vernacularName,
-                rank: node.rank,
-                children: []
-            };
-            nodeMap.set(id, newNode);
-            if (node.parentId === null) {
-                root = newNode;
-            }
-        }
-
-        // Second pass: build the tree structure
-        for (const [id, node] of nodes) {
-            if (node.parentId !== null) {
-                const parent = nodeMap.get(node.parentId);
-                if (parent) {
-                    parent.children.push(nodeMap.get(id));
-                } else {
-                    console.warn(`Parent node not found for ${node.taxonName} (ID: ${id})`);
-                }
-            }
-        }
-
-        if (!root) {
-            console.warn('No root node found, using first node as root');
-            root = nodeMap.values().next().value;
-        }
-
-        return root;
     },
 
     handleDoneButton() {
