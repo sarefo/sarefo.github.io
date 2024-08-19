@@ -58,10 +58,7 @@
     stroke-width: 3px;
     stroke-linecap: butt;
     stroke-linejoin: miter;
-/* doesn't work */
-/*    margin: 2px;
-    border-radius: var(--border-radius);
-    background-color: var(--light-green);*/
+    pointer-events: none; /* This ensures text doesn't interfere with click events */
 }
 
 .node--central circle {
