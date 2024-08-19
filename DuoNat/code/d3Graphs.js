@@ -413,7 +413,10 @@ class RadialTree extends BaseTree {
             .attr('dy', '.31em')
             .attr('x', d => d.x < Math.PI === !d.children ? 6 : -6)
             .attr('text-anchor', d => d.x < Math.PI === !d.children ? 'start' : 'end')
-            .text(d => `${d.data.taxonName} (${d.data.count})`)  // Modified this line
+            .text(d => {
+                console.log(`Node ${d.data.taxonName}: pairCount = ${d.data.pairCount}`);  // Debug log
+                return `${d.data.taxonName} (${d.data.pairCount})`;
+            })
             .style('fill-opacity', 1e-6);
 
         const nodeUpdate = nodeEnter.merge(node);

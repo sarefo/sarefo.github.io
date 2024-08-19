@@ -42,7 +42,8 @@ const phylogenySelector = {
             
             const availableTaxonIds = filtering.getAvailableTaxonIds(filteredPairs);
 
-            const rootNode = this.convertHierarchyToNestedObject(hierarchyObj, availableTaxonIds);
+            const rootNode = this.convertHierarchyToNestedObject(hierarchyObj, availableTaxonIds, filteredPairs);
+            
             const currentPhylogenyId = state.getPhylogenyId();
 
             graphContainer.innerHTML = '';
@@ -62,7 +63,7 @@ const phylogenySelector = {
         }
     },
 
-    convertHierarchyToNestedObject(hierarchyObj, availableTaxonIds) {
+    convertHierarchyToNestedObject(hierarchyObj, availableTaxonIds, taxonPairs) {
         const nodes = hierarchyObj.nodes;
         const nodeMap = new Map();
         let root = null;
@@ -75,7 +76,7 @@ const phylogenySelector = {
                 vernacularName: node.vernacularName,
                 rank: node.rank,
                 children: [],
-                count: 0
+                pairCount: 0
             };
             nodeMap.set(id, newNode);
             if (node.parentId === null) {
@@ -100,25 +101,13 @@ const phylogenySelector = {
             root = nodeMap.values().next().value;
         }
 
-        // Filter out nodes that don't have available taxon sets
-        const filterNodes = (node) => {
-            node.children = node.children.filter(child => {
-                const hasAvailableTaxa = this.nodeHasAvailableTaxa(child, availableTaxonIds);
-                if (hasAvailableTaxa) {
-                    filterNodes(child);
-                    return true;
-                }
-                return false;
-            });
-        };
-
-        filterNodes(root);
-        this.countAvailablePairs(root, availableTaxonIds);
+        // Filter nodes and count pairs
+        this.filterNodesAndCountPairs(root, availableTaxonIds, taxonPairs);
 
         return root;
     },
 
-    countAvailablePairs(node, availableTaxonIds) {
+    /*countAvailablePairs(node, availableTaxonIds) {
         if (availableTaxonIds.includes(node.id)) {
             node.count = 1;
         } else {
@@ -128,6 +117,41 @@ const phylogenySelector = {
             node.count += this.countAvailablePairs(child, availableTaxonIds);
         }
         return node.count;
+    },*/
+
+    filterNodesAndCountPairs(node, availableTaxonIds, taxonPairs) {
+        const nodeDescendantIds = new Set();
+
+        // Add current node ID if it's in availableTaxonIds
+        if (availableTaxonIds.includes(node.id)) {
+            nodeDescendantIds.add(node.id);
+        }
+
+        // Filter children and get descendant IDs
+        node.children = node.children.filter(child => {
+            const childDescendantIds = this.filterNodesAndCountPairs(child, availableTaxonIds, taxonPairs);
+            if (childDescendantIds.size > 0) {
+                child.pairCount = childDescendantIds.size;  // Set child's pair count
+                for (const id of childDescendantIds) {
+                    nodeDescendantIds.add(id);
+                }
+                return true;
+            }
+            return false;
+        });
+
+        // Count pairs for this node
+        node.pairCount = taxonPairs.filter(pair => 
+            pair.taxa.some(taxonId => nodeDescendantIds.has(taxonId.toString())) &&
+            pair.taxa.some(taxonId => !nodeDescendantIds.has(taxonId.toString()))
+        ).length;
+
+        // If this node has no pairs but has children, sum up children's pair counts
+        if (node.pairCount === 0 && node.children.length > 0) {
+            node.pairCount = node.children.reduce((sum, child) => sum + child.pairCount, 0);
+        }
+
+        return nodeDescendantIds;
     },
 
     nodeHasAvailableTaxa(node, availableTaxonIds) {
