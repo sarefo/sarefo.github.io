@@ -64,14 +64,86 @@ class BaseTree {
         `);
     }
 
-    _updateNodes(nodes, source, duration) {
-        // This method should be implemented by subclasses
-        throw new Error('_updateNodes must be implemented by subclass');
+    _updateNodes(visibleNodes, source, duration) {
+        const node = this.svg.selectAll('g.node')
+            .data(visibleNodes, d => d.data.id);
+
+        const nodeEnter = node.enter().append('g')
+            .attr('class', d => `node ${d === this.parentNode ? 'node--central' : ''} ${d === this.activeNode ? 'node--active' : ''}`)
+            .attr('transform', d => `translate(${source.x0 || 0},${source.y0 || 0})`)
+            .on('click', (event, d) => this._handleClick(d));
+
+        // Add circle and text as before
+        nodeEnter.append('circle')
+            .attr('r', 1e-6)
+            .style('fill', d => d._children ? 'lightsteelblue' : '#fff')
+            .style('stroke', '#74ac00')
+            .style('stroke-width', '1.5px');
+
+        nodeEnter.append('text')
+            .attr('dy', '.31em')
+            .attr('x', 0)
+            .attr('text-anchor', 'middle')
+            .text(d => d.data.taxonName)
+            .style('fill-opacity', 1e-6);
+
+        const nodeUpdate = nodeEnter.merge(node);
+
+        nodeUpdate.transition()
+            .duration(duration)
+            .attr('class', d => `node ${d === this.parentNode ? 'node--central' : ''} ${d === this.activeNode ? 'node--active' : ''}`)
+            .attr('transform', d => `translate(${d.x},${d.y})`);
+
+        nodeUpdate.select('circle')
+            .attr('r', d => d === this.parentNode ? 8 : 5)
+            .style('fill', d => d === this.parentNode ? '#74ac00' : (d._children ? 'lightsteelblue' : '#fff'));
+
+        nodeUpdate.select('text')
+            .style('fill-opacity', 1)
+            .attr('transform', 'rotate(0)')
+            .attr('dy', '.35em')
+            .attr('x', 0)
+            .style('font-weight', d => (d === this.parentNode || d === this.activeNode) ? 'bold' : 'normal')
+            .style('fill', d => {
+                if (d === this.parentNode) return '#74ac00';
+                if (d === this.activeNode) return '#ac0028';
+                return 'black';
+            });
+
+        node.exit().transition()
+            .duration(duration)
+            .attr('transform', d => `translate(${source.x},${source.y})`)
+            .remove();
+
+        node.exit().select('circle')
+            .attr('r', 1e-6);
+
+        node.exit().select('text')
+            .style('fill-opacity', 1e-6);
     }
 
     _updateLinks(links, source, duration) {
-        // This method should be implemented by subclasses
-        throw new Error('_updateLinks must be implemented by subclass');
+        const link = this.svg.selectAll('path.link')
+            .data(links, d => d.target.data.id);
+
+        const linkEnter = link.enter().insert('path', 'g')
+            .attr('class', 'link')
+            .attr('d', d => {
+                const o = { x: source.x0 || 0, y: source.y0 || 0 };
+                return this._diagonal(o, o);
+            });
+
+        link.merge(linkEnter).transition()
+            .duration(duration)
+            .attr('d', d => this._diagonal(d.source, d.target));
+
+        link.exit().transition()
+            .duration(duration)
+            .attr('d', d => {
+                const o = { x: source.x, y: source.y };
+                return this._diagonal(o, o);
+            })
+            .remove();
     }
 
     update(source) {
@@ -122,6 +194,7 @@ class RadialTree extends BaseTree {
         this.activeNode = null;
         this.dragOffset = [0, 0];
         this.radius = 120;  // Initialize with the same value as the slider's default
+        this.simulation = null;
     }
 
     async create() {
@@ -131,6 +204,7 @@ class RadialTree extends BaseTree {
         this._setupSvg(width, height);
         this._addStyles();
         this._setupDrag();
+        this._setupZoom();
         this._setupSlider();
 
         this.parentNode = this.root;
@@ -145,8 +219,29 @@ class RadialTree extends BaseTree {
             }
         });
 
+        this._setupSimulation();
         this.update(this.root);
         this._setupResizeObserver();
+    }
+
+    _setupSimulation() {
+        this.simulation = this.d3.forceSimulation()
+            .force("link", this.d3.forceLink().id(d => d.data.id).distance(this.radius / 2))
+            .force("charge", this.d3.forceManyBody().strength(-30))
+            .force("collide", this.d3.forceCollide(30))
+            .force("center", this.d3.forceCenter(0, 0));
+    }
+
+    _setupZoom() {
+        const zoom = this.d3.zoom()
+            .scaleExtent([0.1, 4])
+            .on("zoom", (event) => {
+                this.svg.attr("transform", event.transform);
+            });
+
+        this.d3.select(this.container).select("svg")
+            .call(zoom)
+            .on("dblclick.zoom", null);
     }
 
     _setupSlider() {
@@ -537,14 +632,20 @@ class RadialTree extends BaseTree {
         const links = this._getVisibleLinks(visibleNodes);
         this._normalizeDepth(visibleNodes);
 
+        this.simulation.nodes(visibleNodes);
+        this.simulation.force("link").links(links);
+
         this._updateNodes(visibleNodes, source, duration);
         this._updateLinks(links, source, duration);
 
+        this.simulation.alpha(1).restart();
+
+       /*
         // Store old positions directly here
         visibleNodes.forEach(d => {
             d.x0 = d.x;
             d.y0 = d.y;
-        });
+        });*/
 
         // Center the active node on the screen
         const activeNodeCoords = this._radialPoint(this.activeNode.x, this.activeNode.y);
@@ -553,6 +654,9 @@ class RadialTree extends BaseTree {
         this.svg.transition()
             .duration(duration)
             .attr('transform', svgGroupTransform);
+
+        // Fit the graph to view
+        this._fitToView();
 
         // style active note
         this.svg.selectAll('.node')
@@ -564,6 +668,31 @@ class RadialTree extends BaseTree {
             .style('stroke', '#ac0028')
             .attr('r', 8) // Make the active node slightly larger
             .style('fill', '#ac0028'); // Highlight color
+    }
+
+    _fitToView() {
+        const bounds = this.svg.node().getBBox();
+        const parent = this.svg.node().parentElement;
+        const fullWidth = parent.clientWidth;
+        const fullHeight = parent.clientHeight;
+        const width = bounds.width;
+        const height = bounds.height;
+        const midX = bounds.x + width / 2;
+        const midY = bounds.y + height / 2;
+
+        if (width === 0 || height === 0) return; // nothing to fit
+
+        const scale = 0.95 / Math.max(width / fullWidth, height / fullHeight);
+        const translate = [fullWidth / 2 - scale * midX, fullHeight / 2 - scale * midY];
+
+        const transform = this.d3.zoomIdentity
+            .translate(translate[0], translate[1])
+            .scale(scale);
+
+        this.d3.select(parent)
+            .transition()
+            .duration(750)
+            .call(this.d3.zoom().transform, transform);
     }
 
     _setupResizeObserver() {
