@@ -12,6 +12,7 @@
     padding: 0;
 }
 
+/* Graph container */
 .phylogeny-dialog__graph-container {
     flex-grow: 1;
     overflow: auto;
@@ -27,6 +28,7 @@
     cursor: grabbing;
 }
 
+/* Controls */
 .phylogeny-dialog__controls {
     display: flex;
     flex-direction: row;
@@ -49,14 +51,7 @@
     font-weight: bold;
 }
 
-#phylogeny-dialog__message-number {
-
-}
-
-.phylogeny-dialog .dialog-title {
-    /*padding: 15px 0;
-    margin: 0;*/
-}
+/* Graph */
 
 .link {
     color: blue;
@@ -88,6 +83,7 @@
     stroke-width: 2px;
 }
 
+/* Active taxon */
 .phylogeny-dialog__active-taxon {
     text-align: center;
     margin-bottom: 10px;
@@ -99,7 +95,70 @@
     font-weight: normal;
 }
 
-/*
+/* Search */
+.phylogeny-dialog__search {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.phylogeny-dialog__search-input {
+    width: 100%;
+    padding: 0.5rem 2rem 0.5rem 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.phylogeny-dialog__search-icon {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1rem;
+    height: 1rem;
+    color: #888;
+}
+
+.phylogeny-dialog__clear-search {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.phylogeny-dialog__clear-search svg {
+    width: 1rem;
+    height: 1rem;
+    color: #888;
+}
+
+.phylogeny-dialog__search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.phylogeny-dialog__search-result {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.phylogeny-dialog__search-result:hover {
+    background-color: #f0f0f0;
+}
+
+/* Switch to change link length
 .toggle-switch {
   position: relative;
   display: inline-block;
