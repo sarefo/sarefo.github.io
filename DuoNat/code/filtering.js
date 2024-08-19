@@ -36,25 +36,6 @@ const filtering = {
         mainEventHandler.resetSearch();
     },
 
-    filterTaxonPairs(taxonPairs, filters) {
-        return taxonPairs.filter(pair => {
-            const matchesLevel = filters.level === '' || pair.level === filters.level;
-            const matchesRanges = !filters.ranges || filters.ranges.length === 0 ||
-                (pair.range && pair.range.some(range => filters.ranges.includes(range)));
-            const matchesTags = filters.tags.length === 0 ||
-                filters.tags.every(tag => pair.tags.includes(tag));
-            const matchesSearch = !filters.searchTerm ||
-                pair.taxonNames.some(name => name.toLowerCase().includes(filters.searchTerm.toLowerCase())) ||
-                pair.setName.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
-                pair.tags.some(tag => tag.toLowerCase().includes(filters.searchTerm.toLowerCase()));
-            
-            const matchesPhylogeny = !filters.phylogenyId ||
-                pair.taxa.some(taxonId => filtering.isDescendantOf(taxonId, filters.phylogenyId));
-
-            return matchesLevel && matchesRanges && matchesTags && matchesSearch && matchesPhylogeny;
-        });
-    },
-
     getAvailableTaxonIds(filteredPairs) {
         const taxonIds = new Set();
         filteredPairs.forEach(pair => {
@@ -83,7 +64,26 @@ const filtering = {
         return false;
     },
 
-    pairMatchesFilters(pair, filters) {
+    filterTaxonPairs(taxonPairs, filters) {
+        return taxonPairs.filter(pair => {
+            const matchesLevel = filters.level === '' || pair.level === filters.level;
+            const matchesRanges = !filters.ranges || filters.ranges.length === 0 ||
+                (pair.range && pair.range.some(range => filters.ranges.includes(range)));
+            const matchesTags = filters.tags.length === 0 ||
+                filters.tags.every(tag => pair.tags.includes(tag));
+            const matchesSearch = !filters.searchTerm ||
+                pair.taxonNames.some(name => name.toLowerCase().includes(filters.searchTerm.toLowerCase())) ||
+                pair.setName.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
+                pair.tags.some(tag => tag.toLowerCase().includes(filters.searchTerm.toLowerCase()));
+            
+            const matchesPhylogeny = !filters.phylogenyId ||
+                pair.taxa.some(taxonId => filtering.isDescendantOf(taxonId, filters.phylogenyId));
+
+            return matchesLevel && matchesRanges && matchesTags && matchesSearch && matchesPhylogeny;
+        });
+    },
+
+   pairMatchesFilters(pair, filters) {
         const matchesLevel = !filters.level || pair.level === filters.level;
         const matchesRanges = !filters.ranges || filters.ranges.length === 0 ||
             (pair.range && pair.range.some(range => filters.ranges.includes(range)));
