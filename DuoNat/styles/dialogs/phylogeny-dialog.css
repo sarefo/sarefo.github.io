@@ -39,6 +39,19 @@
     background-color: var(--primary-counter-color);
 }
 
+.phylogeny-dialog__message {
+    color: var(--dark-neutral-color);
+}
+
+#phylogeny-dialog__message-tap {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+#phylogeny-dialog__message-number {
+
+}
+
 .phylogeny-dialog .dialog-title {
     /*padding: 15px 0;
     margin: 0;*/
