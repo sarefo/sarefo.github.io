@@ -479,6 +479,38 @@ class RadialTree extends BaseTree {
         return this.activeNode ? this.activeNode.data.id : null;
     }
 
+    setActiveNodePath(pathToRoot) {
+        console.log(`Setting active node path: ${pathToRoot.join(' -> ')}`);
+        
+        let currentNode = this.root;
+        for (let i = 1; i < pathToRoot.length; i++) {  // Start from 1 to skip the root
+            const targetId = pathToRoot[i];
+            if (currentNode._children) {
+                currentNode.children = currentNode._children;
+            }
+            if (currentNode.children) {
+                currentNode = currentNode.children.find(child => child.data.id === targetId);
+                if (!currentNode) {
+                    console.warn(`Node with id ${targetId} not found in the tree`);
+                    break;
+                }
+            } else {
+                console.warn(`Node with id ${currentNode.data.id} has no children`);
+                break;
+            }
+        }
+
+        if (currentNode && currentNode.data.id === pathToRoot[pathToRoot.length - 1]) {
+            console.log(`Found target node: ${currentNode.data.taxonName}`);
+            this.parentNode = currentNode.parent || this.root;
+            this.activeNode = currentNode;
+            this.update(this.activeNode);
+        } else {
+            console.warn(`Failed to reach target node ${pathToRoot[pathToRoot.length - 1]}`);
+            this.logTreeStructure();
+        }
+    }
+
     update(source) {
         const duration = 750;
         

@@ -33,22 +33,35 @@ const phylogenySelector = {
             const tree = await d3Graphs.createRadialTree(graphContainer, rootNode);
             if (currentPhylogenyId) {
                 console.log(`Current phylogeny ID: ${currentPhylogenyId}`);
-                // Add a small delay to ensure the tree is fully rendered
-                setTimeout(() => {
-                    const node = this.findNodeById(rootNode, currentPhylogenyId);
-                    if (node) {
-                        console.log(`Found node in hierarchy: ${node.taxonName}`);
-                        tree.setActiveNode(currentPhylogenyId);
-                    } else {
-                        console.warn(`Node with id ${currentPhylogenyId} not found in the hierarchy`);
-                        console.log("Root node:", rootNode);
-                    }
-                }, 100);
+                const pathToRoot = this.getPathToRoot(hierarchyObj, currentPhylogenyId);
+                if (pathToRoot.length > 0) {
+                    tree.setActiveNodePath(pathToRoot);
+                } else {
+                    console.warn(`Path to root not found for node with id ${currentPhylogenyId}`);
+                }
             }
         } catch (error) {
             logger.error('Error creating phylogeny graph:', error);
             graphContainer.innerHTML = `<p>Error creating graph: ${error.message}. Please try again.</p>`;
         }
+    },
+
+    getPathToRoot(hierarchyObj, nodeId) {
+        const path = [];
+        let currentId = nodeId;
+
+        while (currentId != null) {
+            const node = hierarchyObj.getTaxonById(currentId);
+            if (node) {
+                path.unshift(node.id);
+                currentId = node.parentId;
+            } else {
+                console.warn(`Node with id ${currentId} not found in hierarchy`);
+                break;
+            }
+        }
+
+        return path;
     },
 
     findNodeById(node, id) {
