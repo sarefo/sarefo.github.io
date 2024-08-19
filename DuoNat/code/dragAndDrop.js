@@ -258,20 +258,20 @@ const dragAndDrop = {
         },
 
         updateElementPosition(event) {
-            if (!this.state.draggedElement || !this.state.gameContainer) return;
+            if (!dragAndDrop.state.draggedElement || !dragAndDrop.state.gameContainer) return;
 
-            const gameContainerRect = this.state.gameContainer.getBoundingClientRect();
-            const elementWidth = this.state.draggedElement.offsetWidth;
+            const gameContainerRect = dragAndDrop.state.gameContainer.getBoundingClientRect();
+            const elementWidth = dragAndDrop.state.draggedElement.offsetWidth;
             const clientY = event.touches ? event.touches[0].clientY : event.clientY;
-            const deltaY = clientY - this.state.initialY;
+            const deltaY = clientY - dragAndDrop.state.initialY;
 
             const leftPosition = gameContainerRect.left + (gameContainerRect.width / 2) - (elementWidth / 2);
-            const topPosition = clientY - this.state.touchOffset.y;
+            const topPosition = clientY - dragAndDrop.state.touchOffset.y;
 
             requestAnimationFrame(() => {
-                this.state.draggedElement.style.position = 'fixed';
-                this.state.draggedElement.style.left = `${leftPosition}px`;
-                this.state.draggedElement.style.top = `${topPosition}px`;
+                dragAndDrop.state.draggedElement.style.position = 'fixed';
+                dragAndDrop.state.draggedElement.style.left = `${leftPosition}px`;
+                dragAndDrop.state.draggedElement.style.top = `${topPosition}px`;
 
                 this.utils.mirrorOtherElement(deltaY, gameContainerRect, elementWidth);
             });

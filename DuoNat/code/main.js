@@ -18,7 +18,7 @@ const initializeLogger = () => {
 
 
 async function initializeComponents() {
-    api.taxonomy.getTaxonomyHierarchy();
+    await api.taxonomy.loadTaxonomyHierarchy();
     await dialogManager.initialize();
     mainEventHandler.initialize();
     ui.initialize();

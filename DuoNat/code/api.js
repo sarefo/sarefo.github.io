@@ -44,6 +44,29 @@ const api = (() => {
                 }
             },
 
+            loadTaxonomyHierarchy: async function () {
+                if (taxonomyHierarchy === null) {
+                    const hierarchyResponse = await fetch('./data/taxonHierarchy.json');
+
+                    if (!hierarchyResponse.ok) {
+                        throw new Error(`HTTP error! status: ${hierarchyResponse.status}`);
+                    }
+
+                    const hierarchyData = await hierarchyResponse.json();
+                    taxonomyHierarchy = new TaxonomyHierarchy(hierarchyData);
+
+                    // Load additional taxon info if needed
+                    const taxonInfoResponse = await fetch('./data/taxonInfo.json');
+                    if (taxonInfoResponse.ok) {
+                        const taxonInfo = await taxonInfoResponse.json();
+                        Object.values(taxonInfo).forEach(taxon => {
+                            taxonomyHierarchy.addTaxon(taxon);
+                        });
+                    }
+                }
+                return taxonomyHierarchy;
+            },
+
             getTaxonomyHierarchy: function () {
                 return taxonomyHierarchy;
             },
@@ -373,6 +396,7 @@ const publicAPI = {
         getAncestryFromLocalData: api.taxonomy.getAncestryFromLocalData,
         fetchAncestorDetails: api.taxonomy.fetchAncestorDetails,
         getTaxonomyHierarchy: api.taxonomy.getTaxonomyHierarchy,
+        loadTaxonomyHierarchy: api.taxonomy.loadTaxonomyHierarchy,
         fetchTaxonDetails: api.taxonomy.fetchTaxonDetails
     },
     images: {
