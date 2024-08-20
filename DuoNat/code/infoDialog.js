@@ -20,7 +20,6 @@ const infoDialog = {
         infoButton1.addEventListener('click', () => this.handleInfoButtonClick(1));
         infoButton2.addEventListener('click', () => this.handleInfoButtonClick(2));
 
-        document.addEventListener('keydown', this.handleKeyboardShortcuts.bind(this));
     },
 
     handleInfoButtonClick(imageIndex) {
@@ -30,14 +29,6 @@ const infoDialog = {
             return;
         }
         this.showInfoDialog(imageURL, imageIndex);
-    },
-
-    handleKeyboardShortcuts(event) {
-        if (event.key === 'i' || event.key === 'I') {
-            this.handleInfoButtonClick(1);
-        } else if (event.key === 'o' || event.key === 'O') {
-            this.handleInfoButtonClick(2);
-        }
     },
 
     setupInfoDialogCloseHandler() {
