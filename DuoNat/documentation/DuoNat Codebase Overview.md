@@ -71,8 +71,9 @@ The `index.html` file contains the main structure of the application, including:
 
 - Loading screen
 - Game container
-- Various dialogs (help, info, report, etc.)
 - UI elements like buttons and overlays
+
+The dialogs all have their own html files, in html/dialogs/.
 
 ## CSS Organization
 
@@ -99,6 +100,13 @@ The CSS is organized into several files:
 6. Geographical filtering using world map selection.
 7. Tag-based filtering of taxon sets.
 8. Responsive design for various device sizes.
+
+## Coding Best Practices
+
+- Functions from other modules can only be accessed via their public API.
+- For console output, use logger.debug() (or logger.warn() / logger.error()).
+- Try not to have functions that are longer than 50 lines. Instead, break them into subfunctions, so that the flow can be easily understood by a human. Let's adhere to the Single Responsibility Principle.
+- The code should be efficient, while allowing a reader to follow the logic of interaction of elements such as preloading etc.
 
 ## Notes for Future Development
 

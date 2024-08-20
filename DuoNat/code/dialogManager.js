@@ -84,7 +84,7 @@ const dialogManager = {
 
             if (dialogManager.openDialogs.length === 1) {
                 dialogManager.utils.disableMainEventHandlers();
-                mainEventHandler.disableShortcuts();
+                mainEventHandler.disableKeyboardShortcuts();
             }
 
             if (dialogId === 'help-dialog') {
@@ -116,7 +116,7 @@ const dialogManager = {
 
                 if (dialogManager.openDialogs.length === 0) {
                     dialogManager.utils.enableMainEventHandlers();
-                    mainEventHandler.enableShortcuts();
+                    mainEventHandler.enableKeyboardShortcuts();
                 }
             } else {
                 logger.error(`Dialog element not found or not an HTMLDialogElement: ${dialogId}`);
@@ -124,12 +124,12 @@ const dialogManager = {
         },
 
         isAnyDialogOpen() {
-            return dialogManager.openDialogs.size > 0;
+            return dialogManager.openDialogs.length > 0;
         },
 
         closeAllDialogs() {
             [...dialogManager.openDialogs].forEach(dialogId => dialogManager.core.closeDialog(dialogId));
-            mainEventHandler.enableShortcuts();
+            mainEventHandler.enableKeyboardShortcuts();
         },
 
         handleDialogKeydown(event) {

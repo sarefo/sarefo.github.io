@@ -18,8 +18,6 @@ const mainEventHandler = {
     // TODO seems redundant, try to fix later
     enableKeyboardShortcuts: keyboardShortcuts.enable,
     disableKeyboardShortcuts: keyboardShortcuts.disable,
-    enableShortcuts: keyboardShortcuts.enableShortcuts,
-    disableShortcuts: keyboardShortcuts.disableShortcuts,
 
     enableSwipe: swipeHandler.enable,
     disableSwipe: swipeHandler.disable,

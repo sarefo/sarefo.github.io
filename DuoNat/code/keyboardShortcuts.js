@@ -3,6 +3,7 @@ import dialogManager from './dialogManager.js';
 import gameLogic from './gameLogic.js';
 import hintSystem from './hintSystem.js';
 import infoDialog from './infoDialog.js';
+import logger from './logger.js';
 import rangeSelector from './rangeSelector.js';
 import searchHandler from './searchHandler.js';
 import state from './state.js';
@@ -31,6 +32,7 @@ const keyboardShortcuts = {
     _handleKeyboardShortcuts(event) {
         if (!shortcutsEnabled || this.shouldIgnoreKeyboardShortcut(event)) return;
 
+        logger.debug("shortcuts enabled");
         const shortcutActions = {
             'arrowleft': this.handleArrowLeft.bind(this),
             'arrowup': () => this.moveTileToDropZone('left', 'upper'),
@@ -59,12 +61,13 @@ const keyboardShortcuts = {
         }
     },
 
-
-    enableShortcuts() {
+    enable() {
+        document.addEventListener('keydown', this.debouncedKeyboardHandler);
         shortcutsEnabled = true;
     },
 
-    disableShortcuts() {
+    disable() {
+        document.removeEventListener('keydown', this.debouncedKeyboardHandler);
         shortcutsEnabled = false;
     },
 
@@ -159,15 +162,6 @@ const keyboardShortcuts = {
         }
     },
 
-    enable() {
-        document.addEventListener('keydown', this.debouncedKeyboardHandler);
-        shortcutsEnabled = true;
-    },
-
-    disable() {
-        document.removeEventListener('keydown', this.debouncedKeyboardHandler);
-        shortcutsEnabled = false;
-    }
 };
 
 export default keyboardShortcuts;

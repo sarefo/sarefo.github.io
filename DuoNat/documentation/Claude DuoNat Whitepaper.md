@@ -64,21 +64,6 @@ Here's an outline of how I currently think the image loading works:
     + people that want to have a fun and effective way of improving their professional ID skills
 + if you have other suggestions, let me know at some time
 
-## Coding best practices
-Here are some best practices regarding the coding:
-
-I want the code to contain ample console logging, so I can figure out what happens when I run it, and to help with debugging with your assistance.
-
-If you provide code, please either provide whole functions, or exactly tell me which lines to change, as otherwise it's sometimes confusing and time-consuming to figure this out from partial function with ellipses. I especially don't like it if you provide part of a function, then write "…other code", then provide another part of the same function. that's super confusing!
-
-Indentation is four spaces.
-
-Every module has a public API at the end. keep using this style.
-
-for console output, use logger.debug() (or logger.warn() / logger.error()).
-!!/<Mouse>C!!0<Mouse>C!!1
-Try not to have functions that are longer than 50 lines. Instead, break them into subfunctions, so that the flow can be easily understood by a human. Let's adhere to the Single Responsibility Principle.
-
 ## Project structure
 
 ### Main window
@@ -269,9 +254,9 @@ As I'm currently without server-side functionality, I process some data using lo
 + there's a workflow for adding taxon info and sets. this is in data/processing/taxonSets.
 + data/processing/range has a script to add range data to sets from single taxa.
 
-## LLM behavior
-+ Dear Claude: please don't start every answer with "Certainly!" :) and no need to apologize all the time.
+## LLM behavior requirements
 + if a task seems complicated, please think it through step by step, explaining your reasoning.
 + always let me know when I made a mistake or might have forgotten to add information that you need.
 + if you encounter comments in my code, never remove them. I sometimes put them there for a reason ;)
-
++ I want the code to contain ample console logging, so I can figure out what happens when I run it, and to help with debugging with your assistance.
++ if you provide code, please either provide whole functions, or exactly tell me which lines to change, as otherwise it's sometimes confusing and time-consuming to figure this out from partial function with ellipses. I especially don't like it if you provide part of a function, then write "…other code", then provide another part of the same function. that's super confusing!
