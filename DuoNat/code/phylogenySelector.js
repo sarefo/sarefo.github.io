@@ -272,7 +272,6 @@ const phylogenySelector = {
 
         async handleSearch(event) {
             const searchTerm = event.target.value.trim().toLowerCase();
-            //console.log('Search term:', searchTerm);
             this.updateClearButtonVisibility(searchTerm);
 
             if (searchTerm.length === 0) {
@@ -286,8 +285,6 @@ const phylogenySelector = {
 
             try {
                 const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
-                //console.log('Hierarchy object:', hierarchyObj);
-                //console.log('Hierarchy nodes size:', hierarchyObj.nodes.size);
 
                 if (!hierarchyObj || !hierarchyObj.nodes || hierarchyObj.nodes.size === 0) {
                     logger.error('Hierarchy object is invalid or empty');
@@ -300,34 +297,54 @@ const phylogenySelector = {
                 const availableTaxonIds = filtering.getAvailableTaxonIds(filteredPairs);
 
                 const matchingNodes = this.searchHierarchy(hierarchyObj, searchTerm, availableTaxonIds);
-                //console.log('Matching nodes:', matchingNodes);
 
-                this.displaySearchResults(matchingNodes.slice(0, 3), availableTaxonIds);
+                this.displaySearchResults(matchingNodes.slice(0, 5), availableTaxonIds);
             } catch (error) {
                 logger.error('Error during search:', error);
             }
         },
 
         searchHierarchy(hierarchyObj, searchTerm, availableTaxonIds) {
-            //console.log('Searching hierarchy with term:', searchTerm);
-            //console.log('Total nodes in hierarchy:', hierarchyObj.nodes.size);
-
             const matchingNodes = Array.from(hierarchyObj.nodes.values())
                 .filter(node => {
                     const matchesTaxonName = node.taxonName.toLowerCase().includes(searchTerm);
                     const matchesVernacularName = node.vernacularName && node.vernacularName.toLowerCase().includes(searchTerm);
                     
                     if (matchesTaxonName || matchesVernacularName) {
-                        const isAvailable = availableTaxonIds.includes(node.id);
-                        //console.log(`Potential match - Node ${node.id} (${node.taxonName}): Available: ${isAvailable}, Matches taxon: ${matchesTaxonName}, Matches vernacular: ${matchesVernacularName}`);
-                        return true;
+                        const isAvailable = this.isNodeOrDescendantAvailable(node, availableTaxonIds, hierarchyObj);
+                        return isAvailable;
                     }
                     
                     return false;
                 });
 
-            //console.log('Matching nodes before slice:', matchingNodes);
             return matchingNodes;
+        },
+
+        isNodeOrDescendantAvailable(node, availableTaxonIds, hierarchyObj) {
+            if (availableTaxonIds.includes(node.id)) {
+                return true;
+            }
+
+            const stack = [node.id];
+            const visited = new Set();
+
+            while (stack.length > 0) {
+                const currentId = stack.pop();
+                if (visited.has(currentId)) continue;
+                visited.add(currentId);
+
+                if (availableTaxonIds.includes(currentId)) {
+                    return true;
+                }
+
+                const children = Array.from(hierarchyObj.nodes.values())
+                    .filter(n => n.parentId === currentId)
+                    .map(n => n.id);
+                stack.push(...children);
+            }
+
+            return false;
         },
 
         getMatchScore(node, searchTerm) {
@@ -349,17 +366,15 @@ const phylogenySelector = {
                     const resultItem = document.createElement('div');
                     resultItem.className = 'phylogeny-dialog__search-result';
                     resultItem.textContent = `${node.taxonName}${node.vernacularName ? ` (${node.vernacularName})` : ''}`;
-                    /*if (!availableTaxonIds.includes(node.id)) {
-                        resultItem.textContent += ' (Ancestry)';
-                        resultItem.classList.add('phylogeny-dialog__search-result--ancestry');
-                    }*/
+                    if (!availableTaxonIds.includes(node.id)) {
+                        resultItem.textContent += ' (Higher taxon)';
+                        resultItem.classList.add('phylogeny-dialog__search-result--higher-taxon');
+                    }
                     resultItem.dataset.nodeId = node.id;
                     searchResults.appendChild(resultItem);
                 });
-                //console.log('Displayed search results:', results);
             } else {
                 searchResults.style.display = 'none';
-                //console.log('No results to display');
             }
         },
 
