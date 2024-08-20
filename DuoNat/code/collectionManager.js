@@ -417,6 +417,7 @@ const collectionManager = {
             dialogManager.openDialog('collection-dialog');
             collectionManager.taxonList.updateTaxonList(true);  // Pass true for initial load
             eventMain.resetScrollPosition();
+            this.focusSearchInput();  // Add this line
         },
 
         focusSearchInput() {
