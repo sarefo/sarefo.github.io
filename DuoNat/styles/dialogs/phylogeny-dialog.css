@@ -105,13 +105,13 @@
     width: 100%;
     padding: 0.5rem 2rem 0.5rem 0.5rem;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: var(--border-radius);
     font-size: 1rem;
 }
 
 .phylogeny-dialog__search-icon {
     position: absolute;
-    right: 0.5rem;
+    left: 0.5rem;
     top: 50%;
     transform: translateY(-50%);
     width: 1rem;
