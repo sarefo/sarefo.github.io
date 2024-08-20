@@ -179,9 +179,11 @@ const dialogManager = {
 
             dialog.showModal();
             dialogManager.openDialogs.push(dialogId);
+            console.log("Dialog opened:", dialogId, "Open dialogs:", this.openDialogs);
 
             dialog.removeEventListener('keydown', dialogManager.core.handleDialogKeydown);
             dialog.addEventListener('keydown', dialogManager.core.handleDialogKeydown.bind(this));
+            console.log("Added keydown listener to dialog:", dialogId);
 
             if (dialogManager.openDialogs.length === 1) {
                 //dialogManager.utils.disableMainEventHandlers();
@@ -212,8 +214,10 @@ const dialogManager = {
             if (dialog && dialog instanceof HTMLDialogElement) {
                 dialog.close();
                 dialogManager.openDialogs.splice(index, 1);
+                console.log("Dialog closed:", dialogId, "Open dialogs:", this.openDialogs);
 
                 dialog.removeEventListener('keydown', dialogManager.core.handleDialogKeydown);
+                console.log("Removed keydown listener from dialog:", dialogId);
 
                 if (dialogManager.openDialogs.length === 0) {
                     //dialogManager.utils.enableMainEventHandlers();
@@ -225,6 +229,7 @@ const dialogManager = {
         },
 
         isAnyDialogOpen() {
+            console.log("Open dialogs:", this.openDialogs);
             return dialogManager.openDialogs.length > 0;
         },
 
