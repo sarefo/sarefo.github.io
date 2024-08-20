@@ -5,6 +5,7 @@ import dialogManager from './dialogManager.js';
 import filtering from './filtering.js';
 import logger from './logger.js';
 import state from './state.js';
+//import utils from './utils.js';
 
 const phylogenySelector = {
     initialize() {
@@ -19,14 +20,112 @@ const phylogenySelector = {
         }
 
         const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
-        /*if (!hierarchyObj || !hierarchyObj.nodes || hierarchyObj.nodes.size === 0) {
-            console.error('Taxonomy hierarchy not loaded or empty');
-        } else {
-            console.log('Taxonomy hierarchy loaded successfully. Total nodes:', hierarchyObj.nodes.size);
-        }*/
+
+        const toggleViewButton = document.getElementById('toggle-view-button');
+        if (toggleViewButton) {
+            toggleViewButton.addEventListener('click', this.toggleView.bind(this));
+        }
+
+        this.currentView = 'graph';
 
         this.search.initializeSearch();
     },
+
+    toggleView() {
+        const graphContainer = document.getElementById('phylogeny-graph-container');
+        const cloudContainer = document.getElementById('phylogeny-cloud-container');
+        const toggleButton = document.getElementById('toggle-view-button');
+
+        if (this.currentView === 'graph') {
+            graphContainer.style.display = 'none';
+            cloudContainer.style.display = 'flex';
+            toggleButton.textContent = 'Switch to Graph View';
+            this.currentView = 'cloud';
+            phylogenySelector.cloud.renderCloudView();
+        } else {
+            graphContainer.style.display = 'flex';
+            cloudContainer.style.display = 'none';
+            toggleButton.textContent = 'Switch to Cloud View';
+            this.currentView = 'graph';
+            this.updateGraph();
+        }
+    },
+
+    cloud: {
+        scaleValue(value, fromMin, fromMax, toMin, toMax) {
+                return ((value - fromMin) / (fromMax - fromMin)) * (toMax - toMin) + toMin;
+        },
+        async renderCloudView() {
+            const cloudContainer = document.getElementById('phylogeny-cloud-container');
+            cloudContainer.innerHTML = '<div class="loading-indicator">Loading cloud view...</div>';
+
+            try {
+                const filters = filtering.getActiveFilters();
+                const taxonPairs = await api.taxonomy.fetchTaxonPairs();
+                const filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
+                const availableTaxonIds = filtering.getAvailableTaxonIds(filteredPairs);
+
+                const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
+                const taxonCounts = this.getTaxonCounts(filteredPairs, hierarchyObj);
+
+                // Sort taxa by count and take top 40
+                const topTaxa = Object.entries(taxonCounts)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 40);
+
+                cloudContainer.innerHTML = '';
+                topTaxa.forEach(([taxonId, count]) => {
+                    const taxon = hierarchyObj.getTaxonById(taxonId);
+                    if (taxon) {
+                        const tagElement = this.createCloudTag(taxon, count, Math.max(...topTaxa.map(t => t[1])));
+                        cloudContainer.appendChild(tagElement);
+                    }
+                });
+            } catch (error) {
+                logger.error('Error creating cloud view:', error);
+                cloudContainer.innerHTML = `<p>Error creating cloud view: ${error.message}. Please try again.</p>`;
+            }
+        },
+
+        getTaxonCounts(filteredPairs, hierarchyObj) {
+            const taxonCounts = {};
+            filteredPairs.forEach(pair => {
+                pair.taxa.forEach(taxonId => {
+                    let currentTaxon = hierarchyObj.getTaxonById(taxonId);
+                    while (currentTaxon) {
+                        taxonCounts[currentTaxon.id] = (taxonCounts[currentTaxon.id] || 0) + 1;
+                        currentTaxon = hierarchyObj.getTaxonById(currentTaxon.parentId);
+                    }
+                });
+            });
+            return taxonCounts;
+        },
+
+        createCloudTag(taxon, count, maxCount) {
+            const size = this.scaleValue(count, 1, maxCount, 14, 36);
+            const tagElement = document.createElement('span');
+            tagElement.textContent = taxon.taxonName;
+            tagElement.className = 'phylogeny-cloud__tag';
+            tagElement.style.fontSize = `${size}px`;
+            tagElement.addEventListener('click', () => this.handleCloudTagClick(taxon.id));
+            return tagElement;
+        },
+
+        handleCloudTagClick(taxonId) {
+            phylogenySelector.toggleView(); // Switch back to graph view
+            const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
+            const pathToRoot = phylogenySelector.getPathToRoot(hierarchyObj, taxonId);
+            
+            // Use setTimeout to ensure the graph container is visible before updating
+            setTimeout(() => {
+                phylogenySelector.updateGraph(pathToRoot);
+                if (this.onNodeSelect) {
+                    this.onNodeSelect(taxonId);
+                }
+            }, 0);
+        },
+    },
+
 
     updateActiveTaxonDisplay(nodeId) {
         const activeNameEl = document.getElementById('active-taxon-name');
@@ -419,6 +518,7 @@ const publicAPI = {
     initialize: phylogenySelector.initialize.bind(phylogenySelector),
     updateGraph: phylogenySelector.updateGraph.bind(phylogenySelector),
     clearSelection: phylogenySelector.clearSelection.bind(phylogenySelector),
+    toggleView: phylogenySelector.toggleView.bind(phylogenySelector),
 };
 
 export default publicAPI;

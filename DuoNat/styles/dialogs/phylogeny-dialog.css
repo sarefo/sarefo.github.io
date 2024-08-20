@@ -158,6 +158,35 @@
     background-color: #f0f0f0;
 }
 
+/* Cloud */
+
+/* In styles/dialogs/phylogeny-dialog.css */
+
+.phylogeny-dialog__cloud-container {
+    flex-grow: 1;
+    overflow: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.phylogeny-cloud__tag {
+    margin: 5px;
+    padding: 5px 10px;
+    background-color: #f0f0f0;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+}
+
+.phylogeny-cloud__tag:hover {
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
 /* Switch to change link length
 .toggle-switch {
   position: relative;
