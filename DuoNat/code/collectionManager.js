@@ -113,23 +113,26 @@ const collectionManager = {
 
     taxonList: {
 
-        async updateTaxonList() {
+        async updateTaxonList(isInitialLoad = false) {
             const filters = filtering.getActiveFilters();
 
             try {
                 const taxonPairs = await api.taxonomy.fetchTaxonPairs();
                 let filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
 
-                const currentPair = this.getCurrentActivePair();
-                if (currentPair) {
-                    // Remove the current pair from the filtered list if it exists
-                    filteredPairs = filteredPairs.filter(pair => pair.setID !== currentPair.setID);
-                    // Add the current pair to the beginning of the list
-                    filteredPairs.unshift(currentPair);
+                // Only consider the active pair if this is the initial load of the collection manager
+                if (isInitialLoad) {
+                    const currentPair = this.getCurrentActivePair();
+                    if (currentPair) {
+                        // Remove the current pair from the filtered list if it exists
+                        filteredPairs = filteredPairs.filter(pair => pair.setID !== currentPair.setID);
+                        // Add the current pair to the beginning of the list
+                        filteredPairs.unshift(currentPair);
+                    }
                 }
 
                 // Update UI
-                await collectionManager.taxonList.renderTaxonPairList(filteredPairs);
+                await collectionManager.taxonList.renderTaxonList(filteredPairs);
                 collectionManager.ui.updateActiveCollectionCount(filteredPairs.length);
                 collectionManager.ui.updateFilterSummary();
 
@@ -140,7 +143,7 @@ const collectionManager = {
             }
         },
 
-        async renderTaxonPairList(pairs) {
+        async renderTaxonList(pairs) {
             const list = document.getElementById('taxon-set-list');
             if (list) {
                 list.innerHTML = '';
@@ -240,7 +243,7 @@ const collectionManager = {
             }
         },
 
-        async updateTaxonPairList(filteredPairs) {
+/*        async updateTaxonPairList(filteredPairs) {
             const list = document.getElementById('taxon-set-list');
             list.innerHTML = '';
 
@@ -252,7 +255,7 @@ const collectionManager = {
 
             collectionManager.ui.updateActiveCollectionCount(filteredPairs ? filteredPairs.length : 0);
             collectionManager.ui.updateFilterSummary();
-        },
+        },*/
 
         displayNoResultsMessage(list) {
             const noResultsMessage = document.createElement('p');
@@ -268,6 +271,13 @@ const collectionManager = {
             return state.getSelectedLevel() !== '' ||
                 state.getSelectedRanges().length > 0 ||
                 state.getSelectedTags().length > 0;
+        },
+
+        hasActiveFilters(filters) {
+            return filters.level !== '' || 
+                   filters.ranges.length > 0 || 
+                   filters.tags.length > 0 || 
+                   filters.searchTerm !== '';
         },
 
         getNoResultsMessageContent(hasActiveFilters) {
@@ -293,7 +303,9 @@ const collectionManager = {
         },
 
         async onFiltersChanged() {
-            try {
+            collectionManager.taxonList.updateTaxonList(false);
+        },
+/*            try {
                 const taxonPairs = await api.taxonomy.fetchTaxonPairs();
                 const filters = {
                     level: state.getSelectedLevel(),
@@ -307,7 +319,7 @@ const collectionManager = {
                 logger.error("Error in onFiltersChanged:", error);
             }
         },
-
+*/
         getCurrentActivePair() {
             const currentPair = state.getCurrentTaxonImageCollection()?.pair;
             return currentPair ? {
@@ -403,8 +415,7 @@ const collectionManager = {
 
         openCollectionManagerDialog() {
             dialogManager.openDialog('collection-dialog');
-            collectionManager.taxonList.updateTaxonList();
-            //            mainEventHandler.resetSearch();
+            collectionManager.taxonList.updateTaxonList(true);  // Pass true for initial load
             mainEventHandler.resetScrollPosition();
         },
 
@@ -466,8 +477,8 @@ const publicAPI = {
     onFiltersChanged: collectionManager.taxonList.updateTaxonList.bind(collectionManager.taxonList),
     openCollectionManagerDialog: collectionManager.ui.openCollectionManagerDialog.bind(collectionManager.ui),
 
-    renderTaxonPairList: collectionManager.taxonList.renderTaxonPairList.bind(collectionManager.taxonList),
-    updateTaxonPairList: collectionManager.taxonList.updateTaxonPairList.bind(collectionManager.taxonList),
+    renderTaxonList: collectionManager.taxonList.renderTaxonList.bind(collectionManager.taxonList),
+    //updateTaxonPairList: collectionManager.taxonList.updateTaxonPairList.bind(collectionManager.taxonList),
 
     updateFilterSummary: collectionManager.ui.updateFilterSummary.bind(collectionManager.ui),
     updateUIForClearedFilters: collectionManager.ui.updateUIForClearedFilters.bind(collectionManager.ui),

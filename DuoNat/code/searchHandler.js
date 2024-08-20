@@ -98,7 +98,8 @@ const searchHandler = {
     },
 
     updateUI(filteredPairs) {
-        collectionManager.updateTaxonPairList(filteredPairs);
+//        collectionManager.updateTaxonPairList(filteredPairs);
+        collectionManager.updateTaxonList(false);
         collectionManager.updateActiveCollectionCount(filteredPairs.length);
     },
 

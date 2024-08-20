@@ -174,7 +174,7 @@ const tagSelector = {
 
             tagSelector.filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
 
-            await collectionManager.renderTaxonPairList(tagSelector.filteredPairs);
+            await collectionManager.renderTaxonList(tagSelector.filteredPairs);
             collectionManager.updateActiveCollectionCount(tagSelector.filteredPairs.length);
             tagSelector.uiManager.updateMatchingPairsCount();
         },
