@@ -18,6 +18,13 @@ const phylogenySelector = {
             clearButton.addEventListener('click', this.clearSelection.bind(this));
         }
 
+        const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
+        /*if (!hierarchyObj || !hierarchyObj.nodes || hierarchyObj.nodes.size === 0) {
+            console.error('Taxonomy hierarchy not loaded or empty');
+        } else {
+            console.log('Taxonomy hierarchy loaded successfully. Total nodes:', hierarchyObj.nodes.size);
+        }*/
+
         this.search.initializeSearch();
     },
 
@@ -81,12 +88,12 @@ const phylogenySelector = {
                 this.updateActiveTaxonDisplay(pathToRoot[pathToRoot.length - 1]);
             } else if (currentPhylogenyId) {
                 // If no search result, use the current phylogeny ID
-                console.log(`Current phylogeny ID: ${currentPhylogenyId}`);
+                //console.log(`Current phylogeny ID: ${currentPhylogenyId}`);
                 const currentPathToRoot = this.getPathToRoot(hierarchyObj, currentPhylogenyId);
                 if (currentPathToRoot.length > 0) {
                     tree.setActiveNodePath(currentPathToRoot);
                 } else {
-                    console.warn(`Path to root not found for node with id ${currentPhylogenyId}`);
+                    logger.warn(`Path to root not found for node with id ${currentPhylogenyId}`);
                 }
                 this.updateActiveTaxonDisplay(currentPhylogenyId);
             }
@@ -124,13 +131,13 @@ const phylogenySelector = {
                 if (parent) {
                     parent.children.push(nodeMap.get(id));
                 } else {
-                    console.warn(`Parent node not found for ${node.taxonName} (ID: ${id})`);
+                    logger.warn(`Parent node not found for ${node.taxonName} (ID: ${id})`);
                 }
             }
         }
 
         if (!root) {
-            console.warn('No root node found, using first node as root');
+            logger.warn('No root node found, using first node as root');
             root = nodeMap.values().next().value;
         }
 
@@ -176,10 +183,10 @@ const phylogenySelector = {
     },
 
     nodeHasAvailableTaxa(node, availableTaxonIds) {
-        if (!Array.isArray(availableTaxonIds)) {
-            console.warn('availableTaxonIds is not an array:', availableTaxonIds);
+        /*if (!Array.isArray(availableTaxonIds)) {
+            logger.warn('availableTaxonIds is not an array:', availableTaxonIds);
             return false;
-        }
+        }*/
         if (availableTaxonIds.includes(node.id)) {
             return true;
         }
@@ -196,7 +203,7 @@ const phylogenySelector = {
                 path.unshift(node.id);
                 currentId = node.parentId;
             } else {
-                console.warn(`Node with id ${currentId} not found in hierarchy`);
+                logger.warn(`Node with id ${currentId} not found in hierarchy`);
                 break;
             }
         }
@@ -249,47 +256,78 @@ const phylogenySelector = {
             const searchResults = document.getElementById('phylogeny-search-results');
 
             if (searchInput) {
-                searchInput.addEventListener('input', this.handleSearch.bind(this));
+                searchInput.addEventListener('input', (event) => this.handleSearch(event));
                 searchInput.addEventListener('focus', () => searchResults.style.display = 'block');
                 searchInput.addEventListener('blur', () => setTimeout(() => searchResults.style.display = 'none', 200));
             }
 
             if (clearSearchButton) {
-                clearSearchButton.addEventListener('click', this.handleClearSearch.bind(this));
+                clearSearchButton.addEventListener('click', () => this.handleClearSearch());
             }
 
             if (searchResults) {
-                searchResults.addEventListener('click', this.handleSearchResultClick.bind(this));
+                searchResults.addEventListener('click', (event) => this.handleSearchResultClick(event));
             }
         },
 
-        handleSearch(event) {
+        async handleSearch(event) {
             const searchTerm = event.target.value.trim().toLowerCase();
+            //console.log('Search term:', searchTerm);
             this.updateClearButtonVisibility(searchTerm);
 
-            if (searchTerm.length < 2) {
+            if (searchTerm.length === 0) {
                 this.clearSearchResults();
                 return;
             }
 
-            const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
-            const matchingNodes = this.searchHierarchy(hierarchyObj, searchTerm);
+            if (searchTerm.length < 3) {
+                return;
+            }
 
-            this.displaySearchResults(matchingNodes.slice(0, 3));
+            try {
+                const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
+                //console.log('Hierarchy object:', hierarchyObj);
+                //console.log('Hierarchy nodes size:', hierarchyObj.nodes.size);
+
+                if (!hierarchyObj || !hierarchyObj.nodes || hierarchyObj.nodes.size === 0) {
+                    logger.error('Hierarchy object is invalid or empty');
+                    return;
+                }
+
+                const filters = filtering.getActiveFilters();
+                const taxonPairs = await api.taxonomy.fetchTaxonPairs();
+                const filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
+                const availableTaxonIds = filtering.getAvailableTaxonIds(filteredPairs);
+
+                const matchingNodes = this.searchHierarchy(hierarchyObj, searchTerm, availableTaxonIds);
+                //console.log('Matching nodes:', matchingNodes);
+
+                this.displaySearchResults(matchingNodes.slice(0, 3), availableTaxonIds);
+            } catch (error) {
+                logger.error('Error during search:', error);
+            }
         },
 
-        searchHierarchy(hierarchyObj, searchTerm) {
-            return Object.values(hierarchyObj.nodes)
-                .filter(node => 
-                    node.taxonName.toLowerCase().includes(searchTerm) ||
-                    (node.vernacularName && node.vernacularName.toLowerCase().includes(searchTerm))
-                )
-                .sort((a, b) => {
-                    // Prioritize exact matches and matches at the start of the string
-                    const aScore = this.getMatchScore(a, searchTerm);
-                    const bScore = this.getMatchScore(b, searchTerm);
-                    return bScore - aScore;
+        searchHierarchy(hierarchyObj, searchTerm, availableTaxonIds) {
+            //console.log('Searching hierarchy with term:', searchTerm);
+            //console.log('Total nodes in hierarchy:', hierarchyObj.nodes.size);
+
+            const matchingNodes = Array.from(hierarchyObj.nodes.values())
+                .filter(node => {
+                    const matchesTaxonName = node.taxonName.toLowerCase().includes(searchTerm);
+                    const matchesVernacularName = node.vernacularName && node.vernacularName.toLowerCase().includes(searchTerm);
+                    
+                    if (matchesTaxonName || matchesVernacularName) {
+                        const isAvailable = availableTaxonIds.includes(node.id);
+                        //console.log(`Potential match - Node ${node.id} (${node.taxonName}): Available: ${isAvailable}, Matches taxon: ${matchesTaxonName}, Matches vernacular: ${matchesVernacularName}`);
+                        return true;
+                    }
+                    
+                    return false;
                 });
+
+            //console.log('Matching nodes before slice:', matchingNodes);
+            return matchingNodes;
         },
 
         getMatchScore(node, searchTerm) {
@@ -301,20 +339,28 @@ const phylogenySelector = {
             return score;
         },
 
-        displaySearchResults(results) {
+        displaySearchResults(results, availableTaxonIds) {
             const searchResults = document.getElementById('phylogeny-search-results');
-            if (!searchResults) return;
 
             searchResults.innerHTML = '';
-            searchResults.style.display = results.length > 0 ? 'block' : 'none';
-
-            results.forEach(node => {
-                const resultItem = document.createElement('div');
-                resultItem.className = 'phylogeny-dialog__search-result';
-                resultItem.textContent = `${node.taxonName}${node.vernacularName ? ` (${node.vernacularName})` : ''}`;
-                resultItem.dataset.nodeId = node.id;
-                searchResults.appendChild(resultItem);
-            });
+            if (results.length > 0) {
+                searchResults.style.display = 'block';
+                results.forEach(node => {
+                    const resultItem = document.createElement('div');
+                    resultItem.className = 'phylogeny-dialog__search-result';
+                    resultItem.textContent = `${node.taxonName}${node.vernacularName ? ` (${node.vernacularName})` : ''}`;
+                    /*if (!availableTaxonIds.includes(node.id)) {
+                        resultItem.textContent += ' (Ancestry)';
+                        resultItem.classList.add('phylogeny-dialog__search-result--ancestry');
+                    }*/
+                    resultItem.dataset.nodeId = node.id;
+                    searchResults.appendChild(resultItem);
+                });
+                //console.log('Displayed search results:', results);
+            } else {
+                searchResults.style.display = 'none';
+                //console.log('No results to display');
+            }
         },
 
         clearSearchResults() {
