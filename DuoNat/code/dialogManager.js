@@ -38,6 +38,12 @@ const dialogManager = {
     openDialogs: [],
 
     initialization: {
+
+        async initialize() {
+            dialogManager.bindAllMethods();
+            await dialogManager.initialization.initializeDialogs();
+        },
+
         async initializeDialogs() {
             await dialogManager.initialization.loadDialogs();
             dialogManager.initialization.initializeKeyboardShortcutsDialog();
@@ -227,6 +233,10 @@ const dialogManager = {
             mainEventHandler.enableKeyboardShortcuts();
         },
 
+        getOpenDialogs() {
+            return [...dialogManager.openDialogs];
+        },
+
         handleDialogKeydown(event) {
             if (event.key === 'Escape') {
                 event.preventDefault();
@@ -341,17 +351,6 @@ const dialogManager = {
         },
     },
 
-
-    async initialize() {
-        dialogManager.bindAllMethods();
-        await dialogManager.initialization.initializeDialogs();
-
-        // TODO not sure if these are useful
-//        enterSet.handleNewPairSubmit = enterSet.handleNewPairSubmit.bind(enterSet);
-//        reporting.handleReportSubmit = reporting.handleReportSubmit.bind(reporting);
-//        dialogManager.handlers.handleEnterSetSubmit = dialogManager.handlers.handleEnterSetSubmit.bind(dialogManager.handlers);
-    },
-
     bindAllMethods() {
         const bindMethodsInObject = (obj) => {
             for (let prop in obj) {
@@ -366,20 +365,17 @@ const dialogManager = {
         bindMethodsInObject(this);
     },
 
-    getOpenDialogs() {
-        return [...dialogManager.openDialogs];
-    },
 };
 
 const publicAPI = {
-    initialize: dialogManager.initialize,
+    initialize: dialogManager.initialization.initialize,
 
     openDialog: dialogManager.core.openDialog,
     closeDialog: dialogManager.core.closeDialog,
     closeAllDialogs: dialogManager.core.closeAllDialogs,
 
     isAnyDialogOpen: dialogManager.core.isAnyDialogOpen,
-    getOpenDialogs: dialogManager.getOpenDialogs,
+    getOpenDialogs: dialogManager.core.getOpenDialogs,
 
     showINatDownDialog: dialogManager.specialDialogs.showINatDownDialog,
     hideINatDownDialog: dialogManager.specialDialogs.hideINatDownDialog,
