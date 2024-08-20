@@ -175,17 +175,31 @@
 
 .phylogeny-cloud__tag {
     margin: 5px;
-    padding: 5px 10px;
+    padding: 8px 12px;
     background-color: #f0f0f0;
     border-radius: 15px;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     user-select: none;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 .phylogeny-cloud__tag:hover {
     transform: scale(1.1);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.phylogeny-cloud__scientific-name {
+    /*font-style: italic;*/
+}
+
+.phylogeny-cloud__vernacular-name {
+    font-size: 0.8em;
+    color: #666;
+    margin-top: 2px;
 }
 
 /* Switch to change link length

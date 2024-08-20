@@ -147,10 +147,22 @@ const phylogenySelector = {
 
         createCloudTag(taxon, count, maxCount) {
             const size = this.scaleValue(count, 1, maxCount, 14, 36);
-            const tagElement = document.createElement('span');
-            tagElement.textContent = taxon.taxonName;
+            const tagElement = document.createElement('div');
             tagElement.className = 'phylogeny-cloud__tag';
             tagElement.style.fontSize = `${size}px`;
+
+            const scientificName = document.createElement('span');
+            scientificName.textContent = taxon.taxonName;
+            scientificName.className = 'phylogeny-cloud__scientific-name';
+            tagElement.appendChild(scientificName);
+
+            if (taxon.vernacularName) {
+                const vernacularName = document.createElement('span');
+                vernacularName.textContent = taxon.vernacularName;
+                vernacularName.className = 'phylogeny-cloud__vernacular-name';
+                tagElement.appendChild(vernacularName);
+            }
+
             tagElement.addEventListener('click', () => this.handleCloudTagClick(taxon.id));
             return tagElement;
         },
