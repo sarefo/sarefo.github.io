@@ -3,7 +3,6 @@
     "setName": "Large Carnivorous Mammals",
     "level": "1",
     "tags": [
-      "mammals",
       "carnivores"
     ],
     "taxa": [
@@ -26,7 +25,6 @@
     "setName": "Wild Canines",
     "level": "2",
     "tags": [
-      "mammals",
       "carnivores"
     ],
     "taxa": [
@@ -45,7 +43,6 @@
     "setName": "North American Bears",
     "level": "2",
     "tags": [
-      "mammals",
       "carnivores"
     ],
     "taxa": [
@@ -64,9 +61,7 @@
     "setName": "Spotted Big Cats",
     "level": "2",
     "tags": [
-      "mammals",
-      "carnivores",
-      "cats"
+      "carnivores"
     ],
     "taxa": [
       41970,
@@ -82,7 +77,6 @@
     "setName": "Pinnipeds",
     "level": "2",
     "tags": [
-      "mammals",
       "marine mammals"
     ],
     "taxa": [
@@ -105,7 +99,6 @@
     "setName": "Cetaceans",
     "level": "2",
     "tags": [
-      "mammals",
       "marine mammals"
     ],
     "taxa": [
@@ -129,8 +122,6 @@
     "setName": "Primates",
     "level": "2",
     "tags": [
-      "mammals",
-      "primates"
     ],
     "taxa": [
       786045,
@@ -149,8 +140,6 @@
     "setName": "Simian Primates",
     "level": "2",
     "tags": [
-      "mammals",
-      "primates"
     ],
     "taxa": [
       936369,
@@ -166,8 +155,6 @@
     "setName": "Catarrhini",
     "level": "2",
     "tags": [
-      "mammals",
-      "primates"
     ],
     "taxa": [
       1036675,
@@ -186,8 +173,6 @@
     "setName": "Elephants",
     "level": "2",
     "tags": [
-      "mammals",
-      "elephants"
     ],
     "taxa": [
       43696,
@@ -203,8 +188,6 @@
     "setName": "African Elephants",
     "level": "3",
     "tags": [
-      "mammals",
-      "elephants"
     ],
     "taxa": [
       43694,
@@ -222,7 +205,6 @@
     "setName": "Placental Mammals",
     "level": "2",
     "tags": [
-      "mammals"
     ],
     "taxa": [
       848324,
@@ -245,7 +227,6 @@
     "setName": "Placental Mammals",
     "level": "2",
     "tags": [
-      "mammals"
     ],
     "taxa": [
       848322,
@@ -261,7 +242,6 @@
     "setName": "Placental Mammals",
     "level": "2",
     "tags": [
-      "mammals"
     ],
     "taxa": [
       848321,
@@ -279,8 +259,6 @@
     "setName": "Large Felines",
     "level": "1",
     "tags": [
-      "mammals",
-      "cats"
     ],
     "taxa": [
       42007,
@@ -296,8 +274,6 @@
     "setName": "Ocelot-like Cats",
     "level": "2",
     "tags": [
-      "mammals",
-      "cats"
     ],
     "taxa": [
       41997,
@@ -316,8 +292,6 @@
     "setName": "Lynx Species",
     "level": "2",
     "tags": [
-      "mammals",
-      "cats"
     ],
     "taxa": [
       41976,
@@ -335,8 +309,6 @@
     "setName": "Fox Species",
     "level": "2",
     "tags": [
-      "mammals",
-      "canines"
     ],
     "taxa": [
       42069,
@@ -354,8 +326,6 @@
     "setName": "Wolf Species",
     "level": "2",
     "tags": [
-      "mammals",
-      "canines"
     ],
     "taxa": [
       42048,
@@ -373,8 +343,6 @@
     "setName": "Black Bears",
     "level": "2",
     "tags": [
-      "mammals",
-      "bears"
     ],
     "taxa": [
       41638,
@@ -390,7 +358,6 @@
     "setName": "Sea Lions",
     "level": "2",
     "tags": [
-      "mammals",
       "marine mammals"
     ],
     "taxa": [
@@ -409,7 +376,6 @@
     "setName": "True Seals",
     "level": "3",
     "tags": [
-      "mammals",
       "marine mammals"
     ],
     "taxa": [
@@ -429,9 +395,7 @@
     "setName": "Dolphins",
     "level": "1",
     "tags": [
-      "mammals",
-      "marine mammals",
-      "dolphins"
+      "marine mammals"
     ],
     "taxa": [
       41482,
@@ -452,9 +416,7 @@
     "setName": "Rorqual Whales",
     "level": "3",
     "tags": [
-      "mammals",
-      "marine mammals",
-      "whales"
+      "marine mammals"
     ],
     "taxa": [
       41562,
@@ -477,9 +439,7 @@
     "setName": "Large Baleen Whales",
     "level": "3",
     "tags": [
-      "mammals",
-      "marine mammals",
-      "whales"
+      "marine mammals"
     ],
     "taxa": [
       41562,
@@ -502,9 +462,7 @@
     "setName": "Sei Whale Group",
     "level": "3",
     "tags": [
-      "mammals",
-      "marine mammals",
-      "whales"
+      "marine mammals"
     ],
     "taxa": [
       41559,
@@ -526,9 +484,7 @@
     "setName": "Minke Whales",
     "level": "3",
     "tags": [
-      "mammals",
-      "marine mammals",
-      "whales"
+      "marine mammals"
     ],
     "taxa": [
       41550,
@@ -548,9 +504,7 @@
     "setName": "Baleen Whales",
     "level": "2",
     "tags": [
-      "mammals",
-      "marine mammals",
-      "whales"
+      "marine mammals"
     ],
     "taxa": [
       41566,
@@ -569,9 +523,7 @@
     "setName": "Right Whales",
     "level": "3",
     "tags": [
-      "mammals",
-      "marine mammals",
-      "whales"
+      "marine mammals"
     ],
     "taxa": [
       41570,
@@ -587,9 +539,7 @@
     "setName": "Sperm Whales",
     "level": "2",
     "tags": [
-      "mammals",
-      "marine mammals",
-      "whales"
+      "marine mammals"
     ],
     "taxa": [
       74890,
@@ -612,9 +562,7 @@
     "setName": "Dwarf Sperm Whales",
     "level": "3",
     "tags": [
-      "mammals",
-      "marine mammals",
-      "whales"
+      "marine mammals"
     ],
     "taxa": [
       41464,
@@ -637,9 +585,7 @@
     "setName": "Large Oceanic Dolphins",
     "level": "2",
     "tags": [
-      "mammals",
-      "marine mammals",
-      "dolphins"
+      "marine mammals"
     ],
     "taxa": [
       41521,
@@ -662,9 +608,7 @@
     "setName": "Pilot Whales",
     "level": "3",
     "tags": [
-      "mammals",
-      "marine mammals",
-      "whales"
+      "marine mammals"
     ],
     "taxa": [
       41529,
@@ -687,9 +631,7 @@
     "setName": "Bottlenose Dolphins",
     "level": "3",
     "tags": [
-      "mammals",
-      "marine mammals",
-      "whales"
+      "marine mammals"
     ],
     "taxa": [
       41482,
@@ -709,9 +651,7 @@
     "setName": "Spotted Dolphins",
     "level": "2",
     "tags": [
-      "mammals",
-      "marine mammals",
-      "whales"
+      "marine mammals"
     ],
     "taxa": [
       41500,
@@ -732,9 +672,7 @@
     "setName": "Striped Dolphins",
     "level": "2",
     "tags": [
-      "mammals",
-      "marine mammals",
-      "whales"
+      "marine mammals"
     ],
     "taxa": [
       41494,
@@ -756,9 +694,7 @@
     "setName": "Oceanic Dolphins",
     "level": "3",
     "tags": [
-      "mammals",
-      "marine mammals",
-      "whales"
+      "marine mammals"
     ],
     "taxa": [
       1368483,
@@ -776,9 +712,7 @@
     "setName": "White-beaked Dolphins",
     "level": "3",
     "tags": [
-      "mammals",
-      "marine mammals",
-      "whales"
+      "marine mammals"
     ],
     "taxa": [
       41505,
@@ -796,9 +730,7 @@
     "setName": "Rough-toothed Dolphins",
     "level": "2",
     "tags": [
-      "mammals",
-      "marine mammals",
-      "whales"
+      "marine mammals"
     ],
     "taxa": [
       41541,
@@ -821,9 +753,7 @@
     "setName": "Porpoises",
     "level": "2",
     "tags": [
-      "mammals",
-      "marine mammals",
-      "whales"
+      "marine mammals"
     ],
     "taxa": [
       41440,
@@ -842,9 +772,7 @@
     "setName": "Beaked Whales",
     "level": "3",
     "tags": [
-      "mammals",
-      "marine mammals",
-      "whales"
+      "marine mammals"
     ],
     "taxa": [
       41413,
@@ -863,9 +791,7 @@
     "setName": "Large Beaked Whales",
     "level": "2",
     "tags": [
-      "mammals",
-      "marine mammals",
-      "whales"
+      "marine mammals"
     ],
     "taxa": [
       41428,
@@ -884,9 +810,7 @@
     "setName": "River Dolphins",
     "level": "3",
     "tags": [
-      "mammals",
-      "marine mammals",
-      "dolphins"
+      "marine mammals"
     ],
     "taxa": [
       41472,
@@ -902,9 +826,7 @@
     "setName": "Arctic Whales",
     "level": "2",
     "tags": [
-      "mammals",
-      "marine mammals",
-      "whales"
+      "marine mammals"
     ],
     "taxa": [
       41461,
@@ -924,9 +846,7 @@
     "setName": "Cephalorhynchus Dolphins",
     "level": "2",
     "tags": [
-      "mammals",
-      "marine mammals",
-      "dolphins"
+      "marine mammals"
     ],
     "taxa": [
       41515,
@@ -942,9 +862,7 @@
     "setName": "Tucuxi Dolphins",
     "level": "3",
     "tags": [
-      "mammals",
-      "marine mammals",
-      "dolphins"
+      "marine mammals"
     ],
     "taxa": [
       41490,
@@ -962,9 +880,7 @@
     "setName": "Small Oceanic Dolphins",
     "level": "2",
     "tags": [
-      "mammals",
-      "marine mammals",
-      "dolphins"
+      "marine mammals"
     ],
     "taxa": [
       41543,
@@ -986,9 +902,7 @@
     "setName": "Right Whale Dolphins",
     "level": "2",
     "tags": [
-      "mammals",
-      "marine mammals",
-      "dolphins"
+      "marine mammals"
     ],
     "taxa": [
       41537,
@@ -1004,8 +918,6 @@
     "setName": "New World Deer",
     "level": "3",
     "tags": [
-      "mammals",
-      "ungulates"
     ],
     "taxa": [
       42223,
@@ -1023,8 +935,6 @@
     "setName": "Red Deer Group",
     "level": "3",
     "tags": [
-      "mammals",
-      "ungulates"
     ],
     "taxa": [
       204113,
@@ -1043,8 +953,6 @@
     "setName": "Large North American Cervids",
     "level": "2",
     "tags": [
-      "mammals",
-      "ungulates"
     ],
     "taxa": [
       522193,
@@ -1063,8 +971,6 @@
     "setName": "Large Bovines",
     "level": "1",
     "tags": [
-      "mammals",
-      "ungulates"
     ],
     "taxa": [
       42408,
@@ -1082,8 +988,6 @@
     "setName": "Wild Sheep",
     "level": "3",
     "tags": [
-      "mammals",
-      "ungulates"
     ],
     "taxa": [
       42391,
@@ -1101,8 +1005,6 @@
     "setName": "Mountain Bovids",
     "level": "3",
     "tags": [
-      "mammals",
-      "ungulates"
     ],
     "taxa": [
       42414,
@@ -1120,8 +1022,6 @@
     "setName": "Cold-adapted Cervids",
     "level": "2",
     "tags": [
-      "mammals",
-      "ungulates"
     ],
     "taxa": [
       42199,
@@ -1141,8 +1041,6 @@
     "setName": "Zebras",
     "level": "3",
     "tags": [
-      "mammals",
-      "ungulates"
     ],
     "taxa": [
       43330,
@@ -1160,8 +1058,6 @@
     "setName": "Elephants",
     "level": "1",
     "tags": [
-      "mammals",
-      "elephants"
     ],
     "taxa": [
       43694,
@@ -1177,8 +1073,6 @@
     "setName": "Hippopotamuses",
     "level": "1",
     "tags": [
-      "mammals",
-      "ungulates"
     ],
     "taxa": [
       42149,
@@ -1196,8 +1090,6 @@
     "setName": "Rhinoceroses",
     "level": "3",
     "tags": [
-      "mammals",
-      "ungulates"
     ],
     "taxa": [
       43350,
@@ -1215,8 +1107,6 @@
     "setName": "Chimpanzees",
     "level": "2",
     "tags": [
-      "mammals",
-      "primates"
     ],
     "taxa": [
       43577,
@@ -1234,8 +1124,6 @@
     "setName": "Gorillas",
     "level": "3",
     "tags": [
-      "mammals",
-      "primates"
     ],
     "taxa": [
       68790,
@@ -1253,8 +1141,6 @@
     "setName": "Orangutans",
     "level": "3",
     "tags": [
-      "mammals",
-      "primates"
     ],
     "taxa": [
       569678,
@@ -1272,8 +1158,6 @@
     "setName": "Macaques",
     "level": "3",
     "tags": [
-      "mammals",
-      "primates"
     ],
     "taxa": [
       43460,
@@ -1291,8 +1175,6 @@
     "setName": "Baboons",
     "level": "2",
     "tags": [
-      "mammals",
-      "primates"
     ],
     "taxa": [
       74832,
@@ -1310,8 +1192,6 @@
     "setName": "Lemurs",
     "level": "1",
     "tags": [
-      "mammals",
-      "primates"
     ],
     "taxa": [
       43617,
@@ -1329,8 +1209,6 @@
     "setName": "Tree Squirrels",
     "level": "3",
     "tags": [
-      "mammals",
-      "rodents"
     ],
     "taxa": [
       46017,
@@ -1348,8 +1226,6 @@
     "setName": "Chipmunks",
     "level": "3",
     "tags": [
-      "mammals",
-      "rodents"
     ],
     "taxa": [
       46217,
@@ -1365,8 +1241,6 @@
     "setName": "Marmots",
     "level": "3",
     "tags": [
-      "mammals",
-      "rodents"
     ],
     "taxa": [
       46095,
@@ -1384,8 +1258,6 @@
     "setName": "Hamsters",
     "level": "2",
     "tags": [
-      "mammals",
-      "rodents"
     ],
     "taxa": [
       45836,
@@ -1403,8 +1275,6 @@
     "setName": "Rats",
     "level": "2",
     "tags": [
-      "mammals",
-      "rodents"
     ],
     "taxa": [
       44576,
@@ -1427,8 +1297,6 @@
     "setName": "Small Rodents",
     "level": "2",
     "tags": [
-      "mammals",
-      "rodents"
     ],
     "taxa": [
       44705,
@@ -1448,8 +1316,6 @@
     "setName": "Opossums",
     "level": "2",
     "tags": [
-      "mammals",
-      "marsupials"
     ],
     "taxa": [
       42652,
@@ -1467,8 +1333,6 @@
     "setName": "Arboreal Marsupials",
     "level": "2",
     "tags": [
-      "mammals",
-      "marsupials"
     ],
     "taxa": [
       42808,
@@ -1486,8 +1350,6 @@
     "setName": "Large Kangaroos",
     "level": "2",
     "tags": [
-      "mammals",
-      "marsupials"
     ],
     "taxa": [
       1453439,
@@ -1505,8 +1367,6 @@
     "setName": "Carnivorous Marsupials",
     "level": "1",
     "tags": [
-      "mammals",
-      "marsupials"
     ],
     "taxa": [
       40232,
@@ -1524,8 +1384,6 @@
     "setName": "Wombats",
     "level": "2",
     "tags": [
-      "mammals",
-      "marsupials"
     ],
     "taxa": [
       43009,
@@ -1543,9 +1401,6 @@
     "setName": "Monotremes vs Marsupials",
     "level": "2",
     "tags": [
-      "mammals",
-      "marsupials",
-      "monotremes"
     ],
     "taxa": [
       "43233",
@@ -1563,8 +1418,6 @@
     "setName": "Monotremes vs Placental Mammals",
     "level": "2",
     "tags": [
-      "mammals",
-      "monotremes"
     ],
     "taxa": [
       "43233",
@@ -1582,9 +1435,6 @@
     "setName": "Platypus vs Beaver",
     "level": "1",
     "tags": [
-      "mammals",
-      "monotremes",
-      "rodents"
     ],
     "taxa": [
       "43236",
@@ -1600,8 +1450,6 @@
     "setName": "Large Mouse-eared Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       1150085,
@@ -1620,8 +1468,6 @@
     "setName": "Water Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       424254,
@@ -1640,8 +1486,6 @@
     "setName": "Whiskered Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       210400,
@@ -1660,8 +1504,6 @@
     "setName": "Long-eared Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       74697,
@@ -1680,8 +1522,6 @@
     "setName": "Small Brown Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       40346,
@@ -1699,8 +1539,6 @@
     "setName": "Serotine Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       207811,
@@ -1719,8 +1557,6 @@
     "setName": "Brown Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       40509,
@@ -1738,8 +1574,6 @@
     "setName": "Noctule Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       40572,
@@ -1759,8 +1593,6 @@
     "setName": "Pipistrelle Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       40364,
@@ -1779,8 +1611,6 @@
     "setName": "Nathusius' Pipistrelle Group",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       40391,
@@ -1799,8 +1629,6 @@
     "setName": "Long-eared Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       40416,
@@ -1819,8 +1647,6 @@
     "setName": "European Vesper Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       40581,
@@ -1839,8 +1665,6 @@
     "setName": "Horseshoe Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       40645,
@@ -1860,8 +1684,6 @@
     "setName": "Mediterranean Horseshoe Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       40677,
@@ -1881,8 +1703,6 @@
     "setName": "Free-tailed Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       41301,
@@ -1898,8 +1718,6 @@
     "setName": "Bent-winged Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       57534,
@@ -1917,8 +1735,6 @@
     "setName": "Mustached Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       41221,
@@ -1937,8 +1753,6 @@
     "setName": "Fruit-eating Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       41005,
@@ -1957,8 +1771,6 @@
     "setName": "Short-tailed Fruit Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       41110,
@@ -1976,8 +1788,6 @@
     "setName": "Nectar-feeding Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       41090,
@@ -1995,8 +1805,6 @@
     "setName": "Vampire Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       41168,
@@ -2015,8 +1823,6 @@
     "setName": "Leaf-nosed Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       41147,
@@ -2034,8 +1840,6 @@
     "setName": "Asian Roundleaf Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       40717,
@@ -2053,8 +1857,6 @@
     "setName": "Rousette Fruit Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       75042,
@@ -2072,8 +1874,6 @@
     "setName": "Flying Foxes",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       40917,
@@ -2091,8 +1891,6 @@
     "setName": "Short-nosed Fruit Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       40793,
@@ -2110,8 +1908,6 @@
     "setName": "Long-tongued Fruit Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       40949,
@@ -2129,8 +1925,6 @@
     "setName": "Slit-faced Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       41192,
@@ -2148,8 +1942,6 @@
     "setName": "False Vampire Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       1370818,
@@ -2167,8 +1959,6 @@
     "setName": "Tomb Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       41376,
@@ -2186,8 +1976,6 @@
     "setName": "Small Asian Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       41399,
@@ -2205,8 +1993,6 @@
     "setName": "Tube-nosed Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       40601,
@@ -2224,8 +2010,6 @@
     "setName": "Woolly Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       40464,
@@ -2243,8 +2027,6 @@
     "setName": "Australian Long-eared Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       40544,
@@ -2262,8 +2044,6 @@
     "setName": "Australian Long-eared Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       40558,
@@ -2281,8 +2061,6 @@
     "setName": "Australian Free-tailed Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       1370825,
@@ -2300,8 +2078,6 @@
     "setName": "Asian House Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       40432,
@@ -2319,8 +2095,6 @@
     "setName": "African Pipistrelle Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       1431034,
@@ -2338,8 +2112,6 @@
     "setName": "American Hoary Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       40523,
@@ -2357,8 +2129,6 @@
     "setName": "American Mastiff Bats",
     "level": "3",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       41277,
@@ -2377,8 +2147,6 @@
     "setName": "European Hedgehogs",
     "level": "2",
     "tags": [
-      "mammals",
-      "insectivores"
     ],
     "taxa": [
       43042,
@@ -2396,8 +2164,6 @@
     "setName": "Common Shrews",
     "level": "3",
     "tags": [
-      "mammals",
-      "insectivores"
     ],
     "taxa": [
       46414,
@@ -2416,8 +2182,6 @@
     "setName": "Procyonids",
     "level": "2",
     "tags": [
-      "mammals",
-      "carnivores"
     ],
     "taxa": [
       41663,
@@ -2433,8 +2197,6 @@
     "setName": "Badgers",
     "level": "2",
     "tags": [
-      "mammals",
-      "carnivores"
     ],
     "taxa": [
       855297,
@@ -2450,8 +2212,6 @@
     "setName": "Mustelids",
     "level": "2",
     "tags": [
-      "mammals",
-      "carnivores"
     ],
     "taxa": [
       1264432,
@@ -2467,8 +2227,6 @@
     "setName": "Raptors",
     "level": "2",
     "tags": [
-      "birds",
-      "birds of prey"
     ],
     "taxa": [
       5106,
@@ -2488,8 +2246,6 @@
     "setName": "Large Corvids",
     "level": "2",
     "tags": [
-      "birds",
-      "passerines"
     ],
     "taxa": [
       8010,
@@ -2508,8 +2264,6 @@
     "setName": "Pigeons and Doves",
     "level": "2",
     "tags": [
-      "birds",
-      "columbiformes"
     ],
     "taxa": [
       3438,
@@ -2528,7 +2282,6 @@
     "setName": "Seed-eating Birds",
     "level": "1",
     "tags": [
-      "birds"
     ],
     "taxa": [
       2715,
@@ -2551,7 +2304,6 @@
     "setName": "Large Gulls",
     "level": "2",
     "tags": [
-      "birds",
       "seabirds"
     ],
     "taxa": [
@@ -2572,8 +2324,6 @@
     "setName": "Old World Sparrows",
     "level": "2",
     "tags": [
-      "birds",
-      "passerines"
     ],
     "taxa": [
       13858,
@@ -2592,8 +2342,6 @@
     "setName": "Crows",
     "level": "2",
     "tags": [
-      "birds",
-      "passerines"
     ],
     "taxa": [
       204496,
@@ -2612,8 +2360,6 @@
     "setName": "Tits",
     "level": "1",
     "tags": [
-      "birds",
-      "passerines"
     ],
     "taxa": [
       203153,
@@ -2633,8 +2379,6 @@
     "setName": "Old World Flycatchers",
     "level": "1",
     "tags": [
-      "birds",
-      "passerines"
     ],
     "taxa": [
       13094,
@@ -2653,8 +2397,6 @@
     "setName": "Thrushes",
     "level": "2",
     "tags": [
-      "birds",
-      "passerines"
     ],
     "taxa": [
       12716,
@@ -2674,8 +2416,6 @@
     "setName": "Old World Warblers",
     "level": "2",
     "tags": [
-      "birds",
-      "passerines"
     ],
     "taxa": [
       15282,
@@ -2695,8 +2435,6 @@
     "setName": "Leaf Warblers",
     "level": "3",
     "tags": [
-      "birds",
-      "passerines"
     ],
     "taxa": [
       117055,
@@ -2716,8 +2454,6 @@
     "setName": "Finches",
     "level": "2",
     "tags": [
-      "birds",
-      "passerines"
     ],
     "taxa": [
       10070,
@@ -2736,8 +2472,6 @@
     "setName": "Goldfinches",
     "level": "1",
     "tags": [
-      "birds",
-      "passerines"
     ],
     "taxa": [
       9398,
@@ -2756,8 +2490,6 @@
     "setName": "Buntings",
     "level": "2",
     "tags": [
-      "birds",
-      "passerines"
     ],
     "taxa": [
       9195,
@@ -2776,8 +2508,6 @@
     "setName": "Swallows",
     "level": "2",
     "tags": [
-      "birds",
-      "passerines"
     ],
     "taxa": [
       11901,
@@ -2797,8 +2527,6 @@
     "setName": "Larks",
     "level": "3",
     "tags": [
-      "birds",
-      "passerines"
     ],
     "taxa": [
       7347,
@@ -2817,8 +2545,6 @@
     "setName": "Wagtails",
     "level": "1",
     "tags": [
-      "birds",
-      "passerines"
     ],
     "taxa": [
       13695,
@@ -2838,8 +2564,6 @@
     "setName": "Starlings",
     "level": "2",
     "tags": [
-      "birds",
-      "passerines"
     ],
     "taxa": [
       14850,
@@ -2858,8 +2582,6 @@
     "setName": "Jays and Magpies",
     "level": "1",
     "tags": [
-      "birds",
-      "passerines"
     ],
     "taxa": [
       8088,
@@ -2879,8 +2601,6 @@
     "setName": "Large Raptors",
     "level": "2",
     "tags": [
-      "birds",
-      "birds of prey"
     ],
     "taxa": [
       204472,
@@ -2900,8 +2620,6 @@
     "setName": "Accipiters",
     "level": "3",
     "tags": [
-      "birds",
-      "birds of prey"
     ],
     "taxa": [
       5106,
@@ -2920,8 +2638,6 @@
     "setName": "Falcons",
     "level": "2",
     "tags": [
-      "birds",
-      "birds of prey"
     ],
     "taxa": [
       472766,
@@ -2941,8 +2657,6 @@
     "setName": "Large Eagles",
     "level": "2",
     "tags": [
-      "birds",
-      "birds of prey"
     ],
     "taxa": [
       5074,
@@ -2961,7 +2675,6 @@
     "setName": "Herons",
     "level": "2",
     "tags": [
-      "birds",
       "wading birds"
     ],
     "taxa": [
@@ -2982,7 +2695,6 @@
     "setName": "Egrets",
     "level": "2",
     "tags": [
-      "birds",
       "wading birds"
     ],
     "taxa": [
@@ -3004,7 +2716,6 @@
     "setName": "Storks",
     "level": "1",
     "tags": [
-      "birds",
       "wading birds"
     ],
     "taxa": [
@@ -3025,7 +2736,6 @@
     "setName": "Terns",
     "level": "2",
     "tags": [
-      "birds",
       "seabirds"
     ],
     "taxa": [
@@ -3049,7 +2759,6 @@
     "setName": "Auks",
     "level": "2",
     "tags": [
-      "birds",
       "seabirds"
     ],
     "taxa": [
@@ -3069,8 +2778,6 @@
     "setName": "Pigeons",
     "level": "2",
     "tags": [
-      "birds",
-      "columbiformes"
     ],
     "taxa": [
       3048,
@@ -3090,8 +2797,6 @@
     "setName": "Doves",
     "level": "2",
     "tags": [
-      "birds",
-      "columbiformes"
     ],
     "taxa": [
       2969,
@@ -3111,7 +2816,6 @@
     "setName": "Cuckoos and Raptors",
     "level": "2",
     "tags": [
-      "birds"
     ],
     "taxa": [
       1907,
@@ -3131,8 +2835,6 @@
     "setName": "Owls",
     "level": "2",
     "tags": [
-      "birds",
-      "birds of prey"
     ],
     "taxa": [
       20445,
@@ -3154,8 +2856,6 @@
     "setName": "Wood Owls",
     "level": "2",
     "tags": [
-      "birds",
-      "birds of prey"
     ],
     "taxa": [
       19898,
@@ -3174,7 +2874,6 @@
     "setName": "Swifts and Swallows",
     "level": "1",
     "tags": [
-      "birds"
     ],
     "taxa": [
       6638,
@@ -3194,7 +2893,6 @@
     "setName": "Colorful Small Birds",
     "level": "2",
     "tags": [
-      "birds"
     ],
     "taxa": [
       2599,
@@ -3214,7 +2912,6 @@
     "setName": "Hoopoes and Rollers",
     "level": "1",
     "tags": [
-      "birds"
     ],
     "taxa": [
       20969,
@@ -3234,8 +2931,6 @@
     "setName": "Green Woodpeckers",
     "level": "2",
     "tags": [
-      "birds",
-      "woodpeckers"
     ],
     "taxa": [
       144243,
@@ -3254,8 +2949,6 @@
     "setName": "European Woodpeckers",
     "level": "2",
     "tags": [
-      "birds",
-      "woodpeckers"
     ],
     "taxa": [
       17871,
@@ -3274,7 +2967,6 @@
     "setName": "Dabbling Ducks",
     "level": "2",
     "tags": [
-      "birds",
       "waterbirds"
     ],
     "taxa": [
@@ -3296,7 +2988,6 @@
     "setName": "Diving Ducks",
     "level": "2",
     "tags": [
-      "birds",
       "waterbirds"
     ],
     "taxa": [
@@ -3317,7 +3008,6 @@
     "setName": "Mergansers",
     "level": "3",
     "tags": [
-      "birds",
       "waterbirds"
     ],
     "taxa": [
@@ -3338,7 +3028,6 @@
     "setName": "Grebes",
     "level": "2",
     "tags": [
-      "birds",
       "waterbirds"
     ],
     "taxa": [
@@ -3358,7 +3047,6 @@
     "setName": "Cormorants",
     "level": "2",
     "tags": [
-      "birds",
       "seabirds"
     ],
     "taxa": [
@@ -3379,7 +3067,6 @@
     "setName": "Rails",
     "level": "2",
     "tags": [
-      "birds",
       "waterbirds"
     ],
     "taxa": [
@@ -3401,7 +3088,6 @@
     "setName": "Plovers",
     "level": "2",
     "tags": [
-      "birds",
       "shorebirds"
     ],
     "taxa": [
@@ -3421,7 +3107,6 @@
     "setName": "Sandpipers",
     "level": "2",
     "tags": [
-      "birds",
       "shorebirds"
     ],
     "taxa": [
@@ -3442,7 +3127,6 @@
     "setName": "Small Waders",
     "level": "2",
     "tags": [
-      "birds",
       "shorebirds"
     ],
     "taxa": [
@@ -3463,7 +3147,6 @@
     "setName": "Curlews",
     "level": "3",
     "tags": [
-      "birds",
       "shorebirds"
     ],
     "taxa": [
@@ -3484,7 +3167,6 @@
     "setName": "Snipes",
     "level": "3",
     "tags": [
-      "birds",
       "shorebirds"
     ],
     "taxa": [
@@ -3504,7 +3186,6 @@
     "setName": "Coastal Shorebirds",
     "level": "1",
     "tags": [
-      "birds",
       "shorebirds"
     ],
     "taxa": [
@@ -3525,7 +3206,6 @@
     "setName": "Stone-curlews and Plovers",
     "level": "1",
     "tags": [
-      "birds",
       "shorebirds"
     ],
     "taxa": [
@@ -3546,7 +3226,6 @@
     "setName": "Skuas",
     "level": "2",
     "tags": [
-      "birds",
       "seabirds"
     ],
     "taxa": [
@@ -3567,7 +3246,6 @@
     "setName": "Large Reptiles",
     "level": "2",
     "tags": [
-      "reptiles"
     ],
     "taxa": [
       26041,
@@ -3587,7 +3265,6 @@
     "setName": "Legless Lizards and Snakes",
     "level": "2",
     "tags": [
-      "reptiles"
     ],
     "taxa": [
       36925,
@@ -3605,7 +3282,6 @@
     "setName": "Sea Turtles",
     "level": "2",
     "tags": [
-      "reptiles",
       "marine reptiles"
     ],
     "taxa": [
@@ -3629,8 +3305,6 @@
     "setName": "European Snakes",
     "level": "2",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       966698,
@@ -3649,8 +3323,6 @@
     "setName": "European Water Snakes",
     "level": "2",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       966787,
@@ -3668,8 +3340,6 @@
     "setName": "European Vipers",
     "level": "2",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       966698,
@@ -3687,8 +3357,6 @@
     "setName": "Small European Snakes",
     "level": "2",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       26904,
@@ -3707,8 +3375,6 @@
     "setName": "European Rat Snakes",
     "level": "3",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       74009,
@@ -3726,8 +3392,6 @@
     "setName": "Four-lined Snakes",
     "level": "2",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       30237,
@@ -3746,8 +3410,6 @@
     "setName": "Mediterranean Snakes",
     "level": "3",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       29449,
@@ -3765,8 +3427,6 @@
     "setName": "Asian Cobras",
     "level": "2",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       53492,
@@ -3784,8 +3444,6 @@
     "setName": "Asian Cobras",
     "level": "2",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       53492,
@@ -3803,8 +3461,6 @@
     "setName": "Kraits",
     "level": "2",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       96224,
@@ -3822,8 +3478,6 @@
     "setName": "Mambas",
     "level": "1",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       30405,
@@ -3841,8 +3495,6 @@
     "setName": "Rattlesnakes",
     "level": "3",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       30764,
@@ -3860,8 +3512,6 @@
     "setName": "Pygmy Rattlesnakes",
     "level": "3",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       520469,
@@ -3879,8 +3529,6 @@
     "setName": "Copperheads",
     "level": "2",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       912622,
@@ -3898,8 +3546,6 @@
     "setName": "Fer-de-lance",
     "level": "3",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       49001,
@@ -3917,8 +3563,6 @@
     "setName": "African Vipers",
     "level": "2",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       30851,
@@ -3936,8 +3580,6 @@
     "setName": "Saw-scaled Vipers",
     "level": "3",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       31079,
@@ -3956,8 +3598,6 @@
     "setName": "Large Pythons",
     "level": "2",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       491869,
@@ -3975,8 +3615,6 @@
     "setName": "Large Constrictors",
     "level": "2",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       32093,
@@ -3994,8 +3632,6 @@
     "setName": "Carpet Pythons",
     "level": "3",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       50238,
@@ -4013,8 +3649,6 @@
     "setName": "Rat Snakes",
     "level": "3",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       73887,
@@ -4032,8 +3666,6 @@
     "setName": "Kingsnakes",
     "level": "3",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       29813,
@@ -4051,8 +3683,6 @@
     "setName": "Garter Snakes",
     "level": "3",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       28362,
@@ -4070,8 +3700,6 @@
     "setName": "North American Colubrids",
     "level": "3",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       29044,
@@ -4089,8 +3717,6 @@
     "setName": "Racers",
     "level": "3",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       27137,
@@ -4108,8 +3734,6 @@
     "setName": "Hognose Snakes",
     "level": "3",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       29925,
@@ -4127,8 +3751,6 @@
     "setName": "Green Snakes",
     "level": "3",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       29200,
@@ -4146,8 +3768,6 @@
     "setName": "Water Snakes",
     "level": "3",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       29305,
@@ -4165,8 +3785,6 @@
     "setName": "Queen Snakes",
     "level": "3",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       28850,
@@ -4184,8 +3802,6 @@
     "setName": "Brown Snakes",
     "level": "3",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       28562,
@@ -4203,8 +3819,6 @@
     "setName": "Ring-necked Snakes",
     "level": "2",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       26575,
@@ -4222,8 +3836,6 @@
     "setName": "Crowned Snakes",
     "level": "3",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       28516,
@@ -4241,8 +3853,6 @@
     "setName": "North American Boas",
     "level": "3",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       236842,
@@ -4260,8 +3870,6 @@
     "setName": "Sand Boas",
     "level": "3",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       32227,
@@ -4279,8 +3887,6 @@
     "setName": "File Snakes",
     "level": "2",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       26182,
@@ -4299,8 +3905,6 @@
     "setName": "Sea Snakes",
     "level": "1",
     "tags": [
-      "reptiles",
-      "snakes",
       "marine reptiles"
     ],
     "taxa": [
@@ -4320,8 +3924,6 @@
     "setName": "Coral Snakes",
     "level": "3",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       73867,
@@ -4339,8 +3941,6 @@
     "setName": "Puerto Rican Boas",
     "level": "3",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       474355,
@@ -4358,8 +3958,6 @@
     "setName": "Asian Cat Snakes",
     "level": "3",
     "tags": [
-      "reptiles",
-      "snakes"
     ],
     "taxa": [
       27686,
@@ -5156,8 +4754,6 @@
     "setName": "Swallowtail Butterflies",
     "level": "3",
     "tags": [
-      "insects",
-      "butterflies",
       "lepidoptera"
     ],
     "taxa": [
@@ -5176,8 +4772,6 @@
     "setName": "North American Swallowtails",
     "level": "3",
     "tags": [
-      "insects",
-      "butterflies",
       "lepidoptera"
     ],
     "taxa": [
@@ -5196,8 +4790,6 @@
     "setName": "Longwing Butterflies",
     "level": "3",
     "tags": [
-      "insects",
-      "butterflies",
       "lepidoptera"
     ],
     "taxa": [
@@ -5217,8 +4809,6 @@
     "setName": "Red Admiral Butterflies",
     "level": "3",
     "tags": [
-      "insects",
-      "butterflies",
       "lepidoptera"
     ],
     "taxa": [
@@ -5237,8 +4827,6 @@
     "setName": "Cabbage White Butterflies",
     "level": "3",
     "tags": [
-      "insects",
-      "butterflies",
       "lepidoptera"
     ],
     "taxa": [
@@ -5259,8 +4847,6 @@
     "setName": "Copper Butterflies",
     "level": "3",
     "tags": [
-      "insects",
-      "butterflies",
       "lepidoptera"
     ],
     "taxa": [
@@ -5280,8 +4866,6 @@
     "setName": "Peacock Butterflies",
     "level": "2",
     "tags": [
-      "insects",
-      "butterflies",
       "lepidoptera"
     ],
     "taxa": [
@@ -5301,8 +4885,6 @@
     "setName": "Brimstone Butterflies",
     "level": "3",
     "tags": [
-      "insects",
-      "butterflies",
       "lepidoptera"
     ],
     "taxa": [
@@ -5323,8 +4905,6 @@
     "setName": "Comma Butterflies",
     "level": "2",
     "tags": [
-      "insects",
-      "butterflies",
       "lepidoptera"
     ],
     "taxa": [
@@ -5341,8 +4921,6 @@
     "setName": "Large Nymphalid Butterflies",
     "level": "3",
     "tags": [
-      "insects",
-      "butterflies",
       "lepidoptera"
     ],
     "taxa": [
@@ -5362,8 +4940,6 @@
     "setName": "Ringlet Butterflies",
     "level": "3",
     "tags": [
-      "insects",
-      "butterflies",
       "lepidoptera"
     ],
     "taxa": [
@@ -5382,8 +4958,6 @@
     "setName": "Monarch Butterflies",
     "level": "3",
     "tags": [
-      "insects",
-      "butterflies",
       "lepidoptera"
     ],
     "taxa": [
@@ -5403,7 +4977,6 @@
     "setName": "True Butterflies",
     "level": "2",
     "tags": [
-      "insects",
       "lepidoptera"
     ],
     "taxa": [
@@ -5427,7 +5000,6 @@
     "setName": "Butterflies and Moths",
     "level": "2",
     "tags": [
-      "insects",
       "lepidoptera"
     ],
     "taxa": [
@@ -5451,8 +5023,6 @@
     "setName": "Death's-head Hawkmoths",
     "level": "3",
     "tags": [
-      "insects",
-      "moths",
       "lepidoptera"
     ],
     "taxa": [
@@ -5471,8 +5041,6 @@
     "setName": "Large Hawkmoths",
     "level": "2",
     "tags": [
-      "insects",
-      "moths",
       "lepidoptera"
     ],
     "taxa": [
@@ -5492,8 +5060,6 @@
     "setName": "Red Underwing Moths",
     "level": "3",
     "tags": [
-      "insects",
-      "moths",
       "lepidoptera"
     ],
     "taxa": [
@@ -5513,8 +5079,6 @@
     "setName": "Io Moths",
     "level": "3",
     "tags": [
-      "insects",
-      "moths",
       "lepidoptera"
     ],
     "taxa": [
@@ -5533,8 +5097,6 @@
     "setName": "Emperor Moths",
     "level": "2",
     "tags": [
-      "insects",
-      "moths",
       "lepidoptera"
     ],
     "taxa": [
@@ -5554,8 +5116,6 @@
     "setName": "Tiger Moths",
     "level": "3",
     "tags": [
-      "insects",
-      "moths",
       "lepidoptera"
     ],
     "taxa": [
@@ -5576,8 +5136,6 @@
     "setName": "Dart Moths",
     "level": "3",
     "tags": [
-      "insects",
-      "moths",
       "lepidoptera"
     ],
     "taxa": [
@@ -5597,8 +5155,6 @@
     "setName": "Jersey Tiger Moths",
     "level": "2",
     "tags": [
-      "insects",
-      "moths",
       "lepidoptera"
     ],
     "taxa": [
@@ -5618,8 +5174,6 @@
     "setName": "Prominent Moths",
     "level": "2",
     "tags": [
-      "insects",
-      "moths",
       "lepidoptera"
     ],
     "taxa": [
@@ -5639,8 +5193,6 @@
     "setName": "Carpenter Moths",
     "level": "2",
     "tags": [
-      "insects",
-      "moths",
       "lepidoptera"
     ],
     "taxa": [
@@ -5660,8 +5212,6 @@
     "setName": "Sphinx Moths",
     "level": "3",
     "tags": [
-      "insects",
-      "moths",
       "lepidoptera"
     ],
     "taxa": [
@@ -5681,8 +5231,6 @@
     "setName": "Luna Moths",
     "level": "2",
     "tags": [
-      "insects",
-      "moths",
       "lepidoptera"
     ],
     "taxa": [
@@ -5699,8 +5247,6 @@
     "setName": "Bagworm Moths",
     "level": "2",
     "tags": [
-      "insects",
-      "moths",
       "lepidoptera"
     ],
     "taxa": [
@@ -5724,8 +5270,6 @@
     "setName": "Leaf Roller Moths",
     "level": "2",
     "tags": [
-      "insects",
-      "moths",
       "lepidoptera"
     ],
     "taxa": [
@@ -5749,8 +5293,6 @@
     "setName": "Burnet Moths",
     "level": "2",
     "tags": [
-      "insects",
-      "moths",
       "lepidoptera"
     ],
     "taxa": [
@@ -5774,8 +5316,6 @@
     "setName": "Wave Moths",
     "level": "3",
     "tags": [
-      "insects",
-      "moths",
       "lepidoptera"
     ],
     "taxa": [
@@ -5792,8 +5332,6 @@
     "setName": "Tiger Moths",
     "level": "2",
     "tags": [
-      "insects",
-      "moths",
       "lepidoptera"
     ],
     "taxa": [
@@ -5812,8 +5350,6 @@
     "setName": "Clearwing Moths",
     "level": "1",
     "tags": [
-      "insects",
-      "moths",
       "lepidoptera",
       "mimicry"
     ],
@@ -5836,7 +5372,6 @@
     "setName": "Owlflies",
     "level": "2",
     "tags": [
-      "insects",
       "neuroptera"
     ],
     "taxa": [
@@ -5855,7 +5390,6 @@
     "setName": "Large Bees",
     "level": "1",
     "tags": [
-      "insects",
       "hymenoptera",
       "bees"
     ],
@@ -5876,7 +5410,6 @@
     "setName": "Large Wasps",
     "level": "2",
     "tags": [
-      "insects",
       "hymenoptera",
       "wasps"
     ],
@@ -5897,7 +5430,6 @@
     "setName": "Honey Bees",
     "level": "3",
     "tags": [
-      "insects",
       "hymenoptera",
       "bees"
     ],
@@ -5917,7 +5449,6 @@
     "setName": "Bumblebees",
     "level": "2",
     "tags": [
-      "insects",
       "hymenoptera",
       "bees"
     ],
@@ -5938,7 +5469,6 @@
     "setName": "Social Wasps",
     "level": "3",
     "tags": [
-      "insects",
       "hymenoptera",
       "wasps"
     ],
@@ -5960,7 +5490,6 @@
     "setName": "Ants and Ant Mimics",
     "level": "2",
     "tags": [
-      "insects",
       "hymenoptera",
       "ants",
       "spiders",
@@ -5987,7 +5516,6 @@
     "setName": "Ant Subfamilies",
     "level": "2",
     "tags": [
-      "insects",
       "hymenoptera",
       "ants"
     ],
@@ -6012,7 +5540,6 @@
     "setName": "Primitive Ants",
     "level": "2",
     "tags": [
-      "insects",
       "hymenoptera",
       "ants"
     ],
@@ -6032,7 +5559,6 @@
     "setName": "Diverse Ant Groups",
     "level": "2",
     "tags": [
-      "insects",
       "hymenoptera",
       "ants"
     ],
@@ -6057,7 +5583,6 @@
     "setName": "Stinging Ants",
     "level": "2",
     "tags": [
-      "insects",
       "hymenoptera",
       "ants"
     ],
@@ -6082,7 +5607,6 @@
     "setName": "Primitive and Stinging Ants",
     "level": "3",
     "tags": [
-      "insects",
       "hymenoptera",
       "ants"
     ],
@@ -6102,7 +5626,6 @@
     "setName": "Invasive Ants",
     "level": "2",
     "tags": [
-      "insects",
       "hymenoptera",
       "ants"
     ],
@@ -6123,7 +5646,6 @@
     "setName": "Hoverflies and Wasps",
     "level": "1",
     "tags": [
-      "insects",
       "hymenoptera",
       "wasps",
       "diptera",
@@ -6150,7 +5672,6 @@
     "setName": "Large Beetles",
     "level": "1",
     "tags": [
-      "insects",
       "beetles"
     ],
     "taxa": [
@@ -6170,7 +5691,6 @@
     "setName": "Ladybugs",
     "level": "2",
     "tags": [
-      "insects",
       "beetles",
       "ladybugs"
     ],
@@ -6192,7 +5712,6 @@
     "setName": "Tiger Beetles",
     "level": "2",
     "tags": [
-      "insects",
       "beetles"
     ],
     "taxa": [
@@ -6212,7 +5731,6 @@
     "setName": "Longhorn Beetles",
     "level": "3",
     "tags": [
-      "insects",
       "beetles"
     ],
     "taxa": [
@@ -6232,7 +5750,6 @@
     "setName": "Chafer Beetles",
     "level": "3",
     "tags": [
-      "insects",
       "beetles"
     ],
     "taxa": [
@@ -6252,7 +5769,6 @@
     "setName": "Bark Beetles",
     "level": "3",
     "tags": [
-      "insects",
       "beetles"
     ],
     "taxa": [
@@ -6272,7 +5788,6 @@
     "setName": "Two-spot Ladybugs",
     "level": "2",
     "tags": [
-      "insects",
       "beetles",
       "ladybugs"
     ],
@@ -6293,7 +5808,6 @@
     "setName": "Spotted Ladybugs",
     "level": "2",
     "tags": [
-      "insects",
       "beetles",
       "ladybugs"
     ],
@@ -6314,7 +5828,6 @@
     "setName": "Variegated Ladybugs",
     "level": "2",
     "tags": [
-      "insects",
       "beetles",
       "ladybugs"
     ],
@@ -6336,7 +5849,6 @@
     "setName": "Eyed Ladybugs",
     "level": "2",
     "tags": [
-      "insects",
       "beetles",
       "ladybugs"
     ],
@@ -6358,7 +5870,6 @@
     "setName": "Eleven-spot Ladybugs",
     "level": "2",
     "tags": [
-      "insects",
       "beetles",
       "ladybugs"
     ],
@@ -6379,7 +5890,6 @@
     "setName": "Cream-spot Ladybugs",
     "level": "3",
     "tags": [
-      "insects",
       "beetles",
       "ladybugs"
     ],
@@ -6400,7 +5910,6 @@
     "setName": "Orange Ladybugs",
     "level": "3",
     "tags": [
-      "insects",
       "beetles",
       "ladybugs"
     ],
@@ -6421,7 +5930,6 @@
     "setName": "Kidney-spot Ladybugs",
     "level": "2",
     "tags": [
-      "insects",
       "beetles",
       "ladybugs"
     ],
@@ -6442,7 +5950,6 @@
     "setName": "Pine Ladybugs",
     "level": "2",
     "tags": [
-      "insects",
       "beetles",
       "ladybugs"
     ],
@@ -6463,7 +5970,6 @@
     "setName": "24-spot Ladybugs",
     "level": "2",
     "tags": [
-      "insects",
       "beetles",
       "ladybugs"
     ],
@@ -6484,7 +5990,6 @@
     "setName": "Water Ladybugs",
     "level": "2",
     "tags": [
-      "insects",
       "beetles",
       "ladybugs"
     ],
@@ -6505,7 +6010,6 @@
     "setName": "Cream-streaked Ladybugs",
     "level": "2",
     "tags": [
-      "insects",
       "beetles",
       "ladybugs"
     ],
@@ -6525,7 +6029,6 @@
     "setName": "Striped Ladybugs",
     "level": "2",
     "tags": [
-      "insects",
       "beetles",
       "ladybugs"
     ],
@@ -6546,7 +6049,6 @@
     "setName": "Convergent Ladybugs",
     "level": "2",
     "tags": [
-      "insects",
       "beetles",
       "ladybugs"
     ],
@@ -6567,7 +6069,6 @@
     "setName": "Hieroglyphic Ladybugs",
     "level": "2",
     "tags": [
-      "insects",
       "beetles",
       "ladybugs"
     ],
@@ -6588,7 +6089,6 @@
     "setName": "Asian Ladybugs",
     "level": "2",
     "tags": [
-      "insects",
       "beetles",
       "ladybugs"
     ],
@@ -6609,7 +6109,6 @@
     "setName": "Large Mantids",
     "level": "3",
     "tags": [
-      "insects",
       "mantids"
     ],
     "taxa": [
@@ -6629,7 +6128,6 @@
     "setName": "Conehead Mantids",
     "level": "3",
     "tags": [
-      "insects",
       "mantids"
     ],
     "taxa": [
@@ -6650,7 +6148,6 @@
     "setName": "Mediterranean Mantids",
     "level": "3",
     "tags": [
-      "insects",
       "mantids"
     ],
     "taxa": [
@@ -6669,7 +6166,6 @@
     "setName": "Giant Mantids",
     "level": "3",
     "tags": [
-      "insects",
       "mantids"
     ],
     "taxa": [
@@ -6686,7 +6182,6 @@
     "setName": "Asian Mantids",
     "level": "2",
     "tags": [
-      "insects",
       "mantids"
     ],
     "taxa": [
@@ -6705,7 +6200,6 @@
     "setName": "Field Crickets",
     "level": "3",
     "tags": [
-      "insects",
       "orthoptera"
     ],
     "taxa": [
@@ -6725,7 +6219,6 @@
     "setName": "Great Green Bush-crickets",
     "level": "3",
     "tags": [
-      "insects",
       "orthoptera"
     ],
     "taxa": [
@@ -6745,7 +6238,6 @@
     "setName": "Sickle Bush-crickets",
     "level": "3",
     "tags": [
-      "insects",
       "orthoptera"
     ],
     "taxa": [
@@ -6765,7 +6257,6 @@
     "setName": "Cone-headed Grasshoppers",
     "level": "2",
     "tags": [
-      "insects",
       "orthoptera"
     ],
     "taxa": [
@@ -6785,7 +6276,6 @@
     "setName": "Oak Bush-crickets",
     "level": "3",
     "tags": [
-      "insects",
       "orthoptera"
     ],
     "taxa": [
@@ -6804,7 +6294,6 @@
     "setName": "Grasshoppers and Crickets",
     "level": "2",
     "tags": [
-      "insects",
       "orthoptera"
     ],
     "taxa": [
@@ -6828,7 +6317,6 @@
     "setName": "Katydids and Grasshoppers",
     "level": "2",
     "tags": [
-      "insects",
       "orthoptera"
     ],
     "taxa": [
@@ -6852,7 +6340,6 @@
     "setName": "Earwigs",
     "level": "3",
     "tags": [
-      "insects",
       "dermaptera"
     ],
     "taxa": [
@@ -6871,7 +6358,6 @@
     "setName": "Demoiselle Damselflies",
     "level": "2",
     "tags": [
-      "insects",
       "dragonflies"
     ],
     "taxa": [
@@ -6891,7 +6377,6 @@
     "setName": "Hawker Dragonflies",
     "level": "3",
     "tags": [
-      "insects",
       "dragonflies"
     ],
     "taxa": [
@@ -6911,7 +6396,6 @@
     "setName": "Darter Dragonflies",
     "level": "3",
     "tags": [
-      "insects",
       "dragonflies"
     ],
     "taxa": [
@@ -6931,7 +6415,6 @@
     "setName": "Broad-bodied Dragonflies",
     "level": "2",
     "tags": [
-      "insects",
       "dragonflies"
     ],
     "taxa": [
@@ -6951,7 +6434,6 @@
     "setName": "Emperor Dragonflies",
     "level": "3",
     "tags": [
-      "insects",
       "dragonflies"
     ],
     "taxa": [
@@ -6972,7 +6454,6 @@
     "setName": "Golden-ringed Dragonflies",
     "level": "3",
     "tags": [
-      "insects",
       "dragonflies"
     ],
     "taxa": [
@@ -6992,7 +6473,6 @@
     "setName": "Club-tailed Dragonflies",
     "level": "3",
     "tags": [
-      "insects",
       "dragonflies"
     ],
     "taxa": [
@@ -7012,7 +6492,6 @@
     "setName": "Skimmer Dragonflies",
     "level": "2",
     "tags": [
-      "insects",
       "dragonflies"
     ],
     "taxa": [
@@ -7032,7 +6511,6 @@
     "setName": "Whiteface Dragonflies",
     "level": "3",
     "tags": [
-      "insects",
       "dragonflies"
     ],
     "taxa": [
@@ -7052,7 +6530,6 @@
     "setName": "Emerald Dragonflies",
     "level": "3",
     "tags": [
-      "insects",
       "dragonflies"
     ],
     "taxa": [
@@ -7072,7 +6549,6 @@
     "setName": "Red Damselflies",
     "level": "3",
     "tags": [
-      "insects",
       "dragonflies"
     ],
     "taxa": [
@@ -7091,7 +6567,6 @@
     "setName": "Blue-tailed Damselflies",
     "level": "3",
     "tags": [
-      "insects",
       "dragonflies"
     ],
     "taxa": [
@@ -7112,7 +6587,6 @@
     "setName": "Azure Damselflies",
     "level": "3",
     "tags": [
-      "insects",
       "dragonflies"
     ],
     "taxa": [
@@ -7132,7 +6606,6 @@
     "setName": "Common Blue Damselflies",
     "level": "3",
     "tags": [
-      "insects",
       "dragonflies"
     ],
     "taxa": [
@@ -7152,7 +6625,6 @@
     "setName": "Emerald Damselflies",
     "level": "3",
     "tags": [
-      "insects",
       "dragonflies"
     ],
     "taxa": [
@@ -7172,7 +6644,6 @@
     "setName": "White-legged Damselflies",
     "level": "3",
     "tags": [
-      "insects",
       "dragonflies"
     ],
     "taxa": [
@@ -7191,7 +6662,6 @@
     "setName": "Red-eyed Damselflies",
     "level": "3",
     "tags": [
-      "insects",
       "dragonflies"
     ],
     "taxa": [
@@ -7211,7 +6681,6 @@
     "setName": "Dragonflies and Damselflies",
     "level": "2",
     "tags": [
-      "insects",
       "dragonflies"
     ],
     "taxa": [
@@ -7235,7 +6704,6 @@
     "setName": "Dragonflies vs Owlflies",
     "level": "1",
     "tags": [
-      "insects",
       "dragonflies",
       "owlflies"
     ],
@@ -7260,7 +6728,6 @@
     "setName": "Stick Insects",
     "level": "3",
     "tags": [
-      "insects",
       "phasmids"
     ],
     "taxa": [
@@ -7279,7 +6746,6 @@
     "setName": "European Stick Insects",
     "level": "3",
     "tags": [
-      "insects",
       "phasmids"
     ],
     "taxa": [
@@ -7298,7 +6764,6 @@
     "setName": "Laboratory Stick Insects",
     "level": "3",
     "tags": [
-      "insects",
       "phasmids"
     ],
     "taxa": [
@@ -7317,7 +6782,6 @@
     "setName": "European Cicadas",
     "level": "3",
     "tags": [
-      "insects",
       "hemiptera",
       "cicadas"
     ],
@@ -7338,7 +6802,6 @@
     "setName": "Red Cicadas",
     "level": "2",
     "tags": [
-      "insects",
       "hemiptera",
       "cicadas"
     ],
@@ -7358,7 +6821,6 @@
     "setName": "Mountain Cicadas",
     "level": "3",
     "tags": [
-      "insects",
       "hemiptera",
       "cicadas"
     ],
@@ -7378,7 +6840,6 @@
     "setName": "Leafhoppers and Planthoppers",
     "level": "2",
     "tags": [
-      "insects",
       "hemiptera"
     ],
     "taxa": [
@@ -7402,7 +6863,6 @@
     "setName": "Hemipteran Suborders",
     "level": "2",
     "tags": [
-      "insects",
       "hemiptera"
     ],
     "taxa": [
@@ -7426,7 +6886,6 @@
     "setName": "Asian Stink Bugs",
     "level": "2",
     "tags": [
-      "insects",
       "hemiptera",
       "true bugs"
     ],
@@ -7446,7 +6905,6 @@
     "setName": "Invasive Stink Bugs",
     "level": "2",
     "tags": [
-      "insects",
       "hemiptera",
       "true bugs"
     ],
@@ -7467,7 +6925,6 @@
     "setName": "Cotton Stainers",
     "level": "2",
     "tags": [
-      "insects",
       "hemiptera",
       "true bugs"
     ],
@@ -7487,7 +6944,6 @@
     "setName": "Scale Insects",
     "level": "2",
     "tags": [
-      "insects",
       "hemiptera"
     ],
     "taxa": [
@@ -7511,7 +6967,6 @@
     "setName": "Cottony Cushion Scales",
     "level": "2",
     "tags": [
-      "insects",
       "hemiptera"
     ],
     "taxa": [
@@ -7531,7 +6986,6 @@
     "setName": "Lacewings",
     "level": "2",
     "tags": [
-      "insects",
       "neuroptera"
     ],
     "taxa": [
@@ -7551,7 +7005,6 @@
     "setName": "Scorpionflies",
     "level": "3",
     "tags": [
-      "insects",
       "mecoptera"
     ],
     "taxa": [
@@ -7570,7 +7023,6 @@
     "setName": "Robber Flies",
     "level": "2",
     "tags": [
-      "insects",
       "diptera"
     ],
     "taxa": [
@@ -7590,7 +7042,6 @@
     "setName": "Forest Robber Flies",
     "level": "2",
     "tags": [
-      "insects",
       "diptera"
     ],
     "taxa": [
@@ -7610,7 +7061,6 @@
     "setName": "Large Robber Flies",
     "level": "2",
     "tags": [
-      "insects",
       "diptera"
     ],
     "taxa": [
@@ -7629,7 +7079,6 @@
     "setName": "Common Robber Flies",
     "level": "3",
     "tags": [
-      "insects",
       "diptera"
     ],
     "taxa": [
@@ -7648,7 +7097,6 @@
     "setName": "March Flies",
     "level": "3",
     "tags": [
-      "insects",
       "diptera"
     ],
     "taxa": [
@@ -7667,7 +7115,6 @@
     "setName": "Fly Suborders",
     "level": "2",
     "tags": [
-      "insects",
       "diptera"
     ],
     "taxa": [
@@ -7691,7 +7138,6 @@
     "setName": "Fly Infraorders",
     "level": "2",
     "tags": [
-      "insects",
       "diptera"
     ],
     "taxa": [
@@ -7715,7 +7161,6 @@
     "setName": "Fly Sections",
     "level": "3",
     "tags": [
-      "insects",
       "diptera"
     ],
     "taxa": [
@@ -12081,7 +11526,6 @@
     "tags": [
       "mimicry",
       "spiders",
-      "moths",
       "lepidoptera"
     ],
     "taxa": [
@@ -12124,7 +11568,6 @@
     "setName": "Bugs vs Beetles",
     "level": "1",
     "tags": [
-      "insects",
       "beetles",
       "true bugs"
     ],
@@ -12173,7 +11616,6 @@
     "setName": "Wasps vs Flies",
     "level": "1",
     "tags": [
-      "insects",
       "hymenoptera",
       "diptera"
     ],
@@ -12222,8 +11664,6 @@
     "setName": "Marsupials vs. Placental Mammals",
     "level": "2",
     "tags": [
-      "mammals",
-      "marsupials"
     ],
     "taxa": [
       "848319",
@@ -12243,7 +11683,6 @@
     "setName": "Beaver vs Marmot",
     "level": "2",
     "tags": [
-      "mammals",
       "rodents"
     ],
     "taxa": [
@@ -12264,7 +11703,6 @@
     "setName": "Beaver vs Otter",
     "level": "2",
     "tags": [
-      "mammals",
       "rodents"
     ],
     "taxa": [
@@ -12285,7 +11723,6 @@
     "setName": "Otters vs Seals",
     "level": "1",
     "tags": [
-      "mammals"
     ],
     "taxa": [
       "526556",
@@ -12308,7 +11745,6 @@
     "setName": "Sirenians vs Seals",
     "level": "2",
     "tags": [
-      "mammals"
     ],
     "taxa": [
       "46306",
@@ -12489,7 +11925,6 @@
     "setName": "Hedgehogs vs Echidna",
     "level": "1",
     "tags": [
-      "mammals",
       "monotremes"
     ],
     "taxa": [
@@ -12607,7 +12042,6 @@
     "setName": "Skunks",
     "level": "3",
     "tags": [
-      "mammals",
       "carnivores"
     ],
     "taxa": [
@@ -12626,7 +12060,6 @@
     "setName": "Skunk vs Ratel",
     "level": "1",
     "tags": [
-      "mammals",
       "carnivores"
     ],
     "taxa": [
@@ -12643,7 +12076,6 @@
     "setName": "Skunk vs Honey badger",
     "level": "1",
     "tags": [
-      "mammals",
       "carnivores"
     ],
     "taxa": [
@@ -12660,7 +12092,6 @@
     "setName": "Badger vs Ratel",
     "level": "1",
     "tags": [
-      "mammals",
       "carnivores"
     ],
     "taxa": [
@@ -12679,7 +12110,6 @@
     "setName": "Wolverine vs Fisher",
     "level": "2",
     "tags": [
-      "mammals",
       "carnivores"
     ],
     "taxa": [
@@ -12783,9 +12213,7 @@
     "setName": "Butterfly mimicry",
     "level": "3",
     "tags": [
-      "insects",
       "lepidoptera",
-      "butterflies",
       "mimicry"
     ],
     "taxa": [
@@ -12823,7 +12251,6 @@
     "setName": "Turkey vulture mimic",
     "level": "1",
     "tags": [
-      "birds",
       "mimicry"
     ],
     "taxa": [
@@ -12843,7 +12270,6 @@
     "setName": "Friarbird mimic",
     "level": "2",
     "tags": [
-      "birds",
       "mimicry"
     ],
     "taxa": [
@@ -12862,7 +12288,6 @@
     "setName": "Real and fake hawks",
     "level": "1",
     "tags": [
-      "birds",
       "mimicry"
     ],
     "taxa": [
@@ -12922,7 +12347,6 @@
     "setName": "Bristletails vs Silverfishes",
     "level": "2",
     "tags": [
-      "insects"
     ],
     "taxa": [
       "461443",
@@ -12937,7 +12361,6 @@
     "setName": "Winged Insects vs Bristletails",
     "level": "1",
     "tags": [
-      "insects"
     ],
     "taxa": [
       "184884",
@@ -12952,7 +12375,6 @@
     "setName": "Winged Insects vs Silverfishes",
     "level": "1",
     "tags": [
-      "insects"
     ],
     "taxa": [
       "184884",
@@ -12967,7 +12389,6 @@
     "setName": "Entognathans vs Insects",
     "level": "1",
     "tags": [
-      "insects"
     ],
     "taxa": [
       "243773",
@@ -13072,7 +12493,6 @@
     "setName": "Cockroaches vs Beetles",
     "level": "2",
     "tags": [
-      "insects",
       "beetles"
     ],
     "taxa": [
@@ -13088,7 +12508,6 @@
     "setName": "Penguins vs Auks",
     "level": "2",
     "tags": [
-      "birds"
     ],
     "taxa": [
       "67564",
@@ -13103,7 +12522,6 @@
     "setName": "Armadillos vs Pangolins",
     "level": "1",
     "tags": [
-      "mammals"
     ],
     "taxa": [
       "67639",
@@ -13118,7 +12536,6 @@
     "setName": "Black Flies vs Biting Midges",
     "level": "3",
     "tags": [
-      "insects",
       "diptera"
     ],
     "taxa": [
@@ -13171,8 +12588,6 @@
     "setName": "Nose-leaf and other bats",
     "level": "2",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       446956,
@@ -13191,8 +12606,6 @@
     "setName": "Fruit bats and other bats",
     "level": "1",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       1317244,
@@ -13211,8 +12624,6 @@
     "setName": "Koalas vs Wombats",
     "level": "1",
     "tags": [
-      "mammals",
-      "marsupials"
     ],
     "taxa": [
       42981,
@@ -13230,7 +12641,6 @@
     "setName": "Emus vs Ostrichs",
     "level": "2",
     "tags": [
-      "birds"
     ],
     "taxa": [
       20503,
@@ -13246,7 +12656,6 @@
     "setName": "Emus vs Rheas",
     "level": "2",
     "tags": [
-      "birds"
     ],
     "taxa": [
       20503,
@@ -13262,7 +12671,6 @@
     "setName": "Rheas vs Ostrichs",
     "level": "2",
     "tags": [
-      "birds"
     ],
     "taxa": [
       20511,
@@ -13278,7 +12686,6 @@
     "setName": "Cassowaries vs Turkeys",
     "level": "1",
     "tags": [
-      "birds"
     ],
     "taxa": [
       20498,
@@ -13294,7 +12701,6 @@
     "setName": "Dormice vs Mice",
     "level": "2",
     "tags": [
-      "mammals",
       "rodents"
     ],
     "taxa": [
@@ -13315,7 +12721,6 @@
     "setName": "Colugos vs Flying squirrels",
     "level": "2",
     "tags": [
-      "mammals",
       "rodents"
     ],
     "taxa": [
@@ -13334,7 +12739,6 @@
     "setName": "Flying squirrels vs. Wrist-wringed gliders",
     "level": "2",
     "tags": [
-      "mammals",
       "rodents"
     ],
     "taxa": [
@@ -13351,8 +12755,6 @@
     "setName": "Colugos vs Fruit bats",
     "level": "2",
     "tags": [
-      "mammals",
-      "bats"
     ],
     "taxa": [
       42536,
@@ -13368,8 +12770,6 @@
     "setName": "Dromedaries vs Bactrian camels",
     "level": "1",
     "tags": [
-      "mammals",
-      "ungulates"
     ],
     "taxa": [
       81542,
@@ -13388,8 +12788,6 @@
     "setName": "Guanacos vs Vicu\u00f1as",
     "level": "2",
     "tags": [
-      "mammals",
-      "ungulates"
     ],
     "taxa": [
       42240,
@@ -13407,8 +12805,6 @@
     "setName": "Llamas vs Alpacas",
     "level": "2",
     "tags": [
-      "mammals",
-      "ungulates"
     ],
     "taxa": [
       121026,
@@ -13426,8 +12822,6 @@
     "setName": "Guanacos vs Llamas",
     "level": "3",
     "tags": [
-      "mammals",
-      "ungulates"
     ],
     "taxa": [
       42240,
@@ -13445,8 +12839,6 @@
     "setName": "Vicu\u00f1as vs Alpacas",
     "level": "3",
     "tags": [
-      "mammals",
-      "ungulates"
     ],
     "taxa": [
       42236,
@@ -13464,7 +12856,6 @@
     "setName": "Spotted dove vs Rock pigeon",
     "level": "1",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -13483,7 +12874,6 @@
     "setName": "Red vs Eurasian collared-dove",
     "level": "2",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -13502,7 +12892,6 @@
     "setName": "Eurasian collared-dove vs Oriental turtle-dove",
     "level": "1",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -13522,7 +12911,6 @@
     "setName": "Oriental turtle-dove vs Spotted dove",
     "level": "2",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -13541,7 +12929,6 @@
     "setName": "Spotted dove vs Asian emerald dove",
     "level": "1",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -13560,7 +12947,6 @@
     "setName": "Light-vented vs Red-whiskered bulbul",
     "level": "2",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -13579,7 +12965,6 @@
     "setName": "Red-whiskered vs Sooty-headed bulbul",
     "level": "1",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -13598,7 +12983,6 @@
     "setName": "Sooty-headed vs Chestnut bulbul",
     "level": "1",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -13617,7 +13001,6 @@
     "setName": "White wagtail vs Black-collared starling",
     "level": "1",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -13636,7 +13019,6 @@
     "setName": "White vs Grey wagtail",
     "level": "1",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -13656,7 +13038,6 @@
     "setName": "Oriental magpie-robin vs Oriental magpie",
     "level": "3",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -13675,7 +13056,6 @@
     "setName": "Red-billed blue magpie vs Oriental magpie-robin",
     "level": "1",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -13694,7 +13074,6 @@
     "setName": "Crested vs Common myna",
     "level": "1",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -13713,7 +13092,6 @@
     "setName": "White-shouldered vs Red-billed starling",
     "level": "1",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -13732,7 +13110,6 @@
     "setName": "White-cheeked vs Red-billed starling",
     "level": "2",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -13751,7 +13128,6 @@
     "setName": "Crested vs Great myna",
     "level": "3",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -13770,7 +13146,6 @@
     "setName": "Black kite vs Crestent serpent-eagle",
     "level": "2",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -13789,7 +13164,6 @@
     "setName": "Eastern buzzard vs Black kite",
     "level": "2",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -13809,7 +13183,6 @@
     "setName": "Black-crowned night heron vs Chinese pond heron",
     "level": "2",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -13828,7 +13201,6 @@
     "setName": "Black-crowned night heron vs Striated heron",
     "level": "3",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -13851,7 +13223,6 @@
     "setName": "Laughingthrushes",
     "level": "1",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -13870,7 +13241,6 @@
     "setName": "Laughingthrush vs Bulbul",
     "level": "1",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -13889,7 +13259,6 @@
     "setName": "Great vs Medium egret",
     "level": "3",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -13909,7 +13278,6 @@
     "setName": "Little vs Great egret",
     "level": "3",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -13931,7 +13299,6 @@
     "setName": "Grey heron vs Great egret",
     "level": "1",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -13952,7 +13319,6 @@
     "setName": "Little egret vs Pacific reef heron",
     "level": "1",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -13972,7 +13338,6 @@
     "setName": "White-eyes",
     "level": "3",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -13991,7 +13356,6 @@
     "setName": "Tailorbird vs White-eye",
     "level": "2",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -14010,7 +13374,6 @@
     "setName": "Whistling-thrushes",
     "level": "3",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -14029,7 +13392,6 @@
     "setName": "Whistling-thrush vs Blackbird",
     "level": "1",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -14048,7 +13410,6 @@
     "setName": "Black-winged stilt vs Little egret",
     "level": "1",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -14069,7 +13430,6 @@
     "setName": "Japanese vs Cinereous tit",
     "level": "2",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -14088,7 +13448,6 @@
     "setName": "Tit vs Laughingthrush",
     "level": "1",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -14107,7 +13466,6 @@
     "setName": "Asian koel vs Crested myna",
     "level": "1",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -14126,8 +13484,6 @@
     "setName": "Red-based jezebel vs Red-breast jezebel",
     "level": "2",
     "tags": [
-      "insects",
-      "moths",
       "hk"
     ],
     "taxa": [
@@ -14146,8 +13502,6 @@
     "setName": "Red-based jezebel vs Painted jezebel",
     "level": "1",
     "tags": [
-      "insects",
-      "moths",
       "hk"
     ],
     "taxa": [
@@ -14166,8 +13520,6 @@
     "setName": "Red-based jezebel vs Red ring skirt",
     "level": "1",
     "tags": [
-      "insects",
-      "moths",
       "hk"
     ],
     "taxa": [
@@ -14186,8 +13538,6 @@
     "setName": "Common mormon swallowtail vs Spangle swallowtail",
     "level": "2",
     "tags": [
-      "insects",
-      "butterflies",
       "hk"
     ],
     "taxa": [
@@ -14206,8 +13556,6 @@
     "setName": "Common mormon swallowtail vs Red helen swallowtail",
     "level": "3",
     "tags": [
-      "insects",
-      "butterflies",
       "hk"
     ],
     "taxa": [
@@ -14226,8 +13574,6 @@
     "setName": "Lime swallowtail vs Chinese yellow swallowtail",
     "level": "3",
     "tags": [
-      "insects",
-      "butterflies",
       "hk"
     ],
     "taxa": [
@@ -14246,8 +13592,6 @@
     "setName": "Dark-branded bushbrown vs South china bushbrown",
     "level": "2",
     "tags": [
-      "insects",
-      "moths",
       "hk"
     ],
     "taxa": [
@@ -14266,8 +13610,6 @@
     "setName": "Pale grass blue vs Dark grass blue",
     "level": "3",
     "tags": [
-      "insects",
-      "butterflies",
       "hk"
     ],
     "taxa": [
@@ -14286,8 +13628,6 @@
     "setName": "Pale grass blue vs Tiny grass blue",
     "level": "3",
     "tags": [
-      "insects",
-      "butterflies",
       "hk"
     ],
     "taxa": [
@@ -14306,8 +13646,6 @@
     "setName": "Plains cupid vs Gram blue",
     "level": "3",
     "tags": [
-      "insects",
-      "butterflies",
       "hk"
     ],
     "taxa": [
@@ -14326,8 +13664,6 @@
     "setName": "Pale grass blue vs Lesser grass blue",
     "level": "3",
     "tags": [
-      "insects",
-      "butterflies",
       "hk"
     ],
     "taxa": [
@@ -14346,8 +13682,6 @@
     "setName": "Dark-branded bushbrown vs Burmese bushbrown",
     "level": "3",
     "tags": [
-      "insects",
-      "moths",
       "hk"
     ],
     "taxa": [
@@ -14366,8 +13700,6 @@
     "setName": "Dark-branded bushbrown vs Common five-ring",
     "level": "2",
     "tags": [
-      "insects",
-      "moths",
       "hk"
     ],
     "taxa": [
@@ -14386,7 +13718,6 @@
     "setName": "Barn Swallow vs Pacific swallow",
     "level": "3",
     "tags": [
-      "birds"
     ],
     "taxa": [
       11901,
@@ -14404,7 +13735,6 @@
     "setName": "Fork-tailed sunbird vs Swinhoe's white-eye",
     "level": "1",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -14423,7 +13753,6 @@
     "setName": "Black-faced spoonbill vs Little egret",
     "level": "1",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -14442,7 +13771,6 @@
     "setName": "Brown shrike vs Long-tailed shrike",
     "level": "2",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -14493,7 +13821,6 @@
     "setName": "Eastern cattle-egret vs Medium egret",
     "level": "1",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -14512,7 +13839,6 @@
     "setName": "Yellow-crested cockatoo vs Tanimbar corella",
     "level": "1",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -14531,7 +13857,6 @@
     "setName": "White-throated kingfisher vs Common Kingfisher",
     "level": "1",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -14550,7 +13875,6 @@
     "setName": "Scarlet minivet vs Gray-chinned minivet",
     "level": "2",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -14569,7 +13893,6 @@
     "setName": "Collared crow vs Oriental magpie",
     "level": "1",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -14588,7 +13911,6 @@
     "setName": "Greater necklaced laughingthrush vs Masked laughingthrush",
     "level": "1",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -14607,7 +13929,6 @@
     "setName": "Greater necklaced laughingthrush vs Lesser necklaced laughingthrush",
     "level": "3",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -14626,7 +13947,6 @@
     "setName": "Amur stonechat vs Siberian stonechat",
     "level": "3",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -14645,7 +13965,6 @@
     "setName": "Wood sandpiper vs Green sandpiper",
     "level": "3",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -14665,7 +13984,6 @@
     "setName": "Wood sandpiper vs Common sandpiper",
     "level": "3",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -14685,7 +14003,6 @@
     "setName": "Green-winged teal vs Northern shoveler",
     "level": "2",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
@@ -14707,7 +14024,6 @@
     "setName": "Yellow-bellied prinia vs Plain prinia",
     "level": "2",
     "tags": [
-      "birds",
       "hk"
     ],
     "taxa": [
