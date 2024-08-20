@@ -136,7 +136,7 @@ const phylogenySelector = {
             filteredPairs.forEach(pair => {
                 pair.taxa.forEach(taxonId => {
                     let currentTaxon = hierarchyObj.getTaxonById(taxonId);
-                    while (currentTaxon) {
+                    while (currentTaxon && currentTaxon.id !== "48460") { // Stop at Life, don't include it
                         taxonCounts[currentTaxon.id] = (taxonCounts[currentTaxon.id] || 0) + 1;
                         currentTaxon = hierarchyObj.getTaxonById(currentTaxon.parentId);
                     }
@@ -156,9 +156,13 @@ const phylogenySelector = {
             scientificName.className = 'phylogeny-cloud__scientific-name';
             tagElement.appendChild(scientificName);
 
-            if (taxon.vernacularName) {
+            if (taxon.vernacularName && taxon.vernacularName !== "N/a") {
                 const vernacularName = document.createElement('span');
-                vernacularName.textContent = taxon.vernacularName;
+                let truncatedName = taxon.vernacularName.slice(0, 20);
+                if (taxon.vernacularName.length > 20) {
+                    truncatedName += '...';
+                }
+                vernacularName.textContent = truncatedName;
                 vernacularName.className = 'phylogeny-cloud__vernacular-name';
                 tagElement.appendChild(vernacularName);
             }
