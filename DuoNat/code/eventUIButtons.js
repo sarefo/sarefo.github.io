@@ -8,7 +8,7 @@ import ui from './ui.js';
 import url from './url.js';
 import utils from './utils.js';
 
-const mainButtonEvents = {
+const eventUIButtons = {
     initialize() {
         this.initializeMainMenuListeners();
         this.initializeLevelIndicator();
@@ -113,5 +113,5 @@ const mainButtonEvents = {
     }
 };
 
-export default mainButtonEvents;
-// don't call directly; API is in mainEventHandler
+export default eventUIButtons;
+// don't call directly; API is in eventMain

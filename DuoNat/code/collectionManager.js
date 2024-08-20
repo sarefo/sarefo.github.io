@@ -5,7 +5,7 @@ import filtering from './filtering.js';
 import gameLogic from './gameLogic.js';
 import gameSetup from './gameSetup.js';
 import logger from './logger.js';
-import mainEventHandler from './mainEventHandler.js';
+import eventMain from './eventMain.js';
 import phylogenySelector from './phylogenySelector.js';
 import rangeSelector from './rangeSelector.js';
 import setManager from './setManager.js';
@@ -416,7 +416,7 @@ const collectionManager = {
         openCollectionManagerDialog() {
             dialogManager.openDialog('collection-dialog');
             collectionManager.taxonList.updateTaxonList(true);  // Pass true for initial load
-            mainEventHandler.resetScrollPosition();
+            eventMain.resetScrollPosition();
         },
 
         focusSearchInput() {
@@ -427,7 +427,7 @@ const collectionManager = {
                     if (searchInput.value.length > 0) {
                         searchInput.select();
                     }
-                    mainEventHandler.setFocusLost(false);
+                    eventMain.setFocusLost(false);
                 }, 100);
             }
         },

@@ -9,7 +9,7 @@ import logger from './logger.js';
 import keyboardShortcuts from './keyboardShortcuts.js';
 import searchHandler from './searchHandler.js';
 import swipeHandler from './swipeHandler.js';
-import mainButtonEvents from './mainButtonEvents.js';
+import eventUIButtons from './eventUIButtons.js';
 
 const eventInitializer = {
     initialize() {
@@ -47,8 +47,8 @@ const eventInitializer = {
 
     initializeThumbsEvents() {
         ['1', '2'].forEach(index => {
-            this.safeAddEventListener(`thumbs-up-${index}`, 'click', () => mainButtonEvents.handleThumbsUp(index));
-            this.safeAddEventListener(`thumbs-down-${index}`, 'click', () => mainButtonEvents.handleThumbsDown(index));
+            this.safeAddEventListener(`thumbs-up-${index}`, 'click', () => eventUIButtons.handleThumbsUp(index));
+            this.safeAddEventListener(`thumbs-down-${index}`, 'click', () => eventUIButtons.handleThumbsDown(index));
         });
     },
 
@@ -144,4 +144,4 @@ const eventInitializer = {
 };
 
 export default eventInitializer;
-// don't call directly; API is in mainEventHandler
+// don't call directly; API is in eventMain

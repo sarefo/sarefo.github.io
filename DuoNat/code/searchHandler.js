@@ -159,4 +159,4 @@ const searchHandler = {
 };
 
 export default searchHandler;
-// don't call directly; API is in mainEventHandler
+// don't call directly; API is in eventMain

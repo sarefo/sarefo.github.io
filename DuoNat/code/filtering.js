@@ -1,7 +1,7 @@
 // reset here
 import api from './api.js';
 import logger from './logger.js';
-import mainEventHandler from './mainEventHandler.js';
+import eventMain from './eventMain.js';
 import rangeSelector from './rangeSelector.js';
 import state from './state.js';
 import tagSelector from './tagSelector.js';
@@ -33,7 +33,7 @@ const filtering = {
         tagSelector.clearAllTags();
         rangeSelector.setSelectedRanges([]);
 
-        mainEventHandler.resetSearch();
+        eventMain.resetSearch();
     },
 
     getAvailableTaxonIds(filteredPairs) {

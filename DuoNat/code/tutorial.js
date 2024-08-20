@@ -1,5 +1,5 @@
 import config from './config.js';
-import mainEventHandler from './mainEventHandler.js';
+import eventMain from './eventMain.js';
 import ui from './ui.js';
 
 const tutorial = {
@@ -126,8 +126,8 @@ const tutorial = {
         });
         document.querySelectorAll('.tutorial-highlight').forEach(el => el.remove());
 
-        mainEventHandler.enableKeyboardShortcuts();
-        mainEventHandler.enableSwipe();
+        eventMain.enableKeyboardShortcuts();
+        eventMain.enableSwipe();
     },
 
     disableInteractions() {
@@ -136,7 +136,7 @@ const tutorial = {
             el.disabled = true;
             el.style.pointerEvents = 'none';
         });
-        mainEventHandler.disableSwipe();
+        eventMain.disableSwipe();
 
         const levelIndicator = document.getElementById('level-indicator');
         if (levelIndicator) {
@@ -146,7 +146,7 @@ const tutorial = {
         // Disable all buttons and clickable elements
         document.body.style.pointerEvents = 'none';
 
-        mainEventHandler.disableKeyboardShortcuts();
+        eventMain.disableKeyboardShortcuts();
 
         // Enable pointer events only for the tutorial close button
         const closeButton = document.querySelector('.tutorial-close-button');
@@ -166,7 +166,7 @@ const tutorial = {
             el.disabled = false;
             el.style.pointerEvents = 'auto';
         });
-        mainEventHandler.enableSwipe();
+        eventMain.enableSwipe();
         tutorial.enableMenu();
 
         const levelIndicator = document.getElementById('level-indicator');
@@ -176,7 +176,7 @@ const tutorial = {
 
         document.body.style.pointerEvents = 'auto';
 
-        mainEventHandler.enableKeyboardShortcuts();
+        eventMain.enableKeyboardShortcuts();
     },
 
     /*

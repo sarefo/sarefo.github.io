@@ -4,7 +4,7 @@ import dialogManager from './dialogManager.js';
 import gameSetup from './gameSetup.js';
 import hintSystem from './hintSystem.js';
 import logger, { LogLevel } from './logger.js';
-import mainEventHandler from './mainEventHandler.js';
+import eventMain from './eventMain.js';
 import rangeSelector from './rangeSelector.js';
 import state from './state.js';
 import tagSelector from './tagSelector.js';
@@ -21,7 +21,7 @@ const initializeLogger = () => {
 async function initializeComponents() {
     await api.taxonomy.loadTaxonomyHierarchy();
     await dialogManager.initialize();
-    mainEventHandler.initialize();
+    eventMain.initialize();
     hintSystem.initialize();
     ui.initialize();
     tagSelector.initialize();

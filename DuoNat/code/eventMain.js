@@ -1,14 +1,14 @@
 import eventInitializer from './eventInitializer.js';
 import keyboardShortcuts from './keyboardShortcuts.js';
-import mainButtonEvents from './mainButtonEvents.js';
+import eventUIButtons from './eventUIButtons.js';
 import searchHandler from './searchHandler.js';
 import swipeHandler from './swipeHandler.js';
 
-const mainEventHandler = {
+const eventMain = {
     initialize() {
         eventInitializer.initialize();
         keyboardShortcuts.initialize();
-        mainButtonEvents.initialize();
+        eventUIButtons.initialize();
         searchHandler.initialize();
         swipeHandler.initialize();
 
@@ -25,4 +25,4 @@ const mainEventHandler = {
     resetSearch: searchHandler.resetSearch,
 };
 
-export default mainEventHandler;
+export default eventMain;

@@ -6,7 +6,7 @@ import gameSetup from './gameSetup.js';
 import gameLogic from './gameLogic.js';
 import infoDialog from './infoDialog.js';
 import logger from './logger.js';
-import mainEventHandler from './mainEventHandler.js';
+import eventMain from './eventMain.js';
 import phylogenySelector from './phylogenySelector.js';
 import reporting from './reporting.js';
 import setManager from './setManager.js';
@@ -185,7 +185,7 @@ const dialogManager = {
 
             if (dialogManager.openDialogs.length === 1) {
                 //dialogManager.utils.disableMainEventHandlers();
-                mainEventHandler.disableKeyboardShortcuts();
+                eventMain.disableKeyboardShortcuts();
             }
 
             if (dialogId === 'help-dialog') {
@@ -217,7 +217,7 @@ const dialogManager = {
 
                 if (dialogManager.openDialogs.length === 0) {
                     //dialogManager.utils.enableMainEventHandlers();
-                    mainEventHandler.enableKeyboardShortcuts();
+                    eventMain.enableKeyboardShortcuts();
                 }
             } else {
                 logger.error(`Dialog element not found or not an HTMLDialogElement: ${dialogId}`);
@@ -230,7 +230,7 @@ const dialogManager = {
 
         closeAllDialogs() {
             [...dialogManager.openDialogs].forEach(dialogId => dialogManager.core.closeDialog(dialogId));
-            mainEventHandler.enableKeyboardShortcuts();
+            eventMain.enableKeyboardShortcuts();
         },
 
         getOpenDialogs() {
@@ -290,7 +290,7 @@ const dialogManager = {
                     element.onclick = null;
                 }
             });
-            mainEventHandler.disableKeyboardShortcuts();
+            eventMain.disableKeyboardShortcuts();
         },
 
         enableMainEventHandlers() {
@@ -300,7 +300,7 @@ const dialogManager = {
                     element.onclick = handler;
                 }
             });
-            mainEventHandler.enableKeyboardShortcuts();
+            eventMain.enableKeyboardShortcuts();
 
             dialogManager.mainEventHandlers = {};
         },

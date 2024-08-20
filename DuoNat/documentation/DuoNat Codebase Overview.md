@@ -23,14 +23,14 @@ The DuoNat project is primarily written in JavaScript, with HTML and CSS for the
 ### UI and Interaction
 
 + `ui.js`: Manages user interface updates and interactions.
-+ `mainEventHandler.js`: Handles user input and events. Calls the following modules:
++ `eventMain.js`: Handles user input and events. Calls the following modules:
 ++ `eventInitializer.js`: Initializing general events
-++ `hintSystem.js`: Setting up the hints on the game screen
+++ `eventUIButtons.js`: Main screen button functionality
 ++ `keyboardShortcuts.js`: Global keyboard shortcuts
 ++ `searchHandler.js`: Search functionality
 ++ `swipeHandler.js`: Swiping on the main screen
-++ `uiInteractions.js`: Main screen button functionality
 + `dragAndDrop.js`: Implements drag-and-drop functionality.
++ `hintSystem.js`: Setting up the hints on the game screen
 + `dialogManager.js`: Manages dialogs in the application.
 
 ### Component-Specific Modules
