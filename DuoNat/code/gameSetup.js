@@ -68,6 +68,12 @@ const gameSetup = {
 
         async selectNewPair(urlParams) {
             state.resetShownHints();
+            let nextSelectedPair = state.getNextSelectedPair();
+            if (nextSelectedPair) {
+                state.setNextSelectedPair(null);
+                logger.debug('Using next selected pair:', nextSelectedPair);
+                return nextSelectedPair;
+            }
             return await gameSetup.initialization.selectPairFromFilters(urlParams);
         },
 

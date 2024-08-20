@@ -118,7 +118,15 @@ const collectionManager = {
 
             try {
                 const taxonPairs = await api.taxonomy.fetchTaxonPairs();
-                const filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
+                let filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
+
+                const currentPair = this.getCurrentActivePair();
+                if (currentPair) {
+                    // Remove the current pair from the filtered list if it exists
+                    filteredPairs = filteredPairs.filter(pair => pair.setID !== currentPair.setID);
+                    // Add the current pair to the beginning of the list
+                    filteredPairs.unshift(currentPair);
+                }
 
                 // Update UI
                 await collectionManager.taxonList.renderTaxonPairList(filteredPairs);
@@ -299,6 +307,18 @@ const collectionManager = {
                 logger.error("Error in onFiltersChanged:", error);
             }
         },
+
+        getCurrentActivePair() {
+            const currentPair = state.getCurrentTaxonImageCollection()?.pair;
+            return currentPair ? {
+                taxonNames: [currentPair.taxon1, currentPair.taxon2],
+                setName: currentPair.setName,
+                tags: currentPair.tags,
+                setID: currentPair.setID,
+                level: currentPair.level
+            } : null;
+        },
+
     },
 
     ui: {
