@@ -8,6 +8,8 @@ import state from './state.js';
 //import utils from './utils.js';
 
 const phylogenySelector = {
+    //currentActiveNodeId: null,
+
     initialize() {
         const doneButton = document.getElementById('phylogeny-done-button');
         if (doneButton) {
@@ -55,6 +57,7 @@ const phylogenySelector = {
         scaleValue(value, fromMin, fromMax, toMin, toMax) {
                 return ((value - fromMin) / (fromMax - fromMin)) * (toMax - toMin) + toMin;
         },
+
         async renderCloudView() {
             const cloudContainer = document.getElementById('phylogeny-cloud-container');
             cloudContainer.innerHTML = '<div class="loading-indicator">Loading cloud view...</div>';
@@ -66,12 +69,21 @@ const phylogenySelector = {
                 const availableTaxonIds = filtering.getAvailableTaxonIds(filteredPairs);
 
                 const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
-                const taxonCounts = this.getTaxonCounts(filteredPairs, hierarchyObj);
+                let taxonCounts = this.getTaxonCounts(filteredPairs, hierarchyObj);
+
+                // Filter taxa based on the active node
+                const currentActiveNodeId = state.getCurrentActiveNodeId();
+                if (currentActiveNodeId) {
+                    const activeNode = hierarchyObj.getTaxonById(currentActiveNodeId);
+                    if (activeNode) {
+                        taxonCounts = this.filterTaxaByActiveNode(taxonCounts, activeNode, hierarchyObj);
+                    }
+                }
 
                 // Sort taxa by count and take top 40
                 const topTaxa = Object.entries(taxonCounts)
                     .sort((a, b) => b[1] - a[1])
-                    .slice(0, 40);
+                    .slice(0, 20);
 
                 cloudContainer.innerHTML = '';
                 topTaxa.forEach(([taxonId, count]) => {
@@ -85,6 +97,38 @@ const phylogenySelector = {
                 logger.error('Error creating cloud view:', error);
                 cloudContainer.innerHTML = `<p>Error creating cloud view: ${error.message}. Please try again.</p>`;
             }
+        },
+
+        filterTaxaByActiveNode(taxonCounts, activeNode, hierarchyObj) {
+            const filteredCounts = {};
+            const activeNodeDescendants = new Set();
+
+            // Helper function to get all descendants of a node
+            const getDescendants = (nodeId) => {
+                const descendants = [];
+                const stack = [nodeId];
+                while (stack.length > 0) {
+                    const currentId = stack.pop();
+                    descendants.push(currentId);
+                    const children = Array.from(hierarchyObj.nodes.values())
+                        .filter(node => node.parentId === currentId)
+                        .map(node => node.id);
+                    stack.push(...children);
+                }
+                return descendants;
+            };
+
+            // Get all descendants of the active node
+            getDescendants(activeNode.id).forEach(id => activeNodeDescendants.add(id));
+
+            // Filter taxon counts to only include descendants of the active node
+            for (const [taxonId, count] of Object.entries(taxonCounts)) {
+                if (activeNodeDescendants.has(taxonId) && taxonId !== activeNode.id) {
+                    filteredCounts[taxonId] = count;
+                }
+            }
+
+            return filteredCounts;
         },
 
         getTaxonCounts(filteredPairs, hierarchyObj) {
@@ -112,6 +156,7 @@ const phylogenySelector = {
         },
 
         handleCloudTagClick(taxonId) {
+            state.setCurrentActiveNodeId(taxonId); // Update the active node
             phylogenySelector.toggleView(); // Switch back to graph view
             const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
             const pathToRoot = phylogenySelector.getPathToRoot(hierarchyObj, taxonId);
@@ -124,6 +169,7 @@ const phylogenySelector = {
                 }
             }, 0);
         },
+
     },
 
 

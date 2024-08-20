@@ -91,6 +91,7 @@ let gameState = {
 
     currentSetID: null,
     phylogenyId: null,
+    currentActiveNodeId: null,
 
     preloadedTaxonImageCollection: null,
     currentTaxonImageCollection: null,
@@ -266,6 +267,11 @@ const publicAPI = {
     getPhylogenyId: () => gameState.phylogenyId,
     setPhylogenyId: (nodeId) => {
         updateGameState('phylogenyId', nodeId);
+    },
+
+    getCurrentActiveNodeId: () => gameState.currentActiveNodeId,
+    setCurrentActiveNodeId: (nodeId) => {
+        updateGameState('currentActiveNodeId', nodeId);
     },
 
     getCurrentRound: () => ({ ...gameState.currentRound }),

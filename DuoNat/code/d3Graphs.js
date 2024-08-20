@@ -1,5 +1,6 @@
 import logger from './logger.js';
 import phylogenySelector from './phylogenySelector.js';
+import state from './state.js';
 
 let d3;
 
@@ -532,6 +533,7 @@ class RadialTree extends BaseTree {
         if (this.onNodeSelect) {
             this.onNodeSelect(this.activeNode.data.id);
         }
+        state.setCurrentActiveNodeId(this.activeNode.data.id);
     }
 
     _traverseChildren() {
@@ -564,6 +566,7 @@ class RadialTree extends BaseTree {
     setActiveNode(nodeId) {
         console.log(`Attempting to set active node: ${nodeId}`);
         this.logTreeStructure(); // Log the tree structure for debugging
+        state.setCurrentActiveNodeId(nodeId);
 
         const node = this.root.descendants().find(d => d.data.id === nodeId);
         if (node) {
