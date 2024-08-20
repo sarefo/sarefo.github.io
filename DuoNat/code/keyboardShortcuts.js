@@ -29,6 +29,7 @@ const keyboardShortcuts = {
     },
 
     handleKeyboardShortcuts(event) {
+        console.log("Keyboard event:", event.key, "isEnabled:", this.isEnabled, "shouldIgnore:", this.shouldIgnoreKeyboardShortcut(event), "dialogOpen:", dialogManager.isAnyDialogOpen());
         if (!this.isEnabled || this.shouldIgnoreKeyboardShortcut(event) || dialogManager.isAnyDialogOpen()) return;
 
         logger.debug("Keyboard shortcut triggered");
