@@ -1,18 +1,16 @@
 import eventInitializer from './eventInitializer.js';
-import hintSystem from './hintSystem.js';
 import keyboardShortcuts from './keyboardShortcuts.js';
+import mainButtonEvents from './mainButtonEvents.js';
 import searchHandler from './searchHandler.js';
 import swipeHandler from './swipeHandler.js';
-import uiInteractions from './uiInteractions.js';
 
 const mainEventHandler = {
     initialize() {
-        swipeHandler.initialize();
-        keyboardShortcuts.initialize();
-        uiInteractions.initialize();
-        searchHandler.initialize();
-        hintSystem.initialize();
         eventInitializer.initialize();
+        keyboardShortcuts.initialize();
+        mainButtonEvents.initialize();
+        searchHandler.initialize();
+        swipeHandler.initialize();
 
     },
 

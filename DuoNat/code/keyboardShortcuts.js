@@ -158,3 +158,4 @@ const keyboardShortcuts = {
 };
 
 export default keyboardShortcuts;
+// don't call directly; API is in mainEventHandler

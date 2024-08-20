@@ -2,6 +2,7 @@ import api from './api.js';
 import config from './config.js';
 import dialogManager from './dialogManager.js';
 import gameSetup from './gameSetup.js';
+import hintSystem from './hintSystem.js';
 import logger, { LogLevel } from './logger.js';
 import mainEventHandler from './mainEventHandler.js';
 import rangeSelector from './rangeSelector.js';
@@ -21,6 +22,7 @@ async function initializeComponents() {
     await api.taxonomy.loadTaxonomyHierarchy();
     await dialogManager.initialize();
     mainEventHandler.initialize();
+    hintSystem.initialize();
     ui.initialize();
     tagSelector.initialize();
     rangeSelector.initialize();
