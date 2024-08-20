@@ -7,6 +7,7 @@ import infoDialog from './infoDialog.js';
 import logger from './logger.js';
 import mainEventHandler from './mainEventHandler.js';
 import phylogenySelector from './phylogenySelector.js';
+import reporting from './reporting.js';
 import setManager from './setManager.js';
 import state from './state.js';
 import tagSelector from './tagSelector.js';
@@ -35,133 +36,20 @@ const dialogManager = {
     eventListeners: {},
     openDialogs: [],
 
-    events: {
-        on(eventName, callback) {
-            if (!dialogManager.eventListeners[eventName]) {
-                dialogManager.eventListeners[eventName] = [];
-            }
-            dialogManager.eventListeners[eventName].push(callback);
-        },
-
-        off(eventName, callback) {
-            if (dialogManager.eventListeners[eventName]) {
-                dialogManager.eventListeners[eventName] = dialogManager.eventListeners[eventName].filter(
-                    listener => listener !== callback
-                );
-            }
-        },
-
-        emit(eventName, data) {
-            if (dialogManager.eventListeners[eventName]) {
-                dialogManager.eventListeners[eventName].forEach(callback => callback(data));
-            } else {
-                //logger.debug(`No listeners for event: ${eventName}`);
-            }
-        },
-    },
-
-    core: {
-
-        openDialog: function (dialogId) {
-            if (tutorial.isActive() && dialogId !== 'help-dialog') {
-                return;
-            }
-
-            const dialog = document.getElementById(dialogId);
-            if (!dialog) {
-                return;
-            }
-
-            if (dialog.open) {
-                return;
-            }
-
-            dialog.showModal();
-            dialogManager.openDialogs.push(dialogId);
-
-            dialog.removeEventListener('keydown', dialogManager.core.handleDialogKeydown);
-            dialog.addEventListener('keydown', dialogManager.core.handleDialogKeydown.bind(this));
-
-            if (dialogManager.openDialogs.length === 1) {
-                dialogManager.utils.disableMainEventHandlers();
-                mainEventHandler.disableKeyboardShortcuts();
-            }
-
-            if (dialogId === 'help-dialog') {
-                dialogManager.initialization.updateKeyboardShortcutsButton();
-            }
-
-            if (dialogId === 'collection-dialog') {
-                //                collectionManager.openCollectionManagerDialog();
-                collectionManager.setupSelectSetDialog();
-            }
-
-            if (dialogId === 'report-dialog') {
-                dialogManager.reporting.resetReportDialog();
-            }
-        },
-
-        closeDialog: function (dialogId) {
-            const index = dialogManager.openDialogs.indexOf(dialogId);
-            if (index === -1) {
-                return;
-            }
-
-            const dialog = document.getElementById(dialogId);
-            if (dialog && dialog instanceof HTMLDialogElement) {
-                dialog.close();
-                dialogManager.openDialogs.splice(index, 1);
-
-                dialog.removeEventListener('keydown', dialogManager.core.handleDialogKeydown);
-
-                if (dialogManager.openDialogs.length === 0) {
-                    dialogManager.utils.enableMainEventHandlers();
-                    mainEventHandler.enableKeyboardShortcuts();
-                }
-            } else {
-                logger.error(`Dialog element not found or not an HTMLDialogElement: ${dialogId}`);
-            }
-        },
-
-        isAnyDialogOpen() {
-            return dialogManager.openDialogs.length > 0;
-        },
-
-        closeAllDialogs() {
-            [...dialogManager.openDialogs].forEach(dialogId => dialogManager.core.closeDialog(dialogId));
-            mainEventHandler.enableKeyboardShortcuts();
-        },
-
-        handleDialogKeydown(event) {
-            if (event.key === 'Escape') {
-                event.preventDefault();
-                event.stopPropagation();
-                const topDialogId = dialogManager.openDialogs[dialogManager.openDialogs.length - 1];
-                if (topDialogId === 'tag-dialog') {
-                    tagSelector.closeTagSelector();
-                } else {
-                    dialogManager.core.closeDialog(topDialogId);
-                }
-            }
-        },
-
-        handleDialogClose(dialog) {
-            // Any additional cleanup needed when a dialog is closed
-            ui.resetUIState();
-        },
-    },
-
     initialization: {
         async initializeDialogs() {
             await dialogManager.initialization.loadDialogs();
-            dialogManager.initialization.initializeHelpDialog();
             dialogManager.initialization.initializeKeyboardShortcutsDialog();
+
             infoDialog.initialize();
             collectionManager.initialize();
             phylogenySelector.initialize();
+            reporting.initialize();
             testingDialog.initialize();
-            dialogManager.initialization.initializeReportDialog();
+
+            dialogManager.initialization.initializeHelpDialog();
             dialogManager.initialization.initializeEnterSetDialog();
+
             dialogManager.initialization.initializeCloseButtons();
             dialogManager.initialization.initializeDialogCloseEvent();
         },
@@ -229,37 +117,6 @@ const dialogManager = {
             }
         },
 
-        initializeReportDialog: function () {
-            const reportDialog = document.getElementById('report-dialog');
-            if (!reportDialog) {
-                logger.error('Report dialog not found in the DOM');
-                return;
-            }
-
-            const reportForm = reportDialog.querySelector('#report-dialog__form');
-            if (!reportForm) {
-                logger.error('Report form not found in the report dialog');
-                return;
-            }
-
-            const reportOptions = reportForm.querySelectorAll('input[name="report-type"]');
-            const reportDetails = reportDialog.querySelector('#report-dialog__details');
-
-            if (!reportDetails) {
-                logger.error('Report details textarea not found in the report dialog');
-                return;
-            }
-
-            reportOptions.forEach(option => {
-                option.addEventListener('change', () => {
-                    const isOtherChecked = Array.from(reportOptions).some(opt => opt.value === 'other' && opt.checked);
-                    reportDetails.style.display = isOtherChecked ? 'block' : 'none';
-                });
-            });
-
-            reportForm.addEventListener('submit', dialogManager.handlers.handleReportSubmit.bind(this));
-        },
-
         initializeEnterSetDialog() {
             logger.debug('Initializing Enter Set Dialog');
             const dialog = document.getElementById('enter-set-dialog');
@@ -299,6 +156,122 @@ const dialogManager = {
             const response = await fetch(`./html/dialogs/${id}.html`);
             const html = await response.text();
             document.body.insertAdjacentHTML('beforeend', html);
+        },
+    },
+
+    events: {
+        on(eventName, callback) {
+            if (!dialogManager.eventListeners[eventName]) {
+                dialogManager.eventListeners[eventName] = [];
+            }
+            dialogManager.eventListeners[eventName].push(callback);
+        },
+
+        off(eventName, callback) {
+            if (dialogManager.eventListeners[eventName]) {
+                dialogManager.eventListeners[eventName] = dialogManager.eventListeners[eventName].filter(
+                    listener => listener !== callback
+                );
+            }
+        },
+
+        emit(eventName, data) {
+            if (dialogManager.eventListeners[eventName]) {
+                dialogManager.eventListeners[eventName].forEach(callback => callback(data));
+            } else {
+                //logger.debug(`No listeners for event: ${eventName}`);
+            }
+        },
+    },
+
+    core: {
+
+        openDialog: function (dialogId) {
+            if (tutorial.isActive() && dialogId !== 'help-dialog') {
+                return;
+            }
+
+            const dialog = document.getElementById(dialogId);
+            if (!dialog) {
+                return;
+            }
+
+            if (dialog.open) {
+                return;
+            }
+
+            dialog.showModal();
+            dialogManager.openDialogs.push(dialogId);
+
+            dialog.removeEventListener('keydown', dialogManager.core.handleDialogKeydown);
+            dialog.addEventListener('keydown', dialogManager.core.handleDialogKeydown.bind(this));
+
+            if (dialogManager.openDialogs.length === 1) {
+                //dialogManager.utils.disableMainEventHandlers();
+                mainEventHandler.disableKeyboardShortcuts();
+            }
+
+            if (dialogId === 'help-dialog') {
+                dialogManager.initialization.updateKeyboardShortcutsButton();
+            }
+
+            if (dialogId === 'collection-dialog') {
+                //                collectionManager.openCollectionManagerDialog();
+                collectionManager.setupSelectSetDialog();
+            }
+
+            if (dialogId === 'report-dialog') {
+                reporting.resetReportDialog();
+            }
+        },
+
+        closeDialog: function (dialogId) {
+            const index = dialogManager.openDialogs.indexOf(dialogId);
+            if (index === -1) {
+                return;
+            }
+
+            const dialog = document.getElementById(dialogId);
+            if (dialog && dialog instanceof HTMLDialogElement) {
+                dialog.close();
+                dialogManager.openDialogs.splice(index, 1);
+
+                dialog.removeEventListener('keydown', dialogManager.core.handleDialogKeydown);
+
+                if (dialogManager.openDialogs.length === 0) {
+                    //dialogManager.utils.enableMainEventHandlers();
+                    mainEventHandler.enableKeyboardShortcuts();
+                }
+            } else {
+                logger.error(`Dialog element not found or not an HTMLDialogElement: ${dialogId}`);
+            }
+        },
+
+        isAnyDialogOpen() {
+            return dialogManager.openDialogs.length > 0;
+        },
+
+        closeAllDialogs() {
+            [...dialogManager.openDialogs].forEach(dialogId => dialogManager.core.closeDialog(dialogId));
+            mainEventHandler.enableKeyboardShortcuts();
+        },
+
+        handleDialogKeydown(event) {
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                event.stopPropagation();
+                const topDialogId = dialogManager.openDialogs[dialogManager.openDialogs.length - 1];
+                if (topDialogId === 'tag-dialog') {
+                    tagSelector.closeTagSelector();
+                } else {
+                    dialogManager.core.closeDialog(topDialogId);
+                }
+            }
+        },
+
+        handleDialogClose(dialog) {
+            // Any additional cleanup needed when a dialog is closed
+            ui.resetUIState();
         },
     },
 
@@ -447,105 +420,6 @@ const dialogManager = {
             dialogManager.dialogMessage.textContent = 'An error occurred. Please try again.';
         },
 
-        handleReportSubmit: function (event) {
-            event.preventDefault();
-            const reportData = dialogManager.handlers.collectReportData(event.target);
-            if (!dialogManager.handlers.validateReportData(reportData)) return;
-
-            const emailBody = dialogManager.handlers.constructEmailBody(reportData);
-            //dialogManager.reporting.sendReportEmail(emailBody);
-            dialogManager.handlers.showReportConfirmation(emailBody);
-        },
-
-        collectReportData(form) {
-            const formData = new FormData(form);
-            return {
-                reportTypes: formData.getAll('report-type'),
-                details: document.getElementById('report-dialog__details').value
-            };
-        },
-
-        validateReportData(reportData) {
-            if (reportData.reportTypes.length === 0) {
-                ui.showPopupNotification("Please select at least one issue to report.", 3000);
-                return false;
-            }
-            return true;
-        },
-
-        constructEmailBody(reportData) {
-            let emailBody = "Report Types:\n";
-            reportData.reportTypes.forEach(type => {
-                emailBody += `- ${dialogManager.reporting.getReportTypeText(type)}\n`;
-            });
-
-            if (reportData.details.trim() !== '') {
-                emailBody += `\nAdditional Details:\n${reportData.details}\n`;
-            }
-
-            emailBody += dialogManager.handlers.getGameStateInfo();
-            emailBody += dialogManager.handlers.getCurrentImageURLs();
-
-            return emailBody;
-        },
-
-        showReportConfirmation: function (emailBody) {
-            const dialog = document.getElementById('report-dialog');
-            const form = dialog.querySelector('#report-dialog__form');
-            const confirmationMessage = document.createElement('div');
-            confirmationMessage.className = 'report-dialog__confirmation';
-            confirmationMessage.innerHTML = `
-                <p>Attempting to open your email client. If it doesn't open, the report has been copied to your clipboard. Please paste it into your email client and send to sarefo@gmail.com</p>
-                <p>Report content:</p>
-                <pre>${emailBody}</pre>
-            `;
-
-            // Replace the form with the confirmation message
-            form.replaceWith(confirmationMessage);
-
-            // Copy to clipboard and open mailto link
-            dialogManager.reporting.copyToClipboard(emailBody);
-            const mailtoLink = `mailto:sarefo@gmail.com?subject=${encodeURIComponent("DuoNat Report")}&body=${encodeURIComponent(emailBody)}`;
-            window.location.href = mailtoLink;
-
-            // Add a close button
-            const closeButton = document.createElement('button');
-            closeButton.textContent = 'Close';
-            closeButton.className = 'dialog-button report-dialog__close-button';
-            closeButton.addEventListener('click', () => {
-                dialogManager.core.closeDialog('report-dialog');
-                dialogManager.reporting.resetReportDialog();
-            });
-            confirmationMessage.appendChild(closeButton);
-        },
-
-        getGameStateInfo() {
-            let info = "\nGame State Information:\n";
-            let currentTaxonImageCollection = state.getCurrentTaxonImageCollection();
-            if (currentTaxonImageCollection && currentTaxonImageCollection.pair) {
-                const pair = currentTaxonImageCollection.pair;
-                info += `Taxon 1: ${pair.taxon1}\n`;
-                info += `Taxon 2: ${pair.taxon2}\n`;
-                info += `Set Name: ${pair.setName || 'N/A'}\n`;
-                info += `Set ID: ${pair.setID || 'N/A'}\n`;
-                info += `Level: ${pair.level || 'N/A'}\n`;
-            } else {
-                info += "Current taxon pair information not available\n";
-            }
-            return info;
-        },
-
-        getCurrentImageURLs() {
-            let urls = "\nCurrent Image URLs:\n";
-            const currentRound = state.getCurrentRound();
-            if (currentRound) {
-                urls += `Image 1 URL: ${currentRound.imageOneURL || 'N/A'}\n`;
-                urls += `Image 2 URL: ${currentRound.imageTwoURL || 'N/A'}\n`;
-            } else {
-                urls += "Current image URLs not available\n";
-            }
-            return urls;
-        },
 
         async handleEnterSetSubmit(taxon1, taxon2, messageElement, submitButton) {
             logger.debug(`Handling submit for taxa: ${taxon1}, ${taxon2}`);
@@ -648,111 +522,13 @@ const dialogManager = {
         },
     },
 
-    reporting: {
-
-        sendReportEmail: function (body) {
-            const subject = "DuoNat Report";
-            const recipient = "sarefo@gmail.com";
-            const fullEmailContent = `To: ${recipient}\nSubject: ${subject}\n\n${body}`;
-
-            // Copy to clipboard
-            dialogManager.reporting.copyToClipboard(fullEmailContent);
-
-            // Attempt to open email client
-            const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            window.location.href = mailtoLink;
-
-            // Show popup notification
-            ui.showPopupNotification(
-                "Attempting to open your email client. If it doesn't open, the report has been copied to your clipboard. Please paste it into your email client and send to " + recipient,
-                6000  // Increased duration to 6 seconds for longer message
-            );
-
-            // Log the actions for debugging
-            logger.debug('Report content copied to clipboard and mailto link opened');
-
-            // Close the report dialog and reset it
-            setTimeout(() => {
-                dialogManager.core.closeDialog('report-dialog');
-                dialogManager.reporting.resetReportDialog();
-            }, 6000);  // Increased to match notification duration
-        },
-
-        copyToClipboard: function (text) {
-            if (navigator.clipboard && window.isSecureContext) {
-                // Use the Clipboard API when available
-                navigator.clipboard.writeText(text).then(() => {
-                    logger.debug('Text successfully copied to clipboard using Clipboard API');
-                }).catch(err => {
-                    logger.error('Failed to copy text using Clipboard API: ', err);
-                    dialogManager.reporting.fallbackCopyToClipboard(text);
-                });
-            } else {
-                // Fallback to older method
-                dialogManager.reporting.fallbackCopyToClipboard(text);
-            }
-        },
-
-        fallbackCopyToClipboard: function (text) {
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.position = "fixed";  // Avoid scrolling to bottom
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            try {
-                const successful = document.execCommand('copy');
-                const msg = successful ? 'successful' : 'unsuccessful';
-                logger.debug('Fallback: Copying text command was ' + msg);
-            } catch (err) {
-                logger.error('Fallback: Unable to copy to clipboard', err);
-                ui.showPopupNotification("Failed to copy report. Please try again.");
-            }
-            document.body.removeChild(textArea);
-        },
-
-        resetReportDialog: function () {
-            const dialog = document.getElementById('report-dialog');
-            const form = document.getElementById('report-dialog__form');
-            const confirmationMessage = dialog.querySelector('.report-dialog__confirmation');
-
-            if (confirmationMessage) {
-                confirmationMessage.replaceWith(form);
-            }
-
-            const reportOptions = form.querySelectorAll('input[name="report-type"]');
-            const reportDetails = document.getElementById('report-dialog__details');
-
-            // Uncheck all checkboxes
-            reportOptions.forEach(option => {
-                option.checked = false;
-            });
-
-            // Clear the details textarea
-            reportDetails.value = '';
-
-            // Hide the details textarea
-            reportDetails.style.display = 'none';
-        },
-
-        getReportTypeText: function (type) {
-            const typeMap = {
-                'wrong-image': 'The image is wrong',
-                'wrong-range': 'Range is wrong',
-                'wrong-name': 'Name is wrong',
-                'wrong-info': 'Info is wrong',
-                'other': 'Something else is wrong'
-            };
-            return typeMap[type] || type;
-        },
-    },
 
     async initialize() {
         dialogManager.bindAllMethods();
         await dialogManager.initialization.initializeDialogs();
 
         dialogManager.handlers.handleNewPairSubmit = dialogManager.handlers.handleNewPairSubmit.bind(dialogManager.handlers);
-        dialogManager.handlers.handleReportSubmit = dialogManager.handlers.handleReportSubmit.bind(dialogManager.handlers);
+        reporting.handleReportSubmit = reporting.handleReportSubmit.bind(reporting);
         dialogManager.handlers.handleEnterSetSubmit = dialogManager.handlers.handleEnterSetSubmit.bind(dialogManager.handlers);
     },
 

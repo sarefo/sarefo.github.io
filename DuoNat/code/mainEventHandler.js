@@ -13,9 +13,9 @@ const mainEventHandler = {
         searchHandler.initialize();
         hintSystem.initialize();
         eventInitializer.initialize();
+
     },
 
-    // TODO seems redundant, try to fix later
     enableKeyboardShortcuts: keyboardShortcuts.enable,
     disableKeyboardShortcuts: keyboardShortcuts.disable,
 

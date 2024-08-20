@@ -14,30 +14,28 @@ import ui from './ui.js';
 import url from './url.js';
 import utils from './utils.js';
 
-let shortcutsEnabled = true;
-
 const keyboardShortcuts = {
+    isEnabled: true,
     debouncedKeyboardHandler: null,
 
     initialize() {
         this.initializeSelectSetDialogShortcuts();
         this.initializeKeyboardShortcutsButton();
         this.debouncedKeyboardHandler = utils.ui.debounce(
-            this._handleKeyboardShortcuts.bind(this),
+            this.handleKeyboardShortcuts.bind(this),
             300
         );
         document.addEventListener('keydown', this.debouncedKeyboardHandler);
     },
 
-    _handleKeyboardShortcuts(event) {
-        if (!shortcutsEnabled || this.shouldIgnoreKeyboardShortcut(event)) return;
+    handleKeyboardShortcuts(event) {
+        if (!this.isEnabled || this.shouldIgnoreKeyboardShortcut(event) || dialogManager.isAnyDialogOpen()) return;
 
-        logger.debug("shortcuts enabled");
+        logger.debug("Keyboard shortcut triggered");
         const shortcutActions = {
             'arrowleft': this.handleArrowLeft.bind(this),
             'arrowup': () => this.moveTileToDropZone('left', 'upper'),
             'arrowdown': () => this.moveTileToDropZone('left', 'lower'),
-            //            'c': ui.showTaxonPairList,
             'c': collectionManager.openCollectionManagerDialog,
             'e': () => dialogManager.openDialog('enter-set-dialog'),
             'i': () => infoDialog.showInfoDialog(state.getObservationURL(1), 1),
@@ -62,13 +60,15 @@ const keyboardShortcuts = {
     },
 
     enable() {
-        document.addEventListener('keydown', this.debouncedKeyboardHandler);
-        shortcutsEnabled = true;
+        this.isEnabled = true;
     },
 
     disable() {
-        document.removeEventListener('keydown', this.debouncedKeyboardHandler);
-        shortcutsEnabled = false;
+        this.isEnabled = false;
+    },
+
+    shouldIgnoreKeyboardShortcut(event) {
+        return event.ctrlKey || event.altKey || event.metaKey || tutorial.isActive() || dialogManager.isAnyDialogOpen();
     },
 
     initializeKeyboardShortcutsButton() {
@@ -80,14 +80,7 @@ const keyboardShortcuts = {
             });
         }
     },
-
-    shouldIgnoreKeyboardShortcut(event) {
-        return event.ctrlKey || event.altKey || event.metaKey ||
-            tutorial.isActive() ||
-            dialogManager.isAnyDialogOpen();  // Ignore all shortcuts when any dialog is open
-    },
-
-    handleArrowLeft() {
+  handleArrowLeft() {
         if (!this.isLoadingNewPair) {
             this.isLoadingNewPair = true;
             gameLogic.loadNewRandomPair().finally(() => {
