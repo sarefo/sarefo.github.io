@@ -31,8 +31,17 @@ The DuoNat project is primarily written in JavaScript, with HTML and CSS for the
 ++ `swipeHandler.js`: Swiping on the main screen
 ++ `uiInteractions.js`: Main screen button functionality
 + `dragAndDrop.js`: Implements drag-and-drop functionality.
-+ `dialogManager.js`: Manages dialog boxes in the application.
++ `dialogManager.js`: Manages dialogs in the application.
 
+### Component-Specific Modules
+
++ `collectionManager.js` : Handles the collection manager dialog and its components.
++ `enterSet.js`: Code for the 'Enter new set' dialog.
++ `infoDialog.js` : Handles the info dialog and its components.
++ `tagSelector.js`: Manages the tag cloud feature.
++ `rangeSelector.js`: Handles geographical range selection.
++ `phylogenySelector.js` : Handles the phylogeny selection dialog.
++ `reporting.js`: Code for the reporting dialog.
 
 ### Data Management and API
 
@@ -53,14 +62,6 @@ The DuoNat project is primarily written in JavaScript, with HTML and CSS for the
 + `worldMap.js`: Handles rendering and interaction with world maps.
 + `ancestryViewer.js`: Visualizes taxonomic relationships between two active taxa.
 + `d3Graphs.js`: Creates D3.js-based graphs for data visualization.
-
-### Component-Specific Modules
-
-+ `collectionManager.js` : Handles the collection manager dialog and its components.
-+ `infoDialog.js` : Handles the info dialog and its components.
-+ `tagSelector.js`: Manages the tag cloud feature.
-+ `rangeSelector.js`: Handles geographical range selection.
-+ `phylogenySelector.js` : Handles the phylogeny selection dialog.
 
 ### Other
 + `testingDialog.js` : Testing dialog to check out things not ready for primetime.
