@@ -29,7 +29,7 @@ const phylogenySelector = {
 
         const toggleNamesCheckbox = document.getElementById('name-toggle');
         if (toggleNamesCheckbox) {
-            toggleNamesCheckbox.checked = !state.getShowTaxonomicNames();
+            toggleNamesCheckbox.checked = state.getShowTaxonomicNames();
             toggleNamesCheckbox.addEventListener('change', this.toggleNameDisplay.bind(this));
         }
 
