@@ -431,8 +431,11 @@ const phylogenySelector = {
 
     clearSelection() {
         state.setPhylogenyId(null);
-        logger.debug('Phylogeny filter cleared');
+        state.setCurrentActiveNodeId(null);
         this.updateGraph();
+        if (this.currentView === 'cloud') {
+            this.cloud.renderCloudView();
+        }
         collectionManager.updateFilterSummary();
         collectionManager.onFiltersChanged();
     },
