@@ -247,6 +247,7 @@ class RadialTree extends BaseTree {
             .force("link", this.d3.forceLink().id(d => d.data.id).distance(this.radius / 2))
             .force("charge", this.d3.forceManyBody().strength(-30))
             .force("collide", this.d3.forceCollide(30))
+            .force("radial", this.d3.forceRadial(d => d.depth * this.radius / 2).strength(0.8))
             .force("center", this.d3.forceCenter(0, 0));
     }
 
