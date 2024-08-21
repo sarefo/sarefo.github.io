@@ -9,6 +9,7 @@ import state from './state.js';
 
 const phylogenySelector = {
     //currentActiveNodeId: null,
+    showVernacularNames: false, // Default to showing taxonomic names
 
     initialize() {
         const doneButton = document.getElementById('phylogeny-done-button');
@@ -27,6 +28,12 @@ const phylogenySelector = {
         if (toggleViewButton) {
             toggleViewButton.addEventListener('click', this.toggleView.bind(this));
         }
+
+        const toggleNamesButton = document.getElementById('toggle-names-button');
+        if (toggleNamesButton) {
+            toggleNamesButton.addEventListener('click', this.toggleNameDisplay.bind(this));
+        }
+
 
         this.currentView = 'graph';
 
@@ -58,6 +65,13 @@ const phylogenySelector = {
                 this.updateGraph();
             }
         }
+    },
+
+    toggleNameDisplay() {
+        this.showVernacularNames = !this.showVernacularNames;
+        const toggleButton = document.getElementById('toggle-names-button');
+        toggleButton.textContent = this.showVernacularNames ? 'Show Taxonomic Names' : 'Show Vernacular Names';
+        this.updateGraph();
     },
 
     cloud: {
@@ -244,7 +258,7 @@ const phylogenySelector = {
             const currentPhylogenyId = state.getPhylogenyId();
 
             graphContainer.innerHTML = '';
-            const tree = await d3Graphs.createRadialTree(graphContainer, rootNode);
+            const tree = await d3Graphs.createRadialTree(graphContainer, rootNode, this.showVernacularNames);
 
             tree.onNodeSelect = (nodeId) => {
                 this.updateActiveTaxonDisplay(nodeId);
