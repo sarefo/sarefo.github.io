@@ -19,23 +19,28 @@
 
         <div class="phylogeny-dialog__controls">
 
-            <div class="view-toggle-container">
-                <input type="checkbox" id="view-toggle" class="view-toggle__checkbox">
-                <label for="view-toggle" class="view-toggle__label">
-                    <span class="view-toggle__option view-toggle__option--graph">Graph</span>
-                    <span class="view-toggle__slider"></span>
-                    <span class="view-toggle__option view-toggle__option--cloud">Cloud</span>
-                </label>
+            <div class="phylogeny-dialog__controls--toggles">
+                <div class="view-toggle-container">
+                    <input type="checkbox" id="view-toggle" class="view-toggle__checkbox">
+                    <label for="view-toggle" class="view-toggle__label">
+                        <span class="view-toggle__option view-toggle__option--graph">Graph</span>
+                        <span class="view-toggle__slider"></span>
+                        <span class="view-toggle__option view-toggle__option--cloud">Cloud</span>
+                    </label>
+                </div>
+
+                <div class="view-toggle-container">
+                    <input type="checkbox" id="name-toggle" class="view-toggle__checkbox">
+                    <label for="name-toggle" class="view-toggle__label">
+                        <span class="view-toggle__option view-toggle__option--common">Common</span>
+                        <span class="view-toggle__slider"></span>
+                        <span class="view-toggle__option view-toggle__option--taxa">Taxa</span>
+                    </label>
+                </div>
             </div>
-
-            <button id="phylogeny-clear-button" class="dialog-button">Go to top</button>
-
-            <div class="switch-container">
-                <label class="switch">
-                    <input type="checkbox" id="toggle-names-checkbox">
-                    <span class="slider round"></span>
-                </label>
-                <span class="switch-label">Show taxa</span>
+            <div class="phylogeny-dialog__controls--buttons">
+                <button id="phylogeny-clear-button" class="dialog-button">Go to top</button>
+                <button id="phylogeny-clear-filters-button" class="dialog-button">Clear filters</button>
             </div>
 
         </div>

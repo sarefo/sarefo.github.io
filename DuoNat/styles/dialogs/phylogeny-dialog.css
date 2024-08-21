@@ -31,14 +31,26 @@
 /* Controls */
 .phylogeny-dialog__controls {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     gap: 8px;
-    margin-top: 10px;
 }
 
-#phylogeny-clear-button {
+.phylogeny-dialog__controls--toggles,
+.phylogeny-dialog__controls--buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+}
+
+#phylogeny-clear-button,
+#phylogeny-clear-filters-button {
     background-color: var(--primary-counter-color);
+    height: 1.6em;
+    width:50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 #toggle-view-button {
@@ -47,7 +59,7 @@
 
 .phylogeny-dialog__message {
     color: var(--dark-neutral-color);
-    padding-bottom: 1px;
+    padding: 0.4em;
     font-weight: bold;
 }
 
@@ -58,7 +70,7 @@
 /* View toggle */
 .view-toggle-container {
     display: inline-block;
-    margin-right: 10px;
+    /*margin-right: 10px;*/
 }
 
 .view-toggle__checkbox {
@@ -70,8 +82,9 @@
     align-items: center;
     cursor: pointer;
     width: 160px;
-    padding: 4px;
-    border-radius: 20px;
+    padding: 2px 0;
+    border-radius: var(--border-radius);
+    font-size:0.95em;
     background-color: #e0e0e0;
     position: relative;
     transition: background-color 0.3s ease;
@@ -81,7 +94,7 @@
     z-index: 1;
     flex: 1;
     text-align: center;
-    padding: 5px 0;
+    padding: 3px 0;
     font-weight: bold;
     color: #888;
     transition: color 0.3s ease;
@@ -89,17 +102,20 @@
 
 .view-toggle__slider {
     position: absolute;
-    left: 4px;
+    /*left: 4px;
     top: 4px;
     width: calc(50% - 4px);
-    height: calc(100% - 8px);
-    border-radius: 16px;
+    height: calc(100% - 8px);*/
+        width: 50%;
+        height: 100%;
+    border-radius: var(--border-radius);
     background-color: #74ac00;
     transition: transform 0.3s ease;
 }
 
 .view-toggle__checkbox:checked + .view-toggle__label .view-toggle__slider {
     transform: translateX(calc(100% + 4px));
+    transform: translateX(100%);
 }
 
 .view-toggle__checkbox:checked + .view-toggle__label .view-toggle__option--cloud,
@@ -107,8 +123,13 @@
     color: #fff;
 }
 
+#name-toggle:checked + .view-toggle__label .view-toggle__option--taxa,
+#name-toggle:not(:checked) + .view-toggle__label .view-toggle__option--common {
+    color: #fff;
+}
+
 /* Taxon/Vernacular switch */
-.switch-container {
+/*.switch-container {
     display: flex;
     align-items: center;
 }
@@ -163,7 +184,8 @@ input:checked + .slider:before {
     font-size: larger;
     font-weight: bold;
     color:#888;
-}
+}*/
+
 /* Graph */
 
 .link {
@@ -211,7 +233,7 @@ input:checked + .slider:before {
 /* Search */
 .phylogeny-dialog__search {
     position: relative;
-    margin-bottom: 1rem;
+    width: 100%;
 }
 
 .phylogeny-dialog__search-input {
@@ -307,12 +329,11 @@ input:checked + .slider:before {
 
 .phylogeny-cloud__scientific-name {
     /*font-style: italic;*/
+    color: #555;
 }
 
 .phylogeny-cloud__vernacular-name {
-    font-size: 1em;
     color: #555;
-    margin-top: 2px;
 }
 
 /* Switch to change link length

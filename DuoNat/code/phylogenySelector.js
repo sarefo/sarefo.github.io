@@ -27,9 +27,9 @@ const phylogenySelector = {
             toggleViewCheckbox.addEventListener('change', this.toggleView.bind(this));
         }
 
-        const toggleNamesCheckbox = document.getElementById('toggle-names-checkbox');
+        const toggleNamesCheckbox = document.getElementById('name-toggle');
         if (toggleNamesCheckbox) {
-            toggleNamesCheckbox.checked = state.getShowTaxonomicNames(); // Note the change here
+            toggleNamesCheckbox.checked = !state.getShowTaxonomicNames();
             toggleNamesCheckbox.addEventListener('change', this.toggleNameDisplay.bind(this));
         }
 
