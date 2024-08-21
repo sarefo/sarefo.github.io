@@ -19,7 +19,14 @@
 
         <div class="phylogeny-dialog__controls">
 
-            <button id="toggle-view-button" class="dialog-button">Cloud View</button>
+            <div class="view-toggle-container">
+                <input type="checkbox" id="view-toggle" class="view-toggle__checkbox">
+                <label for="view-toggle" class="view-toggle__label">
+                    <span class="view-toggle__option view-toggle__option--graph">Graph</span>
+                    <span class="view-toggle__slider"></span>
+                    <span class="view-toggle__option view-toggle__option--cloud">Cloud</span>
+                </label>
+            </div>
 
             <button id="phylogeny-clear-button" class="dialog-button">Go to top</button>
 

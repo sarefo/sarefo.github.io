@@ -55,6 +55,58 @@
     color: var(--primary-color);
 }
 
+/* View toggle */
+.view-toggle-container {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.view-toggle__checkbox {
+    display: none;
+}
+
+.view-toggle__label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    width: 160px;
+    padding: 4px;
+    border-radius: 20px;
+    background-color: #e0e0e0;
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+
+.view-toggle__option {
+    z-index: 1;
+    flex: 1;
+    text-align: center;
+    padding: 5px 0;
+    font-weight: bold;
+    color: #888;
+    transition: color 0.3s ease;
+}
+
+.view-toggle__slider {
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    width: calc(50% - 4px);
+    height: calc(100% - 8px);
+    border-radius: 16px;
+    background-color: #74ac00;
+    transition: transform 0.3s ease;
+}
+
+.view-toggle__checkbox:checked + .view-toggle__label .view-toggle__slider {
+    transform: translateX(calc(100% + 4px));
+}
+
+.view-toggle__checkbox:checked + .view-toggle__label .view-toggle__option--cloud,
+.view-toggle__checkbox:not(:checked) + .view-toggle__label .view-toggle__option--graph {
+    color: #fff;
+}
+
 /* Taxon/Vernacular switch */
 .switch-container {
     display: flex;

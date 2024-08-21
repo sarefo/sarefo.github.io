@@ -22,9 +22,9 @@ const phylogenySelector = {
 
         const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
 
-        const toggleViewButton = document.getElementById('toggle-view-button');
-        if (toggleViewButton) {
-            toggleViewButton.addEventListener('click', this.toggleView.bind(this));
+        const toggleViewCheckbox = document.getElementById('view-toggle');
+        if (toggleViewCheckbox) {
+            toggleViewCheckbox.addEventListener('change', this.toggleView.bind(this));
         }
 
         const toggleNamesCheckbox = document.getElementById('toggle-names-checkbox');
@@ -38,22 +38,34 @@ const phylogenySelector = {
         this.search.initializeSearch();
     },
 
-    toggleView() {
+    toggleView(eventOrForceState) {
         const graphContainer = document.getElementById('phylogeny-graph-container');
         const cloudContainer = document.getElementById('phylogeny-cloud-container');
-        const toggleButton = document.getElementById('toggle-view-button');
+        const toggleViewCheckbox = document.getElementById('view-toggle');
 
-        if (this.currentView === 'graph') {
+        let isCloud;
+        if (typeof eventOrForceState === 'boolean') {
+            // If a boolean is passed, use it directly
+            isCloud = eventOrForceState;
+            toggleViewCheckbox.checked = isCloud;
+        } else if (eventOrForceState && eventOrForceState.target) {
+            // If it's an event, use the checkbox's checked state
+            isCloud = eventOrForceState.target.checked;
+        } else {
+            // If no argument is passed, toggle the current state
+            isCloud = this.currentView !== 'cloud';
+            toggleViewCheckbox.checked = isCloud;
+        }
+
+        if (isCloud) {
             graphContainer.style.display = 'none';
             cloudContainer.style.display = 'flex';
-            toggleButton.textContent = 'Graph View';
             this.currentView = 'cloud';
             this.currentActiveNodeId = state.getCurrentActiveNodeId();
             phylogenySelector.cloud.renderCloudView();
         } else {
-            graphContainer.style.display = 'flex';
             cloudContainer.style.display = 'none';
-            toggleButton.textContent = 'Cloud View';
+            graphContainer.style.display = 'flex';
             this.currentView = 'graph';
             if (this.currentActiveNodeId) {
                 const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
@@ -200,7 +212,7 @@ const phylogenySelector = {
 
         handleCloudTagClick(taxonId) {
             state.setCurrentActiveNodeId(taxonId); // Update the active node
-            phylogenySelector.toggleView(); // Switch back to graph view
+            phylogenySelector.toggleView(false); // Switch to graph view
             const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
             const pathToRoot = phylogenySelector.getPathToRoot(hierarchyObj, taxonId);
             
