@@ -41,23 +41,14 @@ const infoDialog = {
             return;
         }
 
-        const currentTaxonImageCollection = state.getCurrentTaxonImageCollection();
-        if (!currentTaxonImageCollection) {
-            logger.error('showInfoDialog: currentTaxonImageCollection is null or undefined');
-            return;
-        }
-
-        const currentTaxon = imageIndex === 1 ? currentTaxonImageCollection.pair.taxon1 : currentTaxonImageCollection.pair.taxon2;
-        if (!currentTaxon) {
-            logger.error(`showInfoDialog: Unable to get current taxon for imageIndex: ${imageIndex}`);
-            return;
-        }
+        const imageContainer = document.getElementById(`image-container-${imageIndex}`);
+        const taxonName = imageContainer.querySelector('img').alt.split(' Image')[0];
 
         const dialog = document.getElementById('info-dialog');
         this.frameImage(imageIndex);
 
-        await this.populateDialogContent(currentTaxon);
-        this.setupDialogButtons(url, currentTaxon);
+        await this.populateDialogContent(taxonName);
+        this.setupDialogButtons(url, taxonName);
         this.positionDialog(dialog, imageIndex);
         this.setupDialogEventListeners(dialog, imageIndex);
 
@@ -66,18 +57,18 @@ const infoDialog = {
         }
     },
 
-    async populateDialogContent(currentTaxon) {
+    async populateDialogContent(taxonName) {
         const taxonElement = document.getElementById('info-dialog-taxon');
         const vernacularElement = document.getElementById('info-dialog-vernacular');
         const factsElement = document.getElementById('info-dialog-facts');
 
-        taxonElement.textContent = currentTaxon;
+        taxonElement.textContent = taxonName;
 
         try {
-            const vernacularName = await api.vernacular.fetchVernacular(currentTaxon);
+            const vernacularName = await api.vernacular.fetchVernacular(taxonName);
             vernacularElement.textContent = vernacularName;
 
-            await this.populateTaxonFacts(currentTaxon, factsElement);
+            await this.populateTaxonFacts(taxonName, factsElement);
         } catch (error) {
             logger.error('Error in populateDialogContent:', error);
         }
@@ -213,7 +204,7 @@ const infoDialog = {
         }
     },
 
-    positionDialog(dialog, imageIndex) {
+    /*positionDialog(dialog, imageIndex) {
         const topImageContainer = document.getElementById('image-container-1');
         const bottomImageContainer = document.getElementById('image-container-2');
         const namePairContainer = document.querySelector('.name-pair');
@@ -227,6 +218,27 @@ const infoDialog = {
             dialog.style.top = `${namePairRect.top}px`;
             dialog.style.bottom = `${window.innerHeight - bottomContainerRect.bottom}px`;
         } else {
+            dialog.style.top = `${topContainerRect.top}px`;
+            dialog.style.bottom = `${window.innerHeight - namePairRect.bottom}px`;
+        }
+        dialog.style.height = 'auto';
+    },*/
+    positionDialog(dialog, imageIndex) {
+        const topImageContainer = document.getElementById('image-container-1');
+        const bottomImageContainer = document.getElementById('image-container-2');
+        const namePairContainer = document.querySelector('.name-pair');
+
+        const dialogRect = dialog.getBoundingClientRect();
+        const topContainerRect = topImageContainer.getBoundingClientRect();
+        const bottomContainerRect = bottomImageContainer.getBoundingClientRect();
+        const namePairRect = namePairContainer.getBoundingClientRect();
+
+        if (imageIndex === 1) {
+            // For top image, position dialog over bottom image
+            dialog.style.top = `${namePairRect.top}px`;
+            dialog.style.bottom = `${window.innerHeight - bottomContainerRect.bottom}px`;
+        } else {
+            // For bottom image, position dialog over top image
             dialog.style.top = `${topContainerRect.top}px`;
             dialog.style.bottom = `${window.innerHeight - namePairRect.bottom}px`;
         }
