@@ -527,10 +527,10 @@ const phylogenySelector = {
                     const resultItem = document.createElement('div');
                     resultItem.className = 'phylogeny-dialog__search-result';
                     resultItem.textContent = `${node.taxonName}${node.vernacularName ? ` (${node.vernacularName})` : ''}`;
-                    if (!availableTaxonIds.includes(node.id)) {
+                    /*if (!availableTaxonIds.includes(node.id)) {
                         resultItem.textContent += ' (Higher taxon)';
                         resultItem.classList.add('phylogeny-dialog__search-result--higher-taxon');
-                    }
+                    }*/
                     resultItem.dataset.nodeId = node.id;
                     searchResults.appendChild(resultItem);
                 });
