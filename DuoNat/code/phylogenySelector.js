@@ -43,13 +43,20 @@ const phylogenySelector = {
             cloudContainer.style.display = 'flex';
             toggleButton.textContent = 'Switch to Graph View';
             this.currentView = 'cloud';
+            this.currentActiveNodeId = state.getCurrentActiveNodeId();
             phylogenySelector.cloud.renderCloudView();
         } else {
             graphContainer.style.display = 'flex';
             cloudContainer.style.display = 'none';
             toggleButton.textContent = 'Switch to Cloud View';
             this.currentView = 'graph';
-            this.updateGraph();
+            if (this.currentActiveNodeId) {
+                const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
+                const pathToRoot = this.getPathToRoot(hierarchyObj, this.currentActiveNodeId);
+                this.updateGraph(pathToRoot);
+            } else {
+                this.updateGraph();
+            }
         }
     },
 
