@@ -581,6 +581,11 @@ const phylogenySelector = {
                 const pathToRoot = phylogenySelector.getPathToRoot(hierarchyObj, nodeId);
                 phylogenySelector.updateGraph(pathToRoot);
                 this.clearSearchResults();
+
+                state.setCurrentActiveNodeId(nodeId);
+                if (this.onNodeSelect) {
+                    this.onNodeSelect(nodeId);
+                }
             }
         },
 
@@ -608,6 +613,7 @@ const publicAPI = {
     updateGraph: phylogenySelector.updateGraph.bind(phylogenySelector),
     clearSelection: phylogenySelector.clearSelection.bind(phylogenySelector),
     toggleView: phylogenySelector.toggleView.bind(phylogenySelector),
+    clearSearchResults: phylogenySelector.search.clearSearchResults.bind(phylogenySelector),
 };
 
 export default publicAPI;
