@@ -44,11 +44,11 @@
 .phylogeny-dialog__message {
     color: var(--dark-neutral-color);
     padding-bottom: 1px;
+    font-weight: bold;
 }
 
 #phylogeny-dialog__message-tap {
     color: var(--primary-color);
-    font-weight: bold;
 }
 
 /* Graph */
