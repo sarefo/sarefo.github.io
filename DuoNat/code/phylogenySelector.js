@@ -27,11 +27,11 @@ const phylogenySelector = {
             toggleViewButton.addEventListener('click', this.toggleView.bind(this));
         }
 
-        const toggleNamesButton = document.getElementById('toggle-names-button');
-        if (toggleNamesButton) {
-            toggleNamesButton.addEventListener('click', this.toggleNameDisplay.bind(this));
+        const toggleNamesCheckbox = document.getElementById('toggle-names-checkbox');
+        if (toggleNamesCheckbox) {
+            toggleNamesCheckbox.checked = state.getShowTaxonomicNames(); // Note the change here
+            toggleNamesCheckbox.addEventListener('change', this.toggleNameDisplay.bind(this));
         }
-
 
         this.currentView = 'graph';
 
@@ -65,11 +65,19 @@ const phylogenySelector = {
         }
     },
 
-    toggleNameDisplay() {
-        const showVernacular = !state.getShowVernacularNames();
-        state.setShowVernacularNames(showVernacular);
-        const toggleButton = document.getElementById('toggle-names-button');
-        toggleButton.textContent = showVernacular ? 'Show Taxonomic Names' : 'Show Vernacular Names';
+    toggleNameDisplay(event) {
+        const showTaxonomic = event.target.checked;
+        state.setShowTaxonomicNames(showTaxonomic); // Note the change here
+        this.updateGraph();
+        if (this.currentView === 'cloud') {
+            this.cloud.renderCloudView();
+        }
+    },
+    /*toggleNameDisplay() {
+        const showTaxonomic = event.target.checked;
+        state.setShowTaxonomicNames(showTaxonomic);
+        const toggleCheckbox = document.getElementById('toggle-names-checkbox');
+        toggleCheckbox.textContent = showTaxonomic ? 'Show Vernacular Names' : 'Show Taxonomic Names';
         
         // Update the current view
         if (this.currentView === 'graph') {
@@ -77,7 +85,7 @@ const phylogenySelector = {
         } else {
             this.cloud.renderCloudView();
         }
-    },
+    },*/
 
     cloud: {
         scaleValue(value, fromMin, fromMax, toMin, toMax) {
@@ -177,20 +185,16 @@ const phylogenySelector = {
             tagElement.className = 'phylogeny-cloud__tag';
             tagElement.style.fontSize = `${size}px`;
 
-            const showVernacular = state.getShowVernacularNames();
+            const showTaxonomic = state.getShowTaxonomicNames();
             const nameElement = document.createElement('span');
             
-            if (showVernacular && taxon.vernacularName && taxon.vernacularName !== "N/a") {
+            if (!showTaxonomic && taxon.vernacularName && taxon.vernacularName !== "N/a") {
                 nameElement.textContent = taxon.vernacularName;
                 nameElement.className = 'phylogeny-cloud__vernacular-name';
-                
-                // Add scientific name as title for reference
                 nameElement.title = taxon.taxonName;
             } else {
                 nameElement.textContent = taxon.taxonName;
                 nameElement.className = 'phylogeny-cloud__scientific-name';
-                
-                // Add vernacular name as title if available
                 if (taxon.vernacularName && taxon.vernacularName !== "N/a") {
                     nameElement.title = taxon.vernacularName;
                 }
@@ -268,7 +272,7 @@ const phylogenySelector = {
             const currentPhylogenyId = state.getPhylogenyId();
 
             graphContainer.innerHTML = '';
-            const tree = await d3Graphs.createRadialTree(graphContainer, rootNode, state.getShowVernacularNames());
+            const tree = await d3Graphs.createRadialTree(graphContainer, rootNode, state.getShowTaxonomicNames());
 
             tree.onNodeSelect = (nodeId) => {
                 this.updateActiveTaxonDisplay(nodeId);

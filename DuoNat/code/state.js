@@ -92,7 +92,8 @@ let gameState = {
     currentSetID: null,
     phylogenyId: null,
     currentActiveNodeId: null,
-    showVernacularNames: null,
+    showTaxonomicNames: false,
+
     preloadedTaxonImageCollection: null,
     currentTaxonImageCollection: null,
     taxonImageOne: null,
@@ -335,9 +336,9 @@ const publicAPI = {
         gameState.currentSetID = id;
     },
 
-    getShowVernacularNames: () => gameState.showVernacularNames,
-    setShowVernacularNames(show) {
-        updateGameState('showVernacularNames', show);
+    getShowTaxonomicNames: () => gameState.showTaxonomicNames,
+    setShowTaxonomicNames(show) {
+        updateGameState('showTaxonomicNames', show);
     },
 
     getUsedImages: () => ({ ...gameState.usedImages }),

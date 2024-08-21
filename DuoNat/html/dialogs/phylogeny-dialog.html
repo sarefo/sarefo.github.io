@@ -18,10 +18,19 @@
        <div id="" class="phylogeny-dialog__message">Clear filters for more!</div> 
 
         <div class="phylogeny-dialog__controls">
+
             <button id="toggle-view-button" class="dialog-button">Switch to Cloud View</button>
-            <button id="toggle-names-button" class="dialog-button">Show Vernacular Names</button>
+
             <button id="phylogeny-clear-button" class="dialog-button">Go to top</button>
-            <!-- ... other buttons ... -->
+
+            <div class="switch-container">
+                <label class="switch">
+                    <input type="checkbox" id="toggle-names-checkbox">
+                    <span class="slider round"></span>
+                </label>
+                <span class="switch-label">Show taxa</span>
+            </div>
+
         </div>
 
         <div id="phylogeny-graph-container" class="phylogeny-dialog__graph-container"></div>

@@ -190,9 +190,9 @@ class BaseTree {
 }
 
 class RadialTree extends BaseTree {
-    constructor(container, rootNode, showVernacularNames) {
+    constructor(container, rootNode, showTaxonomicNames) {
         super(container, rootNode);
-        this.showVernacularNames = showVernacularNames;
+        this.showTaxonomicNames = showTaxonomicNames;
         this.parentNode = null;
         this.activeNode = null;
         this.dragOffset = [0, 0];
@@ -416,7 +416,7 @@ class RadialTree extends BaseTree {
             .attr('x', 0)
             .attr('text-anchor', 'middle')
             /*.text(d => `${d.data.taxonName} (${d.data.pairCount})`)*/ // with number of taxa in brackets
-            .text(d => this.showVernacularNames && d.data.vernacularName && d.data.vernacularName !== "N/a" ? 
+            .text(d => !this.showTaxonomicNames && d.data.vernacularName && d.data.vernacularName !== "N/a" ? 
                 d.data.vernacularName : d.data.taxonName)
             .style('fill-opacity', 1e-6);
 
@@ -432,7 +432,7 @@ class RadialTree extends BaseTree {
             .style('fill', d => d === this.parentNode ? '#74ac00' : (d._children ? '#dfe9c8' : '#fff'));
 
         nodeUpdate.select('text')
-            .text(d => this.showVernacularNames && d.data.vernacularName && d.data.vernacularName !== "N/a" ? 
+            .text(d => !this.showTaxonomicNames && d.data.vernacularName && d.data.vernacularName !== "N/a" ? 
                 d.data.vernacularName : d.data.taxonName)
             .style('fill-opacity', 1)
             .attr('dy', d => {
@@ -913,8 +913,8 @@ class RadialTree extends BaseTree {
 }*/
 
 const publicAPI = {
-    createRadialTree: async function (container, rootNode, showVernacularNames) {
-        const tree = new RadialTree(container, rootNode, showVernacularNames);
+    createRadialTree: async function (container, rootNode, showTaxonomicNames) {
+        const tree = new RadialTree(container, rootNode, showTaxonomicNames);
         await tree.create();
         this.lastCreatedTree = tree;
         return tree; // Return the tree instance
