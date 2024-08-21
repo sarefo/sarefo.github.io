@@ -93,10 +93,8 @@ const phylogenySelector = {
         state.setShowTaxonomicNames(showTaxonomic);
         
         if (this.currentView === 'graph') {
-            const currentActiveNodeId = state.getCurrentActiveNodeId();
-            const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
-            const pathToRoot = this.getPathToRoot(hierarchyObj, currentActiveNodeId);
-            this.updateGraph(pathToRoot);
+            // Instead of redrawing the entire graph, just update the labels
+            d3Graphs.lastCreatedTree.updateNodeLabels(showTaxonomic);
         } else if (this.currentView === 'cloud') {
             this.cloud.renderCloudView();
         }

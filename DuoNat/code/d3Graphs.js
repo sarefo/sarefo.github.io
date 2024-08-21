@@ -215,6 +215,15 @@ class RadialTree extends BaseTree {
         return scale(pairCount);
     }
 
+    updateNodeLabels(showTaxonomicNames) {
+        this.showTaxonomicNames = showTaxonomicNames;
+        this.svg.selectAll('g.node text')
+            .text(d => !this.showTaxonomicNames && d.data.vernacularName && d.data.vernacularName !== "n/a" ? 
+                d.data.vernacularName : d.data.taxonName)
+            .attr('title', d => !this.showTaxonomicNames && d.data.vernacularName && d.data.vernacularName !== "n/a" ? 
+                d.data.taxonName : d.data.vernacularName);
+    }
+
     async create() {
         if (!await this.initialize()) return;
 
@@ -937,6 +946,15 @@ const publicAPI = {
             logger.warn('No tree instance available to set active node');
         }
     },
+
+    updateNodeLabels: function (showTaxonomicNames) {
+        if (this.lastCreatedTree) {
+            this.lastCreatedTree.updateNodeLabels(showTaxonomicNames);
+        } else {
+            logger.warn('No tree instance available to update node labels');
+        }
+    },
+
 };
 
 export default publicAPI
