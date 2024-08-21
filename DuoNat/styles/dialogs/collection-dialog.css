@@ -4,7 +4,7 @@
     max-width: var(--max-image-width);
     height: 95vh;
     max-height: 95vh;
-    padding: 10px;
+    padding: 8px;
 }
 
 .collection-dialog__inner {
@@ -34,6 +34,7 @@
     border-radius: var(--border-radius);
     font-size: 1.1em;
     width: 30%;
+    font-weight: bold;
 }
 
 .collection-dialog__select-buttons {
@@ -164,6 +165,7 @@
     border-radius: var(--border-radius);
     cursor: pointer;
     font-size: 1.1em;
+    font-weight: bold;
     width: 100px;
     /* match world map */
     flex-shrink: 0;

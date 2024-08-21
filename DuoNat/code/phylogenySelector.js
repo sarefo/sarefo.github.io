@@ -33,9 +33,20 @@ const phylogenySelector = {
             toggleNamesCheckbox.addEventListener('change', this.toggleNameDisplay.bind(this));
         }
 
+        const clearFiltersButton = document.getElementById('phylogeny-clear-filters-button');
+        if (clearFiltersButton) {
+            clearFiltersButton.addEventListener('click', this.handleClearFilters);
+        }
+
         this.currentView = 'graph';
 
         this.search.initializeSearch();
+    },
+
+    handleClearFilters() {
+        filtering.clearAllFilters();
+        phylogenySelector.updateGraph();
+        phylogenySelector.cloud.renderCloudView();
     },
 
     toggleView(eventOrForceState) {
