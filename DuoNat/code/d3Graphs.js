@@ -414,7 +414,8 @@ class RadialTree extends BaseTree {
             })
             .attr('x', 0)
             .attr('text-anchor', 'middle')
-            .text(d => `${d.data.taxonName} (${d.data.pairCount})`)
+            /*.text(d => `${d.data.taxonName} (${d.data.pairCount})`)*/ // with number of taxa in brackets
+            .text(d => `${d.data.taxonName}`)
             .style('fill-opacity', 1e-6);
 
         const nodeUpdate = nodeEnter.merge(node);
