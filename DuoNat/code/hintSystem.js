@@ -65,7 +65,7 @@ const hintSystem = {
         const imageContainer = document.getElementById(`image-container-${index}`);
         const hintOverlay = document.createElement('div');
         hintOverlay.className = 'hint-overlay';
-        hintOverlay.innerHTML = hint;
+        hintOverlay.innerHTML = `(Demo only!)<br>${hint}`;
 
         imageContainer.appendChild(hintOverlay);
 
