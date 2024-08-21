@@ -8,8 +8,6 @@ import state from './state.js';
 //import utils from './utils.js';
 
 const phylogenySelector = {
-    //currentActiveNodeId: null,
-    showVernacularNames: false, // Default to showing taxonomic names
 
     initialize() {
         const doneButton = document.getElementById('phylogeny-done-button');
@@ -68,10 +66,17 @@ const phylogenySelector = {
     },
 
     toggleNameDisplay() {
-        this.showVernacularNames = !this.showVernacularNames;
+        const showVernacular = !state.getShowVernacularNames();
+        state.setShowVernacularNames(showVernacular);
         const toggleButton = document.getElementById('toggle-names-button');
-        toggleButton.textContent = this.showVernacularNames ? 'Show Taxonomic Names' : 'Show Vernacular Names';
-        this.updateGraph();
+        toggleButton.textContent = showVernacular ? 'Show Taxonomic Names' : 'Show Vernacular Names';
+        
+        // Update the current view
+        if (this.currentView === 'graph') {
+            this.updateGraph();
+        } else {
+            this.cloud.renderCloudView();
+        }
     },
 
     cloud: {
@@ -172,21 +177,26 @@ const phylogenySelector = {
             tagElement.className = 'phylogeny-cloud__tag';
             tagElement.style.fontSize = `${size}px`;
 
-            const scientificName = document.createElement('span');
-            scientificName.textContent = taxon.taxonName;
-            scientificName.className = 'phylogeny-cloud__scientific-name';
-            tagElement.appendChild(scientificName);
-
-            if (taxon.vernacularName && taxon.vernacularName !== "N/a") {
-                const vernacularName = document.createElement('span');
-                let truncatedName = taxon.vernacularName.slice(0, 20);
-                if (taxon.vernacularName.length > 20) {
-                    truncatedName += '...';
+            const showVernacular = state.getShowVernacularNames();
+            const nameElement = document.createElement('span');
+            
+            if (showVernacular && taxon.vernacularName && taxon.vernacularName !== "N/a") {
+                nameElement.textContent = taxon.vernacularName;
+                nameElement.className = 'phylogeny-cloud__vernacular-name';
+                
+                // Add scientific name as title for reference
+                nameElement.title = taxon.taxonName;
+            } else {
+                nameElement.textContent = taxon.taxonName;
+                nameElement.className = 'phylogeny-cloud__scientific-name';
+                
+                // Add vernacular name as title if available
+                if (taxon.vernacularName && taxon.vernacularName !== "N/a") {
+                    nameElement.title = taxon.vernacularName;
                 }
-                vernacularName.textContent = truncatedName;
-                vernacularName.className = 'phylogeny-cloud__vernacular-name';
-                tagElement.appendChild(vernacularName);
             }
+            
+            tagElement.appendChild(nameElement);
 
             tagElement.addEventListener('click', () => this.handleCloudTagClick(taxon.id));
             return tagElement;
@@ -258,7 +268,7 @@ const phylogenySelector = {
             const currentPhylogenyId = state.getPhylogenyId();
 
             graphContainer.innerHTML = '';
-            const tree = await d3Graphs.createRadialTree(graphContainer, rootNode, this.showVernacularNames);
+            const tree = await d3Graphs.createRadialTree(graphContainer, rootNode, state.getShowVernacularNames());
 
             tree.onNodeSelect = (nodeId) => {
                 this.updateActiveTaxonDisplay(nodeId);
