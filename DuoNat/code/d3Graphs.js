@@ -432,7 +432,7 @@ class RadialTree extends BaseTree {
             .style('fill', d => d === this.parentNode ? '#74ac00' : (d._children ? '#dfe9c8' : '#fff'));
 
         nodeUpdate.select('text')
-            .text(d => !this.showTaxonomicNames && d.data.vernacularName && d.data.vernacularName !== "N/a" ? 
+            .text(d => !this.showTaxonomicNames && d.data.vernacularName && d.data.vernacularName !== "n/a" ? 
                 d.data.vernacularName : d.data.taxonName)
             .style('fill-opacity', 1)
             .attr('dy', d => {

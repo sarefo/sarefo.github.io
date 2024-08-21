@@ -67,25 +67,17 @@ const phylogenySelector = {
 
     toggleNameDisplay(event) {
         const showTaxonomic = event.target.checked;
-        state.setShowTaxonomicNames(showTaxonomic); // Note the change here
-        this.updateGraph();
-        if (this.currentView === 'cloud') {
+        state.setShowTaxonomicNames(showTaxonomic);
+        
+        if (this.currentView === 'graph') {
+            const currentActiveNodeId = state.getCurrentActiveNodeId();
+            const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
+            const pathToRoot = this.getPathToRoot(hierarchyObj, currentActiveNodeId);
+            this.updateGraph(pathToRoot);
+        } else if (this.currentView === 'cloud') {
             this.cloud.renderCloudView();
         }
     },
-    /*toggleNameDisplay() {
-        const showTaxonomic = event.target.checked;
-        state.setShowTaxonomicNames(showTaxonomic);
-        const toggleCheckbox = document.getElementById('toggle-names-checkbox');
-        toggleCheckbox.textContent = showTaxonomic ? 'Show Vernacular Names' : 'Show Taxonomic Names';
-        
-        // Update the current view
-        if (this.currentView === 'graph') {
-            this.updateGraph();
-        } else {
-            this.cloud.renderCloudView();
-        }
-    },*/
 
     cloud: {
         scaleValue(value, fromMin, fromMax, toMin, toMax) {
@@ -188,14 +180,14 @@ const phylogenySelector = {
             const showTaxonomic = state.getShowTaxonomicNames();
             const nameElement = document.createElement('span');
             
-            if (!showTaxonomic && taxon.vernacularName && taxon.vernacularName !== "N/a") {
+            if (!showTaxonomic && taxon.vernacularName && taxon.vernacularName !== "n/a") {
                 nameElement.textContent = taxon.vernacularName;
                 nameElement.className = 'phylogeny-cloud__vernacular-name';
                 nameElement.title = taxon.taxonName;
             } else {
                 nameElement.textContent = taxon.taxonName;
                 nameElement.className = 'phylogeny-cloud__scientific-name';
-                if (taxon.vernacularName && taxon.vernacularName !== "N/a") {
+                if (taxon.vernacularName && taxon.vernacularName !== "n/a") {
                     nameElement.title = taxon.vernacularName;
                 }
             }

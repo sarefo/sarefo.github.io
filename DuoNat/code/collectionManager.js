@@ -42,7 +42,16 @@ const collectionManager = {
             phylogenyButton.addEventListener('click', () => {
                 dialogManager.openDialog('phylogeny-dialog');
                 phylogenySelector.updateGraph();
+
+                // Clear the search field
+                const searchInput = document.getElementById('phylogeny-search');
+                if (searchInput) {
+                    searchInput.value = '';
+                    // Trigger the search handler to clear results
+                    phylogenySelector.search.handleSearch({ target: { value: '' } });
+                }
             });
+
         },
 
         initializeSelectSetDialog() {

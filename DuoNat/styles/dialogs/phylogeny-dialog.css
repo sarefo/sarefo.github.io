@@ -104,8 +104,9 @@ input:checked + .slider:before {
 }
 
 .switch-label {
-    /*font-size: 14px;*/
-    color:#666;
+    font-size: larger;
+    font-weight: bold;
+    color:#888;
 }
 /* Graph */
 
