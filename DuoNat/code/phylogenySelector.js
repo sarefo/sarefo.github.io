@@ -129,16 +129,20 @@ const phylogenySelector = {
                     }
                 }
 
-                // Sort taxa by count and take top 40
+                // Step 1: Select top taxa based on count
                 const topTaxa = Object.entries(taxonCounts)
                     .sort((a, b) => b[1] - a[1])
-                    .slice(0, 20);
+                    .slice(0, 20)
+                    .map(([taxonId, count]) => ({ taxonId, count }));
+
+                // Step 2: Order the selected taxa based on their position in the taxonomy
+                const orderedTaxa = this.orderTaxaByHierarchy(topTaxa, hierarchyObj);
 
                 cloudContainer.innerHTML = '';
-                topTaxa.forEach(([taxonId, count]) => {
+                orderedTaxa.forEach(({ taxonId, count }) => {
                     const taxon = hierarchyObj.getTaxonById(taxonId);
                     if (taxon) {
-                        const tagElement = this.createCloudTag(taxon, count, Math.max(...topTaxa.map(t => t[1])));
+                        const tagElement = this.createCloudTag(taxon, count, Math.max(...orderedTaxa.map(t => t.count)));
                         cloudContainer.appendChild(tagElement);
                     }
                 });
@@ -146,6 +150,33 @@ const phylogenySelector = {
                 logger.error('Error creating cloud view:', error);
                 cloudContainer.innerHTML = `<p>Error creating cloud view: ${error.message}. Please try again.</p>`;
             }
+        },
+
+        orderTaxaByHierarchy(taxa, hierarchyObj) {
+            // Helper function to get the full path of a taxon
+            const getPath = (taxonId) => {
+                const path = [];
+                let currentId = taxonId;
+                while (currentId) {
+                    path.unshift(currentId);
+                    const node = hierarchyObj.getTaxonById(currentId);
+                    currentId = node ? node.parentId : null;
+                }
+                return path;
+            };
+
+            // Sort taxa based on their full paths
+            return taxa.sort((a, b) => {
+                const pathA = getPath(a.taxonId);
+                const pathB = getPath(b.taxonId);
+                
+                for (let i = 0; i < Math.min(pathA.length, pathB.length); i++) {
+                    if (pathA[i] !== pathB[i]) {
+                        return pathA[i].localeCompare(pathB[i]);
+                    }
+                }
+                return pathA.length - pathB.length;
+            });
         },
 
         filterTaxaByActiveNode(taxonCounts, activeNode, hierarchyObj) {
