@@ -244,6 +244,7 @@ input:checked + .slider:before {
 .phylogeny-dialog__search {
     position: relative;
     width: 100%;
+    max-width: 600px;
 }
 
 .phylogeny-dialog__search-input {
