@@ -38692,11 +38692,15 @@
     ],
     "rank": "Superfamily",
     "taxonFacts": [
-        "Often rather large",
-        "Mostly eat fruit",
-        "Active at night"
+      "Often rather large",
+      "Mostly eat fruit",
+      "Active at night"
     ],
-    "range": ["AF", "AS", "OC"]
+    "range": [
+      "AF",
+      "AS",
+      "OC"
+    ]
   },
   "446946": {
     "taxonName": "Yangochiroptera",
@@ -41302,6 +41306,256 @@
       "Small warbler found in South and Southeast Asia",
       "Builds dome-shaped nests in bushes or grass",
       "Feeds on insects and spiders"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "118552": {
+    "taxonName": "Felis catus",
+    "vernacularName": "Domestic cat",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41944,
+      846179,
+      41956,
+      118552
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Domesticated around 9,000 years ago in the Near East.",
+      "Cats have over 20 distinct vocalizations.",
+      "They sleep for 12-16 hours a day."
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AF",
+      "AS",
+      "OC"
+    ]
+  },
+  "45763": {
+    "taxonName": "Ondatra zibethicus",
+    "vernacularName": "Muskrat",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43698,
+      870778,
+      488924,
+      55986,
+      179534,
+      1317289,
+      45762,
+      45763
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "A semi-aquatic rodent.",
+      "They can dive underwater for up to 17 minutes.",
+      "Muskrats build lodges from vegetation and mud."
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AF"
+    ]
+  },
+  "46970": {
+    "taxonName": "Talpa europaea",
+    "vernacularName": "European mole",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      533971,
+      1474222,
+      46927,
+      846233,
+      846361,
+      46942,
+      1431398,
+      46970
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "They have specialized digging forelimbs.",
+      "Moles can tunnel up to 18 meters in a day."
+    ],
+    "range": [
+      "EU",
+      "AF"
+    ]
+  },
+  "47056": {
+    "taxonName": "Condylura cristata",
+    "vernacularName": "Star-nosed mole",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      533971,
+      1474222,
+      46927,
+      846223,
+      955879,
+      47055,
+      47056
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "It has 22 tentacles.",
+      "It can detect food in less than 120 milliseconds.",
+      "Star-nosed moles are excellent swimmers."
+    ],
+    "range": [
+      "NA"
+    ]
+  },
+  "43151": {
+    "taxonName": "Oryctolagus cuniculus",
+    "vernacularName": "European rabbit",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43094,
+      43095,
+      43150,
+      43151
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Rabbits can see behind them without turning their heads.",
+      "They are social animals, living in groups called warrens."
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "NA",
+      "OC"
+    ]
+  },
+  "1353283": {
+    "taxonName": "Architectonica modesta",
+    "vernacularName": "N/a",
+    "ancestryIds": [
+      1,
+      47115,
+      47114,
+      551391,
+      551405,
+      185051,
+      246456,
+      1353283
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "A marine snail known for its distinctive coiled shell.",
+      "It can be found in shallow tropical waters.",
+      "This species is part of a diverse family of snails."
+    ],
+    "range": [
+      "OC"
+    ]
+  },
+  "43128": {
+    "taxonName": "Lepus europaeus",
+    "vernacularName": "Brown hare",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43094,
+      43095,
+      43117,
+      1431523,
+      43128
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Hares can run up to 70km/h.",
+      "They are born fully furred and with open eyes."
+    ],
+    "range": [
+      "EU",
+      "AF"
+    ]
+  },
+  "355522": {
+    "taxonName": "Architectonica perspectiva",
+    "vernacularName": "Clear sundial",
+    "ancestryIds": [
+      1,
+      47115,
+      47114,
+      551391,
+      551405,
+      185051,
+      246456,
+      355522
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "A marine snail with a flat, spiral shell.",
+      "It is often found in coral reef habitats.",
+      "This species has a unique pattern on its shell."
+    ],
+    "range": [
+      "OC"
+    ]
+  },
+  "922738": {
+    "taxonName": "Prionailurus bengalensis",
+    "vernacularName": "Mainland leopard cat",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41944,
+      846179,
+      41945,
+      922738
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Small and agile.",
+      "They are excellent climbers and swimmers.",
+      "Leopard cats have a diverse diet, including birds and rodents."
     ],
     "range": [
       "AS"

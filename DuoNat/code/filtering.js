@@ -74,7 +74,8 @@ const filtering = {
             const matchesSearch = !filters.searchTerm ||
                 pair.taxonNames.some(name => name.toLowerCase().includes(filters.searchTerm.toLowerCase())) ||
                 pair.setName.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
-                pair.tags.some(tag => tag.toLowerCase().includes(filters.searchTerm.toLowerCase()));
+                pair.tags.some(tag => tag.toLowerCase().includes(filters.searchTerm.toLowerCase())) ||
+                pair.setID.toString() === filters.searchTerm;
             
             const matchesPhylogeny = !filters.phylogenyId ||
                 pair.taxa.some(taxonId => filtering.isDescendantOf(taxonId, filters.phylogenyId));
