@@ -41,6 +41,10 @@
     background-color: var(--primary-counter-color);
 }
 
+#toggle-view-button {
+    width: 8em; /* stabilize width */
+}
+
 .phylogeny-dialog__message {
     color: var(--dark-neutral-color);
     padding-bottom: 1px;

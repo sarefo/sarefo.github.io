@@ -46,14 +46,14 @@ const phylogenySelector = {
         if (this.currentView === 'graph') {
             graphContainer.style.display = 'none';
             cloudContainer.style.display = 'flex';
-            toggleButton.textContent = 'Switch to Graph View';
+            toggleButton.textContent = 'Graph View';
             this.currentView = 'cloud';
             this.currentActiveNodeId = state.getCurrentActiveNodeId();
             phylogenySelector.cloud.renderCloudView();
         } else {
             graphContainer.style.display = 'flex';
             cloudContainer.style.display = 'none';
-            toggleButton.textContent = 'Switch to Cloud View';
+            toggleButton.textContent = 'Cloud View';
             this.currentView = 'graph';
             if (this.currentActiveNodeId) {
                 const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
