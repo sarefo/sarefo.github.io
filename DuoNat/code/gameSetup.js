@@ -204,32 +204,72 @@ const gameSetup = {
 
         async setupRound(isNewPair = false) {
             const { pair } = state.getCurrentTaxonImageCollection();
+            
             const imageData = await gameSetup.initialization.loadAndSetupImages(pair, isNewPair);
-            await gameSetup.initialization.setupNameTiles(pair, imageData);
-            await gameSetup.initialization.setupWorldMaps(pair, imageData);
-            gameSetup.initialization.updateGameStateForRound(pair, imageData);
+            
+            const [nameTileData, worldMapData] = await Promise.all([
+                gameSetup.initialization.setupNameTiles(pair, imageData),
+                gameSetup.initialization.setupWorldMaps(pair, imageData)
+            ]);
+
+            gameSetup.initialization.updateGameStateForRound(pair, imageData, nameTileData);
             await hintSystem.updateAllHintButtons();
+
+            // Apply world map data
+            worldMap.createWorldMap(state.getElement('imageOneContainer'), worldMapData.leftContinents);
+            worldMap.createWorldMap(state.getElement('imageTwoContainer'), worldMapData.rightContinents);
         },
 
         async loadAndSetupImages(pair, isNewPair) {
-            const imageData = await gameSetup.imageHandling.loadImages(pair, isNewPair);
-            state.setObservationURL(imageData.leftImageSrc, 1);
-            state.setObservationURL(imageData.rightImageSrc, 2);
+            let imageOneURL, imageTwoURL;
 
-            return imageData;
+            if (isNewPair) {
+                imageOneURL = state.getCurrentTaxonImageCollection().imageOneURL;
+                imageTwoURL = state.getCurrentTaxonImageCollection().imageTwoURL;
+            } else {
+                // Check for preloaded images
+                const preloadedImages = preloader.roundPreloader.getPreloadedImagesForNextRound();
+                if (preloadedImages && preloadedImages.taxon1 && preloadedImages.taxon2) {
+                    logger.debug("Using preloaded images for next round");
+                    imageOneURL = preloadedImages.taxon1;
+                    imageTwoURL = preloadedImages.taxon2;
+                    // Clear the preloaded images after use
+                    preloader.roundPreloader.clearPreloadedImagesForNextRound();
+                } else {
+                    logger.debug("No preloaded images available, fetching new images");
+                    [imageOneURL, imageTwoURL] = await Promise.all([
+                        preloader.imageLoader.fetchDifferentImage(pair.taxon1, state.getCurrentRound().imageOneURL),
+                        preloader.imageLoader.fetchDifferentImage(pair.taxon2, state.getCurrentRound().imageTwoURL)
+                    ]);
+                }
+            }
+
+            const randomized = Math.random() < 0.5;
+            const leftImageSrc = randomized ? imageOneURL : imageTwoURL;
+            const rightImageSrc = randomized ? imageTwoURL : imageOneURL;
+
+            await Promise.all([
+                gameSetup.imageHandling.loadImageAndRemoveLoadingClass(state.getElement('imageOne'), leftImageSrc),
+                gameSetup.imageHandling.loadImageAndRemoveLoadingClass(state.getElement('imageTwo'), rightImageSrc)
+            ]);
+
+            state.setObservationURL(leftImageSrc, 1);
+            state.setObservationURL(rightImageSrc, 2);
+
+            return { leftImageSrc, rightImageSrc, randomized, imageOneURL, imageTwoURL };
         },
 
         async setupNameTiles(pair, imageData) {
             const [leftVernacular, rightVernacular] = await Promise.all([
                 utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(imageData.randomized ? pair.taxon1 : pair.taxon2)),
-                utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(imageData.randomized ? pair.taxon2 : pair.taxon1)),
+                utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(imageData.randomized ? pair.taxon2 : pair.taxon1))
             ]);
 
             ui.setupNameTilesUI(
                 imageData.randomized ? pair.taxon1 : pair.taxon2,
                 imageData.randomized ? pair.taxon2 : pair.taxon1,
                 leftVernacular,
-                rightVernacular,
+                rightVernacular
             );
 
             state.getElement('imageOne').alt = `${imageData.randomized ? pair.taxon1 : pair.taxon2} Image`;
@@ -238,12 +278,14 @@ const gameSetup = {
             return { leftVernacular, rightVernacular };
         },
 
-        async setupWorldMaps(pair, imageData) {
-            const leftContinents = await gameSetup.taxonHandling.getContinentForTaxon(imageData.randomized ? pair.taxon1 : pair.taxon2);
-            const rightContinents = await gameSetup.taxonHandling.getContinentForTaxon(imageData.randomized ? pair.taxon2 : pair.taxon1);
-            worldMap.createWorldMap(state.getElement('imageOneContainer'), leftContinents);
-            worldMap.createWorldMap(state.getElement('imageTwoContainer'), rightContinents);
-        },
+async setupWorldMaps(pair, imageData) {
+    const [leftContinents, rightContinents] = await Promise.all([
+        gameSetup.taxonHandling.getContinentForTaxon(imageData.randomized ? pair.taxon1 : pair.taxon2),
+        gameSetup.taxonHandling.getContinentForTaxon(imageData.randomized ? pair.taxon2 : pair.taxon1)
+    ]);
+
+    return { leftContinents, rightContinents };
+},
 
         updateGameStateForRound(pair, imageData) {
             state.updateGameStateMultiple({
