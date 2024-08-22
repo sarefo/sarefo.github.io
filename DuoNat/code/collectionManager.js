@@ -320,7 +320,6 @@ const collectionManager = {
             } catch (error) {
                 logger.error("Error in onFiltersChanged:", error);
             }
-        },
 */
         getCurrentActivePair() {
             const currentPair = state.getCurrentTaxonImageCollection()?.pair;

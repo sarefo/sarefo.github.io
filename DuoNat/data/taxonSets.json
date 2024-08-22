@@ -10960,7 +10960,6 @@
     "setName": "Mites vs Spiders",
     "level": "1",
     "tags": [
-      ""
     ],
     "taxa": [
       "52788",
@@ -10983,7 +10982,6 @@
     "setName": "Daddy Long Legs",
     "level": "1",
     "tags": [
-      ""
     ],
     "taxa": [
       "47823",
@@ -11006,7 +11004,6 @@
     "setName": "Cellar Spiders",
     "level": "3",
     "tags": [
-      ""
     ],
     "taxa": [
       "67328",
@@ -12904,6 +12901,137 @@
     "range": [
       "EU",
       "AF"
+    ]
+  },
+  "750": {
+    "setName": "Dog vomit slime mold vs Dog sick slime mould",
+    "level": "1",
+    "tags": [
+      "fun"
+    ],
+    "taxa": [
+      55483,
+      1504198
+    ],
+    "taxonNames": [
+      "Fuligo septica",
+      "Didymium spongiosum"
+    ],
+    "range": [
+      "NA",
+      "AS",
+      "AF",
+      "EU",
+      "SA",
+      "OC"
+    ]
+  },
+  "751": {
+    "setName": "Euglenids vs Amoebae",
+    "level": "2",
+    "tags": [
+      "microbes"
+    ],
+    "taxa": [
+      142257,
+      372735
+    ],
+    "taxonNames": [
+      "Euglenida",
+      "Amoebozoa"
+    ],
+    "range": [
+      "NA",
+      "AS",
+      "AF",
+      "EU",
+      "SA",
+      "OC"
+    ]
+  },
+  "752": {
+    "setName": "Extremophiles",
+    "level": "2",
+    "tags": [
+      "microbes"
+    ],
+    "taxa": [
+      939014,
+      362804
+    ],
+    "taxonNames": [
+      "Sulfolobus solfataricus",
+      "Halobacterium salinarum"
+    ],
+    "range": [
+      "NA",
+      "AS",
+      "AF",
+      "EU",
+      "SA",
+      "OC"
+    ]
+  },
+  "753": {
+    "setName": "E. coli vs Lyme disease spirochete",
+    "level": "2",
+    "tags": [
+      "microbes"
+    ],
+    "taxa": [
+      450837,
+      492543
+    ],
+    "taxonNames": [
+      "Escherichia coli",
+      "Borrelia burgdorferi"
+    ],
+    "range": [
+      "NA",
+      "EU"
+    ]
+  },
+  "754": {
+    "setName": "Star jelly vs Mare's eggs",
+    "level": "2",
+    "tags": [
+      "algae"
+    ],
+    "taxa": [
+      319815,
+      410768
+    ],
+    "taxonNames": [
+      "Nostoc commune",
+      "Nostoc pruniforme"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
+    ]
+  },
+  "755": {
+    "setName": "Spirochaetes vs Enterobacteria",
+    "level": "2",
+    "tags": [
+      "microbes"
+    ],
+    "taxa": [
+      151859,
+      126706
+    ],
+    "taxonNames": [
+      "Spirochaetae",
+      "Enterobacteriales"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "EU",
+      "AF",
+      "OC",
+      "AS"
     ]
   }
 }

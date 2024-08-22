@@ -41560,5 +41560,283 @@
     "range": [
       "AS"
     ]
+  },
+  "362804": {
+    "taxonName": "Halobacterium salinarum",
+    "vernacularName": "N/a",
+    "ancestryIds": [
+      151817,
+      151825,
+      152089,
+      152511,
+      362805,
+      362806,
+      362804
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Thrives in extremely salty environments.",
+      "Produces a pigment that absorbs light.",
+      "Used in biotechnology for salt tolerance."
+    ],
+    "range": [
+      "AF",
+      "AS"
+    ]
+  },
+  "319815": {
+    "taxonName": "Nostoc commune",
+    "vernacularName": "Star jelly",
+    "ancestryIds": [
+      67333,
+      67334,
+      196963,
+      1513634,
+      67336,
+      67337,
+      67332,
+      319815
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Forms symbiotic relationships with plants.",
+      "Can fix atmospheric nitrogen.",
+      "Found in diverse habitats, including soil."
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
+    ]
+  },
+  "450837": {
+    "taxonName": "Escherichia coli",
+    "vernacularName": "E. coli",
+    "ancestryIds": [
+      67333,
+      83702,
+      126705,
+      126706,
+      126707,
+      450838,
+      450837
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Commonly found in the intestines of humans.",
+      "Some strains can cause food poisoning.",
+      "Used extensively in genetic research."
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AF",
+      "AS"
+    ]
+  },
+  "151859": {
+    "taxonName": "Spirochaetae",
+    "vernacularName": "N/a",
+    "ancestryIds": [
+      67333,
+      151859
+    ],
+    "rank": "Phylum",
+    "taxonFacts": [
+      "Includes bacteria with a unique spiral shape.",
+      "Some species are pathogenic to humans.",
+      "Can thrive in anaerobic environments."
+    ],
+    "range": [
+      "NA",
+      "AF",
+      "EU",
+      "AS"
+    ]
+  },
+  "410768": {
+    "taxonName": "Nostoc pruniforme",
+    "vernacularName": "Mare's eggs",
+    "ancestryIds": [
+      67333,
+      67334,
+      196963,
+      1513634,
+      67336,
+      67337,
+      67332,
+      410768
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Forms gelatinous colonies in water.",
+      "Can survive desiccation and extreme conditions.",
+      "Important in nutrient cycling in ecosystems."
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
+    ]
+  },
+  "939014": {
+    "taxonName": "Sulfolobus solfataricus",
+    "vernacularName": "N/a",
+    "ancestryIds": [
+      151817,
+      151824,
+      152087,
+      152509,
+      196671,
+      196672,
+      939014
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Thrives in hot, acidic environments.",
+      "Used in studies of extremophiles.",
+      "Has unique enzymes for biotechnology applications."
+    ],
+    "range": [
+      "EU",
+      "AS"
+    ]
+  },
+  "492543": {
+    "taxonName": "Borrelia burgdorferi",
+    "vernacularName": "Lyme disease spirochete",
+    "ancestryIds": [
+      67333,
+      151859,
+      152320,
+      356654,
+      492544,
+      492543
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Causes Lyme disease in humans.",
+      "Transmitted through tick bites.",
+      "Can evade the immune system effectively."
+    ],
+    "range": [
+      "NA",
+      "EU"
+    ]
+  },
+  "55483": {
+    "taxonName": "Fuligo septica",
+    "vernacularName": "Dog vomit slime mold",
+    "ancestryIds": [
+      47686,
+      47685,
+      47684,
+      1443220,
+      1443223,
+      55484,
+      55485,
+      55486,
+      55483
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Can move to find food sources.",
+      "Plays a role in decomposing organic matter."
+    ],
+    "range": [
+      "NA",
+      "EU"
+    ]
+  },
+  "372735": {
+    "taxonName": "Amoebozoa",
+    "vernacularName": "Amoebae",
+    "ancestryIds": [
+      47686,
+      372735
+    ],
+    "rank": "Phylum",
+    "taxonFacts": [
+      "Includes organisms that move using pseudopodia.",
+      "Some species can cause human diseases.",
+      "Found in diverse environments, including soil."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ]
+  },
+  "126706": {
+    "taxonName": "Enterobacteriales",
+    "vernacularName": "Enterobacteria and allies",
+    "ancestryIds": [
+      67333,
+      83702,
+      126705,
+      126706
+    ],
+    "rank": "Order",
+    "taxonFacts": [
+      "Includes many important gut bacteria.",
+      "Some species are opportunistic pathogens.",
+      "Used in fermentation and food production."
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AF",
+      "AS"
+    ]
+  },
+  "142257": {
+    "taxonName": "Euglenida",
+    "vernacularName": "Euglenids",
+    "ancestryIds": [
+      47686,
+      142256,
+      142257
+    ],
+    "rank": "Class",
+    "taxonFacts": [
+      "Can photosynthesize and consume organic matter.",
+      "Found in freshwater environments.",
+      "Some species can move toward light."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ]
+  },
+  "1504198": {
+    "taxonName": "Didymium spongiosum",
+    "vernacularName": "Dog sick slime mould",
+    "ancestryIds": [
+      47686,
+      47685,
+      47684,
+      1443220,
+      1443223,
+      55484,
+      56271,
+      134048,
+      1504198
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "A slime mold that forms fruiting bodies.",
+      "Important in nutrient recycling in ecosystems.",
+      "Can thrive in decaying organic matter."
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AF"
+    ]
   }
 }

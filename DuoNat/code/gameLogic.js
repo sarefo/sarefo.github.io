@@ -1,5 +1,5 @@
 import api from './api.js';
-import collectionManager from './config.js';
+import collectionManager from './collectionManager.js';
 import config from './config.js';
 import filtering from './filtering.js';
 import gameSetup from './gameSetup.js';

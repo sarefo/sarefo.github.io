@@ -18706,5 +18706,293 @@
     "vernacularName": "Mainland leopard cat",
     "rank": "Species",
     "parentId": "41945"
+  },
+  "151817": {
+    "taxonName": "Archaea",
+    "vernacularName": "Archaea",
+    "rank": "Kingdom",
+    "parentId": "48460"
+  },
+  "151825": {
+    "taxonName": "Euryarchaeota",
+    "vernacularName": "N/a",
+    "rank": "Phylum",
+    "parentId": "151817"
+  },
+  "152089": {
+    "taxonName": "Halobacteria",
+    "vernacularName": "N/a",
+    "rank": "Class",
+    "parentId": "151825"
+  },
+  "152511": {
+    "taxonName": "Halobacteriales",
+    "vernacularName": "N/a",
+    "rank": "Order",
+    "parentId": "152089"
+  },
+  "362805": {
+    "taxonName": "Halobacteriaceae",
+    "vernacularName": "N/a",
+    "rank": "Family",
+    "parentId": "152511"
+  },
+  "362806": {
+    "taxonName": "Halobacterium",
+    "vernacularName": "N/a",
+    "rank": "Genus",
+    "parentId": "362805"
+  },
+  "362804": {
+    "taxonName": "Halobacterium salinarum",
+    "vernacularName": "N/a",
+    "rank": "Species",
+    "parentId": "362806"
+  },
+  "67333": {
+    "taxonName": "Bacteria",
+    "vernacularName": "Bacteria",
+    "rank": "Kingdom",
+    "parentId": "48460"
+  },
+  "67334": {
+    "taxonName": "Cyanobacteria",
+    "vernacularName": "Cyanobacteria",
+    "rank": "Phylum",
+    "parentId": "67333"
+  },
+  "196963": {
+    "taxonName": "Cyanophyceae",
+    "vernacularName": "Cyanobacteria",
+    "rank": "Class",
+    "parentId": "67334"
+  },
+  "1513634": {
+    "taxonName": "Nostocophycidae",
+    "vernacularName": "N/a",
+    "rank": "Subclass",
+    "parentId": "196963"
+  },
+  "67336": {
+    "taxonName": "Nostocales",
+    "vernacularName": "N/a",
+    "rank": "Order",
+    "parentId": "1513634"
+  },
+  "67337": {
+    "taxonName": "Nostocaceae",
+    "vernacularName": "N/a",
+    "rank": "Family",
+    "parentId": "67336"
+  },
+  "67332": {
+    "taxonName": "Nostoc",
+    "vernacularName": "Star jellies",
+    "rank": "Genus",
+    "parentId": "67337"
+  },
+  "319815": {
+    "taxonName": "Nostoc commune",
+    "vernacularName": "Star jelly",
+    "rank": "Species",
+    "parentId": "67332"
+  },
+  "83702": {
+    "taxonName": "Proteobacteria",
+    "vernacularName": "Proteobacteria",
+    "rank": "Phylum",
+    "parentId": "67333"
+  },
+  "126705": {
+    "taxonName": "Gammaproteobacteria",
+    "vernacularName": "\u0393-proteobacteria",
+    "rank": "Class",
+    "parentId": "83702"
+  },
+  "126706": {
+    "taxonName": "Enterobacteriales",
+    "vernacularName": "Enterobacteria and allies",
+    "rank": "Order",
+    "parentId": "126705"
+  },
+  "126707": {
+    "taxonName": "Enterobacteriaceae",
+    "vernacularName": "Enterobacteria",
+    "rank": "Family",
+    "parentId": "126706"
+  },
+  "450838": {
+    "taxonName": "Escherichia",
+    "vernacularName": "N/a",
+    "rank": "Genus",
+    "parentId": "126707"
+  },
+  "450837": {
+    "taxonName": "Escherichia coli",
+    "vernacularName": "E. coli",
+    "rank": "Species",
+    "parentId": "450838"
+  },
+  "151859": {
+    "taxonName": "Spirochaetae",
+    "vernacularName": "N/a",
+    "rank": "Phylum",
+    "parentId": "67333"
+  },
+  "410768": {
+    "taxonName": "Nostoc pruniforme",
+    "vernacularName": "Mare's eggs",
+    "rank": "Species",
+    "parentId": "67332"
+  },
+  "151824": {
+    "taxonName": "Crenarchaeota",
+    "vernacularName": "N/a",
+    "rank": "Phylum",
+    "parentId": "151817"
+  },
+  "152087": {
+    "taxonName": "Thermoprotei",
+    "vernacularName": "N/a",
+    "rank": "Class",
+    "parentId": "151824"
+  },
+  "152509": {
+    "taxonName": "Sulfolobales",
+    "vernacularName": "N/a",
+    "rank": "Order",
+    "parentId": "152087"
+  },
+  "196671": {
+    "taxonName": "Sulfolobaceae",
+    "vernacularName": "N/a",
+    "rank": "Family",
+    "parentId": "152509"
+  },
+  "196672": {
+    "taxonName": "Sulfolobus",
+    "vernacularName": "N/a",
+    "rank": "Genus",
+    "parentId": "196671"
+  },
+  "939014": {
+    "taxonName": "Sulfolobus solfataricus",
+    "vernacularName": "N/a",
+    "rank": "Species",
+    "parentId": "196672"
+  },
+  "152320": {
+    "taxonName": "Spirochaetales",
+    "vernacularName": "N/a",
+    "rank": "Order",
+    "parentId": "151859"
+  },
+  "356654": {
+    "taxonName": "Spirochaetaceae",
+    "vernacularName": "N/a",
+    "rank": "Family",
+    "parentId": "152320"
+  },
+  "492544": {
+    "taxonName": "Borrelia",
+    "vernacularName": "N/a",
+    "rank": "Genus",
+    "parentId": "356654"
+  },
+  "492543": {
+    "taxonName": "Borrelia burgdorferi",
+    "vernacularName": "Lyme disease spirochete",
+    "rank": "Species",
+    "parentId": "492544"
+  },
+  "47686": {
+    "taxonName": "Protozoa",
+    "vernacularName": "Protozoans",
+    "rank": "Kingdom",
+    "parentId": "48460"
+  },
+  "47685": {
+    "taxonName": "Mycetozoa",
+    "vernacularName": "Slime molds",
+    "rank": "Phylum",
+    "parentId": "47686"
+  },
+  "47684": {
+    "taxonName": "Myxomycetes",
+    "vernacularName": "True slime molds",
+    "rank": "Class",
+    "parentId": "47685"
+  },
+  "1443220": {
+    "taxonName": "Columellomycetidae",
+    "vernacularName": "N/a",
+    "rank": "Subclass",
+    "parentId": "47684"
+  },
+  "1443223": {
+    "taxonName": "Stemonitidia",
+    "vernacularName": "N/a",
+    "rank": "Superorder",
+    "parentId": "1443220"
+  },
+  "55484": {
+    "taxonName": "Physarales",
+    "vernacularName": "N/a",
+    "rank": "Order",
+    "parentId": "1443223"
+  },
+  "55485": {
+    "taxonName": "Physaraceae",
+    "vernacularName": "N/a",
+    "rank": "Family",
+    "parentId": "55484"
+  },
+  "55486": {
+    "taxonName": "Fuligo",
+    "vernacularName": "N/a",
+    "rank": "Genus",
+    "parentId": "55485"
+  },
+  "55483": {
+    "taxonName": "Fuligo septica",
+    "vernacularName": "Dog vomit slime mold",
+    "rank": "Species",
+    "parentId": "55486"
+  },
+  "372735": {
+    "taxonName": "Amoebozoa",
+    "vernacularName": "Amoebae",
+    "rank": "Phylum",
+    "parentId": "47686"
+  },
+  "142256": {
+    "taxonName": "Euglenozoa",
+    "vernacularName": "Euglenoids",
+    "rank": "Phylum",
+    "parentId": "47686"
+  },
+  "142257": {
+    "taxonName": "Euglenida",
+    "vernacularName": "Euglenids",
+    "rank": "Class",
+    "parentId": "142256"
+  },
+  "56271": {
+    "taxonName": "Didymiaceae",
+    "vernacularName": "N/a",
+    "rank": "Family",
+    "parentId": "55484"
+  },
+  "134048": {
+    "taxonName": "Didymium",
+    "vernacularName": "N/a",
+    "rank": "Genus",
+    "parentId": "56271"
+  },
+  "1504198": {
+    "taxonName": "Didymium spongiosum",
+    "vernacularName": "Dog sick slime mould",
+    "rank": "Species",
+    "parentId": "134048"
   }
 }
