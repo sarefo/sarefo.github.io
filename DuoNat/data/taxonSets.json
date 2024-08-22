@@ -12817,9 +12817,11 @@
     ]
   },
   "745": {
-    "setName": "",
-    "level": "0",
-    "tags": [],
+    "setName": "Mainland leopard cat vs Domestic cat",
+    "level": "1",
+    "tags": [
+      "pets"
+    ],
     "taxa": [
       922738,
       118552
@@ -12833,9 +12835,11 @@
     ]
   },
   "746": {
-    "setName": "",
-    "level": "0",
-    "tags": [],
+    "setName": "Sundials",
+    "level": "3",
+    "tags": [
+      "ocean"
+    ],
     "taxa": [
       355522,
       1353283
@@ -12849,9 +12853,11 @@
     ]
   },
   "747": {
-    "setName": "",
-    "level": "0",
-    "tags": [],
+    "setName": "Muskrat vs Beavers",
+    "level": "2",
+    "tags": [
+      "aquatic"
+    ],
     "taxa": [
       45763,
       43792
@@ -12866,9 +12872,11 @@
     ]
   },
   "748": {
-    "setName": "",
-    "level": "0",
-    "tags": [],
+    "setName": "Star-nosed mole vs European mole",
+    "level": "1",
+    "tags": [
+      "burrowing"
+    ],
     "taxa": [
       47056,
       46970
@@ -12880,9 +12888,11 @@
     "range": []
   },
   "749": {
-    "setName": "",
-    "level": "0",
-    "tags": [],
+    "setName": "Brown hare vs European rabbit",
+    "level": "2",
+    "tags": [
+      "pets"
+    ],
     "taxa": [
       43128,
       43151

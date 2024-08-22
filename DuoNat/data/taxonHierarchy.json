@@ -18526,5 +18526,185 @@
     "vernacularName": "Yellow-bellied prinia",
     "rank": "Species",
     "parentId": "7706"
+  },
+  "41956": {
+    "taxonName": "Felis",
+    "vernacularName": "Palearctic and african small cats",
+    "rank": "Genus",
+    "parentId": "846179"
+  },
+  "118552": {
+    "taxonName": "Felis catus",
+    "vernacularName": "Domestic cat",
+    "rank": "Species",
+    "parentId": "41956"
+  },
+  "179534": {
+    "taxonName": "Arvicolinae",
+    "vernacularName": "Voles, lemmings, and muskrats",
+    "rank": "Subfamily",
+    "parentId": "55986"
+  },
+  "1317289": {
+    "taxonName": "Ondatrini",
+    "vernacularName": "Muskrats",
+    "rank": "Tribe",
+    "parentId": "179534"
+  },
+  "45762": {
+    "taxonName": "Ondatra",
+    "vernacularName": "N/a",
+    "rank": "Genus",
+    "parentId": "1317289"
+  },
+  "45763": {
+    "taxonName": "Ondatra zibethicus",
+    "vernacularName": "Muskrat",
+    "rank": "Species",
+    "parentId": "45762"
+  },
+  "46927": {
+    "taxonName": "Talpidae",
+    "vernacularName": "Moles and desmans",
+    "rank": "Family",
+    "parentId": "1474222"
+  },
+  "846233": {
+    "taxonName": "Talpinae",
+    "vernacularName": "Old world moles and desmans",
+    "rank": "Subfamily",
+    "parentId": "46927"
+  },
+  "846361": {
+    "taxonName": "Talpini",
+    "vernacularName": "Short-tailed eurasian moles",
+    "rank": "Tribe",
+    "parentId": "846233"
+  },
+  "46942": {
+    "taxonName": "Talpa",
+    "vernacularName": "Eurasian moles",
+    "rank": "Genus",
+    "parentId": "846361"
+  },
+  "1431398": {
+    "taxonName": "Talpa",
+    "vernacularName": "N/a",
+    "rank": "Subgenus",
+    "parentId": "46942"
+  },
+  "46970": {
+    "taxonName": "Talpa europaea",
+    "vernacularName": "European mole",
+    "rank": "Species",
+    "parentId": "1431398"
+  },
+  "846223": {
+    "taxonName": "Scalopinae",
+    "vernacularName": "New world moles",
+    "rank": "Subfamily",
+    "parentId": "46927"
+  },
+  "955879": {
+    "taxonName": "Condylurini",
+    "vernacularName": "Star-nosed moles",
+    "rank": "Tribe",
+    "parentId": "846223"
+  },
+  "47055": {
+    "taxonName": "Condylura",
+    "vernacularName": "N/a",
+    "rank": "Genus",
+    "parentId": "955879"
+  },
+  "47056": {
+    "taxonName": "Condylura cristata",
+    "vernacularName": "Star-nosed mole",
+    "rank": "Species",
+    "parentId": "47055"
+  },
+  "43094": {
+    "taxonName": "Lagomorpha",
+    "vernacularName": "Lagomorphs",
+    "rank": "Order",
+    "parentId": "848323"
+  },
+  "43095": {
+    "taxonName": "Leporidae",
+    "vernacularName": "Hares and rabbits",
+    "rank": "Family",
+    "parentId": "43094"
+  },
+  "43150": {
+    "taxonName": "Oryctolagus",
+    "vernacularName": "European rabbits",
+    "rank": "Genus",
+    "parentId": "43095"
+  },
+  "43151": {
+    "taxonName": "Oryctolagus cuniculus",
+    "vernacularName": "European rabbit",
+    "rank": "Species",
+    "parentId": "43150"
+  },
+  "551405": {
+    "taxonName": "Architectonicoidea",
+    "vernacularName": "N/a",
+    "rank": "Superfamily",
+    "parentId": "551391"
+  },
+  "185051": {
+    "taxonName": "Architectonicidae",
+    "vernacularName": "Staircase shells",
+    "rank": "Family",
+    "parentId": "551405"
+  },
+  "246456": {
+    "taxonName": "Architectonica",
+    "vernacularName": "N/a",
+    "rank": "Genus",
+    "parentId": "185051"
+  },
+  "1353283": {
+    "taxonName": "Architectonica modesta",
+    "vernacularName": "N/a",
+    "rank": "Species",
+    "parentId": "246456"
+  },
+  "43117": {
+    "taxonName": "Lepus",
+    "vernacularName": "Hares and jackrabbits",
+    "rank": "Genus",
+    "parentId": "43095"
+  },
+  "1431523": {
+    "taxonName": "Eulagos",
+    "vernacularName": "N/a",
+    "rank": "Subgenus",
+    "parentId": "43117"
+  },
+  "43128": {
+    "taxonName": "Lepus europaeus",
+    "vernacularName": "Brown hare",
+    "rank": "Species",
+    "parentId": "1431523"
+  },
+  "355522": {
+    "taxonName": "Architectonica perspectiva",
+    "vernacularName": "Clear sundial",
+    "rank": "Species",
+    "parentId": "246456"
+  },
+  "41945": {
+    "taxonName": "Prionailurus",
+    "vernacularName": "Asian small cats",
+    "rank": "Genus",
+    "parentId": "846179"
+  },
+  "922738": {
+    "taxonName": "Prionailurus bengalensis",
+    "vernacularName": "Mainland leopard cat",
+    "rank": "Species",
+    "parentId": "41945"
   }
 }
