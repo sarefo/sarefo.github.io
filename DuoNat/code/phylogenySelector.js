@@ -239,6 +239,9 @@ const phylogenySelector = {
             } else {
                 nameElement.textContent = taxon.taxonName;
                 nameElement.className = 'phylogeny-cloud__scientific-name';
+                if (taxon.rank === 'Genus' || taxon.rank === 'Species') {
+                    nameElement.style.fontStyle = 'italic';
+                }
                 if (taxon.vernacularName && taxon.vernacularName !== "n/a") {
                     nameElement.title = taxon.vernacularName;
                 }
@@ -551,7 +554,9 @@ const phylogenySelector = {
             const matchingNodes = Array.from(hierarchyObj.nodes.values())
                 .filter(node => {
                     const matchesTaxonName = node.taxonName.toLowerCase().includes(searchTerm);
-                    const matchesVernacularName = node.vernacularName && node.vernacularName.toLowerCase().includes(searchTerm);
+                    const matchesVernacularName = node.vernacularName && 
+                                                  node.vernacularName !== "n/a" && 
+                                                  node.vernacularName.toLowerCase().includes(searchTerm);
                     
                     if (matchesTaxonName || matchesVernacularName) {
                         const isAvailable = this.isNodeOrDescendantAvailable(node, availableTaxonIds, hierarchyObj);
@@ -608,11 +613,24 @@ const phylogenySelector = {
                 results.forEach(node => {
                     const resultItem = document.createElement('div');
                     resultItem.className = 'phylogeny-dialog__search-result';
-                    resultItem.textContent = `${node.taxonName}${node.vernacularName ? ` (${node.vernacularName})` : ''}`;
-                    /*if (!availableTaxonIds.includes(node.id)) {
-                        resultItem.textContent += ' (Higher taxon)';
-                        resultItem.classList.add('phylogeny-dialog__search-result--higher-taxon');
-                    }*/
+                    
+                    // Create separate spans for taxon name and vernacular name
+                    const taxonNameSpan = document.createElement('span');
+                    taxonNameSpan.textContent = node.taxonName;
+                    
+                    // Apply italic style to genus and species
+                    if (node.rank === 'Genus' || node.rank === 'Species') {
+                        taxonNameSpan.style.fontStyle = 'italic';
+                    }
+                    
+                    resultItem.appendChild(taxonNameSpan);
+                    
+                    if (node.vernacularName && node.vernacularName !== "n/a") {
+                        const vernacularSpan = document.createElement('span');
+                        vernacularSpan.textContent = ` (${node.vernacularName})`;
+                        resultItem.appendChild(vernacularSpan);
+                    }
+                    
                     resultItem.dataset.nodeId = node.id;
                     searchResults.appendChild(resultItem);
                 });

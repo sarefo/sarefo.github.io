@@ -231,12 +231,12 @@ input:checked + .slider:before {
 /* Active taxon */
 .phylogeny-dialog__active-taxon {
     text-align: center;
-    margin-bottom: 10px;
+    margin-top: 8px;
     font-weight: bold;
 }
 
 .phylogeny-dialog__active-taxon #active-taxon-vernacular {
-    font-style: italic;
+    /*font-style: italic;*/
     font-weight: normal;
 }
 
