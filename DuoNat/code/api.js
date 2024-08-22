@@ -288,12 +288,27 @@ const api = (() => {
 
             async fetchMultipleImages(taxonName, count = 12) {
                 try {
-                    const searchResponse = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${taxonName}`);
-                    if (!searchResponse.ok) throw new Error(`HTTP error! status: ${searchResponse.status}`);
-                    const searchData = await searchResponse.json();
-                    if (searchData.results.length === 0) throw new Error('Taxon not found');
-                    const taxonId = searchData.results[0].id;
+                    // First, try to get the taxon ID from local data
+                    const taxonInfo = await api.taxonomy.loadTaxonInfo();
+                    const localTaxon = Object.values(taxonInfo).find(info => 
+                        info.taxonName.toLowerCase() === taxonName.toLowerCase()
+                    );
 
+                    let taxonId;
+                    if (localTaxon) {
+                        taxonId = Object.keys(taxonInfo).find(key => taxonInfo[key] === localTaxon);
+                        logger.debug(`Using local taxon ID for ${taxonName}: ${taxonId}`);
+                    } else {
+                        // If not found locally, fall back to API call
+                        logger.debug(`Taxon ${taxonName} not found locally, fetching from API`);
+                        const searchResponse = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${taxonName}`);
+                        if (!searchResponse.ok) throw new Error(`HTTP error! status: ${searchResponse.status}`);
+                        const searchData = await searchResponse.json();
+                        if (searchData.results.length === 0) throw new Error('Taxon not found');
+                        taxonId = searchData.results[0].id;
+                    }
+
+                    // The rest of the function remains the same
                     const taxonResponse = await fetch(`https://api.inaturalist.org/v1/taxa/${taxonId}?photos=true`);
                     if (!taxonResponse.ok) throw new Error(`HTTP error! status: ${taxonResponse.status}`);
                     const taxonData = await taxonResponse.json();
