@@ -274,8 +274,6 @@ const gameSetup = {
                 state.getSelectedLevel() === '';
         },
 
-
-
         async finishSetup(newPair) {
             ui.setNamePairHeight();
             state.setState(state.GameState.PLAYING);
@@ -290,6 +288,11 @@ const gameSetup = {
             ui.resetUIState();
             state.setState(state.GameState.PLAYING);
             preloader.startPreloading(newPair);
+
+            // Initialize the subset after the game has loaded
+            setManager.initializeSubset().catch(error => {
+                logger.error("Error initializing subset:", error);
+            });
         },
 
         hideLoadingScreen() {

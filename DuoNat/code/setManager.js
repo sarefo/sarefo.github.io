@@ -7,13 +7,17 @@ import state from './state.js';
 const setManager = {
     currentSubset: [],
     usedSets: new Set(),
+    isInitialized: false,
 
     async initializeSubset() {
+        if (this.isInitialized) return;
+
         const allSets = await api.taxonomy.fetchTaxonPairs();
         const filteredSets = this.filterSets(allSets);
         this.currentSubset = this.getRandomSubset(filteredSets, 100);
         this.shuffleArray(this.currentSubset);
         this.usedSets.clear();
+        this.isInitialized = true;
         logger.debug('Initialized new subset of sets:', this.currentSubset.length);
     },
 
@@ -46,6 +50,10 @@ const setManager = {
     },
 
     async getNextSet() {
+        if (!this.isInitialized) {
+            await this.initializeSubset();
+        }
+
         if (this.currentSubset.length === 0) {
             await this.initializeSubset();
         }
