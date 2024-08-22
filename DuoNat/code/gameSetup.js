@@ -338,10 +338,13 @@ async setupWorldMaps(pair, imageData) {
         },
 
         hideLoadingScreen() {
+            const loadingScreen = document.getElementById('loading-screen');
+            loadingScreen.classList.add('loading-screen--fade-out');
             setTimeout(() => {
-                document.getElementById('loading-screen').style.display = 'none';
-            }, 500);
+                loadingScreen.style.display = 'none';
+            }, 500); // This matches the transition duration in CSS
         },
+
     },
 
     imageHandling: {
