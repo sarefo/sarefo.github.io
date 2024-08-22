@@ -132,6 +132,7 @@ const api = (() => {
                         return localTaxon;
                     }
 
+                    // If not found locally, then use the API
                     const response = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${encodeURIComponent(taxonName)}`);
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
@@ -149,11 +150,20 @@ const api = (() => {
             fetchTaxonId: async function (taxonName) {
                 try {
                     logger.debug(`Fetching taxon ID for ${taxonName}`);
+                    
+                    // First, check local data
+                    const localTaxon = await api.taxonomy.checkLocalTaxonData(taxonName);
+                    if (localTaxon) {
+                        logger.debug(`Taxon ID for ${taxonName} found locally:`, localTaxon.id);
+                        return localTaxon.id;
+                    }
+
+                    // If not found locally, then use the API
                     const response = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${encodeURIComponent(taxonName)}&per_page=1`);
                     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                     const data = await response.json();
                     if (data.results.length === 0) throw new Error(`Taxon not found: ${taxonName}`);
-                    logger.debug(`Taxon ID for ${taxonName}:`, data.results[0].id);
+                    logger.debug(`Taxon ID for ${taxonName} fetched from API:`, data.results[0].id);
                     return data.results[0].id;
                 } catch (error) {
                     handleApiError(error, 'fetchTaxonId');
