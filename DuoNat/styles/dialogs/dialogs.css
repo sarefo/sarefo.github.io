@@ -28,6 +28,30 @@ dialog[open] {
     transform: translate(-50%, -50%) scale(1);
 }
 
+@media (max-width: 480px) {
+    dialog {
+        width: 100%;
+        height: auto;
+        max-height: 95vh;
+        border-radius: var(--border-radius) var(--border-radius) 0 0;
+        bottom: 0;
+        top: auto;
+        /*transform: translate(-50%, 50%) scale(0.95);*/
+    }
+
+    dialog[open] {
+        top:8px;
+        bottom: 8px;
+        transform: translate(-50%, 0%);
+    }
+
+    .standard-dialog {
+        width: 100%;
+        max-width: none;
+        border-radius: var(--border-radius) var(--border-radius) 0 0;
+    }
+}
+
 .standard-dialog {
     /*background-color: white;*/
     background-color: #f9f9f9;
