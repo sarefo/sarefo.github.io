@@ -21,7 +21,7 @@ async function getCachedVernacularName(taxonName) {
         const vernacularName = await api.vernacular.fetchVernacular(taxonName);
         vernacularNameCache.set(taxonName, vernacularName);
     }
-    return vernacularNameCache.get(taxonName) || 'n/a';
+    return vernacularNameCache.get(taxonName) || '-';
 }
 
 const collectionManager = {
@@ -212,7 +212,7 @@ const collectionManager = {
             return `
                 <div class="taxon-item">
                     <div class="taxon-name">${taxonName}</div>
-                    ${vernacularName && vernacularName.toLowerCase() !== 'n/a' 
+                    ${vernacularName && vernacularName.toLowerCase() !== '-' 
                         ? `<div class="vernacular-name">${vernacularName}</div>`
                         : ''}
                 </div>
@@ -376,7 +376,7 @@ const collectionManager = {
                     
                     phylogenyElement.innerHTML = `
                         <span class="phylogeny-taxon">${taxonName}</span>
-                        ${vernacularName && vernacularName !== 'n/a' ? `<span class="phylogeny-vernacular">(${vernacularName})</span>` : ''}
+                        ${vernacularName && vernacularName !== '-' ? `<span class="phylogeny-vernacular">(${vernacularName})</span>` : ''}
                     `;
                 } else {
                     phylogenyElement.textContent = 'All taxa';

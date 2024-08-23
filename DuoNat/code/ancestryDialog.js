@@ -303,7 +303,7 @@ const ancestryDialog = {
 
                 var taxonName = nodeData.taxonName || `Unknown Taxon ${nodeData.id}`;
                 var taxonRank = utils.string.capitalizeFirstLetter(nodeData.rank || 'Unknown');
-                var vernacularName = nodeData.vernacularName && nodeData.vernacularName !== "n/a" && nodeData.vernacularName !== "N/a" ?
+                var vernacularName = nodeData.vernacularName && nodeData.vernacularName !== "-" ?
                     `\n(${utils.string.capitalizeFirstLetter(nodeData.vernacularName)})` : "";
 
                 if (taxonRank === "Species" || taxonRank === "Genus" || taxonRank === "Stateofmatter") { vernacularName = ""; }

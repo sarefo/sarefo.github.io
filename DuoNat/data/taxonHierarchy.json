@@ -1,7 +1,7 @@
 {
   "48460": {
     "taxonName": "Life",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Stateofmatter",
     "parentId": null
   },
@@ -169,7 +169,7 @@
   },
   "1500641": {
     "taxonName": "Acanthosepion",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "67960"
   },
@@ -187,7 +187,7 @@
   },
   "152105": {
     "taxonName": "Rhabditophora",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subphylum",
     "parentId": "52319"
   },
@@ -199,19 +199,19 @@
   },
   "568262": {
     "taxonName": "Cotylea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Suborder",
     "parentId": "52318"
   },
   "52317": {
     "taxonName": "Pseudocerotidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "568262"
   },
   "63306": {
     "taxonName": "Acanthozoon",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "52317"
   },
@@ -295,13 +295,13 @@
   },
   "500856": {
     "taxonName": "Acheron",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "713245"
   },
   "1290471": {
     "taxonName": "Acheron longus",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "500856"
   },
@@ -325,19 +325,19 @@
   },
   "124081": {
     "taxonName": "Sphinginae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47213"
   },
   "124110": {
     "taxonName": "Sphingini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "124081"
   },
   "1228738": {
     "taxonName": "Acherontiina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "124110"
   },
@@ -523,13 +523,13 @@
   },
   "205265": {
     "taxonName": "Acropora intermedia",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "48745"
   },
   "93299": {
     "taxonName": "Acropora millepora",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "48745"
   },
@@ -553,7 +553,7 @@
   },
   "125080": {
     "taxonName": "Saturniini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "124126"
   },
@@ -625,7 +625,7 @@
   },
   "121776": {
     "taxonName": "Aculepeira",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "417879"
   },
@@ -679,7 +679,7 @@
   },
   "52507": {
     "taxonName": "Adalia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "333796"
   },
@@ -715,13 +715,13 @@
   },
   "712084": {
     "taxonName": "Aelurillini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "606933"
   },
   "1109133": {
     "taxonName": "Aelurillina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "712084"
   },
@@ -733,7 +733,7 @@
   },
   "786749": {
     "taxonName": "Aelurillus aeruginosus",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "130288"
   },
@@ -757,7 +757,7 @@
   },
   "1317180": {
     "taxonName": "Aeshnoidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "47927"
   },
@@ -817,7 +817,7 @@
   },
   "1094814": {
     "taxonName": "Agaricomycetidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subclass",
     "parentId": "50814"
   },
@@ -829,7 +829,7 @@
   },
   "785517": {
     "taxonName": "Agaricineae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Suborder",
     "parentId": "47167"
   },
@@ -847,7 +847,7 @@
   },
   "824804": {
     "taxonName": "Pseudochitonia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "49548"
   },
@@ -859,7 +859,7 @@
   },
   "1444566": {
     "taxonName": "Hortenses",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subsection",
     "parentId": "824808"
   },
@@ -877,7 +877,7 @@
   },
   "844123": {
     "taxonName": "Agaricus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Section",
     "parentId": "824801"
   },
@@ -925,13 +925,13 @@
   },
   "360682": {
     "taxonName": "Allagelena",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1251448"
   },
   "496243": {
     "taxonName": "Allagelena gracilens",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "360682"
   },
@@ -1153,7 +1153,7 @@
   },
   "1529320": {
     "taxonName": "Oval calamistrum clade",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Zoosubsection",
     "parentId": "1529315"
   },
@@ -1171,7 +1171,7 @@
   },
   "1235357": {
     "taxonName": "Lycosinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47416"
   },
@@ -1183,13 +1183,13 @@
   },
   "1466371": {
     "taxonName": "Alopecosa pulverulenta",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Complex",
     "parentId": "143471"
   },
   "785522": {
     "taxonName": "Pluteineae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Suborder",
     "parentId": "47167"
   },
@@ -1201,7 +1201,7 @@
   },
   "1149497": {
     "taxonName": "Amaniteae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "118249"
   },
@@ -1345,7 +1345,7 @@
   },
   "1552579": {
     "taxonName": "Amaurobiinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "49550"
   },
@@ -1393,13 +1393,13 @@
   },
   "556686": {
     "taxonName": "Gobiinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47308"
   },
   "86382": {
     "taxonName": "Amblyeleotris",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "556686"
   },
@@ -1423,37 +1423,37 @@
   },
   "1097011": {
     "taxonName": "Eumantodea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Suborder",
     "parentId": "48112"
   },
   "1097013": {
     "taxonName": "Schizomantodea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Infraorder",
     "parentId": "1097011"
   },
   "1097030": {
     "taxonName": "Eremiaphiloidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "1097013"
   },
   "1097048": {
     "taxonName": "Amelidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "1097030"
   },
   "570093": {
     "taxonName": "Amelini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "1097048"
   },
   "354558": {
     "taxonName": "Ameles",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "570093"
   },
@@ -1495,7 +1495,7 @@
   },
   "528051": {
     "taxonName": "Rhizotrogini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "48200"
   },
@@ -1543,13 +1543,13 @@
   },
   "814025": {
     "taxonName": "Discosomidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "152818"
   },
   "472114": {
     "taxonName": "Amplexidiscus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "814025"
   },
@@ -1621,7 +1621,7 @@
   },
   "130576": {
     "taxonName": "Anisosticta",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "333796"
   },
@@ -1651,7 +1651,7 @@
   },
   "1269340": {
     "taxonName": "Formicoidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "326777"
   },
@@ -1717,13 +1717,13 @@
   },
   "362676": {
     "taxonName": "Antilochus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "55612"
   },
   "362680": {
     "taxonName": "Antilochus nigripes",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "362676"
   },
@@ -1741,7 +1741,7 @@
   },
   "153567": {
     "taxonName": "Anyphaena",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "83722"
   },
@@ -1753,7 +1753,7 @@
   },
   "783382": {
     "taxonName": "Anyphaena sabina",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "153567"
   },
@@ -1981,13 +1981,13 @@
   },
   "82091": {
     "taxonName": "Arctiina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "82089"
   },
   "68331": {
     "taxonName": "Arctia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "82091"
   },
@@ -2041,7 +2041,7 @@
   },
   "1004912": {
     "taxonName": "Argiopinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47535"
   },
@@ -2071,13 +2071,13 @@
   },
   "785516": {
     "taxonName": "Marasmiineae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Suborder",
     "parentId": "47167"
   },
   "55931": {
     "taxonName": "Physalacriaceae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "785516"
   },
@@ -2107,19 +2107,19 @@
   },
   "775797": {
     "taxonName": "Euthyneura",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Infraclass",
     "parentId": "551391"
   },
   "775799": {
     "taxonName": "Ringipleura",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subterclass",
     "parentId": "775797"
   },
   "775801": {
     "taxonName": "Nudipleura",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superorder",
     "parentId": "775799"
   },
@@ -2131,37 +2131,37 @@
   },
   "801475": {
     "taxonName": "Cladobranchia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Suborder",
     "parentId": "47113"
   },
   "543637": {
     "taxonName": "Arminoidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "801475"
   },
   "47501": {
     "taxonName": "Arminidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "543637"
   },
   "47500": {
     "taxonName": "Armina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "47501"
   },
   "841163": {
     "taxonName": "Armina scotti",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "47500"
   },
   "474655": {
     "taxonName": "Armina semperi",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "47500"
   },
@@ -2197,7 +2197,7 @@
   },
   "846304": {
     "taxonName": "Stenodermatini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "207845"
   },
@@ -2227,7 +2227,7 @@
   },
   "354603": {
     "taxonName": "Asiloidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "372865"
   },
@@ -2239,19 +2239,19 @@
   },
   "326683": {
     "taxonName": "Asilinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47982"
   },
   "481518": {
     "taxonName": "Asilini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "326683"
   },
   "61609": {
     "taxonName": "Asilus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "481518"
   },
@@ -2371,7 +2371,7 @@
   },
   "774257": {
     "taxonName": "Zosiminae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "51176"
   },
@@ -2401,13 +2401,13 @@
   },
   "50815": {
     "taxonName": "Auriculariales",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Order",
     "parentId": "50814"
   },
   "50816": {
     "taxonName": "Auriculariaceae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "50815"
   },
@@ -2419,7 +2419,7 @@
   },
   "1138427": {
     "taxonName": "Auricularia auricula-judae",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Complex",
     "parentId": "50817"
   },
@@ -2431,7 +2431,7 @@
   },
   "475374": {
     "taxonName": "Hemileucini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "125084"
   },
@@ -2479,43 +2479,43 @@
   },
   "569714": {
     "taxonName": "Verophasmatodea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Suborder",
     "parentId": "47198"
   },
   "569717": {
     "taxonName": "Areolatae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Infraorder",
     "parentId": "569714"
   },
   "180409": {
     "taxonName": "Bacilloidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "569717"
   },
   "337090": {
     "taxonName": "Bacillidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "180409"
   },
   "536370": {
     "taxonName": "Bacillinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "337090"
   },
   "536372": {
     "taxonName": "Bacillini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "536370"
   },
   "357171": {
     "taxonName": "Bacillus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "536372"
   },
@@ -2557,7 +2557,7 @@
   },
   "41547": {
     "taxonName": "Balaenoptera",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "41546"
   },
@@ -2617,7 +2617,7 @@
   },
   "846318": {
     "taxonName": "Plecotini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "846180"
   },
@@ -2641,25 +2641,25 @@
   },
   "47465": {
     "taxonName": "Aeolidiidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "564817"
   },
   "50487": {
     "taxonName": "Berghia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "47465"
   },
   "56645": {
     "taxonName": "Berghia coerulescens",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "50487"
   },
   "255168": {
     "taxonName": "Berghia verrucicornis",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "50487"
   },
@@ -2713,13 +2713,13 @@
   },
   "1226039": {
     "taxonName": "Bibioninae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "56097"
   },
   "1319627": {
     "taxonName": "Bibionini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "1226039"
   },
@@ -2863,7 +2863,7 @@
   },
   "1135850": {
     "taxonName": "Boletoideae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "48702"
   },
@@ -2881,7 +2881,7 @@
   },
   "538883": {
     "taxonName": "Bombini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "199939"
   },
@@ -2893,7 +2893,7 @@
   },
   "538902": {
     "taxonName": "Thoracobombus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "52775"
   },
@@ -2911,7 +2911,7 @@
   },
   "538903": {
     "taxonName": "Bombus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "52775"
   },
@@ -3037,31 +3037,31 @@
   },
   "801476": {
     "taxonName": "Doridina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Suborder",
     "parentId": "47113"
   },
   "801480": {
     "taxonName": "Doridoidei",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Infraorder",
     "parentId": "801476"
   },
   "989732": {
     "taxonName": "Chromodoridoidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "801480"
   },
   "349077": {
     "taxonName": "Cadlinidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "989732"
   },
   "47401": {
     "taxonName": "Cadlina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "349077"
   },
@@ -3073,19 +3073,19 @@
   },
   "492417": {
     "taxonName": "Cadlina pellucida",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "47401"
   },
   "208377": {
     "taxonName": "Caeneressa",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "122121"
   },
   "366952": {
     "taxonName": "Caeneressa diaphana",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "208377"
   },
@@ -3115,7 +3115,7 @@
   },
   "68023": {
     "taxonName": "Caesio",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "788565"
   },
@@ -3157,13 +3157,13 @@
   },
   "82099": {
     "taxonName": "Callimorphina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "82089"
   },
   "125319": {
     "taxonName": "Callimorpha",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "82099"
   },
@@ -3181,7 +3181,7 @@
   },
   "1317181": {
     "taxonName": "Calopterygoidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "47928"
   },
@@ -3217,7 +3217,7 @@
   },
   "57693": {
     "taxonName": "Calvatia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "48445"
   },
@@ -3229,7 +3229,7 @@
   },
   "69204": {
     "taxonName": "Calvia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "333796"
   },
@@ -3289,13 +3289,13 @@
   },
   "47350": {
     "taxonName": "Cantharellales",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Order",
     "parentId": "50814"
   },
   "48423": {
     "taxonName": "Hydnaceae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "47350"
   },
@@ -3307,7 +3307,7 @@
   },
   "1374657": {
     "taxonName": "Cantharellus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "47348"
   },
@@ -3319,31 +3319,31 @@
   },
   "569716": {
     "taxonName": "Anareolatae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Infraorder",
     "parentId": "569714"
   },
   "149024": {
     "taxonName": "Lonchodidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "569716"
   },
   "536330": {
     "taxonName": "Lonchodinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "149024"
   },
   "536331": {
     "taxonName": "Lonchodini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "536330"
   },
   "53593": {
     "taxonName": "Carausius",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "536331"
   },
@@ -3391,7 +3391,7 @@
   },
   "41109": {
     "taxonName": "Carollia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "486968"
   },
@@ -3409,31 +3409,31 @@
   },
   "712082": {
     "taxonName": "Salticini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "606933"
   },
   "154613": {
     "taxonName": "Carrhotus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "712082"
   },
   "334660": {
     "taxonName": "Carrhotus sannio",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "154613"
   },
   "154610": {
     "taxonName": "Carrhotus viduus",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "154613"
   },
   "343255": {
     "taxonName": "Carrhotus xanthogramma",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "154613"
   },
@@ -3463,13 +3463,13 @@
   },
   "122426": {
     "taxonName": "Erebinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "121850"
   },
   "121541": {
     "taxonName": "Catocalini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "122426"
   },
@@ -3553,13 +3553,13 @@
   },
   "339434": {
     "taxonName": "Cerambycini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "321500"
   },
   "87297": {
     "taxonName": "Cerambyx",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "339434"
   },
@@ -3637,13 +3637,13 @@
   },
   "1185181": {
     "taxonName": "Cerurinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47718"
   },
   "56227": {
     "taxonName": "Cerura",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1185181"
   },
@@ -3697,7 +3697,7 @@
   },
   "47317": {
     "taxonName": "Chaetodon",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1544594"
   },
@@ -3715,7 +3715,7 @@
   },
   "846363": {
     "taxonName": "Vespertilionini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "846180"
   },
@@ -3763,7 +3763,7 @@
   },
   "1303565": {
     "taxonName": "Labroidei",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Suborder",
     "parentId": "1555654"
   },
@@ -3781,7 +3781,7 @@
   },
   "82356": {
     "taxonName": "Cheilinus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1541886"
   },
@@ -3799,7 +3799,7 @@
   },
   "123830": {
     "taxonName": "Cheilomenes",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "333796"
   },
@@ -3853,13 +3853,13 @@
   },
   "949881": {
     "taxonName": "Eteodermaptera",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Parvorder",
     "parentId": "713335"
   },
   "713337": {
     "taxonName": "Forficuloidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "949881"
   },
@@ -3871,19 +3871,19 @@
   },
   "713356": {
     "taxonName": "Anechurinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "49528"
   },
   "518236": {
     "taxonName": "Chelidurella",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "713356"
   },
   "518234": {
     "taxonName": "Chelidurella acanthopygia",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "518236"
   },
@@ -3895,7 +3895,7 @@
   },
   "87394": {
     "taxonName": "Chelmon",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1544593"
   },
@@ -3967,7 +3967,7 @@
   },
   "373659": {
     "taxonName": "Chilocorini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "354547"
   },
@@ -3991,25 +3991,25 @@
   },
   "712069": {
     "taxonName": "Hasariini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "606933"
   },
   "172466": {
     "taxonName": "Chinattus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "712069"
   },
   "829262": {
     "taxonName": "Chinattus tibialis",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "172466"
   },
   "56536": {
     "taxonName": "Chlorophyllum",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "47394"
   },
@@ -4063,13 +4063,13 @@
   },
   "1067489": {
     "taxonName": "Chromodoridinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47402"
   },
   "50208": {
     "taxonName": "Chromodoris",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1067489"
   },
@@ -4105,7 +4105,7 @@
   },
   "209849": {
     "taxonName": "Chrysopini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "338941"
   },
@@ -4153,25 +4153,25 @@
   },
   "209685": {
     "taxonName": "Cicadinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "50186"
   },
   "605070": {
     "taxonName": "Cicadini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "209685"
   },
   "605071": {
     "taxonName": "Cicadina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "605070"
   },
   "205175": {
     "taxonName": "Cicada",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "605071"
   },
@@ -4207,7 +4207,7 @@
   },
   "605036": {
     "taxonName": "Cicadettina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "556890"
   },
@@ -4225,7 +4225,7 @@
   },
   "739580": {
     "taxonName": "Cicadetta brevipennis",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "1353539"
   },
@@ -4237,7 +4237,7 @@
   },
   "372884": {
     "taxonName": "Caraboidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "340471"
   },
@@ -4255,13 +4255,13 @@
   },
   "373661": {
     "taxonName": "Cicindelini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "119895"
   },
   "373919": {
     "taxonName": "Cicindelina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "373661"
   },
@@ -4273,7 +4273,7 @@
   },
   "736941": {
     "taxonName": "Cicindela",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "49568"
   },
@@ -4339,7 +4339,7 @@
   },
   "52410": {
     "taxonName": "Clibanarius",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "52409"
   },
@@ -4357,13 +4357,13 @@
   },
   "787526": {
     "taxonName": "Tricholomatineae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Suborder",
     "parentId": "47167"
   },
   "1155395": {
     "taxonName": "Clitocybaceae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "787526"
   },
@@ -4381,7 +4381,7 @@
   },
   "337091": {
     "taxonName": "Clonopsis",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "536372"
   },
@@ -4417,7 +4417,7 @@
   },
   "51703": {
     "taxonName": "Coccinella",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "333796"
   },
@@ -4459,7 +4459,7 @@
   },
   "326427": {
     "taxonName": "Coccinula",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "333796"
   },
@@ -4495,7 +4495,7 @@
   },
   "126268": {
     "taxonName": "Coleomegilla",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "333796"
   },
@@ -4561,7 +4561,7 @@
   },
   "48125": {
     "taxonName": "Tettigonioidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "488701"
   },
@@ -4591,7 +4591,7 @@
   },
   "767528": {
     "taxonName": "Anisoptera",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "118890"
   },
@@ -4633,7 +4633,7 @@
   },
   "56315": {
     "taxonName": "Coprinellus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "56310"
   },
@@ -4669,7 +4669,7 @@
   },
   "516951": {
     "taxonName": "Coprinaceae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "785517"
   },
@@ -4705,7 +4705,7 @@
   },
   "87620": {
     "taxonName": "Coradion",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1544593"
   },
@@ -4735,7 +4735,7 @@
   },
   "1126112": {
     "taxonName": "Corallinophycidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subclass",
     "parentId": "57775"
   },
@@ -4747,7 +4747,7 @@
   },
   "1317177": {
     "taxonName": "Cordulegastroidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "47927"
   },
@@ -4777,7 +4777,7 @@
   },
   "1317176": {
     "taxonName": "Libelluloidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "47927"
   },
@@ -4813,7 +4813,7 @@
   },
   "48705": {
     "taxonName": "Cortinariaceae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "785517"
   },
@@ -4831,7 +4831,7 @@
   },
   "1433684": {
     "taxonName": "Cortinarius",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "48704"
   },
@@ -4879,7 +4879,7 @@
   },
   "712070": {
     "taxonName": "Chrysillini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "606933"
   },
@@ -4915,13 +4915,13 @@
   },
   "371634": {
     "taxonName": "Cossinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "122745"
   },
   "362612": {
     "taxonName": "Cossus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "371634"
   },
@@ -4933,7 +4933,7 @@
   },
   "775800": {
     "taxonName": "Tectipleura",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subterclass",
     "parentId": "775797"
   },
@@ -4945,19 +4945,19 @@
   },
   "801511": {
     "taxonName": "Plakobranchoidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "47801"
   },
   "51005": {
     "taxonName": "Costasiellidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "801511"
   },
   "51004": {
     "taxonName": "Costasiella",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "51005"
   },
@@ -4975,7 +4975,7 @@
   },
   "446945": {
     "taxonName": "Yinpterochiroptera",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Suborder",
     "parentId": "40268"
   },
@@ -4993,7 +4993,7 @@
   },
   "41398": {
     "taxonName": "Craseonycteris",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "41397"
   },
@@ -5041,7 +5041,7 @@
   },
   "45835": {
     "taxonName": "Cricetus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "735066"
   },
@@ -5191,13 +5191,13 @@
   },
   "553450": {
     "taxonName": "Cynegetis",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "373697"
   },
   "553449": {
     "taxonName": "Cynegetis impunctata",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "553450"
   },
@@ -5215,13 +5215,13 @@
   },
   "846182": {
     "taxonName": "Cynopterinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "40782"
   },
   "1317281": {
     "taxonName": "Cynopterini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "846182"
   },
@@ -5245,7 +5245,7 @@
   },
   "85525": {
     "taxonName": "Littorinimorpha",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Order",
     "parentId": "246139"
   },
@@ -5263,13 +5263,13 @@
   },
   "776184": {
     "taxonName": "Cypraeinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "50687"
   },
   "1363953": {
     "taxonName": "Cypraeini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "776184"
   },
@@ -5311,7 +5311,7 @@
   },
   "1248776": {
     "taxonName": "Anosia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "48663"
   },
@@ -5329,7 +5329,7 @@
   },
   "121450": {
     "taxonName": "Dardanus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "52409"
   },
@@ -5509,25 +5509,25 @@
   },
   "564810": {
     "taxonName": "Phyllidioidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "801480"
   },
   "47770": {
     "taxonName": "Dendrodorididae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "564810"
   },
   "50228": {
     "taxonName": "Dendrodoris",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "47770"
   },
   "50227": {
     "taxonName": "Dendrodoris fumata",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "50228"
   },
@@ -5545,13 +5545,13 @@
   },
   "1435134": {
     "taxonName": "Malacalcyonacea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Order",
     "parentId": "340493"
   },
   "141945": {
     "taxonName": "Nephtheidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "1435134"
   },
@@ -5563,19 +5563,19 @@
   },
   "50431": {
     "taxonName": "Dermatobranchus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "47501"
   },
   "564891": {
     "taxonName": "Dermatobranchus fortunatus",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "50431"
   },
   "564897": {
     "taxonName": "Dermatobranchus striatus",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "50431"
   },
@@ -5593,7 +5593,7 @@
   },
   "41167": {
     "taxonName": "Desmodus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "846348"
   },
@@ -5629,13 +5629,13 @@
   },
   "1472437": {
     "taxonName": "Thomisinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47866"
   },
   "1472442": {
     "taxonName": "Diaeini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "1472437"
   },
@@ -5653,7 +5653,7 @@
   },
   "41148": {
     "taxonName": "Diaemus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "846348"
   },
@@ -5671,13 +5671,13 @@
   },
   "788595": {
     "taxonName": "Plectorhinchinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "49263"
   },
   "87912": {
     "taxonName": "Diagramma",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "788595"
   },
@@ -5689,31 +5689,31 @@
   },
   "564804": {
     "taxonName": "Onchidoridoidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "801480"
   },
   "801573": {
     "taxonName": "Calycidorididae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "564804"
   },
   "48631": {
     "taxonName": "Diaphorodoris",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "801573"
   },
   "515995": {
     "taxonName": "Diaphorodoris alba",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "48631"
   },
   "469193": {
     "taxonName": "Diaphorodoris luteocincta",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "48631"
   },
@@ -5773,37 +5773,37 @@
   },
   "127095": {
     "taxonName": "Dindymus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "55612"
   },
   "567663": {
     "taxonName": "Dindymus sanguineus",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "127095"
   },
   "639480": {
     "taxonName": "Dioctriinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47982"
   },
   "639481": {
     "taxonName": "Dioctriini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "639480"
   },
   "133801": {
     "taxonName": "Dioctria",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "639481"
   },
   "547115": {
     "taxonName": "Dioctria atricapilla",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "133801"
   },
@@ -5839,7 +5839,7 @@
   },
   "47769": {
     "taxonName": "Doriopsilla",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "47770"
   },
@@ -5851,25 +5851,25 @@
   },
   "338034": {
     "taxonName": "Doriopsilla pelseneeri",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "47769"
   },
   "418414": {
     "taxonName": "Dendronotoidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "801475"
   },
   "245650": {
     "taxonName": "Dotidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "418414"
   },
   "47656": {
     "taxonName": "Doto",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "245650"
   },
@@ -5881,7 +5881,7 @@
   },
   "492431": {
     "taxonName": "Doto pinnatifida",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "47656"
   },
@@ -5899,7 +5899,7 @@
   },
   "1366204": {
     "taxonName": "Drassodinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "50168"
   },
@@ -5947,13 +5947,13 @@
   },
   "1544812": {
     "taxonName": "Dysderinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "69200"
   },
   "69201": {
     "taxonName": "Dysdera",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1544812"
   },
@@ -6043,19 +6043,19 @@
   },
   "49123": {
     "taxonName": "Plakobranchidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "801511"
   },
   "47799": {
     "taxonName": "Elysia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "49123"
   },
   "564895": {
     "taxonName": "Elysia asbecki",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "47799"
   },
@@ -6091,7 +6091,7 @@
   },
   "1097017": {
     "taxonName": "Hymenopoidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "1097013"
   },
@@ -6103,19 +6103,19 @@
   },
   "569974": {
     "taxonName": "Empusinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "51924"
   },
   "569975": {
     "taxonName": "Empusini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "569974"
   },
   "1097133": {
     "taxonName": "Empusina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "569975"
   },
@@ -6151,7 +6151,7 @@
   },
   "47166": {
     "taxonName": "Entolomataceae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "787526"
   },
@@ -6163,13 +6163,13 @@
   },
   "1366583": {
     "taxonName": "Entoloma",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "47165"
   },
   "1416477": {
     "taxonName": "Entoloma",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Section",
     "parentId": "1366583"
   },
@@ -6181,13 +6181,13 @@
   },
   "846213": {
     "taxonName": "Rousettinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "40782"
   },
   "846357": {
     "taxonName": "Eonycterini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "846213"
   },
@@ -6205,25 +6205,25 @@
   },
   "712091": {
     "taxonName": "Plexippini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "606933"
   },
   "1109199": {
     "taxonName": "Plexippina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "712091"
   },
   "334276": {
     "taxonName": "Epeus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1109199"
   },
   "543152": {
     "taxonName": "Epeus flavobilineatus",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "334276"
   },
@@ -6253,7 +6253,7 @@
   },
   "49497": {
     "taxonName": "Epinephelus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1363728"
   },
@@ -6271,25 +6271,25 @@
   },
   "209654": {
     "taxonName": "Epocilla",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "712070"
   },
   "209653": {
     "taxonName": "Epocilla blairei",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "209654"
   },
   "417718": {
     "taxonName": "Epocilla calcarata",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "209654"
   },
   "1317273": {
     "taxonName": "Eptesicini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "846180"
   },
@@ -6301,7 +6301,7 @@
   },
   "1431379": {
     "taxonName": "Eptesicus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "40477"
   },
@@ -6313,7 +6313,7 @@
   },
   "1431380": {
     "taxonName": "Cnephaeus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "40477"
   },
@@ -6355,7 +6355,7 @@
   },
   "418824": {
     "taxonName": "Eratigena",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1251448"
   },
@@ -6385,7 +6385,7 @@
   },
   "207919": {
     "taxonName": "Erebiina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "58598"
   },
@@ -6403,7 +6403,7 @@
   },
   "1456715": {
     "taxonName": "Erebia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "62382"
   },
@@ -6481,7 +6481,7 @@
   },
   "13093": {
     "taxonName": "Erithacus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "12704"
   },
@@ -6505,19 +6505,19 @@
   },
   "51276": {
     "taxonName": "Pentatominae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47742"
   },
   "492295": {
     "taxonName": "Halyini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "51276"
   },
   "359010": {
     "taxonName": "Erthesina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "492295"
   },
@@ -6529,7 +6529,7 @@
   },
   "88249": {
     "taxonName": "Erythromma",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "47925"
   },
@@ -6619,7 +6619,7 @@
   },
   "846197": {
     "taxonName": "Molossinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "41226"
   },
@@ -6655,13 +6655,13 @@
   },
   "712073": {
     "taxonName": "Euophryini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "606933"
   },
   "172508": {
     "taxonName": "Euophrys",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "712073"
   },
@@ -6673,13 +6673,13 @@
   },
   "783765": {
     "taxonName": "Euophrys herbigrada",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "172508"
   },
   "179345": {
     "taxonName": "Euplagia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "82091"
   },
@@ -6691,19 +6691,19 @@
   },
   "61762": {
     "taxonName": "Evarcha",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1109199"
   },
   "357413": {
     "taxonName": "Evarcha arcuata",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "61762"
   },
   "61761": {
     "taxonName": "Evarcha falcata",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "61762"
   },
@@ -6727,7 +6727,7 @@
   },
   "55569": {
     "taxonName": "Exidia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "50816"
   },
@@ -6739,7 +6739,7 @@
   },
   "243969": {
     "taxonName": "Exochomus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "373659"
   },
@@ -6781,13 +6781,13 @@
   },
   "1067349": {
     "taxonName": "Miamirinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47402"
   },
   "428448": {
     "taxonName": "Felimare",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1067349"
   },
@@ -6799,7 +6799,7 @@
   },
   "469610": {
     "taxonName": "Felimare villafranca",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "428448"
   },
@@ -6811,7 +6811,7 @@
   },
   "41533": {
     "taxonName": "Feresa",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1317266"
   },
@@ -6835,7 +6835,7 @@
   },
   "1529470": {
     "taxonName": "Ficeae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "50998"
   },
@@ -6847,13 +6847,13 @@
   },
   "1413931": {
     "taxonName": "Synoecia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "50999"
   },
   "1413932": {
     "taxonName": "Plagiostigma",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Section",
     "parentId": "1413931"
   },
@@ -6865,19 +6865,19 @@
   },
   "905658": {
     "taxonName": "Schizophyllineae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Suborder",
     "parentId": "47167"
   },
   "54574": {
     "taxonName": "Schizophyllaceae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "905658"
   },
   "123895": {
     "taxonName": "Fistulina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "54574"
   },
@@ -6889,13 +6889,13 @@
   },
   "47173": {
     "taxonName": "Flabellinidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "564817"
   },
   "605940": {
     "taxonName": "Edmundsella",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "47173"
   },
@@ -6907,7 +6907,7 @@
   },
   "699011": {
     "taxonName": "Coryphellina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "47173"
   },
@@ -6919,13 +6919,13 @@
   },
   "801569": {
     "taxonName": "Flabellinopsidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "564817"
   },
   "194801": {
     "taxonName": "Flabellinopsis",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "801569"
   },
@@ -6943,7 +6943,7 @@
   },
   "67595": {
     "taxonName": "Flammulina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "55931"
   },
@@ -6973,13 +6973,13 @@
   },
   "1359796": {
     "taxonName": "Caranginae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47232"
   },
   "1359826": {
     "taxonName": "Flavocaranx",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1359796"
   },
@@ -7003,7 +7003,7 @@
   },
   "127511": {
     "taxonName": "Fomes",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "47379"
   },
@@ -7021,7 +7021,7 @@
   },
   "118056": {
     "taxonName": "Fomitopsis",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "55974"
   },
@@ -7039,13 +7039,13 @@
   },
   "713354": {
     "taxonName": "Forficulinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "49528"
   },
   "61525": {
     "taxonName": "Forficula",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "713354"
   },
@@ -7111,7 +7111,7 @@
   },
   "119440": {
     "taxonName": "Fromia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "117292"
   },
@@ -7135,7 +7135,7 @@
   },
   "52073": {
     "taxonName": "Fulgoroidea",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "372860"
   },
@@ -7165,7 +7165,7 @@
   },
   "416512": {
     "taxonName": "Hymenogastraceae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "785517"
   },
@@ -7213,13 +7213,13 @@
   },
   "559675": {
     "taxonName": "Elfvingia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "48475"
   },
   "1129535": {
     "taxonName": "Ganoderma applanatum",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Complex",
     "parentId": "559675"
   },
@@ -7237,7 +7237,7 @@
   },
   "328280": {
     "taxonName": "Ganoderma resinaceum",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "1106981"
   },
@@ -7327,7 +7327,7 @@
   },
   "62597": {
     "taxonName": "Gnatholepis",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "788602"
   },
@@ -7345,7 +7345,7 @@
   },
   "1317178": {
     "taxonName": "Gomphoidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "47927"
   },
@@ -7357,7 +7357,7 @@
   },
   "51129": {
     "taxonName": "Gomphus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "51128"
   },
@@ -7405,7 +7405,7 @@
   },
   "326057": {
     "taxonName": "Goniobranchus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1067489"
   },
@@ -7417,7 +7417,7 @@
   },
   "578658": {
     "taxonName": "Goniobranchus sinensis",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "326057"
   },
@@ -7477,7 +7477,7 @@
   },
   "41540": {
     "taxonName": "Grampus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1317266"
   },
@@ -7513,25 +7513,25 @@
   },
   "523728": {
     "taxonName": "Gryllini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "122461"
   },
   "1243638": {
     "taxonName": "Gryllina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "523728"
   },
   "71251": {
     "taxonName": "Gryllus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1243638"
   },
   "713241": {
     "taxonName": "Gryllus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "71251"
   },
@@ -7555,7 +7555,7 @@
   },
   "88639": {
     "taxonName": "Gunnellichthys",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1555658"
   },
@@ -7591,25 +7591,25 @@
   },
   "48717": {
     "taxonName": "Pezizales",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Order",
     "parentId": "152032"
   },
   "85119": {
     "taxonName": "Discinaceae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "48717"
   },
   "85118": {
     "taxonName": "Gyromitra",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "85119"
   },
   "951401": {
     "taxonName": "Gyromitra",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "85118"
   },
@@ -7621,7 +7621,7 @@
   },
   "1109241": {
     "taxonName": "Harmochirina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "712091"
   },
@@ -7633,13 +7633,13 @@
   },
   "1363898": {
     "taxonName": "Habronattus coecatus",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Complex",
     "parentId": "61881"
   },
   "264380": {
     "taxonName": "Habronattus pyrrithrix",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "1363898"
   },
@@ -7681,7 +7681,7 @@
   },
   "49285": {
     "taxonName": "Halichoeres",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1541889"
   },
@@ -7717,13 +7717,13 @@
   },
   "528234": {
     "taxonName": "Cappaeini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "51276"
   },
   "81924": {
     "taxonName": "Halyomorpha",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "528234"
   },
@@ -7735,7 +7735,7 @@
   },
   "52877": {
     "taxonName": "Halyzia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "333796"
   },
@@ -7747,19 +7747,19 @@
   },
   "358023": {
     "taxonName": "Harmochirus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1109241"
   },
   "358015": {
     "taxonName": "Harmochirus brachiatus",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "358023"
   },
   "668359": {
     "taxonName": "Harmochirus luculentus",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "358023"
   },
@@ -7843,7 +7843,7 @@
   },
   "141759": {
     "taxonName": "Heliophanus flavipes",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "141760"
   },
@@ -7879,7 +7879,7 @@
   },
   "48341": {
     "taxonName": "Russulales",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Order",
     "parentId": "50814"
   },
@@ -7891,7 +7891,7 @@
   },
   "49160": {
     "taxonName": "Hericium",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "49159"
   },
@@ -7903,7 +7903,7 @@
   },
   "1520823": {
     "taxonName": "Hericium erinaceus",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Complex",
     "parentId": "49160"
   },
@@ -7915,25 +7915,25 @@
   },
   "813978": {
     "taxonName": "Enthemonae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Suborder",
     "parentId": "47797"
   },
   "813994": {
     "taxonName": "Actinioidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "813978"
   },
   "53286": {
     "taxonName": "Stichodactylidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "813994"
   },
   "143048": {
     "taxonName": "Heteractis",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "53286"
   },
@@ -7945,7 +7945,7 @@
   },
   "1500736": {
     "taxonName": "Radianthus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "53286"
   },
@@ -7975,7 +7975,7 @@
   },
   "49743": {
     "taxonName": "Hexabranchidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "989732"
   },
@@ -7999,7 +7999,7 @@
   },
   "1097016": {
     "taxonName": "Mantoidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "1097013"
   },
@@ -8011,13 +8011,13 @@
   },
   "1096986": {
     "taxonName": "Hierodulinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "48111"
   },
   "1097070": {
     "taxonName": "Hierodulini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "1096986"
   },
@@ -8041,7 +8041,7 @@
   },
   "29913": {
     "taxonName": "Hierophis",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "797520"
   },
@@ -8143,25 +8143,25 @@
   },
   "712092": {
     "taxonName": "Spartaeini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "712037"
   },
   "1108937": {
     "taxonName": "Holcolaetina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "712092"
   },
   "420394": {
     "taxonName": "Holcolaetis",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1108937"
   },
   "639216": {
     "taxonName": "Holcolaetis vellerea",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "420394"
   },
@@ -8185,13 +8185,13 @@
   },
   "1471928": {
     "taxonName": "Smeringopinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47823"
   },
   "211211": {
     "taxonName": "Holocnemus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1471928"
   },
@@ -8215,31 +8215,31 @@
   },
   "995100": {
     "taxonName": "Actinopoda",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subclass",
     "parentId": "47720"
   },
   "774638": {
     "taxonName": "Holothuriida",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Order",
     "parentId": "995100"
   },
   "52394": {
     "taxonName": "Holothuriidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "774638"
   },
   "52393": {
     "taxonName": "Holothuria",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "52394"
   },
   "1297122": {
     "taxonName": "Mertensiothuria",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "52393"
   },
@@ -8323,13 +8323,13 @@
   },
   "63542": {
     "taxonName": "Hygrophoropsidaceae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "48427"
   },
   "63543": {
     "taxonName": "Hygrophoropsis",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "63542"
   },
@@ -8341,7 +8341,7 @@
   },
   "70381": {
     "taxonName": "Hyllus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1109199"
   },
@@ -8383,13 +8383,13 @@
   },
   "48768": {
     "taxonName": "Strophariaceae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "785517"
   },
   "48769": {
     "taxonName": "Hypholoma",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "48768"
   },
@@ -8401,7 +8401,7 @@
   },
   "50217": {
     "taxonName": "Hypselodoris",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1067349"
   },
@@ -8419,7 +8419,7 @@
   },
   "781482": {
     "taxonName": "Hypselodoris katherinae",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "50217"
   },
@@ -8485,7 +8485,7 @@
   },
   "318821": {
     "taxonName": "Icius subinermis",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "172570"
   },
@@ -8503,7 +8503,7 @@
   },
   "41471": {
     "taxonName": "Inia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "41466"
   },
@@ -8515,19 +8515,19 @@
   },
   "57519": {
     "taxonName": "Hymenochaetales",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Order",
     "parentId": "50814"
   },
   "57518": {
     "taxonName": "Hymenochaetaceae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "57519"
   },
   "57527": {
     "taxonName": "Inonotus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "57518"
   },
@@ -8581,25 +8581,25 @@
   },
   "712063": {
     "taxonName": "Viciriini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "606933"
   },
   "1109011": {
     "taxonName": "Simaethina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "712063"
   },
   "420406": {
     "taxonName": "Irura",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1109011"
   },
   "838255": {
     "taxonName": "Irura bidenticulata",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "420406"
   },
@@ -8623,7 +8623,7 @@
   },
   "89165": {
     "taxonName": "Istigobius",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "556686"
   },
@@ -8641,13 +8641,13 @@
   },
   "631925": {
     "taxonName": "Proctonotoidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "801475"
   },
   "989731": {
     "taxonName": "Janolidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "631925"
   },
@@ -8665,13 +8665,13 @@
   },
   "47461": {
     "taxonName": "Janolus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "989731"
   },
   "391123": {
     "taxonName": "Janolus hyalinus",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "47461"
   },
@@ -8743,7 +8743,7 @@
   },
   "1174534": {
     "taxonName": "Lactarius",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "54597"
   },
@@ -8767,13 +8767,13 @@
   },
   "895657": {
     "taxonName": "Laetiporaceae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "47380"
   },
   "48431": {
     "taxonName": "Laetiporus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "895657"
   },
@@ -8785,7 +8785,7 @@
   },
   "1368482": {
     "taxonName": "Leucopleurus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "41479"
   },
@@ -8797,7 +8797,7 @@
   },
   "41504": {
     "taxonName": "Lagenorhynchus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "41479"
   },
@@ -8809,7 +8809,7 @@
   },
   "1317295": {
     "taxonName": "Sagmatias",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1317265"
   },
@@ -8845,19 +8845,19 @@
   },
   "124130": {
     "taxonName": "Smerinthinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47213"
   },
   "124128": {
     "taxonName": "Smerinthini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "124130"
   },
   "62332": {
     "taxonName": "Laothoe",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "124128"
   },
@@ -8869,13 +8869,13 @@
   },
   "84433": {
     "taxonName": "Laphriinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47982"
   },
   "639846": {
     "taxonName": "Laphriini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "84433"
   },
@@ -8893,7 +8893,7 @@
   },
   "633011": {
     "taxonName": "Laphria gilva",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "51575"
   },
@@ -8947,7 +8947,7 @@
   },
   "40628": {
     "taxonName": "Lasionycteris",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1317273"
   },
@@ -9049,7 +9049,7 @@
   },
   "1472111": {
     "taxonName": "Latrodectinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47371"
   },
@@ -9073,19 +9073,19 @@
   },
   "1199038": {
     "taxonName": "Leccinoideae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "48702"
   },
   "54203": {
     "taxonName": "Leccinum",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1199038"
   },
   "1397470": {
     "taxonName": "Scabra",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subsection",
     "parentId": "54203"
   },
@@ -9097,7 +9097,7 @@
   },
   "1397469": {
     "taxonName": "Leccinum",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subsection",
     "parentId": "54203"
   },
@@ -9121,7 +9121,7 @@
   },
   "47754": {
     "taxonName": "Polypodiales",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Order",
     "parentId": "764796"
   },
@@ -9139,19 +9139,19 @@
   },
   "332943": {
     "taxonName": "Microsoroideae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "52679"
   },
   "1106128": {
     "taxonName": "Lepisoreae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "332943"
   },
   "142576": {
     "taxonName": "Lemmaphyllum",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1106128"
   },
@@ -9199,13 +9199,13 @@
   },
   "64013": {
     "taxonName": "Omphalotaceae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "785516"
   },
   "123352": {
     "taxonName": "Lentinula",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "64013"
   },
@@ -9235,7 +9235,7 @@
   },
   "47378": {
     "taxonName": "Trametes",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "47379"
   },
@@ -9259,7 +9259,7 @@
   },
   "558819": {
     "taxonName": "Hypochaeridinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "359450"
   },
@@ -9313,31 +9313,31 @@
   },
   "536322": {
     "taxonName": "Pachymorphinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47320"
   },
   "536326": {
     "taxonName": "Gratidiini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "536322"
   },
   "568703": {
     "taxonName": "Pijnackeria",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "536326"
   },
   "568702": {
     "taxonName": "Pijnackeria hispanica",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "568703"
   },
   "1317183": {
     "taxonName": "Lestoidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "47928"
   },
@@ -9475,7 +9475,7 @@
   },
   "775812": {
     "taxonName": "Eupulmonata",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superorder",
     "parentId": "775800"
   },
@@ -9493,7 +9493,7 @@
   },
   "781368": {
     "taxonName": "Achatinoidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "781366"
   },
@@ -9511,7 +9511,7 @@
   },
   "1366715": {
     "taxonName": "Achatinini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "829419"
   },
@@ -9553,7 +9553,7 @@
   },
   "503525": {
     "taxonName": "Lobophylliidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "47532"
   },
@@ -9595,7 +9595,7 @@
   },
   "1472965": {
     "taxonName": "Loxoscelinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "48140"
   },
@@ -9625,25 +9625,25 @@
   },
   "373469": {
     "taxonName": "Lucaninae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "49083"
   },
   "794938": {
     "taxonName": "Lucanini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "373469"
   },
   "60813": {
     "taxonName": "Lucanus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "794938"
   },
   "1107301": {
     "taxonName": "Lucanus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "60813"
   },
@@ -9655,7 +9655,7 @@
   },
   "7362": {
     "taxonName": "Lullula",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "7284"
   },
@@ -9709,7 +9709,7 @@
   },
   "125818": {
     "taxonName": "Lycaenini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "125835"
   },
@@ -9727,7 +9727,7 @@
   },
   "1360268": {
     "taxonName": "Lycaena",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "54010"
   },
@@ -9739,7 +9739,7 @@
   },
   "48444": {
     "taxonName": "Lycoperdon",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "48445"
   },
@@ -9751,7 +9751,7 @@
   },
   "83112": {
     "taxonName": "Lycosa",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1235357"
   },
@@ -9781,13 +9781,13 @@
   },
   "605062": {
     "taxonName": "Cryptotympanini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "209685"
   },
   "605063": {
     "taxonName": "Cryptotympanina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "605062"
   },
@@ -9817,7 +9817,7 @@
   },
   "464555": {
     "taxonName": "Lyssomanes portoricensis",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "68316"
   },
@@ -9859,7 +9859,7 @@
   },
   "371727": {
     "taxonName": "Tolmerus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "326683"
   },
@@ -9895,13 +9895,13 @@
   },
   "63402": {
     "taxonName": "Macrolepiota",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "47394"
   },
   "1398104": {
     "taxonName": "Macrolepiota",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Section",
     "parentId": "63402"
   },
@@ -9967,7 +9967,7 @@
   },
   "41145": {
     "taxonName": "Macrotus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "486978"
   },
@@ -9985,13 +9985,13 @@
   },
   "737208": {
     "taxonName": "Maezous",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "713245"
   },
   "737209": {
     "taxonName": "Maezous formosana",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "737208"
   },
@@ -10015,13 +10015,13 @@
   },
   "1228736": {
     "taxonName": "Sphingina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "124110"
   },
   "61506": {
     "taxonName": "Manduca",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1228736"
   },
@@ -10039,13 +10039,13 @@
   },
   "570063": {
     "taxonName": "Mantinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "48111"
   },
   "56564": {
     "taxonName": "Mantis",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "570063"
   },
@@ -10111,19 +10111,19 @@
   },
   "712034": {
     "taxonName": "Dendryphantini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "606933"
   },
   "1109042": {
     "taxonName": "Marpissina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "712034"
   },
   "146722": {
     "taxonName": "Marpissa",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1109042"
   },
@@ -10135,7 +10135,7 @@
   },
   "360744": {
     "taxonName": "Marpissa radiata",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "146722"
   },
@@ -10153,13 +10153,13 @@
   },
   "1363954": {
     "taxonName": "Mauritiini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "776184"
   },
   "469045": {
     "taxonName": "Mauritia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1363954"
   },
@@ -10177,19 +10177,19 @@
   },
   "523033": {
     "taxonName": "Meconematini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "523036"
   },
   "1401977": {
     "taxonName": "Meconematina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "523033"
   },
   "119171": {
     "taxonName": "Meconema",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1401977"
   },
@@ -10207,25 +10207,25 @@
   },
   "49059": {
     "taxonName": "Phasmatidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "569716"
   },
   "536334": {
     "taxonName": "Clitumninae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "49059"
   },
   "536354": {
     "taxonName": "Medaurini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "536334"
   },
   "504196": {
     "taxonName": "Medauroidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "536354"
   },
@@ -10243,7 +10243,7 @@
   },
   "1317308": {
     "taxonName": "Lyroderma",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "41319"
   },
@@ -10255,7 +10255,7 @@
   },
   "41320": {
     "taxonName": "Megaderma",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "41319"
   },
@@ -10303,7 +10303,7 @@
   },
   "347605": {
     "taxonName": "Melolonthini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "48200"
   },
@@ -10333,13 +10333,13 @@
   },
   "819143": {
     "taxonName": "Menemerus nigli",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "68064"
   },
   "157990": {
     "taxonName": "Menemerus semilimbatus",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "68064"
   },
@@ -10381,7 +10381,7 @@
   },
   "44916": {
     "taxonName": "Mesocricetus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "735066"
   },
@@ -10417,7 +10417,7 @@
   },
   "55622": {
     "taxonName": "Metellina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "47551"
   },
@@ -10435,7 +10435,7 @@
   },
   "50223": {
     "taxonName": "Mexichromis",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1067349"
   },
@@ -10459,13 +10459,13 @@
   },
   "1507443": {
     "taxonName": "Sparassinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47867"
   },
   "121767": {
     "taxonName": "Micrommata",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1507443"
   },
@@ -10513,7 +10513,7 @@
   },
   "813988": {
     "taxonName": "Capitata",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Suborder",
     "parentId": "48922"
   },
@@ -10555,7 +10555,7 @@
   },
   "1472438": {
     "taxonName": "Misumenini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "1472437"
   },
@@ -10585,25 +10585,25 @@
   },
   "90035": {
     "taxonName": "Montipora",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "48746"
   },
   "106085": {
     "taxonName": "Montipora digitata",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "90035"
   },
   "106137": {
     "taxonName": "Montipora verrucosa",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "90035"
   },
   "712062": {
     "taxonName": "Mopsini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "606933"
   },
@@ -10633,7 +10633,7 @@
   },
   "1062674": {
     "taxonName": "Morchella",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Section",
     "parentId": "56830"
   },
@@ -10669,7 +10669,7 @@
   },
   "1317306": {
     "taxonName": "Micronomus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "846197"
   },
@@ -10681,7 +10681,7 @@
   },
   "1317305": {
     "taxonName": "Ozimops",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "846197"
   },
@@ -10699,7 +10699,7 @@
   },
   "522923": {
     "taxonName": "Morphina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "202069"
   },
@@ -10783,7 +10783,7 @@
   },
   "1431407": {
     "taxonName": "Mus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "44678"
   },
@@ -10813,7 +10813,7 @@
   },
   "891028": {
     "taxonName": "Phallomycetidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subclass",
     "parentId": "50814"
   },
@@ -10831,7 +10831,7 @@
   },
   "63582": {
     "taxonName": "Mutinus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "51136"
   },
@@ -10861,7 +10861,7 @@
   },
   "1431385": {
     "taxonName": "Myotis",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "40270"
   },
@@ -10897,7 +10897,7 @@
   },
   "1431383": {
     "taxonName": "Chrysopteron",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "40270"
   },
@@ -10909,7 +10909,7 @@
   },
   "1431384": {
     "taxonName": "Pizonyx",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "40270"
   },
@@ -10951,7 +10951,7 @@
   },
   "1373446": {
     "taxonName": "Myrmarachnina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "712059"
   },
@@ -10963,7 +10963,7 @@
   },
   "135289": {
     "taxonName": "Myrmarachne formicaria",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "51780"
   },
@@ -10981,7 +10981,7 @@
   },
   "325555": {
     "taxonName": "Myrrha",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "333796"
   },
@@ -11041,7 +11041,7 @@
   },
   "29335": {
     "taxonName": "Natrix",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "532896"
   },
@@ -11059,25 +11059,25 @@
   },
   "564808": {
     "taxonName": "Polyceroidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "801480"
   },
   "47767": {
     "taxonName": "Polyceridae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "564808"
   },
   "628405": {
     "taxonName": "Nembrothinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47767"
   },
   "119437": {
     "taxonName": "Nembrotha",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "628405"
   },
@@ -11107,7 +11107,7 @@
   },
   "1317300": {
     "taxonName": "Afronycteris",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "846363"
   },
@@ -11173,7 +11173,7 @@
   },
   "172370": {
     "taxonName": "Neriene",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1296719"
   },
@@ -11185,7 +11185,7 @@
   },
   "437702": {
     "taxonName": "Neritimorpha",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Subclass",
     "parentId": "47114"
   },
@@ -11209,13 +11209,13 @@
   },
   "130094": {
     "taxonName": "Nuctenea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "417879"
   },
   "531175": {
     "taxonName": "Nuctenea silvicultrix",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "130094"
   },
@@ -11353,7 +11353,7 @@
   },
   "56735": {
     "taxonName": "Oenopia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "333796"
   },
@@ -11365,7 +11365,7 @@
   },
   "701664": {
     "taxonName": "Oenopia lyncea",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "56735"
   },
@@ -11419,7 +11419,7 @@
   },
   "41520": {
     "taxonName": "Orcinus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "41479"
   },
@@ -11455,7 +11455,7 @@
   },
   "62071": {
     "taxonName": "Orthetrum",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "47819"
   },
@@ -11491,7 +11491,7 @@
   },
   "180891": {
     "taxonName": "Ostorhinchus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "788694"
   },
@@ -11527,7 +11527,7 @@
   },
   "47528": {
     "taxonName": "Ostracion",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "47529"
   },
@@ -11563,13 +11563,13 @@
   },
   "520308": {
     "taxonName": "Pachyseris",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "47532"
   },
   "520311": {
     "taxonName": "Pachyseris foliosa",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "520308"
   },
@@ -11599,13 +11599,13 @@
   },
   "243698": {
     "taxonName": "Pancorius",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1109199"
   },
   "360385": {
     "taxonName": "Pancorius crassipes",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "243698"
   },
@@ -11623,13 +11623,13 @@
   },
   "1261125": {
     "taxonName": "Panorpinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "51700"
   },
   "51701": {
     "taxonName": "Panorpa",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1261125"
   },
@@ -11719,7 +11719,7 @@
   },
   "545183": {
     "taxonName": "Papilio",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "47225"
   },
@@ -11767,7 +11767,7 @@
   },
   "1519465": {
     "taxonName": "Uranoscopoidei",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Suborder",
     "parentId": "1555654"
   },
@@ -11779,7 +11779,7 @@
   },
   "49424": {
     "taxonName": "Parapercis",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "49423"
   },
@@ -11797,13 +11797,13 @@
   },
   "428225": {
     "taxonName": "Paraponerinae",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47336"
   },
   "56311": {
     "taxonName": "Parasola",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "56310"
   },
@@ -11833,7 +11833,7 @@
   },
   "90830": {
     "taxonName": "Pardachirus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "55397"
   },
@@ -11845,7 +11845,7 @@
   },
   "1236720": {
     "taxonName": "Pardosinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47416"
   },
@@ -11911,13 +11911,13 @@
   },
   "85562": {
     "taxonName": "Agariciidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "47532"
   },
   "90878": {
     "taxonName": "Pavona",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "85562"
   },
@@ -11929,19 +11929,19 @@
   },
   "108975": {
     "taxonName": "Pavona decussata",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "90878"
   },
   "1432578": {
     "taxonName": "Boletineae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Suborder",
     "parentId": "48427"
   },
   "55942": {
     "taxonName": "Paxillaceae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "1432578"
   },
@@ -11953,7 +11953,7 @@
   },
   "1397925": {
     "taxonName": "Paxillus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "55943"
   },
@@ -11965,25 +11965,25 @@
   },
   "126862": {
     "taxonName": "Pellenes",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1109241"
   },
   "702075": {
     "taxonName": "Pellenes nigrociliatus",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "126862"
   },
   "504052": {
     "taxonName": "Pellenes tripunctatus",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "126862"
   },
   "41542": {
     "taxonName": "Peponocephala",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1317266"
   },
@@ -12019,19 +12019,19 @@
   },
   "1051024": {
     "taxonName": "Rhodymeniophycidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subclass",
     "parentId": "57775"
   },
   "550930": {
     "taxonName": "Peyssonneliales",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Order",
     "parentId": "1051024"
   },
   "131372": {
     "taxonName": "Peyssonneliaceae",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "550930"
   },
@@ -12043,7 +12043,7 @@
   },
   "48221": {
     "taxonName": "Ochrophyta",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Phylum",
     "parentId": "48222"
   },
@@ -12067,7 +12067,7 @@
   },
   "1289333": {
     "taxonName": "Gulosus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "4262"
   },
@@ -12091,13 +12091,13 @@
   },
   "122429": {
     "taxonName": "Phalerinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47718"
   },
   "55362": {
     "taxonName": "Phalera",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "122429"
   },
@@ -12109,7 +12109,7 @@
   },
   "54593": {
     "taxonName": "Phallus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "51136"
   },
@@ -12127,7 +12127,7 @@
   },
   "523093": {
     "taxonName": "Phaneropterini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "48128"
   },
@@ -12139,7 +12139,7 @@
   },
   "767486": {
     "taxonName": "Phaneroptera",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "48130"
   },
@@ -12157,13 +12157,13 @@
   },
   "1109044": {
     "taxonName": "Dendryphantina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "712034"
   },
   "53810": {
     "taxonName": "Phidippus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1109044"
   },
@@ -12175,7 +12175,7 @@
   },
   "1362555": {
     "taxonName": "Phidippus otiosus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Complex",
     "parentId": "53810"
   },
@@ -12193,7 +12193,7 @@
   },
   "1544706": {
     "taxonName": "Philodrominae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47868"
   },
@@ -12205,7 +12205,7 @@
   },
   "1406617": {
     "taxonName": "Philodromus aureolus",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Complex",
     "parentId": "56611"
   },
@@ -12217,13 +12217,13 @@
   },
   "639867": {
     "taxonName": "Philonicini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "326683"
   },
   "61662": {
     "taxonName": "Philonicus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "639867"
   },
@@ -12235,19 +12235,19 @@
   },
   "154359": {
     "taxonName": "Phintella",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "712070"
   },
   "360478": {
     "taxonName": "Phintella bifurcilinea",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "154359"
   },
   "967399": {
     "taxonName": "Phintelloides",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "712070"
   },
@@ -12295,7 +12295,7 @@
   },
   "41445": {
     "taxonName": "Phocoenoides",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "41437"
   },
@@ -12307,7 +12307,7 @@
   },
   "1471930": {
     "taxonName": "Pholcinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47823"
   },
@@ -12349,7 +12349,7 @@
   },
   "49738": {
     "taxonName": "Phyllidia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "49731"
   },
@@ -12379,13 +12379,13 @@
   },
   "49732": {
     "taxonName": "Phyllidiella",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "49731"
   },
   "50552": {
     "taxonName": "Phyllidiella nigra",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "49732"
   },
@@ -12409,13 +12409,13 @@
   },
   "870988": {
     "taxonName": "Myrrhinidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "564817"
   },
   "54650": {
     "taxonName": "Phyllodesmium",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "870988"
   },
@@ -12427,7 +12427,7 @@
   },
   "358202": {
     "taxonName": "Phyllodesmium longicirrum",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "54650"
   },
@@ -12475,13 +12475,13 @@
   },
   "1150588": {
     "taxonName": "Plerogyridae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "47532"
   },
   "91063": {
     "taxonName": "Physogyra",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1150588"
   },
@@ -12565,13 +12565,13 @@
   },
   "321384": {
     "taxonName": "Pierini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "209720"
   },
   "475032": {
     "taxonName": "Pierina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "321384"
   },
@@ -12649,7 +12649,7 @@
   },
   "84110": {
     "taxonName": "Pisaurina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "55788"
   },
@@ -12661,25 +12661,25 @@
   },
   "474345": {
     "taxonName": "Sclerodermatineae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Suborder",
     "parentId": "48427"
   },
   "63838": {
     "taxonName": "Pisolithaceae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "474345"
   },
   "63839": {
     "taxonName": "Pisolithus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "63838"
   },
   "1366812": {
     "taxonName": "Pisolithus arhizus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Complex",
     "parentId": "63839"
   },
@@ -12715,7 +12715,7 @@
   },
   "41430": {
     "taxonName": "Platanista",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "41429"
   },
@@ -12763,7 +12763,7 @@
   },
   "91123": {
     "taxonName": "Platycnemis",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "85991"
   },
@@ -12781,7 +12781,7 @@
   },
   "85893": {
     "taxonName": "Merulinidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "47532"
   },
@@ -12793,19 +12793,19 @@
   },
   "354096": {
     "taxonName": "Scymninae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "48486"
   },
   "572670": {
     "taxonName": "Platynaspidini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "354096"
   },
   "343123": {
     "taxonName": "Platynaspis",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "572670"
   },
@@ -12841,7 +12841,7 @@
   },
   "91150": {
     "taxonName": "Plectorhinchus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "788595"
   },
@@ -12853,7 +12853,7 @@
   },
   "503693": {
     "taxonName": "Plerogyra",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1150588"
   },
@@ -12865,19 +12865,19 @@
   },
   "1508994": {
     "taxonName": "Phyllotopsidineae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Suborder",
     "parentId": "47167"
   },
   "1128529": {
     "taxonName": "Phyllotopsidaceae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "1508994"
   },
   "48510": {
     "taxonName": "Pleurocybella",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1128529"
   },
@@ -12889,13 +12889,13 @@
   },
   "905657": {
     "taxonName": "Pleurotineae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Suborder",
     "parentId": "47167"
   },
   "48495": {
     "taxonName": "Pleurotaceae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "905657"
   },
@@ -12931,19 +12931,19 @@
   },
   "628408": {
     "taxonName": "Triophinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47767"
   },
   "54447": {
     "taxonName": "Plocamopherus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "628408"
   },
   "395373": {
     "taxonName": "Plocamopherus imperialis",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "54447"
   },
@@ -12973,7 +12973,7 @@
   },
   "60546": {
     "taxonName": "Pocilloporidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "47532"
   },
@@ -13015,19 +13015,19 @@
   },
   "628409": {
     "taxonName": "Polycerinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47767"
   },
   "48459": {
     "taxonName": "Polycera",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "628409"
   },
   "338031": {
     "taxonName": "Polycera faeroensis",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "48459"
   },
@@ -13057,7 +13057,7 @@
   },
   "895268": {
     "taxonName": "Cerioporus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "47379"
   },
@@ -13069,7 +13069,7 @@
   },
   "55186": {
     "taxonName": "Pomacentrus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "606190"
   },
@@ -13165,7 +13165,7 @@
   },
   "1108924": {
     "taxonName": "Spartaeina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "712092"
   },
@@ -13189,7 +13189,7 @@
   },
   "819932": {
     "taxonName": "Portia orientalis",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "51934"
   },
@@ -13207,13 +13207,13 @@
   },
   "773636": {
     "taxonName": "Portuninae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "49506"
   },
   "127705": {
     "taxonName": "Portunus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "773636"
   },
@@ -13237,19 +13237,19 @@
   },
   "528665": {
     "taxonName": "Prionini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "319102"
   },
   "59893": {
     "taxonName": "Prionus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "528665"
   },
   "739037": {
     "taxonName": "Prionus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "59893"
   },
@@ -13273,7 +13273,7 @@
   },
   "61533": {
     "taxonName": "Propylea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "333796"
   },
@@ -13285,25 +13285,25 @@
   },
   "126863": {
     "taxonName": "Pseudicius",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "712070"
   },
   "786768": {
     "taxonName": "Pseudicius badius",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "126863"
   },
   "528836": {
     "taxonName": "Pseudicius encarpatus",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "126863"
   },
   "121380": {
     "taxonName": "Pseudobiceros",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "52317"
   },
@@ -13351,7 +13351,7 @@
   },
   "41538": {
     "taxonName": "Pseudorca",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1317266"
   },
@@ -13369,7 +13369,7 @@
   },
   "1542371": {
     "taxonName": "Caerulescentes",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Section",
     "parentId": "54026"
   },
@@ -13411,13 +13411,13 @@
   },
   "788064": {
     "taxonName": "Rubioideae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47693"
   },
   "788081": {
     "taxonName": "Psychotrieae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "788064"
   },
@@ -13447,7 +13447,7 @@
   },
   "47211": {
     "taxonName": "Facelinidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "564817"
   },
@@ -13477,7 +13477,7 @@
   },
   "91542": {
     "taxonName": "Ptereleotris",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "788555"
   },
@@ -13513,7 +13513,7 @@
   },
   "47284": {
     "taxonName": "Pterois",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "788499"
   },
@@ -13615,7 +13615,7 @@
   },
   "61153": {
     "taxonName": "Pyrrhosoma",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "47925"
   },
@@ -13699,13 +13699,13 @@
   },
   "791419": {
     "taxonName": "Alsineae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "48567"
   },
   "1024535": {
     "taxonName": "Rabelera",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "791419"
   },
@@ -13747,7 +13747,7 @@
   },
   "746715": {
     "taxonName": "Ranunculeae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "746709"
   },
@@ -13825,13 +13825,13 @@
   },
   "209686": {
     "taxonName": "Pentatomini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "51276"
   },
   "142940": {
     "taxonName": "Rhaphigaster",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "209686"
   },
@@ -13849,19 +13849,19 @@
   },
   "922110": {
     "taxonName": "Amygdaloideae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47148"
   },
   "723302": {
     "taxonName": "Maleae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "922110"
   },
   "179306": {
     "taxonName": "Rhaphiolepis",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "723302"
   },
@@ -13873,13 +13873,13 @@
   },
   "210610": {
     "taxonName": "Rhene",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1109044"
   },
   "360465": {
     "taxonName": "Rhene atrata",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "210610"
   },
@@ -13927,7 +13927,7 @@
   },
   "447170": {
     "taxonName": "Rhodactis",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "814025"
   },
@@ -13951,25 +13951,25 @@
   },
   "468848": {
     "taxonName": "Myrtoideae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "51816"
   },
   "921783": {
     "taxonName": "Myrteae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "468848"
   },
   "1341073": {
     "taxonName": "Decasperminae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "921783"
   },
   "132699": {
     "taxonName": "Rhodomyrtus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1341073"
   },
@@ -13987,19 +13987,19 @@
   },
   "47507": {
     "taxonName": "Discodorididae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "528872"
   },
   "47474": {
     "taxonName": "Rostanga",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "47507"
   },
   "417711": {
     "taxonName": "Rostanga arbutus",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "47474"
   },
@@ -14011,7 +14011,7 @@
   },
   "846391": {
     "taxonName": "Rousettini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "846213"
   },
@@ -14041,13 +14041,13 @@
   },
   "1167950": {
     "taxonName": "Russula",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "48339"
   },
   "1396329": {
     "taxonName": "Russula",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subsection",
     "parentId": "1167950"
   },
@@ -14059,7 +14059,7 @@
   },
   "1396373": {
     "taxonName": "Paludosinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subsection",
     "parentId": "1167950"
   },
@@ -14101,13 +14101,13 @@
   },
   "788671": {
     "taxonName": "Salariinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "49390"
   },
   "91844": {
     "taxonName": "Salarias",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "788671"
   },
@@ -14125,7 +14125,7 @@
   },
   "68910": {
     "taxonName": "Salticus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "712082"
   },
@@ -14143,7 +14143,7 @@
   },
   "368365": {
     "taxonName": "Sandalodes",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "712062"
   },
@@ -14167,13 +14167,13 @@
   },
   "56533": {
     "taxonName": "Saturnia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "125080"
   },
   "938758": {
     "taxonName": "Eudia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "56533"
   },
@@ -14185,7 +14185,7 @@
   },
   "938759": {
     "taxonName": "Saturnia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "56533"
   },
@@ -14203,7 +14203,7 @@
   },
   "49693": {
     "taxonName": "Scarus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1455139"
   },
@@ -14221,7 +14221,7 @@
   },
   "54575": {
     "taxonName": "Schizophyllum",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "54574"
   },
@@ -14251,7 +14251,7 @@
   },
   "1431493": {
     "taxonName": "Neosciurus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "45994"
   },
@@ -14275,7 +14275,7 @@
   },
   "55928": {
     "taxonName": "Sclerodermataceae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "474345"
   },
@@ -14293,7 +14293,7 @@
   },
   "418133": {
     "taxonName": "Scleronephthya",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "141945"
   },
@@ -14347,13 +14347,13 @@
   },
   "123077": {
     "taxonName": "Scopulini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "123037"
   },
   "52048": {
     "taxonName": "Scopula",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "123077"
   },
@@ -14365,7 +14365,7 @@
   },
   "121878": {
     "taxonName": "Scopula propinquaria",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "52048"
   },
@@ -14401,13 +14401,13 @@
   },
   "1544805": {
     "taxonName": "Segestriinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "57806"
   },
   "172281": {
     "taxonName": "Segestria",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1544805"
   },
@@ -14425,7 +14425,7 @@
   },
   "1500639": {
     "taxonName": "Ascarosepion",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "67960"
   },
@@ -14437,13 +14437,13 @@
   },
   "358359": {
     "taxonName": "Siler",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "712070"
   },
   "822089": {
     "taxonName": "Siler collingwoodi",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "358359"
   },
@@ -14473,13 +14473,13 @@
   },
   "712045": {
     "taxonName": "Sitticini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "606933"
   },
   "420268": {
     "taxonName": "Attulus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "712045"
   },
@@ -14551,7 +14551,7 @@
   },
   "92110": {
     "taxonName": "Soleichthys",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "55397"
   },
@@ -14623,7 +14623,7 @@
   },
   "1431400": {
     "taxonName": "Sorex",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "46342"
   },
@@ -14641,7 +14641,7 @@
   },
   "776548": {
     "taxonName": "Sospita",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "333796"
   },
@@ -14671,19 +14671,19 @@
   },
   "1096984": {
     "taxonName": "Tenoderinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "48111"
   },
   "570079": {
     "taxonName": "Paramantini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "1096984"
   },
   "1097122": {
     "taxonName": "Paramantina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "570079"
   },
@@ -14791,7 +14791,7 @@
   },
   "41544": {
     "taxonName": "Steno",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1317266"
   },
@@ -14827,13 +14827,13 @@
   },
   "55502": {
     "taxonName": "Stereaceae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "48341"
   },
   "55503": {
     "taxonName": "Stereum",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "55502"
   },
@@ -14869,7 +14869,7 @@
   },
   "51235": {
     "taxonName": "Stichodactyla",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "53286"
   },
@@ -14887,19 +14887,19 @@
   },
   "774639": {
     "taxonName": "Synallactida",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Order",
     "parentId": "995100"
   },
   "47723": {
     "taxonName": "Stichopodidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "774639"
   },
   "67531": {
     "taxonName": "Stichopus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "47723"
   },
@@ -14989,7 +14989,7 @@
   },
   "61938": {
     "taxonName": "Subcoccinella",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "373697"
   },
@@ -15001,13 +15001,13 @@
   },
   "1432580": {
     "taxonName": "Suillineae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Suborder",
     "parentId": "48427"
   },
   "53489": {
     "taxonName": "Suillaceae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "1432580"
   },
@@ -15073,7 +15073,7 @@
   },
   "153736": {
     "taxonName": "Synema",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1472442"
   },
@@ -15085,25 +15085,25 @@
   },
   "1109037": {
     "taxonName": "Synagelina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "712034"
   },
   "172247": {
     "taxonName": "Synageles",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1109037"
   },
   "232110": {
     "taxonName": "Synageles occidentalis",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "172247"
   },
   "232111": {
     "taxonName": "Synageles venator",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "172247"
   },
@@ -15115,19 +15115,19 @@
   },
   "456401": {
     "taxonName": "Sesiinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "51573"
   },
   "366342": {
     "taxonName": "Synanthedonini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "456401"
   },
   "51684": {
     "taxonName": "Synanthedon",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "366342"
   },
@@ -15145,7 +15145,7 @@
   },
   "41293": {
     "taxonName": "Tadarida",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "846197"
   },
@@ -15163,7 +15163,7 @@
   },
   "50099": {
     "taxonName": "Tambja",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "628405"
   },
@@ -15187,7 +15187,7 @@
   },
   "210518": {
     "taxonName": "Eutamias",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1279829"
   },
@@ -15199,7 +15199,7 @@
   },
   "520586": {
     "taxonName": "Tamias",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1279829"
   },
@@ -15247,7 +15247,7 @@
   },
   "1431393": {
     "taxonName": "Taphozous",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "41372"
   },
@@ -15265,13 +15265,13 @@
   },
   "118204": {
     "taxonName": "Tapinellaceae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "48427"
   },
   "118205": {
     "taxonName": "Tapinella",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "118204"
   },
@@ -15343,13 +15343,13 @@
   },
   "148397": {
     "taxonName": "Telamonia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1109199"
   },
   "820185": {
     "taxonName": "Telamonia caprina",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "148397"
   },
@@ -15367,19 +15367,19 @@
   },
   "1097067": {
     "taxonName": "Tenoderini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "1096984"
   },
   "1097119": {
     "taxonName": "Tenoderina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "1097067"
   },
   "71035": {
     "taxonName": "Tenodera",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1097119"
   },
@@ -15415,13 +15415,13 @@
   },
   "523104": {
     "taxonName": "Tettigoniini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "82546"
   },
   "133251": {
     "taxonName": "Tettigonia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "523104"
   },
@@ -15463,7 +15463,7 @@
   },
   "1472157": {
     "taxonName": "Theridiinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47371"
   },
@@ -15481,7 +15481,7 @@
   },
   "172228": {
     "taxonName": "Theridula",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1472157"
   },
@@ -15493,7 +15493,7 @@
   },
   "182745": {
     "taxonName": "Thiania",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "712073"
   },
@@ -15511,7 +15511,7 @@
   },
   "1472445": {
     "taxonName": "Thomisini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "1472437"
   },
@@ -15529,7 +15529,7 @@
   },
   "420635": {
     "taxonName": "Thyene",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1109199"
   },
@@ -15541,31 +15541,31 @@
   },
   "468023": {
     "taxonName": "Thyene imperialis",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "420635"
   },
   "556902": {
     "taxonName": "Tibicininae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "50186"
   },
   "605128": {
     "taxonName": "Tibicinini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "556902"
   },
   "605130": {
     "taxonName": "Tibicinina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "605128"
   },
   "496257": {
     "taxonName": "Tibicina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "605130"
   },
@@ -15577,7 +15577,7 @@
   },
   "1189320": {
     "taxonName": "Tibicina quadrisignata",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "496257"
   },
@@ -15601,61 +15601,61 @@
   },
   "1153556": {
     "taxonName": "Trametes versicolor",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Complex",
     "parentId": "47378"
   },
   "47140": {
     "taxonName": "Goniodorididae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "564804"
   },
   "1528748": {
     "taxonName": "Anculinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "47140"
   },
   "50048": {
     "taxonName": "Trapania",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1528748"
   },
   "489151": {
     "taxonName": "Trapania lineata",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "50048"
   },
   "476205": {
     "taxonName": "Trapania tartanella",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "50048"
   },
   "83737": {
     "taxonName": "Tremellomycetes",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Class",
     "parentId": "492000"
   },
   "48530": {
     "taxonName": "Tremellales",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Order",
     "parentId": "83737"
   },
   "1109239": {
     "taxonName": "Naemateliaceae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "48530"
   },
   "1109228": {
     "taxonName": "Naematelia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1109239"
   },
@@ -15667,13 +15667,13 @@
   },
   "48531": {
     "taxonName": "Tremellaceae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "48530"
   },
   "48532": {
     "taxonName": "Tremella",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "48531"
   },
@@ -15685,7 +15685,7 @@
   },
   "47498": {
     "taxonName": "Tricholomataceae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "787526"
   },
@@ -15697,13 +15697,13 @@
   },
   "1444961": {
     "taxonName": "Tricholoma",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "62484"
   },
   "1377700": {
     "taxonName": "Matsutake",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Section",
     "parentId": "1444961"
   },
@@ -15763,25 +15763,25 @@
   },
   "1051154": {
     "taxonName": "Autobranchia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subclass",
     "parentId": "47584"
   },
   "1051155": {
     "taxonName": "Heteroconchia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Infraclass",
     "parentId": "1051154"
   },
   "551316": {
     "taxonName": "Euheterodonta",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subterclass",
     "parentId": "1051155"
   },
   "551317": {
     "taxonName": "Imparidentia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superorder",
     "parentId": "551316"
   },
@@ -15793,7 +15793,7 @@
   },
   "461816": {
     "taxonName": "Cardioidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "488959"
   },
@@ -15871,25 +15871,25 @@
   },
   "801499": {
     "taxonName": "Tritonioidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "801475"
   },
   "48828": {
     "taxonName": "Tritoniidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "801499"
   },
   "1489457": {
     "taxonName": "Tritoniinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "48828"
   },
   "1496134": {
     "taxonName": "Candiella",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1489457"
   },
@@ -15901,13 +15901,13 @@
   },
   "1496147": {
     "taxonName": "Candiella plebeia",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "1496134"
   },
   "148395": {
     "taxonName": "Trochosa",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1235357"
   },
@@ -15919,31 +15919,31 @@
   },
   "1097014": {
     "taxonName": "Nanomantoidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "1097013"
   },
   "1097039": {
     "taxonName": "Nanomantidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "1097014"
   },
   "479749": {
     "taxonName": "Tropidomantinae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subfamily",
     "parentId": "1097039"
   },
   "570017": {
     "taxonName": "Tropidomantini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "479749"
   },
   "334879": {
     "taxonName": "Tropidomantis",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "570017"
   },
@@ -15979,7 +15979,7 @@
   },
   "1359821": {
     "taxonName": "Turrum",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1359796"
   },
@@ -16009,7 +16009,7 @@
   },
   "63482": {
     "taxonName": "Tylopilus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1135850"
   },
@@ -16039,25 +16039,25 @@
   },
   "500752": {
     "taxonName": "Fionoidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "801475"
   },
   "359533": {
     "taxonName": "Unidentiidae",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "500752"
   },
   "359534": {
     "taxonName": "Unidentia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "359533"
   },
   "870525": {
     "taxonName": "Unidentia aliciae",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "359534"
   },
@@ -16111,7 +16111,7 @@
   },
   "47843": {
     "taxonName": "Palaemonoidea",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "342912"
   },
@@ -16123,7 +16123,7 @@
   },
   "123396": {
     "taxonName": "Urocaridella",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "50928"
   },
@@ -16135,7 +16135,7 @@
   },
   "1081423": {
     "taxonName": "Urocaridella pulchella",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "123396"
   },
@@ -16231,7 +16231,7 @@
   },
   "995120": {
     "taxonName": "Krykomyaria",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Infraorder",
     "parentId": "764917"
   },
@@ -16243,13 +16243,13 @@
   },
   "710376": {
     "taxonName": "Versuriga",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "764920"
   },
   "776823": {
     "taxonName": "Versuriga anadyomene",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "710376"
   },
@@ -16309,19 +16309,19 @@
   },
   "85549": {
     "taxonName": "Vetigastropoda",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Subclass",
     "parentId": "47114"
   },
   "429924": {
     "taxonName": "Vibidia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "333796"
   },
   "429923": {
     "taxonName": "Vibidia duodecimguttata",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "429924"
   },
@@ -16399,7 +16399,7 @@
   },
   "416305": {
     "taxonName": "Xerocomellus",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1135850"
   },
@@ -16429,25 +16429,25 @@
   },
   "117747": {
     "taxonName": "Noctuini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "122224"
   },
   "320201": {
     "taxonName": "Noctuina",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "117747"
   },
   "61785": {
     "taxonName": "Xestia",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "320201"
   },
   "1114670": {
     "taxonName": "Megasema",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "61785"
   },
@@ -16483,7 +16483,7 @@
   },
   "571258": {
     "taxonName": "Xylocopa",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "51111"
   },
@@ -16495,7 +16495,7 @@
   },
   "1472448": {
     "taxonName": "Coriarachnini",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Tribe",
     "parentId": "1472437"
   },
@@ -16507,13 +16507,13 @@
   },
   "1507448": {
     "taxonName": "Xysticus cristatus",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Complex",
     "parentId": "61903"
   },
   "783848": {
     "taxonName": "Xysticus audax",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "1507448"
   },
@@ -16531,7 +16531,7 @@
   },
   "71810": {
     "taxonName": "Zamenis",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "797520"
   },
@@ -16555,7 +16555,7 @@
   },
   "124661": {
     "taxonName": "Zeuzera",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "354818"
   },
@@ -16651,7 +16651,7 @@
   },
   "420655": {
     "taxonName": "Uroballus",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "genus",
     "parentId": "1109011"
   },
@@ -16669,19 +16669,19 @@
   },
   "124004": {
     "taxonName": "Nudariina",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "subtribe",
     "parentId": "82092"
   },
   "83727": {
     "taxonName": "Miltochrista",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "genus",
     "parentId": "124004"
   },
   "985194": {
     "taxonName": "Miltochrista arcuata",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "83727"
   },
@@ -16759,7 +16759,7 @@
   },
   "43235": {
     "taxonName": "Ornithorhynchus",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "genus",
     "parentId": "43234"
   },
@@ -16813,7 +16813,7 @@
   },
   "1303580": {
     "taxonName": "Syngnathoidei",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "suborder",
     "parentId": "47245"
   },
@@ -16867,7 +16867,7 @@
   },
   "55382": {
     "taxonName": "Acanthurus",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "genus",
     "parentId": "47619"
   },
@@ -17011,7 +17011,7 @@
   },
   "61350": {
     "taxonName": "Phalangioidea",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "superfamily",
     "parentId": "372840"
   },
@@ -17035,13 +17035,13 @@
   },
   "475824": {
     "taxonName": "Continenticola",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "suborder",
     "parentId": "64222"
   },
   "475828": {
     "taxonName": "Geoplanoidea",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "superfamily",
     "parentId": "475824"
   },
@@ -17053,19 +17053,19 @@
   },
   "475830": {
     "taxonName": "Rhynchodeminae",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "subfamily",
     "parentId": "84642"
   },
   "775587": {
     "taxonName": "Rhynchodemini",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "tribe",
     "parentId": "475830"
   },
   "199350": {
     "taxonName": "Platydemus",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "genus",
     "parentId": "775587"
   },
@@ -17077,13 +17077,13 @@
   },
   "557040": {
     "taxonName": "Caenoplanini",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "tribe",
     "parentId": "475830"
   },
   "121272": {
     "taxonName": "Caenoplana",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "genus",
     "parentId": "557040"
   },
@@ -17101,13 +17101,13 @@
   },
   "134175": {
     "taxonName": "Limenitidini",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "tribe",
     "parentId": "134171"
   },
   "50881": {
     "taxonName": "Limenitis",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "genus",
     "parentId": "134175"
   },
@@ -17155,13 +17155,13 @@
   },
   "788672": {
     "taxonName": "Blenniinae",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "subfamily",
     "parentId": "49390"
   },
   "89821": {
     "taxonName": "Meiacanthus",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "genus",
     "parentId": "788672"
   },
@@ -17209,7 +17209,7 @@
   },
   "91106": {
     "taxonName": "Plagiotremus",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "genus",
     "parentId": "788672"
   },
@@ -17221,7 +17221,7 @@
   },
   "86670": {
     "taxonName": "Aspidontus",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "genus",
     "parentId": "788672"
   },
@@ -17233,7 +17233,7 @@
   },
   "89290": {
     "taxonName": "Labroides",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "genus",
     "parentId": "1541889"
   },
@@ -17317,7 +17317,7 @@
   },
   "997267": {
     "taxonName": "Eugnatha",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "subterclass",
     "parentId": "372763"
   },
@@ -17329,7 +17329,7 @@
   },
   "372784": {
     "taxonName": "Merocheta",
-    "vernacularName": "",
+    "vernacularName": "-",
     "rank": "Superorder",
     "parentId": "997267"
   },
@@ -17365,7 +17365,7 @@
   },
   "509764": {
     "taxonName": "Chironomoidea",
-    "vernacularName": "n/a",
+    "vernacularName": "-",
     "rank": "superfamily",
     "parentId": "153429"
   },
@@ -17869,7 +17869,7 @@
   },
   "1289299": {
     "taxonName": "Pterorhinus",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "980192"
   },
@@ -18019,13 +18019,13 @@
   },
   "522672": {
     "taxonName": "Zizeeriina",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "125833"
   },
   "145643": {
     "taxonName": "Pseudozizeeria",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "522672"
   },
@@ -18037,7 +18037,7 @@
   },
   "125541": {
     "taxonName": "Zizina",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "522672"
   },
@@ -18049,7 +18049,7 @@
   },
   "207974": {
     "taxonName": "Mycalesina",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "58598"
   },
@@ -18067,7 +18067,7 @@
   },
   "1265015": {
     "taxonName": "Oboroniina",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "125833"
   },
@@ -18097,13 +18097,13 @@
   },
   "522678": {
     "taxonName": "Polyommatina",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "125833"
   },
   "472289": {
     "taxonName": "Luthrodes",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "522678"
   },
@@ -18139,7 +18139,7 @@
   },
   "522675": {
     "taxonName": "Brephidiina",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "125833"
   },
@@ -18169,7 +18169,7 @@
   },
   "125514": {
     "taxonName": "Zizeeria",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "522672"
   },
@@ -18205,7 +18205,7 @@
   },
   "129161": {
     "taxonName": "Hestina",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "134166"
   },
@@ -18217,7 +18217,7 @@
   },
   "977101": {
     "taxonName": "Ypthimina",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Subtribe",
     "parentId": "58598"
   },
@@ -18553,7 +18553,7 @@
   },
   "45762": {
     "taxonName": "Ondatra",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "1317289"
   },
@@ -18589,7 +18589,7 @@
   },
   "1431398": {
     "taxonName": "Talpa",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "46942"
   },
@@ -18613,7 +18613,7 @@
   },
   "47055": {
     "taxonName": "Condylura",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "955879"
   },
@@ -18649,7 +18649,7 @@
   },
   "551405": {
     "taxonName": "Architectonicoidea",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Superfamily",
     "parentId": "551391"
   },
@@ -18661,13 +18661,13 @@
   },
   "246456": {
     "taxonName": "Architectonica",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "185051"
   },
   "1353283": {
     "taxonName": "Architectonica modesta",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "246456"
   },
@@ -18679,7 +18679,7 @@
   },
   "1431523": {
     "taxonName": "Eulagos",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "43117"
   },
@@ -18715,37 +18715,37 @@
   },
   "151825": {
     "taxonName": "Euryarchaeota",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Phylum",
     "parentId": "151817"
   },
   "152089": {
     "taxonName": "Halobacteria",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Class",
     "parentId": "151825"
   },
   "152511": {
     "taxonName": "Halobacteriales",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Order",
     "parentId": "152089"
   },
   "362805": {
     "taxonName": "Halobacteriaceae",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "152511"
   },
   "362806": {
     "taxonName": "Halobacterium",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "362805"
   },
   "362804": {
     "taxonName": "Halobacterium salinarum",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "362806"
   },
@@ -18769,19 +18769,19 @@
   },
   "1513634": {
     "taxonName": "Nostocophycidae",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Subclass",
     "parentId": "196963"
   },
   "67336": {
     "taxonName": "Nostocales",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Order",
     "parentId": "1513634"
   },
   "67337": {
     "taxonName": "Nostocaceae",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "67336"
   },
@@ -18823,7 +18823,7 @@
   },
   "450838": {
     "taxonName": "Escherichia",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "126707"
   },
@@ -18835,7 +18835,7 @@
   },
   "151859": {
     "taxonName": "Spirochaetae",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Phylum",
     "parentId": "67333"
   },
@@ -18847,55 +18847,55 @@
   },
   "151824": {
     "taxonName": "Crenarchaeota",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Phylum",
     "parentId": "151817"
   },
   "152087": {
     "taxonName": "Thermoprotei",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Class",
     "parentId": "151824"
   },
   "152509": {
     "taxonName": "Sulfolobales",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Order",
     "parentId": "152087"
   },
   "196671": {
     "taxonName": "Sulfolobaceae",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "152509"
   },
   "196672": {
     "taxonName": "Sulfolobus",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "196671"
   },
   "939014": {
     "taxonName": "Sulfolobus solfataricus",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Species",
     "parentId": "196672"
   },
   "152320": {
     "taxonName": "Spirochaetales",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Order",
     "parentId": "151859"
   },
   "356654": {
     "taxonName": "Spirochaetaceae",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "152320"
   },
   "492544": {
     "taxonName": "Borrelia",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "356654"
   },
@@ -18925,31 +18925,31 @@
   },
   "1443220": {
     "taxonName": "Columellomycetidae",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Subclass",
     "parentId": "47684"
   },
   "1443223": {
     "taxonName": "Stemonitidia",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Superorder",
     "parentId": "1443220"
   },
   "55484": {
     "taxonName": "Physarales",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Order",
     "parentId": "1443223"
   },
   "55485": {
     "taxonName": "Physaraceae",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "55484"
   },
   "55486": {
     "taxonName": "Fuligo",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "55485"
   },
@@ -18979,13 +18979,13 @@
   },
   "56271": {
     "taxonName": "Didymiaceae",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Family",
     "parentId": "55484"
   },
   "134048": {
     "taxonName": "Didymium",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "56271"
   },
@@ -19003,7 +19003,7 @@
   },
   "47341": {
     "taxonName": "Tapinoma",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "519189"
   },
@@ -19141,7 +19141,7 @@
   },
   "931956": {
     "taxonName": "Lasius",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Subgenus",
     "parentId": "69086"
   },
@@ -19171,13 +19171,13 @@
   },
   "424678": {
     "taxonName": "Trichomyrmex",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Genus",
     "parentId": "469107"
   },
   "1526464": {
     "taxonName": "Trichomyrmex destructor",
-    "vernacularName": "N/a",
+    "vernacularName": "-",
     "rank": "Complex",
     "parentId": "424678"
   }

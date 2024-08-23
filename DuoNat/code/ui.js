@@ -324,7 +324,7 @@ const ui = {
         _createNameHTML(name, vernacular) {
             return `
                 <span class="name-pair__taxon-name">${name}</span>
-                ${vernacular && vernacular !== "N/a" ? `<span class="name-pair__vernacular-name">${vernacular}</span>` : ''}
+                ${vernacular && vernacular !== "-" ? `<span class="name-pair__vernacular-name">${vernacular}</span>` : ''}
             `;
         },
 

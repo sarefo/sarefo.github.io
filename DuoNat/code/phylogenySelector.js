@@ -232,7 +232,7 @@ const phylogenySelector = {
             const showTaxonomic = state.getShowTaxonomicNames();
             const nameElement = document.createElement('span');
             
-            if (!showTaxonomic && taxon.vernacularName && taxon.vernacularName !== "n/a") {
+            if (!showTaxonomic && taxon.vernacularName && taxon.vernacularName !== "-") {
                 nameElement.textContent = taxon.vernacularName;
                 nameElement.className = 'phylogeny-cloud__vernacular-name';
                 nameElement.title = taxon.taxonName;
@@ -242,7 +242,7 @@ const phylogenySelector = {
                 if (taxon.rank === 'Genus' || taxon.rank === 'Species') {
                     nameElement.style.fontStyle = 'italic';
                 }
-                if (taxon.vernacularName && taxon.vernacularName !== "n/a") {
+                if (taxon.vernacularName && taxon.vernacularName !== "-") {
                     nameElement.title = taxon.vernacularName;
                 }
             }
@@ -555,7 +555,7 @@ const phylogenySelector = {
                 .filter(node => {
                     const matchesTaxonName = node.taxonName.toLowerCase().includes(searchTerm);
                     const matchesVernacularName = node.vernacularName && 
-                                                  node.vernacularName !== "n/a" && 
+                                                  node.vernacularName !== "-" && 
                                                   node.vernacularName.toLowerCase().includes(searchTerm);
                     
                     if (matchesTaxonName || matchesVernacularName) {
@@ -625,7 +625,7 @@ const phylogenySelector = {
                     
                     resultItem.appendChild(taxonNameSpan);
                     
-                    if (node.vernacularName && node.vernacularName !== "n/a") {
+                    if (node.vernacularName && node.vernacularName !== "-") {
                         const vernacularSpan = document.createElement('span');
                         vernacularSpan.textContent = ` (${node.vernacularName})`;
                         resultItem.appendChild(vernacularSpan);

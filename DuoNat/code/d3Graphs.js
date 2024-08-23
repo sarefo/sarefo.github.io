@@ -218,9 +218,9 @@ class RadialTree extends BaseTree {
     updateNodeLabels(showTaxonomicNames) {
         this.showTaxonomicNames = showTaxonomicNames;
         this.svg.selectAll('g.node text')
-            .text(d => !this.showTaxonomicNames && d.data.vernacularName && d.data.vernacularName !== "n/a" ? 
+            .text(d => !this.showTaxonomicNames && d.data.vernacularName && d.data.vernacularName !== "-" ? 
                 d.data.vernacularName : d.data.taxonName)
-            .attr('title', d => !this.showTaxonomicNames && d.data.vernacularName && d.data.vernacularName !== "n/a" ? 
+            .attr('title', d => !this.showTaxonomicNames && d.data.vernacularName && d.data.vernacularName !== "-" ? 
                 d.data.taxonName : d.data.vernacularName);
     }
 
@@ -426,7 +426,7 @@ class RadialTree extends BaseTree {
             .attr('x', 0)
             .attr('text-anchor', 'middle')
             /*.text(d => `${d.data.taxonName} (${d.data.pairCount})`)*/ // with number of taxa in brackets
-            .text(d => !this.showTaxonomicNames && d.data.vernacularName && d.data.vernacularName !== "N/a" ? 
+            .text(d => !this.showTaxonomicNames && d.data.vernacularName && d.data.vernacularName !== "-" ? 
                 d.data.vernacularName : d.data.taxonName)
             .style('fill-opacity', 1e-6);
 
@@ -442,7 +442,7 @@ class RadialTree extends BaseTree {
             .style('fill', d => d === this.parentNode ? '#74ac00' : (d._children ? '#dfe9c8' : '#fff'));
 
         nodeUpdate.select('text')
-            .text(d => !this.showTaxonomicNames && d.data.vernacularName && d.data.vernacularName !== "n/a" ? 
+            .text(d => !this.showTaxonomicNames && d.data.vernacularName && d.data.vernacularName !== "-" ? 
                 d.data.vernacularName : d.data.taxonName)
             .style('fill-opacity', 1)
             .attr('dy', d => {

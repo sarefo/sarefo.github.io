@@ -14,7 +14,7 @@ def fetch_taxon_details(taxon_name):
             result = data['results'][0]
             taxon_id = result['id']
             taxon_name = result['name']
-            vernacular_name = result.get('preferred_common_name', 'n/a').capitalize()
+            vernacular_name = result.get('preferred_common_name', '-').capitalize()
             rank = result['rank'].capitalize()
             print(f"  Found: {taxon_name} (ID: {taxon_id}, Vernacular: {vernacular_name}, Rank: {rank})")
             return {
@@ -38,7 +38,7 @@ def fetch_taxon_by_id(taxon_id):
         if data['results']:
             result = data['results'][0]
             taxon_name = result['name']
-            vernacular_name = result.get('preferred_common_name', 'n/a').capitalize()
+            vernacular_name = result.get('preferred_common_name', '-').capitalize()
             rank = result['rank'].capitalize()
             print(f"  Found: {taxon_name} (ID: {taxon_id}, Vernacular: {vernacular_name}, Rank: {rank})")
             return {
@@ -417,7 +417,7 @@ def update_hierarchy(taxon_info_file, taxon_hierarchy_file):
     if "48460" not in updated_hierarchy:
         updated_hierarchy["48460"] = {
             "taxonName": "Life",
-            "vernacularName": "n/a",
+            "vernacularName": "-",
             "rank": "Stateofmatter",
             "parentId": None
         }
@@ -439,7 +439,7 @@ def update_hierarchy(taxon_info_file, taxon_hierarchy_file):
                     print(f"  Unable to fetch details for taxon ID: {current_id}. Using placeholder data.")
                     updated_hierarchy[current_id] = {
                         "taxonName": "Unknown",
-                        "vernacularName": "n/a",
+                        "vernacularName": "-",
                         "rank": "Unknown",
                         "parentId": None
                     }
@@ -458,7 +458,7 @@ def update_hierarchy(taxon_info_file, taxon_hierarchy_file):
             # If this is the last ID in the ancestry, it's the taxon itself
             if i == len(ancestry_ids) - 1:
                 updated_hierarchy[current_id]["taxonName"] = taxon_data["taxonName"]
-                updated_hierarchy[current_id]["vernacularName"] = taxon_data.get("vernacularName", "n/a")
+                updated_hierarchy[current_id]["vernacularName"] = taxon_data.get("vernacularName", "-")
                 updated_hierarchy[current_id]["rank"] = taxon_data["rank"]
     
     # Save the updated hierarchy
