@@ -292,10 +292,19 @@ const phylogenySelector = {
                 activeVernacularEl.textContent = '';
                 activeVernacularEl.style.display = 'none';
             }
+            phylogenySelector.toggleTapMessage(true);
         } else {
             activeNameEl.textContent = 'No taxon selected';
             activeVernacularEl.textContent = '';
             activeVernacularEl.style.display = 'none';
+            phylogenySelector.toggleTapMessage(false);
+        }
+    },
+
+    toggleTapMessage(show) {
+        const tapMessage = document.getElementById('phylogeny-dialog__message-tap');
+        if (tapMessage) {
+            tapMessage.style.opacity = show ? '1' : '0';
         }
     },
 

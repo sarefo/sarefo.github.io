@@ -75,6 +75,7 @@
 
 #phylogeny-dialog__message-tap {
     color: var(--primary-color);
+    opacity: 0;
 }
 
 /* View toggle */
