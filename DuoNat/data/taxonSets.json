@@ -10959,8 +10959,7 @@
   "635": {
     "setName": "Mites vs Spiders",
     "level": "1",
-    "tags": [
-    ],
+    "tags": [],
     "taxa": [
       "52788",
       "47118"
@@ -10981,8 +10980,7 @@
   "636": {
     "setName": "Daddy Long Legs",
     "level": "1",
-    "tags": [
-    ],
+    "tags": [],
     "taxa": [
       "47823",
       "57409"
@@ -11003,8 +11001,7 @@
   "637": {
     "setName": "Cellar Spiders",
     "level": "3",
-    "tags": [
-    ],
+    "tags": [],
     "taxa": [
       "67328",
       "541903"
@@ -13033,5 +13030,220 @@
       "OC",
       "AS"
     ]
+  },
+  "756": {
+    "setName": "Central european bicolored ant vs Immigrant pavement ant",
+    "level": "2",
+    "tags": [
+      "invasive"
+    ],
+    "taxa": [
+      341143,
+      569552
+    ],
+    "taxonNames": [
+      "Lasius emarginatus",
+      "Tetramorium immigrans"
+    ],
+    "range": [
+      "EU"
+    ]
+  },
+  "757": {
+    "setName": "Pharaoh ant vs Yellow Crazy Ant",
+    "level": "2",
+    "tags": [
+      "invasive"
+    ],
+    "taxa": [
+      69320,
+      123386
+    ],
+    "taxonNames": [
+      "Monomorium pharaonis",
+      "Anoplolepis gracilipes"
+    ],
+    "range": [
+      "AF",
+      "AS"
+    ]
+  },
+  "758": {
+    "setName": "Pharaoh ant vs. Destructor ant",
+    "level": "2",
+    "tags": [
+      "invasive"
+    ],
+    "taxa": [
+      69320,
+      1526464
+    ],
+    "taxonNames": [
+      "Monomorium pharaonis",
+      "Trichomyrmex destructor"
+    ],
+    "range": [
+      "AF",
+      "EU"
+    ]
+  },
+  "759": {
+    "setName": "Destructor ant vs. Fire ant",
+    "level": "3",
+    "tags": [
+      "invasive"
+    ],
+    "taxa": [
+      1526464,
+      67598
+    ],
+    "taxonNames": [
+      "Trichomyrmex destructor",
+      "Solenopsis invicta"
+    ],
+    "range": []
+  },
+  "760": {
+    "setName": "Destructor ant vs Fierce ant",
+    "level": "2",
+    "tags": [
+      "invasive"
+    ],
+    "taxa": [
+      1526464,
+      1404754
+    ],
+    "taxonNames": [
+      "Trichomyrmex destructor",
+      "Tetramorium bicarinatum"
+    ],
+    "range": [
+      "AF",
+      "EU"
+    ]
+  },
+  "761": {
+    "setName": "Ghost ant vs Pharaoh ant",
+    "level": "2",
+    "tags": [
+      "invasive"
+    ],
+    "taxa": [
+      69122,
+      69320
+    ],
+    "taxonNames": [
+      "Tapinoma melanocephalum",
+      "Monomorium pharaonis"
+    ],
+    "range": [
+      "AF",
+      "EU",
+      "AS"
+    ]
+  },
+  "762": {
+    "setName": "Asian weaver ant vs Yellow Crazy Ant",
+    "level": "2",
+    "tags": [
+      "invasive"
+    ],
+    "taxa": [
+      117293,
+      123386
+    ],
+    "taxonNames": [
+      "Oecophylla smaragdina",
+      "Anoplolepis gracilipes"
+    ],
+    "range": [
+      "AF",
+      "AS"
+    ]
+  },
+  "763": {
+    "setName": "Asian weaver ant vs Red Imported Fire Ant",
+    "level": "1",
+    "tags": [
+      "invasive"
+    ],
+    "taxa": [
+      117293,
+      67598
+    ],
+    "taxonNames": [
+      "Oecophylla smaragdina",
+      "Solenopsis invicta"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "764": {
+    "setName": "Harvester ant vs Leafcutter ant",
+    "level": "2",
+    "tags": [
+      "invasive"
+    ],
+    "taxa": [
+      1340200,
+      300315
+    ],
+    "taxonNames": [
+      "Pogonomyrmex barbatus",
+      "Atta mexicana"
+    ],
+    "range": [
+      "NA"
+    ]
+  },
+  "765": {
+    "setName": "Immigrant pavement ant vs Odorous house ant",
+    "level": "2",
+    "tags": [
+      "invasive"
+    ],
+    "taxa": [
+      569552,
+      47340
+    ],
+    "taxonNames": [
+      "Tetramorium immigrans",
+      "Tapinoma sessile"
+    ],
+    "range": []
+  },
+  "766": {
+    "setName": "Pied imperial pigeon vs Torresian imperial pigeon",
+    "level": "3",
+    "tags": [
+      "forest"
+    ],
+    "taxa": [
+      3255,
+      979701
+    ],
+    "taxonNames": [
+      "Ducula bicolor",
+      "Ducula spilorrhoa"
+    ],
+    "range": [
+      "OC"
+    ]
+  },
+  "767": {
+    "setName": "Pied imperial pigeon vs Rock pigeon",
+    "level": "1",
+    "tags": [
+    ],
+    "taxa": [
+      3255,
+      3017
+    ],
+    "taxonNames": [
+      "Ducula bicolor",
+      "Columba livia"
+    ],
+    "range": []
   }
 }

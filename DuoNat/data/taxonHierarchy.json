@@ -18994,5 +18994,191 @@
     "vernacularName": "Dog sick slime mould",
     "rank": "Species",
     "parentId": "134048"
+  },
+  "519189": {
+    "taxonName": "Tapinomini",
+    "vernacularName": "Tapinomin ants",
+    "rank": "Tribe",
+    "parentId": "244394"
+  },
+  "47341": {
+    "taxonName": "Tapinoma",
+    "vernacularName": "N/a",
+    "rank": "Genus",
+    "parentId": "519189"
+  },
+  "69122": {
+    "taxonName": "Tapinoma melanocephalum",
+    "vernacularName": "Ghost ant",
+    "rank": "Species",
+    "parentId": "47341"
+  },
+  "322028": {
+    "taxonName": "Attini",
+    "vernacularName": "Higher myrmicine ants",
+    "rank": "Tribe",
+    "parentId": "69143"
+  },
+  "891179": {
+    "taxonName": "Attina",
+    "vernacularName": "Fungus-growing ants",
+    "rank": "Subtribe",
+    "parentId": "322028"
+  },
+  "61284": {
+    "taxonName": "Atta",
+    "vernacularName": "Atta leaf-cutter ants",
+    "rank": "Genus",
+    "parentId": "891179"
+  },
+  "300315": {
+    "taxonName": "Atta mexicana",
+    "vernacularName": "Chicatana leafcutter ant",
+    "rank": "Species",
+    "parentId": "61284"
+  },
+  "3174": {
+    "taxonName": "Ducula",
+    "vernacularName": "Imperial pigeons",
+    "rank": "Genus",
+    "parentId": "2715"
+  },
+  "979701": {
+    "taxonName": "Ducula spilorrhoa",
+    "vernacularName": "Torresian imperial pigeon",
+    "rank": "Species",
+    "parentId": "3174"
+  },
+  "469104": {
+    "taxonName": "Pogonomyrmecini",
+    "vernacularName": "Pogonomyrmecin ants",
+    "rank": "Tribe",
+    "parentId": "69143"
+  },
+  "69114": {
+    "taxonName": "Pogonomyrmex",
+    "vernacularName": "Typical american harvester ants",
+    "rank": "Genus",
+    "parentId": "469104"
+  },
+  "1340200": {
+    "taxonName": "Pogonomyrmex barbatus",
+    "vernacularName": "Barbatus-group harvester ants",
+    "rank": "Complex",
+    "parentId": "69114"
+  },
+  "69100": {
+    "taxonName": "Monomorium",
+    "vernacularName": "Trailing, pharaoh, and timid ants",
+    "rank": "Genus",
+    "parentId": "469106"
+  },
+  "1403854": {
+    "taxonName": "Monomorium salomonis",
+    "vernacularName": "Salomonis-group pharaoh ants and timid ants",
+    "rank": "Complex",
+    "parentId": "69100"
+  },
+  "69320": {
+    "taxonName": "Monomorium pharaonis",
+    "vernacularName": "Pharaoh ant",
+    "rank": "Species",
+    "parentId": "1403854"
+  },
+  "47340": {
+    "taxonName": "Tapinoma sessile",
+    "vernacularName": "Odorous house ant",
+    "rank": "Species",
+    "parentId": "47341"
+  },
+  "469107": {
+    "taxonName": "Crematogastrini",
+    "vernacularName": "Crematogastrin ants",
+    "rank": "Tribe",
+    "parentId": "69143"
+  },
+  "69599": {
+    "taxonName": "Tetramorium",
+    "vernacularName": "Fierce, pennant, and pavement ants",
+    "rank": "Genus",
+    "parentId": "469107"
+  },
+  "1404754": {
+    "taxonName": "Tetramorium bicarinatum",
+    "vernacularName": "Bicarinatum-group fierce ants",
+    "rank": "Complex",
+    "parentId": "69599"
+  },
+  "3255": {
+    "taxonName": "Ducula bicolor",
+    "vernacularName": "Pied imperial pigeon",
+    "rank": "Species",
+    "parentId": "3174"
+  },
+  "1396832": {
+    "taxonName": "Tetramorium caespitum",
+    "vernacularName": "Pavement ants",
+    "rank": "Complex",
+    "parentId": "69599"
+  },
+  "569552": {
+    "taxonName": "Tetramorium immigrans",
+    "vernacularName": "Immigrant pavement ant",
+    "rank": "Species",
+    "parentId": "1396832"
+  },
+  "637569": {
+    "taxonName": "Lasiini",
+    "vernacularName": "Lasiin ants",
+    "rank": "Tribe",
+    "parentId": "244834"
+  },
+  "69086": {
+    "taxonName": "Lasius",
+    "vernacularName": "Citronella ants, fuzzy ants, and allies",
+    "rank": "Genus",
+    "parentId": "637569"
+  },
+  "931956": {
+    "taxonName": "Lasius",
+    "vernacularName": "N/a",
+    "rank": "Subgenus",
+    "parentId": "69086"
+  },
+  "341143": {
+    "taxonName": "Lasius emarginatus",
+    "vernacularName": "Central european bicolored ant",
+    "rank": "Species",
+    "parentId": "931956"
+  },
+  "637574": {
+    "taxonName": "Oecophyllini",
+    "vernacularName": "Typical weaver ants",
+    "rank": "Tribe",
+    "parentId": "244834"
+  },
+  "52289": {
+    "taxonName": "Oecophylla",
+    "vernacularName": "Typical weaver ants",
+    "rank": "Genus",
+    "parentId": "637574"
+  },
+  "117293": {
+    "taxonName": "Oecophylla smaragdina",
+    "vernacularName": "Asian weaver ant",
+    "rank": "Species",
+    "parentId": "52289"
+  },
+  "424678": {
+    "taxonName": "Trichomyrmex",
+    "vernacularName": "N/a",
+    "rank": "Genus",
+    "parentId": "469107"
+  },
+  "1526464": {
+    "taxonName": "Trichomyrmex destructor",
+    "vernacularName": "N/a",
+    "rank": "Complex",
+    "parentId": "424678"
   }
 }

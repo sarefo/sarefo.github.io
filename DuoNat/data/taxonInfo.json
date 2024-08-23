@@ -41838,5 +41838,354 @@
       "EU",
       "AF"
     ]
+  },
+  "69122": {
+    "taxonName": "Tapinoma melanocephalum",
+    "vernacularName": "Ghost ant",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47201,
+      124417,
+      326777,
+      1269340,
+      47336,
+      244394,
+      519189,
+      47341,
+      69122
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Forms large colonies with multiple queens.",
+      "Known for its remarkable foraging behavior.",
+      "Can thrive in various environments."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "300315": {
+    "taxonName": "Atta mexicana",
+    "vernacularName": "Chicatana leafcutter ant",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47201,
+      124417,
+      326777,
+      1269340,
+      47336,
+      69143,
+      322028,
+      891179,
+      61284,
+      300315
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Builds large leaf-cutter ant colonies.",
+      "Farms fungus as their primary food source.",
+      "Can strip entire trees of their leaves."
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ]
+  },
+  "979701": {
+    "taxonName": "Ducula spilorrhoa",
+    "vernacularName": "Torresian imperial pigeon",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      2708,
+      2715,
+      3174,
+      979701
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for its unique cooing calls.",
+      "Feeds primarily on fruits and seeds.",
+      "Plays a role in seed dispersal."
+    ],
+    "range": [
+      "OC"
+    ]
+  },
+  "1340200": {
+    "taxonName": "Pogonomyrmex barbatus",
+    "vernacularName": "Barbatus-group harvester ants",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47201,
+      124417,
+      326777,
+      1269340,
+      47336,
+      69143,
+      469104,
+      69114,
+      1340200
+    ],
+    "rank": "Complex",
+    "taxonFacts": [
+      "Stores seeds for food during winter.",
+      "Exhibits aggressive behavior when threatened."
+    ],
+    "range": [
+      "NA"
+    ]
+  },
+  "69320": {
+    "taxonName": "Monomorium pharaonis",
+    "vernacularName": "Pharaoh ant",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47201,
+      124417,
+      326777,
+      1269340,
+      47336,
+      69143,
+      469106,
+      69100,
+      1403854,
+      69320
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Can form supercolonies with multiple nests.",
+      "Often infests buildings and hospitals."
+    ],
+    "range": [
+      "AF",
+      "EU",
+      "AS"
+    ]
+  },
+  "47340": {
+    "taxonName": "Tapinoma sessile",
+    "vernacularName": "Odorous house ant",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47201,
+      124417,
+      326777,
+      1269340,
+      47336,
+      244394,
+      519189,
+      47341,
+      47340
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Emits a coconut-like scent when crushed.",
+      "Forms large colonies in diverse habitats."
+    ],
+    "range": [
+      "NA"
+    ]
+  },
+  "1404754": {
+    "taxonName": "Tetramorium bicarinatum",
+    "vernacularName": "Bicarinatum-group fierce ants",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47201,
+      124417,
+      326777,
+      1269340,
+      47336,
+      69143,
+      469107,
+      69599,
+      1404754
+    ],
+    "rank": "Complex",
+    "taxonFacts": [
+      "Known for its ability to adapt quickly.",
+      "Forms large, invasive colonies.",
+      "Can dominate local ant populations."
+    ],
+    "range": [
+      "AF",
+      "EU",
+      "AS"
+    ]
+  },
+  "3255": {
+    "taxonName": "Ducula bicolor",
+    "vernacularName": "Pied imperial pigeon",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      2708,
+      2715,
+      3174,
+      3255
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Has a distinctive two-toned plumage.",
+      "Feeds mainly on fruits and flowers.",
+      "Important for maintaining forest ecosystems."
+    ],
+    "range": [
+      "OC"
+    ]
+  },
+  "569552": {
+    "taxonName": "Tetramorium immigrans",
+    "vernacularName": "Immigrant pavement ant",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47201,
+      124417,
+      326777,
+      1269340,
+      47336,
+      69143,
+      469107,
+      69599,
+      1396832,
+      569552
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Often found in urban environments.",
+      "Forms large colonies with many workers.",
+      "Can compete with native ant species."
+    ],
+    "range": [
+      "AF",
+      "EU",
+      "AS"
+    ]
+  },
+  "341143": {
+    "taxonName": "Lasius emarginatus",
+    "vernacularName": "Central european bicolored ant",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47201,
+      124417,
+      326777,
+      1269340,
+      47336,
+      244834,
+      637569,
+      69086,
+      931956,
+      341143
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for its unique nesting habits.",
+      "Forms mutualistic relationships with aphids.",
+      "Can be found in various habitats."
+    ],
+    "range": [
+      "EU"
+    ]
+  },
+  "117293": {
+    "taxonName": "Oecophylla smaragdina",
+    "vernacularName": "Asian weaver ant",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47201,
+      124417,
+      326777,
+      1269340,
+      47336,
+      244834,
+      637574,
+      52289,
+      117293
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Builds large, hanging nests in trees.",
+      "Uses silk to bind leaves together."
+    ],
+    "range": [
+      "AF",
+      "AS"
+    ]
+  },
+  "1526464": {
+    "taxonName": "Trichomyrmex destructor",
+    "vernacularName": "N/a",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47201,
+      124417,
+      326777,
+      1269340,
+      47336,
+      69143,
+      469107,
+      424678,
+      1526464
+    ],
+    "rank": "Complex",
+    "taxonFacts": [
+      "Can cause significant damage to crops.",
+      "Forms large colonies with aggressive behavior."
+    ],
+    "range": [
+      "AF",
+      "EU"
+    ]
   }
 }
