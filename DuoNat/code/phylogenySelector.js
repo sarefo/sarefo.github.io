@@ -47,6 +47,7 @@ const phylogenySelector = {
         filtering.clearAllFilters();
         phylogenySelector.updateGraph();
         phylogenySelector.cloud.renderCloudView();
+        phylogenySelector.updateActiveTaxonDisplay(null);
     },
 
     toggleView(eventOrForceState) {
@@ -499,6 +500,7 @@ const phylogenySelector = {
         if (this.currentView === 'cloud') {
             this.cloud.renderCloudView();
         }
+        this.updateActiveTaxonDisplay(null);
         collectionManager.updateFilterSummary();
         collectionManager.onFiltersChanged();
     },
