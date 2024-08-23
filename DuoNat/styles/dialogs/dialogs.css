@@ -28,7 +28,8 @@ dialog[open] {
     transform: translate(-50%, -50%) scale(1);
 }
 
-@media (max-width: 480px) {
+/* TODO looks bad > idea is to fix iPhone collapsed dialogs */
+/*@media (max-width: 480px) {
     dialog {
         width: 100%;
         height: auto;
@@ -36,7 +37,6 @@ dialog[open] {
         border-radius: var(--border-radius) var(--border-radius) 0 0;
         bottom: 0;
         top: auto;
-        /*transform: translate(-50%, 50%) scale(0.95);*/
     }
 
     dialog[open] {
@@ -50,7 +50,7 @@ dialog[open] {
         max-width: none;
         border-radius: var(--border-radius) var(--border-radius) 0 0;
     }
-}
+}*/
 
 .standard-dialog {
     /*background-color: white;*/
