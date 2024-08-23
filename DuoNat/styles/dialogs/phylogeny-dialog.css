@@ -310,9 +310,10 @@ input:checked + .slider:before {
 /* In styles/dialogs/phylogeny-dialog.css */
 
 .phylogeny-dialog__cloud-container {
-    flex-grow: 1;
-    overflow: auto;
     display: flex;
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
     flex-wrap: wrap;
     justify-content: center;
     align-content: flex-start;
@@ -332,6 +333,11 @@ input:checked + .slider:before {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    max-width: 100%;
+    word-break: break-word;
+    hyphens: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .phylogeny-cloud__tag:hover {
