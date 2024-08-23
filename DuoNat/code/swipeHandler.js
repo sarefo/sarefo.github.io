@@ -1,3 +1,4 @@
+import imagePanner from './imagePanner.js';
 import state from './state.js';
 import logger from './logger.js';
 import gameLogic from './gameLogic.js';
@@ -6,6 +7,9 @@ const swipeHandler = {
     isLoadingNewPair: false,
 
     swipeOutThreshold: 50, // Increased from 30 to make it less sensitive
+    swipeThreshold: 30, // Minimum horizontal distance to trigger a swipe
+    isSwipeDetected: false,
+    isPanning: false,
 
     swipeRestraint: 100,
     maxRotation: 15,
@@ -46,25 +50,34 @@ const swipeHandler = {
         container.addEventListener('touchend', this.handleSwipeOrDrag.bind(this));
     },
 
+    setPanningState(state) {
+        this.isPanning = state;
+    },
+
     handleMouseDown(e) {
-        if (!e.target.closest('.image-container') || e.target.closest('.info-button')) return;
+        if (this.isPanning || !e.target.closest('.image-container') || e.target.closest('.info-button')) return;
         if (e.target.closest('.name-pair__item--draggable')) return;
         this.startX = e.clientX;
         this.startY = e.clientY;
         this.isDragging = true;
+        this.isSwipeDetected = false;
     },
 
     handleTouchStart(e) {
-        if (!e.target.closest('.image-container') || e.target.closest('.info-button')) {
+        if (this.isPanning || !e.target.closest('.image-container') || e.target.closest('.info-button')) {
             return;
         }
         this.startX = e.touches[0].clientX;
         this.startY = e.touches[0].clientY;
         this.isDragging = true;
+        this.isSwipeDetected = false;
     },
 
     handleSwipeOrDrag(e) {
-        if (!this.isDragging || this.swipeDisabled) return;
+        if (!this.isDragging || this.swipeDisabled || this.isPanning) {
+            this.isDragging = false;
+            return;
+        }
 
         const { endX, endY } = this.getEndCoordinates(e);
         const deltaX = this.startX - endX;
@@ -102,13 +115,18 @@ const swipeHandler = {
     },
 
     handleDragMove(e) {
-        if (!this.isDragging || this.swipeDisabled) return;
+        if (!this.isDragging || this.swipeDisabled || this.isPanning) return;
 
         const { currentX, currentY } = this.getCurrentCoordinates(e);
         const deltaX = this.startX - currentX;
         const deltaY = Math.abs(this.startY - currentY);
 
-        if (this.isValidDragMove(deltaX, deltaY)) {
+        if (Math.abs(deltaX) > this.swipeThreshold && !this.isSwipeDetected) {
+            this.isSwipeDetected = true;
+            imagePanner.cancelPanning();
+        }
+
+        if (this.isSwipeDetected && this.isValidDragMove(deltaX, deltaY)) {
             this.updateDragAnimation(deltaX);
         } else {
             this.resetSwipeAnimation();
@@ -240,3 +258,4 @@ const swipeHandler = {
 };
 
 export default swipeHandler;
+// don't call directly; API is in eventMain

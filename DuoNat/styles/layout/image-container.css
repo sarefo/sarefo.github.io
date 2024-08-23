@@ -35,28 +35,40 @@
 
 .image-container__image {
     position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    /*top: 0;
+    left: 0;*/
     width: 100%;
     height: 100%;
+    /*max-width: none;*/ /* Override any max-width constraints */
+    /*max-height: none;*/ /* Override any max-height constraints */
+
     object-fit: cover;
     object-position: center;
+
     background-color: #f0f0f0;
     color: var(--primary-color);
     font-size: 36px;
     font-weight: bold;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
     border-radius: var(--border-radius);
+
+    transition: transform 0.1s ease-out;
+    will-change: transform;
+
     pointer-events: none;
+
     /* Prevents the image from interfering with dragging */
-    transition: opacity var(--transition-speed) ease-in-out;
+    /*transition: opacity var(--transition-speed) ease-in-out;*/
+
+    user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
-    user-select: none;
     -webkit-touch-callout: none;
     -webkit-tap-highlight-color: transparent;
 }
