@@ -270,7 +270,6 @@ const phylogenySelector = {
 
     },
 
-
     updateActiveTaxonDisplay(nodeId) {
         const activeNameEl = document.getElementById('active-taxon-name');
         const activeVernacularEl = document.getElementById('active-taxon-vernacular');
@@ -280,14 +279,22 @@ const phylogenySelector = {
             const node = hierarchyObj.getTaxonById(nodeId);
             if (node) {
                 activeNameEl.textContent = node.taxonName;
-                activeVernacularEl.textContent = node.vernacularName ? ` (${node.vernacularName})` : '';
+                if (node.vernacularName && node.vernacularName !== "-") {
+                    activeVernacularEl.textContent = ` (${node.vernacularName})`;
+                    activeVernacularEl.style.display = 'inline';
+                } else {
+                    activeVernacularEl.textContent = '';
+                    activeVernacularEl.style.display = 'none';
+                }
             } else {
                 activeNameEl.textContent = 'Unknown Taxon';
                 activeVernacularEl.textContent = '';
+                activeVernacularEl.style.display = 'none';
             }
         } else {
             activeNameEl.textContent = 'No taxon selected';
             activeVernacularEl.textContent = '';
+            activeVernacularEl.style.display = 'none';
         }
     },
 
