@@ -379,9 +379,11 @@ def update_set_metadata_in_main_file(taxon_sets_file, taxon_info_file):
             
             # Update tags
             default_tags = ", ".join(last_tags) if last_tags else "no tags"
-            tags_input = input(f"Enter tags (comma-separated, or press Enter to use '{default_tags}'): ").strip()
+            tags_input = input(f"Enter tags (comma-separated, '-' for no tags, or press Enter to use '{default_tags}'): ").strip()
             
-            if tags_input:
+            if tags_input == '-':
+                new_tags = []
+            elif tags_input:
                 new_tags = [tag.strip() for tag in tags_input.split(',') if tag.strip()]
             else:
                 new_tags = last_tags.copy()  # Use the default tags
