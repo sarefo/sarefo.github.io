@@ -35,6 +35,11 @@ const collectionManager = {
             this.initializeSelectSetDoneButton();
             this.initializeLevelDropdown();
             this.initializePhylogenySelector();
+
+            const levelDropdown = document.getElementById('level-filter-dropdown');
+            if (levelDropdown) {
+                levelDropdown.addEventListener('change', collectionManager.ui.handleLevelChange.bind(this));
+            }
         },
 
         initializePhylogenySelector() {
@@ -395,16 +400,34 @@ const collectionManager = {
             if (levelDropdown) {
                 const activeFilters = filtering.getActiveFilters();
                 const counts = await filtering.countSetsPerLevel(activeFilters);
+                const totalCount = counts['1'] + counts['2'] + counts['3'];
+                const selectedLevel = state.getSelectedLevel();
                 
                 levelDropdown.innerHTML = `
-                    <option value="">All Levels (${counts['1'] + counts['2'] + counts['3']})</option>
+                    <option value="">All Levels (${totalCount})</option>
                     <option value="1">Easy (${counts['1']})</option>
                     <option value="2">Medium (${counts['2']})</option>
                     <option value="3">Hard (${counts['3']})</option>
                 `;
                 
-                levelDropdown.value = state.getSelectedLevel();
+                levelDropdown.value = selectedLevel;
+
+                // Update the selected option text to show filtered count
+                if (selectedLevel) {
+                    const filteredCount = this.getFilteredCountForLevel(selectedLevel);
+                    const selectedOption = levelDropdown.querySelector(`option[value="${selectedLevel}"]`);
+                    if (selectedOption) {
+                        const levelText = selectedOption.textContent.split(' (')[0];
+                        selectedOption.textContent = `${levelText} (${filteredCount})`;
+                    }
+                }
             }
+        },
+
+        async getFilteredCountForLevel(level) {
+            const activeFilters = filtering.getActiveFilters();
+            const filteredPairs = await filtering.getFilteredTaxonPairs(activeFilters);
+            return filteredPairs.filter(pair => pair.level === level).length;
         },
 
         async updateLevelCounts() {
@@ -412,16 +435,29 @@ const collectionManager = {
             if (levelDropdown) {
                 const activeFilters = filtering.getActiveFilters();
                 const counts = await filtering.countSetsPerLevel(activeFilters);
+                const totalCount = counts['1'] + counts['2'] + counts['3'];
+                const selectedLevel = state.getSelectedLevel();
                 
-                Array.from(levelDropdown.options).forEach(option => {
+                Array.from(levelDropdown.options).forEach(async (option) => {
                     if (option.value === '') {
-                        option.textContent = `All Levels (${counts['1'] + counts['2'] + counts['3']})`;
+                        option.textContent = `All Levels (${totalCount})`;
                     } else {
                         const level = option.value;
-                        option.textContent = `${option.textContent.split(' (')[0]} (${counts[level]})`;
+                        const count = level === selectedLevel ? 
+                            await this.getFilteredCountForLevel(level) : 
+                            counts[level];
+                        const levelText = option.textContent.split(' (')[0];
+                        option.textContent = `${levelText} (${count})`;
                     }
                 });
             }
+        },
+
+        async handleLevelChange(event) {
+            const selectedLevel = event.target.value;
+            state.setSelectedLevel(selectedLevel);
+            await collectionManager.ui.updateLevelCounts();
+            await collectionManager.taxonList.onFiltersChanged();
         },
 
         updateUIForClearedFilters() {
@@ -505,6 +541,8 @@ const publicAPI = {
 
     updateLevelDropdown: collectionManager.ui.updateLevelDropdown.bind(collectionManager.ui),
     updateLevelCounts: collectionManager.ui.updateLevelCounts.bind(collectionManager.ui),
+    getFilteredCountForLevel: collectionManager.ui.getFilteredCountForLevel.bind(collectionManager.ui),
+    handleLevelChange: collectionManager.ui.handleLevelChange.bind(collectionManager.ui),
 };
 
 export default publicAPI;

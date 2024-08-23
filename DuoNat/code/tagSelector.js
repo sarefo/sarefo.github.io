@@ -213,6 +213,7 @@ const tagSelector = {
 
     closeTagSelector() {
         collectionManager.updateTaxonList();
+        collectionManager.updateLevelCounts();
         dialogManager.closeDialog('tag-dialog', true);
     },
 

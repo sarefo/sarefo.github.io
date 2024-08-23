@@ -479,8 +479,9 @@ const phylogenySelector = {
             state.setPhylogenyId(null);
             logger.debug('Phylogeny filter cleared');
         }
-        collectionManager.updateFilterSummary(); // Add this line
+        collectionManager.updateFilterSummary();
         collectionManager.onFiltersChanged();
+        collectionManager.updateLevelCounts();
         dialogManager.closeDialog('phylogeny-dialog');
     },
 

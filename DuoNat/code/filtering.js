@@ -130,7 +130,11 @@ const filtering = {
 
     async countSetsPerLevel(filters) {
         const taxonPairs = await api.taxonomy.fetchTaxonPairs();
-        const filteredPairs = this.filterTaxonPairs(taxonPairs, filters);
+        
+        // Create a copy of filters without the level
+        const filtersWithoutLevel = {...filters, level: ''};
+        
+        const filteredPairs = this.filterTaxonPairs(taxonPairs, filtersWithoutLevel);
         
         const counts = {
             '1': 0,
