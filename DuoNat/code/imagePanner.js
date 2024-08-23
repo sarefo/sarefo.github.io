@@ -2,6 +2,8 @@ import logger from './logger.js';
 import swipeHandler from './swipeHandler.js';
 
 const imagePanner = {
+    isPanningEnabled: false, // TODO for debugging
+
     isPanning: false,
     startX: 0,
     startY: 0,
@@ -16,6 +18,7 @@ const imagePanner = {
     panningDelayTimer: null,
 
     initialize() {
+        if (!imagePanner.isPanningEnabled) return;
         const imageContainers = document.querySelectorAll('.image-container');
         imageContainers.forEach(container => {
             container.addEventListener('mousedown', this.handleMouseDown.bind(this));
@@ -29,11 +32,13 @@ const imagePanner = {
     },
 
     handleMouseDown(e) {
+        if (!imagePanner.isPanningEnabled) return;
         if (e.button !== 0) return; // Only left mouse button
         this.startLongPress(e);
     },
 
     handleTouchStart(e) {
+        if (!imagePanner.isPanningEnabled) return;
         if (e.touches.length > 1) return; // Ignore multi-touch
         this.startLongPress(e);
     },
@@ -63,6 +68,7 @@ const imagePanner = {
     },
 
     startPan(e) {
+        if (!imagePanner.isPanningEnabled) return;
         if (swipeHandler.isSwipeDetected) return;
 
         const imageContainer = e.target.closest('.image-container');
@@ -91,6 +97,7 @@ const imagePanner = {
     },
 
     pan(e) {
+        if (!imagePanner.isPanningEnabled) return;
         if (!this.isPanning) return;
         e.preventDefault();
 
