@@ -1,7 +1,8 @@
 // reset here
 import api from './api.js';
-import logger from './logger.js';
+import collectionManager from './collectionManager.js';
 import eventMain from './eventMain.js';
+import logger from './logger.js';
 import rangeSelector from './rangeSelector.js';
 import state from './state.js';
 import tagSelector from './tagSelector.js';
@@ -34,6 +35,7 @@ const filtering = {
         rangeSelector.setSelectedRanges([]);
 
         eventMain.resetSearch();
+        collectionManager.updateLevelCounts();
     },
 
     getAvailableTaxonIds(filteredPairs) {
@@ -124,7 +126,27 @@ const filtering = {
 
         const activeFilters = filtering.getActiveFilters();
         return filtering.filterTaxonPairs([pair], activeFilters).length > 0;
-    }
+    },
+
+    async countSetsPerLevel(filters) {
+        const taxonPairs = await api.taxonomy.fetchTaxonPairs();
+        const filteredPairs = this.filterTaxonPairs(taxonPairs, filters);
+        
+        const counts = {
+            '1': 0,
+            '2': 0,
+            '3': 0
+        };
+
+        filteredPairs.forEach(pair => {
+            if (pair.level in counts) {
+                counts[pair.level]++;
+            }
+        });
+
+        return counts;
+    },
+
 };
 
 const publicAPI = {
@@ -135,6 +157,7 @@ const publicAPI = {
     getFilteredTaxonPairs: filtering.getFilteredTaxonPairs,
     getAvailableTaxonIds: filtering.getAvailableTaxonIds,
     isDescendantOf: filtering.isDescendantOf,
+    countSetsPerLevel: filtering.countSetsPerLevel.bind(filtering),
 };
 
 export default publicAPI;

@@ -305,22 +305,10 @@ const collectionManager = {
         },
 
         async onFiltersChanged() {
-            collectionManager.taxonList.updateTaxonList(false);
+            await collectionManager.taxonList.updateTaxonList(false);
+            await collectionManager.ui.updateLevelCounts();
         },
-/*            try {
-                const taxonPairs = await api.taxonomy.fetchTaxonPairs();
-                const filters = {
-                    level: state.getSelectedLevel(),
-                    ranges: state.getSelectedRanges(),
-                    tags: state.getSelectedTags(),
-                    searchTerm: state.getSearchTerm()
-                };
-                const filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
-                collectionManager.taxonList.updateTaxonPairList(filteredPairs);
-            } catch (error) {
-                logger.error("Error in onFiltersChanged:", error);
-            }
-*/
+
         getCurrentActivePair() {
             const currentPair = state.getCurrentTaxonImageCollection()?.pair;
             return currentPair ? {
@@ -402,10 +390,37 @@ const collectionManager = {
             }
         },
 
-        updateLevelDropdown() {
+        async updateLevelDropdown() {
             const levelDropdown = document.getElementById('level-filter-dropdown');
             if (levelDropdown) {
+                const activeFilters = filtering.getActiveFilters();
+                const counts = await filtering.countSetsPerLevel(activeFilters);
+                
+                levelDropdown.innerHTML = `
+                    <option value="">All Levels (${counts['1'] + counts['2'] + counts['3']})</option>
+                    <option value="1">Easy (${counts['1']})</option>
+                    <option value="2">Medium (${counts['2']})</option>
+                    <option value="3">Hard (${counts['3']})</option>
+                `;
+                
                 levelDropdown.value = state.getSelectedLevel();
+            }
+        },
+
+        async updateLevelCounts() {
+            const levelDropdown = document.getElementById('level-filter-dropdown');
+            if (levelDropdown) {
+                const activeFilters = filtering.getActiveFilters();
+                const counts = await filtering.countSetsPerLevel(activeFilters);
+                
+                Array.from(levelDropdown.options).forEach(option => {
+                    if (option.value === '') {
+                        option.textContent = `All Levels (${counts['1'] + counts['2'] + counts['3']})`;
+                    } else {
+                        const level = option.value;
+                        option.textContent = `${option.textContent.split(' (')[0]} (${counts[level]})`;
+                    }
+                });
             }
         },
 
@@ -414,9 +429,10 @@ const collectionManager = {
             collectionManager.ui.updateLevelDropdown();
         },
 
-        openCollectionManagerDialog() {
+        async openCollectionManagerDialog() {
             dialogManager.openDialog('collection-dialog');
-            collectionManager.taxonList.updateTaxonList(true);  // Pass true for initial load
+            await collectionManager.taxonList.updateTaxonList(true);  // Pass true for initial load
+            await collectionManager.ui.updateLevelCounts();
             eventMain.resetScrollPosition();
             this.focusSearchInput();
         },
@@ -488,6 +504,7 @@ const publicAPI = {
     updateActiveCollectionCount: collectionManager.ui.updateActiveCollectionCount.bind(collectionManager.ui),
 
     updateLevelDropdown: collectionManager.ui.updateLevelDropdown.bind(collectionManager.ui),
+    updateLevelCounts: collectionManager.ui.updateLevelCounts.bind(collectionManager.ui),
 };
 
 export default publicAPI;
