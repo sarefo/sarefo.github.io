@@ -10,6 +10,7 @@ const config = {
     },
     debug: true, // set to false for less console output
     loadingMessage: "", // used to be "Loading..."
+    useObservationImages: false, // switch between gallery and observation images
 };
 
 export default config;

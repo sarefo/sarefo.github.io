@@ -1,3 +1,4 @@
+import config from './config.js';
 import logger from './logger.js';
 import TaxonomyHierarchy from './taxonomyHierarchy.js';
 
@@ -308,14 +309,12 @@ const api = (() => {
                         taxonId = searchData.results[0].id;
                     }
 
-                    // The rest of the function remains the same
-                    const taxonResponse = await fetch(`https://api.inaturalist.org/v1/taxa/${taxonId}?photos=true`);
-                    if (!taxonResponse.ok) throw new Error(`HTTP error! status: ${taxonResponse.status}`);
-                    const taxonData = await taxonResponse.json();
-                    if (taxonData.results.length === 0) throw new Error('No details found for the taxon');
-                    const taxon = taxonData.results[0];
-
-                    let images = taxon.taxon_photos.map(photo => photo.photo.url.replace('square', 'medium'));
+                    let images;
+                    if (config.useObservationImages) {
+                        images = await api.images.fetchImagesFromObservations(taxonId, count);
+                    } else {
+                        images = await api.images.fetchImagesFromGallery(taxonId, count); // Fetch gallery images (existing logic)
+                    }
 
                     images = [...new Set(images)];
                     images = images.sort(() => Math.random() - 0.5);
@@ -325,6 +324,31 @@ const api = (() => {
                 } catch (error) {
                     handleApiError(error, 'fetchMultipleImages');
                 }
+            },
+
+            fetchImagesFromObservations: async function (taxonId, count) {
+                let images;
+                let baseUrl = `https://api.inaturalist.org/v1/observations?taxon_id=${taxonId}&photos=true&per_page=${count}&order=desc&order_by=votes`;
+                baseUrl += '&term_id=1&term_value_id=2'; // adults only
+                baseUrl += '&term_id=17&term_value_id=18'; // alive only TODO doesn't seem to work
+                logger.debug("baseUrl is ", baseUrl);
+                //baseUrl += '&term_id=1&term_value_id=4,5,6,8'; // non-adults only
+                //baseUrl += '&term_id=9&term_value_id=10'; // 10 = female • 11 = male
+                const observationResponse = await fetch(baseUrl);
+                if (!observationResponse.ok) throw new Error(`HTTP error! status: ${observationResponse.status}`);
+                const observationData = await observationResponse.json();
+                images = observationData.results.map(obs => obs.photos[0].url.replace('square', 'medium'));
+                return images;
+            },
+            fetchImagesFromGallery: async function (taxonId, count) {
+                let images;
+                const taxonResponse = await fetch(`https://api.inaturalist.org/v1/taxa/${taxonId}?photos=true`);
+                if (!taxonResponse.ok) throw new Error(`HTTP error! status: ${taxonResponse.status}`);
+                const taxonData = await taxonResponse.json();
+                if (taxonData.results.length === 0) throw new Error('No details found for the taxon');
+                const taxon = taxonData.results[0];
+                images = taxon.taxon_photos.map(photo => photo.photo.url.replace('square', 'medium'));
+                return images;
             },
 
         },
