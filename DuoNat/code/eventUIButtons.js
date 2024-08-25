@@ -5,7 +5,7 @@ import logger from './logger.js';
 import ancestryDialog from './ancestryDialog.js';
 import testingDialog from './testingDialog.js';
 import ui from './ui.js';
-import url from './url.js';
+import sharing from './sharing.js';
 import utils from './utils.js';
 
 const eventUIButtons = {
@@ -53,7 +53,7 @@ const eventUIButtons = {
     },
 
     addShareButtonListener() {
-        this.safeAddEventListener('share-button', 'click', url.shareCurrentPair);
+        this.safeAddEventListener('share-button', 'click', sharing.shareCurrentPair);
     },
 
     initializeLevelIndicator() {

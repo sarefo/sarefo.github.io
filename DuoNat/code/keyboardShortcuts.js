@@ -1,3 +1,4 @@
+import ancestryDialog from './ancestryDialog.js';
 import collectionManager from './collectionManager.js';
 import dialogManager from './dialogManager.js';
 import gameLogic from './gameLogic.js';
@@ -7,11 +8,10 @@ import logger from './logger.js';
 import rangeSelector from './rangeSelector.js';
 import searchHandler from './searchHandler.js';
 import state from './state.js';
-import ancestryDialog from './ancestryDialog.js';
+import sharing from './sharing.js';
 import testingDialog from './testingDialog.js';
 import tutorial from './tutorial.js';
 import ui from './ui.js';
-import url from './url.js';
 import utils from './utils.js';
 
 const keyboardShortcuts = {
@@ -47,7 +47,7 @@ const keyboardShortcuts = {
             '?': () => this.handleQuestionMark(event),
             'k': () => dialogManager.openDialog('keyboard-shortcuts-dialog'),
             'm': ui.toggleMainMenu,
-            's': url.shareCurrentPair,
+            's': sharing.shareCurrentPair,
             't': testingDialog.openDialog,
             '+': this.incrementSetID.bind(this),
             'x': () => document.getElementById('surprise-button').click()
