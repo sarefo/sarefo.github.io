@@ -41565,6 +41565,7 @@
     "taxonName": "Halobacterium salinarum",
     "vernacularName": "-",
     "ancestryIds": [
+      48460,
       151817,
       151825,
       152089,
@@ -41588,6 +41589,7 @@
     "taxonName": "Nostoc commune",
     "vernacularName": "Star jelly",
     "ancestryIds": [
+      48460,
       67333,
       67334,
       196963,
@@ -41613,6 +41615,7 @@
     "taxonName": "Escherichia coli",
     "vernacularName": "E. coli",
     "ancestryIds": [
+      48460,
       67333,
       83702,
       126705,
@@ -41638,6 +41641,7 @@
     "taxonName": "Spirochaetae",
     "vernacularName": "-",
     "ancestryIds": [
+      48460,
       67333,
       151859
     ],
@@ -41658,6 +41662,7 @@
     "taxonName": "Nostoc pruniforme",
     "vernacularName": "Mare's eggs",
     "ancestryIds": [
+      48460,
       67333,
       67334,
       196963,
@@ -41683,6 +41688,7 @@
     "taxonName": "Sulfolobus solfataricus",
     "vernacularName": "-",
     "ancestryIds": [
+      48460,
       151817,
       151824,
       152087,
@@ -41706,6 +41712,7 @@
     "taxonName": "Borrelia burgdorferi",
     "vernacularName": "Lyme disease spirochete",
     "ancestryIds": [
+      48460,
       67333,
       151859,
       152320,
@@ -41728,6 +41735,7 @@
     "taxonName": "Fuligo septica",
     "vernacularName": "Dog vomit slime mold",
     "ancestryIds": [
+      48460,
       47686,
       47685,
       47684,
@@ -41752,6 +41760,7 @@
     "taxonName": "Amoebozoa",
     "vernacularName": "Amoebae",
     "ancestryIds": [
+      48460,
       47686,
       372735
     ],
@@ -41773,6 +41782,7 @@
     "taxonName": "Enterobacteriales",
     "vernacularName": "Enterobacteria and allies",
     "ancestryIds": [
+      48460,
       67333,
       83702,
       126705,
@@ -41795,6 +41805,7 @@
     "taxonName": "Euglenida",
     "vernacularName": "Euglenids",
     "ancestryIds": [
+      48460,
       47686,
       142256,
       142257
@@ -41817,6 +41828,7 @@
     "taxonName": "Didymium spongiosum",
     "vernacularName": "Dog sick slime mould",
     "ancestryIds": [
+      48460,
       47686,
       47685,
       47684,
@@ -42185,6 +42197,162 @@
     ],
     "range": [
       "AF",
+      "EU"
+    ]
+  },
+  "124910": {
+    "taxonName": "Bombus pratorum",
+    "vernacularName": "Early bumble bee",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47201,
+      124417,
+      326777,
+      47222,
+      630955,
+      47221,
+      199939,
+      538883,
+      52775,
+      538900,
+      124910
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Commonly found in gardens and meadows.",
+      "Plays a crucial role in pollination.",
+      "Has a distinctive yellow and black coloration."
+    ],
+    "range": [
+      "EU"
+    ]
+  },
+  "61803": {
+    "taxonName": "Bombus hypnorum",
+    "vernacularName": "Tree bumble bee",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47201,
+      124417,
+      326777,
+      47222,
+      630955,
+      47221,
+      199939,
+      538883,
+      52775,
+      538900,
+      61803
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for nesting in tree holes.",
+      "Active from early spring to late autumn.",
+      "Can be found in both urban and rural areas."
+    ],
+    "range": [
+      "EU",
+      "AS"
+    ]
+  },
+  "1092510": {
+    "taxonName": "Bombus lucorum",
+    "vernacularName": "Lucorum-group bumble bees",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47201,
+      124417,
+      326777,
+      47222,
+      630955,
+      47221,
+      199939,
+      538883,
+      52775,
+      538903,
+      1092510
+    ],
+    "rank": "Complex",
+    "taxonFacts": [
+      "Often mistaken for similar bumblebee species.",
+      "Important for pollinating a variety of plants.",
+      "Has a preference for wildflowers."
+    ],
+    "range": [
+      "EU"
+    ]
+  },
+  "121989": {
+    "taxonName": "Bombus hortorum",
+    "vernacularName": "Garden bumble bee",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47201,
+      124417,
+      326777,
+      47222,
+      630955,
+      47221,
+      199939,
+      538883,
+      52775,
+      538905,
+      121989
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Favors gardens and cultivated areas.",
+      "Has a long tongue for accessing nectar.",
+      "Active during the day and often seen foraging."
+    ],
+    "range": [
+      "EU"
+    ]
+  },
+  "57619": {
+    "taxonName": "Bombus lapidarius",
+    "vernacularName": "Red-tailed bumble bee",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47201,
+      124417,
+      326777,
+      47222,
+      630955,
+      47221,
+      199939,
+      538883,
+      52775,
+      538909,
+      57619
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for its robust body and dark coloration.",
+      "Nests underground, often in abandoned burrows.",
+      "Plays a significant role in pollinating crops."
+    ],
+    "range": [
       "EU"
     ]
   }

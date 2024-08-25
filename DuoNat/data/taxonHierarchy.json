@@ -19180,5 +19180,53 @@
     "vernacularName": "-",
     "rank": "Complex",
     "parentId": "424678"
+  },
+  "538900": {
+    "taxonName": "Pyrobombus",
+    "vernacularName": "-",
+    "rank": "Subgenus",
+    "parentId": "52775"
+  },
+  "124910": {
+    "taxonName": "Bombus pratorum",
+    "vernacularName": "Early bumble bee",
+    "rank": "Species",
+    "parentId": "538900"
+  },
+  "61803": {
+    "taxonName": "Bombus hypnorum",
+    "vernacularName": "Tree bumble bee",
+    "rank": "Species",
+    "parentId": "538900"
+  },
+  "1092510": {
+    "taxonName": "Bombus lucorum",
+    "vernacularName": "Lucorum-group bumble bees",
+    "rank": "Complex",
+    "parentId": "538903"
+  },
+  "538905": {
+    "taxonName": "Megabombus",
+    "vernacularName": "-",
+    "rank": "Subgenus",
+    "parentId": "52775"
+  },
+  "121989": {
+    "taxonName": "Bombus hortorum",
+    "vernacularName": "Garden bumble bee",
+    "rank": "Species",
+    "parentId": "538905"
+  },
+  "538909": {
+    "taxonName": "Melanobombus",
+    "vernacularName": "-",
+    "rank": "Subgenus",
+    "parentId": "52775"
+  },
+  "57619": {
+    "taxonName": "Bombus lapidarius",
+    "vernacularName": "Red-tailed bumble bee",
+    "rank": "Species",
+    "parentId": "538909"
   }
 }

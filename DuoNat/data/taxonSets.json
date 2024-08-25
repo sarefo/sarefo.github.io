@@ -13234,8 +13234,7 @@
   "767": {
     "setName": "Pied imperial pigeon vs Rock pigeon",
     "level": "1",
-    "tags": [
-    ],
+    "tags": [],
     "taxa": [
       3255,
       3017
@@ -13245,5 +13244,332 @@
       "Columba livia"
     ],
     "range": []
+  },
+  "768": {
+    "setName": "Common Carder Bumble Bee vs Buff-tailed Bumble Bee",
+    "level": "2",
+    "tags": [
+      "pollinators"
+    ],
+    "taxa": [
+      55637,
+      57516
+    ],
+    "taxonNames": [
+      "Bombus pascuorum",
+      "Bombus terrestris"
+    ],
+    "range": [
+      "AS",
+      "EU"
+    ]
+  },
+  "769": {
+    "setName": "Common Carder Bumble Bee vs Red-tailed bumble bee",
+    "level": "2",
+    "tags": [
+      "pollinators"
+    ],
+    "taxa": [
+      55637,
+      57619
+    ],
+    "taxonNames": [
+      "Bombus pascuorum",
+      "Bombus lapidarius"
+    ],
+    "range": [
+      "EU"
+    ]
+  },
+  "770": {
+    "setName": "Buff-tailed Bumble Bee vs Red-tailed bumble bee",
+    "level": "2",
+    "tags": [
+      "pollinators"
+    ],
+    "taxa": [
+      57516,
+      57619
+    ],
+    "taxonNames": [
+      "Bombus terrestris",
+      "Bombus lapidarius"
+    ],
+    "range": [
+      "EU"
+    ]
+  },
+  "771": {
+    "setName": "Early bumble bee vs Common Carder Bumble Bee",
+    "level": "2",
+    "tags": [
+      "pollinators"
+    ],
+    "taxa": [
+      124910,
+      55637
+    ],
+    "taxonNames": [
+      "Bombus pratorum",
+      "Bombus pascuorum"
+    ],
+    "range": [
+      "EU"
+    ]
+  },
+  "772": {
+    "setName": "Early bumble bee vs Red-tailed bumble bee",
+    "level": "2",
+    "tags": [
+      "pollinators"
+    ],
+    "taxa": [
+      124910,
+      57619
+    ],
+    "taxonNames": [
+      "Bombus pratorum",
+      "Bombus lapidarius"
+    ],
+    "range": [
+      "EU"
+    ]
+  },
+  "773": {
+    "setName": "Early bumble bee vs Buff-tailed Bumble Bee",
+    "level": "2",
+    "tags": [
+      "pollinators"
+    ],
+    "taxa": [
+      124910,
+      57516
+    ],
+    "taxonNames": [
+      "Bombus pratorum",
+      "Bombus terrestris"
+    ],
+    "range": [
+      "EU"
+    ]
+  },
+  "774": {
+    "setName": "Tree bumble bee vs Common Carder Bumble Bee",
+    "level": "3",
+    "tags": [
+      "pollinators"
+    ],
+    "taxa": [
+      61803,
+      55637
+    ],
+    "taxonNames": [
+      "Bombus hypnorum",
+      "Bombus pascuorum"
+    ],
+    "range": [
+      "AS",
+      "EU"
+    ]
+  },
+  "775": {
+    "setName": "Tree bumble bee vs Buff-tailed Bumble Bee",
+    "level": "2",
+    "tags": [
+      "pollinators"
+    ],
+    "taxa": [
+      61803,
+      57516
+    ],
+    "taxonNames": [
+      "Bombus hypnorum",
+      "Bombus terrestris"
+    ],
+    "range": [
+      "AS",
+      "EU"
+    ]
+  },
+  "776": {
+    "setName": "Tree bumble bee vs Early bumble bee",
+    "level": "2",
+    "tags": [
+      "pollinators"
+    ],
+    "taxa": [
+      61803,
+      124910
+    ],
+    "taxonNames": [
+      "Bombus hypnorum",
+      "Bombus pratorum"
+    ],
+    "range": [
+      "EU"
+    ]
+  },
+  "777": {
+    "setName": "Lucorum-group bumble bees vs Common Carder Bumble Bee",
+    "level": "2",
+    "tags": [
+      "pollinators"
+    ],
+    "taxa": [
+      1092510,
+      55637
+    ],
+    "taxonNames": [
+      "Bombus lucorum",
+      "Bombus pascuorum"
+    ],
+    "range": [
+      "EU"
+    ]
+  },
+  "778": {
+    "setName": "Lucorum-group bumble bees vs Buff-tailed Bumble Bee",
+    "level": "3",
+    "tags": [
+      "pollinators"
+    ],
+    "taxa": [
+      1092510,
+      57516
+    ],
+    "taxonNames": [
+      "Bombus lucorum",
+      "Bombus terrestris"
+    ],
+    "range": [
+      "EU"
+    ]
+  },
+  "779": {
+    "setName": "Lucorum-group bumble bees vs Early bumble bee",
+    "level": "2",
+    "tags": [
+      "pollinators"
+    ],
+    "taxa": [
+      1092510,
+      124910
+    ],
+    "taxonNames": [
+      "Bombus lucorum",
+      "Bombus pratorum"
+    ],
+    "range": [
+      "EU"
+    ]
+  },
+  "780": {
+    "setName": "Lucorum-group bumble bees vs Tree bumble bee",
+    "level": "1",
+    "tags": [
+      "pollinators"
+    ],
+    "taxa": [
+      1092510,
+      61803
+    ],
+    "taxonNames": [
+      "Bombus lucorum",
+      "Bombus hypnorum"
+    ],
+    "range": [
+      "EU"
+    ]
+  },
+  "781": {
+    "setName": "Garden bumble bee vs Common Carder Bumble Bee",
+    "level": "2",
+    "tags": [
+      "pollinators"
+    ],
+    "taxa": [
+      121989,
+      55637
+    ],
+    "taxonNames": [
+      "Bombus hortorum",
+      "Bombus pascuorum"
+    ],
+    "range": [
+      "EU"
+    ]
+  },
+  "782": {
+    "setName": "Garden bumble bee vs Buff-tailed Bumble Bee",
+    "level": "3",
+    "tags": [
+      "pollinators"
+    ],
+    "taxa": [
+      121989,
+      57516
+    ],
+    "taxonNames": [
+      "Bombus hortorum",
+      "Bombus terrestris"
+    ],
+    "range": [
+      "EU"
+    ]
+  },
+  "783": {
+    "setName": "Garden bumble bee vs Early bumble bee",
+    "level": "2",
+    "tags": [
+      "pollinators"
+    ],
+    "taxa": [
+      121989,
+      124910
+    ],
+    "taxonNames": [
+      "Bombus hortorum",
+      "Bombus pratorum"
+    ],
+    "range": [
+      "EU"
+    ]
+  },
+  "784": {
+    "setName": "Garden bumble bee vs Tree bumble bee",
+    "level": "2",
+    "tags": [
+      "pollinators"
+    ],
+    "taxa": [
+      121989,
+      61803
+    ],
+    "taxonNames": [
+      "Bombus hortorum",
+      "Bombus hypnorum"
+    ],
+    "range": [
+      "EU"
+    ]
+  },
+  "785": {
+    "setName": "Garden bumble bee vs Lucorum-group bumble bees",
+    "level": "3",
+    "tags": [
+      "pollinators"
+    ],
+    "taxa": [
+      121989,
+      1092510
+    ],
+    "taxonNames": [
+      "Bombus hortorum",
+      "Bombus lucorum"
+    ],
+    "range": [
+      "EU"
+    ]
   }
 }
