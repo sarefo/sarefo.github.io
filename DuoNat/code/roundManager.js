@@ -1,6 +1,7 @@
 import state from './state.js';
 import api from './api.js';
 import filtering from './filtering.js';
+import gameLogic from './gameLogic.js';
 import preloader from './preloader.js';
 import ui from './ui.js';
 import logger from './logger.js';
@@ -68,19 +69,13 @@ const roundManager = {
     },
 
     isPairValid(pair) {
-        return preloader.pairPreloader.isPairValid(pair);
+        return gameLogic.isPairValidForCurrentFilters(pair);
     },
 
     async selectRandomPair() {
-        const filters = {
-            level: state.getSelectedLevel(),
-            ranges: state.getSelectedRanges(),
-            tags: state.getSelectedTags(),
-            phylogenyId: state.getPhylogenyId(),
-            searchTerm: state.getSearchTerm()
-        };
+        const filters = filtering.getActiveFilters();
         const taxonSets = await api.taxonomy.fetchTaxonPairs();
-        const filteredSets = taxonSets.filter(pair => this.isPairValidForFilters(pair, filters));
+        const filteredSets = filtering.filterTaxonPairs(taxonSets, filters);
         if (filteredSets.length === 0) {
             throw new Error("No pairs available in the current collection");
         }
@@ -88,25 +83,7 @@ const roundManager = {
     },
 
     isPairValidForFilters(pair, filters) {
-        if (!pair) {
-            logger.warn("Received undefined pair in isPairValidForFilters");
-            return false;
-        }
-
-        const matchesLevel = filters.level === '' || pair.level === filters.level;
-        const matchesTags = filters.tags.length === 0 ||
-            (pair.tags && filters.tags.every(tag => pair.tags.includes(tag)));
-        const matchesRanges = filters.ranges.length === 0 ||
-            (pair.range && pair.range.some(range => filters.ranges.includes(range)));
-        const matchesSearch = !filters.searchTerm ||
-            (pair.taxonNames && pair.taxonNames.some(name => name.toLowerCase().includes(filters.searchTerm.toLowerCase()))) ||
-            (pair.setName && pair.setName.toLowerCase().includes(filters.searchTerm.toLowerCase())) ||
-            (pair.tags && pair.tags.some(tag => tag.toLowerCase().includes(filters.searchTerm.toLowerCase())));
-
-        const matchesPhylogeny = !filters.phylogenyId ||
-            pair.taxa.some(taxonId => filtering.isDescendantOf(taxonId, filters.phylogenyId));
-
-        return matchesLevel && matchesTags && matchesRanges && matchesSearch && matchesPhylogeny;
+        return filtering.pairMatchesFilters(pair, filters);
     },
 
     async getImages(pair, isNewPair) {
@@ -192,26 +169,27 @@ const roundManager = {
     },
 
     updateState(pair, images) {
+        const { taxon1, taxon2, randomized, leftVernacular, rightVernacular } = images;
         state.updateGameStateMultiple({
             currentTaxonImageCollection: {
-                pair: pair,
-                imageOneURL: images.taxon1,
-                imageTwoURL: images.taxon2,
+                pair,
+                imageOneURL: taxon1,
+                imageTwoURL: taxon2,
                 level: pair.level || '1',
             },
             usedImages: {
-                taxon1: new Set([images.taxon1]),
-                taxon2: new Set([images.taxon2]),
+                taxon1: new Set([taxon1]),
+                taxon2: new Set([taxon2]),
             },
             taxonImageOne: pair.taxon1,
             taxonImageTwo: pair.taxon2,
             currentRound: {
-                pair: pair,
-                imageOneURL: images.taxon1,
-                imageTwoURL: images.taxon2,
-                imageOneVernacular: images.leftVernacular,
-                imageTwoVernacular: images.rightVernacular,
-                randomized: images.randomized,
+                pair,
+                imageOneURL: taxon1,
+                imageTwoURL: taxon2,
+                imageOneVernacular: leftVernacular,
+                imageTwoVernacular: rightVernacular,
+                randomized,
             },
         });
         state.setCurrentSetID(pair.setID || state.getCurrentSetID());

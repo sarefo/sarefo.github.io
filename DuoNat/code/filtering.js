@@ -147,6 +147,7 @@ const publicAPI = {
     filterTaxonPairs: filtering.filterTaxonPairs,
     getActiveFilters: filtering.getActiveFilters,
     getFilteredTaxonPairs: filtering.getFilteredTaxonPairs,
+    pairMatchesFilters: filtering.pairMatchesFilters,
     getAvailableTaxonIds: filtering.getAvailableTaxonIds,
     isDescendantOf: filtering.isDescendantOf,
     countSetsPerLevel: filtering.countSetsPerLevel.bind(filtering),

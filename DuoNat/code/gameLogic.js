@@ -224,6 +224,9 @@ const gameLogic = {
 };
 
 const publicAPI = {
+    // temporarily public for code restructuring purposes:
+    isPairValidForCurrentFilters: gameLogic.pairManagement.isPairValidForCurrentFilters,
+
     // Pairs
     isCurrentPairInCollection: gameLogic.collectionManagement.isCurrentPairInCollection,
     loadRandomPairFromCurrentCollection: gameLogic.collectionManagement.loadRandomPairFromCurrentCollection,
