@@ -5,40 +5,58 @@ import url from './url.js';
 
 const sharing = {
     updateShareDialog(shareUrl) {
+        this.updateShareLinkInput(shareUrl);
+        this.updateQRCode(shareUrl);
+        this.createShareOptionToggles(shareUrl);
+        this.setupCopyLinkButton();
+        this.setupShareOptionListeners();
+        dialogManager.openDialog('qr-dialog');
+    },
+
+    updateShareLinkInput(shareUrl) {
         const shareLinkInput = document.getElementById('share-link-input');
         shareLinkInput.value = shareUrl;
+    },
 
-        sharing.qr.generateAndShowQRCode(shareUrl);
-        sharing.createShareOptionToggles(shareUrl);
+    updateQRCode(shareUrl) {
+        this.qr.generateAndShowQRCode(shareUrl);
+    },
 
+    setupCopyLinkButton() {
         const copyLinkButton = document.getElementById('copy-link-button');
-        copyLinkButton.onclick = () => {
-            const currentShareUrl = shareLinkInput.value;
-            sharing.copyToClipboard(currentShareUrl)
-                .then(() => {
-                    const shareMessage = document.getElementById('qr-dialog__share-message');
-                    if (shareMessage) {
-                        shareMessage.textContent = 'Link copied to clipboard!';
-                        shareMessage.style.opacity = 1;
-                        setTimeout(() => {
-                            shareMessage.style.opacity = 0;
-                        }, 3000);
-                    }
-                })
-                .catch(sharing.handleShareError);
-        };
+        copyLinkButton.onclick = this.handleCopyLinkClick.bind(this);
+    },
 
-        // Add event listeners to checkboxes
+    handleCopyLinkClick() {
+        const shareLinkInput = document.getElementById('share-link-input');
+        const currentShareUrl = shareLinkInput.value;
+        this.copyToClipboard(currentShareUrl)
+            .then(this.showCopySuccessMessage)
+            .catch(this.handleShareError);
+    },
+
+    showCopySuccessMessage() {
+        const shareMessage = document.getElementById('qr-dialog__share-message');
+        if (shareMessage) {
+            shareMessage.textContent = 'Link copied to clipboard!';
+            shareMessage.style.opacity = 1;
+            setTimeout(() => {
+                shareMessage.style.opacity = 0;
+            }, 3000);
+        }
+    },
+
+    setupShareOptionListeners() {
         const shareOptions = document.querySelectorAll('#share-options-toggles input[type="checkbox"]');
         shareOptions.forEach(option => {
-            option.addEventListener('change', () => {
-                const newShareUrl = sharing.generateShareLink();
-                shareLinkInput.value = newShareUrl;
-                sharing.qr.generateAndShowQRCode(newShareUrl);
-            });
+            option.addEventListener('change', this.handleShareOptionChange.bind(this));
         });
+    },
 
-        dialogManager.openDialog('qr-dialog');
+    handleShareOptionChange() {
+        const newShareUrl = this.generateShareLink();
+        this.updateShareLinkInput(newShareUrl);
+        this.updateQRCode(newShareUrl);
     },
 
     copyToClipboard(text) {
@@ -69,27 +87,20 @@ const sharing = {
 
         options.forEach(option => {
             if (option.isPresent) {
-                const toggleContainer = document.createElement('div');
-                toggleContainer.className = 'share-toggle-container';
-                toggleContainer.innerHTML = `
-                    <input type="checkbox" id="${option.value}-toggle" class="share-toggle__checkbox" checked>
-                    <label for="${option.value}-toggle" class="share-toggle__label"></label>
-                    <span class="share-toggle__text">${option.label}</span>
-                `;
-                shareOptionsToggles.appendChild(toggleContainer);
+                this.createToggle(shareOptionsToggles, option);
             }
         });
+    },
 
-        // Add event listeners to checkboxes
-        const shareOptions = document.querySelectorAll('#share-options-toggles input[type="checkbox"]');
-        shareOptions.forEach(option => {
-            option.addEventListener('change', () => {
-                const newShareUrl = sharing.generateShareLink();
-                const shareLinkInput = document.getElementById('share-link-input');
-                shareLinkInput.value = newShareUrl;
-                sharing.qr.generateAndShowQRCode(newShareUrl);
-            });
-        });
+    createToggle(container, option) {
+        const toggleContainer = document.createElement('div');
+        toggleContainer.className = 'share-toggle-container';
+        toggleContainer.innerHTML = `
+            <input type="checkbox" id="${option.value}-toggle" class="share-toggle__checkbox" checked>
+            <label for="${option.value}-toggle" class="share-toggle__label"></label>
+            <span class="share-toggle__text">${option.label}</span>
+        `;
+        container.appendChild(toggleContainer);
     },
 
     shareCurrentPair() {
@@ -105,48 +116,52 @@ const sharing = {
         const shareOptions = document.querySelectorAll('#share-options-toggles input[type="checkbox"]');
         const selectedOptions = Array.from(shareOptions).filter(option => option.checked).map(option => option.id.replace('-toggle', ''));
 
+        this.addSelectedOptionsToUrl(currentUrl, selectedOptions, currentTaxonImageCollection);
+
+        return currentUrl.toString();
+    },
+
+    addSelectedOptionsToUrl(url, selectedOptions, currentTaxonImageCollection) {
         if (selectedOptions.includes('taxa') && currentTaxonImageCollection && currentTaxonImageCollection.pair) {
             const { taxon1, taxon2 } = currentTaxonImageCollection.pair;
-            currentUrl.searchParams.set('taxon1', taxon1);
-            currentUrl.searchParams.set('taxon2', taxon2);
+            url.searchParams.set('taxon1', taxon1);
+            url.searchParams.set('taxon2', taxon2);
         }
 
         if (selectedOptions.includes('setID') && currentTaxonImageCollection && currentTaxonImageCollection.pair) {
             const { setID } = currentTaxonImageCollection.pair;
-            if (setID) currentUrl.searchParams.set('setID', setID);
+            if (setID) url.searchParams.set('setID', setID);
         }
 
         if (selectedOptions.includes('tags')) {
             const activeTags = state.getSelectedTags();
             if (activeTags && activeTags.length > 0) {
-                currentUrl.searchParams.set('tags', activeTags.join(','));
+                url.searchParams.set('tags', activeTags.join(','));
             }
         }
 
         if (selectedOptions.includes('level')) {
             const selectedLevel = state.getSelectedLevel();
             if (selectedLevel && selectedLevel !== '') {
-                currentUrl.searchParams.set('level', selectedLevel);
+                url.searchParams.set('level', selectedLevel);
             }
         }
 
         if (selectedOptions.includes('ranges')) {
             const selectedRanges = state.getSelectedRanges();
             if (selectedRanges && selectedRanges.length > 0) {
-                currentUrl.searchParams.set('ranges', selectedRanges.join(','));
+                url.searchParams.set('ranges', selectedRanges.join(','));
             }
         }
 
         if (selectedOptions.includes('phylogenyID')) {
             const phylogenyID = state.getPhylogenyId();
             if (phylogenyID) {
-                currentUrl.searchParams.set('phylogenyID', phylogenyID);
+                url.searchParams.set('phylogenyID', phylogenyID);
             }
         }
-
-        return currentUrl.toString();
     },
-
+ 
     qr: {
         generateAndShowQRCode(url) {
             loadQRCodeScript()
