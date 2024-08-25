@@ -178,7 +178,7 @@ const publicAPI = {
         updateGameState('nextSelectedPair', pair);
     },
 
-    getObservationURLs: () => ({ ...gameState.currentObservationURLs }),
+    //getObservationURLs: () => ({ ...gameState.currentObservationURLs }),
     // Observation URLs
     getObservationURL: (index) => {
         if (index === 1 || index === 2) {
@@ -333,7 +333,7 @@ const publicAPI = {
 
     getCurrentSetID: () => gameState.currentSetID,
     setCurrentSetID: (id) => {
-        gameState.currentSetID = id;
+        updateGameState('currentSetID', id);
     },
 
     getShowTaxonomicNames: () => gameState.showTaxonomicNames,
