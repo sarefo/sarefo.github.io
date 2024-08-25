@@ -2,6 +2,7 @@
 @import 'components/loading.css';
 @import 'components/menu.css';
 @import 'components/buttons.css';
+@import 'components/toggles.css';
 @import 'dialogs/dialogs.css';
 
 @import 'layout/image-container.css';

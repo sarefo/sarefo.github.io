@@ -1,17 +1,24 @@
-<!-- QR sharing dialog -->
-
 <dialog id="qr-dialog" class="standard-dialog qr-dialog">
     <button class="dialog-close-button icon" aria-label="Close">×</button>
 
     <div class="dialog-content">
-        <h3 class="dialog-title">Share This Pair</h3>
+        <h3 class="dialog-title">Share This Game</h3>
 
-        <p id="qr-dialog__share-message">Link copied to clipboard!</p>
+        <div id="share-options">
+            <h4>Include in share link:</h4>
+            <div id="share-options-toggles"></div>
+        </div>
 
         <div id="qr-container"></div>
 
-        <p>Or scan this QR code to share</p>
+        <!--<p>Scan the QR code to share</p>-->
+
+        <p id="qr-dialog__share-message">Link copied to clipboard!</p>
+
+        <div id="share-link-container">
+            <textarea id="share-link-input" readonly></textarea>
+            <button id="copy-link-button" class="dialog-button">Copy</button>
+        </div>
 
     </div>
-
 </dialog>

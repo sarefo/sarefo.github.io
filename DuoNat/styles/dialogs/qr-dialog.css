@@ -1,14 +1,79 @@
 /* QR share dialog */
 .qr-dialog {
-    max-width: 400px;
+    /*max-width: 400px;*/
+    max-width: 90vw;
+    width: 90vw;
 }
 
 #qr-container {
-    margin: 20px 0;
+    margin: 10px 0;
+    width: 256px;
+    height: 256px;
 }
 
 #qr-dialog__share-message {
-    font-size: larger;
     font-weight: bold;
     color: var(--primary-color);
+    margin: 4px 0;
+    opacity: 0;
+}
+
+#share-options {
+    max-width: 256px;
+}
+
+.share-toggle-container {
+    display: flex;
+    align-items: center;
+    background-color: var(--light-green);
+    padding: 0 4px 0 0;
+    border-radius: 15px;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+#share-options-toggles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    justify-content: start;
+    align-items: start;
+}
+
+/*#share-options label {
+    display: block;
+    margin-bottom: 5px;
+}*/
+
+#share-options h4 {
+        margin-bottom: 10px;
+}
+
+#share-link-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+#share-link-input {
+    flex-grow: 1;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 8px 8px 0 0; 
+    font-size: 1em;
+    width: 100%;
+    word-break: break-all;
+    height: 6em;
+    /*min-height: 60px;*/ /* Adjust as needed */
+    /*max-height: 120px;*/ /* Adjust as needed */
+    resize: none;
+    overflow-y: auto; /* Allow vertical scrolling if content exceeds max-height */
+}
+
+#copy-link-button {
+    padding: 5px 10px;
+    /*border-radius: 0 4px 4px 0;*/
+    border-radius: 0 0 8px 8px;
+    /*width: 70px;*/
 }
