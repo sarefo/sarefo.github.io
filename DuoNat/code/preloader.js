@@ -250,6 +250,7 @@ const preloader = {
     pairPreloader,
 
     async startPreloading(isNewPair) {
+        logger.debug(`Starting preloading. isNewPair: ${isNewPair}`);
         try {
             await this.roundPreloader.preloadForNextRound();
             if (isNewPair || !this.pairPreloader.hasPreloadedPair()) {

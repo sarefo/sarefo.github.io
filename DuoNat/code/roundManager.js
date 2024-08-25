@@ -1,14 +1,14 @@
-import state from './state.js';
 import api from './api.js';
+import config from './config.js';
 import filtering from './filtering.js';
 import gameLogic from './gameLogic.js';
-import preloader from './preloader.js';
-import ui from './ui.js';
+import hintSystem from './hintSystem.js';
 import logger from './logger.js';
-import config from './config.js';
+import preloader from './preloader.js';
+import state from './state.js';
+import ui from './ui.js';
 import utils from './utils.js';
 import worldMap from './worldMap.js';
-import hintSystem from './hintSystem.js';
 
 const roundManager = {
     async loadNewRound(isNewPair = false) {
@@ -25,11 +25,11 @@ const roundManager = {
             logger.debug(`Round setup complete`);
             this.updateState(pairData.pair, images);
             logger.debug(`State updated`);
-            this.startPreloading(isNewPair);
             logger.debug(`Preloading started`);
             ui.hideOverlay();
             ui.resetUIState();
             logger.debug(`UI reset complete`);
+            preloader.startPreloading(isNewPair);
         } catch (error) {
             this.handleError(error);
         } finally {
@@ -194,13 +194,6 @@ const roundManager = {
         });
         state.setCurrentSetID(pair.setID || state.getCurrentSetID());
         ui.updateLevelIndicator(pair.level || '1');
-    },
-
-    startPreloading(isNewPair) {
-        preloader.roundPreloader.preloadForNextRound();
-        if (isNewPair) {
-            preloader.pairPreloader.preloadForNextPair();
-        }
     },
 
     handleError(error) {
