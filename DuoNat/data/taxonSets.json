@@ -5140,7 +5140,9 @@
   "291": {
     "setName": "Honey Bees",
     "level": "3",
-    "tags": [],
+    "tags": [
+      "pollinators"
+    ],
     "taxa": [
       47219,
       338194
@@ -5156,7 +5158,9 @@
   "292": {
     "setName": "Bumblebees",
     "level": "2",
-    "tags": [],
+    "tags": [
+      "pollinators"
+    ],
     "taxa": [
       55637,
       325997
