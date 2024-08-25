@@ -76,7 +76,7 @@ const gameLogic = {
                 await roundManager.loadNewRound(true);  // true indicates it's a new pair
 
                 // If roundManager fails, fall back to existing code
-                if (state.getState() !== state.GameState.PLAYING) {
+                /*if (state.getState() !== state.GameState.PLAYING) {
                     if (usePreloadedPair) {
                         const preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
                         if (preloadedImages && preloadedImages.pair && gameLogic.pairManagement.isPairValidForCurrentFilters(preloadedImages.pair)) {
@@ -93,10 +93,10 @@ const gameLogic = {
                             throw new Error("No pairs available in the current collection");
                         }
                     }
-                } else {
+                } else {*/
                     // If roundManager succeeded, get the new pair from the state
                     newPair = state.getCurrentTaxonImageCollection().pair;
-                }
+                /*}*/
 
                 ui.hideOverlay();
                 if (newPair) {
