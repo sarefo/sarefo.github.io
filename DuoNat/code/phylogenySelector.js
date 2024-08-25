@@ -348,7 +348,6 @@ const phylogenySelector = {
                 this.updateActiveTaxonDisplay(pathToRoot[pathToRoot.length - 1]);
             } else if (currentPhylogenyId) {
                 // If no search result, use the current phylogeny ID
-                //console.log(`Current phylogeny ID: ${currentPhylogenyId}`);
                 const currentPathToRoot = this.getPathToRoot(hierarchyObj, currentPhylogenyId);
                 if (currentPathToRoot.length > 0) {
                     tree.setActiveNodePath(currentPathToRoot);
@@ -463,13 +462,14 @@ const phylogenySelector = {
                 path.unshift(node.id);
                 currentId = node.parentId;
             } else {
-                logger.warn(`Node with id ${currentId} not found in hierarchy`);
+                console.warn(`Node with id ${currentId} not found in hierarchy`);
                 break;
             }
         }
 
         return path;
     },
+
 
     findNodeById(node, id) {
         if (node.id === id) {
@@ -521,17 +521,27 @@ const phylogenySelector = {
             const searchResults = document.getElementById('phylogeny-search-results');
 
             if (searchInput) {
-                searchInput.addEventListener('input', (event) => this.handleSearch(event));
-                searchInput.addEventListener('focus', () => searchResults.style.display = 'block');
-                searchInput.addEventListener('blur', () => setTimeout(() => searchResults.style.display = 'none', 200));
+                searchInput.addEventListener('input', (event) => {
+                    this.handleSearch(event);
+                });
+                searchInput.addEventListener('focus', () => {
+                    searchResults.style.display = 'block';
+                });
+                searchInput.addEventListener('blur', () => {
+                    setTimeout(() => searchResults.style.display = 'none', 200);
+                });
             }
 
             if (clearSearchButton) {
-                clearSearchButton.addEventListener('click', () => this.handleClearSearch());
+                clearSearchButton.addEventListener('click', () => {
+                    this.handleClearSearch();
+                });
             }
 
             if (searchResults) {
-                searchResults.addEventListener('click', (event) => this.handleSearchResultClick(event));
+                searchResults.addEventListener('click', (event) => {
+                    this.handleSearchResultClick(event);
+                });
             }
         },
 
@@ -632,6 +642,7 @@ const phylogenySelector = {
                 results.forEach(node => {
                     const resultItem = document.createElement('div');
                     resultItem.className = 'phylogeny-dialog__search-result';
+                    resultItem.dataset.nodeId = node.id;
                     
                     // Create separate spans for taxon name and vernacular name
                     const taxonNameSpan = document.createElement('span');
@@ -650,7 +661,6 @@ const phylogenySelector = {
                         resultItem.appendChild(vernacularSpan);
                     }
                     
-                    resultItem.dataset.nodeId = node.id;
                     searchResults.appendChild(resultItem);
                 });
             } else {
@@ -667,17 +677,24 @@ const phylogenySelector = {
         },
 
         handleSearchResultClick(event) {
-            const nodeId = event.target.dataset.nodeId;
+            let target = event.target;
+            // If the clicked element is a span, get its parent div
+            if (target.tagName.toLowerCase() === 'span') {
+                target = target.parentElement;
+            }
+            const nodeId = target.dataset.nodeId;
             if (nodeId) {
                 const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
                 const pathToRoot = phylogenySelector.getPathToRoot(hierarchyObj, nodeId);
                 phylogenySelector.updateGraph(pathToRoot);
-                this.clearSearchResults();
+                phylogenySelector.search.clearSearchResults();
 
                 state.setCurrentActiveNodeId(nodeId);
                 if (this.onNodeSelect) {
                     this.onNodeSelect(nodeId);
                 }
+            } else {
+                console.warn('No nodeId found for clicked element');
             }
         },
 

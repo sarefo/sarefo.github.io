@@ -600,7 +600,7 @@ class RadialTree extends BaseTree {
     }
 
     setActiveNodePath(pathToRoot) {
-        console.log(`Setting active node path: ${pathToRoot.join(' -> ')}`);
+        console.log(`setActiveNodePath called with: ${pathToRoot.join(' -> ')}`);
         
         let currentNode = this.root;
         for (let i = 1; i < pathToRoot.length; i++) {  // Start from 1 to skip the root
