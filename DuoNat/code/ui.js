@@ -252,9 +252,15 @@ const ui = {
 
     imageHandling: {
         prepareImagesForLoading() {
-            state.getElement('imageOne').classList.add('image-container__image--loading');
-            state.getElement('imageTwo').classList.add('image-container__image--loading');
-        }
+            const imageOne = state.getElement('imageOne');
+            const imageTwo = state.getElement('imageTwo');
+            
+            imageOne.classList.remove('image-container__image--fade-in');
+            imageTwo.classList.remove('image-container__image--fade-in');
+            
+            imageOne.classList.add('image-container__image--loading');
+            imageTwo.classList.add('image-container__image--loading');
+        },
     },
 
     layoutManagement: {

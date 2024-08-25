@@ -374,12 +374,21 @@ async setupWorldMaps(pair, imageData) {
             return new Promise((resolve) => {
                 const img = new Image();
                 img.onload = () => {
+                    imgElement.classList.add('image-container__image--fade');
                     imgElement.src = src;
                     imgElement.classList.remove('image-container__image--loading');
-                    setTimeout(() => {
-                        imgElement.classList.add('image-container__image--loaded');
-                        resolve();
-                    }, 50); // 50ms delay to ensure the browser has time to apply the new src
+                    
+                    // Use requestAnimationFrame to ensure the fade class is applied before fading in
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            imgElement.classList.add('image-container__image--fade-in');
+                            setTimeout(() => {
+                                imgElement.classList.remove('image-container__image--fade');
+                                imgElement.classList.remove('image-container__image--fade-in');
+                                resolve();
+                            }, 300); // This should match the transition duration in CSS
+                        });
+                    });
                 };
                 img.src = src;
             });

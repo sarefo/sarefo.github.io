@@ -66,6 +66,15 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+.image-container__image--fade {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.image-container__image--fade-in {
+    opacity: 1;
+}
+
 .image-container__image--loading {
     opacity: 0.5;
     transition: opacity var(--transition-speed) ease-in-out;
