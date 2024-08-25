@@ -57,16 +57,6 @@ const gameSetup = {
             await gameSetup.initialization.setupRound(true);
         },
 
-        /*async selectNewPair(urlParams) {
-            state.resetShownHints();
-            let nextSelectedPair = state.getNextSelectedPair();
-            if (nextSelectedPair) {
-                state.setNextSelectedPair(null);
-                return nextSelectedPair;
-            }
-            return await gameSetup.initialization.selectPairFromFilters(urlParams);
-        },*/
-
         async selectNewPair(urlParams) {
             state.resetShownHints();
             let nextSelectedPair = state.getNextSelectedPair();
@@ -79,20 +69,14 @@ const gameSetup = {
         },
 
         async selectPairFromFilters(urlParams) {
-            const filters = {
-                level: urlParams.level === 'all' ? '' : (urlParams.level || state.getSelectedLevel()),
-                ranges: urlParams.ranges ? urlParams.ranges.split(',') : state.getSelectedRanges(),
-                tags: urlParams.tags ? urlParams.tags.split(',') : state.getSelectedTags(),
-                phylogenyId: urlParams.phylogenyId || state.getPhylogenyId(),
-                searchTerm: urlParams.searchTerm || state.getSearchTerm()
-            };
+            const filters = gameSetup.initialization.createFiltersFromUrlParams(urlParams);
             const filteredPairs = await filtering.getFilteredTaxonPairs(filters);
             return gameSetup.initialization.findOrSelectRandomPair(filteredPairs, urlParams);
         },
 
         createFiltersFromUrlParams(urlParams) {
             return {
-                level: urlParams.level || state.getSelectedLevel(),
+                level: urlParams.level === 'all' ? '' : (urlParams.level || state.getSelectedLevel()),
                 ranges: urlParams.ranges ? urlParams.ranges.split(',') : state.getSelectedRanges(),
                 tags: urlParams.tags ? urlParams.tags.split(',') : state.getSelectedTags(),
                 phylogenyId: urlParams.phylogenyId || state.getPhylogenyId(),
