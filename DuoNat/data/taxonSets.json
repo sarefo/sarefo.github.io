@@ -5104,7 +5104,9 @@
   "289": {
     "setName": "Large Bees",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "pollinators"
+    ],
     "taxa": [
       57516,
       124145
