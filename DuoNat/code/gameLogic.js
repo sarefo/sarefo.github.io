@@ -5,6 +5,7 @@ import filtering from './filtering.js';
 import gameSetup from './gameSetup.js';
 import logger from './logger.js';
 import preloader from './preloader.js';
+import roundManager from './roundManager.js';
 import setManager from './setManager.js';
 import state from './state.js';
 import ui from './ui.js';
@@ -64,39 +65,52 @@ const gameLogic = {
     pairManagement: {
         async loadNewRandomPair(usePreloadedPair = true) {
             state.setState(state.GameState.LOADING);
-            //ui.showOverlay(`${utils.ui.getLoadingMessage()}`, config.overlayColors.green);
             ui.prepareImagesForLoading();
 
+            let newPair;
             try {
-                let newPair;
-                if (usePreloadedPair) {
-                    const preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
-                    if (preloadedImages && preloadedImages.pair && gameLogic.pairManagement.isPairValidForCurrentFilters(preloadedImages.pair)) {
-                        newPair = preloadedImages.pair;
-                        await gameSetup.setupGameWithPreloadedPair(preloadedImages);
-                    }
-                }
+                // Clear any existing preloaded round images before loading a new pair
+                preloader.roundPreloader.clearPreloadedImagesForNextRound();
 
-                if (!newPair) {
-                    newPair = await gameLogic.pairManagement.selectRandomPairFromCurrentCollection();
-                    if (newPair) {
-                        state.setNextSelectedPair(newPair);
-                        await gameSetup.setupGame(true);
-                    } else {
-                        throw new Error("No pairs available in the current collection");
+                // Use roundManager to load new round
+                await roundManager.loadNewRound(true);  // true indicates it's a new pair
+
+                // If roundManager fails, fall back to existing code
+                if (state.getState() !== state.GameState.PLAYING) {
+                    if (usePreloadedPair) {
+                        const preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
+                        if (preloadedImages && preloadedImages.pair && gameLogic.pairManagement.isPairValidForCurrentFilters(preloadedImages.pair)) {
+                            newPair = preloadedImages.pair;
+                            await gameSetup.setupGameWithPreloadedPair(preloadedImages);
+                        }
                     }
+                    if (!newPair) {
+                        newPair = await gameLogic.pairManagement.selectRandomPairFromCurrentCollection();
+                        if (newPair) {
+                            state.setNextSelectedPair(newPair);
+                            await gameSetup.setupGame(true);
+                        } else {
+                            throw new Error("No pairs available in the current collection");
+                        }
+                    }
+                } else {
+                    // If roundManager succeeded, get the new pair from the state
+                    newPair = state.getCurrentTaxonImageCollection().pair;
                 }
 
                 ui.hideOverlay();
-                ui.updateLevelIndicator(newPair.level);
+                if (newPair) {
+                    ui.updateLevelIndicator(newPair.level);
+                }
             } catch (error) {
                 logger.error("Error loading new pair:", error);
                 ui.showOverlay("Error loading new pair. Please try again.", config.overlayColors.red);
             } finally {
-                state.setState(state.GameState.PLAYING);
-                preloader.roundPreloader.clearPreloadedImagesForNextRound();
-                preloader.roundPreloader.preloadForNextRound();
-                preloader.pairPreloader.preloadForNextPair();
+                if (state.getState() !== state.GameState.PLAYING) {
+                    state.setState(state.GameState.PLAYING);
+                }
+                // Start preloading for the next round and pair
+                preloader.startPreloading(true);
             }
         },
 

@@ -17,21 +17,21 @@ const roundManager = {
         ui.prepareImagesForLoading();
 
         try {
-            const pair = await roundManager.getPair(isNewPair);
-            logger.debug(`Got pair: ${JSON.stringify(pair)}`);
-            const images = await roundManager.getImages(pair, isNewPair);
+            const pairData = await this.getPair(isNewPair);
+            logger.debug(`Got pair: ${JSON.stringify(pairData.pair)}`);
+            const images = await this.getImages(pairData, isNewPair);
             logger.debug(`Got images: ${JSON.stringify(images)}`);
-            await roundManager.setupRound(pair, images);
+            await this.setupRound(pairData.pair, images);
             logger.debug(`Round setup complete`);
-            roundManager.updateState(pair, images);
+            this.updateState(pairData.pair, images);
             logger.debug(`State updated`);
-            roundManager.startPreloading(isNewPair);
+            this.startPreloading(isNewPair);
             logger.debug(`Preloading started`);
             ui.hideOverlay();
             ui.resetUIState();
             logger.debug(`UI reset complete`);
         } catch (error) {
-            roundManager.handleError(error);
+            this.handleError(error);
         } finally {
             state.setState(state.GameState.PLAYING);
             logger.debug(`loadNewRound complete. Game state set to PLAYING`);
@@ -40,9 +40,14 @@ const roundManager = {
 
     async getPair(isNewPair) {
         if (isNewPair) {
-            return await roundManager.getNewPair();
+            const preloadedPair = preloader.pairPreloader.getPreloadedImagesForNextPair();
+            if (preloadedPair && preloadedPair.pair) {
+                logger.debug(`Using preloaded pair: ${preloadedPair.pair.taxon1} / ${preloadedPair.pair.taxon2}`);
+                return { pair: preloadedPair.pair, preloadedImages: preloadedPair };
+            }
+            return { pair: await this.getNewPair(), preloadedImages: null };
         }
-        return state.getCurrentTaxonImageCollection().pair;
+        return { pair: state.getCurrentTaxonImageCollection().pair, preloadedImages: null };
     },
 
     async getNewPair() {
@@ -86,22 +91,17 @@ const roundManager = {
         return filtering.pairMatchesFilters(pair, filters);
     },
 
-    async getImages(pair, isNewPair) {
-        if (isNewPair) {
-            const preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
-            if (preloadedImages && preloadedImages.pair.setID === pair.setID) {
-                return { taxon1: preloadedImages.taxon1, taxon2: preloadedImages.taxon2 };
-            }
+    async getImages(pairData, isNewPair) {
+        const { pair, preloadedImages } = pairData;
+        if (isNewPair && preloadedImages) {
+            logger.debug(`Using preloaded images for pair: ${pair.taxon1} / ${pair.taxon2}`);
+            return { taxon1: preloadedImages.taxon1, taxon2: preloadedImages.taxon2 };
         }
 
-        const preloadedRoundImages = preloader.roundPreloader.getPreloadedImagesForNextRound();
-        if (preloadedRoundImages && preloadedRoundImages.taxon1 && preloadedRoundImages.taxon2) {
-            return preloadedRoundImages;
-        }
-
+        logger.debug(`Fetching new images for pair: ${pair.taxon1} / ${pair.taxon2}`);
         return {
-            taxon1: await preloader.imageLoader.fetchDifferentImage(pair.taxon1, state.getCurrentRound().imageOneURL),
-            taxon2: await preloader.imageLoader.fetchDifferentImage(pair.taxon2, state.getCurrentRound().imageTwoURL)
+            taxon1: await preloader.imageLoader.fetchDifferentImage(pair.taxon1, null),
+            taxon2: await preloader.imageLoader.fetchDifferentImage(pair.taxon2, null)
         };
     },
 
@@ -208,6 +208,13 @@ const roundManager = {
         ui.showOverlay("Error loading round. Please try again.", config.overlayColors.red);
     }
 };
+
+// Bind all methods to ensure correct 'this' context
+Object.keys(roundManager).forEach(key => {
+    if (typeof roundManager[key] === 'function') {
+        roundManager[key] = roundManager[key].bind(roundManager);
+    }
+});
 
 const publicAPI = {
     loadNewRound: roundManager.loadNewRound,
