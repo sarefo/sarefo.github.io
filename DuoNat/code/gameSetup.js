@@ -6,6 +6,7 @@ import filtering from './filtering.js';
 import hintSystem from './hintSystem.js';
 import logger from './logger.js';
 import preloader from './preloader.js';
+import roundManager from './roundManager.js';
 import setManager from './setManager.js';
 import state from './state.js';
 import ui from './ui.js';
