@@ -120,12 +120,32 @@ const collectionManager = {
 
     taxonList: {
 
-        async updateTaxonList(isInitialLoad = false) {
+        filterTaxonPairsBySearch(pairs, searchTerm) {
+            if (!searchTerm) return pairs;
+            
+            const searchTermLower = searchTerm.toLowerCase();
+            return pairs.filter(pair => 
+                pair.taxonNames.some(name => name.toLowerCase().includes(searchTermLower)) ||
+                pair.setName.toLowerCase().includes(searchTermLower) ||
+                pair.tags.some(tag => tag.toLowerCase().includes(searchTermLower)) ||
+                pair.setID.toString() === searchTerm
+            );
+        },
+
+        async updateTaxonList(isInitialLoad = false, isSetIdSearch = false) {
             const filters = filtering.getActiveFilters();
+            const searchTerm = state.getSearchTerm();
 
             try {
                 const taxonPairs = await api.taxonomy.fetchTaxonPairs();
-                let filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
+                let filteredPairs;
+
+                if (isSetIdSearch) {
+                    filteredPairs = taxonPairs.filter(pair => pair.setID.toString() === searchTerm);
+                } else {
+                    filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
+                    filteredPairs = this.filterTaxonPairsBySearch(filteredPairs, searchTerm);
+                }
 
                 // Only consider the active pair if this is the initial load of the collection manager
                 if (isInitialLoad) {
@@ -139,7 +159,7 @@ const collectionManager = {
                 }
 
                 // Update UI
-                await collectionManager.taxonList.renderTaxonList(filteredPairs);
+                await this.renderTaxonList(filteredPairs);
                 collectionManager.ui.updateActiveCollectionCount(filteredPairs.length);
                 collectionManager.ui.updateFilterSummary();
 

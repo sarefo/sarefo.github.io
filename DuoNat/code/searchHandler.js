@@ -41,20 +41,18 @@ const searchHandler = {
 
         state.setSearchTerm(searchTerm);
 
-        const taxonPairs = await api.taxonomy.fetchTaxonPairs();
         const isNumericSearch = /^\d+$/.test(searchTerm);
 
         let filteredPairs;
         if (isNumericSearch) {
-            filteredPairs = taxonPairs.filter(pair => pair.setID.toString() === searchTerm);
+            // For numeric searches, we'll let collectionManager handle it
+            filteredPairs = await collectionManager.updateTaxonList(false, true);
         } else {
-            filteredPairs = await filtering.filterTaxonPairs(taxonPairs, {
-                level: state.getSelectedLevel(),
-                ranges: state.getSelectedRanges(),
-                tags: state.getSelectedTags(),
-                searchTerm: searchTerm
-            });
+            filteredPairs = await collectionManager.updateTaxonList(false);
         }
+
+        // Ensure filteredPairs is always an array
+        filteredPairs = filteredPairs || [];
 
         searchHandler.updateUI(filteredPairs);
     },
@@ -98,9 +96,9 @@ const searchHandler = {
     },
 
     updateUI(filteredPairs) {
-//        collectionManager.updateTaxonPairList(filteredPairs);
-        collectionManager.updateTaxonList(false);
-        collectionManager.updateActiveCollectionCount(filteredPairs.length);
+        // Ensure filteredPairs is an array before accessing its length
+        const count = Array.isArray(filteredPairs) ? filteredPairs.length : 0;
+        collectionManager.updateActiveCollectionCount(count);
     },
 
     handleSearchInputFocus(searchInput) {
