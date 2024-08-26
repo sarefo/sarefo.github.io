@@ -66,7 +66,13 @@ const infoDialog = {
 
         try {
             const vernacularName = await api.vernacular.fetchVernacular(taxonName);
-            vernacularElement.textContent = vernacularName;
+            if (vernacularName && vernacularName !== "-") {
+                vernacularElement.textContent = vernacularName;
+                vernacularElement.style.display = 'block';
+            } else {
+                vernacularElement.textContent = '';
+                vernacularElement.style.display = 'none';
+            }
 
             await this.populateTaxonFacts(taxonName, factsElement);
         } catch (error) {
