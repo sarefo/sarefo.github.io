@@ -71,13 +71,15 @@ const filtering = {
                 (pair.range && pair.range.some(range => filters.ranges.includes(range)));
             const matchesTags = filters.tags.length === 0 ||
                 filters.tags.every(tag => pair.tags.includes(tag));
-            const matchesPhylogeny = !filters.phylogenyId ||
-                pair.taxa.some(taxonId => this.isDescendantOf(taxonId, filters.phylogenyId));
-
-            // Remove searchTerm matching from here
+            const matchesPhylogeny = this.pairMatchesPhylogeny(pair, filters.phylogenyId);
 
             return matchesLevel && matchesRanges && matchesTags && matchesPhylogeny;
         });
+    },
+
+    pairMatchesPhylogeny(pair, phylogenyId) {
+        if (!phylogenyId) return true;
+        return pair.taxa.some(taxonId => this.isDescendantOf(taxonId, phylogenyId));
     },
 
     pairMatchesFilters(pair, filters) {
@@ -88,8 +90,6 @@ const filtering = {
             pair.tags.some(tag => filters.tags.includes(tag));
         const matchesPhylogeny = !filters.phylogenyId ||
             pair.taxa.some(taxonId => this.isDescendantOf(taxonId, filters.phylogenyId));
-
-        // Remove searchTerm matching from here
 
         return matchesLevel && matchesRanges && matchesTags && matchesPhylogeny;
     },

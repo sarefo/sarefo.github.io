@@ -514,13 +514,15 @@ const collectionManager = {
             dialogManager.closeDialog('collection-dialog');
 
             setTimeout(async () => {
-                const filters = filtering.getActiveFilters();
-                const filteredPairs = await filtering.getFilteredTaxonPairs(filters);
-                if (filteredPairs.length > 0) {
-                    const randomPair = filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
-                    state.setNextSelectedPair(randomPair);
+                await gameLogic.loadRandomPairFromCurrentCollection();
+                // Only setup the game if a new pair was loaded
+                if (state.getNextSelectedPair()) {
+                    gameSetup.setupGame(true);
+                } else {
+                    // If no new pair was loaded, just update the UI
+                    ui.updateLevelIndicator(state.getCurrentTaxonImageCollection().pair.level);
+                    ui.hideOverlay();
                 }
-                gameSetup.setupGame(true);
             }, 100);
         },
 

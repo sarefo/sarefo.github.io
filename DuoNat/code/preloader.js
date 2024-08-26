@@ -114,9 +114,22 @@ const pairPreloader = {
 
         preloader.isPreloading = true;
         try {
-            const newPair = await gameLogic.selectRandomPairFromCurrentCollection();
-            if (newPair) {
+            let newPair;
+            let attempts = 0;
+            const maxAttempts = 10; // Prevent infinite loop
+
+            do {
+                newPair = await gameLogic.selectRandomPairFromCurrentCollection();
+                attempts++;
+                logger.debug(`Attempt ${attempts}: Selected pair ${newPair.taxonNames[0]} / ${newPair.taxonNames[1]}`);
+            } while (!gameLogic.isPairValidForCurrentFilters(newPair) && attempts < maxAttempts);
+
+            if (newPair && gameLogic.isPairValidForCurrentFilters(newPair)) {
                 await this.preloadPairImages(newPair);
+                logger.debug(`Preloaded new pair: ${newPair.taxonNames[0]} / ${newPair.taxonNames[1]}`);
+            } else {
+                logger.warn("Failed to find a valid pair for preloading");
+                preloader.preloadedImages.nextPair = null;
             }
         } catch (error) {
             logger.error("Error preloading next pair:", error);
@@ -284,6 +297,7 @@ const publicAPI = {
     startPreloading: preloader.startPreloading.bind(preloader),
     pairPreloader: {
         getPreloadedImagesForNextPair: preloader.pairPreloader.getPreloadedImagesForNextPair,
+        hasPreloadedPair: preloader.pairPreloader.hasPreloadedPair,
         isPairValid: preloader.pairPreloader.isPairValid,
         preloadNewPairWithTags: preloader.pairPreloader.preloadNewPairWithTags,
         preloadSetByID: preloader.pairPreloader.preloadSetByID,

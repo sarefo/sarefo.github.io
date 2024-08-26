@@ -166,7 +166,7 @@ const gameLogic = {
                 return false;
             }
 
-            const filters = this.getCurrentFilters();
+            const filters = filtering.getActiveFilters();
             return this.checkAllFilterCriteria(pair, filters);
         },
 
@@ -181,10 +181,9 @@ const gameLogic = {
         },
 
         checkAllFilterCriteria(pair, filters) {
-            return this.matchesLevel(pair, filters.selectedLevel) &&
-                this.matchesTags(pair, filters.selectedTags) &&
-                this.matchesRanges(pair, filters.selectedRanges) &&
-                this.matchesSearch(pair, filters.searchTerm) &&
+            return this.matchesLevel(pair, filters.level) &&
+                this.matchesTags(pair, filters.tags) &&
+                this.matchesRanges(pair, filters.ranges) &&
                 this.matchesPhylogeny(pair, filters.phylogenyId);
         },
 
@@ -211,8 +210,8 @@ const gameLogic = {
         },
 
         matchesPhylogeny(pair, phylogenyId) {
-            return !phylogenyId ||
-                pair.taxa.some(taxonId => filtering.isDescendantOf(taxonId, phylogenyId));
+            if (!phylogenyId) return true;
+            return pair.taxa.some(taxonId => filtering.isDescendantOf(taxonId, phylogenyId));
         },
 
         async selectRandomPairFromCurrentCollection() {
@@ -281,9 +280,15 @@ const gameLogic = {
             logger.debug(`Loading pair. Selected level: ${state.getSelectedLevel()}`);
 
             if (this.isCurrentPairInCollection()) {
-                logger.debug("Current pair is in collection. Loading new random pair.");
-                await gameLogic.pairManagement.loadNewRandomPair();
+                logger.debug("Current pair is in collection. Keeping current pair.");
+                // Check if the preloaded pair is valid for the current filters
+                if (!preloader.pairPreloader.hasPreloadedPair() || 
+                    !gameLogic.pairManagement.isPairValidForCurrentFilters(preloader.pairPreloader.getPreloadedImagesForNextPair().pair)) {
+                    // If not, preload a new pair
+                    await preloader.pairPreloader.preloadForNextPair();
+                }
             } else {
+                logger.debug("Current pair is not in collection. Loading new random pair.");
                 await gameLogic.pairManagement.loadNewRandomPair();
             }
         },
@@ -297,6 +302,7 @@ const gameLogic = {
         },
 
         isCurrentPairInCollection() {
+            logger.debug("starting isCurrentPairInCollection()");
             const currentTaxonImageCollection = state.getCurrentTaxonImageCollection();
             if (!currentTaxonImageCollection || !currentTaxonImageCollection.pair) {
                 return false;

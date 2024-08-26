@@ -19,11 +19,11 @@ const tagSelector = {
             const tagSelectorDialog = document.getElementById('tag-dialog');
 
             const doneButton = document.getElementById('tag-done-button');
-            doneButton.addEventListener('click', () => this.closeTagSelector());
+            doneButton.addEventListener('click', () => tagSelector.closeTagSelector());
 
             // Close button functionality
             const closeButton = tagSelectorDialog.querySelector('.dialog-close-button');
-            closeButton.addEventListener('click', () => this.closeTagSelector());
+            closeButton.addEventListener('click', () => tagSelector.closeTagSelector());
 
             // TODO not sure this should be in tagSelector.js
             const clearAllFiltersButton = document.getElementById('clear-all-filters');
@@ -217,12 +217,6 @@ const tagSelector = {
         dialogManager.closeDialog('tag-dialog', true);
     },
 
-    /*closeTagSelector() {
-          this.updateTaxonList();
-          preloader.pairPreloader.preloadNewPairWithTags(state.getSelectedTags(), state.getSelectedLevel());
-          dialogManager.closeDialog('tag-dialog', true);
-          collectionManager.updateFilterSummary();
-      },*/
 };
 
 // Bind all methods in nested objects
