@@ -279,15 +279,29 @@ const gameLogic = {
         async loadRandomPairFromCurrentCollection() {
             logger.debug(`Loading pair. Selected level: ${state.getSelectedLevel()}`);
 
-            if (this.isCurrentPairInCollection()) {
+            const isCurrentPairValid = this.isCurrentPairInCollection();
+            logger.debug(`Is current pair valid for new filters: ${isCurrentPairValid}`);
+
+            if (!isCurrentPairValid) {
+                logger.debug("Current pair is not in collection. Determining new pair based on filters.");
+                const newPair = await gameLogic.pairManagement.selectRandomPairFromCurrentCollection();
+                if (newPair) {
+                    logger.debug("New pair selected:", newPair);
+                    state.setNextSelectedPair(newPair);
+                    await gameSetup.setupGame(true);
+                } else {
+                    logger.warn("No pairs available in the current filtered collection");
+                    ui.showOverlay("No pairs available for the current filters. Please adjust your selection.", config.overlayColors.red);
+                }
+            } else {
                 logger.debug("Current pair is in collection. Keeping current pair.");
                 if (!preloader.pairPreloader.hasPreloadedPair() || 
                     !gameLogic.pairManagement.isPairValidForCurrentFilters(preloader.pairPreloader.getPreloadedImagesForNextPair().pair)) {
                     await preloader.pairPreloader.preloadForNextPair();
                 }
-            } else {
-                logger.debug("Current pair is not in collection. Loading new random pair.");
-                await gameLogic.pairManagement.loadNewRandomPair(true);
+                // Update UI to reflect any changes in filters
+                ui.updateLevelIndicator(state.getCurrentTaxonImageCollection().pair.level);
+                ui.hideOverlay();
             }
         },
 

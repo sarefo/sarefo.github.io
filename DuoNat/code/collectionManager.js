@@ -513,17 +513,7 @@ const collectionManager = {
             setManager.refreshSubset();
             dialogManager.closeDialog('collection-dialog');
 
-            setTimeout(async () => {
-                await gameLogic.loadRandomPairFromCurrentCollection();
-                // Only setup the game if a new pair was loaded
-                if (state.getNextSelectedPair()) {
-                    gameSetup.setupGame(true);
-                } else {
-                    // If no new pair was loaded, just update the UI
-                    ui.updateLevelIndicator(state.getCurrentTaxonImageCollection().pair.level);
-                    ui.hideOverlay();
-                }
-            }, 100);
+            gameLogic.loadRandomPairFromCurrentCollection();
         },
 
         handleTaxonPairSelection(pair) {

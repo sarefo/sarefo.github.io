@@ -433,7 +433,13 @@ const gameSetup = {
         isSettingUpGame = true;
 
         try {
-            await this.initialization.runSetupSequence(newPair, urlParams);
+            if (newPair && state.getNextSelectedPair()) {
+                const nextPair = state.getNextSelectedPair();
+                logger.debug(`Setting up new pair: ${nextPair.taxon1} / ${nextPair.taxon2}`);
+                await this.initialization.runSetupSequence(true, urlParams);
+            } else {
+                await this.initialization.runSetupSequence(newPair, urlParams);
+            }
         } catch (error) {
             this.errorHandling.handleSetupError(error);
         } finally {
