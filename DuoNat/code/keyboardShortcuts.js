@@ -32,7 +32,6 @@ const keyboardShortcuts = {
         const isDialogOpen = dialogManager.isAnyDialogOpen();
         if (!this.isEnabled || this.shouldIgnoreKeyboardShortcut(event) || isDialogOpen) return;
 
-        logger.debug("Keyboard shortcut triggered");
         const shortcutActions = {
             'arrowleft': this.handleArrowLeft.bind(this),
             'arrowup': () => this.moveTileToDropZone('left', 'upper'),
