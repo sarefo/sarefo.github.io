@@ -199,6 +199,7 @@ class RadialTree extends BaseTree {
         this.radius = 120;  // Initialize with the same value as the slider's default
         this.onNodeSelect = null;
         this.simulation = null;
+        //this.zoom = null;
     }
 
     calculateRadius(pairCount, maxCount) {
@@ -227,18 +228,15 @@ class RadialTree extends BaseTree {
     async create() {
         if (!await this.initialize()) return;
 
-        const { width, height, radius } = this._getDimensions();
+        const { width, height } = this._getDimensions();
         this._setupSvg(width, height);
         this._addStyles();
         this._setupDrag();
-        this._setupZoom();
-        //this._setupSlider();
 
         this.parentNode = this.root;
         this.activeNode = this.root;
-        this.treeLayout = this._setupTreeLayout(radius);
+        this.treeLayout = this._setupTreeLayout();
 
-        // Initialize nodes directly here instead of calling _initializeNodes
         this.root.descendants().forEach(d => {
             if (d.depth > 0) {
                 d._children = d.children;
@@ -261,24 +259,15 @@ class RadialTree extends BaseTree {
     }
 
     _setupZoom() {
-        const zoom = this.d3.zoom()
+        this.zoom = this.d3.zoom()
             .scaleExtent([0.1, 4])
             .on("zoom", (event) => {
-                this.svg.attr("transform", event.transform);
+                this.zoomG.attr("transform", event.transform);
             });
 
         this.d3.select(this.container).select("svg")
-            .call(zoom)
+            .call(this.zoom)
             .on("dblclick.zoom", null);
-    }
-
-    _setupSlider() {
-        const slider = document.getElementById('radiusSlider');
-        slider.addEventListener('input', (event) => {
-            const oldRadius = this.radius;
-            this.radius = +event.target.value;
-            this._redrawGraph();
-        });
     }
 
     _redrawGraph() {
@@ -302,7 +291,6 @@ class RadialTree extends BaseTree {
     }
 
     _setupSvg(width, height) {
-        // Remove any existing SVG elements
         this.d3.select(this.container).selectAll("svg").remove();
 
         this.svg = this.d3.select(this.container)
@@ -313,34 +301,6 @@ class RadialTree extends BaseTree {
             .append('g')
             .attr('transform', `translate(${width / 2},${height / 2})`)
             .attr('class', 'draggable-group');
-
-        // Add styles directly to the SVG
-        /*this.svg.append('style').text(`
-            .link {
-                fill: none;
-                stroke: #ccc;
-                stroke-width: 1.5px;
-            }
-            .node text {
-                font: 16px sans-serif;
-            }
-            .node--central circle {
-                fill: #333;
-                r: 8;
-            }
-            .node--central text {
-                font-weight: bold;
-                fill: #333;
-            }
-            .node--active circle {
-                stroke: #99f;
-                stroke-width: 3px;
-            }
-            .node--active text {
-                fill: #99f;
-                font-weight: bold;
-            }
-        `);*/
     }
 
     _setupDrag() {
@@ -357,8 +317,6 @@ class RadialTree extends BaseTree {
     }
 
     _dragged(event) {
-        const [x, y] = this.d3.pointer(event, this.svg.node());
-        const transform = this.d3.zoomTransform(this.svg.node());
         this.dragOffset[0] += event.dx;
         this.dragOffset[1] += event.dy;
         this.svg.attr('transform', `translate(${this.dragOffset[0] + this.container.clientWidth / 2},${this.dragOffset[1] + this.container.clientHeight / 2})`);
@@ -663,13 +621,6 @@ class RadialTree extends BaseTree {
 
         this.simulation.alpha(1).restart();
 
-       /*
-        // Store old positions directly here
-        visibleNodes.forEach(d => {
-            d.x0 = d.x;
-            d.y0 = d.y;
-        });*/
-
         // Center the active node on the screen
         const activeNodeCoords = this._radialPoint(this.activeNode.x, this.activeNode.y);
         const svgGroupTransform = `translate(${this.dragOffset[0] + this.container.clientWidth / 2 - activeNodeCoords[0]},${this.dragOffset[1] + this.container.clientHeight / 2 - activeNodeCoords[1]})`;
@@ -679,7 +630,7 @@ class RadialTree extends BaseTree {
             .attr('transform', svgGroupTransform);
 
         // Fit the graph to view
-        this._fitToView();
+        //this._fitToView();
 
         // style active note
         this.svg.selectAll('.node')
