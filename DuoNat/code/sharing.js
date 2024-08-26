@@ -173,7 +173,6 @@ const sharing = {
                         width: 256,
                         height: 256
                     });
-                    dialogManager.openDialog('qr-dialog');
                 })
                 .catch(err => {
                     logger.error('Failed to load QR code script:', err);
