@@ -281,15 +281,13 @@ const gameLogic = {
 
             if (this.isCurrentPairInCollection()) {
                 logger.debug("Current pair is in collection. Keeping current pair.");
-                // Check if the preloaded pair is valid for the current filters
                 if (!preloader.pairPreloader.hasPreloadedPair() || 
                     !gameLogic.pairManagement.isPairValidForCurrentFilters(preloader.pairPreloader.getPreloadedImagesForNextPair().pair)) {
-                    // If not, preload a new pair
                     await preloader.pairPreloader.preloadForNextPair();
                 }
             } else {
                 logger.debug("Current pair is not in collection. Loading new random pair.");
-                await gameLogic.pairManagement.loadNewRandomPair();
+                await gameLogic.pairManagement.loadNewRandomPair(true);
             }
         },
 
