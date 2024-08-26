@@ -64,7 +64,7 @@ const tagSelector = {
             state.updateGameStateMultiple({ selectedTags: newSelectedTags });
             await tagSelector.dataManager.updateFilteredPairs();
             collectionManager.updateFilterSummary();
-            tagSelector.uiManager.updateMatchingPairsCount();
+            await tagSelector.uiManager.updateMatchingPairsCount();
 
             tagSelector.updateTagCloud();
         },
@@ -136,10 +136,12 @@ const tagSelector = {
             return tagElement;
         },
 
-        updateMatchingPairsCount() {
+        async updateMatchingPairsCount() {
             const countElement = document.getElementById('matching-pairs-count');
             if (countElement) {
-                countElement.textContent = `Matching pairs: ${tagSelector.filteredPairs.length}`;
+                const filters = filtering.getActiveFilters();
+                const filteredPairs = await filtering.getFilteredTaxonPairs(filters);
+                countElement.textContent = `Matching pairs: ${filteredPairs.length}`;
             }
         },
     },
@@ -201,7 +203,7 @@ const tagSelector = {
     async openTagSelector() {
         const tagCounts = await this.dataManager.getTagCounts();
         this.uiManager.renderTagCloud(tagCounts);
-        this.uiManager.updateMatchingPairsCount();
+        await this.uiManager.updateMatchingPairsCount();
         dialogManager.openDialog('tag-dialog');
     },
 
