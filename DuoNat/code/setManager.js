@@ -1,45 +1,56 @@
 import api from './api.js';
 import filtering from './filtering.js';
-import gameLogic from './gameLogic.js';
 import logger from './logger.js';
 import state from './state.js';
 
 const setManager = {
     currentSubset: [],
+    allFilteredSets: [],
     usedSets: new Set(),
     isInitialized: false,
 
     async initializeSubset() {
-        if (this.isInitialized) return;
-
+        logger.debug('Initializing subset');
         const allSets = await api.taxonomy.fetchTaxonPairs();
-        const filteredSets = this.filterSets(allSets);
-        this.currentSubset = this.getRandomSubset(filteredSets, 100);
+        const filters = filtering.getActiveFilters();
+        this.allFilteredSets = filtering.filterTaxonPairs(allSets, filters);
+        
+        logger.debug(`Total filtered sets: ${this.allFilteredSets.length}`);
+
+        // Reset usedSets if all sets have been used
+        if (this.usedSets.size >= this.allFilteredSets.length) {
+            this.usedSets.clear();
+            logger.debug('Reset used sets');
+        }
+
+        // Create a new subset with unused sets
+        this.currentSubset = this.allFilteredSets.filter(set => !this.usedSets.has(set.setID));
         this.shuffleArray(this.currentSubset);
-        this.usedSets.clear();
+
+        logger.debug(`Initialized new subset of sets: ${this.currentSubset.length}`);
         this.isInitialized = true;
-        logger.debug('Initialized new subset of sets:', this.currentSubset.length);
     },
 
-    filterSets(sets) {
-        const filters = {
-            level: state.getSelectedLevel(),
-            ranges: state.getSelectedRanges(),
-            tags: state.getSelectedTags()
-        };
-        return filtering.filterTaxonPairs(sets, filters);
-    },
+    async getNextSet() {
+        if (!this.isInitialized || this.currentSubset.length === 0) {
+            await this.initializeSubset();
+        }
 
-    getRandomSubset(array, maxSize) {
-        if (array.length <= maxSize) {
-            return [...array];
+        if (this.currentSubset.length === 0) {
+            logger.debug('All sets have been used, resetting');
+            this.usedSets.clear();
+            await this.initializeSubset();
         }
-        const subset = new Set();
-        while (subset.size < maxSize) {
-            const randomIndex = Math.floor(Math.random() * array.length);
-            subset.add(array[randomIndex]);
+
+        const nextSet = this.currentSubset.pop();
+        if (nextSet) {
+            this.usedSets.add(nextSet.setID);
+            logger.debug(`Next set: ${nextSet.setID}, Remaining sets: ${this.currentSubset.length}, Used sets: ${this.usedSets.size}`);
+        } else {
+            logger.warn('No next set available');
         }
-        return Array.from(subset);
+
+        return nextSet;
     },
 
     shuffleArray(array) {
@@ -49,27 +60,9 @@ const setManager = {
         }
     },
 
-    async getNextSet() {
-        if (!this.isInitialized) {
-            await this.initializeSubset();
-        }
-
-        if (this.currentSubset.length === 0) {
-            await this.initializeSubset();
-        }
-
-        const nextSet = this.currentSubset.pop();
-        this.usedSets.add(nextSet.setID);
-
-        if (this.currentSubset.length === 0) {
-            logger.debug('Subset exhausted, initializing new subset');
-            await this.initializeSubset();
-        }
-
-        return nextSet;
-    },
-
     async refreshSubset() {
+        this.isInitialized = false;
+        this.usedSets.clear();
         await this.initializeSubset();
     },
 
@@ -81,7 +74,6 @@ const setManager = {
         const allSets = await api.taxonomy.fetchTaxonPairs();
         return allSets.find(set => set.setID === setID);
     },
-
 };
 
 // Bind all methods to ensure correct 'this' context

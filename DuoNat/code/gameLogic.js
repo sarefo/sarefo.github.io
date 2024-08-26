@@ -224,16 +224,33 @@ const gameLogic = {
         },
 
         async selectRandomPairFromCurrentCollection() {
+            // First, try to get the next set from the setManager
+            const nextSet = await setManager.getNextSet();
+            
+            if (nextSet) {
+                logger.debug(`Selected pair from setManager: ${nextSet.taxonNames[0]} / ${nextSet.taxonNames[1]}`);
+                return nextSet;
+            }
+            
+            // If setManager doesn't return a set, fall back to the original method
+            logger.debug("No set available from setManager, falling back to original method");
             const filters = filtering.getActiveFilters();
             const taxonSets = await api.taxonomy.fetchTaxonPairs();
             const filteredSets = filtering.filterTaxonPairs(taxonSets, filters);
-
+            
             if (filteredSets.length === 0) {
                 throw new Error("No pairs available in the current collection");
             }
-
+            
             const randomIndex = Math.floor(Math.random() * filteredSets.length);
-            return filteredSets[randomIndex];
+            const selectedSet = filteredSets[randomIndex];
+            
+            logger.debug(`Selected pair from fallback: ${selectedSet.taxonNames[0]} / ${selectedSet.taxonNames[1]}`);
+            
+            // Inform setManager about this selection
+            setManager.usedSetIDs.add(selectedSet.setID);
+            
+            return selectedSet;
         },
 
         async loadSetByID(setID, clearFilters = false) {
