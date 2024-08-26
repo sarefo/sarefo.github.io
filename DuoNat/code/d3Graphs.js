@@ -199,6 +199,7 @@ class RadialTree extends BaseTree {
         this.radius = 120;  // Initialize with the same value as the slider's default
         this.onNodeSelect = null;
         this.simulation = null;
+        this.initialDrag = true; // Add this line
         //this.zoom = null;
     }
 
@@ -258,6 +259,20 @@ class RadialTree extends BaseTree {
             .force("center", this.d3.forceCenter(0, 0));
     }
 
+    _centerGraphOnActiveNode() {
+        const activeNodeCoords = this._radialPoint(this.activeNode.x, this.activeNode.y);
+        const { width, height } = this._getDimensions();
+        
+        this.dragOffset = [
+            width / 2 - activeNodeCoords[0],
+            height / 2 - activeNodeCoords[1]
+        ];
+
+        this.svg.transition()
+            .duration(750)
+            .attr('transform', `translate(${this.dragOffset[0]},${this.dragOffset[1]})`);
+    }
+
     _setupZoom() {
         this.zoom = this.d3.zoom()
             .scaleExtent([0.1, 4])
@@ -312,14 +327,21 @@ class RadialTree extends BaseTree {
         this.svg.call(drag);
     }
 
-    _dragStarted() {
+    _dragStarted(event) {
         this.d3.select(this.container).style('cursor', 'grabbing');
+        if (this.initialDrag) {
+            this.dragOffset = [
+                parseFloat(this.svg.attr('transform').split('(')[1].split(',')[0]),
+                parseFloat(this.svg.attr('transform').split('(')[1].split(',')[1])
+            ];
+            this.initialDrag = false;
+        }
     }
 
     _dragged(event) {
         this.dragOffset[0] += event.dx;
         this.dragOffset[1] += event.dy;
-        this.svg.attr('transform', `translate(${this.dragOffset[0] + this.container.clientWidth / 2},${this.dragOffset[1] + this.container.clientHeight / 2})`);
+        this.svg.attr('transform', `translate(${this.dragOffset[0]},${this.dragOffset[1]})`);
     }
 
     _dragEnded() {
@@ -481,29 +503,21 @@ class RadialTree extends BaseTree {
         }
 
         if (d !== this.parentNode) {
-            // Make the clicked node's parent the new center node (root)
             this.parentNode = d.parent || this.parentNode;
             this.activeNode = d;
         } else if (d.parent) {
-            // If the center node is clicked again, make its parent the new center node
             this.parentNode = d.parent;
             this.activeNode = d;
         }
 
-        // Ensure that the active node's children are always expanded
         if (d._children) {
             d.children = d._children;
             d._children = null;
         }
 
-        // Traverse children if the active node has only one child
-        //this._traverseChildren();
-        // TODO not ready for primetime yet
-
-        // Update the tree with the new layout and expanded nodes
         this.update(this.activeNode);
+        this._centerGraphOnActiveNode(); // Add this line
 
-        // Call the onNodeSelect callback if it exists
         if (this.onNodeSelect) {
             this.onNodeSelect(this.activeNode.data.id);
         }
@@ -622,12 +636,12 @@ class RadialTree extends BaseTree {
         this.simulation.alpha(1).restart();
 
         // Center the active node on the screen
-        const activeNodeCoords = this._radialPoint(this.activeNode.x, this.activeNode.y);
-        const svgGroupTransform = `translate(${this.dragOffset[0] + this.container.clientWidth / 2 - activeNodeCoords[0]},${this.dragOffset[1] + this.container.clientHeight / 2 - activeNodeCoords[1]})`;
+        //const activeNodeCoords = this._radialPoint(this.activeNode.x, this.activeNode.y);
+        //const svgGroupTransform = `translate(${this.dragOffset[0] + this.container.clientWidth / 2 - activeNodeCoords[0]},${this.dragOffset[1] + this.container.clientHeight / 2 - activeNodeCoords[1]})`;
 
-        this.svg.transition()
-            .duration(duration)
-            .attr('transform', svgGroupTransform);
+        //this.svg.transition()
+        //    .duration(duration)
+        //    .attr('transform', svgGroupTransform);
 
         // Fit the graph to view
         //this._fitToView();
