@@ -1761,7 +1761,7 @@
     "taxonName": "Plantae",
     "vernacularName": "Plants",
     "rank": "Kingdom",
-    "parentId": "48460"
+    "parentId": null
   },
   "211194": {
     "taxonName": "Tracheophyta",
@@ -19228,5 +19228,383 @@
     "vernacularName": "Red-tailed bumble bee",
     "rank": "Species",
     "parentId": "538909"
+  },
+  "64615": {
+    "taxonName": "Marchantiophyta",
+    "vernacularName": "Liverworts",
+    "rank": "Phylum",
+    "parentId": "47126"
+  },
+  "67852": {
+    "taxonName": "Jungermanniopsida",
+    "vernacularName": "Leafy and simple thalloid liverworts",
+    "rank": "Class",
+    "parentId": "64615"
+  },
+  "967120": {
+    "taxonName": "Jungermanniidae",
+    "vernacularName": "Leafy liverworts",
+    "rank": "Subclass",
+    "parentId": "67852"
+  },
+  "311249": {
+    "taxonName": "Bryophyta",
+    "vernacularName": "Mosses",
+    "rank": "Phylum",
+    "parentId": "47126"
+  },
+  "48372": {
+    "taxonName": "Bryopsida",
+    "vernacularName": "Joint-toothed mosses",
+    "rank": "Class",
+    "parentId": "311249"
+  },
+  "67877": {
+    "taxonName": "Dicranales",
+    "vernacularName": "-",
+    "rank": "Order",
+    "parentId": "48372"
+  },
+  "1032312": {
+    "taxonName": "Leucobryaceae",
+    "vernacularName": "-",
+    "rank": "Family",
+    "parentId": "67877"
+  },
+  "122659": {
+    "taxonName": "Leucobryum",
+    "vernacularName": "Leucobryum mosses",
+    "rank": "Genus",
+    "parentId": "1032312"
+  },
+  "164650": {
+    "taxonName": "Leucobryum albidum",
+    "vernacularName": "White moss",
+    "rank": "Species",
+    "parentId": "122659"
+  },
+  "54992": {
+    "taxonName": "Muscoidea",
+    "vernacularName": "Muscoid flies",
+    "rank": "Superfamily",
+    "parentId": "342767"
+  },
+  "70144": {
+    "taxonName": "Muscidae",
+    "vernacularName": "House flies and allies",
+    "rank": "Family",
+    "parentId": "54992"
+  },
+  "982040": {
+    "taxonName": "Octoblepharaceae",
+    "vernacularName": "-",
+    "rank": "Family",
+    "parentId": "67877"
+  },
+  "156696": {
+    "taxonName": "Octoblepharum",
+    "vernacularName": "Octoblepharum mosses",
+    "rank": "Genus",
+    "parentId": "982040"
+  },
+  "165771": {
+    "taxonName": "Octoblepharum albidum",
+    "vernacularName": "White octoblepharum moss",
+    "rank": "Species",
+    "parentId": "156696"
+  },
+  "47593": {
+    "taxonName": "Tenebrionoidea",
+    "vernacularName": "Darkling beetles and allies",
+    "rank": "Superfamily",
+    "parentId": "372852"
+  },
+  "59510": {
+    "taxonName": "Meloidae",
+    "vernacularName": "Blister beetles",
+    "rank": "Family",
+    "parentId": "47593"
+  },
+  "359283": {
+    "taxonName": "Meloinae",
+    "vernacularName": "-",
+    "rank": "Subfamily",
+    "parentId": "59510"
+  },
+  "522573": {
+    "taxonName": "Epicautini",
+    "vernacularName": "-",
+    "rank": "Tribe",
+    "parentId": "359283"
+  },
+  "59506": {
+    "taxonName": "Epicauta",
+    "vernacularName": "Burning blister beetles",
+    "rank": "Genus",
+    "parentId": "522573"
+  },
+  "522580": {
+    "taxonName": "Epicauta",
+    "vernacularName": "-",
+    "rank": "Subgenus",
+    "parentId": "59506"
+  },
+  "495227": {
+    "taxonName": "Epicauta tibialis",
+    "vernacularName": "-",
+    "rank": "Species",
+    "parentId": "522580"
+  },
+  "71376": {
+    "taxonName": "Ailuridae",
+    "vernacularName": "Red pandas",
+    "rank": "Family",
+    "parentId": "41573"
+  },
+  "41652": {
+    "taxonName": "Ailurus",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "71376"
+  },
+  "41653": {
+    "taxonName": "Ailurus fulgens",
+    "vernacularName": "Red panda",
+    "rank": "Species",
+    "parentId": "41652"
+  },
+  "41654": {
+    "taxonName": "Helarctos",
+    "vernacularName": "Sun bears",
+    "rank": "Genus",
+    "parentId": "846255"
+  },
+  "41655": {
+    "taxonName": "Helarctos malayanus",
+    "vernacularName": "Sun bear",
+    "rank": "Species",
+    "parentId": "41654"
+  },
+  "55338": {
+    "taxonName": "Fissidentaceae",
+    "vernacularName": "-",
+    "rank": "Family",
+    "parentId": "67877"
+  },
+  "55339": {
+    "taxonName": "Fissidens",
+    "vernacularName": "Pocket mosses",
+    "rank": "Genus",
+    "parentId": "55338"
+  },
+  "785240": {
+    "taxonName": "Polytrichopsida",
+    "vernacularName": "Aloe-mosses",
+    "rank": "Class",
+    "parentId": "311249"
+  },
+  "1122192": {
+    "taxonName": "Polytrichales",
+    "vernacularName": "Aloe-mosses",
+    "rank": "Order",
+    "parentId": "785240"
+  },
+  "55333": {
+    "taxonName": "Polytrichaceae",
+    "vernacularName": "Haircap moss family",
+    "rank": "Family",
+    "parentId": "1122192"
+  },
+  "67912": {
+    "taxonName": "Polytrichum",
+    "vernacularName": "Haircap mosses",
+    "rank": "Genus",
+    "parentId": "55333"
+  },
+  "846183": {
+    "taxonName": "Ailuropodinae",
+    "vernacularName": "Giant pandas",
+    "rank": "Subfamily",
+    "parentId": "41636"
+  },
+  "41658": {
+    "taxonName": "Ailuropoda",
+    "vernacularName": "Giant pandas",
+    "rank": "Genus",
+    "parentId": "846183"
+  },
+  "41659": {
+    "taxonName": "Ailuropoda melanoleuca",
+    "vernacularName": "Giant panda",
+    "rank": "Species",
+    "parentId": "41658"
+  },
+  "51429": {
+    "taxonName": "Ulvophyceae",
+    "vernacularName": "Ulvophycean green algae",
+    "rank": "Class",
+    "parentId": "50863"
+  },
+  "68609": {
+    "taxonName": "Trentepohliales",
+    "vernacularName": "Orange terrestrial algae",
+    "rank": "Order",
+    "parentId": "51429"
+  },
+  "68610": {
+    "taxonName": "Trentepohliaceae",
+    "vernacularName": "Orange terrestrial algae",
+    "rank": "Family",
+    "parentId": "68609"
+  },
+  "68611": {
+    "taxonName": "Trentepohlia",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "68610"
+  },
+  "424149": {
+    "taxonName": "Epicauta mannerheimi",
+    "vernacularName": "-",
+    "rank": "Species",
+    "parentId": "522580"
+  },
+  "54698": {
+    "taxonName": "Sphagnopsida",
+    "vernacularName": "-",
+    "rank": "Class",
+    "parentId": "311249"
+  },
+  "54700": {
+    "taxonName": "Sphagnales",
+    "vernacularName": "-",
+    "rank": "Order",
+    "parentId": "54698"
+  },
+  "54703": {
+    "taxonName": "Sphagnaceae",
+    "vernacularName": "Sphagnum moss family",
+    "rank": "Family",
+    "parentId": "54700"
+  },
+  "54704": {
+    "taxonName": "Sphagnum",
+    "vernacularName": "Sphagnum mosses",
+    "rank": "Genus",
+    "parentId": "54703"
+  },
+  "356157": {
+    "taxonName": "Oestroidea",
+    "vernacularName": "Bot flies, blow flies, and allies",
+    "rank": "Superfamily",
+    "parentId": "342767"
+  },
+  "61860": {
+    "taxonName": "Calliphoridae",
+    "vernacularName": "Blow flies",
+    "rank": "Family",
+    "parentId": "356157"
+  },
+  "47623": {
+    "taxonName": "Lycopodiopsida",
+    "vernacularName": "Lycophytes",
+    "rank": "Class",
+    "parentId": "211194"
+  },
+  "47622": {
+    "taxonName": "Lycopodiales",
+    "vernacularName": "Clubmosses and firmosses",
+    "rank": "Order",
+    "parentId": "47623"
+  },
+  "47621": {
+    "taxonName": "Lycopodiaceae",
+    "vernacularName": "Clubmosses and firmosses",
+    "rank": "Family",
+    "parentId": "47622"
+  },
+  "764774": {
+    "taxonName": "Lycopodioideae",
+    "vernacularName": "-",
+    "rank": "Subfamily",
+    "parentId": "47621"
+  },
+  "47620": {
+    "taxonName": "Lycopodium",
+    "vernacularName": "Ground and creeping clubmosses",
+    "rank": "Genus",
+    "parentId": "764774"
+  },
+  "52910": {
+    "taxonName": "Sarcophagidae",
+    "vernacularName": "Flesh flies and satellite flies",
+    "rank": "Family",
+    "parentId": "356157"
+  },
+  "67858": {
+    "taxonName": "Hypnales",
+    "vernacularName": "Feather mosses",
+    "rank": "Order",
+    "parentId": "48372"
+  },
+  "67859": {
+    "taxonName": "Brachytheciaceae",
+    "vernacularName": "-",
+    "rank": "Family",
+    "parentId": "67858"
+  },
+  "272579": {
+    "taxonName": "Rhynchostegium",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "67859"
+  },
+  "485428": {
+    "taxonName": "Rhynchostegium confertum",
+    "vernacularName": "Clustered feather-moss",
+    "rank": "Species",
+    "parentId": "272579"
+  },
+  "58769": {
+    "taxonName": "Selaginellales",
+    "vernacularName": "Spikemosses",
+    "rank": "Order",
+    "parentId": "47623"
+  },
+  "58770": {
+    "taxonName": "Selaginellaceae",
+    "vernacularName": "Spikemoss family",
+    "rank": "Family",
+    "parentId": "58769"
+  },
+  "58771": {
+    "taxonName": "Selaginella",
+    "vernacularName": "Spikemosses",
+    "rank": "Genus",
+    "parentId": "58770"
+  },
+  "51953": {
+    "taxonName": "Tachinidae",
+    "vernacularName": "Tachinid flies",
+    "rank": "Family",
+    "parentId": "356157"
+  },
+  "123496": {
+    "taxonName": "Hypnaceae",
+    "vernacularName": "-",
+    "rank": "Family",
+    "parentId": "67858"
+  },
+  "124458": {
+    "taxonName": "Hypnum",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "123496"
+  },
+  "163992": {
+    "taxonName": "Hypnum cupressiforme",
+    "vernacularName": "Cypress-leaved plait-moss",
+    "rank": "Species",
+    "parentId": "124458"
   }
 }

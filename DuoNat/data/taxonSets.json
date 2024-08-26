@@ -13577,5 +13577,347 @@
     "range": [
       "EU"
     ]
+  },
+  "786": {
+    "setName": "Epicauta species",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      495227,
+      424149
+    ],
+    "taxonNames": [
+      "Epicauta tibialis",
+      "Epicauta mannerheimi"
+    ],
+    "range": [
+      "NA"
+    ]
+  },
+  "787": {
+    "setName": "Tachinid flies vs House flies and allies",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      51953,
+      70144
+    ],
+    "taxonNames": [
+      "Tachinidae",
+      "Muscidae"
+    ],
+    "range": [
+      "OC",
+      "SA",
+      "EU",
+      "AF",
+      "NA",
+      "AS"
+    ]
+  },
+  "788": {
+    "setName": "Tachinid flies vs Blow flies",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      51953,
+      61860
+    ],
+    "taxonNames": [
+      "Tachinidae",
+      "Calliphoridae"
+    ],
+    "range": [
+      "OC",
+      "SA",
+      "EU",
+      "AF",
+      "NA",
+      "AS"
+    ]
+  },
+  "789": {
+    "setName": "Tachinid flies vs Flesh flies and satellite flies",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      51953,
+      52910
+    ],
+    "taxonNames": [
+      "Tachinidae",
+      "Sarcophagidae"
+    ],
+    "range": [
+      "OC",
+      "SA",
+      "EU",
+      "AF",
+      "NA",
+      "AS"
+    ]
+  },
+  "790": {
+    "setName": "House flies and allies vs Blow flies",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      70144,
+      61860
+    ],
+    "taxonNames": [
+      "Muscidae",
+      "Calliphoridae"
+    ],
+    "range": [
+      "OC",
+      "SA",
+      "EU",
+      "AF",
+      "NA",
+      "AS"
+    ]
+  },
+  "791": {
+    "setName": "House flies and allies vs Flesh flies and satellite flies",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      70144,
+      52910
+    ],
+    "taxonNames": [
+      "Muscidae",
+      "Sarcophagidae"
+    ],
+    "range": [
+      "OC",
+      "SA",
+      "EU",
+      "AF",
+      "NA",
+      "AS"
+    ]
+  },
+  "792": {
+    "setName": "Flesh flies and satellite flies vs Blow flies",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      52910,
+      61860
+    ],
+    "taxonNames": [
+      "Sarcophagidae",
+      "Calliphoridae"
+    ],
+    "range": [
+      "OC",
+      "SA",
+      "EU",
+      "AF",
+      "NA",
+      "AS"
+    ]
+  },
+  "793": {
+    "setName": "Pocket mosses vs Leucobryum mosses",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      55339,
+      122659
+    ],
+    "taxonNames": [
+      "Fissidens",
+      "Leucobryum"
+    ],
+    "range": [
+      "EU",
+      "NA",
+      "AS"
+    ]
+  },
+  "794": {
+    "setName": "White octoblepharum moss vs White moss",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      165771,
+      164650
+    ],
+    "taxonNames": [
+      "Octoblepharum albidum",
+      "Leucobryum albidum"
+    ],
+    "range": [
+      "EU",
+      "NA",
+      "AS"
+    ]
+  },
+  "795": {
+    "setName": "Clustered feather-moss vs Cypress-leaved plait-moss",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      485428,
+      163992
+    ],
+    "taxonNames": [
+      "Rhynchostegium confertum",
+      "Hypnum cupressiforme"
+    ],
+    "range": [
+      "EU",
+      "NA",
+      "AS"
+    ]
+  },
+  "796": {
+    "setName": "Mosses vs Leafy liverworts",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      311249,
+      967120
+    ],
+    "taxonNames": [
+      "Bryophyta",
+      "Jungermanniidae"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "AF",
+      "NA",
+      "AS"
+    ]
+  },
+  "797": {
+    "setName": "Spikemosses vs Ground and creeping clubmosses",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      58771,
+      47620
+    ],
+    "taxonNames": [
+      "Selaginella",
+      "Lycopodium"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "AF",
+      "NA",
+      "AS"
+    ]
+  },
+  "798": {
+    "setName": "Spikemosses vs Haircap mosses",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      58771,
+      67912
+    ],
+    "taxonNames": [
+      "Selaginella",
+      "Polytrichum"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "AF",
+      "NA",
+      "AS"
+    ]
+  },
+  "799": {
+    "setName": "Sphagnum mosses vs Leucobryum mosses",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      54704,
+      122659
+    ],
+    "taxonNames": [
+      "Sphagnum",
+      "Leucobryum"
+    ],
+    "range": [
+      "EU",
+      "NA",
+      "AS"
+    ]
+  },
+  "800": {
+    "setName": "Trentepohlia vs Mosses",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      68611,
+      311249
+    ],
+    "taxonNames": [
+      "Trentepohlia",
+      "Bryophyta"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "AF",
+      "NA",
+      "AS"
+    ]
+  },
+  "801": {
+    "setName": "Sun bear vs Asian Black Bear",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      41655,
+      41647
+    ],
+    "taxonNames": [
+      "Helarctos malayanus",
+      "Ursus thibetanus"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "802": {
+    "setName": "Giant panda vs Common Raccoon",
+    "level": "1",
+    "tags": [
+      "fun"
+    ],
+    "taxa": [
+      41659,
+      41663
+    ],
+    "taxonNames": [
+      "Ailuropoda melanoleuca",
+      "Procyon lotor"
+    ],
+    "range": []
+  },
+  "803": {
+    "setName": "Giant panda vs Red panda",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      41659,
+      41653
+    ],
+    "taxonNames": [
+      "Ailuropoda melanoleuca",
+      "Ailurus fulgens"
+    ],
+    "range": [
+      "AS"
+    ]
   }
 }

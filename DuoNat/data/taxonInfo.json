@@ -42355,5 +42355,592 @@
     "range": [
       "EU"
     ]
+  },
+  "967120": {
+    "taxonName": "Jungermanniidae",
+    "vernacularName": "Leafy liverworts",
+    "ancestryIds": [
+      47126,
+      64615,
+      67852,
+      967120
+    ],
+    "rank": "Subclass",
+    "taxonFacts": [
+      "A family of liverworts.",
+      "Some species can absorb heavy metals.",
+      "Thrive in moist, shaded environments."
+    ],
+    "range": [
+      "AF",
+      "EU",
+      "AS",
+      "OC",
+      "NA",
+      "SA"
+    ]
+  },
+  "164650": {
+    "taxonName": "Leucobryum albidum",
+    "vernacularName": "White moss",
+    "ancestryIds": [
+      47126,
+      311249,
+      48372,
+      67877,
+      1032312,
+      122659,
+      164650
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "This moss can survive extreme drying.",
+      "It grows in dense, cushion-like clumps.",
+      "It is often found in forest understories."
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
+    ]
+  },
+  "70144": {
+    "taxonName": "Muscidae",
+    "vernacularName": "House flies and allies",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47822,
+      48091,
+      372853,
+      48089,
+      342767,
+      54992,
+      70144
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "This family includes common houseflies.",
+      "Some species are important pollinators.",
+      "They can transmit diseases to humans."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "165771": {
+    "taxonName": "Octoblepharum albidum",
+    "vernacularName": "White octoblepharum moss",
+    "ancestryIds": [
+      47126,
+      311249,
+      48372,
+      67877,
+      982040,
+      156696,
+      165771
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "A type of moss found in wet areas.",
+      "This species prefers acidic soils.",
+      "It can form extensive mats on the ground."
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
+    ]
+  },
+  "495227": {
+    "taxonName": "Epicauta tibialis",
+    "vernacularName": "-",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47208,
+      71130,
+      372852,
+      47593,
+      59510,
+      359283,
+      522573,
+      59506,
+      522580,
+      495227
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "This beetle is known for its bright colors.",
+      "It feeds primarily on plants.",
+      "Can cause agricultural damage."
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ]
+  },
+  "41653": {
+    "taxonName": "Ailurus fulgens",
+    "vernacularName": "Red panda",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      71376,
+      41652,
+      41653
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "This species is a solitary and nocturnal animal.",
+      "It primarily feeds on bamboo.",
+      "It is an endangered species due to habitat loss."
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "41655": {
+    "taxonName": "Helarctos malayanus",
+    "vernacularName": "Sun bear",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41636,
+      846255,
+      41654,
+      41655
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "This bear is the smallest bear species.",
+      "It is an excellent climber.",
+      "It primarily feeds on fruits and insects."
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "55339": {
+    "taxonName": "Fissidens",
+    "vernacularName": "Pocket mosses",
+    "ancestryIds": [
+      47126,
+      311249,
+      48372,
+      67877,
+      55338,
+      55339
+    ],
+    "rank": "Genus",
+    "taxonFacts": [
+      "This genus includes many aquatic mosses.",
+      "They often grow in streams and rivers.",
+      "Some species are used in aquariums."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ]
+  },
+  "67912": {
+    "taxonName": "Polytrichum",
+    "vernacularName": "Haircap mosses",
+    "ancestryIds": [
+      47126,
+      311249,
+      785240,
+      1122192,
+      55333,
+      67912
+    ],
+    "rank": "Genus",
+    "taxonFacts": [
+      "This genus is known for its tall growth.",
+      "They can survive in diverse habitats.",
+      "Some species are used in traditional medicine."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ]
+  },
+  "41659": {
+    "taxonName": "Ailuropoda melanoleuca",
+    "vernacularName": "Giant panda",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41636,
+      846183,
+      41658,
+      41659
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "This species is a symbol of wildlife conservation.",
+      "It primarily eats bamboo.",
+      "It has a unique digestive system for processing bamboo."
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "122659": {
+    "taxonName": "Leucobryum",
+    "vernacularName": "Leucobryum mosses",
+    "ancestryIds": [
+      47126,
+      311249,
+      48372,
+      67877,
+      1032312,
+      122659
+    ],
+    "rank": "Genus",
+    "taxonFacts": [
+      "This genus includes many cushion mosses.",
+      "They thrive in acidic, nutrient-poor soils.",
+      "They are often found in temperate regions."
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
+    ]
+  },
+  "68611": {
+    "taxonName": "Trentepohlia",
+    "vernacularName": "-",
+    "ancestryIds": [
+      47126,
+      50863,
+      51429,
+      68609,
+      68610,
+      68611
+    ],
+    "rank": "Genus",
+    "taxonFacts": [
+      "A genus of green algae.",
+      "They are often found on tree bark.",
+      "Some species are used in traditional dyes."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ]
+  },
+  "424149": {
+    "taxonName": "Epicauta mannerheimi",
+    "vernacularName": "-",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47208,
+      71130,
+      372852,
+      47593,
+      59510,
+      359283,
+      522573,
+      59506,
+      522580,
+      424149
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "This beetle is known for its striking appearance.",
+      "It feeds on various plant species.",
+      "It plays a role in the ecosystem as a herbivore."
+    ],
+    "range": [
+      "NA",
+      "EU"
+    ]
+  },
+  "54704": {
+    "taxonName": "Sphagnum",
+    "vernacularName": "Sphagnum mosses",
+    "ancestryIds": [
+      47126,
+      311249,
+      54698,
+      54700,
+      54703,
+      54704
+    ],
+    "rank": "Genus",
+    "taxonFacts": [
+      "This moss is crucial for peat formation.",
+      "It can hold up to 20 times its weight in water.",
+      "It provides habitat for various wildlife."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ]
+  },
+  "61860": {
+    "taxonName": "Calliphoridae",
+    "vernacularName": "Blow flies",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47822,
+      48091,
+      372853,
+      48089,
+      342767,
+      356157,
+      61860
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "This family includes blowflies and bottle flies.",
+      "They are important decomposers in ecosystems.",
+      "Some species are used in forensic science."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "47620": {
+    "taxonName": "Lycopodium",
+    "vernacularName": "Ground and creeping clubmosses",
+    "ancestryIds": [
+      47126,
+      211194,
+      47623,
+      47622,
+      47621,
+      764774,
+      47620
+    ],
+    "rank": "Genus",
+    "taxonFacts": [
+      "This genus includes clubmosses, ancient plants (not mosses).",
+      "They reproduce using spores instead of seeds.",
+      "They can live for hundreds of years."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ]
+  },
+  "52910": {
+    "taxonName": "Sarcophagidae",
+    "vernacularName": "Flesh flies and satellite flies",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47822,
+      48091,
+      372853,
+      48089,
+      342767,
+      356157,
+      52910
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "This family includes flesh flies.",
+      "They are important for decomposing organic matter.",
+      "Some species can transmit diseases."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "311249": {
+    "taxonName": "Bryophyta",
+    "vernacularName": "Mosses",
+    "ancestryIds": [
+      47126,
+      311249
+    ],
+    "rank": "Phylum",
+    "taxonFacts": [
+      "This division includes all mosses.",
+      "They play a role in soil formation.",
+      "They are sensitive indicators of environmental health."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ]
+  },
+  "485428": {
+    "taxonName": "Rhynchostegium confertum",
+    "vernacularName": "Clustered feather-moss",
+    "ancestryIds": [
+      47126,
+      311249,
+      48372,
+      67858,
+      67859,
+      272579,
+      485428
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "This moss is often found in damp, shaded areas.",
+      "It can form dense mats on the ground.",
+      "It is important for soil conservation."
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
+    ]
+  },
+  "58771": {
+    "taxonName": "Selaginella",
+    "vernacularName": "Spikemosses",
+    "ancestryIds": [
+      47126,
+      211194,
+      47623,
+      58769,
+      58770,
+      58771
+    ],
+    "rank": "Genus",
+    "taxonFacts": [
+      "This genus includes spike mosses.",
+      "They can reproduce both sexually and asexually.",
+      "Some species are used in traditional medicine."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ]
+  },
+  "51953": {
+    "taxonName": "Tachinidae",
+    "vernacularName": "Tachinid flies",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47822,
+      48091,
+      372853,
+      48089,
+      342767,
+      356157,
+      51953
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "This family includes parasitic flies.",
+      "They play a role in controlling pest populations.",
+      "Some species are used in biological control."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "163992": {
+    "taxonName": "Hypnum cupressiforme",
+    "vernacularName": "Cypress-leaved plait-moss",
+    "ancestryIds": [
+      47126,
+      311249,
+      48372,
+      67858,
+      123496,
+      124458,
+      163992
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "This moss is commonly found in forests.",
+      "It can tolerate a range of moisture conditions.",
+      "It is often used in horticulture."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ]
   }
 }
