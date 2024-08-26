@@ -230,6 +230,8 @@ const gameSetup = {
             }
 
             const randomized = Math.random() < 0.5;
+    logger.debug(`Image randomization: ${randomized ? "swapped" : "not swapped"}`);
+
             const leftImageSrc = randomized ? imageOneURL : imageTwoURL;
             const rightImageSrc = randomized ? imageTwoURL : imageOneURL;
 
@@ -273,9 +275,14 @@ const gameSetup = {
         },
 
         updateGameStateForRound(pair, imageData) {
+            const taxonImageOne = imageData.randomized ? pair.taxon1 : pair.taxon2;
+            const taxonImageTwo = imageData.randomized ? pair.taxon2 : pair.taxon1;
+
+            logger.debug(`Setting taxon names: Left=${taxonImageOne}, Right=${taxonImageTwo}`);
+
             state.updateGameStateMultiple({
-                taxonImageOne: imageData.randomized ? pair.taxon1 : pair.taxon2,
-                taxonImageTwo: imageData.randomized ? pair.taxon2 : pair.taxon1,
+                taxonImageOne: taxonImageOne,
+                taxonImageTwo: taxonImageTwo,
                 currentRound: {
                     pair,
                     imageOneURL: imageData.imageOneURL,
@@ -285,6 +292,9 @@ const gameSetup = {
                     randomized: imageData.randomized,
                 },
             });
+
+            // Verify that the state has been updated correctly
+            logger.debug(`Verifying taxon names: Left=${state.getTaxonImageOne()}, Right=${state.getTaxonImageTwo()}`);
         },
 
         updateUIAfterSetup(newPair) {

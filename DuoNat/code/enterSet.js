@@ -7,7 +7,6 @@ import state from './state.js';
 const enterSet = {
 
         initialize() {
-            logger.debug('Initializing Enter Set Dialog');
             const dialog = document.getElementById('enter-set-dialog');
             const form = dialog.querySelector('form');
             const taxon1Input = document.getElementById('taxon1');
@@ -32,8 +31,6 @@ const enterSet = {
                     logger.debug(`Input changed. Submit button disabled: ${submitButton.disabled}`);
                 });
             });
-
-            logger.debug('Enter Set Dialog initialized');
         },
 
     async handleNewPairSubmit(event) {

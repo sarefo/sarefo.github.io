@@ -49,9 +49,18 @@ const gameLogic = {
         },
 
         evaluateAnswer(answers) {
+            const taxonImageOne = state.getTaxonImageOne();
+            const taxonImageTwo = state.getTaxonImageTwo();
+            
+            logger.debug(`Evaluating answer: Left=${answers.leftAnswer}, Right=${answers.rightAnswer}`);
+            logger.debug(`Correct answer: Left=${taxonImageOne}, Right=${taxonImageTwo}`);
+            logger.debug(`Current pair: ${JSON.stringify(state.getCurrentTaxonImageCollection().pair)}`);
+
             const isCorrect =
-                answers.leftAnswer === state.getTaxonImageOne() &&
-                answers.rightAnswer === state.getTaxonImageTwo();
+                answers.leftAnswer === taxonImageOne &&
+                answers.rightAnswer === taxonImageTwo;
+
+            logger.debug(`Answer is correct: ${isCorrect}`);
 
             if (isCorrect) {
                 this.handleCorrectAnswer();
