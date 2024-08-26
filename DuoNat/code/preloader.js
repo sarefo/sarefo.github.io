@@ -26,6 +26,12 @@ const imageLoader = {
             availableImages = this.resetUsedImages(images, currentImageURL);
         }
 
+        // Handle the case when there are no available images
+        if (availableImages.length === 0) {
+            logger.warn(`No available images for ${taxonName}. Using the current image.`);
+            return currentImageURL || images[0]; // Return current image or the first image if current is not defined
+        }
+
         return this.selectAndUpdateUsedImage(availableImages, usedImages, taxonName);
     },
 
@@ -53,8 +59,8 @@ const imageLoader = {
             this.updateUsedImagesState(usedImages, selectedImage, taxonName);
             return selectedImage;
         } else {
-            logger.error(`No available images found for ${taxonName}. Using current image.`);
-            return currentImageURL || availableImages[0];
+            logger.warn(`No available images found for ${taxonName}. Using the first image.`);
+            return availableImages[0]; // Return the first image as a fallback
         }
     },
 
