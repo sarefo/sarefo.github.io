@@ -957,4 +957,11 @@ const publicAPI = {
 
 };
 
+// Bind publicAPI methods
+Object.keys(publicAPI).forEach(key => {
+    if (typeof publicAPI[key] === 'function') {
+        publicAPI[key] = publicAPI[key].bind(publicAPI);
+    }
+});
+
 export default publicAPI

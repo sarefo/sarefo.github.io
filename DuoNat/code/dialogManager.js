@@ -383,4 +383,11 @@ const publicAPI = {
     hideINatDownDialog: dialogManager.specialDialogs.hideINatDownDialog,
 };
 
+// Bind publicAPI methods
+Object.keys(publicAPI).forEach(key => {
+    if (typeof publicAPI[key] === 'function') {
+        publicAPI[key] = publicAPI[key].bind(dialogManager);
+    }
+});
+
 export default publicAPI;

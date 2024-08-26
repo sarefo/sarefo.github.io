@@ -4,7 +4,7 @@ import logger from './logger.js';
 
 const hintSystem = {
     initialize() {
-        hintSystem.addHintButtonListeners();
+        this.addHintButtonListeners();
     },
 
     addHintButtonListeners() {
@@ -17,14 +17,14 @@ const hintSystem = {
             }
         };
 
-        safeAddEventListener('hint-button-1', 'click', () => hintSystem.showHint(1));
-        safeAddEventListener('hint-button-2', 'click', () => hintSystem.showHint(2));
+        safeAddEventListener('hint-button-1', 'click', () => this.showHint(1));
+        safeAddEventListener('hint-button-2', 'click', () => this.showHint(2));
     },
 
     async showHint(index) {
         const imageContainer = document.getElementById(`image-container-${index}`);
         const taxonName = imageContainer.querySelector('img').alt.split(' Image')[0];
-        const taxonId = await hintSystem.getTaxonId(taxonName);
+        const taxonId = await this.getTaxonId(taxonName);
 
         if (!taxonId) {
             logger.warn(`Could not find ID for taxon: ${taxonName}`);
@@ -34,7 +34,7 @@ const hintSystem = {
         const hints = await api.taxonomy.fetchTaxonHints(taxonId);
 
         if (hints && hints.length > 0) {
-            hintSystem.displayRandomHint(hints, index);
+            this.displayRandomHint(hints, index);
         } else {
             logger.warn(`No hints available for ${taxonName} (ID: ${taxonId})`);
         }
@@ -57,7 +57,7 @@ const hintSystem = {
             const randomHint = availableHints[Math.floor(Math.random() * availableHints.length)];
             state.addShownHint(index, randomHint);
 
-            hintSystem.showHintOverlay(randomHint, index);
+            this.showHintOverlay(randomHint, index);
         }
     },
 
@@ -108,16 +108,30 @@ const hintSystem = {
     },
 
     async updateAllHintButtons() {
-        await hintSystem.updateHintButtonState(1);
-        await hintSystem.updateHintButtonState(2);
+        await this.updateHintButtonState(1);
+        await this.updateHintButtonState(2);
     }
 
 };
+
+// Bind all methods in hintSystem
+Object.keys(hintSystem).forEach(key => {
+    if (typeof hintSystem[key] === 'function') {
+        hintSystem[key] = hintSystem[key].bind(hintSystem);
+    }
+});
 
 const publicAPI = {
     initialize: hintSystem.initialize,
     showHint: hintSystem.showHint,
     updateAllHintButtons: hintSystem.updateAllHintButtons,
 };
+
+// Bind publicAPI methods
+Object.keys(publicAPI).forEach(key => {
+    if (typeof publicAPI[key] === 'function') {
+        publicAPI[key] = publicAPI[key].bind(hintSystem);
+    }
+});
 
 export default publicAPI;

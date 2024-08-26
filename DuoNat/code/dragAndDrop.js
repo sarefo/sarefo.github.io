@@ -373,4 +373,11 @@ const publicAPI = {
     initialize: dragAndDrop.init.initialize
 };
 
+// Bind publicAPI methods
+Object.keys(publicAPI).forEach(key => {
+    if (typeof publicAPI[key] === 'function') {
+        publicAPI[key] = publicAPI[key].bind(dragAndDrop);
+    }
+});
+
 export default publicAPI;

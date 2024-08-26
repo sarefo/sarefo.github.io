@@ -18,7 +18,7 @@ const reporting = {
             return;
         }
 
-        reporting.setupReportForm(reportForm);
+        this.setupReportForm(reportForm);
     },
 
     setupReportForm: function(form) {
@@ -37,7 +37,7 @@ const reporting = {
             });
         });
 
-        form.addEventListener('submit', reporting.handleReportSubmit);
+        form.addEventListener('submit', this.handleReportSubmit);
     },
 
     sendReportEmail: function (body) {
@@ -46,7 +46,7 @@ const reporting = {
         const fullEmailContent = `To: ${recipient}\nSubject: ${subject}\n\n${body}`;
 
         // Copy to clipboard
-        reporting.copyToClipboard(fullEmailContent);
+        this.copyToClipboard(fullEmailContent);
 
         // Attempt to open email client
         const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
@@ -64,7 +64,7 @@ const reporting = {
         // Close the report dialog and reset it
         setTimeout(() => {
             dialogManager.closeDialog('report-dialog');
-            reporting.resetReportDialog();
+            this.resetReportDialog();
         }, 6000);  // Increased to match notification duration
     },
 
@@ -75,11 +75,11 @@ const reporting = {
                 logger.debug('Text successfully copied to clipboard using Clipboard API');
             }).catch(err => {
                 logger.error('Failed to copy text using Clipboard API: ', err);
-                reporting.fallbackCopyToClipboard(text);
+                this.fallbackCopyToClipboard(text);
             });
         } else {
             // Fallback to older method
-            reporting.fallbackCopyToClipboard(text);
+            this.fallbackCopyToClipboard(text);
         }
     },
 
@@ -134,7 +134,7 @@ const reporting = {
             // Set up the form again
             const newForm = dialog.querySelector('#report-dialog__form');
             if (newForm) {
-                reporting.setupReportForm(newForm);
+                this.setupReportForm(newForm);
             } else {
                 throw new Error('New report form not found after resetting dialog');
             }
@@ -156,12 +156,12 @@ const reporting = {
 
     handleReportSubmit: function (event) {
         event.preventDefault();
-        const reportData = reporting.collectReportData(event.target);
-        if (!reporting.validateReportData(reportData)) return;
+        const reportData = this.collectReportData(event.target);
+        if (!this.validateReportData(reportData)) return;
 
-        const emailBody = reporting.constructEmailBody(reportData);
-        //reporting.sendReportEmail(emailBody);
-        reporting.showReportConfirmation(emailBody);
+        const emailBody = this.constructEmailBody(reportData);
+        //this.sendReportEmail(emailBody);
+        this.showReportConfirmation(emailBody);
     },
 
     collectReportData(form) {
@@ -183,15 +183,15 @@ const reporting = {
     constructEmailBody(reportData) {
         let emailBody = "Report Types:\n";
         reportData.reportTypes.forEach(type => {
-            emailBody += `- ${reporting.getReportTypeText(type)}\n`;
+            emailBody += `- ${this.getReportTypeText(type)}\n`;
         });
 
         if (reportData.details.trim() !== '') {
             emailBody += `\nAdditional Details:\n${reportData.details}\n`;
         }
 
-        emailBody += reporting.getGameStateInfo();
-        emailBody += reporting.getCurrentImageURLs();
+        emailBody += this.getGameStateInfo();
+        emailBody += this.getCurrentImageURLs();
 
         return emailBody;
     },
@@ -239,7 +239,7 @@ const reporting = {
         form.replaceWith(confirmationMessage);
 
         // Copy to clipboard and open mailto link
-        reporting.copyToClipboard(emailBody);
+        this.copyToClipboard(emailBody);
         const mailtoLink = `mailto:sarefo@gmail.com?subject=${encodeURIComponent("DuoNat Report")}&body=${encodeURIComponent(emailBody)}`;
         window.location.href = mailtoLink;
 
@@ -249,12 +249,19 @@ const reporting = {
         closeButton.className = 'dialog-button report-dialog__close-button';
         closeButton.addEventListener('click', () => {
             dialogManager.closeDialog('report-dialog');
-            reporting.resetReportDialog();
+            this.resetReportDialog();
         });
         confirmationMessage.appendChild(closeButton);
     },
 
 };
+
+// Bind all methods to ensure correct 'this' context
+Object.keys(reporting).forEach(key => {
+    if (typeof reporting[key] === 'function') {
+        reporting[key] = reporting[key].bind(reporting);
+    }
+});
 
 const publicAPI = {
     initialize: reporting.initialize,

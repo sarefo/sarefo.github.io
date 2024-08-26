@@ -23,7 +23,7 @@ const enterSet = {
             form.addEventListener('submit', async (event) => {
                 logger.debug('Form submitted');
                 event.preventDefault();
-                await enterSet.handleEnterSetSubmit(taxon1Input.value, taxon2Input.value, dialogMessage, submitButton);
+                await this.handleEnterSetSubmit(taxon1Input.value, taxon2Input.value, dialogMessage, submitButton);
             });
 
             [taxon1Input, taxon2Input].forEach(input => {
@@ -38,41 +38,41 @@ const enterSet = {
 
     async handleNewPairSubmit(event) {
         event.preventDefault();
-        const { taxon1, taxon2 } = enterSet.getAndValidateInputs();
+        const { taxon1, taxon2 } = this.getAndValidateInputs();
         if (!taxon1 || !taxon2) return;
 
-        enterSet.setSubmitState(true);
+        this.setSubmitState(true);
 
         try {
-            const validatedTaxa = await enterSet.validateTaxa(taxon1, taxon2);
+            const validatedTaxa = await this.validateTaxa(taxon1, taxon2);
             if (validatedTaxa) {
-                await enterSet.saveAndSetupNewPair(validatedTaxa);
+                await this.saveAndSetupNewPair(validatedTaxa);
             } else {
-                enterSet.displayValidationError();
+                this.displayValidationError();
             }
         } catch (error) {
-            enterSet.handleSubmitError(error);
+            this.handleSubmitError(error);
         } finally {
-            enterSet.setSubmitState(false);
+            this.setSubmitState(false);
         }
     },
 
     getAndValidateInputs() {
-        const taxon1 = enterSet.taxon1Input.value.trim();
-        const taxon2 = enterSet.taxon2Input.value.trim();
+        const taxon1 = this.taxon1Input.value.trim();
+        const taxon2 = this.taxon2Input.value.trim();
         if (!taxon1 || !taxon2) {
-            enterSet.dialogMessage.textContent = 'Please enter both taxa.';
+            this.dialogMessage.textContent = 'Please enter both taxa.';
         }
         return { taxon1, taxon2 };
     },
 
     setSubmitState(isSubmitting) {
-        enterSet.dialogMessage.textContent = isSubmitting ? 'Validating taxa...' : '';
-        enterSet.submitButton.disabled = isSubmitting;
+        this.dialogMessage.textContent = isSubmitting ? 'Validating taxa...' : '';
+        this.submitButton.disabled = isSubmitting;
         if (isSubmitting) {
-            enterSet.addLoadingSpinner();
+            this.addLoadingSpinner();
         } else {
-            enterSet.removeLoadingSpinner();
+            this.removeLoadingSpinner();
         }
     },
 
@@ -80,10 +80,10 @@ const enterSet = {
     addLoadingSpinner() {
         const spinner = document.createElement('div');
         spinner.className = 'loading-spinner';
-        enterSet.dialogMessage.appendChild(spinner);
+        this.dialogMessage.appendChild(spinner);
     },
     removeLoadingSpinner() {
-        const spinner = enterSet.dialogMessage.querySelector('.loading-spinner');
+        const spinner = this.dialogMessage.querySelector('.loading-spinner');
         if (spinner) {
             spinner.remove();
         }
@@ -102,9 +102,9 @@ const enterSet = {
             taxon1: validatedTaxon1.name,
             taxon2: validatedTaxon2.name
         };
-        enterSet.dialogMessage.textContent = 'Saving new pair...';
+        this.dialogMessage.textContent = 'Saving new pair...';
         try {
-            await enterSet.savePairToJson(newPair);
+            await this.savePairToJson(newPair);
             state.setNextSelectedPair(newPair);
             dialogManager.closeDialog();
             gameSetup.setupGame(true);
@@ -122,26 +122,26 @@ const enterSet = {
     },
 
     displayValidationError() {
-        enterSet.dialogMessage.textContent = 'One or both taxa are invalid. Please check and try again.';
+        this.dialogMessage.textContent = 'One or both taxa are invalid. Please check and try again.';
     },
 
     handleSubmitError(error) {
         logger.error('Error in handleNewPairSubmit:', error);
-        enterSet.dialogMessage.textContent = 'An error occurred. Please try again.';
+        this.dialogMessage.textContent = 'An error occurred. Please try again.';
     },
 
 
     async handleEnterSetSubmit(taxon1, taxon2, messageElement, submitButton) {
         logger.debug(`Handling submit for taxa: ${taxon1}, ${taxon2}`);
-        enterSet.setSubmitState(messageElement, submitButton, true);
+        this.setSubmitState(messageElement, submitButton, true);
 
         try {
-            const [validatedTaxon1, validatedTaxon2] = await enterSet.validateTaxa(taxon1, taxon2);
-            enterSet.handleValidationResult(validatedTaxon1, validatedTaxon2, messageElement);
+            const [validatedTaxon1, validatedTaxon2] = await this.validateTaxa(taxon1, taxon2);
+            this.handleValidationResult(validatedTaxon1, validatedTaxon2, messageElement);
         } catch (error) {
-            enterSet.handleValidationError(error, messageElement);
+            this.handleValidationError(error, messageElement);
         } finally {
-            enterSet.setSubmitState(messageElement, submitButton, false);
+            this.setSubmitState(messageElement, submitButton, false);
         }
     },
 
@@ -156,7 +156,7 @@ const enterSet = {
         logger.debug(`Validation results: Taxon1: ${JSON.stringify(validatedTaxon1)}, Taxon2: ${JSON.stringify(validatedTaxon2)}`);
 
         if (validatedTaxon1 && validatedTaxon2) {
-            enterSet.processValidTaxa(validatedTaxon1, validatedTaxon2);
+            this.processValidTaxa(validatedTaxon1, validatedTaxon2);
         } else {
             messageElement.textContent = 'One or both taxa are invalid. Please check and try again.';
             logger.debug('Taxa validation failed');
@@ -188,8 +188,22 @@ const enterSet = {
     },
 };
 
+// Bind all methods in enterSet
+Object.keys(enterSet).forEach(key => {
+    if (typeof enterSet[key] === 'function') {
+        enterSet[key] = enterSet[key].bind(enterSet);
+    }
+});
+
 const publicAPI = {
     initialize: enterSet.initialize,
 };
+
+// Bind publicAPI methods
+Object.keys(publicAPI).forEach(key => {
+    if (typeof publicAPI[key] === 'function') {
+        publicAPI[key] = publicAPI[key].bind(enterSet);
+    }
+});
 
 export default publicAPI;

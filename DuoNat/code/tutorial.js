@@ -12,18 +12,18 @@ const tutorial = {
     isMenuForcedOpen: false,
 
     show() {
-        tutorial.initializeTutorial();
-        tutorial.setupTutorialSteps();
-        tutorial.startTutorial();
+        this.initializeTutorial();
+        this.setupTutorialSteps();
+        this.startTutorial();
     },
 
     initializeTutorial() {
-        tutorial.isActive = true;
-        tutorial.shouldContinue = true;
-        tutorial.disableInteractions();
-        tutorial.closeHelpDialog();
-        tutorial.showInitialOverlay();
-        tutorial.addCloseButton();
+        this.isActive = true;
+        this.shouldContinue = true;
+        this.disableInteractions();
+        this.closeHelpDialog();
+        this.showInitialOverlay();
+        this.addCloseButton();
     },
 
     closeHelpDialog() {
@@ -41,85 +41,85 @@ const tutorial = {
         const closeButton = document.createElement('button');
         closeButton.textContent = 'Close Tutorial';
         closeButton.className = 'tutorial-close-button';
-        closeButton.addEventListener('click', () => tutorial.endTutorial());
+        closeButton.addEventListener('click', () => this.endTutorial());
         document.body.appendChild(closeButton);
     },
 
     setupTutorialSteps() {
-        tutorial.steps = [
+        this.steps = [
             { message: "Welcome to DuoNat!<br>Let's learn how to play.", highlight: null, duration: 4000 },
             { message: "Learn to distinguish two different taxa.", highlights: ['#image-container-1', '#image-container-2'], duration: 5000 },
             {
                 message: "Drag a name to the correct image.",
                 highlight: '.name-pair',
                 duration: 5000,
-                action: () => tutorial.animateDragDemo()
+                action: () => this.animateDragDemo()
             },
             { message: "If correct, play another round of the same set.", highlight: null, duration: 4000 },
             {
                 message: "Swipe left on an image for a new taxon set.",
                 highlight: null,
-                action: () => { tutorial.tiltGameContainer(3200); },
+                action: () => { this.tiltGameContainer(3200); },
                 duration: 6000
             },
             { message: "Get more info about a taxon.", highlights: ['#info-button-1', '#info-button-2'], duration: 6000 },
             { message: "Get hints to distinguish taxa.", highlights: ['#hint-button-1', '#hint-button-2'], duration: 6000 },
             { message: "Share the current set and collection.", highlight: '#share-button', duration: 6000 },
-            { message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => tutorial.temporarilyOpenMenu(12000), duration: 6000 },
+            { message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => this.temporarilyOpenMenu(12000), duration: 6000 },
             { message: "Change difficulty, browse or filter.", highlights: ['#level-indicator', '#collection-button'], duration: 5000 },
             { message: "Ready to start?<br>Let's go!", highlight: null, duration: 2000 }
         ];
     },
 
     startTutorial() {
-        tutorial.currentStep = 0;
-        tutorial.highlightElements = [];
-        tutorial.showNextStep();
+        this.currentStep = 0;
+        this.highlightElements = [];
+        this.showNextStep();
     },
 
     showNextStep() {
-        if (tutorial.currentStep < tutorial.steps.length && tutorial.shouldContinue) {
-            const step = tutorial.steps[tutorial.currentStep];
-            tutorial.fadeOutOverlayMessage(() => {
-                tutorial.updateStepContent(step);
-                tutorial.fadeInOverlayMessage();
-                tutorial.currentStep++;
-                setTimeout(() => tutorial.showNextStep(), step.duration);
+        if (this.currentStep < this.steps.length && this.shouldContinue) {
+            const step = this.steps[this.currentStep];
+            this.fadeOutOverlayMessage(() => {
+                this.updateStepContent(step);
+                this.fadeInOverlayMessage();
+                this.currentStep++;
+                setTimeout(() => this.showNextStep(), step.duration);
             });
         } else {
-            tutorial.endTutorial();
+            this.endTutorial();
         }
     },
 
     updateStepContent(step) {
         ui.updateOverlayMessage(step.message);
-        tutorial.clearPreviousHighlights();
-        tutorial.addNewHighlights(step);
+        this.clearPreviousHighlights();
+        this.addNewHighlights(step);
         if (step.action) {
             step.action();
         }
     },
 
     clearPreviousHighlights() {
-        tutorial.highlightElements.forEach(el => el.remove());
-        tutorial.highlightElements = [];
+        this.highlightElements.forEach(el => el.remove());
+        this.highlightElements = [];
     },
 
     addNewHighlights(step) {
         if (step.highlight || step.highlights) {
             const highlights = step.highlight ? [step.highlight] : step.highlights;
             highlights.forEach(selector => {
-                const highlight = tutorial.createHighlight(selector, step.duration);
-                if (highlight) tutorial.highlightElements.push(highlight);
+                const highlight = this.createHighlight(selector, step.duration);
+                if (highlight) this.highlightElements.push(highlight);
             });
         }
     },
 
     endTutorial() {
-        tutorial.isActive = false;
-        tutorial.shouldContinue = false;
-        tutorial.enableInteractions();
-        tutorial.fadeOutOverlayMessage(() => {
+        this.isActive = false;
+        this.shouldContinue = false;
+        this.enableInteractions();
+        this.fadeOutOverlayMessage(() => {
             ui.hideOverlay();
             const closeButton = document.querySelector('.tutorial-close-button');
             if (closeButton) closeButton.remove();
@@ -167,7 +167,7 @@ const tutorial = {
             el.style.pointerEvents = 'auto';
         });
         eventMain.enableSwipe();
-        tutorial.enableMenu();
+        this.enableMenu();
 
         const levelIndicator = document.getElementById('level-indicator');
         if (levelIndicator) {
@@ -333,6 +333,13 @@ const tutorial = {
         return highlight;
     },
 };
+
+// Bind all methods
+Object.keys(tutorial).forEach(key => {
+    if (typeof tutorial[key] === 'function') {
+        tutorial[key] = tutorial[key].bind(tutorial);
+    }
+});
 
 const publicAPI = {
     show: tutorial.show,

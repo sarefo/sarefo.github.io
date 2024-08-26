@@ -84,6 +84,13 @@ const setManager = {
 
 };
 
+// Bind all methods to ensure correct 'this' context
+Object.keys(setManager).forEach(key => {
+    if (typeof setManager[key] === 'function') {
+        setManager[key] = setManager[key].bind(setManager);
+    }
+});
+
 const publicAPI = {
     initializeSubset: setManager.initializeSubset.bind(setManager),
     getNextSet: setManager.getNextSet.bind(setManager),

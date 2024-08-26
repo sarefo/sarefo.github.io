@@ -254,11 +254,11 @@ const infoDialog = {
 
     closeInfoDialog(dialog) {
         dialog.close();
-        infoDialog.removeImageFraming();
+        this.removeImageFraming();
     },
 
     handleDialogClose() {
-        infoDialog.removeImageFraming();
+        this.removeImageFraming();
     },
 
     frameImage(imageIndex) {
@@ -277,9 +277,23 @@ const infoDialog = {
     },
 };
 
+// Bind all methods in infoDialog
+Object.keys(infoDialog).forEach(key => {
+    if (typeof infoDialog[key] === 'function') {
+        infoDialog[key] = infoDialog[key].bind(infoDialog);
+    }
+});
+
 const publicAPI = {
     initialize: infoDialog.initialize.bind(infoDialog),
     showInfoDialog: infoDialog.showInfoDialog.bind(infoDialog),
 };
+
+// Bind publicAPI methods
+Object.keys(publicAPI).forEach(key => {
+    if (typeof publicAPI[key] === 'function') {
+        publicAPI[key] = publicAPI[key].bind(infoDialog);
+    }
+});
 
 export default publicAPI;

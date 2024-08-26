@@ -30,16 +30,16 @@ const gameSetup = {
 
         async runSetupSequence(newPair, urlParams) {
             state.setState(state.GameState.LOADING);
-            if (!await gameSetup.initialization.checkINaturalistReachability()) return;
+            if (!await this.checkINaturalistReachability()) return;
 
-            gameSetup.initialization.prepareUIForLoading();
+            this.prepareUIForLoading();
             if (newPair || !state.getCurrentTaxonImageCollection()) {
-                await gameSetup.initialization.initializeNewPair(urlParams);
+                await this.initializeNewPair(urlParams);
             } else {
-                await gameSetup.initialization.setupRound();
+                await this.setupRound();
             }
 
-            gameSetup.initialization.updateUIAfterSetup(newPair);
+            this.updateUIAfterSetup(newPair);
         },
 
         prepareUIForLoading() {
@@ -51,10 +51,10 @@ const gameSetup = {
         },
 
         async initializeNewPair(urlParams) {
-            const newPair = await gameSetup.initialization.selectNewPair(urlParams);
-            const images = await gameSetup.initialization.loadImagesForNewPair(newPair);
-            gameSetup.initialization.updateGameStateForNewPair(newPair, images);
-            await gameSetup.initialization.setupRound(true);
+            const newPair = await this.selectNewPair(urlParams);
+            const images = await this.loadImagesForNewPair(newPair);
+            this.updateGameStateForNewPair(newPair, images);
+            await this.setupRound(true);
         },
 
         async selectNewPair(urlParams) {
@@ -65,13 +65,13 @@ const gameSetup = {
                 logger.debug('Using next selected pair:', nextSelectedPair);
                 return nextSelectedPair;
             }
-            return await gameSetup.initialization.selectPairFromFilters(urlParams);
+            return await this.selectPairFromFilters(urlParams);
         },
 
         async selectPairFromFilters(urlParams) {
-            const filters = gameSetup.initialization.createFiltersFromUrlParams(urlParams);
+            const filters = this.createFiltersFromUrlParams(urlParams);
             const filteredPairs = await filtering.getFilteredTaxonPairs(filters);
-            return gameSetup.initialization.findOrSelectRandomPair(filteredPairs, urlParams);
+            return this.findOrSelectRandomPair(filteredPairs, urlParams);
         },
 
         createFiltersFromUrlParams(urlParams) {
@@ -85,7 +85,7 @@ const gameSetup = {
         },
 
         findOrSelectRandomPair(filteredPairs, urlParams) {
-            let pair = gameSetup.initialization.findPairByUrlParams(filteredPairs, urlParams);
+            let pair = this.findPairByUrlParams(filteredPairs, urlParams);
             if (!pair) {
                 if (filteredPairs.length > 0) {
                     pair = filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
@@ -99,9 +99,9 @@ const gameSetup = {
 
         findPairByUrlParams(filteredPairs, urlParams) {
             if (urlParams.setID) {
-                return gameSetup.initialization.findPairBySetID(filteredPairs, urlParams.setID);
+                return this.findPairBySetID(filteredPairs, urlParams.setID);
             } else if (urlParams.taxon1 && urlParams.taxon2) {
-                return gameSetup.initialization.findPairByTaxa(filteredPairs, urlParams.taxon1, urlParams.taxon2);
+                return this.findPairByTaxa(filteredPairs, urlParams.taxon1, urlParams.taxon2);
             }
             return null;
         },
@@ -165,12 +165,12 @@ const gameSetup = {
 
             if (!preloader.pairPreloader.isPairValid(preloadedPair.pair)) {
                 logger.warn("Preloaded pair is no longer valid, fetching a new pair");
-                await gameSetup.initialization.runSetupSequence(true, {});
+                await this.runSetupSequence(true, {});
                 return;
             }
 
-            gameSetup.initialization.updateGameStateForPreloadedPair(preloadedPair);
-            await gameSetup.initialization.setupRound(true);
+            this.updateGameStateForPreloadedPair(preloadedPair);
+            await this.setupRound(true);
         },
 
         updateGameStateForPreloadedPair(preloadedPair) {
@@ -190,14 +190,14 @@ const gameSetup = {
         async setupRound(isNewPair = false) {
             const { pair } = state.getCurrentTaxonImageCollection();
             
-            const imageData = await gameSetup.initialization.loadAndSetupImages(pair, isNewPair);
+            const imageData = await this.loadAndSetupImages(pair, isNewPair);
             
             const [nameTileData, worldMapData] = await Promise.all([
-                gameSetup.initialization.setupNameTiles(pair, imageData),
-                gameSetup.initialization.setupWorldMaps(pair, imageData)
+                this.setupNameTiles(pair, imageData),
+                this.setupWorldMaps(pair, imageData)
             ]);
 
-            gameSetup.initialization.updateGameStateForRound(pair, imageData, nameTileData);
+            this.updateGameStateForRound(pair, imageData, nameTileData);
             await hintSystem.updateAllHintButtons();
 
             // Apply world map data
@@ -263,14 +263,14 @@ const gameSetup = {
             return { leftVernacular, rightVernacular };
         },
 
-async setupWorldMaps(pair, imageData) {
-    const [leftContinents, rightContinents] = await Promise.all([
-        gameSetup.taxonHandling.getContinentForTaxon(imageData.randomized ? pair.taxon1 : pair.taxon2),
-        gameSetup.taxonHandling.getContinentForTaxon(imageData.randomized ? pair.taxon2 : pair.taxon1)
-    ]);
+        async setupWorldMaps(pair, imageData) {
+            const [leftContinents, rightContinents] = await Promise.all([
+                gameSetup.taxonHandling.getContinentForTaxon(imageData.randomized ? pair.taxon1 : pair.taxon2),
+                gameSetup.taxonHandling.getContinentForTaxon(imageData.randomized ? pair.taxon2 : pair.taxon1)
+            ]);
 
-    return { leftContinents, rightContinents };
-},
+            return { leftContinents, rightContinents };
+        },
 
         updateGameStateForRound(pair, imageData) {
             state.updateGameStateMultiple({
@@ -289,10 +289,10 @@ async setupWorldMaps(pair, imageData) {
 
         updateUIAfterSetup(newPair) {
             ui.updateLevelIndicator(state.getCurrentTaxonImageCollection().pair.level);
-            if (gameSetup.initialization.filtersWereCleared()) {
+            if (this.filtersWereCleared()) {
                 collectionManager.updateUIForClearedFilters();
             }
-            gameSetup.initialization.finishSetup(newPair);
+            this.finishSetup(newPair);
         },
 
         filtersWereCleared() {
@@ -304,7 +304,7 @@ async setupWorldMaps(pair, imageData) {
         async finishSetup(newPair) {
             ui.setNamePairHeight();
             state.setState(state.GameState.PLAYING);
-            gameSetup.initialization.hideLoadingScreen();
+            this.hideLoadingScreen();
             if (newPair) {
                 await setManager.refreshSubset();
             }
@@ -340,7 +340,7 @@ async setupWorldMaps(pair, imageData) {
                 imageOneURL = state.getCurrentTaxonImageCollection().imageOneURL;
                 imageTwoURL = state.getCurrentTaxonImageCollection().imageTwoURL;
             } else {
-                ({ imageOneURL, imageTwoURL } = await gameSetup.imageHandling.getImagesForRound(pair));
+                ({ imageOneURL, imageTwoURL } = await this.getImagesForRound(pair));
             }
 
             const randomized = Math.random() < 0.5;
@@ -348,8 +348,8 @@ async setupWorldMaps(pair, imageData) {
             const rightImageSrc = randomized ? imageTwoURL : imageOneURL;
 
             await Promise.all([
-                gameSetup.imageHandling.loadImageAndRemoveLoadingClass(state.getElement('imageOne'), leftImageSrc),
-                gameSetup.imageHandling.loadImageAndRemoveLoadingClass(state.getElement('imageTwo'), rightImageSrc)
+                this.loadImageAndRemoveLoadingClass(state.getElement('imageOne'), leftImageSrc),
+                this.loadImageAndRemoveLoadingClass(state.getElement('imageTwo'), rightImageSrc)
             ]);
 
             return { leftImageSrc, rightImageSrc, randomized, imageOneURL, imageTwoURL };
@@ -425,9 +425,6 @@ async setupWorldMaps(pair, imageData) {
         },
     },
 
-
-    // Public API //
-
     async setupGame(newPair = false, urlParams = {}) {
         if (isSettingUpGame) {
             logger.debug("Setup already in progress, skipping");
@@ -436,9 +433,9 @@ async setupWorldMaps(pair, imageData) {
         isSettingUpGame = true;
 
         try {
-            await gameSetup.initialization.runSetupSequence(newPair, urlParams);
+            await this.initialization.runSetupSequence(newPair, urlParams);
         } catch (error) {
-            gameSetup.errorHandling.handleSetupError(error);
+            this.errorHandling.handleSetupError(error);
         } finally {
             isSettingUpGame = false;
         }
@@ -446,10 +443,30 @@ async setupWorldMaps(pair, imageData) {
 
 };
 
+// Bind all methods in gameSetup and its nested objects
+const bindMethodsRecursively = (obj) => {
+    Object.keys(obj).forEach(key => {
+        if (typeof obj[key] === 'function') {
+            obj[key] = obj[key].bind(obj);
+        } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+            bindMethodsRecursively(obj[key]);
+        }
+    });
+};
+
+bindMethodsRecursively(gameSetup);
+
 const publicAPI = {
     setupGame: gameSetup.setupGame.bind(gameSetup),
     // used once in gameLogic
     setupGameWithPreloadedPair: gameSetup.initialization.setupWithPreloadedPair.bind(this)
 };
+
+// Bind publicAPI methods
+Object.keys(publicAPI).forEach(key => {
+    if (typeof publicAPI[key] === 'function') {
+        publicAPI[key] = publicAPI[key].bind(gameSetup);
+    }
+});
 
 export default publicAPI;

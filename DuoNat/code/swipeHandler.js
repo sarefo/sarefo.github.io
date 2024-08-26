@@ -259,5 +259,12 @@ const swipeHandler = {
     }
 };
 
+// Bind all methods to ensure correct 'this' context
+Object.keys(swipeHandler).forEach(key => {
+    if (typeof swipeHandler[key] === 'function') {
+        swipeHandler[key] = swipeHandler[key].bind(swipeHandler);
+    }
+});
+
 export default swipeHandler;
 // don't call directly; API is in eventMain

@@ -72,7 +72,7 @@ const filtering = {
             const matchesTags = filters.tags.length === 0 ||
                 filters.tags.every(tag => pair.tags.includes(tag));
             const matchesPhylogeny = !filters.phylogenyId ||
-                pair.taxa.some(taxonId => filtering.isDescendantOf(taxonId, filters.phylogenyId));
+                pair.taxa.some(taxonId => this.isDescendantOf(taxonId, filters.phylogenyId));
 
             // Remove searchTerm matching from here
 
@@ -87,7 +87,7 @@ const filtering = {
         const matchesTags = !filters.tags || filters.tags.length === 0 ||
             pair.tags.some(tag => filters.tags.includes(tag));
         const matchesPhylogeny = !filters.phylogenyId ||
-            pair.taxa.some(taxonId => filtering.isDescendantOf(taxonId, filters.phylogenyId));
+            pair.taxa.some(taxonId => this.isDescendantOf(taxonId, filters.phylogenyId));
 
         // Remove searchTerm matching from here
 
@@ -97,7 +97,7 @@ const filtering = {
     async getFilteredTaxonPairs(filters = {}) {
         const taxonPairs = await api.taxonomy.fetchTaxonPairs();
         
-        const filteredPairs = taxonPairs.filter(pair => filtering.pairMatchesFilters(pair, filters));
+        const filteredPairs = taxonPairs.filter(pair => this.pairMatchesFilters(pair, filters));
         
         if (filteredPairs.length === 0) {
             logger.warn('No pairs match the current filters');
@@ -112,8 +112,8 @@ const filtering = {
             return false;
         }
 
-        const activeFilters = filtering.getActiveFilters();
-        return filtering.filterTaxonPairs([pair], activeFilters).length > 0;
+        const activeFilters = this.getActiveFilters();
+        return this.filterTaxonPairs([pair], activeFilters).length > 0;
     },
 
     async countSetsPerLevel(filters) {
@@ -122,7 +122,7 @@ const filtering = {
         // Create a copy of filters without the level
         const filtersWithoutLevel = {...filters, level: ''};
         
-        const filteredPairs = filtering.filterTaxonPairs(taxonPairs, filtersWithoutLevel);
+        const filteredPairs = this.filterTaxonPairs(taxonPairs, filtersWithoutLevel);
         
         const counts = {
             '1': 0,
@@ -141,6 +141,13 @@ const filtering = {
 
 };
 
+// Bind all methods in filtering
+Object.keys(filtering).forEach(key => {
+    if (typeof filtering[key] === 'function') {
+        filtering[key] = filtering[key].bind(filtering);
+    }
+});
+
 const publicAPI = {
     applyFilters: filtering.applyFilters,
     clearAllFilters: filtering.clearAllFilters,
@@ -152,5 +159,12 @@ const publicAPI = {
     isDescendantOf: filtering.isDescendantOf,
     countSetsPerLevel: filtering.countSetsPerLevel.bind(filtering),
 };
+
+// Bind publicAPI methods
+Object.keys(publicAPI).forEach(key => {
+    if (typeof publicAPI[key] === 'function') {
+        publicAPI[key] = publicAPI[key].bind(filtering);
+    }
+});
 
 export default publicAPI;

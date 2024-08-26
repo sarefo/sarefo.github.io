@@ -153,12 +153,21 @@ export function createNonClickableWorldMap(container, selectedContinents) {
     drawWorldMap(container, Array.from(selectedContinents), false);
 }
 
-const publicAPI = {
+const worldMap = {
     createWorldMap,
     getFullContinentName,
     getContinentAbbreviation,
     createClickableWorldMap,
     createNonClickableWorldMap,
 };
+
+// Bind all methods
+Object.keys(worldMap).forEach(key => {
+    if (typeof worldMap[key] === 'function') {
+        worldMap[key] = worldMap[key].bind(worldMap);
+    }
+});
+
+const publicAPI = { ...worldMap };
 
 export default publicAPI;

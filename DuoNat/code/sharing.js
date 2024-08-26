@@ -105,7 +105,7 @@ const sharing = {
 
     shareCurrentPair() {
         const shareUrl = url.buildShareUrl();
-        sharing.updateShareDialog(shareUrl);
+        this.updateShareDialog(shareUrl);
     },
 
     generateShareLink() {
@@ -182,6 +182,20 @@ const sharing = {
         },
     },
 };
+
+// Bind all methods to ensure correct 'this' context
+Object.keys(sharing).forEach(key => {
+    if (typeof sharing[key] === 'function') {
+        sharing[key] = sharing[key].bind(sharing);
+    }
+});
+
+// Bind methods in nested objects
+Object.keys(sharing.qr).forEach(key => {
+    if (typeof sharing.qr[key] === 'function') {
+        sharing.qr[key] = sharing.qr[key].bind(sharing.qr);
+    }
+});
 
 const publicAPI = {
     shareCurrentPair: sharing.shareCurrentPair

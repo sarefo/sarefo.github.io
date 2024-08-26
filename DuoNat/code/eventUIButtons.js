@@ -113,5 +113,12 @@ const eventUIButtons = {
     }
 };
 
+// Bind all methods in eventUIButtons
+Object.keys(eventUIButtons).forEach(key => {
+    if (typeof eventUIButtons[key] === 'function') {
+        eventUIButtons[key] = eventUIButtons[key].bind(eventUIButtons);
+    }
+});
+
 export default eventUIButtons;
 // don't call directly; API is in eventMain

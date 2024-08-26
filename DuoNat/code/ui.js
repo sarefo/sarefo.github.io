@@ -9,16 +9,6 @@ import state from './state.js';
 import tutorial from './tutorial.js';
 import worldMap from './worldMap.js';
 
-const bindAllMethods = (obj) => {
-    for (let prop in obj) {
-        if (typeof obj[prop] === 'function') {
-            obj[prop] = obj[prop].bind(obj);
-        } else if (typeof obj[prop] === 'object' && obj[prop] !== null) {
-            bindAllMethods(obj[prop]);
-        }
-    }
-};
-
 const ui = {
 
     state: {
@@ -124,7 +114,7 @@ const ui = {
 
         handleOutsideClick(event) {
             if (!event.target.closest('.main-menu') && !tutorial.isActive()) {
-                ui.menu.close();
+                this.close();
             }
         },
 
@@ -172,7 +162,7 @@ const ui = {
                 return; // Don't close the menu if it's forced open during the tutorial
             }
             if (ui.state.isMenuOpen) {
-                ui.menu.closeDropdownGroups();
+                this.closeDropdownGroups();
             }
         },
 
@@ -339,6 +329,16 @@ const ui = {
             state.setTaxonRightName = nameTwo;
         }
     },
+};
+
+const bindAllMethods = (obj) => {
+    for (let prop in obj) {
+        if (typeof obj[prop] === 'function') {
+            obj[prop] = obj[prop].bind(obj);
+        } else if (typeof obj[prop] === 'object' && obj[prop] !== null) {
+            bindAllMethods(obj[prop]);
+        }
+    }
 };
 
 bindAllMethods(ui);

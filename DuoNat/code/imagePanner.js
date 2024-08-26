@@ -18,7 +18,7 @@ const imagePanner = {
     panningDelayTimer: null,
 
     initialize() {
-        if (!imagePanner.isPanningEnabled) return;
+        if (!this.isPanningEnabled) return;
         const imageContainers = document.querySelectorAll('.image-container');
         imageContainers.forEach(container => {
             container.addEventListener('mousedown', this.handleMouseDown.bind(this));
@@ -32,13 +32,13 @@ const imagePanner = {
     },
 
     handleMouseDown(e) {
-        if (!imagePanner.isPanningEnabled) return;
+        if (!this.isPanningEnabled) return;
         if (e.button !== 0) return; // Only left mouse button
         this.startLongPress(e);
     },
 
     handleTouchStart(e) {
-        if (!imagePanner.isPanningEnabled) return;
+        if (!this.isPanningEnabled) return;
         if (e.touches.length > 1) return; // Ignore multi-touch
         this.startLongPress(e);
     },
@@ -68,7 +68,7 @@ const imagePanner = {
     },
 
     startPan(e) {
-        if (!imagePanner.isPanningEnabled) return;
+        if (!this.isPanningEnabled) return;
         if (swipeHandler.isSwipeDetected) return;
 
         const imageContainer = e.target.closest('.image-container');
@@ -97,7 +97,7 @@ const imagePanner = {
     },
 
     pan(e) {
-        if (!imagePanner.isPanningEnabled) return;
+        if (!this.isPanningEnabled) return;
         if (!this.isPanning) return;
         e.preventDefault();
 
@@ -167,6 +167,13 @@ const imagePanner = {
         return this.isPanning;
     }
 };
+
+// Bind all methods in imagePanner
+Object.keys(imagePanner).forEach(key => {
+    if (typeof imagePanner[key] === 'function') {
+        imagePanner[key] = imagePanner[key].bind(imagePanner);
+    }
+});
 
 export default imagePanner;
 // don't call directly; API is in eventMain

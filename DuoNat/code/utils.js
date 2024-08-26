@@ -13,10 +13,10 @@ const utils = {
 
                 if (filteredPairs.length === 0) {
                     logger.warn("No pairs match the selected criteria. Using all pairs.");
-                    return utils.game.selectRandomPair(await api.taxonomy.fetchTaxonPairs());
+                    return this.selectRandomPair(await api.taxonomy.fetchTaxonPairs());
                 }
 
-                return utils.game.selectRandomPair(filteredPairs);
+                return this.selectRandomPair(filteredPairs);
             } catch (error) {
                 logger.error("Error in selectTaxonPair:", error);
                 return null;
@@ -82,14 +82,14 @@ const utils = {
     sound: {
         surprise() {
             logger.debug("Surprise!");
-            utils.sound.randomAnimalSound();
+            this.randomAnimalSound();
         },
 
         async randomAnimalSound() {
             try {
-                const observation = await utils.sound.fetchRandomObservationWithSound();
+                const observation = await this.fetchRandomObservationWithSound();
                 if (observation) {
-                    await utils.sound.playSound(observation.sounds[0].file_url);
+                    await this.playSound(observation.sounds[0].file_url);
                     logger.info(`Playing sound from observation: ${observation.species_guess || 'Unknown species'}`);
                 }
             } catch (error) {
@@ -153,6 +153,15 @@ const utils = {
         }
     },
 };
+
+// Bind all methods in nested objects
+['game', 'ui', 'device', 'sound', 'string', 'array'].forEach(nestedObj => {
+    Object.keys(utils[nestedObj]).forEach(key => {
+        if (typeof utils[nestedObj][key] === 'function') {
+            utils[nestedObj][key] = utils[nestedObj][key].bind(utils[nestedObj]);
+        }
+    });
+});
 
 const publicAPI = {
     game: {

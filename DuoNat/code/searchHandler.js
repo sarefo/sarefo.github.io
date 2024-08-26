@@ -23,13 +23,13 @@ const searchHandler = {
     initialize() {
         const searchInput = document.getElementById('taxon-search');
         if (searchInput) {
-            searchInput.addEventListener('input', searchHandler.handleSearch.bind(this));
-            searchInput.addEventListener('keydown', searchHandler.handleSearchKeydown.bind(this));
+            searchInput.addEventListener('input', this.handleSearch.bind(this));
+            searchInput.addEventListener('keydown', this.handleSearchKeydown.bind(this));
         }
 
         const clearSearchButton = document.getElementById('clear-search');
         if (clearSearchButton) {
-            clearSearchButton.addEventListener('click', searchHandler.handleClearSearch.bind(this));
+            clearSearchButton.addEventListener('click', this.handleClearSearch.bind(this));
         }
     },
 
@@ -37,7 +37,7 @@ const searchHandler = {
         const searchInput = event.target;
         const searchTerm = searchInput.value.trim();
 
-        searchHandler.updateClearButtonVisibility(searchTerm);
+        this.updateClearButtonVisibility(searchTerm);
 
         state.setSearchTerm(searchTerm);
 
@@ -54,7 +54,7 @@ const searchHandler = {
         // Ensure filteredPairs is always an array
         filteredPairs = filteredPairs || [];
 
-        searchHandler.updateUI(filteredPairs);
+        this.updateUI(filteredPairs);
     },
 
     updateClearButtonVisibility(searchTerm) {
@@ -102,13 +102,13 @@ const searchHandler = {
     },
 
     handleSearchInputFocus(searchInput) {
-        if (searchHandler.hasLostFocus && searchInput.value.length > 1) {
+        if (this.hasLostFocus && searchInput.value.length > 1) {
             searchInput.select();
         }
-        searchHandler.hasLostFocus = false;
+        this.hasLostFocus = false;
 
         searchInput.addEventListener('blur', () => {
-            searchHandler.hasLostFocus = true;
+            this.hasLostFocus = true;
         }, { once: true });
     },
 
@@ -128,9 +128,9 @@ const searchHandler = {
     async handleClearSearch() {
         const searchInput = document.getElementById('taxon-search');
         if (searchInput) {
-            searchHandler.resetSearch();
+            this.resetSearch();
             searchInput.dispatchEvent(new Event('input', { bubbles: true }));
-            searchHandler.hasLostFocus = true;
+            this.hasLostFocus = true;
             searchInput.focus();
         }
     },
@@ -152,9 +152,16 @@ const searchHandler = {
     },
 
     setFocusLost(value) {
-        searchHandler.hasLostFocus = value;
+        this.hasLostFocus = value;
     }
 };
+
+// Bind all methods to ensure correct 'this' context
+Object.keys(searchHandler).forEach(key => {
+    if (typeof searchHandler[key] === 'function') {
+        searchHandler[key] = searchHandler[key].bind(searchHandler);
+    }
+});
 
 export default searchHandler;
 // don't call directly; API is in eventMain

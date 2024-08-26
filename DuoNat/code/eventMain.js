@@ -27,4 +27,11 @@ const eventMain = {
     resetSearch: searchHandler.resetSearch,
 };
 
+// Bind all methods in eventMain
+/*Object.keys(eventMain).forEach(key => {
+    if (typeof eventMain[key] === 'function') {
+        eventMain[key] = eventMain[key].bind(eventMain);
+    }
+});*/
+
 export default eventMain;

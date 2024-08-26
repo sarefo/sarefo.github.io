@@ -45,9 +45,9 @@ const phylogenySelector = {
 
     handleClearFilters() {
         filtering.clearAllFilters();
-        phylogenySelector.updateGraph();
-        phylogenySelector.cloud.renderCloudView();
-        phylogenySelector.updateActiveTaxonDisplay(null);
+        this.updateGraph();
+        this.cloud.renderCloudView();
+        this.updateActiveTaxonDisplay(null);
     },
 
     toggleView(eventOrForceState) {
@@ -74,7 +74,7 @@ const phylogenySelector = {
             cloudContainer.style.display = 'flex';
             this.currentView = 'cloud';
             this.currentActiveNodeId = state.getCurrentActiveNodeId();
-            phylogenySelector.cloud.renderCloudView();
+            this.cloud.renderCloudView();
         } else {
             cloudContainer.style.display = 'none';
             graphContainer.style.display = 'flex';
@@ -256,13 +256,13 @@ const phylogenySelector = {
 
         handleCloudTagClick(taxonId) {
             state.setCurrentActiveNodeId(taxonId); // Update the active node
-            phylogenySelector.toggleView(false); // Switch to graph view
+            this.toggleView(false); // Switch to graph view
             const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
-            const pathToRoot = phylogenySelector.getPathToRoot(hierarchyObj, taxonId);
+            const pathToRoot = this.getPathToRoot(hierarchyObj, taxonId);
             
             // Use setTimeout to ensure the graph container is visible before updating
             setTimeout(() => {
-                phylogenySelector.updateGraph(pathToRoot);
+                this.updateGraph(pathToRoot);
                 if (this.onNodeSelect) {
                     this.onNodeSelect(taxonId);
                 }
@@ -292,12 +292,12 @@ const phylogenySelector = {
                 activeVernacularEl.textContent = '';
                 activeVernacularEl.style.display = 'none';
             }
-            phylogenySelector.toggleTapMessage(true);
+            this.toggleTapMessage(true);
         } else {
             activeNameEl.textContent = 'No taxon selected';
             activeVernacularEl.textContent = '';
             activeVernacularEl.style.display = 'none';
-            phylogenySelector.toggleTapMessage(false);
+            this.toggleTapMessage(false);
         }
     },
 
@@ -685,9 +685,9 @@ const phylogenySelector = {
             const nodeId = target.dataset.nodeId;
             if (nodeId) {
                 const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
-                const pathToRoot = phylogenySelector.getPathToRoot(hierarchyObj, nodeId);
-                phylogenySelector.updateGraph(pathToRoot);
-                phylogenySelector.search.clearSearchResults();
+                const pathToRoot = this.getPathToRoot(hierarchyObj, nodeId);
+                this.updateGraph(pathToRoot);
+                this.search.clearSearchResults();
 
                 state.setCurrentActiveNodeId(nodeId);
                 if (this.onNodeSelect) {
@@ -711,11 +711,24 @@ const phylogenySelector = {
                 searchInput.value = '';
                 this.updateClearButtonVisibility('');
                 this.clearSearchResults();
-                phylogenySelector.updateGraph();
+                this.updateGraph();
             }
         },
     }
 };
+
+// Bind all methods in phylogenySelector and its nested objects
+const bindMethodsRecursively = (obj) => {
+    Object.keys(obj).forEach(key => {
+        if (typeof obj[key] === 'function') {
+            obj[key] = obj[key].bind(obj);
+        } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+            bindMethodsRecursively(obj[key]);
+        }
+    });
+};
+
+bindMethodsRecursively(phylogenySelector);
 
 const publicAPI = {
     initialize: phylogenySelector.initialize.bind(phylogenySelector),
@@ -724,5 +737,12 @@ const publicAPI = {
     toggleView: phylogenySelector.toggleView.bind(phylogenySelector),
     clearSearchResults: phylogenySelector.search.clearSearchResults.bind(phylogenySelector),
 };
+
+// Bind publicAPI methods
+Object.keys(publicAPI).forEach(key => {
+    if (typeof publicAPI[key] === 'function') {
+        publicAPI[key] = publicAPI[key].bind(phylogenySelector);
+    }
+});
 
 export default publicAPI;

@@ -8,11 +8,11 @@ const url = {
     read: {
         handleUrlParameters() {
             const urlParams = url.write.getURLParameters();
-            url.read.handleLevelParameter(urlParams);
-            url.read.handleRangesParameter(urlParams);
-            url.read.handleTagsParameter(urlParams);
-            url.read.handleSetIDParameter(urlParams);
-            url.read.handlePhylogenyIDParameter(urlParams)
+            this.handleLevelParameter(urlParams);
+            this.handleRangesParameter(urlParams);
+            this.handleTagsParameter(urlParams);
+            this.handleSetIDParameter(urlParams);
+            this.handlePhylogenyIDParameter(urlParams)
         },
 
         handleLevelParameter(urlParams) {
@@ -88,7 +88,7 @@ const url = {
                 currentUrl.searchParams.set('taxon2', taxon2);
             }
 
-            url.write.addOptionalParameters(currentUrl);
+            this.addOptionalParameters(currentUrl);
             return currentUrl.toString();
         },
 
@@ -115,6 +115,15 @@ const url = {
         },
     },
 };
+
+// Bind all methods in nested objects
+['read', 'write'].forEach(nestedObj => {
+    Object.keys(url[nestedObj]).forEach(key => {
+        if (typeof url[nestedObj][key] === 'function') {
+            url[nestedObj][key] = url[nestedObj][key].bind(url[nestedObj]);
+        }
+    });
+});
 
 const publicAPI = {
     handleUrlParameters: url.read.handleUrlParameters,

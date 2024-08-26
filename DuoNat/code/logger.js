@@ -10,7 +10,7 @@ const logger = {
 
     setLevel(level) {
         this.level = level;
-        console.log(`Log level set to: ${logger.getLevelName(level)}`);
+        console.log(`Log level set to: ${this.getLevelName(level)}`);
     },
 
     getLevelName(level) {
@@ -49,6 +49,13 @@ const logger = {
     }
 };
 
+// Bind all methods in logger
+Object.keys(logger).forEach(key => {
+    if (typeof logger[key] === 'function') {
+        logger[key] = logger[key].bind(logger);
+    }
+});
+
 const publicAPI = {
     setLevel: logger.setLevel,
     getLevelname: logger.getLevelName,
@@ -58,6 +65,13 @@ const publicAPI = {
     error: logger.error,
     info: logger.info
 };
+
+// Bind publicAPI methods
+Object.keys(publicAPI).forEach(key => {
+    if (typeof publicAPI[key] === 'function') {
+        publicAPI[key] = publicAPI[key].bind(logger);
+    }
+});
 
 export default publicAPI;
 

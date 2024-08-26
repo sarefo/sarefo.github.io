@@ -97,7 +97,7 @@ const api = (() => {
                     logger.error(`Invalid taxon name: ${taxonName}`);
                     return null;
                 }
-                const taxonInfo = await api.taxonomy.loadTaxonInfo();
+                const taxonInfo = await this.loadTaxonInfo();
                 const lowercaseTaxonName = taxonName.toLowerCase();
 
                 for (const [id, info] of Object.entries(taxonInfo)) {
@@ -127,7 +127,7 @@ const api = (() => {
                     }
 
                     // First, check local data
-                    const localTaxon = await api.taxonomy.checkLocalTaxonData(taxonName);
+                    const localTaxon = await this.checkLocalTaxonData(taxonName);
                     if (localTaxon) {
                         logger.debug('Taxon found in local data');
                         return localTaxon;
@@ -153,7 +153,7 @@ const api = (() => {
                     logger.debug(`Fetching taxon ID for ${taxonName}`);
                     
                     // First, check local data
-                    const localTaxon = await api.taxonomy.checkLocalTaxonData(taxonName);
+                    const localTaxon = await this.checkLocalTaxonData(taxonName);
                     if (localTaxon) {
                         logger.debug(`Taxon ID for ${taxonName} found locally:`, localTaxon.id);
                         return localTaxon.id;
@@ -186,7 +186,7 @@ const api = (() => {
 
             fetchTaxonHints: async function (taxonId) {
                 try {
-                    const taxonInfo = await api.taxonomy.loadTaxonInfo();
+                    const taxonInfo = await this.loadTaxonInfo();
                     const taxonData = taxonInfo[taxonId];
                     return taxonData && taxonData.hints ? taxonData.hints : null;
                 } catch (error) {
@@ -196,7 +196,7 @@ const api = (() => {
             },
 
             async getAncestryFromLocalData(taxonName) {
-                const taxonInfo = await api.taxonomy.loadTaxonInfo();
+                const taxonInfo = await this.loadTaxonInfo();
                 const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxonName.toLowerCase());
                 return taxonData ? taxonData.ancestryIds.map(id => parseInt(id)) : [];
             },
@@ -204,7 +204,7 @@ const api = (() => {
             fetchAncestorDetails: async function (ancestorIds) {
                 try {
                     const ancestorDetails = new Map();
-                    const taxonInfo = await api.taxonomy.loadTaxonInfo();
+                    const taxonInfo = await this.loadTaxonInfo();
 
                     for (const id of ancestorIds) {
                         const localData = taxonomyHierarchy.getTaxonById(id.toString());
@@ -237,7 +237,7 @@ const api = (() => {
         images: {
             fetchRandomImage: async function (taxonName) {
                 try {
-                    const images = await api.images.fetchMultipleImages(taxonName, 12);
+                    const images = await this.fetchMultipleImages(taxonName, 12);
                     if (images.length === 0) {
                         throw new Error(`No images found for ${taxonName}`);
                     }
@@ -252,7 +252,7 @@ const api = (() => {
 
             fetchRandomImageMetadata: async function (taxonName) {
                 //            logger.debug(`Fetching random image metadata for ${taxonName}`);
-                const images = await api.images.fetchImageMetadata(taxonName, 12); // Fetch metadata for 12 images
+                const images = await this.fetchImageMetadata(taxonName, 12); // Fetch metadata for 12 images
                 if (images.length === 0) {
                     logger.error(`No image metadata found for ${taxonName}`);
                     return null;
@@ -311,9 +311,9 @@ const api = (() => {
 
                     let images;
                     if (config.useObservationImages) {
-                        images = await api.images.fetchImagesFromObservations(taxonId, count);
+                        images = await this.fetchImagesFromObservations(taxonId, count);
                     } else {
-                        images = await api.images.fetchImagesFromGallery(taxonId, count); // Fetch gallery images (existing logic)
+                        images = await this.fetchImagesFromGallery(taxonId, count); // Fetch gallery images (existing logic)
                     }
 
                     images = [...new Set(images)];
@@ -367,7 +367,7 @@ const api = (() => {
                 } else {
                     logger.warn(`Taxon not found in local data: ${taxonName}`);
                     // Only fetch from API if the taxon is not in our local data at all
-                    return api.vernacular.fetchVernacularFromAPI(taxonName);
+                    return this.fetchVernacularFromAPI(taxonName);
                 }
             },
 
@@ -435,6 +435,17 @@ const api = (() => {
     };
 })();
 
+// Bind all methods in api and its nested objects
+Object.keys(api).forEach(key => {
+    if (typeof api[key] === 'object') {
+        Object.keys(api[key]).forEach(nestedKey => {
+            if (typeof api[key][nestedKey] === 'function') {
+                api[key][nestedKey] = api[key][nestedKey].bind(api[key]);
+            }
+        });
+    }
+});
+
 const publicAPI = {
     taxonomy: {
         validateTaxon: api.taxonomy.validateTaxon,
@@ -464,5 +475,15 @@ const publicAPI = {
     }
 };
 
+// Bind publicAPI methods
+Object.keys(publicAPI).forEach(key => {
+    if (typeof publicAPI[key] === 'object') {
+        Object.keys(publicAPI[key]).forEach(nestedKey => {
+            if (typeof publicAPI[key][nestedKey] === 'function') {
+                publicAPI[key][nestedKey] = publicAPI[key][nestedKey].bind(api);
+            }
+        });
+    }
+});
+
 export default publicAPI;
-//export default api;

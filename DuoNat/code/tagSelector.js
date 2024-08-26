@@ -19,11 +19,11 @@ const tagSelector = {
             const tagSelectorDialog = document.getElementById('tag-dialog');
 
             const doneButton = document.getElementById('tag-done-button');
-            doneButton.addEventListener('click', () => tagSelector.closeTagSelector());
+            doneButton.addEventListener('click', () => this.closeTagSelector());
 
             // Close button functionality
             const closeButton = tagSelectorDialog.querySelector('.dialog-close-button');
-            closeButton.addEventListener('click', () => tagSelector.closeTagSelector());
+            closeButton.addEventListener('click', () => this.closeTagSelector());
 
             // TODO not sure this should be in tagSelector.js
             const clearAllFiltersButton = document.getElementById('clear-all-filters');
@@ -75,12 +75,12 @@ const tagSelector = {
 
         async setSelectedTags(tags) {
             tagSelector.selectedTags = new Set(tags);
-            state.updateGameStateMultiple({ selectedTags: tagSelector.tagSelection.getSelectedTags() });
+            state.updateGameStateMultiple({ selectedTags: this.getSelectedTags() });
             collectionManager.updateFilterSummary();
             await tagSelector.dataManager.updateFilteredPairs();
             //            logger.debug("Setting selected tags");
             // Trigger preloading of a new pair based on the selected tags
-            preloader.pairPreloader.preloadNewPairWithTags(tagSelector.tagSelection.getSelectedTags(), state.getSelectedLevel(), state.getSelectedRanges() || []);
+            preloader.pairPreloader.preloadNewPairWithTags(this.getSelectedTags(), state.getSelectedLevel(), state.getSelectedRanges() || []);
         },
 
         async clearAllTags() {
@@ -199,9 +199,9 @@ const tagSelector = {
 
     // Functions that don't fit neatly into the above categories can remain at the top level
     async openTagSelector() {
-        const tagCounts = await tagSelector.dataManager.getTagCounts();
-        tagSelector.uiManager.renderTagCloud(tagCounts);
-        tagSelector.uiManager.updateMatchingPairsCount();
+        const tagCounts = await this.dataManager.getTagCounts();
+        this.uiManager.renderTagCloud(tagCounts);
+        this.uiManager.updateMatchingPairsCount();
         dialogManager.openDialog('tag-dialog');
     },
 
@@ -218,12 +218,26 @@ const tagSelector = {
     },
 
     /*closeTagSelector() {
-          tagSelector.updateTaxonList();
+          this.updateTaxonList();
           preloader.pairPreloader.preloadNewPairWithTags(state.getSelectedTags(), state.getSelectedLevel());
           dialogManager.closeDialog('tag-dialog', true);
           collectionManager.updateFilterSummary();
       },*/
 };
+
+// Bind all methods in nested objects
+['initialization', 'tagSelection', 'uiManager', 'dataManager'].forEach(nestedObj => {
+    Object.keys(tagSelector[nestedObj]).forEach(key => {
+        if (typeof tagSelector[nestedObj][key] === 'function') {
+            tagSelector[nestedObj][key] = tagSelector[nestedObj][key].bind(tagSelector[nestedObj]);
+        }
+    });
+});
+
+// Bind top-level methods
+['openTagSelector', 'updateTagCloud', 'closeTagSelector'].forEach(method => {
+    tagSelector[method] = tagSelector[method].bind(tagSelector);
+});
 
 const publicAPI = {
     initialize: tagSelector.initialization.initialize,

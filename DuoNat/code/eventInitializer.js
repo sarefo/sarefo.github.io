@@ -143,5 +143,12 @@ const eventInitializer = {
     }
 };
 
+// Bind all methods in eventInitializer
+Object.keys(eventInitializer).forEach(key => {
+    if (typeof eventInitializer[key] === 'function') {
+        eventInitializer[key] = eventInitializer[key].bind(eventInitializer);
+    }
+});
+
 export default eventInitializer;
 // don't call directly; API is in eventMain

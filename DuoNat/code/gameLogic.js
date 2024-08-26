@@ -13,44 +13,63 @@ import utils from './utils.js';
 
 const gameLogic = {
     answerHandling: {
-
         checkAnswer(droppedZoneId) {
+            if (!this.isGameStateValid()) return;
+
+            state.setState(state.GameState.CHECKING);
+            const answers = this.getAnswersFromDropZones();
+
+            if (this.areAnswersComplete(answers)) {
+                this.evaluateAnswer(answers);
+            } else {
+                this.handleIncompleteAnswer();
+            }
+        },
+
+        isGameStateValid() {
             const currentState = state.getState();
             if (currentState !== state.GameState.PLAYING) {
                 logger.debug(`Cannot check answer when not in PLAYING state. Current state: ${currentState}`);
-                return;
+                return false;
             }
+            return true;
+        },
 
-            state.setState(state.GameState.CHECKING);
-
+        getAnswersFromDropZones() {
             const dropOne = document.getElementById('drop-1');
             const dropTwo = document.getElementById('drop-2');
+            return {
+                leftAnswer: dropOne.children[0]?.getAttribute('data-taxon'),
+                rightAnswer: dropTwo.children[0]?.getAttribute('data-taxon')
+            };
+        },
 
-            const leftAnswer = dropOne.children[0]?.getAttribute('data-taxon');
-            const rightAnswer = dropTwo.children[0]?.getAttribute('data-taxon');
+        areAnswersComplete(answers) {
+            return answers.leftAnswer && answers.rightAnswer;
+        },
 
-            if (leftAnswer && rightAnswer) {
-                const isCorrect =
-                    leftAnswer === state.getTaxonImageOne() &&
-                    rightAnswer === state.getTaxonImageTwo();
+        evaluateAnswer(answers) {
+            const isCorrect =
+                answers.leftAnswer === state.getTaxonImageOne() &&
+                answers.rightAnswer === state.getTaxonImageTwo();
 
-                if (isCorrect) {
-                    this.answerHandling.handleCorrectAnswer();
-                } else {
-                    this.answerHandling.handleIncorrectAnswer();
-                }
+            if (isCorrect) {
+                this.handleCorrectAnswer();
             } else {
-                logger.debug("Incomplete answer. Returning to PLAYING state.");
-                state.setState(state.GameState.PLAYING);
+                this.handleIncorrectAnswer();
             }
+        },
+
+        handleIncompleteAnswer() {
+            logger.debug("Incomplete answer. Returning to PLAYING state.");
+            state.setState(state.GameState.PLAYING);
         },
 
         async handleCorrectAnswer() {
             await ui.showOverlay('Correct!', config.overlayColors.green);
             ui.prepareImagesForLoading();
-            await utils.ui.sleep(2000); // Show "Correct!" for a while
-            //ui.updateOverlayMessage(""); // Empty overlay
-            await gameSetup.setupGame(false);  // Start a new round with the same taxon pair
+            await utils.ui.sleep(2000);
+            await gameSetup.setupGame(false);
         },
 
         async handleIncorrectAnswer() {
@@ -64,82 +83,136 @@ const gameLogic = {
 
     pairManagement: {
         async loadNewRandomPair(usePreloadedPair = true) {
-            state.setState(state.GameState.LOADING);
-            ui.prepareImagesForLoading();
+            this.prepareForNewPair();
 
-            let newPair;
             try {
-                // Clear any existing preloaded round images before loading a new pair
-                preloader.roundPreloader.clearPreloadedImagesForNextRound();
-
-                // Use roundManager to load new round
-                await roundManager.loadNewRound(true);  // true indicates it's a new pair
-
-                // If roundManager fails, fall back to existing code
-                /*if (state.getState() !== state.GameState.PLAYING) {
-                    if (usePreloadedPair) {
-                        const preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
-                        if (preloadedImages && preloadedImages.pair && gameLogic.pairManagement.isPairValidForCurrentFilters(preloadedImages.pair)) {
-                            newPair = preloadedImages.pair;
-                            await gameSetup.setupGameWithPreloadedPair(preloadedImages);
-                        }
-                    }
-                    if (!newPair) {
-                        newPair = await gameLogic.pairManagement.selectRandomPairFromCurrentCollection();
-                        if (newPair) {
-                            state.setNextSelectedPair(newPair);
-                            await gameSetup.setupGame(true);
-                        } else {
-                            throw new Error("No pairs available in the current collection");
-                        }
-                    }
-                } else {*/
-                    // If roundManager succeeded, get the new pair from the state
-                    newPair = state.getCurrentTaxonImageCollection().pair;
-                /*}*/
-
-                ui.hideOverlay();
-                if (newPair) {
-                    ui.updateLevelIndicator(newPair.level);
-                }
+                await this.attemptToLoadNewPair(usePreloadedPair);
             } catch (error) {
-                logger.error("Error loading new pair:", error);
-                ui.showOverlay("Error loading new pair. Please try again.", config.overlayColors.red);
+                this.handlePairLoadingError(error);
             } finally {
-                if (state.getState() !== state.GameState.PLAYING) {
-                    state.setState(state.GameState.PLAYING);
-                }
-                // Start preloading for the next round and pair
-                preloader.startPreloading(true);
+                this.finalizePairLoading();
             }
         },
 
-        isPairValidForCurrentFilters: function (pair) {
+        prepareForNewPair() {
+            state.setState(state.GameState.LOADING);
+            ui.prepareImagesForLoading();
+            preloader.roundPreloader.clearPreloadedImagesForNextRound();
+        },
+
+        async attemptToLoadNewPair(usePreloadedPair) {
+            await roundManager.loadNewRound(true);
+
+            if (state.getState() !== state.GameState.PLAYING) {
+                await this.fallbackPairLoading(usePreloadedPair);
+            }
+
+            const newPair = state.getCurrentTaxonImageCollection().pair;
+            this.updateUIForNewPair(newPair);
+        },
+
+        async fallbackPairLoading(usePreloadedPair) {
+            let newPair;
+            if (usePreloadedPair) {
+                newPair = await this.loadPreloadedPair();
+            }
+            if (!newPair) {
+                newPair = await this.selectAndSetupRandomPair();
+            }
+            return newPair;
+        },
+
+        async loadPreloadedPair() {
+            const preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
+            if (preloadedImages && preloadedImages.pair && this.isPairValidForCurrentFilters(preloadedImages.pair)) {
+                await gameSetup.setupGameWithPreloadedPair(preloadedImages);
+                return preloadedImages.pair;
+            }
+            return null;
+        },
+
+        async selectAndSetupRandomPair() {
+            const newPair = await this.selectRandomPairFromCurrentCollection();
+            if (newPair) {
+                state.setNextSelectedPair(newPair);
+                await gameSetup.setupGame(true);
+                return newPair;
+            }
+            throw new Error("No pairs available in the current collection");
+        },
+
+        updateUIForNewPair(newPair) {
+            ui.hideOverlay();
+            if (newPair) {
+                ui.updateLevelIndicator(newPair.level);
+            }
+        },
+
+        handlePairLoadingError(error) {
+            logger.error("Error loading new pair:", error);
+            ui.showOverlay("Error loading new pair. Please try again.", config.overlayColors.red);
+        },
+
+        finalizePairLoading() {
+            if (state.getState() !== state.GameState.PLAYING) {
+                state.setState(state.GameState.PLAYING);
+            }
+            preloader.startPreloading(true);
+        },
+
+        isPairValidForCurrentFilters(pair) {
             if (!pair) {
                 logger.warn("Received undefined pair in isPairValidForCurrentFilters");
                 return false;
             }
 
-            let selectedLevel = state.getSelectedLevel();
-            let selectedTags = state.getSelectedTags();
-            let selectedRanges = state.getSelectedRanges();
-            let searchTerm = state.getSearchTerm();
-            let phylogenyId = state.getPhylogenyId();
+            const filters = this.getCurrentFilters();
+            return this.checkAllFilterCriteria(pair, filters);
+        },
 
-            const matchesLevel = selectedLevel === '' || pair.level === selectedLevel;
-            const matchesTags = selectedTags.length === 0 ||
+        getCurrentFilters() {
+            return {
+                selectedLevel: state.getSelectedLevel(),
+                selectedTags: state.getSelectedTags(),
+                selectedRanges: state.getSelectedRanges(),
+                searchTerm: state.getSearchTerm(),
+                phylogenyId: state.getPhylogenyId()
+            };
+        },
+
+        checkAllFilterCriteria(pair, filters) {
+            return this.matchesLevel(pair, filters.selectedLevel) &&
+                this.matchesTags(pair, filters.selectedTags) &&
+                this.matchesRanges(pair, filters.selectedRanges) &&
+                this.matchesSearch(pair, filters.searchTerm) &&
+                this.matchesPhylogeny(pair, filters.phylogenyId);
+        },
+
+        matchesLevel(pair, selectedLevel) {
+            return selectedLevel === '' || pair.level === selectedLevel;
+        },
+
+        matchesTags(pair, selectedTags) {
+            return selectedTags.length === 0 ||
                 (pair.tags && selectedTags.every(tag => pair.tags.includes(tag)));
-            const matchesRanges = selectedRanges.length === 0 ||
+        },
+
+        matchesRanges(pair, selectedRanges) {
+            return selectedRanges.length === 0 ||
                 (pair.range && pair.range.some(range => selectedRanges.includes(range)));
-            const matchesSearch = !searchTerm ||
-                (pair.taxonNames && pair.taxonNames.some(name => name.toLowerCase().includes(searchTerm.toLowerCase()))) ||
-                (pair.setName && pair.setName.toLowerCase().includes(searchTerm.toLowerCase())) ||
-                (pair.tags && pair.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())));
+        },
 
-            const matchesPhylogeny = !phylogenyId ||
+        matchesSearch(pair, searchTerm) {
+            if (!searchTerm) return true;
+            const lowercaseSearch = searchTerm.toLowerCase();
+            return (pair.taxonNames && pair.taxonNames.some(name => name.toLowerCase().includes(lowercaseSearch))) ||
+                (pair.setName && pair.setName.toLowerCase().includes(lowercaseSearch)) ||
+                (pair.tags && pair.tags.some(tag => tag.toLowerCase().includes(lowercaseSearch)));
+        },
+
+        matchesPhylogeny(pair, phylogenyId) {
+            return !phylogenyId ||
                 pair.taxa.some(taxonId => filtering.isDescendantOf(taxonId, phylogenyId));
-
-            return matchesLevel && matchesTags && matchesRanges && matchesSearch;
         },
 
         async selectRandomPairFromCurrentCollection() {
@@ -158,23 +231,12 @@ const gameLogic = {
         async loadSetByID(setID, clearFilters = false) {
             try {
                 if (clearFilters) {
-                    // Clear all filters
-                    state.updateGameStateMultiple({
-                        selectedTags: [],
-                        selectedRanges: [],
-                        selectedLevel: ''
-                    });
-
-                    // Update UI to reflect cleared filters
-                    collectionManager.updateUIForClearedFilters();
+                    this.clearAllFilters();
                 }
 
                 const newPair = await setManager.getSetByID(setID);
                 if (newPair) {
-                    state.setNextSelectedPair(newPair);
-                    await gameSetup.setupGame(true);
-                    const nextSetID = String(Number(setID) + 1);
-                    preloader.pairPreloader.preloadSetByID(nextSetID);
+                    await this.setupNewPair(newPair, setID);
                 } else {
                     logger.warn(`Set with ID ${setID} not found.`);
                 }
@@ -182,22 +244,31 @@ const gameLogic = {
                 logger.error(`Error loading set with ID ${setID}:`, error);
             }
         },
+
+        clearAllFilters() {
+            state.updateGameStateMultiple({
+                selectedTags: [],
+                selectedRanges: [],
+                selectedLevel: ''
+            });
+            collectionManager.updateUIForClearedFilters();
+        },
+
+        async setupNewPair(newPair, setID) {
+            state.setNextSelectedPair(newPair);
+            await gameSetup.setupGame(true);
+            const nextSetID = String(Number(setID) + 1);
+            preloader.pairPreloader.preloadSetByID(nextSetID);
+        },
     },
 
     taxonHandling: {
         getCurrentTaxon(url) {
-            let currentObservationURLs = state.getObservationURLs();
-            //            logger.debug(`getCurrentTaxon called with URL: ${url}`);
-            //            logger.debug(`Current observation URLs: ${JSON.stringify(currentObservationURLs)}`);
-
+            const currentObservationURLs = state.getObservationURLs();
             if (url === currentObservationURLs.imageOne) {
-                const taxon = state.getTaxonImageOne();
-                //                logger.debug(`Matched imageOne, returning taxon: ${taxon}`);
-                return taxon;
+                return state.getTaxonImageOne();
             } else if (url === currentObservationURLs.imageTwo) {
-                const taxon = state.getTaxonImageTwo();
-                //                logger.debug(`Matched imageTwo, returning taxon: ${taxon}`);
-                return taxon;
+                return state.getTaxonImageTwo();
             } else {
                 logger.error(`Unable to determine current taxon name. URL: ${url} does not match any current observation URL.`);
                 return null;
@@ -206,10 +277,10 @@ const gameLogic = {
     },
 
     collectionManagement: {
-        loadRandomPairFromCurrentCollection: async function () {
+        async loadRandomPairFromCurrentCollection() {
             logger.debug(`Loading pair. Selected level: ${state.getSelectedLevel()}`);
 
-            if (gameLogic.collectionManagement.isCurrentPairInCollection()) {
+            if (this.isCurrentPairInCollection()) {
                 logger.debug("Current pair is in collection. Loading new random pair.");
                 await gameLogic.pairManagement.loadNewRandomPair();
             } else {
@@ -226,7 +297,7 @@ const gameLogic = {
         },
 
         isCurrentPairInCollection() {
-            let currentTaxonImageCollection = state.getCurrentTaxonImageCollection();
+            const currentTaxonImageCollection = state.getCurrentTaxonImageCollection();
             if (!currentTaxonImageCollection || !currentTaxonImageCollection.pair) {
                 return false;
             }
@@ -236,6 +307,17 @@ const gameLogic = {
         },
     },
 };
+
+// Bind all methods in gameLogic and its nested objects
+Object.keys(gameLogic).forEach(key => {
+    if (typeof gameLogic[key] === 'object') {
+        Object.keys(gameLogic[key]).forEach(nestedKey => {
+            if (typeof gameLogic[key][nestedKey] === 'function') {
+                gameLogic[key][nestedKey] = gameLogic[key][nestedKey].bind(gameLogic[key]);
+            }
+        });
+    }
+});
 
 const publicAPI = {
     // temporarily public for code restructuring purposes:
@@ -254,7 +336,7 @@ const publicAPI = {
     getCurrentTaxon: gameLogic.taxonHandling.getCurrentTaxon,
 };
 
-// Bind all methods in the publicAPI to ensure correct 'this' context
+// Bind publicAPI methods
 Object.keys(publicAPI).forEach(key => {
     if (typeof publicAPI[key] === 'function') {
         publicAPI[key] = publicAPI[key].bind(gameLogic);

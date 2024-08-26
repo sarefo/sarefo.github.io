@@ -158,5 +158,12 @@ const keyboardShortcuts = {
 
 };
 
+// Bind all methods in keyboardShortcuts
+Object.keys(keyboardShortcuts).forEach(key => {
+    if (typeof keyboardShortcuts[key] === 'function') {
+        keyboardShortcuts[key] = keyboardShortcuts[key].bind(keyboardShortcuts);
+    }
+});
+
 export default keyboardShortcuts;
 // don't call directly; API is in eventMain

@@ -108,11 +108,11 @@ const roundManager = {
     async setupRound(pair, images) {
         const randomized = Math.random() < 0.5;
         await Promise.all([
-            roundManager.loadImage(state.getElement('imageOne'), randomized ? images.taxon1 : images.taxon2),
-            roundManager.loadImage(state.getElement('imageTwo'), randomized ? images.taxon2 : images.taxon1)
+            this.loadImage(state.getElement('imageOne'), randomized ? images.taxon1 : images.taxon2),
+            this.loadImage(state.getElement('imageTwo'), randomized ? images.taxon2 : images.taxon1)
         ]);
-        await roundManager.setupNameTiles(pair, randomized);
-        await roundManager.setupWorldMaps(pair, randomized);
+        await this.setupNameTiles(pair, randomized);
+        await this.setupWorldMaps(pair, randomized);
         await hintSystem.updateAllHintButtons();
     },
 
@@ -149,8 +149,8 @@ const roundManager = {
 
     async setupWorldMaps(pair, randomized) {
         const [leftContinents, rightContinents] = await Promise.all([
-            roundManager.getContinentForTaxon(randomized ? pair.taxon1 : pair.taxon2),
-            roundManager.getContinentForTaxon(randomized ? pair.taxon2 : pair.taxon1)
+            this.getContinentForTaxon(randomized ? pair.taxon1 : pair.taxon2),
+            this.getContinentForTaxon(randomized ? pair.taxon2 : pair.taxon1)
         ]);
 
         worldMap.createWorldMap(state.getElement('imageOneContainer'), leftContinents);

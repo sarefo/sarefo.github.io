@@ -78,11 +78,25 @@ const rangeSelector = {
 
 };
 
+// Bind all methods in rangeSelector
+Object.keys(rangeSelector).forEach(key => {
+    if (typeof rangeSelector[key] === 'function') {
+        rangeSelector[key] = rangeSelector[key].bind(rangeSelector);
+    }
+});
+
 const publicAPI = {
     initialize: rangeSelector.initialize.bind(rangeSelector),
     getSelectedRanges: rangeSelector.getSelectedRanges.bind(rangeSelector),
     setSelectedRanges: rangeSelector.setSelectedRanges.bind(rangeSelector),
     openRangeDialog: rangeSelector.openRangeDialog.bind(rangeSelector),
 };
+
+// Bind publicAPI methods
+Object.keys(publicAPI).forEach(key => {
+    if (typeof publicAPI[key] === 'function') {
+        publicAPI[key] = publicAPI[key].bind(rangeSelector);
+    }
+});
 
 export default publicAPI;
