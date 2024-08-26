@@ -258,7 +258,7 @@ const phylogenySelector = {
             state.setCurrentActiveNodeId(taxonId); // Update the active node
             this.toggleView(false); // Switch to graph view
             const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
-            const pathToRoot = this.getPathToRoot(hierarchyObj, taxonId);
+            const pathToRoot = phylogenySelector.getPathToRoot(hierarchyObj, taxonId);
             
             // Use setTimeout to ensure the graph container is visible before updating
             setTimeout(() => {
@@ -685,9 +685,9 @@ const phylogenySelector = {
             const nodeId = target.dataset.nodeId;
             if (nodeId) {
                 const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
-                const pathToRoot = this.getPathToRoot(hierarchyObj, nodeId);
-                this.updateGraph(pathToRoot);
-                this.search.clearSearchResults();
+                const pathToRoot = phylogenySelector.getPathToRoot(hierarchyObj, nodeId);
+                phylogenySelector.updateGraph(pathToRoot);
+                this.clearSearchResults();
 
                 state.setCurrentActiveNodeId(nodeId);
                 if (this.onNodeSelect) {
