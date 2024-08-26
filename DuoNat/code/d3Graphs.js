@@ -542,28 +542,28 @@ class RadialTree extends BaseTree {
 
     logTreeStructure() {
         const logNode = (node, depth = 0) => {
-            console.log(' '.repeat(depth * 2) + `${node.data.id}: ${node.data.taxonName}`);
+            //console.log(' '.repeat(depth * 2) + `${node.data.id}: ${node.data.taxonName}`);
             if (node.children) {
                 node.children.forEach(child => logNode(child, depth + 1));
             }
         };
-        console.log("Tree structure:");
+        //console.log("Tree structure:");
         logNode(this.root);
     }
 
     setActiveNode(nodeId) {
-        console.log(`Attempting to set active node: ${nodeId}`);
+        //console.log(`Attempting to set active node: ${nodeId}`);
         this.logTreeStructure(); // Log the tree structure for debugging
         state.setCurrentActiveNodeId(nodeId);
 
         const node = this.root.descendants().find(d => d.data.id === nodeId);
         if (node) {
-            console.log(`Found node: ${node.data.taxonName}`);
+            //console.log(`Found node: ${node.data.taxonName}`);
             this.parentNode = node.parent || this.root;
             this.activeNode = node;
             this.update(this.activeNode);
         } else {
-            console.warn(`Node with id ${nodeId} not found in the tree`);
+            logger.warn(`Node with id ${nodeId} not found in the tree`);
         }
     }
 
@@ -572,7 +572,7 @@ class RadialTree extends BaseTree {
     }
 
     setActiveNodePath(pathToRoot) {
-        console.log(`setActiveNodePath called with: ${pathToRoot.join(' -> ')}`);
+        //console.log(`setActiveNodePath called with: ${pathToRoot.join(' -> ')}`);
         
         let currentNode = this.root;
         for (let i = 1; i < pathToRoot.length; i++) {  // Start from 1 to skip the root
@@ -583,17 +583,17 @@ class RadialTree extends BaseTree {
             if (currentNode.children) {
                 currentNode = currentNode.children.find(child => child.data.id === targetId);
                 if (!currentNode) {
-                    console.warn(`Node with id ${targetId} not found in the tree`);
+                    logger.warn(`Node with id ${targetId} not found in the tree`);
                     break;
                 }
             } else {
-                console.warn(`Node with id ${currentNode.data.id} has no children`);
+                logger.warn(`Node with id ${currentNode.data.id} has no children`);
                 break;
             }
         }
 
         if (currentNode && currentNode.data.id === pathToRoot[pathToRoot.length - 1]) {
-            console.log(`Found target node: ${currentNode.data.taxonName}`);
+            //console.log(`Found target node: ${currentNode.data.taxonName}`);
             this.parentNode = currentNode.parent || this.root;
             this.activeNode = currentNode;
 
@@ -613,7 +613,7 @@ class RadialTree extends BaseTree {
 
             this.update(this.activeNode);
         } else {
-            console.warn(`Failed to reach target node ${pathToRoot[pathToRoot.length - 1]}`);
+            logger.warn(`Failed to reach target node ${pathToRoot[pathToRoot.length - 1]}`);
             this.logTreeStructure();
         }
     }

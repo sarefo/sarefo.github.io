@@ -298,7 +298,7 @@ const api = (() => {
                     let taxonId;
                     if (localTaxon) {
                         taxonId = Object.keys(taxonInfo).find(key => taxonInfo[key] === localTaxon);
-                        logger.debug(`Using local taxon ID for ${taxonName}: ${taxonId}`);
+                        //logger.debug(`Using local taxon ID for ${taxonName}: ${taxonId}`);
                     } else {
                         // If not found locally, fall back to API call
                         logger.debug(`Taxon ${taxonName} not found locally, fetching from API`);

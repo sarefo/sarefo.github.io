@@ -138,7 +138,7 @@ const eventInitializer = {
         if (element) {
             element.addEventListener(eventType, handler);
         } else {
-            logger.debug(`Element with id '${id}' not found. Skipping event listener.`);
+            //logger.debug(`Element with id '${id}' not found. Skipping event listener.`);
         }
     }
 };
