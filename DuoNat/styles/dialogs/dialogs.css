@@ -17,40 +17,33 @@ dialog {
     position: fixed;
     top: 50%;
     left: 50%;
-    opacity: 0;
-    transform: scale(0.95);
-    transition: opacity 0.3s ease, transform 0.3s ease;
     margin: 0;
+
+    opacity: 0;
+
+    transform: translate(-50%, -50%) scale(1);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
 }
 
 dialog[open] {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
 }
 
-/* TODO looks bad > idea is to fix iPhone collapsed dialogs */
-/*@media (max-width: 480px) {
+@media (max-width: 480px) {
     dialog {
-        width: 100%;
-        height: auto;
-        max-height: 95vh;
-        border-radius: var(--border-radius) var(--border-radius) 0 0;
-        bottom: 0;
-        top: auto;
+        top: 5vh;
+        max-height: 90vh;
+        transform: translateX(-50%);
     }
-
-    dialog[open] {
-        top:8px;
-        bottom: 8px;
-        transform: translate(-50%, 0%);
+}
+@supports (-webkit-touch-callout: none) {
+    /* iOS-specific fixes */
+    dialog {
+        position: absolute;
+        height: -webkit-fill-available;
     }
-
-    .standard-dialog {
-        width: 100%;
-        max-width: none;
-        border-radius: var(--border-radius) var(--border-radius) 0 0;
-    }
-}*/
+}
 
 .standard-dialog {
     /*background-color: white;*/
@@ -69,7 +62,9 @@ dialog[open] {
 }
 
 @media (max-width: 480px) {
-    height: 95vh;
+    .standard-dialog {
+        height: 95vh;
+    }
 }
 
 .dialog-content {
