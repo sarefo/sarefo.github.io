@@ -37,6 +37,7 @@ const ancestryDialog = {
         },
 
         toggleNameDisplay(event) {
+            logger.debug("in toggleNameDisplay()");
             const showTaxonomic = event.target.checked;
             state.setShowTaxonomicNames(showTaxonomic);
             ancestryDialog.graphRendering.updateNodeLabels(showTaxonomic);
@@ -146,6 +147,8 @@ const ancestryDialog = {
                 const showTaxonomic = state.getShowTaxonomicNames();
         logger.debug(`showTaxaRelationship: showTaxonomic is ${showTaxonomic}`);
                 await ancestryDialog.graphManagement.handleGraphDisplay(taxonImageOne, taxonImageTwo, showTaxonomic);
+
+                ancestryDialog.graphRendering.updateNodeLabels(showTaxonomic);
             } catch (error) {
                 ancestryDialog.graphManagement.handleGraphError(error);
             }
