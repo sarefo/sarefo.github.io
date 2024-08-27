@@ -72,3 +72,8 @@
 .ancestry-tree__node:hover {
     cursor: pointer;
 }
+
+.ancestry-tree__node-rect:hover {
+    stroke: #74ac00;
+    stroke-width: 3px;
+}

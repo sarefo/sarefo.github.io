@@ -405,9 +405,11 @@ const ancestryDialog = {
         },
 
         async renderD3Graph(taxon1, taxon2, commonAncestorId) {
+            // SVG elements, don't work well with CSS
             const NODE_HEIGHT = 40;
             const CHAR_WIDTH = 9; // Approximate width of a character
             const PADDING = 8; // Padding inside the rectangle
+            const BORDER_RADIUS = 8;
 
             const d3 = await d3Graphs.loadD3();
             // Clear any existing graph
@@ -564,14 +566,16 @@ const ancestryDialog = {
 
             // Add rectangles for nodes
             node.append('rect')
-                .attr('class', 'ancestry-tree__node-rect')
+                .attr('class', 'd3-node-rect ancestry-tree__node-rect')
                 .attr('width', safeMaxNodeWidth)
                 .attr('height', NODE_HEIGHT)
                 .attr('x', -safeMaxNodeWidth / 2)
                 .attr('y', -NODE_HEIGHT / 2)
-                .attr('rx', 5)
-                .attr('ry', 5)
-                .classed('ancestry-tree__node-rect--endpoint', d => d.data.id === taxon1.id || d.data.id === taxon2.id);
+                .attr('rx', BORDER_RADIUS)
+                .attr('ry', BORDER_RADIUS)
+                .classed('ancestry-tree__node-rect--endpoint', d => 
+                    String(d.data.id) === String(taxon1.id) || String(d.data.id) === String(taxon2.id)
+                );
 
             // Add text to nodes
             node.append('text')
