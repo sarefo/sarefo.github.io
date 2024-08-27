@@ -387,8 +387,8 @@ const ancestryDialog = {
         },
 
         async renderD3Graph(taxon1, taxon2, commonAncestorId) {
-            const NODE_HEIGHT = 30;
-            const CHAR_WIDTH = 8; // Approximate width of a character
+            const NODE_HEIGHT = 40;
+            const CHAR_WIDTH = 9; // Approximate width of a character
             const PADDING = 8; // Padding inside the rectangle
 
             const d3 = await d3Graphs.loadD3();
@@ -490,17 +490,36 @@ const ancestryDialog = {
             const links = root.links();
             const nodes = root.descendants();
 
-            // Calculate the maximum node width
+            const shouldItalicize = (rank) => {
+                return ["Genus", "Species", "Subspecies"].includes(rank);
+            };
+
             const getNodeText = d => {
                 let taxonName = d.data.taxonName;
+                if (!taxonName) {
+                    console.warn(`Missing taxon name for rank: ${d.data.rank}`);
+                    taxonName = 'Unknown';
+                }
                 if (d.data.rank === "Species") {
                     taxonName = utils.string.shortenSpeciesName(taxonName);
                 }
                 const rankText = ["Species", "Genus", "Stateofmatter"].includes(d.data.rank) ? "" : `${utils.string.capitalizeFirstLetter(d.data.rank)} `;
-                return `${rankText}${taxonName}`;
+                return { rankText, taxonName, text: `${rankText}${taxonName}`, length: (`${rankText}${taxonName}`).length };
             };
 
-            const maxNodeWidth = Math.max(...nodes.map(d => getNodeText(d).length * CHAR_WIDTH)) + PADDING * 2;
+            // Calculate the maximum node width with additional logging
+            const maxNodeWidth = nodes.reduce((max, d) => {
+                const nodeTextInfo = getNodeText(d);
+                console.log(`Node text: "${nodeTextInfo.text}", length: ${nodeTextInfo.length}`);
+                return Math.max(max, nodeTextInfo.length * CHAR_WIDTH);
+            }, 0) + PADDING * 2;
+
+            console.log(`Calculated maxNodeWidth: ${maxNodeWidth}`);
+
+            // Ensure maxNodeWidth is always a positive number
+            const safeMaxNodeWidth = Math.max(100, maxNodeWidth || 0);
+
+            console.log(`Safe maxNodeWidth: ${safeMaxNodeWidth}`);
 
             // Draw links
             svg.selectAll('.ancestry-tree__link')
@@ -521,9 +540,9 @@ const ancestryDialog = {
             // Add rectangles for nodes
             node.append('rect')
                 .attr('class', 'ancestry-tree__node-rect')
-                .attr('width', maxNodeWidth)
+                .attr('width', safeMaxNodeWidth)
                 .attr('height', NODE_HEIGHT)
-                .attr('x', -maxNodeWidth / 2)
+                .attr('x', -safeMaxNodeWidth / 2)
                 .attr('y', -NODE_HEIGHT / 2)
                 .attr('rx', 5)
                 .attr('ry', 5)
@@ -534,7 +553,42 @@ const ancestryDialog = {
                 .attr('class', 'ancestry-tree__node-text')
                 .attr('dy', '.31em')
                 .attr('text-anchor', 'middle')
-                .text(getNodeText);
+                .each(function(d) {
+                    const { rankText, taxonName } = getNodeText(d);
+                    console.log(`Processing node: rank=${d.data.rank}, taxonName=${taxonName}`);
+                    
+                    if (rankText) {
+                        d3.select(this).append('tspan')
+                            .text(rankText);
+                    }
+                    
+                    if (d.data.rank === "Species") {
+                        // For species, italicize both the abbreviated genus and specific epithet
+                        if (taxonName && taxonName.includes(' ')) {
+                            const [genus, ...restOfName] = taxonName.split(' ');
+                            d3.select(this).append('tspan')
+                                .attr('style', 'font-style: italic;')
+                                .text(genus + ' ');
+                            d3.select(this).append('tspan')
+                                .attr('style', 'font-style: italic;')
+                                .text(restOfName.join(' '));
+                        } else {
+                            console.warn(`Unexpected format for species name: ${taxonName}`);
+                            d3.select(this).append('tspan')
+                                .attr('style', 'font-style: italic;')
+                                .text(taxonName || 'Unknown species');
+                        }
+                    } else if (d.data.rank === "Genus") {
+                        // For genus, italicize the entire name
+                        d3.select(this).append('tspan')
+                            .attr('style', 'font-style: italic;')
+                            .text(taxonName || 'Unknown genus');
+                    } else {
+                        // For other ranks, no italics
+                        d3.select(this).append('tspan')
+                            .text(taxonName || 'Unknown taxon');
+                    }
+                });
 
             // Add click event to open iNaturalist taxon page
             node.on('click', (event, d) => {
@@ -558,7 +612,6 @@ const ancestryDialog = {
             d3.select(ancestryDialog.container).select('svg')
                 .call(zoom)
                 .call(zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(scale));
-
         },
 
     },

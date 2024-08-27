@@ -7,7 +7,8 @@
 }
 
 .ancestry-dialog__title {
-    margin-bottom: 5px;
+    margin-top: -30px;
+    margin-bottom: 0px;
 }
 
 .ancestry-dialog__hint {
@@ -17,6 +18,7 @@
     border-radius: 15px;*/
     font-size: 0.9em;
     opacity: 0.6;
+    margin-bottom: 8px;
 }
 
 .ancestry-dialog__graph {
@@ -63,8 +65,12 @@
 }
 
 .ancestry-tree__node-text {
-    font: 16px sans-serif;
+    font: 18px sans-serif;
     fill: white;
+}
+
+.ancestry-tree__node-text tspan[style*="italic"] {
+        font-style: italic;
 }
 
 .ancestry-tree__node:hover {
