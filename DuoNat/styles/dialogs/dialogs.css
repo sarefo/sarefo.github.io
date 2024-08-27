@@ -32,9 +32,9 @@ dialog[open] {
 
 @media (max-width: 480px) {
     dialog {
-        top: 5vh;
-        max-height: 90vh;
-        transform: translateX(-50%);
+        /*top: 5vh;*/
+        max-height: 95vh;
+        /*transform: translateX(-50%);*/
     }
 }
 @supports (-webkit-touch-callout: none) {
