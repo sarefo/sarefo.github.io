@@ -46,22 +46,27 @@
 
 /* D3 */
 
-.ancestry-dialog .link {
+.ancestry-tree__link {
     fill: none;
     stroke: #ccc;
     stroke-width: 2px;
 }
 
-.ancestry-dialog .node rect {
+.ancestry-tree__node-rect {
     stroke: #fff;
     stroke-width: 2px;
+    fill: #74ac00;
 }
 
-.ancestry-dialog .node text {
-    font: 12px sans-serif;
+.ancestry-tree__node-rect--endpoint {
+    fill: #ffa500;
+}
+
+.ancestry-tree__node-text {
+    font: 16px sans-serif;
     fill: white;
 }
 
-.ancestry-dialog .node:hover {
+.ancestry-tree__node:hover {
     cursor: pointer;
 }

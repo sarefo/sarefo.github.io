@@ -387,6 +387,10 @@ const ancestryDialog = {
         },
 
         async renderD3Graph(taxon1, taxon2, commonAncestorId) {
+            const NODE_HEIGHT = 30;
+            const MIN_NODE_WIDTH = 80;
+            const CHAR_WIDTH = 8; // Approximate width of a character
+
             const d3 = await d3Graphs.loadD3();
             // Clear any existing graph
             if (ancestryDialog.network) {
@@ -456,12 +460,11 @@ const ancestryDialog = {
 
             const svg = d3.select(ancestryDialog.container)
                 .append('svg')
-                .attr('width', width)
-                .attr('height', height)
-                .append('g')
-                .attr('transform', `translate(${width / 2},30)`);
+                .attr('width', '100%')
+                .attr('height', '100%')
+                .append('g');
 
-            const tree = d3.tree().size([width - 200, height - 60]);
+            const tree = d3.tree().size([width, height - 60]);
 
             const root = d3.hierarchy(rootNode);
             
@@ -487,19 +490,19 @@ const ancestryDialog = {
             const nodes = root.descendants();
 
             // Draw links
-            svg.selectAll('.link')
+            svg.selectAll('.ancestry-tree__link')
                 .data(links)
                 .enter().append('path')
-                .attr('class', 'link')
+                .attr('class', 'ancestry-tree__link')
                 .attr('d', d3.linkVertical()
                     .x(d => d.x)
                     .y(d => d.y));
 
             // Draw nodes
-            const node = svg.selectAll('.node')
+            const node = svg.selectAll('.ancestry-tree__node')
                 .data(nodes)
                 .enter().append('g')
-                .attr('class', 'node')
+                .attr('class', 'ancestry-tree__node')
                 .attr('transform', d => `translate(${d.x},${d.y})`);
 
             // Function to wrap text
@@ -511,10 +514,9 @@ const ancestryDialog = {
                         line = [],
                         lineNumber = 0,
                         lineHeight = 1.1, // ems
-                        x = text.attr("x"),
                         y = text.attr("y"),
-                        dy = 0,
-                        tspan = text.text(null).append("tspan").attr("x", x).attr("y", y).attr("dy", dy + "em");
+                        dy = parseFloat(text.attr("dy")),
+                        tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
                     while (word = words.pop()) {
                         line.push(word);
                         tspan.text(line.join(" "));
@@ -522,7 +524,7 @@ const ancestryDialog = {
                             line.pop();
                             tspan.text(line.join(" "));
                             line = [word];
-                            tspan = text.append("tspan").attr("x", x).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+                            tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
                         }
                     }
                 });
@@ -530,22 +532,22 @@ const ancestryDialog = {
 
             // Add rectangles for nodes
             node.append('rect')
-                .attr('width', d => Math.max(d.data.taxonName.length * 8, 80))
-                .attr('height', d => d.data.taxonName.length > 15 ? 45 : 30)
-                .attr('x', d => -(Math.max(d.data.taxonName.length * 8, 80) / 2))
-                .attr('y', d => d.data.taxonName.length > 15 ? -22.5 : -15)
+                .attr('class', 'ancestry-tree__node-rect')
+                .attr('width', d => Math.max(d.data.taxonName.length * CHAR_WIDTH, MIN_NODE_WIDTH))
+                .attr('height', NODE_HEIGHT)
+                .attr('x', d => -(Math.max(d.data.taxonName.length * CHAR_WIDTH, MIN_NODE_WIDTH) / 2))
+                .attr('y', -NODE_HEIGHT / 2)
                 .attr('rx', 5)
                 .attr('ry', 5)
-                .style('fill', d => d.data.id === taxon1.id || d.data.id === taxon2.id ? '#ffa500' : '#74ac00');
+                .classed('ancestry-tree__node-rect--endpoint', d => d.data.id === taxon1.id || d.data.id === taxon2.id);
 
             // Add text to nodes
             node.append('text')
+                .attr('class', 'ancestry-tree__node-text')
                 .attr('dy', '.31em')
                 .attr('text-anchor', 'middle')
                 .text(d => d.data.taxonName)
-                .style('fill', 'white')
-                .style('font-size', '14px')
-                //.call(wrap, 70);
+                /*.call(wrap, Math.max(MIN_NODE_WIDTH, 120))*/;
 
             // Add click event to open iNaturalist taxon page
             node.on('click', (event, d) => {
@@ -553,12 +555,13 @@ const ancestryDialog = {
             });
 
             // Center the graph
-            const rootExtent = d3.extent(root.descendants(), d => d.x);
-            const rootWidth = rootExtent[1] - rootExtent[0];
-            const offset = (width - rootWidth) / 2 - rootExtent[0];
-            svg.attr('transform', `translate(${offset},30)`);
+            const bounds = svg.node().getBBox();
+            const scale = Math.min(width / bounds.width, height / bounds.height) * 0.9;
+            const tx = (width - bounds.width * scale) / 2 - bounds.x * scale;
+            const ty = (height - bounds.height * scale) / 2 - bounds.y * scale;
 
-            // Add zoom behavior
+            svg.attr('transform', `translate(${tx},${ty}) scale(${scale})`);
+
             const zoom = d3.zoom()
                 .scaleExtent([0.5, 3])
                 .on('zoom', (event) => {
@@ -567,8 +570,7 @@ const ancestryDialog = {
 
             d3.select(ancestryDialog.container).select('svg')
                 .call(zoom)
-                .call(zoom.transform, d3.zoomIdentity.translate(width / 2, 30).scale(0.8));
-
+                .call(zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(scale));
         },
 
     },
