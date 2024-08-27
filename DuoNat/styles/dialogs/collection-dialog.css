@@ -289,6 +289,8 @@
     padding: 4px;
     width: 100%;
     margin-bottom: 8px;
+    background-color: var(--primary-counter-color);
+    /*border: 2px solid var(--primary-counter-color);*/
 }
 
 .collection-dialog__count {
