@@ -28,8 +28,15 @@ const phylogenySelector = {
         }
 
         const toggleNamesCheckbox = document.getElementById('phylogeny-name-toggle');
-        if (toggleNamesCheckbox) {
-            toggleNamesCheckbox.checked = state.getShowTaxonomicNames();
+        const toggleLabel = document.querySelector('label[for="phylogeny-name-toggle"]');
+        if (toggleNamesCheckbox && toggleLabel) {
+            const showTaxonomic = state.getShowTaxonomicNames();
+            toggleNamesCheckbox.checked = showTaxonomic;
+            if (showTaxonomic) {
+                toggleLabel.classList.add('checked');
+            } else {
+                toggleLabel.classList.remove('checked');
+            }
             toggleNamesCheckbox.addEventListener('change', this.toggleNameDisplay.bind(this));
         }
 
@@ -89,9 +96,21 @@ const phylogenySelector = {
         }
     },
 
-   toggleNameDisplay(event) {
+    toggleNameDisplay(event) {
         const showTaxonomic = event.target.checked;
         state.setShowTaxonomicNames(showTaxonomic);
+
+        // Update the toggle's visual state
+        const toggleNamesCheckbox = document.getElementById('phylogeny-name-toggle');
+        const toggleLabel = document.querySelector('label[for="phylogeny-name-toggle"]');
+        if (toggleNamesCheckbox && toggleLabel) {
+            toggleNamesCheckbox.checked = showTaxonomic;
+            if (showTaxonomic) {
+                toggleLabel.classList.add('checked');
+            } else {
+                toggleLabel.classList.remove('checked');
+            }
+        }
 
         if (this.currentView === 'graph') {
             if (d3Graphs.lastCreatedTree) {

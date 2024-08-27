@@ -53,6 +53,15 @@
     color: #fff;
 }
 
+.view-toggle__label.checked .view-toggle__slider {
+    transform: translateX(100%);
+}
+
+.view-toggle__label.checked .view-toggle__option--taxa,
+.view-toggle__label:not(.checked) .view-toggle__option--common {
+    color: #fff;
+}
+
 #phylogeny-name-toggle:checked + .view-toggle__label .view-toggle__option--taxa,
 #phylogeny-name-toggle:not(:checked) + .view-toggle__label .view-toggle__option--common,
 #ancestry-name-toggle:checked + .view-toggle__label .view-toggle__option--taxa,

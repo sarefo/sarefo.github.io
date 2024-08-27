@@ -514,23 +514,23 @@ const ancestryDialog = {
 
             const showTaxonomic = state.getShowTaxonomicNames();
 
-            const getNodeText = (d, showTaxonomic) => {
-                let taxonName = d.data.taxonName;
-                if (!taxonName) {
-                    console.warn(`Missing taxon name for rank: ${d.data.rank}`);
-                    taxonName = 'Unknown';
-                }
-                if (d.data.rank === "Species") {
-                    taxonName = utils.string.shortenSpeciesName(taxonName);
-                }
-                const rankText = ["Species", "Genus", "Stateofmatter"].includes(d.data.rank) ? "" : `${utils.string.capitalizeFirstLetter(d.data.rank)} `;
-                
-                if (!showTaxonomic && d.data.vernacularName && d.data.vernacularName !== "-") {
-                    return { rankText: "", taxonName: d.data.vernacularName, text: d.data.vernacularName, length: d.data.vernacularName.length };
-                }
-                
-                return { rankText, taxonName, text: `${rankText}${taxonName}`, length: (`${rankText}${taxonName}`).length };
-            };
+        const getNodeText = (d, showTaxonomic) => {
+            let taxonName = d.data.taxonName;
+            if (!taxonName) {
+                console.warn(`Missing taxon name for rank: ${d.data.rank}`);
+                taxonName = 'Unknown';
+            }
+            if (d.data.rank === "Species") {
+                taxonName = utils.string.shortenSpeciesName(taxonName);
+            }
+            const rankText = ["Species", "Genus", "Stateofmatter"].includes(d.data.rank) ? "" : `${utils.string.capitalizeFirstLetter(d.data.rank)} `;
+
+            if (!showTaxonomic && d.data.vernacularName && d.data.vernacularName !== "-") {
+                return { rankText: "", taxonName: d.data.vernacularName, text: d.data.vernacularName, length: d.data.vernacularName.length };
+            }
+
+            return { rankText, taxonName, text: `${rankText}${taxonName}`, length: (`${rankText}${taxonName}`).length };
+        };
 
             // Calculate the maximum node width with additional logging
             const maxNodeWidth = nodes.reduce((max, d) => {
@@ -649,13 +649,13 @@ const ancestryDialog = {
 
             const d3 = await d3Graphs.loadD3();
             const { svg, getNodeText } = this.lastCreatedTree;
-            
+
             svg.selectAll('.ancestry-tree__node-text')
                 .each(function(d) {
                     const textElement = d3.select(this);
                     textElement.selectAll('*').remove(); // Clear existing text
 
-                    const { rankText, taxonName } = getNodeText(d);
+                    const { rankText, taxonName } = getNodeText(d, showTaxonomic);
 
                     if (rankText) {
                         textElement.append('tspan')
