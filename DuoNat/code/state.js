@@ -92,6 +92,7 @@ let gameState = {
     currentSetID: null,
     phylogenyId: null,
     currentActiveNodeId: null,
+
     showTaxonomicNames: false,
 
     preloadedTaxonImageCollection: null,

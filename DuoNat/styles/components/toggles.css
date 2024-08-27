@@ -53,8 +53,10 @@
     color: #fff;
 }
 
-#name-toggle:checked + .view-toggle__label .view-toggle__option--taxa,
-#name-toggle:not(:checked) + .view-toggle__label .view-toggle__option--common {
+#phylogeny-name-toggle:checked + .view-toggle__label .view-toggle__option--taxa,
+#phylogeny-name-toggle:not(:checked) + .view-toggle__label .view-toggle__option--common,
+#ancestry-name-toggle:checked + .view-toggle__label .view-toggle__option--taxa,
+#ancestry-name-toggle:not(:checked) + .view-toggle__label .view-toggle__option--common {
     color: #fff;
 }
 

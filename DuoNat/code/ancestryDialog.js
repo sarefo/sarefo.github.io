@@ -23,6 +23,12 @@ const ancestryDialog = {
                 ancestryDialog.ui.createLoadingIndicator();
             }
             ancestryDialog.initialized = true;
+
+            const toggleNamesCheckbox = document.getElementById('ancestry-name-toggle');
+            if (toggleNamesCheckbox) {
+                toggleNamesCheckbox.checked = state.getShowTaxonomicNames();
+                toggleNamesCheckbox.addEventListener('change', ancestryDialog.ui.toggleNameDisplay);
+            }
         },
     },
 
@@ -31,6 +37,12 @@ const ancestryDialog = {
             if (!ancestryDialog.container) return;
             ancestryDialog.loadingIndicator = this.createLoadingElement();
             ancestryDialog.container.appendChild(ancestryDialog.loadingIndicator);
+        },
+
+        toggleNameDisplay(event) {
+            const showTaxonomic = event.target.checked;
+            state.setShowTaxonomicNames(showTaxonomic);
+            ancestryDialog.graphRendering.updateNodeLabels(showTaxonomic);
         },
 
         createLoadingElement() {
@@ -83,6 +95,7 @@ const ancestryDialog = {
         openTaxonPage(url) {
             window.open(url, '_blank');
         },
+
     },
 
     graphManagement: {
@@ -120,6 +133,11 @@ const ancestryDialog = {
             const container = document.getElementById('ancestry-dialog__graph');
 
             if (!ancestryDialog.graphManagement.validateTaxonNames(taxonImageOne, taxonImageTwo)) return;
+
+            const toggleNamesCheckbox = document.getElementById('ancestry-name-toggle');
+            if (toggleNamesCheckbox) {
+                toggleNamesCheckbox.checked = state.getShowTaxonomicNames();
+            }
 
             dialogManager.openDialog('ancestry-dialog');
 
@@ -494,7 +512,9 @@ const ancestryDialog = {
                 return ["Genus", "Species", "Subspecies"].includes(rank);
             };
 
-            const getNodeText = d => {
+            const showTaxonomic = state.getShowTaxonomicNames();
+
+            const getNodeText = (d, showTaxonomic) => {
                 let taxonName = d.data.taxonName;
                 if (!taxonName) {
                     console.warn(`Missing taxon name for rank: ${d.data.rank}`);
@@ -504,6 +524,11 @@ const ancestryDialog = {
                     taxonName = utils.string.shortenSpeciesName(taxonName);
                 }
                 const rankText = ["Species", "Genus", "Stateofmatter"].includes(d.data.rank) ? "" : `${utils.string.capitalizeFirstLetter(d.data.rank)} `;
+                
+                if (!showTaxonomic && d.data.vernacularName && d.data.vernacularName !== "-") {
+                    return { rankText: "", taxonName: d.data.vernacularName, text: d.data.vernacularName, length: d.data.vernacularName.length };
+                }
+                
                 return { rankText, taxonName, text: `${rankText}${taxonName}`, length: (`${rankText}${taxonName}`).length };
             };
 
@@ -612,6 +637,67 @@ const ancestryDialog = {
             d3.select(ancestryDialog.container).select('svg')
                 .call(zoom)
                 .call(zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(scale));
+
+            this.lastCreatedTree = { svg, getNodeText };
+        },
+
+        async updateNodeLabels(showTaxonomic) {
+            if (!this.lastCreatedTree) {
+                console.warn('No tree to update');
+                return;
+            }
+
+            const d3 = await d3Graphs.loadD3();
+            const { svg, getNodeText } = this.lastCreatedTree;
+            
+            svg.selectAll('.ancestry-tree__node-text')
+                .each(function(d) {
+                    const textElement = d3.select(this);
+                    textElement.selectAll('*').remove(); // Clear existing text
+
+                    const { rankText, taxonName } = getNodeText(d);
+
+                    if (rankText) {
+                        textElement.append('tspan')
+                            .text(rankText);
+                    }
+
+                    if (d.data.rank === "Species") {
+                        // For species, italicize both the abbreviated genus and specific epithet
+                        if (taxonName && taxonName.includes(' ')) {
+                            const [genus, ...restOfName] = taxonName.split(' ');
+                            textElement.append('tspan')
+                                .attr('style', 'font-style: italic;')
+                                .text(genus + ' ');
+                            textElement.append('tspan')
+                                .attr('style', 'font-style: italic;')
+                                .text(restOfName.join(' '));
+                        } else {
+                            console.warn(`Unexpected format for species name: ${taxonName}`);
+                            textElement.append('tspan')
+                                .attr('style', 'font-style: italic;')
+                                .text(taxonName || 'Unknown species');
+                        }
+                    } else if (d.data.rank === "Genus") {
+                        // For genus, italicize the entire name
+                        textElement.append('tspan')
+                            .attr('style', 'font-style: italic;')
+                            .text(taxonName || 'Unknown genus');
+                    } else {
+                        // For other ranks, no italics
+                        textElement.append('tspan')
+                            .text(taxonName || 'Unknown taxon');
+                    }
+                });
+
+            // Recalculate and update node sizes if necessary
+            this.updateNodeSizes();
+        },
+
+        updateNodeSizes() {
+            // Implement this if you need to adjust node sizes based on new text content
+            // This might involve recalculating maxNodeWidth and updating rectangles
+            console.log("Node sizes update not implemented yet");
         },
 
     },

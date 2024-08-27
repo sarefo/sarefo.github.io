@@ -27,7 +27,7 @@ const phylogenySelector = {
             toggleViewCheckbox.addEventListener('change', this.toggleView.bind(this));
         }
 
-        const toggleNamesCheckbox = document.getElementById('name-toggle');
+        const toggleNamesCheckbox = document.getElementById('phylogeny-name-toggle');
         if (toggleNamesCheckbox) {
             toggleNamesCheckbox.checked = state.getShowTaxonomicNames();
             toggleNamesCheckbox.addEventListener('change', this.toggleNameDisplay.bind(this));
@@ -89,13 +89,14 @@ const phylogenySelector = {
         }
     },
 
-    toggleNameDisplay(event) {
+   toggleNameDisplay(event) {
         const showTaxonomic = event.target.checked;
         state.setShowTaxonomicNames(showTaxonomic);
-        
+
         if (this.currentView === 'graph') {
-            // Instead of redrawing the entire graph, just update the labels
-            d3Graphs.lastCreatedTree.updateNodeLabels(showTaxonomic);
+            if (d3Graphs.lastCreatedTree) {
+                d3Graphs.lastCreatedTree.updateNodeLabels(showTaxonomic);
+            }
         } else if (this.currentView === 'cloud') {
             this.cloud.renderCloudView();
         }
@@ -313,6 +314,11 @@ const phylogenySelector = {
         if (!graphContainer) return;
 
         graphContainer.innerHTML = '<div class="loading-indicator">Loading phylogeny...</div>';
+
+        const toggleNamesCheckbox = document.getElementById('name-toggle');
+        if (toggleNamesCheckbox) {
+            toggleNamesCheckbox.checked = state.getShowTaxonomicNames();
+        }
 
         const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
 
