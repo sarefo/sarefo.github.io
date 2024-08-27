@@ -18,7 +18,7 @@ const ancestryDialog = {
     initialization: {
         async initialize(container) {
             ancestryDialog.container = container;
-            await ancestryDialog.utils.loadVisJs();
+            //await ancestryDialog.utils.loadVisJs();
             if (ancestryDialog.container) {
                 ancestryDialog.ui.createLoadingIndicator();
             }
@@ -269,15 +269,8 @@ const ancestryDialog = {
     },
 
     graphRendering: {
-        async renderGraph(taxon1, taxon2, commonAncestorId) {
-            if (useD3Graph) {
-                await this.renderD3Graph(taxon1, taxon2, commonAncestorId);
-            } else {
-                await this.renderVisGraph(taxon1, taxon2, commonAncestorId);
-            }
-        },
 
-        async renderVisGraph(taxon1, taxon2, commonAncestorId) {
+        /*async renderVisGraph(taxon1, taxon2, commonAncestorId) {
             // Clear any existing graph
             if (ancestryDialog.network) {
                 ancestryDialog.network.destroy();
@@ -402,9 +395,9 @@ const ancestryDialog = {
                     }
                 }
             });
-        },
+        },*/
 
-        async renderD3Graph(taxon1, taxon2, commonAncestorId) {
+        async renderGraph(taxon1, taxon2, commonAncestorId) {
             // SVG elements, don't work well with CSS
             const NODE_HEIGHT = 40;
             const CHAR_WIDTH = 9; // Approximate width of a character
@@ -519,7 +512,7 @@ const ancestryDialog = {
         const getNodeText = (d, showTaxonomic) => {
             let taxonName = d.data.taxonName;
             if (!taxonName) {
-                console.warn(`Missing taxon name for rank: ${d.data.rank}`);
+                logger.warn(`Missing taxon name for rank: ${d.data.rank}`);
                 taxonName = 'Unknown';
             }
             if (d.data.rank === "Species") {
@@ -537,16 +530,11 @@ const ancestryDialog = {
             // Calculate the maximum node width with additional logging
             const maxNodeWidth = nodes.reduce((max, d) => {
                 const nodeTextInfo = getNodeText(d);
-                console.log(`Node text: "${nodeTextInfo.text}", length: ${nodeTextInfo.length}`);
                 return Math.max(max, nodeTextInfo.length * CHAR_WIDTH);
             }, 0) + PADDING * 2;
 
-            console.log(`Calculated maxNodeWidth: ${maxNodeWidth}`);
-
             // Ensure maxNodeWidth is always a positive number
             const safeMaxNodeWidth = Math.max(100, maxNodeWidth || 0);
-
-            console.log(`Safe maxNodeWidth: ${safeMaxNodeWidth}`);
 
             // Draw links
             svg.selectAll('.ancestry-tree__link')
@@ -584,7 +572,6 @@ const ancestryDialog = {
                 .attr('text-anchor', 'middle')
                 .each(function(d) {
                     const { rankText, taxonName } = getNodeText(d);
-                    console.log(`Processing node: rank=${d.data.rank}, taxonName=${taxonName}`);
                     
                     if (rankText) {
                         d3.select(this).append('tspan')
@@ -602,7 +589,7 @@ const ancestryDialog = {
                                 .attr('style', 'font-style: italic;')
                                 .text(restOfName.join(' '));
                         } else {
-                            console.warn(`Unexpected format for species name: ${taxonName}`);
+                            logger.warn(`Unexpected format for species name: ${taxonName}`);
                             d3.select(this).append('tspan')
                                 .attr('style', 'font-style: italic;')
                                 .text(taxonName || 'Unknown species');
@@ -647,7 +634,7 @@ const ancestryDialog = {
 
         async updateNodeLabels(showTaxonomic) {
             if (!this.lastCreatedTree) {
-                console.warn('No tree to update');
+                logger.warn('No tree to update');
                 return;
             }
 
@@ -677,7 +664,7 @@ const ancestryDialog = {
                                 .attr('style', 'font-style: italic;')
                                 .text(restOfName.join(' '));
                         } else {
-                            console.warn(`Unexpected format for species name: ${taxonName}`);
+                            logger.warn(`Unexpected format for species name: ${taxonName}`);
                             textElement.append('tspan')
                                 .attr('style', 'font-style: italic;')
                                 .text(taxonName || 'Unknown species');
@@ -701,13 +688,13 @@ const ancestryDialog = {
         updateNodeSizes() {
             // Implement this if you need to adjust node sizes based on new text content
             // This might involve recalculating maxNodeWidth and updating rectangles
-            console.log("Node sizes update not implemented yet");
+            logger.warn("Node sizes update not implemented yet");
         },
 
     },
 
     utils: {
-        loadVisJs() {
+        /*loadVisJs() {
             return new Promise((resolve, reject) => {
                 if (window.vis) {
                     resolve();
@@ -719,7 +706,7 @@ const ancestryDialog = {
                 script.onerror = reject;
                 document.head.appendChild(script);
             });
-        },
+        },*/
 
         async fetchTaxonData(name) {
             return api.taxonomy.fetchTaxonDetails(name);

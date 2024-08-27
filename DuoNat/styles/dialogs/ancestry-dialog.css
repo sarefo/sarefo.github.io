@@ -2,6 +2,7 @@
     flex-direction: column;
     opacity: 0.92;
     width: 95%;
+    max-width: 800px !important;
     height: 95%;
     padding: 8px 5px 5px;
 }
@@ -57,7 +58,7 @@
 }
 
 .ancestry-tree__node-rect--endpoint {
-    fill: #ffa500;
+    fill: #cb9a48;
 }
 
 .ancestry-tree__node-text {
