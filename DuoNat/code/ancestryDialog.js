@@ -517,7 +517,7 @@ const ancestryDialog = {
                 .attr('text-anchor', 'middle')
                 .text(d => d.data.taxonName)
                 .style('fill', 'white')
-                .style('font-size', '12px');
+                .style('font-size', '16px');
 
             // Add click event to open iNaturalist taxon page
             node.on('click', (event, d) => {
