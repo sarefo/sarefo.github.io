@@ -447,6 +447,16 @@ const ancestryDialog = {
             }
             commonAncestorIndex--;
 
+            // Find the last common ancestor
+            let lastCommonAncestor = null;
+            for (let i = 0; i < Math.min(ancestors1.length, ancestors2.length); i++) {
+                if (ancestors1[i].id === ancestors2[i].id) {
+                    lastCommonAncestor = ancestors1[i].id;
+                } else {
+                    break;
+                }
+            }
+
             // Build the tree structure
             const buildSubtree = (ancestors, startIndex) => {
                 if (startIndex >= ancestors.length) return null;
@@ -554,16 +564,22 @@ const ancestryDialog = {
 
             // Add rectangles for nodes
             node.append('rect')
-                .attr('class', 'd3-node-rect ancestry-tree__node-rect')
+                .attr('class', d => {
+                    let classes = 'd3-node-rect ancestry-tree__node-rect';
+                    if (String(d.data.id) === String(taxon1.id) || String(d.data.id) === String(taxon2.id)) {
+                        classes += ' ancestry-tree__node-rect--endpoint';
+                    }
+                    if (String(d.data.id) === String(lastCommonAncestor)) {
+                        classes += ' ancestry-tree__node-rect--common-ancestor';
+                    }
+                    return classes;
+                })
                 .attr('width', safeMaxNodeWidth)
                 .attr('height', NODE_HEIGHT)
                 .attr('x', -safeMaxNodeWidth / 2)
                 .attr('y', -NODE_HEIGHT / 2)
                 .attr('rx', BORDER_RADIUS)
-                .attr('ry', BORDER_RADIUS)
-                .classed('ancestry-tree__node-rect--endpoint', d => 
-                    String(d.data.id) === String(taxon1.id) || String(d.data.id) === String(taxon2.id)
-                );
+                .attr('ry', BORDER_RADIUS);
 
             // Add text to nodes
             node.append('text')

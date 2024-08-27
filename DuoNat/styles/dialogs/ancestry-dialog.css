@@ -54,11 +54,15 @@
 .ancestry-tree__node-rect {
     stroke: #fff;
     stroke-width: 2px;
-    fill: #74ac00;
+    fill: var(--primary-color);
+}
+
+.ancestry-tree__node-rect--common-ancestor {
+    fill: var(--primary-counter-color);
 }
 
 .ancestry-tree__node-rect--endpoint {
-    fill: #cb9a48;
+    fill: #5c8a00;
 }
 
 .ancestry-tree__node-text {
