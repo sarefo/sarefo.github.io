@@ -69,7 +69,7 @@
 
 .phylogeny-dialog__message {
     color: var(--dark-neutral-color);
-    padding: 0.4em;
+    margin: 8px;
     font-weight: bold;
 }
 
