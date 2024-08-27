@@ -16,7 +16,7 @@
     color: var(--dark-neutral-color);
     font-size: 0.9em;
     opacity: 0.6;
-    margin-bottom: 8px;
+    margin: 8px;
 }
 
 .ancestry-dialog__graph {
