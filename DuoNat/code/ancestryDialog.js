@@ -5,7 +5,7 @@ import state from './state.js';
 import utils from './utils.js';
 import dialogManager from './dialogManager.js';
 
-const useD3Graph = false; // Set to false to use vis.js graph
+const useD3Graph = true; // Set to false to use vis.js graph
 
 const ancestryDialog = {
     container: null,
@@ -385,6 +385,7 @@ const ancestryDialog = {
                 }
             });
         },
+
         async renderD3Graph(taxon1, taxon2, commonAncestorId) {
             const d3 = await d3Graphs.loadD3();
             // Clear any existing graph
@@ -407,68 +408,99 @@ const ancestryDialog = {
                 return;
             }
 
-            const commonAncestor = hierarchy.getTaxonById(commonAncestorId);
-            if (!commonAncestor) {
-                logger.error(`Common ancestor not found: ${commonAncestorId}`);
-                return;
-            }
-
             const getAncestors = (node) => {
                 let ancestors = [];
                 let current = node;
-                while (current && current.id !== commonAncestor.id) {
+                while (current) {
                     ancestors.unshift(current);
                     current = hierarchy.getTaxonById(current.parentId);
                 }
-                ancestors.unshift(commonAncestor);
                 return ancestors;
             };
 
             const ancestors1 = getAncestors(node1);
             const ancestors2 = getAncestors(node2);
 
-            const rootNode = {
-                id: commonAncestor.id,
-                taxonName: commonAncestor.taxonName,
-                vernacularName: commonAncestor.vernacularName,
-                children: [
-                    this.buildBranch(ancestors1.slice(1)),
-                    this.buildBranch(ancestors2.slice(1))
-                ]
+            // Find the nearest common ancestor
+            let commonAncestorIndex = 0;
+            while (commonAncestorIndex < ancestors1.length && 
+                   commonAncestorIndex < ancestors2.length && 
+                   ancestors1[commonAncestorIndex].id === ancestors2[commonAncestorIndex].id) {
+                commonAncestorIndex++;
+            }
+            commonAncestorIndex--;
+
+            // Build the tree structure
+            const buildSubtree = (ancestors, startIndex) => {
+                if (startIndex >= ancestors.length) return null;
+                return {
+                    id: ancestors[startIndex].id,
+                    taxonName: ancestors[startIndex].taxonName,
+                    vernacularName: ancestors[startIndex].vernacularName,
+                    children: buildSubtree(ancestors, startIndex + 1) ? [buildSubtree(ancestors, startIndex + 1)] : null
+                };
             };
+
+            const rootNode = buildSubtree(ancestors1, 0);
+            let currentNode = rootNode;
+            for (let i = 1; i <= commonAncestorIndex; i++) {
+                currentNode = currentNode.children[0];
+            }
+            currentNode.children = [
+                buildSubtree(ancestors1, commonAncestorIndex + 1),
+                buildSubtree(ancestors2, commonAncestorIndex + 1)
+            ].filter(Boolean);
 
             const width = ancestryDialog.container.clientWidth;
             const height = ancestryDialog.container.clientHeight;
-            const radius = Math.min(width, height) / 2 - 40;
 
             const svg = d3.select(ancestryDialog.container)
                 .append('svg')
                 .attr('width', width)
                 .attr('height', height)
                 .append('g')
-                .attr('transform', `translate(${width / 2},${height / 2})`);
+                .attr('transform', `translate(${width / 2},30)`);
 
-            const tree = d3.tree()
-                .size([2 * Math.PI, radius])
-                .separation((a, b) => (a.parent == b.parent ? 1 : 2) / a.depth);
+            const tree = d3.tree().size([width - 100, height - 60]);
 
             const root = d3.hierarchy(rootNode);
-            const links = tree(root).links();
+            
+            // Ensure end nodes are at the same depth
+            const maxDepth = Math.max(...root.leaves().map(d => d.depth));
+            root.eachBefore(d => {
+                if (!d.children) {
+                    d.depth = maxDepth;
+                }
+            });
+
+            tree(root);
+
+            // Adjust y-positions to align end nodes at the bottom
+            const maxY = Math.max(...root.leaves().map(d => d.y));
+            root.eachBefore(d => {
+                if (!d.children) {
+                    d.y = maxY;
+                }
+            });
+
+            const links = root.links();
             const nodes = root.descendants();
 
-            const link = svg.selectAll('.link')
+            // Draw links
+            svg.selectAll('.link')
                 .data(links)
                 .enter().append('path')
                 .attr('class', 'link')
-                .attr('d', d3.linkRadial()
-                    .angle(d => d.x)
-                    .radius(d => d.y));
+                .attr('d', d3.linkVertical()
+                    .x(d => d.x)
+                    .y(d => d.y));
 
+            // Draw nodes
             const node = svg.selectAll('.node')
                 .data(nodes)
                 .enter().append('g')
                 .attr('class', 'node')
-                .attr('transform', d => `rotate(${d.x * 180 / Math.PI - 90}) translate(${d.y},0) rotate(${d.x >= Math.PI ? 180 : 0})`);
+                .attr('transform', d => `translate(${d.x},${d.y})`);
 
             node.append('circle')
                 .attr('r', 4)
@@ -476,8 +508,8 @@ const ancestryDialog = {
 
             node.append('text')
                 .attr('dy', '.31em')
-                .attr('x', d => d.x < Math.PI === !d.children ? 6 : -6)
-                .style('text-anchor', d => d.x < Math.PI === !d.children ? 'start' : 'end')
+                .attr('x', d => d.children ? -6 : 6)
+                .style('text-anchor', d => d.children ? 'end' : 'start')
                 .text(d => d.data.taxonName)
                 .clone(true).lower()
                 .attr('stroke', 'white');
@@ -486,6 +518,17 @@ const ancestryDialog = {
             node.on('click', (event, d) => {
                 window.open(`https://www.inaturalist.org/taxa/${d.data.id}`, '_blank');
             });
+
+            // Add zoom behavior
+            const zoom = d3.zoom()
+                .scaleExtent([0.5, 3])
+                .on('zoom', (event) => {
+                    svg.attr('transform', event.transform);
+                });
+
+            d3.select(ancestryDialog.container).select('svg')
+                .call(zoom)
+                .call(zoom.transform, d3.zoomIdentity.translate(width / 2, 30).scale(0.8));
         },
 
         // Helper function to build branch for D3 hierarchy
