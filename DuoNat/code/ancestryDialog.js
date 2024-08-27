@@ -461,7 +461,7 @@ const ancestryDialog = {
                 .append('g')
                 .attr('transform', `translate(${width / 2},30)`);
 
-            const tree = d3.tree().size([width - 100, height - 60]);
+            const tree = d3.tree().size([width - 200, height - 60]);
 
             const root = d3.hierarchy(rootNode);
             
@@ -502,22 +502,33 @@ const ancestryDialog = {
                 .attr('class', 'node')
                 .attr('transform', d => `translate(${d.x},${d.y})`);
 
-            node.append('circle')
-                .attr('r', 4)
+            // Add rectangles for nodes
+            node.append('rect')
+                .attr('width', d => Math.max(d.data.taxonName.length * 7, 60))
+                .attr('height', 30)
+                .attr('x', d => -(Math.max(d.data.taxonName.length * 7, 60) / 2))
+                .attr('y', -15)
+                .attr('rx', 5)
+                .attr('ry', 5)
                 .style('fill', d => d.data.id === taxon1.id || d.data.id === taxon2.id ? '#ffa500' : '#74ac00');
 
             node.append('text')
                 .attr('dy', '.31em')
-                .attr('x', d => d.children ? -6 : 6)
-                .style('text-anchor', d => d.children ? 'end' : 'start')
+                .attr('text-anchor', 'middle')
                 .text(d => d.data.taxonName)
-                .clone(true).lower()
-                .attr('stroke', 'white');
+                .style('fill', 'white')
+                .style('font-size', '12px');
 
             // Add click event to open iNaturalist taxon page
             node.on('click', (event, d) => {
                 window.open(`https://www.inaturalist.org/taxa/${d.data.id}`, '_blank');
             });
+
+            // Center the graph
+            const rootExtent = d3.extent(root.descendants(), d => d.x);
+            const rootWidth = rootExtent[1] - rootExtent[0];
+            const offset = (width - rootWidth) / 2 - rootExtent[0];
+            svg.attr('transform', `translate(${offset},30)`);
 
             // Add zoom behavior
             const zoom = d3.zoom()
@@ -529,18 +540,33 @@ const ancestryDialog = {
             d3.select(ancestryDialog.container).select('svg')
                 .call(zoom)
                 .call(zoom.transform, d3.zoomIdentity.translate(width / 2, 30).scale(0.8));
+
+            // Function to wrap text
+            /*function wrap(text, width) {
+                text.each(function() {
+                    var text = d3.select(this),
+                        words = text.text().split(/\s+/).reverse(),
+                        word,
+                        line = [],
+                        lineNumber = 0,
+                        lineHeight = 1.1, // ems
+                        y = text.attr("y"),
+                        dy = parseFloat(text.attr("dy")),
+                        tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+                    while (word = words.pop()) {
+                        line.push(word);
+                        tspan.text(line.join(" "));
+                        if (tspan.node().getComputedTextLength() > width) {
+                            line.pop();
+                            tspan.text(line.join(" "));
+                            line = [word];
+                            tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+                        }
+                    }
+                });
+            }*/
         },
 
-        // Helper function to build branch for D3 hierarchy
-        buildBranch(ancestors) {
-            if (ancestors.length === 0) return null;
-            return {
-                id: ancestors[0].id,
-                taxonName: ancestors[0].taxonName,
-                vernacularName: ancestors[0].vernacularName,
-                children: this.buildBranch(ancestors.slice(1)) ? [this.buildBranch(ancestors.slice(1))] : null
-            };
-        },
     },
 
     utils: {
