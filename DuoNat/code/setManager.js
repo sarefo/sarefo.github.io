@@ -6,7 +6,7 @@ import state from './state.js';
 const setManager = {
     currentSubset: [],
     allFilteredSets: [],
-    usedSets: new Set(),
+    usedSetIDs: new Set(),
     isInitialized: false,
 
     async initializeSubset() {
@@ -17,14 +17,14 @@ const setManager = {
         
         logger.debug(`Total filtered sets: ${this.allFilteredSets.length}`);
 
-        // Reset usedSets if all sets have been used
-        if (this.usedSets.size >= this.allFilteredSets.length) {
-            this.usedSets.clear();
+        // Reset usedSetIDs if all sets have been used
+        if (this.usedSetIDs.size >= this.allFilteredSets.length) {
+            this.usedSetIDs.clear();
             logger.debug('Reset used sets');
         }
 
         // Create a new subset with unused sets
-        this.currentSubset = this.allFilteredSets.filter(set => !this.usedSets.has(set.setID));
+        this.currentSubset = this.allFilteredSets.filter(set => !this.usedSetIDs.has(set.setID));
         this.shuffleArray(this.currentSubset);
 
         logger.debug(`Initialized new subset of sets: ${this.currentSubset.length}`);
@@ -38,14 +38,14 @@ const setManager = {
 
         if (this.currentSubset.length === 0) {
             logger.debug('All sets have been used, resetting');
-            this.usedSets.clear();
+            this.usedSetIDs.clear();
             await this.initializeSubset();
         }
 
         const nextSet = this.currentSubset.pop();
         if (nextSet) {
-            this.usedSets.add(nextSet.setID);
-            logger.debug(`Next set: ${nextSet.setID}, Remaining sets: ${this.currentSubset.length}, Used sets: ${this.usedSets.size}`);
+            this.usedSetIDs.add(nextSet.setID);
+            logger.debug(`Next set: ${nextSet.setID}, Remaining sets: ${this.currentSubset.length}, Used sets: ${this.usedSetIDs.size}, Total sets: ${this.allFilteredSets.length}`);
         } else {
             logger.warn('No next set available');
         }
@@ -62,12 +62,12 @@ const setManager = {
 
     async refreshSubset() {
         this.isInitialized = false;
-        this.usedSets.clear();
+        this.usedSetIDs.clear();
         await this.initializeSubset();
     },
 
     isSetUsed(setID) {
-        return this.usedSets.has(setID);
+        return this.usedSetIDs.has(setID);
     },
 
     async getSetByID(setID) {
