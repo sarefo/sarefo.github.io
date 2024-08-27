@@ -138,7 +138,12 @@ const utils = {
             let genusInitial = parts[0].charAt(0).toUpperCase() + '.';
             let species = parts.slice(1).join(' ');
             return genusInitial + ' ' + species;
-        }
+        },
+
+        truncate: (str, maxLength) => {
+            if (str.length <= maxLength) return str;
+            return str.slice(0, maxLength - 1) + '…';
+        },
     },
 
     array: {
@@ -182,7 +187,8 @@ const publicAPI = {
     },
     string: {
         capitalizeFirstLetter: utils.string.capitalizeFirstLetter,
-        shortenSpeciesName: utils.string.shortenSpeciesName
+        shortenSpeciesName: utils.string.shortenSpeciesName,
+        truncate: utils.string.truncate
     },
     array: {
         arraysEqual: utils.array.arraysEqual

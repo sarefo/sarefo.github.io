@@ -388,8 +388,8 @@ const ancestryDialog = {
 
         async renderD3Graph(taxon1, taxon2, commonAncestorId) {
             const NODE_HEIGHT = 30;
-            const MIN_NODE_WIDTH = 80;
             const CHAR_WIDTH = 8; // Approximate width of a character
+            const PADDING = 8; // Padding inside the rectangle
 
             const d3 = await d3Graphs.loadD3();
             // Clear any existing graph
@@ -441,6 +441,7 @@ const ancestryDialog = {
                     id: ancestors[startIndex].id,
                     taxonName: ancestors[startIndex].taxonName,
                     vernacularName: ancestors[startIndex].vernacularName,
+                    rank: ancestors[startIndex].rank,
                     children: buildSubtree(ancestors, startIndex + 1) ? [buildSubtree(ancestors, startIndex + 1)] : null
                 };
             };
@@ -489,6 +490,18 @@ const ancestryDialog = {
             const links = root.links();
             const nodes = root.descendants();
 
+            // Calculate the maximum node width
+            const getNodeText = d => {
+                let taxonName = d.data.taxonName;
+                if (d.data.rank === "Species") {
+                    taxonName = utils.string.shortenSpeciesName(taxonName);
+                }
+                const rankText = ["Species", "Genus", "Stateofmatter"].includes(d.data.rank) ? "" : `${utils.string.capitalizeFirstLetter(d.data.rank)} `;
+                return `${rankText}${taxonName}`;
+            };
+
+            const maxNodeWidth = Math.max(...nodes.map(d => getNodeText(d).length * CHAR_WIDTH)) + PADDING * 2;
+
             // Draw links
             svg.selectAll('.ancestry-tree__link')
                 .data(links)
@@ -505,37 +518,12 @@ const ancestryDialog = {
                 .attr('class', 'ancestry-tree__node')
                 .attr('transform', d => `translate(${d.x},${d.y})`);
 
-            // Function to wrap text
-            function wrap(text, width) {
-                text.each(function() {
-                    let text = d3.select(this),
-                        words = text.text().split(/\s+/).reverse(),
-                        word,
-                        line = [],
-                        lineNumber = 0,
-                        lineHeight = 1.1, // ems
-                        y = text.attr("y"),
-                        dy = parseFloat(text.attr("dy")),
-                        tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
-                    while (word = words.pop()) {
-                        line.push(word);
-                        tspan.text(line.join(" "));
-                        if (tspan.node().getComputedTextLength() > width) {
-                            line.pop();
-                            tspan.text(line.join(" "));
-                            line = [word];
-                            tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
-                        }
-                    }
-                });
-            }
-
             // Add rectangles for nodes
             node.append('rect')
                 .attr('class', 'ancestry-tree__node-rect')
-                .attr('width', d => Math.max(d.data.taxonName.length * CHAR_WIDTH, MIN_NODE_WIDTH))
+                .attr('width', maxNodeWidth)
                 .attr('height', NODE_HEIGHT)
-                .attr('x', d => -(Math.max(d.data.taxonName.length * CHAR_WIDTH, MIN_NODE_WIDTH) / 2))
+                .attr('x', -maxNodeWidth / 2)
                 .attr('y', -NODE_HEIGHT / 2)
                 .attr('rx', 5)
                 .attr('ry', 5)
@@ -546,8 +534,7 @@ const ancestryDialog = {
                 .attr('class', 'ancestry-tree__node-text')
                 .attr('dy', '.31em')
                 .attr('text-anchor', 'middle')
-                .text(d => d.data.taxonName)
-                /*.call(wrap, Math.max(MIN_NODE_WIDTH, 120))*/;
+                .text(getNodeText);
 
             // Add click event to open iNaturalist taxon page
             node.on('click', (event, d) => {
@@ -571,6 +558,7 @@ const ancestryDialog = {
             d3.select(ancestryDialog.container).select('svg')
                 .call(zoom)
                 .call(zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(scale));
+
         },
 
     },
