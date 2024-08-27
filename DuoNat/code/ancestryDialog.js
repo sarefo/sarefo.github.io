@@ -1,8 +1,11 @@
 import api from './api.js';
+import d3Graphs from './d3Graphs.js';
 import logger from './logger.js';
 import state from './state.js';
 import utils from './utils.js';
 import dialogManager from './dialogManager.js';
+
+const useD3Graph = false; // Set to false to use vis.js graph
 
 const ancestryDialog = {
     container: null,
@@ -26,7 +29,7 @@ const ancestryDialog = {
     ui: {
         createLoadingIndicator() {
             if (!ancestryDialog.container) return;
-            ancestryDialog.loadingIndicator = this.ui.createLoadingElement();
+            ancestryDialog.loadingIndicator = this.createLoadingElement();
             ancestryDialog.container.appendChild(ancestryDialog.loadingIndicator);
         },
 
@@ -36,9 +39,9 @@ const ancestryDialog = {
             loadingIndicator.style.display = 'none';
 
             const elements = [
-                this.ui.createLogoElement(),
-                this.ui.createSpinnerElement(),
-                this.ui.createMessageElement()
+                this.createLogoElement(),
+                this.createSpinnerElement(),
+                this.createMessageElement()
             ];
 
             elements.forEach(element => loadingIndicator.appendChild(element));
@@ -116,15 +119,15 @@ const ancestryDialog = {
             const { taxonImageOne, taxonImageTwo } = state.getGameState();
             const container = document.getElementById('ancestry-dialog__graph');
 
-            if (!this.graphManagement.validateTaxonNames(taxonImageOne, taxonImageTwo)) return;
+            if (!ancestryDialog.graphManagement.validateTaxonNames(taxonImageOne, taxonImageTwo)) return;
 
             dialogManager.openDialog('ancestry-dialog');
 
             try {
                 await ancestryDialog.initialization.initialize(container);
-                await this.graphManagement.handleGraphDisplay(taxonImageOne, taxonImageTwo);
+                await ancestryDialog.graphManagement.handleGraphDisplay(taxonImageOne, taxonImageTwo);
             } catch (error) {
-                this.graphManagement.handleGraphError(error);
+                ancestryDialog.graphManagement.handleGraphError(error);
             }
         },
 
@@ -138,12 +141,12 @@ const ancestryDialog = {
         },
 
         async handleGraphDisplay(taxonImageOne, taxonImageTwo) {
-            if (this.graphManagement.isSameTaxaPair(taxonImageOne, taxonImageTwo)) {
+            if (ancestryDialog.graphManagement.isSameTaxaPair(taxonImageOne, taxonImageTwo)) {
                 logger.debug("Showing existing graph for the same taxa pair");
                 ancestryDialog.graphManagement.showExistingGraph();
             } else {
                 logger.debug("Creating new graph for a different taxa pair");
-                await this.graphManagement.createNewGraph(taxonImageOne, taxonImageTwo);
+                await ancestryDialog.graphManagement.createNewGraph(taxonImageOne, taxonImageTwo);
             }
         },
 
@@ -175,11 +178,11 @@ const ancestryDialog = {
             ancestryDialog.ui.showLoadingIndicator();
 
             try {
-                const [taxon1, taxon2] = await this.dataProcessing.fetchTaxonData(taxonName1, taxonName2);
-                const [ancestry1, ancestry2] = await this.dataProcessing.fetchAncestryData(taxonName1, taxonName2);
+                const [taxon1, taxon2] = await this.fetchTaxonData(taxonName1, taxonName2);
+                const [ancestry1, ancestry2] = await this.fetchAncestryData(taxonName1, taxonName2);
 
-                this.dataProcessing.updateTaxonAncestry(taxon1, ancestry1);
-                this.dataProcessing.updateTaxonAncestry(taxon2, ancestry2);
+                this.updateTaxonAncestry(taxon1, ancestry1);
+                this.updateTaxonAncestry(taxon2, ancestry2);
 
                 const commonAncestor = ancestryDialog.utils.findCommonAncestor(taxon1, taxon2);
                 ancestryDialog.currentData = { taxon1, taxon2, commonAncestor };
@@ -216,10 +219,10 @@ const ancestryDialog = {
             logger.debug('Fetching ancestor details for IDs:', ancestorIds);
 
             const localAncestorDetails = new Map();
-            this.dataProcessing.addEndNodesToLocalDetails(localAncestorDetails, taxon1, taxon2);
+            this.addEndNodesToLocalDetails(localAncestorDetails, taxon1, taxon2);
 
             const ancestorDetails = await api.taxonomy.fetchAncestorDetails(ancestorIds);
-            this.dataProcessing.mergeAncestorDetails(localAncestorDetails, ancestorDetails);
+            this.mergeAncestorDetails(localAncestorDetails, ancestorDetails);
 
             return localAncestorDetails;
         },
@@ -249,6 +252,14 @@ const ancestryDialog = {
 
     graphRendering: {
         async renderGraph(taxon1, taxon2, commonAncestorId) {
+            if (useD3Graph) {
+                await this.renderD3Graph(taxon1, taxon2, commonAncestorId);
+            } else {
+                await this.renderVisGraph(taxon1, taxon2, commonAncestorId);
+            }
+        },
+
+        async renderVisGraph(taxon1, taxon2, commonAncestorId) {
             // Clear any existing graph
             if (ancestryDialog.network) {
                 ancestryDialog.network.destroy();
@@ -373,7 +384,120 @@ const ancestryDialog = {
                     }
                 }
             });
-        }
+        },
+        async renderD3Graph(taxon1, taxon2, commonAncestorId) {
+            const d3 = await d3Graphs.loadD3();
+            // Clear any existing graph
+            if (ancestryDialog.network) {
+                ancestryDialog.network.destroy();
+                ancestryDialog.network = null;
+            }
+            ancestryDialog.container.innerHTML = '';
+
+            const hierarchy = api.taxonomy.getTaxonomyHierarchy();
+            if (!hierarchy) {
+                logger.error('Taxonomy hierarchy not loaded');
+                return;
+            }
+
+            const node1 = hierarchy.getTaxonById(taxon1.id);
+            const node2 = hierarchy.getTaxonById(taxon2.id);
+            if (!node1 || !node2) {
+                logger.error(`One or both taxa not found in hierarchy: ${taxon1.id}, ${taxon2.id}`);
+                return;
+            }
+
+            const commonAncestor = hierarchy.getTaxonById(commonAncestorId);
+            if (!commonAncestor) {
+                logger.error(`Common ancestor not found: ${commonAncestorId}`);
+                return;
+            }
+
+            const getAncestors = (node) => {
+                let ancestors = [];
+                let current = node;
+                while (current && current.id !== commonAncestor.id) {
+                    ancestors.unshift(current);
+                    current = hierarchy.getTaxonById(current.parentId);
+                }
+                ancestors.unshift(commonAncestor);
+                return ancestors;
+            };
+
+            const ancestors1 = getAncestors(node1);
+            const ancestors2 = getAncestors(node2);
+
+            const rootNode = {
+                id: commonAncestor.id,
+                taxonName: commonAncestor.taxonName,
+                vernacularName: commonAncestor.vernacularName,
+                children: [
+                    this.buildBranch(ancestors1.slice(1)),
+                    this.buildBranch(ancestors2.slice(1))
+                ]
+            };
+
+            const width = ancestryDialog.container.clientWidth;
+            const height = ancestryDialog.container.clientHeight;
+            const radius = Math.min(width, height) / 2 - 40;
+
+            const svg = d3.select(ancestryDialog.container)
+                .append('svg')
+                .attr('width', width)
+                .attr('height', height)
+                .append('g')
+                .attr('transform', `translate(${width / 2},${height / 2})`);
+
+            const tree = d3.tree()
+                .size([2 * Math.PI, radius])
+                .separation((a, b) => (a.parent == b.parent ? 1 : 2) / a.depth);
+
+            const root = d3.hierarchy(rootNode);
+            const links = tree(root).links();
+            const nodes = root.descendants();
+
+            const link = svg.selectAll('.link')
+                .data(links)
+                .enter().append('path')
+                .attr('class', 'link')
+                .attr('d', d3.linkRadial()
+                    .angle(d => d.x)
+                    .radius(d => d.y));
+
+            const node = svg.selectAll('.node')
+                .data(nodes)
+                .enter().append('g')
+                .attr('class', 'node')
+                .attr('transform', d => `rotate(${d.x * 180 / Math.PI - 90}) translate(${d.y},0) rotate(${d.x >= Math.PI ? 180 : 0})`);
+
+            node.append('circle')
+                .attr('r', 4)
+                .style('fill', d => d.data.id === taxon1.id || d.data.id === taxon2.id ? '#ffa500' : '#74ac00');
+
+            node.append('text')
+                .attr('dy', '.31em')
+                .attr('x', d => d.x < Math.PI === !d.children ? 6 : -6)
+                .style('text-anchor', d => d.x < Math.PI === !d.children ? 'start' : 'end')
+                .text(d => d.data.taxonName)
+                .clone(true).lower()
+                .attr('stroke', 'white');
+
+            // Add click event to open iNaturalist taxon page
+            node.on('click', (event, d) => {
+                window.open(`https://www.inaturalist.org/taxa/${d.data.id}`, '_blank');
+            });
+        },
+
+        // Helper function to build branch for D3 hierarchy
+        buildBranch(ancestors) {
+            if (ancestors.length === 0) return null;
+            return {
+                id: ancestors[0].id,
+                taxonName: ancestors[0].taxonName,
+                vernacularName: ancestors[0].vernacularName,
+                children: this.buildBranch(ancestors.slice(1)) ? [this.buildBranch(ancestors.slice(1))] : null
+            };
+        },
     },
 
     utils: {
@@ -409,19 +533,27 @@ const ancestryDialog = {
     },
 };
 
-// Bind all methods to ensure correct 'this' context
-Object.keys(ancestryDialog).forEach(key => {
-    if (ancestryDialog[key] && typeof ancestryDialog[key] === 'object') {
-        Object.keys(ancestryDialog[key]).forEach(subKey => {
-            if (typeof ancestryDialog[key][subKey] === 'function') {
-                ancestryDialog[key][subKey] = ancestryDialog[key][subKey].bind(ancestryDialog);
-            }
-        });
-    }
-});
+// Bind all methods and its nested objects
+const bindMethodsRecursively = (obj) => {
+    Object.keys(obj).forEach(key => {
+        if (typeof obj[key] === 'function') {
+            obj[key] = obj[key].bind(obj);
+        } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+            bindMethodsRecursively(obj[key]);
+        }
+    });
+};
+
+bindMethodsRecursively(ancestryDialog);
 
 const publicAPI = {
     showTaxaRelationship: ancestryDialog.graphManagement.showTaxaRelationship
 };
+
+Object.keys(publicAPI).forEach(key => {
+    if (typeof publicAPI[key] === 'function') {
+        publicAPI[key] = publicAPI[key].bind(ancestryDialog);
+    }
+});
 
 export default publicAPI;

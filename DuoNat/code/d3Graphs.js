@@ -920,6 +920,8 @@ const publicAPI = {
         }
     },
 
+    loadD3: loadD3,
+
 };
 
 // Bind publicAPI methods
