@@ -502,22 +502,50 @@ const ancestryDialog = {
                 .attr('class', 'node')
                 .attr('transform', d => `translate(${d.x},${d.y})`);
 
+            // Function to wrap text
+            function wrap(text, width) {
+                text.each(function() {
+                    let text = d3.select(this),
+                        words = text.text().split(/\s+/).reverse(),
+                        word,
+                        line = [],
+                        lineNumber = 0,
+                        lineHeight = 1.1, // ems
+                        x = text.attr("x"),
+                        y = text.attr("y"),
+                        dy = 0,
+                        tspan = text.text(null).append("tspan").attr("x", x).attr("y", y).attr("dy", dy + "em");
+                    while (word = words.pop()) {
+                        line.push(word);
+                        tspan.text(line.join(" "));
+                        if (tspan.node().getComputedTextLength() > width) {
+                            line.pop();
+                            tspan.text(line.join(" "));
+                            line = [word];
+                            tspan = text.append("tspan").attr("x", x).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+                        }
+                    }
+                });
+            }
+
             // Add rectangles for nodes
             node.append('rect')
-                .attr('width', d => Math.max(d.data.taxonName.length * 7, 60))
-                .attr('height', 30)
-                .attr('x', d => -(Math.max(d.data.taxonName.length * 7, 60) / 2))
-                .attr('y', -15)
+                .attr('width', d => Math.max(d.data.taxonName.length * 8, 80))
+                .attr('height', d => d.data.taxonName.length > 15 ? 45 : 30)
+                .attr('x', d => -(Math.max(d.data.taxonName.length * 8, 80) / 2))
+                .attr('y', d => d.data.taxonName.length > 15 ? -22.5 : -15)
                 .attr('rx', 5)
                 .attr('ry', 5)
                 .style('fill', d => d.data.id === taxon1.id || d.data.id === taxon2.id ? '#ffa500' : '#74ac00');
 
+            // Add text to nodes
             node.append('text')
                 .attr('dy', '.31em')
                 .attr('text-anchor', 'middle')
                 .text(d => d.data.taxonName)
                 .style('fill', 'white')
-                .style('font-size', '16px');
+                .style('font-size', '14px')
+                //.call(wrap, 70);
 
             // Add click event to open iNaturalist taxon page
             node.on('click', (event, d) => {
@@ -541,30 +569,6 @@ const ancestryDialog = {
                 .call(zoom)
                 .call(zoom.transform, d3.zoomIdentity.translate(width / 2, 30).scale(0.8));
 
-            // Function to wrap text
-            /*function wrap(text, width) {
-                text.each(function() {
-                    var text = d3.select(this),
-                        words = text.text().split(/\s+/).reverse(),
-                        word,
-                        line = [],
-                        lineNumber = 0,
-                        lineHeight = 1.1, // ems
-                        y = text.attr("y"),
-                        dy = parseFloat(text.attr("dy")),
-                        tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
-                    while (word = words.pop()) {
-                        line.push(word);
-                        tspan.text(line.join(" "));
-                        if (tspan.node().getComputedTextLength() > width) {
-                            line.pop();
-                            tspan.text(line.join(" "));
-                            line = [word];
-                            tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
-                        }
-                    }
-                });
-            }*/
         },
 
     },
