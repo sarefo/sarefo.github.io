@@ -33,7 +33,7 @@ dialog[open] {
 @media (max-width: 480px) {
     dialog {
         /*top: 5vh;*/
-        max-height: 95vh;
+        /*max-height: 95vh;*/
         /*transform: translateX(-50%);*/
     }
 }
