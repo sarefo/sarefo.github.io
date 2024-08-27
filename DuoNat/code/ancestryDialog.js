@@ -464,9 +464,9 @@ const ancestryDialog = {
                 .attr('width', '100%')
                 .attr('height', '100%')
                 .append('g');
+                //.attr('transform', 'translate(0, 8)');
 
-            const tree = d3.tree().size([width, height - 60]);
-
+            const tree = d3.tree().size([width, height * 0.95]); // Reduce height to 95%
             const root = d3.hierarchy(rootNode);
             
             // Ensure end nodes are at the same depth
@@ -599,7 +599,7 @@ const ancestryDialog = {
             const bounds = svg.node().getBBox();
             const scale = Math.min(width / bounds.width, height / bounds.height) * 0.9;
             const tx = (width - bounds.width * scale) / 2 - bounds.x * scale;
-            const ty = (height - bounds.height * scale) / 2 - bounds.y * scale;
+            const ty = 20;
 
             svg.attr('transform', `translate(${tx},${ty}) scale(${scale})`);
 
