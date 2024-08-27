@@ -20,6 +20,7 @@ import utils from './utils.js';
 const dialogManager = {
     dialogIds: [
         'ancestry-dialog',
+        'ancestry-popup',
         'collection-dialog',
         'enter-set-dialog',
         'help-dialog',

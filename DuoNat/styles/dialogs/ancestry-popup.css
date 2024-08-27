@@ -1,0 +1,32 @@
+.ancestry-popup {
+
+    max-width: 300px;
+}
+
+.ancestry-popup__title {
+    margin-bottom: 5px;
+}
+
+.ancestry-popup__container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ancestry-popup__taxon {
+    font-size: larger;
+    font-weight: bold;
+}
+.ancestry-popup__vernacular {
+}
+
+.ancestry-popup__buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+}
+
+.ancestry-popup__buttons .dialog-button {
+    width: 100%;
+}

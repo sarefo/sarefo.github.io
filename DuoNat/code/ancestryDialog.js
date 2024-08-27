@@ -1,3 +1,4 @@
+import ancestryPopup from './ancestryPopup.js';
 import api from './api.js';
 import d3Graphs from './d3Graphs.js';
 import logger from './logger.js';
@@ -19,8 +20,14 @@ const ancestryDialog = {
             if (ancestryDialog.container) {
                 ancestryDialog.ui.createLoadingIndicator();
             }
-            ancestryDialog.initialized = true;
 
+            ancestryDialog.initialized = true;
+            ancestryPopup.initialize();
+
+            this.initializeToggle();
+        },
+
+        initializeToggle() {
             const toggleNamesCheckbox = document.getElementById('ancestry-name-toggle');
             if (toggleNamesCheckbox) {
                 toggleNamesCheckbox.checked = state.getShowTaxonomicNames();
@@ -553,9 +560,20 @@ const ancestryDialog = {
             }
         },
 
-        setupNodeClickHandlers(node) {
+        /*setupNodeClickHandlers(node) {
             node.on('click', (event, d) => {
                 window.open(`https://www.inaturalist.org/taxa/${d.data.id}`, '_blank');
+            });
+        },*/
+        setupNodeClickHandlers(node) {
+            node.on('click', (event, d) => {
+                const taxon = {
+                    id: d.data.id,
+                    taxonName: d.data.taxonName,
+                    vernacularName: d.data.vernacularName,
+                    rank: d.data.rank
+                };
+                ancestryPopup.openPopup(taxon);
             });
         },
 
