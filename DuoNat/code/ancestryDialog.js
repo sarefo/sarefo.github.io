@@ -5,8 +5,6 @@ import state from './state.js';
 import utils from './utils.js';
 import dialogManager from './dialogManager.js';
 
-const useD3Graph = true; // Set to false to use vis.js graph
-
 const ancestryDialog = {
     container: null,
     network: null,
@@ -18,7 +16,6 @@ const ancestryDialog = {
     initialization: {
         async initialize(container) {
             ancestryDialog.container = container;
-            //await ancestryDialog.utils.loadVisJs();
             if (ancestryDialog.container) {
                 ancestryDialog.ui.createLoadingIndicator();
             }
@@ -99,16 +96,19 @@ const ancestryDialog = {
     },
 
     graphManagement: {
-        showExistingGraph() {
+        showExistingGraph(showTaxonomic) {
             if (ancestryDialog.currentData && ancestryDialog.container) {
                 logger.debug("Showing existing graph");
                 if (ancestryDialog.network) {
                     ancestryDialog.network.fit();
+                    // Update existing graph labels if necessary
+                    ancestryDialog.graphRendering.updateNodeLabels(showTaxonomic);
                 } else {
                     ancestryDialog.graphRendering.renderGraph(
                         ancestryDialog.currentData.taxon1,
                         ancestryDialog.currentData.taxon2,
-                        ancestryDialog.currentData.commonAncestor
+                        ancestryDialog.currentData.commonAncestor,
+                        ancestryDialog.currentShowTaxonomic || showTaxonomic
                     );
                 }
             } else {
@@ -143,7 +143,9 @@ const ancestryDialog = {
 
             try {
                 await ancestryDialog.initialization.initialize(container);
-                await ancestryDialog.graphManagement.handleGraphDisplay(taxonImageOne, taxonImageTwo);
+                const showTaxonomic = state.getShowTaxonomicNames();
+        logger.debug(`showTaxaRelationship: showTaxonomic is ${showTaxonomic}`);
+                await ancestryDialog.graphManagement.handleGraphDisplay(taxonImageOne, taxonImageTwo, showTaxonomic);
             } catch (error) {
                 ancestryDialog.graphManagement.handleGraphError(error);
             }
@@ -158,13 +160,14 @@ const ancestryDialog = {
             return true;
         },
 
-        async handleGraphDisplay(taxonImageOne, taxonImageTwo) {
+        async handleGraphDisplay(taxonImageOne, taxonImageTwo, showTaxonomic) {
+    logger.debug(`handleGraphDisplay: showTaxonomic is ${showTaxonomic}`);
             if (ancestryDialog.graphManagement.isSameTaxaPair(taxonImageOne, taxonImageTwo)) {
                 logger.debug("Showing existing graph for the same taxa pair");
-                ancestryDialog.graphManagement.showExistingGraph();
+                ancestryDialog.graphManagement.showExistingGraph(showTaxonomic);
             } else {
                 logger.debug("Creating new graph for a different taxa pair");
-                await ancestryDialog.graphManagement.createNewGraph(taxonImageOne, taxonImageTwo);
+                await ancestryDialog.graphManagement.createNewGraph(taxonImageOne, taxonImageTwo, showTaxonomic);
             }
         },
 
@@ -174,10 +177,11 @@ const ancestryDialog = {
                 ancestryDialog.currentGraphTaxa[1] === taxonImageTwo;
         },
 
-        async createNewGraph(taxonImageOne, taxonImageTwo) {
+        async createNewGraph(taxonImageOne, taxonImageTwo, showTaxonomic) {
             ancestryDialog.graphManagement.clearGraph();
-            await ancestryDialog.dataProcessing.findRelationship(taxonImageOne, taxonImageTwo);
+            await ancestryDialog.dataProcessing.findRelationship(taxonImageOne, taxonImageTwo, showTaxonomic);
             ancestryDialog.currentGraphTaxa = [taxonImageOne, taxonImageTwo];
+            ancestryDialog.currentShowTaxonomic = showTaxonomic;
         },
 
         handleGraphError(error) {
@@ -188,7 +192,7 @@ const ancestryDialog = {
     },
 
     dataProcessing: {
-        async findRelationship(taxonName1, taxonName2) {
+        async findRelationship(taxonName1, taxonName2, showTaxonomic) {
             if (!ancestryDialog.initialized) {
                 throw new Error('Viewer not initialized. Call initialize() first.');
             }
@@ -204,7 +208,7 @@ const ancestryDialog = {
 
                 const commonAncestor = ancestryDialog.utils.findCommonAncestor(taxon1, taxon2);
                 ancestryDialog.currentData = { taxon1, taxon2, commonAncestor };
-                await ancestryDialog.graphRendering.renderGraph(taxon1, taxon2, commonAncestor);
+                await ancestryDialog.graphRendering.renderGraph(taxon1, taxon2, commonAncestor, showTaxonomic);
             } catch (error) {
                 logger.error('Error finding relationship:', error);
                 throw error;
@@ -397,8 +401,10 @@ const ancestryDialog = {
             });
         },*/
 
-        async renderGraph(taxon1, taxon2, commonAncestorId) {
-            // SVG elements, don't work well with CSS
+        async renderGraph(taxon1, taxon2, commonAncestorId, showTaxonomic) {
+
+    logger.debug(`Rendering graph with showTaxonomic: ${showTaxonomic}`);
+            // SVG elements don't work well with CSS
             const NODE_HEIGHT = 40;
             const CHAR_WIDTH = 9; // Approximate width of a character
             const PADDING = 8; // Padding inside the rectangle
@@ -517,25 +523,23 @@ const ancestryDialog = {
                 return ["Genus", "Species", "Subspecies"].includes(rank);
             };
 
-            const showTaxonomic = state.getShowTaxonomicNames();
+            const getNodeText = (d, showTaxonomic) => {
+                let taxonName = d.data.taxonName;
+                if (!taxonName) {
+                    logger.warn(`Missing taxon name for rank: ${d.data.rank}`);
+                    taxonName = 'Unknown';
+                }
+                if (d.data.rank === "Species") {
+                    taxonName = utils.string.shortenSpeciesName(taxonName);
+                }
+                const rankText = ["Species", "Genus", "Stateofmatter"].includes(d.data.rank) ? "" : `${utils.string.capitalizeFirstLetter(d.data.rank)} `;
 
-        const getNodeText = (d, showTaxonomic) => {
-            let taxonName = d.data.taxonName;
-            if (!taxonName) {
-                logger.warn(`Missing taxon name for rank: ${d.data.rank}`);
-                taxonName = 'Unknown';
-            }
-            if (d.data.rank === "Species") {
-                taxonName = utils.string.shortenSpeciesName(taxonName);
-            }
-            const rankText = ["Species", "Genus", "Stateofmatter"].includes(d.data.rank) ? "" : `${utils.string.capitalizeFirstLetter(d.data.rank)} `;
+                if (!showTaxonomic && d.data.vernacularName && d.data.vernacularName !== "-") {
+                    return { rankText: "", taxonName: d.data.vernacularName, text: d.data.vernacularName, length: d.data.vernacularName.length };
+                }
 
-            if (!showTaxonomic && d.data.vernacularName && d.data.vernacularName !== "-") {
-                return { rankText: "", taxonName: d.data.vernacularName, text: d.data.vernacularName, length: d.data.vernacularName.length };
-            }
-
-            return { rankText, taxonName, text: `${rankText}${taxonName}`, length: (`${rankText}${taxonName}`).length };
-        };
+                return { rankText, taxonName, text: `${rankText}${taxonName}`, length: (`${rankText}${taxonName}`).length };
+            };
 
             // Calculate the maximum node width with additional logging
             const maxNodeWidth = nodes.reduce((max, d) => {

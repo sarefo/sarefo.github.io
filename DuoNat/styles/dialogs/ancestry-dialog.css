@@ -67,6 +67,7 @@
 
 .ancestry-tree__node-text {
     font: 18px sans-serif;
+    font-weight: bold;
     fill: white;
 }
 

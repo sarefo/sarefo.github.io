@@ -62,6 +62,11 @@
     color: #fff;
 }
 
+#ancestry-name-toggle:checked + .view-toggle__label .view-toggle__option--common,
+#ancestry-name-toggle:not(:checked) + .view-toggle__label .view-toggle__option--taxa {
+    color: #888;
+}
+
 #phylogeny-name-toggle:checked + .view-toggle__label .view-toggle__option--taxa,
 #phylogeny-name-toggle:not(:checked) + .view-toggle__label .view-toggle__option--common,
 #ancestry-name-toggle:checked + .view-toggle__label .view-toggle__option--taxa,
@@ -70,8 +75,6 @@
 }
 
 /* QR dialog toggles */
-
-
 
 .share-toggle__checkbox {
     display: none;
