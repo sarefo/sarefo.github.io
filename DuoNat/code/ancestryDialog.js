@@ -44,7 +44,6 @@ const ancestryDialog = {
         },
 
         toggleNameDisplay(event) {
-            logger.debug("in toggleNameDisplay()");
             const showTaxonomic = event.target.checked;
             state.setShowTaxonomicNames(showTaxonomic);
             ancestryDialog.graphRendering.updateNodeLabels(showTaxonomic);
@@ -106,7 +105,6 @@ const ancestryDialog = {
     graphManagement: {
         showExistingGraph(showTaxonomic) {
             if (ancestryDialog.currentData && ancestryDialog.container) {
-                logger.debug("Showing existing graph");
                 if (ancestryDialog.network) {
                     ancestryDialog.network.fit();
                     // Update existing graph labels if necessary
@@ -152,7 +150,6 @@ const ancestryDialog = {
             try {
                 await ancestryDialog.initialization.initialize(container);
                 const showTaxonomic = state.getShowTaxonomicNames();
-        logger.debug(`showTaxaRelationship: showTaxonomic is ${showTaxonomic}`);
                 await ancestryDialog.graphManagement.handleGraphDisplay(taxonImageOne, taxonImageTwo, showTaxonomic);
 
                 ancestryDialog.graphRendering.updateNodeLabels(showTaxonomic);
@@ -171,12 +168,9 @@ const ancestryDialog = {
         },
 
         async handleGraphDisplay(taxonImageOne, taxonImageTwo, showTaxonomic) {
-    logger.debug(`handleGraphDisplay: showTaxonomic is ${showTaxonomic}`);
             if (ancestryDialog.graphManagement.isSameTaxaPair(taxonImageOne, taxonImageTwo)) {
-                logger.debug("Showing existing graph for the same taxa pair");
                 ancestryDialog.graphManagement.showExistingGraph(showTaxonomic);
             } else {
-                logger.debug("Creating new graph for a different taxa pair");
                 await ancestryDialog.graphManagement.createNewGraph(taxonImageOne, taxonImageTwo, showTaxonomic);
             }
         },
@@ -248,7 +242,6 @@ const ancestryDialog = {
 
         async fetchAncestorDetails(ancestorIds, taxon1, taxon2) {
             ancestorIds = Array.isArray(ancestorIds) ? ancestorIds : Array.from(ancestorIds || []);
-            logger.debug('Fetching ancestor details for IDs:', ancestorIds);
 
             const localAncestorDetails = new Map();
             this.addEndNodesToLocalDetails(localAncestorDetails, taxon1, taxon2);
@@ -268,7 +261,6 @@ const ancestryDialog = {
                         rank: taxon.rank,
                         preferred_common_name: taxon.preferred_common_name
                     });
-                    logger.debug(`Added local data for end node ${taxon.id}:`, localAncestorDetails.get(taxon.id));
                 }
             });
         },
@@ -419,13 +411,14 @@ const ancestryDialog = {
         },
 
         setupSvg(d3) {
-            const width = ancestryDialog.container.clientWidth;
-            const height = ancestryDialog.container.clientHeight;
+            const containerRect = ancestryDialog.container.getBoundingClientRect();
+            const width = containerRect.width;
+            const height = containerRect.height - 0; // Subtract some space for the title and controls
 
             const svg = d3.select(ancestryDialog.container)
                 .append('svg')
-                .attr('width', '100%')
-                .attr('height', '100%')
+                .attr('width', width)
+                .attr('height', height)
                 .append('g');
 
             return [width, height];
@@ -581,9 +574,11 @@ const ancestryDialog = {
             const svg = d3.select(ancestryDialog.container).select('svg');
             const g = svg.select('g');
             const bounds = g.node().getBBox();
-            const scale = Math.min(width / bounds.width, height / bounds.height) * 0.9;
-            const tx = (width - bounds.width * scale) / 2 - bounds.x * scale;
-            const ty = 20;
+            const fullWidth = width;
+            const fullHeight = height;
+            const scale = Math.min(fullWidth / bounds.width, fullHeight / bounds.height) * 0.9;
+            const tx = (fullWidth - bounds.width * scale) / 2 - bounds.x * scale;
+            const ty = (fullHeight - bounds.height * scale) / 2 - bounds.y * scale;
 
             g.attr('transform', `translate(${tx},${ty}) scale(${scale})`);
 

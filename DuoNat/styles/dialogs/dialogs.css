@@ -29,6 +29,8 @@ dialog {
 
 dialog[open] {
     opacity: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 @media (max-width: 480px) {
