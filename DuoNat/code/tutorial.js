@@ -1,7 +1,7 @@
 import config from './config.js';
 import eventMain from './eventMain.js';
+import logger from './logger.js';
 import ui from './ui.js';
-import dialogManager from './dialogManager.js';
 
 const tutorial = {
     isActive: false,
@@ -340,6 +340,170 @@ const tutorial = {
 
     collectionManagerTutorial: {
 
+        steps: [
+            { message: "The collection manager lets you choose which taxa to play", highlight: null, duration: 4000 },
+            { message: "Easy or hard? Set the level here", highlight: '#level-filter-dropdown', duration: 4000 },
+            { message: "Choose a section of the tree of life here", highlight: '#select-phylogeny-button', duration: 4000 },
+            { message: "You can select tags here", highlight: '#select-tags-button', duration: 4000 },
+            { message: "Click the map to restrict by continent", highlight: '.filter-summary__map', duration: 4000 },
+            { message: "Search by taxon or common name", highlight: '#taxon-search', duration: 4000 },
+            { message: "Clear all filters to access all taxa", highlight: '#clear-all-filters', duration: 4000 },
+            { message: "Click on Play to play your filtered collection", highlight: '#collection-done-button', duration: 4000 }
+        ],
+        currentStep: 0,
+        highlightElements: [],
+
+        show() {
+            this.initializeTutorial();
+            this.startTutorial();
+        },
+
+        initializeTutorial() {
+            tutorial.isActive = true;
+            tutorial.shouldContinue = true;
+            tutorial.currentTutorial = this;
+            this.disableInteractions();
+            this.addCloseButton();
+            ui.showOverlay("", config.overlayColors.green);
+        },
+
+        startTutorial() {
+            this.currentStep = 0;
+            this.highlightElements = [];
+            this.showNextStep();
+        },
+
+        showNextStep() {
+            if (this.currentStep < this.steps.length && tutorial.shouldContinue) {
+                const step = this.steps[this.currentStep];
+                logger.debug(`now at step ${step}`);
+                this.updateStepContent(step);
+                this.currentStep++;
+                setTimeout(() => this.showNextStep(), step.duration);
+            } else {
+                this.endTutorial();
+            }
+        },
+
+        updateStepContent(step) {
+            this.fadeOutOverlayMessage(() => {
+                ui.updateOverlayMessage(step.message);
+                this.clearPreviousHighlights();
+                if (step.highlight) {
+                    const highlight = this.createHighlight(step.highlight, step.duration);
+                    if (highlight) this.highlightElements.push(highlight);
+                }
+                this.fadeInOverlayMessage();
+            });
+        },
+
+        fadeOutOverlayMessage(callback) {
+            const overlayMessage = document.getElementById('overlay-message');
+            overlayMessage.style.transition = 'opacity 0.3s ease-out';
+            overlayMessage.style.opacity = '0';
+            setTimeout(() => {
+                if (callback) callback();
+            }, 300);
+        },
+
+        fadeInOverlayMessage() {
+            const overlayMessage = document.getElementById('overlay-message');
+            overlayMessage.style.transition = 'opacity 0.3s ease-in';
+            overlayMessage.style.opacity = '1';
+        },
+
+        clearPreviousHighlights() {
+            this.highlightElements.forEach(el => el.remove());
+            this.highlightElements = [];
+        },
+
+        createHighlight: function (targetSelector, duration) {
+            const target = document.querySelector(targetSelector);
+            if (!target) {
+                console.error(`Target element not found: ${targetSelector}`);
+                return null;
+            }
+            const highlight = document.createElement('div');
+            highlight.className = 'tutorial-highlight';
+            
+            // Append to the collection dialog instead of body
+            const collectionDialog = document.getElementById('collection-dialog');
+            collectionDialog.appendChild(highlight);
+
+            const targetRect = target.getBoundingClientRect();
+            const dialogRect = collectionDialog.getBoundingClientRect();
+
+            // Adjust positioning relative to the dialog
+            highlight.style.width = `${targetRect.width}px`;
+            highlight.style.height = `${targetRect.height}px`;
+            highlight.style.top = `${targetRect.top - dialogRect.top}px`;
+            highlight.style.left = `${targetRect.left - dialogRect.left}px`;
+
+            const animationDuration = 1; // seconds
+            const iterationCount = Math.floor(duration / 1000 / animationDuration);
+
+            highlight.style.animationDuration = `${animationDuration}s`;
+            highlight.style.animationIterationCount = iterationCount;
+
+            // Add specific styling for certain elements
+            if (targetSelector === '#level-filter-dropdown') {
+                highlight.style.borderRadius = '8px';
+            } else if (target.classList.contains('collection-dialog__select-buttons')) {
+                highlight.style.borderRadius = '8px';
+            }
+
+            return highlight;
+        },
+
+        disableInteractions() {
+            const dialog = document.getElementById('collection-dialog');
+            if (dialog) {
+                dialog.style.pointerEvents = 'none';
+                dialog.querySelectorAll('button, input, select').forEach(el => {
+                    el.disabled = true;
+                    el.style.pointerEvents = 'none';
+                });
+            }
+            
+            // Disable scrolling
+            document.body.style.overflow = 'hidden';
+        },
+
+        enableInteractions() {
+            const dialog = document.getElementById('collection-dialog');
+            if (dialog) {
+                dialog.style.pointerEvents = 'auto';
+                dialog.querySelectorAll('button, input, select').forEach(el => {
+                    el.disabled = false;
+                    el.style.pointerEvents = 'auto';
+                });
+            }
+            
+            // Re-enable scrolling
+            document.body.style.overflow = 'auto';
+        },
+
+        addCloseButton() {
+            const closeButton = document.createElement('button');
+            closeButton.textContent = 'Close Tutorial';
+            closeButton.className = 'tutorial-close-button';
+            closeButton.addEventListener('click', () => this.endTutorial());
+            
+            // Append to the collection dialog instead of body
+            const collectionDialog = document.getElementById('collection-dialog');
+            collectionDialog.appendChild(closeButton);
+        },
+
+        endTutorial() {
+            tutorial.isActive = false;
+            tutorial.shouldContinue = false;
+            tutorial.currentTutorial = null;
+            this.enableInteractions();
+            this.clearPreviousHighlights();
+            ui.hideOverlay();
+            const closeButton = document.querySelector('.tutorial-close-button');
+            if (closeButton) closeButton.remove();
+        }
     },
 
     endCurrentTutorial() {
@@ -371,7 +535,7 @@ Object.keys(tutorial.collectionManagerTutorial).forEach(key => {
 
 const publicAPI = {
     showMainTutorial: tutorial.mainTutorial.show,
-    //showCollectionManagerTutorial: tutorial.showCollectionManagerTutorial,
+    showCollectionManagerTutorial: tutorial.collectionManagerTutorial.show,
     isActive() {
         return tutorial.isActive;
     },

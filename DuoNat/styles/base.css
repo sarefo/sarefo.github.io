@@ -108,7 +108,7 @@ button {
 /* Styles common to all main containers */
 .image-container,
 .name-pair,
-#overlay {
+.name-pair__overlay {
     width: 98vw;
     max-width: var(--max-image-width);
 }

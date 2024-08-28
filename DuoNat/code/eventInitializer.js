@@ -23,6 +23,7 @@ const eventInitializer = {
         this.initializeDiscordButton();
         this.initializeDialogCloseButtons();
         this.initializeSearchInput();
+        this.initializeCollectionHelpButton();
     },
 
     initializeDragAndDrop() {
@@ -131,6 +132,19 @@ const eventInitializer = {
             searchInput.addEventListener('input', debouncedHandleSearch);
             searchInput.addEventListener('keydown', searchHandler.handleSearchKeydown.bind(searchHandler));
         }
+    },
+
+    initializeCollectionHelpButton() {
+        const helpButton = document.getElementById('collection-help-button');
+        if (helpButton) {
+            helpButton.addEventListener('click', this.handleCollectionHelpButtonClick);
+        }
+    },
+
+    handleCollectionHelpButtonClick(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        tutorial.showCollectionManagerTutorial();
     },
 
     safeAddEventListener(id, eventType, handler) {
