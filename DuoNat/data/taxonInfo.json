@@ -42942,5 +42942,310 @@
       "EU",
       "AS"
     ]
+  },
+  "47169": {
+    "taxonName": "Basidiomycota",
+    "vernacularName": "Basidiomycete fungi",
+    "ancestryIds": [
+      47170,
+      47169
+    ],
+    "rank": "Phylum",
+    "taxonFacts": [
+      "Includes both edible and poisonous fungi.",
+      "Reproduces using club-shaped structures called basidia.",
+      "Forms large fruiting bodies known as basidiocarps."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "48250": {
+    "taxonName": "Ascomycota",
+    "vernacularName": "Ascomycete fungi",
+    "ancestryIds": [
+      47170,
+      48250
+    ],
+    "rank": "Phylum",
+    "taxonFacts": [
+      "Contains over 30,000 species of fungi.",
+      "Known for producing spores in sac-like structures.",
+      "Includes important species like yeast and truffles."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "124255": {
+    "taxonName": "Orvasca subnotata",
+    "vernacularName": "-",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47157,
+      47607,
+      121850,
+      48847,
+      82040,
+      124064,
+      124255
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Feeds on millets and can be a pest.",
+      "Found in Indomalaya and East Asia."
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "199438": {
+    "taxonName": "Orgyia postica",
+    "vernacularName": "Cocoa tussock moth",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47157,
+      47607,
+      121850,
+      48847,
+      82042,
+      49031,
+      199438
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Larvae feed on a wide range of plants.",
+      "Found in tropical regions of Asia."
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "82320": {
+    "taxonName": "Melastoma",
+    "vernacularName": "Melastomes",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      47791,
+      48889,
+      920772,
+      920780,
+      82320
+    ],
+    "rank": "Genus",
+    "taxonFacts": [
+      "Over 100 species found globally.",
+      "Known for its vibrant purple flowers.",
+      "Has medicinal properties and is edible."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "201821": {
+    "taxonName": "Nygmia plana",
+    "vernacularName": "-",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47157,
+      47607,
+      121850,
+      48847,
+      82040,
+      179781,
+      201821
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "A species of tussock moth.",
+      "Found in various tropical regions.",
+      "Larvae are known to feed on grasses."
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "196983": {
+    "taxonName": "Perina nuda",
+    "vernacularName": "Banyan tussock moth",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47157,
+      47607,
+      121850,
+      48847,
+      82041,
+      196984,
+      196983
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Primarily found in tropical forests.",
+      "Larvae are hairy and can be colorful."
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "369810": {
+    "taxonName": "Phauda flammans",
+    "vernacularName": "-",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47157,
+      52029,
+      124419,
+      124418,
+      124762,
+      369810
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "A species of moth in the Erebidae family.",
+      "Typically found in tropical habitats.",
+      "Known for its distinctive coloration."
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "209613": {
+    "taxonName": "Dasychira chekiangensis",
+    "vernacularName": "Zhejiang tussock moth",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47157,
+      47607,
+      121850,
+      48847,
+      82042,
+      146979,
+      209613
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "A tussock moth species from China.",
+      "Larvae are known to feed on various plants.",
+      "Part of the diverse Erebidae family."
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "143393": {
+    "taxonName": "Cantharellus cinnabarinus",
+    "vernacularName": "Red chanterelle",
+    "ancestryIds": [
+      47170,
+      47169,
+      492000,
+      50814,
+      47350,
+      48423,
+      47348,
+      1532969,
+      143393
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "A type of edible mushroom.",
+      "Known for its bright orange color.",
+      "Grows in association with certain trees."
+    ],
+    "range": [
+      "NA",
+      "EU"
+    ]
+  },
+  "500568": {
+    "taxonName": "Heterotis",
+    "vernacularName": "-",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      47791,
+      48889,
+      920772,
+      920780,
+      500568
+    ],
+    "rank": "Genus",
+    "taxonFacts": [
+      "A genus of flowering plants.",
+      "Typically found in tropical regions.",
+      "Known for its unique leaf structures."
+    ],
+    "range": [
+      "AF",
+      "AS"
+    ]
+  },
+  "974664": {
+    "taxonName": "Trametes sanguinea",
+    "vernacularName": "Cinnabar bracket",
+    "ancestryIds": [
+      47170,
+      47169,
+      492000,
+      50814,
+      47380,
+      47379,
+      47378,
+      974664
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Grows on decaying wood.",
+      "Has medicinal properties in traditional medicine."
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
+    ]
   }
 }

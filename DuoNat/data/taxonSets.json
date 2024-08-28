@@ -13919,5 +13919,152 @@
     "range": [
       "AS"
     ]
+  },
+  "804": {
+    "setName": "Cinnabar bracket vs Red chanterelle",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      974664,
+      143393
+    ],
+    "taxonNames": [
+      "Trametes sanguinea",
+      "Cantharellus cinnabarinus"
+    ],
+    "range": [
+      "NA",
+      "EU"
+    ]
+  },
+  "805": {
+    "setName": "Basidiomycete fungi vs Ascomycete fungi",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      47169,
+      48250
+    ],
+    "taxonNames": [
+      "Basidiomycota",
+      "Ascomycota"
+    ],
+    "range": [
+      "SA",
+      "OC",
+      "AF",
+      "AS",
+      "NA",
+      "EU"
+    ]
+  },
+  "806": {
+    "setName": "Orvasca subnotata vs Perina nuda",
+    "level": "2",
+    "tags": [
+      "hk"
+    ],
+    "taxa": [
+      124255,
+      196983
+    ],
+    "taxonNames": [
+      "Orvasca subnotata",
+      "Perina nuda"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "807": {
+    "setName": "Nygmia plana vs Orvasca subnotata",
+    "level": "2",
+    "tags": [
+      "hk"
+    ],
+    "taxa": [
+      124255,
+      201821
+    ],
+    "taxonNames": [
+      "Orvasca subnotata",
+      "Nygmia plana"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "808": {
+    "setName": "Perina nuda vs Nygmia plana",
+    "level": "2",
+    "tags": [
+      "hk"
+    ],
+    "taxa": [
+      196983,
+      201821
+    ],
+    "taxonNames": [
+      "Perina nuda",
+      "Nygmia plana"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "809": {
+    "setName": "Cocoa tussock moth vs Zhejiang tussock moth",
+    "level": "3",
+    "tags": [
+      "hk"
+    ],
+    "taxa": [
+      199438,
+      209613
+    ],
+    "taxonNames": [
+      "Orgyia postica",
+      "Dasychira chekiangensis"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "810": {
+    "setName": "Phauda flammans vs Dindymus sanguineus",
+    "level": "1",
+    "tags": [
+      "hk"
+    ],
+    "taxa": [
+      369810,
+      567663
+    ],
+    "taxonNames": [
+      "Phauda flammans",
+      "Dindymus sanguineus"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "811": {
+    "setName": "Melastoma vs Heterotis",
+    "level": "2",
+    "tags": [
+      "hk"
+    ],
+    "taxa": [
+      82320,
+      500568
+    ],
+    "taxonNames": [
+      "Melastoma",
+      "Heterotis"
+    ],
+    "range": [
+      "AF",
+      "AS"
+    ]
   }
 }

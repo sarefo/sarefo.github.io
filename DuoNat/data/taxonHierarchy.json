@@ -795,11 +795,11 @@
     "taxonName": "Fungi",
     "vernacularName": "Fungi Including Lichens",
     "rank": "Kingdom",
-    "parentId": "48460"
+    "parentId": null
   },
   "47169": {
     "taxonName": "Basidiomycota",
-    "vernacularName": "Basidiomycete Fungi",
+    "vernacularName": "Basidiomycete fungi",
     "rank": "Phylum",
     "parentId": "47170"
   },
@@ -1761,7 +1761,7 @@
     "taxonName": "Plantae",
     "vernacularName": "Plants",
     "rank": "Kingdom",
-    "parentId": "48460"
+    "parentId": null
   },
   "211194": {
     "taxonName": "Tracheophyta",
@@ -7573,7 +7573,7 @@
   },
   "48250": {
     "taxonName": "Ascomycota",
-    "vernacularName": "Ascomycete Fungi",
+    "vernacularName": "Ascomycete fungi",
     "rank": "Phylum",
     "parentId": "47170"
   },
@@ -19606,5 +19606,161 @@
     "vernacularName": "Cypress-leaved plait-moss",
     "rank": "Species",
     "parentId": "124458"
+  },
+  "48847": {
+    "taxonName": "Lymantriinae",
+    "vernacularName": "Tussock moths",
+    "rank": "Subfamily",
+    "parentId": "121850"
+  },
+  "82040": {
+    "taxonName": "Nygmiini",
+    "vernacularName": "-",
+    "rank": "Tribe",
+    "parentId": "48847"
+  },
+  "124064": {
+    "taxonName": "Orvasca",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "82040"
+  },
+  "124255": {
+    "taxonName": "Orvasca subnotata",
+    "vernacularName": "-",
+    "rank": "Species",
+    "parentId": "124064"
+  },
+  "82042": {
+    "taxonName": "Orgyiini",
+    "vernacularName": "-",
+    "rank": "Tribe",
+    "parentId": "48847"
+  },
+  "49031": {
+    "taxonName": "Orgyia",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "82042"
+  },
+  "199438": {
+    "taxonName": "Orgyia postica",
+    "vernacularName": "Cocoa tussock moth",
+    "rank": "Species",
+    "parentId": "49031"
+  },
+  "48889": {
+    "taxonName": "Melastomataceae",
+    "vernacularName": "Melastomes",
+    "rank": "Family",
+    "parentId": "47791"
+  },
+  "920772": {
+    "taxonName": "Melastomatoideae",
+    "vernacularName": "-",
+    "rank": "Subfamily",
+    "parentId": "48889"
+  },
+  "920780": {
+    "taxonName": "Melastomeae",
+    "vernacularName": "-",
+    "rank": "Tribe",
+    "parentId": "920772"
+  },
+  "82320": {
+    "taxonName": "Melastoma",
+    "vernacularName": "Melastomes",
+    "rank": "Genus",
+    "parentId": "920780"
+  },
+  "179781": {
+    "taxonName": "Nygmia",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "82040"
+  },
+  "201821": {
+    "taxonName": "Nygmia plana",
+    "vernacularName": "-",
+    "rank": "Species",
+    "parentId": "179781"
+  },
+  "82041": {
+    "taxonName": "Leucomini",
+    "vernacularName": "-",
+    "rank": "Tribe",
+    "parentId": "48847"
+  },
+  "196984": {
+    "taxonName": "Perina",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "82041"
+  },
+  "196983": {
+    "taxonName": "Perina nuda",
+    "vernacularName": "Banyan tussock moth",
+    "rank": "Species",
+    "parentId": "196984"
+  },
+  "124419": {
+    "taxonName": "Phaudidae",
+    "vernacularName": "-",
+    "rank": "Family",
+    "parentId": "52029"
+  },
+  "124418": {
+    "taxonName": "Phaudinae",
+    "vernacularName": "-",
+    "rank": "Subfamily",
+    "parentId": "124419"
+  },
+  "124762": {
+    "taxonName": "Phauda",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "124418"
+  },
+  "369810": {
+    "taxonName": "Phauda flammans",
+    "vernacularName": "-",
+    "rank": "Species",
+    "parentId": "124762"
+  },
+  "146979": {
+    "taxonName": "Dasychira",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "82042"
+  },
+  "209613": {
+    "taxonName": "Dasychira chekiangensis",
+    "vernacularName": "Zhejiang tussock moth",
+    "rank": "Species",
+    "parentId": "146979"
+  },
+  "1532969": {
+    "taxonName": "Cinnabarinus",
+    "vernacularName": "Cantharellus subg. cinnabarinus",
+    "rank": "Subgenus",
+    "parentId": "47348"
+  },
+  "143393": {
+    "taxonName": "Cantharellus cinnabarinus",
+    "vernacularName": "Red chanterelle",
+    "rank": "Species",
+    "parentId": "1532969"
+  },
+  "500568": {
+    "taxonName": "Heterotis",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "920780"
+  },
+  "974664": {
+    "taxonName": "Trametes sanguinea",
+    "vernacularName": "Cinnabar bracket",
+    "rank": "Species",
+    "parentId": "47378"
   }
 }
