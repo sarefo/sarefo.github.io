@@ -60,8 +60,23 @@ const ui = {
             this.setOverlayContent(message, color);
             this.adjustFontSize(message);
             const overlay = state.getElement('overlay');
+            const overlayMessage = state.getElement('overlayMessage');
+            
+            // Reset any transition and set opacity to 1
+            overlayMessage.style.transition = 'none';
+            overlayMessage.style.opacity = '1';
+            
             overlay.classList.add('show');
+            
+            // Force a redraw
+            overlay.offsetHeight;
+            
+            // Restore the transition for future animations
+            overlayMessage.style.transition = 'opacity 0.3s ease-out';
+
             logger.debug(`Overlay element classes: ${overlay.className}`);
+            logger.debug(`Overlay message content: ${overlayMessage.innerHTML}`);
+            logger.debug(`Overlay message opacity: ${overlayMessage.style.opacity}`);
         },
 
         updateOverlayMessage(message) {
