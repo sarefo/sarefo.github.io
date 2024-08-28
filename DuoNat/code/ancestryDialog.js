@@ -607,7 +607,8 @@ const ancestryDialog = {
             const rankText = ["Species", "Genus", "Stateofmatter"].includes(d.data.rank) ? "" : `${utils.string.capitalizeFirstLetter(d.data.rank)} `;
 
             if (!showTaxonomic && d.data.vernacularName && d.data.vernacularName !== "-") {
-                return { rankText: "", taxonName: d.data.vernacularName, text: d.data.vernacularName, length: d.data.vernacularName.length };
+                const truncatedVernacular = utils.string.truncate(d.data.vernacularName, 24);
+                return { rankText: "", taxonName: truncatedVernacular, text: truncatedVernacular, length: truncatedVernacular.length };
             }
 
             return { rankText, taxonName, text: `${rankText}${taxonName}`, length: (`${rankText}${taxonName}`).length };

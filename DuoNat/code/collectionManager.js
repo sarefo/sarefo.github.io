@@ -12,6 +12,7 @@ import setManager from './setManager.js';
 import state from './state.js';
 import tagSelector from './tagSelector.js';
 import ui from './ui.js';
+import utils from './utils.js';
 import worldMap from './worldMap.js';
 
 const vernacularNameCache = new Map();
@@ -270,20 +271,6 @@ const collectionManager = {
             }
         },
 
-/*        async updateTaxonPairList(filteredPairs) {
-            const list = document.getElementById('taxon-set-list');
-            list.innerHTML = '';
-
-            if (!filteredPairs || filteredPairs.length === 0) {
-                this.displayNoResultsMessage(list);
-            } else {
-                await this.populateListWithPairs(list, filteredPairs);
-            }
-
-            collectionManager.ui.updateActiveCollectionCount(filteredPairs ? filteredPairs.length : 0);
-            collectionManager.ui.updateFilterSummary();
-        },*/
-
         displayNoResultsMessage(list) {
             const noResultsMessage = document.createElement('p');
             noResultsMessage.className = 'no-results-message';
@@ -389,7 +376,7 @@ const collectionManager = {
                     
                     phylogenyElement.innerHTML = `
                         <span class="phylogeny-taxon">${taxonName}</span>
-                        ${vernacularName && vernacularName !== '-' ? `<span class="phylogeny-vernacular">(${vernacularName})</span>` : ''}
+                        ${vernacularName && vernacularName !== '-' ? `<span class="phylogeny-vernacular">(${utils.string.truncate(vernacularName,24)})</span>` : ''}
                     `;
                 } else {
                     phylogenyElement.textContent = 'All taxa';

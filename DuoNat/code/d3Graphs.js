@@ -1,6 +1,7 @@
 import logger from './logger.js';
 import phylogenySelector from './phylogenySelector.js';
 import state from './state.js';
+import utils from './utils.js';
 
 let d3;
 
@@ -221,9 +222,9 @@ class RadialTree extends BaseTree {
         this.showTaxonomicNames = showTaxonomicNames;
         this.svg.selectAll('g.node text')
             .text(d => !this.showTaxonomicNames && d.data.vernacularName && d.data.vernacularName !== "-" ? 
-                d.data.vernacularName : d.data.taxonName)
+                utils.string.truncate(d.data.vernacularName,24) : d.data.taxonName)
             .attr('title', d => !this.showTaxonomicNames && d.data.vernacularName && d.data.vernacularName !== "-" ? 
-                d.data.taxonName : d.data.vernacularName);
+                d.data.taxonName : utils.string.truncate(d.data.vernacularName,24));
     }
 
     async create() {
@@ -407,7 +408,7 @@ class RadialTree extends BaseTree {
             .attr('text-anchor', 'middle')
             /*.text(d => `${d.data.taxonName} (${d.data.pairCount})`)*/ // with number of taxa in brackets
             .text(d => !this.showTaxonomicNames && d.data.vernacularName && d.data.vernacularName !== "-" ? 
-                d.data.vernacularName : d.data.taxonName)
+                utils.string.truncate(d.data.vernacularName,24) : d.data.taxonName)
             .style('fill-opacity', 1e-6);
 
         const nodeUpdate = nodeEnter.merge(node);
@@ -423,7 +424,7 @@ class RadialTree extends BaseTree {
 
         nodeUpdate.select('text')
             .text(d => !this.showTaxonomicNames && d.data.vernacularName && d.data.vernacularName !== "-" ? 
-                d.data.vernacularName : d.data.taxonName)
+                utils.string.truncate(d.data.vernacularName,24) : d.data.taxonName)
             .style('fill-opacity', 1)
             .attr('dy', d => {
                 const radius = this.calculateRadius(d.data.pairCount, maxCount);

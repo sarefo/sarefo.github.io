@@ -5,6 +5,7 @@ import dialogManager from './dialogManager.js';
 import filtering from './filtering.js';
 import logger from './logger.js';
 import state from './state.js';
+import utils from './utils.js';
 //import utils from './utils.js';
 
 const phylogenySelector = {
@@ -264,7 +265,7 @@ const phylogenySelector = {
                     nameElement.style.fontStyle = 'italic';
                 }
                 if (taxon.vernacularName && taxon.vernacularName !== "-") {
-                    nameElement.title = taxon.vernacularName;
+                    nameElement.title = utils.string.truncate(taxon.vernacularName, 24);
                 }
             }
             
@@ -682,7 +683,7 @@ const phylogenySelector = {
                     
                     if (node.vernacularName && node.vernacularName !== "-") {
                         const vernacularSpan = document.createElement('span');
-                        vernacularSpan.textContent = ` (${node.vernacularName})`;
+                        vernacularSpan.textContent = ` (${utils.string.truncate(node.vernacularName,24)})`;
                         resultItem.appendChild(vernacularSpan);
                     }
                     
