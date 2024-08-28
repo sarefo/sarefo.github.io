@@ -56,9 +56,12 @@ const ui = {
 
     overlay: {
         showOverlay(message = "", color = config.overlayColors.green) {
+            logger.debug(`Showing overlay: message="${message}", color=${color}`);
             this.setOverlayContent(message, color);
             this.adjustFontSize(message);
-            state.getElement('overlay').classList.add('show');
+            const overlay = state.getElement('overlay');
+            overlay.classList.add('show');
+            logger.debug(`Overlay element classes: ${overlay.className}`);
         },
 
         updateOverlayMessage(message) {
@@ -68,7 +71,10 @@ const ui = {
         },
 
         hideOverlay() {
-            state.getElement('overlay').classList.remove('show');
+            logger.debug('Hiding overlay');
+            const overlay = state.getElement('overlay');
+            overlay.classList.remove('show');
+            logger.debug(`Overlay element classes after hiding: ${overlay.className}`);
         },
 
         setOverlayContent(message, color) {

@@ -120,10 +120,12 @@ const tutorial = {
         },
 
         endTutorial() {
+            logger.debug('Ending tutorial');
             this.isActive = false;
             this.shouldContinue = false;
             this.enableInteractions();
             this.fadeOutOverlayMessage(() => {
+                logger.debug('Fading out tutorial overlay');
                 ui.hideOverlay();
                 const closeButton = document.querySelector('.tutorial-close-button');
                 if (closeButton) closeButton.remove();
@@ -132,6 +134,7 @@ const tutorial = {
 
             eventMain.enableKeyboardShortcuts();
             eventMain.enableSwipe();
+            logger.debug('Tutorial ended');
         },
 
         disableInteractions() {

@@ -75,9 +75,12 @@ const gameLogic = {
         },
 
         async handleCorrectAnswer() {
+            logger.debug('Handling correct answer');
             await ui.showOverlay('Correct!', config.overlayColors.green);
             ui.prepareImagesForLoading();
             await utils.ui.sleep(2000);
+            logger.debug('About to hide overlay');
+            ui.hideOverlay();
             await gameSetup.setupGame(false);
         },
 
