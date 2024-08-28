@@ -71,7 +71,7 @@ Each picture has its own info dialog. The user can access external information a
 The help dialog contains information about the most important functions of the game. It has a link to a tutorial, which shows the main functions of the game.
 
 ### Collection manager dialog
-Currently this displays a list of all taxon sets, locally saved in a JSON file. The user can filter by tags, range or level for now. Below is a list of taxon sets. The user can click on one, and open it this way.
+Currently this displays a list of all taxon sets, locally saved in a JSON file. The user can filter by phylogeny, tags, range or level, or search by taxon. Below is a list of taxon sets. The user can click on one, and open it this way. There's also a "Play" button, which activates the currently filtered collection.
 
 #### Range selection dialog
 This displays a world map, where the user selects which continents to include in the "range" filter. Currently, if there are multiple continents selected, sets where all members occur at any of them are selected (eg. Africa + Oceania selected includes sets that have a range including Africa, or including Oceania).
@@ -79,15 +79,18 @@ This displays a world map, where the user selects which continents to include in
 #### Tag cloud dialog
 This dialog currently displays all the available tags for the current filters. The idea is to replace this with a taxonomic hierarchy that's intuitive to browse, and only leave non-taxonomic tags (such as "mimicry" or "fun" here).
 
-### Phylogeny dialog
-The phylogeny graph shows how the two active taxa are connected taxonomically. It's also a way to link to the iNaturalist taxon pages of the taxa in its entire hierarchy.
+#### Phylogeny selector dialog
+This dialog shows a radial graph of the taxon hierarchy. In the center is the active node, which is the currently active phylogeny ID of the filter. It always displays its parent node, and its child nodes. The user can traverse the hierarchy this way, and select a new phylogeny ID. This filters the collection by all taxon pairs that contain at least one taxon in that part of the tree.
+
+### Ancestry dialog
+The ancestry graph shows how the two active taxa are connected taxonomically. It's also a way to link to the iNaturalist or Wikipedia taxon pages of the taxa in its entire hierarchy. The user can also use any node to filter the collection, and then gets redirected to the collection manager.
 
 ### Enter taxa dialog
-This is currently unmaintained. The user can currently input two taxa, which will be used in a new pair. Currently there's no server-side functionality, but when there is, those can also be stored for future use. Also, once taxon sets are implemented, the user will be able to input more than two taxa. Another idea is to only input one, and the app will create a taxon set from all the sister taxa at that level.
+This is currently poorly maintained. The user can input two taxa, which will be used in a new pair. Currently there's no server-side functionality, but when there is, those can also be stored for future use. Also, once taxon sets are implemented, the user will be able to input more than two taxa. Another idea is to only input one, and the app will create a taxon set from all the sister taxa at that level.
 
 ## Architectural changes
 + you suggested some big changes in the past, and I'm willing to tackle them, if it helps me later to build a better app.
-+ for example, you suggested using TypeScript for this kind of app. I don't know how feasible that is for me, a single not very smart or well-trained hobby programmer
++ for example, you suggested using TypeScript for this kind of app. I don't know how feasible that is for me, a single not very smart or well-trained hobby programmer.
 
 ## Code sanity + cleanup
 + also, I'm always happy for suggestions regarding cleaning up my code
@@ -96,119 +99,18 @@ This is currently unmaintained. The user can currently input two taxa, which wil
     + simplify whenever possible; again, WITHOUT BREAKING ANY FUNCTIONALITY!
     + improve error handling
     + reduce duplication
+    + modularize functions in line with the Single Responsibility Principle
     + consistency of code
     + optimize loading, and speed in general
     + improve and update naming of functions, variables etc.
-    + implementing a CSS methodology for structure and maintainable CSS (you mentioned BEM earlier, never heard of it)
+    + using BEM for CSS
     + add a decent amount of comments
-    + you also mentioned adding unit tests, to ensure the code doesn't break when modified
-    + implement a consistent naming convention:
-        + camelCase for variables and functions
-        + PascalCase for classes
-        + UPPER_CASE for constants
-
-## Functions to implement in the future
-Here are some ideas I have regarding future functionality:
-
-### Expand taxon pairs into taxon sets
-+ currently, the system only allows for taxon pairs: two different taxa that are compared in the quiz
-+ it would be nice to expand on that: having taxon sets instead, which can consist of two or more taxa. If more than two taxa are in a set, the app would create random pairs out of it for use in a pair.
-+ although a taxon set can contain more than two taxa, in each game pair, only the same two taxa from this set would be compared to each other! otherwise it would become confusing and hard to figure out the identification traits, I think.
-
-### Use taxonomic hierarchy throughout the app
-+ currently, the taxonomic hierarchy is mainly used to display the relationship graph
-+ it would make sense to link all ancestry data into a linked list or something
-+ this could then be used for the user to browse for interesting taxon pairs
-+ it could also be used to sort the taxonomic tags into a hierarchy
-
-### Improving the tagging system
-+ the user should be able to organically create personal collections by combining at least tags, ranges and levels.
-+ possible tags would be "mimicry", "fishes", or others. open for suggestions here!
-+ another option would be to use ancestry information, so that users can select groups according to phylogeny.
-    + it would also help users to select for example "beetles" or "fungi", and then get only taxon pairs that fit this selection in their pairs
-
-### Optionally use observation images
-+ right now, the app uses the taxon gallery images (up to twelve per taxon) for displaying images. That leaves out a huge number of potentially useful images that reside in the observations for any given taxon.
-+ one problem with just loading random observations is that the images might be really crappy
-+ one solution for this might be to use a user rating system for images, weeding out bad images, and promoting good ones
-
-### Indicate taxa with low number of gallery images
-+ if a taxon has less than 10 images, this could be logged in the console
-+ alternatively, it might make more sense to have a standalone script that runs for new taxon sets, resulting in a set of taxon sets with low image gallery numbers
-
-### Long-press information
-+ show information on what buttons do when long-pressed (on touch devices), or hover (on mouse devices), or whatever the best practice to get this information is nowadays
-
-### Optional vernicular names
-+ there could be an option to only show taxon names. this makes it easier to focus on getting the taxa right, gives them more screen space, and makes it a bit harder by not showing possibly descriptive names
-
-### Night mode
-+ it would be nice to have a night mode at some point, although because a big part of the screen estate are photographs, that will probably have a limited effect
-
-### Handle paraphyletic groups
-+ with the current "taxon pair" system, but also with the proposed "taxon set" system, taxa need to be monophyletic: otherwise they cannot be fetched from iNaturalist
-+ in theory, it should be possible to have a system in place that can for example do things like "moths vs butterflies, where butterflies consist of two different families, while moths consist of all the other ones in Lepidoptera
-+ however, this system may be complicating other parts, such as the rather straight-forward "taxon set" concept 
-
-### ID hints
-+ it would be nice to have optional hints to explain to the user what differentiates two taxa
-+ problems:
-    + high maintenance: need to be written
-    + not clear when to deploy to user
-        + the shown images might not display the mentioned characteristic(s)
-        + if there is a range of hints, it would be overwhelming to show more than one at once
-
-### Server-side functionality
-Currently, the code is running on github.io, so there's no server-side functionality. Here are some ideas once I changed to a server that has this option:
-
-#### Image/taxon rating system
-+ users can rate images (and maybe also taxon sets) via up/down buttons. These get saved on the server, to improve future selection of images and taxon sets. For example, this could remove bad images from being presented, or good taxon sets to become promoted.
-
-#### Taxa added by users
-+ users can suggest taxon sets that might be added to the main taxon set list. 
-
-#### Persistent user management
-+ a user can register and log in or out.
-+ the user profile saves the user's preferences, and things such as a list of liked and trashed 
-
-#### Stats
-+ there might be user stats, showing which taxa are hard/easy or so
-
-#### Difficulty levels
-+ taxon pairs with high failure rates might get a "hard" rating, with low failure rate "easy"
-+ this might be assessed on a global level, taking in data from all users
-
-#### Spaced repetition, learning sets
-+ it would be awesome for the app to have a system to feed the user the taxon sets that are right for them at the moment, for example according to the following criteria:
-    + spaced repetition: haven't seen it in a while, but not too long
-        + this would need internal stats that remember when the user played that set in the past, and how successful they were
-    + selection of new sets by app
-        + the app would suggest new taxon sets based on the user's (stated or assumed) interests
-
-#### Liking and trashing taxon sets
-+ the user could like a taxon set, resulting in it being included in a "favorite" meta selection, that can be loaded on demand, only containing liked sets
-+ the user could also trash taxon sets, which then won't be shown again to that user
-
-### Apps for Android and iPhone
-+ it would be nice to be possible to actually create apps for Android and iPhone later on, and not to need to rewrite more code than necessary
-+ before getting there, it would be nice to make the user interface look and behave as much as a modern, well-designed Android appas possible.
-
-### Long-term plans
-
-#### Money
-+ if there is actually a market for an app like this, a freemium model might be worthy of exploring.
-    + what functions might be worth paying for?
-+ alternatively, there could be a donation system
-    + no idea if anybody ever made enough money from donations to be able to fully dedicate themselves to the creation of an app ;)
-+ Patreon might be an option
+    + I couldn't get unit tests to work, but I'm aware it's something that would help
 
 ## Problems
 
 ### Coding and AI problems
 + while Claude was a big help in coming that far in creating the app, currently the complexity of the codebase, together with the limitations of Claude Sonnet 3.5, lead to many things breaking when trying to improve core functionality. This is time-consuming and frustrating. Also, I'm not an expert programmer, so I hit my limit of understanding pretty fast. So it would be nice to keep an eye on how to improve the code so it's easier to understand the code (for AI and me), and so changes in one part don't easily break other parts. I'm very open to suggestions here!
-+ I keep losing track of what Claude suggests to me, and because Claude does not have persistent memory regarding user prompts, so does Claude. what would be a good way to make sure longer sub-projects don't get lost in the day-to-day, but keep getting pursued?
-
-Also, this is a long-term project. Whenever you notice that something would make sense to focus on at this moment, to make the code better, let me know. I'm happy to implement changes that help me to get more done in the future, and to end up with a more powerful, prettier and better running app.
 
 ### Testing
 + At the moment, I keep missing broken functionality, and only notice it once the code got uploaded into the production environment. That's not great. If there are some automated ways to remedy this, that would help.
@@ -221,10 +123,10 @@ Also, this is a long-term project. Whenever you notice that something would make
 
 ### Current known bugs
 #### Responsive layout
-+ the dialogs should be fully visible and nicely positioned and layouted on big and small screens, in landscape and portrait mode
++ the dialogs should be fully visible and nicely positioned and layouted on big and small screens, in landscape and portrait mode. this is not fully working yet.
 
 #### Main screen layout
-+ currently, the main screen is optimized for Pixel 6a phones. It should also display cleanly on smaller phones, such as iPhone 7. There should be a different display mode for widescreen displays, which ranges from laptop screens to small phone screens. During widescreen display, the images should be on the left and the right, with the name tiles between them, one above the other.
++ currently, the main screen is optimized for Pixel 7a phones. It should also display cleanly on smaller phones, such as iPhone 7. There should be a different display mode for widescreen displays, which ranges from laptop screens to small phone screens. During widescreen display, the images should be on the left and the right, with the name tiles between them, one above the other.
 
 #### Cache problems
 + I currently have some functionality at the beginning of index.html to increase the version number, for cache busting
@@ -235,7 +137,7 @@ Also, this is a long-term project. Whenever you notice that something would make
 + I'm using Trello for keeping track of ideas and bugs
 + gvim with many tabs for writing the code
 + Chrome for testing
-+ iPhone 7 and Pixel 6a for mobile testing
++ iPhone 7 and Pixel 7a for mobile testing
 + github for code management
 + iNaturalist and its API for taxon information
 + Discord for community management (currently, there aren't any community members apart from me)

@@ -41,7 +41,10 @@ The DuoNat project is primarily written in JavaScript, with HTML and CSS for the
 + `tagSelector.js`: Manages the tag cloud feature.
 + `rangeSelector.js`: Handles geographical range selection.
 + `phylogenySelector.js` : Handles the phylogeny selection dialog.
++ `ancestryDialog.js`: Visualizes taxonomic relationships between two active taxa.
++ `ancestryPopup.js`: provides per-node functionality in the ancestryDialog.
 + `reporting.js`: Code for the reporting dialog.
++ `sharing.js`: Code for sharing dialog.
 
 ### Data Management and API
 
@@ -60,7 +63,6 @@ The DuoNat project is primarily written in JavaScript, with HTML and CSS for the
 ### Visualization and Special Features
 
 + `worldMap.js`: Handles rendering and interaction with world maps.
-+ `ancestryViewer.js`: Visualizes taxonomic relationships between two active taxa.
 + `d3Graphs.js`: Creates D3.js-based graphs for data visualization.
 
 ### Other
