@@ -10,27 +10,21 @@ The web app DuoNat has the following goals:
 
 The nomenclature for the game is like this:
 + the whole time from starting up the app to closing it is called a "session".
-+ it can have one or more "sets". each set consists of one or more "pairs". every pair consists of one or more "rounds".
++ it can have one or more "sets". each set consists of one or more "pairs". every pair consists of one or more "rounds". however, sets are not implemented and may never be, so for now "sets" and "pairs" are synonymous.
 + the user can filter the complete list of available taxon sets. these filtered lists are called "collections".
 + during a "set", the game uses the same taxon set throughout. a taxon set is an array of two or more taxa.
-+ during a "pair", the game uses the same taxon pair throughout. a taxon pair is selected from the current taxon set, and consists of exactly two of its taxa.
++ during a "pair", the game uses the same taxon pair throughout. a taxon pair is selected from the current taxon set, and consists of exactly two of its taxa. currently, each set is exactly two taxa, so identical to a pair.
 + during a "round", a pair of images are displayed, for the currently active taxon pair. every round, there will be two different images for that same taxon pair. The user needs to guess which image belongs to which taxon.
-
-I'm currently transitioning the app from only using taxon pairs to using taxon sets. For now, let's consider a taxon pair in the code and data to be a minimal taxon set (a taxon set which only has one taxon pair).
 
 A pair can get its two taxa either randomly from a list of taxon sets (in taxonSets.json), or defined by the user. The latter can happen by:
 + providing the (currently two) taxa in the URL as optional parameters, or
 + by defining them inside the app using the "Enter set" dialog.
 If no URL parameters are provided, the first set after the app starts up loads a random pair from the taxon pair list. Other options are accessed via
-+ the "Random set" (loads a random set from the taxon set list) or
 + "Manage collection" (let's the user select a set from the taxon set list) options.
 
 ### Sharing
-+ the user can easily share the currently active collection and pair by tapping on the "Share" icon. This creates a link to the app with the relevant information encoded in the URL.
-+ once taxon sets are fully implemented, these could also be encoded in the URL, together with the two taxa for the current pair
++ the user can easily share the currently active collection and pair by tapping on the "Share" icon. This creates a link or QR to the app with the relevant information encoded in the URL.
 + This sharing link is an important component of the game, helping with its virality, as users can easily share interesting pairs with others
-+ I'd like the app to optionally display a QR code for the current pair, so users can share when they're next to each other
-    + not every phone has a good way of creating these, and it's often hard to find in the moment
 
 ### Main objectives
 It's important that the app runs smooth, and the code is robust and stable, and easy to read, so I can expand it without losing track, or breaking dependencies or functions all the time.
@@ -62,12 +56,11 @@ Here's an outline of how I currently think the image loading works:
     + people that want to become better of visually identifying taxa
 + biology students
     + people that want to have a fun and effective way of improving their professional ID skills
-+ if you have other suggestions, let me know at some time
 
 ## Project structure
 
 ### Main window
-The main window is presented to the user at startup. That's where they will be most of their time. The user is presented with two images, and needs to drag a name tile to one of them. if correct, the game proceeds to the next round of the same taxon pair. If incorrect, the user needs to try again.
+The main window is presented to the user at startup. That's where they will be most of their time. The user is presented with two images, and needs to drag a name tile to one of them. If correct, the game proceeds to the next round of the same taxon pair. If incorrect, the user needs to try again.
 
 On each image, there's an info button, which opens an info dialog. There's also a mini world map, which shows the taxon's range.
 
