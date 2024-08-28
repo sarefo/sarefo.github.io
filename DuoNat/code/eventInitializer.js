@@ -94,7 +94,7 @@ const eventInitializer = {
     initializeTutorialButton() {
         const tutorialButton = document.getElementById('start-tutorial-button');
         if (tutorialButton) {
-            tutorialButton.addEventListener('click', () => tutorial.show());
+            tutorialButton.addEventListener('click', () => tutorial.showMainTutorial());
         }
     },
 
