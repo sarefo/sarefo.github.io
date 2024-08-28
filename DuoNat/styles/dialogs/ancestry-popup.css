@@ -1,10 +1,10 @@
 .ancestry-popup {
 
-    max-width: 300px;
+    max-width: 300px !important;
 }
 
 .ancestry-popup__title {
-    margin-bottom: 5px;
+    margin: -30px 0 0 0;
 }
 
 .ancestry-popup__container {

@@ -19,7 +19,7 @@ const ancestryPopup = {
 
     openPopup(taxon) {
         const popup = document.getElementById('ancestry-popup');
-        const taxonElement = document.getElementById('ancestry-popup-taxon');
+        const taxonElement = document.getElementById('ancestry-popup-title');
         const vernacularElement = document.getElementById('ancestry-popup-vernacular');
 
         taxonElement.textContent = `${taxon.rank} ${taxon.taxonName}`;
