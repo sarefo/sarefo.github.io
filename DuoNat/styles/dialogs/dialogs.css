@@ -133,8 +133,10 @@ dialog[open] {
     right: 30px;
 }
 
-.dialog-help-button svg.icon {
+.dialog-help-button svg {
     fill: var(--primary-color);
+    width: 24px;
+    height: 24px;
 }
 
 /* Hover styles */

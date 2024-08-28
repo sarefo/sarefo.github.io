@@ -487,11 +487,3 @@
     text-align: center;
 }
 
-/* Tutorial button */
-
-.collection-dialog__help-button {
-    position: absolute;
-    top: 10px;
-    right: 40px; /* Adjust this value to position it to the left of the close button */
-    z-index: 1001;
-}
