@@ -61,6 +61,12 @@ const ui = {
             state.getElement('overlay').classList.add('show');
         },
 
+        updateOverlayMessage(message) {
+            const overlayMessage = document.getElementById('overlay-message');
+            overlayMessage.innerHTML = message;
+            this.adjustFontSize(message);
+        },
+
         hideOverlay() {
             state.getElement('overlay').classList.remove('show');
         },
@@ -74,12 +80,68 @@ const ui = {
             const fontSize = message.length > 20 ? '1.4em' : '2.4em';
             state.getElement('overlayMessage').style.fontSize = fontSize;
         },
+    
+        createDialogOverlay(dialogElement) {
+            const taxonSetList = dialogElement.querySelector('#taxon-set-list');
+            if (!taxonSetList) {
+                console.error('Taxon set list not found in the dialog');
+                return;
+            }
 
-        updateOverlayMessage(message) {
-            const overlayMessage = document.getElementById('overlay-message');
-            overlayMessage.innerHTML = message;
-            this.adjustFontSize(message);
+            const overlay = document.createElement('div');
+            overlay.id = 'dialog-tutorial-overlay';
+            overlay.className = 'dialog-tutorial-overlay';
+            overlay.innerHTML = '<div class="dialog-tutorial-overlay__message"></div>';
+            
+            // Insert the overlay as a sibling of the taxon set list
+            taxonSetList.parentNode.insertBefore(overlay, taxonSetList.nextSibling);
+
+            // Position the overlay
+            this.positionOverlay(overlay, dialogElement);
+
+            // Add a mutation observer to reposition the overlay when the taxon set list changes
+            const observer = new MutationObserver(() => this.positionOverlay(overlay, dialogElement));
+            observer.observe(taxonSetList, { childList: true, subtree: true });
+
+            // Store the observer in the overlay element for later cleanup
+            overlay.mutationObserver = observer;
         },
+
+        positionOverlay(overlay, dialogElement) {
+            const firstTaxonButton = dialogElement.querySelector('.taxon-set-button');
+            if (!firstTaxonButton) {
+                console.error('No taxon set button found');
+                return;
+            }
+
+            const buttonRect = firstTaxonButton.getBoundingClientRect();
+            const dialogRect = dialogElement.getBoundingClientRect();
+
+            overlay.style.position = 'absolute';
+            overlay.style.top = `${buttonRect.top - dialogRect.top}px`;
+            overlay.style.left = `${buttonRect.left - dialogRect.left}px`;
+            overlay.style.width = `${buttonRect.width}px`;
+            overlay.style.height = `${buttonRect.height}px`;
+        },
+
+        updateDialogOverlayMessage(message) {
+            const overlayMessage = document.querySelector('.dialog-tutorial-overlay__message');
+            if (overlayMessage) {
+                overlayMessage.innerHTML = message;
+            }
+        },
+
+        removeDialogOverlay() {
+            const overlay = document.getElementById('dialog-tutorial-overlay');
+            if (overlay) {
+                // Disconnect the mutation observer if it exists
+                if (overlay.mutationObserver) {
+                    overlay.mutationObserver.disconnect();
+                }
+                overlay.remove();
+            }
+        },
+
     },
 
     menu: {
@@ -348,6 +410,9 @@ const publicAPI = {
     showOverlay: ui.overlay.showOverlay,
     updateOverlayMessage: ui.overlay.updateOverlayMessage,
     hideOverlay: ui.overlay.hideOverlay,
+    createDialogOverlay: ui.overlay.createDialogOverlay,
+    updateDialogOverlayMessage: ui.overlay.updateDialogOverlayMessage,
+    removeDialogOverlay: ui.overlay.removeDialogOverlay,
     // Menu
     toggleMainMenu: ui.menu.toggleMainMenu,
     openMenu: ui.menu.open,
