@@ -4,6 +4,7 @@ import dialogManager from './dialogManager.js';
 import eventMain from './eventMain.js';
 import gameLogic from './gameLogic.js';
 import gameSetup from './gameSetup.js';
+import hintSystem from './hintSystem.js';
 import logger from './logger.js';
 import state from './state.js';
 import tutorial from './tutorial.js';
@@ -19,6 +20,7 @@ const ui = {
         initialize() {
             this.initializeMenu();
             this.setupOutsideClickHandler(); // Close the dropdown when clicking outside of it
+            hintSystem.initialize();
         },
 
         initializeMenu() {

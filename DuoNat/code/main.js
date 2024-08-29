@@ -2,12 +2,9 @@ import api from './api.js';
 import config from './config.js';
 import dialogManager from './dialogManager.js';
 import gameSetup from './gameSetup.js';
-import hintSystem from './hintSystem.js';
 import logger, { LogLevel } from './logger.js';
 import eventMain from './eventMain.js';
-import rangeSelector from './rangeSelector.js';
 import state from './state.js';
-import tagSelector from './tagSelector.js';
 import ui from './ui.js';
 import url from './url.js';
 
@@ -17,15 +14,11 @@ const initializeLogger = () => {
     logger.setLevel(config.debug ? LogLevel.DEBUG : LogLevel.INFO);
 };
 
-
 async function initializeComponents() {
     await api.taxonomy.loadTaxonomyHierarchy();
+    ui.initialize();
     await dialogManager.initialize();
     eventMain.initialize();
-    hintSystem.initialize();
-    ui.initialize();
-    tagSelector.initialize();
-    rangeSelector.initialize();
 }
 
 async function initializeApp() {

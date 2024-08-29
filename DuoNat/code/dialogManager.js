@@ -8,6 +8,7 @@ import infoDialog from './infoDialog.js';
 import logger from './logger.js';
 import eventMain from './eventMain.js';
 import phylogenySelector from './phylogenySelector.js';
+import rangeSelector from './rangeSelector.js';
 import reporting from './reporting.js';
 import setManager from './setManager.js';
 import state from './state.js';
@@ -44,25 +45,26 @@ const dialogManager = {
             if (!Array.isArray(dialogManager.openDialogs)) {
                 dialogManager.openDialogs = [];
             }
-            dialogManager.bindAllMethods();
-            await dialogManager.initialization.initializeDialogs();
+            await this.initializeDialogs();
         },
 
         async initializeDialogs() {
-            await dialogManager.initialization.loadDialogs();
-            dialogManager.initialization.initializeKeyboardShortcutsDialog();
+            await this.loadDialogs();
+            this.initializeKeyboardShortcutsDialog();
 
             infoDialog.initialize();
             collectionManager.initialize();
-            enterSet.initialize();
+            tagSelector.initialize();
+            rangeSelector.initialize();
             phylogenySelector.initialize();
             reporting.initialize();
             testingDialog.initialize();
+            enterSet.initialize();
 
-            dialogManager.initialization.initializeHelpDialog();
+            this.initializeHelpDialog();
 
-            dialogManager.initialization.initializeCloseButtons();
-            dialogManager.initialization.initializeDialogCloseEvent();
+            this.initializeCloseButtons();
+            this.initializeDialogCloseEvent();
         },
 
         initializeCloseButtons() {
@@ -354,21 +356,21 @@ const dialogManager = {
         },
     },
 
-    bindAllMethods() {
-        const bindMethodsInObject = (obj) => {
-            for (let prop in obj) {
-                if (typeof obj[prop] === 'function') {
-                    obj[prop] = obj[prop].bind(this);
-                } else if (typeof obj[prop] === 'object' && obj[prop] !== null) {
-                    bindMethodsInObject(obj[prop]);
-                }
-            }
-        };
 
-        bindMethodsInObject(this);
-    },
 
 };
+
+const bindAllMethods = (obj) => {
+    for (let prop in obj) {
+        if (typeof obj[prop] === 'function') {
+            obj[prop] = obj[prop].bind(obj);
+        } else if (typeof obj[prop] === 'object' && obj[prop] !== null) {
+            bindAllMethods(obj[prop]);
+        }
+    }
+};
+
+bindAllMethods(dialogManager);
 
 const publicAPI = {
     initialize: dialogManager.initialization.initialize,

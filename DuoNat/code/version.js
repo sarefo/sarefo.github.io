@@ -28,7 +28,17 @@ function updateVersion() {
     updateSvgIconVersions();
 }
 
+function fadeInLogo() {
+    const logo = document.querySelector('.loading-screen__content');
+    if (logo) {
+        setTimeout(() => {
+            logo.classList.add('fade-in');
+        }, 100);
+    }
+}
+
 function initializeLoadingScreen() {
+    fadeInLogo();
     document.getElementById('loading-screen').style.display = 'flex';
 }
 
@@ -40,15 +50,6 @@ function showSvgIcons() {
 
 function fadeInBody() {
     document.body.classList.add('loaded');
-}
-
-function fadeInLogo() {
-    const logo = document.querySelector('.loading-screen__logo');
-    if (logo) {
-        setTimeout(() => {
-            logo.classList.add('fade-in');
-        }, 100);
-    }
 }
 
 window.loadQRCodeScript = function () {
@@ -79,7 +80,6 @@ function onDOMContentLoaded() {
     setTimeout(updateVersion, 100);
     showSvgIcons();
     fadeInBody();
-    fadeInLogo();
     setupShareButton();
 }
 

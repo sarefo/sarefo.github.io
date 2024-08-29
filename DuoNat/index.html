@@ -16,58 +16,48 @@
 
     <!-- cache busting by appending version code. change code in script! also FOUC buster -->
     <script src="./code/version.js" defer></script>
-    <!-- eliminate FOUC -->
-    <style>
-        body { opacity: 0; transition: opacity 0.3s ease-in; }
-        body.loaded { opacity: 1; }
-        #loading-screen {
-            position: fixed; top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-color: #dfe9c8;
-            display: flex; justify-content: center; align-items: center;
-            z-index: 9000;
-            transition: opacity 0.5s ease-out;
-        }
-        .loading-screen__logo {
-            opacity: 0;
-            width: 100px; height: 100px; margin-bottom: -20px;
-            transition: opacity 0.3s ease-in-out;
-        }
-        .loading-screen__logo.fade-in { opacity: 1; }
-        .loading-screen__title { font-size: 2.5em; margin-bottom: 10px; }
-        .loading-screen__title-duo { color: var(--primary-counter-color); }
-        .loading-screen__title-nat { color: var(--primary-color); }
 
-        .loading-screen__message { font-size: 1.2em; color: #666; margin-bottom: 20px; }
-    </style>
-    <link rel="preload" href="./styles/main.css" as="style">
     <link rel="stylesheet" href="./styles/main.css">
 
     <link rel="manifest" href="./manifest.json">
     <link rel="icon" href="./images/favicon.png" type="image/png">
 
     <script type="module" src="./code/main.js" defer></script>
-    <!--  <link rel="preload" href="./images/icons.svg" as="image" type="image/svg+xml"> -->
 
 </head>
 
 <body>
 
-<!-- Loading screen at app start -->
 <div id="loading-screen" class="loading-screen">
-    <div class="loading-screen__content">
-        <img src="./images/icon-512x512.png" alt="DuoNat logo" class="loading-screen__logo">
-        <h1 class="loading-screen__title">
-            <span class="loading-screen__title-duo">Duo</span><span class="loading-screen__title-nat">Nat</span>
+    <!-- Loading screen at app start -->
+    <style>
+        #loading-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #dfe9c8; font-family: 'Open Sans', Arial, sans-serif;
+            display: flex; justify-content: center; align-items: center; text-align: center;
+            z-index: 9000; transition: opacity 0.5s ease-out;
+        }
+        .loading-screen__content { opacity: 0; }
+        .loading-screen__content.fade-in { opacity: 1; }
+        .loading-screen--fade-out { opacity: 0; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+    <div class="loading-screen__content" style="transition:opacity 0.8s ease-in-out;">
+        <img src="./images/icon-512x512.png" alt="DuoNat logo" class="loading-screen__logo"
+            style="width:100px; height:100px; margin-bottom:-20px;">
+        <h1 class="loading-screen__title" style="font-size:2.5em; margin-bottom:10px;">
+            <span class="loading-screen__title-duo" style="color:#ac0028">Duo</span>
+            <span class="loading-screen__title-nat" style="color:#74ac00">Nat</span>
         </h1>
-        <p class="loading-screen__message">Loading amazing creatures...</p>
-        <div class="loading-screen__spinner"></div>
+        <p class="loading-screen__message" style=" font-size: 1.2em; color: #666; margin-bottom: 20px;">Loading amazing creatures...</p>
+        <div class="loading-screen__spinner"
+            style="border: 5px solid #dfe9c8; border-top: 5px solid var(--primary-color); border-radius: 50%;
+            width: 50px; height: 50px; margin: 0 auto;
+            animation: spin 1s linear infinite;"></div>
     </div>
 </div>
 
-<!--                 -->
 <!-- App main screen -->
-<!--                 -->
 <div class="game-container">
 
 <div class="image-container" id="image-container-1">

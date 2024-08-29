@@ -337,6 +337,7 @@ const gameSetup = {
             loadingScreen.classList.add('loading-screen--fade-out');
             setTimeout(() => {
                 loadingScreen.style.display = 'none';
+                loadingScreen.remove();
             }, 500); // This matches the transition duration in CSS
         },
 
