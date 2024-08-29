@@ -240,11 +240,10 @@ class RadialTree extends BaseTree {
         this.parentNode = null;
         this.activeNode = null;
         this.dragOffset = [0, 0];
-        this.radius = 120;  // Initialize with the same value as the slider's default
         this.onNodeSelect = null;
         this.simulation = null;
-        this.initialDrag = true; // Add this line
-        //this.zoom = null;
+        this.initialDrag = true;
+        this.maxDepth = 0;
     }
 
     calculateRadius(pairCount, maxCount) {
@@ -306,7 +305,7 @@ class RadialTree extends BaseTree {
     _centerGraphOnActiveNode() {
         const activeNodeCoords = this._radialPoint(this.activeNode.x, this.activeNode.y);
         const { width, height } = this._getDimensions();
-        
+
         this.dragOffset = [
             width / 2 - activeNodeCoords[0],
             height / 2 - activeNodeCoords[1]
@@ -402,9 +401,19 @@ class RadialTree extends BaseTree {
             `);
     }
 
+    _calculateMaxDepth(node, currentDepth = 0) {
+        if (!node) return currentDepth;
+        this.maxDepth = Math.max(this.maxDepth, currentDepth);
+        if (node.children) {
+            node.children.forEach(child => this._calculateMaxDepth(child, currentDepth + 1));
+        }
+    }
+
     _setupTreeLayout() {
+        const { width, height } = this._getDimensions();
+        const radius = Math.min(width, height) / 2 - 20; // Use more of the available space
         return this.d3.tree()
-            .size([Math.PI, 1])
+            .size([2 * Math.PI, radius])
             .separation((a, b) => {
                 return (a.parent == b.parent ? 1 : 2) / a.depth;
             });
@@ -531,7 +540,9 @@ class RadialTree extends BaseTree {
     }
 
     _radialPoint(x, y) {
-        return [(y * this.radius) * Math.sin(x), -(y * this.radius) * Math.cos(x)];
+        const { width, height } = this._getDimensions();
+        const radius = Math.min(width, height) / 2 - 20;
+        return [(y * radius) * Math.cos(x - Math.PI / 2), (y * radius) * Math.sin(x - Math.PI / 2)];
     }
 
     _handleClick(d) {
@@ -667,6 +678,10 @@ class RadialTree extends BaseTree {
     update(source) {
         const duration = 750;
         
+        this.maxDepth = 0; // Reset maxDepth
+        this._calculateMaxDepth(this.parentNode); // Recalculate maxDepth
+
+        this.treeLayout = this._setupTreeLayout(); // Update layout with new maxDepth
         this.treeLayout(this.parentNode);
 
         const visibleNodes = this._getVisibleNodes();
@@ -680,6 +695,7 @@ class RadialTree extends BaseTree {
         this._updateLinks(links, source, duration);
 
         this.simulation.alpha(1).restart();
+
 
         // Center the active node on the screen
         //const activeNodeCoords = this._radialPoint(this.activeNode.x, this.activeNode.y);
@@ -702,6 +718,8 @@ class RadialTree extends BaseTree {
             .style('stroke', '#ac0028')
             .attr('r', 8) // Make the active node slightly larger
             .style('fill', '#ac0028'); // Highlight color
+
+        this._centerGraphOnActiveNode();
     }
 
     _fitToView() {
