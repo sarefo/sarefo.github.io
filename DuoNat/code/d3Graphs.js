@@ -361,8 +361,10 @@ class RadialTree extends BaseTree {
 
     _setupTreeLayout() {
         return this.d3.tree()
-            .size([2 * Math.PI, 1]) // Use a fixed size of 1 for the radius
-            .separation((a, b) => (a.parent == b.parent ? 1 : 2) / a.depth);
+            .size([Math.PI, 1])
+            .separation((a, b) => {
+                return (a.parent == b.parent ? 1 : 2) / a.depth;
+            });
     }
 
     _getVisibleNodes() {
@@ -486,7 +488,7 @@ class RadialTree extends BaseTree {
     }
 
     _radialPoint(x, y) {
-        return [(y * this.radius) * Math.cos(x - Math.PI / 2), (y * this.radius) * Math.sin(x - Math.PI / 2)];
+        return [(y * this.radius) * Math.sin(x), -(y * this.radius) * Math.cos(x)];
     }
 
     _handleClick(d) {
@@ -698,196 +700,6 @@ class RadialTree extends BaseTree {
 
 }
 
-/*class HierarchicalTree extends BaseTree {
-    constructor(container, rootNode) {
-        super(container, rootNode);
-    }
-
-    async create() {
-        if (!await this.initialize()) return;
-
-        const width = 800;
-        const height = 600;
-
-        this._setupSvg(width, height);
-        this._addStyles();
-        this.treeLayout = this._setupTreeLayout(width, height);
-
-        this._initializeNodes();
-        this._expandInitialNodes();
-        this.update(this.root);
-    }
-
-    _setupSvg(width, height) {
-        this.svg = this.d3.select(this.container)
-            .append('svg')
-            .attr('width', width)
-            .attr('height', height)
-            .append('g')
-            .attr('transform', 'translate(40,0)');
-    }
-
-    _addStyles() {
-        this.svg.append('style').text(`
-            .testing-dialog__node circle {
-                fill: #fff;
-                stroke: steelblue;
-                stroke-width: 3px;
-            }
-            .testing-dialog__node text {
-                font: 12px sans-serif;
-            }
-            .testing-dialog__link {
-                fill: none;
-                stroke: #ccc;
-                stroke-width: 2px;
-            }
-        `);
-    }
-
-    _setupTreeLayout(width, height) {
-        return this.d3.tree().size([height, width - 200]);
-    }
-
-    _initializeNodes() {
-        this.root.descendants().forEach(d => {
-            if (d.depth > 1) {
-                d._children = d.children;
-                d.children = null;
-            }
-        });
-    }
-
-    _expandInitialNodes() {
-        this._expandNode(this.root);
-        this.root.children.forEach(this._expandNode);
-    }
-
-    _expandNode(d) {
-        if (d._children) {
-            d.children = d._children;
-            d.children.forEach(this._expandNode);
-        }
-    }
-
-    _updateNodes(nodes, links, source, duration) {
-        const node = this.svg.selectAll('.testing-dialog__node')
-            .data(nodes, d => d.data.id);
-
-        const nodeEnter = node.enter().append('g')
-            .attr('class', 'testing-dialog__node')
-            .attr('transform', d => {
-                const x = isNaN(source.x0) ? 0 : source.x0;
-                const y = isNaN(source.y0) ? 0 : source.y0;
-                return `translate(${y},${x})`;
-            })
-            .on('click', (event, d) => {
-                if (d.children) {
-                    d._children = d.children;
-                    d.children = null;
-                } else {
-                    d.children = d._children;
-                    d._children = null;
-                }
-                this.update(d);
-            });
-
-        nodeEnter.append('circle')
-            .attr('r', 1e-6)
-            .attr('fill', d => d._children ? "lightsteelblue" : "#fff");
-
-        nodeEnter.append('text')
-            .attr('dy', '.35em')
-            .attr('x', d => d.children || d._children ? -13 : 13)
-            .attr('text-anchor', d => d.children || d._children ? 'end' : 'start')
-            .text(d => d.data.taxonName);
-
-        const nodeUpdate = nodeEnter.merge(node);
-
-        nodeUpdate.transition()
-            .duration(duration)
-            .attr('transform', d => {
-                if (isNaN(d.x) || isNaN(d.y)) {
-                    logger.error('Invalid node position:', d);
-                    return 'translate(0,0)';
-                }
-                return `translate(${d.y},${d.x})`;
-            });
-
-        nodeUpdate.attr('transform', d => {
-            const point = this._radialPoint(d.x, d.y);
-            return `translate(${point[0]},${point[1]})`;
-        });
-
-        nodeUpdate.select('circle')
-            .attr('r', 5)
-            .attr('fill', d => d._children ? "lightsteelblue" : "#fff");
-
-        const nodeExit = node.exit().transition()
-            .duration(duration)
-            .attr('transform', d => `translate(${source.y},${source.x})`)
-            .remove();
-
-        nodeExit.select('circle')
-            .attr('r', 1e-6);
-
-        nodeExit.select('text')
-            .style('fill-opacity', 1e-6);
-
-        this._updateLinks(links, source, duration);
-    }
-
-    _updateLinks(links, source, duration) {
-        const link = this.svg.selectAll('.testing-dialog__link')
-            .data(links, d => d.target.data.id);
-
-        const linkEnter = link.enter().insert('path', 'g')
-            .attr('class', 'testing-dialog__link')
-            .attr('d', d => {
-                const o = { x: source.x0, y: source.y0 };
-                return this._diagonal(o, o);
-            });
-
-        const linkUpdate = linkEnter.merge(link);
-
-        linkUpdate.transition()
-            .duration(duration)
-            .attr('d', d => this._diagonal(d.source, d.target));
-
-        link.exit().transition()
-            .duration(duration)
-            .attr('d', d => {
-                const o = { x: source.x, y: source.y };
-                return this._diagonal(o, o);
-            })
-            .remove();
-    }
-
-    _diagonal(s, d) {
-        return `M ${s.y} ${s.x}
-                C ${(s.y + d.y) / 2} ${s.x},
-                  ${(s.y + d.y) / 2} ${d.x},
-                  ${d.y} ${d.x}`;
-    }
-
-    update(source) {
-        const duration = 750;
-        const tree = this.treeLayout(source);
-        const nodes = tree.descendants();
-        const links = tree.links();
-
-        nodes.forEach(d => d.y = d.depth * 180);
-
-        this._updateNodes(nodes, links, source, duration);
-        this._updateLinks(links, source, duration);
-
-        nodes.forEach(d => {
-            d.x0 = d.x;
-            d.y0 = d.y;
-        });
-    }
-}*/
-
 const publicAPI = {
     createRadialTree: async function (container, rootNode, showTaxonomicNames) {
         const tree = new RadialTree(container, rootNode, showTaxonomicNames);
@@ -895,11 +707,6 @@ const publicAPI = {
         this.lastCreatedTree = tree;
         return tree; // Return the tree instance
     },
-
-/*    createHierarchicalTree: async function (container, rootNode) {
-        const tree = new HierarchicalTree(container, rootNode);
-        await tree.create();
-    },*/
 
     getActiveNodeId: function () {
         // This assumes that the last created tree is the active one
