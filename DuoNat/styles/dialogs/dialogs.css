@@ -129,7 +129,7 @@ dialog[open] {
 }*/
 
 .dialog-help-button {
-    top: 2px; /* no idea why */
+    top: 1px; /* no idea why */
     right: 30px;
 }
 

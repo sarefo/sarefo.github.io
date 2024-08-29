@@ -45,8 +45,6 @@ const gameSetup = {
         prepareUIForLoading() {
             utils.game.resetDraggables();
             ui.prepareImagesForLoading();
-            const startMessage = state.getIsFirstLoad() ? "Drag the names!" : utils.ui.getLoadingMessage();
-            ui.showOverlay(startMessage, config.overlayColors.green);
             state.setIsFirstLoad(false);
         },
 
@@ -230,7 +228,7 @@ const gameSetup = {
             }
 
             const randomized = Math.random() < 0.5;
-    logger.debug(`Image randomization: ${randomized ? "swapped" : "not swapped"}`);
+            //logger.debug(`Image randomization: ${randomized ? "swapped" : "not swapped"}`);
 
             const leftImageSrc = randomized ? imageOneURL : imageTwoURL;
             const rightImageSrc = randomized ? imageTwoURL : imageOneURL;
@@ -278,7 +276,7 @@ const gameSetup = {
             const taxonImageOne = imageData.randomized ? pair.taxon1 : pair.taxon2;
             const taxonImageTwo = imageData.randomized ? pair.taxon2 : pair.taxon1;
 
-            logger.debug(`Setting taxon names: Left=${taxonImageOne}, Right=${taxonImageTwo}`);
+            //logger.debug(`Setting taxon names: Left=${taxonImageOne}, Right=${taxonImageTwo}`);
 
             state.updateGameStateMultiple({
                 taxonImageOne: taxonImageOne,
@@ -294,7 +292,7 @@ const gameSetup = {
             });
 
             // Verify that the state has been updated correctly
-            logger.debug(`Verifying taxon names: Left=${state.getTaxonImageOne()}, Right=${state.getTaxonImageTwo()}`);
+            //logger.debug(`Verifying taxon names: Left=${state.getTaxonImageOne()}, Right=${state.getTaxonImageTwo()}`);
         },
 
         updateUIAfterSetup(newPair) {
@@ -321,10 +319,12 @@ const gameSetup = {
             if (state.getIsInitialLoad()) {
                 state.updateGameStateMultiple({ isInitialLoad: false });
             }
-            ui.hideOverlay();
             ui.resetUIState();
             state.setState(state.GameState.PLAYING);
             preloader.startPreloading(newPair);
+            /*await ui.showOverlay("Drag the names!", config.overlayColors.green);
+            await utils.ui.sleep(1500);
+            ui.hideOverlay();*/
 
             // Initialize the subset after the game has loaded
             setManager.initializeSubset().catch(error => {

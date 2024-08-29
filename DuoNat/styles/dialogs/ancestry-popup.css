@@ -30,3 +30,8 @@
 .ancestry-popup__buttons .dialog-button {
     width: 100%;
 }
+
+.ancestry-popup__button--inactive {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

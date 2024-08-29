@@ -17,15 +17,21 @@ const ancestryPopup = {
         document.getElementById('ancestry-popup-filter').addEventListener('click', () => this.filterHere());
     },
 
-    openPopup(taxon) {
+    async openPopup(taxon) {
         const popup = document.getElementById('ancestry-popup');
         const taxonElement = document.getElementById('ancestry-popup-title');
         const vernacularElement = document.getElementById('ancestry-popup-vernacular');
+        const wikiButton = document.getElementById('ancestry-popup-wiki');
 
         taxonElement.textContent = `${taxon.rank} ${taxon.taxonName}`;
         vernacularElement.textContent = taxon.vernacularName && taxon.vernacularName !== "-" ? `(${taxon.vernacularName})` : '';
 
         this.currentTaxon = taxon;
+
+        // Check for Wikipedia page and update button state
+        const hasWikipediaPage = await api.externalAPIs.checkWikipediaPage(taxon.taxonName);
+        this.toggleButtonState(wikiButton, hasWikipediaPage);
+
         popup.showModal();
     },
 
@@ -41,13 +47,21 @@ const ancestryPopup = {
         this.closePopup();
     },
 
+    toggleButtonState(button, isEnabled) {
+        if (isEnabled) {
+            button.classList.remove('ancestry-popup__button--inactive');
+            button.disabled = false;
+        } else {
+            button.classList.add('ancestry-popup__button--inactive');
+            button.disabled = true;
+        }
+    },
+
     async openWikipedia() {
         if (this.currentTaxon) {
-            const hasWikipediaPage = await api.externalAPIs.checkWikipediaPage(this.currentTaxon.taxonName);
-            if (hasWikipediaPage) {
+            const wikiButton = document.getElementById('ancestry-popup-wiki');
+            if (!wikiButton.disabled) {
                 window.open(`https://en.wikipedia.org/wiki/${this.currentTaxon.taxonName}`, '_blank');
-            } else {
-                alert('No Wikipedia page found for this taxon.');
             }
         }
         this.closePopup();

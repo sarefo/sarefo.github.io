@@ -56,7 +56,6 @@ const ui = {
 
     overlay: {
         showOverlay(message = "", color = config.overlayColors.green) {
-            logger.debug(`Showing overlay: message="${message}", color=${color}`);
             this.setOverlayContent(message, color);
             this.adjustFontSize(message);
             const overlay = state.getElement('overlay');
@@ -73,10 +72,6 @@ const ui = {
             
             // Restore the transition for future animations
             overlayMessage.style.transition = 'opacity 0.3s ease-out';
-
-            logger.debug(`Overlay element classes: ${overlay.className}`);
-            logger.debug(`Overlay message content: ${overlayMessage.innerHTML}`);
-            logger.debug(`Overlay message opacity: ${overlayMessage.style.opacity}`);
         },
 
         updateOverlayMessage(message) {
@@ -86,10 +81,8 @@ const ui = {
         },
 
         hideOverlay() {
-            logger.debug('Hiding overlay');
             const overlay = state.getElement('overlay');
             overlay.classList.remove('show');
-            logger.debug(`Overlay element classes after hiding: ${overlay.className}`);
         },
 
         setOverlayContent(message, color) {
@@ -105,7 +98,7 @@ const ui = {
         createDialogOverlay(dialogElement) {
             const taxonSetList = dialogElement.querySelector('#taxon-set-list');
             if (!taxonSetList) {
-                console.error('Taxon set list not found in the dialog');
+                logger.error('Taxon set list not found in the dialog');
                 return;
             }
 
@@ -131,7 +124,7 @@ const ui = {
         positionOverlay(overlay, dialogElement) {
             const firstTaxonButton = dialogElement.querySelector('.taxon-set-button');
             if (!firstTaxonButton) {
-                console.error('No taxon set button found');
+                logger.error('No taxon set button found');
                 return;
             }
 
