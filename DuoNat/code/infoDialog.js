@@ -63,7 +63,6 @@ const infoDialog = {
         const factsElement = document.getElementById('info-dialog-facts');
 
         taxonElement.textContent = taxonName;
-        logger.debug(`taxon element is now ${taxonName}`);
 
         try {
             const vernacularName = await api.vernacular.fetchVernacular(taxonName);
