@@ -19762,5 +19762,95 @@
     "vernacularName": "Cinnabar bracket",
     "rank": "Species",
     "parentId": "47378"
+  },
+  "57325": {
+    "taxonName": "Sclerosomatidae",
+    "vernacularName": "Sclerosomatid harvestmen",
+    "rank": "Family",
+    "parentId": "61350"
+  },
+  "426014": {
+    "taxonName": "Gagrellinae",
+    "vernacularName": "-",
+    "rank": "Subfamily",
+    "parentId": "57325"
+  },
+  "448021": {
+    "taxonName": "Pseudogagrella",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "426014"
+  },
+  "1303946": {
+    "taxonName": "Pseudogagrella splendens",
+    "vernacularName": "-",
+    "rank": "Species",
+    "parentId": "448021"
+  },
+  "153098": {
+    "taxonName": "Ricaniidae",
+    "vernacularName": "Ricaniid planthoppers",
+    "rank": "Family",
+    "parentId": "52073"
+  },
+  "1163853": {
+    "taxonName": "Ricaniinae",
+    "vernacularName": "-",
+    "rank": "Subfamily",
+    "parentId": "153098"
+  },
+  "204646": {
+    "taxonName": "Ricania",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "1163853"
+  },
+  "547039": {
+    "taxonName": "Ricania guttata",
+    "vernacularName": "-",
+    "rank": "Species",
+    "parentId": "204646"
+  },
+  "520876": {
+    "taxonName": "Psathyropus",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "426014"
+  },
+  "123036": {
+    "taxonName": "Geometrinae",
+    "vernacularName": "Emerald moths",
+    "rank": "Subfamily",
+    "parentId": "49530"
+  },
+  "123081": {
+    "taxonName": "Dysphaniini",
+    "vernacularName": "False tiger moths",
+    "rank": "Tribe",
+    "parentId": "123036"
+  },
+  "52021": {
+    "taxonName": "Dysphania",
+    "vernacularName": "False tiger moths",
+    "rank": "Genus",
+    "parentId": "123081"
+  },
+  "153102": {
+    "taxonName": "Dysphania militaris",
+    "vernacularName": "False tiger moth",
+    "rank": "Species",
+    "parentId": "52021"
+  },
+  "358521": {
+    "taxonName": "Ricania speculum",
+    "vernacularName": "Black planthopper",
+    "rank": "Species",
+    "parentId": "204646"
+  },
+  "362232": {
+    "taxonName": "Dysphania subrepleta",
+    "vernacularName": "-",
+    "rank": "Species",
+    "parentId": "52021"
   }
 }

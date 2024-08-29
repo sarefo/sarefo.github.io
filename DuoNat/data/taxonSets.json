@@ -14066,5 +14066,59 @@
       "AF",
       "AS"
     ]
+  },
+  "812": {
+    "setName": "Ricania",
+    "level": "2",
+    "tags": [
+      "hk"
+    ],
+    "taxa": [
+      547039,
+      358521
+    ],
+    "taxonNames": [
+      "Ricania guttata",
+      "Ricania speculum"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "813": {
+    "setName": "False tiger moths",
+    "level": "2",
+    "tags": [
+      "hk"
+    ],
+    "taxa": [
+      153102,
+      362232
+    ],
+    "taxonNames": [
+      "Dysphania militaris",
+      "Dysphania subrepleta"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "814": {
+    "setName": "HK harvestmen",
+    "level": "1",
+    "tags": [
+      "hk"
+    ],
+    "taxa": [
+      1303946,
+      520876
+    ],
+    "taxonNames": [
+      "Pseudogagrella splendens",
+      "Psathyropus"
+    ],
+    "range": [
+      "AS"
+    ]
   }
 }

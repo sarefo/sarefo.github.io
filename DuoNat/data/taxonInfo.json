@@ -42119,5 +42119,167 @@
       "EU",
       "AS"
     ]
+  },
+  "1303946": {
+    "taxonName": "Pseudogagrella splendens",
+    "vernacularName": "-",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47367,
+      372840,
+      61350,
+      57325,
+      426014,
+      448021,
+      1303946
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Found in East Asia, particularly China and Japan.",
+      "Belongs to the harvestman family Sclerosomatidae.",
+      "Part of a genus with several species in Asia."
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "547039": {
+    "taxonName": "Ricania guttata",
+    "vernacularName": "-",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47744,
+      125816,
+      372860,
+      52073,
+      153098,
+      1163853,
+      204646,
+      547039
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for its wide dispersion ability.",
+      "Found near host plants for feeding and reproduction.",
+      "Inhabits various tropical and subtropical regions."
+    ],
+    "range": [
+      "AF",
+      "AS",
+      "OC"
+    ]
+  },
+  "520876": {
+    "taxonName": "Psathyropus",
+    "vernacularName": "-",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47367,
+      372840,
+      61350,
+      57325,
+      426014,
+      520876
+    ],
+    "rank": "Genus",
+    "taxonFacts": [
+      "Typically found in warm, humid habitats."
+    ],
+    "range": [
+      "AF",
+      "AS"
+    ]
+  },
+  "153102": {
+    "taxonName": "Dysphania militaris",
+    "vernacularName": "False tiger moth",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47157,
+      49531,
+      49530,
+      123036,
+      123081,
+      52021,
+      153102
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Often mistaken for bright colored butterflies.",
+      "Larvae feed on various plants including <i>Rhodomyrtus</i>.",
+      "Its wingspan ranges between 80 to 96 mm."
+    ],
+    "range": [
+      "AF",
+      "AS"
+    ]
+  },
+  "358521": {
+    "taxonName": "Ricania speculum",
+    "vernacularName": "Black planthopper",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47744,
+      125816,
+      372860,
+      52073,
+      153098,
+      1163853,
+      204646,
+      358521
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Considered a major pest for various crops.",
+      "Widespread in Asian and tropical areas.",
+      "Found in dark environments and low-elevation mountains."
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "362232": {
+    "taxonName": "Dysphania subrepleta",
+    "vernacularName": "-",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47157,
+      49531,
+      49530,
+      123036,
+      123081,
+      52021,
+      362232
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Belongs to the false tiger moth family.",
+      "Closely related species include <i>Dysphania militaris</i>."
+    ],
+    "range": [
+      "AS"
+    ]
   }
 }
