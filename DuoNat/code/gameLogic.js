@@ -52,15 +52,15 @@ const gameLogic = {
             const taxonImageOne = state.getTaxonImageOne();
             const taxonImageTwo = state.getTaxonImageTwo();
             
-            logger.debug(`Evaluating answer: Left=${answers.leftAnswer}, Right=${answers.rightAnswer}`);
-            logger.debug(`Correct answer: Left=${taxonImageOne}, Right=${taxonImageTwo}`);
-            logger.debug(`Current pair: ${JSON.stringify(state.getCurrentTaxonImageCollection().pair)}`);
+            //logger.debug(`Evaluating answer: Left=${answers.leftAnswer}, Right=${answers.rightAnswer}`);
+            //logger.debug(`Correct answer: Left=${taxonImageOne}, Right=${taxonImageTwo}`);
+            //logger.debug(`Current pair: ${JSON.stringify(state.getCurrentTaxonImageCollection().pair)}`);
 
             const isCorrect =
                 answers.leftAnswer === taxonImageOne &&
                 answers.rightAnswer === taxonImageTwo;
 
-            logger.debug(`Answer is correct: ${isCorrect}`);
+            //logger.debug(`Answer is correct: ${isCorrect}`);
 
             if (isCorrect) {
                 this.handleCorrectAnswer();
@@ -79,7 +79,6 @@ const gameLogic = {
             await ui.showOverlay('Correct!', config.overlayColors.green);
             ui.prepareImagesForLoading();
             await utils.ui.sleep(2000);
-            logger.debug('About to hide overlay');
             ui.hideOverlay();
             await gameSetup.setupGame(false);
         },
