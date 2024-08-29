@@ -42281,5 +42281,395 @@
     "range": [
       "AS"
     ]
+  },
+  "199914": {
+    "taxonName": "Selasphorus calliope",
+    "vernacularName": "Calliope hummingbird",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67573,
+      5562,
+      1542290,
+      1542294,
+      6358,
+      199914
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Smallest bird in the United States and Canada.",
+      "Migrates up to 9,000 kilometers annually.",
+      "Named after the Greek muse Calliope."
+    ],
+    "range": [
+      "NA"
+    ]
+  },
+  "6309": {
+    "taxonName": "Rhodopis vesper",
+    "vernacularName": "Oasis hummingbird",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67573,
+      5562,
+      1542290,
+      1542294,
+      6308,
+      6309
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Found in dry shrublands and high-altitude grasslands.",
+      "Has three recognized subspecies across South America.",
+      "Nests in rural gardens and artificial habitats."
+    ],
+    "range": [
+      "SA"
+    ]
+  },
+  "6369": {
+    "taxonName": "Selasphorus platycercus",
+    "vernacularName": "Broad-tailed hummingbird",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67573,
+      5562,
+      1542290,
+      1542294,
+      6358,
+      6369
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for its vibrant green and rufous plumage.",
+      "Breeds in high mountain meadows of the West.",
+      "Displays aggressive territorial behavior during mating."
+    ],
+    "range": [
+      "NA"
+    ]
+  },
+  "6433": {
+    "taxonName": "Archilochus alexandri",
+    "vernacularName": "Black-chinned hummingbird",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67573,
+      5562,
+      1542290,
+      1542294,
+      6431,
+      6433
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Males have a striking black chin and throat.",
+      "Nests in open woodlands and gardens.",
+      "Can hover in place while feeding on nectar."
+    ],
+    "range": [
+      "NA"
+    ]
+  },
+  "6432": {
+    "taxonName": "Archilochus colubris",
+    "vernacularName": "Ruby-throated hummingbird",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67573,
+      5562,
+      1542290,
+      1542294,
+      6431,
+      6432
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Migrates between North America and Central America.",
+      "Can fly across the Gulf of Mexico non-stop.",
+      "Uses torpor to conserve energy in cold weather."
+    ],
+    "range": [
+      "NA"
+    ]
+  },
+  "5676": {
+    "taxonName": "Amazilia tzacatl",
+    "vernacularName": "Rufous-tailed hummingbird",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67573,
+      5562,
+      1542290,
+      1542295,
+      5666,
+      5676
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Commonly found in gardens and urban areas.",
+      "Has a distinctive green and blue coloration.",
+      "Feeds on nectar and small insects."
+    ],
+    "range": [
+      "SA"
+    ]
+  },
+  "6255": {
+    "taxonName": "Patagona gigas",
+    "vernacularName": "Giant hummingbird",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67573,
+      5562,
+      1542289,
+      6254,
+      6255
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Second largest hummingbird species globally.",
+      "Inhabits high-altitude scrublands and forests.",
+      "Migrates between temperate and tropical regions."
+    ],
+    "range": [
+      "SA"
+    ]
+  },
+  "5807": {
+    "taxonName": "Anthracothorax nigricollis",
+    "vernacularName": "Black-throated mango",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67573,
+      5562,
+      1542287,
+      5793,
+      5807
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Prefers forested areas and gardens for nesting.",
+      "Has a unique vocalization during mating displays."
+    ],
+    "range": [
+      "AF"
+    ]
+  },
+  "6316": {
+    "taxonName": "Calypte costae",
+    "vernacularName": "Costa's hummingbird",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67573,
+      5562,
+      1542290,
+      1542294,
+      6315,
+      6316
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Primarily found in the deserts of the Southwest.",
+      "Nests in shrubs and low trees.",
+      "Has a distinctive purple throat in males."
+    ],
+    "range": [
+      "NA"
+    ]
+  },
+  "6317": {
+    "taxonName": "Calypte anna",
+    "vernacularName": "Anna's hummingbird",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67573,
+      5562,
+      1542290,
+      1542294,
+      6315,
+      6317
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Resides year-round along the Pacific coast.",
+      "Expands range due to urban nectar sources.",
+      "Can tolerate cooler temperatures than other species."
+    ],
+    "range": [
+      "NA"
+    ]
+  },
+  "5798": {
+    "taxonName": "Anthracothorax prevostii",
+    "vernacularName": "Green-breasted mango",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67573,
+      5562,
+      1542287,
+      5793,
+      5798
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Commonly found in tropical forests and gardens.",
+      "Has a vibrant green and blue plumage.",
+      "Plays a role in pollinating various flowers."
+    ],
+    "range": [
+      "AF"
+    ]
+  },
+  "19627": {
+    "taxonName": "Nyctidromus albicollis",
+    "vernacularName": "Common pauraque",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67573,
+      19376,
+      19626,
+      19627
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Breeds in warmer parts of the Americas",
+      "Hunts flying insects at night in open landscapes",
+      "Easily detected by red eye-shine at night"
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ]
+  },
+  "19577": {
+    "taxonName": "Chordeiles minor",
+    "vernacularName": "Common nighthawk",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67573,
+      19376,
+      19576,
+      19577
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Breeds across North America, winters in South America",
+      "Hunts flying insects at dusk and dawn",
+      "Performs aerial courtship displays at dusk"
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ]
+  },
+  "199837": {
+    "taxonName": "Antrostomus vociferus",
+    "vernacularName": "Eastern whip-poor-will",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67573,
+      19376,
+      199908,
+      199837
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Breeds in eastern North America, winters in Mexico",
+      "Named after its loud, repetitive 'whip-poor-will' call",
+      "Hunts flying insects at night in wooded areas"
+    ],
+    "range": [
+      "NA"
+    ]
+  },
+  "19410": {
+    "taxonName": "Caprimulgus europaeus",
+    "vernacularName": "Eurasian nightjar",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67573,
+      19376,
+      19377,
+      19410
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Breeds across Europe and Asia, winters in Africa",
+      "Hunts flying insects at night in open woodlands",
+      "Defends territory with a powerful, liquid trill call"
+    ],
+    "range": [
+      "EU",
+      "AS",
+      "AF"
+    ]
+  },
+  "19667": {
+    "taxonName": "Nyctibius griseus",
+    "vernacularName": "Common potoo",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67573,
+      19664,
+      19665,
+      19667
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Breeds in South and Central America and the Caribbean",
+      "Hunts flying insects at night from perches",
+      "Roosts upright during the day, camouflaged as a stump"
+    ],
+    "range": [
+      "SA"
+    ]
   }
 }

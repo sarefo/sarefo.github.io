@@ -18061,7 +18061,7 @@
   },
   "1007813": {
     "taxonName": "Mycalesis mucianus",
-    "vernacularName": "South china bushbrown",
+    "vernacularName": "South China bushbrown",
     "rank": "Species",
     "parentId": "127879"
   },
@@ -19852,5 +19852,221 @@
     "vernacularName": "-",
     "rank": "Species",
     "parentId": "52021"
+  },
+  "5562": {
+    "taxonName": "Trochilidae",
+    "vernacularName": "Hummingbirds",
+    "rank": "Family",
+    "parentId": "67573"
+  },
+  "1542290": {
+    "taxonName": "Trochilinae",
+    "vernacularName": "Bee hummingbirds, emeralds, mountain-gems, and allies",
+    "rank": "Subfamily",
+    "parentId": "5562"
+  },
+  "1542294": {
+    "taxonName": "Mellisugini",
+    "vernacularName": "Bee hummingbirds and allies",
+    "rank": "Tribe",
+    "parentId": "1542290"
+  },
+  "6358": {
+    "taxonName": "Selasphorus",
+    "vernacularName": "Rufous, allen's, and allied hummingbirds",
+    "rank": "Genus",
+    "parentId": "1542294"
+  },
+  "199914": {
+    "taxonName": "Selasphorus calliope",
+    "vernacularName": "Calliope hummingbird",
+    "rank": "Species",
+    "parentId": "6358"
+  },
+  "6308": {
+    "taxonName": "Rhodopis",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "1542294"
+  },
+  "6309": {
+    "taxonName": "Rhodopis vesper",
+    "vernacularName": "Oasis hummingbird",
+    "rank": "Species",
+    "parentId": "6308"
+  },
+  "6369": {
+    "taxonName": "Selasphorus platycercus",
+    "vernacularName": "Broad-tailed hummingbird",
+    "rank": "Species",
+    "parentId": "6358"
+  },
+  "6431": {
+    "taxonName": "Archilochus",
+    "vernacularName": "Ruby-throated and black-chinned hummingbirds",
+    "rank": "Genus",
+    "parentId": "1542294"
+  },
+  "6433": {
+    "taxonName": "Archilochus alexandri",
+    "vernacularName": "Black-chinned hummingbird",
+    "rank": "Species",
+    "parentId": "6431"
+  },
+  "6432": {
+    "taxonName": "Archilochus colubris",
+    "vernacularName": "Ruby-throated hummingbird",
+    "rank": "Species",
+    "parentId": "6431"
+  },
+  "1542295": {
+    "taxonName": "Trochilini",
+    "vernacularName": "Emerald hummingbirds and allies",
+    "rank": "Tribe",
+    "parentId": "1542290"
+  },
+  "5666": {
+    "taxonName": "Amazilia",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "1542295"
+  },
+  "5676": {
+    "taxonName": "Amazilia tzacatl",
+    "vernacularName": "Rufous-tailed hummingbird",
+    "rank": "Species",
+    "parentId": "5666"
+  },
+  "1542289": {
+    "taxonName": "Patagoninae",
+    "vernacularName": "Giant hummingbirds",
+    "rank": "Subfamily",
+    "parentId": "5562"
+  },
+  "6254": {
+    "taxonName": "Patagona",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "1542289"
+  },
+  "6255": {
+    "taxonName": "Patagona gigas",
+    "vernacularName": "Giant hummingbird",
+    "rank": "Species",
+    "parentId": "6254"
+  },
+  "1542287": {
+    "taxonName": "Polytminae",
+    "vernacularName": "Mango hummingbirds and allies",
+    "rank": "Subfamily",
+    "parentId": "5562"
+  },
+  "5793": {
+    "taxonName": "Anthracothorax",
+    "vernacularName": "Mango hummingbirds",
+    "rank": "Genus",
+    "parentId": "1542287"
+  },
+  "5807": {
+    "taxonName": "Anthracothorax nigricollis",
+    "vernacularName": "Black-throated mango",
+    "rank": "Species",
+    "parentId": "5793"
+  },
+  "6315": {
+    "taxonName": "Calypte",
+    "vernacularName": "Anna's and costa's hummingbirds",
+    "rank": "Genus",
+    "parentId": "1542294"
+  },
+  "6316": {
+    "taxonName": "Calypte costae",
+    "vernacularName": "Costa's hummingbird",
+    "rank": "Species",
+    "parentId": "6315"
+  },
+  "6317": {
+    "taxonName": "Calypte anna",
+    "vernacularName": "Anna's hummingbird",
+    "rank": "Species",
+    "parentId": "6315"
+  },
+  "5798": {
+    "taxonName": "Anthracothorax prevostii",
+    "vernacularName": "Green-breasted mango",
+    "rank": "Species",
+    "parentId": "5793"
+  },
+  "19376": {
+    "taxonName": "Caprimulgidae",
+    "vernacularName": "Nightjars and nighthawks",
+    "rank": "Family",
+    "parentId": "67573"
+  },
+  "19626": {
+    "taxonName": "Nyctidromus",
+    "vernacularName": "Common pauraque and scrub nightjar",
+    "rank": "Genus",
+    "parentId": "19376"
+  },
+  "19627": {
+    "taxonName": "Nyctidromus albicollis",
+    "vernacularName": "Common pauraque",
+    "rank": "Species",
+    "parentId": "19626"
+  },
+  "19576": {
+    "taxonName": "Chordeiles",
+    "vernacularName": "Typical nighthawks",
+    "rank": "Genus",
+    "parentId": "19376"
+  },
+  "19577": {
+    "taxonName": "Chordeiles minor",
+    "vernacularName": "Common nighthawk",
+    "rank": "Species",
+    "parentId": "19576"
+  },
+  "199908": {
+    "taxonName": "Antrostomus",
+    "vernacularName": "Typical american nightjars",
+    "rank": "Genus",
+    "parentId": "19376"
+  },
+  "199837": {
+    "taxonName": "Antrostomus vociferus",
+    "vernacularName": "Eastern whip-poor-will",
+    "rank": "Species",
+    "parentId": "199908"
+  },
+  "19377": {
+    "taxonName": "Caprimulgus",
+    "vernacularName": "Old world nightjars",
+    "rank": "Genus",
+    "parentId": "19376"
+  },
+  "19410": {
+    "taxonName": "Caprimulgus europaeus",
+    "vernacularName": "Eurasian nightjar",
+    "rank": "Species",
+    "parentId": "19377"
+  },
+  "19664": {
+    "taxonName": "Nyctibiidae",
+    "vernacularName": "Potoos",
+    "rank": "Family",
+    "parentId": "67573"
+  },
+  "19665": {
+    "taxonName": "Nyctibius",
+    "vernacularName": "Typical potoos",
+    "rank": "Genus",
+    "parentId": "19664"
+  },
+  "19667": {
+    "taxonName": "Nyctibius griseus",
+    "vernacularName": "Common potoo",
+    "rank": "Species",
+    "parentId": "19665"
   }
 }

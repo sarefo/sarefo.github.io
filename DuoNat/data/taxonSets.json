@@ -14120,5 +14120,178 @@
     "range": [
       "AS"
     ]
+  },
+  "815": {
+    "setName": "Ruby-throated hummingbird vs Anna's hummingbird",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      6432,
+      6317
+    ],
+    "taxonNames": [
+      "Archilochus colubris",
+      "Calypte anna"
+    ],
+    "range": [
+      "NA"
+    ]
+  },
+  "816": {
+    "setName": "Anna's hummingbird vs Costa's hummingbird",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      6317,
+      6316
+    ],
+    "taxonNames": [
+      "Calypte anna",
+      "Calypte costae"
+    ],
+    "range": [
+      "NA"
+    ]
+  },
+  "817": {
+    "setName": "Black-chinned hummingbird vs Ruby-throated hummingbird",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      6433,
+      6432
+    ],
+    "taxonNames": [
+      "Archilochus alexandri",
+      "Archilochus colubris"
+    ],
+    "range": [
+      "NA"
+    ]
+  },
+  "818": {
+    "setName": "Black-chinned hummingbird vs Anna's hummingbird",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      6433,
+      6317
+    ],
+    "taxonNames": [
+      "Archilochus alexandri",
+      "Calypte anna"
+    ],
+    "range": [
+      "NA"
+    ]
+  },
+  "819": {
+    "setName": "Broad-tailed hummingbird vs Calliope hummingbird",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      6369,
+      199914
+    ],
+    "taxonNames": [
+      "Selasphorus platycercus",
+      "Selasphorus calliope"
+    ],
+    "range": [
+      "NA"
+    ]
+  },
+  "820": {
+    "setName": "Black-throated mango vs Rufous-tailed hummingbird",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      5807,
+      5676
+    ],
+    "taxonNames": [
+      "Anthracothorax nigricollis",
+      "Amazilia tzacatl"
+    ],
+    "range": []
+  },
+  "821": {
+    "setName": "Rufous-tailed hummingbird vs Green-breasted mango",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      5676,
+      5798
+    ],
+    "taxonNames": [
+      "Amazilia tzacatl",
+      "Anthracothorax prevostii"
+    ],
+    "range": []
+  },
+  "822": {
+    "setName": "Giant hummingbird vs Oasis hummingbird",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      6255,
+      6309
+    ],
+    "taxonNames": [
+      "Patagona gigas",
+      "Rhodopis vesper"
+    ],
+    "range": [
+      "SA"
+    ]
+  },
+  "823": {
+    "setName": "Common nighthawk vs Eastern whip-poor-will",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      19577,
+      199837
+    ],
+    "taxonNames": [
+      "Chordeiles minor",
+      "Antrostomus vociferus"
+    ],
+    "range": [
+      "NA"
+    ]
+  },
+  "824": {
+    "setName": "Eurasian nightjar vs Eurasian Woodcock",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      19410,
+      3931
+    ],
+    "taxonNames": [
+      "Caprimulgus europaeus",
+      "Scolopax rusticola"
+    ],
+    "range": [
+      "EU",
+      "AS"
+    ]
+  },
+  "825": {
+    "setName": "Common potoo vs Common pauraque",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      19667,
+      19627
+    ],
+    "taxonNames": [
+      "Nyctibius griseus",
+      "Nyctidromus albicollis"
+    ],
+    "range": [
+      "SA"
+    ]
   }
 }

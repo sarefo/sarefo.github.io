@@ -698,15 +698,15 @@ class RadialTree extends BaseTree {
 
 
         // Center the active node on the screen
-        //const activeNodeCoords = this._radialPoint(this.activeNode.x, this.activeNode.y);
-        //const svgGroupTransform = `translate(${this.dragOffset[0] + this.container.clientWidth / 2 - activeNodeCoords[0]},${this.dragOffset[1] + this.container.clientHeight / 2 - activeNodeCoords[1]})`;
+        const activeNodeCoords = this._radialPoint(this.activeNode.x, this.activeNode.y);
+        const svgGroupTransform = `translate(${this.dragOffset[0] + this.container.clientWidth / 2 - activeNodeCoords[0]},${this.dragOffset[1] + this.container.clientHeight / 2 - activeNodeCoords[1]})`;
 
         //this.svg.transition()
         //    .duration(duration)
         //    .attr('transform', svgGroupTransform);
 
         // Fit the graph to view
-        //this._fitToView();
+        this._fitToView();
 
         // style active note
         this.svg.selectAll('.node')
