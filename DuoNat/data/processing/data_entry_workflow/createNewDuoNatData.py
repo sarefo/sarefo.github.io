@@ -120,9 +120,8 @@ def process_taxa(input_file, new_taxon_file, perplexity_file, taxon_info_file):
 
     print(f"Processing {len(unique_taxa)} unique taxa...")
     for taxon in unique_taxa:
-#        print(f"Processing: {taxon}")
         taxon_details = fetch_taxon_details(taxon)
-        
+
         if not taxon_details:
             correction = prompt_for_correction(taxon)
             if correction:
@@ -131,17 +130,21 @@ def process_taxa(input_file, new_taxon_file, perplexity_file, taxon_info_file):
             else:
                 print(f"Skipping taxon: {taxon}")
                 continue
-        
+
         if taxon_details:
             taxon_id = str(taxon_details['id'])
             if taxon_id not in existing_taxa:
                 if taxon_id not in new_taxa:
                     ancestry = fetch_ancestry(taxon_id)
-                    
+
+                    # Filter out ancestryId 48460
+                    filtered_ancestry_ids = [ancestor['id'] for ancestor in ancestry if ancestor['id'] != 48460]
+                    filtered_ancestry_ids.append(int(taxon_id))
+
                     new_taxa[taxon_id] = {
                         "taxonName": taxon_details['taxonName'],
                         "vernacularName": taxon_details['vernacularName'],
-                        "ancestryIds": [ancestor['id'] for ancestor in ancestry] + [int(taxon_id)],
+                        "ancestryIds": filtered_ancestry_ids,
                         "rank": taxon_details['rank'],
                         "taxonFacts": [],
                         "range": []
@@ -160,7 +163,7 @@ def process_taxa(input_file, new_taxon_file, perplexity_file, taxon_info_file):
         print("\nCorrections made during processing:")
         for original, corrected in corrections.items():
             print(f"  {original} -> {corrected}")
-        
+
         update_input = input("Do you want to update the input file with these corrections? (y/n): ").lower()
         if update_input == 'y':
             update_input_file(input_file, corrections)
