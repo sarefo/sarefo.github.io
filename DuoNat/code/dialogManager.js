@@ -113,7 +113,7 @@ const dialogManager = {
                         dialogManager.core.openDialog('keyboard-shortcuts-dialog');
                     });
                 } else {
-                    container.innerHTML = ''; // Remove the button if no keyboard is detected
+                    container.remove(); // Remove the button if no keyboard is detected
                 }
             }
         },

@@ -1,4 +1,4 @@
-const version = '1.5.34'; // Increment the version number
+const version = '1.6.0'; // Increment the version number
 
 function updateUrlParams(element, attributeName) {
     const url = new URL(element[attributeName], window.location.href);
@@ -23,6 +23,15 @@ function updateSvgIconVersions() {
     });
 }
 
+function updateVersion() {
+    updateStyleAndScriptVersions();
+    updateSvgIconVersions();
+}
+
+function initializeLoadingScreen() {
+    document.getElementById('loading-screen').style.display = 'flex';
+}
+
 function showSvgIcons() {
     document.querySelectorAll('svg.icon').forEach(icon => {
         icon.style.display = 'inline-block';
@@ -40,15 +49,6 @@ function fadeInLogo() {
             logo.classList.add('fade-in');
         }, 100);
     }
-}
-
-function updateVersion() {
-    updateStyleAndScriptVersions();
-    updateSvgIconVersions();
-}
-
-function initializeLoadingScreen() {
-    document.getElementById('loading-screen').style.display = 'flex';
 }
 
 window.loadQRCodeScript = function () {
@@ -84,8 +84,8 @@ function onDOMContentLoaded() {
 }
 
 // Event Listeners
-document.addEventListener('DOMContentLoaded', onDOMContentLoaded);
 window.addEventListener('load', initializeLoadingScreen);
+document.addEventListener('DOMContentLoaded', onDOMContentLoaded);
 
 // No Public API - no calls from other modules
 // This file is only invoked from the index.html header

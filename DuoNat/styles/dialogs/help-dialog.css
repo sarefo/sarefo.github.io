@@ -1,11 +1,11 @@
 .help-dialog {
-    padding-top: 0px;
     /*    max-height: 95%;*/
 }
 
 /* .help-dialog__content naming triggers some weird extension behavior :P */
 .help-dialog_content {
-    gap: 20px;
+    gap: 8px;
+    overflow: auto;
     /*    max-height:95%;*/
     /*    padding: 0 20px;*/
 }
@@ -16,14 +16,15 @@
     position: relative;
     width: 80px;
     height: 80px;
+    margin-top: -20px;
+    overflow: hidden;
     opacity: 0.8;
 }
 
 .help-dialog__title {
     color: var(--primary-color);
-    margin-top: 0;
     font-size: 24px;
-    line-height: 1.5;
+    margin-top: -16px;
 }
 
 .help-dialog__title-duo {
