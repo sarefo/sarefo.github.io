@@ -312,11 +312,12 @@ const gameSetup = {
         async finishSetup(newPair) {
             ui.setNamePairHeight();
             state.setState(state.GameState.PLAYING);
-            this.hideLoadingScreen();
+
             if (newPair) {
                 await setManager.refreshSubset();
             }
             if (state.getIsInitialLoad()) {
+                this.hideLoadingScreen();
                 state.updateGameStateMultiple({ isInitialLoad: false });
             }
             ui.resetUIState();

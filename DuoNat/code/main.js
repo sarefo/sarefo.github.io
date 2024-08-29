@@ -4,7 +4,6 @@ import dialogManager from './dialogManager.js';
 import gameSetup from './gameSetup.js';
 import logger, { LogLevel } from './logger.js';
 import eventMain from './eventMain.js';
-import state from './state.js';
 import ui from './ui.js';
 import url from './url.js';
 
@@ -27,13 +26,17 @@ async function initializeApp() {
         return;
     }
 
-    logger.info("Initializing app");
-    isInitialized = true;
-
     initializeLogger();
+
+    logger.info("Initializing app");
+
     url.handleUrlParameters();
+
     await initializeComponents();
+
     gameSetup.setupGame(true, url.getURLParameters());
+
+    isInitialized = true;
     logger.info("App initialization complete");
 }
 

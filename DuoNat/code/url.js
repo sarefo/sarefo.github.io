@@ -6,8 +6,21 @@ import utils from './utils.js';
 
 const url = {
     read: {
-        handleUrlParameters() {
-            const urlParams = url.write.getURLParameters();
+         getURLParameters() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                taxon1: params.get('taxon1'),
+                taxon2: params.get('taxon2'),
+                tags: params.get('tags'),
+                level: params.get('level'),
+                setID: params.get('setID'),
+                ranges: params.get('ranges'),
+                phylogenyID: params.get('phylogenyID'),
+            };
+        },
+
+       handleUrlParameters() {
+            const urlParams = this.getURLParameters();
             this.handleLevelParameter(urlParams);
             this.handleRangesParameter(urlParams);
             this.handleTagsParameter(urlParams);
@@ -63,19 +76,6 @@ const url = {
         },
     },
     write: {
-        getURLParameters() {
-            const params = new URLSearchParams(window.location.search);
-            return {
-                taxon1: params.get('taxon1'),
-                taxon2: params.get('taxon2'),
-                tags: params.get('tags'),
-                level: params.get('level'),
-                setID: params.get('setID'),
-                ranges: params.get('ranges'),
-                phylogenyID: params.get('phylogenyID'),
-            };
-        },
-
         buildShareUrl() {
             let currentUrl = new URL(window.location.href);
             currentUrl.search = ''; // Clear existing parameters
@@ -127,7 +127,8 @@ const url = {
 
 const publicAPI = {
     handleUrlParameters: url.read.handleUrlParameters,
-    getURLParameters: url.write.getURLParameters,
+    getURLParameters: url.read.getURLParameters,
+
     buildShareUrl: url.write.buildShareUrl,
 };
 

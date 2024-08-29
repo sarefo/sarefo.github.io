@@ -134,13 +134,14 @@ dialog[open] {
 }
 
 /* Hover styles */
-.dialog-close-button:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+.dialog-close-button:hover,
+.dialog-help-button:hover {
+    transform: scale(1.1);
 }
 
 /* Active styles */
 .dialog-close-button:active {
-    background-color: rgba(0, 0, 0, 0.2);
+    /*background-color: rgba(0, 0, 0, 0.2);*/
 }
 
 /*.dialog-close-button svg {
@@ -156,20 +157,6 @@ dialog[open] {
     fill: var(--primary-color);
     width: 24px;
     height: 24px;
-}
-
-/* Hover styles */
-.dialog-close-button:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-}
-
-/* Active styles */
-.dialog-close-button:active {
-    background-color: rgba(0, 0, 0, 0.2);
-}
-
-.dialog-close-button svg {
-    stroke: var(--primary-counter-color);
 }
 
 /* Graph testing dialog */
