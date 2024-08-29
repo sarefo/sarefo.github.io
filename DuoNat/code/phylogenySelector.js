@@ -28,18 +28,9 @@ const phylogenySelector = {
             toggleViewCheckbox.addEventListener('change', this.toggleView.bind(this));
         }
 
+        this.updateToggleState();
         const toggleNamesCheckbox = document.getElementById('phylogeny-name-toggle');
-        const toggleLabel = document.querySelector('label[for="phylogeny-name-toggle"]');
-        if (toggleNamesCheckbox && toggleLabel) {
-            const showTaxonomic = state.getShowTaxonomicNames();
-            toggleNamesCheckbox.checked = showTaxonomic;
-            if (showTaxonomic) {
-                toggleLabel.classList.add('checked');
-            } else {
-                toggleLabel.classList.remove('checked');
-            }
-            toggleNamesCheckbox.addEventListener('change', this.toggleNameDisplay.bind(this));
-        }
+        toggleNamesCheckbox.addEventListener('change', this.toggleNameDisplay.bind(this));
 
         const clearFiltersButton = document.getElementById('phylogeny-clear-filters-button');
         if (clearFiltersButton) {
@@ -93,6 +84,20 @@ const phylogenySelector = {
                 this.updateGraph(pathToRoot);
             } else {
                 this.updateGraph();
+            }
+        }
+    },
+
+    updateToggleState() {
+        const toggleNamesCheckbox = document.getElementById('phylogeny-name-toggle');
+        const toggleLabel = document.querySelector('label[for="phylogeny-name-toggle"]');
+        if (toggleNamesCheckbox && toggleLabel) {
+            const showTaxonomic = state.getShowTaxonomicNames();
+            toggleNamesCheckbox.checked = showTaxonomic;
+            if (showTaxonomic) {
+                toggleLabel.classList.add('checked');
+            } else {
+                toggleLabel.classList.remove('checked');
             }
         }
     },
@@ -761,6 +766,7 @@ const publicAPI = {
     updateGraph: phylogenySelector.updateGraph.bind(phylogenySelector),
     clearSelection: phylogenySelector.clearSelection.bind(phylogenySelector),
     toggleView: phylogenySelector.toggleView.bind(phylogenySelector),
+    updateToggleState: phylogenySelector.updateToggleState.bind(phylogenySelector),
     clearSearchResults: phylogenySelector.search.clearSearchResults.bind(phylogenySelector),
 };
 

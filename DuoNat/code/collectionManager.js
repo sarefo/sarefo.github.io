@@ -48,6 +48,7 @@ const collectionManager = {
             phylogenyButton.addEventListener('click', () => {
                 dialogManager.openDialog('phylogeny-dialog');
                 phylogenySelector.clearSearchResults();
+                phylogenySelector.updateToggleState();
                 phylogenySelector.updateGraph();
             });
 
