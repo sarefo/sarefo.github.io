@@ -6,74 +6,60 @@ import utils from './utils.js';
 
 const url = {
     read: {
-         getURLParameters() {
+         getUrlParameters() {
             const params = new URLSearchParams(window.location.search);
             return {
-                taxon1: params.get('taxon1'),
-                taxon2: params.get('taxon2'),
-                tags: params.get('tags'),
                 level: params.get('level'),
                 setID: params.get('setID'),
+                taxon1: params.get('taxon1'),
+                taxon2: params.get('taxon2'),
                 ranges: params.get('ranges'),
+                tags: params.get('tags'),
                 phylogenyID: params.get('phylogenyID'),
+                searchTerm: params.get('searchTerm')
             };
         },
 
-       handleUrlParameters() {
-            const urlParams = this.getURLParameters();
-            this.handleLevelParameter(urlParams);
-            this.handleRangesParameter(urlParams);
-            this.handleTagsParameter(urlParams);
-            this.handleSetIDParameter(urlParams);
-            this.handlePhylogenyIDParameter(urlParams)
+        handleUrlParameters() {
+            const params = this.getUrlParameters()
+            this.updateState(params);
+            return this.createFilters(params);
         },
 
-        handleLevelParameter(urlParams) {
-            if (urlParams.level) {
-                // If a level is explicitly provided in the URL, use it
-                const level = urlParams.level === 'all' ? '' : urlParams.level;
+        updateState(params) {
+            // Handle level
+            if (params.level) {
+                const level = params.level === 'all' ? '' : params.level;
                 state.setSelectedLevel(level);
-                logger.debug("Skill level from URL:", urlParams.level);
-            } else if (Object.keys(urlParams).some(key => urlParams[key])) {
-                // If any URL parameters are provided but level is not specified, clear the default level
+                logger.debug("Skill level from URL:", level);
+            } else if (Object.values(params).some(value => value !== null)) {
                 state.setSelectedLevel('');
                 logger.debug("Cleared default level due to URL parameters");
             } else {
-                // If no URL parameters are provided, set the default level to '1'
                 state.setSelectedLevel('1');
                 logger.debug("Set default skill level to 1");
             }
+
+            // Handle other parameters
+            if (params.setID) state.setCurrentSetID(params.setID);
+            if (params.ranges) state.setSelectedRanges(params.ranges.split(','));
+            if (params.tags) state.setSelectedTags(params.tags.split(','));
+            if (params.phylogenyID) state.setPhylogenyId(params.phylogenyID);
+            if (params.searchTerm) state.setSearchTerm(params.searchTerm);
         },
 
-        handleRangesParameter(urlParams) {
-            if (urlParams.ranges) {
-                const ranges = urlParams.ranges.split(',');
-                state.updateGameStateMultiple({ selectedRanges: ranges });
-                logger.debug("Ranges from URL:", ranges);
-            }
-        },
-
-        handleTagsParameter(urlParams) {
-            if (urlParams.tags) {
-                const tags = urlParams.tags.split(',');
-                tagSelector.setSelectedTags(tags);
-                logger.debug("Tags from URL:", tags);
-            }
-        },
-
-        handleSetIDParameter(urlParams) {
-            if (urlParams.setID) {
-                state.updateGameStateMultiple({ currentSetID: urlParams.setID });
-                logger.debug("Set ID from URL:", urlParams.setID);
-            }
-        },
-
-        handlePhylogenyIDParameter(urlParams) {
-            if (urlParams.phylogenyID) {
-                state.setPhylogenyId(urlParams.phylogenyID);
-                logger.debug("Phylogeny ID from URL:", urlParams.phylogenyID);
-            }
-        },
+        createFilters(params) {
+            return {
+                level: state.getSelectedLevel(),
+                setID: params.setID,
+                /*taxon1: params.taxon1,
+                taxon2: params.taxon2,*/
+                ranges: state.getSelectedRanges(),
+                tags: state.getSelectedTags(),
+                phylogenyId: state.getPhylogenyId(),
+                searchTerm: state.getSearchTerm(),
+            };
+    }
     },
     write: {
         buildShareUrl() {
@@ -127,7 +113,7 @@ const url = {
 
 const publicAPI = {
     handleUrlParameters: url.read.handleUrlParameters,
-    getURLParameters: url.read.getURLParameters,
+    getUrlParameters: url.read.getUrlParameters,
 
     buildShareUrl: url.write.buildShareUrl,
 };

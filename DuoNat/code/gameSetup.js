@@ -68,20 +68,9 @@ const gameSetup = {
         },
 
         async selectPairFromFilters() {
-            const filters = this.createFiltersFromUrlParams();
+            const filters = url.handleUrlParameters();
             const filteredPairs = await filtering.getFilteredTaxonPairs(filters);
             return this.findOrSelectRandomPair(filteredPairs);
-        },
-
-        createFiltersFromUrlParams(urlParams) {
-            urlParams = url.getURLParameters();
-            return {
-                level: urlParams.level === 'all' ? '' : (urlParams.level || state.getSelectedLevel()),
-                ranges: urlParams.ranges ? urlParams.ranges.split(',') : state.getSelectedRanges(),
-                tags: urlParams.tags ? urlParams.tags.split(',') : state.getSelectedTags(),
-                phylogenyId: urlParams.phylogenyId || state.getPhylogenyId(),
-                searchTerm: urlParams.searchTerm || state.getSearchTerm()
-            };
         },
 
         findOrSelectRandomPair(filteredPairs) {
@@ -102,7 +91,7 @@ const gameSetup = {
             if (setID) {
                 return this.findPairBySetID(filteredPairs, setID);
             } else {
-                const urlParams = url.getURLParameters();
+                const urlParams = url.getUrlParameters();
                 if (urlParams.taxon1 && urlParams.taxon2) { // not saved in gameState atm
                 return this.findPairByTaxa(filteredPairs, urlParams.taxon1, urlParams.taxon2);
                 }

@@ -46,7 +46,6 @@ let gameState = {
         taxon2: []
     },
 
-    searchTerm: "",
 
     preloadState: {
         currentRound: {
@@ -62,9 +61,13 @@ let gameState = {
             taxon2: null
         },
     },
-    selectedTags: [],
+
+    currentSetID: null,
     selectedLevel: '',
     selectedRanges: [],
+    selectedTags: [],
+    phylogenyId: null,
+    searchTerm: "",
 
     // check which of these still used:
     isFirstLoad: true,
@@ -89,8 +92,6 @@ let gameState = {
         taxon2: new Set()
     },
 
-    currentSetID: null,
-    phylogenyId: null,
     currentActiveNodeId: null,
 
     showTaxonomicNames: false,
