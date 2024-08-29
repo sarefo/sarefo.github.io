@@ -405,10 +405,10 @@ def update_hierarchy(taxon_info_file, taxon_hierarchy_file):
     # Load existing data
     current_hierarchy = load_existing_data(f"{taxon_hierarchy_file}.old")
     taxon_info = load_existing_data(taxon_info_file)
-    
+
     # Create a new hierarchy dictionary
     updated_hierarchy = {}
-    
+
     # First, copy all existing taxa from current_hierarchy
     for id, info in current_hierarchy.items():
         updated_hierarchy[id] = {
@@ -417,23 +417,22 @@ def update_hierarchy(taxon_info_file, taxon_hierarchy_file):
             "rank": info["rank"],
             "parentId": info["parentId"]
         }
-    
+
     # Ensure the root "Life" taxon exists
-    if "48460" not in updated_hierarchy:
-        updated_hierarchy["48460"] = {
-            "taxonName": "Life",
-            "vernacularName": "-",
-            "rank": "Stateofmatter",
-            "parentId": None
-        }
-    
+    updated_hierarchy["48460"] = {
+        "taxonName": "Life",
+        "vernacularName": "-",
+        "rank": "Stateofmatter",
+        "parentId": None
+    }
+
     # Now, process taxon_info to add new taxa and update existing ones
     for taxon_id, taxon_data in taxon_info.items():
         ancestry_ids = taxon_data["ancestryIds"]
-        
+
         for i, current_id in enumerate(ancestry_ids):
             current_id = str(current_id)
-            
+
             # If this taxon isn't in our hierarchy yet, add it
             if current_id not in updated_hierarchy:
                 # Fetch details from iNat API
@@ -449,23 +448,21 @@ def update_hierarchy(taxon_info_file, taxon_hierarchy_file):
                         "parentId": None
                     }
                 sleep(0.5)  # To avoid hitting API rate limits
-            
+
             # Set the parentId
-            if current_id == "1":  # Animalia
-                parent_id = "48460"  # Life
-            elif i > 0:
-                parent_id = str(ancestry_ids[i-1])
+            if i == 0:
+                parent_id = "48460"  # Set the root node to "Life" for all taxa
             else:
-                parent_id = None
-            
+                parent_id = str(ancestry_ids[i-1])
+
             updated_hierarchy[current_id]["parentId"] = parent_id
-            
+
             # If this is the last ID in the ancestry, it's the taxon itself
             if i == len(ancestry_ids) - 1:
                 updated_hierarchy[current_id]["taxonName"] = taxon_data["taxonName"]
                 updated_hierarchy[current_id]["vernacularName"] = taxon_data.get("vernacularName", "-")
                 updated_hierarchy[current_id]["rank"] = taxon_data["rank"]
-    
+
     # Save the updated hierarchy
     save_data(updated_hierarchy, taxon_hierarchy_file)
     print(f"Updated hierarchy saved to {taxon_hierarchy_file}")
