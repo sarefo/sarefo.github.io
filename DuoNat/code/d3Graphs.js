@@ -4,6 +4,7 @@ import state from './state.js';
 import utils from './utils.js';
 
 let d3;
+let useHierarchicalLayout = false; 
 
 async function loadD3() {
     if (!d3) {
@@ -13,13 +14,18 @@ async function loadD3() {
 }
 
 class BaseTree {
-    constructor(container, rootNode) {
+    constructor(container, rootNode, showTaxonomicNames) {
         this.container = container;
         this.rootNode = rootNode;
+        this.showTaxonomicNames = showTaxonomicNames;
         this.svg = null;
         this.treeLayout = null;
         this.d3 = null;
         this.root = null;
+        this.parentNode = null;
+        this.activeNode = null;
+        this.dragOffset = [0, 0];
+        this.onNodeSelect = null;
     }
 
     async initialize() {
@@ -33,130 +39,189 @@ class BaseTree {
     }
 
     _setupSvg(width, height) {
-        this.svg = this.d4.select(this.container)
+        this.d3.select(this.container).selectAll("svg").remove();
+
+        this.svg = this.d3.select(this.container)
             .append('svg')
-            .attr('width', '101%')
-            .attr('height', '101%')
-            .attr('viewBox', `1 0 ${width} ${height}`)
-            .attr('preserveAspectRatio', 'xMidYMid meet')
+            .attr('width', '100%')
+            .attr('height', '100%')
+            .attr('viewBox', `0 0 ${width} ${height}`)
             .append('g')
-            .attr('transform', `translate(${width / 3},${height / 2})`);
+            .attr('class', 'draggable-group');
     }
 
-    _setupTreeLayout(width, height) {
-        // Default implementation, can be overridden by subclasses
-        return this.d3.tree().size([height, width]);
+    _setupDrag() {
+        const drag = this.d3.drag()
+            .on('start', this._dragStarted.bind(this))
+            .on('drag', this._dragged.bind(this))
+            .on('end', this._dragEnded.bind(this));
+
+        this.svg.call(drag);
+    }
+
+    _dragStarted(event) {
+        this.d3.select(this.container).style('cursor', 'grabbing');
+    }
+
+    _dragged(event) {
+        this.dragOffset[0] += event.dx;
+        this.dragOffset[1] += event.dy;
+        this.svg.attr('transform', `translate(${this.dragOffset[0]},${this.dragOffset[1]})`);
+    }
+
+    _dragEnded() {
+        this.d3.select(this.container).style('cursor', 'grab');
     }
 
     _addStyles() {
-        // Default styles, can be overridden or extended by subclasses
         this.svg.append('style').text(`
-            .node circle {
-                fill: #fff;
-                stroke: #74ac00;
-                stroke-width: 3px;
-            }
-            .node text {
-                font: 18px sans-serif;
-            }
             .link {
                 fill: none;
                 stroke: #ccc;
+                stroke-width: 1.5px;
+            }
+            .node circle {
+                fill: #fff;
+                stroke: #74ac00;
+                stroke-width: 1.5px;
+            }
+            .node text {
+                font: 12px sans-serif;
+            }
+            .node--central circle {
+                fill: #74ac00;
+            }
+            .node--active circle {
+                stroke: #ac0028;
                 stroke-width: 2px;
             }
         `);
     }
 
-    _updateNodes(visibleNodes, source, duration) {
-        const node = this.svg.selectAll('g.node')
-            .data(visibleNodes, d => d.data.id);
+    _handleClick(d) {
+        logger.debug(`Clicked node: Taxon ID = ${d.data.id}, Taxon Name = ${d.data.taxonName}`);
 
-        const nodeEnter = node.enter().append('g')
-            .attr('class', d => `node ${d === this.parentNode ? 'node--central' : ''} ${d === this.activeNode ? 'node--active' : ''}`)
-            .attr('transform', d => `translate(${source.x0 || 0},${source.y0 || 0})`)
-            .on('click', (event, d) => this._handleClick(d));
+        if (d === this.activeNode) {
+            logger.debug("Active node is not clickable.");
+            return;
+        }
 
-        // Add circle and text as before
-        nodeEnter.append('circle')
-            .attr('r', 1e-6)
-            .style('fill', d => d._children ? 'lightsteelblue' : '#fff')
-            .style('stroke', '#74ac00')
-            .style('stroke-width', '1.5px');
+        if (d.data.taxonName === "Life") {
+            logger.debug("Life node clicked. Clearing selection.");
+            phylogenySelector.clearSelection();
+            return;
+        }
 
-        nodeEnter.append('text')
-            .attr('dy', '.31em')
-            .attr('x', 0)
-            .attr('text-anchor', 'middle')
-            .text(d => d.data.taxonName)
-            .style('fill-opacity', 1e-6);
+        if (d !== this.parentNode) {
+            this.parentNode = d.parent || this.parentNode;
+            this.activeNode = d;
+        } else if (d.parent) {
+            this.parentNode = d.parent;
+            this.activeNode = d;
+        }
 
-        const nodeUpdate = nodeEnter.merge(node);
+        if (d._children) {
+            d.children = d._children;
+            d._children = null;
+        }
 
-        nodeUpdate.transition()
-            .duration(duration)
-            .attr('class', d => `node ${d === this.parentNode ? 'node--central' : ''} ${d === this.activeNode ? 'node--active' : ''}`)
-            .attr('transform', d => `translate(${d.x},${d.y})`);
+        this.update(this.activeNode);
 
-        nodeUpdate.select('circle')
-            .attr('r', d => d === this.parentNode ? 8 : 5)
-            .style('fill', d => d === this.parentNode ? '#74ac00' : (d._children ? 'lightsteelblue' : '#fff'));
-
-        nodeUpdate.select('text')
-            .style('fill-opacity', 1)
-            .attr('transform', 'rotate(0)')
-            .attr('dy', '.35em')
-            .attr('x', 0)
-            .style('font-weight', d => (d === this.parentNode || d === this.activeNode) ? 'bold' : 'normal')
-            .style('fill', d => {
-                if (d === this.parentNode) return '#74ac00';
-                if (d === this.activeNode) return '#ac0028';
-                return 'black';
-            });
-
-        node.exit().transition()
-            .duration(duration)
-            .attr('transform', d => `translate(${source.x},${source.y})`)
-            .remove();
-
-        node.exit().select('circle')
-            .attr('r', 1e-6);
-
-        node.exit().select('text')
-            .style('fill-opacity', 1e-6);
+        if (this.onNodeSelect) {
+            this.onNodeSelect(this.activeNode.data.id);
+        }
+        state.setCurrentActiveNodeId(this.activeNode.data.id);
     }
 
-    _updateLinks(links, source, duration) {
-        const link = this.svg.selectAll('path.link')
-            .data(links, d => d.target.data.id);
-
-        const linkEnter = link.enter().insert('path', 'g')
-            .attr('class', 'link')
-            .attr('d', d => {
-                const o = { x: source.x0 || 0, y: source.y0 || 0 };
-                return this._diagonal(o, o);
-            });
-
-        link.merge(linkEnter).transition()
-            .duration(duration)
-            .attr('d', d => this._diagonal(d.source, d.target));
-
-        link.exit().transition()
-            .duration(duration)
-            .attr('d', d => {
-                const o = { x: source.x, y: source.y };
-                return this._diagonal(o, o);
-            })
-            .remove();
+    calculateRadius(pairCount, maxCount) {
+        const minRadius = 3;
+        const maxRadius = 15;
+        const minCount = 1;
+        
+        if (pairCount === 0) return minRadius;
+        
+        const scale = this.d3.scaleLog()
+            .domain([minCount, maxCount])
+            .range([minRadius, maxRadius]);
+        
+        return scale(pairCount);
     }
 
-    update(source) {
-        // Default implementation, can be overridden by subclasses
-        const duration = 750;
-        const nodes = this.root.descendants();
-        const links = this.root.links();
+    updateNodeLabels(showTaxonomicNames) {
+        this.showTaxonomicNames = showTaxonomicNames;
+        this.svg.selectAll('g.node text')
+            .text(d => !this.showTaxonomicNames && d.data.vernacularName && d.data.vernacularName !== "-" ? 
+                utils.string.truncate(d.data.vernacularName, 24) : d.data.taxonName)
+            .attr('title', d => !this.showTaxonomicNames && d.data.vernacularName && d.data.vernacularName !== "-" ? 
+                d.data.taxonName : utils.string.truncate(d.data.vernacularName, 24));
+    }
 
-        this._updateNodes(nodes, source, duration);
-        this._updateLinks(links, source, duration);
+    setActiveNode(nodeId) {
+        state.setCurrentActiveNodeId(nodeId);
+
+        const node = this.root.descendants().find(d => d.data.id === nodeId);
+        if (node) {
+            this.parentNode = node.parent || this.root;
+            this.activeNode = node;
+            this.update(this.activeNode);
+        } else {
+            logger.warn(`Node with id ${nodeId} not found in the tree`);
+        }
+    }
+
+    getActiveNodeId() {
+        return this.activeNode ? this.activeNode.data.id : null;
+    }
+
+    setActiveNodePath(pathToRoot) {
+        let currentNode = this.root;
+        for (let i = 1; i < pathToRoot.length; i++) {
+            const targetId = pathToRoot[i];
+            if (currentNode._children) {
+                currentNode.children = currentNode._children;
+            }
+            if (currentNode.children) {
+                currentNode = currentNode.children.find(child => child.data.id === targetId);
+                if (!currentNode) {
+                    logger.warn(`Node with id ${targetId} not found in the tree`);
+                    break;
+                }
+            } else {
+                logger.warn(`Node with id ${currentNode.data.id} has no children`);
+                break;
+            }
+        }
+
+        if (currentNode && currentNode.data.id === pathToRoot[pathToRoot.length - 1]) {
+            this.parentNode = currentNode.parent || this.root;
+            this.activeNode = currentNode;
+
+            if (this.activeNode._children) {
+                this.activeNode.children = this.activeNode._children;
+            }
+
+            if (!this.activeNode.children && this.parentNode.children) {
+                this.parentNode.children.forEach(sibling => {
+                    if (sibling._children) {
+                        sibling.children = sibling._children;
+                    }
+                });
+            }
+
+            this.update(this.activeNode);
+        } else {
+            logger.warn(`Failed to reach target node ${pathToRoot[pathToRoot.length - 1]}`);
+        }
+    }
+
+    _setupResizeObserver() {
+        const resizeObserver = new ResizeObserver(() => {
+            const { width, height } = this._getDimensions();
+            this.svg.attr('viewBox', `0 0 ${width} ${height}`);
+            this.update(this.parentNode);
+        });
+
+        resizeObserver.observe(this.container);
     }
 
     _getDimensions() {
@@ -165,28 +230,6 @@ class BaseTree {
             width: containerRect.width,
             height: containerRect.height
         };
-    }
-
-    _setupResizeObserver() {
-        const resizeObserver = new ResizeObserver(() => {
-            const { width, height } = this._getDimensions();
-            this.svg.attr('width', width).attr('height', height);
-            this.treeLayout.size([height, width - 200]);
-            this.update(this.root);
-        });
-
-        resizeObserver.observe(this.container);
-    }
-
-    async create() {
-        if (!await this.initialize()) return;
-
-        const { width, height } = this._getDimensions();
-        this._setupSvg(width, height);
-        this._addStyles();
-        this.treeLayout = this._setupTreeLayout(width, height);
-        this.update(this.root);
-        this._setupResizeObserver();
     }
 }
 
@@ -700,12 +743,420 @@ class RadialTree extends BaseTree {
 
 }
 
+class HierarchicalTree extends BaseTree {
+    constructor(container, rootNode, showTaxonomicNames) {
+        super(container, rootNode, showTaxonomicNames);
+        this.nodeWidth = 200;
+        this.nodeHeight = 50;
+        this.margin = {top: 20, right: 90, bottom: 30, left: 90};
+    }
+
+    async create() {
+        if (!await this.initialize()) return;
+
+        const { width, height } = this._getDimensions();
+        this._setupSvg(width, height);
+        this._addStyles();
+        this._setupDrag();
+
+        this.parentNode = this.root;
+        this.activeNode = this.root;
+        this.treeLayout = this._setupTreeLayout();
+
+        this.root.x0 = height / 2;
+        this.root.y0 = 0;
+
+        this.root.descendants().forEach(d => {
+            if (d.depth > 0) {
+                d._children = d.children;
+                d.children = null;
+            }
+        });
+
+        this.update(this.root);
+        this._setupResizeObserver();
+    }
+
+    _setupTreeLayout() {
+        return this.d3.tree()
+            .nodeSize([this.nodeHeight, this.nodeWidth])
+            .separation((a, b) => (a.parent == b.parent ? 1 : 1.5));
+    }
+
+    _setupSvg(width, height) {
+        this.d3.select(this.container).selectAll("svg").remove();
+
+        this.svg = this.d3.select(this.container)
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height)
+            .append('g')
+            .attr('transform', `translate(${this.margin.left},${this.margin.top})`);
+    }
+
+    _getVisibleNodes() {
+        if (this.activeNode === this.root) {
+            return [this.root, ...this.root.children];
+        }
+        return [this.parentNode, this.activeNode, ...(this.activeNode.children || [])];
+    }
+
+    _getVisibleLinks(visibleNodes) {
+        return visibleNodes.slice(1).map(node => ({
+            source: node.parent || this.parentNode,
+            target: node
+        }));
+    }
+
+    _updateNodes(visibleNodes, source, duration) {
+        const maxCount = Math.max(...visibleNodes.map(d => d.data.pairCount));
+        const node = this.svg.selectAll('g.node')
+            .data(visibleNodes, d => d.data.id);
+
+        const nodeEnter = node.enter().append('g')
+            .attr('class', d => `node ${d === this.parentNode ? 'node--central' : ''} ${d === this.activeNode ? 'node--active' : ''}`)
+            .attr('transform', d => `translate(${source.x0 || 0},${source.y0 || 0})`)
+            .on('click', (event, d) => this._handleClick(d));
+
+        nodeEnter.append('circle')
+            .attr('r', d => this.calculateRadius(d.data.pairCount, maxCount))
+            .style('fill', d => d._children ? '#dfe9c8' : '#fff');
+
+        nodeEnter.append('text')
+            .attr('dy', d => {
+                const radius = this.calculateRadius(d.data.pairCount, maxCount);
+                return -radius - 5;
+            })
+            .attr('x', d => d.children || d._children ? -10 : 10)
+            .attr('text-anchor', d => d.children || d._children ? 'end' : 'start')
+            .text(d => !this.showTaxonomicNames && d.data.vernacularName && d.data.vernacularName !== "-" ? 
+                utils.string.truncate(d.data.vernacularName, 24) : d.data.taxonName)
+            .style('fill-opacity', 1e-6);
+
+        const nodeUpdate = nodeEnter.merge(node);
+
+        nodeUpdate.transition()
+            .duration(duration)
+            .attr('class', d => `node ${d === this.parentNode ? 'node--central' : ''} ${d === this.activeNode ? 'node--active' : ''}`)
+            .attr('transform', d => {
+                if (typeof d.x === 'undefined' || typeof d.y === 'undefined') {
+                    console.error("Node without coordinates:", d);
+                    return 'translate(0,0)';
+                }
+                return `translate(${d.x},${d.y})`;
+            });
+
+        nodeUpdate.select('circle')
+            .attr('r', d => this.calculateRadius(d.data.pairCount, maxCount))
+            .style('fill', d => d === this.parentNode ? '#74ac00' : (d._children ? '#dfe9c8' : '#fff'));
+
+        nodeUpdate.select('text')
+            .style('fill-opacity', 1)
+            .attr('dy', d => {
+                const radius = this.calculateRadius(d.data.pairCount, maxCount);
+                return -radius - 5;
+            })
+            .attr('x', d => d.children || d._children ? -10 : 10)
+            .attr('text-anchor', d => d.children || d._children ? 'end' : 'start')
+            .style('font-weight', d => (d === this.parentNode || d === this.activeNode) ? 'bold' : 'normal')
+            .style('fill', d => {
+                if (d === this.parentNode) return '#74ac00';
+                if (d === this.activeNode) return '#ac0028';
+                return 'black';
+            });
+
+        const nodeExit = node.exit().transition()
+            .duration(duration)
+            .attr('transform', d => `translate(${source.x},${source.y})`)
+            .remove();
+
+        nodeExit.select('circle')
+            .attr('r', 1e-6);
+
+        nodeExit.select('text')
+            .style('fill-opacity', 1e-6);
+
+        // Update node positions and labels
+        nodeUpdate.attr("transform", d => {
+            let x = d.x;
+            let y = d.y;
+            if (d === this.parentNode) {
+                x = 0;
+                y = 0;
+            } else if (d === this.activeNode) {
+                x = this.nodeHeight;
+                y = this.nodeWidth / 2;
+            }
+            return `translate(${y},${x})`;
+        });
+
+        // Update text position
+        nodeUpdate.select('text')
+            .attr("dy", ".35em")
+            .attr("x", d => 15) // Place text to the right of the node
+            .attr("text-anchor", "start");
+    }
+
+    _updateLinks(links, source, duration) {
+        const link = this.svg.selectAll('path.link')
+            .data(links, d => d.target.data.id);
+
+        const linkEnter = link.enter().insert('path', 'g')
+            .attr('class', 'link')
+            .attr('d', d => {
+                const o = { x: source.x0 || 0, y: source.y0 || 0 };
+                return this._diagonal(o, o);
+            });
+
+    link.merge(linkEnter).transition()
+        .duration(duration)
+        .attr('d', d => {
+            if (!d.source.x || !d.source.y || !d.target.x || !d.target.y) {
+                console.error("Link with undefined coordinates:", d);
+                return 'M0,0L0,0';
+            }
+            return this._diagonal(d.source, d.target);
+        });
+
+        link.exit().transition()
+            .duration(duration)
+            .attr('d', d => {
+                const o = { x: source.x, y: source.y };
+                return this._diagonal(o, o);
+            })
+            .remove();
+
+        // Update link paths
+        linkUpdate.attr('d', d => {
+            let sourceX = d.source.x;
+            let sourceY = d.source.y;
+            let targetX = d.target.x;
+            let targetY = d.target.y;
+
+            if (d.source === this.parentNode) {
+                sourceX = 0;
+                sourceY = 0;
+            } else if (d.source === this.activeNode) {
+                sourceX = this.nodeHeight;
+                sourceY = this.nodeWidth / 2;
+            }
+
+            if (d.target === this.activeNode) {
+                targetX = this.nodeHeight;
+                targetY = this.nodeWidth / 2;
+            }
+
+            return `M${sourceY},${sourceX}
+                    C${sourceY},${(sourceX + targetX) / 2}
+                     ${targetY},${(sourceX + targetX) / 2}
+                     ${targetY},${targetX}`;
+        });
+    }
+
+    update(source) {
+        const duration = 750;
+        
+        const { width, height } = this._getDimensions();
+
+        // Get visible nodes and links
+        const visibleNodes = this._getVisibleNodes();
+        const links = this._getVisibleLinks(visibleNodes);
+
+        // Assigns the x and y position for the nodes
+        this.treeLayout(this.parentNode);
+
+        // Normalize for fixed-depth and position nodes
+        this._positionNodes(visibleNodes);
+
+        // Update the nodes...
+        this._updateNodes(visibleNodes, source, duration);
+
+        // Update the links...
+        this._updateLinks(links, source, duration);
+
+        // Store the old positions for transition.
+        visibleNodes.forEach(d => {
+            d.x0 = d.x;
+            d.y0 = d.y;
+        });
+
+        console.log('Tree update complete. Parent node:', this.parentNode);
+        console.log('Visible nodes:', visibleNodes.length);
+        console.log('Visible links:', links.length);
+    }
+
+    _positionNodes(nodes) {
+        nodes.forEach(d => {
+            if (d === this.parentNode) {
+                d.y = 0;
+                d.x = 0;
+            } else if (d === this.activeNode) {
+                d.y = this.nodeWidth / 2;
+                d.x = this.nodeHeight;
+            } else {
+                d.y = this.nodeWidth;
+                // Distribute child nodes evenly
+                const childIndex = this.activeNode.children ? this.activeNode.children.indexOf(d) : 0;
+                const totalChildren = this.activeNode.children ? this.activeNode.children.length : 1;
+                d.x = this.nodeHeight * 2 + (childIndex + 1) * (this.nodeHeight * 2) / (totalChildren + 1);
+            }
+            // Ensure x and y are numbers
+            d.x = isNaN(d.x) ? 0 : d.x;
+            d.y = isNaN(d.y) ? 0 : d.y;
+        });
+    }
+
+    _enterNodes(node, source) {
+        const nodeEnter = node.enter().append('g')
+            .attr('class', 'node')
+            .attr("transform", d => `translate(${source.y0 || 0},${source.x0 || 0})`)
+            .on('click', (event, d) => this._handleClick(d));
+
+        nodeEnter.append('circle')
+            .attr('class', 'node')
+            .attr('r', 1e-6)
+            .style("fill", d => d._children ? "lightsteelblue" : "#fff");
+
+        nodeEnter.append('text')
+            .attr("dy", ".35em")
+            .attr("x", 15)
+            .attr("text-anchor", "start")
+            .text(d => d.data.taxonName)
+            .style('fill-opacity', 0);
+
+        return nodeEnter;
+    }
+
+    _updateNodes(visibleNodes, source, duration) {
+        const node = this.svg.selectAll('g.node')
+            .data(visibleNodes, d => d.data.id);
+
+        const nodeEnter = this._enterNodes(node, source);
+        const nodeUpdate = this._updateExistingNodes(nodeEnter.merge(node), duration);
+        this._exitNodes(node, source, duration);
+
+        return nodeUpdate;
+    }
+
+    _updateExistingNodes(nodeUpdate, duration) {
+        nodeUpdate.transition()
+            .duration(duration)
+            .attr("transform", d => `translate(${d.y},${d.x})`);
+
+        nodeUpdate.select('circle.node')
+            .attr('r', 10)
+            .style("fill", d => d._children ? "lightsteelblue" : "#fff")
+            .attr('cursor', 'pointer');
+
+        nodeUpdate.select('text')
+            .style('fill-opacity', 1);
+
+        return nodeUpdate;
+    }
+
+    _exitNodes(node, source, duration) {
+        const nodeExit = node.exit().transition()
+            .duration(duration)
+            .attr("transform", d => `translate(${source.y},${source.x})`)
+            .remove();
+
+        nodeExit.select('circle')
+            .attr('r', 1e-6);
+
+        nodeExit.select('text')
+            .style('fill-opacity', 0);
+    }
+
+    _enterLinks(link, source) {
+        return link.enter().insert('path', 'g')
+            .attr('class', 'link')
+            .attr('d', d => {
+                const o = { x: source.x0 || 0, y: source.y0 || 0 };
+                return this._diagonal(o, o);
+            });
+    }
+
+    _updateLinks(links, source, duration) {
+        const link = this.svg.selectAll('path.link')
+            .data(links, d => d.target.data.id);
+
+        const linkEnter = this._enterLinks(link, source);
+        this._updateExistingLinks(linkEnter.merge(link), duration);
+        this._exitLinks(link, source, duration);
+    }
+
+    _updateExistingLinks(linkUpdate, duration) {
+        linkUpdate.transition()
+            .duration(duration)
+            .attr('d', d => this._diagonal(d.source, d.target));
+    }
+
+    _exitLinks(link, source, duration) {
+        link.exit().transition()
+            .duration(duration)
+            .attr('d', d => {
+                const o = {x: source.x || 0, y: source.y || 0};
+                return this._diagonal(o, o);
+            })
+            .remove();
+    }
+
+    _diagonal(s, d) {
+        const sx = isNaN(s.x) ? 0 : s.x;
+        const sy = isNaN(s.y) ? 0 : s.y;
+        const dx = isNaN(d.x) ? 0 : d.x;
+        const dy = isNaN(d.y) ? 0 : d.y;
+        return `M ${sy},${sx}
+                C ${(sy + dy) / 2},${sx},
+                  ${(sy + dy) / 2},${dx},
+                  ${dy},${dx}`;
+    }
+}
+
 const publicAPI = {
+    createTree: async function (container, rootNode, showTaxonomicNames) {
+        const TreeClass = useHierarchicalLayout ? HierarchicalTree : RadialTree;
+        const tree = new TreeClass(container, rootNode, showTaxonomicNames);
+        await tree.create();
+        this.lastCreatedTree = tree;
+        return tree;
+    },
+
+    setLayoutType: function (isHierarchical) {
+        useHierarchicalLayout = isHierarchical;
+    },
+
+    setTreeType: function (treeType) {
+        if (this.lastCreatedTree) {
+            const container = this.lastCreatedTree.container;
+            const rootNode = this.lastCreatedTree.rootNode;
+            const showTaxonomicNames = this.lastCreatedTree.showTaxonomicNames;
+            const activeNodeId = this.lastCreatedTree.getActiveNodeId();
+
+            // Clear the existing tree
+            d3.select(container).selectAll('*').remove();
+
+            // Create the new tree
+            this.createTree(container, rootNode, showTaxonomicNames, treeType).then(newTree => {
+                newTree.setActiveNode(activeNodeId);
+            });
+        } else {
+            logger.warn('No tree instance available to change type');
+        }
+    },
+
     createRadialTree: async function (container, rootNode, showTaxonomicNames) {
         const tree = new RadialTree(container, rootNode, showTaxonomicNames);
         await tree.create();
         this.lastCreatedTree = tree;
         return tree; // Return the tree instance
+    },
+
+    createHierarchicalTree: async function (container, rootNode, showTaxonomicNames) {
+        const tree = new HierarchicalTree(container, rootNode, showTaxonomicNames);
+        await tree.create();
+        this.lastCreatedTree = tree;
+        return tree;
     },
 
     getActiveNodeId: function () {

@@ -367,7 +367,7 @@ const phylogenySelector = {
             const currentPhylogenyId = state.getPhylogenyId();
 
             graphContainer.innerHTML = '';
-            const tree = await d3Graphs.createRadialTree(graphContainer, rootNode, state.getShowTaxonomicNames());
+            const tree = await d3Graphs.createTree(graphContainer, rootNode, state.getShowTaxonomicNames());
 
             tree.onNodeSelect = (nodeId) => {
                 this.updateActiveTaxonDisplay(nodeId);
