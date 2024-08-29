@@ -34,7 +34,7 @@ async function initializeApp() {
 
     await initializeComponents();
 
-    gameSetup.setupGame(true, url.getURLParameters());
+    gameSetup.setupGame(true);
 
     isInitialized = true;
     logger.info("App initialization complete");

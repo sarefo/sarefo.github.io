@@ -10,6 +10,7 @@ import roundManager from './roundManager.js';
 import setManager from './setManager.js';
 import state from './state.js';
 import ui from './ui.js';
+import url from './url.js';
 import utils from './utils.js';
 import worldMap from './worldMap.js';
 
@@ -28,13 +29,13 @@ const gameSetup = {
             return true;
         },
 
-        async runSetupSequence(newPair, urlParams) {
+        async runSetupSequence(newPair) {
             state.setState(state.GameState.LOADING);
             if (!await this.checkINaturalistReachability()) return;
 
             this.prepareUIForLoading();
             if (newPair || !state.getCurrentTaxonImageCollection()) {
-                await this.initializeNewPair(urlParams);
+                await this.initializeNewPair();
             } else {
                 await this.setupRound();
             }
@@ -48,14 +49,14 @@ const gameSetup = {
             state.setIsFirstLoad(false);
         },
 
-        async initializeNewPair(urlParams) {
-            const newPair = await this.selectNewPair(urlParams);
+        async initializeNewPair() {
+            const newPair = await this.selectNewPair();
             const images = await this.loadImagesForNewPair(newPair);
             this.updateGameStateForNewPair(newPair, images);
             await this.setupRound(true);
         },
 
-        async selectNewPair(urlParams) {
+        async selectNewPair() {
             state.resetShownHints();
             let nextSelectedPair = state.getNextSelectedPair();
             if (nextSelectedPair) {
@@ -63,16 +64,17 @@ const gameSetup = {
                 logger.debug('Using next selected pair:', nextSelectedPair);
                 return nextSelectedPair;
             }
-            return await this.selectPairFromFilters(urlParams);
+            return await this.selectPairFromFilters();
         },
 
-        async selectPairFromFilters(urlParams) {
-            const filters = this.createFiltersFromUrlParams(urlParams);
+        async selectPairFromFilters() {
+            const filters = this.createFiltersFromUrlParams();
             const filteredPairs = await filtering.getFilteredTaxonPairs(filters);
-            return this.findOrSelectRandomPair(filteredPairs, urlParams);
+            return this.findOrSelectRandomPair(filteredPairs);
         },
 
         createFiltersFromUrlParams(urlParams) {
+            urlParams = url.getURLParameters();
             return {
                 level: urlParams.level === 'all' ? '' : (urlParams.level || state.getSelectedLevel()),
                 ranges: urlParams.ranges ? urlParams.ranges.split(',') : state.getSelectedRanges(),
@@ -82,8 +84,8 @@ const gameSetup = {
             };
         },
 
-        findOrSelectRandomPair(filteredPairs, urlParams) {
-            let pair = this.findPairByUrlParams(filteredPairs, urlParams);
+        findOrSelectRandomPair(filteredPairs) {
+            let pair = this.findPairByUrlParams(filteredPairs);
             if (!pair) {
                 if (filteredPairs.length > 0) {
                     pair = filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
@@ -95,11 +97,15 @@ const gameSetup = {
             return pair;
         },
 
-        findPairByUrlParams(filteredPairs, urlParams) {
-            if (urlParams.setID) {
-                return this.findPairBySetID(filteredPairs, urlParams.setID);
-            } else if (urlParams.taxon1 && urlParams.taxon2) {
+        findPairByUrlParams(filteredPairs) {
+            const setID = state.getCurrentSetID();
+            if (setID) {
+                return this.findPairBySetID(filteredPairs, setID);
+            } else {
+                const urlParams = url.getURLParameters();
+                if (urlParams.taxon1 && urlParams.taxon2) { // not saved in gameState atm
                 return this.findPairByTaxa(filteredPairs, urlParams.taxon1, urlParams.taxon2);
+                }
             }
             return null;
         },
@@ -163,7 +169,7 @@ const gameSetup = {
 
             if (!preloader.pairPreloader.isPairValid(preloadedPair.pair)) {
                 logger.warn("Preloaded pair is no longer valid, fetching a new pair");
-                await this.runSetupSequence(true, {});
+                await this.runSetupSequence(true);
                 return;
             }
 
@@ -316,6 +322,7 @@ const gameSetup = {
             if (newPair) {
                 await setManager.refreshSubset();
             }
+
             if (state.getIsInitialLoad()) {
                 this.hideLoadingScreen();
                 state.updateGameStateMultiple({ isInitialLoad: false });
@@ -437,7 +444,7 @@ const gameSetup = {
         },
     },
 
-    async setupGame(newPair = false, urlParams = {}) {
+    async setupGame(newPair = false) {
         if (isSettingUpGame) {
             logger.debug("Setup already in progress, skipping");
             return;
@@ -448,9 +455,9 @@ const gameSetup = {
             if (newPair && state.getNextSelectedPair()) {
                 const nextPair = state.getNextSelectedPair();
                 logger.debug(`Setting up new pair: ${nextPair.taxon1} / ${nextPair.taxon2}`);
-                await this.initialization.runSetupSequence(true, urlParams);
+                await this.initialization.runSetupSequence(true);
             } else {
-                await this.initialization.runSetupSequence(newPair, urlParams);
+                await this.initialization.runSetupSequence(newPair);
             }
         } catch (error) {
             this.errorHandling.handleSetupError(error);
