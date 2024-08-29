@@ -1,12 +1,18 @@
 <!-- Enter set dialog -->
 
 <dialog id="enter-set-dialog" class="standard-dialog enter-set-dialog">
-    <button class="dialog-close-button icon" aria-label="Close">×</button>
+
+    <div class="dialog-header">
+        <h3 id="info-dialog-taxon" class="dialog-title">Enter New Taxon Set</h3>
+
+        <div class="dialog-header-buttons">
+            <button id="info-close-button" class="dialog-close-button" aria-label="Close">×</button>
+        </div>
+    </div>
 
     <div class="dialog-content">
 
         <form method="dialog" class="enter-set-dialog__form">
-            <h2 class="dialog-title">Enter New Taxon Set</h2>
 
             <div>
                 <label for="taxon1" class="enter-set-dialog__label">Taxon 1:</label>

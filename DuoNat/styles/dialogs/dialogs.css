@@ -59,7 +59,7 @@ dialog[open] {
     max-height: 95vh;
     /*    height: auto;*/
     overflow-y: auto;
-    padding: 40px 20px 20px;
+    padding: 8px;
     z-index: 5000;
     /* debug */
 }
@@ -78,12 +78,27 @@ dialog[open] {
     height: 100%;
 }
 
+/* Header */
+
+.dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.dialog-header-buttons {
+    display: flex;
+    align-items: center;
+}
+
 .dialog-title {
-    flex-shrink: 0;
+    flex-grow: 1;
     color: var(--primary-counter-color);
     text-align: center;
-    margin: 0 0 15px 0;
     font-size: 1.5em;
+    padding: 0 60px; /* prevent overlap with buttons */
+    word-wrap: break-word;
 }
 
 /* Close and help buttons */
@@ -91,6 +106,10 @@ dialog[open] {
 .dialog-close-button,
 .dialog-help-button {
     position: absolute;
+}
+
+.dialog-close-button,
+.dialog-help-button {
     background: none;
     outline: none;
     border: none;
@@ -98,18 +117,17 @@ dialog[open] {
     -webkit-tap-highlight-color: transparent;
     /* Removes tap highlight on iOS */
     cursor: pointer;
-    padding: 5px;
-    display: flex;
+/*    display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center;*/
     transition: background-color 0.3s ease;
-    border-radius: 50%;
-    z-index: 10;
+/*    border-radius: 50%;
+    z-index: 10;*/
 }
 
 .dialog-close-button {
-    top: 10px;
-    right: 10px;
+    top: 4px;
+    right: 8px;
     font-size: 2em;
     color: var(--primary-counter-color);
 }
@@ -129,8 +147,8 @@ dialog[open] {
 }*/
 
 .dialog-help-button {
-    top: 1px; /* no idea why */
-    right: 30px;
+    top: 10px;
+    right: 33px;*/
 }
 
 .dialog-help-button svg {

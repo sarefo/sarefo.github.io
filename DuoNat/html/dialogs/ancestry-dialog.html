@@ -1,9 +1,14 @@
 <!-- Ancestry dialog -->
 
 <dialog id="ancestry-dialog" class="standard-dialog ancestry-dialog">
-    <button class="dialog-close-button icon" aria-label="Close">×</button>
 
-    <h3 class="dialog-title ancestry-dialog__title">Common Ancestry</h3>
+    <div class="dialog-header">
+        <h3 id="ancestry-dialog-taxon" class="dialog-title  ancestry-dialog__title">Common Ancestry</h3>
+        <div class="dialog-header-buttons">
+            <button id="ancestry-close-button" class="dialog-close-button" aria-label="Close">×</button>
+        </div>
+    </div>
+
     <div class="ancestry-dialog__hint">Click on a node for more!</div>
 
     <div class="ancestry-dialog__controls">

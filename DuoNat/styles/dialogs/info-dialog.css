@@ -1,14 +1,9 @@
 .info-dialog {
     position: fixed;
     flex-direction: column;
-    /*box-sizing: border-box;*/
-    padding: 20px;
     display: none;
-    padding: 20px !important;
-    /*background-color: #f1f7e5;*/
+    padding: 8px 12px 8px !important;
     background-color: var(--light-green-not-transparent) !important;
-    /*border-radius: var(--border-radius);*/
-    /*border-color: var(--primary-color);*/
     max-width: var(--max-image-width) !important;
     width: 100% !important;
     transition: top 0.3s ease-out, bottom 0.3s ease-out, height 0.3s ease-out;
@@ -42,7 +37,7 @@
 
 .info-dialog__facts {
     flex-grow: 1;
-    margin: 15px 0;
+    /*margin: 15px 0;*/
     padding: 15px;
     background-color: var(--light-green);
     border-radius: 8px;

@@ -1,15 +1,17 @@
 <!-- Collection Manager dialog -->
 <dialog id="collection-dialog" class="standard-dialog">
 
+    <div class="dialog-header">
+        <h3 id="manage-collections" class="dialog-title">Manage Collections</h3>
+        <div class="dialog-header-buttons">
+            <button id="collection-help-button" class="dialog-help-button collection-dialog__help-button" title="Start Tutorial" aria-label="Start Tutorial">
+                <svg class=""><use href="./images/icons.svg#icon-help"/></svg>
+            </button>
+            <button class="dialog-close-button" aria-label="Close">×</button>
+        </div>
+    </div>
+
     <div class="collection-dialog__inner">
-        <button class="dialog-close-button icon" aria-label="Close">×</button>
-
-        <button id="collection-help-button" class="icon-button dialog-help-button collection-dialog__help-button" title="Start Tutorial" aria-label="Start Tutorial">
-            <svg class=""><use href="./images/icons.svg#icon-help"/></svg>
-        </button>
-
-        <!--<h3 class="dialog-title">Manage Collections</h3>-->
-        <h3 id="manage-collections" class="dialog-title" data-phylogeny-selector>Manage Collections</h3>
 
             <div class="collection-dialog__top-section">
 
