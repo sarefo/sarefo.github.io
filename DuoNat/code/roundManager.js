@@ -32,6 +32,10 @@ const roundManager = {
             const taxonImageOne = randomized ? pairData.pair.taxon2 : pairData.pair.taxon1;
             const taxonImageTwo = randomized ? pairData.pair.taxon1 : pairData.pair.taxon2;
 
+            // Set observation URLs
+            state.setObservationURL(leftImageSrc, 1);
+            state.setObservationURL(rightImageSrc, 2);
+
             await this.setupRound(pairData.pair, { leftImageSrc, rightImageSrc, randomized });
             logger.debug(`Round setup complete`);
 
@@ -97,6 +101,13 @@ const roundManager = {
         if (isNewPair && preloadedImages) {
             logger.debug(`Using preloaded images for pair: ${pair.taxon1} / ${pair.taxon2}`);
             return { taxon1: preloadedImages.taxon1, taxon2: preloadedImages.taxon2 };
+        }
+
+        const preloadedRoundImages = preloader.roundPreloader.getPreloadedImagesForNextRound();
+        if (preloadedRoundImages && preloadedRoundImages.taxon1 && preloadedRoundImages.taxon2) {
+            logger.debug(`Using preloaded round images for pair: ${pair.taxon1} / ${pair.taxon2}`);
+            preloader.roundPreloader.clearPreloadedImagesForNextRound();
+            return { taxon1: preloadedRoundImages.taxon1, taxon2: preloadedRoundImages.taxon2 };
         }
 
         logger.debug(`Fetching new images for pair: ${pair.taxon1} / ${pair.taxon2}`);
