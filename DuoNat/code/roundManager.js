@@ -192,6 +192,7 @@ Object.keys(roundManager).forEach(key => {
 
 const publicAPI = {
     loadNewRound: roundManager.loadNewRound,
+    setupRound: roundManager.setupRound,
 };
 
 export default publicAPI;
