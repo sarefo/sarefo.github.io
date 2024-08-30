@@ -72,7 +72,7 @@ const infoDialog = {
         const taxonInfo = await api.taxonomy.loadTaxonInfo();
         const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === currentTaxon.toLowerCase());
 
-        if (taxonData && taxonData.taxonFacts && taxonData.taxonFacts.length > 1) {
+        if (taxonData && taxonData.taxonFacts && taxonData.taxonFacts.length > 0) {
             factsElement.innerHTML = '<h3>Facts:</h3><ul>' +
                 taxonData.taxonFacts.map(fact => `<li>${fact}</li>`).join('') +
                 '</ul>';
