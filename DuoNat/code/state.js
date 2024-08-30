@@ -25,12 +25,50 @@ const GameState = {
 };
 
 let gameState = {
-    nextSelectedPair: null,
+    currentState: GameState.IDLE,  // track the current game state
+
+    showTaxonomicNames: false,
+
+    isInitialLoad: true,
+
+    // Filters
+    currentSetID: null,
+    selectedLevel: '',
+    selectedRanges: [],
+    selectedTags: [],
+    phylogenyId: null,
+    searchTerm: "",
+
+    currentActiveNodeId: null,
+
+    // Round
+
+    taxonLeftName: null,
+    taxonRightName: null,
     currentObservationURLs: {
         imageOne: null,
         imageTwo: null
     },
 
+    currentTaxonImageCollection: null,
+
+    usedImages: {
+        taxon1: new Set(),
+        taxon2: new Set()
+    },
+    taxonImageOne: null,
+    taxonImageTwo: null,
+    currentRound: {
+        pair: null,
+        imageOneURLs: [],
+        imageTwoURLs: [],
+        imageOneVernacular: null,
+        imageTwoVernacular: null,
+        randomized: false
+    },
+
+    // Preloading
+    nextSelectedPair: null,
     preloadedPair: null,
     preloadedImages: {
         current: {
@@ -42,11 +80,6 @@ let gameState = {
             taxon2: []
         }
     },
-    shownHints: {
-        taxon1: [],
-        taxon2: []
-    },
-
 
     preloadState: {
         currentRound: {
@@ -62,48 +95,13 @@ let gameState = {
             taxon2: null
         },
     },
-
-    currentSetID: null,
-    selectedLevel: '',
-    selectedRanges: [],
-    selectedTags: [],
-    phylogenyId: null,
-    searchTerm: "",
-
-    // check which of these still used:
-    isFirstLoad: true,
-    isInitialLoad: true,
-    isPreloading: false,
-    currentSession: 1,
-    /*   currentRound: 1, */
-    roundPreload: null,
-    pairPreload: null,
-
-    currentRound: {
-        pair: null,
-        imageOneURLs: [],
-        imageTwoURLs: [],
-        imageOneVernacular: null,
-        imageTwoVernacular: null,
-        randomized: false
+    
+    // Hints
+    shownHints: {
+        taxon1: [],
+        taxon2: []
     },
 
-    usedImages: {
-        taxon1: new Set(),
-        taxon2: new Set()
-    },
-
-    currentActiveNodeId: null,
-
-    showTaxonomicNames: false,
-
-    preloadedTaxonImageCollection: null,
-    currentTaxonImageCollection: null,
-    taxonImageOne: null,
-    taxonImageTwo: null,
-    taxonLeftName: null,
-    taxonRightName: null,
-    currentState: GameState.IDLE  // track the current game state
 };
 
 // Private functions
@@ -153,6 +151,31 @@ const publicAPI = {
         } else {
             console.error(`Element "${elementName}" not found in elements object`);
         }
+    },
+
+    updateRoundState(pair, images) {
+        const { leftImageSrc, rightImageSrc, randomized, taxonImageOne, taxonImageTwo } = images;
+        this.updateGameStateMultiple({
+            currentTaxonImageCollection: {
+                pair,
+                imageOneURL: leftImageSrc,
+                imageTwoURL: rightImageSrc,
+                level: pair.level || '1',
+            },
+            usedImages: {
+                taxon1: new Set([leftImageSrc]),
+                taxon2: new Set([rightImageSrc]),
+            },
+            taxonImageOne: taxonImageOne,
+            taxonImageTwo: taxonImageTwo,
+            currentRound: {
+                pair,
+                imageOneURL: leftImageSrc,
+                imageTwoURL: rightImageSrc,
+                randomized,
+            },
+        });
+        this.setCurrentSetID(pair.setID || this.getCurrentSetID());
     },
 
     // Game State
@@ -316,14 +339,14 @@ const publicAPI = {
         updateGameState('taxonRightName', name);
     },
 
-    getIsFirstLoad: () => gameState.isFirstLoad,
+    /*getIsFirstLoad: () => gameState.isFirstLoad,
     setIsFirstLoad: (value) => {
         if (typeof value === 'boolean') {
             updateGameState('isFirstLoad', value);
         } else {
             logger.error('isFirstLoad must be a boolean');
         }
-    },
+    },*/
 
     getIsInitialLoad: () => gameState.isInitialLoad,
     setIsInitialLoad: (value) => {

@@ -112,7 +112,6 @@ const gameLogic = {
         },
 
         async attemptToLoadNewPair(usePreloadedPair) {
-            logger.warn("attempting to load new pair");
             await roundManager.loadNewRound(true);
             // TODO replace w/ roundManager code
             //await gameSetup.setupRound(true);
@@ -137,7 +136,6 @@ const gameLogic = {
         },
 
         async loadPreloadedPair() {
-            logger.warn("loading preloaded pair");
             const preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
             if (preloadedImages && preloadedImages.pair && this.isPairValidForCurrentFilters(preloadedImages.pair)) {
                 await gameSetup.setupGameWithPreloadedPair(preloadedImages);

@@ -1,6 +1,7 @@
 import api from './api.js';
 import filtering from './filtering.js';
 import logger from './logger.js';
+import preloader from './preloader.js';
 import state from './state.js';
 
 const setManager = {
@@ -8,6 +9,22 @@ const setManager = {
     allFilteredSets: [],
     usedSetIDs: new Set(),
     isInitialized: false,
+
+    async getNextPair(isNewPair) {
+        if (isNewPair) {
+            const preloadedPair = preloader.pairPreloader.getPreloadedImagesForNextPair();
+            if (preloadedPair && preloadedPair.pair && this.isPairValid(preloadedPair.pair)) {
+                return { pair: preloadedPair.pair, preloadedImages: preloadedPair };
+            }
+            return { pair: await this.getNextSet(), preloadedImages: null };
+        }
+        return { pair: state.getCurrentTaxonImageCollection().pair, preloadedImages: null };
+    },
+
+    isPairValid(pair) {
+        const filters = filtering.getActiveFilters();
+        return filtering.pairMatchesFilters(pair, filters);
+    },
 
     async initializeSubset() {
         logger.debug('Initializing subset');
@@ -86,6 +103,7 @@ Object.keys(setManager).forEach(key => {
 const publicAPI = {
     initializeSubset: setManager.initializeSubset.bind(setManager),
     getNextSet: setManager.getNextSet.bind(setManager),
+    getNextPair: setManager.getNextPair.bind(setManager),
     refreshSubset: setManager.refreshSubset.bind(setManager),
     getSetByID: setManager.getSetByID.bind(setManager),
 };

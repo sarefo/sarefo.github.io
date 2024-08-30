@@ -5,6 +5,7 @@ import gameLogic from './gameLogic.js';
 import hintSystem from './hintSystem.js';
 import logger from './logger.js';
 import preloader from './preloader.js';
+import setManager from './setManager.js';
 import state from './state.js';
 import ui from './ui.js';
 import utils from './utils.js';
@@ -17,7 +18,7 @@ const roundManager = {
         ui.prepareImagesForLoading();
 
         try {
-            const pairData = await this.getPair(isNewPair);
+            const pairData = await setManager.getNextPair(isNewPair);
             logger.debug(`Got pair: ${JSON.stringify(pairData.pair)}`);
             const images = await this.getImages(pairData, isNewPair);
             logger.debug(`Got images: ${JSON.stringify(images)}`);
@@ -48,18 +49,6 @@ const roundManager = {
             state.setState(state.GameState.PLAYING);
             logger.debug(`loadNewRound complete. Game state set to PLAYING`);
         }
-    },
-
-    async getPair(isNewPair) {
-        if (isNewPair) {
-            const preloadedPair = preloader.pairPreloader.getPreloadedImagesForNextPair();
-            if (preloadedPair && preloadedPair.pair) {
-                logger.debug(`Using preloaded pair: ${preloadedPair.pair.taxon1} / ${preloadedPair.pair.taxon2}`);
-                return { pair: preloadedPair.pair, preloadedImages: preloadedPair };
-            }
-            return { pair: await this.getNewPair(), preloadedImages: null };
-        }
-        return { pair: state.getCurrentTaxonImageCollection().pair, preloadedImages: null };
     },
 
     async getNewPair() {
@@ -184,31 +173,8 @@ const roundManager = {
     },
 
     updateState(pair, images) {
-        const { leftImageSrc, rightImageSrc, randomized, taxonImageOne, taxonImageTwo } = images;
-        state.updateGameStateMultiple({
-            currentTaxonImageCollection: {
-                pair,
-                imageOneURL: leftImageSrc,
-                imageTwoURL: rightImageSrc,
-                level: pair.level || '1',
-            },
-            usedImages: {
-                taxon1: new Set([leftImageSrc]),
-                taxon2: new Set([rightImageSrc]),
-            },
-            taxonImageOne: taxonImageOne,
-            taxonImageTwo: taxonImageTwo,
-            currentRound: {
-                pair,
-                imageOneURL: leftImageSrc,
-                imageTwoURL: rightImageSrc,
-                randomized,
-            },
-        });
-        state.setCurrentSetID(pair.setID || state.getCurrentSetID());
+        state.updateRoundState(pair, images);
         ui.updateLevelIndicator(pair.level || '1');
-
-        logger.debug(`Updated state: Left=${taxonImageOne}, Right=${taxonImageTwo}`);
     },
 
     handleError(error) {
