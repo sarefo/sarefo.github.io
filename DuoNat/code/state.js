@@ -28,6 +28,7 @@ let gameState = {
     currentState: GameState.IDLE,  // track the current game state
 
     showTaxonomicNames: false,
+    hasKeyboard: true,
 
     isInitialLoad: true,
 
@@ -365,6 +366,11 @@ const publicAPI = {
     getShowTaxonomicNames: () => gameState.showTaxonomicNames,
     setShowTaxonomicNames(show) {
         updateGameState('showTaxonomicNames', show);
+    },
+
+    getHasKeyboard: () => gameState.hasKeyboard,
+    setHasKeyboard(show) {
+        updateGameState('hasKeyboard', show);
     },
 
     getUsedImages: () => ({ ...gameState.usedImages }),

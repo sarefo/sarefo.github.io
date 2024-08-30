@@ -71,14 +71,6 @@ const utils = {
         },
     },
 
-    device: {
-        hasKeyboard() {
-            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-            const isTablet = /(tablet|ipad|playbook|silk)|(android(?!.*mobile))/i.test(navigator.userAgent);
-            return !isMobile && !isTablet;
-        }
-    },
-
     sound: {
         surprise() {
             logger.debug("Surprise!");
@@ -160,7 +152,7 @@ const utils = {
 };
 
 // Bind all methods in nested objects
-['game', 'ui', 'device', 'sound', 'string', 'array'].forEach(nestedObj => {
+['game', 'ui', 'sound', 'string', 'array'].forEach(nestedObj => {
     Object.keys(utils[nestedObj]).forEach(key => {
         if (typeof utils[nestedObj][key] === 'function') {
             utils[nestedObj][key] = utils[nestedObj][key].bind(utils[nestedObj]);
@@ -177,9 +169,6 @@ const publicAPI = {
         debounce: utils.ui.debounce,
         sleep: utils.ui.sleep,
         getLoadingMessage: utils.ui.getLoadingMessage
-    },
-    device: {
-        hasKeyboard: utils.device.hasKeyboard
     },
     sound: {
         surprise: utils.sound.surprise,

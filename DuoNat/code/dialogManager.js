@@ -103,7 +103,7 @@ const dialogManager = {
         updateKeyboardShortcutsButton() {
             const container = document.getElementById('keyboard-shortcuts-button-container');
             if (container) {
-                if (utils.device.hasKeyboard()) {
+                if (state.getHasKeyboard()) {
                     container.innerHTML = `
                         <button id="keyboard-shortcuts-button" class="dialog-button help-dialog__button">
                             Keyboard Shortcuts
@@ -267,7 +267,7 @@ const dialogManager = {
             if (!keyboardShortcutsSection) {
                 return;
             }
-            keyboardShortcutsSection.style.display = utils.device.hasKeyboard() ? 'block' : 'none';
+            keyboardShortcutsSection.style.display = state.getHasKeyboard() ? 'block' : 'none';
         },
 
         validateInputs() {

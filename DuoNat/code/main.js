@@ -4,6 +4,7 @@ import dialogManager from './dialogManager.js';
 import gameSetup from './gameSetup.js';
 import logger, { LogLevel } from './logger.js';
 import eventMain from './eventMain.js';
+import state from './state.js';
 import ui from './ui.js';
 import url from './url.js';
 
@@ -35,9 +36,15 @@ async function initializeApp() {
     await initializeComponents();
 
     gameSetup.setupGame(true);
-
+    state.setHasKeyboard(hasKeyboard());
     isInitialized = true;
     logger.info("App initialization complete");
+}
+
+function hasKeyboard() {
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const isTablet = /(tablet|ipad|playbook|silk)|(android(?!.*mobile))/i.test(navigator.userAgent);
+    return !isMobile && !isTablet;
 }
 
 initializeApp().catch(error => {

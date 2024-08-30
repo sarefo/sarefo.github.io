@@ -190,7 +190,7 @@ const infoDialog = {
     },
 
     addKeyboardClass() {
-        if (utils.device.hasKeyboard()) {
+        if (state.getHasKeyboard()) {
             document.body.classList.add('has-keyboard');
         }
     },
@@ -205,25 +205,6 @@ const infoDialog = {
         }
     },
 
-    /*positionDialog(dialog, imageIndex) {
-        const topImageContainer = document.getElementById('image-container-1');
-        const bottomImageContainer = document.getElementById('image-container-2');
-        const namePairContainer = document.querySelector('.name-pair');
-
-        const dialogRect = dialog.getBoundingClientRect();
-        const topContainerRect = topImageContainer.getBoundingClientRect();
-        const bottomContainerRect = bottomImageContainer.getBoundingClientRect();
-        const namePairRect = namePairContainer.getBoundingClientRect();
-
-        if (imageIndex === 1) {
-            dialog.style.top = `${namePairRect.top}px`;
-            dialog.style.bottom = `${window.innerHeight - bottomContainerRect.bottom}px`;
-        } else {
-            dialog.style.top = `${topContainerRect.top}px`;
-            dialog.style.bottom = `${window.innerHeight - namePairRect.bottom}px`;
-        }
-        dialog.style.height = 'auto';
-    },*/
     positionDialog(dialog, imageIndex) {
         const topImageContainer = document.getElementById('image-container-1');
         const bottomImageContainer = document.getElementById('image-container-2');
