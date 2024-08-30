@@ -13,31 +13,32 @@ const infoDialog = {
         this.addInfoDialogKeyListener();
     },
 
+    setupInfoDialogCloseHandler() {
+        document.getElementById('info-dialog').addEventListener('close', this.handleDialogClose);
+    },
+
     initializeInfoButtons() {
         const infoButton1 = document.getElementById('info-button-1');
         const infoButton2 = document.getElementById('info-button-2');
 
-        infoButton1.addEventListener('click', () => this.handleInfoButtonClick(1));
-        infoButton2.addEventListener('click', () => this.handleInfoButtonClick(2));
+        infoButton1.addEventListener('click', () => this.showInfoDialog(1));
+        infoButton2.addEventListener('click', () => this.showInfoDialog(2));
 
     },
 
-    handleInfoButtonClick(imageIndex) {
+    /*handleInfoButtonClick(imageIndex) {
         const imageURL = state.getObservationURL(imageIndex);
         if (!imageURL) {
             logger.error(`Info button ${imageIndex} clicked, but image URL is null or undefined`);
             return;
         }
         this.showInfoDialog(imageURL, imageIndex);
-    },
+    },*/
 
-    setupInfoDialogCloseHandler() {
-        document.getElementById('info-dialog').addEventListener('close', this.handleDialogClose);
-    },
-
-    async showInfoDialog(url, imageIndex) {
-        if (!url) {
-            logger.error(`showInfoDialog: URL is null or undefined for imageIndex: ${imageIndex}`);
+    async showInfoDialog(imageIndex) {
+        const imageURL = state.getObservationURL(imageIndex);
+        if (!imageURL) {
+            logger.error(`Info button ${imageIndex} clicked, but image URL is null or undefined`);
             return;
         }
 
@@ -48,7 +49,7 @@ const infoDialog = {
         this.frameImage(imageIndex);
 
         await this.populateDialogContent(taxonName);
-        this.setupDialogButtons(url, taxonName);
+        this.setupDialogButtons(imageURL, taxonName);
         this.positionDialog(dialog, imageIndex);
         this.setupDialogEventListeners(dialog, imageIndex);
 

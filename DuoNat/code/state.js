@@ -30,6 +30,7 @@ let gameState = {
         imageOne: null,
         imageTwo: null
     },
+
     preloadedPair: null,
     preloadedImages: {
         current: {
