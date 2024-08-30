@@ -1,37 +1,8 @@
-import api from './api.js';
-import config from './config.js';
-import filtering from './filtering.js';
+import api from './api.js'; // for sound
 import logger from './logger.js';
 
 const utils = {
     game: {
-        async selectTaxonPair(filters = {}) {
-            try {
-                const filteredPairs = await filtering.getFilteredTaxonPairs(filters);
-
-                if (filteredPairs.length === 0) {
-                    logger.warn("No pairs match the selected criteria. Using all pairs.");
-                    return this.selectRandomPair(await api.taxonomy.fetchTaxonPairs());
-                }
-
-                return this.selectRandomPair(filteredPairs);
-            } catch (error) {
-                logger.error("Error in selectTaxonPair:", error);
-                return null;
-            }
-        },
-
-        selectRandomPair(pairs) {
-            if (pairs.length === 0) {
-                logger.error("No taxon pairs available");
-                return null;
-            }
-
-            const selectedPair = pairs[Math.floor(Math.random() * pairs.length)];
-            logger.debug(`Selected pair: ${selectedPair.taxon1} / ${selectedPair.taxon2}, Skill Level: ${selectedPair.level}`);
-            return selectedPair;
-        },
-
         resetDraggables() {
             const leftNameContainer = document.getElementsByClassName('name-pair__container--left')[0];
             const rightNameContainer = document.getElementsByClassName('name-pair__container--right')[0];
@@ -70,35 +41,24 @@ const utils = {
             this.randomAnimalSound();
         },
 
-        async randomAnimalSound() {
-            try {
-                const observation = await this.fetchRandomObservationWithSound();
-                if (observation) {
-                    await this.playSound(observation.sounds[0].file_url);
-                    logger.info(`Playing sound from observation: ${observation.species_guess || 'Unknown species'}`);
-                }
-            } catch (error) {
-                logger.error('Could not play animal sound:', error);
-            }
-        },
-
-        async fetchRandomObservationWithSound() {
-            const url = "https://api.inaturalist.org/v1/observations?order_by=random&sounds=true";
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error('Failed to fetch observations');
-            }
-            const data = await response.json();
-            const observationsWithSounds = data.results.filter(obs => obs.sounds && obs.sounds.length > 0);
-            return observationsWithSounds.length > 0 ? observationsWithSounds[Math.floor(Math.random() * observationsWithSounds.length)] : null;
-        },
-
         async playSound(soundUrl) {
             if (soundUrl) {
                 const audio = new Audio(soundUrl);
                 await audio.play();
             } else {
                 logger.warn("Sound URL not found in the selected observation.");
+            }
+        },
+
+        async randomAnimalSound() {
+            try {
+                const observation = await api.sound.fetchRandomObservationWithSound();
+                if (observation) {
+                    await this.playSound(observation.sounds[0].file_url);
+                    logger.info(`Playing sound from observation: ${observation.species_guess || 'Unknown species'}`);
+                }
+            } catch (error) {
+                logger.error('Could not play animal sound:', error);
             }
         },
 
@@ -155,7 +115,6 @@ const utils = {
 
 const publicAPI = {
     game: {
-        selectTaxonPair: utils.game.selectTaxonPair,
         resetDraggables: utils.game.resetDraggables
     },
     ui: {

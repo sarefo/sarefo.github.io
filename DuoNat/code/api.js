@@ -353,6 +353,19 @@ const api = (() => {
 
         },
 
+        sound: {
+            async fetchRandomObservationWithSound() {
+                const url = "https://api.inaturalist.org/v1/observations?order_by=random&sounds=true";
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch observations');
+                }
+                const data = await response.json();
+                const observationsWithSounds = data.results.filter(obs => obs.sounds && obs.sounds.length > 0);
+                return observationsWithSounds.length > 0 ? observationsWithSounds[Math.floor(Math.random() * observationsWithSounds.length)] : null;
+            },
+        },
+
         vernacular: {
             // fetch vernacular name of taxon from local file or iNat
             fetchVernacular: async function (taxonName) {
@@ -462,6 +475,9 @@ const publicAPI = {
     images: {
         fetchRandomImage: api.images.fetchRandomImage,
         fetchMultipleImages: api.images.fetchMultipleImages
+    },
+    sound: {
+        fetchRandomObservationWithSound: api.sound.fetchRandomObservationWithSound,
     },
     vernacular: {
         fetchVernacular: api.vernacular.fetchVernacular

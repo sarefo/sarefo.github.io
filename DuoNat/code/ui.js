@@ -1,14 +1,8 @@
-import api from './api.js';
 import config from './config.js';
-import dialogManager from './dialogManager.js';
-import eventMain from './eventMain.js';
-import gameLogic from './gameLogic.js';
-import gameSetup from './gameSetup.js';
 import hintSystem from './hintSystem.js';
 import logger from './logger.js';
 import state from './state.js';
 import tutorial from './tutorial.js';
-import worldMap from './worldMap.js';
 
 const ui = {
 
@@ -19,7 +13,7 @@ const ui = {
     core: {
         initialize() {
             this.initializeMenu();
-            this.setupOutsideClickHandler(); // Close the dropdown when clicking outside of it
+            this.setupOutsideClickHandler();
             hintSystem.initialize();
         },
 
