@@ -1,22 +1,18 @@
 import api from './api.js';
 import collectionManager from './collectionManager.js';
-import config from './config.js';
 import enterSet from './enterSet.js';
 import gameSetup from './gameSetup.js';
-import gameLogic from './gameLogic.js';
 import infoDialog from './infoDialog.js';
 import logger from './logger.js';
 import eventMain from './eventMain.js';
 import phylogenySelector from './phylogenySelector.js';
 import rangeSelector from './rangeSelector.js';
 import reporting from './reporting.js';
-import setManager from './setManager.js';
 import state from './state.js';
 import tagSelector from './tagSelector.js';
 import testingDialog from './testingDialog.js';
 import tutorial from './tutorial.js';
 import ui from './ui.js';
-import utils from './utils.js';
 
 const dialogManager = {
     dialogIds: [
@@ -198,7 +194,6 @@ const dialogManager = {
             }
 
             if (dialogId === 'collection-dialog') {
-                //                collectionManager.openCollectionManagerDialog();
                 collectionManager.setupSelectSetDialog();
             }
 
@@ -221,7 +216,6 @@ const dialogManager = {
                 dialog.removeEventListener('keydown', dialogManager.core.handleDialogKeydown);
 
                 if (dialogManager.openDialogs.length === 0) {
-                    //dialogManager.utils.enableMainEventHandlers();
                     eventMain.enableKeyboardShortcuts();
                 }
             } else {
@@ -355,9 +349,6 @@ const dialogManager = {
             dialogManager.core.closeDialog();
         },
     },
-
-
-
 };
 
 const bindAllMethods = (obj) => {
