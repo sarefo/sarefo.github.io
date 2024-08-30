@@ -13,46 +13,79 @@ import worldMap from './worldMap.js';
 
 const roundManager = {
     async loadNewRound(isNewPair = false) {
-        logger.debug(`Starting loadNewRound. isNewPair: ${isNewPair}`);
-        state.setState(state.GameState.LOADING);
-        ui.prepareImagesForLoading();
+        logger.warn(`Starting loadNewRound. isNewPair: ${isNewPair}`);
+        this.initializeRoundLoading();
 
         try {
-            const pairData = await setManager.getNextPair(isNewPair);
-            logger.debug(`Got pair: ${JSON.stringify(pairData.pair)}`);
-            const images = await this.getImages(pairData, isNewPair);
-            logger.debug(`Got images: ${JSON.stringify(images)}`);
-
-            // Ensure consistent randomization
-            const randomized = Math.random() < 0.5;
-            logger.debug(`Image randomization: ${randomized ? "swapped" : "not swapped"}`);
-
-            const leftImageSrc = randomized ? images.taxon2 : images.taxon1;
-            const rightImageSrc = randomized ? images.taxon1 : images.taxon2;
-            const taxonImageOne = randomized ? pairData.pair.taxon2 : pairData.pair.taxon1;
-            const taxonImageTwo = randomized ? pairData.pair.taxon1 : pairData.pair.taxon2;
-
-            // Set observation URLs
-            state.setObservationURL(leftImageSrc, 1);
-            state.setObservationURL(rightImageSrc, 2);
-
-            await this.setupRound(pairData.pair, { leftImageSrc, rightImageSrc, randomized });
-            logger.debug(`Round setup complete`);
-
-            this.updateState(pairData.pair, { leftImageSrc, rightImageSrc, randomized, taxonImageOne, taxonImageTwo });
-            logger.debug(`State updated`);
-
-            logger.debug(`Preloading started`);
-            ui.hideOverlay();
-            ui.resetUIState();
-            logger.debug(`UI reset complete`);
-            preloader.startPreloading(isNewPair);
+            const pairData = await this.getPairData(isNewPair);
+            const images = await this.getAndProcessImages(pairData, isNewPair);
+            await this.setupRoundComponents(pairData.pair, images);
+            this.updateGameState(pairData.pair, images);
+            this.finalizeRoundLoading(isNewPair);
         } catch (error) {
             this.handleError(error);
         } finally {
-            state.setState(state.GameState.PLAYING);
-            logger.debug(`loadNewRound complete. Game state set to PLAYING`);
+            this.setGameStateToPlaying();
         }
+    },
+
+    initializeRoundLoading() {
+        state.setState(state.GameState.LOADING);
+        ui.prepareImagesForLoading();
+    },
+
+    async getPairData(isNewPair) {
+        const pairData = await setManager.getNextPair(isNewPair);
+        logger.debug(`Got pair: ${JSON.stringify(pairData.pair)}`);
+        return pairData;
+    },
+
+    async getAndProcessImages(pairData, isNewPair) {
+        const images = await this.getImages(pairData, isNewPair);
+        logger.debug(`Got images: ${JSON.stringify(images)}`);
+        return this.randomizeImages(images, pairData.pair);
+    },
+
+    randomizeImages(images, pair) {
+        const randomized = Math.random() < 0.5;
+        logger.debug(`Image randomization: ${randomized ? "swapped" : "not swapped"}`);
+
+        return {
+            leftImageSrc: randomized ? images.taxon2 : images.taxon1,
+            rightImageSrc: randomized ? images.taxon1 : images.taxon2,
+            taxonImageOne: randomized ? pair.taxon2 : pair.taxon1,
+            taxonImageTwo: randomized ? pair.taxon1 : pair.taxon2,
+            randomized
+        };
+    },
+
+    async setupRoundComponents(pair, images) {
+        this.setObservationURLs(images);
+        await this.setupRound(pair, images);
+        logger.debug(`Round setup complete`);
+    },
+
+    setObservationURLs(images) {
+        state.setObservationURL(images.leftImageSrc, 1);
+        state.setObservationURL(images.rightImageSrc, 2);
+    },
+
+    updateGameState(pair, images) {
+        this.updateState(pair, images);
+        logger.debug(`State updated`);
+    },
+
+    finalizeRoundLoading(isNewPair) {
+        logger.debug(`Preloading started`);
+        ui.hideOverlay();
+        ui.resetUIState();
+        logger.debug(`UI reset complete`);
+        preloader.startPreloading(isNewPair);
+    },
+
+    setGameStateToPlaying() {
+        state.setState(state.GameState.PLAYING);
+        logger.debug(`loadNewRound complete. Game state set to PLAYING`);
     },
 
     async getNewPair() {

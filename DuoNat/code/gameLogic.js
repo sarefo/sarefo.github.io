@@ -113,8 +113,6 @@ const gameLogic = {
 
         async attemptToLoadNewPair(usePreloadedPair) {
             await roundManager.loadNewRound(true);
-            // TODO replace w/ roundManager code
-            //await gameSetup.setupRound(true);
 
             if (state.getState() !== state.GameState.PLAYING) {
                 await this.fallbackPairLoading(usePreloadedPair);
