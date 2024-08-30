@@ -13,7 +13,8 @@ const filtering = {
             level: state.getSelectedLevel(),
             ranges: state.getSelectedRanges(),
             tags: state.getSelectedTags(),
-            phylogenyId: state.getPhylogenyId()
+            phylogenyId: state.getPhylogenyId(),
+            /*searchTerm: state.getSearchTerm()*/
         };
     },
 
@@ -21,8 +22,8 @@ const filtering = {
         state.setSelectedTags([]);
         state.setSelectedRanges([]);
         state.setSelectedLevel('');
-        state.setSearchTerm('');
         state.setPhylogenyId(null);
+        state.setSearchTerm('');
 
         const levelDropdown = document.getElementById('level-filter-dropdown');
         if (levelDropdown) {

@@ -68,7 +68,7 @@ const gameSetup = {
         },
 
         async selectPairFromFilters() {
-            const filters = url.handleUrlParameters();
+            const filters = filtering.getActiveFilters();
             const filteredPairs = await filtering.getFilteredTaxonPairs(filters);
             return this.findOrSelectRandomPair(filteredPairs);
         },
