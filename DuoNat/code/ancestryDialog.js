@@ -553,11 +553,6 @@ const ancestryDialog = {
             }
         },
 
-        /*setupNodeClickHandlers(node) {
-            node.on('click', (event, d) => {
-                window.open(`https://www.inaturalist.org/taxa/${d.data.id}`, '_blank');
-            });
-        },*/
         setupNodeClickHandlers(node) {
             node.on('click', (event, d) => {
                 const taxon = {
@@ -727,19 +722,6 @@ const ancestryDialog = {
     },
 
     utils: {
-        /*loadVisJs() {
-            return new Promise((resolve, reject) => {
-                if (window.vis) {
-                    resolve();
-                    return;
-                }
-                const script = document.createElement('script');
-                script.src = 'https://unpkg.com/vis-network/standalone/umd/vis-network.min.js';
-                script.onload = resolve;
-                script.onerror = reject;
-                document.head.appendChild(script);
-            });
-        },*/
 
         async fetchTaxonData(name) {
             return api.taxonomy.fetchTaxonDetails(name);
