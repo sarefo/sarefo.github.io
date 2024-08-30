@@ -151,7 +151,8 @@ const gameSetup = {
             ui.updateLevelIndicator(newPair.level || '1');
         },
 
-        async setupWithPreloadedPair(preloadedPair) {
+        async setupGameWithPreloadedPair(preloadedPair) {
+            logger.warn("setting up with preloaded pair");
             state.resetShownHints();
             logger.debug(`Setting up game with preloaded pair: ${preloadedPair.pair.taxon1} / ${preloadedPair.pair.taxon2}, Skill Level: ${preloadedPair.pair.level}`);
             logger.debug(`Current selected level: ${state.getSelectedLevel()}`);
@@ -181,6 +182,7 @@ const gameSetup = {
         },
 
         async setupRound(isNewPair = false) {
+            logger.warn("setting up round");
             const { pair } = state.getCurrentTaxonImageCollection();
             
             const imageData = await this.loadAndSetupImages(pair, isNewPair);
@@ -240,6 +242,7 @@ const gameSetup = {
         },
 
         async setupNameTiles(pair, imageData) {
+            logger.warn(`setting up name tiles`);
             const [leftVernacular, rightVernacular] = await Promise.all([
                 utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(imageData.randomized ? pair.taxon1 : pair.taxon2)),
                 utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(imageData.randomized ? pair.taxon2 : pair.taxon1))
@@ -472,8 +475,9 @@ bindMethodsRecursively(gameSetup);
 
 const publicAPI = {
     setupGame: gameSetup.setupGame.bind(gameSetup),
+    //setupRound: gameSetup.initialization.setupRound.bind(gameSetup),
     // used once in gameLogic
-    setupGameWithPreloadedPair: gameSetup.initialization.setupWithPreloadedPair.bind(this)
+    setupGameWithPreloadedPair: gameSetup.initialization.setupGameWithPreloadedPair.bind(this)
 };
 
 // Bind publicAPI methods

@@ -156,6 +156,9 @@ const roundManager = {
             rightVernacular
         );
 
+        state.getElement('imageOne').alt = `${randomized ? pair.taxon2 : pair.taxon1} Image`;
+        state.getElement('imageTwo').alt = `${randomized ? pair.taxon1 : pair.taxon2} Image`;
+
         return { leftVernacular, rightVernacular };
     },
 

@@ -94,7 +94,6 @@ const infoDialog = {
         const photoButton = document.getElementById('photo-button');
 
         const imageURL = state.getObservationURL(imageIndex);
-        logger.debug(`imageURL is ${imageURL}`);
         if (!imageURL) {
             logger.error(`Info button ${imageIndex} clicked, but image URL is null or undefined`);
             return;
