@@ -26,30 +26,17 @@ const infoDialog = {
 
     },
 
-    /*handleInfoButtonClick(imageIndex) {
-        const imageURL = state.getObservationURL(imageIndex);
-        if (!imageURL) {
-            logger.error(`Info button ${imageIndex} clicked, but image URL is null or undefined`);
-            return;
-        }
-        this.showInfoDialog(imageURL, imageIndex);
-    },*/
-
     async showInfoDialog(imageIndex) {
-        const imageURL = state.getObservationURL(imageIndex);
-        if (!imageURL) {
-            logger.error(`Info button ${imageIndex} clicked, but image URL is null or undefined`);
-            return;
-        }
 
+        // TODO hacky way to get the taxon name from the correct image
         const imageContainer = document.getElementById(`image-container-${imageIndex}`);
-        const taxonName = imageContainer.querySelector('img').alt.split(' Image')[0];
+        const currentTaxon = imageContainer.querySelector('img').alt.split(' Image')[0];
 
         const dialog = document.getElementById('info-dialog');
         this.frameImage(imageIndex);
 
-        await this.populateDialogContent(taxonName);
-        this.setupDialogButtons(imageURL, taxonName);
+        await this.populateDialogContent(currentTaxon);
+        this.setupDialogButtons(currentTaxon, imageIndex);
         this.positionDialog(dialog, imageIndex);
         this.setupDialogEventListeners(dialog, imageIndex);
 
@@ -95,17 +82,25 @@ const infoDialog = {
         }
     },
 
-    setupDialogButtons(url, currentTaxon) {
-        this.setupPhotoButton(url);
+    setupDialogButtons(currentTaxon, imageIndex) {
+        this.setupPhotoButton(imageIndex);
         this.setupObservationButton();
         this.setupTaxonButton(currentTaxon);
         this.setupWikiButton(currentTaxon);
         this.setupReportButton();
     },
 
-    setupPhotoButton(url) {
+    setupPhotoButton(imageIndex) {
         const photoButton = document.getElementById('photo-button');
-        const photoID = url.split("/").slice(-2, -1)[0];
+
+        const imageURL = state.getObservationURL(imageIndex);
+        logger.debug(`imageURL is ${imageURL}`);
+        if (!imageURL) {
+            logger.error(`Info button ${imageIndex} clicked, but image URL is null or undefined`);
+            return;
+        }
+
+        const photoID = imageURL.split("/").slice(-2, -1)[0];
         const photoURL = `https://www.inaturalist.org/photos/${photoID}`;
         photoButton.onclick = () => {
             window.open(photoURL, '_blank');
