@@ -2,10 +2,8 @@ import api from './api.js';
 import collectionManager from './collectionManager.js';
 import dialogManager from './dialogManager.js';
 import filtering from './filtering.js';
-import gameLogic from './gameLogic.js';
 import preloader from './preloader.js';
 import state from './state.js';
-import ui from './ui.js';
 import logger from './logger.js';
 
 const tagSelector = {
@@ -48,7 +46,6 @@ const tagSelector = {
                 this.eventListeners[eventName].forEach(callback => callback(data));
             }
         },
-
     },
 
     tagSelection: {
@@ -78,7 +75,6 @@ const tagSelector = {
             state.updateGameStateMultiple({ selectedTags: this.getSelectedTags() });
             collectionManager.updateFilterSummary();
             await tagSelector.dataManager.updateFilteredPairs();
-            //            logger.debug("Setting selected tags");
             // Trigger preloading of a new pair based on the selected tags
             preloader.pairPreloader.preloadNewPairWithTags(this.getSelectedTags(), state.getSelectedLevel(), state.getSelectedRanges() || []);
         },
@@ -91,9 +87,7 @@ const tagSelector = {
 
             // Trigger preloading of a random pair from all available pairs
             preloader.pairPreloader.preloadNewPairWithTags([], state.getSelectedLevel(), state.getSelectedRanges());
-
         },
-
     },
 
     uiManager: {

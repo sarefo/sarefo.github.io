@@ -13,4 +13,5 @@ const config = {
     useObservationImages: false, // switch between gallery and observation images
 };
 
+// no publicAPI needed here, only retrieve values
 export default config;

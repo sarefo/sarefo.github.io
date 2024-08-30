@@ -1,9 +1,7 @@
 import api from './api.js';
 import config from './config.js';
-import dialogManager from './dialogManager.js';
 import filtering from './filtering.js';
 import logger from './logger.js';
-import state from './state.js';
 
 const utils = {
     game: {
@@ -63,11 +61,6 @@ const utils = {
 
         sleep(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
-        },
-
-        // TODO move to config.js
-        getLoadingMessage() {
-            return config.loadingMessage;
         },
     },
 
