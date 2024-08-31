@@ -109,11 +109,18 @@ const roundPreloader = {
 };
 
 const pairPreloader = {
+    isCollectionSubsetInitialized: false,
+
     async preloadForNextPair() {
         if (preloader.isPreloading) return;
 
         preloader.isPreloading = true;
         try {
+            if (!this.isCollectionSubsetInitialized) {
+                await pairManager.initializeCollectionSubset();
+                this.isCollectionSubsetInitialized = true;
+            }
+
             const newPair = await gameLogic.selectRandomPairFromCurrentCollection();
             
             if (newPair) {

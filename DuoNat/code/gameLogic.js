@@ -227,7 +227,7 @@ const gameLogic = {
 
         async selectRandomPairFromCurrentCollection() {
             // First, try to get the next pair from the pairManager
-            const nextPair = await pairManager.getNextSet();
+            const nextPair = await pairManager.getNextPairFromCollection();
             
             if (nextPair) {
                 logger.debug(`Selected pair from pairManager: ${nextPair.taxonNames[0]} / ${nextPair.taxonNames[1]}`);

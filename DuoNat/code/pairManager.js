@@ -17,7 +17,7 @@ const pairManager = {
             if (preloadedPair && preloadedPair.pair && this.isPairValid(preloadedPair.pair)) {
                 return { pair: preloadedPair.pair, preloadedImages: preloadedPair };
             }
-            return { pair: await this.getNextSet(), preloadedImages: null };
+            return { pair: await this.getNextPairFromCollection(), preloadedImages: null };
         }
         return { pair: state.getCurrentTaxonImageCollection().pair, preloadedImages: null };
     },
@@ -28,21 +28,28 @@ const pairManager = {
     },
 
     async initializeCollectionSubset() {
-        logger.debug('Initializing collection subset');
-        const allPairs = await api.taxonomy.fetchTaxonPairs();
-        const filters = filtering.getActiveFilters();
-        this.allFilteredPairs = filtering.filterTaxonPairs(allPairs, filters);
-        
-        logger.debug(`Total filtered pairs in collection: ${this.allFilteredPairs.length}`);
-
-        const subsetSize = Math.min(42, this.allFilteredPairs.length);
-
-        // Filter out the last used pair when creating a new subset
-        const availablePairs = this.allFilteredPairs.filter(pair => pair.pairID !== this.lastUsedPairID);
-        this.currentCollectionSubset = this.getRandomSubset(availablePairs, subsetSize);
-
-        logger.debug(`Initialized new collection subset of pairs: ${this.currentCollectionSubset.length}`);
+        if (this.isInitializing) {
+            logger.debug('Collection subset initialization already in progress, skipping');
+            return;
+        }
         this.isInitialized = true;
+        logger.debug('Initializing collection subset');
+        try {
+            const allPairs = await api.taxonomy.fetchTaxonPairs();
+            const filters = filtering.getActiveFilters();
+            this.allFilteredPairs = filtering.filterTaxonPairs(allPairs, filters);
+            
+            logger.debug(`Total filtered pairs in collection: ${this.allFilteredPairs.length}`);
+
+            const subsetSize = Math.min(42, this.allFilteredPairs.length);
+
+            // Filter out the last used pair when creating a new subset
+            const availablePairs = this.allFilteredPairs.filter(pair => pair.pairID !== this.lastUsedPairID);
+            this.currentCollectionSubset = this.getRandomSubset(availablePairs, subsetSize);
+            logger.debug(`Initialized new collection subset of pairs: ${this.currentCollectionSubset.length}`);
+        } finally {
+            this.isInitializing = false;
+        }
     },
 
     getRandomSubset(array, size) {
@@ -51,7 +58,7 @@ const pairManager = {
         return shuffled.slice(0, size);
     },
 
-    async getNextSet() {
+    async getNextPairFromCollection() {
         if (!this.isInitialized || this.currentCollectionSubset.length === 0) {
             await this.initializeCollectionSubset();
         }
@@ -92,6 +99,7 @@ const pairManager = {
         this.isInitialized = false;
         this.usedPairIDs.clear();
         this.lastUsedPairID = null;
+        preloader.pairPreloader.isCollectionSubsetInitialized = false;
         await this.initializeCollectionSubset();
     },
 
@@ -115,7 +123,7 @@ Object.keys(pairManager).forEach(key => {
 const publicAPI = {
     initializeCollectionSubset: pairManager.initializeCollectionSubset.bind(pairManager),
     getNextPair: pairManager.getNextPair.bind(pairManager),
-    getNextSet: pairManager.getNextSet.bind(pairManager),
+    getNextPairFromCollection: pairManager.getNextPairFromCollection.bind(pairManager),
     refreshCollectionSubset: pairManager.refreshCollectionSubset.bind(pairManager),
     getPairByID: pairManager.getPairByID.bind(pairManager),
 };
