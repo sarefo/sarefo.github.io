@@ -8,6 +8,7 @@ import eventMain from './eventMain.js';
 import phylogenySelector from './phylogenySelector.js';
 import rangeSelector from './rangeSelector.js';
 import pairManager from './pairManager.js';
+import preloader from './preloader.js';
 import state from './state.js';
 import tagSelector from './tagSelector.js';
 import ui from './ui.js';
@@ -495,12 +496,23 @@ const collectionManager = {
     },
 
     eventHandlers: {
-        handleSelectPairDone() {
-            collectionManager.taxonList.updateTaxonList();
-            pairManager.refreshCollectionSubset();
+        async handleSelectPairDone() {
+            await collectionManager.taxonList.updateTaxonList();
+            await pairManager.refreshCollectionSubset();
             dialogManager.closeDialog('collection-dialog');
 
-            gameLogic.loadRandomPairFromCurrentCollection();
+            // Clear the preloaded pair
+            preloader.pairPreloader.clearPreloadedPair();
+
+            // Select a new pair that matches the current filters
+            const newPair = await gameLogic.selectRandomPairFromCurrentCollection();
+            if (newPair) {
+                state.setNextSelectedPair(newPair);
+                gameSetup.setupGame(true);
+            } else {
+                logger.warn("No pairs available in the current filtered collection");
+                ui.showOverlay("No pairs available for the current filters. Please adjust your selection.", config.overlayColors.red);
+            }
         },
 
         handleTaxonPairSelection(pair) {

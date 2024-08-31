@@ -111,6 +111,12 @@ const roundPreloader = {
 const pairPreloader = {
     isCollectionSubsetInitialized: false,
 
+    clearPreloadedPair() {
+        preloader.preloadedImages.nextPair = null;
+        logger.debug("Cleared preloaded pair");
+
+    },
+
     async preloadForNextPair() {
         if (preloader.isPreloading) return;
 
@@ -295,6 +301,7 @@ Object.keys(preloader).forEach(key => {
 const publicAPI = {
     startPreloading: preloader.startPreloading.bind(preloader),
     pairPreloader: {
+        clearPreloadedPair: preloader.pairPreloader.clearPreloadedPair,
         getPreloadedImagesForNextPair: preloader.pairPreloader.getPreloadedImagesForNextPair,
         hasPreloadedPair: preloader.pairPreloader.hasPreloadedPair,
         isPairValid: preloader.pairPreloader.isPairValid,
