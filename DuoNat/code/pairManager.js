@@ -8,6 +8,7 @@ const pairManager = {
     currentCollectionSubset: [],
     allFilteredPairs: [],
     usedPairIDs: new Set(),
+    lastUsedPairID: null,
     isInitialized: false,
 
     async getNextPair(isNewPair) {
@@ -34,17 +35,11 @@ const pairManager = {
         
         logger.debug(`Total filtered pairs in collection: ${this.allFilteredPairs.length}`);
 
-        const subsetSize = 42;
+        const subsetSize = Math.min(42, this.allFilteredPairs.length);
 
-        if (this.allFilteredPairs.length <= subsetSize) {
-            // For collections of 42 or fewer pairs, use all pairs
-            this.currentCollectionSubset = [...this.allFilteredPairs];
-        } else {
-            // For larger collections, randomly select 42 pairs
-            this.currentCollectionSubset = this.getRandomSubset(this.allFilteredPairs, subsetSize);
-        }
-
-        this.shuffleArray(this.currentCollectionSubset);
+        // Filter out the last used pair when creating a new subset
+        const availablePairs = this.allFilteredPairs.filter(pair => pair.pairID !== this.lastUsedPairID);
+        this.currentCollectionSubset = this.getRandomSubset(availablePairs, subsetSize);
 
         logger.debug(`Initialized new collection subset of pairs: ${this.currentCollectionSubset.length}`);
         this.isInitialized = true;
@@ -61,9 +56,24 @@ const pairManager = {
             await this.initializeCollectionSubset();
         }
 
-        const nextPair = this.currentCollectionSubset.pop();
+        let nextPair;
+        do {
+            if (this.currentCollectionSubset.length === 0) {
+                await this.initializeCollectionSubset();
+            }
+            nextPair = this.currentCollectionSubset.pop();
+        } while (nextPair && this.usedPairIDs.has(nextPair.pairID));
+
         if (nextPair) {
+            this.usedPairIDs.add(nextPair.pairID);
+            this.lastUsedPairID = nextPair.pairID;
             logger.debug(`Next pair: ${nextPair.pairID}, Remaining pairs in subset: ${this.currentCollectionSubset.length}, Total pairs in collection: ${this.allFilteredPairs.length}`);
+
+            // Reset usedPairIDs if all pairs have been used
+            if (this.usedPairIDs.size === this.allFilteredPairs.length) {
+                this.usedPairIDs.clear();
+                this.usedPairIDs.add(nextPair.pairID);  // Keep the current pair in usedPairIDs
+            }
         } else {
             logger.warn('No next pair available, this should not happen');
         }
@@ -81,6 +91,7 @@ const pairManager = {
     async refreshCollectionSubset() {
         this.isInitialized = false;
         this.usedPairIDs.clear();
+        this.lastUsedPairID = null;
         await this.initializeCollectionSubset();
     },
 
