@@ -32,20 +32,28 @@ const pairManager = {
         const filters = filtering.getActiveFilters();
         this.allFilteredPairs = filtering.filterTaxonPairs(allPairs, filters);
         
-        logger.debug(`Total filtered pairs: ${this.allFilteredPairs.length}`);
+        logger.debug(`Total filtered pairs in collection: ${this.allFilteredPairs.length}`);
 
-        // Reset usedPairIDs if all pairs have been used
-        if (this.usedPairIDs.size >= this.allFilteredPairs.length) {
-            this.usedPairIDs.clear();
-            logger.debug('Reset used pairs');
+        const subsetSize = 42;
+
+        if (this.allFilteredPairs.length <= subsetSize) {
+            // For collections of 42 or fewer pairs, use all pairs
+            this.currentCollectionSubset = [...this.allFilteredPairs];
+        } else {
+            // For larger collections, randomly select 42 pairs
+            this.currentCollectionSubset = this.getRandomSubset(this.allFilteredPairs, subsetSize);
         }
 
-        // Create a new collection subset with unused pairs
-        this.currentCollectionSubset = this.allFilteredPairs.filter(pair => !this.usedPairIDs.has(pair.pairID));
         this.shuffleArray(this.currentCollectionSubset);
 
         logger.debug(`Initialized new collection subset of pairs: ${this.currentCollectionSubset.length}`);
         this.isInitialized = true;
+    },
+
+    getRandomSubset(array, size) {
+        const shuffled = [...array];
+        this.shuffleArray(shuffled);
+        return shuffled.slice(0, size);
     },
 
     async getNextSet() {
@@ -53,18 +61,11 @@ const pairManager = {
             await this.initializeCollectionSubset();
         }
 
-        if (this.currentCollectionSubset.length === 0) {
-            logger.debug('All pairs have been used, resetting');
-            this.usedPairIDs.clear();
-            await this.initializeCollectionSubset();
-        }
-
         const nextPair = this.currentCollectionSubset.pop();
         if (nextPair) {
-            this.usedPairIDs.add(nextPair.pairID);
-            logger.debug(`Next pair: ${nextPair.pairID}, Remaining pairs: ${this.currentCollectionSubset.length}, Used pairs: ${this.usedPairIDs.size}, Total pairs: ${this.allFilteredPairs.length}`);
+            logger.debug(`Next pair: ${nextPair.pairID}, Remaining pairs in subset: ${this.currentCollectionSubset.length}, Total pairs in collection: ${this.allFilteredPairs.length}`);
         } else {
-            logger.warn('No next pair available');
+            logger.warn('No next pair available, this should not happen');
         }
 
         return nextPair;
