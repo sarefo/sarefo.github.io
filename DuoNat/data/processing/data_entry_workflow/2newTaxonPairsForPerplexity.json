@@ -1,0 +1,87 @@
+{
+  "19627": {
+    "taxonName": "Nyctidromus albicollis",
+    "vernacularName": "Common pauraque",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67573,
+      19376,
+      19626,
+      19627
+    ],
+    "rank": "Species",
+    "taxonFacts": [],
+    "range": []
+  },
+  "19577": {
+    "taxonName": "Chordeiles minor",
+    "vernacularName": "Common nighthawk",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67573,
+      19376,
+      19576,
+      19577
+    ],
+    "rank": "Species",
+    "taxonFacts": [],
+    "range": []
+  },
+  "199837": {
+    "taxonName": "Antrostomus vociferus",
+    "vernacularName": "Eastern whip-poor-will",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67573,
+      19376,
+      199908,
+      199837
+    ],
+    "rank": "Species",
+    "taxonFacts": [],
+    "range": []
+  },
+  "19410": {
+    "taxonName": "Caprimulgus europaeus",
+    "vernacularName": "Eurasian nightjar",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67573,
+      19376,
+      19377,
+      19410
+    ],
+    "rank": "Species",
+    "taxonFacts": [],
+    "range": []
+  },
+  "19667": {
+    "taxonName": "Nyctibius griseus",
+    "vernacularName": "Common potoo",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67573,
+      19664,
+      19665,
+      19667
+    ],
+    "rank": "Species",
+    "taxonFacts": [],
+    "range": []
+  }
+}

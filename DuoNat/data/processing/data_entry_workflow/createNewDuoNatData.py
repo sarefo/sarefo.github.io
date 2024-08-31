@@ -111,12 +111,12 @@ def process_taxa(input_file, new_taxon_file, perplexity_file, taxon_info_file):
     corrections = {}
 
     with open(input_file, 'r') as f:
-        taxon_sets = f.read().splitlines()
+        taxon_pairs = f.read().splitlines()
 
     # Create a unique list of taxa
-    for taxon_set in taxon_sets:
-        taxa_in_set = [taxon.strip() for taxon in taxon_set.split(',')]
-        unique_taxa.update(taxa_in_set)
+    for taxon_pair in taxon_pairs:
+        taxa_in_pair = [taxon.strip() for taxon in taxon_pair.split(',')]
+        unique_taxa.update(taxa_in_pair)
 
     print(f"Processing {len(unique_taxa)} unique taxa...")
     for taxon in unique_taxa:
@@ -205,32 +205,32 @@ def merge_perplexity_data(new_taxon_file, perplexity_file, output_file):
     save_data(new_taxon_info, output_file)
     print(f"Merged data saved to {output_file}")
 
-def create_taxon_sets(new_taxon_file, taxon_sets_file, new_sets_file, input_file, taxon_info_file):
-    clear_file(new_sets_file)
+def create_taxon_pairs(new_taxon_file, taxon_pairs_file, new_pairs_file, input_file, taxon_info_file):
+    clear_file(new_pairs_file)
     new_taxa = load_existing_data(new_taxon_file)
     existing_taxa = load_existing_data(taxon_info_file)
-    existing_sets = load_existing_data(taxon_sets_file)
-    new_sets = {}
+    existing_pairs = load_existing_data(taxon_pairs_file)
+    new_pairs = {}
 
-    # Find the last set ID
-    last_set_id = max([int(set_id) for set_id in existing_sets.keys()] + [0])
+    # Find the last pair ID
+    last_pair_id = max([int(pair_id) for pair_id in existing_pairs.keys()] + [0])
 
     with open(input_file, 'r') as f:
-        taxon_sets = f.read().splitlines()
+        taxon_pairs = f.read().splitlines()
 
-    for taxon_set in taxon_sets:
-        taxa_in_set = [taxon.strip() for taxon in taxon_set.split(',')]
+    for taxon_pair in taxon_pairs:
+        taxa_in_pair = [taxon.strip() for taxon in taxon_pair.split(',')]
         
-        # Check if the set contains exactly two taxa
-        if len(taxa_in_set) != 2:
-            print(f"WARNING: Skipping set with incorrect number of taxa: {taxon_set}")
+        # Check if the pair contains exactly two taxa
+        if len(taxa_in_pair) != 2:
+            print(f"WARNING: Skipping pair with incorrect number of taxa: {taxon_pair}")
             continue
 
         taxon_ids = []
         taxon_names = []
-        set_range = set()
+        pair_range = set()
 
-        for taxon in taxa_in_set:
+        for taxon in taxa_in_pair:
             taxon_id = next((id for id, info in new_taxa.items() if info['taxonName'] == taxon), None)
             if taxon_id is None:
                 taxon_id = next((id for id, info in existing_taxa.items() if info['taxonName'] == taxon), None)
@@ -242,82 +242,82 @@ def create_taxon_sets(new_taxon_file, taxon_sets_file, new_sets_file, input_file
                 # Get the taxon info from either new_taxa or existing_taxa
                 taxon_info = new_taxa.get(str(taxon_id)) or existing_taxa.get(str(taxon_id))
                 
-                # Initialize set_range with the first taxon's range
-                if not set_range:
-                    set_range = set(taxon_info['range'])
+                # Initialize pair_range with the first taxon's range
+                if not pair_range:
+                    pair_range = set(taxon_info['range'])
                 else:
-                    # Intersect the current set_range with the new taxon's range
-                    set_range = set_range.intersection(set(taxon_info['range']))
+                    # Intersect the current pair_range with the new taxon's range
+                    pair_range = pair_range.intersection(set(taxon_info['range']))
             else:
-                print(f"WARNING: Taxon '{taxon}' not found in new_taxa or existing_taxa. Skipping this set.")
+                print(f"WARNING: Taxon '{taxon}' not found in new_taxa or existing_taxa. Skipping this pair.")
                 break
 
-        if len(taxon_ids) == 2 and not is_duplicate_set(taxon_ids, existing_sets) and not is_duplicate_set(taxon_ids, new_sets):
-            new_set_id = str(last_set_id + 1)
-            last_set_id += 1
-            new_sets[new_set_id] = {
-                "setName": "",
+        if len(taxon_ids) == 2 and not is_duplicate_pair(taxon_ids, existing_pairs) and not is_duplicate_pair(taxon_ids, new_pairs):
+            new_pair_id = str(last_pair_id + 1)
+            last_pair_id += 1
+            new_pairs[new_pair_id] = {
+                "pairName": "",
                 "level": "0",
                 "tags": [],
                 "taxa": taxon_ids,
                 "taxonNames": taxon_names,
-                "range": list(set_range)  # Convert set back to list
+                "range": list(pair_range)  # Convert pair back to list
             }
         elif len(taxon_ids) != 2:
-            print(f"WARNING: Set {taxon_set} does not have exactly two valid taxa. Skipping.")
+            print(f"WARNING: Pair {taxon_pair} does not have exactly two valid taxa. Skipping.")
 
-    save_data(new_sets, new_sets_file)
-    print(f"New sets data written to {new_sets_file}")
-    print(f"Total new sets created: {len(new_sets)}")
+    save_data(new_pairs, new_pairs_file)
+    print(f"New pair data written to {new_pairs_file}")
+    print(f"Total new pairs created: {len(new_pairs)}")
 
-def is_duplicate_set(new_set, sets):
-    new_set = set(new_set)
-    for existing_set in sets.values():
-        if set(existing_set['taxa']) == new_set:
+def is_duplicate_pair(new_pair, pairs):
+    new_pair = set(new_pair)
+    for existing_pair in pairs.values():
+        if set(existing_pair['taxa']) == new_pair:
             return True
     return False
 
-def update_set_metadata(new_sets_file):
-    new_sets = load_existing_data(new_sets_file)
+def update_pair_metadata(new_pairs_file):
+    new_pairs = load_existing_data(new_pairs_file)
     
-    print("Updating metadata for new taxon sets...")
-    for set_id, set_data in new_sets.items():
-        print(f"\nSet {set_id}: {', '.join(set_data['taxonNames'])}")
+    print("Updating metadata for new taxon pairs...")
+    for pair_id, pair_data in new_pairs.items():
+        print(f"\nPair {pair_id}: {', '.join(pair_data['taxonNames'])}")
         
         # Update level
         while True:
             level = input("Enter level (1-3): ")
             if level.isdigit() and 1 <= int(level) <= 3:
-                set_data['level'] = level
+                pair_data['level'] = level
                 break
             else:
                 print("Invalid input. Please enter a number between 1 and 3.")
         
         # Update tags
         tags = input("Enter tags (comma-separated, or press Enter for no tags): ").strip()
-        set_data['tags'] = [tag.strip() for tag in tags.split(',')] if tags else []
+        pair_data['tags'] = [tag.strip() for tag in tags.split(',')] if tags else []
         
-        # Update set name
-        set_name = input("Enter a name for this set (or press Enter to skip): ").strip()
-        if set_name:
-            set_data['setName'] = set_name
+        # Update pair name
+        pair_name = input("Enter a name for this pair (or press Enter to skip): ").strip()
+        if pair_name:
+            pair_data['pairName'] = pair_name
     
-    save_data(new_sets, new_sets_file)
-    print(f"Updated metadata saved to {new_sets_file}")
+    save_data(new_pairs, new_pairs_file)
+    print(f"Updated metadata saved to {new_pairs_file}")
 
-def update_main_files_without_metadata(taxon_info_file, taxon_sets_file, new_taxon_file, new_sets_file):
+def update_main_files_without_metadata(taxon_info_file, taxon_pairs_file, new_taxon_file, new_pairs_file):
     # Backup old files
     shutil.copy(taxon_info_file, f"{taxon_info_file}.old")
-    shutil.copy(taxon_sets_file, f"{taxon_sets_file}.old")
+    shutil.copy(taxon_pairs_file, f"{taxon_pairs_file}.old")
     print("Old files backed up with .old extension.")
 
     # Load existing data
     taxon_info = load_existing_data(taxon_info_file)
-    taxon_sets = load_existing_data(taxon_sets_file)
+    taxon_pairs = load_existing_data(taxon_pairs_file)
 
     # Load new data
     new_taxon_info = load_existing_data(new_taxon_file)
-    new_taxon_sets = load_existing_data(new_sets_file)
+    new_taxon_pairs = load_existing_data(new_pairs_file)
 
     # Check and log new taxon info
     for taxon_id, taxon_data in new_taxon_info.items():
@@ -329,53 +329,53 @@ def update_main_files_without_metadata(taxon_info_file, taxon_sets_file, new_tax
     # Update taxon_info
     taxon_info.update(new_taxon_info)
     
-    # Check and log new taxon sets
-    for set_id, set_data in new_taxon_sets.items():
-        if 'taxonNames' not in set_data or not set_data['taxonNames']:
-            print(f"Warning: Missing or empty taxonNames for set ID {set_id}")
+    # Check and log new taxon pairs
+    for pair_id, pair_data in new_taxon_pairs.items():
+        if 'taxonNames' not in pair_data or not pair_data['taxonNames']:
+            print(f"Warning: Missing or empty taxonNames for pair ID {pair_id}")
         else:
-            print(f"Adding new set: {set_data['taxonNames']} (ID: {set_id})")
-        set_data['level'] = "0"  # Ensure level is set as a string
+            print(f"Adding new pair: {pair_data['taxonNames']} (ID: {pair_id})")
+        pair_data['level'] = "0"  # Ensure level is set as a string
 
-    # Update taxon_sets
-    taxon_sets.update(new_taxon_sets)
+    # Update taxon_pairs
+    taxon_pairs.update(new_taxon_pairs)
 
     # Save updated data
     save_data(taxon_info, taxon_info_file)
-    save_data(taxon_sets, taxon_sets_file)
-    print(f"Files {taxon_info_file} and {taxon_sets_file} updated with new data (level=0 for new sets).")
+    save_data(taxon_pairs, taxon_pairs_file)
+    print(f"Files {taxon_info_file} and {taxon_pairs_file} updated with new data (level=0 for new pairs).")
 
     # Print summary
     print(f"Total taxa in updated file: {len(taxon_info)}")
-    print(f"Total sets in updated file: {len(taxon_sets)}")
+    print(f"Total pairs in updated file: {len(taxon_pairs)}")
 
-def update_set_metadata_in_main_file(taxon_sets_file, taxon_info_file):
-    taxon_sets = load_existing_data(taxon_sets_file)
+def update_pair_metadata_in_main_file(taxon_pairs_file, taxon_info_file):
+    taxon_pairs = load_existing_data(taxon_pairs_file)
     taxon_info = load_existing_data(taxon_info_file)
     
-    print("Updating metadata for new taxon sets (level=0)...")
+    print("Updating metadata for new taxon pairs (level=0)...")
     last_tags = []  # Initialize last_tags as an empty list
     
-    for set_id, set_data in taxon_sets.items():
-        if set_data.get('level') == "0":
-            print(f"\nSet {set_id}: {', '.join(set_data['taxonNames'])}")
+    for pair_id, pair_data in taxon_pairs.items():
+        if pair_data.get('level') == "0":
+            print(f"\nPair {pair_id}: {', '.join(pair_data['taxonNames'])}")
             
             # Generate default name
-            taxon_a = taxon_info.get(str(set_data['taxa'][0]), {})
-            taxon_b = taxon_info.get(str(set_data['taxa'][1]), {})
+            taxon_a = taxon_info.get(str(pair_data['taxa'][0]), {})
+            taxon_b = taxon_info.get(str(pair_data['taxa'][1]), {})
             name_a = taxon_a.get('vernacularName', taxon_a.get('taxonName', 'Unknown'))
             name_b = taxon_b.get('vernacularName', taxon_b.get('taxonName', 'Unknown'))
             default_name = f"{name_a} vs {name_b}"
             
-            # Update set name
-            set_name = input(f"Enter a name for this set (press Enter to use '{default_name}'): ").strip()
-            set_data['setName'] = set_name if set_name else default_name
+            # Update pair name
+            pair_name = input(f"Enter a name for this pair (press Enter to use '{default_name}'): ").strip()
+            pair_data['pairName'] = pair_name if pair_name else default_name
             
             # Update level
             while True:
                 level = input("Enter level (1-3): ")
                 if level.isdigit() and 1 <= int(level) <= 3:
-                    set_data['level'] = level
+                    pair_data['level'] = level
                     break
                 else:
                     print("Invalid input. Please enter a number between 1 and 3.")
@@ -391,11 +391,11 @@ def update_set_metadata_in_main_file(taxon_sets_file, taxon_info_file):
             else:
                 new_tags = last_tags.copy()  # Use the default tags
             
-            set_data['tags'] = new_tags
+            pair_data['tags'] = new_tags
             last_tags = new_tags  # Update last_tags for the next iteration
     
-    save_data(taxon_sets, taxon_sets_file)
-    print(f"Updated metadata saved to {taxon_sets_file}")
+    save_data(taxon_pairs, taxon_pairs_file)
+    print(f"Updated metadata saved to {taxon_pairs_file}")
 
 def update_hierarchy(taxon_info_file, taxon_hierarchy_file):
     # Backup old file
@@ -468,14 +468,14 @@ def update_hierarchy(taxon_info_file, taxon_hierarchy_file):
     print(f"Updated hierarchy saved to {taxon_hierarchy_file}")
 
 def main():
-    input_file = "1newTaxonInputSets.txt"
-    new_taxon_file = "2newTaxonSetsForPerplexity.json"
+    input_file = "1newTaxonInputPairs.txt"
+    new_taxon_file = "2newTaxonPairsForPerplexity.json"
     perplexity_file = "3perplexityData.json"
     merged_taxon_file = "4newTaxonInfoWithPerplexity.json"
-    new_sets_file = "5newTaxonSets.json"
+    new_pairs_file = "5newTaxonPairs.json"
 
     taxon_info_file = "../../taxonInfo.json"
-    taxon_sets_file = "../../taxonSets.json"
+    taxon_pairs_file = "../../taxonPairs.json"
     taxon_hierarchy_file = "../../taxonHierarchy.json"
 
     last_action = 0
@@ -485,9 +485,9 @@ def main():
         options = [
             "Process taxa from input file",
             "Merge Perplexity data",
-            "Create taxon sets",
+            "Create taxon pairs",
             "Update main files without metadata",
-            "Update set metadata in main file",
+            "Update pair metadata in main file",
             "Update taxon hierarchy"
         ]
         
@@ -510,13 +510,13 @@ def main():
                 print(f"Error: {perplexity_file} not found. Please create it first.")
                 last_action = 1  # Recommend creating the Perplexity file
         elif choice == '3':
-            create_taxon_sets(merged_taxon_file, taxon_sets_file, new_sets_file, input_file, taxon_info_file)
+            create_taxon_pairs(merged_taxon_file, taxon_pairs_file, new_pairs_file, input_file, taxon_info_file)
             last_action = 3
         elif choice == '4':
-            update_main_files_without_metadata(taxon_info_file, taxon_sets_file, merged_taxon_file, new_sets_file)
+            update_main_files_without_metadata(taxon_info_file, taxon_pairs_file, merged_taxon_file, new_pairs_file)
             last_action = 4
         elif choice == '5':
-            update_set_metadata_in_main_file(taxon_sets_file, taxon_info_file)
+            update_pair_metadata_in_main_file(taxon_pairs_file, taxon_info_file)
             last_action = 5
         elif choice == '6':
             update_hierarchy(taxon_info_file, taxon_hierarchy_file)

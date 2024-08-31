@@ -1,7 +1,7 @@
 import api from './api.js';
 import gameLogic from './gameLogic.js';
 import logger from './logger.js';
-import setManager from './setManager.js';
+import pairManager from './pairManager.js';
 import state from './state.js';
 
 const imageLoader = {
@@ -234,17 +234,17 @@ const pairPreloader = {
         }
     },
 
-    async preloadSetByID(setID) {
+    async preloadPairByID(pairID) {
         try {
-            const nextPair = await setManager.getSetByID(setID);
+            const nextPair = await pairManager.getPairByID(pairID);
             if (nextPair) {
                 await this.preloadPairImages(nextPair);
-                logger.debug(`Preloaded set with ID ${setID}`);
+                logger.debug(`Preloaded pair with ID ${pairID}`);
             } else {
-                logger.warn(`Set with ID ${setID} not found for preloading`);
+                logger.warn(`Pair with ID ${pairID} not found for preloading`);
             }
         } catch (error) {
-            logger.error(`Error preloading set with ID ${setID}:`, error);
+            logger.error(`Error preloading pair with ID ${pairID}:`, error);
         }
     },
 };
@@ -292,7 +292,7 @@ const publicAPI = {
         hasPreloadedPair: preloader.pairPreloader.hasPreloadedPair,
         isPairValid: preloader.pairPreloader.isPairValid,
         preloadNewPairWithTags: preloader.pairPreloader.preloadNewPairWithTags,
-        preloadSetByID: preloader.pairPreloader.preloadSetByID,
+        preloadPairByID: preloader.pairPreloader.preloadPairByID,
         preloadForNextPair: preloader.pairPreloader.preloadForNextPair,
     },
     roundPreloader: {

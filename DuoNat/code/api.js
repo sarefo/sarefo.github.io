@@ -75,16 +75,16 @@ const api = (() => {
             // fetch from JSON file
             fetchTaxonPairs: async function () {
                 try {
-                    const response = await fetch('./data/taxonSets.json');
+                    const response = await fetch('./data/taxonPairs.json');
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
-                    const taxonSets = await response.json();
-                    return Object.entries(taxonSets).map(([setID, set]) => ({
-                        ...set,
-                        setID,
-                        taxon1: set.taxonNames[0],
-                        taxon2: set.taxonNames[1]
+                    const taxonPairs = await response.json();
+                    return Object.entries(taxonPairs).map(([pairID, pair]) => ({
+                        ...pair,
+                        pairID,
+                        taxon1: pair.taxonNames[0],
+                        taxon2: pair.taxonNames[1]
                     }));
                 } catch (error) {
                     handleApiError(error, 'fetchTaxonPairs');

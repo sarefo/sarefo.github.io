@@ -33,7 +33,7 @@ const eventUIButtons = {
         const menuActions = {
             'ancestry-button': ancestryDialog.showTaxaRelationship,
             'collection-button': collectionManager.openCollectionManagerDialog,
-            'enter-set-button': () => dialogManager.openDialog('enter-set-dialog'),
+            'enter-pair-button': () => dialogManager.openDialog('enter-pair-dialog'),
             'random-pair-button': gameLogic.loadNewRandomPair,
             'like-button': this.likePair.bind(this),
             'trash-button': this.trashPair.bind(this),

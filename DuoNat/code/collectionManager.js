@@ -7,7 +7,7 @@ import logger from './logger.js';
 import eventMain from './eventMain.js';
 import phylogenySelector from './phylogenySelector.js';
 import rangeSelector from './rangeSelector.js';
-import setManager from './setManager.js';
+import pairManager from './pairManager.js';
 import state from './state.js';
 import tagSelector from './tagSelector.js';
 import ui from './ui.js';
@@ -27,12 +27,12 @@ async function getCachedVernacularName(taxonName) {
 const collectionManager = {
     initialization: {
         initialize() {
-            this.initializeSelectSetDialog();
+            this.initializeSelectPairDialog();
             this.initializeFilterTagsButton();
             this.initializeFilterSummaryMap();
             this.initializeFilterSummaryTags();
             this.initializeClearFiltersButton();
-            this.initializeSelectSetDoneButton();
+            this.initializeSelectPairDoneButton();
             this.initializeLevelDropdown();
             this.initializePhylogenySelector();
 
@@ -53,9 +53,9 @@ const collectionManager = {
 
         },
 
-        initializeSelectSetDialog() {
-            const selectSetButton = document.getElementById('collection-button');
-            selectSetButton.addEventListener('click', () => collectionManager.ui.openCollectionManagerDialog());
+        initializeSelectPairDialog() {
+            const selectPairButton = document.getElementById('collection-button');
+            selectPairButton.addEventListener('click', () => collectionManager.ui.openCollectionManagerDialog());
         },
 
         initializeFilterSummaryMap() {
@@ -88,19 +88,19 @@ const collectionManager = {
             }
         },
 
-        initializeSelectSetDoneButton() {
-            const selectSetDoneButton = document.getElementById('collection-done-button');
-            if (selectSetDoneButton) {
-                selectSetDoneButton.addEventListener('click', collectionManager.eventHandlers.handleSelectSetDone);
+        initializeSelectPairDoneButton() {
+            const selectPairDoneButton = document.getElementById('collection-done-button');
+            if (selectPairDoneButton) {
+                selectPairDoneButton.addEventListener('click', collectionManager.eventHandlers.handleSelectPairDone);
             }
         },
 
-        setupSelectSetDialog() {
+        setupSelectPairDialog() {
             const playButton = document.getElementById('collection-done-button');
             if (playButton) {
                 playButton.addEventListener('click', (event) => {
                     event.preventDefault();
-                    collectionManager.eventHandlers.handleSelectSetDone();
+                    collectionManager.eventHandlers.handleSelectPairDone();
                 });
             } else {
                 logger.error('Play button not found in collection-dialog');
@@ -127,13 +127,13 @@ const collectionManager = {
             const searchTermLower = searchTerm.toLowerCase();
             return pairs.filter(pair => 
                 pair.taxonNames.some(name => name.toLowerCase().includes(searchTermLower)) ||
-                pair.setName.toLowerCase().includes(searchTermLower) ||
+                pair.pairName.toLowerCase().includes(searchTermLower) ||
                 pair.tags.some(tag => tag.toLowerCase().includes(searchTermLower)) ||
-                pair.setID.toString() === searchTerm
+                pair.pairID.toString() === searchTerm
             );
         },
 
-        async updateTaxonList(isInitialLoad = false, isSetIdSearch = false) {
+        async updateTaxonList(isInitialLoad = false, isPairIDSearch = false) {
             const filters = filtering.getActiveFilters();
             const searchTerm = state.getSearchTerm();
 
@@ -141,8 +141,8 @@ const collectionManager = {
                 const taxonPairs = await api.taxonomy.fetchTaxonPairs();
                 let filteredPairs;
 
-                if (isSetIdSearch) {
-                    filteredPairs = taxonPairs.filter(pair => pair.setID.toString() === searchTerm);
+                if (isPairIDSearch) {
+                    filteredPairs = taxonPairs.filter(pair => pair.pairID.toString() === searchTerm);
                 } else {
                     filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
                     filteredPairs = this.filterTaxonPairsBySearch(filteredPairs, searchTerm);
@@ -153,7 +153,7 @@ const collectionManager = {
                     const currentPair = this.getCurrentActivePair();
                     if (currentPair) {
                         // Remove the current pair from the filtered list if it exists
-                        filteredPairs = filteredPairs.filter(pair => pair.setID !== currentPair.setID);
+                        filteredPairs = filteredPairs.filter(pair => pair.pairID !== currentPair.pairID);
                         // Add the current pair to the beginning of the list
                         filteredPairs.unshift(currentPair);
                     }
@@ -172,7 +172,7 @@ const collectionManager = {
         },
 
         async renderTaxonList(pairs) {
-            const list = document.getElementById('taxon-set-list');
+            const list = document.getElementById('taxon-pair-list');
             if (list) {
                 list.innerHTML = '';
             }
@@ -181,7 +181,7 @@ const collectionManager = {
         },
 
         async renderVisibleTaxonPairs(pairs) {
-            const list = document.getElementById('taxon-set-list');
+            const list = document.getElementById('taxon-pair-list');
             if (!list) return;
 
             list.innerHTML = '';
@@ -207,7 +207,7 @@ const collectionManager = {
 
         async createTaxonPairButton(pair) {
             const button = document.createElement('button');
-            button.className = 'taxon-set-button';
+            button.className = 'taxon-pair-button';
 
             const vernacular1 = await getCachedVernacularName(pair.taxonNames[0]);
             const vernacular2 = await getCachedVernacularName(pair.taxonNames[1]);
@@ -220,11 +220,11 @@ const collectionManager = {
 
         createButtonHTML(pair, vernacular1, vernacular2) {
             return `
-                <div class="taxon-set-container">
-                    <div class="set-name-container">
-                        <div class="taxon-set__set-name">${pair.setName || 'Unnamed Set'}</div>
-                        <div class="taxon-set__level-chilis" aria-label="Skill level">${this.getChiliHtml(pair.level)}</div>
-                        <div class="taxon-set__tags">${pair.tags.join(', ')}</div>
+                <div class="taxon-pair-container">
+                    <div class="pair-name-container">
+                        <div class="taxon-pair__pair-name">${pair.pairName || 'Unnamed Pair'}</div>
+                        <div class="taxon-pair__level-chilis" aria-label="Skill level">${this.getChiliHtml(pair.level)}</div>
+                        <div class="taxon-pair__tags">${pair.tags.join(', ')}</div>
                     </div>
                     <div class="taxon-items">
                         ${this.createTaxonItemHTML(pair.taxonNames[0], vernacular1)}
@@ -247,11 +247,11 @@ const collectionManager = {
 
         getChiliHtml(level) {
             const chiliCount = parseInt(level) || 0;
-            return Array(chiliCount).fill('<svg class="icon taxon-set__icon-chili"><use href="./images/icons.svg#icon-spicy"/></svg>').join('');
+            return Array(chiliCount).fill('<svg class="icon taxon-pair__icon-chili"><use href="./images/icons.svg#icon-spicy"/></svg>').join('');
         },
 
         loadMorePairs: async function (pairs, startIndex) {
-            const list = document.getElementById('taxon-set-list');
+            const list = document.getElementById('taxon-pair-list');
             const nextPairs = pairs.slice(startIndex, startIndex + 20);
 
             for (const pair of nextPairs) {
@@ -296,8 +296,8 @@ const collectionManager = {
 
         getNoResultsMessageContent(hasActiveFilters) {
             return hasActiveFilters
-                ? 'No matching sets found.<br><span class="filter-warning">You have active filters. Try clearing some filters at the top of this dialog to see more results.</span>'
-                : 'No matching sets found.';
+                ? 'No matching pairs found.<br><span class="filter-warning">You have active filters. Try clearing some filters at the top of this dialog to see more results.</span>'
+                : 'No matching pairs found.';
         },
 
         async populateListWithPairs(list, pairs) {
@@ -325,9 +325,9 @@ const collectionManager = {
             const currentPair = state.getCurrentTaxonImageCollection()?.pair;
             return currentPair ? {
                 taxonNames: [currentPair.taxon1, currentPair.taxon2],
-                setName: currentPair.setName,
+                pairName: currentPair.pairName,
                 tags: currentPair.tags,
-                setID: currentPair.setID,
+                pairID: currentPair.pairID,
                 level: currentPair.level
             } : null;
         },
@@ -406,7 +406,7 @@ const collectionManager = {
             const levelDropdown = document.getElementById('level-filter-dropdown');
             if (levelDropdown) {
                 const activeFilters = filtering.getActiveFilters();
-                const counts = await filtering.countSetsPerLevel(activeFilters);
+                const counts = await filtering.countPairsPerLevel(activeFilters);
                 const totalCount = counts['1'] + counts['2'] + counts['3'];
                 const selectedLevel = state.getSelectedLevel();
                 
@@ -441,7 +441,7 @@ const collectionManager = {
             const levelDropdown = document.getElementById('level-filter-dropdown');
             if (levelDropdown) {
                 const activeFilters = filtering.getActiveFilters();
-                const counts = await filtering.countSetsPerLevel(activeFilters);
+                const counts = await filtering.countPairsPerLevel(activeFilters);
                 const totalCount = counts['1'] + counts['2'] + counts['3'];
                 const selectedLevel = state.getSelectedLevel();
                 
@@ -495,9 +495,9 @@ const collectionManager = {
     },
 
     eventHandlers: {
-        handleSelectSetDone() {
+        handleSelectPairDone() {
             collectionManager.taxonList.updateTaxonList();
-            setManager.refreshSubset();
+            pairManager.refreshSubset();
             dialogManager.closeDialog('collection-dialog');
 
             gameLogic.loadRandomPairFromCurrentCollection();
@@ -507,9 +507,9 @@ const collectionManager = {
             const selectedPair = {
                 taxon1: pair.taxonNames[0],
                 taxon2: pair.taxonNames[1],
-                setName: pair.setName,
+                pairName: pair.pairName,
                 tags: [...pair.tags],
-                setID: pair.setID,
+                pairID: pair.pairID,
                 level: pair.level
             };
             state.setNextSelectedPair(selectedPair);
@@ -524,7 +524,7 @@ const collectionManager = {
 const publicAPI = {
     initialize: collectionManager.initialization.initialize.bind(collectionManager.initialization),
 
-    setupSelectSetDialog: collectionManager.initialization.setupSelectSetDialog.bind(collectionManager.initialization),
+    setupSelectPairDialog: collectionManager.initialization.setupSelectPairDialog.bind(collectionManager.initialization),
 
     updateTaxonList: collectionManager.taxonList.updateTaxonList.bind(collectionManager.taxonList),
     onFiltersChanged: collectionManager.taxonList.updateTaxonList.bind(collectionManager.taxonList),

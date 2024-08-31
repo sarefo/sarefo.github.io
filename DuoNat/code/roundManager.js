@@ -5,7 +5,7 @@ import gameLogic from './gameLogic.js';
 import hintSystem from './hintSystem.js';
 import logger from './logger.js';
 import preloader from './preloader.js';
-import setManager from './setManager.js';
+import pairManager from './pairManager.js';
 import state from './state.js';
 import ui from './ui.js';
 import utils from './utils.js';
@@ -35,20 +35,29 @@ const roundManager = {
     },
 
     async getPairData(isNewPair) {
-        const pairData = await setManager.getNextPair(isNewPair);
-        logger.debug(`Got pair: ${JSON.stringify(pairData.pair)}`);
+        const pairData = await pairManager.getNextPair(isNewPair);
+        
+        if (!pairData || !pairData.pair) {
+            logger.error('Invalid pairData structure received from pairManager.getNextPair');
+            throw new Error('Invalid pairData: missing pair property');
+        }
+        
         return pairData;
     },
 
     async getAndProcessImages(pairData, isNewPair) {
+        if (!pairData) {
+            logger.error('Invalid pairData received in getAndProcessImages');
+            throw new Error('Invalid pairData: pairData is undefined');
+        }
+
         const images = await this.getImages(pairData, isNewPair);
-        logger.debug(`Got images: ${JSON.stringify(images)}`);
         return this.randomizeImages(images, pairData.pair);
     },
 
     randomizeImages(images, pair) {
         const randomized = Math.random() < 0.5;
-        logger.debug(`Image randomization: ${randomized ? "swapped" : "not swapped"}`);
+        //logger.debug(`Image randomization: ${randomized ? "swapped" : "not swapped"}`);
 
         return {
             leftImageSrc: randomized ? images.taxon2 : images.taxon1,
@@ -117,12 +126,12 @@ const roundManager = {
 
     async selectRandomPair() {
         const filters = filtering.getActiveFilters();
-        const taxonSets = await api.taxonomy.fetchTaxonPairs();
-        const filteredSets = filtering.filterTaxonPairs(taxonSets, filters);
-        if (filteredSets.length === 0) {
+        const taxonPairs = await api.taxonomy.fetchTaxonPairs();
+        const filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
+        if (filteredPairs.length === 0) {
             throw new Error("No pairs available in the current collection");
         }
-        return filteredSets[Math.floor(Math.random() * filteredSets.length)];
+        return filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
     },
 
     isPairValidForFilters(pair, filters) {
@@ -130,6 +139,10 @@ const roundManager = {
     },
 
     async getImages(pairData, isNewPair) {
+        if (!pairData || !pairData.pair) {
+            logger.error('Invalid pairData received in getImages');
+            throw new Error('Invalid pairData: pair is undefined');
+        }
         const { pair, preloadedImages } = pairData;
         if (isNewPair && preloadedImages) {
             logger.debug(`Using preloaded images for pair: ${pair.taxon1} / ${pair.taxon2}`);

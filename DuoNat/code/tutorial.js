@@ -59,16 +59,16 @@ const tutorial = {
                     duration: 5000,
                     action: () => this.animateDragDemo()
                 },
-                { message: "If correct, play another round of the same set.", highlight: null, duration: 4000 },
+                { message: "If correct, play another round of the same pair.", highlight: null, duration: 4000 },
                 {
-                    message: "Swipe left on an image for a new taxon set.",
+                    message: "Swipe left on an image for a new taxon pair.",
                     highlight: null,
                     action: () => { this.tiltGameContainer(3200); },
                     duration: 6000
                 },
                 { message: "Get more info about a taxon.", highlights: ['#info-button-1', '#info-button-2'], duration: 6000 },
                 { message: "Get hints to distinguish taxa.", highlights: ['#hint-button-1', '#hint-button-2'], duration: 6000 },
-                { message: "Share the current set and collection.", highlight: '#share-button', duration: 6000 },
+                { message: "Share the current pair and collection.", highlight: '#share-button', duration: 6000 },
                 { message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => this.temporarilyOpenMenu(12000), duration: 6000 },
                 { message: "Change difficulty, browse or filter.", highlights: ['#level-indicator', '#collection-button'], duration: 5000 },
                 { message: "Ready to start?<br>Let's go!", highlight: null, duration: 2000 }

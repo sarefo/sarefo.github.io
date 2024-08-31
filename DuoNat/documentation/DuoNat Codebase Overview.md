@@ -8,7 +8,7 @@ The DuoNat project is primarily written in JavaScript, with HTML and CSS for the
 - `html/dialogs/*`: The HTML files for the app's dialogs. 
 - `code/`: Contains most of the JavaScript modules.
 - `styles/`: Contains CSS files for styling the application.
-- `data/`: Contains JSON files with taxon information and sets.
+- `data/`: Contains JSON files with taxon information and pairs.
 - `images/`: Likely contains image assets used in the application.
 
 ## Key JavaScript Modules
@@ -36,7 +36,7 @@ The DuoNat project is primarily written in JavaScript, with HTML and CSS for the
 ### Component-Specific Modules
 
 + `collectionManager.js` : Handles the collection manager dialog and its components.
-+ `enterSet.js`: Code for the 'Enter new set' dialog.
++ `enterPair.js`: Code for the 'Enter new pair' dialog.
 + `infoDialog.js` : Handles the info dialog and its components.
 + `tagSelector.js`: Manages the tag cloud feature.
 + `rangeSelector.js`: Handles geographical range selection.
@@ -50,7 +50,7 @@ The DuoNat project is primarily written in JavaScript, with HTML and CSS for the
 
 + `api.js`: Handles API calls to iNaturalist and local data fetching.
 + `preloader.js`: Manages preloading of images and data.
-+ `setManager.js`: Manages taxon sets and their selection.
++ `pairManager.js`: Manages taxon pairs and their selection.
 + `taxonomyHierarchy.js`: class with hierarchy of game's taxonomic content
 
 ### Utilities and Helpers
@@ -90,18 +90,18 @@ The CSS is organized into several files:
 ## Data Files
 
 1. `taxonInfo.json`: Contains detailed information about individual taxa.
-2. `taxonSets.json`: Defines sets of taxa used in the game.
+2. `taxonPair.json`: Defines pairs of taxa used in the game.
 3. `taxonHierarchy.json`: Represents the taxonomic hierarchy of species.
 
 ## Key Features and Concepts
 
-1. Taxon pair/set system for quiz gameplay.
+1. Taxon pair system for quiz gameplay.
 2. Drag-and-drop interface for answering questions.
 3. Dynamic loading and preloading of taxon information and images.
 4. Integration with iNaturalist API for taxon data.
 5. Visualization of taxonomic relationships.
 6. Geographical filtering using world map selection.
-7. Tag-based filtering of taxon sets.
+7. Tag-based filtering of taxon pairs.
 8. Responsive design for various device sizes.
 
 ## Coding Best Practices

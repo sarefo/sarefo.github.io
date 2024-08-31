@@ -203,8 +203,8 @@ const reporting = {
             const pair = currentTaxonImageCollection.pair;
             info += `Taxon 1: ${pair.taxon1}\n`;
             info += `Taxon 2: ${pair.taxon2}\n`;
-            info += `Set Name: ${pair.setName || 'N/A'}\n`;
-            info += `Set ID: ${pair.setID || 'N/A'}\n`;
+            info += `Pair Name: ${pair.pairName || 'N/A'}\n`;
+            info += `Pair ID: ${pair.pairID || 'N/A'}\n`;
             info += `Level: ${pair.level || 'N/A'}\n`;
         } else {
             info += "Current taxon pair information not available\n";

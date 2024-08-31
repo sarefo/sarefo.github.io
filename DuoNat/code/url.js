@@ -10,7 +10,7 @@ const url = {
             const params = new URLSearchParams(window.location.search);
             return {
                 level: params.get('level'),
-                setID: params.get('setID'),
+                pairID: params.get('pairID'),
                 taxon1: params.get('taxon1'),
                 taxon2: params.get('taxon2'),
                 ranges: params.get('ranges'),
@@ -41,7 +41,7 @@ const url = {
             }
 
             // Handle other parameters
-            if (params.setID) state.setCurrentSetID(params.setID);
+            if (params.pairID) state.setCurrentPairID(params.pairID);
             if (params.ranges) state.setSelectedRanges(params.ranges.split(','));
             if (params.tags) state.setSelectedTags(params.tags.split(','));
             if (params.phylogenyID) state.setPhylogenyId(params.phylogenyID);
@@ -51,7 +51,7 @@ const url = {
         createFilters(params) {
             return {
                 level: state.getSelectedLevel(),
-                setID: params.setID,
+                pairID: params.pairID,
                 /*taxon1: params.taxon1,
                 taxon2: params.taxon2,*/
                 ranges: state.getSelectedRanges(),
@@ -68,8 +68,8 @@ const url = {
             let currentTaxonImageCollection = state.getCurrentTaxonImageCollection();
 
             if (currentTaxonImageCollection && currentTaxonImageCollection.pair) {
-                const { setID, taxon1, taxon2 } = currentTaxonImageCollection.pair;
-                if (setID) currentUrl.searchParams.set('setID', setID);
+                const { pairID, taxon1, taxon2 } = currentTaxonImageCollection.pair;
+                if (pairID) currentUrl.searchParams.set('pairID', pairID);
                 currentUrl.searchParams.set('taxon1', taxon1);
                 currentUrl.searchParams.set('taxon2', taxon2);
             }

@@ -63,9 +63,9 @@ const searchHandler = {
     },
 
     resetScrollPosition() {
-        const taxonSetList = document.getElementById('taxon-set-list');
-        if (taxonSetList) {
-            taxonSetList.scrollTop = 0;
+        const taxonPairList = document.getElementById('taxon-pair-list');
+        if (taxonPairList) {
+            taxonPairList.scrollTop = 0;
         }
     },
 
@@ -89,10 +89,10 @@ const searchHandler = {
             pair.taxonNames[1].toLowerCase().includes(searchTermLower);
         const matchesVernacular = (vernacular1 && vernacular1.toLowerCase().includes(searchTermLower)) ||
             (vernacular2 && vernacular2.toLowerCase().includes(searchTermLower));
-        const matchesSetName = pair.setName.toLowerCase().includes(searchTermLower);
+        const matchesPairName = pair.pairName.toLowerCase().includes(searchTermLower);
         const matchesTags = pair.tags.some(tag => tag.toLowerCase().includes(searchTermLower));
 
-        return matchesTaxon || matchesVernacular || matchesSetName || matchesTags;
+        return matchesTaxon || matchesVernacular || matchesPairName || matchesTags;
     },
 
     updateUI(filteredPairs) {
@@ -115,9 +115,9 @@ const searchHandler = {
     handleSearchKeydown(event) {
         if (event.key === 'Enter') {
             event.preventDefault();
-            const firstTaxonSetButton = document.querySelector('.taxon-set-button');
-            if (firstTaxonSetButton) {
-                firstTaxonSetButton.click();
+            const firstTaxonPairButton = document.querySelector('.taxon-pair-button');
+            if (firstTaxonPairButton) {
+                firstTaxonPairButton.click();
                 setTimeout(() => {
                     dialogManager.closeDialog('collection-dialog');
                 }, 100);
@@ -144,10 +144,10 @@ const searchHandler = {
         }
     },
 
-    openFirstTaxonSet() {
-        const firstTaxonSetButton = document.querySelector('.taxon-set-button');
-        if (firstTaxonSetButton) {
-            firstTaxonSetButton.click();
+    openFirstTaxonPair() {
+        const firstTaxonPairButton = document.querySelector('.taxon-pair-button');
+        if (firstTaxonPairButton) {
+            firstTaxonPairButton.click();
         }
     },
 

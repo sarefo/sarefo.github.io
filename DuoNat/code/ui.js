@@ -92,9 +92,9 @@ const ui = {
         },
     
         createDialogOverlay(dialogElement) {
-            const taxonSetList = dialogElement.querySelector('#taxon-set-list');
-            if (!taxonSetList) {
-                logger.error('Taxon set list not found in the dialog');
+            const taxonPairList = dialogElement.querySelector('#taxon-pair-list');
+            if (!taxonPairList) {
+                logger.error('Taxon pair list not found in the dialog');
                 return;
             }
 
@@ -103,24 +103,24 @@ const ui = {
             overlay.className = 'dialog-tutorial-overlay';
             overlay.innerHTML = '<div class="dialog-tutorial-overlay__message"></div>';
             
-            // Insert the overlay as a sibling of the taxon set list
-            taxonSetList.parentNode.insertBefore(overlay, taxonSetList.nextSibling);
+            // Insert the overlay as a sibling of the taxon pair list
+            taxonPairList.parentNode.insertBefore(overlay, taxonPairList.nextSibling);
 
             // Position the overlay
             this.positionOverlay(overlay, dialogElement);
 
-            // Add a mutation observer to reposition the overlay when the taxon set list changes
+            // Add a mutation observer to reposition the overlay when the taxon pair list changes
             const observer = new MutationObserver(() => this.positionOverlay(overlay, dialogElement));
-            observer.observe(taxonSetList, { childList: true, subtree: true });
+            observer.observe(taxonPairList, { childList: true, subtree: true });
 
             // Store the observer in the overlay element for later cleanup
             overlay.mutationObserver = observer;
         },
 
         positionOverlay(overlay, dialogElement) {
-            const firstTaxonButton = dialogElement.querySelector('.taxon-set-button');
+            const firstTaxonButton = dialogElement.querySelector('.taxon-pair-button');
             if (!firstTaxonButton) {
-                logger.error('No taxon set button found');
+                logger.error('No taxon pair button found');
                 return;
             }
 

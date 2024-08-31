@@ -4,10 +4,10 @@ import gameSetup from './gameSetup.js';
 import logger from './logger.js';
 import state from './state.js';
 
-const enterSet = {
+const enterPair = {
 
         initialize() {
-            const dialog = document.getElementById('enter-set-dialog');
+            const dialog = document.getElementById('enter-pair-dialog');
             const form = dialog.querySelector('form');
             const taxon1Input = document.getElementById('taxon1');
             const taxon2Input = document.getElementById('taxon2');
@@ -15,14 +15,14 @@ const enterSet = {
             const dialogMessage = document.getElementById('dialog-message');
 
             if (!form || !taxon1Input || !taxon2Input || !submitButton || !dialogMessage) {
-                logger.error('One or more elements not found in Enter Set Dialog');
+                logger.error('One or more elements not found in Enter Pair Dialog');
                 return;
             }
 
             form.addEventListener('submit', async (event) => {
                 logger.debug('Form submitted');
                 event.preventDefault();
-                await this.handleEnterSetSubmit(taxon1Input.value, taxon2Input.value, dialogMessage, submitButton);
+                await this.handleEnterPairSubmit(taxon1Input.value, taxon2Input.value, dialogMessage, submitButton);
             });
 
             [taxon1Input, taxon2Input].forEach(input => {
@@ -161,16 +161,16 @@ const enterSet = {
     },
 
     processValidTaxa(validatedTaxon1, validatedTaxon2) {
-        const newSet = {
+        const newPair = {
             taxon1: validatedTaxon1.name,
             taxon2: validatedTaxon2.name,
             vernacular1: validatedTaxon1.preferred_common_name || '',
             vernacular2: validatedTaxon2.preferred_common_name || ''
         };
 
-        logger.debug('New set created:', newSet);
-        state.setNextSelectedPair(newSet);
-        dialogManager.closeDialog('enter-set-dialog');
+        logger.debug('New pair created:', newPair);
+        state.setNextSelectedPair(newPair);
+        dialogManager.closeDialog('enter-pair-dialog');
         gameSetup.setupGame(true);
     },
 
@@ -185,21 +185,21 @@ const enterSet = {
     },
 };
 
-// Bind all methods in enterSet
-Object.keys(enterSet).forEach(key => {
-    if (typeof enterSet[key] === 'function') {
-        enterSet[key] = enterSet[key].bind(enterSet);
+// Bind all methods in enterPair
+Object.keys(enterPair).forEach(key => {
+    if (typeof enterPair[key] === 'function') {
+        enterPair[key] = enterPair[key].bind(enterPair);
     }
 });
 
 const publicAPI = {
-    initialize: enterSet.initialize,
+    initialize: enterPair.initialize,
 };
 
 // Bind publicAPI methods
 Object.keys(publicAPI).forEach(key => {
     if (typeof publicAPI[key] === 'function') {
-        publicAPI[key] = publicAPI[key].bind(enterSet);
+        publicAPI[key] = publicAPI[key].bind(enterPair);
     }
 });
 

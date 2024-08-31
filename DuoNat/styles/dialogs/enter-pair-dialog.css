@@ -1,4 +1,4 @@
-.enter-set-dialog {
+.enter-pair-dialog {
     position: relative;
     border-radius: var(--border-radius);
     border: none;
@@ -8,13 +8,13 @@
     width: 80%;
 }
 
-.enter-set-dialog__form {
+.enter-pair-dialog__form {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-.enter-set-dialog__label {
+.enter-pair-dialog__label {
     display: inline-block;
     width: 80px;
     text-align: right;
@@ -25,7 +25,7 @@
     color: var(--counter-text-color);
 }
 
-.enter-set-dialog__input {
+.enter-pair-dialog__input {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
@@ -34,7 +34,7 @@
     color: var(--counter-text-color);
 }
 
-.enter-set-dialog__message {
+.enter-pair-dialog__message {
     color: var(--counter-text-color);
     font-style: italic;
     margin-top: 10px;

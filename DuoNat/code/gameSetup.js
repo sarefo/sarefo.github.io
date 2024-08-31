@@ -7,7 +7,7 @@ import hintSystem from './hintSystem.js';
 import logger from './logger.js';
 import preloader from './preloader.js';
 import roundManager from './roundManager.js';
-import setManager from './setManager.js';
+import pairManager from './pairManager.js';
 import state from './state.js';
 import ui from './ui.js';
 import url from './url.js';
@@ -87,9 +87,9 @@ const gameSetup = {
         },
 
         findPairByUrlParams(filteredPairs) {
-            const setID = state.getCurrentSetID();
-            if (setID) {
-                return this.findPairBySetID(filteredPairs, setID);
+            const pairID = state.getCurrentPairID();
+            if (pairID) {
+                return this.findPairByPairID(filteredPairs, pairID);
             } else {
                 const urlParams = url.getUrlParameters();
                 if (urlParams.taxon1 && urlParams.taxon2) { // not saved in gameState atm
@@ -99,12 +99,12 @@ const gameSetup = {
             return null;
         },
 
-        findPairBySetID(filteredPairs, setID) {
-            const pair = filteredPairs.find(pair => pair.setID === setID);
+        findPairByPairID(filteredPairs, pairID) {
+            const pair = filteredPairs.find(pair => pair.pairID === pairID);
             if (pair) {
-                logger.debug(`Found pair with setID: ${setID}`);
+                logger.debug(`Found pair with pairID: ${pairID}`);
             } else {
-                logger.warn(`SetID ${setID} not found in filtered collection. Selecting random pair.`);
+                logger.warn(`PairID ${pairID} not found in filtered collection. Selecting random pair.`);
             }
             return pair;
         },
@@ -124,8 +124,8 @@ const gameSetup = {
 
         async loadImagesForNewPair(newPair) {
             const preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
-            if (preloadedImages && preloadedImages.pair.setID === newPair.setID) {
-                logger.debug(`Using preloaded images for set ID ${newPair.setID}`);
+            if (preloadedImages && preloadedImages.pair.pairID === newPair.pairID) {
+                logger.debug(`Using preloaded images for pair ID ${newPair.pairID}`);
                 return preloadedImages;
             }
             return {
@@ -147,7 +147,7 @@ const gameSetup = {
                     taxon2: new Set([images.taxon2]),
                 },
             });
-            state.setCurrentSetID(newPair.setID || state.getCurrentSetID());
+            state.setCurrentPairID(newPair.pairID || state.getCurrentPairID());
             ui.updateLevelIndicator(newPair.level || '1');
         },
 
@@ -309,7 +309,7 @@ const gameSetup = {
             state.setState(state.GameState.PLAYING);
 
             if (newPair) {
-                await setManager.refreshSubset();
+                await pairManager.refreshSubset();
             }
 
             if (state.getIsInitialLoad()) {
@@ -319,12 +319,9 @@ const gameSetup = {
             ui.resetUIState();
             state.setState(state.GameState.PLAYING);
             preloader.startPreloading(newPair);
-            /*await ui.showOverlay("Drag the names!", config.overlayColors.green);
-            await utils.ui.sleep(1500);
-            ui.hideOverlay();*/
 
             // Initialize the subset after the game has loaded
-            setManager.initializeSubset().catch(error => {
+            pairManager.initializeSubset().catch(error => {
                 logger.error("Error initializing subset:", error);
             });
         },
@@ -400,9 +397,9 @@ const gameSetup = {
     },
 
     taxonHandling: {
-        async getPairBySetID(setID) {
+        async getPairByPairID(pairID) {
             const taxonPairs = await api.taxonomy.fetchTaxonPairs();
-            return taxonPairs.find(pair => pair.setID === setID);
+            return taxonPairs.find(pair => pair.pairID === pairID);
         },
 
         async getContinentForTaxon(taxon) {

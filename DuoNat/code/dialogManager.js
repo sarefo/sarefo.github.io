@@ -1,6 +1,6 @@
 import api from './api.js';
 import collectionManager from './collectionManager.js';
-import enterSet from './enterSet.js';
+import enterPair from './enterPair.js';
 import gameSetup from './gameSetup.js';
 import infoDialog from './infoDialog.js';
 import logger from './logger.js';
@@ -19,7 +19,7 @@ const dialogManager = {
         'ancestry-dialog',
         'ancestry-popup',
         'collection-dialog',
-        'enter-set-dialog',
+        'enter-pair-dialog',
         'help-dialog',
         'inat-down-dialog',
         'info-dialog',
@@ -55,7 +55,7 @@ const dialogManager = {
             phylogenySelector.initialize();
             reporting.initialize();
             testingDialog.initialize();
-            enterSet.initialize();
+            enterPair.initialize();
 
             this.initializeHelpDialog();
 
@@ -194,7 +194,7 @@ const dialogManager = {
             }
 
             if (dialogId === 'collection-dialog') {
-                collectionManager.setupSelectSetDialog();
+                collectionManager.setupSelectPairDialog();
             }
 
             if (dialogId === 'report-dialog') {
@@ -281,7 +281,7 @@ const dialogManager = {
 
 
         disableMainEventHandlers() {
-            const mainElements = ['#random-pair-button', '#collection-button', '#enter-set-button', '#share-button', '#help-button'];
+            const mainElements = ['#random-pair-button', '#collection-button', '#enter-pair-button', '#share-button', '#help-button'];
             mainElements.forEach(selector => {
                 const element = document.querySelector(selector);
                 if (element) {

@@ -6,7 +6,7 @@ import gameSetup from './gameSetup.js';
 import logger from './logger.js';
 import preloader from './preloader.js';
 import roundManager from './roundManager.js';
-import setManager from './setManager.js';
+import pairManager from './pairManager.js';
 import state from './state.js';
 import ui from './ui.js';
 import utils from './utils.js';
@@ -216,7 +216,7 @@ const gameLogic = {
             if (!searchTerm) return true;
             const lowercaseSearch = searchTerm.toLowerCase();
             return (pair.taxonNames && pair.taxonNames.some(name => name.toLowerCase().includes(lowercaseSearch))) ||
-                (pair.setName && pair.setName.toLowerCase().includes(lowercaseSearch)) ||
+                (pair.pairName && pair.pairName.toLowerCase().includes(lowercaseSearch)) ||
                 (pair.tags && pair.tags.some(tag => tag.toLowerCase().includes(lowercaseSearch)));
         },
 
@@ -226,49 +226,49 @@ const gameLogic = {
         },
 
         async selectRandomPairFromCurrentCollection() {
-            // First, try to get the next set from the setManager
-            const nextSet = await setManager.getNextSet();
+            // First, try to get the next pair from the pairManager
+            const nextPair = await pairManager.getNextSet();
             
-            if (nextSet) {
-                logger.debug(`Selected pair from setManager: ${nextSet.taxonNames[0]} / ${nextSet.taxonNames[1]}`);
-                return nextSet;
+            if (nextPair) {
+                logger.debug(`Selected pair from pairManager: ${nextPair.taxonNames[0]} / ${nextPair.taxonNames[1]}`);
+                return nextPair;
             }
             
-            // If setManager doesn't return a set, fall back to the original method
-            logger.debug("No set available from setManager, falling back to original method");
+            // If pairManager doesn't return a pair, fall back to the original method
+            logger.debug("No pair available from pairManager, falling back to original method");
             const filters = filtering.getActiveFilters();
-            const taxonSets = await api.taxonomy.fetchTaxonPairs();
-            const filteredSets = filtering.filterTaxonPairs(taxonSets, filters);
+            const taxonPairs = await api.taxonomy.fetchTaxonPairs();
+            const filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
             
-            if (filteredSets.length === 0) {
+            if (filteredPairs.length === 0) {
                 throw new Error("No pairs available in the current collection");
             }
             
-            const randomIndex = Math.floor(Math.random() * filteredSets.length);
-            const selectedSet = filteredSets[randomIndex];
+            const randomIndex = Math.floor(Math.random() * filteredPairs.length);
+            const selectedPair = filteredPairs[randomIndex];
             
-            logger.debug(`Selected pair from fallback: ${selectedSet.taxonNames[0]} / ${selectedSet.taxonNames[1]}`);
+            logger.debug(`Selected pair from fallback: ${selectedPair.taxonNames[0]} / ${selectedPair.taxonNames[1]}`);
             
-            // Inform setManager about this selection
-            setManager.usedSetIDs.add(selectedSet.setID);
+            // Inform pairManager about this selection
+            pairManager.usedPairIDs.add(selectedPair.pairID);
             
-            return selectedSet;
+            return selectedPair;
         },
 
-        async loadSetByID(setID, clearFilters = false) {
+        async loadPairByID(pairID, clearFilters = false) {
             try {
                 if (clearFilters) {
                     this.clearAllFilters();
                 }
 
-                const newPair = await setManager.getSetByID(setID);
+                const newPair = await pairManager.getPairByID(pairID);
                 if (newPair) {
-                    await this.setupNewPair(newPair, setID);
+                    await this.setupNewPair(newPair, pairID);
                 } else {
-                    logger.warn(`Set with ID ${setID} not found.`);
+                    logger.warn(`Pair with ID ${pairID} not found.`);
                 }
             } catch (error) {
-                logger.error(`Error loading set with ID ${setID}:`, error);
+                logger.error(`Error loading pair with ID ${pairID}:`, error);
             }
         },
 
@@ -281,11 +281,11 @@ const gameLogic = {
             collectionManager.updateUIForClearedFilters();
         },
 
-        async setupNewPair(newPair, setID) {
+        async setupNewPair(newPair, pairID) {
             state.setNextSelectedPair(newPair);
             await gameSetup.setupGame(true);
-            const nextSetID = String(Number(setID) + 1);
-            preloader.pairPreloader.preloadSetByID(nextSetID);
+            const nextPairID = String(Number(pairID) + 1);
+            preloader.pairPreloader.preloadPairByID(nextPairID);
         },
     },
 
@@ -374,7 +374,7 @@ const publicAPI = {
     loadRandomPairFromCurrentCollection: gameLogic.collectionManagement.loadRandomPairFromCurrentCollection,
     selectRandomPairFromCurrentCollection: gameLogic.pairManagement.selectRandomPairFromCurrentCollection,
     loadNewRandomPair: gameLogic.pairManagement.loadNewRandomPair,
-    loadSetByID: gameLogic.pairManagement.loadSetByID,
+    loadPairByID: gameLogic.pairManagement.loadPairByID,
     loadNewPair: gameLogic.collectionManagement.loadNewPair,
     // Game
     checkAnswer: gameLogic.answerHandling.checkAnswer,

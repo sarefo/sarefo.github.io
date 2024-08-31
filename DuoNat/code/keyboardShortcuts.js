@@ -19,7 +19,7 @@ const keyboardShortcuts = {
     debouncedKeyboardHandler: null,
 
     initialize() {
-        this.initializeSelectSetDialogShortcuts();
+        this.initializeSelectPairDialogShortcuts();
         this.initializeKeyboardShortcutsButton();
         this.debouncedKeyboardHandler = utils.ui.debounce(
             this.handleKeyboardShortcuts.bind(this),
@@ -37,7 +37,7 @@ const keyboardShortcuts = {
             'arrowup': () => this.moveTileToDropZone('left', 'upper'),
             'arrowdown': () => this.moveTileToDropZone('left', 'lower'),
             'c': collectionManager.openCollectionManagerDialog,
-            'e': () => dialogManager.openDialog('enter-set-dialog'),
+            'e': () => dialogManager.openDialog('enter-pair-dialog'),
             'i': () => infoDialog.showInfoDialog(1),
             'o': () => infoDialog.showInfoDialog(2),
             'h': () => hintSystem.showHint(1),
@@ -48,7 +48,7 @@ const keyboardShortcuts = {
             'm': ui.toggleMainMenu,
             's': sharing.shareCurrentPair,
             't': testingDialog.openDialog,
-            '+': this.incrementSetID.bind(this),
+            '+': this.incrementPairID.bind(this),
             'x': () => document.getElementById('surprise-button').click()
         };
 
@@ -95,20 +95,20 @@ const keyboardShortcuts = {
         }
     },
 
-    incrementSetID() {
-        const currentSetID = state.getCurrentTaxonImageCollection()?.pair?.setID;
-        if (currentSetID) {
-            const nextSetID = String(Number(currentSetID) + 1);
-            gameLogic.loadSetByID(nextSetID, true);
+    incrementPairID() {
+        const currentPairID = state.getCurrentTaxonImageCollection()?.pair?.pairID;
+        if (currentPairID) {
+            const nextPairID = String(Number(currentPairID) + 1);
+            gameLogic.loadPairByID(nextPairID, true);
         }
     },
 
-    initializeSelectSetDialogShortcuts() {
+    initializeSelectPairDialogShortcuts() {
         const dialog = document.getElementById('collection-dialog');
-        dialog.addEventListener('keydown', this.handleSelectSetDialogKeydown.bind(this));
+        dialog.addEventListener('keydown', this.handleSelectPairDialogKeydown.bind(this));
     },
 
-    handleSelectSetDialogKeydown(event) {
+    handleSelectPairDialogKeydown(event) {
         if (event.altKey) {
             switch (event.key.toLowerCase()) {
                 case 't':

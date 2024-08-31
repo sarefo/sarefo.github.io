@@ -33,7 +33,7 @@ let gameState = {
     isInitialLoad: true,
 
     // Filters
-    currentSetID: null,
+    currentPairID: null,
     selectedLevel: '',
     selectedRanges: [],
     selectedTags: [],
@@ -176,7 +176,7 @@ const publicAPI = {
                 randomized,
             },
         });
-        this.setCurrentSetID(pair.setID || this.getCurrentSetID());
+        this.setCurrentPairID(pair.pairID || this.getCurrentPairID());
     },
 
     // Game State
@@ -260,9 +260,9 @@ const publicAPI = {
         updateGameState('searchTerm', searchTerm);
     },
 
-    getCurrentSetID: () => gameState.currentSetID,
-    setCurrentSetID: (id) => {
-        updateGameState('currentSetID', id);
+    getCurrentPairID: () => gameState.currentPairID,
+    setCurrentPairID: (id) => {
+        updateGameState('currentPairID', id);
     },
 
     getSelectedTags: () => [...gameState.selectedTags],
@@ -358,9 +358,9 @@ const publicAPI = {
         }
     },
 
-    getCurrentSetID: () => gameState.currentSetID,
-    setCurrentSetID: (id) => {
-        updateGameState('currentSetID', id);
+    getCurrentPairID: () => gameState.currentPairID,
+    setCurrentPairID: (id) => {
+        updateGameState('currentPairID', id);
     },
 
     getShowTaxonomicNames: () => gameState.showTaxonomicNames,
@@ -401,7 +401,7 @@ const publicAPI = {
         let info = '';
         if (gameState.currentTaxonImageCollection && gameState.currentTaxonImageCollection.pair) {
             const pair = gameState.currentTaxonImageCollection.pair;
-            info += `Current Set ID: ${pair.setID}\n`;
+            info += `Current Pair ID: ${pair.pairID}\n`;
             info += `Taxon 1: ${pair.taxon1}\n`;
             info += `Taxon 2: ${pair.taxon2}\n`;
         }

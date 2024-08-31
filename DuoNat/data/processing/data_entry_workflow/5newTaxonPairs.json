@@ -1,0 +1,51 @@
+{
+  "823": {
+    "setName": "",
+    "level": "0",
+    "tags": [],
+    "taxa": [
+      19577,
+      199837
+    ],
+    "taxonNames": [
+      "Chordeiles minor",
+      "Antrostomus vociferus"
+    ],
+    "range": [
+      "NA"
+    ]
+  },
+  "824": {
+    "setName": "",
+    "level": "0",
+    "tags": [],
+    "taxa": [
+      19410,
+      3931
+    ],
+    "taxonNames": [
+      "Caprimulgus europaeus",
+      "Scolopax rusticola"
+    ],
+    "range": [
+      "EU",
+      "AS"
+    ]
+  },
+  "825": {
+    "setName": "",
+    "level": "0",
+    "tags": [],
+    "taxa": [
+      19667,
+      19627
+    ],
+    "taxonNames": [
+      "Nyctibius griseus",
+      "Nyctidromus albicollis"
+    ],
+    "range": [
+      "SA"
+    ]
+  }
+}

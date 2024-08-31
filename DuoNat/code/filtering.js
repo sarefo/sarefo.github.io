@@ -117,7 +117,7 @@ const filtering = {
         return this.filterTaxonPairs([pair], activeFilters).length > 0;
     },
 
-    async countSetsPerLevel(filters) {
+    async countPairsPerLevel(filters) {
         const taxonPairs = await api.taxonomy.fetchTaxonPairs();
         
         // Create a copy of filters without the level
@@ -158,7 +158,7 @@ const publicAPI = {
     pairMatchesFilters: filtering.pairMatchesFilters,
     getAvailableTaxonIds: filtering.getAvailableTaxonIds,
     isDescendantOf: filtering.isDescendantOf,
-    countSetsPerLevel: filtering.countSetsPerLevel.bind(filtering),
+    countPairsPerLevel: filtering.countPairsPerLevel.bind(filtering),
 };
 
 // Bind publicAPI methods

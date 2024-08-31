@@ -10,17 +10,16 @@ The web app DuoNat has the following goals:
 
 The nomenclature for the game is like this:
 + the whole time from starting up the app to closing it is called a "session".
-+ it can have one or more "sets". each set consists of one or more "pairs". every pair consists of one or more "rounds". however, sets are not implemented and may never be, so for now "sets" and "pairs" are synonymous.
-+ the user can filter the complete list of available taxon sets. these filtered lists are called "collections".
-+ during a "set", the game uses the same taxon set throughout. a taxon set is an array of two or more taxa.
-+ during a "pair", the game uses the same taxon pair throughout. a taxon pair is selected from the current taxon set, and consists of exactly two of its taxa. currently, each set is exactly two taxa, so identical to a pair.
++ it can have one or more "pairs". every pair consists of one or more "rounds".
++ the user can filter the complete list of available taxon pairs. these filtered lists are called "collections".
++ during a "pair", the game uses the same taxon pair throughout. a taxon pair is an array of two taxa.
 + during a "round", a pair of images are displayed, for the currently active taxon pair. every round, there will be two different images for that same taxon pair. The user needs to guess which image belongs to which taxon.
 
-A pair can get its two taxa either randomly from a list of taxon sets (in taxonSets.json), or defined by the user. The latter can happen by:
-+ providing the (currently two) taxa in the URL as optional parameters, or
-+ by defining them inside the app using the "Enter set" dialog.
-If no URL parameters are provided, the first set after the app starts up loads a random pair from the taxon pair list. Other options are accessed via
-+ "Manage collection" (let's the user select a set from the taxon set list) options.
+A pair can get its two taxa either randomly from a list of taxon pairs (in taxonPairs.json), or defined by the user. The latter can happen by:
++ providing the two taxa in the URL as optional parameters, or
++ by defining them inside the app using the "Enter pair" dialog.
+If no URL parameters are provided, the first pair after the app starts up loads a random pair from the taxon pair list. Other options are accessed via
++ "Manage collection" (let's the user select a pair from the taxon pair list) options.
 
 ### Sharing
 + the user can easily share the currently active collection and pair by tapping on the "Share" icon. This creates a link or QR to the app with the relevant information encoded in the URL.
@@ -33,25 +32,25 @@ It's important that the app runs smooth, and the code is robust and stable, and 
 
 Here's an outline of how I currently think the image loading works:
 
-|Session|Set|Pair|Round|Action                                         |
-|-------|---|----|-----|-----------------------------------------------|
-|1      |1  |1   |1    |Load images for taxon pair                     |
-|1      |1  |1   |1    |Use images from initial loading                |
-|1      |1  |1   |1    |Preload images for round 2                     |
-|1      |1  |1   |1    |Preload images for pair 2 round 1              |
-|1      |1  |1   |2    |Use images from round 2 preload                |
-|1      |1  |1   |2    |Preload images for round 3 taxon pair          |
-|       |   |    |…    |                                               |
-|1      |1  |2   |1    |Use images from pair 2 preload                 |
-|1      |1  |2   |1    |Preload images for round 2 taxon pair          |
-|1      |1  |2   |1    |Preload images for pair 3 taxon pair round 1   |
-|       |   |    |…    |                                               |
+|Session|Pair|Round|Action                                         |
+|-------|----|-----|-----------------------------------------------|
+|1      |1   |1    |Load images for taxon pair                     |
+|1      |1   |1    |Use images from initial loading                |
+|1      |1   |1    |Preload images for round 2                     |
+|1      |1   |1    |Preload images for pair 2 round 1              |
+|1      |1   |2    |Use images from round 2 preload                |
+|1      |1   |2    |Preload images for round 3 taxon pair          |
+|       |    |…    |                                               |
+|1      |2   |1    |Use images from pair 2 preload                 |
+|1      |2   |1    |Preload images for round 2 taxon pair          |
+|1      |2   |1    |Preload images for pair 3 taxon pair round 1   |
+|       |    |…    |                                               |
 
 ### Possible uses
 + naturalist fun:
     + people just enjoy the game
 + children
-    + easy sets for children, eg. "cats/dogs" or such
+    + easy pairs for children, eg. "cats/dogs" or such
 + hobby taxonomists
     + people that want to become better of visually identifying taxa
 + biology students
@@ -71,10 +70,10 @@ Each picture has its own info dialog. The user can access external information a
 The help dialog contains information about the most important functions of the game. It has a link to a tutorial, which shows the main functions of the game.
 
 ### Collection manager dialog
-Currently this displays a list of all taxon sets, locally saved in a JSON file. The user can filter by phylogeny, tags, range or level, or search by taxon. Below is a list of taxon sets. The user can click on one, and open it this way. There's also a "Play" button, which activates the currently filtered collection.
+Currently this displays a list of all taxon pairs, locally saved in a JSON file. The user can filter by phylogeny, tags, range or level, or search by taxon. Below is a list of taxon pairs. The user can click on one, and open it this way. There's also a "Play" button, which activates the currently filtered collection.
 
 #### Range selection dialog
-This displays a world map, where the user selects which continents to include in the "range" filter. Currently, if there are multiple continents selected, sets where all members occur at any of them are selected (eg. Africa + Oceania selected includes sets that have a range including Africa, or including Oceania).
+This displays a world map, where the user selects which continents to include in the "range" filter. Currently, if there are multiple continents selected, pairs where all members occur at any of them are selected (eg. Africa + Oceania selected includes pairs that have a range including Africa, or including Oceania).
 
 #### Tag cloud dialog
 This dialog currently displays all the available tags for the current filters. The idea is to replace this with a taxonomic hierarchy that's intuitive to browse, and only leave non-taxonomic tags (such as "mimicry" or "fun" here).
@@ -86,7 +85,7 @@ This dialog shows a radial graph of the taxon hierarchy. In the center is the ac
 The ancestry graph shows how the two active taxa are connected taxonomically. It's also a way to link to the iNaturalist or Wikipedia taxon pages of the taxa in its entire hierarchy. The user can also use any node to filter the collection, and then gets redirected to the collection manager.
 
 ### Enter taxa dialog
-This is currently poorly maintained. The user can input two taxa, which will be used in a new pair. Currently there's no server-side functionality, but when there is, those can also be stored for future use. Also, once taxon sets are implemented, the user will be able to input more than two taxa. Another idea is to only input one, and the app will create a taxon set from all the sister taxa at that level.
+This is currently poorly maintained. The user can input two taxa, which will be used in a new pair. Currently there's no server-side functionality, but when there is, those can also be stored for future use. Also, once taxon pairs are implemented, the user will be able to input more than two taxa. Another idea is to only input one, and the app will create a taxon pairs from all the sister taxa at that level.
 
 ## Architectural changes
 + you suggested some big changes in the past, and I'm willing to tackle them, if it helps me later to build a better app.
@@ -146,8 +145,8 @@ This is currently poorly maintained. The user can input two taxa, which will be 
 ### External data processing
 As I'm currently without server-side functionality, I process some data using local python scripts.
 + taxonHierarchy.json is updated using the script data/processing/hierarchy/updateHierarchy.py
-+ there's a workflow for adding taxon info and sets. this is in data/processing/taxonSets.
-+ data/processing/range has a script to add range data to sets from single taxa.
++ there's a workflow for adding taxon info and pairs. this is in data/processing/taxonPairs.
++ data/processing/range has a script to add range data to pairs from single taxa.
 
 ## LLM behavior requirements
 + if a task seems complicated, please think it through step by step, explaining your reasoning.
