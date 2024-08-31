@@ -14293,5 +14293,350 @@
     "range": [
       "SA"
     ]
+  },
+  "826": {
+    "pairName": "Trailing daisy vs Tridax daisy",
+    "level": "1",
+    "tags": [
+      "hk"
+    ],
+    "taxa": [
+      246102,
+      169944
+    ],
+    "taxonNames": [
+      "Sphagneticola trilobata",
+      "Tridax procumbens"
+    ],
+    "range": [
+      "AS",
+      "AF",
+      "NA",
+      "SA"
+    ]
+  },
+  "827": {
+    "pairName": "Tridax daisy vs White beggarticks",
+    "level": "2",
+    "tags": [
+      "hk"
+    ],
+    "taxa": [
+      169944,
+      1095846
+    ],
+    "taxonNames": [
+      "Tridax procumbens",
+      "Bidens alba"
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ]
+  },
+  "828": {
+    "pairName": "Common lantana vs Chinese ixora",
+    "level": "1",
+    "tags": [
+      "hk"
+    ],
+    "taxa": [
+      50333,
+      133308
+    ],
+    "taxonNames": [
+      "Lantana camara",
+      "Ixora chinensis"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "829": {
+    "pairName": "Little ironweed vs Lilac tasselflower",
+    "level": "3",
+    "tags": [
+      "hk"
+    ],
+    "taxa": [
+      130374,
+      121287
+    ],
+    "taxonNames": [
+      "Cyanthillium cinereum",
+      "Emilia sonchifolia"
+    ],
+    "range": [
+      "AS",
+      "AF"
+    ]
+  },
+  "830": {
+    "pairName": "Largeflower pink-sorrel vs Creeping woodsorrel",
+    "level": "1",
+    "tags": [
+      "hk"
+    ],
+    "taxa": [
+      61963,
+      53168
+    ],
+    "taxonNames": [
+      "Oxalis debilis",
+      "Oxalis corniculata"
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ]
+  },
+  "831": {
+    "pairName": "Largeflower pink-sorrel vs Skyflower",
+    "level": "1",
+    "tags": [
+      "hk"
+    ],
+    "taxa": [
+      61963,
+      162153
+    ],
+    "taxonNames": [
+      "Oxalis debilis",
+      "Duranta erecta"
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ]
+  },
+  "832": {
+    "pairName": "Rose Myrtle vs Blood-red melastoma",
+    "level": "2",
+    "tags": [
+      "hk"
+    ],
+    "taxa": [
+      132698,
+      165231
+    ],
+    "taxonNames": [
+      "Rhodomyrtus tomentosa",
+      "Melastoma sanguineum"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "833": {
+    "pairName": "Red psychotria vs Twoleaf nightshade",
+    "level": "2",
+    "tags": [
+      "hk"
+    ],
+    "taxa": [
+      427363,
+      169060
+    ],
+    "taxonNames": [
+      "Psychotria asiatica",
+      "Solanum diphyllum"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "834": {
+    "pairName": "Red psychotria vs Creeping Psychotria",
+    "level": "2",
+    "tags": [
+      "hk"
+    ],
+    "taxa": [
+      427363,
+      425191
+    ],
+    "taxonNames": [
+      "Psychotria asiatica",
+      "Psychotria serpens"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "835": {
+    "pairName": "Mile-a-minute vine vs Sweet potato",
+    "level": "2",
+    "tags": [
+      "hk"
+    ],
+    "taxa": [
+      77494,
+      62941
+    ],
+    "taxonNames": [
+      "Ipomoea cairica",
+      "Ipomoea batatas"
+    ],
+    "range": [
+      "NA",
+      "AF",
+      "OC",
+      "AS",
+      "SA"
+    ]
+  },
+  "836": {
+    "pairName": "Beach morning glory vs Water morning glory",
+    "level": "2",
+    "tags": [
+      "hk"
+    ],
+    "taxa": [
+      60879,
+      164077
+    ],
+    "taxonNames": [
+      "Ipomoea pes-caprae",
+      "Ipomoea aquatica"
+    ],
+    "range": [
+      "AS",
+      "AF"
+    ]
+  },
+  "837": {
+    "pairName": "Madagascar periwinkle vs Balsam",
+    "level": "1",
+    "tags": [
+      "hk"
+    ],
+    "taxa": [
+      62924,
+      68185
+    ],
+    "taxonNames": [
+      "Catharanthus roseus",
+      "Impatiens walleriana"
+    ],
+    "range": [
+      "AF"
+    ]
+  },
+  "838": {
+    "pairName": "Rusty-haired raspberry vs Hairy fig",
+    "level": "1",
+    "tags": [
+      "hk"
+    ],
+    "taxa": [
+      203983,
+      626499
+    ],
+    "taxonNames": [
+      "Rubus reflexus",
+      "Ficus simplicissima"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "839": {
+    "pairName": "Elephant's ear vs Turn-in-the-wind",
+    "level": "2",
+    "tags": [
+      "hk"
+    ],
+    "taxa": [
+      165027,
+      343804
+    ],
+    "taxonNames": [
+      "Macaranga tanarius",
+      "Mallotus paniculatus"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "840": {
+    "pairName": "Corkystem passionflower vs Stinking passionflower",
+    "level": "2",
+    "tags": [
+      "hk"
+    ],
+    "taxa": [
+      129327,
+      51448
+    ],
+    "taxonNames": [
+      "Passiflora suberosa",
+      "Passiflora foetida"
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ]
+  },
+  "841": {
+    "pairName": "Artillery plant vs Red caustic-creeper",
+    "level": "2",
+    "tags": [
+      "hk"
+    ],
+    "taxa": [
+      69172,
+      200055
+    ],
+    "taxonNames": [
+      "Pilea microphylla",
+      "Euphorbia thymifolia"
+    ],
+    "range": [
+      "AS",
+      "AF"
+    ]
+  },
+  "842": {
+    "pairName": "Asthma plant vs Woodland false buttonweed",
+    "level": "2",
+    "tags": [
+      "hk"
+    ],
+    "taxa": [
+      131560,
+      326037
+    ],
+    "taxonNames": [
+      "Euphorbia hirta",
+      "Spermacoce remota"
+    ],
+    "range": [
+      "AS",
+      "AF",
+      "SA"
+    ]
+  },
+  "843": {
+    "pairName": "Spurge family vs Sunflowers, daisies, asters, and allies",
+    "level": "2",
+    "tags": [
+      "hk"
+    ],
+    "taxa": [
+      51821,
+      47604
+    ],
+    "taxonNames": [
+      "Euphorbiaceae",
+      "Asteraceae"
+    ],
+    "range": [
+      "NA",
+      "AF",
+      "OC",
+      "AS",
+      "EU",
+      "SA"
+    ]
   }
 }

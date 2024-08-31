@@ -42671,5 +42671,808 @@
     "range": [
       "SA"
     ]
+  },
+  "130374": {
+    "taxonName": "Cyanthillium cinereum",
+    "vernacularName": "Little ironweed",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      47605,
+      47604,
+      1442431,
+      361887,
+      939479,
+      130375,
+      130374
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Commonly used in traditional medicine",
+      "Grows in disturbed habitats",
+      "Flowers attract butterflies and bees"
+    ],
+    "range": [
+      "AS",
+      "AF"
+    ]
+  },
+  "60879": {
+    "taxonName": "Ipomoea pes-caprae",
+    "vernacularName": "Beach morning glory",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      48515,
+      52345,
+      1395312,
+      993824,
+      52346,
+      60879
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Helps stabilize sand dunes",
+      "Flowers open in the morning"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "AS",
+      "OC"
+    ]
+  },
+  "326037": {
+    "taxonName": "Spermacoce remota",
+    "vernacularName": "Woodland false buttonweed",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      47363,
+      47693,
+      788064,
+      788088,
+      131832,
+      326037
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Tiny white flowers bloom year-round",
+      "Grows in moist, shaded areas",
+      "Leaves used in traditional medicine"
+    ],
+    "range": [
+      "SA",
+      "AF",
+      "AS"
+    ]
+  },
+  "246102": {
+    "taxonName": "Sphagneticola trilobata",
+    "vernacularName": "Trailing daisy",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      47605,
+      47604,
+      632790,
+      605446,
+      639448,
+      246103,
+      246102
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Invasive in many tropical regions",
+      "Bright yellow daisy-like flowers"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "AS",
+      "OC"
+    ]
+  },
+  "427363": {
+    "taxonName": "Psychotria asiatica",
+    "vernacularName": "Red psychotria",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      47363,
+      47693,
+      788064,
+      788081,
+      51600,
+      427363
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Small shrub with red berries",
+      "Grows in shaded forest understories",
+      "Used in traditional Chinese medicine"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "626499": {
+    "taxonName": "Ficus simplicissima",
+    "vernacularName": "Hairy fig",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      47132,
+      50998,
+      1529470,
+      50999,
+      1413931,
+      1413933,
+      626499
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Strangler fig that kills host trees",
+      "Produces edible figs attractive to birds",
+      "Bark used to make cloth"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "121287": {
+    "taxonName": "Emilia sonchifolia",
+    "vernacularName": "Lilac tasselflower",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      47605,
+      47604,
+      632790,
+      568270,
+      901794,
+      121288,
+      121287
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Grows in disturbed areas and grasslands",
+      "Used as a potherb and medicine"
+    ],
+    "range": [
+      "AS",
+      "AF"
+    ]
+  },
+  "61963": {
+    "taxonName": "Oxalis debilis",
+    "vernacularName": "Largeflower pink-sorrel",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      70233,
+      47759,
+      47758,
+      864989,
+      865007,
+      61963
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Spreads rapidly by underground bulblets",
+      "Leaves contain oxalic acid"
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ]
+  },
+  "69172": {
+    "taxonName": "Pilea microphylla",
+    "vernacularName": "Artillery plant",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      47132,
+      51885,
+      69177,
+      69172
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Releases pollen explosively when touched",
+      "Used as a groundcover and ornamental"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "AS",
+      "OC"
+    ]
+  },
+  "165231": {
+    "taxonName": "Melastoma sanguineum",
+    "vernacularName": "Blood-red melastoma",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      47791,
+      48889,
+      920772,
+      920780,
+      82320,
+      165231
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Produces edible berries attractive to birds",
+      "Leaves used in traditional medicine",
+      "Grows in disturbed areas and forests"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "131560": {
+    "taxonName": "Euphorbia hirta",
+    "vernacularName": "Asthma plant",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      51820,
+      51821,
+      779191,
+      1244656,
+      1244731,
+      51822,
+      792275,
+      506796,
+      131560
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Grows in lawns and disturbed areas",
+      "Used in traditional medicine"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "AS",
+      "OC"
+    ]
+  },
+  "169060": {
+    "taxonName": "Solanum diphyllum",
+    "vernacularName": "Twoleaf nightshade",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      48515,
+      48516,
+      634936,
+      634950,
+      50641,
+      1263679,
+      169060
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Native to the Americas, naturalized elsewhere",
+      "Produces edible berries attractive to birds",
+      "Used in traditional medicine"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "AS",
+      "OC"
+    ]
+  },
+  "165027": {
+    "taxonName": "Macaranga tanarius",
+    "vernacularName": "Elephant's ear",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      51820,
+      51821,
+      1244596,
+      1405234,
+      1405257,
+      133556,
+      165027
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Grows in disturbed areas and forests",
+      "Leaves used in traditional medicine"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "53168": {
+    "taxonName": "Oxalis corniculata",
+    "vernacularName": "Creeping woodsorrel",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      70233,
+      47759,
+      47758,
+      864989,
+      865017,
+      53168
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Spreads by seed and underground stems",
+      "Leaves contain oxalic acid"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "EU",
+      "AS",
+      "AF",
+      "OC"
+    ]
+  },
+  "50333": {
+    "taxonName": "Lantana camara",
+    "vernacularName": "Common lantana",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      48151,
+      49194,
+      936164,
+      50334,
+      1478388,
+      50333
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Produces colorful flowers attractive to butterflies",
+      "Considered an invasive weed in many areas",
+      "Used in traditional medicine"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "AS",
+      "OC"
+    ]
+  },
+  "1095846": {
+    "taxonName": "Bidens alba",
+    "vernacularName": "White beggarticks",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      47605,
+      47604,
+      632790,
+      568277,
+      50204,
+      1095846
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Produces seeds with barbed awns",
+      "Used in traditional medicine"
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ]
+  },
+  "129327": {
+    "taxonName": "Passiflora suberosa",
+    "vernacularName": "Corkystem passionflower",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      51820,
+      51451,
+      853017,
+      853019,
+      51452,
+      878746,
+      1234465,
+      129327
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Produces edible fruits attractive to birds",
+      "Leaves used in traditional medicine"
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ]
+  },
+  "169944": {
+    "taxonName": "Tridax procumbens",
+    "vernacularName": "Tridax daisy",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      47605,
+      47604,
+      632790,
+      546205,
+      977740,
+      153372,
+      169944
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Grows in disturbed areas and lawns",
+      "Used in traditional medicine"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "AS"
+    ]
+  },
+  "200055": {
+    "taxonName": "Euphorbia thymifolia",
+    "vernacularName": "Red caustic-creeper",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      51820,
+      51821,
+      779191,
+      1244656,
+      1244731,
+      51822,
+      792275,
+      506796,
+      200055
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Grows in lawns and disturbed areas",
+      "Used in traditional medicine"
+    ],
+    "range": [
+      "AS",
+      "AF"
+    ]
+  },
+  "62941": {
+    "taxonName": "Ipomoea batatas",
+    "vernacularName": "Sweet potato",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      48515,
+      52345,
+      1395312,
+      993824,
+      52346,
+      62941
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Produces edible tubers and leaves",
+      "Used in traditional medicine"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "AS",
+      "OC"
+    ]
+  },
+  "51821": {
+    "taxonName": "Euphorbiaceae",
+    "vernacularName": "Spurge family",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      51820,
+      51821
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Large plant family with over 8,000 species",
+      "Many species have milky sap",
+      "Includes economically important crops"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "EU",
+      "AF",
+      "AS",
+      "OC"
+    ]
+  },
+  "77494": {
+    "taxonName": "Ipomoea cairica",
+    "vernacularName": "Mile-a-minute vine",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      48515,
+      52345,
+      1395312,
+      993824,
+      52346,
+      77494
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Grows on walls, fences or trees",
+      "Produces edible tubers"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "AS",
+      "OC"
+    ]
+  },
+  "203983": {
+    "taxonName": "Rubus reflexus",
+    "vernacularName": "Rusty-haired raspberry",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      47132,
+      47148,
+      415343,
+      922171,
+      47544,
+      203983
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Produces edible berries attractive to birds",
+      "Used in traditional medicine"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "68185": {
+    "taxonName": "Impatiens walleriana",
+    "vernacularName": "Balsam",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      47181,
+      47890,
+      47889,
+      1304081,
+      1045763,
+      68185
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Produces colorful flowers attractive to hummingbirds",
+      "Native to East Africa"
+    ],
+    "range": [
+      "AF"
+    ]
+  },
+  "343804": {
+    "taxonName": "Mallotus paniculatus",
+    "vernacularName": "Turn-in-the-wind",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      51820,
+      51821,
+      1244596,
+      1405234,
+      1405257,
+      156880,
+      343804
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Produces red dye from capsules",
+      "Used in traditional medicine"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "51448": {
+    "taxonName": "Passiflora foetida",
+    "vernacularName": "Stinking passionflower",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      51820,
+      51451,
+      853017,
+      853019,
+      51452,
+      878751,
+      1441693,
+      51448
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Produces edible fruits attractive to birds",
+      "Used in traditional medicine"
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ]
+  },
+  "133308": {
+    "taxonName": "Ixora chinensis",
+    "vernacularName": "Chinese ixora",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      47363,
+      47693,
+      788092,
+      788105,
+      133310,
+      133308
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Produces colorful flower clusters",
+      "Used as an ornamental shrub"
+    ],
+    "range": [
+      "AS"
+    ]
+  },
+  "162153": {
+    "taxonName": "Duranta erecta",
+    "vernacularName": "Skyflower",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      48151,
+      49194,
+      936165,
+      157164,
+      162153
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Produces edible berries attractive to birds",
+      "Used as an ornamental shrub"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "AS",
+      "OC"
+    ]
+  },
+  "62924": {
+    "taxonName": "Catharanthus roseus",
+    "vernacularName": "Madagascar periwinkle",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      47363,
+      47362,
+      487323,
+      632390,
+      632395,
+      62926,
+      62924
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Contains alkaloids used in cancer drugs",
+      "Produces colorful flowers year-round"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "AS",
+      "OC"
+    ]
+  },
+  "164077": {
+    "taxonName": "Ipomoea aquatica",
+    "vernacularName": "Water morning glory",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      48515,
+      52345,
+      1395312,
+      993824,
+      52346,
+      164077
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Produces edible leaves and stems",
+      "Grows in marshes and ponds"
+    ],
+    "range": [
+      "AS",
+      "AF"
+    ]
   }
 }

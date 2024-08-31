@@ -20068,5 +20068,629 @@
     "vernacularName": "Common potoo",
     "rank": "Species",
     "parentId": "19665"
+  },
+  "1442431": {
+    "taxonName": "Vernonioideae",
+    "vernacularName": "-",
+    "rank": "Subfamily",
+    "parentId": "47604"
+  },
+  "361887": {
+    "taxonName": "Vernonieae",
+    "vernacularName": "-",
+    "rank": "Tribe",
+    "parentId": "1442431"
+  },
+  "939479": {
+    "taxonName": "Erlangeinae",
+    "vernacularName": "-",
+    "rank": "Subtribe",
+    "parentId": "361887"
+  },
+  "130375": {
+    "taxonName": "Cyanthillium",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "939479"
+  },
+  "130374": {
+    "taxonName": "Cyanthillium cinereum",
+    "vernacularName": "Little ironweed",
+    "rank": "Species",
+    "parentId": "130375"
+  },
+  "52345": {
+    "taxonName": "Convolvulaceae",
+    "vernacularName": "Bindweed family",
+    "rank": "Family",
+    "parentId": "48515"
+  },
+  "1395312": {
+    "taxonName": "Convolvuloideae",
+    "vernacularName": "-",
+    "rank": "Subfamily",
+    "parentId": "52345"
+  },
+  "993824": {
+    "taxonName": "Ipomoeeae",
+    "vernacularName": "-",
+    "rank": "Tribe",
+    "parentId": "1395312"
+  },
+  "52346": {
+    "taxonName": "Ipomoea",
+    "vernacularName": "Morning-glories",
+    "rank": "Genus",
+    "parentId": "993824"
+  },
+  "60879": {
+    "taxonName": "Ipomoea pes-caprae",
+    "vernacularName": "Beach morning glory",
+    "rank": "Species",
+    "parentId": "52346"
+  },
+  "788088": {
+    "taxonName": "Spermacoceae",
+    "vernacularName": "-",
+    "rank": "Tribe",
+    "parentId": "788064"
+  },
+  "131832": {
+    "taxonName": "Spermacoce",
+    "vernacularName": "False buttonweeds",
+    "rank": "Genus",
+    "parentId": "788088"
+  },
+  "326037": {
+    "taxonName": "Spermacoce remota",
+    "vernacularName": "Woodland false buttonweed",
+    "rank": "Species",
+    "parentId": "131832"
+  },
+  "632790": {
+    "taxonName": "Asteroideae",
+    "vernacularName": "-",
+    "rank": "Subfamily",
+    "parentId": "47604"
+  },
+  "605446": {
+    "taxonName": "Heliantheae",
+    "vernacularName": "Sunflowers and allies",
+    "rank": "Tribe",
+    "parentId": "632790"
+  },
+  "639448": {
+    "taxonName": "Ecliptinae",
+    "vernacularName": "-",
+    "rank": "Subtribe",
+    "parentId": "605446"
+  },
+  "246103": {
+    "taxonName": "Sphagneticola",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "639448"
+  },
+  "246102": {
+    "taxonName": "Sphagneticola trilobata",
+    "vernacularName": "Trailing daisy",
+    "rank": "Species",
+    "parentId": "246103"
+  },
+  "427363": {
+    "taxonName": "Psychotria asiatica",
+    "vernacularName": "Red psychotria",
+    "rank": "Species",
+    "parentId": "51600"
+  },
+  "1413933": {
+    "taxonName": "Apiosycea",
+    "vernacularName": "-",
+    "rank": "Section",
+    "parentId": "1413931"
+  },
+  "626499": {
+    "taxonName": "Ficus simplicissima",
+    "vernacularName": "Hairy fig",
+    "rank": "Species",
+    "parentId": "1413933"
+  },
+  "568270": {
+    "taxonName": "Senecioneae",
+    "vernacularName": "Groundsels and allies",
+    "rank": "Tribe",
+    "parentId": "632790"
+  },
+  "901794": {
+    "taxonName": "Senecioninae",
+    "vernacularName": "-",
+    "rank": "Subtribe",
+    "parentId": "568270"
+  },
+  "121288": {
+    "taxonName": "Emilia",
+    "vernacularName": "Tasselflowers",
+    "rank": "Genus",
+    "parentId": "901794"
+  },
+  "121287": {
+    "taxonName": "Emilia sonchifolia",
+    "vernacularName": "Lilac tasselflower",
+    "rank": "Species",
+    "parentId": "121288"
+  },
+  "70233": {
+    "taxonName": "Oxalidales",
+    "vernacularName": "Woodsorrels, quandongs, and allies",
+    "rank": "Order",
+    "parentId": "47124"
+  },
+  "47759": {
+    "taxonName": "Oxalidaceae",
+    "vernacularName": "Woodsorrel family",
+    "rank": "Family",
+    "parentId": "70233"
+  },
+  "47758": {
+    "taxonName": "Oxalis",
+    "vernacularName": "Woodsorrels",
+    "rank": "Genus",
+    "parentId": "47759"
+  },
+  "864989": {
+    "taxonName": "Oxalis",
+    "vernacularName": "Palmate-leaved oxalis",
+    "rank": "Subgenus",
+    "parentId": "47758"
+  },
+  "865007": {
+    "taxonName": "Ionoxalis",
+    "vernacularName": "Scaly-bulbed oxalis",
+    "rank": "Section",
+    "parentId": "864989"
+  },
+  "61963": {
+    "taxonName": "Oxalis debilis",
+    "vernacularName": "Largeflower pink-sorrel",
+    "rank": "Species",
+    "parentId": "865007"
+  },
+  "51885": {
+    "taxonName": "Urticaceae",
+    "vernacularName": "Nettle family",
+    "rank": "Family",
+    "parentId": "47132"
+  },
+  "69177": {
+    "taxonName": "Pilea",
+    "vernacularName": "Clearweeds",
+    "rank": "Genus",
+    "parentId": "51885"
+  },
+  "69172": {
+    "taxonName": "Pilea microphylla",
+    "vernacularName": "Artillery plant",
+    "rank": "Species",
+    "parentId": "69177"
+  },
+  "165231": {
+    "taxonName": "Melastoma sanguineum",
+    "vernacularName": "Blood-red melastoma",
+    "rank": "Species",
+    "parentId": "82320"
+  },
+  "51821": {
+    "taxonName": "Euphorbiaceae",
+    "vernacularName": "Spurge family",
+    "rank": "Family",
+    "parentId": "51820"
+  },
+  "779191": {
+    "taxonName": "Euphorbioideae",
+    "vernacularName": "-",
+    "rank": "Subfamily",
+    "parentId": "51821"
+  },
+  "1244656": {
+    "taxonName": "Euphorbieae",
+    "vernacularName": "-",
+    "rank": "Tribe",
+    "parentId": "779191"
+  },
+  "1244731": {
+    "taxonName": "Euphorbiinae",
+    "vernacularName": "-",
+    "rank": "Subtribe",
+    "parentId": "1244656"
+  },
+  "51822": {
+    "taxonName": "Euphorbia",
+    "vernacularName": "Spurges",
+    "rank": "Genus",
+    "parentId": "1244731"
+  },
+  "792275": {
+    "taxonName": "Chamaesyce",
+    "vernacularName": "-",
+    "rank": "Subgenus",
+    "parentId": "51822"
+  },
+  "506796": {
+    "taxonName": "Anisophyllum",
+    "vernacularName": "Sandmats",
+    "rank": "Section",
+    "parentId": "792275"
+  },
+  "131560": {
+    "taxonName": "Euphorbia hirta",
+    "vernacularName": "Asthma plant",
+    "rank": "Species",
+    "parentId": "506796"
+  },
+  "1263679": {
+    "taxonName": "Geminata",
+    "vernacularName": "-",
+    "rank": "Section",
+    "parentId": "50641"
+  },
+  "169060": {
+    "taxonName": "Solanum diphyllum",
+    "vernacularName": "Twoleaf nightshade",
+    "rank": "Species",
+    "parentId": "1263679"
+  },
+  "1244596": {
+    "taxonName": "Acalyphoideae",
+    "vernacularName": "-",
+    "rank": "Subfamily",
+    "parentId": "51821"
+  },
+  "1405234": {
+    "taxonName": "Acalypheae",
+    "vernacularName": "-",
+    "rank": "Tribe",
+    "parentId": "1244596"
+  },
+  "1405257": {
+    "taxonName": "Rottlerinae",
+    "vernacularName": "-",
+    "rank": "Subtribe",
+    "parentId": "1405234"
+  },
+  "133556": {
+    "taxonName": "Macaranga",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "1405257"
+  },
+  "165027": {
+    "taxonName": "Macaranga tanarius",
+    "vernacularName": "Elephant's ear",
+    "rank": "Species",
+    "parentId": "133556"
+  },
+  "865017": {
+    "taxonName": "Corniculatae",
+    "vernacularName": "Common yellow woodsorrels",
+    "rank": "Section",
+    "parentId": "864989"
+  },
+  "53168": {
+    "taxonName": "Oxalis corniculata",
+    "vernacularName": "Creeping woodsorrel",
+    "rank": "Species",
+    "parentId": "865017"
+  },
+  "48151": {
+    "taxonName": "Lamiales",
+    "vernacularName": "Mints, plantains, olives, and allies",
+    "rank": "Order",
+    "parentId": "47124"
+  },
+  "49194": {
+    "taxonName": "Verbenaceae",
+    "vernacularName": "Verbena family",
+    "rank": "Family",
+    "parentId": "48151"
+  },
+  "936164": {
+    "taxonName": "Lantaneae",
+    "vernacularName": "-",
+    "rank": "Tribe",
+    "parentId": "49194"
+  },
+  "50334": {
+    "taxonName": "Lantana",
+    "vernacularName": "Lantanas",
+    "rank": "Genus",
+    "parentId": "936164"
+  },
+  "1478388": {
+    "taxonName": "Lantana",
+    "vernacularName": "-",
+    "rank": "Section",
+    "parentId": "50334"
+  },
+  "50333": {
+    "taxonName": "Lantana camara",
+    "vernacularName": "Common lantana",
+    "rank": "Species",
+    "parentId": "1478388"
+  },
+  "568277": {
+    "taxonName": "Coreopsideae",
+    "vernacularName": "Coreopsis and allies",
+    "rank": "Tribe",
+    "parentId": "632790"
+  },
+  "50204": {
+    "taxonName": "Bidens",
+    "vernacularName": "Beggarticks",
+    "rank": "Genus",
+    "parentId": "568277"
+  },
+  "1095846": {
+    "taxonName": "Bidens alba",
+    "vernacularName": "White beggarticks",
+    "rank": "Species",
+    "parentId": "50204"
+  },
+  "51451": {
+    "taxonName": "Passifloraceae",
+    "vernacularName": "Passionfruit family",
+    "rank": "Family",
+    "parentId": "51820"
+  },
+  "853017": {
+    "taxonName": "Passifloroideae",
+    "vernacularName": "-",
+    "rank": "Subfamily",
+    "parentId": "51451"
+  },
+  "853019": {
+    "taxonName": "Passifloreae",
+    "vernacularName": "-",
+    "rank": "Tribe",
+    "parentId": "853017"
+  },
+  "51452": {
+    "taxonName": "Passiflora",
+    "vernacularName": "Passionflowers",
+    "rank": "Genus",
+    "parentId": "853019"
+  },
+  "878746": {
+    "taxonName": "Decaloba",
+    "vernacularName": "-",
+    "rank": "Subgenus",
+    "parentId": "51452"
+  },
+  "1234465": {
+    "taxonName": "Cieca",
+    "vernacularName": "-",
+    "rank": "Section",
+    "parentId": "878746"
+  },
+  "129327": {
+    "taxonName": "Passiflora suberosa",
+    "vernacularName": "Corkystem passionflower",
+    "rank": "Species",
+    "parentId": "1234465"
+  },
+  "546205": {
+    "taxonName": "Millerieae",
+    "vernacularName": "-",
+    "rank": "Tribe",
+    "parentId": "632790"
+  },
+  "977740": {
+    "taxonName": "Dyscritothamninae",
+    "vernacularName": "-",
+    "rank": "Subtribe",
+    "parentId": "546205"
+  },
+  "153372": {
+    "taxonName": "Tridax",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "977740"
+  },
+  "169944": {
+    "taxonName": "Tridax procumbens",
+    "vernacularName": "Tridax daisy",
+    "rank": "Species",
+    "parentId": "153372"
+  },
+  "200055": {
+    "taxonName": "Euphorbia thymifolia",
+    "vernacularName": "Red caustic-creeper",
+    "rank": "Species",
+    "parentId": "506796"
+  },
+  "62941": {
+    "taxonName": "Ipomoea batatas",
+    "vernacularName": "Sweet potato",
+    "rank": "Species",
+    "parentId": "52346"
+  },
+  "77494": {
+    "taxonName": "Ipomoea cairica",
+    "vernacularName": "Mile-a-minute vine",
+    "rank": "Species",
+    "parentId": "52346"
+  },
+  "415343": {
+    "taxonName": "Rosoideae",
+    "vernacularName": "Brambles, roses, strawberries, and allies",
+    "rank": "Subfamily",
+    "parentId": "47148"
+  },
+  "922171": {
+    "taxonName": "Rubeae",
+    "vernacularName": "Brambles",
+    "rank": "Tribe",
+    "parentId": "415343"
+  },
+  "47544": {
+    "taxonName": "Rubus",
+    "vernacularName": "Brambles",
+    "rank": "Genus",
+    "parentId": "922171"
+  },
+  "203983": {
+    "taxonName": "Rubus reflexus",
+    "vernacularName": "Rusty-haired raspberry",
+    "rank": "Species",
+    "parentId": "47544"
+  },
+  "47181": {
+    "taxonName": "Ericales",
+    "vernacularName": "Heathers, balsams, primroses, and allies",
+    "rank": "Order",
+    "parentId": "47124"
+  },
+  "47890": {
+    "taxonName": "Balsaminaceae",
+    "vernacularName": "Balsam family",
+    "rank": "Family",
+    "parentId": "47181"
+  },
+  "47889": {
+    "taxonName": "Impatiens",
+    "vernacularName": "Touch-me-nots",
+    "rank": "Genus",
+    "parentId": "47890"
+  },
+  "1304081": {
+    "taxonName": "Impatiens",
+    "vernacularName": "Subgenus impatiens",
+    "rank": "Subgenus",
+    "parentId": "47889"
+  },
+  "1045763": {
+    "taxonName": "Uniflorae",
+    "vernacularName": "-",
+    "rank": "Section",
+    "parentId": "1304081"
+  },
+  "68185": {
+    "taxonName": "Impatiens walleriana",
+    "vernacularName": "Balsam",
+    "rank": "Species",
+    "parentId": "1045763"
+  },
+  "156880": {
+    "taxonName": "Mallotus",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "1405257"
+  },
+  "343804": {
+    "taxonName": "Mallotus paniculatus",
+    "vernacularName": "Turn-in-the-wind",
+    "rank": "Species",
+    "parentId": "156880"
+  },
+  "878751": {
+    "taxonName": "Passiflora",
+    "vernacularName": "Typical passionflowers",
+    "rank": "Subgenus",
+    "parentId": "51452"
+  },
+  "1441693": {
+    "taxonName": "Dysosmia",
+    "vernacularName": "-",
+    "rank": "Section",
+    "parentId": "878751"
+  },
+  "51448": {
+    "taxonName": "Passiflora foetida",
+    "vernacularName": "Stinking passionflower",
+    "rank": "Species",
+    "parentId": "1441693"
+  },
+  "788092": {
+    "taxonName": "Ixoroideae",
+    "vernacularName": "-",
+    "rank": "Subfamily",
+    "parentId": "47693"
+  },
+  "788105": {
+    "taxonName": "Ixoreae",
+    "vernacularName": "-",
+    "rank": "Tribe",
+    "parentId": "788092"
+  },
+  "133310": {
+    "taxonName": "Ixora",
+    "vernacularName": "Ixoras",
+    "rank": "Genus",
+    "parentId": "788105"
+  },
+  "133308": {
+    "taxonName": "Ixora chinensis",
+    "vernacularName": "Chinese ixora",
+    "rank": "Species",
+    "parentId": "133310"
+  },
+  "936165": {
+    "taxonName": "Duranteae",
+    "vernacularName": "-",
+    "rank": "Tribe",
+    "parentId": "49194"
+  },
+  "157164": {
+    "taxonName": "Duranta",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "936165"
+  },
+  "162153": {
+    "taxonName": "Duranta erecta",
+    "vernacularName": "Skyflower",
+    "rank": "Species",
+    "parentId": "157164"
+  },
+  "47362": {
+    "taxonName": "Apocynaceae",
+    "vernacularName": "Dogbane family",
+    "rank": "Family",
+    "parentId": "47363"
+  },
+  "487323": {
+    "taxonName": "Rauvolfioideae",
+    "vernacularName": "-",
+    "rank": "Subfamily",
+    "parentId": "47362"
+  },
+  "632390": {
+    "taxonName": "Vinceae",
+    "vernacularName": "Periwinkles, devil peppers and kin",
+    "rank": "Tribe",
+    "parentId": "487323"
+  },
+  "632395": {
+    "taxonName": "Catharanthinae",
+    "vernacularName": "-",
+    "rank": "Subtribe",
+    "parentId": "632390"
+  },
+  "62926": {
+    "taxonName": "Catharanthus",
+    "vernacularName": "Periwinkle",
+    "rank": "Genus",
+    "parentId": "632395"
+  },
+  "62924": {
+    "taxonName": "Catharanthus roseus",
+    "vernacularName": "Madagascar periwinkle",
+    "rank": "Species",
+    "parentId": "62926"
+  },
+  "164077": {
+    "taxonName": "Ipomoea aquatica",
+    "vernacularName": "Water morning glory",
+    "rank": "Species",
+    "parentId": "52346"
   }
 }

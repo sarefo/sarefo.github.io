@@ -447,7 +447,7 @@ def update_hierarchy(taxon_info_file, taxon_hierarchy_file):
                         "rank": "Unknown",
                         "parentId": None
                     }
-                sleep(0.5)  # To avoid hitting API rate limits
+                sleep(1)  # To avoid hitting API rate limits
 
             # Set the parentId
             if i == 0:
