@@ -5,7 +5,7 @@ import preloader from './preloader.js';
 import state from './state.js';
 
 const pairManager = {
-    currentSubset: [],
+    currentCollectionSubset: [],
     allFilteredPairs: [],
     usedPairIDs: new Set(),
     isInitialized: false,
@@ -26,8 +26,8 @@ const pairManager = {
         return filtering.pairMatchesFilters(pair, filters);
     },
 
-    async initializeSubset() {
-        logger.debug('Initializing subset');
+    async initializeCollectionSubset() {
+        logger.debug('Initializing collection subset');
         const allPairs = await api.taxonomy.fetchTaxonPairs();
         const filters = filtering.getActiveFilters();
         this.allFilteredPairs = filtering.filterTaxonPairs(allPairs, filters);
@@ -40,29 +40,29 @@ const pairManager = {
             logger.debug('Reset used pairs');
         }
 
-        // Create a new subset with unused pairs
-        this.currentSubset = this.allFilteredPairs.filter(pair => !this.usedPairIDs.has(pair.pairID));
-        this.shuffleArray(this.currentSubset);
+        // Create a new collection subset with unused pairs
+        this.currentCollectionSubset = this.allFilteredPairs.filter(pair => !this.usedPairIDs.has(pair.pairID));
+        this.shuffleArray(this.currentCollectionSubset);
 
-        logger.debug(`Initialized new subset of pairs: ${this.currentSubset.length}`);
+        logger.debug(`Initialized new collection subset of pairs: ${this.currentCollectionSubset.length}`);
         this.isInitialized = true;
     },
 
     async getNextSet() {
-        if (!this.isInitialized || this.currentSubset.length === 0) {
-            await this.initializeSubset();
+        if (!this.isInitialized || this.currentCollectionSubset.length === 0) {
+            await this.initializeCollectionSubset();
         }
 
-        if (this.currentSubset.length === 0) {
+        if (this.currentCollectionSubset.length === 0) {
             logger.debug('All pairs have been used, resetting');
             this.usedPairIDs.clear();
-            await this.initializeSubset();
+            await this.initializeCollectionSubset();
         }
 
-        const nextPair = this.currentSubset.pop();
+        const nextPair = this.currentCollectionSubset.pop();
         if (nextPair) {
             this.usedPairIDs.add(nextPair.pairID);
-            logger.debug(`Next pair: ${nextPair.pairID}, Remaining pairs: ${this.currentSubset.length}, Used pairs: ${this.usedPairIDs.size}, Total pairs: ${this.allFilteredPairs.length}`);
+            logger.debug(`Next pair: ${nextPair.pairID}, Remaining pairs: ${this.currentCollectionSubset.length}, Used pairs: ${this.usedPairIDs.size}, Total pairs: ${this.allFilteredPairs.length}`);
         } else {
             logger.warn('No next pair available');
         }
@@ -77,10 +77,10 @@ const pairManager = {
         }
     },
 
-    async refreshSubset() {
+    async refreshCollectionSubset() {
         this.isInitialized = false;
         this.usedPairIDs.clear();
-        await this.initializeSubset();
+        await this.initializeCollectionSubset();
     },
 
     isPairUsed(pairID) {
@@ -101,10 +101,10 @@ Object.keys(pairManager).forEach(key => {
 });
 
 const publicAPI = {
-    initializeSubset: pairManager.initializeSubset.bind(pairManager),
+    initializeCollectionSubset: pairManager.initializeCollectionSubset.bind(pairManager),
     getNextPair: pairManager.getNextPair.bind(pairManager),
     getNextSet: pairManager.getNextSet.bind(pairManager),
-    refreshSubset: pairManager.refreshSubset.bind(pairManager),
+    refreshCollectionSubset: pairManager.refreshCollectionSubset.bind(pairManager),
     getPairByID: pairManager.getPairByID.bind(pairManager),
 };
 

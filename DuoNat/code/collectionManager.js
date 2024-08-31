@@ -497,7 +497,7 @@ const collectionManager = {
     eventHandlers: {
         handleSelectPairDone() {
             collectionManager.taxonList.updateTaxonList();
-            pairManager.refreshSubset();
+            pairManager.refreshCollectionSubset();
             dialogManager.closeDialog('collection-dialog');
 
             gameLogic.loadRandomPairFromCurrentCollection();

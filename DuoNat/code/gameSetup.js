@@ -309,7 +309,7 @@ const gameSetup = {
             state.setState(state.GameState.PLAYING);
 
             if (newPair) {
-                await pairManager.refreshSubset();
+                await pairManager.refreshCollectionSubset();
             }
 
             if (state.getIsInitialLoad()) {
@@ -320,9 +320,9 @@ const gameSetup = {
             state.setState(state.GameState.PLAYING);
             preloader.startPreloading(newPair);
 
-            // Initialize the subset after the game has loaded
-            pairManager.initializeSubset().catch(error => {
-                logger.error("Error initializing subset:", error);
+            // Initialize the collection subset after the game has loaded
+            pairManager.initializeCollectionSubset().catch(error => {
+                logger.error("Error initializing collection subset:", error);
             });
         },
 
