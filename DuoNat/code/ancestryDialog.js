@@ -619,106 +619,117 @@ const ancestryDialog = {
                     textElement.selectAll('*').remove(); // Clear existing text
 
                     const { rankText, taxonName } = getNodeText(d, showTaxonomic);
-
-                    if (rankText) {
-                        textElement.append('tspan')
-                            .text(rankText);
-                    }
-
-                    if (d.data.rank === "Species") {
-                        // For species, italicize both the abbreviated genus and specific epithet
-                        if (taxonName && taxonName.includes(' ')) {
-                            const [genus, ...restOfName] = taxonName.split(' ');
-                            textElement.append('tspan')
-                                .attr('style', 'font-style: italic;')
-                                .text(genus + ' ');
-                            textElement.append('tspan')
-                                .attr('style', 'font-style: italic;')
-                                .text(restOfName.join(' '));
-                        } else {
-                            logger.warn(`Unexpected format for species name: ${taxonName}`);
-                            textElement.append('tspan')
-                                .attr('style', 'font-style: italic;')
-                                .text(taxonName || 'Unknown species');
-                        }
-                    } else if (d.data.rank === "Genus") {
-                        // For genus, italicize the entire name
-                        textElement.append('tspan')
-                            .attr('style', 'font-style: italic;')
-                            .text(taxonName || 'Unknown genus');
-                    } else {
-                        // For other ranks, no italics
-                        textElement.append('tspan')
-                            .text(taxonName || 'Unknown taxon');
-                    }
+                    ancestryDialog.graphRendering.updateNodeTextContent(textElement, rankText, taxonName, d.data.rank);
                 });
 
             // Recalculate and update node sizes if necessary
             this.updateNodeSizes();
         },
 
-            updateNodeSizes() {
-                if (!this.lastCreatedTree) {
-                    logger.warn('No tree to update sizes');
-                    return;
-                }
+        updateNodeTextContent(textElement, rankText, taxonName, rank) {
+            if (rankText) {
+                textElement.append('tspan').text(rankText);
+            }
 
-                const { d3, svg, width, height, zoom } = this.lastCreatedTree;
+            if (rank === "Species") {
+                this.formatSpeciesName(textElement, taxonName);
+            } else if (rank === "Genus") {
+                this.formatGenusName(textElement, taxonName);
+            } else {
+                this.formatOtherRankName(textElement, taxonName);
+            }
+        },
 
-                // Recalculate node widths
-                svg.selectAll('.ancestry-tree__node')
-                    .each((d, i, nodes) => {
-                        const node = d3.select(nodes[i]);
-                        const textElement = node.select('.ancestry-tree__node-text');
-                        const textWidth = textElement.node().getComputedTextLength();
-                        const newWidth = Math.max(101, textWidth + this.PADDING * 2);
-                        
-                        // Update rectangle width
-                        node.select('.ancestry-tree__node-rect')
-                            .attr('width', newWidth)
-                            .attr('x', -newWidth / 2);
+        formatSpeciesName(textElement, taxonName) {
+            if (taxonName && taxonName.includes(' ')) {
+                const [genus, ...restOfName] = taxonName.split(' ');
+                textElement.append('tspan')
+                    .attr('style', 'font-style: italic;')
+                    .text(genus + ' ');
+                textElement.append('tspan')
+                    .attr('style', 'font-style: italic;')
+                    .text(restOfName.join(' '));
+            } else {
+                logger.warn(`Unexpected format for species name: ${taxonName}`);
+                textElement.append('tspan')
+                    .attr('style', 'font-style: italic;')
+                    .text(taxonName || 'Unknown species');
+            }
+        },
 
-                        // Store the new width on the node data
-                        d.nodeWidth = newWidth;
-                    });
+        formatGenusName(textElement, taxonName) {
+            textElement.append('tspan')
+                .attr('style', 'font-style: italic;')
+                .text(taxonName || 'Unknown genus');
+        },
 
-                // Recalculate tree layout
-                const root = d3.hierarchy(this.lastCreatedTree.data);
-                const treeLayout = d3.tree()
-                    .size([width, height * 0.95])
-                    .nodeSize([d => d.nodeWidth + 20, this.NODE_HEIGHT * 2]); // Add some padding between nodes
+        formatOtherRankName(textElement, taxonName) {
+            textElement.append('tspan')
+                .text(taxonName || 'Unknown taxon');
+        },
 
-                treeLayout(root);
+        updateNodeSizes() {
+            if (!this.lastCreatedTree) {
+                logger.warn('No tree to update sizes');
+                return;
+            }
 
-                // Update node positions
-                svg.selectAll('.ancestry-tree__node')
-                    .transition()
-                    .duration(750)
-                    .attr('transform', d => `translate(${d.x},${d.y})`);
+            const { d3, svg, width, height, zoom } = this.lastCreatedTree;
 
-                // Update links
-                svg.selectAll('.ancestry-tree__link')
-                    .transition()
-                    .duration(750)
-                    .attr('d', d3.linkVertical()
-                        .x(d => d.x)
-                        .y(d => d.y));
+            // Recalculate node widths
+            svg.selectAll('.ancestry-tree__node')
+                .each((d, i, nodes) => {
+                    const node = d3.select(nodes[i]);
+                    const textElement = node.select('.ancestry-tree__node-text');
+                    const textWidth = textElement.node().getComputedTextLength();
+                    const newWidth = Math.max(101, textWidth + this.PADDING * 2);
+                    
+                    // Update rectangle width
+                    node.select('.ancestry-tree__node-rect')
+                        .attr('width', newWidth)
+                        .attr('x', -newWidth / 2);
 
-                // Adjust zoom to fit the new layout
-                this.fitZoom(d3, svg, width, height, zoom);
-            },
+                    // Store the new width on the node data
+                    d.nodeWidth = newWidth;
+                });
 
-            fitZoom(d3, svg, width, height, zoom) {
-                const g = svg.select('g');
-                const bounds = g.node().getBBox();
-                const scale = Math.min(width / bounds.width, height / bounds.height) * 0.9;
-                const tx = (width - bounds.width * scale) / 2 - bounds.x * scale;
-                const ty = 20;
+            // Recalculate tree layout
+            const root = d3.hierarchy(this.lastCreatedTree.data);
+            const treeLayout = d3.tree()
+                .size([width, height * 0.95])
+                .nodeSize([d => d.nodeWidth + 20, this.NODE_HEIGHT * 2]); // Add some padding between nodes
 
-                svg.transition()
-                   .duration(750)
-                   .call(zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(scale));
-            },
+            treeLayout(root);
+
+            // Update node positions
+            svg.selectAll('.ancestry-tree__node')
+                .transition()
+                .duration(750)
+                .attr('transform', d => `translate(${d.x},${d.y})`);
+
+            // Update links
+            svg.selectAll('.ancestry-tree__link')
+                .transition()
+                .duration(750)
+                .attr('d', d3.linkVertical()
+                    .x(d => d.x)
+                    .y(d => d.y));
+
+            // Adjust zoom to fit the new layout
+            this.fitZoom(d3, svg, width, height, zoom);
+        },
+
+        fitZoom(d3, svg, width, height, zoom) {
+            const g = svg.select('g');
+            const bounds = g.node().getBBox();
+            const scale = Math.min(width / bounds.width, height / bounds.height) * 0.9;
+            const tx = (width - bounds.width * scale) / 2 - bounds.x * scale;
+            const ty = 20;
+
+            svg.transition()
+               .duration(750)
+               .call(zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(scale));
+        },
     },
 
     utils: {
