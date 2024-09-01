@@ -59,6 +59,12 @@
     overflow: hidden;
 }
 
+#info-dialog-tutorial-overlay {
+    height: 80px;
+    box-shadow: 0 0 0 3px rgba(116, 172, 0, 0.5);
+    /* other parameters set in the code*/
+}
+
 .dialog-tutorial-overlay__message {
     font-size: 1.6em;
     font-weight: bold;

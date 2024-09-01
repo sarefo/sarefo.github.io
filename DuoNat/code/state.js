@@ -32,6 +32,8 @@ let gameState = {
 
     isInitialLoad: true,
 
+    //infoDialogImageIndex: null,
+
     // Filters
     currentPairID: null,
     selectedLevel: '',
@@ -367,6 +369,11 @@ const publicAPI = {
     setShowTaxonomicNames(show) {
         updateGameState('showTaxonomicNames', show);
     },
+
+    /*getInfoDialogImageIndex: () => gameState.infoDialogImageIndex,
+    setInfoDialogImageIndex(show) {
+        updateGameState('infoDialogImageIndex', show);
+    },*/
 
     getHasKeyboard: () => gameState.hasKeyboard,
     setHasKeyboard(show) {

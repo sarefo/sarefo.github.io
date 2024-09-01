@@ -27,7 +27,7 @@ const infoDialog = {
     },
 
     async showInfoDialog(imageIndex) {
-
+        //state.setInfoDialogImageIndex(imageIndex);
         // TODO hacky way to get the taxon name from the correct image
         const imageContainer = document.getElementById(`image-container-${imageIndex}`);
         const currentTaxon = imageContainer.querySelector('img').alt.split(' Image')[0];

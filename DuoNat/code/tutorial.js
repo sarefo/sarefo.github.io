@@ -446,7 +446,7 @@ const tutorial = {
 
         createOverlay() {
             const collectionDialog = document.getElementById('collection-dialog');
-            ui.createDialogOverlay(collectionDialog);
+            ui.createCollectionManagerOverlay(collectionDialog);
         },
 
         updateOverlayMessage(message) {
@@ -594,6 +594,165 @@ const tutorial = {
 
     },
 
+    infoDialogTutorial: {
+
+        steps: [
+            { message: "Get information on this taxon on Wikipedia.", highlight: '#wiki-button', duration: 5000 },
+            { message: "Visit photo page on iNaturalist.", highlight: '#photo-button', duration: 5000 },
+            { message: "Check out this observation on iNaturalist.", highlight: '#observation-button', duration: 5000 },
+            { message: "Visit the iNaturalist page for this taxon.", highlight: '#taxon-button', duration: 5000 },
+            { message: "Report a problem with this observation or the app.", highlight: '#report-button', duration: 5000 }
+        ],
+        currentStep: 0,
+        highlightElements: [],
+
+        show() {
+            this.initializeTutorial();
+            this.startTutorial();
+        },
+
+        initializeTutorial() {
+            tutorial.isActive = true;
+            tutorial.shouldContinue = true;
+            tutorial.currentTutorial = this;
+            this.disableInteractions();
+            this.createOverlay();
+            this.addCloseButton();
+        },
+
+        createOverlay() {
+            const infoDialog = document.getElementById('info-dialog');
+            ui.createInfoDialogOverlay(infoDialog);
+        },
+
+        updateOverlayMessage(message) {
+            ui.updateDialogOverlayMessage(message);
+        },
+
+        startTutorial() {
+            this.currentStep = 0;
+            this.highlightElements = [];
+            this.showNextStep();
+        },
+
+        showNextStep() {
+            if (this.currentStep < this.steps.length && tutorial.shouldContinue) {
+                const step = this.steps[this.currentStep];
+                this.updateStepContent(step);
+                this.currentStep++;
+                setTimeout(() => this.showNextStep(), step.duration);
+            } else {
+                this.endTutorial();
+            }
+        },
+
+        updateStepContent(step) {
+            this.updateOverlayMessage(step.message);
+            this.clearPreviousHighlights();
+            if (step.highlight) {
+                const highlight = this.createHighlight(step.highlight, step.duration);
+                if (highlight) this.highlightElements.push(highlight);
+            }
+        },
+
+        clearPreviousHighlights() {
+            this.highlightElements.forEach(el => el.remove());
+            this.highlightElements = [];
+        },
+
+        createHighlight(targetSelector, duration) {
+            const target = document.querySelector(targetSelector);
+            if (!target) {
+                console.error(`Target element not found: ${targetSelector}`);
+                return null;
+            }
+            const highlight = document.createElement('div');
+            highlight.className = 'tutorial-highlight';
+            
+            const infoDialog = document.getElementById('info-dialog');
+            infoDialog.appendChild(highlight);
+
+            const targetRect = target.getBoundingClientRect();
+            const dialogRect = infoDialog.getBoundingClientRect();
+
+            highlight.style.width = `${targetRect.width}px`;
+            highlight.style.height = `${targetRect.height}px`;
+            highlight.style.top = `${targetRect.top - dialogRect.top}px`;
+            highlight.style.left = `${targetRect.left - dialogRect.left}px`;
+
+            const animationDuration = 1; // seconds
+            const iterationCount = Math.floor(duration / 1000 / animationDuration);
+
+            highlight.style.animationDuration = `${animationDuration}s`;
+            highlight.style.animationIterationCount = iterationCount;
+
+            // Add specific styling for round buttons
+            if (target.classList.contains('info-dialog__button')) {
+                highlight.style.borderRadius = '50%';
+            }
+
+            return highlight;
+        },
+
+        disableInteractions() {
+            const dialog = document.getElementById('info-dialog');
+            if (dialog) {
+                dialog.style.pointerEvents = 'none';
+                dialog.querySelectorAll('button').forEach(el => {
+                    el.disabled = true;
+                    el.style.pointerEvents = 'none';
+                });
+            }
+
+            // Ensure the close button is clickable
+            const closeButton = document.querySelector('.tutorial-close-button');
+            if (closeButton) {
+                closeButton.style.pointerEvents = 'auto';
+                closeButton.disabled = false;
+            }
+        },
+
+        enableInteractions() {
+            const dialog = document.getElementById('info-dialog');
+            if (dialog) {
+                dialog.style.pointerEvents = 'auto';
+                dialog.querySelectorAll('button').forEach(el => {
+                    el.disabled = false;
+                    el.style.pointerEvents = 'auto';
+                });
+            }
+        },
+
+        addCloseButton() {
+            //const imageIndex = state.getInfoDialogImageIndex();
+
+            // Create and position the "Close Tutorial" button
+            const closeButton = document.createElement('button');
+            closeButton.textContent = 'Close Tutorial';
+            closeButton.className = 'tutorial-close-button';
+            closeButton.style.position = 'absolute';
+            closeButton.style.bottom = '170px';
+            closeButton.style.right = '10px';
+            closeButton.addEventListener('click', () => tutorial.endCurrentTutorial());
+            
+            //const imageContainer = document.getElementById(`image-container-${imageIndex}`);
+            //imageContainer.appendChild(closeButton);
+            const overlay = document.getElementById(`info-dialog-facts`);
+            overlay.appendChild(closeButton);
+        },
+
+        endTutorial() {
+            tutorial.isActive = false;
+            tutorial.shouldContinue = false;
+            tutorial.currentTutorial = null;
+            this.enableInteractions();
+            this.clearPreviousHighlights();
+            ui.removeDialogOverlay();
+            const closeButton = document.querySelector('.tutorial-close-button');
+            if (closeButton) closeButton.remove();
+        },
+    },
+
     endCurrentTutorial() {
         if (this.currentTutorial) {
             this.currentTutorial.endTutorial();
@@ -621,9 +780,16 @@ Object.keys(tutorial.collectionManagerTutorial).forEach(key => {
     }
 });
 
+Object.keys(tutorial.infoDialogTutorial).forEach(key => {
+    if (typeof tutorial.infoDialogTutorial[key] === 'function') {
+        tutorial.infoDialogTutorial[key] = tutorial.infoDialogTutorial[key].bind(tutorial.infoDialogTutorial);
+    }
+});
+
 const publicAPI = {
     showMainTutorial: tutorial.mainTutorial.show,
     showCollectionManagerTutorial: tutorial.collectionManagerTutorial.show,
+    showInfoDialogTutorial: tutorial.infoDialogTutorial.show,
     isActive() {
         return tutorial.isActive;
     },

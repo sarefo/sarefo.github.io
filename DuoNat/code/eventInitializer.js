@@ -23,7 +23,7 @@ const eventInitializer = {
         this.initializeDiscordButton();
         this.initializeDialogCloseButtons();
         this.initializeSearchInput();
-        this.initializeCollectionHelpButton();
+        this.initializeHelpButtons();
     },
 
     initializeDragAndDrop() {
@@ -154,10 +154,14 @@ const eventInitializer = {
         }
     },
 
-    initializeCollectionHelpButton() {
-        const helpButton = document.getElementById('collection-help-button');
-        if (helpButton) {
-            helpButton.addEventListener('click', this.handleCollectionHelpButtonClick);
+    initializeHelpButtons() {
+        const collHelpButton = document.getElementById('collection-help-button');
+        if (collHelpButton) {
+            collHelpButton.addEventListener('click', this.handleCollectionHelpButtonClick);
+        }
+        const infoHelpButton = document.getElementById('info-help-button');
+        if (infoHelpButton) {
+            infoHelpButton.addEventListener('click', this.handleInfoHelpButtonClick);
         }
     },
 
@@ -165,6 +169,12 @@ const eventInitializer = {
         event.preventDefault();
         event.stopPropagation();
         tutorial.showCollectionManagerTutorial();
+    },
+
+    handleInfoHelpButtonClick(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        tutorial.showInfoDialogTutorial();
     },
 
     safeAddEventListener(id, eventType, handler) {

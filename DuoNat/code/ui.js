@@ -91,7 +91,7 @@ const ui = {
             state.getElement('overlayMessage').style.fontSize = fontSize;
         },
     
-        createDialogOverlay(dialogElement) {
+        createCollectionManagerOverlay(dialogElement) {
             const taxonPairList = dialogElement.querySelector('#taxon-pair-list');
             if (!taxonPairList) {
                 logger.error('Taxon pair list not found in the dialog');
@@ -132,6 +132,24 @@ const ui = {
             overlay.style.left = `${buttonRect.left - dialogRect.left}px`;
             overlay.style.width = `${buttonRect.width}px`;
             overlay.style.height = `${buttonRect.height}px`;
+            overlay.style.pointerEvents = 'none'; // Allow clicks to pass through
+        },
+
+        createInfoDialogOverlay(dialogElement) {
+            const overlay = document.createElement('div');
+            overlay.id = 'info-dialog-tutorial-overlay';
+            overlay.className = 'dialog-tutorial-overlay';
+            overlay.innerHTML = '<div class="dialog-tutorial-overlay__message"></div>';
+            
+            const factContainer = document.getElementById(`info-dialog-facts`);
+            factContainer.appendChild(overlay); 
+
+            const factsRect = factContainer.getBoundingClientRect();
+            const dialogRect = dialogElement.getBoundingClientRect();
+            
+            overlay.style.bottom = `${dialogRect.bottom - factsRect.bottom}px`;
+            overlay.style.left = `${factsRect.left - dialogRect.left}px`;
+            overlay.style.width = `${factsRect.width}px`;
         },
 
         updateDialogOverlayMessage(message) {
@@ -142,7 +160,8 @@ const ui = {
         },
 
         removeDialogOverlay() {
-            const overlay = document.getElementById('dialog-tutorial-overlay');
+            const overlay = document.querySelector('[id$="dialog-tutorial-overlay"]');
+
             if (overlay) {
                 // Disconnect the mutation observer if it exists
                 if (overlay.mutationObserver) {
@@ -420,7 +439,8 @@ const publicAPI = {
     showOverlay: ui.overlay.showOverlay,
     updateOverlayMessage: ui.overlay.updateOverlayMessage,
     hideOverlay: ui.overlay.hideOverlay,
-    createDialogOverlay: ui.overlay.createDialogOverlay,
+    createCollectionManagerOverlay: ui.overlay.createCollectionManagerOverlay,
+    createInfoDialogOverlay: ui.overlay.createInfoDialogOverlay,
     updateDialogOverlayMessage: ui.overlay.updateDialogOverlayMessage,
     removeDialogOverlay: ui.overlay.removeDialogOverlay,
     // Menu
