@@ -62,14 +62,14 @@ const tutorial = {
 
         setupTutorialSteps() {
             this.steps = [
-                /*{ message: "Welcome to DuoNat!<br>Let's learn how to play.", highlight: null, duration: 4000 },
+                { message: "Welcome to DuoNat!<br>Let's learn how to play.", highlight: null, duration: 4000 },
                 { message: "Learn to distinguish two different taxa.", highlights: ['#image-container-1', '#image-container-2'], duration: 5000 },
                 {
                     message: "Drag a name to the correct image.",
                     highlight: '.name-pair',
                     duration: 5000,
                     action: () => this.animateDragDemo()
-                },*/
+                },
                 { 
                     message: "If correct, play another round of the same pair.",
                     highlight: null,
@@ -87,7 +87,7 @@ const tutorial = {
                 { message: "Share the current pair and collection.", highlight: '#share-button', duration: 6000 },
                 { message: "Change difficulty, browse or filter.", highlight: '#level-indicator', duration: 5000 },
                 { message: "Filter by common ancestry.", highlight: '#ancestry-button', duration: 5000 },
-                { message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => this.temporarilyOpenMenu(12000), duration: 6000 },
+                /*{ message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => this.temporarilyOpenMenu(12000), duration: 6000 },*/
                 { message: "Ready to start?<br>Let's go!", highlight: null, duration: 2000 }
             ];
         },
