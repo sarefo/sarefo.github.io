@@ -78,9 +78,10 @@ const gameLogic = {
             logger.debug('Handling correct answer');
             await ui.showOverlay('Correct!', config.overlayColors.green);
             ui.prepareImagesForLoading();
-            await utils.ui.sleep(2000);
-            ui.hideOverlay();
+            await utils.ui.sleep(1700);
             await gameSetup.setupGame(false);
+            await utils.ui.sleep(300); // wait for setupNameTiles()
+            ui.hideOverlay();
         },
 
         async handleIncorrectAnswer() {
