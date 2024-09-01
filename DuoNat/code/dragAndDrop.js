@@ -355,6 +355,27 @@ const dragAndDrop = {
                 draggedElement.classList.remove('name-pair__item--correct', 'name-pair__item--incorrect');
             }, 600);
         },
+
+        moveTileToDropZone(tilePosition, dropZonePosition) {
+            const draggedElement = document.getElementById(tilePosition === 'left' ? 'left-name' : 'right-name');
+            const otherElement = document.getElementById(tilePosition === 'left' ? 'right-name' : 'left-name');
+            const dropZone = document.getElementById(dropZonePosition === 'upper' ? 'drop-1' : 'drop-2');
+            const otherDropZone = document.getElementById(dropZonePosition === 'upper' ? 'drop-2' : 'drop-1');
+
+            if (draggedElement && dropZone) {
+                const isCorrect = this.utils.isAnswerCorrect(dropZone.id, draggedElement.id);
+
+                this.utils.animateElement(draggedElement, dropZone, isCorrect);
+                this.utils.animateElement(otherElement, otherDropZone, isCorrect);
+
+                setTimeout(() => {
+                    this.utils.finalizeDropAnimation(draggedElement, otherElement, dropZone, isCorrect);
+                    // Ensure the game is in PLAYING state before checking the answer
+                    state.setState(state.GameState.PLAYING);
+                    gameLogic.checkAnswer(dropZone.id);
+                }, 300);
+            }
+        },
     },
 };
 
@@ -370,7 +391,8 @@ Object.keys(dragAndDrop).forEach(key => {
 });
 
 const publicAPI = {
-    initialize: dragAndDrop.init.initialize
+    initialize: dragAndDrop.init.initialize,
+    moveTileToDropZone: dragAndDrop.utils.moveTileToDropZone, // for keyboard shortcut
 };
 
 // Bind publicAPI methods

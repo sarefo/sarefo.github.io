@@ -1,6 +1,7 @@
 import ancestryDialog from './ancestryDialog.js';
 import collectionManager from './collectionManager.js';
 import dialogManager from './dialogManager.js';
+import dragAndDrop from './dragAndDrop.js';
 import gameLogic from './gameLogic.js';
 import hintSystem from './hintSystem.js';
 import infoDialog from './infoDialog.js';
@@ -37,8 +38,8 @@ const keyboardShortcuts = {
 
         const shortcutActions = {
             'arrowleft': this.handleArrowLeft.bind(this),
-            'arrowup': () => this.moveTileToDropZone('left', 'upper'),
-            'arrowdown': () => this.moveTileToDropZone('left', 'lower'),
+            'arrowup': () => dragAndDrop.moveTileToDropZone('left', 'upper'),
+            'arrowdown': () => dragAndDrop.moveTileToDropZone('left', 'lower'),
             'c': collectionManager.openCollectionManagerDialog,
             'e': () => dialogManager.openDialog('enter-pair-dialog'),
             'i': () => infoDialog.showInfoDialog(1),
@@ -151,18 +152,6 @@ const keyboardShortcuts = {
                     searchHandler.handleClearSearch();
                     break;
             }
-        }
-    },
-
-    moveTileToDropZone(tilePosition, dropZonePosition) {
-        const tile = document.getElementById(tilePosition === 'left' ? 'left-name' : 'right-name');
-        const dropZone = document.getElementById(dropZonePosition === 'upper' ? 'drop-1' : 'drop-2');
-
-        if (tile && dropZone) {
-            tile.parentNode.removeChild(tile);
-            dropZone.innerHTML = '';
-            dropZone.appendChild(tile);
-            gameLogic.checkAnswer(dropZone.id);
         }
     },
 
