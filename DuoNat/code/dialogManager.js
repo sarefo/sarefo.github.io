@@ -224,7 +224,17 @@ const dialogManager = {
         },
 
         isAnyDialogOpen() {
-            return Array.isArray(dialogManager.openDialogs) && dialogManager.openDialogs.length > 0;
+            // Check actual DOM state of dialogs
+            const openDialogs = dialogManager.dialogIds.filter(id => {
+                const dialog = document.getElementById(id);
+                return dialog && dialog.open;
+            });
+
+            // Update internal state
+            this.openDialogs = openDialogs;
+
+            const isOpen = openDialogs.length > 0;
+            return isOpen;
         },
 
         closeAllDialogs() {
@@ -252,6 +262,21 @@ const dialogManager = {
         handleDialogClose(dialog) {
             // Any additional cleanup needed when a dialog is closed
             ui.resetUIState();
+        },
+
+        resetDialogState() {
+            const actualOpenDialogs = dialogManager.dialogIds.filter(id => {
+                const dialog = document.getElementById(id);
+                return dialog && dialog.open;
+            });
+
+            this.openDialogs = actualOpenDialogs;
+
+            if (this.openDialogs.length === 0) {
+                eventMain.enableKeyboardShortcuts();
+            }
+
+            //logger.debug(`Dialog state reset. Open dialogs: ${this.openDialogs.join(', ')}`);
         },
     },
 
@@ -369,6 +394,7 @@ const publicAPI = {
     openDialog: dialogManager.core.openDialog,
     closeDialog: dialogManager.core.closeDialog,
     closeAllDialogs: dialogManager.core.closeAllDialogs,
+    resetDialogState: dialogManager.core.resetDialogState,
 
     isAnyDialogOpen: dialogManager.core.isAnyDialogOpen,
     getOpenDialogs: dialogManager.core.getOpenDialogs,

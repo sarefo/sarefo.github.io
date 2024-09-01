@@ -1,4 +1,5 @@
 import config from './config.js';
+import dialogManager from './dialogManager.js';
 import eventMain from './eventMain.js';
 import logger from './logger.js';
 import ui from './ui.js';
@@ -25,7 +26,6 @@ const tutorial = {
             tutorial.isActive = false;
             this.currentStep = 0;
             this.shouldContinue = false;
-            // Add any other state resets here
         },
 
         initializeTutorial() {
@@ -42,6 +42,7 @@ const tutorial = {
             if (helpDialog && helpDialog.open) {
                 helpDialog.close();
             }
+            dialogManager.resetDialogState();
         },
 
         showInitialOverlay() {

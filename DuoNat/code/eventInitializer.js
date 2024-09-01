@@ -101,7 +101,7 @@ const eventInitializer = {
             const startTutorial = () => {
                 if (!isTutorialStarting && !tutorial.isActive()) {
                     isTutorialStarting = true;
-                    logger.debug('Tutorial button clicked');
+                    //logger.debug('Tutorial button clicked');
                     tutorial.showMainTutorial();
                     
                     // Reset the flag after a short delay

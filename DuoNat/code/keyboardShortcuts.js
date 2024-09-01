@@ -25,12 +25,15 @@ const keyboardShortcuts = {
             this.handleKeyboardShortcuts.bind(this),
             300
         );
-        document.addEventListener('keydown', this.debouncedKeyboardHandler);
+        this.enable(); // Call enable instead of directly adding the listener
     },
 
     handleKeyboardShortcuts(event) {
         const isDialogOpen = dialogManager.isAnyDialogOpen();
-        if (!this.isEnabled || this.shouldIgnoreKeyboardShortcut(event) || isDialogOpen) return;
+        if (!this.isEnabled || this.shouldIgnoreKeyboardShortcut(event) || isDialogOpen) {
+        //logger.debug(`Keyboard shortcut ignored. isEnabled: ${this.isEnabled}, shouldIgnore: ${this.shouldIgnoreKeyboardShortcut(event)}, isDialogOpen: ${isDialogOpen}`);
+            return;
+        }
 
         const shortcutActions = {
             'arrowleft': this.handleArrowLeft.bind(this),
@@ -60,11 +63,19 @@ const keyboardShortcuts = {
     },
 
     enable() {
-        this.isEnabled = true;
+        if (!this.isEnabled) {
+            this.isEnabled = true;
+            document.addEventListener('keydown', this.debouncedKeyboardHandler);
+        //logger.debug('Keyboard shortcuts enabled');
+        }
     },
 
     disable() {
-        this.isEnabled = false;
+        if (this.isEnabled) {
+            this.isEnabled = false;
+            document.removeEventListener('keydown', this.debouncedKeyboardHandler);
+        //logger.debug('Keyboard shortcuts disabled');
+        }
     },
 
     shouldIgnoreKeyboardShortcut(event) {
