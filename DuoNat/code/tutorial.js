@@ -322,17 +322,36 @@ const tutorial = {
             const preloadedImages = preloader.roundPreloader.getPreloadedImagesForRoundDemo();
 
             if (preloadedImages && preloadedImages.taxon1 && preloadedImages.taxon2) {
- 
+                // Fade out current images
+                imageOne.style.transition = imageTwo.style.transition = 'opacity 0.3s ease-out';
+                imageOne.style.opacity = imageTwo.style.opacity = '0';
+
+                await utils.ui.sleep(300); // Wait for fade out
+
                 // Switch to preloaded images
                 imageOne.src = preloadedImages.taxon1;
                 imageTwo.src = preloadedImages.taxon2;
 
+                // Fade in new images
+                imageOne.style.opacity = imageTwo.style.opacity = '1';
+
                 await utils.ui.sleep(3000); // Display for 3 seconds
+
+                // Fade out again
+                imageOne.style.opacity = imageTwo.style.opacity = '0';
+
+                await utils.ui.sleep(300); // Wait for fade out
 
                 // Switch back to original images
                 imageOne.src = originalSrcOne;
                 imageTwo.src = originalSrcTwo;
 
+                // Fade in original images
+                imageOne.style.opacity = imageTwo.style.opacity = '1';
+
+                // Clean up transitions
+                await utils.ui.sleep(300);
+                imageOne.style.transition = imageTwo.style.transition = '';
             } else {
                 logger.warn('No preloaded images available for demonstration');
             }
