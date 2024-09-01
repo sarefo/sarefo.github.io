@@ -472,6 +472,14 @@
     margin-bottom: 0;
 }
 
+.taxon-pair__pair-name.compact {
+    background-color: var(--primary-color);
+    border-radius: 8px;
+    padding: 6px;
+    color: #fff;
+    margin: 0 6px;
+}
+
 .taxon-item {
     flex: 1;
     display: flex;

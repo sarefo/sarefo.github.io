@@ -250,11 +250,12 @@ const collectionManager = {
             const taxonItemsClass = hideCollManTaxa ? 'taxon-items hidden' : 'taxon-items';
             const taxonPairContainerClass = hideCollManTaxa ? 'taxon-pair-container compact' : 'taxon-pair-container';
             const pairNameContainerClass = hideCollManTaxa ? 'pair-name-container compact' : 'pair-name-container';
+            const pairNameClass = hideCollManTaxa ? 'taxon-pair__pair-name compact' : 'taxon-pair__pair-name';
 
             return `
                 <div class="${taxonPairContainerClass}">
                     <div class="${pairNameContainerClass}">
-                        <div class="taxon-pair__pair-name">${pair.pairName || 'Unnamed Pair'}</div>
+                        <div class="${pairNameClass}">${pair.pairName || 'Unnamed Pair'}</div>
                         <div class="taxon-pair__level-chilis" aria-label="Skill level">${this.getChiliHtml(pair.level)}</div>
                         <div class="taxon-pair__tags">${pair.tags.join(', ')}</div>
                     </div>
@@ -282,6 +283,11 @@ const collectionManager = {
             
             const pairNameContainers = document.querySelectorAll('.pair-name-container');
             pairNameContainers.forEach(item => {
+                item.classList.toggle('compact', hideCollManTaxa);
+            });
+            
+            const pairNames = document.querySelectorAll('.taxon-pair__pair-name');
+            pairNames.forEach(item => {
                 item.classList.toggle('compact', hideCollManTaxa);
             });
 
