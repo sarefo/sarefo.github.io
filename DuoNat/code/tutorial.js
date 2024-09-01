@@ -601,7 +601,7 @@ const tutorial = {
             { message: "Visit photo page on iNaturalist.", highlight: '#photo-button', duration: 5000 },
             { message: "Check out this observation on iNaturalist.", highlight: '#observation-button', duration: 5000 },
             { message: "Visit the iNaturalist page for this taxon.", highlight: '#taxon-button', duration: 5000 },
-            { message: "Report a problem with this observation or the app.", highlight: '#report-button', duration: 5000 }
+            { message: "Report a problem with this pair or the app.", highlight: '#report-button', duration: 5000 }
         ],
         currentStep: 0,
         highlightElements: [],
