@@ -92,10 +92,30 @@ const eventInitializer = {
         }
     },
 
+    // weirdly, this button always gets invoked twice. temporary workaround crap to prevent this
     initializeTutorialButton() {
         const tutorialButton = document.getElementById('start-tutorial-button');
         if (tutorialButton) {
-            tutorialButton.addEventListener('click', () => tutorial.showMainTutorial());
+            let isTutorialStarting = false;
+            
+            const startTutorial = () => {
+                if (!isTutorialStarting && !tutorial.isActive()) {
+                    isTutorialStarting = true;
+                    logger.debug('Tutorial button clicked');
+                    tutorial.showMainTutorial();
+                    
+                    // Reset the flag after a short delay
+                    setTimeout(() => {
+                        isTutorialStarting = false;
+                    }, 1000);
+                } else {
+                    logger.debug('Tutorial start prevented: already starting or active');
+                }
+            };
+
+            tutorialButton.addEventListener('click', startTutorial);
+        } else {
+            logger.warn('Tutorial button not found');
         }
     },
 

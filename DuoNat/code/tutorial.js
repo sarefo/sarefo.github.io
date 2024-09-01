@@ -21,8 +21,15 @@ const tutorial = {
             this.startTutorial();
         },
 
+        reset() {
+            tutorial.isActive = false;
+            this.currentStep = 0;
+            this.shouldContinue = false;
+            // Add any other state resets here
+        },
+
         initializeTutorial() {
-            this.isActive = true;
+            tutorial.isActive = true;
             this.shouldContinue = true;
             this.disableInteractions();
             this.closeHelpDialog();
@@ -67,10 +74,11 @@ const tutorial = {
                     duration: 6000
                 },
                 { message: "Get more info about a taxon.", highlights: ['#info-button-1', '#info-button-2'], duration: 6000 },
-                { message: "Get hints to distinguish taxa.", highlights: ['#hint-button-1', '#hint-button-2'], duration: 6000 },
+                /*{ message: "Get hints to distinguish taxa.", highlights: ['#hint-button-1', '#hint-button-2'], duration: 6000 },*/
                 { message: "Share the current pair and collection.", highlight: '#share-button', duration: 6000 },
+                { message: "Change difficulty, browse or filter.", highlight: '#level-indicator', duration: 5000 },
+                { message: "Filter by common ancestry.", highlight: '#ancestry-button', duration: 5000 },
                 { message: "Tap the menu for more functions.", highlight: '#menu-toggle', action: () => this.temporarilyOpenMenu(12000), duration: 6000 },
-                { message: "Change difficulty, browse or filter.", highlights: ['#level-indicator', '#collection-button'], duration: 5000 },
                 { message: "Ready to start?<br>Let's go!", highlight: null, duration: 2000 }
             ];
         },
@@ -84,24 +92,35 @@ const tutorial = {
         showNextStep() {
             if (this.currentStep < this.steps.length && this.shouldContinue) {
                 const step = this.steps[this.currentStep];
+                logger.debug(`Starting step ${this.currentStep}: ${step.message}`);
+                
                 this.fadeOutOverlayMessage(() => {
+                    logger.debug(`Faded out step ${this.currentStep}`);
                     this.updateStepContent(step);
-                    this.fadeInOverlayMessage();
-                    this.currentStep++;
-                    setTimeout(() => this.showNextStep(), step.duration);
+                    this.fadeInOverlayMessage(() => {
+                        logger.debug(`Faded in step ${this.currentStep}`);
+                        this.currentStep++;
+                        if (step.action) {
+                            logger.debug(`Executing action for step: ${step.message}`);
+                            step.action();
+                        }
+                        setTimeout(() => {
+                            logger.debug(`Timeout finished for step ${this.currentStep - 1}`);
+                            this.showNextStep();
+                        }, step.duration);
+                    });
                 });
             } else {
+                logger.debug('Ending tutorial');
                 this.endTutorial();
             }
         },
 
         updateStepContent(step) {
+            logger.debug(`Updating content for step: ${step.message}`);
             ui.updateOverlayMessage(step.message);
             this.clearPreviousHighlights();
             this.addNewHighlights(step);
-            if (step.action) {
-                step.action();
-            }
         },
 
         clearPreviousHighlights() {
@@ -121,8 +140,6 @@ const tutorial = {
 
         endTutorial() {
             logger.debug('Ending tutorial');
-            this.isActive = false;
-            this.shouldContinue = false;
             this.enableInteractions();
             this.fadeOutOverlayMessage(() => {
                 logger.debug('Fading out tutorial overlay');
@@ -135,6 +152,7 @@ const tutorial = {
             eventMain.enableKeyboardShortcuts();
             eventMain.enableSwipe();
             logger.debug('Tutorial ended');
+            this.reset();
         },
 
         disableInteractions() {
@@ -219,10 +237,13 @@ const tutorial = {
             }, 300);
         },
 
-        fadeInOverlayMessage() {
+        fadeInOverlayMessage(callback) {
             const overlayMessage = document.getElementById('overlay-message');
             overlayMessage.style.transition = 'opacity 0.3s ease-in';
             overlayMessage.style.opacity = '1';
+            setTimeout(() => {
+                if (callback) callback();
+            }, 300);
         },
 
         temporarilyOpenMenu(duration) {
