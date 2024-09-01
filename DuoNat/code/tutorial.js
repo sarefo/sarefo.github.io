@@ -418,13 +418,13 @@ const tutorial = {
     collectionManagerTutorial: {
 
         steps: [
-            { message: "Here you can choose which taxa to play.", highlight: null, duration: 4000 },
+            { message: "Here you can choose which pairs to play.", highlight: null, duration: 4000 },
             { message: "Easy or hard? Set the level here.", highlight: '#level-filter-dropdown', duration: 5000 },
             { message: "Which part of the Tree of Life do you want to play? Choose here.", highlight: '#select-phylogeny-button', duration: 5000 },
             { message: "You can select tags here.", highlight: '#select-tags-button', duration: 5000 },
             { message: "Click the map to restrict by continent.", highlight: '.filter-summary__map', duration: 5000 },
             { message: "Search by taxon or common name.", highlight: '#taxon-search', duration: 5000 },
-            { message: "Clear all filters to access all taxa.", highlight: '#clear-all-filters', duration: 5000 },
+            { message: "Clear all filters to access all pairs.", highlight: '#clear-all-filters', duration: 5000 },
             { message: "Click on 'Play' to play your filtered collection.", highlight: '#collection-done-button', duration: 5000 }
         ],
         currentStep: 0,
