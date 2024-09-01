@@ -102,6 +102,11 @@ const roundPreloader = {
         return images;
     },
 
+    getPreloadedImagesForRoundDemo() {
+        const images = preloader.preloadedImages.nextRound;
+        return images;
+    },
+
     clearPreloadedImagesForNextRound() {
         preloader.preloadedImages.nextRound = { taxon1: null, taxon2: null };
         logger.debug("Cleared preloaded images for next round");
@@ -311,6 +316,7 @@ const publicAPI = {
     },
     roundPreloader: {
         getPreloadedImagesForNextRound: preloader.roundPreloader.getPreloadedImagesForNextRound,
+        getPreloadedImagesForRoundDemo: preloader.roundPreloader.getPreloadedImagesForRoundDemo,
         clearPreloadedImagesForNextRound: preloader.roundPreloader.clearPreloadedImagesForNextRound,
         preloadForNextRound: preloader.roundPreloader.preloadForNextRound,
     },

@@ -2,7 +2,10 @@ import config from './config.js';
 import dialogManager from './dialogManager.js';
 import eventMain from './eventMain.js';
 import logger from './logger.js';
+import preloader from './preloader.js';
+import state from './state.js';
 import ui from './ui.js';
+import utils from './utils.js';
 
 const tutorial = {
     isActive: false,
@@ -59,15 +62,20 @@ const tutorial = {
 
         setupTutorialSteps() {
             this.steps = [
-                { message: "Welcome to DuoNat!<br>Let's learn how to play.", highlight: null, duration: 4000 },
+                /*{ message: "Welcome to DuoNat!<br>Let's learn how to play.", highlight: null, duration: 4000 },
                 { message: "Learn to distinguish two different taxa.", highlights: ['#image-container-1', '#image-container-2'], duration: 5000 },
                 {
                     message: "Drag a name to the correct image.",
                     highlight: '.name-pair',
                     duration: 5000,
                     action: () => this.animateDragDemo()
+                },*/
+                { 
+                    message: "If correct, play another round of the same pair.",
+                    highlight: null,
+                    duration: 6000,
+                    action: () => this.demonstrateImageSwitch()
                 },
-                { message: "If correct, play another round of the same pair.", highlight: null, duration: 4000 },
                 {
                     message: "Swipe left on an image for a new taxon pair.",
                     highlight: null,
@@ -302,6 +310,32 @@ const tutorial = {
                         resolve();
                     });
             });
+        },
+
+        async demonstrateImageSwitch() {
+            const imageOne = state.getElement('imageOne');
+            const imageTwo = state.getElement('imageTwo');
+            const originalSrcOne = imageOne.src;
+            const originalSrcTwo = imageTwo.src;
+
+            // Get the preloaded images for the next round
+            const preloadedImages = preloader.roundPreloader.getPreloadedImagesForRoundDemo();
+
+            if (preloadedImages && preloadedImages.taxon1 && preloadedImages.taxon2) {
+ 
+                // Switch to preloaded images
+                imageOne.src = preloadedImages.taxon1;
+                imageTwo.src = preloadedImages.taxon2;
+
+                await utils.ui.sleep(3000); // Display for 3 seconds
+
+                // Switch back to original images
+                imageOne.src = originalSrcOne;
+                imageTwo.src = originalSrcTwo;
+
+            } else {
+                logger.warn('No preloaded images available for demonstration');
+            }
         },
 
         tiltGameContainer: function (duration = 3200) {
