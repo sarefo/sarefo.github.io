@@ -28,6 +28,7 @@ let gameState = {
     currentState: GameState.IDLE,  // track the current game state
 
     showTaxonomicNames: false,
+    hideCollManTaxa: true,
     hasKeyboard: true,
 
     isInitialLoad: true,
@@ -370,10 +371,10 @@ const publicAPI = {
         updateGameState('showTaxonomicNames', show);
     },
 
-    /*getInfoDialogImageIndex: () => gameState.infoDialogImageIndex,
-    setInfoDialogImageIndex(show) {
-        updateGameState('infoDialogImageIndex', show);
-    },*/
+    getHideCollManTaxa: () => gameState.hideCollManTaxa,
+    setHideCollManTaxa(show) {
+        updateGameState('hideCollManTaxa', show);
+    },
 
     getHasKeyboard: () => gameState.hasKeyboard,
     setHasKeyboard(show) {

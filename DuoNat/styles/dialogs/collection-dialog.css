@@ -458,6 +458,20 @@
     gap: 8px;
 }
 
+.taxon-items.hidden {
+    display: none;
+}
+
+.taxon-pair-container.compact {
+    padding: 0;
+    padding-top: 4px;
+    border: 1px solid var(--light-green-not-transparent);
+}
+
+.pair-name-container.compact {
+    margin-bottom: 0;
+}
+
 .taxon-item {
     flex: 1;
     display: flex;
@@ -474,6 +488,10 @@
     background-color: #5c8a00;
 }
 
+.taxon-pair-button:hover .taxon-pair-container {
+    background-color:rgba(116, 172, 0, 0.5);
+}
+
 .taxon-name {
     font-style: italic;
     font-weight: bold;
@@ -488,3 +506,20 @@
     text-align: center;
 }
 
+/* Buttons on bottom */
+.collman-bottom-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+.taxon-info-toggle-container {
+    display: flex;
+    align-items: center;
+    background-color: var(--light-green);
+    /*padding: 0 4px 0 0;*/
+    border-radius: 15px;
+    /*justify-content: flex-start;*/
+    width: 136px;
+}

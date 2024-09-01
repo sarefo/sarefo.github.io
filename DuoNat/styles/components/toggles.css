@@ -75,13 +75,9 @@
     color: #fff;
 }
 
-/* QR dialog toggles */
+/* Toggle checkboxes */
 
-.share-toggle__checkbox {
-    display: none;
-}
-
-.share-toggle__label {
+.toggle-checkbox__label {
     display: inline-block;
     width: 50px;
     height: 24px;
@@ -92,7 +88,7 @@
     transition: background-color 0.3s;
 }
 
-.share-toggle__label::after {
+.toggle-checkbox__label::after {
     content: '';
     position: absolute;
     width: 20px;
@@ -104,19 +100,25 @@
     transition: 0.3s;
 }
 
-.share-toggle__checkbox:checked + .share-toggle__label {
+.toggle-checkbox:checked + .toggle-checkbox__label {
     background-color: #74ac00;
 }
 
-.share-toggle__checkbox:checked + .share-toggle__label::after {
+.toggle-checkbox:checked + .toggle-checkbox__label::after {
     left: calc(100% - 22px);
 }
 
-.share-toggle__text {
+.toggle-checkbox__text {
     margin-left: 4px;
     /*font-size: var(--normal-font-size);*/
     color: var(--dark-neutral-color);
     margin: 0 4px;
     font-size: 0.9em;
     font-weight: bold;
+}
+
+/* QR dialog toggle checkboxes */
+
+.toggle-checkbox {
+    display: none;
 }

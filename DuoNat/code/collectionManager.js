@@ -27,8 +27,14 @@ async function getCachedVernacularName(taxonName) {
 
 const collectionManager = {
     initialization: {
+        isInitialized: false,
         initialize() {
-            //this.initializeSelectPairDialog();
+            if (this.isInitialized) {
+                logger.debug("Collection manager already initialized, skipping");
+                return;
+            }
+            this.isInitialized = true;
+
             this.initializeFilterTagsButton();
             this.initializeFilterSummaryMap();
             this.initializeFilterSummaryTags();
@@ -41,6 +47,7 @@ const collectionManager = {
             if (levelDropdown) {
                 levelDropdown.addEventListener('change', collectionManager.ui.handleLevelChange.bind(this));
             }
+            collectionManager.taxonList.initializeTaxonInfoVisibility();
         },
 
         initializePhylogenySelector() {
@@ -53,11 +60,6 @@ const collectionManager = {
             });
 
         },
-
-        /*initializeSelectPairDialog() {
-            const selectPairButton = document.getElementById('collection-button');
-            selectPairButton.addEventListener('click', () => collectionManager.ui.openCollectionManagerDialog());
-        },*/
 
         initializeFilterSummaryMap() {
             const filterSummaryMap = document.querySelector('.filter-summary__map');
@@ -179,6 +181,30 @@ const collectionManager = {
             }
             await this.renderVisibleTaxonPairs(pairs);
             collectionManager.ui.updateActiveCollectionCount(pairs.length);
+            this.syncTaxonInfoVisibility(); // Add this line
+        },
+
+        initializeTaxonInfoVisibility() {
+            logger.debug("Initializing taxon info visibility");
+            const taxonInfoToggle = document.getElementById('taxon-info-toggle');
+            
+            if (taxonInfoToggle) {
+                const updateVisibility = () => {
+                    const hideCollManTaxa = !taxonInfoToggle.checked;
+                    logger.debug(`Updating taxon info visibility. Hide taxa: ${hideCollManTaxa}`);
+                    state.setHideCollManTaxa(hideCollManTaxa);
+                    this.syncTaxonInfoVisibility();
+                };
+
+                // Set initial state based on the current state
+                taxonInfoToggle.checked = !state.getHideCollManTaxa();
+                updateVisibility();
+
+                // Add event listener for future changes
+                taxonInfoToggle.addEventListener('change', updateVisibility);
+            } else {
+                logger.warn("Taxon info toggle element not found");
+            }
         },
 
         async renderVisibleTaxonPairs(pairs) {
@@ -220,19 +246,49 @@ const collectionManager = {
         },
 
         createButtonHTML(pair, vernacular1, vernacular2) {
+            const hideCollManTaxa = state.getHideCollManTaxa();
+            const taxonItemsClass = hideCollManTaxa ? 'taxon-items hidden' : 'taxon-items';
+            const taxonPairContainerClass = hideCollManTaxa ? 'taxon-pair-container compact' : 'taxon-pair-container';
+            const pairNameContainerClass = hideCollManTaxa ? 'pair-name-container compact' : 'pair-name-container';
+
             return `
-                <div class="taxon-pair-container">
-                    <div class="pair-name-container">
+                <div class="${taxonPairContainerClass}">
+                    <div class="${pairNameContainerClass}">
                         <div class="taxon-pair__pair-name">${pair.pairName || 'Unnamed Pair'}</div>
                         <div class="taxon-pair__level-chilis" aria-label="Skill level">${this.getChiliHtml(pair.level)}</div>
                         <div class="taxon-pair__tags">${pair.tags.join(', ')}</div>
                     </div>
-                    <div class="taxon-items">
+                    <div class="${taxonItemsClass}">
                         ${this.createTaxonItemHTML(pair.taxonNames[0], vernacular1)}
                         ${this.createTaxonItemHTML(pair.taxonNames[1], vernacular2)}
                     </div>
                 </div>
             `;
+        },
+
+        syncTaxonInfoVisibility() {
+            logger.warn("syncing taxoninfo viz");
+            const taxonInfoToggle = document.getElementById('taxon-info-toggle');
+            const hideCollManTaxa = state.getHideCollManTaxa();
+            
+            if (taxonInfoToggle) {
+                taxonInfoToggle.checked = !hideCollManTaxa;
+            }
+            
+            const taxonPairContainers = document.querySelectorAll('.taxon-pair-container');
+            taxonPairContainers.forEach(item => {
+                item.classList.toggle('compact', hideCollManTaxa);
+            });            
+            
+            const pairNameContainers = document.querySelectorAll('.pair-name-container');
+            pairNameContainers.forEach(item => {
+                item.classList.toggle('compact', hideCollManTaxa);
+            });
+
+            const taxonItems = document.querySelectorAll('.taxon-items');
+            taxonItems.forEach(item => {
+                item.classList.toggle('hidden', hideCollManTaxa);
+            });
         },
 
         createTaxonItemHTML(taxonName, vernacularName) {

@@ -96,9 +96,9 @@ const sharing = {
         const toggleContainer = document.createElement('div');
         toggleContainer.className = 'share-toggle-container';
         toggleContainer.innerHTML = `
-            <input type="checkbox" id="${option.value}-toggle" class="share-toggle__checkbox" checked>
-            <label for="${option.value}-toggle" class="share-toggle__label"></label>
-            <span class="share-toggle__text">${option.label}</span>
+            <input type="checkbox" id="${option.value}-toggle" class="toggle-checkbox share-toggle__checkbox" checked>
+            <label for="${option.value}-toggle" class="toggle-checkbox__label share-toggle__label"></label>
+            <span class="toggle-checkbox__text share-toggle__text">${option.label}</span>
         `;
         container.appendChild(toggleContainer);
     },
