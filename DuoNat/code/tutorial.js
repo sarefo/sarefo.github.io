@@ -92,32 +92,25 @@ const tutorial = {
         showNextStep() {
             if (this.currentStep < this.steps.length && this.shouldContinue) {
                 const step = this.steps[this.currentStep];
-                logger.debug(`Starting step ${this.currentStep}: ${step.message}`);
                 
                 this.fadeOutOverlayMessage(() => {
-                    logger.debug(`Faded out step ${this.currentStep}`);
                     this.updateStepContent(step);
                     this.fadeInOverlayMessage(() => {
-                        logger.debug(`Faded in step ${this.currentStep}`);
                         this.currentStep++;
                         if (step.action) {
-                            logger.debug(`Executing action for step: ${step.message}`);
                             step.action();
                         }
                         setTimeout(() => {
-                            logger.debug(`Timeout finished for step ${this.currentStep - 1}`);
                             this.showNextStep();
                         }, step.duration);
                     });
                 });
             } else {
-                logger.debug('Ending tutorial');
                 this.endTutorial();
             }
         },
 
         updateStepContent(step) {
-            logger.debug(`Updating content for step: ${step.message}`);
             ui.updateOverlayMessage(step.message);
             this.clearPreviousHighlights();
             this.addNewHighlights(step);
@@ -139,10 +132,8 @@ const tutorial = {
         },
 
         endTutorial() {
-            logger.debug('Ending tutorial');
             this.enableInteractions();
             this.fadeOutOverlayMessage(() => {
-                logger.debug('Fading out tutorial overlay');
                 ui.hideOverlay();
                 const closeButton = document.querySelector('.tutorial-close-button');
                 if (closeButton) closeButton.remove();
@@ -151,7 +142,6 @@ const tutorial = {
 
             eventMain.enableKeyboardShortcuts();
             eventMain.enableSwipe();
-            logger.debug('Tutorial ended');
             this.reset();
         },
 
@@ -409,7 +399,6 @@ const tutorial = {
         showNextStep() {
             if (this.currentStep < this.steps.length && tutorial.shouldContinue) {
                 const step = this.steps[this.currentStep];
-                logger.debug(`now at step ${step}`);
                 this.updateStepContent(step);
                 this.currentStep++;
                 setTimeout(() => this.showNextStep(), step.duration);
