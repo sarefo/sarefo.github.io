@@ -266,11 +266,20 @@ const tutorial = {
                 const leftOriginalPos = leftName.getBoundingClientRect();
                 const rightOriginalPos = rightName.getBoundingClientRect();
 
+                // Function to get the center position of an element
+                const getCenterPosition = (element) => {
+                    const rect = element.getBoundingClientRect();
+                    return {
+                        left: rect.left + rect.width / 2,
+                        top: rect.top + rect.height / 2
+                    };
+                };
+
                 // Function to animate an element
                 const animate = (element, target, duration) => {
                     const start = element.getBoundingClientRect();
-                    const diffX = target.left - start.left;
-                    const diffY = target.top - start.top;
+                    const diffX = target.left - (start.left + start.width / 2);
+                    const diffY = target.top - (start.top + start.height / 2);
 
                     element.style.transition = `transform ${duration}ms ease-in-out`;
                     element.style.transform = `translate(${diffX}px, ${diffY}px)`;
@@ -280,8 +289,8 @@ const tutorial = {
 
                 // Sequence of animations
                 Promise.resolve()
-                    .then(() => animate(leftName, drop1.getBoundingClientRect(), 1000))
-                    .then(() => animate(rightName, drop2.getBoundingClientRect(), 1000))
+                    .then(() => animate(leftName, getCenterPosition(drop1), 1000))
+                    .then(() => animate(rightName, getCenterPosition(drop2), 1000))
                     .then(() => new Promise(resolve => setTimeout(resolve, 1000))) // Pause
                     .then(() => {
                         leftName.style.transition = rightName.style.transition = 'transform 500ms ease-in-out';
