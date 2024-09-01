@@ -65,6 +65,12 @@
     z-index: 1000;
 }
 
+.ui-left-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .ui-buttons {
     display: flex;
     gap: 10px;
@@ -74,11 +80,9 @@
 /* Level indicator on main screen */
 .level-indicator {
     position: static;
-    margin-left: 10px;
-    top: 10px;
-    left: 10px;
     height: 40px;
     border-radius: 20px;
+    margin-left: 10px;
     padding-left: 4px;
     padding-right: 8px;
     display: flex;
@@ -94,8 +98,8 @@
 }
 
 .level-indicator .icon-chili {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
     fill: var(--primary-counter-color);
     fill: var(--dark-neutral-color);
     margin-right: 0px;

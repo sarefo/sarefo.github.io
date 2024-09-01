@@ -28,7 +28,7 @@ async function getCachedVernacularName(taxonName) {
 const collectionManager = {
     initialization: {
         initialize() {
-            this.initializeSelectPairDialog();
+            //this.initializeSelectPairDialog();
             this.initializeFilterTagsButton();
             this.initializeFilterSummaryMap();
             this.initializeFilterSummaryTags();
@@ -54,10 +54,10 @@ const collectionManager = {
 
         },
 
-        initializeSelectPairDialog() {
+        /*initializeSelectPairDialog() {
             const selectPairButton = document.getElementById('collection-button');
             selectPairButton.addEventListener('click', () => collectionManager.ui.openCollectionManagerDialog());
-        },
+        },*/
 
         initializeFilterSummaryMap() {
             const filterSummaryMap = document.querySelector('.filter-summary__map');
