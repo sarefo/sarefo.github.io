@@ -23340,14 +23340,14 @@
     "taxonFacts": [
       "Found in the Americas",
       "Largest cat species in the Western Hemisphere",
-      "Known for its powerful build and rosette-patterned coat"
+      "Sometimes black, then known as 'Black Panther'"
     ],
     "range": [
       "NA",
       "SA"
     ],
     "hints": [
-      "Rosette-patterned fur",
+      "Rosette-patterned fur with dots in the rosettes",
       "Stocky build",
       "Rounded ears"
     ]
@@ -23380,9 +23380,9 @@
       "AS"
     ],
     "hints": [
-      "Solid-colored fur",
       "Slender build",
-      "Pointed ears"
+      "Pointed ears",
+      "No dots in the rosette patterns"
     ]
   },
   "857190": {
