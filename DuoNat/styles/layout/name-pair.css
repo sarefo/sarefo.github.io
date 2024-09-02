@@ -189,4 +189,5 @@
     padding: 15px;
     max-width: 95%;
     line-height: 1.4;
+    transition: opacity 0.3s ease-in-out;
 }
