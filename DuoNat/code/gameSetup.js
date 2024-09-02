@@ -32,9 +32,9 @@ const gameSetup = {
 
             this.prepareUIForLoading();
             if (newPair || !state.getCurrentTaxonImageCollection()) {
-                await this.initializeNewPair();
+                await pairManager.initializeNewPair();
             } else {
-                await this.setupRound();
+                await roundManager.setupRoundFromGameSetup();
             }
 
             this.updateUIAfterSetup(newPair);
@@ -43,42 +43,6 @@ const gameSetup = {
         prepareUIForLoading() {
             roundManager.resetDraggables();
             ui.prepareImagesForLoading();
-        },
-
-        async initializeNewPair() {
-            const newPair = await pairManager.selectNewPair();
-            const images = await this.loadImagesForNewPair(newPair);
-            this.updateGameStateForNewPair(newPair, images);
-            await this.setupRound(true);
-        },
-
-        async loadImagesForNewPair(newPair) {
-            const preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
-            if (preloadedImages && preloadedImages.pair.pairID === newPair.pairID) {
-                logger.debug(`Using preloaded images for pair ID ${newPair.pairID}`);
-                return preloadedImages;
-            }
-            return {
-                taxon1: await preloader.imageLoader.fetchDifferentImage(newPair.taxon1 || newPair.taxonNames[0], null),
-                taxon2: await preloader.imageLoader.fetchDifferentImage(newPair.taxon2 || newPair.taxonNames[1], null),
-            };
-        },
-
-        updateGameStateForNewPair(newPair, images) {
-            state.updateGameStateMultiple({
-                currentTaxonImageCollection: {
-                    pair: newPair,
-                    imageOneURL: images.taxon1,
-                    imageTwoURL: images.taxon2,
-                    level: newPair.level || '1',
-                },
-                usedImages: {
-                    taxon1: new Set([images.taxon1]),
-                    taxon2: new Set([images.taxon2]),
-                },
-            });
-            state.setCurrentPairID(newPair.pairID || state.getCurrentPairID());
-            ui.updateLevelIndicator(newPair.level || '1');
         },
 
         async setupGameWithPreloadedPair(preloadedPair) {
@@ -93,7 +57,7 @@ const gameSetup = {
             }
 
             this.updateGameStateForPreloadedPair(preloadedPair);
-            await this.setupRound(true);
+            await roundManager.setupRoundFromGameSetup(true);
         },
 
         updateGameStateForPreloadedPair(preloadedPair) {
@@ -108,14 +72,6 @@ const gameSetup = {
                     taxon2: new Set([preloadedPair.taxon2]),
                 },
             });
-        },
-
-        async setupRound(isNewPair = false) {
-            const { pair } = state.getCurrentTaxonImageCollection();
-            
-            const imageData = await roundManager.loadAndSetupImages(pair, isNewPair);
-            
-            const { nameTileData, worldMapData } = await roundManager.setupRound(pair, imageData, isNewPair);
         },
 
         updateUIAfterSetup(newPair) {

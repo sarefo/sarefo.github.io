@@ -14,6 +14,42 @@ const pairManager = {
     lastUsedPairID: null,
     isInitialized: false,
 
+    async initializeNewPair() {
+        const newPair = await this.selectNewPair();
+        const images = await this.loadImagesForNewPair(newPair);
+        this.updateGameStateForNewPair(newPair, images);
+        await roundManager.setupRoundFromGameSetup(true);
+    },
+
+    async loadImagesForNewPair(newPair) {
+        const preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
+        if (preloadedImages && preloadedImages.pair.pairID === newPair.pairID) {
+            logger.debug(`Using preloaded images for pair ID ${newPair.pairID}`);
+            return preloadedImages;
+        }
+        return {
+            taxon1: await preloader.imageLoader.fetchDifferentImage(newPair.taxon1 || newPair.taxonNames[0], null),
+            taxon2: await preloader.imageLoader.fetchDifferentImage(newPair.taxon2 || newPair.taxonNames[1], null),
+        };
+    },
+
+    updateGameStateForNewPair(newPair, images) {
+        state.updateGameStateMultiple({
+            currentTaxonImageCollection: {
+                pair: newPair,
+                imageOneURL: images.taxon1,
+                imageTwoURL: images.taxon2,
+                level: newPair.level || '1',
+            },
+            usedImages: {
+                taxon1: new Set([images.taxon1]),
+                taxon2: new Set([images.taxon2]),
+            },
+        });
+        state.setCurrentPairID(newPair.pairID || state.getCurrentPairID());
+        ui.updateLevelIndicator(newPair.level || '1');
+    },
+
     async getNextPair(isNewPair) {
         if (isNewPair) {
             const preloadedPair = preloader.pairPreloader.getPreloadedImagesForNextPair();
@@ -371,6 +407,7 @@ Object.keys(pairManager).forEach(key => {
 });
 
 const publicAPI = {
+    initializeNewPair: pairManager.initializeNewPair,
     initializeCollectionSubset: pairManager.initializeCollectionSubset,
     getNextPair: pairManager.getNextPair,
     getNextPairFromCollection: pairManager.getNextPairFromCollection,
