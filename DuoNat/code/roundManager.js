@@ -12,318 +12,338 @@ import utils from './utils.js';
 import worldMap from './worldMap.js';
 
 const roundManager = {
+    initialization: {
+        async loadNewRound(isNewPair = false) {
+            logger.warn(`Starting loadNewRound. isNewPair: ${isNewPair}`);
+            this.initializeRoundLoading();
 
-    // TODO FIX: I think should only be responsible for round, not pair
-    async loadNewRound(isNewPair = false) {
-        logger.warn(`Starting loadNewRound. isNewPair: ${isNewPair}`);
-        this.initializeRoundLoading();
+            try {
+                const pairData = await this.getPairData(isNewPair);
+                const images = await roundManager.imageHandling.getAndProcessImages(pairData, isNewPair);
+                await roundManager.setupComponents.setupRoundComponents(pairData.pair, images);
+                roundManager.stateManagement.updateGameState(pairData.pair, images);
+                roundManager.uiManagement.finalizeRoundLoading(isNewPair);
+            } catch (error) {
+                this.handleError(error);
+            } finally {
+                this.setGameStateToPlaying();
+            }
+        },
 
-        try {
-            const pairData = await this.getPairData(isNewPair);
-            const images = await this.getAndProcessImages(pairData, isNewPair);
-            await this.setupRoundComponents(pairData.pair, images);
-            this.updateGameState(pairData.pair, images);
-            this.finalizeRoundLoading(isNewPair);
-        } catch (error) {
-            this.handleError(error);
-        } finally {
-            this.setGameStateToPlaying();
+        initializeRoundLoading() {
+            state.setState(state.GameState.LOADING);
+            ui.prepareImagesForLoading();
+        },
+
+        async getPairData(isNewPair) {
+            const pairData = await pairManager.getNextPair(isNewPair);
+            
+            if (!pairData || !pairData.pair) {
+                logger.error('Invalid pairData structure received from pairManager.getNextPair');
+                throw new Error('Invalid pairData: missing pair property');
+            }
+            
+            return pairData;
+        },
+
+        setGameStateToPlaying() {
+            state.setState(state.GameState.PLAYING);
+            logger.debug(`loadNewRound complete. Game state set to PLAYING`);
+        },
+
+        handleError(error) {
+            logger.error("Error loading round:", error);
+            ui.showOverlay("Error loading round. Please try again.", config.overlayColors.red);
         }
     },
 
-    initializeRoundLoading() {
-        state.setState(state.GameState.LOADING);
-        ui.prepareImagesForLoading();
-    },
+    imageHandling: {
+        async getAndProcessImages(pairData, isNewPair) {
+            if (!pairData) {
+                logger.error('Invalid pairData received in getAndProcessImages');
+                throw new Error('Invalid pairData: pairData is undefined');
+            }
 
-    resetDraggables() {
-        const leftNameContainer = document.getElementsByClassName('name-pair__container--left')[0];
-        const rightNameContainer = document.getElementsByClassName('name-pair__container--right')[0];
-        const dropOne = document.getElementById('drop-1');
-        const dropTwo = document.getElementById('drop-2');
+            const images = await this.getImages(pairData, isNewPair);
+            return this.randomizeImages(images, pairData.pair);
+        },
 
-        leftNameContainer.appendChild(document.getElementById('left-name'));
-        rightNameContainer.appendChild(document.getElementById('right-name'));
+        randomizeImages(images, pair) {
+            const randomized = Math.random() < 0.5;
 
-        dropOne.innerHTML = '';
-        dropTwo.innerHTML = '';
-    },
-
-    async getPairData(isNewPair) {
-        const pairData = await pairManager.getNextPair(isNewPair);
-        
-        if (!pairData || !pairData.pair) {
-            logger.error('Invalid pairData structure received from pairManager.getNextPair');
-            throw new Error('Invalid pairData: missing pair property');
-        }
-        
-        return pairData;
-    },
-
-    async getAndProcessImages(pairData, isNewPair) {
-        if (!pairData) {
-            logger.error('Invalid pairData received in getAndProcessImages');
-            throw new Error('Invalid pairData: pairData is undefined');
-        }
-
-        const images = await this.getImages(pairData, isNewPair);
-        return this.randomizeImages(images, pairData.pair);
-    },
-
-    randomizeImages(images, pair) {
-        const randomized = Math.random() < 0.5;
-        //logger.debug(`Image randomization: ${randomized ? "swapped" : "not swapped"}`);
-
-        return {
-            leftImageSrc: randomized ? images.taxon2 : images.taxon1,
-            rightImageSrc: randomized ? images.taxon1 : images.taxon2,
-            taxonImageOne: randomized ? pair.taxon2 : pair.taxon1,
-            taxonImageTwo: randomized ? pair.taxon1 : pair.taxon2,
-            randomized
-        };
-    },
-
-    async setupRoundComponents(pair, images) {
-        this.setObservationURLs(images);
-        await this.setupRound(pair, images);
-        logger.debug(`Round setup complete`);
-    },
-
-    setObservationURLs(images) {
-        state.setObservationURL(images.leftImageSrc, 1);
-        state.setObservationURL(images.rightImageSrc, 2);
-    },
-
-    updateGameState(pair, images) {
-        this.updateState(pair, images);
-        logger.debug(`State updated`);
-    },
-
-    finalizeRoundLoading(isNewPair) {
-        logger.debug(`Preloading started`);
-        ui.hideOverlay();
-        ui.resetUIState();
-        logger.debug(`UI reset complete`);
-        preloader.startPreloading(isNewPair);
-    },
-
-    setGameStateToPlaying() {
-        state.setState(state.GameState.PLAYING);
-        logger.debug(`loadNewRound complete. Game state set to PLAYING`);
-    },
-
-    async getImages(pairData, isNewPair) {
-        if (!pairData || !pairData.pair) {
-            logger.error('Invalid pairData received in getImages');
-            throw new Error('Invalid pairData: pair is undefined');
-        }
-        const { pair, preloadedImages } = pairData;
-        if (isNewPair && preloadedImages) {
-            logger.debug(`Using preloaded images for pair: ${pair.taxon1} / ${pair.taxon2}`);
-            return { taxon1: preloadedImages.taxon1, taxon2: preloadedImages.taxon2 };
-        }
-
-        const preloadedRoundImages = preloader.roundPreloader.getPreloadedImagesForNextRound();
-        if (preloadedRoundImages && preloadedRoundImages.taxon1 && preloadedRoundImages.taxon2) {
-            logger.debug(`Using preloaded round images for pair: ${pair.taxon1} / ${pair.taxon2}`);
-            preloader.roundPreloader.clearPreloadedImagesForNextRound();
-            return { taxon1: preloadedRoundImages.taxon1, taxon2: preloadedRoundImages.taxon2 };
-        }
-
-        logger.debug(`Fetching new images for pair: ${pair.taxon1} / ${pair.taxon2}`);
-        return {
-            taxon1: await preloader.imageLoader.fetchDifferentImage(pair.taxon1, null),
-            taxon2: await preloader.imageLoader.fetchDifferentImage(pair.taxon2, null)
-        };
-    },
-
-    async setupRound(pair, images, isNewPair = false) {
-        const { leftImageSrc, rightImageSrc, randomized } = images;
-
-        // Load images
-        await Promise.all([
-            this.loadImage(state.getElement('imageOne'), leftImageSrc),
-            this.loadImage(state.getElement('imageTwo'), rightImageSrc)
-        ]);
-
-        // Setup name tiles and world maps
-        const [nameTileData, worldMapData] = await Promise.all([
-            this.setupNameTiles(pair, randomized),
-            this.setupWorldMaps(pair, randomized)
-        ]);
-
-        // Update game state
-        this.updateGameStateForRound(pair, images, nameTileData);
-
-        // Update hint buttons
-        await hintSystem.updateAllHintButtons();
-
-        // Apply world map data
-        worldMap.createWorldMap(state.getElement('imageOneContainer'), worldMapData.leftContinents);
-        worldMap.createWorldMap(state.getElement('imageTwoContainer'), worldMapData.rightContinents);
-
-        return { nameTileData, worldMapData };
-    },
-
-    async setupRoundFromGameSetup(isNewPair = false) {
-        const { pair } = state.getCurrentTaxonImageCollection();
-        
-        const imageData = await this.loadAndSetupImages(pair, isNewPair);
-        
-        const { nameTileData, worldMapData } = await this.setupRound(pair, imageData, isNewPair);
-
-        return { imageData, nameTileData, worldMapData };
-    },
-
-    updateGameStateForRound(pair, imageData, nameTileData) {
-        const taxonImageOne = imageData.randomized ? pair.taxon1 : pair.taxon2;
-        const taxonImageTwo = imageData.randomized ? pair.taxon2 : pair.taxon1;
-
-        state.updateGameStateMultiple({
-            taxonImageOne: taxonImageOne,
-            taxonImageTwo: taxonImageTwo,
-            currentRound: {
-                pair,
-                imageOneURL: imageData.leftImageSrc,
-                imageTwoURL: imageData.rightImageSrc,
-                imageOneVernacular: nameTileData.leftVernacular,
-                imageTwoVernacular: nameTileData.rightVernacular,
-                randomized: imageData.randomized,
-            },
-        });
-    },
-
-    async loadImage(imgElement, src) {
-        return new Promise((resolve) => {
-            const img = new Image();
-            img.onload = () => {
-                imgElement.src = src;
-                imgElement.classList.remove('image-container__image--loading');
-                setTimeout(() => {
-                    imgElement.classList.add('image-container__image--loaded');
-                    resolve();
-                }, 50);
+            return {
+                leftImageSrc: randomized ? images.taxon2 : images.taxon1,
+                rightImageSrc: randomized ? images.taxon1 : images.taxon2,
+                taxonImageOne: randomized ? pair.taxon2 : pair.taxon1,
+                taxonImageTwo: randomized ? pair.taxon1 : pair.taxon2,
+                randomized
             };
-            img.src = src;
-        });
-    },
+        },
 
-    async loadAndSetupImages(pair, isNewPair) {
-        let imageOneURL, imageTwoURL;
+        async getImages(pairData, isNewPair) {
+            if (!pairData || !pairData.pair) {
+                logger.error('Invalid pairData received in getImages');
+                throw new Error('Invalid pairData: pair is undefined');
+            }
+            const { pair, preloadedImages } = pairData;
+            if (isNewPair && preloadedImages) {
+                logger.debug(`Using preloaded images for pair: ${pair.taxon1} / ${pair.taxon2}`);
+                return { taxon1: preloadedImages.taxon1, taxon2: preloadedImages.taxon2 };
+            }
 
-        if (isNewPair) {
-            imageOneURL = state.getCurrentTaxonImageCollection().imageOneURL;
-            imageTwoURL = state.getCurrentTaxonImageCollection().imageTwoURL;
-        } else {
-            // Check for preloaded images
+            const preloadedRoundImages = preloader.roundPreloader.getPreloadedImagesForNextRound();
+            if (preloadedRoundImages && preloadedRoundImages.taxon1 && preloadedRoundImages.taxon2) {
+                logger.debug(`Using preloaded round images for pair: ${pair.taxon1} / ${pair.taxon2}`);
+                preloader.roundPreloader.clearPreloadedImagesForNextRound();
+                return { taxon1: preloadedRoundImages.taxon1, taxon2: preloadedRoundImages.taxon2 };
+            }
+
+            logger.debug(`Fetching new images for pair: ${pair.taxon1} / ${pair.taxon2}`);
+            return {
+                taxon1: await preloader.imageLoader.fetchDifferentImage(pair.taxon1, null),
+                taxon2: await preloader.imageLoader.fetchDifferentImage(pair.taxon2, null)
+            };
+        },
+
+        async loadImage(imgElement, src) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => {
+                    imgElement.src = src;
+                    imgElement.classList.remove('image-container__image--loading');
+                    setTimeout(() => {
+                        imgElement.classList.add('image-container__image--loaded');
+                        resolve();
+                    }, 50);
+                };
+                img.src = src;
+            });
+        },
+
+        async loadAndSetupImages(pair, isNewPair) {
+            let imageOneURL, imageTwoURL;
+
+            if (isNewPair) {
+                imageOneURL = state.getCurrentTaxonImageCollection().imageOneURL;
+                imageTwoURL = state.getCurrentTaxonImageCollection().imageTwoURL;
+            } else {
+                // Check for preloaded images
+                const preloadedImages = preloader.roundPreloader.getPreloadedImagesForNextRound();
+                if (preloadedImages && preloadedImages.taxon1 && preloadedImages.taxon2) {
+                    logger.debug("Using preloaded images for next round");
+                    imageOneURL = preloadedImages.taxon1;
+                    imageTwoURL = preloadedImages.taxon2;
+                    // Clear the preloaded images after use
+                    preloader.roundPreloader.clearPreloadedImagesForNextRound();
+                } else {
+                    logger.debug("No preloaded images available, fetching new images");
+                    [imageOneURL, imageTwoURL] = await Promise.all([
+                        preloader.imageLoader.fetchDifferentImage(pair.taxon1, state.getCurrentRound().imageOneURL),
+                        preloader.imageLoader.fetchDifferentImage(pair.taxon2, state.getCurrentRound().imageTwoURL)
+                    ]);
+                }
+            }
+
+            const randomized = Math.random() < 0.5;
+
+            const leftImageSrc = randomized ? imageOneURL : imageTwoURL;
+            const rightImageSrc = randomized ? imageTwoURL : imageOneURL;
+
+            await Promise.all([
+                this.loadImage(state.getElement('imageOne'), leftImageSrc),
+                this.loadImage(state.getElement('imageTwo'), rightImageSrc)
+            ]);
+
+            state.setObservationURL(leftImageSrc, 1);
+            state.setObservationURL(rightImageSrc, 2);
+
+            return { leftImageSrc, rightImageSrc, randomized, imageOneURL, imageTwoURL };
+        },
+
+        async getImagesForRound(pair) {
             const preloadedImages = preloader.roundPreloader.getPreloadedImagesForNextRound();
             if (preloadedImages && preloadedImages.taxon1 && preloadedImages.taxon2) {
-                logger.debug("Using preloaded images for next round");
-                imageOneURL = preloadedImages.taxon1;
-                imageTwoURL = preloadedImages.taxon2;
-                // Clear the preloaded images after use
-                preloader.roundPreloader.clearPreloadedImagesForNextRound();
-            } else {
-                logger.debug("No preloaded images available, fetching new images");
-                [imageOneURL, imageTwoURL] = await Promise.all([
-                    preloader.imageLoader.fetchDifferentImage(pair.taxon1, state.getCurrentRound().imageOneURL),
-                    preloader.imageLoader.fetchDifferentImage(pair.taxon2, state.getCurrentRound().imageTwoURL)
-                ]);
+                return { imageOneURL: preloadedImages.taxon1, imageTwoURL: preloadedImages.taxon2 };
             }
-        }
-
-        const randomized = Math.random() < 0.5;
-
-        const leftImageSrc = randomized ? imageOneURL : imageTwoURL;
-        const rightImageSrc = randomized ? imageTwoURL : imageOneURL;
-
-        await Promise.all([
-            this.loadImage(state.getElement('imageOne'), leftImageSrc),
-            this.loadImage(state.getElement('imageTwo'), rightImageSrc)
-        ]);
-
-        state.setObservationURL(leftImageSrc, 1);
-        state.setObservationURL(rightImageSrc, 2);
-
-        return { leftImageSrc, rightImageSrc, randomized, imageOneURL, imageTwoURL };
+            return {
+                imageOneURL: await preloader.imageLoader.fetchDifferentImage(pair.taxon1, state.getCurrentRound().imageOneURL),
+                imageTwoURL: await preloader.imageLoader.fetchDifferentImage(pair.taxon2, state.getCurrentRound().imageTwoURL),
+            };
+        },
     },
 
-    async setupNameTiles(pair, randomized) {
-        const [leftVernacular, rightVernacular] = await Promise.all([
-            utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(randomized ? pair.taxon2 : pair.taxon1)),
-            utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(randomized ? pair.taxon1 : pair.taxon2))
-        ]);
+    setupComponents: {
+        async setupRoundComponents(pair, images) {
+            this.setObservationURLs(images);
+            await this.setupRound(pair, images);
+            logger.debug(`Round setup complete`);
+        },
 
-        ui.setupNameTilesUI(
-            randomized ? pair.taxon2 : pair.taxon1,
-            randomized ? pair.taxon1 : pair.taxon2,
-            leftVernacular,
-            rightVernacular
-        );
+        setObservationURLs(images) {
+            state.setObservationURL(images.leftImageSrc, 1);
+            state.setObservationURL(images.rightImageSrc, 2);
+        },
 
-        state.getElement('imageOne').alt = `${randomized ? pair.taxon1 : pair.taxon2} Image`;
-        state.getElement('imageTwo').alt = `${randomized ? pair.taxon2 : pair.taxon1} Image`;
+        async setupRound(pair, images, isNewPair = false) {
+            const { leftImageSrc, rightImageSrc, randomized } = images;
 
-        return { leftVernacular, rightVernacular };
+            // Load images
+            await Promise.all([
+                roundManager.imageHandling.loadImage(state.getElement('imageOne'), leftImageSrc),
+                roundManager.imageHandling.loadImage(state.getElement('imageTwo'), rightImageSrc)
+            ]);
+
+            // Setup name tiles and world maps
+            const [nameTileData, worldMapData] = await Promise.all([
+                this.setupNameTiles(pair, randomized),
+                this.setupWorldMaps(pair, randomized)
+            ]);
+
+            // Update game state
+            roundManager.stateManagement.updateGameStateForRound(pair, images, nameTileData);
+
+            // Update hint buttons
+            await hintSystem.updateAllHintButtons();
+
+            // Apply world map data
+            worldMap.createWorldMap(state.getElement('imageOneContainer'), worldMapData.leftContinents);
+            worldMap.createWorldMap(state.getElement('imageTwoContainer'), worldMapData.rightContinents);
+
+            return { nameTileData, worldMapData };
+        },
+
+        async setupRoundFromGameSetup(isNewPair = false) {
+            const { pair } = state.getCurrentTaxonImageCollection();
+            
+            const imageData = await roundManager.imageHandling.loadAndSetupImages(pair, isNewPair);
+            
+            const { nameTileData, worldMapData } = await this.setupRound(pair, imageData, isNewPair);
+
+            return { imageData, nameTileData, worldMapData };
+        },
+
+        async setupNameTiles(pair, randomized) {
+            const [leftVernacular, rightVernacular] = await Promise.all([
+                utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(randomized ? pair.taxon2 : pair.taxon1)),
+                utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(randomized ? pair.taxon1 : pair.taxon2))
+            ]);
+
+            ui.setupNameTilesUI(
+                randomized ? pair.taxon2 : pair.taxon1,
+                randomized ? pair.taxon1 : pair.taxon2,
+                leftVernacular,
+                rightVernacular
+            );
+
+            state.getElement('imageOne').alt = `${randomized ? pair.taxon1 : pair.taxon2} Image`;
+            state.getElement('imageTwo').alt = `${randomized ? pair.taxon2 : pair.taxon1} Image`;
+
+            return { leftVernacular, rightVernacular };
+        },
+
+        async setupWorldMaps(pair, randomized) {
+            const [leftContinents, rightContinents] = await Promise.all([
+                this.getContinentForTaxon(randomized ? pair.taxon1 : pair.taxon2),
+                this.getContinentForTaxon(randomized ? pair.taxon2 : pair.taxon1)
+            ]);
+
+            return { leftContinents, rightContinents };
+        },
+
+        async getContinentForTaxon(taxon) {
+            const taxonInfo = await api.taxonomy.loadTaxonInfo();
+            const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxon.toLowerCase());
+
+            if (taxonData && taxonData.range && taxonData.range.length > 0) {
+                return taxonData.range.map(code => worldMap.getFullContinentName(code));
+            }
+            logger.debug(`No range data found for ${taxon}. Using placeholder.`);
+            return [];
+        },
     },
 
-    async setupWorldMaps(pair, randomized) {
-        const [leftContinents, rightContinents] = await Promise.all([
-            this.getContinentForTaxon(randomized ? pair.taxon1 : pair.taxon2),
-            this.getContinentForTaxon(randomized ? pair.taxon2 : pair.taxon1)
-        ]);
+    stateManagement: {
+        updateGameState(pair, images) {
+            this.updateState(pair, images);
+            logger.debug(`State updated`);
+        },
 
-        return { leftContinents, rightContinents };
+        updateGameStateForRound(pair, imageData, nameTileData) {
+            const taxonImageOne = imageData.randomized ? pair.taxon1 : pair.taxon2;
+            const taxonImageTwo = imageData.randomized ? pair.taxon2 : pair.taxon1;
+
+            state.updateGameStateMultiple({
+                taxonImageOne: taxonImageOne,
+                taxonImageTwo: taxonImageTwo,
+                currentRound: {
+                    pair,
+                    imageOneURL: imageData.leftImageSrc,
+                    imageTwoURL: imageData.rightImageSrc,
+                    imageOneVernacular: nameTileData.leftVernacular,
+                    imageTwoVernacular: nameTileData.rightVernacular,
+                    randomized: imageData.randomized,
+                },
+            });
+        },
+
+        updateState(pair, images) {
+            state.updateRoundState(pair, images);
+            ui.updateLevelIndicator(pair.level || '1');
+        },
     },
 
-    async getContinentForTaxon(taxon) {
-        const taxonInfo = await api.taxonomy.loadTaxonInfo();
-        const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxon.toLowerCase());
+    uiManagement: {
+        finalizeRoundLoading(isNewPair) {
+            logger.debug(`Preloading started`);
+            ui.hideOverlay();
+            ui.resetUIState();
+            logger.debug(`UI reset complete`);
+            preloader.startPreloading(isNewPair);
+        },
 
-        if (taxonData && taxonData.range && taxonData.range.length > 0) {
-            return taxonData.range.map(code => worldMap.getFullContinentName(code));
-        }
-        logger.debug(`No range data found for ${taxon}. Using placeholder.`);
-        return [];
+        resetDraggables() {
+            const leftNameContainer = document.getElementsByClassName('name-pair__container--left')[0];
+            const rightNameContainer = document.getElementsByClassName('name-pair__container--right')[0];
+            const dropOne = document.getElementById('drop-1');
+            const dropTwo = document.getElementById('drop-2');
+
+            leftNameContainer.appendChild(document.getElementById('left-name'));
+            rightNameContainer.appendChild(document.getElementById('right-name'));
+
+            dropOne.innerHTML = '';
+            dropTwo.innerHTML = '';
+        },
     },
-
-    async getImagesForRound(pair) {
-        const preloadedImages = preloader.roundPreloader.getPreloadedImagesForNextRound();
-        if (preloadedImages && preloadedImages.taxon1 && preloadedImages.taxon2) {
-            return { imageOneURL: preloadedImages.taxon1, imageTwoURL: preloadedImages.taxon2 };
-        }
-        return {
-            imageOneURL: await preloader.imageLoader.fetchDifferentImage(pair.taxon1, state.getCurrentRound().imageOneURL),
-            imageTwoURL: await preloader.imageLoader.fetchDifferentImage(pair.taxon2, state.getCurrentRound().imageTwoURL),
-        };
-    },
-
-    updateState(pair, images) {
-        state.updateRoundState(pair, images);
-        ui.updateLevelIndicator(pair.level || '1');
-    },
-
-    handleError(error) {
-        logger.error("Error loading round:", error);
-        ui.showOverlay("Error loading round. Please try again.", config.overlayColors.red);
-    }
 };
 
-// Bind all methods to ensure correct 'this' context
-Object.keys(roundManager).forEach(key => {
-    if (typeof roundManager[key] === 'function') {
-        roundManager[key] = roundManager[key].bind(roundManager);
-    }
-});
+// Bind all methods in roundManager and its nested objects
+const bindMethodsRecursively = (obj) => {
+    Object.keys(obj).forEach(key => {
+        if (typeof obj[key] === 'function') {
+            obj[key] = obj[key].bind(obj);
+        } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+            bindMethodsRecursively(obj[key]);
+        }
+    });
+};
+
+bindMethodsRecursively(roundManager);
 
 const publicAPI = {
-    loadNewRound: roundManager.loadNewRound,
-    setupRound: roundManager.setupRound,
-    setupRoundFromGameSetup: roundManager.setupRoundFromGameSetup,
-    resetDraggables: roundManager.resetDraggables,
+    loadNewRound: roundManager.initialization.loadNewRound,
+    setupRound: roundManager.setupComponents.setupRound,
+    setupRoundFromGameSetup: roundManager.setupComponents.setupRoundFromGameSetup,
+    resetDraggables: roundManager.uiManagement.resetDraggables,
     // just temporarily public during refactoring:
-    getImagesForRound: roundManager.getImagesForRound,
-    loadAndSetupImages: roundManager.loadAndSetupImages,
+    getImagesForRound: roundManager.imageHandling.getImagesForRound,
+    loadAndSetupImages: roundManager.imageHandling.loadAndSetupImages,
 };
+
+// Bind publicAPI methods
+Object.keys(publicAPI).forEach(key => {
+    if (typeof publicAPI[key] === 'function') {
+        publicAPI[key] = publicAPI[key].bind(roundManager);
+    }
+});
 
 export default publicAPI;
