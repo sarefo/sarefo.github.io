@@ -1,7 +1,7 @@
 import imagePanner from './imagePanner.js';
-import state from './state.js';
 import logger from './logger.js';
-import gameLogic from './gameLogic.js';
+import pairManager from './pairManager.js';
+import state from './state.js';
 
 const swipeHandler = {
     isLoadingNewPair: false,
@@ -212,7 +212,7 @@ const swipeHandler = {
     scheduleNewPairLoad() {
         setTimeout(() => {
             this.resetContainerForNewPair();
-            gameLogic.loadNewPair();
+            pairManager.loadNewPair();
             this.fadeInNewPair();
         }, this.animationDuration);
     },

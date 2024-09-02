@@ -14,7 +14,6 @@ import utils from './utils.js';
 
 let isSettingUpGame = false;
 
-
 const gameSetup = {
     initialization: {
         async checkINaturalistReachability() {

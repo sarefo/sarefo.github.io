@@ -1,5 +1,4 @@
 import api from './api.js';
-import gameLogic from './gameLogic.js';
 import logger from './logger.js';
 import pairManager from './pairManager.js';
 import state from './state.js';
@@ -132,7 +131,7 @@ const pairPreloader = {
                 this.isCollectionSubsetInitialized = true;
             }
 
-            const newPair = await gameLogic.selectRandomPairFromCurrentCollection();
+            const newPair = await pairManager.selectRandomPairFromCurrentCollection();
             
             if (newPair) {
                 logger.debug(`Selected pair for preloading: ${newPair.taxonNames[0]} / ${newPair.taxonNames[1]}`);

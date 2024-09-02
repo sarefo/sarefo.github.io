@@ -1,6 +1,6 @@
 import collectionManager from './collectionManager.js';
 import dialogManager from './dialogManager.js';
-import gameLogic from './gameLogic.js';
+import pairManager from './pairManager.js';
 import logger from './logger.js';
 import ancestryDialog from './ancestryDialog.js';
 import testingDialog from './testingDialog.js';
@@ -34,7 +34,7 @@ const eventUIButtons = {
             'ancestry-button': ancestryDialog.showTaxaRelationship,
             'collection-button': collectionManager.openCollectionManagerDialog,
             'enter-pair-button': () => dialogManager.openDialog('enter-pair-dialog'),
-            'random-pair-button': gameLogic.loadNewRandomPair,
+            'random-pair-button': pairManager.loadNewRandomPair,
             'like-button': this.likePair.bind(this),
             'trash-button': this.trashPair.bind(this),
             'surprise-button': utils.sound.surprise

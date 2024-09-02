@@ -1,13 +1,13 @@
 import api from './api.js';
 import dialogManager from './dialogManager.js';
+import eventMain from './eventMain.js';
 import filtering from './filtering.js';
 import gameLogic from './gameLogic.js';
 import gameSetup from './gameSetup.js';
 import logger from './logger.js';
-import eventMain from './eventMain.js';
+import pairManager from './pairManager.js';
 import phylogenySelector from './phylogenySelector.js';
 import rangeSelector from './rangeSelector.js';
-import pairManager from './pairManager.js';
 import preloader from './preloader.js';
 import state from './state.js';
 import tagSelector from './tagSelector.js';
@@ -567,7 +567,7 @@ const collectionManager = {
             preloader.pairPreloader.clearPreloadedPair();
 
             // Select a new pair that matches the current filters
-            const newPair = await gameLogic.selectRandomPairFromCurrentCollection();
+            const newPair = await pairManager.selectRandomPairFromCurrentCollection();
             if (newPair) {
                 state.setNextSelectedPair(newPair);
                 gameSetup.setupGame(true);

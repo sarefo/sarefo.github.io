@@ -35,6 +35,7 @@ const filtering = {
 
         eventMain.resetSearch();
         collectionManager.updateLevelCounts();
+        collectionManager.updateUIForClearedFilters();
     },
 
     getAvailableTaxonIds(filteredPairs) {
@@ -63,6 +64,40 @@ const filtering = {
         }
 
         return false;
+    },
+
+    checkAllFilterCriteria(pair, filters) {
+        return this.matchesLevel(pair, filters.level) &&
+            this.matchesTags(pair, filters.tags) &&
+            this.matchesRanges(pair, filters.ranges) &&
+            this.matchesPhylogeny(pair, filters.phylogenyId);
+    },
+
+    matchesLevel(pair, selectedLevel) {
+        return selectedLevel === '' || pair.level === selectedLevel;
+    },
+
+    matchesTags(pair, selectedTags) {
+        return selectedTags.length === 0 ||
+            (pair.tags && selectedTags.every(tag => pair.tags.includes(tag)));
+    },
+
+    matchesRanges(pair, selectedRanges) {
+        return selectedRanges.length === 0 ||
+            (pair.range && pair.range.some(range => selectedRanges.includes(range)));
+    },
+
+    matchesSearch(pair, searchTerm) {
+        if (!searchTerm) return true;
+        const lowercaseSearch = searchTerm.toLowerCase();
+        return (pair.taxonNames && pair.taxonNames.some(name => name.toLowerCase().includes(lowercaseSearch))) ||
+            (pair.pairName && pair.pairName.toLowerCase().includes(lowercaseSearch)) ||
+            (pair.tags && pair.tags.some(tag => tag.toLowerCase().includes(lowercaseSearch)));
+    },
+
+    matchesPhylogeny(pair, phylogenyId) {
+        if (!phylogenyId) return true;
+        return pair.taxa.some(taxonId => filtering.isDescendantOf(taxonId, phylogenyId));
     },
 
     filterTaxonPairs(taxonPairs, filters) {
@@ -113,8 +148,8 @@ const filtering = {
             return false;
         }
 
-        const activeFilters = this.getActiveFilters();
-        return this.filterTaxonPairs([pair], activeFilters).length > 0;
+        const filters = filtering.getActiveFilters();
+        return filtering.checkAllFilterCriteria(pair, filters);
     },
 
     async countPairsPerLevel(filters) {
@@ -157,6 +192,7 @@ const publicAPI = {
     getFilteredTaxonPairs: filtering.getFilteredTaxonPairs,
     pairMatchesFilters: filtering.pairMatchesFilters,
     getAvailableTaxonIds: filtering.getAvailableTaxonIds,
+    isPairValidForCurrentFilters: filtering.isPairValidForCurrentFilters,
     isDescendantOf: filtering.isDescendantOf,
     countPairsPerLevel: filtering.countPairsPerLevel.bind(filtering),
 };

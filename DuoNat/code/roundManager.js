@@ -12,6 +12,8 @@ import utils from './utils.js';
 import worldMap from './worldMap.js';
 
 const roundManager = {
+
+    // TODO FIX: I think should only be responsible for round, not pair
     async loadNewRound(isNewPair = false) {
         logger.warn(`Starting loadNewRound. isNewPair: ${isNewPair}`);
         this.initializeRoundLoading();
@@ -109,47 +111,6 @@ const roundManager = {
         state.setState(state.GameState.PLAYING);
         logger.debug(`loadNewRound complete. Game state set to PLAYING`);
     },
-
-    /*async getNewPair() {
-        let nextSelectedPair = state.getNextSelectedPair();
-        if (nextSelectedPair) {
-            state.setNextSelectedPair(null);
-            return nextSelectedPair;
-        }
-
-        const preloadedPair = preloader.pairPreloader.getPreloadedImagesForNextPair();
-        if (preloadedPair && this.isPairValid(preloadedPair.pair)) {
-            const filters = {
-                level: state.getSelectedLevel(),
-                ranges: state.getSelectedRanges(),
-                tags: state.getSelectedTags(),
-                phylogenyId: state.getPhylogenyId(),
-                searchTerm: state.getSearchTerm()
-            };
-            if (this.isPairValidForFilters(preloadedPair.pair, filters)) {
-                return preloadedPair.pair;
-            }
-        }
-        return await this.selectRandomPair();
-    },*/
-
-    /*isPairValid(pair) {
-        return gameLogic.isPairValidForCurrentFilters(pair);
-    },*/
-
-    /*async selectRandomPair() {
-        const filters = filtering.getActiveFilters();
-        const taxonPairs = await api.taxonomy.fetchTaxonPairs();
-        const filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
-        if (filteredPairs.length === 0) {
-            throw new Error("No pairs available in the current collection");
-        }
-        return filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
-    },*/
-
-    /*isPairValidForFilters(pair, filters) {
-        return filtering.pairMatchesFilters(pair, filters);
-    },*/
 
     async getImages(pairData, isNewPair) {
         if (!pairData || !pairData.pair) {

@@ -2,7 +2,7 @@ import ancestryDialog from './ancestryDialog.js';
 import collectionManager from './collectionManager.js';
 import dialogManager from './dialogManager.js';
 import dragAndDrop from './dragAndDrop.js';
-import gameLogic from './gameLogic.js';
+import pairManager from './pairManager.js';
 import hintSystem from './hintSystem.js';
 import infoDialog from './infoDialog.js';
 import logger from './logger.js';
@@ -95,7 +95,7 @@ const keyboardShortcuts = {
   handleArrowLeft() {
         if (!this.isLoadingNewPair) {
             this.isLoadingNewPair = true;
-            gameLogic.loadNewRandomPair().finally(() => {
+            pairManager.loadNewRandomPair().finally(() => {
                 this.isLoadingNewPair = false;
             });
         }
@@ -111,7 +111,7 @@ const keyboardShortcuts = {
         const currentPairID = state.getCurrentTaxonImageCollection()?.pair?.pairID;
         if (currentPairID) {
             const nextPairID = String(Number(currentPairID) + 1);
-            gameLogic.loadPairByID(nextPairID, true);
+            pairManager.loadPairByID(nextPairID, true);
         }
     },
 
