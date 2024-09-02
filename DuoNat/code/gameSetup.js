@@ -438,8 +438,8 @@ const gameSetup = {
         isSettingUpGame = true;
 
         try {
-            if (newPair && state.getNextSelectedPair()) {
-                const nextPair = state.getNextSelectedPair();
+            const nextPair = state.getNextSelectedPair();
+            if (newPair && nextPair) {
                 logger.debug(`Setting up new pair: ${nextPair.taxon1} / ${nextPair.taxon2}`);
                 await this.initialization.runSetupSequence(true);
             } else {
