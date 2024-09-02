@@ -540,7 +540,7 @@ const collectionManager = {
             await collectionManager.taxonList.updateTaxonList(true);  // Pass true for initial load
             await collectionManager.ui.updateLevelCounts();
             eventMain.resetScrollPosition();
-            this.focusSearchInput();
+            //this.focusSearchInput();
         },
 
         focusSearchInput() {
