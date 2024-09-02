@@ -181,7 +181,7 @@ const collectionManager = {
             }
             await this.renderVisibleTaxonPairs(pairs);
             collectionManager.ui.updateActiveCollectionCount(pairs.length);
-            this.syncTaxonInfoVisibility(); // Add this line
+            this.syncTaxonInfoVisibility();
         },
 
         initializeTaxonInfoVisibility() {
@@ -191,7 +191,7 @@ const collectionManager = {
             if (taxonInfoToggle) {
                 const updateVisibility = () => {
                     const hideCollManTaxa = !taxonInfoToggle.checked;
-                    logger.debug(`Updating taxon info visibility. Hide taxa: ${hideCollManTaxa}`);
+                    //logger.debug(`Updating taxon info visibility. Hide taxa: ${hideCollManTaxa}`);
                     state.setHideCollManTaxa(hideCollManTaxa);
                     this.syncTaxonInfoVisibility();
                 };
@@ -268,7 +268,7 @@ const collectionManager = {
         },
 
         syncTaxonInfoVisibility() {
-            logger.warn("syncing taxoninfo viz");
+            //logger.warn("syncing taxoninfo viz");
             const taxonInfoToggle = document.getElementById('taxon-info-toggle');
             const hideCollManTaxa = state.getHideCollManTaxa();
             
@@ -603,7 +603,7 @@ const publicAPI = {
     updateTaxonList: collectionManager.taxonList.updateTaxonList.bind(collectionManager.taxonList),
     onFiltersChanged: collectionManager.taxonList.updateTaxonList.bind(collectionManager.taxonList),
     openCollectionManagerDialog: collectionManager.ui.openCollectionManagerDialog.bind(collectionManager.ui),
-
+    syncTaxonInfoVisibility: collectionManager.taxonList.syncTaxonInfoVisibility.bind(collectionManager.taxonList),
     renderTaxonList: collectionManager.taxonList.renderTaxonList.bind(collectionManager.taxonList),
     //updateTaxonPairList: collectionManager.taxonList.updateTaxonPairList.bind(collectionManager.taxonList),
 

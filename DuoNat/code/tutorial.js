@@ -1,4 +1,5 @@
 import config from './config.js';
+import collectionManager from './collectionManager.js';
 import dialogManager from './dialogManager.js';
 import eventMain from './eventMain.js';
 import logger from './logger.js';
@@ -441,8 +442,18 @@ const tutorial = {
             tutorial.currentTutorial = this;
             this.disableInteractions();
             this.addCloseButton();
+            this.expandTaxonPairs();
             this.createOverlay();
         },
+
+        expandTaxonPairs() {
+            state.setHideCollManTaxa(false);
+            collectionManager.syncTaxonInfoVisibility();
+            
+        },
+        /* not sure how
+           restoreTaxonPairs() {
+        },*/
 
         createOverlay() {
             const collectionDialog = document.getElementById('collection-dialog');
