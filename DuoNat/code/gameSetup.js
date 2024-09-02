@@ -255,13 +255,6 @@ const gameSetup = {
 
     },
 
-    taxonHandling: {
-        async getPairByPairID(pairID) {
-            const taxonPairs = await api.taxonomy.fetchTaxonPairs();
-            return taxonPairs.find(pair => pair.pairID === pairID);
-        },
-    },
-
     errorHandling: {
         handleSetupError(error) {
             logger.error("Error setting up game:", error);
@@ -316,7 +309,6 @@ bindMethodsRecursively(gameSetup);
 
 const publicAPI = {
     setupGame: gameSetup.setupGame.bind(gameSetup),
-    //setupRound: gameSetup.initialization.setupRound.bind(gameSetup),
     // used once in gameLogic
     setupGameWithPreloadedPair: gameSetup.initialization.setupGameWithPreloadedPair.bind(this)
 };
