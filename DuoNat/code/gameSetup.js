@@ -260,8 +260,8 @@ const gameSetup = {
 
         async setupWorldMaps(pair, imageData) {
             const [leftContinents, rightContinents] = await Promise.all([
-                gameSetup.taxonHandling.getContinentForTaxon(imageData.randomized ? pair.taxon1 : pair.taxon2),
-                gameSetup.taxonHandling.getContinentForTaxon(imageData.randomized ? pair.taxon2 : pair.taxon1)
+                roundManager.getContinentForTaxon(imageData.randomized ? pair.taxon1 : pair.taxon2),
+                roundManager.getContinentForTaxon(imageData.randomized ? pair.taxon2 : pair.taxon1)
             ]);
 
             return { leftContinents, rightContinents };
@@ -401,17 +401,6 @@ const gameSetup = {
             const taxonPairs = await api.taxonomy.fetchTaxonPairs();
             return taxonPairs.find(pair => pair.pairID === pairID);
         },
-
-        async getContinentForTaxon(taxon) {
-            const taxonInfo = await api.taxonomy.loadTaxonInfo();
-            const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxon.toLowerCase());
-
-            if (taxonData && taxonData.range && taxonData.range.length > 0) {
-                return taxonData.range.map(code => worldMap.getFullContinentName(code));
-            }
-            logger.debug(`No range data found for ${taxon}. Using placeholder.`);
-            return []; // no continents
-        },
     },
 
     errorHandling: {
@@ -451,7 +440,6 @@ const gameSetup = {
             isSettingUpGame = false;
         }
     },
-
 };
 
 // Bind all methods in gameSetup and its nested objects

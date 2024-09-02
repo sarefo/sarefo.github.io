@@ -97,7 +97,7 @@ const roundManager = {
         logger.debug(`loadNewRound complete. Game state set to PLAYING`);
     },
 
-    async getNewPair() {
+    /*async getNewPair() {
         let nextSelectedPair = state.getNextSelectedPair();
         if (nextSelectedPair) {
             state.setNextSelectedPair(null);
@@ -118,13 +118,13 @@ const roundManager = {
             }
         }
         return await this.selectRandomPair();
-    },
+    },*/
 
-    isPairValid(pair) {
+    /*isPairValid(pair) {
         return gameLogic.isPairValidForCurrentFilters(pair);
-    },
+    },*/
 
-    async selectRandomPair() {
+    /*async selectRandomPair() {
         const filters = filtering.getActiveFilters();
         const taxonPairs = await api.taxonomy.fetchTaxonPairs();
         const filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
@@ -132,11 +132,11 @@ const roundManager = {
             throw new Error("No pairs available in the current collection");
         }
         return filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
-    },
+    },*/
 
-    isPairValidForFilters(pair, filters) {
+    /*isPairValidForFilters(pair, filters) {
         return filtering.pairMatchesFilters(pair, filters);
-    },
+    },*/
 
     async getImages(pairData, isNewPair) {
         if (!pairData || !pairData.pair) {
@@ -250,6 +250,9 @@ Object.keys(roundManager).forEach(key => {
 const publicAPI = {
     loadNewRound: roundManager.loadNewRound,
     setupRound: roundManager.setupRound,
+    setupNameTiles: roundManager.setupNameTiles,
+    setupWorldMaps: roundManager.setupWorldMaps,
+    getContinentForTaxon: roundManager.getContinentForTaxon,
 };
 
 export default publicAPI;
