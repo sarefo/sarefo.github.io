@@ -198,6 +198,46 @@ const roundManager = {
         });
     },
 
+    async loadAndSetupImages(pair, isNewPair) {
+        let imageOneURL, imageTwoURL;
+
+        if (isNewPair) {
+            imageOneURL = state.getCurrentTaxonImageCollection().imageOneURL;
+            imageTwoURL = state.getCurrentTaxonImageCollection().imageTwoURL;
+        } else {
+            // Check for preloaded images
+            const preloadedImages = preloader.roundPreloader.getPreloadedImagesForNextRound();
+            if (preloadedImages && preloadedImages.taxon1 && preloadedImages.taxon2) {
+                logger.debug("Using preloaded images for next round");
+                imageOneURL = preloadedImages.taxon1;
+                imageTwoURL = preloadedImages.taxon2;
+                // Clear the preloaded images after use
+                preloader.roundPreloader.clearPreloadedImagesForNextRound();
+            } else {
+                logger.debug("No preloaded images available, fetching new images");
+                [imageOneURL, imageTwoURL] = await Promise.all([
+                    preloader.imageLoader.fetchDifferentImage(pair.taxon1, state.getCurrentRound().imageOneURL),
+                    preloader.imageLoader.fetchDifferentImage(pair.taxon2, state.getCurrentRound().imageTwoURL)
+                ]);
+            }
+        }
+
+        const randomized = Math.random() < 0.5;
+
+        const leftImageSrc = randomized ? imageOneURL : imageTwoURL;
+        const rightImageSrc = randomized ? imageTwoURL : imageOneURL;
+
+        await Promise.all([
+            this.loadImage(state.getElement('imageOne'), leftImageSrc),
+            this.loadImage(state.getElement('imageTwo'), rightImageSrc)
+        ]);
+
+        state.setObservationURL(leftImageSrc, 1);
+        state.setObservationURL(rightImageSrc, 2);
+
+        return { leftImageSrc, rightImageSrc, randomized, imageOneURL, imageTwoURL };
+    },
+
     async setupNameTiles(pair, randomized) {
         const [leftVernacular, rightVernacular] = await Promise.all([
             utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(randomized ? pair.taxon2 : pair.taxon1)),
@@ -272,6 +312,7 @@ const publicAPI = {
     resetDraggables: roundManager.resetDraggables,
     // just temporarily public during refactoring:
     getImagesForRound: roundManager.getImagesForRound,
+    loadAndSetupImages: roundManager.loadAndSetupImages,
 };
 
 export default publicAPI;

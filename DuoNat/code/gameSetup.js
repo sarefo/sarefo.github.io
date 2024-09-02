@@ -113,50 +113,9 @@ const gameSetup = {
         async setupRound(isNewPair = false) {
             const { pair } = state.getCurrentTaxonImageCollection();
             
-            const imageData = await this.loadAndSetupImages(pair, isNewPair);
+            const imageData = await roundManager.loadAndSetupImages(pair, isNewPair);
             
             const { nameTileData, worldMapData } = await roundManager.setupRound(pair, imageData, isNewPair);
-        },
-
-        async loadAndSetupImages(pair, isNewPair) {
-            let imageOneURL, imageTwoURL;
-
-            if (isNewPair) {
-                imageOneURL = state.getCurrentTaxonImageCollection().imageOneURL;
-                imageTwoURL = state.getCurrentTaxonImageCollection().imageTwoURL;
-            } else {
-                // Check for preloaded images
-                const preloadedImages = preloader.roundPreloader.getPreloadedImagesForNextRound();
-                if (preloadedImages && preloadedImages.taxon1 && preloadedImages.taxon2) {
-                    logger.debug("Using preloaded images for next round");
-                    imageOneURL = preloadedImages.taxon1;
-                    imageTwoURL = preloadedImages.taxon2;
-                    // Clear the preloaded images after use
-                    preloader.roundPreloader.clearPreloadedImagesForNextRound();
-                } else {
-                    logger.debug("No preloaded images available, fetching new images");
-                    [imageOneURL, imageTwoURL] = await Promise.all([
-                        preloader.imageLoader.fetchDifferentImage(pair.taxon1, state.getCurrentRound().imageOneURL),
-                        preloader.imageLoader.fetchDifferentImage(pair.taxon2, state.getCurrentRound().imageTwoURL)
-                    ]);
-                }
-            }
-
-            const randomized = Math.random() < 0.5;
-            //logger.debug(`Image randomization: ${randomized ? "swapped" : "not swapped"}`);
-
-            const leftImageSrc = randomized ? imageOneURL : imageTwoURL;
-            const rightImageSrc = randomized ? imageTwoURL : imageOneURL;
-
-            await Promise.all([
-                gameSetup.imageHandling.loadImageAndRemoveLoadingClass(state.getElement('imageOne'), leftImageSrc),
-                gameSetup.imageHandling.loadImageAndRemoveLoadingClass(state.getElement('imageTwo'), rightImageSrc)
-            ]);
-
-            state.setObservationURL(leftImageSrc, 1);
-            state.setObservationURL(rightImageSrc, 2);
-
-            return { leftImageSrc, rightImageSrc, randomized, imageOneURL, imageTwoURL };
         },
 
         updateUIAfterSetup(newPair) {

@@ -282,13 +282,13 @@ const phylogenySelector = {
 
         handleCloudTagClick(taxonId) {
             state.setCurrentActiveNodeId(taxonId); // Update the active node
-            this.toggleView(false); // Switch to graph view
+            phylogenySelector.toggleView(false); // Switch to graph view
             const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
             const pathToRoot = phylogenySelector.getPathToRoot(hierarchyObj, taxonId);
             
             // Use setTimeout to ensure the graph container is visible before updating
             setTimeout(() => {
-                this.updateGraph(pathToRoot);
+                phylogenySelector.updateGraph(pathToRoot);
                 if (this.onNodeSelect) {
                     this.onNodeSelect(taxonId);
                 }
