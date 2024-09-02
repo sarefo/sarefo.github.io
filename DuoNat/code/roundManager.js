@@ -165,6 +165,16 @@ const roundManager = {
         return { nameTileData, worldMapData };
     },
 
+    async setupRoundFromGameSetup(isNewPair = false) {
+        const { pair } = state.getCurrentTaxonImageCollection();
+        
+        const imageData = await this.loadAndSetupImages(pair, isNewPair);
+        
+        const { nameTileData, worldMapData } = await this.setupRound(pair, imageData, isNewPair);
+
+        return { imageData, nameTileData, worldMapData };
+    },
+
     updateGameStateForRound(pair, imageData, nameTileData) {
         const taxonImageOne = imageData.randomized ? pair.taxon1 : pair.taxon2;
         const taxonImageTwo = imageData.randomized ? pair.taxon2 : pair.taxon1;
@@ -309,6 +319,7 @@ Object.keys(roundManager).forEach(key => {
 const publicAPI = {
     loadNewRound: roundManager.loadNewRound,
     setupRound: roundManager.setupRound,
+    setupRoundFromGameSetup: roundManager.setupRoundFromGameSetup,
     resetDraggables: roundManager.resetDraggables,
     // just temporarily public during refactoring:
     getImagesForRound: roundManager.getImagesForRound,
