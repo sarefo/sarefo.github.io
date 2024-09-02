@@ -402,6 +402,7 @@ const collectionManager = {
             this.updateMapInFilterSummary();
             this.updatePhylogenyDisplay();
             this.updateTagsInFilterSummary();
+            this.updateLevelDropdown();
         },
 
         updateMapInFilterSummary() {
@@ -530,10 +531,6 @@ const collectionManager = {
             await collectionManager.taxonList.onFiltersChanged();
         },
 
-        updateUIForClearedFilters() {
-            collectionManager.ui.updateFilterSummary();
-            collectionManager.ui.updateLevelDropdown();
-        },
 
         async openCollectionManagerDialog() {
             dialogManager.openDialog('collection-dialog');
@@ -621,11 +618,10 @@ const publicAPI = {
     //updateTaxonPairList: collectionManager.taxonList.updateTaxonPairList,
 
     updateFilterSummary: collectionManager.ui.updateFilterSummary,
-    updateUIForClearedFilters: collectionManager.ui.updateUIForClearedFilters,
+    //updateUIForClearedFilters: collectionManager.ui.updateUIForClearedFilters,
 
     updateActiveCollectionCount: collectionManager.ui.updateActiveCollectionCount,
 
-    updateLevelDropdown: collectionManager.ui.updateLevelDropdown,
     updateLevelCounts: collectionManager.ui.updateLevelCounts,
     getFilteredCountForLevel: collectionManager.ui.getFilteredCountForLevel,
     handleLevelChange: collectionManager.ui.handleLevelChange,

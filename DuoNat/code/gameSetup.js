@@ -15,7 +15,9 @@ import utils from './utils.js';
 let isSettingUpGame = false;
 
 const gameSetup = {
+
     initialization: {
+
         async checkINaturalistReachability() {
             if (!await api.externalAPIs.isINaturalistReachable()) {
                 dialogManager.showINatDownDialog();
@@ -28,9 +30,12 @@ const gameSetup = {
 
         async runSetupSequence(newPair) {
             state.setState(state.GameState.LOADING);
+
             if (!await this.checkINaturalistReachability()) return;
 
-            this.prepareUIForLoading();
+            roundManager.resetDraggables();
+            ui.prepareImagesForLoading();
+
             if (newPair || !state.getCurrentTaxonImageCollection()) {
                 await pairManager.initializeNewPair();
             } else {
@@ -40,9 +45,45 @@ const gameSetup = {
             this.updateUIAfterSetup(newPair);
         },
 
-        prepareUIForLoading() {
-            roundManager.resetDraggables();
-            ui.prepareImagesForLoading();
+        updateUIAfterSetup(newPair) {
+            ui.updateLevelIndicator(state.getCurrentTaxonImageCollection().pair.level);
+
+            if (filtering.areAllFiltersDefault()) {
+                collectionManager.updateFilterSummary();
+            }
+
+            this.finishSetup(newPair);
+        },
+
+        async finishSetup(newPair) {
+            ui.setNamePairHeight();
+            state.setState(state.GameState.PLAYING);
+
+            if (newPair) {
+                await pairManager.refreshCollectionSubset();
+            }
+
+            if (state.getIsInitialLoad()) {
+                this.hideLoadingScreen();
+                state.setIsInitialLoad(false);
+            }
+            ui.resetUIState();
+            state.setState(state.GameState.PLAYING);
+            preloader.startPreloading(newPair);
+
+            // Initialize the collection subset after the game has loaded
+            pairManager.initializeCollectionSubset().catch(error => {
+                logger.error("Error initializing collection subset:", error);
+            });
+        },
+
+        hideLoadingScreen() {
+            const loadingScreen = document.getElementById('loading-screen');
+            loadingScreen.classList.add('loading-screen--fade-out');
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+                loadingScreen.remove();
+            }, 500); // This matches the transition duration in CSS
         },
 
         async setupGameWithPreloadedPair(preloadedPair) {
@@ -73,52 +114,6 @@ const gameSetup = {
                 },
             });
         },
-
-        updateUIAfterSetup(newPair) {
-            ui.updateLevelIndicator(state.getCurrentTaxonImageCollection().pair.level);
-            if (this.filtersWereCleared()) {
-                collectionManager.updateUIForClearedFilters();
-            }
-            this.finishSetup(newPair);
-        },
-
-        filtersWereCleared() {
-            return state.getSelectedTags().length === 0 &&
-                state.getSelectedRanges().length === 0 &&
-                state.getSelectedLevel() === '';
-        },
-
-        async finishSetup(newPair) {
-            ui.setNamePairHeight();
-            state.setState(state.GameState.PLAYING);
-
-            if (newPair) {
-                await pairManager.refreshCollectionSubset();
-            }
-
-            if (state.getIsInitialLoad()) {
-                this.hideLoadingScreen();
-                state.updateGameStateMultiple({ isInitialLoad: false });
-            }
-            ui.resetUIState();
-            state.setState(state.GameState.PLAYING);
-            preloader.startPreloading(newPair);
-
-            // Initialize the collection subset after the game has loaded
-            pairManager.initializeCollectionSubset().catch(error => {
-                logger.error("Error initializing collection subset:", error);
-            });
-        },
-
-        hideLoadingScreen() {
-            const loadingScreen = document.getElementById('loading-screen');
-            loadingScreen.classList.add('loading-screen--fade-out');
-            setTimeout(() => {
-                loadingScreen.style.display = 'none';
-                loadingScreen.remove();
-            }, 500); // This matches the transition duration in CSS
-        },
-
     },
 
     imageHandling: {

@@ -18,6 +18,15 @@ const filtering = {
         };
     },
 
+    areAllFiltersDefault() {
+        const filters = this.getActiveFilters();
+        return filters.tags.length === 0 &&
+            filters.ranges.length === 0 &&
+            filters.level === '' &&
+            filters.phylogenyId === null &&
+            filters.searchTerm === '';
+    },
+
     clearAllFilters() {
         state.setSelectedTags([]);
         state.setSelectedRanges([]);
@@ -35,7 +44,7 @@ const filtering = {
 
         eventMain.resetSearch();
         collectionManager.updateLevelCounts();
-        collectionManager.updateUIForClearedFilters();
+        collectionManager.updateFilterSummary();
     },
 
     getAvailableTaxonIds(filteredPairs) {
@@ -186,6 +195,7 @@ Object.keys(filtering).forEach(key => {
 
 const publicAPI = {
     applyFilters: filtering.applyFilters,
+    areAllFiltersDefault: filtering.areAllFiltersDefault,
     clearAllFilters: filtering.clearAllFilters,
     filterTaxonPairs: filtering.filterTaxonPairs,
     getActiveFilters: filtering.getActiveFilters,
