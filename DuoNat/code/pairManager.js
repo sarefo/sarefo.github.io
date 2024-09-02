@@ -377,7 +377,7 @@ const pairManager = {
     },
 };
 
-// Bind all methods in phylogenySelector and its nested objects
+// Bind all methods in pairManager and its nested objects
 const bindMethodsRecursively = (obj) => {
     Object.keys(obj).forEach(key => {
         if (typeof obj[key] === 'function') {
@@ -400,7 +400,7 @@ const publicAPI = {
     refreshCollectionSubset: pairManager.initialization.refreshCollectionSubset,
     selectNewPair: pairManager.pairSelection.selectNewPair,
     getPairByID: pairManager.pairManagement.getPairByID,
-    loadPairByID: pairManager.pairLoading.loadPairByID, // TODO double?
+    loadPairByID: pairManager.pairLoading.loadPairByID,
     selectRandomPairFromCurrentCollection: pairManager.pairSelection.selectRandomPairFromCurrentCollection,
 };
 

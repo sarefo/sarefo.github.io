@@ -762,12 +762,12 @@ const bindMethodsRecursively = (obj) => {
 bindMethodsRecursively(phylogenySelector);
 
 const publicAPI = {
-    initialize: phylogenySelector.initialize.bind(phylogenySelector),
-    updateGraph: phylogenySelector.updateGraph.bind(phylogenySelector),
-    clearSelection: phylogenySelector.clearSelection.bind(phylogenySelector),
-    toggleView: phylogenySelector.toggleView.bind(phylogenySelector),
-    updateToggleState: phylogenySelector.updateToggleState.bind(phylogenySelector),
-    clearSearchResults: phylogenySelector.search.clearSearchResults.bind(phylogenySelector),
+    initialize: phylogenySelector.initialize,
+    updateGraph: phylogenySelector.updateGraph,
+    clearSelection: phylogenySelector.clearSelection,
+    toggleView: phylogenySelector.toggleView,
+    updateToggleState: phylogenySelector.updateToggleState,
+    clearSearchResults: phylogenySelector.search.clearSearchResults,
 };
 
 // Bind publicAPI methods

@@ -257,16 +257,22 @@ const reporting = {
 };
 
 // Bind all methods to ensure correct 'this' context
-Object.keys(reporting).forEach(key => {
-    if (typeof reporting[key] === 'function') {
-        reporting[key] = reporting[key].bind(reporting);
-    }
-});
+const bindMethodsRecursively = (obj) => {
+    Object.keys(obj).forEach(key => {
+        if (typeof obj[key] === 'function') {
+            obj[key] = obj[key].bind(obj);
+        } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+            bindMethodsRecursively(obj[key]);
+        }
+    });
+};
+
+bindMethodsRecursively(reporting);
 
 const publicAPI = {
     initialize: reporting.initialize,
-    handleReportSubmit: reporting.handleReportSubmit.bind(reporting),
-    resetReportDialog: reporting.resetReportDialog.bind(reporting),
+    handleReportSubmit: reporting.handleReportSubmit,
+    resetReportDialog: reporting.resetReportDialog,
 };
 
 export default publicAPI;

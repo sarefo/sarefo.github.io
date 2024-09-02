@@ -259,16 +259,22 @@ const infoDialog = {
     },
 };
 
-// Bind all methods in infoDialog
-Object.keys(infoDialog).forEach(key => {
-    if (typeof infoDialog[key] === 'function') {
-        infoDialog[key] = infoDialog[key].bind(infoDialog);
-    }
-});
+// Bind all methods in phylogenySelector and its nested objects
+const bindMethodsRecursively = (obj) => {
+    Object.keys(obj).forEach(key => {
+        if (typeof obj[key] === 'function') {
+            obj[key] = obj[key].bind(obj);
+        } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+            bindMethodsRecursively(obj[key]);
+        }
+    });
+};
+
+bindMethodsRecursively(infoDialog);
 
 const publicAPI = {
-    initialize: infoDialog.initialize.bind(infoDialog),
-    showInfoDialog: infoDialog.showInfoDialog.bind(infoDialog),
+    initialize: infoDialog.initialize,
+    showInfoDialog: infoDialog.showInfoDialog,
 };
 
 // Bind publicAPI methods

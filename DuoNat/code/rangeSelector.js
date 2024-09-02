@@ -78,18 +78,24 @@ const rangeSelector = {
 
 };
 
-// Bind all methods in rangeSelector
-Object.keys(rangeSelector).forEach(key => {
-    if (typeof rangeSelector[key] === 'function') {
-        rangeSelector[key] = rangeSelector[key].bind(rangeSelector);
-    }
-});
+// Bind all methods in rangeSelector and its nested objects
+const bindMethodsRecursively = (obj) => {
+    Object.keys(obj).forEach(key => {
+        if (typeof obj[key] === 'function') {
+            obj[key] = obj[key].bind(obj);
+        } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+            bindMethodsRecursively(obj[key]);
+        }
+    });
+};
+
+bindMethodsRecursively(rangeSelector);
 
 const publicAPI = {
-    initialize: rangeSelector.initialize.bind(rangeSelector),
-    getSelectedRanges: rangeSelector.getSelectedRanges.bind(rangeSelector),
-    setSelectedRanges: rangeSelector.setSelectedRanges.bind(rangeSelector),
-    openRangeDialog: rangeSelector.openRangeDialog.bind(rangeSelector),
+    initialize: rangeSelector.initialize,
+    getSelectedRanges: rangeSelector.getSelectedRanges,
+    setSelectedRanges: rangeSelector.setSelectedRanges,
+    openRangeDialog: rangeSelector.openRangeDialog,
 };
 
 // Bind publicAPI methods

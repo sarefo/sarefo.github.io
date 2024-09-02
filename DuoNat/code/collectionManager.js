@@ -595,27 +595,40 @@ const collectionManager = {
     },
 };
 
+// Bind all methods in phylogenySelector and its nested objects
+const bindMethodsRecursively = (obj) => {
+    Object.keys(obj).forEach(key => {
+        if (typeof obj[key] === 'function') {
+            obj[key] = obj[key].bind(obj);
+        } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+            bindMethodsRecursively(obj[key]);
+        }
+    });
+};
+
+bindMethodsRecursively(collectionManager);
+
 const publicAPI = {
-    initialize: collectionManager.initialization.initialize.bind(collectionManager.initialization),
+    initialize: collectionManager.initialization.initialize,
 
-    setupSelectPairDialog: collectionManager.initialization.setupSelectPairDialog.bind(collectionManager.initialization),
+    setupSelectPairDialog: collectionManager.initialization.setupSelectPairDialog,
 
-    updateTaxonList: collectionManager.taxonList.updateTaxonList.bind(collectionManager.taxonList),
-    onFiltersChanged: collectionManager.taxonList.updateTaxonList.bind(collectionManager.taxonList),
-    openCollectionManagerDialog: collectionManager.ui.openCollectionManagerDialog.bind(collectionManager.ui),
-    syncTaxonInfoVisibility: collectionManager.taxonList.syncTaxonInfoVisibility.bind(collectionManager.taxonList),
-    renderTaxonList: collectionManager.taxonList.renderTaxonList.bind(collectionManager.taxonList),
-    //updateTaxonPairList: collectionManager.taxonList.updateTaxonPairList.bind(collectionManager.taxonList),
+    updateTaxonList: collectionManager.taxonList.updateTaxonList,
+    onFiltersChanged: collectionManager.taxonList.updateTaxonList,
+    openCollectionManagerDialog: collectionManager.ui.openCollectionManagerDialog,
+    syncTaxonInfoVisibility: collectionManager.taxonList.syncTaxonInfoVisibility,
+    renderTaxonList: collectionManager.taxonList.renderTaxonList,
+    //updateTaxonPairList: collectionManager.taxonList.updateTaxonPairList,
 
-    updateFilterSummary: collectionManager.ui.updateFilterSummary.bind(collectionManager.ui),
-    updateUIForClearedFilters: collectionManager.ui.updateUIForClearedFilters.bind(collectionManager.ui),
+    updateFilterSummary: collectionManager.ui.updateFilterSummary,
+    updateUIForClearedFilters: collectionManager.ui.updateUIForClearedFilters,
 
-    updateActiveCollectionCount: collectionManager.ui.updateActiveCollectionCount.bind(collectionManager.ui),
+    updateActiveCollectionCount: collectionManager.ui.updateActiveCollectionCount,
 
-    updateLevelDropdown: collectionManager.ui.updateLevelDropdown.bind(collectionManager.ui),
-    updateLevelCounts: collectionManager.ui.updateLevelCounts.bind(collectionManager.ui),
-    getFilteredCountForLevel: collectionManager.ui.getFilteredCountForLevel.bind(collectionManager.ui),
-    handleLevelChange: collectionManager.ui.handleLevelChange.bind(collectionManager.ui),
+    updateLevelDropdown: collectionManager.ui.updateLevelDropdown,
+    updateLevelCounts: collectionManager.ui.updateLevelCounts,
+    getFilteredCountForLevel: collectionManager.ui.getFilteredCountForLevel,
+    handleLevelChange: collectionManager.ui.handleLevelChange,
 };
 
 export default publicAPI;
