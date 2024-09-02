@@ -88,7 +88,8 @@ const gameSetup = {
 
         async setupGameWithPreloadedPair(preloadedPair) {
             state.resetShownHints();
-            logger.debug(`Setting up game with preloaded pair: ${preloadedPair.pair.taxon1} / ${preloadedPair.pair.taxon2}, Skill Level: ${preloadedPair.pair.level}`);
+            logger.debug(`Setting up game with preloaded pair: ${preloadedPair.pair.taxon1}
+                    / ${preloadedPair.pair.taxon2}, Skill Level: ${preloadedPair.pair.level}`);
             logger.debug(`Current selected level: ${state.getSelectedLevel()}`);
 
             if (!preloader.pairPreloader.isPairValid(preloadedPair.pair)) {
