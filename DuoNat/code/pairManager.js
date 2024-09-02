@@ -394,7 +394,7 @@ const publicAPI = {
     initializeNewPair: pairManager.pairLoading.initializeNewPair,
     initializeCollectionSubset: pairManager.initialization.initializeCollectionSubset,
     getNextPair: pairManager.pairManagement.getNextPair,
-    getNextPairFromCollection: pairManager.pairSelection.getNextPairFromCollection,
+    //getNextPairFromCollection: pairManager.pairSelection.getNextPairFromCollection,
     loadNewPair: pairManager.pairLoading.loadNewRandomPair,
     loadNewRandomPair: pairManager.pairLoading.loadNewRandomPair,
     refreshCollectionSubset: pairManager.initialization.refreshCollectionSubset,
