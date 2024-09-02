@@ -485,7 +485,7 @@ const collectionManager = {
 
                 // Update the selected option text to show filtered count
                 if (selectedLevel) {
-                    const filteredCount = this.getFilteredCountForLevel(selectedLevel);
+                    const filteredCount = await this.getFilteredCountForLevel(selectedLevel);
                     const selectedOption = levelDropdown.querySelector(`option[value="${selectedLevel}"]`);
                     if (selectedOption) {
                         const levelText = selectedOption.textContent.split(' (')[0];
@@ -509,7 +509,7 @@ const collectionManager = {
                 const totalCount = counts['1'] + counts['2'] + counts['3'];
                 const selectedLevel = state.getSelectedLevel();
                 
-                Array.from(levelDropdown.options).forEach(async (option) => {
+                const updateOption = async (option) => {
                     if (option.value === '') {
                         option.textContent = `All Levels (${totalCount})`;
                     } else {
@@ -520,7 +520,9 @@ const collectionManager = {
                         const levelText = option.textContent.split(' (')[0];
                         option.textContent = `${levelText} (${count})`;
                     }
-                });
+                };
+
+                await Promise.all(Array.from(levelDropdown.options).map(updateOption));
             }
         },
 
