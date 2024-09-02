@@ -5,6 +5,7 @@ import preloader from './preloader.js';
 import roundManager from './roundManager.js';
 import state from './state.js';
 import ui from './ui.js';
+import url from './url.js';
 
 const pairManager = {
     currentCollectionSubset: [],
@@ -22,6 +23,72 @@ const pairManager = {
             return { pair: await this.getNextPairFromCollection(), preloadedImages: null };
         }
         return { pair: state.getCurrentTaxonImageCollection().pair, preloadedImages: null };
+    },
+
+    async selectNewPair() {
+        state.resetShownHints();
+        let nextSelectedPair = state.getNextSelectedPair();
+        if (nextSelectedPair) {
+            state.setNextSelectedPair(null);
+            logger.debug('Using next selected pair:', nextSelectedPair);
+            return nextSelectedPair;
+        }
+        return await this.selectPairFromFilters();
+    },
+
+    async selectPairFromFilters() {
+        const filters = filtering.getActiveFilters();
+        const filteredPairs = await filtering.getFilteredTaxonPairs(filters);
+        return this.findOrSelectRandomPair(filteredPairs);
+    },
+
+    findOrSelectRandomPair(filteredPairs) {
+        let pair = this.findPairByUrlParams(filteredPairs);
+        if (!pair) {
+            if (filteredPairs.length > 0) {
+                pair = filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
+                logger.debug("Selected random pair from filtered collection");
+            } else {
+                throw new Error("No pairs available in the current filtered collection");
+            }
+        }
+        return pair;
+    },
+
+    findPairByUrlParams(filteredPairs) {
+        const pairID = state.getCurrentPairID();
+        if (pairID) {
+            return this.findPairByPairID(filteredPairs, pairID);
+        } else {
+            const urlParams = url.getUrlParameters();
+            if (urlParams.taxon1 && urlParams.taxon2) { // not saved in gameState atm
+            return this.findPairByTaxa(filteredPairs, urlParams.taxon1, urlParams.taxon2);
+            }
+        }
+        return null;
+    },
+
+    findPairByPairID(filteredPairs, pairID) {
+        const pair = filteredPairs.find(pair => pair.pairID === pairID);
+        if (pair) {
+            logger.debug(`Found pair with pairID: ${pairID}`);
+        } else {
+            logger.warn(`PairID ${pairID} not found in filtered collection. Selecting random pair.`);
+        }
+        return pair;
+    },
+
+    findPairByTaxa(filteredPairs, taxon1, taxon2) {
+        const pair = filteredPairs.find(pair =>
+            (pair.taxonNames[0] === taxon1 && pair.taxonNames[1] === taxon2) ||
+            (pair.taxonNames[0] === taxon2 && pair.taxonNames[1] === taxon1)
+        );
+        if (pair) {
+            logger.debug(`Found pair with taxa: ${taxon1} and ${taxon2}`);
+        } else {
+            logger.warn(`Taxa ${taxon1} and ${taxon2} not found in filtered collection. Selecting random pair.`);
+        }
+        return pair;
     },
 
     isPairValid(pair) {
@@ -312,6 +379,7 @@ const publicAPI = {
     loadNewPair: pairManager.loadNewPair,
     loadNewRandomPair: pairManager.loadNewRandomPair,
     refreshCollectionSubset: pairManager.refreshCollectionSubset,
+    selectNewPair: pairManager.selectNewPair,
     getPairByID: pairManager.getPairByID,
     loadPairByID: pairManager.loadPairByID, // TODO double?
     selectRandomPairFromCurrentCollection: pairManager.selectRandomPairFromCurrentCollection,
