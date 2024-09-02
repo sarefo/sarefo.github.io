@@ -80,12 +80,12 @@ const gameLogic = {
             ui.prepareImagesForLoading();
             await utils.ui.sleep(1700);
             await gameSetup.setupGame(false);
-            await utils.ui.sleep(300); // wait for setupNameTiles()
+            await utils.ui.sleep(400); // wait for setupNameTiles()
             ui.hideOverlay();
         },
 
         async handleIncorrectAnswer() {
-            utils.game.resetDraggables();
+            roundManager.resetDraggables();
             await ui.showOverlay('Try again!', config.overlayColors.red);
             await utils.ui.sleep(1200);
             ui.hideOverlay();

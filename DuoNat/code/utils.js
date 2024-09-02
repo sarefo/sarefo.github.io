@@ -2,21 +2,6 @@ import api from './api.js'; // for sound
 import logger from './logger.js';
 
 const utils = {
-    game: {
-        resetDraggables() {
-            const leftNameContainer = document.getElementsByClassName('name-pair__container--left')[0];
-            const rightNameContainer = document.getElementsByClassName('name-pair__container--right')[0];
-            const dropOne = document.getElementById('drop-1');
-            const dropTwo = document.getElementById('drop-2');
-
-            leftNameContainer.appendChild(document.getElementById('left-name'));
-            rightNameContainer.appendChild(document.getElementById('right-name'));
-
-            dropOne.innerHTML = '';
-            dropTwo.innerHTML = '';
-        },
-    },
-
     ui: {
         debounce(func, wait) {
             let timeout;
@@ -105,7 +90,7 @@ const utils = {
 };
 
 // Bind all methods in nested objects
-['game', 'ui', 'sound', 'string', 'array'].forEach(nestedObj => {
+['ui', 'sound', 'string', 'array'].forEach(nestedObj => {
     Object.keys(utils[nestedObj]).forEach(key => {
         if (typeof utils[nestedObj][key] === 'function') {
             utils[nestedObj][key] = utils[nestedObj][key].bind(utils[nestedObj]);
@@ -114,9 +99,6 @@ const utils = {
 });
 
 const publicAPI = {
-    game: {
-        resetDraggables: utils.game.resetDraggables
-    },
     ui: {
         debounce: utils.ui.debounce,
         sleep: utils.ui.sleep,

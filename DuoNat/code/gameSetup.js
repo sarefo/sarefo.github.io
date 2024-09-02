@@ -3,7 +3,6 @@ import collectionManager from './collectionManager.js';
 import config from './config.js';
 import dialogManager from './dialogManager.js';
 import filtering from './filtering.js';
-import hintSystem from './hintSystem.js';
 import logger from './logger.js';
 import preloader from './preloader.js';
 import roundManager from './roundManager.js';
@@ -12,7 +11,6 @@ import state from './state.js';
 import ui from './ui.js';
 import url from './url.js';
 import utils from './utils.js';
-import worldMap from './worldMap.js';
 
 let isSettingUpGame = false;
 
@@ -44,9 +42,8 @@ const gameSetup = {
         },
 
         prepareUIForLoading() {
-            utils.game.resetDraggables();
+            roundManager.resetDraggables();
             ui.prepareImagesForLoading();
-            //state.setIsFirstLoad(false);
         },
 
         async initializeNewPair() {
@@ -185,17 +182,7 @@ const gameSetup = {
             
             const imageData = await this.loadAndSetupImages(pair, isNewPair);
             
-            const [nameTileData, worldMapData] = await Promise.all([
-                this.setupNameTiles(pair, imageData),
-                this.setupWorldMaps(pair, imageData)
-            ]);
-
-            this.updateGameStateForRound(pair, imageData, nameTileData);
-            await hintSystem.updateAllHintButtons();
-
-            // Apply world map data
-            worldMap.createWorldMap(state.getElement('imageOneContainer'), worldMapData.leftContinents);
-            worldMap.createWorldMap(state.getElement('imageTwoContainer'), worldMapData.rightContinents);
+            const { nameTileData, worldMapData } = await roundManager.setupRound(pair, imageData, isNewPair);
         },
 
         async loadAndSetupImages(pair, isNewPair) {
@@ -237,57 +224,6 @@ const gameSetup = {
             state.setObservationURL(rightImageSrc, 2);
 
             return { leftImageSrc, rightImageSrc, randomized, imageOneURL, imageTwoURL };
-        },
-
-        async setupNameTiles(pair, imageData) {
-            const [leftVernacular, rightVernacular] = await Promise.all([
-                utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(imageData.randomized ? pair.taxon1 : pair.taxon2)),
-                utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(imageData.randomized ? pair.taxon2 : pair.taxon1))
-            ]);
-
-            ui.setupNameTilesUI(
-                imageData.randomized ? pair.taxon1 : pair.taxon2,
-                imageData.randomized ? pair.taxon2 : pair.taxon1,
-                leftVernacular,
-                rightVernacular
-            );
-
-            state.getElement('imageOne').alt = `${imageData.randomized ? pair.taxon1 : pair.taxon2} Image`;
-            state.getElement('imageTwo').alt = `${imageData.randomized ? pair.taxon2 : pair.taxon1} Image`;
-
-            return { leftVernacular, rightVernacular };
-        },
-
-        async setupWorldMaps(pair, imageData) {
-            const [leftContinents, rightContinents] = await Promise.all([
-                roundManager.getContinentForTaxon(imageData.randomized ? pair.taxon1 : pair.taxon2),
-                roundManager.getContinentForTaxon(imageData.randomized ? pair.taxon2 : pair.taxon1)
-            ]);
-
-            return { leftContinents, rightContinents };
-        },
-
-        updateGameStateForRound(pair, imageData) {
-            const taxonImageOne = imageData.randomized ? pair.taxon1 : pair.taxon2;
-            const taxonImageTwo = imageData.randomized ? pair.taxon2 : pair.taxon1;
-
-            //logger.debug(`Setting taxon names: Left=${taxonImageOne}, Right=${taxonImageTwo}`);
-
-            state.updateGameStateMultiple({
-                taxonImageOne: taxonImageOne,
-                taxonImageTwo: taxonImageTwo,
-                currentRound: {
-                    pair,
-                    imageOneURL: imageData.imageOneURL,
-                    imageTwoURL: imageData.imageTwoURL,
-                    imageOneVernacular: imageData.leftVernacular,
-                    imageTwoVernacular: imageData.rightVernacular,
-                    randomized: imageData.randomized,
-                },
-            });
-
-            // Verify that the state has been updated correctly
-            //logger.debug(`Verifying taxon names: Left=${state.getTaxonImageOne()}, Right=${state.getTaxonImageTwo()}`);
         },
 
         updateUIAfterSetup(newPair) {
@@ -345,7 +281,7 @@ const gameSetup = {
                 imageOneURL = state.getCurrentTaxonImageCollection().imageOneURL;
                 imageTwoURL = state.getCurrentTaxonImageCollection().imageTwoURL;
             } else {
-                ({ imageOneURL, imageTwoURL } = await this.getImagesForRound(pair));
+                ({ imageOneURL, imageTwoURL } = await roundManager.getImagesForRound(pair));
             }
 
             const randomized = Math.random() < 0.5;
@@ -384,16 +320,6 @@ const gameSetup = {
             });
         },
 
-        async getImagesForRound(pair) {
-            const preloadedImages = preloader.roundPreloader.getPreloadedImagesForNextRound();
-            if (preloadedImages && preloadedImages.taxon1 && preloadedImages.taxon2) {
-                return { imageOneURL: preloadedImages.taxon1, imageTwoURL: preloadedImages.taxon2 };
-            }
-            return {
-                imageOneURL: await preloader.imageLoader.fetchDifferentImage(pair.taxon1, state.getCurrentRound().imageOneURL),
-                imageTwoURL: await preloader.imageLoader.fetchDifferentImage(pair.taxon2, state.getCurrentRound().imageTwoURL),
-            };
-        },
     },
 
     taxonHandling: {
