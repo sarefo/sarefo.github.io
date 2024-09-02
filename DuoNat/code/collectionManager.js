@@ -39,7 +39,7 @@ const collectionManager = {
             this.initializeFilterSummaryMap();
             this.initializeFilterSummaryTags();
             this.initializeClearFiltersButton();
-            this.initializeSelectPairDoneButton();
+            this.initializeCollectionManagerDoneButton();
             this.initializeLevelDropdown();
             this.initializePhylogenySelector();
 
@@ -91,19 +91,19 @@ const collectionManager = {
             }
         },
 
-        initializeSelectPairDoneButton() {
+        initializeCollectionManagerDoneButton() {
             const selectPairDoneButton = document.getElementById('collection-done-button');
             if (selectPairDoneButton) {
-                selectPairDoneButton.addEventListener('click', collectionManager.eventHandlers.handleSelectPairDone);
+                selectPairDoneButton.addEventListener('click', collectionManager.eventHandlers.handleCollectionManagerDone);
             }
         },
 
-        setupSelectPairDialog() {
+        setupCollectionManagerDialog() {
             const playButton = document.getElementById('collection-done-button');
             if (playButton) {
                 playButton.addEventListener('click', (event) => {
                     event.preventDefault();
-                    collectionManager.eventHandlers.handleSelectPairDone();
+                    collectionManager.eventHandlers.handleCollectionManagerDone();
                 });
             } else {
                 logger.error('Play button not found in collection-dialog');
@@ -557,7 +557,7 @@ const collectionManager = {
     },
 
     eventHandlers: {
-        async handleSelectPairDone() {
+        async handleCollectionManagerDone() {
             await collectionManager.taxonList.updateTaxonList();
             await pairManager.refreshCollectionSubset();
             dialogManager.closeDialog('collection-dialog');
@@ -609,19 +609,15 @@ bindMethodsRecursively(collectionManager);
 
 const publicAPI = {
     initialize: collectionManager.initialization.initialize,
-
-    setupSelectPairDialog: collectionManager.initialization.setupSelectPairDialog,
+    openCollectionManagerDialog: collectionManager.ui.openCollectionManagerDialog,
+    setupCollectionManagerDialog: collectionManager.initialization.setupCollectionManagerDialog,
 
     updateTaxonList: collectionManager.taxonList.updateTaxonList,
-    onFiltersChanged: collectionManager.taxonList.updateTaxonList,
-    openCollectionManagerDialog: collectionManager.ui.openCollectionManagerDialog,
-    syncTaxonInfoVisibility: collectionManager.taxonList.syncTaxonInfoVisibility,
     renderTaxonList: collectionManager.taxonList.renderTaxonList,
-    //updateTaxonPairList: collectionManager.taxonList.updateTaxonPairList,
+    onFiltersChanged: collectionManager.taxonList.updateTaxonList,
+    syncTaxonInfoVisibility: collectionManager.taxonList.syncTaxonInfoVisibility,
 
     updateFilterSummary: collectionManager.ui.updateFilterSummary,
-    //updateUIForClearedFilters: collectionManager.ui.updateUIForClearedFilters,
-
     updateActiveCollectionCount: collectionManager.ui.updateActiveCollectionCount,
 
     updateLevelCounts: collectionManager.ui.updateLevelCounts,

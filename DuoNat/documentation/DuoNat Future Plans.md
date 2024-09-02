@@ -50,7 +50,9 @@ Here are some ideas I have regarding future functionality:
         + if there is a range of hints, it would be overwhelming to show more than one at once
 
 ### Server-side functionality
-Currently, the code is running on github.io, so there's no server-side functionality. Here are some ideas once I changed to a server that has this option:
+Currently, the code is running on github.io, so there's no server-side functionality. I'm about to make the switch to Node.js with Express.js I think, using for example MongoDB as a database. I'm considering using a RESTful API.
+
+Here are some ideas once I changed to a server that has this option:
 
 #### Image/taxon rating system
 + users can rate images (and maybe also taxon sets) via up/down buttons. These get saved on the server, to improve future selection of images and taxon sets. For example, this could remove bad images from being presented, or good taxon sets to become promoted.

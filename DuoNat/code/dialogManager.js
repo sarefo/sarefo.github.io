@@ -194,7 +194,7 @@ const dialogManager = {
             }
 
             if (dialogId === 'collection-dialog') {
-                collectionManager.setupSelectPairDialog();
+                collectionManager.setupCollectionManagerDialog();
             }
 
             if (dialogId === 'report-dialog') {
