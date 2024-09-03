@@ -17,16 +17,18 @@ const imageLoader = {
     },
 
     async fetchDifferentImage(taxonName, currentImageURL) {
+        logger.debug(`Fetching different image for ${taxonName}. Current image: ${currentImageURL}`);
         const images = await api.images.fetchMultipleImages(taxonName, 12);
         let usedImages = this.getUsedImagesForTaxon(taxonName);
-        //logger.debug(`Fetching image for ${taxonName}. Current used images: ${usedImages.size}`);
+        logger.debug(`Fetched ${images.length} images for ${taxonName}. Currently used images: ${usedImages.size}`);
         
         let availableImages = this.filterAvailableImages(images, usedImages, currentImageURL);
+        logger.debug(`Available images after filtering: ${availableImages.length}`);
 
         if (availableImages.length === 0) {
             logger.warn(`All images have been used for ${taxonName}. Resetting used images.`);
-            usedImages = new Set(); // Create a new empty set instead of clearing
-            this.updateUsedImagesState(usedImages, null, taxonName); // Update the state with the new empty set
+            usedImages = new Set();
+            this.updateUsedImagesState(usedImages, null, taxonName);
             availableImages = this.filterAvailableImages(images, usedImages, currentImageURL);
         }
 
@@ -35,7 +37,9 @@ const imageLoader = {
             return currentImageURL || images[0];
         }
 
-        return this.selectAndUpdateUsedImage(availableImages, usedImages, taxonName);
+        const selectedImage = this.selectAndUpdateUsedImage(availableImages, usedImages, taxonName);
+        logger.debug(`Selected image for ${taxonName}: ${selectedImage}`);
+        return selectedImage;
     },
 
     filterAvailableImages(images, usedImages, currentImageURL) {
@@ -193,11 +197,12 @@ const pairPreloader = {
     getPreloadedImagesForNextPair() {
         if (this.hasPreloadedPair()) {
             const images = preloader.preloadedImages.nextPair;
-            //logger.debug(`Retrieving preloaded pair: ${images.pair.taxonA} / ${images.pair.taxonB}, Skill Level: ${images.pair.level}`);
+            logger.debug(`Retrieving preloaded pair: ${images.pair.taxonA} / ${images.pair.taxonB}, Skill Level: ${images.pair.level}`);
+            logger.debug(`Preloaded images: ${images.taxonA} / ${images.taxonB}`);
             preloader.preloadedImages.nextPair = null;
             return images;
         } else {
-            //logger.debug("No preloaded pair available");
+            logger.debug("No preloaded pair available");
             return null;
         }
     },

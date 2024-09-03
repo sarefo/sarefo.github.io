@@ -197,6 +197,7 @@ const roundManager = {
         },
 
         setObservationURLs(imageData) {
+            logger.debug(`Setting observation URLs: ${imageData.taxonImage1Src} / ${imageData.taxonImage2Src}`);
             state.setObservationURL(imageData.taxonImage1Src, 1);
             state.setObservationURL(imageData.taxonImage2Src, 2);
             // Also update the current round state
@@ -207,47 +208,63 @@ const roundManager = {
                     image2URL: imageData.taxonImage2Src,
                 },
             });
+            logger.debug(`Updated current round state with images: ${state.getCurrentRound().image1URL} / ${state.getCurrentRound().image2URL}`);
         },
 
-    async setupRound(pair, imageData) {
-        const { taxonImage1Src, taxonImage2Src, randomized, taxonImage1, taxonImage2 } = imageData;
+        async setupRound(pair, imageData) {
+            const { taxonImage1Src, taxonImage2Src, randomized, taxonImage1, taxonImage2 } = imageData;
 
-        // Load images
-        await Promise.all([
-            roundManager.imageHandling.loadImage(state.getElement('image1'), taxonImage1Src),
-            roundManager.imageHandling.loadImage(state.getElement('image2'), taxonImage2Src)
-        ]);
+            // Load images
+            await Promise.all([
+                roundManager.imageHandling.loadImage(state.getElement('image1'), taxonImage1Src),
+                roundManager.imageHandling.loadImage(state.getElement('image2'), taxonImage2Src)
+            ]);
 
-        // Setup name tiles and world maps
-        const [nameTileData, worldMapData] = await Promise.all([
-            this.setupNameTiles(pair, randomized, taxonImage1, taxonImage2),
-            this.setupWorldMaps(pair, randomized, taxonImage1, taxonImage2)
-        ]);
+            // Setup name tiles and world maps
+            const [nameTileData, worldMapData] = await Promise.all([
+                this.setupNameTiles(pair, randomized, taxonImage1, taxonImage2),
+                this.setupWorldMaps(pair, randomized, taxonImage1, taxonImage2)
+            ]);
 
-        // Update game state
-        roundManager.stateManagement.updateGameStateForRound(pair, imageData, nameTileData);
+            // Update game state
+            roundManager.stateManagement.updateGameStateForRound(pair, imageData, nameTileData);
 
-        // Update hint buttons
-        await hintSystem.updateAllHintButtons();
+            // Update hint buttons
+            await hintSystem.updateAllHintButtons();
 
-        // Apply world map data
-        worldMap.createWorldMap(state.getElement('image1Container'), worldMapData.continents1);
-        worldMap.createWorldMap(state.getElement('image2Container'), worldMapData.continents2);
+            // Apply world map data
+            worldMap.createWorldMap(state.getElement('image1Container'), worldMapData.continents1);
+            worldMap.createWorldMap(state.getElement('image2Container'), worldMapData.continents2);
 
-        return { nameTileData, worldMapData };
-    },
+            return { nameTileData, worldMapData };
+        },
 
         async setupRoundFromGameSetup(isNewPair = false) {
             const { pair } = state.getCurrentTaxonImageCollection();
             
-            // Use getAndProcessImages instead of loadAndSetupImages
-            const pairData = { pair, preloadedImages: null };
-            const imageData = await roundManager.imageHandling.getAndProcessImages(pairData, isNewPair);
+            let imageData;
+            if (isNewPair) {
+                // For a new pair, use the images that were just loaded
+                imageData = {
+                    taxonImage1Src: state.getCurrentTaxonImageCollection().image1URL,
+                    taxonImage2Src: state.getCurrentTaxonImageCollection().image2URL,
+                    taxonImage1: pair.taxonA,
+                    taxonImage2: pair.taxonB,
+                };
+                logger.debug(`Using new pair images: ${imageData.taxonImage1Src} / ${imageData.taxonImage2Src}`);
+            } else {
+                // For existing pairs, use getAndProcessImages as before
+                const pairData = { pair, preloadedImages: null };
+                imageData = await roundManager.imageHandling.getAndProcessImages(pairData, isNewPair);
+            }
             
-            // Explicitly set the observation URLs before setting up the round
+            logger.debug(`Setting up round with images: ${imageData.taxonImage1Src} / ${imageData.taxonImage2Src}`);
+            
             this.setObservationURLs(imageData);
 
             const { nameTileData, worldMapData } = await this.setupRound(pair, imageData, isNewPair);
+
+            logger.debug(`Round setup complete. Image1: ${state.getCurrentRound().image1URL}, Image2: ${state.getCurrentRound().image2URL}`);
 
             return { imageData, nameTileData, worldMapData };
         },

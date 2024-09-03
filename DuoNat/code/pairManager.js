@@ -178,8 +178,10 @@ const pairManager = {
     pairLoading: {
         async initializeNewPair() {
             const newPair = await pairManager.pairSelection.selectNewPair();
+            logger.debug(`Initializing new pair: ${newPair.taxonA} / ${newPair.taxonB}`);
             pairManager.pairManagement.resetUsedImagesForNewPair(newPair);
             const images = await pairManager.imageHandling.loadImagesForNewPair(newPair);
+            logger.debug(`Loaded images for new pair: ${images.taxonA} / ${images.taxonB}`);
             pairManager.stateManagement.updateGameStateForNewPair(newPair, images);
             await roundManager.setupRoundFromGameSetup(true);
         },
@@ -311,10 +313,24 @@ const pairManager = {
 
     imageHandling: {
         async loadImagesForNewPair(newPair) {
-            // Always fetch new images for manually selected pairs
+            const preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
+            logger.debug(`Attempting to load images for new pair: ${newPair.taxonA} / ${newPair.taxonB}`);
+            logger.debug(`Preloaded images available: ${!!preloadedImages}`);
+            
+            if (preloadedImages && preloadedImages.pair.pairID === newPair.pairID) {
+                logger.debug(`Using preloaded images for pair ID ${newPair.pairID}`);
+                return preloadedImages;
+            }
+            
+            logger.debug(`Fetching new images for pair ID ${newPair.pairID}`);
+            const taxonAImage = await preloader.imageLoader.fetchDifferentImage(newPair.taxonA || newPair.taxonNames[0], null);
+            const taxonBImage = await preloader.imageLoader.fetchDifferentImage(newPair.taxonB || newPair.taxonNames[1], null);
+            
+            logger.debug(`Fetched images: ${taxonAImage} / ${taxonBImage}`);
+            
             return {
-                taxonA: await preloader.imageLoader.fetchDifferentImage(newPair.taxonA || newPair.taxonNames[0], null),
-                taxonB: await preloader.imageLoader.fetchDifferentImage(newPair.taxonB || newPair.taxonNames[1], null),
+                taxonA: taxonAImage,
+                taxonB: taxonBImage,
             };
         },
     },
