@@ -17,24 +17,21 @@ const pairManager = {
     initialization: {
         async initializeCollectionSubset() {
             if (this.isInitializing) {
-                logger.debug('Collection subset initialization already in progress, skipping');
+                logger.warn('Collection subset initialization already in progress, skipping');
                 return;
             }
             this.isInitialized = true;
-            logger.debug('Initializing collection subset');
             try {
                 const allPairs = await api.taxonomy.fetchTaxonPairs();
                 const filters = filtering.getActiveFilters();
                 pairManager.allFilteredPairs = filtering.filterTaxonPairs(allPairs, filters);
                 
-                logger.debug(`Total filtered pairs in collection: ${pairManager.allFilteredPairs.length}`);
-
                 const subsetSize = Math.min(42, pairManager.allFilteredPairs.length);
 
                 // Filter out the last used pair when creating a new subset
                 const availablePairs = pairManager.allFilteredPairs.filter(pair => pair.pairID !== this.lastUsedPairID);
                 pairManager.currentCollectionSubset = pairManager.utilities.getRandomSubset(availablePairs, subsetSize);
-                logger.debug(`Initialized new collection subset of pairs: ${pairManager.currentCollectionSubset.length}`);
+                //logger.debug(`Initialized new collection subset of pairs: ${pairManager.currentCollectionSubset.length}`);
             } finally {
                 this.isInitializing = false;
             }
@@ -55,7 +52,7 @@ const pairManager = {
             let nextSelectedPair = state.getNextSelectedPair();
             if (nextSelectedPair) {
                 state.setNextSelectedPair(null);
-                logger.debug('Using next selected pair:', nextSelectedPair);
+                //logger.debug('Using next selected pair:', nextSelectedPair);
                 return nextSelectedPair;
             }
             return await this.selectPairFromFilters();
@@ -72,7 +69,7 @@ const pairManager = {
             if (!pair) {
                 if (filteredPairs.length > 0) {
                     pair = filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
-                    logger.debug("Selected random pair from filtered collection");
+                    //logger.debug("Selected random pair from filtered collection");
                 } else {
                     throw new Error("No pairs available in the current filtered collection");
                 }
@@ -99,7 +96,7 @@ const pairManager = {
                 (pair.taxonNames[0] === taxon2 && pair.taxonNames[1] === taxon1)
             );
             if (pair) {
-                logger.debug(`Found pair with taxa: ${taxon1} and ${taxon2}`);
+                //logger.debug(`Found pair with taxa: ${taxon1} and ${taxon2}`);
             } else {
                 logger.warn(`Taxa ${taxon1} and ${taxon2} not found in filtered collection. Selecting random pair.`);
             }
@@ -109,7 +106,7 @@ const pairManager = {
         findPairByPairID(filteredPairs, pairID) {
             const pair = filteredPairs.find(pair => pair.pairID === pairID);
             if (pair) {
-                logger.debug(`Found pair with pairID: ${pairID}`);
+                //logger.debug(`Found pair with pairID: ${pairID}`);
             } else {
                 logger.warn(`PairID ${pairID} not found in filtered collection. Selecting random pair.`);
             }
@@ -121,12 +118,12 @@ const pairManager = {
             const nextPair = await this.getNextPairFromCollection();
             
             if (nextPair) {
-                logger.debug(`Selected pair from pairManager: ${nextPair.taxonNames[0]} / ${nextPair.taxonNames[1]}`);
+                //logger.debug(`Selected pair from pairManager: ${nextPair.taxonNames[0]} / ${nextPair.taxonNames[1]}`);
                 return nextPair;
             }
             
             // If pairManager doesn't return a pair, fall back to the original method
-            logger.debug("No pair available from pairManager, falling back to original method");
+            logger.warn("No pair available from pairManager, falling back to original method");
             const filters = filtering.getActiveFilters();
             const taxonPairs = await api.taxonomy.fetchTaxonPairs();
             const filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
@@ -138,7 +135,7 @@ const pairManager = {
             const randomIndex = Math.floor(Math.random() * filteredPairs.length);
             const selectedPair = filteredPairs[randomIndex];
             
-            logger.debug(`Selected pair from fallback: ${selectedPair.taxonNames[0]} / ${selectedPair.taxonNames[1]}`);
+            //logger.debug(`Selected pair from fallback: ${selectedPair.taxonNames[0]} / ${selectedPair.taxonNames[1]}`);
             
             // Inform pairManager about this selection
             pairManager.usedPairIDs.add(selectedPair.pairID);
@@ -162,7 +159,7 @@ const pairManager = {
             if (nextPair) {
                 pairManager.usedPairIDs.add(nextPair.pairID);
                 pairManager.lastUsedPairID = nextPair.pairID;
-                logger.debug(`Next pair: ${nextPair.pairID}, Remaining pairs in subset: ${pairManager.currentCollectionSubset.length}, Total pairs in collection: ${pairManager.allFilteredPairs.length}`);
+                //logger.debug(`Next pair: ${nextPair.pairID}, Remaining pairs in subset: ${pairManager.currentCollectionSubset.length}, Total pairs in collection: ${pairManager.allFilteredPairs.length}`);
 
                 // Reset usedPairIDs if all pairs have been used
                 if (pairManager.usedPairIDs.size === pairManager.allFilteredPairs.length) {
@@ -303,7 +300,7 @@ const pairManager = {
         async loadImagesForNewPair(newPair) {
             const preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
             if (preloadedImages && preloadedImages.pair.pairID === newPair.pairID) {
-                logger.debug(`Using preloaded images for pair ID ${newPair.pairID}`);
+                //logger.debug(`Using preloaded images for pair ID ${newPair.pairID}`);
                 return preloadedImages;
             }
             return {

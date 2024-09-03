@@ -48,7 +48,7 @@ const roundManager = {
 
         setGameStateToPlaying() {
             state.setState(state.GameState.PLAYING);
-            logger.debug(`loadNewRound complete. Game state set to PLAYING`);
+            //logger.debug(`loadNewRound complete. Game state set to PLAYING`);
         },
 
         handleError(error) {
@@ -87,18 +87,18 @@ const roundManager = {
             }
             const { pair, preloadedImages } = pairData;
             if (isNewPair && preloadedImages) {
-                logger.debug(`Using preloaded images for pair: ${pair.taxon1} / ${pair.taxon2}`);
+                //logger.debug(`Using preloaded images for pair: ${pair.taxon1} / ${pair.taxon2}`);
                 return { taxon1: preloadedImages.taxon1, taxon2: preloadedImages.taxon2 };
             }
 
             const preloadedRoundImages = preloader.roundPreloader.getPreloadedImagesForNextRound();
             if (preloadedRoundImages && preloadedRoundImages.taxon1 && preloadedRoundImages.taxon2) {
-                logger.debug(`Using preloaded round images for pair: ${pair.taxon1} / ${pair.taxon2}`);
+                //logger.debug(`Using preloaded round images for pair: ${pair.taxon1} / ${pair.taxon2}`);
                 preloader.roundPreloader.clearPreloadedImagesForNextRound();
                 return { taxon1: preloadedRoundImages.taxon1, taxon2: preloadedRoundImages.taxon2 };
             }
 
-            logger.debug(`Fetching new images for pair: ${pair.taxon1} / ${pair.taxon2}`);
+            //logger.debug(`Fetching new images for pair: ${pair.taxon1} / ${pair.taxon2}`);
             return {
                 taxon1: await preloader.imageLoader.fetchDifferentImage(pair.taxon1, null),
                 taxon2: await preloader.imageLoader.fetchDifferentImage(pair.taxon2, null)
@@ -130,13 +130,13 @@ const roundManager = {
                 // Check for preloaded images
                 const preloadedImages = preloader.roundPreloader.getPreloadedImagesForNextRound();
                 if (preloadedImages && preloadedImages.taxon1 && preloadedImages.taxon2) {
-                    logger.debug("Using preloaded images for next round");
+                    //logger.debug("Using preloaded images for next round");
                     imageOneURL = preloadedImages.taxon1;
                     imageTwoURL = preloadedImages.taxon2;
                     // Clear the preloaded images after use
                     preloader.roundPreloader.clearPreloadedImagesForNextRound();
                 } else {
-                    logger.debug("No preloaded images available, fetching new images");
+                    //logger.debug("No preloaded images available, fetching new images");
                     [imageOneURL, imageTwoURL] = await Promise.all([
                         preloader.imageLoader.fetchDifferentImage(pair.taxon1, state.getCurrentRound().imageOneURL),
                         preloader.imageLoader.fetchDifferentImage(pair.taxon2, state.getCurrentRound().imageTwoURL)
@@ -176,7 +176,7 @@ const roundManager = {
         async setupRoundComponents(pair, images) {
             this.setObservationURLs(images);
             await this.setupRound(pair, images);
-            logger.debug(`Round setup complete`);
+            //logger.debug(`Round setup complete`);
         },
 
         setObservationURLs(images) {
@@ -265,7 +265,7 @@ const roundManager = {
     stateManagement: {
         updateGameState(pair, images) {
             this.updateState(pair, images);
-            logger.debug(`State updated`);
+            //logger.debug(`State updated`);
         },
 
         updateGameStateForRound(pair, imageData, nameTileData) {
@@ -294,10 +294,10 @@ const roundManager = {
 
     uiManagement: {
         finalizeRoundLoading(isNewPair) {
-            logger.debug(`Preloading started`);
+            //logger.debug(`Preloading started`);
             ui.hideOverlay();
             ui.resetUIState();
-            logger.debug(`UI reset complete`);
+            //logger.debug(`UI reset complete`);
             preloader.startPreloading(isNewPair);
         },
 

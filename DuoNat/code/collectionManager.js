@@ -30,7 +30,7 @@ const collectionManager = {
         isInitialized: false,
         initialize() {
             if (this.isInitialized) {
-                logger.debug("Collection manager already initialized, skipping");
+                logger.warn("Collection manager already initialized, skipping");
                 return;
             }
             this.isInitialized = true;
@@ -185,7 +185,6 @@ const collectionManager = {
         },
 
         initializeTaxonInfoVisibility() {
-            logger.debug("Initializing taxon info visibility");
             const taxonInfoToggle = document.getElementById('taxon-info-toggle');
             
             if (taxonInfoToggle) {

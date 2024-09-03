@@ -59,12 +59,11 @@ const gameLogic = {
         },
 
         handleIncompleteAnswer() {
-            logger.debug("Incomplete answer. Returning to PLAYING state.");
+            //logger.debug("Incomplete answer. Returning to PLAYING state.");
             state.setState(state.GameState.PLAYING);
         },
 
         async handleCorrectAnswer() {
-            logger.debug('Handling correct answer');
             await ui.showOverlay('Correct!', config.overlayColors.green);
             ui.prepareImagesForLoading();
             await utils.ui.sleep(1700);

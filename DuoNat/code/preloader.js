@@ -92,7 +92,7 @@ const roundPreloader = {
         ]);
 
         preloader.preloadedImages.nextRound = { taxon1: newImageOneURL, taxon2: newImageTwoURL };
-        logger.debug("Preloaded images for next round:", preloader.preloadedImages.nextRound);
+        //logger.debug("Preloaded images for next round:", preloader.preloadedImages.nextRound);
     },
 
     getPreloadedImagesForNextRound() {
@@ -108,7 +108,7 @@ const roundPreloader = {
 
     clearPreloadedImagesForNextRound() {
         preloader.preloadedImages.nextRound = { taxon1: null, taxon2: null };
-        logger.debug("Cleared preloaded images for next round");
+        //logger.debug("Cleared preloaded images for next round");
     },
 };
 
@@ -117,7 +117,7 @@ const pairPreloader = {
 
     clearPreloadedPair() {
         preloader.preloadedImages.nextPair = null;
-        logger.debug("Cleared preloaded pair");
+        //logger.debug("Cleared preloaded pair");
 
     },
 
@@ -134,7 +134,7 @@ const pairPreloader = {
             const newPair = await pairManager.selectRandomPairFromCurrentCollection();
             
             if (newPair) {
-                logger.debug(`Selected pair for preloading: ${newPair.taxonNames[0]} / ${newPair.taxonNames[1]}`);
+                //logger.debug(`Selected pair for preloading: ${newPair.taxonNames[0]} / ${newPair.taxonNames[1]}`);
                 await this.preloadPairImages(newPair);
             } else {
                 logger.warn("No valid pairs found for preloading");
@@ -180,11 +180,11 @@ const pairPreloader = {
     getPreloadedImagesForNextPair() {
         if (this.hasPreloadedPair()) {
             const images = preloader.preloadedImages.nextPair;
-            logger.debug(`Retrieving preloaded pair: ${images.pair.taxon1} / ${images.pair.taxon2}, Skill Level: ${images.pair.level}`);
+            //logger.debug(`Retrieving preloaded pair: ${images.pair.taxon1} / ${images.pair.taxon2}, Skill Level: ${images.pair.level}`);
             preloader.preloadedImages.nextPair = null;
             return images;
         } else {
-            logger.debug("No preloaded pair available");
+            //logger.debug("No preloaded pair available");
             return null;
         }
     },
@@ -195,7 +195,7 @@ const pairPreloader = {
 
     async preloadNewPairWithTags(selectedTags, selectedLevel, selectedRanges) {
         if (preloader.isPreloading) {
-            logger.debug("Preloading already in progress, skipping tag-based preload");
+            logger.warn("Preloading already in progress, skipping tag-based preload");
             return;
         }
 
@@ -256,7 +256,7 @@ const pairPreloader = {
             const nextPair = await pairManager.getPairByID(pairID);
             if (nextPair) {
                 await this.preloadPairImages(nextPair);
-                logger.debug(`Preloaded pair with ID ${pairID}`);
+                //logger.debug(`Preloaded pair with ID ${pairID}`);
             } else {
                 logger.warn(`Pair with ID ${pairID} not found for preloading`);
             }
@@ -278,13 +278,13 @@ const preloader = {
     pairPreloader,
 
     async startPreloading(isNewPair) {
-        logger.debug(`Starting preloading. isNewPair: ${isNewPair}`);
+        //logger.debug(`Starting preloading. isNewPair: ${isNewPair}`);
         try {
             await this.roundPreloader.preloadForNextRound();
             if (isNewPair || !this.pairPreloader.hasPreloadedPair()) {
                 await this.pairPreloader.preloadForNextPair();
             }
-            logger.debug("Preloading completed for next round" + (isNewPair ? " and next pair" : ""));
+            //logger.debug("Preloading completed for next round" + (isNewPair ? " and next pair" : ""));
         } catch (error) {
             logger.error("Error during preloading:", error);
         }

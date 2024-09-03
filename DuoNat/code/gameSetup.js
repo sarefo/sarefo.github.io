@@ -28,7 +28,7 @@ const gameSetup = {
             return true;
         },
 
-        async runSetupSequence(newPair) {
+        async setupPairOrRound(newPair) {
             state.setState(state.GameState.LOADING);
 
             if (!await this.checkINaturalistReachability()) return;
@@ -94,7 +94,7 @@ const gameSetup = {
 
             if (!preloader.pairPreloader.isPairValid(preloadedPair.pair)) {
                 logger.warn("Preloaded pair is no longer valid, fetching a new pair");
-                await this.runSetupSequence(true);
+                await this.setupPairOrRound(newPair = true);
                 return;
             }
 
@@ -193,9 +193,9 @@ const gameSetup = {
             const nextPair = state.getNextSelectedPair();
             if (newPair && nextPair) {
                 logger.debug(`Setting up new pair: ${nextPair.taxon1} / ${nextPair.taxon2}`);
-                await this.initialization.runSetupSequence(true);
+                await this.initialization.setupPairOrRound(newPair = true);
             } else {
-                await this.initialization.runSetupSequence(newPair);
+                await this.initialization.setupPairOrRound(newPair);
             }
         } catch (error) {
             this.errorHandling.handleSetupError(error);

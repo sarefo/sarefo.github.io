@@ -10,22 +10,11 @@ import url from './url.js';
 
 let isInitialized = false;
 
-const initializeLogger = () => {
-    logger.setLevel(config.debug ? LogLevel.DEBUG : LogLevel.INFO);
-};
-
-async function initializeComponents() {
-    await api.taxonomy.loadTaxonomyHierarchy();
-    ui.initialize();
-    await dialogManager.initialize();
-    eventMain.initialize();
-}
-
 async function initializeApp() {
     if (isInitialized) {
         logger.debug("App already initialized, skipping");
         return;
-    }
+    } else isInitialized = true;
 
     initializeLogger();
 
@@ -37,8 +26,18 @@ async function initializeApp() {
 
     gameSetup.setupGame(true);
     state.setHasKeyboard(hasKeyboard());
-    isInitialized = true;
     logger.info("App initialization complete");
+}
+
+const initializeLogger = () => {
+    logger.setLevel(config.debug ? LogLevel.DEBUG : LogLevel.INFO);
+};
+
+async function initializeComponents() {
+    await api.taxonomy.loadTaxonomyHierarchy();
+    ui.initialize();
+    await dialogManager.initialize();
+    eventMain.initialize();
 }
 
 function hasKeyboard() {
