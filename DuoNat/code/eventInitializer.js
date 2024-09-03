@@ -31,7 +31,7 @@ const eventInitializer = {
     },
 
     initializeTouchEvents() {
-        const containers = [state.getElement('imageOneContainer'), state.getElement('imageTwoContainer')];
+        const containers = [state.getElement('image1Container'), state.getElement('image2Container')];
         containers.forEach(container => {
             if (container) {
                 container.addEventListener('mousedown', (e) => swipeHandler.handleMouseDown(e));

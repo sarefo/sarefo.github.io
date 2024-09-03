@@ -106,8 +106,8 @@ const gameSetup = {
             state.updateGameStateMultiple({
                 currentTaxonImageCollection: {
                     pair: preloadedPair.pair,
-                    imageOneURL: preloadedPair.taxonA,
-                    imageTwoURL: preloadedPair.taxonB,
+                    image1URL: preloadedPair.taxonA,
+                    image2URL: preloadedPair.taxonB,
                 },
                 usedImages: {
                     taxonA: new Set([preloadedPair.taxonA]),
@@ -119,25 +119,25 @@ const gameSetup = {
 
     imageHandling: {
         async loadImages(pair, isNewPair) {
-            let imageOneURL, imageTwoURL;
+            let image1URL, image2URL;
 
             if (isNewPair) {
-                imageOneURL = state.getCurrentTaxonImageCollection().imageOneURL;
-                imageTwoURL = state.getCurrentTaxonImageCollection().imageTwoURL;
+                image1URL = state.getCurrentTaxonImageCollection().image1URL;
+                image2URL = state.getCurrentTaxonImageCollection().image2URL;
             } else {
-                ({ imageOneURL, imageTwoURL } = await roundManager.getImagesForRound(pair));
+                ({ image1URL, image2URL } = await roundManager.getImagesForRound(pair));
             }
 
             const randomized = Math.random() < 0.5;
-            const leftImageSrc = randomized ? imageOneURL : imageTwoURL;
-            const rightImageSrc = randomized ? imageTwoURL : imageOneURL;
+            const taxonImage1Src = randomized ? image1URL : image2URL;
+            const taxonImage2Src = randomized ? image2URL : image1URL;
 
             await Promise.all([
-                this.loadImageAndRemoveLoadingClass(state.getElement('imageOne'), leftImageSrc),
-                this.loadImageAndRemoveLoadingClass(state.getElement('imageTwo'), rightImageSrc)
+                this.loadImageAndRemoveLoadingClass(state.getElement('image1'), taxonImage1Src),
+                this.loadImageAndRemoveLoadingClass(state.getElement('image2'), taxonImage2Src)
             ]);
 
-            return { leftImageSrc, rightImageSrc, randomized, imageOneURL, imageTwoURL };
+            return { taxonImage1Src, taxonImage2Src, randomized, image1URL, image2URL };
         },
 
         async loadImageAndRemoveLoadingClass(imgElement, src) {

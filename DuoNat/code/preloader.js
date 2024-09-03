@@ -93,18 +93,18 @@ const imageLoader = {
 
 const roundPreloader = {
     async preloadForNextRound() {
-        const { pair, imageOneURL, imageTwoURL } = state.getCurrentTaxonImageCollection();
-        const [newImageOneURL, newImageTwoURL] = await Promise.all([
-            imageLoader.fetchDifferentImage(pair.taxonA, imageOneURL),
-            imageLoader.fetchDifferentImage(pair.taxonB, imageTwoURL)
+        const { pair, image1URL, image2URL } = state.getCurrentTaxonImageCollection();
+        const [newImage1URL, newImage2URL] = await Promise.all([
+            imageLoader.fetchDifferentImage(pair.taxonA, image1URL),
+            imageLoader.fetchDifferentImage(pair.taxonB, image2URL)
         ]);
 
         await Promise.all([
-            imageLoader.preloadImage(newImageOneURL),
-            imageLoader.preloadImage(newImageTwoURL)
+            imageLoader.preloadImage(newImage1URL),
+            imageLoader.preloadImage(newImage2URL)
         ]);
 
-        preloader.preloadedImages.nextRound = { taxonA: newImageOneURL, taxonB: newImageTwoURL };
+        preloader.preloadedImages.nextRound = { taxonA: newImage1URL, taxonB: newImage2URL };
         //logger.debug("Preloaded images for next round:", preloader.preloadedImages.nextRound);
     },
 
@@ -162,20 +162,20 @@ const pairPreloader = {
     },
 
     async preloadPairImages(pair) {
-        const [imageOneURL, imageTwoURL] = await Promise.all([
+        const [image1URL, image2URL] = await Promise.all([
             imageLoader.fetchDifferentImage(pair.taxonA, null),
             imageLoader.fetchDifferentImage(pair.taxonB, null)
         ]);
 
         await Promise.all([
-            imageLoader.preloadImage(imageOneURL),
-            imageLoader.preloadImage(imageTwoURL)
+            imageLoader.preloadImage(image1URL),
+            imageLoader.preloadImage(image2URL)
         ]);
 
         preloader.preloadedImages.nextPair = {
             pair: pair,
-            taxonA: imageOneURL,
-            taxonB: imageTwoURL
+            taxonA: image1URL,
+            taxonB: image2URL
         };
     },
 

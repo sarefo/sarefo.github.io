@@ -1,10 +1,10 @@
 import logger from './logger.js';
 // DOM elements
 const elements = {
-    imageOne: document.getElementById('image-1'),
-    imageTwo: document.getElementById('image-2'),
-    imageOneContainer: document.getElementById('image-container-1'),
-    imageTwoContainer: document.getElementById('image-container-2'),
+    image1: document.getElementById('image-1'),
+    image2: document.getElementById('image-2'),
+    image1Container: document.getElementById('image-container-1'),
+    image2Container: document.getElementById('image-container-2'),
     namePair: document.querySelector('.name-pair'),
     leftName: document.getElementById('name-x'),
     rightName: document.getElementById('name-y'),
@@ -51,8 +51,8 @@ let gameState = {
     taxonLeftName: null,
     taxonRightName: null,
     currentObservationURLs: {
-        imageOne: null,
-        imageTwo: null
+        image1: null,
+        image2: null
     },
 
     currentTaxonImageCollection: null,
@@ -61,14 +61,14 @@ let gameState = {
         taxonA: new Set(),
         taxonB: new Set()
     },
-    taxonImageOne: null,
-    taxonImageTwo: null,
+    taxonImage1: null,
+    taxonImage2: null,
     currentRound: {
         pair: null,
-        imageOneURLs: [],
-        imageTwoURLs: [],
-        imageOneVernacular: null,
-        imageTwoVernacular: null,
+        image1URLs: [],
+        image2URLs: [],
+        image1Vernacular: null,
+        image2Vernacular: null,
         randomized: false
     },
 
@@ -137,10 +137,10 @@ const publicAPI = {
     getAllElements: () => ({ ...elements }),
 
     // Specific getters for commonly used elements
-    getImageOne: () => elements.imageOne,
-    getImageTwo: () => elements.imageTwo,
-    getImageOneContainer: () => elements.imageOneContainer,
-    getImageTwoContainer: () => elements.imageTwoContainer,
+    getImage1: () => elements.image1,
+    getImage2: () => elements.image2,
+    getImage1Container: () => elements.image1Container,
+    getImage2Container: () => elements.image2Container,
     getNamePair: () => elements.namePair,
     getLeftName: () => elements.leftName,
     getRightName: () => elements.rightName,
@@ -159,24 +159,24 @@ const publicAPI = {
     },
 
     updateRoundState(pair, images) {
-        const { leftImageSrc, rightImageSrc, randomized, taxonImageOne, taxonImageTwo } = images;
+        const { taxonImage1Src, taxonImage2Src, randomized, taxonImage1, taxonImage2 } = images;
         this.updateGameStateMultiple({
             currentTaxonImageCollection: {
                 pair,
-                imageOneURL: leftImageSrc,
-                imageTwoURL: rightImageSrc,
+                image1URL: taxonImage1Src,
+                image2URL: taxonImage2Src,
                 level: pair.level || '1',
             },
             usedImages: {
-                taxonA: new Set([leftImageSrc]),
-                taxonB: new Set([rightImageSrc]),
+                taxonA: new Set([taxonImage1Src]),
+                taxonB: new Set([taxonImage2Src]),
             },
-            taxonImageOne: taxonImageOne,
-            taxonImageTwo: taxonImageTwo,
+            taxonImage1: taxonImage1,
+            taxonImage2: taxonImage2,
             currentRound: {
                 pair,
-                imageOneURL: leftImageSrc,
-                imageTwoURL: rightImageSrc,
+                image1URL: taxonImage1Src,
+                image2URL: taxonImage2Src,
                 randomized,
             },
         });
@@ -324,14 +324,14 @@ const publicAPI = {
         }
     },
 
-    getTaxonImageOne: () => gameState.taxonImageOne,
-    setTaxonImageOne: (taxon) => {
-        updateGameState('taxonImageOne', taxon);
+    getTaxonImage1: () => gameState.taxonImage1,
+    setTaxonImage1: (taxon) => {
+        updateGameState('taxonImage1', taxon);
     },
 
-    getTaxonImageTwo: () => gameState.taxonImageTwo,
-    setTaxonImageTwo: (taxon) => {
-        updateGameState('taxonImageTwo', taxon);
+    getTaxonImage2: () => gameState.taxonImage2,
+    setTaxonImage2: (taxon) => {
+        updateGameState('taxonImage2', taxon);
     },
 
     getTaxonLeftName: () => gameState.taxonLeftName,

@@ -135,10 +135,10 @@ const ancestryDialog = {
         },
 
         async showTaxaRelationship() {
-            const { taxonImageOne, taxonImageTwo } = state.getGameState();
+            const { taxonImage1, taxonImage2 } = state.getGameState();
             const container = document.getElementById('ancestry-dialog__graph');
 
-            if (!ancestryDialog.graphManagement.validateTaxonNames(taxonImageOne, taxonImageTwo)) return;
+            if (!ancestryDialog.graphManagement.validateTaxonNames(taxonImage1, taxonImage2)) return;
 
             const toggleNamesCheckbox = document.getElementById('ancestry-name-toggle');
             if (toggleNamesCheckbox) {
@@ -150,7 +150,7 @@ const ancestryDialog = {
             try {
                 await ancestryDialog.initialization.initialize(container);
                 const showTaxonomic = state.getShowTaxonomicNames();
-                await ancestryDialog.graphManagement.handleGraphDisplay(taxonImageOne, taxonImageTwo, showTaxonomic);
+                await ancestryDialog.graphManagement.handleGraphDisplay(taxonImage1, taxonImage2, showTaxonomic);
 
                 ancestryDialog.graphRendering.updateNodeLabels(showTaxonomic);
             } catch (error) {
@@ -158,8 +158,8 @@ const ancestryDialog = {
             }
         },
 
-        validateTaxonNames(taxonImageOne, taxonImageTwo) {
-            if (!taxonImageOne || !taxonImageTwo) {
+        validateTaxonNames(taxonImage1, taxonImage2) {
+            if (!taxonImage1 || !taxonImage2) {
                 logger.error('Taxon names not available');
                 alert('Unable to show relationship. Please try again after starting a new game.');
                 return false;
@@ -167,24 +167,24 @@ const ancestryDialog = {
             return true;
         },
 
-        async handleGraphDisplay(taxonImageOne, taxonImageTwo, showTaxonomic) {
-            if (ancestryDialog.graphManagement.isSameTaxaPair(taxonImageOne, taxonImageTwo)) {
+        async handleGraphDisplay(taxonImage1, taxonImage2, showTaxonomic) {
+            if (ancestryDialog.graphManagement.isSameTaxaPair(taxonImage1, taxonImage2)) {
                 ancestryDialog.graphManagement.showExistingGraph(showTaxonomic);
             } else {
-                await ancestryDialog.graphManagement.createNewGraph(taxonImageOne, taxonImageTwo, showTaxonomic);
+                await ancestryDialog.graphManagement.createNewGraph(taxonImage1, taxonImage2, showTaxonomic);
             }
         },
 
-        isSameTaxaPair(taxonImageOne, taxonImageTwo) {
+        isSameTaxaPair(taxonImage1, taxonImage2) {
             return ancestryDialog.currentGraphTaxa &&
-                ancestryDialog.currentGraphTaxa[0] === taxonImageOne &&
-                ancestryDialog.currentGraphTaxa[1] === taxonImageTwo;
+                ancestryDialog.currentGraphTaxa[0] === taxonImage1 &&
+                ancestryDialog.currentGraphTaxa[1] === taxonImage2;
         },
 
-        async createNewGraph(taxonImageOne, taxonImageTwo, showTaxonomic) {
+        async createNewGraph(taxonImage1, taxonImage2, showTaxonomic) {
             ancestryDialog.graphManagement.clearGraph();
-            await ancestryDialog.dataProcessing.findRelationship(taxonImageOne, taxonImageTwo, showTaxonomic);
-            ancestryDialog.currentGraphTaxa = [taxonImageOne, taxonImageTwo];
+            await ancestryDialog.dataProcessing.findRelationship(taxonImage1, taxonImage2, showTaxonomic);
+            ancestryDialog.currentGraphTaxa = [taxonImage1, taxonImage2];
             ancestryDialog.currentShowTaxonomic = showTaxonomic;
         },
 

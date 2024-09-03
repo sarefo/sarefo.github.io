@@ -209,7 +209,7 @@ const dragAndDrop = {
                     return false;
                 }
 
-                const correctTaxon = isLeftDrop ? gameState.taxonImageOne : gameState.taxonImageTwo;
+                const correctTaxon = isLeftDrop ? gameState.taxonImage1 : gameState.taxonImage2;
 
                 if (!correctTaxon) {
                     logger.error('Correct taxon is undefined in gameState');

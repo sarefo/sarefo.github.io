@@ -333,14 +333,14 @@ const ui = {
 
     imageHandling: {
         prepareImagesForLoading() {
-            const imageOne = state.getElement('imageOne');
-            const imageTwo = state.getElement('imageTwo');
+            const image1 = state.getElement('image1');
+            const image2 = state.getElement('image2');
             
-            imageOne.classList.remove('image-container__image--fade-in');
-            imageTwo.classList.remove('image-container__image--fade-in');
+            image1.classList.remove('image-container__image--fade-in');
+            image2.classList.remove('image-container__image--fade-in');
             
-            imageOne.classList.add('image-container__image--loading');
-            imageTwo.classList.add('image-container__image--loading');
+            image1.classList.add('image-container__image--loading');
+            image2.classList.add('image-container__image--loading');
         },
     },
 

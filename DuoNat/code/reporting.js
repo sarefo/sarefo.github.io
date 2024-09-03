@@ -216,8 +216,8 @@ const reporting = {
         let urls = "\nCurrent Image URLs:\n";
         const currentRound = state.getCurrentRound();
         if (currentRound) {
-            urls += `Image 1 URL: ${currentRound.imageOneURL || 'N/A'}\n`;
-            urls += `Image 2 URL: ${currentRound.imageTwoURL || 'N/A'}\n`;
+            urls += `Image 1 URL: ${currentRound.image1URL || 'N/A'}\n`;
+            urls += `Image 2 URL: ${currentRound.image2URL || 'N/A'}\n`;
         } else {
             urls += "Current image URLs not available\n";
         }

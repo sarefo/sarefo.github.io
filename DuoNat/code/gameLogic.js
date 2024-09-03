@@ -44,12 +44,12 @@ const gameLogic = {
         },
 
         evaluateAnswer(answers) {
-            const taxonImageOne = state.getTaxonImageOne();
-            const taxonImageTwo = state.getTaxonImageTwo();
+            const taxonImage1 = state.getTaxonImage1();
+            const taxonImage2 = state.getTaxonImage2();
             
             const isCorrect =
-                answers.answerX === taxonImageOne &&
-                answers.answerY === taxonImageTwo;
+                answers.answerX === taxonImage1 &&
+                answers.answerY === taxonImage2;
 
             if (isCorrect) {
                 this.handleCorrectAnswer();

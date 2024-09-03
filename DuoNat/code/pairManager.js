@@ -330,8 +330,8 @@ const pairManager = {
             state.updateGameStateMultiple({
                 currentTaxonImageCollection: {
                     pair: newPair,
-                    imageOneURL: images.taxonA,
-                    imageTwoURL: images.taxonB,
+                    image1URL: images.taxonA,
+                    image2URL: images.taxonB,
                     level: newPair.level || '1',
                 },
                 usedImages: {

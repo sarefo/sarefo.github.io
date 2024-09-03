@@ -36,7 +36,7 @@ const swipeHandler = {
     },
 
     addSwipeListeners() {
-        [state.getElement('imageOneContainer'), state.getElement('imageTwoContainer')].forEach((container) => {
+        [state.getElement('image1Container'), state.getElement('image2Container')].forEach((container) => {
             this.addContainerListeners(container);
         });
     },

@@ -288,45 +288,45 @@ class Tutorial {
         }
 
         async demonstrateImageSwitch() {
-            const imageOne = state.getElement('imageOne');
-            const imageTwo = state.getElement('imageTwo');
-            const originalSrcOne = imageOne.src;
-            const originalSrcTwo = imageTwo.src;
+            const image1 = state.getElement('image1');
+            const image2 = state.getElement('image2');
+            const originalSrc1 = image1.src;
+            const originalSrc2 = image2.src;
 
             // Get the preloaded images for the next round
             const preloadedImages = preloader.roundPreloader.getPreloadedImagesForRoundDemo();
 
             if (preloadedImages && preloadedImages.taxonA && preloadedImages.taxonB) {
                 // Fade out current images
-                imageOne.style.transition = imageTwo.style.transition = 'opacity 0.3s ease-out';
-                imageOne.style.opacity = imageTwo.style.opacity = '0';
+                image1.style.transition = image2.style.transition = 'opacity 0.3s ease-out';
+                image1.style.opacity = image2.style.opacity = '0';
 
                 await utils.ui.sleep(300); // Wait for fade out
 
                 // Switch to preloaded images
-                imageOne.src = preloadedImages.taxonA;
-                imageTwo.src = preloadedImages.taxonB;
+                image1.src = preloadedImages.taxonA;
+                image2.src = preloadedImages.taxonB;
 
                 // Fade in new images
-                imageOne.style.opacity = imageTwo.style.opacity = '1';
+                image1.style.opacity = image2.style.opacity = '1';
 
                 await utils.ui.sleep(3000); // Display for 3 seconds
 
                 // Fade out again
-                imageOne.style.opacity = imageTwo.style.opacity = '0';
+                image1.style.opacity = image2.style.opacity = '0';
 
                 await utils.ui.sleep(300); // Wait for fade out
 
                 // Switch back to original images
-                imageOne.src = originalSrcOne;
-                imageTwo.src = originalSrcTwo;
+                image1.src = originalSrc1;
+                image2.src = originalSrc2;
 
                 // Fade in original images
-                imageOne.style.opacity = imageTwo.style.opacity = '1';
+                image1.style.opacity = image2.style.opacity = '1';
 
                 // Clean up transitions
                 await utils.ui.sleep(300);
-                imageOne.style.transition = imageTwo.style.transition = '';
+                image1.style.transition = image2.style.transition = '';
             } else {
                 logger.warn('No preloaded images available for demonstration');
             }
