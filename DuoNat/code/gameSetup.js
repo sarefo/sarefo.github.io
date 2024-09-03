@@ -86,7 +86,7 @@ const gameSetup = {
             }, 500); // This matches the transition duration in CSS
         },
 
-        async setupGameWithPreloadedPair(preloadedPair) {
+        /*async setupGameWithPreloadedPair(preloadedPair) {
             state.resetShownHints();
             logger.debug(`Setting up game with preloaded pair: ${preloadedPair.pair.taxon1}
                     / ${preloadedPair.pair.taxon2}, Skill Level: ${preloadedPair.pair.level}`);
@@ -114,7 +114,7 @@ const gameSetup = {
                     taxon2: new Set([preloadedPair.taxon2]),
                 },
             });
-        },
+        },*/
     },
 
     imageHandling: {
@@ -217,7 +217,7 @@ bindMethodsRecursively(gameSetup);
 const publicAPI = {
     setupGame: gameSetup.setupGame.bind(gameSetup),
     // used once in gameLogic
-    setupGameWithPreloadedPair: gameSetup.initialization.setupGameWithPreloadedPair.bind(this)
+    // setupGameWithPreloadedPair: gameSetup.initialization.setupGameWithPreloadedPair.bind(this)
 };
 
 // Bind publicAPI methods

@@ -218,7 +218,8 @@ const pairManager = {
         async fallbackPairLoading(usePreloadedPair) {
             let newPair;
             if (usePreloadedPair) {
-                newPair = await this.loadPreloadedPair();
+                //newPair = await this.loadPreloadedPair();
+                logger.error("turns out we need loadPreloadedPair() after all :P");
             }
             if (!newPair) {
                 newPair = await this.selectAndSetupRandomPair();
@@ -236,14 +237,16 @@ const pairManager = {
             throw new Error("No pairs available in the current collection");
         },
 
-        async loadPreloadedPair() {
+        /*async loadPreloadedPair() {
+            logger.warn("loadPreloadedPair");
             const preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
             if (preloadedImages && preloadedImages.pair && filtering.isPairValidForCurrentFilters(preloadedImages.pair)) {
-                await gameSetup.setupGameWithPreloadedPair(preloadedImages);
+                await gameSetup.setupGame(false);  // Changed from setupGameWithPreloadedPair
                 return preloadedImages.pair;
             }
             return null;
-        },
+        },*/
+
 
         async loadPairByID(pairID, clearFilters = false) {
             try {
