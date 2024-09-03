@@ -1,7 +1,6 @@
 import api from './api.js';
 import collectionManager from './collectionManager.js';
 import config from './config.js';
-import dialogManager from './dialogManager.js';
 import filtering from './filtering.js';
 import iNatDownDialog from './iNatDownDialog.js';
 import logger from './logger.js';
@@ -10,8 +9,6 @@ import preloader from './preloader.js';
 import roundManager from './roundManager.js';
 import state from './state.js';
 import ui from './ui.js';
-import url from './url.js';
-import utils from './utils.js';
 
 let isSettingUpGame = false;
 
@@ -79,38 +76,6 @@ const gameSetup = {
                 logger.error("Error initializing collection subset:", error);
             });
         },
-
-
-
-        /*async setupGameWithPreloadedPair(preloadedPair) {
-            state.resetShownHints();
-            logger.debug(`Setting up game with preloaded pair: ${preloadedPair.pair.taxonA}
-                    / ${preloadedPair.pair.taxonB}, Skill Level: ${preloadedPair.pair.level}`);
-            logger.debug(`Current selected level: ${state.getSelectedLevel()}`);
-
-            if (!preloader.pairPreloader.isPairValid(preloadedPair.pair)) {
-                logger.warn("Preloaded pair is no longer valid, fetching a new pair");
-                await this.setupPairOrRound(newPair = true);
-                return;
-            }
-
-            this.updateGameStateForPreloadedPair(preloadedPair);
-            await roundManager.setupRoundFromGameSetup(true);
-        },
-
-        updateGameStateForPreloadedPair(preloadedPair) {
-            state.updateGameStateMultiple({
-                currentTaxonImageCollection: {
-                    pair: preloadedPair.pair,
-                    image1URL: preloadedPair.taxonA,
-                    image2URL: preloadedPair.taxonB,
-                },
-                usedImages: {
-                    taxonA: new Set([preloadedPair.taxonA]),
-                    taxonB: new Set([preloadedPair.taxonB]),
-                },
-            });
-        },*/
     },
 
     imageHandling: {
@@ -159,7 +124,6 @@ const gameSetup = {
                 img.src = src;
             });
         },
-
     },
 
     errorHandling: {
