@@ -9,12 +9,12 @@ const enterPair = {
         initialize() {
             const dialog = document.getElementById('enter-pair-dialog');
             const form = dialog.querySelector('form');
-            const taxon1Input = document.getElementById('taxon1');
-            const taxon2Input = document.getElementById('taxon2');
+            const taxonAInput = document.getElementById('taxonA');
+            const taxonBInput = document.getElementById('taxonB');
             const submitButton = document.getElementById('submit-dialog');
             const dialogMessage = document.getElementById('dialog-message');
 
-            if (!form || !taxon1Input || !taxon2Input || !submitButton || !dialogMessage) {
+            if (!form || !taxonAInput || !taxonBInput || !submitButton || !dialogMessage) {
                 logger.error('One or more elements not found in Enter Pair Dialog');
                 return;
             }
@@ -22,12 +22,12 @@ const enterPair = {
             form.addEventListener('submit', async (event) => {
                 logger.debug('Form submitted');
                 event.preventDefault();
-                await this.handleEnterPairSubmit(taxon1Input.value, taxon2Input.value, dialogMessage, submitButton);
+                await this.handleEnterPairSubmit(taxonAInput.value, taxonBInput.value, dialogMessage, submitButton);
             });
 
-            [taxon1Input, taxon2Input].forEach(input => {
+            [taxonAInput, taxonBInput].forEach(input => {
                 input.addEventListener('input', () => {
-                    submitButton.disabled = !taxon1Input.value || !taxon2Input.value;
+                    submitButton.disabled = !taxonAInput.value || !taxonBInput.value;
                     logger.debug(`Input changed. Submit button disabled: ${submitButton.disabled}`);
                 });
             });
@@ -35,13 +35,13 @@ const enterPair = {
 
     async handleNewPairSubmit(event) {
         event.preventDefault();
-        const { taxon1, taxon2 } = this.getAndValidateInputs();
-        if (!taxon1 || !taxon2) return;
+        const { taxonA, taxonB } = this.getAndValidateInputs();
+        if (!taxonA || !taxonB) return;
 
         this.setSubmitState(true);
 
         try {
-            const validatedTaxa = await this.validateTaxa(taxon1, taxon2);
+            const validatedTaxa = await this.validateTaxa(taxonA, taxonB);
             if (validatedTaxa) {
                 await this.saveAndSetupNewPair(validatedTaxa);
             } else {
@@ -55,12 +55,12 @@ const enterPair = {
     },
 
     getAndValidateInputs() {
-        const taxon1 = this.taxon1Input.value.trim();
-        const taxon2 = this.taxon2Input.value.trim();
-        if (!taxon1 || !taxon2) {
+        const taxonA = this.taxonAInput.value.trim();
+        const taxonB = this.taxonBInput.value.trim();
+        if (!taxonA || !taxonB) {
             this.dialogMessage.textContent = 'Please enter both taxa.';
         }
-        return { taxon1, taxon2 };
+        return { taxonA, taxonB };
     },
 
     setSubmitState(isSubmitting) {
@@ -86,18 +86,18 @@ const enterPair = {
         }
     },
 
-    async validateTaxa(taxon1, taxon2) {
+    async validateTaxa(taxonA, taxonB) {
         const [validatedTaxon1, validatedTaxon2] = await Promise.all([
-            api.taxonomy.validateTaxon(taxon1),
-            api.taxonomy.validateTaxon(taxon2)
+            api.taxonomy.validateTaxon(taxonA),
+            api.taxonomy.validateTaxon(taxonB)
         ]);
         return validatedTaxon1 && validatedTaxon2 ? { validatedTaxon1, validatedTaxon2 } : null;
     },
 
     async saveAndSetupNewPair({ validatedTaxon1, validatedTaxon2 }) {
         const newPair = {
-            taxon1: validatedTaxon1.name,
-            taxon2: validatedTaxon2.name
+            taxonA: validatedTaxon1.name,
+            taxonB: validatedTaxon2.name
         };
         this.dialogMessage.textContent = 'Saving new pair...';
         try {
@@ -128,12 +128,12 @@ const enterPair = {
     },
 
 
-    async handleEnterSetSubmit(taxon1, taxon2, messageElement, submitButton) {
-        logger.debug(`Handling submit for taxa: ${taxon1}, ${taxon2}`);
+    async handleEnterSetSubmit(taxonA, taxonB, messageElement, submitButton) {
+        logger.debug(`Handling submit for taxa: ${taxonA}, ${taxonB}`);
         this.setSubmitState(messageElement, submitButton, true);
 
         try {
-            const [validatedTaxon1, validatedTaxon2] = await this.validateTaxa(taxon1, taxon2);
+            const [validatedTaxon1, validatedTaxon2] = await this.validateTaxa(taxonA, taxonB);
             this.handleValidationResult(validatedTaxon1, validatedTaxon2, messageElement);
         } catch (error) {
             this.handleValidationError(error, messageElement);
@@ -142,10 +142,10 @@ const enterPair = {
         }
     },
 
-    async validateTaxa(taxon1, taxon2) {
+    async validateTaxa(taxonA, taxonB) {
         return await Promise.all([
-            api.taxonomy.validateTaxon(taxon1),
-            api.taxonomy.validateTaxon(taxon2)
+            api.taxonomy.validateTaxon(taxonA),
+            api.taxonomy.validateTaxon(taxonB)
         ]);
     },
 
@@ -162,8 +162,8 @@ const enterPair = {
 
     processValidTaxa(validatedTaxon1, validatedTaxon2) {
         const newPair = {
-            taxon1: validatedTaxon1.name,
-            taxon2: validatedTaxon2.name,
+            taxonA: validatedTaxon1.name,
+            taxonB: validatedTaxon2.name,
             vernacular1: validatedTaxon1.preferred_common_name || '',
             vernacular2: validatedTaxon2.preferred_common_name || ''
         };

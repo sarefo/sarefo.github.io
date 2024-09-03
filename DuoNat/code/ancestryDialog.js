@@ -111,8 +111,8 @@ const ancestryDialog = {
                     ancestryDialog.graphRendering.updateNodeLabels(showTaxonomic);
                 } else {
                     ancestryDialog.graphRendering.renderGraph(
-                        ancestryDialog.currentData.taxon1,
-                        ancestryDialog.currentData.taxon2,
+                        ancestryDialog.currentData.taxonA,
+                        ancestryDialog.currentData.taxonB,
                         ancestryDialog.currentData.commonAncestor,
                         ancestryDialog.currentShowTaxonomic || showTaxonomic
                     );
@@ -204,15 +204,15 @@ const ancestryDialog = {
             ancestryDialog.ui.showLoadingIndicator();
 
             try {
-                const [taxon1, taxon2] = await this.fetchTaxonData(taxonName1, taxonName2);
+                const [taxonA, taxonB] = await this.fetchTaxonData(taxonName1, taxonName2);
                 const [ancestry1, ancestry2] = await this.fetchAncestryData(taxonName1, taxonName2);
 
-                this.updateTaxonAncestry(taxon1, ancestry1);
-                this.updateTaxonAncestry(taxon2, ancestry2);
+                this.updateTaxonAncestry(taxonA, ancestry1);
+                this.updateTaxonAncestry(taxonB, ancestry2);
 
-                const commonAncestor = ancestryDialog.utils.findCommonAncestor(taxon1, taxon2);
-                ancestryDialog.currentData = { taxon1, taxon2, commonAncestor };
-                await ancestryDialog.graphRendering.renderGraph(taxon1, taxon2, commonAncestor, showTaxonomic);
+                const commonAncestor = ancestryDialog.utils.findCommonAncestor(taxonA, taxonB);
+                ancestryDialog.currentData = { taxonA, taxonB, commonAncestor };
+                await ancestryDialog.graphRendering.renderGraph(taxonA, taxonB, commonAncestor, showTaxonomic);
             } catch (error) {
                 logger.error('Error finding relationship:', error);
                 throw error;
@@ -240,11 +240,11 @@ const ancestryDialog = {
             if (ancestry.length > 0) taxon.ancestor_ids = ancestry;
         },
 
-        async fetchAncestorDetails(ancestorIds, taxon1, taxon2) {
+        async fetchAncestorDetails(ancestorIds, taxonA, taxonB) {
             ancestorIds = Array.isArray(ancestorIds) ? ancestorIds : Array.from(ancestorIds || []);
 
             const localAncestorDetails = new Map();
-            this.addEndNodesToLocalDetails(localAncestorDetails, taxon1, taxon2);
+            this.addEndNodesToLocalDetails(localAncestorDetails, taxonA, taxonB);
 
             const ancestorDetails = await api.taxonomy.fetchAncestorDetails(ancestorIds);
             this.mergeAncestorDetails(localAncestorDetails, ancestorDetails);
@@ -280,14 +280,14 @@ const ancestryDialog = {
         PADDING: 8, // Padding inside the rectangle
         BORDER_RADIUS: 8,
 
-        async renderGraph(taxon1, taxon2, commonAncestorId, showTaxonomic) {
+        async renderGraph(taxonA, taxonB, commonAncestorId, showTaxonomic) {
             const d3 = await d3Graphs.loadD3();
             this.clearExistingGraph();
             
             const hierarchy = this.getHierarchy();
             if (!hierarchy) return;
 
-            const [node1, node2] = this.getNodes(hierarchy, taxon1, taxon2);
+            const [node1, node2] = this.getNodes(hierarchy, taxonA, taxonB);
             if (!node1 || !node2) return;
 
             const ancestorsData = this.getAncestors(hierarchy, node1, node2);
@@ -304,7 +304,7 @@ const ancestryDialog = {
             const [links, nodes] = this.getLinksAndNodes(root);
             
             this.drawLinks(d3, links);
-            this.drawNodes(d3, nodes, showTaxonomic, taxon1, taxon2, ancestorsData.lastCommonAncestor);
+            this.drawNodes(d3, nodes, showTaxonomic, taxonA, taxonB, ancestorsData.lastCommonAncestor);
             
             const zoom = this.setupZoom(d3, width, height);
 
@@ -335,11 +335,11 @@ const ancestryDialog = {
             return hierarchy;
         },
 
-        getNodes(hierarchy, taxon1, taxon2) {
-            const node1 = hierarchy.getTaxonById(taxon1.id);
-            const node2 = hierarchy.getTaxonById(taxon2.id);
+        getNodes(hierarchy, taxonA, taxonB) {
+            const node1 = hierarchy.getTaxonById(taxonA.id);
+            const node2 = hierarchy.getTaxonById(taxonB.id);
             if (!node1 || !node2) {
-                logger.error(`One or both taxa not found in hierarchy: ${taxon1.id}, ${taxon2.id}`);
+                logger.error(`One or both taxa not found in hierarchy: ${taxonA.id}, ${taxonB.id}`);
             }
             return [node1, node2];
         },
@@ -463,7 +463,7 @@ const ancestryDialog = {
                     .y(d => d.y));
         },
 
-        drawNodes(d3, nodes, showTaxonomic, taxon1, taxon2, lastCommonAncestor) {
+        drawNodes(d3, nodes, showTaxonomic, taxonA, taxonB, lastCommonAncestor) {
             const svg = d3.select(ancestryDialog.container).select('svg g');
             const node = svg.selectAll('.ancestry-tree__node')
                 .data(nodes)
@@ -471,15 +471,15 @@ const ancestryDialog = {
                 .attr('class', 'ancestry-tree__node')
                 .attr('transform', d => `translate(${d.x},${d.y})`);
 
-            this.drawNodeRectangles(node, taxon1, taxon2, lastCommonAncestor);
+            this.drawNodeRectangles(node, taxonA, taxonB, lastCommonAncestor);
             this.drawNodeText(d3, node, showTaxonomic);
             this.setupNodeClickHandlers(node);
         },
 
-        drawNodeRectangles(node, taxon1, taxon2, lastCommonAncestor) {
+        drawNodeRectangles(node, taxonA, taxonB, lastCommonAncestor) {
             const safeMaxNodeWidth = this.calculateMaxNodeWidth(node);
             node.append('rect')
-                .attr('class', d => this.getNodeRectClass(d, taxon1, taxon2, lastCommonAncestor))
+                .attr('class', d => this.getNodeRectClass(d, taxonA, taxonB, lastCommonAncestor))
                 .attr('width', safeMaxNodeWidth)
                 .attr('height', this.NODE_HEIGHT)
                 .attr('x', -safeMaxNodeWidth / 2)
@@ -496,9 +496,9 @@ const ancestryDialog = {
             return Math.max(100, maxNodeWidth || 0);
         },
 
-        getNodeRectClass(d, taxon1, taxon2, lastCommonAncestor) {
+        getNodeRectClass(d, taxonA, taxonB, lastCommonAncestor) {
             let classes = 'd3-node-rect ancestry-tree__node-rect';
-            if (String(d.data.id) === String(taxon1.id) || String(d.data.id) === String(taxon2.id)) {
+            if (String(d.data.id) === String(taxonA.id) || String(d.data.id) === String(taxonB.id)) {
                 classes += ' ancestry-tree__node-rect--endpoint';
             }
             if (String(d.data.id) === String(lastCommonAncestor)) {
@@ -738,10 +738,10 @@ const ancestryDialog = {
             return api.taxonomy.fetchTaxonDetails(name);
         },
 
-        findCommonAncestor(taxon1, taxon2) {
-            const ancestors1 = new Set(taxon1.ancestor_ids);
+        findCommonAncestor(taxonA, taxonB) {
+            const ancestors1 = new Set(taxonA.ancestor_ids);
             let commonAncestor = null;
-            for (const ancestorId of taxon2.ancestor_ids) {
+            for (const ancestorId of taxonB.ancestor_ids) {
                 if (ancestors1.has(ancestorId)) {
                     commonAncestor = ancestorId;
                     break;

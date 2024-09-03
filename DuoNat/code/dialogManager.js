@@ -290,16 +290,16 @@ const dialogManager = {
         },
 
         validateInputs() {
-            const isValid = dialogManager.taxon1Input.value.trim() !== '' && dialogManager.taxon2Input.value.trim() !== '';
+            const isValid = dialogManager.taxonAInput.value.trim() !== '' && dialogManager.taxonBInput.value.trim() !== '';
             dialogManager.submitButton.disabled = !isValid;
         },
 
         clearEnterPairInputs() {
-            const taxon1Input = document.getElementById('taxon1');
-            const taxon2Input = document.getElementById('taxon2');
+            const taxonAInput = document.getElementById('taxonA');
+            const taxonBInput = document.getElementById('taxonB');
             const dialogMessage = document.getElementById('dialog-message');
-            taxon1Input.value = '';
-            taxon2Input.value = '';
+            taxonAInput.value = '';
+            taxonBInput.value = '';
             dialogMessage.textContent = '';
             dialogManager.validateInputs();
         },

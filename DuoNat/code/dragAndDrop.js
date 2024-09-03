@@ -164,9 +164,9 @@ const dragAndDrop = {
             if (!draggedElement) return;
 
             const isCorrect = this.utils.isAnswerCorrect(dropZone.id, draggedElement.id);
-            const otherElement = draggedElement.id === 'left-name' ?
-                document.getElementById('right-name') :
-                document.getElementById('left-name');
+            const otherElement = draggedElement.id === 'name-x' ?
+                document.getElementById('name-y') :
+                document.getElementById('name-x');
 
             this.utils.animateElement(draggedElement, dropZone, isCorrect);
             this.utils.animateElement(otherElement, this.utils.getOtherDropZone(dropZone), isCorrect);
@@ -182,9 +182,9 @@ const dragAndDrop = {
 
     utils: {
         captureOtherElementPosition() {
-            const otherElement = this.state.draggedElement.id === 'left-name' ?
-                document.getElementById('right-name') :
-                document.getElementById('left-name');
+            const otherElement = this.state.draggedElement.id === 'name-x' ?
+                document.getElementById('name-y') :
+                document.getElementById('name-x');
             if (otherElement) {
                 const rect = otherElement.getBoundingClientRect();
                 this.state.otherElementInitialY = rect.top;
@@ -245,11 +245,11 @@ const dragAndDrop = {
 
             const elements = [
                 this.state.draggedElement,
-                this.state.draggedElement.id === 'left-name' ? document.getElementById('right-name') : document.getElementById('left-name')
+                this.state.draggedElement.id === 'name-x' ? document.getElementById('name-y') : document.getElementById('name-x')
             ];
 
             elements.forEach(element => {
-                const originalContainer = element.id === 'left-name' ? 'name-pair__container--left' : 'name-pair__container--right';
+                const originalContainer = element.id === 'name-x' ? 'name-pair__container--x' : 'name-pair__container--y';
                 const container = document.getElementsByClassName(originalContainer)[0];
 
                 element.classList.remove('name-pair__item--dragging', 'name-pair__item--landing');
@@ -286,9 +286,9 @@ const dragAndDrop = {
         },
 
         mirrorOtherElement(deltaY, gameContainerRect, elementWidth) {
-            const otherElement = this.state.draggedElement.id === 'left-name' ?
-                document.getElementById('right-name') :
-                document.getElementById('left-name');
+            const otherElement = this.state.draggedElement.id === 'name-x' ?
+                document.getElementById('name-y') :
+                document.getElementById('name-x');
 
             if (otherElement) {
                 const leftPosition = gameContainerRect.left + (gameContainerRect.width / 2) - (elementWidth / 2);
@@ -307,9 +307,9 @@ const dragAndDrop = {
             if (isCorrect) {
                 targetRect = targetZone.getBoundingClientRect();
             } else {
-                const originalContainer = element.id === 'left-name' ?
-                    document.querySelector('.name-pair__container--left') :
-                    document.querySelector('.name-pair__container--right');
+                const originalContainer = element.id === 'name-x' ?
+                    document.querySelector('.name-pair__container--x') :
+                    document.querySelector('.name-pair__container--y');
                 targetRect = originalContainer.getBoundingClientRect();
             }
 
@@ -349,11 +349,11 @@ const dragAndDrop = {
                 otherDropZone.innerHTML = '';
                 otherDropZone.appendChild(otherElement);
             } else {
-                const leftContainer = document.querySelector('.name-pair__container--left');
-                const rightContainer = document.querySelector('.name-pair__container--right');
+                const leftContainer = document.querySelector('.name-pair__container--x');
+                const rightContainer = document.querySelector('.name-pair__container--y');
 
-                leftContainer.appendChild(document.getElementById('left-name'));
-                rightContainer.appendChild(document.getElementById('right-name'));
+                leftContainer.appendChild(document.getElementById('name-x'));
+                rightContainer.appendChild(document.getElementById('name-y'));
             }
 
             draggedElement.classList.add(isCorrect ? 'name-pair__item--correct' : 'name-pair__item--incorrect');
@@ -363,8 +363,8 @@ const dragAndDrop = {
         },
 
         moveTileToDropZone(tilePosition, dropZonePosition) {
-            const draggedElement = document.getElementById(tilePosition === 'left' ? 'left-name' : 'right-name');
-            const otherElement = document.getElementById(tilePosition === 'left' ? 'right-name' : 'left-name');
+            const draggedElement = document.getElementById(tilePosition === 'left' ? 'name-x' : 'name-y');
+            const otherElement = document.getElementById(tilePosition === 'left' ? 'name-y' : 'name-x');
             const dropZone = document.getElementById(dropZonePosition === 'upper' ? 'drop-1' : 'drop-2');
             const otherDropZone = document.getElementById(dropZonePosition === 'upper' ? 'drop-2' : 'drop-1');
 

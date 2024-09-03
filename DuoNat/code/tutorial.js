@@ -240,8 +240,8 @@ class Tutorial {
     // Specific tutorial methods
         animateDragDemo() {
             return new Promise((resolve) => {
-                const leftName = document.getElementById('left-name');
-                const rightName = document.getElementById('right-name');
+                const leftName = document.getElementById('name-x');
+                const rightName = document.getElementById('name-y');
                 const drop1 = document.getElementById('drop-1');
                 const drop2 = document.getElementById('drop-2');
 
@@ -296,7 +296,7 @@ class Tutorial {
             // Get the preloaded images for the next round
             const preloadedImages = preloader.roundPreloader.getPreloadedImagesForRoundDemo();
 
-            if (preloadedImages && preloadedImages.taxon1 && preloadedImages.taxon2) {
+            if (preloadedImages && preloadedImages.taxonA && preloadedImages.taxonB) {
                 // Fade out current images
                 imageOne.style.transition = imageTwo.style.transition = 'opacity 0.3s ease-out';
                 imageOne.style.opacity = imageTwo.style.opacity = '0';
@@ -304,8 +304,8 @@ class Tutorial {
                 await utils.ui.sleep(300); // Wait for fade out
 
                 // Switch to preloaded images
-                imageOne.src = preloadedImages.taxon1;
-                imageTwo.src = preloadedImages.taxon2;
+                imageOne.src = preloadedImages.taxonA;
+                imageTwo.src = preloadedImages.taxonB;
 
                 // Fade in new images
                 imageOne.style.opacity = imageTwo.style.opacity = '1';

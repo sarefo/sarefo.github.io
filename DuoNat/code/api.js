@@ -83,8 +83,8 @@ const api = (() => {
                     return Object.entries(taxonPairs).map(([pairID, pair]) => ({
                         ...pair,
                         pairID,
-                        taxon1: pair.taxonNames[0],
-                        taxon2: pair.taxonNames[1]
+                        taxonA: pair.taxonNames[0],
+                        taxonB: pair.taxonNames[1]
                     }));
                 } catch (error) {
                     handleApiError(error, 'fetchTaxonPairs');

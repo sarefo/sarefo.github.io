@@ -83,22 +83,22 @@ const pairManager = {
                 return this.findPairByPairID(filteredPairs, pairID);
             } else {
                 const urlParams = url.getUrlParameters();
-                if (urlParams.taxon1 && urlParams.taxon2) { // not saved in gameState atm
-                return this.findPairByTaxa(filteredPairs, urlParams.taxon1, urlParams.taxon2);
+                if (urlParams.taxonA && urlParams.taxonB) { // not saved in gameState atm
+                return this.findPairByTaxa(filteredPairs, urlParams.taxonA, urlParams.taxonB);
                 }
             }
             return null;
         },
 
-        findPairByTaxa(filteredPairs, taxon1, taxon2) {
+        findPairByTaxa(filteredPairs, taxonA, taxonB) {
             const pair = filteredPairs.find(pair =>
-                (pair.taxonNames[0] === taxon1 && pair.taxonNames[1] === taxon2) ||
-                (pair.taxonNames[0] === taxon2 && pair.taxonNames[1] === taxon1)
+                (pair.taxonNames[0] === taxonA && pair.taxonNames[1] === taxonB) ||
+                (pair.taxonNames[0] === taxonB && pair.taxonNames[1] === taxonA)
             );
             if (pair) {
-                //logger.debug(`Found pair with taxa: ${taxon1} and ${taxon2}`);
+                //logger.debug(`Found pair with taxa: ${taxonA} and ${taxonB}`);
             } else {
-                logger.warn(`Taxa ${taxon1} and ${taxon2} not found in filtered collection. Selecting random pair.`);
+                logger.warn(`Taxa ${taxonA} and ${taxonB} not found in filtered collection. Selecting random pair.`);
             }
             return pair;
         },
@@ -302,12 +302,12 @@ const pairManager = {
         resetUsedImagesForNewPair(newPair) {
             const currentUsedImages = state.getUsedImages();
             const updatedUsedImages = { ...currentUsedImages };
-            delete updatedUsedImages[newPair.taxon1];
-            delete updatedUsedImages[newPair.taxon2];
+            delete updatedUsedImages[newPair.taxonA];
+            delete updatedUsedImages[newPair.taxonB];
             state.updateGameStateMultiple({
                 usedImages: updatedUsedImages
             });
-            //logger.debug(`Reset used images for new pair: ${newPair.taxon1} and ${newPair.taxon2}`);
+            //logger.debug(`Reset used images for new pair: ${newPair.taxonA} and ${newPair.taxonB}`);
         },
     },
 
@@ -319,8 +319,8 @@ const pairManager = {
                 return preloadedImages;
             }
             return {
-                taxon1: await preloader.imageLoader.fetchDifferentImage(newPair.taxon1 || newPair.taxonNames[0], null),
-                taxon2: await preloader.imageLoader.fetchDifferentImage(newPair.taxon2 || newPair.taxonNames[1], null),
+                taxonA: await preloader.imageLoader.fetchDifferentImage(newPair.taxonA || newPair.taxonNames[0], null),
+                taxonB: await preloader.imageLoader.fetchDifferentImage(newPair.taxonB || newPair.taxonNames[1], null),
             };
         },
     },
@@ -330,13 +330,13 @@ const pairManager = {
             state.updateGameStateMultiple({
                 currentTaxonImageCollection: {
                     pair: newPair,
-                    imageOneURL: images.taxon1,
-                    imageTwoURL: images.taxon2,
+                    imageOneURL: images.taxonA,
+                    imageTwoURL: images.taxonB,
                     level: newPair.level || '1',
                 },
                 usedImages: {
-                    taxon1: new Set([images.taxon1]),
-                    taxon2: new Set([images.taxon2]),
+                    taxonA: new Set([images.taxonA]),
+                    taxonB: new Set([images.taxonB]),
                 },
             });
             state.setCurrentPairID(newPair.pairID || state.getCurrentPairID());

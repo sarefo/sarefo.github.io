@@ -347,8 +347,8 @@ const ui = {
     layoutManagement: {
         // determine height of tallest name tile, to keep layout stable over multiple rounds
         setNamePairHeight() {
-            const leftName = document.getElementById('left-name');
-            const rightName = document.getElementById('right-name');
+            const leftName = document.getElementById('name-x');
+            const rightName = document.getElementById('name-y');
             const namePair = document.querySelector('.name-pair');
 
             this._resetHeights(leftName, rightName, namePair);

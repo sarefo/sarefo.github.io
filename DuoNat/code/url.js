@@ -11,8 +11,8 @@ const url = {
             return {
                 level: params.get('level'),
                 pairID: params.get('pairID'),
-                taxon1: params.get('taxon1'),
-                taxon2: params.get('taxon2'),
+                taxonA: params.get('taxonA'),
+                taxonB: params.get('taxonB'),
                 ranges: params.get('ranges'),
                 tags: params.get('tags'),
                 phylogenyID: params.get('phylogenyID'),
@@ -52,8 +52,8 @@ const url = {
             return {
                 level: state.getSelectedLevel(),
                 pairID: params.pairID,
-                /*taxon1: params.taxon1,
-                taxon2: params.taxon2,*/
+                /*taxonA: params.taxonA,
+                taxonB: params.taxonB,*/
                 ranges: state.getSelectedRanges(),
                 tags: state.getSelectedTags(),
                 phylogenyId: state.getPhylogenyId(),
@@ -68,10 +68,10 @@ const url = {
             let currentTaxonImageCollection = state.getCurrentTaxonImageCollection();
 
             if (currentTaxonImageCollection && currentTaxonImageCollection.pair) {
-                const { pairID, taxon1, taxon2 } = currentTaxonImageCollection.pair;
+                const { pairID, taxonA, taxonB } = currentTaxonImageCollection.pair;
                 if (pairID) currentUrl.searchParams.set('pairID', pairID);
-                currentUrl.searchParams.set('taxon1', taxon1);
-                currentUrl.searchParams.set('taxon2', taxon2);
+                currentUrl.searchParams.set('taxonA', taxonA);
+                currentUrl.searchParams.set('taxonB', taxonB);
             }
 
             this.addOptionalParameters(currentUrl);

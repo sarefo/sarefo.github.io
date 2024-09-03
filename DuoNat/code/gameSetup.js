@@ -88,8 +88,8 @@ const gameSetup = {
 
         /*async setupGameWithPreloadedPair(preloadedPair) {
             state.resetShownHints();
-            logger.debug(`Setting up game with preloaded pair: ${preloadedPair.pair.taxon1}
-                    / ${preloadedPair.pair.taxon2}, Skill Level: ${preloadedPair.pair.level}`);
+            logger.debug(`Setting up game with preloaded pair: ${preloadedPair.pair.taxonA}
+                    / ${preloadedPair.pair.taxonB}, Skill Level: ${preloadedPair.pair.level}`);
             logger.debug(`Current selected level: ${state.getSelectedLevel()}`);
 
             if (!preloader.pairPreloader.isPairValid(preloadedPair.pair)) {
@@ -106,12 +106,12 @@ const gameSetup = {
             state.updateGameStateMultiple({
                 currentTaxonImageCollection: {
                     pair: preloadedPair.pair,
-                    imageOneURL: preloadedPair.taxon1,
-                    imageTwoURL: preloadedPair.taxon2,
+                    imageOneURL: preloadedPair.taxonA,
+                    imageTwoURL: preloadedPair.taxonB,
                 },
                 usedImages: {
-                    taxon1: new Set([preloadedPair.taxon1]),
-                    taxon2: new Set([preloadedPair.taxon2]),
+                    taxonA: new Set([preloadedPair.taxonA]),
+                    taxonB: new Set([preloadedPair.taxonB]),
                 },
             });
         },*/

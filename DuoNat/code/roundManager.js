@@ -72,10 +72,10 @@ const roundManager = {
             const randomized = Math.random() < 0.5;
 
             return {
-                leftImageSrc: randomized ? images.taxon2 : images.taxon1,
-                rightImageSrc: randomized ? images.taxon1 : images.taxon2,
-                taxonImageOne: randomized ? pair.taxon2 : pair.taxon1,
-                taxonImageTwo: randomized ? pair.taxon1 : pair.taxon2,
+                leftImageSrc: randomized ? images.taxonB : images.taxonA,
+                rightImageSrc: randomized ? images.taxonA : images.taxonB,
+                taxonImageOne: randomized ? pair.taxonB : pair.taxonA,
+                taxonImageTwo: randomized ? pair.taxonA : pair.taxonB,
                 randomized
             };
         },
@@ -87,21 +87,21 @@ const roundManager = {
             }
             const { pair, preloadedImages } = pairData;
             if (isNewPair && preloadedImages) {
-                //logger.debug(`Using preloaded images for pair: ${pair.taxon1} / ${pair.taxon2}`);
-                return { taxon1: preloadedImages.taxon1, taxon2: preloadedImages.taxon2 };
+                //logger.debug(`Using preloaded images for pair: ${pair.taxonA} / ${pair.taxonB}`);
+                return { taxonA: preloadedImages.taxonA, taxonB: preloadedImages.taxonB };
             }
 
             const preloadedRoundImages = preloader.roundPreloader.getPreloadedImagesForNextRound();
-            if (preloadedRoundImages && preloadedRoundImages.taxon1 && preloadedRoundImages.taxon2) {
-                //logger.debug(`Using preloaded round images for pair: ${pair.taxon1} / ${pair.taxon2}`);
+            if (preloadedRoundImages && preloadedRoundImages.taxonA && preloadedRoundImages.taxonB) {
+                //logger.debug(`Using preloaded round images for pair: ${pair.taxonA} / ${pair.taxonB}`);
                 preloader.roundPreloader.clearPreloadedImagesForNextRound();
-                return { taxon1: preloadedRoundImages.taxon1, taxon2: preloadedRoundImages.taxon2 };
+                return { taxonA: preloadedRoundImages.taxonA, taxonB: preloadedRoundImages.taxonB };
             }
 
-            //logger.debug(`Fetching new images for pair: ${pair.taxon1} / ${pair.taxon2}`);
+            //logger.debug(`Fetching new images for pair: ${pair.taxonA} / ${pair.taxonB}`);
             return {
-                taxon1: await preloader.imageLoader.fetchDifferentImage(pair.taxon1, null),
-                taxon2: await preloader.imageLoader.fetchDifferentImage(pair.taxon2, null)
+                taxonA: await preloader.imageLoader.fetchDifferentImage(pair.taxonA, null),
+                taxonB: await preloader.imageLoader.fetchDifferentImage(pair.taxonB, null)
             };
         },
 
@@ -129,17 +129,17 @@ const roundManager = {
             } else {
                 // Check for preloaded images
                 const preloadedImages = preloader.roundPreloader.getPreloadedImagesForNextRound();
-                if (preloadedImages && preloadedImages.taxon1 && preloadedImages.taxon2) {
+                if (preloadedImages && preloadedImages.taxonA && preloadedImages.taxonB) {
                     //logger.debug("Using preloaded images for next round");
-                    imageOneURL = preloadedImages.taxon1;
-                    imageTwoURL = preloadedImages.taxon2;
+                    imageOneURL = preloadedImages.taxonA;
+                    imageTwoURL = preloadedImages.taxonB;
                     // Clear the preloaded images after use
                     preloader.roundPreloader.clearPreloadedImagesForNextRound();
                 } else {
                     //logger.debug("No preloaded images available, fetching new images");
                     [imageOneURL, imageTwoURL] = await Promise.all([
-                        preloader.imageLoader.fetchDifferentImage(pair.taxon1, state.getCurrentRound().imageOneURL),
-                        preloader.imageLoader.fetchDifferentImage(pair.taxon2, state.getCurrentRound().imageTwoURL)
+                        preloader.imageLoader.fetchDifferentImage(pair.taxonA, state.getCurrentRound().imageOneURL),
+                        preloader.imageLoader.fetchDifferentImage(pair.taxonB, state.getCurrentRound().imageTwoURL)
                     ]);
                 }
             }
@@ -162,12 +162,12 @@ const roundManager = {
 
         async getImagesForRound(pair) {
             const preloadedImages = preloader.roundPreloader.getPreloadedImagesForNextRound();
-            if (preloadedImages && preloadedImages.taxon1 && preloadedImages.taxon2) {
-                return { imageOneURL: preloadedImages.taxon1, imageTwoURL: preloadedImages.taxon2 };
+            if (preloadedImages && preloadedImages.taxonA && preloadedImages.taxonB) {
+                return { imageOneURL: preloadedImages.taxonA, imageTwoURL: preloadedImages.taxonB };
             }
             return {
-                imageOneURL: await preloader.imageLoader.fetchDifferentImage(pair.taxon1, state.getCurrentRound().imageOneURL),
-                imageTwoURL: await preloader.imageLoader.fetchDifferentImage(pair.taxon2, state.getCurrentRound().imageTwoURL),
+                imageOneURL: await preloader.imageLoader.fetchDifferentImage(pair.taxonA, state.getCurrentRound().imageOneURL),
+                imageTwoURL: await preloader.imageLoader.fetchDifferentImage(pair.taxonB, state.getCurrentRound().imageTwoURL),
             };
         },
     },
@@ -260,8 +260,8 @@ const roundManager = {
 
         async setupWorldMaps(pair, randomized) {
             const [leftContinents, rightContinents] = await Promise.all([
-                this.getContinentForTaxon(randomized ? pair.taxon1 : pair.taxon2),
-                this.getContinentForTaxon(randomized ? pair.taxon2 : pair.taxon1)
+                this.getContinentForTaxon(randomized ? pair.taxonA : pair.taxonB),
+                this.getContinentForTaxon(randomized ? pair.taxonB : pair.taxonA)
             ]);
 
             return { leftContinents, rightContinents };
@@ -318,13 +318,13 @@ const roundManager = {
         },
 
         resetDraggables() {
-            const leftNameContainer = document.getElementsByClassName('name-pair__container--left')[0];
-            const rightNameContainer = document.getElementsByClassName('name-pair__container--right')[0];
+            const leftNameContainer = document.getElementsByClassName('name-pair__container--x')[0];
+            const rightNameContainer = document.getElementsByClassName('name-pair__container--y')[0];
             const dropOne = document.getElementById('drop-1');
             const dropTwo = document.getElementById('drop-2');
 
-            leftNameContainer.appendChild(document.getElementById('left-name'));
-            rightNameContainer.appendChild(document.getElementById('right-name'));
+            leftNameContainer.appendChild(document.getElementById('name-x'));
+            rightNameContainer.appendChild(document.getElementById('name-y'));
 
             dropOne.innerHTML = '';
             dropTwo.innerHTML = '';

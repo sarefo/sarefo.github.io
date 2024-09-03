@@ -50,7 +50,7 @@ const imageLoader = {
     getTaxonKey(taxonName) {
         const currentTaxonImageCollection = state.getCurrentTaxonImageCollection();
         if (currentTaxonImageCollection) {
-            return taxonName === currentTaxonImageCollection.pair.taxon1 ? 'taxon1' : 'taxon2';
+            return taxonName === currentTaxonImageCollection.pair.taxonA ? 'taxonA' : 'taxonB';
         }
         return taxonName; // Fallback to using the taxon name as the key
     },
@@ -95,8 +95,8 @@ const roundPreloader = {
     async preloadForNextRound() {
         const { pair, imageOneURL, imageTwoURL } = state.getCurrentTaxonImageCollection();
         const [newImageOneURL, newImageTwoURL] = await Promise.all([
-            imageLoader.fetchDifferentImage(pair.taxon1, imageOneURL),
-            imageLoader.fetchDifferentImage(pair.taxon2, imageTwoURL)
+            imageLoader.fetchDifferentImage(pair.taxonA, imageOneURL),
+            imageLoader.fetchDifferentImage(pair.taxonB, imageTwoURL)
         ]);
 
         await Promise.all([
@@ -104,13 +104,13 @@ const roundPreloader = {
             imageLoader.preloadImage(newImageTwoURL)
         ]);
 
-        preloader.preloadedImages.nextRound = { taxon1: newImageOneURL, taxon2: newImageTwoURL };
+        preloader.preloadedImages.nextRound = { taxonA: newImageOneURL, taxonB: newImageTwoURL };
         //logger.debug("Preloaded images for next round:", preloader.preloadedImages.nextRound);
     },
 
     getPreloadedImagesForNextRound() {
         const images = preloader.preloadedImages.nextRound;
-        preloader.preloadedImages.nextRound = { taxon1: null, taxon2: null };
+        preloader.preloadedImages.nextRound = { taxonA: null, taxonB: null };
         return images;
     },
 
@@ -120,7 +120,7 @@ const roundPreloader = {
     },
 
     clearPreloadedImagesForNextRound() {
-        preloader.preloadedImages.nextRound = { taxon1: null, taxon2: null };
+        preloader.preloadedImages.nextRound = { taxonA: null, taxonB: null };
         //logger.debug("Cleared preloaded images for next round");
     },
 };
@@ -163,8 +163,8 @@ const pairPreloader = {
 
     async preloadPairImages(pair) {
         const [imageOneURL, imageTwoURL] = await Promise.all([
-            imageLoader.fetchDifferentImage(pair.taxon1, null),
-            imageLoader.fetchDifferentImage(pair.taxon2, null)
+            imageLoader.fetchDifferentImage(pair.taxonA, null),
+            imageLoader.fetchDifferentImage(pair.taxonB, null)
         ]);
 
         await Promise.all([
@@ -174,8 +174,8 @@ const pairPreloader = {
 
         preloader.preloadedImages.nextPair = {
             pair: pair,
-            taxon1: imageOneURL,
-            taxon2: imageTwoURL
+            taxonA: imageOneURL,
+            taxonB: imageTwoURL
         };
     },
 
@@ -193,7 +193,7 @@ const pairPreloader = {
     getPreloadedImagesForNextPair() {
         if (this.hasPreloadedPair()) {
             const images = preloader.preloadedImages.nextPair;
-            //logger.debug(`Retrieving preloaded pair: ${images.pair.taxon1} / ${images.pair.taxon2}, Skill Level: ${images.pair.level}`);
+            //logger.debug(`Retrieving preloaded pair: ${images.pair.taxonA} / ${images.pair.taxonB}, Skill Level: ${images.pair.level}`);
             preloader.preloadedImages.nextPair = null;
             return images;
         } else {
@@ -248,8 +248,8 @@ const pairPreloader = {
         const currentTaxonImageCollection = state.getCurrentTaxonImageCollection();
         return !currentTaxonImageCollection ||
             !currentTaxonImageCollection.pair ||
-            pair.taxon1 !== currentTaxonImageCollection.pair.taxon1 ||
-            pair.taxon2 !== currentTaxonImageCollection.pair.taxon2;
+            pair.taxonA !== currentTaxonImageCollection.pair.taxonA ||
+            pair.taxonB !== currentTaxonImageCollection.pair.taxonB;
     },
 
     selectNewPair(filteredPairs, allPairs) {
@@ -281,8 +281,8 @@ const pairPreloader = {
 
 const preloader = {
     preloadedImages: {
-        nextRound: { taxon1: null, taxon2: null },
-        nextPair: { taxon1: null, taxon2: null, pair: null }
+        nextRound: { taxonA: null, taxonB: null },
+        nextPair: { taxonA: null, taxonB: null, pair: null }
     },
     isPreloading: false,
 

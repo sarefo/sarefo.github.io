@@ -77,7 +77,7 @@ const sharing = {
         const params = url.searchParams;
 
         const options = [
-            { value: 'taxa', label: 'Taxa', isPresent: params.has('taxon1') || params.has('taxon2') },
+            { value: 'taxa', label: 'Taxa', isPresent: params.has('taxonA') || params.has('taxonB') },
             { value: 'pairID', label: 'Pair ID', isPresent: params.has('pairID') },
             { value: 'tags', label: 'Tags', isPresent: params.has('tags') },
             { value: 'level', label: 'Level', isPresent: params.has('level') },
@@ -123,9 +123,9 @@ const sharing = {
 
     addSelectedOptionsToUrl(url, selectedOptions, currentTaxonImageCollection) {
         if (selectedOptions.includes('taxa') && currentTaxonImageCollection && currentTaxonImageCollection.pair) {
-            const { taxon1, taxon2 } = currentTaxonImageCollection.pair;
-            url.searchParams.set('taxon1', taxon1);
-            url.searchParams.set('taxon2', taxon2);
+            const { taxonA, taxonB } = currentTaxonImageCollection.pair;
+            url.searchParams.set('taxonA', taxonA);
+            url.searchParams.set('taxonB', taxonB);
         }
 
         if (selectedOptions.includes('pairID') && currentTaxonImageCollection && currentTaxonImageCollection.pair) {

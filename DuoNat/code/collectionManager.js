@@ -370,8 +370,8 @@ const collectionManager = {
         },
 
         async updateVernacularNames(button, pair) {
-            const vernacular1 = await getCachedVernacularName(pair.taxon1);
-            const vernacular2 = await getCachedVernacularName(pair.taxon2);
+            const vernacular1 = await getCachedVernacularName(pair.taxonA);
+            const vernacular2 = await getCachedVernacularName(pair.taxonB);
 
             const vernacularElements = button.querySelectorAll('.vernacular-name');
             vernacularElements[0].textContent = vernacular1 || '';
@@ -386,7 +386,7 @@ const collectionManager = {
         getCurrentActivePair() {
             const currentPair = state.getCurrentTaxonImageCollection()?.pair;
             return currentPair ? {
-                taxonNames: [currentPair.taxon1, currentPair.taxon2],
+                taxonNames: [currentPair.taxonA, currentPair.taxonB],
                 pairName: currentPair.pairName,
                 tags: currentPair.tags,
                 pairID: currentPair.pairID,
@@ -577,8 +577,8 @@ const collectionManager = {
 
         handleTaxonPairSelection(pair) {
             const selectedPair = {
-                taxon1: pair.taxonNames[0],
-                taxon2: pair.taxonNames[1],
+                taxonA: pair.taxonNames[0],
+                taxonB: pair.taxonNames[1],
                 pairName: pair.pairName,
                 tags: [...pair.tags],
                 pairID: pair.pairID,

@@ -6,8 +6,8 @@ const elements = {
     imageOneContainer: document.getElementById('image-container-1'),
     imageTwoContainer: document.getElementById('image-container-2'),
     namePair: document.querySelector('.name-pair'),
-    leftName: document.getElementById('left-name'),
-    rightName: document.getElementById('right-name'),
+    leftName: document.getElementById('name-x'),
+    rightName: document.getElementById('name-y'),
     overlay: document.getElementById('overlay'),
     overlayMessage: document.getElementById('overlay-message'),
     buttons: document.querySelectorAll('.bottom-button')
@@ -58,8 +58,8 @@ let gameState = {
     currentTaxonImageCollection: null,
 
     usedImages: {
-        taxon1: new Set(),
-        taxon2: new Set()
+        taxonA: new Set(),
+        taxonB: new Set()
     },
     taxonImageOne: null,
     taxonImageTwo: null,
@@ -77,34 +77,34 @@ let gameState = {
     preloadedPair: null,
     preloadedImages: {
         current: {
-            taxon1: [],
-            taxon2: []
+            taxonA: [],
+            taxonB: []
         },
         next: {
-            taxon1: [],
-            taxon2: []
+            taxonA: [],
+            taxonB: []
         }
     },
 
     preloadState: {
         currentRound: {
-            taxon1: null,
-            taxon2: null
+            taxonA: null,
+            taxonB: null
         },
         nextRound: {
-            taxon1: null,
-            taxon2: null
+            taxonA: null,
+            taxonB: null
         },
         nextPair: {
-            taxon1: null,
-            taxon2: null
+            taxonA: null,
+            taxonB: null
         },
     },
     
     // Hints
     shownHints: {
-        taxon1: [],
-        taxon2: []
+        taxonA: [],
+        taxonB: []
     },
 
 };
@@ -168,8 +168,8 @@ const publicAPI = {
                 level: pair.level || '1',
             },
             usedImages: {
-                taxon1: new Set([leftImageSrc]),
-                taxon2: new Set([rightImageSrc]),
+                taxonA: new Set([leftImageSrc]),
+                taxonB: new Set([rightImageSrc]),
             },
             taxonImageOne: taxonImageOne,
             taxonImageTwo: taxonImageTwo,
@@ -254,8 +254,8 @@ const publicAPI = {
     },
     resetShownHints: () => {
         gameState.shownHints = {
-            taxon1: [],
-            taxon2: []
+            taxonA: [],
+            taxonB: []
         };
     },
 
@@ -392,7 +392,7 @@ const publicAPI = {
     },
 
     clearUsedImages: () => {
-        gameState.usedImages = { taxon1: new Set(), taxon2: new Set() };
+        gameState.usedImages = { taxonA: new Set(), taxonB: new Set() };
     },
 
     updateGameStateMultiple: (updates) => {
@@ -411,8 +411,8 @@ const publicAPI = {
         if (gameState.currentTaxonImageCollection && gameState.currentTaxonImageCollection.pair) {
             const pair = gameState.currentTaxonImageCollection.pair;
             info += `Current Pair ID: ${pair.pairID}\n`;
-            info += `Taxon 1: ${pair.taxon1}\n`;
-            info += `Taxon 2: ${pair.taxon2}\n`;
+            info += `Taxon 1: ${pair.taxonA}\n`;
+            info += `Taxon 2: ${pair.taxonB}\n`;
         }
         info += `Selected Level: ${gameState.selectedLevel}\n`;
         info += `Selected Ranges: ${gameState.selectedRanges.join(', ')}\n`;

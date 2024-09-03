@@ -201,8 +201,8 @@ const reporting = {
         let currentTaxonImageCollection = state.getCurrentTaxonImageCollection();
         if (currentTaxonImageCollection && currentTaxonImageCollection.pair) {
             const pair = currentTaxonImageCollection.pair;
-            info += `Taxon 1: ${pair.taxon1}\n`;
-            info += `Taxon 2: ${pair.taxon2}\n`;
+            info += `Taxon A: ${pair.taxonA}\n`;
+            info += `Taxon B: ${pair.taxonB}\n`;
             info += `Pair Name: ${pair.pairName || 'N/A'}\n`;
             info += `Pair ID: ${pair.pairID || 'N/A'}\n`;
             info += `Level: ${pair.level || 'N/A'}\n`;
