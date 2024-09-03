@@ -1,6 +1,6 @@
 {
   "1": {
-    "pairName": "Large Carnivorous Mammals",
+    "pairName": "Cats vs Dogs",
     "level": "1",
     "tags": [],
     "taxa": [
@@ -52,7 +52,7 @@
     ]
   },
   "4": {
-    "pairName": "Spotted Big Cats",
+    "pairName": "Leopard vs Jaguar",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -66,7 +66,7 @@
     "range": []
   },
   "5": {
-    "pairName": "Pinnipeds",
+    "pairName": "Eared vs Earless Seals",
     "level": "2",
     "tags": [
       "ocean"
@@ -88,7 +88,7 @@
     ]
   },
   "6": {
-    "pairName": "Cetaceans",
+    "pairName": "Baleen vs Toothed Whales",
     "level": "2",
     "tags": [
       "ocean"
@@ -111,7 +111,7 @@
     ]
   },
   "7": {
-    "pairName": "Primates",
+    "pairName": "Monkeys vs Lemurs",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -128,7 +128,7 @@
     ]
   },
   "8": {
-    "pairName": "Simian Primates",
+    "pairName": "Old World vs New World Monkeys",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -142,7 +142,7 @@
     "range": []
   },
   "9": {
-    "pairName": "Catarrhini",
+    "pairName": "Old World Monkeys vs Apes",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -159,7 +159,7 @@
     ]
   },
   "10": {
-    "pairName": "Elephants",
+    "pairName": "African vs Asian Elephants",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -210,7 +210,7 @@
     ]
   },
   "13": {
-    "pairName": "Placental Mammals",
+    "pairName": "Xenarthra vs Afrotheria",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -224,7 +224,7 @@
     "range": []
   },
   "14": {
-    "pairName": "Placental Mammals",
+    "pairName": "Afrotheria vs Laurasiatheria",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -240,7 +240,7 @@
     ]
   },
   "15": {
-    "pairName": "Large Felines",
+    "pairName": "Cougar vs Cheetah",
     "level": "1",
     "tags": [],
     "taxa": [
