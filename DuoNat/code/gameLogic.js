@@ -34,13 +34,13 @@ const gameLogic = {
             const dropOne = document.getElementById('drop-1');
             const dropTwo = document.getElementById('drop-2');
             return {
-                leftAnswer: dropOne.children[0]?.getAttribute('data-taxon'),
-                rightAnswer: dropTwo.children[0]?.getAttribute('data-taxon')
+                answerX: dropOne.children[0]?.getAttribute('data-taxon'),
+                answerY: dropTwo.children[0]?.getAttribute('data-taxon')
             };
         },
 
         areAnswersComplete(answers) {
-            return answers.leftAnswer && answers.rightAnswer;
+            return answers.answerX && answers.answerY;
         },
 
         evaluateAnswer(answers) {
@@ -48,8 +48,8 @@ const gameLogic = {
             const taxonImageTwo = state.getTaxonImageTwo();
             
             const isCorrect =
-                answers.leftAnswer === taxonImageOne &&
-                answers.rightAnswer === taxonImageTwo;
+                answers.answerX === taxonImageOne &&
+                answers.answerY === taxonImageTwo;
 
             if (isCorrect) {
                 this.handleCorrectAnswer();
