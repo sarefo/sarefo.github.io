@@ -212,7 +212,7 @@ const swipeHandler = {
     scheduleNewPairLoad() {
         setTimeout(() => {
             this.resetContainerForNewPair();
-            pairManager.loadNewPair();
+            pairManager.loadNewRandomPair();
             this.fadeInNewPair();
         }, this.animationDuration);
     },

@@ -38,6 +38,7 @@ The DuoNat project is primarily written in JavaScript, with HTML and CSS for the
 + `collectionManager.js` : Handles the collection manager dialog and its components.
 + `enterPair.js`: Code for the 'Enter new pair' dialog.
 + `infoDialog.js` : Handles the info dialog and its components.
++ `iNatDownDialog.js` : Handles the iNaturalist down detector dialog
 + `tagSelector.js`: Manages the tag cloud feature.
 + `rangeSelector.js`: Handles geographical range selection.
 + `phylogenySelector.js` : Handles the phylogeny selection dialog.

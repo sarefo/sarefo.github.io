@@ -65,15 +65,16 @@ const gameLogic = {
 
         async handleCorrectAnswer() {
             await ui.showOverlay('Correct!', config.overlayColors.green);
-            ui.prepareImagesForLoading();
+            roundManager.prepareImagesForLoading();
             await utils.ui.sleep(1700);
+            ui.resetDraggables();
             await gameSetup.setupGame(false); // Directly call setupGame for the next round
             await utils.ui.sleep(400); // wait for setupNameTiles()
             ui.hideOverlay();
         },
 
         async handleIncorrectAnswer() {
-            roundManager.resetDraggables();
+            ui.resetDraggables();
             await ui.showOverlay('Try again!', config.overlayColors.red);
             await utils.ui.sleep(1200);
             ui.hideOverlay();

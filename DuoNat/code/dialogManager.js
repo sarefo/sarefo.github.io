@@ -2,6 +2,7 @@ import api from './api.js';
 import collectionManager from './collectionManager.js';
 import enterPair from './enterPair.js';
 import gameSetup from './gameSetup.js';
+import iNatDownDialog from './iNatDownDialog.js';
 import infoDialog from './infoDialog.js';
 import logger from './logger.js';
 import eventMain from './eventMain.js';
@@ -329,51 +330,6 @@ const dialogManager = {
             dialogManager.mainEventHandlers = {};
         },
     },
-
-
-    specialDialogs: {
-        showINatDownDialog() {
-            dialogManager.specialDialogs.hideLoadingScreen();
-            dialogManager.specialDialogs.openINatDownDialog();
-            dialogManager.specialDialogs.setupINatDownDialogButtons();
-        },
-
-        hideLoadingScreen() {
-            const loadingScreen = document.getElementById('loading-screen');
-            if (loadingScreen) {
-                loadingScreen.style.display = 'none';
-            }
-        },
-
-        openINatDownDialog() {
-            dialogManager.openDialog('inat-down-dialog');
-        },
-
-        setupINatDownDialogButtons() {
-            const checkStatusBtn = document.getElementById('check-inat-status');
-            const retryConnectionBtn = document.getElementById('retry-connection');
-
-            checkStatusBtn.addEventListener('click', dialogManager.specialDialogs.handleCheckStatus);
-            retryConnectionBtn.addEventListener('click', dialogManager.specialDialogs.handleRetryConnection);
-        },
-
-        handleCheckStatus() {
-            window.open('https://inaturalist.org', '_blank');
-        },
-
-        async handleRetryConnection() {
-            dialogManager.core.closeDialog();
-            if (await api.externalAPIs.isINaturalistReachable()) {
-                gameSetup.setupGame(true);
-            } else {
-                dialogManager.specialDialogs.showINatDownDialog();
-            }
-        },
-
-        hideINatDownDialog() {
-            dialogManager.core.closeDialog();
-        },
-    },
 };
 
 const bindAllMethods = (obj) => {
@@ -398,9 +354,6 @@ const publicAPI = {
 
     isAnyDialogOpen: dialogManager.core.isAnyDialogOpen,
     getOpenDialogs: dialogManager.core.getOpenDialogs,
-
-    showINatDownDialog: dialogManager.specialDialogs.showINatDownDialog,
-    hideINatDownDialog: dialogManager.specialDialogs.hideINatDownDialog,
 };
 
 // Bind publicAPI methods

@@ -3,6 +3,7 @@ import collectionManager from './collectionManager.js';
 import config from './config.js';
 import dialogManager from './dialogManager.js';
 import filtering from './filtering.js';
+import iNatDownDialog from './iNatDownDialog.js';
 import logger from './logger.js';
 import pairManager from './pairManager.js';
 import preloader from './preloader.js';
@@ -20,11 +21,11 @@ const gameSetup = {
 
         async checkINaturalistReachability() {
             if (!await api.externalAPIs.isINaturalistReachable()) {
-                dialogManager.showINatDownDialog();
+                iNatDownDialog.showINatDownDialog();
                 state.setState(state.GameState.IDLE);
                 return false;
             }
-            dialogManager.hideINatDownDialog();
+            iNatDownDialog.hideINatDownDialog();
             return true;
         },
 
@@ -33,8 +34,7 @@ const gameSetup = {
 
             if (!await this.checkINaturalistReachability()) return;
 
-            roundManager.resetDraggables();
-            ui.prepareImagesForLoading();
+            //roundManager.prepareImagesForLoading();
 
             if (newPair || !state.getCurrentTaxonImageCollection()) {
                 await pairManager.initializeNewPair();
@@ -64,7 +64,7 @@ const gameSetup = {
             }
 
             if (state.getIsInitialLoad()) {
-                this.hideLoadingScreen();
+                ui.hideLoadingScreen();
                 state.setIsInitialLoad(false);
             }
             ui.resetUIState();
@@ -77,14 +77,7 @@ const gameSetup = {
             });
         },
 
-        hideLoadingScreen() {
-            const loadingScreen = document.getElementById('loading-screen');
-            loadingScreen.classList.add('loading-screen--fade-out');
-            setTimeout(() => {
-                loadingScreen.style.display = 'none';
-                loadingScreen.remove();
-            }, 500); // This matches the transition duration in CSS
-        },
+
 
         /*async setupGameWithPreloadedPair(preloadedPair) {
             state.resetShownHints();
@@ -176,7 +169,7 @@ const gameSetup = {
             }
             state.setState(state.GameState.IDLE);
             if (state.getIsInitialLoad()) {
-                gameSetup.initialization.hideLoadingScreen();
+                ui.hideLoadingScreen();
                 state.updateGameStateMultiple({ isInitialLoad: false });
             }
         },

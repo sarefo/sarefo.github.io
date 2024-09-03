@@ -297,6 +297,16 @@ const ui = {
     },
 
     notifications: {
+
+        hideLoadingScreen() {
+            const loadingScreen = document.getElementById('loading-screen');
+            loadingScreen.classList.add('loading-screen--fade-out');
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+                loadingScreen.remove();
+            }, 500); // This matches the transition duration in CSS
+        },
+
         showPopupNotification(message, duration = 3000) {
             const popup = this.createPopup(message);
             this.showPopup(popup);
@@ -328,19 +338,6 @@ const ui = {
             setTimeout(() => {
                 document.body.removeChild(popup);
             }, 300); // Wait for the fade out animation to complete
-        },
-    },
-
-    imageHandling: {
-        prepareImagesForLoading() {
-            const image1 = state.getElement('image1');
-            const image2 = state.getElement('image2');
-            
-            image1.classList.remove('image-container__image--fade-in');
-            image2.classList.remove('image-container__image--fade-in');
-            
-            image1.classList.add('image-container__image--loading');
-            image2.classList.add('image-container__image--loading');
         },
     },
 
@@ -418,7 +415,20 @@ const ui = {
         _updateGameState(name1, name2) {
             state.setTaxonNameX = name1;
             state.setTaxonNameY = name2;
-        }
+        },
+
+        resetDraggables() {
+            const nameXContainer = document.getElementsByClassName('name-pair__container--x')[0];
+            const nameYContainer = document.getElementsByClassName('name-pair__container--y')[0];
+            const drop1 = document.getElementById('drop-1');
+            const drop2 = document.getElementById('drop-2');
+
+            nameXContainer.appendChild(document.getElementById('name-x'));
+            nameYContainer.appendChild(document.getElementById('name-y'));
+
+            drop1.innerHTML = '';
+            drop2.innerHTML = '';
+        },
     },
 };
 
@@ -454,10 +464,11 @@ const publicAPI = {
     updateLevelIndicator: ui.levelIndicator.updateLevelIndicator,
     // Misc
     showPopupNotification: ui.notifications.showPopupNotification,
+    hideLoadingScreen: ui.notifications.hideLoadingScreen,
     // from gameUI
     setNamePairHeight: ui.layoutManagement.setNamePairHeight,
     setupNameTilesUI: ui.nameTiles.setupNameTilesUI,
-    prepareImagesForLoading: ui.imageHandling.prepareImagesForLoading,
+    resetDraggables: ui.nameTiles.resetDraggables,
 };
 
 export default publicAPI;

@@ -1,5 +1,6 @@
 import api from './api.js';
 import filtering from './filtering.js';
+import gameSetup from './gameSetup.js'; // TODO remove after streamlining
 import logger from './logger.js';
 import preloader from './preloader.js';
 import roundManager from './roundManager.js';
@@ -183,12 +184,9 @@ const pairManager = {
             await roundManager.setupRoundFromGameSetup(true);
         },
 
-        loadNewPair() {
-            try {
-                this.loadNewRandomPair();
-            } catch (error) {
-                logger.error("Error loading new pair:", error);
-            }
+        TODOloadNewPair () {
+            // TODO just placeholder!
+            gameSetup.setupGame(true);
         },
 
         async loadNewRandomPair(usePreloadedPair = true) {
@@ -345,9 +343,10 @@ const pairManager = {
     },
 
     uiHandling: {
+        // TODO this looks like round code
         prepareForNewPair() {
             state.setState(state.GameState.LOADING);
-            ui.prepareImagesForLoading();
+            roundManager.prepareImagesForLoading();
             preloader.roundPreloader.clearPreloadedImagesForNextRound();
         },
 
@@ -407,7 +406,8 @@ const publicAPI = {
     initializeCollectionSubset: pairManager.initialization.initializeCollectionSubset,
     getNextPair: pairManager.pairManagement.getNextPair,
     //getNextPairFromCollection: pairManager.pairSelection.getNextPairFromCollection,
-    loadNewPair: pairManager.pairLoading.loadNewRandomPair,
+    //loadNewPair: pairManager.pairLoading.loadNewPair,
+    TODOloadNewPair: pairManager.pairLoading.TODOloadNewPair,
     loadNewRandomPair: pairManager.pairLoading.loadNewRandomPair,
     refreshCollectionSubset: pairManager.initialization.refreshCollectionSubset,
     selectNewPair: pairManager.pairSelection.selectNewPair,

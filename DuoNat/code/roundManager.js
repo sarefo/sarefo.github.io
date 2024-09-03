@@ -13,6 +13,11 @@ import worldMap from './worldMap.js';
 
 const roundManager = {
     initialization: {
+        async TODOloadNewRound() {
+            // TODO simplify:
+            roundManager.setupComponents.setupRoundFromGameSetup();
+        },
+
         async loadNewRound(isNewPair = false) {
             //logger.warn(`Starting loadNewRound. isNewPair: ${isNewPair}`);
             this.initializeRoundLoading();
@@ -32,7 +37,7 @@ const roundManager = {
 
         initializeRoundLoading() {
             state.setState(state.GameState.LOADING);
-            ui.prepareImagesForLoading();
+            roundManager.imageHandling.prepareImagesForLoading();
         },
 
         async getPairData(isNewPair) {
@@ -66,6 +71,17 @@ const roundManager = {
 
             const images = await this.getImages(pairData, isNewPair);
             return this.randomizeImages(images, pairData.pair);
+        },
+
+        prepareImagesForLoading() {
+            const image1 = state.getElement('image1');
+            const image2 = state.getElement('image2');
+            
+            image1.classList.remove('image-container__image--fade-in');
+            image2.classList.remove('image-container__image--fade-in');
+            
+            image1.classList.add('image-container__image--loading');
+            image2.classList.add('image-container__image--loading');
         },
 
         randomizeImages(images, pair) {
@@ -317,18 +333,6 @@ const roundManager = {
             preloader.startPreloading(isNewPair);
         },
 
-        resetDraggables() {
-            const nameXContainer = document.getElementsByClassName('name-pair__container--x')[0];
-            const nameYContainer = document.getElementsByClassName('name-pair__container--y')[0];
-            const drop1 = document.getElementById('drop-1');
-            const drop2 = document.getElementById('drop-2');
-
-            nameXContainer.appendChild(document.getElementById('name-x'));
-            nameYContainer.appendChild(document.getElementById('name-y'));
-
-            drop1.innerHTML = '';
-            drop2.innerHTML = '';
-        },
     },
 };
 
@@ -349,10 +353,10 @@ const publicAPI = {
     loadNewRound: roundManager.initialization.loadNewRound,
     setupRound: roundManager.setupComponents.setupRound,
     setupRoundFromGameSetup: roundManager.setupComponents.setupRoundFromGameSetup,
-    resetDraggables: roundManager.uiManagement.resetDraggables,
     // just temporarily public during refactoring:
     getImagesForRound: roundManager.imageHandling.getImagesForRound,
     loadAndSetupImages: roundManager.imageHandling.loadAndSetupImages,
+    prepareImagesForLoading: roundManager.imageHandling.prepareImagesForLoading,
 };
 
 // Bind publicAPI methods
