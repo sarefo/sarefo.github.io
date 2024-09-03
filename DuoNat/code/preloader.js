@@ -22,16 +22,21 @@ const imageLoader = {
         let availableImages = this.filterAvailableImages(images, usedImages, currentImageURL);
 
         if (availableImages.length === 0) {
-            availableImages = this.resetUsedImages(images, currentImageURL);
+            logger.warn(`All images have been used for ${taxonName}. Resetting used images.`);
+            usedImages.clear(); // Clear the used images set
+            availableImages = this.filterAvailableImages(images, usedImages, currentImageURL);
         }
 
-        // Handle the case when there are no available images
         if (availableImages.length === 0) {
             logger.warn(`No available images for ${taxonName}. Using the current image.`);
-            return currentImageURL || images[0]; // Return current image or the first image if current is not defined
+            return currentImageURL || images[0];
         }
 
         return this.selectAndUpdateUsedImage(availableImages, usedImages, taxonName);
+    },
+
+    filterAvailableImages(images, usedImages, currentImageURL) {
+        return images.filter(img => !usedImages.has(img) && img !== currentImageURL);
     },
 
     getUsedImagesForTaxon(taxonName) {
@@ -56,10 +61,11 @@ const imageLoader = {
         if (availableImages.length > 0) {
             const selectedImage = availableImages[Math.floor(Math.random() * availableImages.length)];
             this.updateUsedImagesState(usedImages, selectedImage, taxonName);
+            logger.debug(`Selected new image for ${taxonName}. Used images count: ${usedImages.size}`);
             return selectedImage;
         } else {
             logger.warn(`No available images found for ${taxonName}. Using the first image.`);
-            return availableImages[0]; // Return the first image as a fallback
+            return availableImages[0];
         }
     },
 
