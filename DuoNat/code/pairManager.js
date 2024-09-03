@@ -311,11 +311,7 @@ const pairManager = {
 
     imageHandling: {
         async loadImagesForNewPair(newPair) {
-            const preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
-            if (preloadedImages && preloadedImages.pair.pairID === newPair.pairID) {
-                //logger.debug(`Using preloaded images for pair ID ${newPair.pairID}`);
-                return preloadedImages;
-            }
+            // Always fetch new images for manually selected pairs
             return {
                 taxonA: await preloader.imageLoader.fetchDifferentImage(newPair.taxonA || newPair.taxonNames[0], null),
                 taxonB: await preloader.imageLoader.fetchDifferentImage(newPair.taxonB || newPair.taxonNames[1], null),

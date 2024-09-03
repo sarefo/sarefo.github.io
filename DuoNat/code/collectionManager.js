@@ -587,9 +587,12 @@ const collectionManager = {
             state.setNextSelectedPair(selectedPair);
             logger.debug('Selected pair:', selectedPair);
             dialogManager.closeDialog('collection-dialog');
+            
+            // Clear the preloaded pair before setting up the new game
+            preloader.pairPreloader.clearPreloadedPair();
+            
             setTimeout(() => gameSetup.setupGame(true), 300);
         },
-
     },
 };
 
