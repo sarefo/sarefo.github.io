@@ -297,7 +297,7 @@ const preloader = {
             if (isNewPair || !this.pairPreloader.hasPreloadedPair()) {
                 await this.pairPreloader.preloadForNextPair();
             }
-            //logger.debug("Preloading completed for next round" + (isNewPair ? " and next pair" : ""));
+            logger.debug("Preloading completed for next round" + (isNewPair ? " and next pair" : ""));
         } catch (error) {
             logger.error("Error during preloading:", error);
         }

@@ -14,7 +14,7 @@ import worldMap from './worldMap.js';
 const roundManager = {
     initialization: {
         async loadNewRound(isNewPair = false) {
-            logger.warn(`Starting loadNewRound. isNewPair: ${isNewPair}`);
+            //logger.warn(`Starting loadNewRound. isNewPair: ${isNewPair}`);
             this.initializeRoundLoading();
 
             try {

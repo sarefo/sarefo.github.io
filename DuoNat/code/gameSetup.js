@@ -183,8 +183,9 @@ const gameSetup = {
     },
 
     async setupGame(newPair = false) {
+        logger.warn("calling setupGame");
         if (isSettingUpGame) {
-            logger.debug("Setup already in progress, skipping");
+            logger.warn("Setup already in progress, skipping");
             return;
         }
         isSettingUpGame = true;
