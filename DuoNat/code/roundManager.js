@@ -173,19 +173,20 @@ const roundManager = {
     },
 
     setupComponents: {
-        async setupRoundComponents(pair, images) {
-            this.setObservationURLs(images);
-            await this.setupRound(pair, images);
+        async setupRoundComponents(pair, imageData) {
+            this.setObservationURLs(imageData);
+            logger.debug("problem in setupRoundComponents: sets imageData = leftImageSrc=1 rightImageSrc=2");
+            await this.setupRound(pair, imageData);
             //logger.debug(`Round setup complete`);
         },
 
-        setObservationURLs(images) {
-            state.setObservationURL(images.leftImageSrc, 1);
-            state.setObservationURL(images.rightImageSrc, 2);
+        setObservationURLs(imageData) {
+            state.setObservationURL(imageData.leftImageSrc, 1);
+            state.setObservationURL(imageData.rightImageSrc, 2);
         },
 
-        async setupRound(pair, images, isNewPair = false) {
-            const { leftImageSrc, rightImageSrc, randomized } = images;
+        async setupRound(pair, imageData, isNewPair = false) {
+            const { leftImageSrc, rightImageSrc, randomized } = imageData;
 
             // Load images
             await Promise.all([
@@ -200,7 +201,7 @@ const roundManager = {
             ]);
 
             // Update game state
-            roundManager.stateManagement.updateGameStateForRound(pair, images, nameTileData);
+            roundManager.stateManagement.updateGameStateForRound(pair, imageData, nameTileData);
 
             // Update hint buttons
             await hintSystem.updateAllHintButtons();
@@ -217,12 +218,14 @@ const roundManager = {
             
             const imageData = await roundManager.imageHandling.loadAndSetupImages(pair, isNewPair);
             
+            logger.debug("ok in setupRoundFromGameSetup: gets imageData from loadAndSetupImages");
             const { nameTileData, worldMapData } = await this.setupRound(pair, imageData, isNewPair);
 
             return { imageData, nameTileData, worldMapData };
         },
 
         async setupNameTiles(pair, randomized) {
+            logger.warn("setupNameTiles");
             const [leftVernacular, rightVernacular] = await Promise.all([
                 utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(randomized ? pair.taxon2 : pair.taxon1)),
                 utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(randomized ? pair.taxon1 : pair.taxon2))
