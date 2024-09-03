@@ -245,12 +245,22 @@ const publicAPI = {
     },
 
     // Shown Hints
-    getShownHints: (taxonIndex) => [...gameState.shownHints[`taxon${taxonIndex}`]],
+    getShownHints: (taxonIndex) => {
+        const taxonKey = `taxon${taxonIndex === 1 ? 'A' : 'B'}`;
+        const hints = gameState.shownHints[taxonKey];
+        return Array.isArray(hints) ? [...hints] : [];
+    },
     addShownHint: (taxonIndex, hint) => {
-        gameState.shownHints[`taxon${taxonIndex}`].push(hint);
+        const taxonKey = `taxon${taxonIndex === 1 ? 'A' : 'B'}`;
+        if (!Array.isArray(gameState.shownHints[taxonKey])) {
+            gameState.shownHints[taxonKey] = [];
+        }
+        gameState.shownHints[taxonKey].push(hint);
     },
     areAllHintsShown: (taxonIndex, totalHints) => {
-        return gameState.shownHints[`taxon${taxonIndex}`].length >= totalHints;
+        const taxonKey = `taxon${taxonIndex === 1 ? 'A' : 'B'}`;
+        const shownHintsForTaxon = gameState.shownHints[taxonKey];
+        return shownHintsForTaxon && shownHintsForTaxon.length >= totalHints;
     },
     resetShownHints: () => {
         gameState.shownHints = {
