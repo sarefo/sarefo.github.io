@@ -348,8 +348,6 @@ const dragAndDrop = {
                 const otherDropZone = this.utils.getOtherDropZone(dropZone);
                 otherDropZone.innerHTML = '';
                 otherDropZone.appendChild(otherElement);
-
-                gameLogic.checkAnswer(dropZone.id);
             } else {
                 const leftContainer = document.querySelector('.name-pair__container--left');
                 const rightContainer = document.querySelector('.name-pair__container--right');

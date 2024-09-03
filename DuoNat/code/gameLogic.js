@@ -67,7 +67,7 @@ const gameLogic = {
             await ui.showOverlay('Correct!', config.overlayColors.green);
             ui.prepareImagesForLoading();
             await utils.ui.sleep(1700);
-            await gameSetup.setupGame(false);
+            await gameSetup.setupGame(false); // Directly call setupGame for the next round
             await utils.ui.sleep(400); // wait for setupNameTiles()
             ui.hideOverlay();
         },

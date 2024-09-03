@@ -183,25 +183,20 @@ const gameSetup = {
     },
 
     async setupGame(newPair = false) {
-        logger.warn("calling setupGame");
         if (isSettingUpGame) {
             logger.warn("Setup already in progress, skipping");
             return;
         }
+
         isSettingUpGame = true;
 
         try {
-            const nextPair = state.getNextSelectedPair();
-            if (newPair && nextPair) {
-                logger.debug(`Setting up new pair: ${nextPair.taxon1} / ${nextPair.taxon2}`);
-                await this.initialization.setupPairOrRound(newPair = true);
-            } else {
-                await this.initialization.setupPairOrRound(newPair);
-            }
+            await this.initialization.setupPairOrRound(newPair);
         } catch (error) {
             this.errorHandling.handleSetupError(error);
         } finally {
             isSettingUpGame = false;
+            state.setState(state.GameState.PLAYING);
         }
     },
 };
