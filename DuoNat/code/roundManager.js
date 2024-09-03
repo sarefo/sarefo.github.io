@@ -229,6 +229,10 @@ const roundManager = {
             const imageData = await roundManager.imageHandling.getAndProcessImages(pairData, isNewPair);
             
             logger.debug("setupRoundFromGameSetup: imageData processed with consistent randomization");
+
+            // Explicitly set the observation URLs before setting up the round
+            this.setObservationURLs(imageData);
+
             const { nameTileData, worldMapData } = await this.setupRound(pair, imageData, isNewPair);
 
             return { imageData, nameTileData, worldMapData };
