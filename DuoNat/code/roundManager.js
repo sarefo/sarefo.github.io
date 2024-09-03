@@ -244,8 +244,6 @@ const roundManager = {
             const pairData = { pair, preloadedImages: null };
             const imageData = await roundManager.imageHandling.getAndProcessImages(pairData, isNewPair);
             
-            logger.debug("setupRoundFromGameSetup: imageData processed with consistent randomization");
-
             // Explicitly set the observation URLs before setting up the round
             this.setObservationURLs(imageData);
 
@@ -255,7 +253,6 @@ const roundManager = {
         },
 
         async setupNameTiles(pair, randomized, taxonImage1, taxonImage2) {
-            logger.warn("setupNameTiles");
             const [vernacularX, vernacularY] = await Promise.all([
                 utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(taxonImage1)),
                 utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(taxonImage2))

@@ -30,19 +30,22 @@ const gameSetup = {
         },
 
         async setupPairOrRound(newPair) {
+            logger.debug('setupPairOrRound called with newPair:', newPair);
             state.setState(state.GameState.LOADING);
 
             if (!await this.checkINaturalistReachability()) return;
-
-            //roundManager.prepareImagesForLoading();
+            roundManager.prepareImagesForLoading();
 
             if (newPair || !state.getCurrentTaxonImageCollection()) {
+                logger.debug('Initializing new pair');
                 await pairManager.initializeNewPair();
             } else {
+                logger.debug('Setting up round from game setup');
                 await roundManager.setupRoundFromGameSetup();
             }
 
             this.updateUIAfterSetup(newPair);
+            logger.debug('setupPairOrRound completed');
         },
 
         updateUIAfterSetup(newPair) {
@@ -176,6 +179,7 @@ const gameSetup = {
     },
 
     async setupGame(newPair = false) {
+        logger.debug('setupGame called with newPair:', newPair);
         if (isSettingUpGame) {
             logger.warn("Setup already in progress, skipping");
             return;
@@ -191,7 +195,9 @@ const gameSetup = {
             isSettingUpGame = false;
             state.setState(state.GameState.PLAYING);
         }
+        logger.debug('setupGame completed');
     },
+
 };
 
 // Bind all methods in gameSetup and its nested objects
