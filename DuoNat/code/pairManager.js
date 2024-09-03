@@ -188,7 +188,8 @@ const pairManager = {
 
         TODOloadNewPair () {
             // TODO just placeholder!
-            gameSetup.setupGame(true);
+            //gameSetup.setupGame(true);
+            roundManager.TODOloadNewRound();
         },
 
         async loadNewRandomPair(usePreloadedPair = true) {
@@ -280,7 +281,7 @@ const pairManager = {
                 if (preloadedPair && preloadedPair.pair && pairManager.pairManagement.isPairValid(preloadedPair.pair)) {
                     return { pair: preloadedPair.pair, preloadedImages: preloadedPair };
                 }
-                return { pair: await this.getNextPairFromCollection(), preloadedImages: null };
+                return { pair: await pairManager.pairSelection.getNextPairFromCollection(), preloadedImages: null };
             }
             return { pair: state.getCurrentTaxonImageCollection().pair, preloadedImages: null };
         },

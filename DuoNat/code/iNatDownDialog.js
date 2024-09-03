@@ -44,7 +44,9 @@ const iNatDownDialog = {
         if (await api.externalAPIs.isINaturalistReachable()) {
            this.hideINatDownDialog();
            ui.hideLoadingScreen();
-           pairManager.TODOloadNewPair();
+           gameSetup.setupGame(true);
+           // replace line above with:
+           // pairManager.TODOloadNewPair();
         }
     },
 };

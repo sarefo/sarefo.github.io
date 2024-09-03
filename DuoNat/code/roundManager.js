@@ -13,9 +13,18 @@ import worldMap from './worldMap.js';
 
 const roundManager = {
     initialization: {
-        async TODOloadNewRound() {
-            // TODO simplify:
-            roundManager.setupComponents.setupRoundFromGameSetup();
+        async TODOloadNewRound(isNewPair = false) {
+            logger.debug('TODOloadNewRound called with isNewPair:', isNewPair);
+            state.setState(state.GameState.LOADING);
+            
+            try {
+                await roundManager.setupComponents.setupRoundFromGameSetup(isNewPair);
+                state.setState(state.GameState.PLAYING);
+            } catch (error) {
+                logger.error("Error in TODOloadNewRound:", error);
+                ui.showOverlay("Error loading round. Please try again.", config.overlayColors.red);
+                state.setState(state.GameState.IDLE);
+            }
         },
 
         async loadNewRound(isNewPair = false) {
