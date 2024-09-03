@@ -95,8 +95,11 @@ const dragAndDrop = {
             if (this.state.draggedElement) {
                 const touch = e.touches[0];
                 this.utils.updateElementPosition(touch);
+            } else {
+                logger.debug('No dragged element during touchMove');
             }
         },
+
 
         mouseEnd(e) {
             if (this.state.draggedElement) {
@@ -258,7 +261,10 @@ const dragAndDrop = {
         },
 
         updateElementPosition(event) {
-            if (!dragAndDrop.state.draggedElement || !dragAndDrop.state.gameContainer) return;
+            if (!dragAndDrop.state.draggedElement || !dragAndDrop.state.gameContainer) {
+                // logger.debug('Dragged element or game container is null, skipping update');
+                return;
+            }
 
             const gameContainerRect = dragAndDrop.state.gameContainer.getBoundingClientRect();
             const elementWidth = dragAndDrop.state.draggedElement.offsetWidth;
@@ -269,11 +275,13 @@ const dragAndDrop = {
             const topPosition = clientY - dragAndDrop.state.touchOffset.y;
 
             requestAnimationFrame(() => {
-                dragAndDrop.state.draggedElement.style.position = 'fixed';
-                dragAndDrop.state.draggedElement.style.left = `${leftPosition}px`;
-                dragAndDrop.state.draggedElement.style.top = `${topPosition}px`;
+                if (dragAndDrop.state.draggedElement) {  // Add this check
+                    dragAndDrop.state.draggedElement.style.position = 'fixed';
+                    dragAndDrop.state.draggedElement.style.left = `${leftPosition}px`;
+                    dragAndDrop.state.draggedElement.style.top = `${topPosition}px`;
 
-                this.utils.mirrorOtherElement(deltaY, gameContainerRect, elementWidth);
+                    this.utils.mirrorOtherElement(deltaY, gameContainerRect, elementWidth);
+                }
             });
         },
 
