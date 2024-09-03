@@ -43474,5 +43474,34 @@
       "AS",
       "AF"
     ]
+  },
+  "165389": {
+    "taxonName": "Mikania micrantha",
+    "vernacularName": "Mile-a-minute",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      47605,
+      47604,
+      632790,
+      153419,
+      901062,
+      83588,
+      165389
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Produces 20,000 to 40,000 seeds per season.",
+      "Can grow 8-9cm in 24 hours.",
+      "Invasive species in some regions."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "AS"
+    ]
   }
 }

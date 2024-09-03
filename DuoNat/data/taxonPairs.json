@@ -14638,5 +14638,26 @@
       "EU",
       "SA"
     ]
+  },
+  "844": {
+    "pairName": "Mile-a-minute vines",
+    "level": "1",
+    "tags": [
+      "invasive"
+    ],
+    "taxa": [
+      77494,
+      165389
+    ],
+    "taxonNames": [
+      "Ipomoea cairica",
+      "Mikania micrantha"
+    ],
+    "range": [
+      "SA",
+      "AF",
+      "NA",
+      "AS"
+    ]
   }
 }

@@ -25,7 +25,6 @@ const iNatDownDialog = {
     },
 
     hideINatDownDialog() {
-        logger.warn("closing in dialog");
         dialogManager.closeDialog();
     },
 

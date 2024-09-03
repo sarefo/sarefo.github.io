@@ -20692,5 +20692,29 @@
     "vernacularName": "Water morning glory",
     "rank": "Species",
     "parentId": "52346"
+  },
+  "153419": {
+    "taxonName": "Eupatorieae",
+    "vernacularName": "Bonesets, blazingstars, and allies",
+    "rank": "Tribe",
+    "parentId": "632790"
+  },
+  "901062": {
+    "taxonName": "Mikaniinae",
+    "vernacularName": "-",
+    "rank": "Subtribe",
+    "parentId": "153419"
+  },
+  "83588": {
+    "taxonName": "Mikania",
+    "vernacularName": "Hempvines",
+    "rank": "Genus",
+    "parentId": "901062"
+  },
+  "165389": {
+    "taxonName": "Mikania micrantha",
+    "vernacularName": "Mile-a-minute",
+    "rank": "Species",
+    "parentId": "83588"
   }
 }
