@@ -185,7 +185,7 @@ const roundManager = {
             state.setObservationURL(imageData.rightImageSrc, 2);
         },
 
-        async setupRound(pair, imageData, isNewPair = false) {
+        async setupRound(pair, imageData) {
             const { leftImageSrc, rightImageSrc, randomized } = imageData;
 
             // Load images
