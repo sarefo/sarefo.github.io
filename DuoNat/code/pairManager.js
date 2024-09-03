@@ -177,6 +177,7 @@ const pairManager = {
     pairLoading: {
         async initializeNewPair() {
             const newPair = await pairManager.pairSelection.selectNewPair();
+            pairManager.pairManagement.resetUsedImagesForNewPair(newPair);
             const images = await pairManager.imageHandling.loadImagesForNewPair(newPair);
             pairManager.stateManagement.updateGameStateForNewPair(newPair, images);
             await roundManager.setupRoundFromGameSetup(true);
@@ -293,6 +294,17 @@ const pairManager = {
         async getPairByID(pairID) {
             const allPairs = await api.taxonomy.fetchTaxonPairs();
             return allPairs.find(pair => pair.pairID === pairID);
+        },
+
+        resetUsedImagesForNewPair(newPair) {
+            const currentUsedImages = state.getUsedImages();
+            const updatedUsedImages = { ...currentUsedImages };
+            delete updatedUsedImages[newPair.taxon1];
+            delete updatedUsedImages[newPair.taxon2];
+            state.updateGameStateMultiple({
+                usedImages: updatedUsedImages
+            });
+            logger.debug(`Reset used images for new pair: ${newPair.taxon1} and ${newPair.taxon2}`);
         },
     },
 

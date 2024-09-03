@@ -18,12 +18,15 @@ const imageLoader = {
 
     async fetchDifferentImage(taxonName, currentImageURL) {
         const images = await api.images.fetchMultipleImages(taxonName, 12);
-        const usedImages = this.getUsedImagesForTaxon(taxonName);
+        let usedImages = this.getUsedImagesForTaxon(taxonName);
+        logger.debug(`Fetching image for ${taxonName}. Current used images: ${usedImages.size}`);
+        
         let availableImages = this.filterAvailableImages(images, usedImages, currentImageURL);
 
         if (availableImages.length === 0) {
             logger.warn(`All images have been used for ${taxonName}. Resetting used images.`);
-            usedImages.clear(); // Clear the used images set
+            usedImages = new Set(); // Create a new empty set instead of clearing
+            this.updateUsedImagesState(usedImages, null, taxonName); // Update the state with the new empty set
             availableImages = this.filterAvailableImages(images, usedImages, currentImageURL);
         }
 
@@ -40,12 +43,16 @@ const imageLoader = {
     },
 
     getUsedImagesForTaxon(taxonName) {
+        const usedImages = state.getUsedImages();
+        return usedImages[taxonName] || new Set();
+    },
+
+    getTaxonKey(taxonName) {
         const currentTaxonImageCollection = state.getCurrentTaxonImageCollection();
         if (currentTaxonImageCollection) {
-            const taxonKey = taxonName === currentTaxonImageCollection.pair.taxon1 ? 'taxon1' : 'taxon2';
-            return state.getUsedImages()[taxonKey] || new Set();
+            return taxonName === currentTaxonImageCollection.pair.taxon1 ? 'taxon1' : 'taxon2';
         }
-        return new Set();
+        return taxonName; // Fallback to using the taxon name as the key
     },
 
     filterAvailableImages(images, usedImages, currentImageURL) {
@@ -70,17 +77,17 @@ const imageLoader = {
     },
 
     updateUsedImagesState(usedImages, selectedImage, taxonName) {
-        usedImages.add(selectedImage);
-        const currentTaxonImageCollection = state.getCurrentTaxonImageCollection();
-        if (currentTaxonImageCollection) {
-            const taxonKey = taxonName === currentTaxonImageCollection.pair.taxon1 ? 'taxon1' : 'taxon2';
-            state.updateGameStateMultiple({
-                usedImages: {
-                    ...state.getUsedImages(),
-                    [taxonKey]: usedImages
-                }
-            });
+        if (selectedImage) {
+            usedImages.add(selectedImage);
         }
+        const currentUsedImages = state.getUsedImages();
+        state.updateGameStateMultiple({
+            usedImages: {
+                ...currentUsedImages,
+                [taxonName]: usedImages
+            }
+        });
+        logger.debug(`Updated used images for ${taxonName}. New count: ${usedImages.size}`);
     },
 };
 
