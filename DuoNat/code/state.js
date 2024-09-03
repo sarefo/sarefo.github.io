@@ -6,8 +6,8 @@ const elements = {
     image1Container: document.getElementById('image-container-1'),
     image2Container: document.getElementById('image-container-2'),
     namePair: document.querySelector('.name-pair'),
-    leftName: document.getElementById('name-x'),
-    rightName: document.getElementById('name-y'),
+    nameX: document.getElementById('name-x'),
+    nameY: document.getElementById('name-y'),
     overlay: document.getElementById('overlay'),
     overlayMessage: document.getElementById('overlay-message'),
     buttons: document.querySelectorAll('.bottom-button')
@@ -48,8 +48,8 @@ let gameState = {
 
     // Round
 
-    taxonLeftName: null,
-    taxonRightName: null,
+    taxonNameX: null,
+    taxonNameY: null,
     currentObservationURLs: {
         image1: null,
         image2: null
@@ -142,8 +142,8 @@ const publicAPI = {
     getImage1Container: () => elements.image1Container,
     getImage2Container: () => elements.image2Container,
     getNamePair: () => elements.namePair,
-    getLeftName: () => elements.leftName,
-    getRightName: () => elements.rightName,
+    getNameX: () => elements.nameX,
+    getNameY: () => elements.nameY,
     getOverlay: () => elements.overlay,
     getOverlayMessage: () => elements.overlayMessage,
     getButtons: () => [...elements.buttons], // Return a copy of the NodeList as an array
@@ -334,14 +334,14 @@ const publicAPI = {
         updateGameState('taxonImage2', taxon);
     },
 
-    getTaxonLeftName: () => gameState.taxonLeftName,
-    setTaxonLeftName: (name) => {
-        updateGameState('taxonLeftName', name);
+    getTaxonNameX: () => gameState.taxonNameX,
+    setTaxonNameX: (name) => {
+        updateGameState('taxonNameX', name);
     },
 
-    getTaxonRightName: () => gameState.taxonRightName,
-    setTaxonRightName: (name) => {
-        updateGameState('taxonRightName', name);
+    getTaxonNameY: () => gameState.taxonNameY,
+    setTaxonNameY: (name) => {
+        updateGameState('taxonNameY', name);
     },
 
     /*getIsFirstLoad: () => gameState.isFirstLoad,

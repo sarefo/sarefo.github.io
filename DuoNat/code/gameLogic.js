@@ -31,11 +31,11 @@ const gameLogic = {
         },
 
         getAnswersFromDropZones() {
-            const dropOne = document.getElementById('drop-1');
-            const dropTwo = document.getElementById('drop-2');
+            const drop1 = document.getElementById('drop-1');
+            const drop2 = document.getElementById('drop-2');
             return {
-                answerX: dropOne.children[0]?.getAttribute('data-taxon'),
-                answerY: dropTwo.children[0]?.getAttribute('data-taxon')
+                answerX: drop1.children[0]?.getAttribute('data-taxon'),
+                answerY: drop2.children[0]?.getAttribute('data-taxon')
             };
         },
 

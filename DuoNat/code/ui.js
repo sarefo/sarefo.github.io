@@ -347,37 +347,37 @@ const ui = {
     layoutManagement: {
         // determine height of tallest name tile, to keep layout stable over multiple rounds
         setNamePairHeight() {
-            const leftName = document.getElementById('name-x');
-            const rightName = document.getElementById('name-y');
+            const nameX = document.getElementById('name-x');
+            const nameY = document.getElementById('name-y');
             const namePair = document.querySelector('.name-pair');
 
-            this._resetHeights(leftName, rightName, namePair);
-            this._setMaxHeight(leftName, rightName, namePair);
+            this._resetHeights(nameX, nameY, namePair);
+            this._setMaxHeight(nameX, nameY, namePair);
         },
 
-        _resetHeights(leftName, rightName, namePair) {
-            leftName.style.height = 'auto';
-            rightName.style.height = 'auto';
+        _resetHeights(nameX, nameY, namePair) {
+            nameX.style.height = 'auto';
+            nameY.style.height = 'auto';
             namePair.style.height = 'auto';
         },
 
-        _setMaxHeight(leftName, rightName, namePair) {
+        _setMaxHeight(nameX, nameY, namePair) {
             requestAnimationFrame(() => {
-                const maxHeight = Math.max(leftName.offsetHeight, rightName.offsetHeight);
-                this._applyHeights(leftName, rightName, namePair, maxHeight);
+                const maxHeight = Math.max(nameX.offsetHeight, nameY.offsetHeight);
+                this._applyHeights(nameX, nameY, namePair, maxHeight);
             });
         },
 
-        _applyHeights(leftName, rightName, namePair, maxHeight) {
+        _applyHeights(nameX, nameY, namePair, maxHeight) {
             namePair.style.height = `${maxHeight}px`;
-            leftName.style.height = `${maxHeight}px`;
-            rightName.style.height = `${maxHeight}px`;
+            nameX.style.height = `${maxHeight}px`;
+            nameY.style.height = `${maxHeight}px`;
         }
     },
 
     nameTiles: {
-        setupNameTilesUI(leftName, rightName, leftNameVernacular, rightNameVernacular) {
-            const { nameOne, nameTwo, vernacularOne, vernacularTwo } = this._randomizeNames(leftName, rightName, leftNameVernacular, rightNameVernacular);
+        setupNameTilesUI(nameX, nameY, nameXVernacular, nameYVernacular) {
+            const { nameOne, nameTwo, vernacularOne, vernacularTwo } = this._randomizeNames(nameX, nameY, nameXVernacular, nameYVernacular);
 
             this._setNameAttributes(nameOne, nameTwo);
             this._setNameContent(nameOne, nameTwo, vernacularOne, vernacularTwo);
@@ -386,26 +386,26 @@ const ui = {
             ui.layoutManagement.setNamePairHeight();
         },
 
-        _randomizeNames(leftName, rightName, leftNameVernacular, rightNameVernacular) {
+        _randomizeNames(nameX, nameY, nameXVernacular, nameYVernacular) {
             const shouldSwap = Math.random() < 0.5;
             return {
-                nameOne: shouldSwap ? rightName : leftName,
-                nameTwo: shouldSwap ? leftName : rightName,
-                vernacularOne: shouldSwap ? rightNameVernacular : leftNameVernacular,
-                vernacularTwo: shouldSwap ? leftNameVernacular : rightNameVernacular
+                nameOne: shouldSwap ? nameY : nameX,
+                nameTwo: shouldSwap ? nameX : nameY,
+                vernacularOne: shouldSwap ? nameYVernacular : nameXVernacular,
+                vernacularTwo: shouldSwap ? nameXVernacular : nameYVernacular
             };
         },
 
         _setNameAttributes(nameOne, nameTwo) {
-            state.getElement('leftName').setAttribute('data-taxon', nameOne);
-            state.getElement('rightName').setAttribute('data-taxon', nameTwo);
-            state.getElement('leftName').style.zIndex = '10';
-            state.getElement('rightName').style.zIndex = '10';
+            state.getElement('nameX').setAttribute('data-taxon', nameOne);
+            state.getElement('nameY').setAttribute('data-taxon', nameTwo);
+            state.getElement('nameX').style.zIndex = '10';
+            state.getElement('nameY').style.zIndex = '10';
         },
 
         _setNameContent(nameOne, nameTwo, vernacularOne, vernacularTwo) {
-            state.getElement('leftName').innerHTML = this._createNameHTML(nameOne, vernacularOne);
-            state.getElement('rightName').innerHTML = this._createNameHTML(nameTwo, vernacularTwo);
+            state.getElement('nameX').innerHTML = this._createNameHTML(nameOne, vernacularOne);
+            state.getElement('nameY').innerHTML = this._createNameHTML(nameTwo, vernacularTwo);
         },
 
         _createNameHTML(name, vernacular) {
@@ -415,9 +415,9 @@ const ui = {
             `;
         },
 
-        _updateGameState(nameOne, nameTwo) {
-            state.setTaxonLeftName = nameOne;
-            state.setTaxonRightName = nameTwo;
+        _updateGameState(name1, name2) {
+            state.setTaxonNameX = name1;
+            state.setTaxonNameY = name2;
         }
     },
 };

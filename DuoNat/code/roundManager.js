@@ -215,8 +215,8 @@ const roundManager = {
         await hintSystem.updateAllHintButtons();
 
         // Apply world map data
-        worldMap.createWorldMap(state.getElement('image1Container'), worldMapData.leftContinents);
-        worldMap.createWorldMap(state.getElement('image2Container'), worldMapData.rightContinents);
+        worldMap.createWorldMap(state.getElement('image1Container'), worldMapData.continents1);
+        worldMap.createWorldMap(state.getElement('image2Container'), worldMapData.continents2);
 
         return { nameTileData, worldMapData };
     },
@@ -240,7 +240,7 @@ const roundManager = {
 
         async setupNameTiles(pair, randomized, taxonImage1, taxonImage2) {
             logger.warn("setupNameTiles");
-            const [leftVernacular, rightVernacular] = await Promise.all([
+            const [vernacularX, vernacularY] = await Promise.all([
                 utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(taxonImage1)),
                 utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(taxonImage2))
             ]);
@@ -248,23 +248,23 @@ const roundManager = {
             ui.setupNameTilesUI(
                 taxonImage1,
                 taxonImage2,
-                leftVernacular,
-                rightVernacular
+                vernacularX,
+                vernacularY
             );
 
             state.getElement('image1').alt = `${taxonImage1} Image`;
             state.getElement('image2').alt = `${taxonImage2} Image`;
 
-            return { leftVernacular, rightVernacular };
+            return { vernacularX, vernacularY };
         },
 
         async setupWorldMaps(pair, randomized) {
-            const [leftContinents, rightContinents] = await Promise.all([
+            const [continents1, continents2] = await Promise.all([
                 this.getContinentForTaxon(randomized ? pair.taxonA : pair.taxonB),
                 this.getContinentForTaxon(randomized ? pair.taxonB : pair.taxonA)
             ]);
 
-            return { leftContinents, rightContinents };
+            return { continents1, continents2 };
         },
 
         async getContinentForTaxon(taxon) {
@@ -295,8 +295,8 @@ const roundManager = {
                     pair,
                     image1URL: taxonImage1Src,
                     image2URL: taxonImage2Src,
-                    image1Vernacular: nameTileData.leftVernacular,
-                    image2Vernacular: nameTileData.rightVernacular,
+                    image1Vernacular: nameTileData.vernacularX,
+                    image2Vernacular: nameTileData.vernacularY,
                     randomized: randomized,
                 },
             });
@@ -318,16 +318,16 @@ const roundManager = {
         },
 
         resetDraggables() {
-            const leftNameContainer = document.getElementsByClassName('name-pair__container--x')[0];
-            const rightNameContainer = document.getElementsByClassName('name-pair__container--y')[0];
-            const dropOne = document.getElementById('drop-1');
-            const dropTwo = document.getElementById('drop-2');
+            const nameXContainer = document.getElementsByClassName('name-pair__container--x')[0];
+            const nameYContainer = document.getElementsByClassName('name-pair__container--y')[0];
+            const drop1 = document.getElementById('drop-1');
+            const drop2 = document.getElementById('drop-2');
 
-            leftNameContainer.appendChild(document.getElementById('name-x'));
-            rightNameContainer.appendChild(document.getElementById('name-y'));
+            nameXContainer.appendChild(document.getElementById('name-x'));
+            nameYContainer.appendChild(document.getElementById('name-y'));
 
-            dropOne.innerHTML = '';
-            dropTwo.innerHTML = '';
+            drop1.innerHTML = '';
+            drop2.innerHTML = '';
         },
     },
 };

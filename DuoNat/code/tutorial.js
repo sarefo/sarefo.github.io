@@ -240,14 +240,14 @@ class Tutorial {
     // Specific tutorial methods
         animateDragDemo() {
             return new Promise((resolve) => {
-                const leftName = document.getElementById('name-x');
-                const rightName = document.getElementById('name-y');
+                const nameX = document.getElementById('name-x');
+                const nameY = document.getElementById('name-y');
                 const drop1 = document.getElementById('drop-1');
                 const drop2 = document.getElementById('drop-2');
 
                 // Store original positions
-                const leftOriginalPos = leftName.getBoundingClientRect();
-                const rightOriginalPos = rightName.getBoundingClientRect();
+                //const leftOriginalPos = nameX.getBoundingClientRect();
+                //const rightOriginalPos = nameY.getBoundingClientRect();
 
                 // Function to get the center position of an element
                 const getCenterPosition = (element) => {
@@ -272,16 +272,16 @@ class Tutorial {
 
                 // Sequence of animations
                 Promise.resolve()
-                    .then(() => animate(leftName, getCenterPosition(drop1), 1000))
-                    .then(() => animate(rightName, getCenterPosition(drop2), 1000))
+                    .then(() => animate(nameX, getCenterPosition(drop1), 1000))
+                    .then(() => animate(nameY, getCenterPosition(drop2), 1000))
                     .then(() => new Promise(resolve => setTimeout(resolve, 1000))) // Pause
                     .then(() => {
-                        leftName.style.transition = rightName.style.transition = 'transform 500ms ease-in-out';
-                        leftName.style.transform = rightName.style.transform = '';
+                        nameX.style.transition = nameY.style.transition = 'transform 500ms ease-in-out';
+                        nameX.style.transform = nameY.style.transform = '';
                     })
                     .then(() => new Promise(resolve => setTimeout(resolve, 500)))
                     .then(() => {
-                        leftName.style.transition = rightName.style.transition = '';
+                        nameX.style.transition = nameY.style.transition = '';
                         resolve();
                     });
             });
