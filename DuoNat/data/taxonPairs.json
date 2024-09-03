@@ -370,7 +370,7 @@
     ]
   },
   "23": {
-    "pairName": "Dolphins",
+    "pairName": "Spotted vs Bottlenose Dolphin",
     "level": "1",
     "tags": [
       "ocean"
@@ -943,7 +943,7 @@
     ]
   },
   "52": {
-    "pairName": "Large Bovines",
+    "pairName": "Bison vs Cattle",
     "level": "1",
     "tags": [],
     "taxa": [
@@ -1151,7 +1151,7 @@
     ]
   },
   "65": {
-    "pairName": "Lemurs",
+    "pairName": "Ring-tailed vs Ruffed Lemur",
     "level": "1",
     "tags": [],
     "taxa": [
@@ -1316,7 +1316,7 @@
     ]
   },
   "75": {
-    "pairName": "Carnivorous Marsupials",
+    "pairName": "Tasmanian Devil vs Quoll",
     "level": "1",
     "tags": [],
     "taxa": [
@@ -2178,7 +2178,7 @@
     ]
   },
   "125": {
-    "pairName": "Seed-eating Birds",
+    "pairName": "Crows vs Pigeons",
     "level": "1",
     "tags": [],
     "taxa": [
@@ -2253,7 +2253,7 @@
     ]
   },
   "129": {
-    "pairName": "Tits",
+    "pairName": "Blue vs Great Tit",
     "level": "1",
     "tags": [],
     "taxa": [
@@ -2271,7 +2271,7 @@
     ]
   },
   "130": {
-    "pairName": "Old World Flycatchers",
+    "pairName": "Robin vs Bluethroat",
     "level": "1",
     "tags": [],
     "taxa": [
@@ -2359,7 +2359,7 @@
     ]
   },
   "135": {
-    "pairName": "Goldfinches",
+    "pairName": "Siskin vs Goldfinch",
     "level": "1",
     "tags": [],
     "taxa": [
