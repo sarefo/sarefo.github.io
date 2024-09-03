@@ -183,63 +183,73 @@ const roundManager = {
         setObservationURLs(imageData) {
             state.setObservationURL(imageData.leftImageSrc, 1);
             state.setObservationURL(imageData.rightImageSrc, 2);
+            // Also update the current round state
+            state.updateGameStateMultiple({
+                currentRound: {
+                    ...state.getCurrentRound(),
+                    imageOneURL: imageData.leftImageSrc,
+                    imageTwoURL: imageData.rightImageSrc,
+                },
+            });
         },
 
-        async setupRound(pair, imageData) {
-            const { leftImageSrc, rightImageSrc, randomized } = imageData;
+    async setupRound(pair, imageData) {
+        const { leftImageSrc, rightImageSrc, randomized, taxonImageOne, taxonImageTwo } = imageData;
 
-            // Load images
-            await Promise.all([
-                roundManager.imageHandling.loadImage(state.getElement('imageOne'), leftImageSrc),
-                roundManager.imageHandling.loadImage(state.getElement('imageTwo'), rightImageSrc)
-            ]);
+        // Load images
+        await Promise.all([
+            roundManager.imageHandling.loadImage(state.getElement('imageOne'), leftImageSrc),
+            roundManager.imageHandling.loadImage(state.getElement('imageTwo'), rightImageSrc)
+        ]);
 
-            // Setup name tiles and world maps
-            const [nameTileData, worldMapData] = await Promise.all([
-                this.setupNameTiles(pair, randomized),
-                this.setupWorldMaps(pair, randomized)
-            ]);
+        // Setup name tiles and world maps
+        const [nameTileData, worldMapData] = await Promise.all([
+            this.setupNameTiles(pair, randomized, taxonImageOne, taxonImageTwo),
+            this.setupWorldMaps(pair, randomized, taxonImageOne, taxonImageTwo)
+        ]);
 
-            // Update game state
-            roundManager.stateManagement.updateGameStateForRound(pair, imageData, nameTileData);
+        // Update game state
+        roundManager.stateManagement.updateGameStateForRound(pair, imageData, nameTileData);
 
-            // Update hint buttons
-            await hintSystem.updateAllHintButtons();
+        // Update hint buttons
+        await hintSystem.updateAllHintButtons();
 
-            // Apply world map data
-            worldMap.createWorldMap(state.getElement('imageOneContainer'), worldMapData.leftContinents);
-            worldMap.createWorldMap(state.getElement('imageTwoContainer'), worldMapData.rightContinents);
+        // Apply world map data
+        worldMap.createWorldMap(state.getElement('imageOneContainer'), worldMapData.leftContinents);
+        worldMap.createWorldMap(state.getElement('imageTwoContainer'), worldMapData.rightContinents);
 
-            return { nameTileData, worldMapData };
-        },
+        return { nameTileData, worldMapData };
+    },
 
         async setupRoundFromGameSetup(isNewPair = false) {
             const { pair } = state.getCurrentTaxonImageCollection();
             
-            const imageData = await roundManager.imageHandling.loadAndSetupImages(pair, isNewPair);
+            // Use getAndProcessImages instead of loadAndSetupImages
+            const pairData = { pair, preloadedImages: null };
+            const imageData = await roundManager.imageHandling.getAndProcessImages(pairData, isNewPair);
             
-            logger.debug("ok in setupRoundFromGameSetup: gets imageData from loadAndSetupImages");
+            logger.debug("setupRoundFromGameSetup: imageData processed with consistent randomization");
             const { nameTileData, worldMapData } = await this.setupRound(pair, imageData, isNewPair);
 
             return { imageData, nameTileData, worldMapData };
         },
 
-        async setupNameTiles(pair, randomized) {
+        async setupNameTiles(pair, randomized, taxonImageOne, taxonImageTwo) {
             logger.warn("setupNameTiles");
             const [leftVernacular, rightVernacular] = await Promise.all([
-                utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(randomized ? pair.taxon2 : pair.taxon1)),
-                utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(randomized ? pair.taxon1 : pair.taxon2))
+                utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(taxonImageOne)),
+                utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(taxonImageTwo))
             ]);
 
             ui.setupNameTilesUI(
-                randomized ? pair.taxon2 : pair.taxon1,
-                randomized ? pair.taxon1 : pair.taxon2,
+                taxonImageOne,
+                taxonImageTwo,
                 leftVernacular,
                 rightVernacular
             );
 
-            state.getElement('imageOne').alt = `${randomized ? pair.taxon1 : pair.taxon2} Image`;
-            state.getElement('imageTwo').alt = `${randomized ? pair.taxon2 : pair.taxon1} Image`;
+            state.getElement('imageOne').alt = `${taxonImageOne} Image`;
+            state.getElement('imageTwo').alt = `${taxonImageTwo} Image`;
 
             return { leftVernacular, rightVernacular };
         },
@@ -272,19 +282,18 @@ const roundManager = {
         },
 
         updateGameStateForRound(pair, imageData, nameTileData) {
-            const taxonImageOne = imageData.randomized ? pair.taxon1 : pair.taxon2;
-            const taxonImageTwo = imageData.randomized ? pair.taxon2 : pair.taxon1;
+            const { leftImageSrc, rightImageSrc, randomized, taxonImageOne, taxonImageTwo } = imageData;
 
             state.updateGameStateMultiple({
                 taxonImageOne: taxonImageOne,
                 taxonImageTwo: taxonImageTwo,
                 currentRound: {
                     pair,
-                    imageOneURL: imageData.leftImageSrc,
-                    imageTwoURL: imageData.rightImageSrc,
+                    imageOneURL: leftImageSrc,
+                    imageTwoURL: rightImageSrc,
                     imageOneVernacular: nameTileData.leftVernacular,
                     imageTwoVernacular: nameTileData.rightVernacular,
-                    randomized: imageData.randomized,
+                    randomized: randomized,
                 },
             });
         },
