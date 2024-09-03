@@ -304,7 +304,7 @@ const pairManager = {
             state.updateGameStateMultiple({
                 usedImages: updatedUsedImages
             });
-            logger.debug(`Reset used images for new pair: ${newPair.taxon1} and ${newPair.taxon2}`);
+            //logger.debug(`Reset used images for new pair: ${newPair.taxon1} and ${newPair.taxon2}`);
         },
     },
 

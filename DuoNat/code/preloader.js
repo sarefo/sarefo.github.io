@@ -19,7 +19,7 @@ const imageLoader = {
     async fetchDifferentImage(taxonName, currentImageURL) {
         const images = await api.images.fetchMultipleImages(taxonName, 12);
         let usedImages = this.getUsedImagesForTaxon(taxonName);
-        logger.debug(`Fetching image for ${taxonName}. Current used images: ${usedImages.size}`);
+        //logger.debug(`Fetching image for ${taxonName}. Current used images: ${usedImages.size}`);
         
         let availableImages = this.filterAvailableImages(images, usedImages, currentImageURL);
 
@@ -68,7 +68,7 @@ const imageLoader = {
         if (availableImages.length > 0) {
             const selectedImage = availableImages[Math.floor(Math.random() * availableImages.length)];
             this.updateUsedImagesState(usedImages, selectedImage, taxonName);
-            logger.debug(`Selected new image for ${taxonName}. Used images count: ${usedImages.size}`);
+            //logger.debug(`Selected new image for ${taxonName}. Used images count: ${usedImages.size}`);
             return selectedImage;
         } else {
             logger.warn(`No available images found for ${taxonName}. Using the first image.`);
@@ -87,7 +87,7 @@ const imageLoader = {
                 [taxonName]: usedImages
             }
         });
-        logger.debug(`Updated used images for ${taxonName}. New count: ${usedImages.size}`);
+        //logger.debug(`Updated used images for ${taxonName}. New count: ${usedImages.size}`);
     },
 };
 
