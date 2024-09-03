@@ -290,8 +290,8 @@ const roundManager = {
 
         async setupWorldMaps(pair, randomized) {
             const [continents1, continents2] = await Promise.all([
-                this.getContinentForTaxon(randomized ? pair.taxonA : pair.taxonB),
-                this.getContinentForTaxon(randomized ? pair.taxonB : pair.taxonA)
+                this.getContinentForTaxon(randomized ? pair.taxonB : pair.taxonA),
+                this.getContinentForTaxon(randomized ? pair.taxonA : pair.taxonB)
             ]);
 
             return { continents1, continents2 };
