@@ -38,7 +38,6 @@ const collectionManager = {
             this.initializeFilterSummaryMap();
             this.initializeFilterSummaryTags();
             this.initializeClearFiltersButton();
-            //this.initializeCollectionManagerDoneButton();
             this.initializeLevelDropdown();
             this.initializePhylogenySelector();
 
@@ -89,13 +88,6 @@ const collectionManager = {
                 clearFiltersButton.addEventListener('click', filtering.clearAllFilters);
             }
         },
-
-        /*initializeCollectionManagerDoneButton() {
-            const selectPairDoneButton = document.getElementById('collection-done-button');
-            if (selectPairDoneButton) {
-                selectPairDoneButton.addEventListener('click', collectionManager.eventHandlers.handleCollectionManagerDone);
-            }
-        },*/
 
         setupCollectionManagerDialog() {
             const playButton = document.getElementById('collection-done-button');
@@ -556,23 +548,40 @@ const collectionManager = {
 
     eventHandlers: {
         async handleCollectionManagerDone() {
-            await collectionManager.taxonList.updateTaxonList();
-            await pairManager.refreshCollectionSubset();
-            dialogManager.closeDialog('collection-dialog');
+            // Add a loading flag to prevent multiple calls
+            if (this.isLoadingNewPair) {
+                logger.warn("Already loading a new pair, skipping additional load");
+                return;
+            }
+            this.isLoadingNewPair = true;
 
-            // Clear the preloaded pair
-            preloader.pairPreloader.clearPreloadedPair();
+            try {
+                await collectionManager.taxonList.updateTaxonList();
+                await pairManager.refreshCollectionSubset();
+                dialogManager.closeDialog('collection-dialog');
 
-            // Load a new pair that matches the current filters
-            const filters = filtering.getActiveFilters();
-            const filteredPairs = await filtering.getFilteredTaxonPairs(filters);
-            
-            if (filteredPairs.length > 0) {
-                const randomPair = filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
-                await pairManager.loadNewPair(randomPair.pairID);
-            } else {
-                logger.warn("No pairs available in the current filtered collection");
-                ui.showOverlay("No pairs available for the current filters. Please adjust your selection.", config.overlayColors.red);
+                // Clear the preloaded pair
+                preloader.pairPreloader.clearPreloadedPair();
+
+                // Load a new pair that matches the current filters
+                const filters = filtering.getActiveFilters();
+                const filteredPairs = await filtering.getFilteredTaxonPairs(filters);
+                
+                if (filteredPairs.length > 0) {
+                    const randomPair = filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
+                    await pairManager.loadNewPair(randomPair.pairID);
+                    // Remove any queued calls to loadNewPair
+                    if (this.loadNewPairTimeout) {
+                        clearTimeout(this.loadNewPairTimeout);
+                    }
+                } else {
+                    logger.warn("No pairs available in the current filtered collection");
+                    ui.showOverlay("No pairs available for the current filters. Please adjust your selection.", config.overlayColors.red);
+                }
+            } catch (error) {
+                logger.error("Error in handleCollectionManagerDone:", error);
+            } finally {
+                this.isLoadingNewPair = false;
             }
         },
 
