@@ -16,25 +16,6 @@ const gameSetup = {
 
     initialization: {
 
-        async setupPairOrRound(newPair) {
-            //logger.debug('setupPairOrRound called with newPair:', newPair);
-            state.setState(state.GameState.LOADING);
-
-            if (!await api.externalAPIs.checkINaturalistReachability()) return;
-            roundManager.prepareImagesForLoading();
-
-            if (newPair || !state.getCurrentTaxonImageCollection()) {
-                //logger.debug('Initializing new pair');
-                await pairManager.initializeNewPair();
-            } else {
-                //logger.debug('Setting up round from game setup');
-                await roundManager.setupRoundFromGameSetup();
-            }
-
-            this.updateUIAfterSetup(newPair);
-            //logger.debug('setupPairOrRound completed');
-        },
-
         updateUIAfterSetup(newPair) {
             ui.updateLevelIndicator(state.getCurrentTaxonImageCollection().pair.level);
 
@@ -132,7 +113,8 @@ const bindMethodsRecursively = (obj) => {
 bindMethodsRecursively(gameSetup);
 
 const publicAPI = {
-    setupPairOrRound: gameSetup.initialization.setupPairOrRound,
+    //setupPairOrRound: gameSetup.initialization.setupPairOrRound,
+    updateUIAfterSetup: gameSetup.initialization.updateUIAfterSetup,
 };
 
 // Bind publicAPI methods

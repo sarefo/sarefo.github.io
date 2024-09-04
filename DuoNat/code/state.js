@@ -16,7 +16,8 @@ const elements = {
 // Game State enum
 const GameState = {
     IDLE: 'IDLE',
-    LOADING: 'LOADING',
+    LOADING_PAIR: 'LOADING_PAIR',
+    LOADING_ROUND: 'LOADING_ROUND',
     READY: 'READY',
     PLAYING: 'PLAYING',
     CHECKING: 'CHECKING',
@@ -55,6 +56,7 @@ let gameState = {
         image2: null
     },
 
+    // 
     currentTaxonImageCollection: null,
 
     usedImages: {

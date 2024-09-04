@@ -189,22 +189,17 @@ const pairManager = {
 
         async TODOloadNewPair (pairID = null) {
             logger.debug("loadNewPair");
-            state.setState(state.GameState.LOADING);
+            state.setState(state.GameState.LOADING_PAIR);
+            if (!await api.externalAPIs.checkINaturalistReachability()) return;
+            roundManager.prepareImagesForLoading();
+            await this.initializeNewPair();
+            gameSetup.updateUIAfterSetup(true);
 
-            /*if (pairID == null) {
-                this.loadNewRandomPair(); // TODO eliminate
-            }*/
-
-            //await gameSetup.setupGame(true);
-            try {
-                await gameSetup.setupPairOrRound(true);
-            } catch (error) {
-                errorHandling.handleSetupError(error);
-            } finally {
-                state.setState(state.GameState.PLAYING);
-            }
+            // TODO
+            // roundManager.loadNewRound();
             
         },
+
 
         async loadNewRandomPair(usePreloadedPair = true) {
             pairManager.uiHandling.prepareForNewPair();
@@ -374,7 +369,7 @@ const pairManager = {
     uiHandling: {
         // TODO this looks like round code
         prepareForNewPair() {
-            state.setState(state.GameState.LOADING);
+            state.setState(state.GameState.LOADING_PAIR);
             roundManager.prepareImagesForLoading();
             preloader.roundPreloader.clearPreloadedImagesForNextRound();
         },

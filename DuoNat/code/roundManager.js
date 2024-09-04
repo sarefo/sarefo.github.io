@@ -1,5 +1,6 @@
 import api from './api.js';
 import config from './config.js';
+import errorHandling from './errorHandling.js';
 import filtering from './filtering.js';
 import gameLogic from './gameLogic.js';
 import gameSetup from './gameSetup.js'; // TODO probably eliminate
@@ -14,31 +15,27 @@ import worldMap from './worldMap.js';
 
 const roundManager = {
     initialization: {
-        async TODOloadNewRound(isNewPair = false) {
-            //logger.debug('TODOloadNewRound called with isNewPair:', isNewPair);
+        async TODOloadNewRound() {
             logger.debug("loadNewRound");
-            state.setState(state.GameState.LOADING);
-            //await gameSetup.setupGame(false);
+            state.setState(state.GameState.LOADING_ROUND);
+            if (!await api.externalAPIs.checkINaturalistReachability()) return;
+
+
+
             try {
-                await gameSetup.setupPairOrRound(false);
+                roundManager.imageHandling.prepareImagesForLoading();
+                if (!state.getCurrentTaxonImageCollection()) { // TODO no idea what this really does yet
+                    await pairManager.initializeNewPair();
+                } else {
+                    await roundManager.setupComponents.setupRoundFromGameSetup();
+                }
+                //await gameSetup.setupPairOrRound(false);
             } catch (error) {
                 errorHandling.handleSetupError(error);
             } finally {
                 state.setState(state.GameState.PLAYING);
             }
-
-            return;
-            // TODO
-
-            
-            try {
-                await roundManager.setupComponents.setupRoundFromGameSetup(isNewPair);
-                state.setState(state.GameState.PLAYING);
-            } catch (error) {
-                logger.error("Error in TODOloadNewRound:", error);
-                ui.showOverlay("Error loading round. Please try again.", config.overlayColors.red);
-                state.setState(state.GameState.IDLE);
-            }
+            gameSetup.updateUIAfterSetup(false); // TODO
         },
 
         async OLDloadNewRound(isNewPair = false) {
@@ -59,7 +56,7 @@ const roundManager = {
         },
 
         initializeRoundLoading() {
-            state.setState(state.GameState.LOADING);
+            state.setState(state.GameState.LOADING_ROUND);
             roundManager.imageHandling.prepareImagesForLoading();
         },
 
