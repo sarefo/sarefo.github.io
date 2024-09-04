@@ -50,7 +50,7 @@ const roundManager = {
                 const images = await roundManager.imageHandling.getAndProcessImages(pairData, isNewPair);
                 await roundManager.setupComponents.setupRoundComponents(pairData.pair, images);
                 roundManager.stateManagement.updateGameState(pairData.pair, images);
-                roundManager.uiManagement.finalizeRoundLoading(isNewPair);
+                //roundManager.uiManagement.finalizeRoundLoading(isNewPair);
             } catch (error) {
                 logger.error("Error loading round:", error);
                 ui.showOverlay("Error loading round. Please try again.", config.overlayColors.red);
