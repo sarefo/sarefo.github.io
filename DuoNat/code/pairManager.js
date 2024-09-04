@@ -179,18 +179,18 @@ const pairManager = {
     pairLoading: {
         async initializeNewPair() {
             const newPair = await pairManager.pairSelection.selectNewPair();
-            //logger.debug(`Initializing new pair: ${newPair.taxonA} / ${newPair.taxonB}`);
+            logger.debug(`Initializing new pair: ${newPair.taxonA} / ${newPair.taxonB}`);
             pairManager.pairManagement.resetUsedImagesForNewPair(newPair);
             const images = await pairManager.imageHandling.loadImagesForNewPair(newPair);
             //logger.debug(`Loaded images for new pair: ${images.taxonA} / ${images.taxonB}`);
             pairManager.stateManagement.updateGameStateForNewPair(newPair, images);
             await roundManager.setupRoundFromGameSetup(true);
+            state.setNextSelectedPair(null); // Clear the next selected pair after using it
         },
 
         // called from collMan, iNatDown, enterPair, main
+        // TODO process pairID inside this function, not before
         async loadNewPair (pairID = null, usePreloadedPair = true) {
-            // TODO process pairID inside this function, not before
-
             logger.debug("loadNewPair");
             state.setState(state.GameState.LOADING_PAIR);
             if (!await api.externalAPIs.checkINaturalistReachability()) return;
@@ -198,15 +198,17 @@ const pairManager = {
 
             let selectedPair;
 
-            // New logic for pair selection
+            // If a pairID is provided, load that specific pair
             if (pairID) {
-                // If a pairID is provided, load that specific pair
                 selectedPair = await pairManager.pairManagement.getPairByID(pairID);
-                if (!selectedPair) {
+                if (selectedPair) {
+                    logger.debug(`Using selected pair: ${selectedPair.pairID}`);
+                } else {
                     logger.warn(`Pair with ID ${pairID} not found. Falling back to random selection.`);
                 }
             }
 
+            // If no specific pair was selected or found, proceed with normal selection
             if (!selectedPair) {
                 selectedPair = await this.selectPairForLoading(usePreloadedPair);
             }
@@ -217,8 +219,7 @@ const pairManager = {
                 return;
             }
 
-            // TODO seems like nothing done yet with selectedPair?
-
+            state.setNextSelectedPair(selectedPair);
             await this.initializeNewPair();
             gameSetup.updateUIAfterSetup(true);
 

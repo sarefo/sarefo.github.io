@@ -153,6 +153,7 @@ const pairPreloader = {
             if (newPair) {
                 //logger.debug(`Selected pair for preloading: ${newPair.taxonNames[0]} / ${newPair.taxonNames[1]}`);
                 await this.preloadPairImages(newPair);
+                logger.debug("Preloaded pair:", newPair);
             } else {
                 logger.warn("No valid pairs found for preloading");
                 preloader.preloadedImages.nextPair = null;

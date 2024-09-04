@@ -563,11 +563,13 @@ const collectionManager = {
             // Clear the preloaded pair
             preloader.pairPreloader.clearPreloadedPair();
 
-            // Select a new pair that matches the current filters
-            const pairID = await pairManager.selectRandomPairFromCurrentCollection();
-            if (pairID) {
-                state.setNextSelectedPair(pairID);
-                pairManager.loadNewPair(pairID);
+            // Load a new pair that matches the current filters
+            const filters = filtering.getActiveFilters();
+            const filteredPairs = await filtering.getFilteredTaxonPairs(filters);
+            
+            if (filteredPairs.length > 0) {
+                const randomPair = filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
+                await pairManager.loadNewPair(randomPair.pairID);
             } else {
                 logger.warn("No pairs available in the current filtered collection");
                 ui.showOverlay("No pairs available for the current filters. Please adjust your selection.", config.overlayColors.red);
@@ -583,14 +585,14 @@ const collectionManager = {
                 pairID: pair.pairID,
                 level: pair.level
             };
-            state.setNextSelectedPair(selectedPair);
             logger.debug('Selected pair:', selectedPair);
             dialogManager.closeDialog('collection-dialog');
             
             // Clear the preloaded pair before setting up the new game
             preloader.pairPreloader.clearPreloadedPair();
             
-            setTimeout(() => pairManager.loadNewPair(), 300);
+            // Pass the pairID to loadNewPair
+            setTimeout(() => pairManager.loadNewPair(selectedPair.pairID), 300);
         },
     },
 };
