@@ -208,7 +208,6 @@ const pairManager = {
             pairManager.uiHandling.prepareForNewPair();
 
             try {
-                //await this.attemptToLoadNewPair(usePreloadedPair);
                 await roundManager.OLDloadNewRound(true);
 
                 if (state.getState() !== state.GameState.PLAYING) {
