@@ -188,7 +188,7 @@ const pairManager = {
         },
 
         // called from collMan, iNatDown, enterPair, main
-        async loadNewPair (pairID = null) {
+        async loadNewPair (pairID = null, usePreloadedPair = true) {
             // TODO process pairID inside this function, not before
 
             logger.debug("loadNewPair");
