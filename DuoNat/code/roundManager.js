@@ -15,7 +15,8 @@ import worldMap from './worldMap.js';
 
 const roundManager = {
     initialization: {
-        async TODOloadNewRound() {
+
+        async loadNewRound() {
             logger.debug("loadNewRound");
             state.setState(state.GameState.LOADING_ROUND);
             if (!await api.externalAPIs.checkINaturalistReachability()) return;
@@ -384,7 +385,7 @@ bindMethodsRecursively(roundManager);
 
 const publicAPI = {
     OLDloadNewRound: roundManager.initialization.OLDloadNewRound,
-    loadNewRound: roundManager.initialization.TODOloadNewRound,
+    loadNewRound: roundManager.initialization.loadNewRound,
     setupRound: roundManager.setupComponents.setupRound,
     setupRoundFromGameSetup: roundManager.setupComponents.setupRoundFromGameSetup,
     // just temporarily public during refactoring:
