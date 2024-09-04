@@ -37,10 +37,13 @@ const roundManager = {
             gameSetup.updateUIAfterSetup(false); // TODO
         },
 
-        // TODO still called from pairManager.attemptToLoadNewPair(usePreloadedPair)
+        // TODO still called from pairManager.loadNewRandomPair()
         async OLDloadNewRound(isNewPair = false) {
             //logger.warn(`Starting loadNewRound. isNewPair: ${isNewPair}`);
-            this.initializeRoundLoading();
+
+            // initialize round loading
+            state.setState(state.GameState.LOADING_ROUND);
+            roundManager.imageHandling.prepareImagesForLoading();
 
             try {
                 const pairData = await this.getPairData(isNewPair);
@@ -49,15 +52,11 @@ const roundManager = {
                 roundManager.stateManagement.updateGameState(pairData.pair, images);
                 roundManager.uiManagement.finalizeRoundLoading(isNewPair);
             } catch (error) {
-                this.handleError(error);
+                logger.error("Error loading round:", error);
+                ui.showOverlay("Error loading round. Please try again.", config.overlayColors.red);
             } finally {
-                this.setGameStateToPlaying();
+                state.setState(state.GameState.PLAYING);
             }
-        },
-
-        initializeRoundLoading() {
-            state.setState(state.GameState.LOADING_ROUND);
-            roundManager.imageHandling.prepareImagesForLoading();
         },
 
         async getPairData(isNewPair) {
@@ -70,16 +69,6 @@ const roundManager = {
             
             return pairData;
         },
-
-        setGameStateToPlaying() {
-            state.setState(state.GameState.PLAYING);
-            //logger.debug(`loadNewRound complete. Game state set to PLAYING`);
-        },
-
-        handleError(error) {
-            logger.error("Error loading round:", error);
-            ui.showOverlay("Error loading round. Please try again.", config.overlayColors.red);
-        }
     },
 
     imageHandling: {
@@ -331,8 +320,8 @@ const roundManager = {
 
     stateManagement: {
         updateGameState(pair, images) {
-            this.updateState(pair, images);
-            //logger.debug(`State updated`);
+            state.updateRoundState(pair, images);
+            ui.updateLevelIndicator(pair.level || '1');
         },
 
         updateGameStateForRound(pair, imageData, nameTileData) {
@@ -350,11 +339,6 @@ const roundManager = {
                     randomized: randomized,
                 },
             });
-        },
-
-        updateState(pair, images) {
-            state.updateRoundState(pair, images);
-            ui.updateLevelIndicator(pair.level || '1');
         },
     },
 

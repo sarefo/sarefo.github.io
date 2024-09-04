@@ -227,10 +227,6 @@ const pairManager = {
             }
         },
 
-        // TODO FIX maybe should not call roundManager
-        /*async attemptToLoadNewPair(usePreloadedPair) {
-        },*/
-
         async fallbackPairLoading(usePreloadedPair) {
             let newPair;
             if (usePreloadedPair) {
