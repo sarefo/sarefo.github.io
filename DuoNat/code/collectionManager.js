@@ -3,7 +3,6 @@ import dialogManager from './dialogManager.js';
 import eventMain from './eventMain.js';
 import filtering from './filtering.js';
 import gameLogic from './gameLogic.js';
-import gameSetup from './gameSetup.js';
 import logger from './logger.js';
 import pairManager from './pairManager.js';
 import phylogenySelector from './phylogenySelector.js';
@@ -565,10 +564,10 @@ const collectionManager = {
             preloader.pairPreloader.clearPreloadedPair();
 
             // Select a new pair that matches the current filters
-            const newPair = await pairManager.selectRandomPairFromCurrentCollection();
-            if (newPair) {
-                state.setNextSelectedPair(newPair);
-                gameSetup.setupGame(true);
+            const pairID = await pairManager.selectRandomPairFromCurrentCollection();
+            if (pairID) {
+                state.setNextSelectedPair(pairID);
+                pairManager.loadNewPair(pairID);
             } else {
                 logger.warn("No pairs available in the current filtered collection");
                 ui.showOverlay("No pairs available for the current filters. Please adjust your selection.", config.overlayColors.red);
@@ -591,7 +590,7 @@ const collectionManager = {
             // Clear the preloaded pair before setting up the new game
             preloader.pairPreloader.clearPreloadedPair();
             
-            setTimeout(() => gameSetup.setupGame(true), 300);
+            setTimeout(() => pairManager.loadNewPair(), 300);
         },
     },
 };

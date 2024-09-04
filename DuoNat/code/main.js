@@ -1,9 +1,9 @@
 import api from './api.js';
 import config from './config.js';
 import dialogManager from './dialogManager.js';
-import gameSetup from './gameSetup.js';
-import logger, { LogLevel } from './logger.js';
 import eventMain from './eventMain.js';
+import logger, { LogLevel } from './logger.js';
+import pairManager from './pairManager.js';
 import state from './state.js';
 import ui from './ui.js';
 import url from './url.js';
@@ -24,7 +24,7 @@ async function initializeApp() {
 
     await initializeComponents();
 
-    gameSetup.setupGame(true);
+    pairManager.loadNewPair();
     state.setHasKeyboard(hasKeyboard());
     logger.info("App initialization complete");
 }

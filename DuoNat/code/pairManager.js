@@ -1,4 +1,5 @@
 import api from './api.js';
+import errorHandling from './errorHandling.js';
 import filtering from './filtering.js';
 import gameSetup from './gameSetup.js'; // TODO remove after streamlining
 import logger from './logger.js';
@@ -178,18 +179,32 @@ const pairManager = {
     pairLoading: {
         async initializeNewPair() {
             const newPair = await pairManager.pairSelection.selectNewPair();
-            logger.debug(`Initializing new pair: ${newPair.taxonA} / ${newPair.taxonB}`);
+            //logger.debug(`Initializing new pair: ${newPair.taxonA} / ${newPair.taxonB}`);
             pairManager.pairManagement.resetUsedImagesForNewPair(newPair);
             const images = await pairManager.imageHandling.loadImagesForNewPair(newPair);
-            logger.debug(`Loaded images for new pair: ${images.taxonA} / ${images.taxonB}`);
+            //logger.debug(`Loaded images for new pair: ${images.taxonA} / ${images.taxonB}`);
             pairManager.stateManagement.updateGameStateForNewPair(newPair, images);
             await roundManager.setupRoundFromGameSetup(true);
         },
 
-        TODOloadNewPair () {
-            // TODO just placeholder!
-            //gameSetup.setupGame(true);
-            roundManager.TODOloadNewRound();
+        async TODOloadNewPair () {
+        //async TODOloadNewPair (pairID = null) {
+            logger.debug("loadNewPair");
+            state.setState(state.GameState.LOADING);
+
+            /*if (pairID == null) {
+                this.loadNewRandomPair(); // TODO eliminate
+            }*/
+
+            //await gameSetup.setupGame(true);
+            try {
+                await gameSetup.setupPairOrRound(true);
+            } catch (error) {
+                errorHandling.handleSetupError(error);
+            } finally {
+                state.setState(state.GameState.PLAYING);
+            }
+            
         },
 
         async loadNewRandomPair(usePreloadedPair = true) {
@@ -206,7 +221,7 @@ const pairManager = {
 
         // TODO FIX maybe should not call roundManager
         async attemptToLoadNewPair(usePreloadedPair) {
-            await roundManager.loadNewRound(true);
+            await roundManager.OLDloadNewRound(true);
 
             if (state.getState() !== state.GameState.PLAYING) {
                 await this.fallbackPairLoading(usePreloadedPair);
@@ -232,7 +247,8 @@ const pairManager = {
             const newPair = await pairManager.pairSelection.selectRandomPairFromCurrentCollection();
             if (newPair) {
                 state.setNextSelectedPair(newPair);
-                await gameSetup.setupGame(true);
+                //await gameSetup.setupGame(true);
+                await this.loadNewPair();
                 return newPair;
             }
             throw new Error("No pairs available in the current collection");
@@ -268,7 +284,8 @@ const pairManager = {
 
         async setupNewPair(newPair, pairID) {
             state.setNextSelectedPair(newPair);
-            await gameSetup.setupGame(true);
+            //await gameSetup.setupGame(true);
+            await this.loadNewPair();
             const nextPairID = String(Number(pairID) + 1);
             preloader.pairPreloader.preloadPairByID(nextPairID);
         },
@@ -315,19 +332,19 @@ const pairManager = {
     imageHandling: {
         async loadImagesForNewPair(newPair) {
             const preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
-            logger.debug(`Attempting to load images for new pair: ${newPair.taxonA} / ${newPair.taxonB}`);
-            logger.debug(`Preloaded images available: ${!!preloadedImages}`);
+            //logger.debug(`Attempting to load images for new pair: ${newPair.taxonA} / ${newPair.taxonB}`);
+            //logger.debug(`Preloaded images available: ${!!preloadedImages}`);
             
             if (preloadedImages && preloadedImages.pair.pairID === newPair.pairID) {
-                logger.debug(`Using preloaded images for pair ID ${newPair.pairID}`);
+                //logger.debug(`Using preloaded images for pair ID ${newPair.pairID}`);
                 return preloadedImages;
             }
             
-            logger.debug(`Fetching new images for pair ID ${newPair.pairID}`);
+            //logger.debug(`Fetching new images for pair ID ${newPair.pairID}`);
             const taxonAImage = await preloader.imageLoader.fetchDifferentImage(newPair.taxonA || newPair.taxonNames[0], null);
             const taxonBImage = await preloader.imageLoader.fetchDifferentImage(newPair.taxonB || newPair.taxonNames[1], null);
             
-            logger.debug(`Fetched images: ${taxonAImage} / ${taxonBImage}`);
+            //logger.debug(`Fetched images: ${taxonAImage} / ${taxonBImage}`);
             
             return {
                 taxonA: taxonAImage,
@@ -420,7 +437,7 @@ const publicAPI = {
     getNextPair: pairManager.pairManagement.getNextPair,
     //getNextPairFromCollection: pairManager.pairSelection.getNextPairFromCollection,
     //loadNewPair: pairManager.pairLoading.loadNewPair,
-    TODOloadNewPair: pairManager.pairLoading.TODOloadNewPair,
+    loadNewPair: pairManager.pairLoading.TODOloadNewPair,
     loadNewRandomPair: pairManager.pairLoading.loadNewRandomPair,
     refreshCollectionSubset: pairManager.initialization.refreshCollectionSubset,
     selectNewPair: pairManager.pairSelection.selectNewPair,

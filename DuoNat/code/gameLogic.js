@@ -1,5 +1,4 @@
 import config from './config.js';
-import gameSetup from './gameSetup.js';
 import logger from './logger.js';
 import roundManager from './roundManager.js';
 import state from './state.js';
@@ -68,7 +67,7 @@ const gameLogic = {
             roundManager.prepareImagesForLoading();
             await utils.ui.sleep(1700);
             ui.resetDraggables();
-            await gameSetup.setupGame(false); // Directly call setupGame for the next round
+            await roundManager.loadNewRound();
             await utils.ui.sleep(400); // wait for setupNameTiles()
             ui.hideOverlay();
         },

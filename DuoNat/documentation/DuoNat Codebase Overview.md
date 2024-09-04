@@ -56,10 +56,11 @@ The DuoNat project is primarily written in JavaScript, with HTML and CSS for the
 
 ### Utilities and Helpers
 
-+ `utils.js`: Contains utility functions used throughout the application.
-+ `url.js`: Loading and writing URL parameters.
-+ `logger.js`: Provides logging functionality.
 + `config.js`: Stores configuration settings.
++ `errorHandling.js`: Error handling.
++ `logger.js`: Provides logging functionality.
++ `url.js`: Loading and writing URL parameters.
++ `utils.js`: Contains utility functions used throughout the application.
 
 ### Visualization and Special Features
 

@@ -1,6 +1,5 @@
 import api from './api.js';
 import dialogManager from './dialogManager.js';
-import gameSetup from './gameSetup.js';
 import logger from './logger.js';
 import state from './state.js';
 
@@ -104,7 +103,7 @@ const enterPair = {
             await this.savePairToJson(newPair);
             state.setNextSelectedPair(newPair);
             dialogManager.closeDialog();
-            gameSetup.setupGame(true);
+            pairManager.loadNewPair();
         } catch (error) {
             throw new Error('Error saving new pair');
         }
@@ -171,7 +170,7 @@ const enterPair = {
         logger.debug('New pair created:', newPair);
         state.setNextSelectedPair(newPair);
         dialogManager.closeDialog('enter-pair-dialog');
-        gameSetup.setupGame(true);
+        pairManager.loadNewPair();
     },
 
     handleValidationError(error, messageElement) {

@@ -17,13 +17,13 @@ const imageLoader = {
     },
 
     async fetchDifferentImage(taxonName, currentImageURL) {
-        logger.debug(`Fetching different image for ${taxonName}. Current image: ${currentImageURL}`);
+        //logger.debug(`Fetching different image for ${taxonName}. Current image: ${currentImageURL}`);
         const images = await api.images.fetchMultipleImages(taxonName, 12);
         let usedImages = this.getUsedImagesForTaxon(taxonName);
-        logger.debug(`Fetched ${images.length} images for ${taxonName}. Currently used images: ${usedImages.size}`);
+        //logger.debug(`Fetched ${images.length} images for ${taxonName}. Currently used images: ${usedImages.size}`);
         
         let availableImages = this.filterAvailableImages(images, usedImages, currentImageURL);
-        logger.debug(`Available images after filtering: ${availableImages.length}`);
+        //logger.debug(`Available images after filtering: ${availableImages.length}`);
 
         if (availableImages.length === 0) {
             logger.warn(`All images have been used for ${taxonName}. Resetting used images.`);
@@ -38,7 +38,7 @@ const imageLoader = {
         }
 
         const selectedImage = this.selectAndUpdateUsedImage(availableImages, usedImages, taxonName);
-        logger.debug(`Selected image for ${taxonName}: ${selectedImage}`);
+        //logger.debug(`Selected image for ${taxonName}: ${selectedImage}`);
         return selectedImage;
     },
 
@@ -197,8 +197,8 @@ const pairPreloader = {
     getPreloadedImagesForNextPair() {
         if (this.hasPreloadedPair()) {
             const images = preloader.preloadedImages.nextPair;
-            logger.debug(`Retrieving preloaded pair: ${images.pair.taxonA} / ${images.pair.taxonB}, Skill Level: ${images.pair.level}`);
-            logger.debug(`Preloaded images: ${images.taxonA} / ${images.taxonB}`);
+            //logger.debug(`Retrieving preloaded pair: ${images.pair.taxonA} / ${images.pair.taxonB}, Skill Level: ${images.pair.level}`);
+            //logger.debug(`Preloaded images: ${images.taxonA} / ${images.taxonB}`);
             preloader.preloadedImages.nextPair = null;
             return images;
         } else {
@@ -302,7 +302,7 @@ const preloader = {
             if (isNewPair || !this.pairPreloader.hasPreloadedPair()) {
                 await this.pairPreloader.preloadForNextPair();
             }
-            logger.debug("Preloading completed for next round" + (isNewPair ? " and next pair" : ""));
+            //logger.debug("Preloading completed for next round" + (isNewPair ? " and next pair" : ""));
         } catch (error) {
             logger.error("Error during preloading:", error);
         }

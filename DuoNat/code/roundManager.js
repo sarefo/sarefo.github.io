@@ -2,6 +2,7 @@ import api from './api.js';
 import config from './config.js';
 import filtering from './filtering.js';
 import gameLogic from './gameLogic.js';
+import gameSetup from './gameSetup.js'; // TODO probably eliminate
 import hintSystem from './hintSystem.js';
 import logger from './logger.js';
 import preloader from './preloader.js';
@@ -14,8 +15,21 @@ import worldMap from './worldMap.js';
 const roundManager = {
     initialization: {
         async TODOloadNewRound(isNewPair = false) {
-            logger.debug('TODOloadNewRound called with isNewPair:', isNewPair);
+            //logger.debug('TODOloadNewRound called with isNewPair:', isNewPair);
+            logger.debug("loadNewRound");
             state.setState(state.GameState.LOADING);
+            //await gameSetup.setupGame(false);
+            try {
+                await gameSetup.setupPairOrRound(false);
+            } catch (error) {
+                errorHandling.handleSetupError(error);
+            } finally {
+                state.setState(state.GameState.PLAYING);
+            }
+
+            return;
+            // TODO
+
             
             try {
                 await roundManager.setupComponents.setupRoundFromGameSetup(isNewPair);
@@ -27,7 +41,7 @@ const roundManager = {
             }
         },
 
-        async loadNewRound(isNewPair = false) {
+        async OLDloadNewRound(isNewPair = false) {
             //logger.warn(`Starting loadNewRound. isNewPair: ${isNewPair}`);
             this.initializeRoundLoading();
 
@@ -200,13 +214,13 @@ const roundManager = {
     setupComponents: {
         async setupRoundComponents(pair, imageData) {
             this.setObservationURLs(imageData);
-            logger.debug("problem in setupRoundComponents: sets imageData = taxonImage1Src=1 taxonImage2Src=2");
+            //logger.debug("problem in setupRoundComponents: sets imageData = taxonImage1Src=1 taxonImage2Src=2");
             await this.setupRound(pair, imageData);
             //logger.debug(`Round setup complete`);
         },
 
         setObservationURLs(imageData) {
-            logger.debug(`Setting observation URLs: ${imageData.taxonImage1Src} / ${imageData.taxonImage2Src}`);
+            //logger.debug(`Setting observation URLs: ${imageData.taxonImage1Src} / ${imageData.taxonImage2Src}`);
             state.setObservationURL(imageData.taxonImage1Src, 1);
             state.setObservationURL(imageData.taxonImage2Src, 2);
             // Also update the current round state
@@ -217,7 +231,7 @@ const roundManager = {
                     image2URL: imageData.taxonImage2Src,
                 },
             });
-            logger.debug(`Updated current round state with images: ${state.getCurrentRound().image1URL} / ${state.getCurrentRound().image2URL}`);
+            //logger.debug(`Updated current round state with images: ${state.getCurrentRound().image1URL} / ${state.getCurrentRound().image2URL}`);
         },
 
         async setupRound(pair, imageData) {
@@ -260,20 +274,20 @@ const roundManager = {
                     taxonImage1: pair.taxonA,
                     taxonImage2: pair.taxonB,
                 };
-                logger.debug(`Using new pair images: ${imageData.taxonImage1Src} / ${imageData.taxonImage2Src}`);
+                //logger.debug(`Using new pair images: ${imageData.taxonImage1Src} / ${imageData.taxonImage2Src}`);
             } else {
                 // For existing pairs, use getAndProcessImages as before
                 const pairData = { pair, preloadedImages: null };
                 imageData = await roundManager.imageHandling.getAndProcessImages(pairData, isNewPair);
             }
             
-            logger.debug(`Setting up round with images: ${imageData.taxonImage1Src} / ${imageData.taxonImage2Src}`);
+            //logger.debug(`Setting up round with images: ${imageData.taxonImage1Src} / ${imageData.taxonImage2Src}`);
             
             this.setObservationURLs(imageData);
 
             const { nameTileData, worldMapData } = await this.setupRound(pair, imageData, isNewPair);
 
-            logger.debug(`Round setup complete. Image1: ${state.getCurrentRound().image1URL}, Image2: ${state.getCurrentRound().image2URL}`);
+            //logger.debug(`Round setup complete. Image1: ${state.getCurrentRound().image1URL}, Image2: ${state.getCurrentRound().image2URL}`);
 
             return { imageData, nameTileData, worldMapData };
         },
@@ -313,7 +327,7 @@ const roundManager = {
             if (taxonData && taxonData.range && taxonData.range.length > 0) {
                 return taxonData.range.map(code => worldMap.getFullContinentName(code));
             }
-            logger.debug(`No range data found for ${taxon}. Using placeholder.`);
+            //logger.debug(`No range data found for ${taxon}. Using placeholder.`);
             return [];
         },
     },
@@ -373,7 +387,8 @@ const bindMethodsRecursively = (obj) => {
 bindMethodsRecursively(roundManager);
 
 const publicAPI = {
-    loadNewRound: roundManager.initialization.loadNewRound,
+    OLDloadNewRound: roundManager.initialization.OLDloadNewRound,
+    loadNewRound: roundManager.initialization.TODOloadNewRound,
     setupRound: roundManager.setupComponents.setupRound,
     setupRoundFromGameSetup: roundManager.setupComponents.setupRoundFromGameSetup,
     // just temporarily public during refactoring:

@@ -1,8 +1,8 @@
 import api from './api.js';
 import collectionManager from './collectionManager.js';
 import config from './config.js';
+import errorHandling from './errorHandling.js';
 import filtering from './filtering.js';
-import iNatDownDialog from './iNatDownDialog.js';
 import logger from './logger.js';
 import pairManager from './pairManager.js';
 import preloader from './preloader.js';
@@ -16,33 +16,23 @@ const gameSetup = {
 
     initialization: {
 
-        async checkINaturalistReachability() {
-            if (!await api.externalAPIs.isINaturalistReachable()) {
-                iNatDownDialog.showINatDownDialog();
-                state.setState(state.GameState.IDLE);
-                return false;
-            }
-            iNatDownDialog.hideINatDownDialog();
-            return true;
-        },
-
         async setupPairOrRound(newPair) {
-            logger.debug('setupPairOrRound called with newPair:', newPair);
+            //logger.debug('setupPairOrRound called with newPair:', newPair);
             state.setState(state.GameState.LOADING);
 
-            if (!await this.checkINaturalistReachability()) return;
+            if (!await api.externalAPIs.checkINaturalistReachability()) return;
             roundManager.prepareImagesForLoading();
 
             if (newPair || !state.getCurrentTaxonImageCollection()) {
-                logger.debug('Initializing new pair');
+                //logger.debug('Initializing new pair');
                 await pairManager.initializeNewPair();
             } else {
-                logger.debug('Setting up round from game setup');
+                //logger.debug('Setting up round from game setup');
                 await roundManager.setupRoundFromGameSetup();
             }
 
             this.updateUIAfterSetup(newPair);
-            logger.debug('setupPairOrRound completed');
+            //logger.debug('setupPairOrRound completed');
         },
 
         updateUIAfterSetup(newPair) {
@@ -126,24 +116,7 @@ const gameSetup = {
         },
     },
 
-    errorHandling: {
-        handleSetupError(error) {
-            logger.error("Error setting up game:", error);
-            if (error.message === "Failed to select a valid taxon pair") {
-                ui.showOverlay("No valid taxon pairs found. Please check your filters and try again.", config.overlayColors.red);
-            } else {
-                ui.showOverlay("Error loading game. Please try again.", config.overlayColors.red);
-            }
-            state.setState(state.GameState.IDLE);
-            if (state.getIsInitialLoad()) {
-                ui.hideLoadingScreen();
-                state.updateGameStateMultiple({ isInitialLoad: false });
-            }
-        },
-    },
-
-    async setupGame(newPair = false) {
-        logger.debug('setupGame called with newPair:', newPair);
+    /*async setupGame(newPair = false) {
         if (isSettingUpGame) {
             logger.warn("Setup already in progress, skipping");
             return;
@@ -154,13 +127,13 @@ const gameSetup = {
         try {
             await this.initialization.setupPairOrRound(newPair);
         } catch (error) {
-            this.errorHandling.handleSetupError(error);
+            errorHandling.handleSetupError(error);
         } finally {
             isSettingUpGame = false;
             state.setState(state.GameState.PLAYING);
         }
-        logger.debug('setupGame completed');
-    },
+        //logger.debug('setupGame completed');
+    },*/
 
 };
 
@@ -178,9 +151,10 @@ const bindMethodsRecursively = (obj) => {
 bindMethodsRecursively(gameSetup);
 
 const publicAPI = {
-    setupGame: gameSetup.setupGame.bind(gameSetup),
+    /*setupGame: gameSetup.setupGame.bind(gameSetup),*/
     // used once in gameLogic
     // setupGameWithPreloadedPair: gameSetup.initialization.setupGameWithPreloadedPair.bind(this)
+    setupPairOrRound: gameSetup.initialization.setupPairOrRound,
 };
 
 // Bind publicAPI methods

@@ -1,5 +1,7 @@
 import config from './config.js';
+import iNatDownDialog from './iNatDownDialog.js';
 import logger from './logger.js';
+import state from './state.js';
 import TaxonomyHierarchy from './taxonomyHierarchy.js';
 
 const handleApiError = (error, context) => {
@@ -416,6 +418,17 @@ const api = (() => {
                 }
             },
 
+            async checkINaturalistReachability() {
+                if (!await this.isINaturalistReachable()) {
+                    iNatDownDialog.showINatDownDialog();
+                    state.setState(state.GameState.IDLE);
+                    return false;
+                } else {
+                    iNatDownDialog.hideINatDownDialog();
+                    return true;
+                }
+            },
+
             checkWikipediaPage: async function (taxonName) {
                 const encodedTaxonName = encodeURIComponent(taxonName);
                 const apiUrl = `https://en.wikipedia.org/w/api.php?action=query&titles=${encodedTaxonName}&format=json&origin=*`;
@@ -484,6 +497,7 @@ const publicAPI = {
     },
     externalAPIs: {
         isINaturalistReachable: api.externalAPIs.isINaturalistReachable,
+        checkINaturalistReachability: api.externalAPIs.checkINaturalistReachability,
         checkWikipediaPage: api.externalAPIs.checkWikipediaPage
     },
     utils: {
