@@ -297,9 +297,9 @@ class Tutorial {
             const preloadedImages = preloader.roundPreloader.getPreloadedImagesForRoundDemo();
 
             if (preloadedImages && preloadedImages.taxonA && preloadedImages.taxonB) {
-                // Fade out current images
-                image1.style.transition = image2.style.transition = 'opacity 0.3s ease-out';
-                image1.style.opacity = image2.style.opacity = '0';
+                // Fade out
+                image1.classList.add('image-container__image--fade');
+                image2.classList.add('image-container__image--fade');
 
                 await utils.ui.sleep(300); // Wait for fade out
 
@@ -308,12 +308,14 @@ class Tutorial {
                 image2.src = preloadedImages.taxonB;
 
                 // Fade in new images
-                image1.style.opacity = image2.style.opacity = '1';
+                image1.classList.remove('image-container__image--fade');
+                image2.classList.remove('image-container__image--fade');
 
                 await utils.ui.sleep(3000); // Display for 3 seconds
 
                 // Fade out again
-                image1.style.opacity = image2.style.opacity = '0';
+                image1.classList.add('image-container__image--fade');
+                image2.classList.add('image-container__image--fade');
 
                 await utils.ui.sleep(300); // Wait for fade out
 
@@ -322,14 +324,18 @@ class Tutorial {
                 image2.src = originalSrc2;
 
                 // Fade in original images
-                image1.style.opacity = image2.style.opacity = '1';
+                image1.classList.remove('image-container__image--fade');
+                image2.classList.remove('image-container__image--fade');
 
-                // Clean up transitions
+                // Clean up
                 await utils.ui.sleep(300);
-                image1.style.transition = image2.style.transition = '';
             } else {
                 logger.warn('No preloaded images available for demonstration');
             }
+
+            // Ensure no inline styles are left
+            image1.removeAttribute('style');
+            image2.removeAttribute('style');
         }
 
         tiltGameContainer(duration = 3200) {
