@@ -38,7 +38,7 @@ const collectionManager = {
             this.initializeFilterSummaryMap();
             this.initializeFilterSummaryTags();
             this.initializeClearFiltersButton();
-            this.initializeCollectionManagerDoneButton();
+            //this.initializeCollectionManagerDoneButton();
             this.initializeLevelDropdown();
             this.initializePhylogenySelector();
 
@@ -90,12 +90,12 @@ const collectionManager = {
             }
         },
 
-        initializeCollectionManagerDoneButton() {
+        /*initializeCollectionManagerDoneButton() {
             const selectPairDoneButton = document.getElementById('collection-done-button');
             if (selectPairDoneButton) {
                 selectPairDoneButton.addEventListener('click', collectionManager.eventHandlers.handleCollectionManagerDone);
             }
-        },
+        },*/
 
         setupCollectionManagerDialog() {
             const playButton = document.getElementById('collection-done-button');
