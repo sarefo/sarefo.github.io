@@ -28,7 +28,7 @@ const roundManager = {
                 } else {
                     await roundManager.setupComponents.setupRoundFromGameSetup();
                 }
-                //await gameSetup.setupPairOrRound(false);
+                await roundManager.imageHandling.fadeInNewImages();
             } catch (error) {
                 errorHandling.handleSetupError(error);
             } finally {
@@ -128,6 +128,19 @@ const roundManager = {
                 taxonA: await preloader.imageLoader.fetchDifferentImage(pair.taxonA, null),
                 taxonB: await preloader.imageLoader.fetchDifferentImage(pair.taxonB, null)
             };
+        },
+
+        async fadeInNewImages() {
+            const image1 = state.getElement('image1');
+            const image2 = state.getElement('image2');
+            
+            image1.classList.add('image-container__image--fade-in');
+            image2.classList.add('image-container__image--fade-in');
+            
+            await new Promise(resolve => setTimeout(resolve, 300)); // Match CSS transition
+
+            image1.classList.remove('image-container__image--fade-in');
+            image2.classList.remove('image-container__image--fade-in');
         },
 
         async loadImage(imgElement, src) {
