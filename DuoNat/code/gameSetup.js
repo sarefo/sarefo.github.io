@@ -116,25 +116,6 @@ const gameSetup = {
         },
     },
 
-    /*async setupGame(newPair = false) {
-        if (isSettingUpGame) {
-            logger.warn("Setup already in progress, skipping");
-            return;
-        }
-
-        isSettingUpGame = true;
-
-        try {
-            await this.initialization.setupPairOrRound(newPair);
-        } catch (error) {
-            errorHandling.handleSetupError(error);
-        } finally {
-            isSettingUpGame = false;
-            state.setState(state.GameState.PLAYING);
-        }
-        //logger.debug('setupGame completed');
-    },*/
-
 };
 
 // Bind all methods in gameSetup and its nested objects
@@ -151,9 +132,6 @@ const bindMethodsRecursively = (obj) => {
 bindMethodsRecursively(gameSetup);
 
 const publicAPI = {
-    /*setupGame: gameSetup.setupGame.bind(gameSetup),*/
-    // used once in gameLogic
-    // setupGameWithPreloadedPair: gameSetup.initialization.setupGameWithPreloadedPair.bind(this)
     setupPairOrRound: gameSetup.initialization.setupPairOrRound,
 };
 
