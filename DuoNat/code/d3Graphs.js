@@ -98,41 +98,6 @@ class BaseTree {
         `);
     }
 
-    /*_handleClick(d) {
-        //logger.debug(`Clicked node: Taxon ID = ${d.data.id}, Taxon Name = ${d.data.taxonName}`);
-
-        if (d === this.activeNode) {
-            logger.debug("Active node is not clickable.");
-            return;
-        }
-
-        if (d.data.taxonName === "Life") {
-            //logger.debug("Life node clicked. Clearing selection.");
-            phylogenySelector.clearSelection();
-            return;
-        }
-
-        if (d !== this.parentNode) {
-            this.parentNode = d.parent || this.parentNode;
-            this.activeNode = d;
-        } else if (d.parent) {
-            this.parentNode = d.parent;
-            this.activeNode = d;
-        }
-
-        if (d._children) {
-            d.children = d._children;
-            d._children = null;
-        }
-
-        this.update(this.activeNode);
-
-        if (this.onNodeSelect) {
-            this.onNodeSelect(this.activeNode.data.id);
-        }
-        state.setCurrentActiveNodeId(this.activeNode.data.id);
-    }*/
-
     calculateRadius(pairCount, maxCount) {
         const minRadius = 3;
         const maxRadius = 15;
