@@ -20,8 +20,6 @@ const roundManager = {
             state.setState(state.GameState.LOADING_ROUND);
             if (!await api.externalAPIs.checkINaturalistReachability()) return;
 
-
-
             try {
                 roundManager.imageHandling.prepareImagesForLoading();
                 if (!state.getCurrentTaxonImageCollection()) { // TODO no idea what this really does yet
@@ -38,6 +36,7 @@ const roundManager = {
             gameSetup.updateUIAfterSetup(false); // TODO
         },
 
+        // TODO still called from pairManager.attemptToLoadNewPair(usePreloadedPair)
         async OLDloadNewRound(isNewPair = false) {
             //logger.warn(`Starting loadNewRound. isNewPair: ${isNewPair}`);
             this.initializeRoundLoading();

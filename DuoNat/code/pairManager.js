@@ -187,7 +187,10 @@ const pairManager = {
             await roundManager.setupRoundFromGameSetup(true);
         },
 
-        async TODOloadNewPair (pairID = null) {
+        // called from collMan, iNatDown, enterPair, main
+        async loadNewPair (pairID = null) {
+            // TODO process pairID inside this function, not before
+
             logger.debug("loadNewPair");
             state.setState(state.GameState.LOADING_PAIR);
             if (!await api.externalAPIs.checkINaturalistReachability()) return;
@@ -200,30 +203,33 @@ const pairManager = {
             
         },
 
-
+        // called from swipe-left
         async loadNewRandomPair(usePreloadedPair = true) {
             pairManager.uiHandling.prepareForNewPair();
 
             try {
-                await this.attemptToLoadNewPair(usePreloadedPair);
+                //await this.attemptToLoadNewPair(usePreloadedPair);
+                await roundManager.OLDloadNewRound(true);
+
+                if (state.getState() !== state.GameState.PLAYING) {
+                    await this.fallbackPairLoading(usePreloadedPair);
+                }
+
+                const newPair = state.getCurrentTaxonImageCollection().pair;
+                pairManager.uiHandling.updateUIForNewPair(newPair);
             } catch (error) {
                 pairManager.errorHandling.handlePairLoadingError(error);
             } finally {
-                pairManager.utilities.finalizePairLoading();
+                if (state.getState() !== state.GameState.PLAYING) {
+                    state.setState(state.GameState.PLAYING);
+                }
+                preloader.startPreloading(true);
             }
         },
 
         // TODO FIX maybe should not call roundManager
-        async attemptToLoadNewPair(usePreloadedPair) {
-            await roundManager.OLDloadNewRound(true);
-
-            if (state.getState() !== state.GameState.PLAYING) {
-                await this.fallbackPairLoading(usePreloadedPair);
-            }
-
-            const newPair = state.getCurrentTaxonImageCollection().pair;
-            pairManager.uiHandling.updateUIForNewPair(newPair);
-        },
+        /*async attemptToLoadNewPair(usePreloadedPair) {
+        },*/
 
         async fallbackPairLoading(usePreloadedPair) {
             let newPair;
@@ -238,6 +244,7 @@ const pairManager = {
         },
 
         async selectAndSetupRandomPair() {
+            logger.warn("selectAndSetupRandomPair");
             const newPair = await pairManager.pairSelection.selectRandomPairFromCurrentCollection();
             if (newPair) {
                 state.setNextSelectedPair(newPair);
@@ -402,13 +409,6 @@ const pairManager = {
                 [array[i], array[j]] = [array[j], array[i]];
             }
         },
-
-        finalizePairLoading() {
-            if (state.getState() !== state.GameState.PLAYING) {
-                state.setState(state.GameState.PLAYING);
-            }
-            preloader.startPreloading(true);
-        },
     },
 };
 
@@ -431,7 +431,7 @@ const publicAPI = {
     getNextPair: pairManager.pairManagement.getNextPair,
     //getNextPairFromCollection: pairManager.pairSelection.getNextPairFromCollection,
     //loadNewPair: pairManager.pairLoading.loadNewPair,
-    loadNewPair: pairManager.pairLoading.TODOloadNewPair,
+    loadNewPair: pairManager.pairLoading.loadNewPair,
     loadNewRandomPair: pairManager.pairLoading.loadNewRandomPair,
     refreshCollectionSubset: pairManager.initialization.refreshCollectionSubset,
     selectNewPair: pairManager.pairSelection.selectNewPair,
