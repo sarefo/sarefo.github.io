@@ -187,8 +187,7 @@ const pairManager = {
             await roundManager.setupRoundFromGameSetup(true);
         },
 
-        async TODOloadNewPair () {
-        //async TODOloadNewPair (pairID = null) {
+        async TODOloadNewPair (pairID = null) {
             logger.debug("loadNewPair");
             state.setState(state.GameState.LOADING);
 
