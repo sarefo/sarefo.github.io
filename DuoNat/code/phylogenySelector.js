@@ -521,11 +521,11 @@ const phylogenySelector = {
         const activeNodeId = d3Graphs.getActiveNodeId();
         if (activeNodeId) {
             state.setPhylogenyId(activeNodeId);
-            logger.debug(`Phylogeny ID set to: ${activeNodeId}`);
+            //logger.debug(`Phylogeny ID set to: ${activeNodeId}`);
         } else {
             // If no node is selected, clear the phylogeny filter
             state.setPhylogenyId(null);
-            logger.debug('Phylogeny filter cleared');
+            //logger.debug('Phylogeny filter cleared');
         }
         collectionManager.updateFilterSummary();
         collectionManager.onFiltersChanged();

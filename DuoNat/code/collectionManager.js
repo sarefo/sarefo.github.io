@@ -92,10 +92,19 @@ const collectionManager = {
         setupCollectionManagerDialog() {
             const playButton = document.getElementById('collection-done-button');
             if (playButton) {
-                playButton.addEventListener('click', (event) => {
+                // Remove any existing event listeners
+                if (this.handlePlayButtonClick) {
+                    playButton.removeEventListener('click', this.handlePlayButtonClick);
+                }
+                
+                // Add the event listener
+                this.handlePlayButtonClick = (event) => {
                     event.preventDefault();
                     collectionManager.eventHandlers.handleCollectionManagerDone();
-                });
+                };
+                playButton.addEventListener('click', this.handlePlayButtonClick);
+                
+                //logger.debug("Collection manager dialog setup complete");
             } else {
                 logger.error('Play button not found in collection-dialog');
             }
@@ -548,11 +557,6 @@ const collectionManager = {
 
     eventHandlers: {
         async handleCollectionManagerDone() {
-            // Add a loading flag to prevent multiple calls
-            if (this.isLoadingNewPair) {
-                logger.warn("Already loading a new pair, skipping additional load");
-                return;
-            }
             this.isLoadingNewPair = true;
 
             try {
@@ -560,24 +564,31 @@ const collectionManager = {
                 await pairManager.refreshCollectionSubset();
                 dialogManager.closeDialog('collection-dialog');
 
-                // Clear the preloaded pair
-                preloader.pairPreloader.clearPreloadedPair();
-
-                // Load a new pair that matches the current filters
+                // Get current filters and filtered pairs
                 const filters = filtering.getActiveFilters();
                 const filteredPairs = await filtering.getFilteredTaxonPairs(filters);
                 
-                if (filteredPairs.length > 0) {
+                // Get the current pair
+                const currentPair = state.getCurrentTaxonImageCollection()?.pair;
+
+                // Check if the current pair is in the filtered collection
+                const currentPairInCollection = currentPair && filteredPairs.some(pair => pair.pairID === currentPair.pairID);
+
+                if (!currentPairInCollection && filteredPairs.length > 0) {
+                    // Only load a new pair if the current pair is not in the filtered collection
+
+                    preloader.pairPreloader.clearPreloadedPair();
+
                     const randomPair = filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
                     await pairManager.loadNewPair(randomPair.pairID);
-                    // Remove any queued calls to loadNewPair
                     if (this.loadNewPairTimeout) {
                         clearTimeout(this.loadNewPairTimeout);
                     }
-                } else {
+                } else if (filteredPairs.length === 0) {
                     logger.warn("No pairs available in the current filtered collection");
                     ui.showOverlay("No pairs available for the current filters. Please adjust your selection.", config.overlayColors.red);
                 }
+                // If the current pair is in the collection, do nothing and keep the current pair
             } catch (error) {
                 logger.error("Error in handleCollectionManagerDone:", error);
             } finally {
@@ -594,7 +605,7 @@ const collectionManager = {
                 pairID: pair.pairID,
                 level: pair.level
             };
-            logger.debug('Selected pair:', selectedPair);
+            //logger.debug('Selected pair:', selectedPair);
             dialogManager.closeDialog('collection-dialog');
             
             // Clear the preloaded pair before setting up the new game

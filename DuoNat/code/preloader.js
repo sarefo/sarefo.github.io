@@ -297,7 +297,7 @@ const preloader = {
     pairPreloader,
 
     async startPreloading(isNewPair) {
-        logger.warn("startPreloading()");
+        //logger.warn("startPreloading()");
         //logger.debug(`Starting preloading. isNewPair: ${isNewPair}`);
         try {
             await this.roundPreloader.preloadForNextRound();

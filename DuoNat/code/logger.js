@@ -29,6 +29,12 @@ const logger = {
         }
     },
 
+    trace(message, ...args) {
+        if (this.level >= LogLevel.INFO) {
+            console.warn(`[TRACE] ${message}`, ...args);
+        }
+    },
+
     info(message, ...args) {
         if (this.level >= LogLevel.INFO) {
             console.info(`[INFO] ${message}`, ...args);
@@ -63,6 +69,7 @@ const publicAPI = {
     debug: logger.debug,
     warn: logger.warn,
     error: logger.error,
+    trace: logger.trace,
     info: logger.info
 };
 

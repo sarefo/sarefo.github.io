@@ -98,8 +98,8 @@ class BaseTree {
         `);
     }
 
-    _handleClick(d) {
-        logger.debug(`Clicked node: Taxon ID = ${d.data.id}, Taxon Name = ${d.data.taxonName}`);
+    /*_handleClick(d) {
+        //logger.debug(`Clicked node: Taxon ID = ${d.data.id}, Taxon Name = ${d.data.taxonName}`);
 
         if (d === this.activeNode) {
             logger.debug("Active node is not clickable.");
@@ -107,7 +107,7 @@ class BaseTree {
         }
 
         if (d.data.taxonName === "Life") {
-            logger.debug("Life node clicked. Clearing selection.");
+            //logger.debug("Life node clicked. Clearing selection.");
             phylogenySelector.clearSelection();
             return;
         }
@@ -131,7 +131,7 @@ class BaseTree {
             this.onNodeSelect(this.activeNode.data.id);
         }
         state.setCurrentActiveNodeId(this.activeNode.data.id);
-    }
+    }*/
 
     calculateRadius(pairCount, maxCount) {
         const minRadius = 3;
@@ -546,7 +546,7 @@ class RadialTree extends BaseTree {
     }
 
     _handleClick(d) {
-        logger.debug(`Clicked node: Taxon ID = ${d.data.id}, Taxon Name = ${d.data.taxonName}`);
+        //logger.debug(`Clicked node: Taxon ID = ${d.data.id}, Taxon Name = ${d.data.taxonName}`);
 
         if (d === this.activeNode) {
             logger.debug("Active node is not clickable.");
@@ -554,7 +554,7 @@ class RadialTree extends BaseTree {
         }
 
         if (d.data.taxonName === "Life") {
-            logger.debug("Life node clicked. Clearing selection.");
+            //logger.debug("Life node clicked. Clearing selection.");
             phylogenySelector.clearSelection();
             return;
         }
@@ -573,7 +573,7 @@ class RadialTree extends BaseTree {
         }
 
         this.update(this.activeNode);
-        this._centerGraphOnActiveNode(); // Add this line
+        this._centerGraphOnActiveNode();
 
         if (this.onNodeSelect) {
             this.onNodeSelect(this.activeNode.data.id);

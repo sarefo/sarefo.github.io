@@ -179,7 +179,7 @@ const pairManager = {
     pairLoading: {
         async initializeNewPair() {
             const newPair = await pairManager.pairSelection.selectNewPair();
-            logger.debug(`Initializing new pair: ${newPair.taxonA} / ${newPair.taxonB}`);
+            //logger.debug(`Initializing new pair: ${newPair.taxonA} / ${newPair.taxonB}`);
             pairManager.pairManagement.resetUsedImagesForNewPair(newPair);
             const images = await pairManager.imageHandling.loadImagesForNewPair(newPair);
             //logger.debug(`Loaded images for new pair: ${images.taxonA} / ${images.taxonB}`);
@@ -191,7 +191,7 @@ const pairManager = {
         // called from collMan, iNatDown, enterPair, main
         // TODO process pairID inside this function, not before
         async loadNewPair (pairID = null, usePreloadedPair = true) {
-            logger.debug("loadNewPair");
+            logger.trace("loadNewPair");
             state.setState(state.GameState.LOADING_PAIR);
             if (!await api.externalAPIs.checkINaturalistReachability()) return;
             roundManager.prepareImagesForLoading();
@@ -202,7 +202,7 @@ const pairManager = {
             if (pairID) {
                 selectedPair = await pairManager.pairManagement.getPairByID(pairID);
                 if (selectedPair) {
-                    logger.debug(`Using selected pair: ${selectedPair.pairID}`);
+                    //logger.debug(`Using selected pair: ${selectedPair.pairID}`);
                 } else {
                     logger.warn(`Pair with ID ${pairID} not found. Falling back to random selection.`);
                 }
@@ -240,7 +240,7 @@ const pairManager = {
 
             const selectedPair = await pairManager.pairSelection.selectRandomPairFromCurrentCollection();
             if (selectedPair) {
-                logger.debug(`Selected random pair: ${selectedPair.pairID}`);
+                //logger.debug(`Selected random pair: ${selectedPair.pairID}`);
                 return selectedPair;
             }
 
