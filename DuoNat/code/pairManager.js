@@ -195,12 +195,56 @@ const pairManager = {
             state.setState(state.GameState.LOADING_PAIR);
             if (!await api.externalAPIs.checkINaturalistReachability()) return;
             roundManager.prepareImagesForLoading();
+
+            let selectedPair;
+
+            // New logic for pair selection
+            if (pairID) {
+                // If a pairID is provided, load that specific pair
+                selectedPair = await pairManager.pairManagement.getPairByID(pairID);
+                if (!selectedPair) {
+                    logger.warn(`Pair with ID ${pairID} not found. Falling back to random selection.`);
+                }
+            }
+
+            if (!selectedPair) {
+                selectedPair = await this.selectPairForLoading(usePreloadedPair);
+            }
+
+            if (!selectedPair) {
+                logger.error("Failed to select a pair. Aborting loadNewPair.");
+                state.setState(state.GameState.PLAYING);
+                return;
+            }
+
+            // TODO seems like nothing done yet with selectedPair?
+
             await this.initializeNewPair();
             gameSetup.updateUIAfterSetup(true);
 
             // TODO
             // roundManager.loadNewRound();
             
+        },
+
+        // TODO move or restructure later
+        async selectPairForLoading(usePreloadedPair = true) {
+            if (usePreloadedPair) {
+                const preloadedPair = preloader.pairPreloader.getPreloadedImagesForNextPair()?.pair;
+                if (preloadedPair) {
+                    logger.debug(`Using preloaded pair: ${preloadedPair.pairID}`);
+                    return preloadedPair;
+                }
+            }
+
+            const selectedPair = await pairManager.pairSelection.selectRandomPairFromCurrentCollection();
+            if (selectedPair) {
+                logger.debug(`Selected random pair: ${selectedPair.pairID}`);
+                return selectedPair;
+            }
+
+            logger.warn('No available pairs in the current collection');
+            return null;
         },
 
         // called from swipe-left
