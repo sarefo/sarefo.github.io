@@ -1,6 +1,5 @@
 import api from './api.js';
 import config from './config.js';
-import errorHandling from './errorHandling.js';
 import filtering from './filtering.js';
 import logger from './logger.js';
 import preloader from './preloader.js';
@@ -398,7 +397,6 @@ const bindMethodsRecursively = (obj) => {
         }
     });
 };
-
 bindMethodsRecursively(pairManager);
 
 const publicAPI = {
