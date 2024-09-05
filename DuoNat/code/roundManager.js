@@ -17,12 +17,12 @@ const roundManager = {
     initialization: {
 
         async loadNewRound() {
-            //logger.trace("loadNewRound");
             state.setState(state.GameState.LOADING_ROUND);
             if (!await api.externalAPIs.checkINaturalistReachability()) return;
 
             try {
                 ui.prepareImagesForLoading();
+                preloader.roundPreloader.clearPreloadedImagesForNextRound();
                 await this.setupFurtherRound();
                 await this.fadeInNewImages();
             } catch (error) {

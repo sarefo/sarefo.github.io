@@ -24,7 +24,7 @@ const pairManager = {
             if (!await api.externalAPIs.checkINaturalistReachability()) return;
 
             ui.prepareImagesForLoading();
-            preloader.roundPreloader.clearPreloadedImagesForNextRound();
+            //preloader.roundPreloader.clearPreloadedImagesForNextRound();
 
             let selectedPair;
 
@@ -58,8 +58,8 @@ const pairManager = {
                 if (state.getState() !== state.GameState.PLAYING) {
                     state.setState(state.GameState.PLAYING);
                 }
-                preloader.startPreloading(true);
-                // TODO start pair preloading
+                preloader.startPreloading(true); // TODO start pair preloading
+                
                 ui.setNamePairHeight();
                 ui.updateLevelIndicator(selectedPair.level);
             }
