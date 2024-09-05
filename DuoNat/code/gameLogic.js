@@ -63,7 +63,7 @@ const gameLogic = {
 
         async handleCorrectAnswer() {
             await ui.showOverlay('Correct!', config.overlayColors.green);
-            roundManager.prepareImagesForLoading();
+            ui.prepareImagesForLoading();
             await utils.ui.sleep(1700);
             ui.resetDraggables();
             await roundManager.loadNewRound();

@@ -201,7 +201,6 @@ const pairPreloader = {
 
         // called from 
         // - pairManager.selectPairForLoading()
-        // - pairManager.getNextPair()
         // - pairManager.loadImagesForNewPair()
         getPreloadedImagesForNextPair() {
             //logger.trace("getPreloadedImagesForNextPair");

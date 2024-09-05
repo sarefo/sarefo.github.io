@@ -417,6 +417,41 @@ const publicAPI = {
         });
     },
 
+    // called only from pairManager.initializeNewPair()
+    updateGameStateForNewPair(newPair, images) {
+        this.updateGameStateMultiple({
+            currentTaxonImageCollection: {
+                pair: newPair,
+                image1URL: images.taxonA,
+                image2URL: images.taxonB,
+                level: newPair.level,
+            },
+            usedImages: {
+                taxonA: new Set([images.taxonA]),
+                taxonB: new Set([images.taxonB]),
+            },
+        });
+        this.setCurrentPairID(newPair.pairID || state.getCurrentPairID());
+    },
+
+    // called only from roundManager.setupRound()
+    updateGameStateForRound(pair, imageData, nameTileData) {
+        const { taxonImage1Src, taxonImage2Src, randomized, taxonImage1, taxonImage2 } = imageData;
+
+        this.updateGameStateMultiple({
+            taxonImage1: taxonImage1,
+            taxonImage2: taxonImage2,
+            currentRound: {
+                pair,
+                image1URL: taxonImage1Src,
+                image2URL: taxonImage2Src,
+                image1Vernacular: nameTileData.vernacularX,
+                image2Vernacular: nameTileData.vernacularY,
+                randomized: randomized,
+            },
+        });
+    },
+
     // Utility method to get game state info for reporting
     getGameStateInfo: () => {
         let info = '';
