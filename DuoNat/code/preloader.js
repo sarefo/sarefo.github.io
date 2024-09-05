@@ -128,9 +128,7 @@ const roundPreloader = {
         return images;
     },
 
-    // called from:
-    // - pairManager.loadNewRandomPair() > eliminate
-    // - roundManager.getImages()
+    // called only from roundManager.getImages()
     clearPreloadedImagesForNextRound() {
         //logger.trace("clearPreloadedImagesForNextRound");
         preloader.preloadedImages.nextRound = { taxonA: null, taxonB: null };
@@ -332,7 +330,6 @@ Object.keys(preloader).forEach(key => {
 });
 
 const publicAPI = {
-    //startPreloading: preloader.startPreloading.bind(preloader),
     pairPreloader: {
         clearPreloadedPair: preloader.pairPreloader.clearPreloadedPair,
         getPreloadedImagesForNextPair: preloader.pairPreloader.getPreloadedImagesForNextPair,
