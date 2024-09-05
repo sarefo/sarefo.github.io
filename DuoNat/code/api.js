@@ -322,7 +322,7 @@ const api = (() => {
                     images = [...new Set(images)];
                     images = images.sort(() => Math.random() - 0.5);
 
-                    logger.trace(`fetched ${images.length} images from iNat for taxon:`, taxonName);
+                    //logger.trace(`fetched ${images.length} images from iNat for taxon:`, taxonName);
                     return images.slice(0, Math.min(count, images.length));
 
                 } catch (error) {

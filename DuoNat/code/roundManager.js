@@ -17,7 +17,7 @@ const roundManager = {
     initialization: {
 
         async loadNewRound() {
-            logger.debug("loadNewRound");
+            //logger.debug("loadNewRound");
             state.setState(state.GameState.LOADING_ROUND);
             if (!await api.externalAPIs.checkINaturalistReachability()) return;
 

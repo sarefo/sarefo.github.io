@@ -127,7 +127,7 @@ const roundPreloader = {
     // - pairManager.loadNewRandomPair() > eliminate
     // - roundManager.getImages()
     clearPreloadedImagesForNextRound() {
-        logger.trace("clearPreloadedImagesForNextRound");
+        //logger.trace("clearPreloadedImagesForNextRound");
         preloader.preloadedImages.nextRound = { taxonA: null, taxonB: null };
         //logger.debug("Cleared preloaded images for next round");
     },
@@ -138,7 +138,7 @@ const pairPreloader = {
 
     clearPreloadedPair() {
         preloader.preloadedImages.nextPair = null;
-        //logger.debug("Cleared preloaded pair");
+        logger.debug("Cleared preloaded pair");
 
     },
 
@@ -199,18 +199,18 @@ const pairPreloader = {
         return matchesLevel;
     },
 
-    getPreloadedImagesForNextPair() {
-        if (this.hasPreloadedPair()) {
-            const images = preloader.preloadedImages.nextPair;
-            //logger.debug(`Retrieving preloaded pair: ${images.pair.taxonA} / ${images.pair.taxonB}, Skill Level: ${images.pair.level}`);
-            //logger.debug(`Preloaded images: ${images.taxonA} / ${images.taxonB}`);
-            preloader.preloadedImages.nextPair = null;
-            return images;
-        } else {
-            logger.debug("No preloaded pair available");
-            return null;
-        }
-    },
+        getPreloadedImagesForNextPair() {
+            if (this.hasPreloadedPair()) {
+                const images = preloader.preloadedImages.nextPair;
+                //logger.debug(`Retrieving preloaded pair: ${images.pair.taxonA} / ${images.pair.taxonB}, Pair ID: ${images.pair.pairID}`);
+                //logger.debug(`Preloaded images: ${images.taxonA} / ${images.taxonB}`);
+                // Don't clear the preloaded images here
+                return images;
+            } else {
+                logger.debug("No preloaded pair available");
+                return null;
+            }
+        },
 
     hasPreloadedPair() {
         return preloader.preloadedImages.nextPair != null && preloader.preloadedImages.nextPair.pair != null;
@@ -304,8 +304,7 @@ const preloader = {
     // - gameSetup.finishSetup() (newPair)
     // - pairManager.loadNewPair() (true)
     async startPreloading(isNewPair) {
-        logger.trace("startPreloading()");
-        //logger.debug(`Starting preloading. isNewPair: ${isNewPair}`);
+        //logger.trace("startPreloading()");
         try {
             await this.roundPreloader.preloadForNextRound();
             if (isNewPair || !this.pairPreloader.hasPreloadedPair()) {

@@ -405,19 +405,20 @@ const pairManager = {
     imageHandling: {
         async loadImagesForNewPair(newPair) {
             const preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
-            //logger.debug(`Attempting to load images for new pair: ${newPair.taxonA} / ${newPair.taxonB}`);
-            //logger.debug(`Preloaded images available: ${!!preloadedImages}`);
             
             if (preloadedImages && preloadedImages.pair.pairID === newPair.pairID) {
-                //logger.debug(`Using preloaded images for pair ID ${newPair.pairID}`);
-                return preloadedImages;
+                logger.debug(`Using preloaded images for pair ID ${newPair.pairID}`);
+                // Clear the preloaded images after using them
+                preloader.pairPreloader.clearPreloadedPair();
+                return {
+                    taxonA: preloadedImages.taxonA,
+                    taxonB: preloadedImages.taxonB,
+                };
             }
             
             //logger.debug(`Fetching new images for pair ID ${newPair.pairID}`);
             const taxonAImage = await preloader.imageLoader.fetchDifferentImage(newPair.taxonA || newPair.taxonNames[0], null);
             const taxonBImage = await preloader.imageLoader.fetchDifferentImage(newPair.taxonB || newPair.taxonNames[1], null);
-            
-            //logger.debug(`Fetched images: ${taxonAImage} / ${taxonBImage}`);
             
             return {
                 taxonA: taxonAImage,
