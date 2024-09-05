@@ -2,7 +2,6 @@ import api from './api.js';
 import config from './config.js';
 import errorHandling from './errorHandling.js';
 import filtering from './filtering.js';
-import gameSetup from './gameSetup.js'; // TODO remove after streamlining
 import logger from './logger.js';
 import preloader from './preloader.js';
 import roundManager from './roundManager.js';
@@ -190,9 +189,9 @@ const pairManager = {
             const newPair = await pairManager.pairSelection.selectNewPair();
             //logger.debug(`Initializing new pair: ${newPair.taxonA} / ${newPair.taxonB}`);
             pairManager.pairManagement.resetUsedImagesForNewPair(newPair);
-            const images = await pairManager.imageHandling.loadImagesForNewPair(newPair);
+            const imageData = await pairManager.imageHandling.loadImagesForNewPair(newPair);
             //logger.debug(`Loaded images for new pair: ${images.taxonA} / ${images.taxonB}`);
-            pairManager.stateManagement.updateGameStateForNewPair(newPair, images);
+            pairManager.stateManagement.updateGameStateForNewPair(newPair, imageData);
             await roundManager.setupRoundFromGameSetup(true);
             state.setNextSelectedPair(null); // Clear the next selected pair after using it
         },
@@ -236,7 +235,7 @@ const pairManager = {
                 //if (selectedPair) ui.updateLevelIndicator(newPair.level);
 
                 // also called in loadNewRound()!!
-                await gameSetup.updateUIAfterSetup(true);
+                await ui.updateUIAfterSetup(true);
             } catch (error) {
                 pairManager.errorHandling.handlePairLoadingError(error);
             } finally {
@@ -256,7 +255,7 @@ const pairManager = {
         async selectPairForLoading() {
             const preloadedPair = preloader.pairPreloader.getPreloadedImagesForNextPair()?.pair;
             if (preloadedPair) {
-                logger.debug(`Using preloaded pair: ${preloadedPair.pairID}`);
+                //logger.debug(`Using preloaded pair: ${preloadedPair.pairID}`);
                 return preloadedPair;
             } else {
                 const selectedPair = await pairManager.pairSelection.selectRandomPair();
@@ -358,8 +357,13 @@ const pairManager = {
 
     imageHandling: {
         async loadImagesForNewPair(newPair) {
-            const preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
+            //const preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
+            let preloadedImages = preloader.pairPreloader.hasPreloadedPair();
             
+            if (!preloadedImages || !preloadedImages.pair) {
+                preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
+            }            
+
             if (preloadedImages && preloadedImages.pair.pairID === newPair.pairID) {
                 logger.debug(`Using preloaded images for pair ID ${newPair.pairID}`);
                 // Clear the preloaded images after using them

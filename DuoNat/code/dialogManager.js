@@ -1,7 +1,6 @@
 import api from './api.js';
 import collectionManager from './collectionManager.js';
 import enterPair from './enterPair.js';
-import gameSetup from './gameSetup.js';
 import iNatDownDialog from './iNatDownDialog.js';
 import infoDialog from './infoDialog.js';
 import logger from './logger.js';

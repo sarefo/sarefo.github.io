@@ -1,6 +1,9 @@
+import collectionManager from './collectionManager.js';
 import config from './config.js';
+import filtering from './filtering.js';
 import hintSystem from './hintSystem.js';
 import logger from './logger.js';
+import pairManager from './pairManager.js';
 import state from './state.js';
 import tutorial from './tutorial.js';
 
@@ -372,7 +375,32 @@ const ui = {
             namePair.style.height = `${maxHeight}px`;
             nameX.style.height = `${maxHeight}px`;
             nameY.style.height = `${maxHeight}px`;
-        }
+        },
+
+        // called from:
+        // - pairManager.loadNewPair()
+        // - roundManager.loadNewRound()
+        async updateUIAfterSetup(newPair = false) {
+
+            if (filtering.areAllFiltersDefault()) collectionManager.updateFilterSummary();
+
+            state.setState(state.GameState.PLAYING);
+
+            if (newPair) await pairManager.refreshCollectionSubset();
+
+            if (state.getIsInitialLoad()) {
+                ui.notifications.hideLoadingScreen();
+                state.setIsInitialLoad(false);
+            }
+            ui.core.resetUIState();
+            state.setState(state.GameState.PLAYING);
+            //preloader.startPreloading(newPair);
+
+            // Initialize the collection subset after the game has loaded
+            pairManager.initializeCollectionSubset().catch(error => {
+                logger.error("Error initializing collection subset:", error);
+            });
+        },
     },
 
     nameTiles: {
@@ -472,6 +500,7 @@ const publicAPI = {
     setNamePairHeight: ui.layoutManagement.setNamePairHeight,
     setupNameTilesUI: ui.nameTiles.setupNameTilesUI,
     resetDraggables: ui.nameTiles.resetDraggables,
+    updateUIAfterSetup: ui.layoutManagement.updateUIAfterSetup,
 };
 
 export default publicAPI;

@@ -204,13 +204,13 @@ const pairPreloader = {
         // - pairManager.getNextPair()
         // - pairManager.loadImagesForNewPair()
         getPreloadedImagesForNextPair() {
-            logger.trace("getPreloadedImagesForNextPair");
+            //logger.trace("getPreloadedImagesForNextPair");
             if (this.hasPreloadedPair()) {
-                const images = preloader.preloadedImages.nextPair;
+                const imageData = preloader.preloadedImages.nextPair;
                 //logger.debug(`Retrieving preloaded pair: ${images.pair.taxonA} / ${images.pair.taxonB}, Pair ID: ${images.pair.pairID}`);
                 //logger.debug(`Preloaded images: ${images.taxonA} / ${images.taxonB}`);
                 // Don't clear the preloaded images here
-                return images;
+                return imageData;
             } else {
                 logger.debug("No preloaded pair available");
                 return null;
@@ -306,7 +306,6 @@ const preloader = {
     pairPreloader,
 
     // called from:
-    // - gameSetup.finishSetup() (newPair)
     // - pairManager.loadNewPair() (true)
     async startPreloading(isNewPair) {
         //logger.trace("startPreloading()");

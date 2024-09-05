@@ -3,7 +3,6 @@ import config from './config.js';
 import errorHandling from './errorHandling.js';
 import filtering from './filtering.js';
 import gameLogic from './gameLogic.js';
-import gameSetup from './gameSetup.js'; // TODO probably eliminate
 import hintSystem from './hintSystem.js';
 import logger from './logger.js';
 import preloader from './preloader.js';
@@ -35,7 +34,7 @@ const roundManager = {
                 state.setState(state.GameState.PLAYING);
             }
             // also called in loadNewPair()!!
-            await gameSetup.updateUIAfterSetup(false); // TODO
+            await ui.updateUIAfterSetup(false); // TODO
         },
     },
 
