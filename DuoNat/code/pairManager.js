@@ -121,7 +121,7 @@ const pairManager = {
         // - selectAndSetupRandomPair()
         // - preloader.preloadForNextPair()
         async selectRandomPair() {
-            logger.trace("selectRandomPair");
+            //logger.trace("selectRandomPair");
             // First, try to get the next pair from the pairManager
             const nextPair = await this.getNextPairFromCollection();
             
@@ -218,7 +218,7 @@ const pairManager = {
                 }
 
                 // If no specific pair was selected or found, proceed with normal selection
-                if (!selectedPair) selectedPair = await this.selectPairForLoading();
+                if (!selectedPair) selectedPair = await this.selectPairForLoading(); // TODO NOW calls preloading
 
                 if (!selectedPair) {
                     logger.error("Failed to select a pair. Aborting loadNewPair.");
@@ -227,10 +227,10 @@ const pairManager = {
                 }
 
                 state.setNextSelectedPair(selectedPair);
-                await this.initializeNewPair();
+                await this.initializeNewPair(); // TODO NOW this one too
 
                 //const newPair = state.getCurrentTaxonImageCollection().pair;
-                await roundManager.setupRoundFromGameSetup(true);
+                //await roundManager.setupRoundFromGameSetup(true);
                 //pairManager.uiHandling.updateUIForNewPair(selectedPair);
                 ui.hideOverlay();
                 //if (selectedPair) ui.updateLevelIndicator(newPair.level);
@@ -249,6 +249,7 @@ const pairManager = {
             // TODO
             // roundManager.loadNewRound();
             
+            ui.setNamePairHeight();
             ui.updateLevelIndicator(selectedPair.level);
         },
 

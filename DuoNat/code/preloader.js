@@ -199,7 +199,12 @@ const pairPreloader = {
         return matchesLevel;
     },
 
+        // called from 
+        // - pairManager.selectPairForLoading()
+        // - pairManager.getNextPair()
+        // - pairManager.loadImagesForNewPair()
         getPreloadedImagesForNextPair() {
+            logger.trace("getPreloadedImagesForNextPair");
             if (this.hasPreloadedPair()) {
                 const images = preloader.preloadedImages.nextPair;
                 //logger.debug(`Retrieving preloaded pair: ${images.pair.taxonA} / ${images.pair.taxonB}, Pair ID: ${images.pair.pairID}`);

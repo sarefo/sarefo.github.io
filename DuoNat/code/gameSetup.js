@@ -23,7 +23,7 @@ const gameSetup = {
 
             if (filtering.areAllFiltersDefault()) collectionManager.updateFilterSummary();
 
-            ui.setNamePairHeight();
+            //ui.setNamePairHeight();
             state.setState(state.GameState.PLAYING);
 
             if (newPair) await pairManager.refreshCollectionSubset();

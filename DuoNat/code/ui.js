@@ -344,6 +344,7 @@ const ui = {
     },
 
     layoutManagement: {
+        // only called at end of loadNewRound()
         // determine height of tallest name tile, to keep layout stable over multiple rounds
         setNamePairHeight() {
             const nameX = document.getElementById('name-x');
@@ -382,7 +383,7 @@ const ui = {
             this._setNameContent(nameOne, nameTwo, vernacularOne, vernacularTwo);
             this._updateGameState(nameOne, nameTwo);
 
-            ui.layoutManagement.setNamePairHeight();
+            //ui.layoutManagement.setNamePairHeight();
         },
 
         _randomizeNames(nameX, nameY, nameXVernacular, nameYVernacular) {
