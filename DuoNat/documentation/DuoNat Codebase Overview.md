@@ -34,23 +34,24 @@ The DuoNat project is primarily written in JavaScript, with HTML and CSS for the
 
 ### Component-Specific Modules
 
++ `ancestryDialog.js`: Visualizes taxonomic relationships between two active taxa.
++ `ancestryPopup.js`: provides per-node functionality in the ancestryDialog.
 + `collectionManager.js` : Handles the collection manager dialog and its components.
 + `enterPair.js`: Code for the 'Enter new pair' dialog.
 + `infoDialog.js` : Handles the info dialog and its components.
 + `iNatDownDialog.js` : Handles the iNaturalist down detector dialog
-+ `tagSelector.js`: Manages the tag cloud feature.
 + `rangeSelector.js`: Handles geographical range selection.
 + `phylogenySelector.js` : Handles the phylogeny selection dialog.
-+ `ancestryDialog.js`: Visualizes taxonomic relationships between two active taxa.
-+ `ancestryPopup.js`: provides per-node functionality in the ancestryDialog.
 + `reporting.js`: Code for the reporting dialog.
 + `sharing.js`: Code for sharing dialog.
++ `tagSelector.js`: Manages the tag cloud feature.
 
 ### Data Management and API
 
 + `api.js`: Handles API calls to iNaturalist and local data fetching.
 + `preloader.js`: Manages preloading of images and data.
-+ `pairManager.js`: Manages taxon pairs and their selection.
++ `pairManager.js`: Manages taxon pairs, including loading them
++ `roundManager.js`: Manages loading game rounds
 + `taxonomyHierarchy.js`: class with hierarchy of game's taxonomic content
 
 ### Utilities and Helpers
