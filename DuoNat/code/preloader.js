@@ -97,18 +97,23 @@ const imageLoader = {
 
 const roundPreloader = {
     async preloadForNextRound() {
-        const { pair, image1URL, image2URL } = state.getCurrentTaxonImageCollection();
-        const [newImage1URL, newImage2URL] = await Promise.all([
-            imageLoader.fetchDifferentImage(pair.taxonA, image1URL),
-            imageLoader.fetchDifferentImage(pair.taxonB, image2URL)
-        ]);
+        try {
+            const { pair, image1URL, image2URL } = state.getCurrentTaxonImageCollection();
+            const [newImage1URL, newImage2URL] = await Promise.all([
+                imageLoader.fetchDifferentImage(pair.taxonA, image1URL),
+                imageLoader.fetchDifferentImage(pair.taxonB, image2URL)
+            ]);
 
-        await Promise.all([
-            imageLoader.preloadImage(newImage1URL),
-            imageLoader.preloadImage(newImage2URL)
-        ]);
+            await Promise.all([
+                imageLoader.preloadImage(newImage1URL),
+                imageLoader.preloadImage(newImage2URL)
+            ]);
 
-        preloader.preloadedImages.nextRound = { taxonA: newImage1URL, taxonB: newImage2URL };
+            preloader.preloadedImages.nextRound = { taxonA: newImage1URL, taxonB: newImage2URL };
+            logger.debug("Preloading completed for next round");
+        } catch (error) {
+            logger.error("Error during round preloading:", error);
+        }
         //logger.debug("Preloaded images for next round:", preloader.preloadedImages.nextRound);
     },
 
@@ -167,6 +172,7 @@ const pairPreloader = {
             preloader.preloadedImages.nextPair = null;
         } finally {
             preloader.isPreloading = false;
+            logger.debug("Preloading completed for next pair");
         }
     },
 
@@ -304,18 +310,12 @@ const preloader = {
     roundPreloader,
     pairPreloader,
 
-    // called from:
-    // - pairManager.loadNewPair() (true)
-    async startPreloading(isNewPair) {
-        //logger.trace("startPreloading()");
+    async preloadRound(isNewPair) {
         try {
             await this.roundPreloader.preloadForNextRound();
-            if (isNewPair || !this.pairPreloader.hasPreloadedPair()) {
-                await this.pairPreloader.preloadForNextPair();
-            }
-            logger.debug("Preloading completed for next round" + (isNewPair ? " and next pair" : ""));
+            logger.debug("Preloading completed for next round");
         } catch (error) {
-            logger.error("Error during preloading:", error);
+            logger.error("Error during round preloading:", error);
         }
     },
 };
@@ -332,7 +332,7 @@ Object.keys(preloader).forEach(key => {
 });
 
 const publicAPI = {
-    startPreloading: preloader.startPreloading.bind(preloader),
+    //startPreloading: preloader.startPreloading.bind(preloader),
     pairPreloader: {
         clearPreloadedPair: preloader.pairPreloader.clearPreloadedPair,
         getPreloadedImagesForNextPair: preloader.pairPreloader.getPreloadedImagesForNextPair,

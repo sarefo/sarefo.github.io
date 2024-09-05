@@ -22,8 +22,17 @@ const roundManager = {
 
             try {
                 ui.prepareImagesForLoading();
-                preloader.roundPreloader.clearPreloadedImagesForNextRound();
-                await this.setupFurtherRound();
+                //preloader.roundPreloader.clearPreloadedImagesForNextRound(); // seems to be wrong here
+
+                const { pair } = state.getCurrentTaxonImageCollection();
+                
+                const pairData = { pair, preloadedImages: null };
+                const imageData = await this.getAndProcessImages(pairData, false);
+                
+                this.setObservationURLs(imageData);
+
+                await roundManager.setupRoundComponents.setupRound(pair, imageData, false);
+
                 await this.fadeInNewImages();
             } catch (error) {
                 errorHandling.handleSetupError(error);
@@ -32,12 +41,12 @@ const roundManager = {
             }
             // also called in loadNewPair()!!
             await ui.updateUIAfterSetup(false); // TODO
-            preloader.startPreloading(false);
+            preloader.roundPreloader.preloadForNextRound();
         },
 
         // called only from loadNewRound()
         // for every round after the first. TODO eliminate!
-        async setupFurtherRound() {
+        /*async setupFurtherRound() {
             const { pair } = state.getCurrentTaxonImageCollection();
             
             const pairData = { pair, preloadedImages: null };
@@ -46,7 +55,7 @@ const roundManager = {
             this.setObservationURLs(imageData);
 
             const { nameTileData, worldMapData } = await roundManager.setupRoundComponents.setupRound(pair, imageData, false);
-        },
+        },*/
 
         async getAndProcessImages(pairData, isNewPair) {
             if (!pairData) {
@@ -109,7 +118,8 @@ const roundManager = {
             image2.classList.remove('image-container__image--fade-in');
         },
 
-        // called only from setupFurtherRound()
+        // called only from loadNewRound()
+        // TODO eliminate from pairManager.initializeNewPair()
         setObservationURLs(imageData) {
             //logger.debug(`Setting observation URLs: ${imageData.taxonImage1Src} / ${imageData.taxonImage2Src}`);
             state.setObservationURL(imageData.taxonImage1Src, 1);
@@ -128,7 +138,8 @@ const roundManager = {
 
     setupRoundComponents: {
 
-        // called only from setupFurtherRound()
+        // called only from loadNewRound()
+        // TODO eliminate from pairManager.initializeNewPair()
         async setupRound(pair, imageData) {
             const { taxonImage1Src, taxonImage2Src, randomized, taxonImage1, taxonImage2 } = imageData;
 
