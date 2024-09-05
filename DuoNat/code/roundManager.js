@@ -39,16 +39,6 @@ const roundManager = {
     },
 
     imageHandling: {
-        async getAndProcessImages(pairData, isNewPair) {
-            if (!pairData) {
-                logger.error('Invalid pairData received in getAndProcessImages');
-                throw new Error('Invalid pairData: pairData is undefined');
-            }
-
-            const images = await this.getImages(pairData, isNewPair);
-            return this.randomizeImages(images, pairData.pair);
-        },
-
         prepareImagesForLoading() {
             const image1 = state.getElement('image1');
             const image2 = state.getElement('image2');
@@ -58,6 +48,19 @@ const roundManager = {
             
             image1.classList.add('image-container__image--loading');
             image2.classList.add('image-container__image--loading');
+        },
+
+        // called from:
+        // - setupRoundFromGameSetup()
+        // - pairManager.loadNewRandomPair() > eliminate
+        async getAndProcessImages(pairData, isNewPair) {
+            if (!pairData) {
+                logger.error('Invalid pairData received in getAndProcessImages');
+                throw new Error('Invalid pairData: pairData is undefined');
+            }
+
+            const images = await this.getImages(pairData, isNewPair);
+            return this.randomizeImages(images, pairData.pair);
         },
 
         randomizeImages(images, pair) {
@@ -72,6 +75,7 @@ const roundManager = {
             };
         },
 
+        // called from getAndProcessImages()
         async getImages(pairData, isNewPair) {
             if (!pairData || !pairData.pair) {
                 logger.error('Invalid pairData received in getImages');
@@ -123,46 +127,6 @@ const roundManager = {
                 };
                 img.src = src;
             });
-        },
-
-        async loadAndSetupImages(pair, isNewPair) {
-            let image1URL, image2URL;
-
-            if (isNewPair) {
-                image1URL = state.getCurrentTaxonImageCollection().image1URL;
-                image2URL = state.getCurrentTaxonImageCollection().image2URL;
-            } else {
-                // Check for preloaded images
-                const preloadedImages = preloader.roundPreloader.getPreloadedImagesForNextRound();
-                if (preloadedImages && preloadedImages.taxonA && preloadedImages.taxonB) {
-                    //logger.debug("Using preloaded images for next round");
-                    image1URL = preloadedImages.taxonA;
-                    image2URL = preloadedImages.taxonB;
-                    // Clear the preloaded images after use
-                    preloader.roundPreloader.clearPreloadedImagesForNextRound();
-                } else {
-                    //logger.debug("No preloaded images available, fetching new images");
-                    [image1URL, image2URL] = await Promise.all([
-                        preloader.imageLoader.fetchDifferentImage(pair.taxonA, state.getCurrentRound().image1URL),
-                        preloader.imageLoader.fetchDifferentImage(pair.taxonB, state.getCurrentRound().image2URL)
-                    ]);
-                }
-            }
-
-            const randomized = Math.random() < 0.5;
-
-            const taxonImage1Src = randomized ? image1URL : image2URL;
-            const taxonImage2Src = randomized ? image2URL : image1URL;
-
-            await Promise.all([
-                this.loadImage(state.getElement('image1'), taxonImage1Src),
-                this.loadImage(state.getElement('image2'), taxonImage2Src)
-            ]);
-
-            state.setObservationURL(taxonImage1Src, 1);
-            state.setObservationURL(taxonImage2Src, 2);
-
-            return { taxonImage1Src, taxonImage2Src, randomized, image1URL, image2URL };
         },
 
         async getImagesForRound(pair) {
@@ -310,17 +274,6 @@ const roundManager = {
             });
         },
     },
-
-    uiManagement: {
-        finalizeRoundLoading(isNewPair) {
-            //logger.debug(`Preloading started`);
-            ui.hideOverlay();
-            ui.resetUIState();
-            //logger.debug(`UI reset complete`);
-            preloader.startPreloading(isNewPair);
-        },
-
-    },
 };
 
 // Bind all methods in roundManager and its nested objects
@@ -344,7 +297,7 @@ const publicAPI = {
     // just temporarily public during refactoring:
     getImagesForRound: roundManager.imageHandling.getImagesForRound,
     getAndProcessImages: roundManager.imageHandling.getAndProcessImages,
-    loadAndSetupImages: roundManager.imageHandling.loadAndSetupImages,
+    //loadAndSetupImages: roundManager.imageHandling.loadAndSetupImages,
     prepareImagesForLoading: roundManager.imageHandling.prepareImagesForLoading,
     setObservationURLs: roundManager.setupComponents.setObservationURLs,
 };

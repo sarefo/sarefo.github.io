@@ -123,7 +123,11 @@ const roundPreloader = {
         return images;
     },
 
+    // called from:
+    // - pairManager.loadNewRandomPair() > eliminate
+    // - roundManager.getImages()
     clearPreloadedImagesForNextRound() {
+        logger.trace("clearPreloadedImagesForNextRound");
         preloader.preloadedImages.nextRound = { taxonA: null, taxonB: null };
         //logger.debug("Cleared preloaded images for next round");
     },

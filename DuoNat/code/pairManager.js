@@ -232,46 +232,39 @@ const pairManager = {
         // called from swipe-left
         async loadNewRandomPair(usePreloadedPair = true) {
             logger.debug("loadNewRandomPair");
-            state.setState(state.GameState.LOADING_PAIR);
-            roundManager.prepareImagesForLoading();
+            state.setState(state.GameState.LOADING_PAIR); //
+            roundManager.prepareImagesForLoading(); //
+            // also called from roundManager.getImages()
             preloader.roundPreloader.clearPreloadedImagesForNextRound();
 
             try {
-                //await roundManager.OLDloadNewRound(true);
+                const isNewPair = true;
+                state.setState(state.GameState.LOADING_ROUND);
 
-            const isNewPair = true;
-            state.setState(state.GameState.LOADING_ROUND);
-            roundManager.prepareImagesForLoading();
+                try {
+                    const pairData = await pairManager.pairManagement.getNextPair(isNewPair);
+                    
+                    if (!pairData || !pairData.pair) {
+                        logger.error('Invalid pairData structure received from pairManager.getNextPair');
+                        throw new Error('Invalid pairData: missing pair property');
+                    }
 
-            try {
-//                const pairData = await this.getPairData(isNewPair);
+                    // this calls roundManager.getImages()
+                    const imageData = await roundManager.getAndProcessImages(pairData, isNewPair);
 
-            const pairData = await pairManager.pairManagement.getNextPair(isNewPair);
-            
-            if (!pairData || !pairData.pair) {
-                logger.error('Invalid pairData structure received from pairManager.getNextPair');
-                throw new Error('Invalid pairData: missing pair property');
-            }
+                    roundManager.setObservationURLs(imageData);
+                    const pair = pairData.pair;
+                    await roundManager.setupRound(pair, imageData);
 
-                const imageData = await roundManager.getAndProcessImages(pairData, isNewPair);
+                    state.updateRoundState(pair, imageData);
+                    ui.updateLevelIndicator(pair.level || '1');
 
-                //await roundManager.setupComponents.setupRoundComponents(pairData.pair, imageData);
-                roundManager.setObservationURLs(imageData);
-                const pair = pairData.pair;
-                await roundManager.setupRound(pair, imageData);
-
-                //roundManager.stateManagement.updateGameState(pair, imageData);
-
-                state.updateRoundState(pair, imageData);
-                ui.updateLevelIndicator(pair.level || '1');
-
-                //roundManager.uiManagement.finalizeRoundLoading(isNewPair);
-            } catch (error) {
-                logger.error("Error loading round:", error);
-                ui.showOverlay("Error loading round. Please try again.", config.overlayColors.red);
-            } finally {
-                state.setState(state.GameState.PLAYING);
-            }
+                } catch (error) {
+                    logger.error("Error loading round:", error);
+                    ui.showOverlay("Error loading round. Please try again.", config.overlayColors.red);
+                } finally {
+                    state.setState(state.GameState.PLAYING);
+                }
 
 
                 if (state.getState() !== state.GameState.PLAYING) {
