@@ -51,11 +51,7 @@ const pairManager = {
                 state.setNextSelectedPair(selectedPair);
                 await this.initializeNewPair();
 
-                //const newPair = state.getCurrentTaxonImageCollection().pair;
-                //await roundManager.setupRoundFromGameSetup(true);
-                //pairManager.uiHandling.updateUIForNewPair(selectedPair);
                 ui.hideOverlay();
-                //if (selectedPair) ui.updateLevelIndicator(newPair.level);
 
                 // also called in loadNewRound()!!
                 await ui.updateUIAfterSetup(true);
@@ -84,9 +80,7 @@ const pairManager = {
             return allPairs.find(pair => pair.pairID === pairID);
         },
 
-        // called from:
-        // - loadNewPair()
-        // - roundManager.loadNewRound() for some reason TODO
+        // called only from loadNewPair()
         async initializeNewPair() {
             const newPair = await this.selectNewPair();
             //logger.debug(`Initializing new pair: ${newPair.taxonA} / ${newPair.taxonB}`);
@@ -394,8 +388,6 @@ const bindMethodsRecursively = (obj) => {
 bindMethodsRecursively(pairManager);
 
 const publicAPI = {
-    initializeNewPair: pairManager.pairLoading.initializeNewPair,
-
     initializeCollectionSubset: pairManager.collectionSubsets.initializeCollectionSubset,
     refreshCollectionSubset: pairManager.collectionSubsets.refreshCollectionSubset,
 

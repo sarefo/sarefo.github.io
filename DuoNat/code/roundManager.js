@@ -17,18 +17,13 @@ const roundManager = {
     initialization: {
 
         async loadNewRound() {
-            //logger.debug("loadNewRound");
+            //logger.trace("loadNewRound");
             state.setState(state.GameState.LOADING_ROUND);
             if (!await api.externalAPIs.checkINaturalistReachability()) return;
 
             try {
                 ui.prepareImagesForLoading();
-                if (!state.getCurrentTaxonImageCollection()) { // TODO no idea what this really does yet
-                    logger.trace("initializeNewPair");
-                    await pairManager.initializeNewPair(); // TODO not sure if great
-                } else {
-                    await this.setupRoundFromGameSetup();
-                }
+                await this.setupRoundFromGameSetup();
                 await this.fadeInNewImages();
             } catch (error) {
                 errorHandling.handleSetupError(error);
