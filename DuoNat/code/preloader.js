@@ -152,7 +152,7 @@ const pairPreloader = {
                 this.isCollectionSubsetInitialized = true;
             }
 
-            const newPair = await pairManager.selectRandomPairFromCurrentCollection();
+            const newPair = await pairManager.selectRandomPair();
             
             if (newPair) {
                 //logger.debug(`Selected pair for preloading: ${newPair.taxonNames[0]} / ${newPair.taxonNames[1]}`);

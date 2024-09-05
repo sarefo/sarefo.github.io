@@ -117,10 +117,11 @@ const pairManager = {
         },
 
         // called from
-        // - selectPairForLoading()
+        // - selectPairForLoading() < loadNewPair()
         // - selectAndSetupRandomPair()
         // - preloader.preloadForNextPair()
-        async selectRandomPairFromCurrentCollection() {
+        async selectRandomPair() {
+            logger.trace("selectRandomPair");
             // First, try to get the next pair from the pairManager
             const nextPair = await this.getNextPairFromCollection();
             
@@ -309,7 +310,7 @@ const pairManager = {
                 logger.debug(`Using preloaded pair: ${preloadedPair.pairID}`);
                 return preloadedPair;
             } else {
-                const selectedPair = await pairManager.pairSelection.selectRandomPairFromCurrentCollection();
+                const selectedPair = await pairManager.pairSelection.selectRandomPair();
                 if (selectedPair) {
                     //logger.debug(`Selected random pair: ${selectedPair.pairID}`);
                     return selectedPair;
@@ -334,7 +335,7 @@ const pairManager = {
 
         async selectAndSetupRandomPair() {
             logger.warn("selectAndSetupRandomPair");
-            const newPair = await pairManager.pairSelection.selectRandomPairFromCurrentCollection();
+            const newPair = await pairManager.pairSelection.selectRandomPair();
             if (newPair) {
                 state.setNextSelectedPair(newPair);
                 await this.loadNewPair();
@@ -507,7 +508,7 @@ const publicAPI = {
     selectNewPair: pairManager.pairSelection.selectNewPair,
     getPairByID: pairManager.pairManagement.getPairByID,
     loadPairByID: pairManager.pairLoading.loadPairByID,
-    selectRandomPairFromCurrentCollection: pairManager.pairSelection.selectRandomPairFromCurrentCollection,
+    selectRandomPair: pairManager.pairSelection.selectRandomPair,
 };
 
 // Bind publicAPI methods
