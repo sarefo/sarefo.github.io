@@ -116,6 +116,10 @@ const pairManager = {
             return pair;
         },
 
+        // called from
+        // - selectPairForLoading()
+        // - selectAndSetupRandomPair()
+        // - preloader.preloadForNextPair()
         async selectRandomPairFromCurrentCollection() {
             // First, try to get the next pair from the pairManager
             const nextPair = await this.getNextPairFromCollection();
@@ -493,11 +497,13 @@ bindMethodsRecursively(pairManager);
 
 const publicAPI = {
     initializeNewPair: pairManager.pairLoading.initializeNewPair,
+
     initializeCollectionSubset: pairManager.initialization.initializeCollectionSubset,
+    refreshCollectionSubset: pairManager.initialization.refreshCollectionSubset,
+
     getNextPair: pairManager.pairManagement.getNextPair,
     loadNewPair: pairManager.pairLoading.loadNewPair,
-    loadNewRandomPair: pairManager.pairLoading.loadNewRandomPair,
-    refreshCollectionSubset: pairManager.initialization.refreshCollectionSubset,
+    //loadNewRandomPair: pairManager.pairLoading.loadNewRandomPair,
     selectNewPair: pairManager.pairSelection.selectNewPair,
     getPairByID: pairManager.pairManagement.getPairByID,
     loadPairByID: pairManager.pairLoading.loadPairByID,
