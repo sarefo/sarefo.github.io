@@ -83,14 +83,28 @@ const pairManager = {
         // called only from loadNewPair()
         async initializeNewPair() {
             const newPair = await this.selectNewPair();
-            //logger.debug(`Initializing new pair: ${newPair.taxonA} / ${newPair.taxonB}`);
 
             this.resetUsedImagesForNewPair(newPair);
-            const imageData = await this.loadImagesForNewPair(newPair);
-            //logger.debug(`Loaded images for new pair: ${images.taxonA} / ${images.taxonB}`);
+            // URLs of both images
+            const images = await this.loadImagesForNewPair(newPair);
 
-            state.updateGameStateForNewPair(newPair, imageData);
-            await roundManager.setupRoundFromGameSetup(true);
+            state.updateGameStateForNewPair(newPair, images);
+
+            const { pair } = state.getCurrentTaxonImageCollection();
+
+            // TODO seems partly redundant with "images"
+            // For a new pair, use the images that were just loaded
+            let imageData = {
+                taxonImage1Src: state.getCurrentTaxonImageCollection().image1URL,
+                taxonImage2Src: state.getCurrentTaxonImageCollection().image2URL,
+                taxonImage1: pair.taxonA,
+                taxonImage2: pair.taxonB,
+            };
+
+            // TODO eliminate calls to roundManager here if possible!
+            roundManager.setObservationURLs(imageData);
+            await roundManager.setupRound(pair, imageData, true);
+
             state.setNextSelectedPair(null); // Clear the next selected pair after using it
         },
 
