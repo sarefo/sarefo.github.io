@@ -24,7 +24,7 @@ const roundManager = {
             try {
                 roundManager.imageHandling.prepareImagesForLoading();
                 if (!state.getCurrentTaxonImageCollection()) { // TODO no idea what this really does yet
-                    await pairManager.initializeNewPair();
+                    await pairManager.initializeNewPair(); // TODO not sure if great
                 } else {
                     await roundManager.setupComponents.setupRoundFromGameSetup();
                 }
@@ -35,39 +35,6 @@ const roundManager = {
                 state.setState(state.GameState.PLAYING);
             }
             gameSetup.updateUIAfterSetup(false); // TODO
-        },
-
-        // TODO still called from pairManager.loadNewRandomPair()
-        async OLDloadNewRound(isNewPair = false) {
-            //logger.warn(`Starting loadNewRound. isNewPair: ${isNewPair}`);
-
-            // initialize round loading
-            state.setState(state.GameState.LOADING_ROUND);
-            roundManager.imageHandling.prepareImagesForLoading();
-
-            try {
-                const pairData = await this.getPairData(isNewPair);
-                const images = await roundManager.imageHandling.getAndProcessImages(pairData, isNewPair);
-                await roundManager.setupComponents.setupRoundComponents(pairData.pair, images);
-                roundManager.stateManagement.updateGameState(pairData.pair, images);
-                //roundManager.uiManagement.finalizeRoundLoading(isNewPair);
-            } catch (error) {
-                logger.error("Error loading round:", error);
-                ui.showOverlay("Error loading round. Please try again.", config.overlayColors.red);
-            } finally {
-                state.setState(state.GameState.PLAYING);
-            }
-        },
-
-        async getPairData(isNewPair) {
-            const pairData = await pairManager.getNextPair(isNewPair);
-            
-            if (!pairData || !pairData.pair) {
-                logger.error('Invalid pairData structure received from pairManager.getNextPair');
-                throw new Error('Invalid pairData: missing pair property');
-            }
-            
-            return pairData;
         },
     },
 
@@ -211,13 +178,6 @@ const roundManager = {
     },
 
     setupComponents: {
-        async setupRoundComponents(pair, imageData) {
-            this.setObservationURLs(imageData);
-            //logger.debug("problem in setupRoundComponents: sets imageData = taxonImage1Src=1 taxonImage2Src=2");
-            await this.setupRound(pair, imageData);
-            //logger.debug(`Round setup complete`);
-        },
-
         setObservationURLs(imageData) {
             //logger.debug(`Setting observation URLs: ${imageData.taxonImage1Src} / ${imageData.taxonImage2Src}`);
             state.setObservationURL(imageData.taxonImage1Src, 1);
@@ -332,10 +292,6 @@ const roundManager = {
     },
 
     stateManagement: {
-        updateGameState(pair, images) {
-            state.updateRoundState(pair, images);
-            ui.updateLevelIndicator(pair.level || '1');
-        },
 
         updateGameStateForRound(pair, imageData, nameTileData) {
             const { taxonImage1Src, taxonImage2Src, randomized, taxonImage1, taxonImage2 } = imageData;
@@ -387,8 +343,10 @@ const publicAPI = {
     setupRoundFromGameSetup: roundManager.setupComponents.setupRoundFromGameSetup,
     // just temporarily public during refactoring:
     getImagesForRound: roundManager.imageHandling.getImagesForRound,
+    getAndProcessImages: roundManager.imageHandling.getAndProcessImages,
     loadAndSetupImages: roundManager.imageHandling.loadAndSetupImages,
     prepareImagesForLoading: roundManager.imageHandling.prepareImagesForLoading,
+    setObservationURLs: roundManager.setupComponents.setObservationURLs,
 };
 
 // Bind publicAPI methods

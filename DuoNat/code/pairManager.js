@@ -1,4 +1,5 @@
 import api from './api.js';
+import config from './config.js';
 import errorHandling from './errorHandling.js';
 import filtering from './filtering.js';
 import gameSetup from './gameSetup.js'; // TODO remove after streamlining
@@ -228,6 +229,67 @@ const pairManager = {
             
         },
 
+        // called from swipe-left
+        async loadNewRandomPair(usePreloadedPair = true) {
+            logger.debug("loadNewRandomPair");
+            state.setState(state.GameState.LOADING_PAIR);
+            roundManager.prepareImagesForLoading();
+            preloader.roundPreloader.clearPreloadedImagesForNextRound();
+
+            try {
+                //await roundManager.OLDloadNewRound(true);
+
+            const isNewPair = true;
+            state.setState(state.GameState.LOADING_ROUND);
+            roundManager.prepareImagesForLoading();
+
+            try {
+//                const pairData = await this.getPairData(isNewPair);
+
+            const pairData = await pairManager.pairManagement.getNextPair(isNewPair);
+            
+            if (!pairData || !pairData.pair) {
+                logger.error('Invalid pairData structure received from pairManager.getNextPair');
+                throw new Error('Invalid pairData: missing pair property');
+            }
+
+                const imageData = await roundManager.getAndProcessImages(pairData, isNewPair);
+
+                //await roundManager.setupComponents.setupRoundComponents(pairData.pair, imageData);
+                roundManager.setObservationURLs(imageData);
+                const pair = pairData.pair;
+                await roundManager.setupRound(pair, imageData);
+
+                //roundManager.stateManagement.updateGameState(pair, imageData);
+
+                state.updateRoundState(pair, imageData);
+                ui.updateLevelIndicator(pair.level || '1');
+
+                //roundManager.uiManagement.finalizeRoundLoading(isNewPair);
+            } catch (error) {
+                logger.error("Error loading round:", error);
+                ui.showOverlay("Error loading round. Please try again.", config.overlayColors.red);
+            } finally {
+                state.setState(state.GameState.PLAYING);
+            }
+
+
+                if (state.getState() !== state.GameState.PLAYING) {
+                    await this.fallbackPairLoading(usePreloadedPair);
+                }
+
+                const newPair = state.getCurrentTaxonImageCollection().pair;
+                pairManager.uiHandling.updateUIForNewPair(newPair);
+            } catch (error) {
+                pairManager.errorHandling.handlePairLoadingError(error);
+            } finally {
+                if (state.getState() !== state.GameState.PLAYING) {
+                    state.setState(state.GameState.PLAYING);
+                }
+                preloader.startPreloading(true);
+            }
+        },
+
         // TODO move or restructure later
         async selectPairForLoading(usePreloadedPair = true) {
             if (usePreloadedPair) {
@@ -248,29 +310,6 @@ const pairManager = {
             return null;
         },
 
-        // called from swipe-left
-        async loadNewRandomPair(usePreloadedPair = true) {
-            pairManager.uiHandling.prepareForNewPair();
-
-            try {
-                await roundManager.OLDloadNewRound(true);
-
-                if (state.getState() !== state.GameState.PLAYING) {
-                    await this.fallbackPairLoading(usePreloadedPair);
-                }
-
-                const newPair = state.getCurrentTaxonImageCollection().pair;
-                pairManager.uiHandling.updateUIForNewPair(newPair);
-            } catch (error) {
-                pairManager.errorHandling.handlePairLoadingError(error);
-            } finally {
-                if (state.getState() !== state.GameState.PLAYING) {
-                    state.setState(state.GameState.PLAYING);
-                }
-                preloader.startPreloading(true);
-            }
-        },
-
         async fallbackPairLoading(usePreloadedPair) {
             let newPair;
             if (usePreloadedPair) {
@@ -288,23 +327,11 @@ const pairManager = {
             const newPair = await pairManager.pairSelection.selectRandomPairFromCurrentCollection();
             if (newPair) {
                 state.setNextSelectedPair(newPair);
-                //await gameSetup.setupGame(true);
                 await this.loadNewPair();
                 return newPair;
             }
             throw new Error("No pairs available in the current collection");
         },
-
-        /*async loadPreloadedPair() {
-            logger.warn("loadPreloadedPair");
-            const preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
-            if (preloadedImages && preloadedImages.pair && filtering.isPairValidForCurrentFilters(preloadedImages.pair)) {
-                await gameSetup.setupGame(false);  // Changed from setupGameWithPreloadedPair
-                return preloadedImages.pair;
-            }
-            return null;
-        },*/
-
 
         async loadPairByID(pairID, clearFilters = false) {
             try {
@@ -325,7 +352,6 @@ const pairManager = {
 
         async setupNewPair(newPair, pairID) {
             state.setNextSelectedPair(newPair);
-            //await gameSetup.setupGame(true);
             await this.loadNewPair();
             const nextPairID = String(Number(pairID) + 1);
             preloader.pairPreloader.preloadPairByID(nextPairID);
@@ -414,13 +440,6 @@ const pairManager = {
     },
 
     uiHandling: {
-        // TODO this looks like round code
-        prepareForNewPair() {
-            state.setState(state.GameState.LOADING_PAIR);
-            roundManager.prepareImagesForLoading();
-            preloader.roundPreloader.clearPreloadedImagesForNextRound();
-        },
-
         updateUIForNewPair(newPair) {
             ui.hideOverlay();
             if (newPair) {
@@ -469,8 +488,6 @@ const publicAPI = {
     initializeNewPair: pairManager.pairLoading.initializeNewPair,
     initializeCollectionSubset: pairManager.initialization.initializeCollectionSubset,
     getNextPair: pairManager.pairManagement.getNextPair,
-    //getNextPairFromCollection: pairManager.pairSelection.getNextPairFromCollection,
-    //loadNewPair: pairManager.pairLoading.loadNewPair,
     loadNewPair: pairManager.pairLoading.loadNewPair,
     loadNewRandomPair: pairManager.pairLoading.loadNewRandomPair,
     refreshCollectionSubset: pairManager.initialization.refreshCollectionSubset,
