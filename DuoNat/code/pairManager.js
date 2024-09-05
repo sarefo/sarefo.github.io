@@ -32,10 +32,7 @@ const pairManager = {
                 // If a pairID is provided, load that specific pair
                 if (pairID) {
                     selectedPair = await this.getPairByID(pairID);
-                    logger.trace("pairID:", pairID, "selectedPair:", selectedPair);
-                    if (!selectedPair) {
-                        logger.warn(`Pair with ID ${pairID} not found. Falling back to random selection.`);
-                    }
+                    if (!selectedPair) logger.warn(`Pair with ID ${pairID} not found. Falling back to random selection.`);
                 }
 
                 // If no specific pair was selected or found, proceed with normal selection
@@ -54,6 +51,7 @@ const pairManager = {
 
                 // also called in loadNewRound()!!
                 await ui.updateUIAfterSetup(true);
+                //await roundManager.loadNewRound();
             } catch (error) {
                 pairManager.errorHandling.handlePairLoadingError(error);
             } finally {
@@ -61,13 +59,10 @@ const pairManager = {
                     state.setState(state.GameState.PLAYING);
                 }
                 preloader.startPreloading(true);
+                // TODO start pair preloading
+                ui.setNamePairHeight();
+                ui.updateLevelIndicator(selectedPair.level);
             }
-
-            // TODO
-            // roundManager.loadNewRound();
-            
-            ui.setNamePairHeight();
-            ui.updateLevelIndicator(selectedPair.level);
         },
 
         // called from
