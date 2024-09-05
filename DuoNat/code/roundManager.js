@@ -37,6 +37,7 @@ const roundManager = {
             }
             // also called in loadNewPair()!!
             await ui.updateUIAfterSetup(false); // TODO
+            preloader.startPreloading(false);
         },
 
         // called from
