@@ -14659,5 +14659,83 @@
       "NA",
       "AS"
     ]
+  },
+  "845": {
+    "pairName": "Hairy-eyed flower fly vs Common flower fly",
+    "level": "3",
+    "tags": [
+      "mimicry"
+    ],
+    "taxa": [
+      322366,
+      52488
+    ],
+    "taxonNames": [
+      "Syrphus torvus",
+      "Syrphus ribesii"
+    ],
+    "range": [
+      "EU"
+    ]
+  },
+  "846": {
+    "pairName": "Marmalade hover fly vs Hairy-eyed flower fly",
+    "level": "2",
+    "tags": [
+      "mimicry"
+    ],
+    "taxa": [
+      52482,
+      322366
+    ],
+    "taxonNames": [
+      "Episyrphus balteatus",
+      "Syrphus torvus"
+    ],
+    "range": [
+      "EU"
+    ]
+  },
+  "847": {
+    "pairName": "Marmalade hover fly vs Common flower fly",
+    "level": "2",
+    "tags": [
+      "mimicry"
+    ],
+    "taxa": [
+      52482,
+      52488
+    ],
+    "taxonNames": [
+      "Episyrphus balteatus",
+      "Syrphus ribesii"
+    ],
+    "range": [
+      "AS",
+      "EU"
+    ]
+  },
+  "848": {
+    "pairName": "Common drone fly vs Western Honey Bee",
+    "level": "1",
+    "tags": [
+      "mimicry"
+    ],
+    "taxa": [
+      55719,
+      47219
+    ],
+    "taxonNames": [
+      "Eristalis tenax",
+      "Apis mellifera"
+    ],
+    "range": [
+      "NA",
+      "AS",
+      "OC",
+      "AF",
+      "SA",
+      "EU"
+    ]
   }
 }

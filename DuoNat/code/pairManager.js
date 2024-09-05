@@ -312,7 +312,7 @@ const pairManager = {
                     filtering.clearAllFilters();
                 }
 
-                const newPair = await pairManager.getPairByID(pairID);
+                const newPair = await pairManager.pairManagement.getPairByID(pairID);
                 if (newPair) {
                     await this.setupNewPair(newPair, pairID);
                 } else {

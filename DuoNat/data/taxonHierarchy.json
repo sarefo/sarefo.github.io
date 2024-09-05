@@ -20716,5 +20716,83 @@
     "vernacularName": "Mile-a-minute",
     "rank": "Species",
     "parentId": "83588"
+  },
+  "186841": {
+    "taxonName": "Syrphinae",
+    "vernacularName": "Typical hover flies",
+    "rank": "Subfamily",
+    "parentId": "49995"
+  },
+  "121991": {
+    "taxonName": "Syrphini",
+    "vernacularName": "-",
+    "rank": "Tribe",
+    "parentId": "186841"
+  },
+  "52483": {
+    "taxonName": "Episyrphus",
+    "vernacularName": "Aphid hoverflies",
+    "rank": "Genus",
+    "parentId": "121991"
+  },
+  "52482": {
+    "taxonName": "Episyrphus balteatus",
+    "vernacularName": "Marmalade hover fly",
+    "rank": "Species",
+    "parentId": "52483"
+  },
+  "326181": {
+    "taxonName": "Eristalinae",
+    "vernacularName": "Drone flies and allies",
+    "rank": "Subfamily",
+    "parentId": "49995"
+  },
+  "364082": {
+    "taxonName": "Eristalini",
+    "vernacularName": "Rat-tail maggot flies",
+    "rank": "Tribe",
+    "parentId": "326181"
+  },
+  "520020": {
+    "taxonName": "Eristalina",
+    "vernacularName": "-",
+    "rank": "Subtribe",
+    "parentId": "364082"
+  },
+  "52491": {
+    "taxonName": "Eristalis",
+    "vernacularName": "Drone flies",
+    "rank": "Genus",
+    "parentId": "520020"
+  },
+  "520029": {
+    "taxonName": "Eristalis",
+    "vernacularName": "-",
+    "rank": "Subgenus",
+    "parentId": "52491"
+  },
+  "55719": {
+    "taxonName": "Eristalis tenax",
+    "vernacularName": "Common drone fly",
+    "rank": "Species",
+    "parentId": "520029"
+  },
+  "52489": {
+    "taxonName": "Syrphus",
+    "vernacularName": "Common flower flies",
+    "rank": "Genus",
+    "parentId": "121991"
+  },
+  "52488": {
+    "taxonName": "Syrphus ribesii",
+    "vernacularName": "Common flower fly",
+    "rank": "Species",
+    "parentId": "52489"
+  },
+  "322366": {
+    "taxonName": "Syrphus torvus",
+    "vernacularName": "Hairy-eyed flower fly",
+    "rank": "Species",
+    "parentId": "52489"
   }
 }

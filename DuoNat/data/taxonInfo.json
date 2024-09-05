@@ -43503,5 +43503,131 @@
       "AF",
       "AS"
     ]
+  },
+  "52482": {
+    "taxonName": "Episyrphus balteatus",
+    "vernacularName": "Marmalade hover fly",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47822,
+      48091,
+      372853,
+      414448,
+      49995,
+      186841,
+      121991,
+      52483,
+      52482
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Most abundant hoverfly in Central Europe",
+      "Transports pollen grains",
+      "Larva consumes aphids"
+    ],
+    "range": [
+      "EU",
+      "AS"
+    ]
+  },
+  "55719": {
+    "taxonName": "Eristalis tenax",
+    "vernacularName": "Common drone fly",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47822,
+      48091,
+      372853,
+      414448,
+      49995,
+      326181,
+      364082,
+      520020,
+      52491,
+      520029,
+      55719
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Larvae occasionally pests around livestock",
+      "Adults important pollinators of many crops and wildflowers",
+      "Larvae can cause accidental myiasis in humans if ingested"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "EU",
+      "AS",
+      "AF",
+      "OC"
+    ]
+  },
+  "52488": {
+    "taxonName": "Syrphus ribesii",
+    "vernacularName": "Common flower fly",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47822,
+      48091,
+      372853,
+      414448,
+      49995,
+      186841,
+      121991,
+      52489,
+      52488
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Very common Holarctic species, larvae feed on aphids",
+      "Males have eyes meeting on top of head, females widely separated",
+      "Highly migratory, found in farmland, orchards, gardens, and forests"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
+    ]
+  },
+  "322366": {
+    "taxonName": "Syrphus torvus",
+    "vernacularName": "Hairy-eyed flower fly",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47822,
+      48091,
+      372853,
+      414448,
+      49995,
+      186841,
+      121991,
+      52489,
+      322366
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Often the earliest <i>Syrphus</i> species to emerge in spring",
+      "Best identified by presence of hairs on eyes",
+      "Found in gardens, hedgerows, waste ground and many habitats"
+    ],
+    "range": [
+      "EU"
+    ]
   }
 }
