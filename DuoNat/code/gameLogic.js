@@ -58,7 +58,6 @@ const gameLogic = {
         },
 
         handleIncompleteAnswer() {
-            //logger.debug("Incomplete answer. Returning to PLAYING state.");
             state.setState(state.GameState.PLAYING);
         },
 
