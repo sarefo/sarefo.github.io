@@ -178,6 +178,9 @@ const pairManager = {
     },
 
     pairLoading: {
+        // called from:
+        // - loadNewPair()
+        // - roundManager.loadNewRound() for some reason TODO
         async initializeNewPair() {
             const newPair = await pairManager.pairSelection.selectNewPair();
             //logger.debug(`Initializing new pair: ${newPair.taxonA} / ${newPair.taxonB}`);
@@ -191,38 +194,51 @@ const pairManager = {
 
         // called from collMan, iNatDown, enterPair, main
         // TODO process pairID inside this function, not before
-        async loadNewPair (pairID = null, usePreloadedPair = true) {
-            logger.trace("loadNewPair");
+        async loadNewPair (pairID = null) {
+            //logger.trace("loadNewPair");
             state.setState(state.GameState.LOADING_PAIR);
             if (!await api.externalAPIs.checkINaturalistReachability()) return;
             roundManager.prepareImagesForLoading();
+            preloader.roundPreloader.clearPreloadedImagesForNextRound();
 
             let selectedPair;
 
-            // If a pairID is provided, load that specific pair
-            if (pairID) {
-                selectedPair = await pairManager.pairManagement.getPairByID(pairID);
-                if (selectedPair) {
-                    //logger.debug(`Using selected pair: ${selectedPair.pairID}`);
-                } else {
-                    logger.warn(`Pair with ID ${pairID} not found. Falling back to random selection.`);
+            try {
+                // If a pairID is provided, load that specific pair
+                if (pairID) {
+                    selectedPair = await pairManager.pairManagement.getPairByID(pairID);
+                    logger.trace("pairID:", pairID, "selectedPair:", selectedPair);
+                    if (!selectedPair) {
+                        logger.warn(`Pair with ID ${pairID} not found. Falling back to random selection.`);
+                    }
                 }
-            }
 
-            // If no specific pair was selected or found, proceed with normal selection
-            if (!selectedPair) {
-                selectedPair = await this.selectPairForLoading(usePreloadedPair);
-            }
+                // If no specific pair was selected or found, proceed with normal selection
+                if (!selectedPair) selectedPair = await this.selectPairForLoading();
 
-            if (!selectedPair) {
-                logger.error("Failed to select a pair. Aborting loadNewPair.");
-                state.setState(state.GameState.PLAYING);
-                return;
-            }
+                if (!selectedPair) {
+                    logger.error("Failed to select a pair. Aborting loadNewPair.");
+                    state.setState(state.GameState.PLAYING);
+                    return;
+                }
 
-            state.setNextSelectedPair(selectedPair);
-            await this.initializeNewPair();
-            gameSetup.updateUIAfterSetup(true);
+                state.setNextSelectedPair(selectedPair);
+                await this.initializeNewPair();
+
+                //const newPair = state.getCurrentTaxonImageCollection().pair;
+                await roundManager.setupRoundFromGameSetup(true);
+                pairManager.uiHandling.updateUIForNewPair(selectedPair);
+
+                // also called in loadNewRound()!!
+                await gameSetup.updateUIAfterSetup(true);
+            } catch (error) {
+                pairManager.errorHandling.handlePairLoadingError(error);
+            } finally {
+                if (state.getState() !== state.GameState.PLAYING) {
+                    state.setState(state.GameState.PLAYING);
+                }
+                preloader.startPreloading(true);
+            }
 
             // TODO
             // roundManager.loadNewRound();
@@ -230,10 +246,10 @@ const pairManager = {
         },
 
         // called from swipe-left
-        async loadNewRandomPair(usePreloadedPair = true) {
-            logger.debug("loadNewRandomPair");
-            state.setState(state.GameState.LOADING_PAIR); //
-            roundManager.prepareImagesForLoading(); //
+        /*async loadNewRandomPair(usePreloadedPair = true) {
+            //logger.debug("loadNewRandomPair");
+            //state.setState(state.GameState.LOADING_PAIR); //
+            //roundManager.prepareImagesForLoading(); //
             // also called from roundManager.getImages()
             preloader.roundPreloader.clearPreloadedImagesForNextRound();
 
@@ -281,26 +297,23 @@ const pairManager = {
                 }
                 preloader.startPreloading(true);
             }
-        },
+        },*/
 
-        // TODO move or restructure later
-        async selectPairForLoading(usePreloadedPair = true) {
-            if (usePreloadedPair) {
-                const preloadedPair = preloader.pairPreloader.getPreloadedImagesForNextPair()?.pair;
-                if (preloadedPair) {
-                    logger.debug(`Using preloaded pair: ${preloadedPair.pairID}`);
-                    return preloadedPair;
+        async selectPairForLoading() {
+            const preloadedPair = preloader.pairPreloader.getPreloadedImagesForNextPair()?.pair;
+            if (preloadedPair) {
+                logger.debug(`Using preloaded pair: ${preloadedPair.pairID}`);
+                return preloadedPair;
+            } else {
+                const selectedPair = await pairManager.pairSelection.selectRandomPairFromCurrentCollection();
+                if (selectedPair) {
+                    //logger.debug(`Selected random pair: ${selectedPair.pairID}`);
+                    return selectedPair;
+                } else {
+                    logger.warn('No available pairs in the current collection');
+                    return null;
                 }
             }
-
-            const selectedPair = await pairManager.pairSelection.selectRandomPairFromCurrentCollection();
-            if (selectedPair) {
-                //logger.debug(`Selected random pair: ${selectedPair.pairID}`);
-                return selectedPair;
-            }
-
-            logger.warn('No available pairs in the current collection');
-            return null;
         },
 
         async fallbackPairLoading(usePreloadedPair) {

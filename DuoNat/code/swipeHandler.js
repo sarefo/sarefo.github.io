@@ -212,7 +212,7 @@ const swipeHandler = {
     scheduleNewPairLoad() {
         setTimeout(() => {
             this.resetContainerForNewPair();
-            pairManager.loadNewRandomPair();
+            pairManager.loadNewPair();
             //pairManager.loadNewPair(); // TODO loads same pair ?!
             this.fadeInNewPair();
         }, this.animationDuration);

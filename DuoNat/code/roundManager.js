@@ -34,7 +34,8 @@ const roundManager = {
             } finally {
                 state.setState(state.GameState.PLAYING);
             }
-            gameSetup.updateUIAfterSetup(false); // TODO
+            // also called in loadNewPair()!!
+            await gameSetup.updateUIAfterSetup(false); // TODO
         },
     },
 
@@ -82,6 +83,7 @@ const roundManager = {
                 throw new Error('Invalid pairData: pair is undefined');
             }
             const { pair, preloadedImages } = pairData;
+
             if (isNewPair && preloadedImages) {
                 //logger.debug(`Using preloaded images for pair: ${pair.taxonA} / ${pair.taxonB}`);
                 return { taxonA: preloadedImages.taxonA, taxonB: preloadedImages.taxonB };

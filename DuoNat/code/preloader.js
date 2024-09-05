@@ -300,8 +300,11 @@ const preloader = {
     roundPreloader,
     pairPreloader,
 
+    // called from:
+    // - gameSetup.finishSetup() (newPair)
+    // - pairManager.loadNewPair() (true)
     async startPreloading(isNewPair) {
-        //logger.warn("startPreloading()");
+        logger.trace("startPreloading()");
         //logger.debug(`Starting preloading. isNewPair: ${isNewPair}`);
         try {
             await this.roundPreloader.preloadForNextRound();

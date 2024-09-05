@@ -34,7 +34,7 @@ const eventUIButtons = {
             'ancestry-button': ancestryDialog.showTaxaRelationship,
             'collection-button': collectionManager.openCollectionManagerDialog,
             'enter-pair-button': () => dialogManager.openDialog('enter-pair-dialog'),
-            'random-pair-button': pairManager.loadNewRandomPair,
+            'random-pair-button': pairManager.loadNewPair,
             'like-button': this.likePair.bind(this),
             'trash-button': this.trashPair.bind(this),
             'surprise-button': utils.sound.surprise

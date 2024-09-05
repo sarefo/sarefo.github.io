@@ -16,17 +16,16 @@ const gameSetup = {
 
     initialization: {
 
-        updateUIAfterSetup(newPair) {
+        // called from:
+        // - pairManager.loadNewPair()
+        // - roundManager.loadNewRound()
+        async updateUIAfterSetup(newPair = false) {
             ui.updateLevelIndicator(state.getCurrentTaxonImageCollection().pair.level);
 
             if (filtering.areAllFiltersDefault()) {
                 collectionManager.updateFilterSummary();
             }
 
-            this.finishSetup(newPair);
-        },
-
-        async finishSetup(newPair) {
             ui.setNamePairHeight();
             state.setState(state.GameState.PLAYING);
 
@@ -40,7 +39,7 @@ const gameSetup = {
             }
             ui.resetUIState();
             state.setState(state.GameState.PLAYING);
-            preloader.startPreloading(newPair);
+            //preloader.startPreloading(newPair);
 
             // Initialize the collection subset after the game has loaded
             pairManager.initializeCollectionSubset().catch(error => {

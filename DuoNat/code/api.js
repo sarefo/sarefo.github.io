@@ -237,7 +237,7 @@ const api = (() => {
         },
 
         images: {
-            fetchRandomImage: async function (taxonName) {
+            /*fetchRandomImage: async function (taxonName) {
                 try {
                     const images = await this.fetchMultipleImages(taxonName, 12);
                     if (images.length === 0) {
@@ -250,9 +250,9 @@ const api = (() => {
                 } catch (error) {
                     handleApiError(error, 'fetchRandomImage');
                 }
-            },
+            },*/
 
-            fetchRandomImageMetadata: async function (taxonName) {
+            /*fetchRandomImageMetadata: async function (taxonName) {
                 //            logger.debug(`Fetching random image metadata for ${taxonName}`);
                 const images = await this.fetchImageMetadata(taxonName, 12); // Fetch metadata for 12 images
                 if (images.length === 0) {
@@ -263,9 +263,9 @@ const api = (() => {
                 const result = images[randomIndex];
                 //            logger.debug(`Selected random image metadata for ${taxonName}: ${result}`);
                 return result;
-            },
+            },*/
 
-            fetchImageMetadata: async function (taxonName, count = 12) {
+            /*fetchImageMetadata: async function (taxonName, count = 12) {
                 //            logger.debug(`Fetching metadata for ${count} images of ${taxonName}`);
                 try {
                     const searchResponse = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${taxonName}`);
@@ -287,8 +287,9 @@ const api = (() => {
                     logger.error(`Error fetching image metadata for ${taxonName}:`, error);
                     return [];
                 }
-            },
+            },*/
 
+            // called from preloader.fetchDifferentImage()
             async fetchMultipleImages(taxonName, count = 12) {
                 try {
                     // First, try to get the taxon ID from local data
@@ -321,6 +322,7 @@ const api = (() => {
                     images = [...new Set(images)];
                     images = images.sort(() => Math.random() - 0.5);
 
+                    logger.trace(`fetched ${images.length} images from iNat for taxon:`, taxonName);
                     return images.slice(0, Math.min(count, images.length));
 
                 } catch (error) {
@@ -486,7 +488,7 @@ const publicAPI = {
         fetchTaxonDetails: api.taxonomy.fetchTaxonDetails
     },
     images: {
-        fetchRandomImage: api.images.fetchRandomImage,
+        //fetchRandomImage: api.images.fetchRandomImage,
         fetchMultipleImages: api.images.fetchMultipleImages
     },
     sound: {

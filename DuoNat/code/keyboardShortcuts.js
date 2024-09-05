@@ -95,7 +95,7 @@ const keyboardShortcuts = {
   handleArrowLeft() {
         if (!this.isLoadingNewPair) {
             this.isLoadingNewPair = true;
-            pairManager.loadNewRandomPair().finally(() => {
+            pairManager.loadNewPair().finally(() => {
                 this.isLoadingNewPair = false;
             });
         }
