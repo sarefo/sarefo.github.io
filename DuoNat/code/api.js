@@ -237,60 +237,10 @@ const api = (() => {
         },
 
         images: {
-            /*fetchRandomImage: async function (taxonName) {
-                try {
-                    const images = await this.fetchMultipleImages(taxonName, 12);
-                    if (images.length === 0) {
-                        throw new Error(`No images found for ${taxonName}`);
-                    }
-                    const randomIndex = Math.floor(Math.random() * images.length);
-                    const result = images[randomIndex];
-                    logger.debug(`Fetched random image for ${taxonName}: ${result}`);
-                    return result;
-                } catch (error) {
-                    handleApiError(error, 'fetchRandomImage');
-                }
-            },*/
-
-            /*fetchRandomImageMetadata: async function (taxonName) {
-                //            logger.debug(`Fetching random image metadata for ${taxonName}`);
-                const images = await this.fetchImageMetadata(taxonName, 12); // Fetch metadata for 12 images
-                if (images.length === 0) {
-                    logger.error(`No image metadata found for ${taxonName}`);
-                    return null;
-                }
-                const randomIndex = Math.floor(Math.random() * images.length);
-                const result = images[randomIndex];
-                //            logger.debug(`Selected random image metadata for ${taxonName}: ${result}`);
-                return result;
-            },*/
-
-            /*fetchImageMetadata: async function (taxonName, count = 12) {
-                //            logger.debug(`Fetching metadata for ${count} images of ${taxonName}`);
-                try {
-                    const searchResponse = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${taxonName}`);
-                    const searchData = await searchResponse.json();
-                    if (searchData.results.length === 0) { throw new Error('Taxon not found'); }
-                    const taxonId = searchData.results[0].id;
-
-                    const taxonResponse = await fetch(`https://api.inaturalist.org/v1/taxa/${taxonId}`);
-                    const taxonData = await taxonResponse.json();
-                    if (taxonData.results.length === 0) { throw new Error('No details found for the taxon'); }
-                    const taxon = taxonData.results[0];
-
-                    let images = taxon.taxon_photos.map(photo => photo.photo.url.replace('square', 'medium'));
-
-                    const result = images.slice(0, Math.min(count, images.length));
-                    //                logger.debug(`Fetched metadata for ${result.length} images of ${taxonName}`);
-                    return result;
-                } catch (error) {
-                    logger.error(`Error fetching image metadata for ${taxonName}:`, error);
-                    return [];
-                }
-            },*/
 
             // called from preloader.fetchDifferentImage()
             async fetchMultipleImages(taxonName, count = 12) {
+                logger.trace("fetchMultipleImages", taxonName);
                 try {
                     // First, try to get the taxon ID from local data
                     const taxonInfo = await api.taxonomy.loadTaxonInfo();
