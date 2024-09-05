@@ -240,7 +240,7 @@ const api = (() => {
 
             // called from preloader.fetchDifferentImage()
             async fetchMultipleImages(taxonName, count = 12) {
-                logger.trace("fetchMultipleImages", taxonName);
+                //logger.trace("fetchMultipleImages", taxonName);
                 try {
                     // First, try to get the taxon ID from local data
                     const taxonInfo = await api.taxonomy.loadTaxonInfo();
