@@ -20,18 +20,13 @@ const gameSetup = {
         // - pairManager.loadNewPair()
         // - roundManager.loadNewRound()
         async updateUIAfterSetup(newPair = false) {
-            ui.updateLevelIndicator(state.getCurrentTaxonImageCollection().pair.level);
 
-            if (filtering.areAllFiltersDefault()) {
-                collectionManager.updateFilterSummary();
-            }
+            if (filtering.areAllFiltersDefault()) collectionManager.updateFilterSummary();
 
             ui.setNamePairHeight();
             state.setState(state.GameState.PLAYING);
 
-            if (newPair) {
-                await pairManager.refreshCollectionSubset();
-            }
+            if (newPair) await pairManager.refreshCollectionSubset();
 
             if (state.getIsInitialLoad()) {
                 ui.hideLoadingScreen();

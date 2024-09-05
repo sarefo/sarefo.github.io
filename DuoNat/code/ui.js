@@ -269,7 +269,9 @@ const ui = {
     },
 
     levelIndicator: {
+        // called only from pairmanager.loadNewPair()
         updateLevelIndicator(level) {
+            //logger.trace("updateLevelIndicator");
             const indicator = document.getElementById('level-indicator');
             if (!indicator) return;
 

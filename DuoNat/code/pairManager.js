@@ -200,7 +200,6 @@ const pairManager = {
         // called from collMan, iNatDown, enterPair, main
         // TODO process pairID inside this function, not before
         async loadNewPair (pairID = null) {
-            //logger.trace("loadNewPair");
             state.setState(state.GameState.LOADING_PAIR);
             if (!await api.externalAPIs.checkINaturalistReachability()) return;
             roundManager.prepareImagesForLoading();
@@ -232,7 +231,9 @@ const pairManager = {
 
                 //const newPair = state.getCurrentTaxonImageCollection().pair;
                 await roundManager.setupRoundFromGameSetup(true);
-                pairManager.uiHandling.updateUIForNewPair(selectedPair);
+                //pairManager.uiHandling.updateUIForNewPair(selectedPair);
+                ui.hideOverlay();
+                //if (selectedPair) ui.updateLevelIndicator(newPair.level);
 
                 // also called in loadNewRound()!!
                 await gameSetup.updateUIAfterSetup(true);
@@ -248,61 +249,8 @@ const pairManager = {
             // TODO
             // roundManager.loadNewRound();
             
+            ui.updateLevelIndicator(selectedPair.level);
         },
-
-        // called from swipe-left
-        /*async loadNewRandomPair(usePreloadedPair = true) {
-            //logger.debug("loadNewRandomPair");
-            //state.setState(state.GameState.LOADING_PAIR); //
-            //roundManager.prepareImagesForLoading(); //
-            // also called from roundManager.getImages()
-            preloader.roundPreloader.clearPreloadedImagesForNextRound();
-
-            try {
-                const isNewPair = true;
-                state.setState(state.GameState.LOADING_ROUND);
-
-                try {
-                    const pairData = await pairManager.pairManagement.getNextPair(isNewPair);
-                    
-                    if (!pairData || !pairData.pair) {
-                        logger.error('Invalid pairData structure received from pairManager.getNextPair');
-                        throw new Error('Invalid pairData: missing pair property');
-                    }
-
-                    // this calls roundManager.getImages()
-                    const imageData = await roundManager.getAndProcessImages(pairData, isNewPair);
-
-                    roundManager.setObservationURLs(imageData);
-                    const pair = pairData.pair;
-                    await roundManager.setupRound(pair, imageData);
-
-                    state.updateRoundState(pair, imageData);
-                    ui.updateLevelIndicator(pair.level || '1');
-
-                } catch (error) {
-                    logger.error("Error loading round:", error);
-                    ui.showOverlay("Error loading round. Please try again.", config.overlayColors.red);
-                } finally {
-                    state.setState(state.GameState.PLAYING);
-                }
-
-
-                if (state.getState() !== state.GameState.PLAYING) {
-                    await this.fallbackPairLoading(usePreloadedPair);
-                }
-
-                const newPair = state.getCurrentTaxonImageCollection().pair;
-                pairManager.uiHandling.updateUIForNewPair(newPair);
-            } catch (error) {
-                pairManager.errorHandling.handlePairLoadingError(error);
-            } finally {
-                if (state.getState() !== state.GameState.PLAYING) {
-                    state.setState(state.GameState.PLAYING);
-                }
-                preloader.startPreloading(true);
-            }
-        },*/
 
         async selectPairForLoading() {
             const preloadedPair = preloader.pairPreloader.getPreloadedImagesForNextPair()?.pair;
@@ -433,13 +381,14 @@ const pairManager = {
     },
 
     stateManagement: {
+        // called only from initializeNewPair()
         updateGameStateForNewPair(newPair, images) {
             state.updateGameStateMultiple({
                 currentTaxonImageCollection: {
                     pair: newPair,
                     image1URL: images.taxonA,
                     image2URL: images.taxonB,
-                    level: newPair.level || '1',
+                    level: newPair.level,
                 },
                 usedImages: {
                     taxonA: new Set([images.taxonA]),
@@ -447,18 +396,14 @@ const pairManager = {
                 },
             });
             state.setCurrentPairID(newPair.pairID || state.getCurrentPairID());
-            ui.updateLevelIndicator(newPair.level || '1');
+            //ui.updateLevelIndicator(newPair.level);
         },
     },
 
-    uiHandling: {
+/*    uiHandling: {
         updateUIForNewPair(newPair) {
-            ui.hideOverlay();
-            if (newPair) {
-                ui.updateLevelIndicator(newPair.level);
-            }
         },
-    },
+    },*/
 
     errorHandling: {
         handlePairLoadingError(error) {
