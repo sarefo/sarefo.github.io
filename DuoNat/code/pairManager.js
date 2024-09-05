@@ -1,6 +1,7 @@
 import api from './api.js';
 import config from './config.js';
 import filtering from './filtering.js';
+import hintSystem from './hintSystem.js';
 import logger from './logger.js';
 import preloader from './preloader.js';
 import roundManager from './roundManager.js';
@@ -23,7 +24,7 @@ const pairManager = {
             state.setState(state.GameState.LOADING_PAIR);
             if (!await api.externalAPIs.checkINaturalistReachability()) return;
 
-            ui.prepareImagesForLoading();
+            ui.prepareImagesForLoading(); // TODO separate pair/round
 
             let selectedPair;
 
@@ -45,6 +46,9 @@ const pairManager = {
 
                 state.setNextSelectedPair(selectedPair);
                 await this.initializeNewPair();
+
+                // Update hint buttons
+                await hintSystem.updateAllHintButtons();
 
                 ui.hideOverlay();
 
@@ -95,7 +99,9 @@ const pairManager = {
             };
 
             // TODO eliminate calls to roundManager here if possible!
-            roundManager.setObservationURLs(imageData);
+            //roundManager.setObservationURLs(imageData);
+
+            // TODO replace with loadNewRound() eventually
             await roundManager.setupRound(pair, imageData, true);
             preloader.roundPreloader.preloadForNextRound();
 

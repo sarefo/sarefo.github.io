@@ -1,12 +1,8 @@
 import api from './api.js';
 import config from './config.js';
 import errorHandling from './errorHandling.js';
-import filtering from './filtering.js';
-import gameLogic from './gameLogic.js';
-import hintSystem from './hintSystem.js';
 import logger from './logger.js';
 import preloader from './preloader.js';
-import pairManager from './pairManager.js';
 import state from './state.js';
 import ui from './ui.js';
 import utils from './utils.js';
@@ -21,11 +17,9 @@ const roundManager = {
             if (!await api.externalAPIs.checkINaturalistReachability()) return;
 
             try {
-                ui.prepareImagesForLoading();
-                //preloader.roundPreloader.clearPreloadedImagesForNextRound(); // seems to be wrong here
+                ui.prepareImagesForLoading(); // TODO separate pair/round
 
                 const { pair } = state.getCurrentTaxonImageCollection();
-                
                 const pairData = { pair, preloadedImages: null };
                 const imageData = await this.getAndProcessImages(pairData, false);
                 
@@ -43,19 +37,6 @@ const roundManager = {
             await ui.updateUIAfterSetup(false); // TODO
             preloader.roundPreloader.preloadForNextRound();
         },
-
-        // called only from loadNewRound()
-        // for every round after the first. TODO eliminate!
-        /*async setupFurtherRound() {
-            const { pair } = state.getCurrentTaxonImageCollection();
-            
-            const pairData = { pair, preloadedImages: null };
-            const imageData = await this.getAndProcessImages(pairData, false);
-            
-            this.setObservationURLs(imageData);
-
-            const { nameTileData, worldMapData } = await roundManager.setupRoundComponents.setupRound(pair, imageData, false);
-        },*/
 
         async getAndProcessImages(pairData, isNewPair) {
             if (!pairData) {
@@ -157,9 +138,6 @@ const roundManager = {
 
             // Update game state
             state.updateGameStateForRound(pair, imageData, nameTileData);
-
-            // Update hint buttons
-            await hintSystem.updateAllHintButtons();
 
             // Apply world map data
             worldMap.createWorldMap(state.getElement('image1Container'), worldMapData.continents1);
