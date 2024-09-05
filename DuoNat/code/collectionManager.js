@@ -123,7 +123,6 @@ const collectionManager = {
     },
 
     taxonList: {
-
         filterTaxonPairsBySearch(pairs, searchTerm) {
             if (!searchTerm) return pairs;
             
