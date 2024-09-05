@@ -564,12 +564,12 @@ const collectionManager = {
                 await pairManager.refreshCollectionSubset();
                 dialogManager.closeDialog('collection-dialog');
 
-                // Get current filters and filtered pairs
-                const filters = filtering.getActiveFilters();
-                const filteredPairs = await filtering.getFilteredTaxonPairs(filters);
+                // Get current filtered pairs
+                const filteredPairs = await filtering.getFilteredTaxonPairs(filtering.getActiveFilters());
                 
                 // Get the current pair
                 const currentPair = state.getCurrentTaxonImageCollection()?.pair;
+                logger.debug("currentPair", currentPair);
 
                 // Check if the current pair is in the filtered collection
                 const currentPairInCollection = currentPair && filteredPairs.some(pair => pair.pairID === currentPair.pairID);
