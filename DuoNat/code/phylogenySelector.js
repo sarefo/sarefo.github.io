@@ -42,6 +42,18 @@ const phylogenySelector = {
         this.search.initializeSearch();
     },
 
+    focusSearchInput() {
+        const searchInput = document.getElementById('phylogeny-search');
+        if (searchInput) {
+            setTimeout(() => {
+                searchInput.focus();
+                if (searchInput.value.length > 0) {
+                    searchInput.select();
+                }
+            }, 100);
+        }
+    },
+
     handleClearFilters() {
         filtering.clearAllFilters();
         this.updateGraph();
@@ -768,6 +780,7 @@ const publicAPI = {
     toggleView: phylogenySelector.toggleView,
     updateToggleState: phylogenySelector.updateToggleState,
     clearSearchResults: phylogenySelector.search.clearSearchResults,
+    focusSearchInput: phylogenySelector.focusSearchInput,
 };
 
 // Bind publicAPI methods

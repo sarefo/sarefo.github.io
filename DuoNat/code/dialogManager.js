@@ -197,6 +197,13 @@ const dialogManager = {
                 collectionManager.setupCollectionManagerDialog();
             }
 
+            if (dialogId === 'phylogeny-dialog') {
+                phylogenySelector.updateGraph();
+                if (state.getHasKeyboard()) {
+                    setTimeout(() => phylogenySelector.focusSearchInput(), 100);
+                }
+            }
+
             if (dialogId === 'report-dialog') {
                 reporting.resetReportDialog();
             }
