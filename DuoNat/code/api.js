@@ -179,7 +179,6 @@ const api = (() => {
                     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                     const data = await response.json();
                     if (data.results.length === 0) throw new Error(`Taxon not found: ${name}`);
-                    logger.debug('Fetched taxon details:', data.results[0]);
                     return data.results[0];
                 } catch (error) {
                     handleApiError(error, 'fetchTaxonDetails');

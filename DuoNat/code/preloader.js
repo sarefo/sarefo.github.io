@@ -167,7 +167,7 @@ const preloader = {
 
                 if (newPair) {
                     await this.preloadPairImages(newPair);
-                    logger.debug("Preloaded pair:", newPair.pairID, newPair);
+                    logger.debug("Preloading completed for next pair:", newPair.pairID, newPair);
                 } else {
                     logger.warn("No valid pairs found for preloading");
                     preloader.preloadedImages.nextPair = null;
@@ -177,7 +177,6 @@ const preloader = {
                 preloader.preloadedImages.nextPair = null;
             } finally {
                 preloader.isPreloading = false;
-                logger.debug("Preloading completed for next pair");
             }
         },
 
