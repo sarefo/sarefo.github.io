@@ -2,7 +2,7 @@ import api from './api.js';
 import collectionManager from './collectionManager.js';
 import dialogManager from './dialogManager.js';
 import filtering from './filtering.js';
-import preloader from './preloader.js';
+//import preloader from './preloader.js';
 import state from './state.js';
 import logger from './logger.js';
 
@@ -31,7 +31,7 @@ const tagSelector = {
             levelDropdown.addEventListener('change', () => collectionManager.updateTaxonList());
 
             // Initialize filteredPairs
-            await tagSelector.dataManager.updateFilteredPairs();
+            //await tagSelector.dataManager.updateFilteredPairs();
         },
 
         on(eventName, callback) {
@@ -59,7 +59,7 @@ const tagSelector = {
             }
             const newSelectedTags = Array.from(tagSelector.selectedTags);
             state.updateGameStateMultiple({ selectedTags: newSelectedTags });
-            await tagSelector.dataManager.updateFilteredPairs();
+            //await tagSelector.dataManager.updateFilteredPairs();
             collectionManager.updateFilterSummary();
             await tagSelector.uiManager.updateMatchingPairsCount();
 
@@ -70,24 +70,12 @@ const tagSelector = {
             return Array.from(tagSelector.selectedTags);
         },
 
-        async setSelectedTags(tags) {
+        /*async setSelectedTags(tags) {
             tagSelector.selectedTags = new Set(tags);
             state.updateGameStateMultiple({ selectedTags: this.getSelectedTags() });
             collectionManager.updateFilterSummary();
             await tagSelector.dataManager.updateFilteredPairs();
-            // Trigger preloading of a new pair based on the selected tags
-            preloader.preloadNewPairWithTags(this.getSelectedTags(), state.getSelectedLevel(), state.getSelectedRanges() || []);
-        },
-
-        async clearAllTags() {
-            tagSelector.selectedTags.clear();
-            state.updateGameStateMultiple({ selectedTags: [] });
-            collectionManager.updateFilterSummary();
-            await tagSelector.dataManager.updateFilteredPairs();
-
-            // Trigger preloading of a random pair from all available pairs
-            preloader.preloadNewPairWithTags([], state.getSelectedLevel(), state.getSelectedRanges());
-        },
+        },*/
     },
 
     uiManager: {
@@ -144,10 +132,8 @@ const tagSelector = {
 
         async getTagCounts() {
             const tagCounts = {};
-            const taxonPairs = await api.taxonomy.fetchTaxonPairs();
             const filters = filtering.getActiveFilters();
-
-            const filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
+            const filteredPairs = await filtering.getFilteredTaxonPairs(filters);
 
             filteredPairs.forEach(pair => {
                 pair.tags.forEach(tag => {
@@ -159,36 +145,19 @@ const tagSelector = {
             return tagCounts;
         },
 
-        async updateFilteredPairs() {
-            const taxonPairs = await api.taxonomy.fetchTaxonPairs();
-            const filters = {
-                level: state.getSelectedLevel(),
-                ranges: state.getSelectedRanges(),
-                tags: Array.from(tagSelector.selectedTags),
-                searchTerm: state.getSearchTerm()
-            };
-
-            tagSelector.filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
+        /*async updateFilteredPairs() {
+            return null;
+            logger.trace("updateFilteredPairs");
+            const filters = filtering.getActiveFilters();
+            tagSelector.filteredPairs = await filtering.getFilteredTaxonPairs(filters);
 
             await collectionManager.renderTaxonList(tagSelector.filteredPairs);
             collectionManager.updateActiveCollectionCount(tagSelector.filteredPairs.length);
             tagSelector.uiManager.updateMatchingPairsCount();
-        },
+        },*/
 
-        filterPairsByLevel(taxonPairs, selectedLevel) {
-            return taxonPairs.filter(pair => selectedLevel === '' || pair.level === selectedLevel);
-        },
-
-        filterPairsByTags(pairs, selectedTags) {
-            return pairs.filter(pair =>
-                selectedTags.length === 0 || pair.tags.some(tag => selectedTags.includes(tag))
-            );
-        },
-
-        filterPairsByRanges(pairs, selectedRanges) {
-            return pairs.filter(pair =>
-                selectedRanges.length === 0 || pair.range.some(range => selectedRanges.includes(range))
-            );
+        async clearTagsInCloud() {
+            tagSelector.selectedTags.clear();
         },
 
     },
@@ -233,8 +202,9 @@ const publicAPI = {
     initialize: tagSelector.initialization.initialize,
     openTagSelector: tagSelector.openTagSelector,
     closeTagSelector: tagSelector.closeTagSelector,
-    setSelectedTags: tagSelector.tagSelection.setSelectedTags,
-    clearAllTags: tagSelector.tagSelection.clearAllTags,
+    //setSelectedTags: tagSelector.tagSelection.setSelectedTags,
+    //updateFilteredPairs: tagSelector.dataManager.updateFilteredPairs,
+    clearTagsInCloud: tagSelector.dataManager.clearTagsInCloud,
 };
 
 export default publicAPI;

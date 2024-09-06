@@ -282,6 +282,7 @@ const preloader = {
             }
         },
 
+        // used by "+" shortcut for ID walking
         async preloadPairByID(pairID) {
             try {
                 const nextPair = await pairManager.getPairByID(pairID);

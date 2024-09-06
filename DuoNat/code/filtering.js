@@ -39,7 +39,7 @@ const filtering = {
             levelDropdown.value = '';
         }
 
-        tagSelector.clearAllTags();
+        tagSelector.clearTagsInCloud();
         rangeSelector.setSelectedRanges([]);
 
         eventMain.resetSearch();
