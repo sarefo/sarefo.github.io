@@ -909,7 +909,7 @@
     ]
   },
   "50": {
-    "pairName": "Red Deer Group",
+    "pairName": "Red Deer",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -926,7 +926,7 @@
     ]
   },
   "51": {
-    "pairName": "Large North American Cervids",
+    "pairName": "Moose vs Wapiti",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -1250,7 +1250,7 @@
     ]
   },
   "71": {
-    "pairName": "Small Rodents",
+    "pairName": "House Mouse vs Wood Mouse",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -2084,7 +2084,7 @@
     ]
   },
   "119": {
-    "pairName": "Procyonids",
+    "pairName": "Raccoon vs Coati",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -2112,7 +2112,7 @@
     "range": []
   },
   "121": {
-    "pairName": "Mustelids",
+    "pairName": "Mink vs Polecat",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -2126,7 +2126,7 @@
     "range": []
   },
   "122": {
-    "pairName": "Raptors",
+    "pairName": "Sparrowhawk vs Kestrel",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -2144,7 +2144,7 @@
     ]
   },
   "123": {
-    "pairName": "Large Corvids",
+    "pairName": "Carrion Crow vs Raven",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -2161,7 +2161,7 @@
     ]
   },
   "124": {
-    "pairName": "Pigeons and Doves",
+    "pairName": "Pigeons vs Doves",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -2393,7 +2393,7 @@
     ]
   },
   "137": {
-    "pairName": "Swallows",
+    "pairName": "House Martin vs Swallow",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -2463,7 +2463,7 @@
     ]
   },
   "141": {
-    "pairName": "Jays and Magpies",
+    "pairName": "Jays vs Magpies",
     "level": "1",
     "tags": [],
     "taxa": [
@@ -2481,7 +2481,7 @@
     ]
   },
   "142": {
-    "pairName": "Large Raptors",
+    "pairName": "Common Buzzard vs Honey Buzzard",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -2499,7 +2499,7 @@
     ]
   },
   "143": {
-    "pairName": "Accipiters",
+    "pairName": "Goshawk vs Sparrowhawk",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -2551,7 +2551,7 @@
     ]
   },
   "146": {
-    "pairName": "Herons",
+    "pairName": "Grey vs Purple Heron",
     "level": "2",
     "tags": [
       "coastal"
@@ -2571,7 +2571,7 @@
     ]
   },
   "147": {
-    "pairName": "Egrets",
+    "pairName": "Little vs Cattle Egret",
     "level": "2",
     "tags": [
       "coastal"
@@ -2652,7 +2652,7 @@
     ]
   },
   "151": {
-    "pairName": "Pigeons",
+    "pairName": "Wood Pigeon vs Stock Dove",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -2670,7 +2670,7 @@
     ]
   },
   "152": {
-    "pairName": "Doves",
+    "pairName": "Collared vs Turtle Dove",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -2688,7 +2688,7 @@
     ]
   },
   "153": {
-    "pairName": "Cuckoos and Raptors",
+    "pairName": "Sparrowhawk vs Cuckoo",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -2706,7 +2706,7 @@
     ]
   },
   "154": {
-    "pairName": "Owls",
+    "pairName": "Short-eared vs Barn Owl",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -2743,7 +2743,7 @@
     ]
   },
   "156": {
-    "pairName": "Swifts and Swallows",
+    "pairName": "Swifts vs Swallows",
     "level": "1",
     "tags": [],
     "taxa": [
@@ -2761,7 +2761,7 @@
     ]
   },
   "157": {
-    "pairName": "Colorful Small Birds",
+    "pairName": "Bee-eater vs Kingfisher",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -2779,7 +2779,7 @@
     ]
   },
   "158": {
-    "pairName": "Hoopoes and Rollers",
+    "pairName": "Hoopoes vs Rollers",
     "level": "1",
     "tags": [],
     "taxa": [
@@ -2911,7 +2911,7 @@
     ]
   },
   "165": {
-    "pairName": "Cormorants",
+    "pairName": "Cormorant vs Shag",
     "level": "2",
     "tags": [
       "coastal"
@@ -2931,7 +2931,7 @@
     ]
   },
   "166": {
-    "pairName": "Rails",
+    "pairName": "Moorhen vs Coot",
     "level": "2",
     "tags": [
       "coastal"
@@ -3070,7 +3070,7 @@
     ]
   },
   "173": {
-    "pairName": "Stone-curlews and Plovers",
+    "pairName": "Stone-curlews vs Plovers",
     "level": "1",
     "tags": [
       "coastal"
@@ -3128,7 +3128,7 @@
     ]
   },
   "176": {
-    "pairName": "Legless Lizards and Snakes",
+    "pairName": "Legless Lizards vs Snakes",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -4751,7 +4751,7 @@
     ]
   },
   "269": {
-    "pairName": "Butterflies and Moths",
+    "pairName": "Butterflies vs Moths",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -5193,7 +5193,7 @@
     ]
   },
   "294": {
-    "pairName": "Ants and Ant Mimics",
+    "pairName": "Ants vs Ant Mimics",
     "level": "2",
     "tags": [
       "mimicry"
@@ -5295,7 +5295,7 @@
     ]
   },
   "299": {
-    "pairName": "Primitive and Stinging Ants",
+    "pairName": "Primitive vs Stinging Ants",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -5328,7 +5328,7 @@
     ]
   },
   "301": {
-    "pairName": "Hoverflies and Wasps",
+    "pairName": "Hoverflies vs Wasps",
     "level": "1",
     "tags": [
       "mimicry"
@@ -5892,7 +5892,7 @@
     ]
   },
   "334": {
-    "pairName": "Grasshoppers and Crickets",
+    "pairName": "Grasshoppers vs Crickets",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -5913,7 +5913,7 @@
     ]
   },
   "335": {
-    "pairName": "Katydids and Grasshoppers",
+    "pairName": "Katydids vs Grasshoppers",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -6239,7 +6239,7 @@
     ]
   },
   "354": {
-    "pairName": "Dragonflies and Damselflies",
+    "pairName": "Dragonflies vs Damselflies",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -6378,7 +6378,7 @@
     ]
   },
   "361": {
-    "pairName": "Leafhoppers and Planthoppers",
+    "pairName": "Leafhoppers vs Planthoppers",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -7288,7 +7288,7 @@
     ]
   },
   "418": {
-    "pairName": "Icius and Pancorius Jumping Spiders",
+    "pairName": "Icius vs Pancorius Jumping Spiders",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -7352,7 +7352,7 @@
     ]
   },
   "422": {
-    "pairName": "Mopsus and Epeus Jumping Spiders",
+    "pairName": "Mopsus vs Epeus Jumping Spiders",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -8612,7 +8612,7 @@
     ]
   },
   "501": {
-    "pairName": "Sea Slugs and Flatworms",
+    "pairName": "Sea Slugs vs Flatworms",
     "level": "2",
     "tags": [
       "ocean"
@@ -9290,7 +9290,7 @@
     ]
   },
   "541": {
-    "pairName": "Comb Jellies and True Jellyfish",
+    "pairName": "Comb Jellies vs True Jellyfish",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -10414,7 +10414,7 @@
     ]
   },
   "602": {
-    "pairName": "Caterpillars and Mimics",
+    "pairName": "Caterpillars vs Mimics",
     "level": "1",
     "tags": [
       "mimicry"
@@ -10474,7 +10474,7 @@
     ]
   },
   "603": {
-    "pairName": "Beetles and Thrips",
+    "pairName": "Beetles vs Thrips",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -11113,7 +11113,7 @@
     ]
   },
   "644": {
-    "pairName": "Real and fake hawks",
+    "pairName": "Real vs fake hawks",
     "level": "1",
     "tags": [
       "mimicry"
@@ -11387,7 +11387,7 @@
     "range": []
   },
   "664": {
-    "pairName": "Nose-leaf and other bats",
+    "pairName": "Nose-leaf vs other bats",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -11404,7 +11404,7 @@
     ]
   },
   "665": {
-    "pairName": "Fruit bats and other bats",
+    "pairName": "Fruit bats vs other bats",
     "level": "1",
     "tags": [],
     "taxa": [
@@ -13595,7 +13595,7 @@
     ]
   },
   "787": {
-    "pairName": "Tachinid flies vs House flies and allies",
+    "pairName": "Tachinid flies vs House flies",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -13637,7 +13637,7 @@
     ]
   },
   "789": {
-    "pairName": "Tachinid flies vs Flesh flies and satellite flies",
+    "pairName": "Tachinid flies vs Flesh flies",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -13658,7 +13658,7 @@
     ]
   },
   "790": {
-    "pairName": "House flies and allies vs Blow flies",
+    "pairName": "House flies vs Blow flies",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -13679,7 +13679,7 @@
     ]
   },
   "791": {
-    "pairName": "House flies and allies vs Flesh flies and satellite flies",
+    "pairName": "House flies vs Flesh flies",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -13700,7 +13700,7 @@
     ]
   },
   "792": {
-    "pairName": "Flesh flies and satellite flies vs Blow flies",
+    "pairName": "Flesh flies vs Blow flies",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -13795,7 +13795,7 @@
     ]
   },
   "797": {
-    "pairName": "Spikemosses vs Ground and creeping clubmosses",
+    "pairName": "Spikemosses vs Clubmosses",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -14617,7 +14617,7 @@
     ]
   },
   "843": {
-    "pairName": "Spurge family vs Sunflowers, daisies, asters, and allies",
+    "pairName": "Spurges vs Sunflowers etc.",
     "level": "2",
     "tags": [
       "hk"
