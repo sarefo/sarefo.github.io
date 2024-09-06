@@ -1,5 +1,6 @@
 import requests
 import json
+import subprocess
 from time import sleep
 import os
 import shutil
@@ -169,18 +170,25 @@ def process_taxa(input_file, new_taxon_file, perplexity_file, taxon_info_file):
             update_input_file(input_file, corrections)
             print(f"Input file {input_file} has been updated with corrections.")
 
-    # Output perplexityPrompt.txt content
-    print("\nUse this prompt in Perplexity, then save its output in '3perplexityData.json':")
+    # Copy perplexity prompt to clipboard
+    perplexity_prompt = "\nUse this prompt in Perplexity, then save its output in '3perplexityData.json':\n"
     try:
         with open('perplexityPrompt.txt', 'r') as f:
-            print(f.read())
+            perplexity_prompt += f.read()
     except FileNotFoundError:
         print("perplexityPrompt.txt not found. Skipping prompt output.")
 
     # Output list of taxon names
     for name in taxon_names_list:
-        print(name)
+        perplexity_prompt += name + "\n"
+
+    copy_to_clipboard(perplexity_prompt)
+    print("Perplexity prompt has been copied to the clipboard.")
     clear_file(perplexity_file)
+
+def copy_to_clipboard(text):
+    process = subprocess.Popen(['clip.exe'], stdin=subprocess.PIPE, shell=True)
+    process.communicate(input=text.encode('utf-8'))
 
 def merge_perplexity_data(new_taxon_file, perplexity_file, output_file):
     clear_file(output_file)
