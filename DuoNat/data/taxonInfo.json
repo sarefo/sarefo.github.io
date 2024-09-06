@@ -43629,5 +43629,231 @@
     "range": [
       "EU"
     ]
+  },
+  "47424": {
+    "taxonName": "Theraphosidae",
+    "vernacularName": "Tarantulas",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      84719,
+      1467321,
+      47424
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "More than a thousand species identified globally.",
+      "Some can live up to 30 years in the wild.",
+      "Mild venom weaker than a bee's sting."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "47535": {
+    "taxonName": "Araneidae",
+    "vernacularName": "Orbweavers",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      342614,
+      319384,
+      47535
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Known for building spiral-shaped webs.",
+      "Includes over described 3,000 species worldwide.",
+      "Often found in gardens and forests."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "47371": {
+    "taxonName": "Theridiidae",
+    "vernacularName": "Comb-footed spiders",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      342614,
+      319384,
+      47371
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Includes over 3,000 described species globally.",
+      "Common in human dwellings worldwide.",
+      "Known for unique tangle-web structure."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "47551": {
+    "taxonName": "Tetragnathidae",
+    "vernacularName": "Long-jawed orbweavers",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      342614,
+      319384,
+      47551
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "They are known for their long bodies and legs.",
+      "Some species can build complex orb webs.",
+      "Found in diverse habitats worldwide."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "1529315": {
+    "taxonName": "Rta clade",
+    "vernacularName": "Rta clade",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      342614,
+      1529315
+    ],
+    "rank": "Zoosection",
+    "taxonFacts": [
+      "Includes species with unique mating behaviors.",
+      "Almost half of described spider species.",
+      "Group began to diversify during Cretaceous (100 million years ago)."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "367160": {
+    "taxonName": "Uloboroidea",
+    "vernacularName": "Hackled orbweavers and net-casting spiders",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      342614,
+      367160
+    ],
+    "rank": "Superfamily",
+    "taxonFacts": [
+      "They do not produce sticky webs to catch prey.",
+      "Instead, they use a unique method of trapping."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "319384": {
+    "taxonName": "Araneoidea",
+    "vernacularName": "Orbweavers and allies",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      342614,
+      319384
+    ],
+    "rank": "Superfamily",
+    "taxonFacts": [
+      "Known for their spiral orb webs.",
+      "Includes many familiar spider species."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "1492653": {
+    "taxonName": "Nephilidae",
+    "vernacularName": "Golden orbweavers",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      342614,
+      319384,
+      1492653
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "This family includes the golden orb-weaver.",
+      "Some produce the largest webs of any spider.",
+      "Extremely strong silk."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
   }
 }

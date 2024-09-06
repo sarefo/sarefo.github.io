@@ -14737,5 +14737,188 @@
       "SA",
       "EU"
     ]
+  },
+  "849": {
+    "pairName": "Massasauga vs Eastern Hognose Snake",
+    "level": "2",
+    "tags": [
+      "venomous"
+    ],
+    "taxa": [
+      520469,
+      29925
+    ],
+    "taxonNames": [
+      "Sistrurus catenatus",
+      "Heterodon platirhinos"
+    ],
+    "range": [
+      "NA"
+    ]
+  },
+  "850": {
+    "pairName": "Plains Hognose Snake vs Massasauga",
+    "level": "3",
+    "tags": [
+      "venomous"
+    ],
+    "taxa": [
+      29927,
+      520469
+    ],
+    "taxonNames": [
+      "Heterodon nasicus",
+      "Sistrurus catenatus"
+    ],
+    "range": [
+      "NA"
+    ]
+  },
+  "851": {
+    "pairName": "Orbweavers vs Comb-footed spiders",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      47535,
+      47371
+    ],
+    "taxonNames": [
+      "Araneidae",
+      "Theridiidae"
+    ],
+    "range": [
+      "AF",
+      "SA",
+      "NA",
+      "OC",
+      "AS",
+      "EU"
+    ]
+  },
+  "852": {
+    "pairName": "Tarantulas vs Wolf spiders",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      47424,
+      47416
+    ],
+    "taxonNames": [
+      "Theraphosidae",
+      "Lycosidae"
+    ],
+    "range": [
+      "AF",
+      "SA",
+      "NA",
+      "OC",
+      "AS",
+      "EU"
+    ]
+  },
+  "853": {
+    "pairName": "Long-jawed orbweavers vs Orbweavers",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      47551,
+      47535
+    ],
+    "taxonNames": [
+      "Tetragnathidae",
+      "Araneidae"
+    ],
+    "range": [
+      "AF",
+      "SA",
+      "NA",
+      "OC",
+      "AS",
+      "EU"
+    ]
+  },
+  "854": {
+    "pairName": "Orbweavers vs Golden orbweavers",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      47535,
+      1492653
+    ],
+    "taxonNames": [
+      "Araneidae",
+      "Nephilidae"
+    ],
+    "range": [
+      "AF",
+      "SA",
+      "NA",
+      "OC",
+      "AS",
+      "EU"
+    ]
+  },
+  "855": {
+    "pairName": "Long-jawed orbweavers vs Golden orbweavers",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      47551,
+      1492653
+    ],
+    "taxonNames": [
+      "Tetragnathidae",
+      "Nephilidae"
+    ],
+    "range": [
+      "AF",
+      "SA",
+      "NA",
+      "OC",
+      "AS",
+      "EU"
+    ]
+  },
+  "856": {
+    "pairName": "Hackled orbweavers and net-casting spiders vs Orbweavers and allies",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      367160,
+      319384
+    ],
+    "taxonNames": [
+      "Uloboroidea",
+      "Araneoidea"
+    ],
+    "range": [
+      "AF",
+      "SA",
+      "NA",
+      "OC",
+      "AS",
+      "EU"
+    ]
+  },
+  "857": {
+    "pairName": "Rta clade vs Orbweavers and allies",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      1529315,
+      319384
+    ],
+    "taxonNames": [
+      "Rta clade",
+      "Araneoidea"
+    ],
+    "range": [
+      "AF",
+      "SA",
+      "NA",
+      "OC",
+      "AS",
+      "EU"
+    ]
   }
 }

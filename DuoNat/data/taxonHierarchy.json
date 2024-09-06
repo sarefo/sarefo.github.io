@@ -607,7 +607,7 @@
   },
   "319384": {
     "taxonName": "Araneoidea",
-    "vernacularName": "Orbweavers and Allies",
+    "vernacularName": "Orbweavers and allies",
     "rank": "Superfamily",
     "parentId": "342614"
   },
@@ -901,7 +901,7 @@
   },
   "1529315": {
     "taxonName": "Rta clade",
-    "vernacularName": "RTA Clade",
+    "vernacularName": "Rta clade",
     "rank": "Zoosection",
     "parentId": "342614"
   },
@@ -9043,7 +9043,7 @@
   },
   "47371": {
     "taxonName": "Theridiidae",
-    "vernacularName": "Comb-footed Spiders",
+    "vernacularName": "Comb-footed spiders",
     "rank": "Family",
     "parentId": "319384"
   },
@@ -10411,7 +10411,7 @@
   },
   "47551": {
     "taxonName": "Tetragnathidae",
-    "vernacularName": "Long-jawed Orbweavers",
+    "vernacularName": "Long-jawed orbweavers",
     "rank": "Family",
     "parentId": "319384"
   },
@@ -11143,7 +11143,7 @@
   },
   "1492653": {
     "taxonName": "Nephilidae",
-    "vernacularName": "Golden Orbweavers",
+    "vernacularName": "Golden orbweavers",
     "rank": "Family",
     "parentId": "319384"
   },
@@ -20794,5 +20794,29 @@
     "vernacularName": "Hairy-eyed flower fly",
     "rank": "Species",
     "parentId": "52489"
+  },
+  "84719": {
+    "taxonName": "Mygalomorphae",
+    "vernacularName": "Mygalomorphs",
+    "rank": "Suborder",
+    "parentId": "47118"
+  },
+  "1467321": {
+    "taxonName": "Avicularioidea",
+    "vernacularName": "-",
+    "rank": "Superfamily",
+    "parentId": "84719"
+  },
+  "47424": {
+    "taxonName": "Theraphosidae",
+    "vernacularName": "Tarantulas",
+    "rank": "Family",
+    "parentId": "1467321"
+  },
+  "367160": {
+    "taxonName": "Uloboroidea",
+    "vernacularName": "Hackled orbweavers and net-casting spiders",
+    "rank": "Superfamily",
+    "parentId": "342614"
   }
 }
