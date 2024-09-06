@@ -17,16 +17,22 @@ const roundManager = {
             if (!await api.externalAPIs.checkINaturalistReachability()) return;
 
             try {
-                // TODO fix bad naming
-                const { pair } = state.getCurrentTaxonImageCollection();
-                const pairData = { pair, preloadedImages: null };
-                logger.debug("pair, pairData:",pair, pairData);
+                // TODO variable mess
+                const pairData = state.getCurrentTaxonImageCollection();
+                const pairDataWithImages = { 
+                    pair: pairData.pair, 
+                    preloadedImages: null,
+                    image1URL: pairData.image1URL,
+                    image2URL: pairData.image2URL,
+                    level: pairData.level
+                };
+                logger.debug("pair, pairData:",pairData.pair, pairDataWithImages);
 
-                const imageData = await this.getAndProcessImages(pairData);
+                const imageData = await this.getAndProcessImages(pairDataWithImages);
                 
                 this.setObservationURLs(imageData);
 
-                await roundManager.setupRoundComponents.setupRound(pair, imageData);
+                await roundManager.setupRoundComponents.setupRound(pairData.pair, imageData);
 
                 await this.fadeInNewImages();
             } catch (error) {
@@ -43,7 +49,7 @@ const roundManager = {
                 throw new Error('Invalid pairData: pairData is undefined');
             }
 
-            const images = await this.getImages(pairData, false);
+            const images = await this.getImages(pairData);
             return this.randomizeImages(images, pairData.pair);
         },
 
@@ -59,17 +65,17 @@ const roundManager = {
             };
         },
 
-        async getImages(pairData, isNewPair) {
+        async getImages(pairData) {
             if (!pairData || !pairData.pair) {
                 logger.error('Invalid pairData received in getImages');
                 throw new Error('Invalid pairData: pair is undefined');
             }
             const { pair, preloadedImages } = pairData;
 
-            if (isNewPair && preloadedImages) {
+            /*if (isNewPair && preloadedImages) {
                 //logger.debug(`Using preloaded images for pair: ${pair.taxonA} / ${pair.taxonB}`);
                 return { taxonA: preloadedImages.taxonA, taxonB: preloadedImages.taxonB };
-            }
+            }*/
 
             const preloadedRoundImages = preloader.roundPreloader.getPreloadedImagesForNextRound();
             if (preloadedRoundImages && preloadedRoundImages.taxonA && preloadedRoundImages.taxonB) {

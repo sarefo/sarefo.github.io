@@ -46,7 +46,26 @@ const pairManager = {
                 this.resetUsedImagesForNewPair(newPairData);
 
                 // URLs of both images
-                const imageURLs = await this.loadImagesForNewPair(newPairData);
+                //const imageURLs = await this.loadImagesForNewPair(newPairData);
+                let imageURLs;
+
+                let preloadedImages = preloader.pairPreloader.hasPreloadedPair();
+                
+                if (!preloadedImages || !preloadedImages.pair) {
+                    preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
+                }            
+
+                if (preloadedImages && preloadedImages.pair.pairID === newPairData.pairID) {
+                    logger.debug(`Using preloaded images for pair ID ${newPair.pairID}`);
+                    // Clear the preloaded images after using them
+                    preloader.pairPreloader.clearPreloadedPair();
+                    imageURLs = {taxonA: preloadedImages.taxonA, taxonB: preloadedImages.taxonB}
+                } else {
+                    const taxonAImage = await preloader.imageLoader.fetchDifferentImage(newPairData.taxonA || newPairData.taxonNames[0], null);
+                    const taxonBImage = await preloader.imageLoader.fetchDifferentImage(newPairData.taxonB || newPairData.taxonNames[1], null);
+                    imageURLs = {taxonA: taxonAImage, taxonB: taxonBImage};
+                }
+
                 state.updateGameStateForNewPair(newPairData, imageURLs);
 
                 // For a new pair, use the images that were just loaded
@@ -58,7 +77,7 @@ const pairManager = {
                 };
 
                 // TODO replace with loadNewRound() eventually
-                await roundManager.setupRound(newPairData, imageData, true);
+                await roundManager.setupRound(newPairData, imageData);
                 preloader.roundPreloader.preloadForNextRound();
 
                 // Update hint buttons
@@ -89,7 +108,7 @@ const pairManager = {
             return allPairs.find(pair => pair.pairID === pairID);
         },
 
-        async selectNewPair() {
+        /*async selectNewPair() {
             state.resetShownHints();
             let nextSelectedPair = state.getNextSelectedPair();
             if (nextSelectedPair) {
@@ -153,7 +172,7 @@ const pairManager = {
                 logger.warn(`Taxa ${taxonA} and ${taxonB} not found in filtered collection. Selecting random pair.`);
             }
             return pair;
-        },
+        },*/
 
         resetUsedImagesForNewPair(newPair) {
             const currentUsedImages = state.getUsedImages();
@@ -167,7 +186,7 @@ const pairManager = {
         },
 
         // only called from initializeNewPair()
-        async loadImagesForNewPair(newPair) {
+        /*async loadImagesForNewPair(newPair) {
             //const preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
             let preloadedImages = preloader.pairPreloader.hasPreloadedPair();
             
@@ -189,11 +208,9 @@ const pairManager = {
             const taxonAImage = await preloader.imageLoader.fetchDifferentImage(newPair.taxonA || newPair.taxonNames[0], null);
             const taxonBImage = await preloader.imageLoader.fetchDifferentImage(newPair.taxonB || newPair.taxonNames[1], null);
             
-            return {
-                taxonA: taxonAImage,
-                taxonB: taxonBImage,
-            };
-        },
+            let imageURLs = {taxonA: taxonAImage, taxonB: taxonBImage};
+            return imageURLs;
+        },*/
 
         async selectPairForLoading() {
             const preloadedPair = preloader.pairPreloader.getPreloadedImagesForNextPair()?.pair;
