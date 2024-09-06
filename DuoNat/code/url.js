@@ -42,6 +42,11 @@ const url = {
 
             // Handle other parameters
             if (params.pairID) state.setCurrentPairID(params.pairID);
+            /*if (params.taxonA && params.taxonB) {
+                // You might want to add a new state method to handle taxa from URL
+                state.setTaxaFromUrl(params.taxonA, params.taxonB);
+                logger.debug("Set taxa from URL:", params.taxonA, params.taxonB);
+            }*/
             if (params.ranges) state.setSelectedRanges(params.ranges.split(','));
             if (params.tags) state.setSelectedTags(params.tags.split(','));
             if (params.phylogenyID) state.setPhylogenyId(params.phylogenyID);
@@ -70,8 +75,8 @@ const url = {
             if (currentTaxonImageCollection && currentTaxonImageCollection.pair) {
                 const { pairID, taxonA, taxonB } = currentTaxonImageCollection.pair;
                 if (pairID) currentUrl.searchParams.set('pairID', pairID);
-                currentUrl.searchParams.set('taxonA', taxonA);
-                currentUrl.searchParams.set('taxonB', taxonB);
+                /*currentUrl.searchParams.set('taxonA', taxonA);
+                currentUrl.searchParams.set('taxonB', taxonB);*/
             }
 
             this.addOptionalParameters(currentUrl);

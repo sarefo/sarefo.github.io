@@ -28,7 +28,11 @@ const pairManager = {
             let newPairData;
 
             try {
-                
+                // Check if pairID is null, and if so, get it from the state
+                if (pairID === null) {
+                    pairID = state.getCurrentPairID();
+                }                
+
                 if (pairID) { // If a pairID is provided, load that specific pair
                     newPairData = await this.getPairByID(pairID);
                     if (!newPairData) logger.warn(`Pair with ID ${pairID} not found. Falling back to random selection.`);
@@ -39,7 +43,6 @@ const pairManager = {
 
                 if (!newPairData) {
                     logger.error("Failed to select a pair. Aborting loadNewPair.");
-                    //state.setState(state.GameState.PLAYING);
                     return;
                 }
 

@@ -77,7 +77,7 @@ const sharing = {
         const params = url.searchParams;
 
         const options = [
-            { value: 'taxa', label: 'Taxa', isPresent: params.has('taxonA') || params.has('taxonB') },
+            /*{ value: 'taxa', label: 'Taxa', isPresent: params.has('taxonA') || params.has('taxonB') },*/
             { value: 'pairID', label: 'Pair ID', isPresent: params.has('pairID') },
             { value: 'tags', label: 'Tags', isPresent: params.has('tags') },
             { value: 'level', label: 'Level', isPresent: params.has('level') },
