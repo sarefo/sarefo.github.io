@@ -19,76 +19,88 @@ const pairManager = {
     pairLoading: {
 
         // called from collMan, iNatDown, enterPair, main
-        async loadNewPair (pairID = null) {
-
+        async loadNewPair(pairID = null) {
             state.setIsNewPair(true);
             state.setState(state.GameState.LOADING_PAIR);
-            if (!await api.externalAPIs.checkINaturalistReachability()) return;
 
             let newPairData;
-
             try {
-                // Check if pairID is null, and if so, get it from the state
-                if (pairID === null) {
-                    pairID = state.getCurrentPairID();
-                }                
-
-                if (pairID) { // If a pairID is provided, load that specific pair
-                    newPairData = await this.getPairByID(pairID);
-                    if (!newPairData) logger.warn(`Pair with ID ${pairID} not found. Falling back to random selection.`);
-                }
-
-                if (!newPairData) // If no specific pair was selected or found, proceed with normal selection
-                    newPairData = await this.selectPairForLoading();
-
-                if (!newPairData) {
-                    logger.error("Failed to select a pair. Aborting loadNewPair.");
-                    return;
-                }
-
-                state.setNextSelectedPair(newPairData);
-                //this.resetUsedImagesForNewPair(newPairData);
-
-                let preloadedImages = preloader.hasPreloadedPair();
-                
-                if (!preloadedImages || !preloadedImages.pair) {
-                    preloadedImages = preloader.getPreloadedImagesForNextPair();
-                }            
-
-                let imageURLs;
-                if (preloadedImages && preloadedImages.pair.pairID === newPairData.pairID) {
-                    preloader.clearPreloadedPair(); // Clear the preloaded images after using them
-                    imageURLs = {taxonA: preloadedImages.taxonA, taxonB: preloadedImages.taxonB}
-                } else {
-                    const taxonAImage = await preloader.fetchDifferentImage(newPairData.taxonA || newPairData.taxonNames[0], null);
-                    const taxonBImage = await preloader.fetchDifferentImage(newPairData.taxonB || newPairData.taxonNames[1], null);
-                    imageURLs = {taxonA: taxonAImage, taxonB: taxonBImage};
-                }
-
-                state.updateGameStateForNewPair(newPairData, imageURLs);
-
-                state.updateGameStateMultiple({
-                    taxonImage1: newPairData.taxonA,
-                    taxonImage2: newPairData.taxonB,
-                    },
-                );
-
-                state.setNextSelectedPair(null); // Clear the next selected pair after using it
-
-                await pairManager.collectionSubsets.refreshCollectionSubset();
-                await roundManager.loadNewRound();
-                await hintSystem.updateAllHintButtons();
-
+                await this.checkINaturalistReachability();
+                newPairData = await this.selectPair(pairID);
+                const imageURLs = await this.getImageURLs(newPairData);
+                await this.updateStateForNewPair(newPairData, imageURLs);
+                await this.performPostPairLoadingTasks(newPairData);
             } catch (error) {
                 pairManager.errorHandling.handlePairLoadingError(error);
             } finally {
-                //if (state.getState() !== state.GameState.PLAYING) state.setState(state.GameState.PLAYING);
-
-                preloader.preloadForNextPair();
-                ui.setNamePairHeight();
-                ui.updateLevelIndicator(newPairData.level);
-                state.setState(state.GameState.PLAYING);
+                this.finalizePairLoading(newPairData);
             }
+        },
+
+        async checkINaturalistReachability() {
+            if (!await api.externalAPIs.checkINaturalistReachability()) {
+                throw new Error("iNaturalist is not reachable");
+            }
+        },
+
+        async selectPair(pairID) {
+            if (pairID === null) {
+                pairID = state.getCurrentPairID();
+            }
+
+            let newPairData;
+            if (pairID) {
+                newPairData = await this.getPairByID(pairID);
+                if (!newPairData) {
+                    logger.warn(`Pair with ID ${pairID} not found. Falling back to random selection.`);
+                }
+            }
+
+            if (!newPairData) {
+                newPairData = await this.selectPairForLoading();
+            }
+
+            if (!newPairData) {
+                throw new Error("Failed to select a pair");
+            }
+
+            state.setNextSelectedPair(newPairData);
+            return newPairData;
+        },
+
+        async getImageURLs(newPairData) {
+            let preloadedImages = preloader.hasPreloadedPair() ? preloader.getPreloadedImagesForNextPair() : null;
+
+            if (preloadedImages && preloadedImages.pair.pairID === newPairData.pairID) {
+                preloader.clearPreloadedPair();
+                return {taxonA: preloadedImages.taxonA, taxonB: preloadedImages.taxonB};
+            } else {
+                const taxonAImage = await preloader.fetchDifferentImage(newPairData.taxonA || newPairData.taxonNames[0], null);
+                const taxonBImage = await preloader.fetchDifferentImage(newPairData.taxonB || newPairData.taxonNames[1], null);
+                return {taxonA: taxonAImage, taxonB: taxonBImage};
+            }
+        },
+
+        async updateStateForNewPair(newPairData, imageURLs) {
+            state.updateGameStateForNewPair(newPairData, imageURLs);
+            state.updateGameStateMultiple({
+                taxonImage1: newPairData.taxonA,
+                taxonImage2: newPairData.taxonB,
+            });
+            state.setNextSelectedPair(null);
+        },
+
+        async performPostPairLoadingTasks(newPairData) {
+            await pairManager.collectionSubsets.refreshCollectionSubset();
+            await roundManager.loadNewRound();
+            await hintSystem.updateAllHintButtons();
+        },
+
+        finalizePairLoading(newPairData) {
+            preloader.preloadForNextPair();
+            ui.setNamePairHeight();
+            ui.updateLevelIndicator(newPairData.level);
+            state.setState(state.GameState.PLAYING);
         },
 
         // called from
