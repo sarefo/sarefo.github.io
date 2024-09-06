@@ -74,6 +74,8 @@ let gameState = {
         randomized: false
     },
 
+    isNewPairFlag: true,
+
     // Preloading
     nextSelectedPair: null,
     preloadedPair: null,
@@ -392,6 +394,11 @@ const publicAPI = {
     getHasKeyboard: () => gameState.hasKeyboard,
     setHasKeyboard(show) {
         updateGameState('hasKeyboard', show);
+    },
+
+    isNewPair: () => gameState.isNewPairFlag,
+    setIsNewPair(value) {
+        updateGameState('isNewPairFlag', value);
     },
 
     getUsedImages: () => ({ ...gameState.usedImages }),

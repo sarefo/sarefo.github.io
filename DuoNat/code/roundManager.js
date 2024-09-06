@@ -25,20 +25,21 @@ const roundManager = {
                     preloadedImages: null,
                     image1URL: pairData.image1URL,
                     image2URL: pairData.image2URL,
-                    level: pairData.level
+                    level: pairData.level,
+                    isNewPair: state.isNewPair() // Add this line
                 };
                 //logger.debug("pair, pairData:",pairData.pair, pairDataWithImages);
 
                let  imageData = await this.getAndProcessImages(pairDataWithImages);
 
                // TODO this definition changes the behavior!
-               imageData = {
+               /*imageData = {
                     taxonImage1URL: pairData.image1URL,
                     taxonImage2URL: pairData.image2URL,
                     taxonImage1: pairData.pair.taxonA,
                     taxonImage2: pairData.pair.taxonB,
                     //randomized: false // We'll assume it's not randomized at this point
-                };
+                };*/
 
                 
                 this.setObservationURLs(imageData);
@@ -76,6 +77,7 @@ const roundManager = {
                 errorHandling.handleSetupError(error);
             } finally {
                 state.setState(state.GameState.PLAYING);
+                state.setIsNewPair(false);
             }
             preloader.roundPreloader.preloadForNextRound();
         },
@@ -86,7 +88,19 @@ const roundManager = {
                 throw new Error('Invalid pairData: pairData is undefined');
             }
 
-            const images = await this.getImages(pairData);
+            let images;
+            if (pairData.isNewPair) {
+                // For a new pair, use the images from pairData
+                images = {
+                    taxonA: pairData.image1URL,
+                    taxonB: pairData.image2URL
+                };
+                logger.debug(`Using preloaded images for new pair: ${pairData.pair.taxonA} / ${pairData.pair.taxonB}`);
+            } else {
+                // For subsequent rounds, get preloaded round images or fetch new ones
+                images = await this.getImages(pairData);
+            }
+
             return this.randomizeImages(images, pairData.pair);
         },
 

@@ -20,6 +20,7 @@ const pairManager = {
 
         // called from collMan, iNatDown, enterPair, main
         async loadNewPair (pairID = null) {
+            state.setIsNewPair(true);
             logger.trace("loadNewPair");
             state.setState(state.GameState.LOADING_PAIR);
             if (!await api.externalAPIs.checkINaturalistReachability()) return;
