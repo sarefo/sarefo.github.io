@@ -67,7 +67,6 @@ const gameLogic = {
             ui.resetDraggables();
             await roundManager.loadNewRound();
             await utils.ui.sleep(400); // wait for setupNameTiles()
-            //ui.hideOverlay();
         },
 
         async handleIncorrectAnswer() {

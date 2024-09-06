@@ -13,6 +13,9 @@ const roundManager = {
 
     initialization: {
 
+        // called from
+        // - pairManager.loadNewPair()
+        // - gameLogic.handleCorrectAnswer()
         async loadNewRound() {
             state.setState(state.GameState.LOADING_ROUND);
             if (!await api.externalAPIs.checkINaturalistReachability()) return;
