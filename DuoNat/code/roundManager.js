@@ -17,6 +17,7 @@ const roundManager = {
             if (!await api.externalAPIs.checkINaturalistReachability()) return;
 
             try {
+                // TODO fix bad naming
                 const { pair } = state.getCurrentTaxonImageCollection();
                 const pairData = { pair, preloadedImages: null };
                 const imageData = await this.getAndProcessImages(pairData, false);
@@ -119,7 +120,7 @@ const roundManager = {
 
         // called only from loadNewRound()
         // TODO eliminate from pairManager.initializeNewPair()
-        async setupRound(pair, imageData) {
+        async setupRound(pairData, imageData) {
             const { taxonImage1URL, taxonImage2URL, randomized, taxonImage1, taxonImage2 } = imageData;
             ui.prepareImagesForLoading(); // TODO separate pair/round
 
@@ -131,12 +132,12 @@ const roundManager = {
 
             // Setup name tiles and world maps
             const [nameTileData, worldMapData] = await Promise.all([
-                this.setupNameTiles(pair, randomized, taxonImage1, taxonImage2),
-                this.setupWorldMaps(pair, randomized, taxonImage1, taxonImage2)
+                this.setupNameTiles(pairData, randomized, taxonImage1, taxonImage2),
+                this.setupWorldMaps(pairData, randomized, taxonImage1, taxonImage2)
             ]);
 
             // Update game state
-            state.updateGameStateForRound(pair, imageData, nameTileData);
+            state.updateGameStateForRound(pairData, imageData, nameTileData);
 
             // Apply world map data
             worldMap.createWorldMap(state.getElement('image1Container'), worldMapData.continents1);
