@@ -125,13 +125,10 @@ const pairManager = {
         async selectPairForLoading() {
             const preloadedPair = preloader.getPreloadedImagesForNextPair()?.pair;
             if (preloadedPair) {
-                //preloader.clearPreloadedPair(); // Clear the preloaded pair after using it
                 return preloadedPair;
             } else {
-                logger.debug("No preloaded pair, selecting random pair");
                 const selectedPair = await pairManager.pairSelection.selectRandomPair();
                 if (selectedPair) {
-                    logger.debug("Random pair selected:", selectedPair);
                     return selectedPair;
                 } else {
                     logger.warn('No available pairs in the current collection');
@@ -173,10 +170,8 @@ const pairManager = {
         // - preloader.preloadForNextPair()
         async selectRandomPair() {
 
-    logger.debug("Entering selectRandomPair");
             // First, try to get the next pair from the pairManager
             const nextPair = await this.getNextPairFromCollection();
-    logger.debug("Next pair from collection:", nextPair);
             if (nextPair) return nextPair;
             
             // If pairManager doesn't return a pair, fall back to the original method
@@ -200,9 +195,6 @@ const pairManager = {
 
         // called only from selectRandomPair()
         async getNextPairFromCollection() {
-    logger.debug("Entering getNextPairFromCollection");
-    logger.debug("Current collection subset:", pairManager.currentCollectionSubset);
-    logger.debug("Used pair IDs:", pairManager.usedPairIDs);
             if (!pairManager.isInitialized || pairManager.currentCollectionSubset.length === 0) {
                 await pairManager.collectionSubsets.initializeCollectionSubset();
             }
@@ -214,11 +206,7 @@ const pairManager = {
                 }
                 nextPair = pairManager.currentCollectionSubset.pop();
             } while (nextPair && pairManager.usedPairIDs.has(nextPair.pairID));
-    if (nextPair) {
-        logger.debug("Selected next pair:", nextPair);
-    } else {
-        logger.debug("No next pair available");
-    }
+
             if (nextPair) {
                 pairManager.usedPairIDs.add(nextPair.pairID);
                 pairManager.lastUsedPairID = nextPair.pairID;
