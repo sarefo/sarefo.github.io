@@ -46,7 +46,6 @@ const pairManager = {
         },
 
         async selectPair(pairID) {
-
             let newPairData;
 
             // Always select a new pair when pairID is null
