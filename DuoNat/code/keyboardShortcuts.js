@@ -107,11 +107,34 @@ const keyboardShortcuts = {
         }
     },
 
-    incrementPairID() {
+    async incrementPairID() {
         const currentPairID = state.getCurrentTaxonImageCollection()?.pair?.pairID;
-        if (currentPairID) {
-            const nextPairID = String(Number(currentPairID) + 1);
-            pairManager.loadPairByID(nextPairID, true);
+        if (!currentPairID) {
+            logger.warn("No current pair ID found");
+            return;
+        }
+
+        try {
+            const highestPairID = state.getHighestPairID();
+
+            let nextPairID;
+            if (currentPairID === highestPairID) {
+                // If at the highest ID, circle to the lowest
+                nextPairID = "1"; // assuming 1 always exists
+            } else {
+                // Find the next existing pair ID
+                let foundValidPairID = false;
+                while (!foundValidPairID) {
+                    nextPairID = String(Number(currentPairID) + 1);
+                    if (await pairManager.getPairByID(nextPairID)) foundValidPairID = true;
+                }
+            }
+
+            logger.debug(`Incrementing from pair ID ${currentPairID} to ${nextPairID}`);
+            state.setPreloadNextPairID(true);
+            await pairManager.loadPairByID(nextPairID, true);
+        } catch (error) {
+            logger.error("Error incrementing pair ID:", error);
         }
     },
 

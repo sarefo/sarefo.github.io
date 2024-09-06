@@ -20,12 +20,15 @@ async function initializeApp() {
 
     logger.info("Initializing app");
 
+    state.setHasKeyboard(hasKeyboard());
+
     url.handleUrlParameters();
 
     await initializeComponents();
 
     pairManager.loadNewPair();
-    state.setHasKeyboard(hasKeyboard());
+
+    pairManager.setHighestPairID(); // only used for "+" pair walking atm
     logger.info("App initialization complete");
 }
 

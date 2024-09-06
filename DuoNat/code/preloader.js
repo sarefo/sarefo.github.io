@@ -153,6 +153,7 @@ const preloader = {
 
         },
 
+        // only called from pairManager.loadNewPair() helper function
         async preloadForNextPair() {
             if (preloader.isPreloading) return;
 
@@ -163,7 +164,16 @@ const preloader = {
                     this.isCollectionSubsetInitialized = true;
                 }
 
-                const newPair = await pairManager.selectRandomPair();
+                let newPair;
+                if (state.getPreloadNextPairID() == true) {
+                    newPair = String(Number(state.getCurrentPairID()) + 1)
+                        // TODO get next highest if gap in numbering
+                        // get first if at highest already
+                    logger.debug("preloading next ID", newPair);
+                    state.setPreloadNextPairID(false); // reset
+                } else {
+                    newPair = await pairManager.selectRandomPair();
+                }
                 
                 if (newPair) {
                     await this.preloadPairImages(newPair);
@@ -283,7 +293,7 @@ const preloader = {
         },
 
         // used by "+" shortcut for ID walking
-        async preloadPairByID(pairID) {
+        /*async preloadPairByID(pairID) {
             try {
                 const nextPair = await pairManager.getPairByID(pairID);
                 if (nextPair) {
@@ -294,7 +304,7 @@ const preloader = {
             } catch (error) {
                 logger.error(`Error preloading pair with ID ${pairID}:`, error);
             }
-        },
+        },*/
     },
 };
 
@@ -317,7 +327,7 @@ const publicAPI = {
     clearPreloadedPair: preloader.pairPreloader.clearPreloadedPair,
 
     preloadNewPairWithTags: preloader.pairPreloader.preloadNewPairWithTags,
-    preloadPairByID: preloader.pairPreloader.preloadPairByID,
+    //preloadPairByID: preloader.pairPreloader.preloadPairByID,
     preloadForNextPair: preloader.pairPreloader.preloadForNextPair,
 
     // Rounds

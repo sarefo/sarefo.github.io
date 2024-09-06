@@ -35,6 +35,8 @@ let gameState = {
 
     isInitialLoad: true,
 
+    highestPairID: null,
+
     //infoDialogImageIndex: null,
 
     // Filters
@@ -77,7 +79,8 @@ let gameState = {
     isNewPairFlag: true,
 
     // Preloading
-    nextSelectedPair: null,
+    preloadNextPairID: false,
+
     preloadedPair: null,
     preloadedImages: {
         current: {
@@ -207,10 +210,10 @@ const publicAPI = {
         }
     },
 
-    // Next Selected Pair
-    getNextSelectedPair: () => gameState.nextSelectedPair,
-    setNextSelectedPair: (pair) => {
-        updateGameState('nextSelectedPair', pair);
+    // preload next pairID if set - in preloader.preloadForNextPair()
+    getPreloadNextPairID: () => gameState.preloadNextPairID,
+    setPreloadNextPairID: (pair) => {
+        updateGameState('preloadNextPairID', pair);
     },
 
     //getObservationURLs: () => ({ ...gameState.currentObservationURLs }),
@@ -271,6 +274,11 @@ const publicAPI = {
             taxonA: [],
             taxonB: []
         };
+    },
+
+    getHighestPairID: () => gameState.highestPairID,
+    setHighestPairID: (id) => {
+        updateGameState('highestPairID', id);
     },
 
     getSearchTerm: () => gameState.searchTerm,

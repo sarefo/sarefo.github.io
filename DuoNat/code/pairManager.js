@@ -64,7 +64,8 @@ logger.trace(`loadNewPair called with pairID: ${pairID}`);
                 throw new Error("Failed to select a pair");
             }
 
-            state.setNextSelectedPair(newPairData);
+            //state.setNextSelectedPair(newPairData);
+                logger.debug("loading pair:", newPairData.pairID);
             return newPairData;
         },
 
@@ -87,7 +88,7 @@ logger.trace(`loadNewPair called with pairID: ${pairID}`);
                 taxonImage1: newPairData.taxonA,
                 taxonImage2: newPairData.taxonB,
             });
-            state.setNextSelectedPair(null);
+            //state.setNextSelectedPair(null);
         },
 
         async performPostPairLoadingTasks(newPairData) {
@@ -146,20 +147,15 @@ logger.trace(`loadNewPair called with pairID: ${pairID}`);
 
                 const newPair = await this.getPairByID(pairID);
                 if (newPair) {
-                    await this.setupNewPairIDPair(newPair, pairID);
+                    await this.loadNewPair(pairID);  // Pass the pairID here
+                    //const nextPairID = String(Number(pairID) + 1);
+                    //preloader.preloadPairByID(nextPairID);
                 } else {
                     logger.warn(`Pair with ID ${pairID} not found.`);
                 }
             } catch (error) {
                 logger.error(`Error loading pair with ID ${pairID}:`, error);
             }
-        },
-
-        async setupNewPairIDPair(newPair, pairID) {
-            state.setNextSelectedPair(newPair);
-            await this.loadNewPair();
-            const nextPairID = String(Number(pairID) + 1);
-            preloader.preloadPairByID(nextPairID);
         },
     },
 
@@ -283,6 +279,23 @@ logger.trace(`loadNewPair called with pairID: ${pairID}`);
                 [array[i], array[j]] = [array[j], array[i]];
             }
         },
+
+        async getAllPairIDs() {
+            try {
+                const allPairs = await api.taxonomy.fetchTaxonPairs();
+                return allPairs.map(pair => pair.pairID);
+            } catch (error) {
+                logger.error("Error fetching all pair IDs:", error);
+                return [];
+            }
+        },
+
+        async setHighestPairID() {
+            const allPairIDs = await this.getAllPairIDs();
+            const sortedPairIDs = allPairIDs.sort((a, b) => Number(a) - Number(b));
+            const highestPairID = sortedPairIDs[sortedPairIDs.length - 1];
+            state.setHighestPairID(highestPairID);
+        },
     },
 };
 
@@ -306,6 +319,7 @@ const publicAPI = {
     getPairByID: pairManager.pairLoading.getPairByID,
     loadPairByID: pairManager.pairLoading.loadPairByID,
     selectRandomPair: pairManager.pairSelection.selectRandomPair,
+    setHighestPairID: pairManager.utilities.setHighestPairID,
 };
 
 // Bind publicAPI methods

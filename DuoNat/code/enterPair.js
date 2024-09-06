@@ -101,7 +101,7 @@ const enterPair = {
         this.dialogMessage.textContent = 'Saving new pair...';
         try {
             await this.savePairToJson(newPair);
-            state.setNextSelectedPair(newPair);
+            //state.setNextSelectedPair(newPair);
             dialogManager.closeDialog();
             pairManager.loadNewPair();
         } catch (error) {
@@ -168,7 +168,7 @@ const enterPair = {
         };
 
         logger.debug('New pair created:', newPair);
-        state.setNextSelectedPair(newPair);
+        //state.setNextSelectedPair(newPair);
         dialogManager.closeDialog('enter-pair-dialog');
         pairManager.loadNewPair();
     },
