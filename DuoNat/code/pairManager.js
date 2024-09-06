@@ -56,7 +56,7 @@ const pairManager = {
                 }            
 
                 if (preloadedImages && preloadedImages.pair.pairID === newPairData.pairID) {
-                    logger.debug(`Using preloaded images for pair ID ${newPair.pairID}`);
+                    logger.debug(`Using preloaded images for pair ID ${newPairData.pairID}`);
                     // Clear the preloaded images after using them
                     preloader.pairPreloader.clearPreloadedPair();
                     imageURLs = {taxonA: preloadedImages.taxonA, taxonB: preloadedImages.taxonB}
@@ -68,24 +68,37 @@ const pairManager = {
 
                 state.updateGameStateForNewPair(newPairData, imageURLs);
 
+        await pairManager.collectionSubsets.refreshCollectionSubset();
+
+        state.updateGameStateMultiple({
+            taxonImage1: newPairData.taxonA,
+            taxonImage2: newPairData.taxonB,
+            },
+        );
+
+        //await roundManager.loadNewRound();
                 // For a new pair, use the images that were just loaded
-                let imageData = {
+                /*let imageData = {
                     taxonImage1URL: imageURLs.taxonA,
                     taxonImage2URL: imageURLs.taxonB,
                     taxonImage1: newPairData.taxonA,
                     taxonImage2: newPairData.taxonB,
-                };
+                };*/
+
+                //state.updateGameStateForRound(pairData, imageData, nameTileData);
 
                 // TODO replace with loadNewRound() eventually
-                await roundManager.setupRound(newPairData, imageData);
-                preloader.roundPreloader.preloadForNextRound();
+                //ui.prepareImagesForLoading(); // TODO separate pair/round
+                /*await roundManager.setupRound(newPairData, imageData);*/
+                //await ui.updateUIAfterSetup();
+                //preloader.roundPreloader.preloadForNextRound();
 
-                // Update hint buttons
-                await hintSystem.updateAllHintButtons();
                 state.setNextSelectedPair(null); // Clear the next selected pair after using it
 
                 await pairManager.collectionSubsets.refreshCollectionSubset();
-                //await roundManager.loadNewRound(); // TODO
+                await roundManager.loadNewRound(); // TODO
+                // Update hint buttons
+                await hintSystem.updateAllHintButtons();
             } catch (error) {
                 pairManager.errorHandling.handlePairLoadingError(error);
             } finally {

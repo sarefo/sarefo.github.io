@@ -1,6 +1,7 @@
 import api from './api.js';
 import config from './config.js';
 import errorHandling from './errorHandling.js';
+import hintSystem from './hintSystem.js';
 import logger from './logger.js';
 import preloader from './preloader.js';
 import state from './state.js';
@@ -32,9 +33,34 @@ const roundManager = {
                 
                 this.setObservationURLs(imageData);
 
-                await roundManager.setupRoundComponents.setupRound(pairData.pair, imageData);
+                ui.prepareImagesForLoading();
+                //await roundManager.setupRoundComponents.setupRound(pairData.pair, imageData);
+
+            const { taxonImage1URL, taxonImage2URL, randomized, taxonImage1, taxonImage2 } = imageData;
+
+            // Load images
+            await Promise.all([
+                roundManager.setupRoundComponents.loadImage(state.getElement('image1'), taxonImage1URL),
+                roundManager.setupRoundComponents.loadImage(state.getElement('image2'), taxonImage2URL)
+            ]);
+
+            // Setup name tiles and world maps
+            const [nameTileData, worldMapData] = await Promise.all([
+                roundManager.setupRoundComponents.setupNameTiles(pairData.pair, randomized, taxonImage1, taxonImage2),
+                roundManager.setupRoundComponents.setupWorldMaps(pairData.pair, randomized, taxonImage1, taxonImage2)
+            ]);
+
+            // Update game state
+            state.updateGameStateForRound(pairData.pair, imageData, nameTileData);
+
+            // Apply world map data
+            worldMap.createWorldMap(state.getElement('image1Container'), worldMapData.continents1);
+            worldMap.createWorldMap(state.getElement('image2Container'), worldMapData.continents2);
+
+                await ui.updateUIAfterSetup();
 
                 await this.fadeInNewImages();
+        await hintSystem.updateAllHintButtons();
             } catch (error) {
                 errorHandling.handleSetupError(error);
             } finally {
@@ -126,9 +152,8 @@ const roundManager = {
 
         // called only from loadNewRound()
         // TODO eliminate from pairManager.initializeNewPair()
-        async setupRound(pairData, imageData) {
+        /*async setupRound(pairData, imageData) {
             const { taxonImage1URL, taxonImage2URL, randomized, taxonImage1, taxonImage2 } = imageData;
-            ui.prepareImagesForLoading(); // TODO separate pair/round
 
             // Load images
             await Promise.all([
@@ -149,11 +174,7 @@ const roundManager = {
             worldMap.createWorldMap(state.getElement('image1Container'), worldMapData.continents1);
             worldMap.createWorldMap(state.getElement('image2Container'), worldMapData.continents2);
 
-            await ui.updateUIAfterSetup();
-
-            return { nameTileData, worldMapData };
-        },
-
+        },*/
 
         async loadImage(imgElement, src) {
             return new Promise((resolve) => {
@@ -228,8 +249,8 @@ bindMethodsRecursively(roundManager);
 const publicAPI = {
     loadNewRound: roundManager.initialization.loadNewRound,
     //eliminate:
-    setupRound: roundManager.setupRoundComponents.setupRound,
-    setObservationURLs: roundManager.initialization.setObservationURLs,
+    //setupRound: roundManager.setupRoundComponents.setupRound,
+    //setObservationURLs: roundManager.initialization.setObservationURLs,
 };
 
 // Bind publicAPI methods

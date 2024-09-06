@@ -467,6 +467,7 @@ const ui = {
         // - roundManager.loadNewRound()
         // - gameLogic.handleCorrectAnswer()
         prepareImagesForLoading() {
+            logger.trace("prepareImagesForLoading");
             const image1 = state.getElement('image1');
             const image2 = state.getElement('image2');
             
