@@ -20,11 +20,13 @@ const roundManager = {
                 // TODO fix bad naming
                 const { pair } = state.getCurrentTaxonImageCollection();
                 const pairData = { pair, preloadedImages: null };
+                logger.debug("pair, pairData:",pair, pairData);
+
                 const imageData = await this.getAndProcessImages(pairData, false);
                 
                 this.setObservationURLs(imageData);
 
-                await roundManager.setupRoundComponents.setupRound(pair, imageData, false);
+                await roundManager.setupRoundComponents.setupRound(pair, imageData);
 
                 await this.fadeInNewImages();
             } catch (error) {
