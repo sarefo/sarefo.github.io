@@ -393,6 +393,7 @@ const ui = {
                 state.setIsInitialLoad(false);
             }
             ui.core.resetUIState();
+            ui.overlay.hideOverlay();
             state.setState(state.GameState.PLAYING);
             //preloader.startPreloading(newPair);
 

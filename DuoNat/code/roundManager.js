@@ -17,8 +17,6 @@ const roundManager = {
             if (!await api.externalAPIs.checkINaturalistReachability()) return;
 
             try {
-                ui.prepareImagesForLoading(); // TODO separate pair/round
-
                 const { pair } = state.getCurrentTaxonImageCollection();
                 const pairData = { pair, preloadedImages: null };
                 const imageData = await this.getAndProcessImages(pairData, false);
@@ -52,8 +50,8 @@ const roundManager = {
             const randomized = Math.random() < 0.5;
 
             return {
-                taxonImage1Src: randomized ? images.taxonB : images.taxonA,
-                taxonImage2Src: randomized ? images.taxonA : images.taxonB,
+                taxonImage1URL: randomized ? images.taxonB : images.taxonA,
+                taxonImage2URL: randomized ? images.taxonA : images.taxonB,
                 taxonImage1: randomized ? pair.taxonB : pair.taxonA,
                 taxonImage2: randomized ? pair.taxonA : pair.taxonB,
                 randomized
@@ -102,15 +100,15 @@ const roundManager = {
         // called only from loadNewRound()
         // TODO eliminate from pairManager.initializeNewPair()
         setObservationURLs(imageData) {
-            //logger.debug(`Setting observation URLs: ${imageData.taxonImage1Src} / ${imageData.taxonImage2Src}`);
-            state.setObservationURL(imageData.taxonImage1Src, 1);
-            state.setObservationURL(imageData.taxonImage2Src, 2);
+            //logger.debug(`Setting observation URLs: ${imageData.taxonImage1URL} / ${imageData.taxonImage2URL}`);
+            state.setObservationURL(imageData.taxonImage1URL, 1);
+            state.setObservationURL(imageData.taxonImage2URL, 2);
             // Also update the current round state
             state.updateGameStateMultiple({
                 currentRound: {
                     ...state.getCurrentRound(),
-                    image1URL: imageData.taxonImage1Src,
-                    image2URL: imageData.taxonImage2Src,
+                    image1URL: imageData.taxonImage1URL,
+                    image2URL: imageData.taxonImage2URL,
                 },
             });
             //logger.debug(`Updated current round state with images: ${state.getCurrentRound().image1URL} / ${state.getCurrentRound().image2URL}`);
@@ -122,12 +120,13 @@ const roundManager = {
         // called only from loadNewRound()
         // TODO eliminate from pairManager.initializeNewPair()
         async setupRound(pair, imageData) {
-            const { taxonImage1Src, taxonImage2Src, randomized, taxonImage1, taxonImage2 } = imageData;
+            const { taxonImage1URL, taxonImage2URL, randomized, taxonImage1, taxonImage2 } = imageData;
+            ui.prepareImagesForLoading(); // TODO separate pair/round
 
             // Load images
             await Promise.all([
-                this.loadImage(state.getElement('image1'), taxonImage1Src),
-                this.loadImage(state.getElement('image2'), taxonImage2Src)
+                this.loadImage(state.getElement('image1'), taxonImage1URL),
+                this.loadImage(state.getElement('image2'), taxonImage2URL)
             ]);
 
             // Setup name tiles and world maps

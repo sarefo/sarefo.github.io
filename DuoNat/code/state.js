@@ -161,24 +161,24 @@ const publicAPI = {
     },
 
     updateRoundState(pair, images) {
-        const { taxonImage1Src, taxonImage2Src, randomized, taxonImage1, taxonImage2 } = images;
+        const { taxonImage1URL, taxonImage2URL, randomized, taxonImage1, taxonImage2 } = images;
         this.updateGameStateMultiple({
             currentTaxonImageCollection: {
                 pair,
-                image1URL: taxonImage1Src,
-                image2URL: taxonImage2Src,
+                image1URL: taxonImage1URL,
+                image2URL: taxonImage2URL,
                 level: pair.level || '1',
             },
             usedImages: {
-                taxonA: new Set([taxonImage1Src]),
-                taxonB: new Set([taxonImage2Src]),
+                taxonA: new Set([taxonImage1URL]),
+                taxonB: new Set([taxonImage2URL]),
             },
             taxonImage1: taxonImage1,
             taxonImage2: taxonImage2,
             currentRound: {
                 pair,
-                image1URL: taxonImage1Src,
-                image2URL: taxonImage2Src,
+                image1URL: taxonImage1URL,
+                image2URL: taxonImage2URL,
                 randomized,
             },
         });
@@ -436,15 +436,15 @@ const publicAPI = {
 
     // called only from roundManager.setupRound()
     updateGameStateForRound(pair, imageData, nameTileData) {
-        const { taxonImage1Src, taxonImage2Src, randomized, taxonImage1, taxonImage2 } = imageData;
+        const { taxonImage1URL, taxonImage2URL, randomized, taxonImage1, taxonImage2 } = imageData;
 
         this.updateGameStateMultiple({
             taxonImage1: taxonImage1,
             taxonImage2: taxonImage2,
             currentRound: {
                 pair,
-                image1URL: taxonImage1Src,
-                image2URL: taxonImage2Src,
+                image1URL: taxonImage1URL,
+                image2URL: taxonImage2URL,
                 image1Vernacular: nameTileData.vernacularX,
                 image2Vernacular: nameTileData.vernacularY,
                 randomized: randomized,

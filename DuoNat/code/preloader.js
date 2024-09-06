@@ -17,13 +17,11 @@ const imageLoader = {
     },
 
     async fetchDifferentImage(taxonName, currentImageURL) {
-        //logger.debug(`Fetching different image for ${taxonName}. Current image: ${currentImageURL}`);
+        //logger.trace("fetchDifferentImage");
         const images = await api.images.fetchMultipleImages(taxonName, 12);
         let usedImages = this.getUsedImagesForTaxon(taxonName);
-        //logger.debug(`Fetched ${images.length} images for ${taxonName}. Currently used images: ${usedImages.size}`);
         
         let availableImages = this.filterAvailableImages(images, usedImages, currentImageURL);
-        //logger.debug(`Available images after filtering: ${availableImages.length}`);
 
         if (availableImages.length === 0) {
             logger.warn(`All images have been used for ${taxonName}. Resetting used images.`);

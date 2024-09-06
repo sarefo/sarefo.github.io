@@ -63,12 +63,11 @@ const gameLogic = {
 
         async handleCorrectAnswer() {
             await ui.showOverlay('Correct!', config.overlayColors.green);
-            ui.prepareImagesForLoading();
             await utils.ui.sleep(1700);
             ui.resetDraggables();
             await roundManager.loadNewRound();
             await utils.ui.sleep(400); // wait for setupNameTiles()
-            ui.hideOverlay();
+            //ui.hideOverlay();
         },
 
         async handleIncorrectAnswer() {

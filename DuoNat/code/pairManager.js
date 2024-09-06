@@ -19,72 +19,55 @@ const pairManager = {
     pairLoading: {
 
         // called from collMan, iNatDown, enterPair, main
-        // TODO process pairID inside this function, not before
         async loadNewPair (pairID = null) {
+            logger.trace("loadNewPair");
             state.setState(state.GameState.LOADING_PAIR);
             if (!await api.externalAPIs.checkINaturalistReachability()) return;
 
-            ui.prepareImagesForLoading(); // TODO separate pair/round
-
-            let selectedPair;
+            let newPairData;
 
             try {
-                // If a pairID is provided, load that specific pair
-                if (pairID) {
-                    selectedPair = await this.getPairByID(pairID);
-                    if (!selectedPair) logger.warn(`Pair with ID ${pairID} not found. Falling back to random selection.`);
+                
+                if (pairID) { // If a pairID is provided, load that specific pair
+                    newPairData = await this.getPairByID(pairID);
+                    if (!newPairData) logger.warn(`Pair with ID ${pairID} not found. Falling back to random selection.`);
                 }
 
-                // If no specific pair was selected or found, proceed with normal selection
-                if (!selectedPair) selectedPair = await this.selectPairForLoading();
+                if (!newPairData) // If no specific pair was selected or found, proceed with normal selection
+                    newPairData = await this.selectPairForLoading();
 
-                if (!selectedPair) {
+                if (!newPairData) {
                     logger.error("Failed to select a pair. Aborting loadNewPair.");
-                    state.setState(state.GameState.PLAYING);
+                    //state.setState(state.GameState.PLAYING);
                     return;
                 }
 
-                state.setNextSelectedPair(selectedPair);
+                state.setNextSelectedPair(newPairData);
+                this.resetUsedImagesForNewPair(newPairData);
 
-                //await this.initializeNewPair();
-                try {
-                    const newPair = await this.selectNewPair();
+                // URLs of both images
+                const imageURLs = await this.loadImagesForNewPair(newPairData);
+                state.updateGameStateForNewPair(newPairData, imageURLs);
 
-                    this.resetUsedImagesForNewPair(newPair);
-                    // URLs of both images
-                    const images = await this.loadImagesForNewPair(newPair);
+                // For a new pair, use the images that were just loaded
+                let imageData = {
+                    taxonImage1URL: imageURLs.taxonA,
+                    taxonImage2URL: imageURLs.taxonB,
+                    taxonImage1: newPairData.taxonA,
+                    taxonImage2: newPairData.taxonB,
+                };
 
-                    state.updateGameStateForNewPair(newPair, images);
-
-                    const { pair } = state.getCurrentTaxonImageCollection();
-
-                    // TODO seems partly redundant with "images"
-                    // For a new pair, use the images that were just loaded
-                    let imageData = {
-                        taxonImage1Src: state.getCurrentTaxonImageCollection().image1URL,
-                        taxonImage2Src: state.getCurrentTaxonImageCollection().image2URL,
-                        taxonImage1: pair.taxonA,
-                        taxonImage2: pair.taxonB,
-                    };
-
-                    // TODO eliminate calls to roundManager here if possible!
-                    //roundManager.setObservationURLs(imageData);
-
-                    // TODO replace with loadNewRound() eventually
-                    await roundManager.setupRound(pair, imageData, true);
-                    preloader.roundPreloader.preloadForNextRound();
-
-                    state.setNextSelectedPair(null); // Clear the next selected pair after using it
-                } finally {} // TODO just making sure variables don't interfere after pasting
+                // TODO replace with loadNewRound() eventually
+                await roundManager.setupRound(newPairData, imageData, true);
+                preloader.roundPreloader.preloadForNextRound();
 
                 // Update hint buttons
                 await hintSystem.updateAllHintButtons();
-
-                ui.hideOverlay();
+                state.setNextSelectedPair(null); // Clear the next selected pair after using it
 
                 // also called in loadNewRound()!!
                 await ui.updateUIAfterSetup(true);
-                //await roundManager.loadNewRound();
+                //await roundManager.loadNewRound(); // TODO
             } catch (error) {
                 pairManager.errorHandling.handlePairLoadingError(error);
             } finally {
@@ -94,7 +77,7 @@ const pairManager = {
                 preloader.pairPreloader.preloadForNextPair(); // TODO start pair preloading
                 
                 ui.setNamePairHeight();
-                ui.updateLevelIndicator(selectedPair.level);
+                ui.updateLevelIndicator(newPairData.level);
             }
         },
 
