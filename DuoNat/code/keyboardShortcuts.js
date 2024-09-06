@@ -118,21 +118,27 @@ const keyboardShortcuts = {
             const highestPairID = state.getHighestPairID();
 
             let nextPairID;
-            if (currentPairID === highestPairID) {
-                // If at the highest ID, circle to the lowest
-                nextPairID = "1"; // assuming 1 always exists
-            } else {
-                // Find the next existing pair ID
-                let foundValidPairID = false;
-                while (!foundValidPairID) {
-                    nextPairID = String(Number(currentPairID) + 1);
-                    if (await pairManager.getPairByID(nextPairID)) foundValidPairID = true;
-                }
-            }
+            let attempts = 0;
+            const maxAttempts = 10; // Limit the number of attempts to find a valid pair
 
-            logger.debug(`Incrementing from pair ID ${currentPairID} to ${nextPairID}`);
-            state.setPreloadNextPairID(true);
-            await pairManager.loadPairByID(nextPairID, true);
+            do {
+                if (currentPairID === highestPairID || attempts >= maxAttempts) {
+                    nextPairID = "1";
+                } else {
+                    nextPairID = String(Number(currentPairID) + 1);
+                }
+                const nextPair = await pairManager.getPairByID(nextPairID);
+                if (nextPair) {
+                    //logger.debug(`Incrementing from pair ID ${currentPairID} to ${nextPairID}`);
+                    state.setPreloadNextPairID(true);
+                    await pairManager.loadPairByID(nextPairID, true);
+                    return;
+                }
+                attempts++;
+            } while (attempts < maxAttempts);
+
+            logger.warn(`Could not find a valid pair after ${maxAttempts} attempts. Loading a random pair.`);
+            await pairManager.loadNewPair();
         } catch (error) {
             logger.error("Error incrementing pair ID:", error);
         }

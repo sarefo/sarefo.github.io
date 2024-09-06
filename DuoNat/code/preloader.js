@@ -10,15 +10,6 @@ const preloader = {
     },
     isPreloading: false,
 
-    async preloadRound(isNewPair) {
-        try {
-            await this.roundPreloader.preloadForNextRound();
-            logger.debug("Preloading completed for next round");
-        } catch (error) {
-            logger.error("Error during round preloading:", error);
-        }
-    },
-
     imageLoader: {
         preloadImage(url) {
             return new Promise((resolve, reject) => {
@@ -165,19 +156,38 @@ const preloader = {
                 }
 
                 let newPair;
-                if (state.getPreloadNextPairID() == true) {
-                    newPair = String(Number(state.getCurrentPairID()) + 1)
-                        // TODO get next highest if gap in numbering
-                        // get first if at highest already
-                    logger.debug("preloading next ID", newPair);
-                    state.setPreloadNextPairID(false); // reset
+                if (state.getPreloadNextPairID()) {
+                    const currentPairID = state.getCurrentPairID();
+                    const highestPairID = state.getHighestPairID();
+                    
+                    let nextPairID;
+                    let attempts = 0;
+                    const maxAttempts = 10; // Limit the number of attempts to find a valid pair
+
+                    do {
+                        if (currentPairID === highestPairID || attempts >= maxAttempts) {
+                            nextPairID = "1";
+                        } else {
+                            nextPairID = String(Number(currentPairID) + 1);
+                        }
+                        newPair = await pairManager.getPairByID(nextPairID);
+                        attempts++;
+                    } while (!newPair && attempts < maxAttempts);
+
+                    if (!newPair) {
+                        logger.warn(`Could not find a valid pair after ${maxAttempts} attempts. Falling back to random selection.`);
+                        newPair = await pairManager.selectRandomPair();
+                    } else {
+                        logger.debug("Preloading next ID", nextPairID);
+                    }
+                    state.setPreloadNextPairID(false); // Reset the flag
                 } else {
                     newPair = await pairManager.selectRandomPair();
                 }
                 
                 if (newPair) {
                     await this.preloadPairImages(newPair);
-                    logger.debug("Preloaded pair:", newPair);
+                    logger.debug("Preloaded pair:", newPair.pairID, newPair);
                 } else {
                     logger.warn("No valid pairs found for preloading");
                     preloader.preloadedImages.nextPair = null;
@@ -192,21 +202,36 @@ const preloader = {
         },
 
         async preloadPairImages(pair) {
-            const [image1URL, image2URL] = await Promise.all([
-                preloader.imageLoader.fetchDifferentImage(pair.taxonA, null),
-                preloader.imageLoader.fetchDifferentImage(pair.taxonB, null)
-            ]);
+            if (!pair || !pair.taxonA || !pair.taxonB) {
+                logger.error("Invalid pair data for preloading images:", pair);
+                return;
+            }
 
-            await Promise.all([
-                preloader.imageLoader.preloadImage(image1URL),
-                preloader.imageLoader.preloadImage(image2URL)
-            ]);
+            try {
+                const [image1URL, image2URL] = await Promise.all([
+                    preloader.imageLoader.fetchDifferentImage(pair.taxonA, null),
+                    preloader.imageLoader.fetchDifferentImage(pair.taxonB, null)
+                ]);
 
-            preloader.preloadedImages.nextPair = {
-                pair: pair,
-                taxonA: image1URL,
-                taxonB: image2URL
-            };
+                if (image1URL && image2URL) {
+                    await Promise.all([
+                        preloader.imageLoader.preloadImage(image1URL),
+                        preloader.imageLoader.preloadImage(image2URL)
+                    ]);
+
+                    preloader.preloadedImages.nextPair = {
+                        pair: pair,
+                        taxonA: image1URL,
+                        taxonB: image2URL
+                    };
+                } else {
+                    logger.warn("Failed to fetch images for preloading:", pair);
+                    preloader.preloadedImages.nextPair = null;
+                }
+            } catch (error) {
+                logger.error("Error preloading images for pair:", error);
+                preloader.preloadedImages.nextPair = null;
+            }
         },
 
         isPairValid(pair) {

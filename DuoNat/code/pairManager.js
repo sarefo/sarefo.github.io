@@ -20,7 +20,6 @@ const pairManager = {
 
         // called from collMan, iNatDown, enterPair, main
         async loadNewPair(pairID = null) {
-logger.trace(`loadNewPair called with pairID: ${pairID}`);
             state.setIsNewPair(true);
             state.setState(state.GameState.LOADING_PAIR);
 
@@ -65,7 +64,7 @@ logger.trace(`loadNewPair called with pairID: ${pairID}`);
             }
 
             //state.setNextSelectedPair(newPairData);
-                logger.debug("loading pair:", newPairData.pairID);
+                //logger.debug("loading pair:", newPairData.pairID);
             return newPairData;
         },
 
