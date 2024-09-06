@@ -149,7 +149,7 @@ const preloader = {
 
         clearPreloadedPair() {
             preloader.preloadedImages.nextPair = null;
-            logger.debug("Cleared preloaded pair");
+            //logger.debug("Cleared preloaded pair");
 
         },
 
