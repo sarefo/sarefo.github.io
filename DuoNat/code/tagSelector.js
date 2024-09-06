@@ -76,7 +76,7 @@ const tagSelector = {
             collectionManager.updateFilterSummary();
             await tagSelector.dataManager.updateFilteredPairs();
             // Trigger preloading of a new pair based on the selected tags
-            preloader.pairPreloader.preloadNewPairWithTags(this.getSelectedTags(), state.getSelectedLevel(), state.getSelectedRanges() || []);
+            preloader.preloadNewPairWithTags(this.getSelectedTags(), state.getSelectedLevel(), state.getSelectedRanges() || []);
         },
 
         async clearAllTags() {
@@ -86,7 +86,7 @@ const tagSelector = {
             await tagSelector.dataManager.updateFilteredPairs();
 
             // Trigger preloading of a random pair from all available pairs
-            preloader.pairPreloader.preloadNewPairWithTags([], state.getSelectedLevel(), state.getSelectedRanges());
+            preloader.preloadNewPairWithTags([], state.getSelectedLevel(), state.getSelectedRanges());
         },
     },
 

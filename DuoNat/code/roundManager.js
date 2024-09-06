@@ -26,26 +26,14 @@ const roundManager = {
                     image1URL: pairData.image1URL,
                     image2URL: pairData.image2URL,
                     level: pairData.level,
-                    isNewPair: state.isNewPair() // Add this line
+                    isNewPair: state.isNewPair()
                 };
-                //logger.debug("pair, pairData:",pairData.pair, pairDataWithImages);
 
                let  imageData = await this.getAndProcessImages(pairDataWithImages);
-
-               // TODO this definition changes the behavior!
-               /*imageData = {
-                    taxonImage1URL: pairData.image1URL,
-                    taxonImage2URL: pairData.image2URL,
-                    taxonImage1: pairData.pair.taxonA,
-                    taxonImage2: pairData.pair.taxonB,
-                    //randomized: false // We'll assume it's not randomized at this point
-                };*/
-
                 
                 this.setObservationURLs(imageData);
 
                 ui.prepareImagesForLoading();
-                //await roundManager.setupRoundComponents.setupRound(pairData.pair, imageData);
 
                 const { taxonImage1URL, taxonImage2URL, randomized, taxonImage1, taxonImage2 } = imageData;
 
@@ -71,7 +59,6 @@ const roundManager = {
                 await ui.updateUIAfterSetup();
 
                 await this.fadeInNewImages();
-                await hintSystem.updateAllHintButtons();
 
             } catch (error) {
                 errorHandling.handleSetupError(error);
@@ -79,7 +66,7 @@ const roundManager = {
                 state.setState(state.GameState.PLAYING);
                 state.setIsNewPair(false);
             }
-            preloader.roundPreloader.preloadForNextRound();
+            preloader.preloadForNextRound();
         },
 
         async getAndProcessImages(pairData) {
@@ -95,7 +82,6 @@ const roundManager = {
                     taxonA: pairData.image1URL,
                     taxonB: pairData.image2URL
                 };
-                logger.debug(`Using preloaded images for new pair: ${pairData.pair.taxonA} / ${pairData.pair.taxonB}`);
             } else {
                 // For subsequent rounds, get preloaded round images or fetch new ones
                 images = await this.getImages(pairData);
@@ -123,17 +109,17 @@ const roundManager = {
             }
             const { pair } = pairData;
 
-            const preloadedRoundImages = preloader.roundPreloader.getPreloadedImagesForNextRound();
+            const preloadedRoundImages = preloader.getPreloadedImagesForNextRound();
             if (preloadedRoundImages && preloadedRoundImages.taxonA && preloadedRoundImages.taxonB) {
-                logger.debug(`Using preloaded round images for pair: ${pair.taxonA} / ${pair.taxonB}`);
-                preloader.roundPreloader.clearPreloadedImagesForNextRound();
+                //logger.debug(`Using preloaded round images for pair: ${pair.taxonA} / ${pair.taxonB}`);
+                preloader.clearPreloadedImagesForNextRound();
                 return { taxonA: preloadedRoundImages.taxonA, taxonB: preloadedRoundImages.taxonB };
             }
 
-            logger.debug(`Fetching new images for pair: ${pair.taxonA} / ${pair.taxonB}`);
+            //logger.debug(`Fetching new images for pair: ${pair.taxonA} / ${pair.taxonB}`);
             return {
-                taxonA: await preloader.imageLoader.fetchDifferentImage(pair.taxonA, null),
-                taxonB: await preloader.imageLoader.fetchDifferentImage(pair.taxonB, null)
+                taxonA: await preloader.fetchDifferentImage(pair.taxonA, null),
+                taxonB: await preloader.fetchDifferentImage(pair.taxonB, null)
             };
         },
 
@@ -150,8 +136,6 @@ const roundManager = {
             image2.classList.remove('image-container__image--fade-in');
         },
 
-        // called only from loadNewRound()
-        // TODO eliminate from pairManager.initializeNewPair()
         setObservationURLs(imageData) {
             //logger.debug(`Setting observation URLs: ${imageData.taxonImage1URL} / ${imageData.taxonImage2URL}`);
             state.setObservationURL(imageData.taxonImage1URL, 1);
@@ -171,31 +155,6 @@ const roundManager = {
     setupRoundComponents: {
 
         // called only from loadNewRound()
-        // TODO eliminate from pairManager.initializeNewPair()
-        /*async setupRound(pairData, imageData) {
-            const { taxonImage1URL, taxonImage2URL, randomized, taxonImage1, taxonImage2 } = imageData;
-
-            // Load images
-            await Promise.all([
-                this.loadImage(state.getElement('image1'), taxonImage1URL),
-                this.loadImage(state.getElement('image2'), taxonImage2URL)
-            ]);
-
-            // Setup name tiles and world maps
-            const [nameTileData, worldMapData] = await Promise.all([
-                this.setupNameTiles(pairData, randomized, taxonImage1, taxonImage2),
-                this.setupWorldMaps(pairData, randomized, taxonImage1, taxonImage2)
-            ]);
-
-            // Update game state
-            state.updateGameStateForRound(pairData, imageData, nameTileData);
-
-            // Apply world map data
-            worldMap.createWorldMap(state.getElement('image1Container'), worldMapData.continents1);
-            worldMap.createWorldMap(state.getElement('image2Container'), worldMapData.continents2);
-
-        },*/
-
         async loadImage(imgElement, src) {
             return new Promise((resolve) => {
                 const img = new Image();
@@ -211,7 +170,7 @@ const roundManager = {
             });
         },
 
-        // called only from setupRound()
+        // called only from loadNewRound()
         async setupNameTiles(pair, randomized, taxonImage1, taxonImage2) {
             const [vernacularX, vernacularY] = await Promise.all([
                 utils.string.capitalizeFirstLetter(await api.vernacular.fetchVernacular(taxonImage1)),
@@ -231,7 +190,7 @@ const roundManager = {
             return { vernacularX, vernacularY };
         },
 
-        // called only from setupRound()
+        // called only from loadNewRound()
         async setupWorldMaps(pair, randomized) {
             const [continents1, continents2] = await Promise.all([
                 this.getContinentForTaxon(randomized ? pair.taxonB : pair.taxonA),
@@ -268,9 +227,6 @@ bindMethodsRecursively(roundManager);
 
 const publicAPI = {
     loadNewRound: roundManager.initialization.loadNewRound,
-    //eliminate:
-    //setupRound: roundManager.setupRoundComponents.setupRound,
-    //setObservationURLs: roundManager.initialization.setObservationURLs,
 };
 
 // Bind publicAPI methods

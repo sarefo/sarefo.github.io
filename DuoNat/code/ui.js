@@ -247,7 +247,7 @@ const ui = {
             if (bottomGroup && lowerImageContainer) {
                 const rect = lowerImageContainer.getBoundingClientRect();
                 bottomGroup.style.top = `${rect.top}px`;
-                bottomGroup.style.right = '0px'; // Adjust if needed
+                bottomGroup.style.right = '0px';
             }
         },
 
@@ -272,9 +272,9 @@ const ui = {
     },
 
     levelIndicator: {
+
         // called only from pairmanager.loadNewPair()
         updateLevelIndicator(level) {
-            //logger.trace("updateLevelIndicator");
             const indicator = document.getElementById('level-indicator');
             if (!indicator) return;
 
@@ -327,7 +327,6 @@ const ui = {
         },
 
         showPopup(popup) {
-            // Trigger a reflow before adding the 'show' class
             popup.offsetHeight;
             popup.classList.add('show');
         },
@@ -347,8 +346,9 @@ const ui = {
     },
 
     layoutManagement: {
+
         // only called at end of loadNewRound()
-        // determine height of tallest name tile, to keep layout stable over multiple rounds
+        // determines height of tallest name tile, to keep layout stable over multiple rounds
         setNamePairHeight() {
             const nameX = document.getElementById('name-x');
             const nameY = document.getElementById('name-y');
@@ -381,8 +381,6 @@ const ui = {
         // - pairManager.loadNewPair()
         // - roundManager.loadNewRound()
         async updateUIAfterSetup() {
-            logger.trace("updateUIAfterSetup");
-
             if (filtering.areAllFiltersDefault()) collectionManager.updateFilterSummary();
 
             state.setState(state.GameState.PLAYING);
@@ -394,7 +392,6 @@ const ui = {
             ui.core.resetUIState();
             ui.overlay.hideOverlay();
             state.setState(state.GameState.PLAYING);
-            //preloader.startPreloading(newPair);
 
             // Initialize the collection subset after the game has loaded
             pairManager.initializeCollectionSubset().catch(error => {
@@ -410,8 +407,6 @@ const ui = {
             this._setNameAttributes(nameOne, nameTwo);
             this._setNameContent(nameOne, nameTwo, vernacularOne, vernacularTwo);
             this._updateGameState(nameOne, nameTwo);
-
-            //ui.layoutManagement.setNamePairHeight();
         },
 
         _randomizeNames(nameX, nameY, nameXVernacular, nameYVernacular) {
@@ -463,11 +458,11 @@ const ui = {
     },
 
     imageHandling: {
+
         // called from:
         // - roundManager.loadNewRound()
         // - gameLogic.handleCorrectAnswer()
         prepareImagesForLoading() {
-            logger.trace("prepareImagesForLoading");
             const image1 = state.getElement('image1');
             const image2 = state.getElement('image2');
             
@@ -493,6 +488,18 @@ const bindAllMethods = (obj) => {
 bindAllMethods(ui);
 
 const publicAPI = {
+
+    // Core
+    resetUIState: ui.core.resetUIState,
+    initialize: ui.core.initialize,
+
+    // Main view
+    setNamePairHeight: ui.layoutManagement.setNamePairHeight,
+    setupNameTilesUI: ui.nameTiles.setupNameTilesUI,
+    resetDraggables: ui.nameTiles.resetDraggables,
+    updateUIAfterSetup: ui.layoutManagement.updateUIAfterSetup,
+    prepareImagesForLoading: ui.imageHandling.prepareImagesForLoading,
+
     // Overlay
     showOverlay: ui.overlay.showOverlay,
     updateOverlayMessage: ui.overlay.updateOverlayMessage,
@@ -501,24 +508,18 @@ const publicAPI = {
     createInfoDialogOverlay: ui.overlay.createInfoDialogOverlay,
     updateDialogOverlayMessage: ui.overlay.updateDialogOverlayMessage,
     removeDialogOverlay: ui.overlay.removeDialogOverlay,
+
     // Menu
     toggleMainMenu: ui.menu.toggleMainMenu,
     openMenu: ui.menu.open,
     closeMenu: ui.menu.close,
-    // Core
-    resetUIState: ui.core.resetUIState,
-    initialize: ui.core.initialize,
+
     // Level
     updateLevelIndicator: ui.levelIndicator.updateLevelIndicator,
+
     // Misc
     showPopupNotification: ui.notifications.showPopupNotification,
     hideLoadingScreen: ui.notifications.hideLoadingScreen,
-    // from gameUI
-    setNamePairHeight: ui.layoutManagement.setNamePairHeight,
-    setupNameTilesUI: ui.nameTiles.setupNameTilesUI,
-    resetDraggables: ui.nameTiles.resetDraggables,
-    updateUIAfterSetup: ui.layoutManagement.updateUIAfterSetup,
-    prepareImagesForLoading: ui.imageHandling.prepareImagesForLoading,
 };
 
 export default publicAPI;

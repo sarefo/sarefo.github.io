@@ -294,7 +294,7 @@ class Tutorial {
             const originalSrc2 = image2.src;
 
             // Get the preloaded images for the next round
-            const preloadedImages = preloader.roundPreloader.getPreloadedImagesForRoundDemo();
+            const preloadedImages = preloader.getPreloadedImagesForRoundDemo();
 
             if (preloadedImages && preloadedImages.taxonA && preloadedImages.taxonB) {
                 // Fade out

@@ -20,8 +20,8 @@ const pairManager = {
 
         // called from collMan, iNatDown, enterPair, main
         async loadNewPair (pairID = null) {
+
             state.setIsNewPair(true);
-            logger.trace("loadNewPair");
             state.setState(state.GameState.LOADING_PAIR);
             if (!await api.externalAPIs.checkINaturalistReachability()) return;
 
@@ -46,70 +46,45 @@ const pairManager = {
                 state.setNextSelectedPair(newPairData);
                 this.resetUsedImagesForNewPair(newPairData);
 
-                // URLs of both images
-                //const imageURLs = await this.loadImagesForNewPair(newPairData);
-                let imageURLs;
-
-                let preloadedImages = preloader.pairPreloader.hasPreloadedPair();
+                let preloadedImages = preloader.hasPreloadedPair();
                 
                 if (!preloadedImages || !preloadedImages.pair) {
-                    preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
+                    preloadedImages = preloader.getPreloadedImagesForNextPair();
                 }            
 
+                let imageURLs;
                 if (preloadedImages && preloadedImages.pair.pairID === newPairData.pairID) {
-                    logger.debug(`Using preloaded images for pair ID ${newPairData.pairID}`);
-                    // Clear the preloaded images after using them
-                    preloader.pairPreloader.clearPreloadedPair();
+                    preloader.clearPreloadedPair(); // Clear the preloaded images after using them
                     imageURLs = {taxonA: preloadedImages.taxonA, taxonB: preloadedImages.taxonB}
                 } else {
-                    const taxonAImage = await preloader.imageLoader.fetchDifferentImage(newPairData.taxonA || newPairData.taxonNames[0], null);
-                    const taxonBImage = await preloader.imageLoader.fetchDifferentImage(newPairData.taxonB || newPairData.taxonNames[1], null);
+                    const taxonAImage = await preloader.fetchDifferentImage(newPairData.taxonA || newPairData.taxonNames[0], null);
+                    const taxonBImage = await preloader.fetchDifferentImage(newPairData.taxonB || newPairData.taxonNames[1], null);
                     imageURLs = {taxonA: taxonAImage, taxonB: taxonBImage};
                 }
 
                 state.updateGameStateForNewPair(newPairData, imageURLs);
 
-        await pairManager.collectionSubsets.refreshCollectionSubset();
-
-        state.updateGameStateMultiple({
-            taxonImage1: newPairData.taxonA,
-            taxonImage2: newPairData.taxonB,
-            },
-        );
-
-        //await roundManager.loadNewRound();
-                // For a new pair, use the images that were just loaded
-                /*let imageData = {
-                    taxonImage1URL: imageURLs.taxonA,
-                    taxonImage2URL: imageURLs.taxonB,
+                state.updateGameStateMultiple({
                     taxonImage1: newPairData.taxonA,
                     taxonImage2: newPairData.taxonB,
-                };*/
-
-                //state.updateGameStateForRound(pairData, imageData, nameTileData);
-
-                // TODO replace with loadNewRound() eventually
-                //ui.prepareImagesForLoading(); // TODO separate pair/round
-                /*await roundManager.setupRound(newPairData, imageData);*/
-                //await ui.updateUIAfterSetup();
-                //preloader.roundPreloader.preloadForNextRound();
+                    },
+                );
 
                 state.setNextSelectedPair(null); // Clear the next selected pair after using it
 
                 await pairManager.collectionSubsets.refreshCollectionSubset();
-                await roundManager.loadNewRound(); // TODO
-                // Update hint buttons
+                await roundManager.loadNewRound();
                 await hintSystem.updateAllHintButtons();
+
             } catch (error) {
                 pairManager.errorHandling.handlePairLoadingError(error);
             } finally {
-                if (state.getState() !== state.GameState.PLAYING) {
-                    state.setState(state.GameState.PLAYING);
-                }
-                preloader.pairPreloader.preloadForNextPair(); // TODO start pair preloading
-                
+                //if (state.getState() !== state.GameState.PLAYING) state.setState(state.GameState.PLAYING);
+
+                preloader.preloadForNextPair();
                 ui.setNamePairHeight();
                 ui.updateLevelIndicator(newPairData.level);
+                state.setState(state.GameState.PLAYING);
             }
         },
 
@@ -122,72 +97,6 @@ const pairManager = {
             return allPairs.find(pair => pair.pairID === pairID);
         },
 
-        /*async selectNewPair() {
-            state.resetShownHints();
-            let nextSelectedPair = state.getNextSelectedPair();
-            if (nextSelectedPair) {
-                state.setNextSelectedPair(null);
-                //logger.debug('Using next selected pair:', nextSelectedPair);
-                return nextSelectedPair;
-            }
-            return await this.selectPairFromFilters();
-        },
-
-        async selectPairFromFilters() {
-            const filters = filtering.getActiveFilters();
-            const filteredPairs = await filtering.getFilteredTaxonPairs(filters);
-            return this.findOrSelectRandomPair(filteredPairs);
-        },
-
-        findOrSelectRandomPair(filteredPairs) {
-            let pair = this.findPairByUrlParams(filteredPairs);
-            if (!pair) {
-                if (filteredPairs.length > 0) {
-                    pair = filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
-                    //logger.debug("Selected random pair from filtered collection");
-                } else {
-                    throw new Error("No pairs available in the current filtered collection");
-                }
-            }
-            return pair;
-        },
-
-        findPairByUrlParams(filteredPairs) {
-            const pairID = state.getCurrentPairID();
-            if (pairID) {
-                return this.findPairByPairID(filteredPairs, pairID);
-            } else {
-                const urlParams = url.getUrlParameters();
-                if (urlParams.taxonA && urlParams.taxonB) { // not saved in gameState atm
-                return this.findPairByTaxa(filteredPairs, urlParams.taxonA, urlParams.taxonB);
-                }
-            }
-            return null;
-        },
-
-        findPairByPairID(filteredPairs, pairID) {
-            const pair = filteredPairs.find(pair => pair.pairID === pairID);
-            if (pair) {
-                //logger.debug(`Found pair with pairID: ${pairID}`);
-            } else {
-                logger.warn(`PairID ${pairID} not found in filtered collection. Selecting random pair.`);
-            }
-            return pair;
-        },
-
-        findPairByTaxa(filteredPairs, taxonA, taxonB) {
-            const pair = filteredPairs.find(pair =>
-                (pair.taxonNames[0] === taxonA && pair.taxonNames[1] === taxonB) ||
-                (pair.taxonNames[0] === taxonB && pair.taxonNames[1] === taxonA)
-            );
-            if (pair) {
-                //logger.debug(`Found pair with taxa: ${taxonA} and ${taxonB}`);
-            } else {
-                logger.warn(`Taxa ${taxonA} and ${taxonB} not found in filtered collection. Selecting random pair.`);
-            }
-            return pair;
-        },*/
-
         resetUsedImagesForNewPair(newPair) {
             const currentUsedImages = state.getUsedImages();
             const updatedUsedImages = { ...currentUsedImages };
@@ -196,45 +105,15 @@ const pairManager = {
             state.updateGameStateMultiple({
                 usedImages: updatedUsedImages
             });
-            //logger.debug(`Reset used images for new pair: ${newPair.taxonA} and ${newPair.taxonB}`);
         },
 
-        // only called from initializeNewPair()
-        /*async loadImagesForNewPair(newPair) {
-            //const preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
-            let preloadedImages = preloader.pairPreloader.hasPreloadedPair();
-            
-            if (!preloadedImages || !preloadedImages.pair) {
-                preloadedImages = preloader.pairPreloader.getPreloadedImagesForNextPair();
-            }            
-
-            if (preloadedImages && preloadedImages.pair.pairID === newPair.pairID) {
-                logger.debug(`Using preloaded images for pair ID ${newPair.pairID}`);
-                // Clear the preloaded images after using them
-                preloader.pairPreloader.clearPreloadedPair();
-                return {
-                    taxonA: preloadedImages.taxonA,
-                    taxonB: preloadedImages.taxonB,
-                };
-            }
-            
-            //logger.debug(`Fetching new images for pair ID ${newPair.pairID}`);
-            const taxonAImage = await preloader.imageLoader.fetchDifferentImage(newPair.taxonA || newPair.taxonNames[0], null);
-            const taxonBImage = await preloader.imageLoader.fetchDifferentImage(newPair.taxonB || newPair.taxonNames[1], null);
-            
-            let imageURLs = {taxonA: taxonAImage, taxonB: taxonBImage};
-            return imageURLs;
-        },*/
-
         async selectPairForLoading() {
-            const preloadedPair = preloader.pairPreloader.getPreloadedImagesForNextPair()?.pair;
+            const preloadedPair = preloader.getPreloadedImagesForNextPair()?.pair;
             if (preloadedPair) {
-                //logger.debug(`Using preloaded pair: ${preloadedPair.pairID}`);
                 return preloadedPair;
             } else {
                 const selectedPair = await pairManager.pairSelection.selectRandomPair();
                 if (selectedPair) {
-                    //logger.debug(`Selected random pair: ${selectedPair.pairID}`);
                     return selectedPair;
                 } else {
                     logger.warn('No available pairs in the current collection');
@@ -265,7 +144,7 @@ const pairManager = {
             state.setNextSelectedPair(newPair);
             await this.loadNewPair();
             const nextPairID = String(Number(pairID) + 1);
-            preloader.pairPreloader.preloadPairByID(nextPairID);
+            preloader.preloadPairByID(nextPairID);
         },
     },
 
@@ -275,14 +154,10 @@ const pairManager = {
         // - selectPairForLoading() < loadNewPair()
         // - preloader.preloadForNextPair()
         async selectRandomPair() {
-            //logger.trace("selectRandomPair");
+
             // First, try to get the next pair from the pairManager
             const nextPair = await this.getNextPairFromCollection();
-            
-            if (nextPair) {
-                //logger.debug(`Selected pair from pairManager: ${nextPair.taxonNames[0]} / ${nextPair.taxonNames[1]}`);
-                return nextPair;
-            }
+            if (nextPair) return nextPair;
             
             // If pairManager doesn't return a pair, fall back to the original method
             logger.warn("No pair available from pairManager, falling back to original method");
@@ -320,7 +195,6 @@ const pairManager = {
             if (nextPair) {
                 pairManager.usedPairIDs.add(nextPair.pairID);
                 pairManager.lastUsedPairID = nextPair.pairID;
-                //logger.debug(`Next pair: ${nextPair.pairID}, Remaining pairs in subset: ${pairManager.currentCollectionSubset.length}, Total pairs in collection: ${pairManager.allFilteredPairs.length}`);
 
                 // Reset usedPairIDs if all pairs have been used
                 if (pairManager.usedPairIDs.size === pairManager.allFilteredPairs.length) {
@@ -357,18 +231,19 @@ const pairManager = {
                 // Filter out the last used pair when creating a new subset
                 const availablePairs = pairManager.allFilteredPairs.filter(pair => pair.pairID !== this.lastUsedPairID);
                 pairManager.currentCollectionSubset = pairManager.utilities.getRandomSubset(availablePairs, subsetSize);
-                //logger.debug(`Initialized new collection subset of pairs: ${pairManager.currentCollectionSubset.length}`);
             } finally {
                 this.isInitializing = false;
             }
         },
 
-        // called (not!) only in collectionManager.handleCollectionManagerDone()
+        // called from:
+        // loadNewPair()
+        // - collectionManager.handleCollectionManagerDone()
         async refreshCollectionSubset() {
             pairManager.isInitialized = false;
             pairManager.usedPairIDs.clear();
             pairManager.lastUsedPairID = null;
-            preloader.pairPreloader.isCollectionSubsetInitialized = false;
+            preloader.isCollectionSubsetInitialized = false;
             await this.initializeCollectionSubset();
         },
     },

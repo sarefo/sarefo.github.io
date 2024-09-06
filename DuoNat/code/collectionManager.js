@@ -576,7 +576,7 @@ const collectionManager = {
                 if (!currentPairInCollection && filteredPairs.length > 0) {
                     // Only load a new pair if the current pair is not in the filtered collection
 
-                    preloader.pairPreloader.clearPreloadedPair();
+                    preloader.clearPreloadedPair();
 
                     const randomPair = filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
                     await pairManager.loadNewPair(randomPair.pairID);
@@ -608,7 +608,7 @@ const collectionManager = {
             dialogManager.closeDialog('collection-dialog');
             
             // Clear the preloaded pair before setting up the new game
-            preloader.pairPreloader.clearPreloadedPair();
+            preloader.clearPreloadedPair();
             
             // Pass the pairID to loadNewPair
             setTimeout(() => pairManager.loadNewPair(selectedPair.pairID), 300);
