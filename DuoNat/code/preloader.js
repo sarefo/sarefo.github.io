@@ -155,36 +155,16 @@ const preloader = {
                     this.isCollectionSubsetInitialized = true;
                 }
 
-                let newPair;
+                // for pairID walking via "+"
                 if (state.getPreloadNextPairID()) {
-                    const currentPairID = state.getCurrentPairID();
-                    const highestPairID = state.getHighestPairID();
-                    
-                    let nextPairID;
-                    let attempts = 0;
-                    const maxAttempts = 10; // Limit the number of attempts to find a valid pair
-
-                    do {
-                        if (currentPairID === highestPairID || attempts >= maxAttempts) {
-                            nextPairID = "1";
-                        } else {
-                            nextPairID = String(Number(currentPairID) + 1);
-                        }
-                        newPair = await pairManager.getPairByID(nextPairID);
-                        attempts++;
-                    } while (!newPair && attempts < maxAttempts);
-
-                    if (!newPair) {
-                        logger.warn(`Could not find a valid pair after ${maxAttempts} attempts. Falling back to random selection.`);
-                        newPair = await pairManager.selectRandomPair();
-                    } else {
-                        logger.debug("Preloading next ID", nextPairID);
-                    }
-                    state.setPreloadNextPairID(false); // Reset the flag
-                } else {
-                    newPair = await pairManager.selectRandomPair();
+                    // Skip preloading as it's already done in incrementPairID
+                    state.setPreloadNextPairID(false);
+                    return;
                 }
-                
+                    
+                // If we're not preloading the next ID, use the original random selection
+                const newPair = await pairManager.selectRandomPair();
+
                 if (newPair) {
                     await this.preloadPairImages(newPair);
                     logger.debug("Preloaded pair:", newPair.pairID, newPair);
@@ -318,7 +298,7 @@ const preloader = {
         },
 
         // used by "+" shortcut for ID walking
-        /*async preloadPairByID(pairID) {
+        async preloadPairByID(pairID) {
             try {
                 const nextPair = await pairManager.getPairByID(pairID);
                 if (nextPair) {
@@ -329,7 +309,7 @@ const preloader = {
             } catch (error) {
                 logger.error(`Error preloading pair with ID ${pairID}:`, error);
             }
-        },*/
+        },
     },
 };
 
@@ -352,7 +332,7 @@ const publicAPI = {
     clearPreloadedPair: preloader.pairPreloader.clearPreloadedPair,
 
     preloadNewPairWithTags: preloader.pairPreloader.preloadNewPairWithTags,
-    //preloadPairByID: preloader.pairPreloader.preloadPairByID,
+    preloadPairByID: preloader.pairPreloader.preloadPairByID,
     preloadForNextPair: preloader.pairPreloader.preloadForNextPair,
 
     // Rounds

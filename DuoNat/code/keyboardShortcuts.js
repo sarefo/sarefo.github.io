@@ -6,6 +6,7 @@ import pairManager from './pairManager.js';
 import hintSystem from './hintSystem.js';
 import infoDialog from './infoDialog.js';
 import logger from './logger.js';
+import preloader from './preloader.js';
 import rangeSelector from './rangeSelector.js';
 import searchHandler from './searchHandler.js';
 import state from './state.js';
@@ -119,7 +120,7 @@ const keyboardShortcuts = {
 
             let nextPairID;
             let attempts = 0;
-            const maxAttempts = 10; // Limit the number of attempts to find a valid pair
+            const maxAttempts = 10;
 
             do {
                 if (currentPairID === highestPairID || attempts >= maxAttempts) {
@@ -129,9 +130,19 @@ const keyboardShortcuts = {
                 }
                 const nextPair = await pairManager.getPairByID(nextPairID);
                 if (nextPair) {
-                    //logger.debug(`Incrementing from pair ID ${currentPairID} to ${nextPairID}`);
+                    logger.debug(`Incrementing from pair ID ${currentPairID} to ${nextPairID}`);
                     state.setPreloadNextPairID(true);
                     await pairManager.loadPairByID(nextPairID, true);
+
+                    // Preload the next pair ID
+                    let preloadPairID = String(Number(nextPairID) + 1);
+                    if (preloadPairID > highestPairID) {
+                        preloadPairID = "1";
+                    }
+                    const preloadPair = await pairManager.getPairByID(preloadPairID);
+                    if (preloadPair) {
+                        await preloader.preloadPairByID(preloadPairID);
+                    }
                     return;
                 }
                 attempts++;
