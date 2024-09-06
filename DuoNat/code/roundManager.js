@@ -22,7 +22,7 @@ const roundManager = {
                 const pairData = { pair, preloadedImages: null };
                 logger.debug("pair, pairData:",pair, pairData);
 
-                const imageData = await this.getAndProcessImages(pairData, false);
+                const imageData = await this.getAndProcessImages(pairData);
                 
                 this.setObservationURLs(imageData);
 
@@ -37,13 +37,13 @@ const roundManager = {
             preloader.roundPreloader.preloadForNextRound();
         },
 
-        async getAndProcessImages(pairData, isNewPair) {
+        async getAndProcessImages(pairData) {
             if (!pairData) {
                 logger.error('Invalid pairData received in getAndProcessImages');
                 throw new Error('Invalid pairData: pairData is undefined');
             }
 
-            const images = await this.getImages(pairData, isNewPair);
+            const images = await this.getImages(pairData, false);
             return this.randomizeImages(images, pairData.pair);
         },
 
