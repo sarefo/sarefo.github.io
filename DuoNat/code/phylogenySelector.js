@@ -6,7 +6,6 @@ import filtering from './filtering.js';
 import logger from './logger.js';
 import state from './state.js';
 import utils from './utils.js';
-//import utils from './utils.js';
 
 const phylogenySelector = {
 
