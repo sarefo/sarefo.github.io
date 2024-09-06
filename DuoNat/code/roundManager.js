@@ -52,12 +52,12 @@ const roundManager = {
                     roundManager.setupRoundComponents.setupWorldMaps(pairData.pair, randomized, taxonImage1, taxonImage2)
                 ]);
 
-                // Update game state
-                state.updateGameStateForRound(pairData.pair, imageData, nameTileData);
-
                 // Apply world map data
                 worldMap.createWorldMap(state.getElement('image1Container'), worldMapData.continents1);
                 worldMap.createWorldMap(state.getElement('image2Container'), worldMapData.continents2);
+
+                // Update game state
+                state.updateGameStateForRound(pairData.pair, imageData, nameTileData);
 
                 await ui.updateUIAfterSetup();
 

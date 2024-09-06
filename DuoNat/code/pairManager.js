@@ -44,7 +44,7 @@ const pairManager = {
                 }
 
                 state.setNextSelectedPair(newPairData);
-                this.resetUsedImagesForNewPair(newPairData);
+                //this.resetUsedImagesForNewPair(newPairData);
 
                 let preloadedImages = preloader.hasPreloadedPair();
                 
@@ -97,7 +97,7 @@ const pairManager = {
             return allPairs.find(pair => pair.pairID === pairID);
         },
 
-        resetUsedImagesForNewPair(newPair) {
+        /*resetUsedImagesForNewPair(newPair) {
             const currentUsedImages = state.getUsedImages();
             const updatedUsedImages = { ...currentUsedImages };
             delete updatedUsedImages[newPair.taxonA];
@@ -105,7 +105,7 @@ const pairManager = {
             state.updateGameStateMultiple({
                 usedImages: updatedUsedImages
             });
-        },
+        },*/
 
         async selectPairForLoading() {
             const preloadedPair = preloader.getPreloadedImagesForNextPair()?.pair;
