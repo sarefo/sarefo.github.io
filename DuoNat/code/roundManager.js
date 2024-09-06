@@ -26,7 +26,7 @@ const roundManager = {
                     image2URL: pairData.image2URL,
                     level: pairData.level
                 };
-                logger.debug("pair, pairData:",pairData.pair, pairDataWithImages);
+                //logger.debug("pair, pairData:",pairData.pair, pairDataWithImages);
 
                 const imageData = await this.getAndProcessImages(pairDataWithImages);
                 
