@@ -32,8 +32,6 @@ const roundManager = {
             } finally {
                 state.setState(state.GameState.PLAYING);
             }
-            // also called in loadNewPair()!!
-            await ui.updateUIAfterSetup(false); // TODO
             preloader.roundPreloader.preloadForNextRound();
         },
 
@@ -142,6 +140,8 @@ const roundManager = {
             // Apply world map data
             worldMap.createWorldMap(state.getElement('image1Container'), worldMapData.continents1);
             worldMap.createWorldMap(state.getElement('image2Container'), worldMapData.continents2);
+
+            await ui.updateUIAfterSetup();
 
             return { nameTileData, worldMapData };
         },

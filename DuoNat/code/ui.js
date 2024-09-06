@@ -380,13 +380,12 @@ const ui = {
         // called from:
         // - pairManager.loadNewPair()
         // - roundManager.loadNewRound()
-        async updateUIAfterSetup(newPair = false) {
+        async updateUIAfterSetup() {
+            logger.trace("updateUIAfterSetup");
 
             if (filtering.areAllFiltersDefault()) collectionManager.updateFilterSummary();
 
             state.setState(state.GameState.PLAYING);
-
-            if (newPair) await pairManager.refreshCollectionSubset();
 
             if (state.getIsInitialLoad()) {
                 ui.notifications.hideLoadingScreen();

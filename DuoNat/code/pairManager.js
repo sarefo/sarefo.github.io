@@ -65,8 +65,7 @@ const pairManager = {
                 await hintSystem.updateAllHintButtons();
                 state.setNextSelectedPair(null); // Clear the next selected pair after using it
 
-                // also called in loadNewRound()!!
-                await ui.updateUIAfterSetup(true);
+                await pairManager.collectionSubsets.refreshCollectionSubset();
                 //await roundManager.loadNewRound(); // TODO
             } catch (error) {
                 pairManager.errorHandling.handlePairLoadingError(error);
@@ -305,10 +304,6 @@ const pairManager = {
         },
     },
 
-    pairManagement: {
-
-    },
-
     collectionSubsets: {
 
         // called in
@@ -337,7 +332,7 @@ const pairManager = {
             }
         },
 
-        // called only in collectionManager.handleCollectionManagerDone()
+        // called (not!) only in collectionManager.handleCollectionManagerDone()
         async refreshCollectionSubset() {
             pairManager.isInitialized = false;
             pairManager.usedPairIDs.clear();
