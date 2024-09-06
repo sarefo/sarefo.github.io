@@ -180,7 +180,7 @@ def process_taxa(input_file, new_taxon_file, perplexity_file, taxon_info_file):
 
     # Output list of taxon names
     for name in taxon_names_list:
-        perplexity_prompt += name + "\n"
+        perplexity_prompt += name + '\n'
 
     copy_to_clipboard(perplexity_prompt)
     print("Perplexity prompt has been copied to the clipboard.")
