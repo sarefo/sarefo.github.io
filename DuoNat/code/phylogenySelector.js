@@ -21,6 +21,12 @@ const phylogenySelector = {
         this.uiControls.focusSearchInput();
     },
 
+    // Modules:
+    // - graphView
+    // - cloudView
+    // - search
+    // - uiControls
+
     graphView: {
         async updateGraph(pathToRoot = null) {
             const graphContainer = document.getElementById('phylogeny-graph-container');
