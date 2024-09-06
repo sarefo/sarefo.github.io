@@ -555,6 +555,8 @@ const collectionManager = {
     },
 
     eventHandlers: {
+        isSelectionInProgress: false,
+
         async handleCollectionManagerDone() {
             this.isLoadingNewPair = true;
 
@@ -596,6 +598,9 @@ const collectionManager = {
         },
 
         handleTaxonPairSelection(pair) {
+            if (this.isSelectionInProgress) return;
+            this.isSelectionInProgress = true;
+
             const selectedPair = {
                 taxonA: pair.taxonNames[0],
                 taxonB: pair.taxonNames[1],
@@ -611,7 +616,9 @@ const collectionManager = {
             preloader.clearPreloadedPair();
             
             // Pass the pairID to loadNewPair
-            setTimeout(() => pairManager.loadNewPair(selectedPair.pairID), 300);
+            pairManager.loadNewPair(selectedPair.pairID).finally(() => {
+                this.isSelectionInProgress = false;
+            });
         },
     },
 };

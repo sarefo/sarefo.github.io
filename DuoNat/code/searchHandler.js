@@ -118,9 +118,7 @@ const searchHandler = {
             const firstTaxonPairButton = document.querySelector('.taxon-pair-button');
             if (firstTaxonPairButton) {
                 firstTaxonPairButton.click();
-                setTimeout(() => {
-                    dialogManager.closeDialog('collection-dialog');
-                }, 100);
+                dialogManager.closeDialog('collection-dialog');
             }
         }
     },
