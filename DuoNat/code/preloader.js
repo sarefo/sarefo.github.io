@@ -139,7 +139,7 @@ const preloader = {
         },
 
         // called only from roundManager.getImages()
-        clearPreloadedImagesForNextRound() {
+        clearPreloadedRound() {
             preloader.preloadedImages.nextRound = { taxonA: null, taxonB: null };
         },
     },
@@ -310,19 +310,21 @@ bindMethodsRecursively(preloader);
 
 const publicAPI = {
     // Pairs
-    clearPreloadedPair: preloader.pairPreloader.clearPreloadedPair,
-    getPreloadedImagesForNextPair: preloader.pairPreloader.getPreloadedImagesForNextPair,
     hasPreloadedPair: preloader.pairPreloader.hasPreloadedPair,
     isPairValid: preloader.pairPreloader.isPairValid,
+    getPreloadedImagesForNextPair: preloader.pairPreloader.getPreloadedImagesForNextPair,
+    clearPreloadedPair: preloader.pairPreloader.clearPreloadedPair,
+
     preloadNewPairWithTags: preloader.pairPreloader.preloadNewPairWithTags,
     preloadPairByID: preloader.pairPreloader.preloadPairByID,
     preloadForNextPair: preloader.pairPreloader.preloadForNextPair,
 
     // Rounds
+    preloadForNextRound: preloader.roundPreloader.preloadForNextRound,
+    clearPreloadedRound: preloader.roundPreloader.clearPreloadedRound,
+
     getPreloadedImagesForNextRound: preloader.roundPreloader.getPreloadedImagesForNextRound,
     getPreloadedImagesForRoundDemo: preloader.roundPreloader.getPreloadedImagesForRoundDemo,
-    clearPreloadedImagesForNextRound: preloader.roundPreloader.clearPreloadedImagesForNextRound,
-    preloadForNextRound: preloader.roundPreloader.preloadForNextRound,
 
     // Misc
     fetchDifferentImage: preloader.imageLoader.fetchDifferentImage,
