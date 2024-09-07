@@ -20,16 +20,22 @@
     -webkit-touch-callout: none;
 }
 
+.portrait-layout .image-container {
+}
+.landscape-layout .image-container {
+    height: 98%;
+    margin: 8px;
+}
+
 .image-container--drag-over {
     cursor: copy;
 }
 
 /* TODO this will be a problem when switching to side-by-side on desktop, keep in mind */
-#image-container-1 {
+.portrait-layout #image-container-1 {
     margin-top: 4px;
 }
-
-#image-container-2 {
+.portrait-layout #image-container-2 {
     margin-bottom: 4px;
 }
 

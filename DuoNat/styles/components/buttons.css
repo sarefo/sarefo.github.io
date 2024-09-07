@@ -54,15 +54,23 @@
 
 .ui-container {
     position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+}
+.portrait-layout .ui-container {
     top: 10px;
     left: 50%;
     transform: translateX(-50%);
     width: 98vw;
     max-width: var(--max-image-width);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 1000;
+
+}
+.landscape-layout .ui-container {
+    top: 20px;
+    left: 320px;
+    right: 320px;
 }
 
 .ui-left-group {

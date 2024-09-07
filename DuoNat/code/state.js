@@ -32,6 +32,7 @@ let gameState = {
     showTaxonomicNames: false,
     hideCollManTaxa: true,
     hasKeyboard: true,
+    useLandscape: false,
 
     isInitialLoad: true,
 
@@ -399,6 +400,10 @@ const publicAPI = {
         updateGameState('hideCollManTaxa', show);
     },
 
+    getUseLandscape: () => gameState.useLandscape,
+    setUseLandscape(show) {
+        updateGameState('useLandscape', show);
+    },
     getHasKeyboard: () => gameState.hasKeyboard,
     setHasKeyboard(show) {
         updateGameState('hasKeyboard', show);

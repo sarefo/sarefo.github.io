@@ -87,20 +87,25 @@ button {
 .game-container {
     display: flex;
     flex: none;
-    flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    /*   box-sizing: border-box;*/
 
     position: relative;
     overflow: hidden;
     width: 100vw;
     height: 100vh;
-    /*   padding: 0;*/
 
     z-index: 1;
     transform-origin: center center;
     transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.portrait-layout .game-container {
+    flex-direction: column;
+}
+
+.landscape-layout .game-container {
+    flex-direction: row;
 }
 
 .underline {

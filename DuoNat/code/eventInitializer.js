@@ -13,6 +13,7 @@ import eventUIButtons from './eventUIButtons.js';
 
 const eventInitializer = {
     initialize() {
+        this.initializeOrientationChange();
         this.initializeDragAndDrop();
         this.initializeTouchEvents();
         this.initializeThumbsEvents();
@@ -24,6 +25,10 @@ const eventInitializer = {
         this.initializeDialogCloseButtons();
         this.initializeSearchInput();
         this.initializeHelpButtons();
+    },
+
+    initializeOrientationChange() {
+        window.addEventListener('resize', ui.handleOrientationChange);
     },
 
     initializeDragAndDrop() {

@@ -9,6 +9,18 @@ import tutorial from './tutorial.js';
 
 const ui = {
 
+    // Modules:
+    // - state
+    // - core
+    // - overlay
+    // - menu
+    // - levelIndicator
+    // - notifications
+    // - layoutManagement
+    // - nameTiles
+    // - imageHandling
+    // - orientation
+
     state: {
         isMenuOpen: false,
     },
@@ -18,6 +30,8 @@ const ui = {
             this.initializeMenu();
             this.setupOutsideClickHandler();
             hintSystem.initialize();
+            // TODO determine screen orientation
+            ui.orientation.setInitialOrientation();
         },
 
         initializeMenu() {
@@ -473,6 +487,70 @@ const ui = {
             image2.classList.add('image-container__image--loading');
         },
     },
+
+    orientation: {
+        setInitialOrientation() {
+            const isLandscape = window.innerWidth > window.innerHeight;
+            const minWidth = 768; // Adjust this value as needed
+            state.setUseLandscape(isLandscape && window.innerWidth >= minWidth);
+            this.applyOrientationLayout();
+        },
+
+        applyOrientationLayout() {
+            // TODO enable once ready
+            //const useLandscape = state.getUseLandscape();
+            const useLandscape = false;
+            document.body.classList.toggle('landscape-layout', useLandscape);
+            document.body.classList.toggle('portrait-layout', !useLandscape);
+
+            this.updateMainViewLayout(useLandscape);
+            this.updateInfoDialogLayout(useLandscape);
+            this.updateNameTilesLayout(useLandscape);
+
+            logger.warn("Orientation changed to", useLandscape ? "landscape" : "portrait");
+        },
+
+        updateMainViewLayout(useLandscape) {
+            const gameContainer = document.querySelector('.game-container');
+            if (useLandscape) {
+                gameContainer.classList.add('landscape');
+                // Disable swiping in landscape mode
+                // You'll need to implement this in your swipe handling code
+            } else {
+                gameContainer.classList.remove('landscape');
+                // Enable swiping in portrait mode
+            }
+        },
+
+        updateInfoDialogLayout(useLandscape) {
+            // This function will be called when the info dialog is opened
+            // You'll need to modify your info dialog code to use this
+            const infoDialog = document.querySelector('.info-dialog');
+            if (infoDialog) {
+                infoDialog.classList.toggle('landscape', useLandscape);
+            }
+        },
+
+        updateNameTilesLayout(useLandscape) {
+            const namePair = document.querySelector('.name-pair');
+            if (useLandscape) {
+                namePair.classList.add('landscape');
+            } else {
+                namePair.classList.remove('landscape');
+            }
+        },
+
+        handleOrientationChange() {
+            const isLandscape = window.innerWidth > window.innerHeight;
+            const minWidth = 768; // Adjust this value as needed
+            const newUseLandscape = isLandscape && window.innerWidth >= minWidth;
+            
+            if (newUseLandscape !== state.getUseLandscape()) {
+                state.setUseLandscape(newUseLandscape);
+                this.applyOrientationLayout();
+            }
+        }
+    },
 };
 
 const bindAllMethods = (obj) => {
@@ -520,6 +598,7 @@ const publicAPI = {
     // Misc
     showPopupNotification: ui.notifications.showPopupNotification,
     hideLoadingScreen: ui.notifications.hideLoadingScreen,
+    handleOrientationChange: ui.orientation.handleOrientationChange,
 };
 
 export default publicAPI;

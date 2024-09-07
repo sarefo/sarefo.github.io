@@ -65,7 +65,7 @@ The DuoNat project is primarily written in JavaScript, with HTML and CSS for the
 ### Visualization and Special Features
 
 + `worldMap.js`: Handles rendering and interaction with world maps.
-+ `d3Graphs.js`: Creates D3.js-based graphs for data visualization.
++ `d3Graphs.js`: Creates D3.js-based graphs for data visualization. The corresponding modules are in the d3/ folder.
 
 ### Other
 + `testingDialog.js` : Testing dialog to check out things not ready for primetime.

@@ -13,6 +13,15 @@
     max-width: var(--max-image-width);
     min-height: var(--center-min-height);
 }
+.portrait-layout .name-pair {
+    flex-direction: row;
+}
+.landscape-layout .name-pair {
+    flex-direction: column;
+    max-width:320px;
+    /*margin: 0 8px;*/
+    gap: 8px;
+}
 
 .name-pair__container {
     display: flex;
