@@ -54,8 +54,8 @@
 .phylogeny-icon {
     background-color: var(--light-green);
     border-radius: var(--border-radius);
-    width: 58px;
-    height: 58px;
+    width: 57px;
+    height: 57px;
     margin: 4px;
     cursor: pointer;
     fill: var(--dark-neutral-color);
