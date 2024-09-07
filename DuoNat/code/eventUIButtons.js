@@ -97,7 +97,6 @@ const eventUIButtons = {
         const nextPairButton = document.getElementById('next-pair-button');
         if (nextPairButton) {
             nextPairButton.addEventListener('click', this.handleNextPairClick.bind(this));
-            logger.trace("next pair button clicked");
         } else {
             logger.warn('Next pair button not found');
         }

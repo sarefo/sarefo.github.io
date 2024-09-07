@@ -6,7 +6,8 @@
     background-color: var(--light-green-not-transparent) !important;
     max-width: var(--max-image-width) !important;
     width: 100% !important;
-    transition: top 0.3s ease-out, bottom 0.3s ease-out, height 0.3s ease-out;
+    transition: top 0.3s ease-out, bottom 0.3s ease-out, left 0.3s ease-out, right 0.3s ease-out, height 0.3s ease-out;
+    /*transition: top 0.3s ease-out, bottom 0.3s ease-out, height 0.3s ease-out;*/
 }
 
 .info-dialog[open] {
@@ -16,12 +17,13 @@
 }
 
 .portrait-layout .info-dialog[open] {
+    transform: translateX(-50%);
 }
 
 .landscape-layout .info-dialog[open] {
     max-width: none !important;
     width: auto !important;
-    height: 100% !important;
+    height: auto !important;
     transform: none;
 }
 
