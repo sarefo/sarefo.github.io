@@ -505,7 +505,8 @@ const ui = {
 
             this.updateMainViewLayout(useLandscape);
             this.updateInfoDialogLayout(useLandscape);
-            this.updateNameTilesLayout(useLandscape);
+            //this.updateNameTilesLayout(useLandscape);
+            //this.updateUIContainerPosition(useLandscape); // Add this line
 
             logger.warn("Orientation changed to", useLandscape ? "landscape" : "portrait");
         },
@@ -513,11 +514,11 @@ const ui = {
         updateMainViewLayout(useLandscape) {
             const gameContainer = document.querySelector('.game-container');
             if (useLandscape) {
-                gameContainer.classList.add('landscape');
+                //gameContainer.classList.add('landscape');
                 // Disable swiping in landscape mode
                 // You'll need to implement this in your swipe handling code
             } else {
-                gameContainer.classList.remove('landscape');
+                //gameContainer.classList.remove('landscape');
                 // Enable swiping in portrait mode
             }
         },
@@ -531,12 +532,32 @@ const ui = {
             }
         },
 
-        updateNameTilesLayout(useLandscape) {
+        /*updateNameTilesLayout(useLandscape) {
             const namePair = document.querySelector('.name-pair');
             if (useLandscape) {
                 namePair.classList.add('landscape');
             } else {
                 namePair.classList.remove('landscape');
+            }
+        },*/
+
+        updateUIContainerPosition(useLandscape) {
+            const uiContainer = document.querySelector('.ui-container');
+            if (!uiContainer) return;
+
+            if (useLandscape) {
+                uiContainer.style.left = '50%';
+                uiContainer.style.right = 'auto';
+                uiContainer.style.top = '20px';
+                uiContainer.style.transform = 'translateX(-50%)';
+                uiContainer.style.width = 'auto';
+            } else {
+                uiContainer.style.left = '50%';
+                uiContainer.style.right = 'auto';
+                uiContainer.style.top = '10px';
+                uiContainer.style.transform = 'translateX(-50%)';
+                uiContainer.style.width = '98vw';
+                uiContainer.style.maxWidth = 'var(--max-image-width)';
             }
         },
 

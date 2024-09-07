@@ -69,8 +69,11 @@
 }
 .landscape-layout .ui-container {
     top: 20px;
-    left: 320px;
-    right: 320px;
+    left: 50%;
+    right: auto;
+    width: auto;
+    transform: translateX(-50%);
+    gap: 60px;
 }
 
 .ui-left-group {
