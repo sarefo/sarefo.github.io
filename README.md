@@ -9,10 +9,10 @@ DuoNat (not affiliated with Duolingo or iNat) is an interactive web application 
 - Simple and elegant main screen presenting two images of different taxa from iNaturalist
 - Interactive gameplay where users drag and drop taxon names to match images
 - Random pair selection from a curated list of taxon pairs
-- Option to enter custom taxon pairs for comparison
 - Share functionality to easily share interesting taxon comparisons
 - Responsive design suitable for both mobile and desktop use
 - Integration with iNaturalist API for up-to-date taxon information and images
+- Option to enter custom taxon pairs for comparison
 
 ## How to Play
 
@@ -20,7 +20,7 @@ DuoNat (not affiliated with Duolingo or iNat) is an interactive web application 
 2. Drag the taxon names at the bottom to the correct images.
 3. If correct, a new round with the same taxa pair will start.
 4. If incorrect, try again!
-5. Swipe left or use the "Random pair" button to get a new pair of taxa.
+5. Swipe left or use the button to get a new pair of taxa.
 
 ## Installation
 
@@ -28,21 +28,13 @@ As DuoNat is a web application, there's no installation required for end-users. 
 
 ## Development
 
-DuoNat is built using vanilla JavaScript, HTML, and CSS. The project structure is as follows:
+DuoNat is built using vanilla JavaScript, HTML, and CSS. D3 is used for graph visualization. The project structure is as follows:
 
 - `index.html`: Main HTML file
 - `css/`: Contains all CSS files
 - `code/`: Contains all JavaScript modules
 - `images/`: Contains icons and images used in the app
-- `data/`: Contains the `taxonPairs.json` file with predefined taxon pairs
-
-### Key JavaScript Modules
-
-- `api.js`: Handles interactions with the iNaturalist API
-- `game.js`: Contains the main game logic
-- `ui.js`: Manages the user interface
-- `eventHandlers.js`: Manages event listeners and user interactions
-- `taxaRelationshipViewer.js`: Handles the taxa relationship graph functionality
+- `data/`: Contains the JSON files for taxa, taxon pairs, and hierarchy information
 
 ## Contributing
 
