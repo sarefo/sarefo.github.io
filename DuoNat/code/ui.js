@@ -500,7 +500,7 @@ const ui = {
             // TODO enable once ready
             let useLandscape;
             // false = disable landscape mode
-            if (false) { useLandscape = state.getUseLandscape() } else { useLandscape = false;}
+            if (true) { useLandscape = state.getUseLandscape() } else { useLandscape = false;}
             document.body.classList.toggle('landscape-layout', useLandscape);
             document.body.classList.toggle('portrait-layout', !useLandscape);
 

@@ -101,13 +101,18 @@ class Tutorial {
     }
 
     updateStepContent(step) {
-        this.updateOverlayMessage(step.message);
+        const message = typeof step.message === 'function' ? step.message() : step.message;
+        this.updateOverlayMessage(message);
+
         this.clearPreviousHighlights();
         if (step.highlight || step.highlights) {
             const highlights = step.highlight ? [step.highlight] : step.highlights;
             highlights.forEach(selector => {
-                const highlight = this.createHighlight(selector, step.duration);
-                if (highlight) this.highlightElements.push(highlight);
+                const highlightSelector = typeof selector === 'function' ? selector() : selector;
+                if (highlightSelector) {
+                    const highlight = this.createHighlight(highlightSelector, step.duration);
+                    if (highlight) this.highlightElements.push(highlight);
+                }
             });
         }
     }
@@ -339,6 +344,7 @@ class Tutorial {
         }
 
         tiltGameContainer(duration = 3200) {
+
             const gameContainer = document.querySelector('.game-container');
             const midpoint = duration / 2;
 
@@ -365,11 +371,28 @@ const tutorial = new Tutorial();
 
 // Define the steps for each tutorial
 const mainTutorialSteps = [
+
+
     { message: "Welcome to DuoNat!<br>Let's learn how to play.", highlight: null, duration: 4000 },
     { message: "Learn to distinguish two different taxa.", highlights: ['#image-container-1', '#image-container-2'], duration: 5000 },
-    { message: "Drag a name to the correct image.", highlight: '.name-pair', duration: 5000, action: () => tutorial.animateDragDemo() },
+    { message: "Drag a name to the correct image.", highlight: null /*'.name-pair'*/, duration: 5000, action: () => tutorial.animateDragDemo() },
     { message: "If correct, play another round of the same pair.", highlight: null, duration: 6000, action: () => tutorial.demonstrateImageSwitch() },
-    { message: "Swipe left on an image for a new taxon pair.", highlight: null, action: () => { tutorial.tiltGameContainer(3200); }, duration: 6000 },
+    {
+        message: () => {
+            const isLandscape = state.getUseLandscape();
+            logger.debug(`Tutorial step 1: isLandscape = ${isLandscape}`);
+            return !isLandscape
+                ? "Swipe left on an image for a new taxon pair."
+                : "Click the button for next pair.";
+        },
+        highlight: () => state.getUseLandscape() ? '.next-pair-button' : null,
+        action: () => {
+            if (!state.getUseLandscape()) {
+                tutorial.tiltGameContainer(3200);
+            }
+        },
+        duration: 6000
+    },
     { message: "Get more info about a taxon.", highlights: ['#info-button-1', '#info-button-2'], duration: 6000 },
     { message: "Share the current pair and collection.", highlight: '#share-button', duration: 6000 },
     { message: "Change difficulty, browse or filter.", highlight: '#level-indicator', duration: 5000 },
