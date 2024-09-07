@@ -498,8 +498,8 @@ const ui = {
 
         applyOrientationLayout() {
             // TODO enable once ready
-            //const useLandscape = state.getUseLandscape();
-            const useLandscape = false;
+            let useLandscape;
+            if (false) { useLandscape = state.getUseLandscape() } else { useLandscape = false;}
             document.body.classList.toggle('landscape-layout', useLandscape);
             document.body.classList.toggle('portrait-layout', !useLandscape);
 
