@@ -1,7 +1,7 @@
 .info-dialog {
+    display: none;
     position: fixed;
     flex-direction: column;
-    display: none;
     padding: 8px 12px 8px !important;
     background-color: var(--light-green-not-transparent) !important;
     max-width: var(--max-image-width) !important;
@@ -13,6 +13,16 @@
     display: flex;
     transform: translateX(-50%);
     /* override system-wide centering of dialogs */
+}
+
+.portrait-layout .info-dialog[open] {
+}
+
+.landscape-layout .info-dialog[open] {
+    max-width: none !important;
+    width: auto !important;
+    height: 100% !important;
+    transform: none;
 }
 
 .info-dialog__header {

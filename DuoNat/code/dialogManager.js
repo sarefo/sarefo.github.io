@@ -35,6 +35,12 @@ const dialogManager = {
     eventListeners: {},
     openDialogs: [],
 
+    // Modules:
+    // - initialization
+    // - events
+    // - core
+    // - utils
+
     initialization: {
 
         async initialize() {
@@ -87,6 +93,10 @@ const dialogManager = {
             document.getElementById('help-button').addEventListener('click', (event) => {
                 event.preventDefault();
                 event.stopPropagation();
+                if (state.getUseLandscape()) {
+                    const swipeText = document.getElementById('help-dialog-swipe-text');
+                    swipeText.innerHTML = 'Press Left key for next pair';
+                }
                 if (!tutorial.isActive()) {
                     dialogManager.core.openDialog('help-dialog');
                     dialogManager.initialization.updateKeyboardShortcutsButton();

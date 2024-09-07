@@ -491,7 +491,7 @@ const ui = {
     orientation: {
         setInitialOrientation() {
             const isLandscape = window.innerWidth > window.innerHeight;
-            const minWidth = 1200; // Adjust this value as needed
+            const minWidth = 1024; // Adjust this value as needed
             state.setUseLandscape(isLandscape && window.innerWidth >= minWidth);
             this.applyOrientationLayout();
         },
@@ -564,7 +564,7 @@ const ui = {
 
         handleOrientationChange() {
             const isLandscape = window.innerWidth > window.innerHeight;
-            const minWidth = 1200; // Adjust this value as needed
+            const minWidth = 1024; // Adjust this value as needed
             const newUseLandscape = isLandscape && window.innerWidth >= minWidth;
             
             if (newUseLandscape !== state.getUseLandscape()) {

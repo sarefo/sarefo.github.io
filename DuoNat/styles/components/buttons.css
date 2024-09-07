@@ -137,21 +137,6 @@
     fill: var(--primary-counter-color);
 }
 
-/* Next pair button (only in landscape mode) */
-
-.next-pair-button {
-}
-.portrait-layout .next-pair-button {
-    display: none;
-}
-.landscape-layout .next-pair-button {
-    display: flex;
-    position: fixed;
-    left: 50%;
-    top: 80%;
-    transform: translate(-50%, -50%);
-}
-
 /* Styles for image button containers */
 
 .image-container__buttons {

@@ -215,14 +215,30 @@ const infoDialog = {
         const bottomContainerRect = bottomImageContainer.getBoundingClientRect();
         const namePairRect = namePairContainer.getBoundingClientRect();
 
-        if (imageIndex === 1) {
-            // For top image, position dialog over bottom image
-            dialog.style.top = `${namePairRect.top}px`;
-            dialog.style.bottom = `${window.innerHeight - bottomContainerRect.bottom}px`;
+        if (state.getUseLandscape()) {
+            // Landscape mode
+            if (imageIndex === 1) {
+                // For left image, position dialog over right image
+                dialog.style.left = `${bottomContainerRect.left}px`;
+                dialog.style.right = '0';
+                dialog.style.top = '0';
+                dialog.style.bottom = '0';
+            } else {
+                // For right image, position dialog over left image
+                dialog.style.left = '0';
+                dialog.style.right = `${window.innerWidth - topContainerRect.right}px`;
+                dialog.style.top = '0';
+                dialog.style.bottom = '0';
+            }
         } else {
-            // For bottom image, position dialog over top image
-            dialog.style.top = `${topContainerRect.top}px`;
-            dialog.style.bottom = `${window.innerHeight - namePairRect.bottom}px`;
+            // Portrait mode
+            if (imageIndex === 1) {
+                dialog.style.top = `${namePairRect.top}px`;
+                dialog.style.bottom = `${window.innerHeight - bottomContainerRect.bottom}px`;
+            } else {
+                dialog.style.top = `${topContainerRect.top}px`;
+                dialog.style.bottom = `${window.innerHeight - namePairRect.bottom}px`;
+            }
         }
         dialog.style.height = 'auto';
     },

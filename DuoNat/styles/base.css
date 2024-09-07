@@ -1,4 +1,4 @@
-/* Mostly styles for main page */
+/* General styles */
 
 /* CSS reset */
 * {
@@ -24,7 +24,7 @@
 
     --normal-font-size: 18px;
     --border-radius: 8px;
-    --max-image-width: 800px;
+    --max-image-width: 480px;
     --transition-speed: 0.3s;
     /* images wobble when <80px */
     --center-min-height: 80px;
@@ -84,40 +84,8 @@ button {
     box-shadow: none;
 }
 
-.game-container {
-    display: flex;
-    flex: none;
-    justify-content: space-between;
-    align-items: center;
-
-    position: relative;
-    overflow: hidden;
-    width: 100vw;
-    height: 100vh;
-
-    z-index: 1;
-    transform-origin: center center;
-    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-}
-
-.portrait-layout .game-container {
-    flex-direction: column;
-}
-
-.landscape-layout .game-container {
-    flex-direction: row;
-}
-
 .underline {
     text-decoration: underline;
-}
-
-/* Styles common to all main containers */
-.image-container,
-.name-pair,
-.name-pair__overlay {
-    width: 98vw;
-    max-width: var(--max-image-width);
 }
 
 /* Animation keyframes etc. */
@@ -146,22 +114,3 @@ button {
     animation: swipeOutLeft 0.5s ease-out forwards;
 }
 
-.swipe-info-message {
-    position: absolute;
-    top: 80px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(255, 255, 255, 0.8);
-    color: var(--dark-neutral-color);
-    height: fit-content;
-    width: auto;
-    max-width: 80%;
-    padding: 6px 15px;
-    border-radius: 15px;
-    font-size: larger;
-    white-space: nowrap;
-    opacity: 0;
-    transition: opacity 0.3s, transform 0.3s;
-    pointer-events: none;
-    z-index: 1000;
-}

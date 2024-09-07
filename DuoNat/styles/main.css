@@ -5,8 +5,9 @@
 @import 'components/toggles.css';
 @import 'dialogs/dialogs.css';
 
-@import 'layout/image-container.css';
-@import 'layout/name-pair.css';
+/*@import 'layout/image-container.css';
+@import 'layout/name-pair.css';*/
+@import 'main-view.css';
 
 @import 'components/tutorial.css';
 @import 'components/tooltips.css';
