@@ -11,6 +11,7 @@
     height: 100%;
     width: 100%;
     padding: 0;
+    gap: 4px;
 }
 
 #phylogeny-done-button {
@@ -35,6 +36,38 @@
 
 .phylogeny-dialog__graph-container:active {
     cursor: grabbing;
+}
+
+/* Icon container */
+.phylogeny-icon-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.phylogeny-icon-row {
+    display: flex;
+    justify-content: center;
+}
+
+.phylogeny-icon {
+    border-radius: var(--border-radius);
+    background-color: var(--light-green);
+    width: 58px;
+    height: 58px;
+    margin: 4px;
+    cursor: pointer;
+    fill: var(--dark-neutral-color);
+    transition: transform 0.2s ease, fill 0.2s ease;
+}
+
+.phylogeny-icon:hover {
+    transform: scale(1.05);
+    fill: var(--primary-color);
+}
+
+.phylogeny-icon.active {
+    fill: var(--primary-color);
 }
 
 /* Controls */
@@ -69,7 +102,6 @@
 
 .phylogeny-dialog__message {
     color: var(--dark-neutral-color);
-    margin: 8px;
     font-weight: bold;
 }
 

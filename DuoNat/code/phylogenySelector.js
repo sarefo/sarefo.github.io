@@ -589,6 +589,10 @@ const phylogenySelector = {
                 doneButton.addEventListener('click', this.handleDoneButton.bind(this));
             }
 
+            document.querySelectorAll('.phylogeny-icon').forEach(icon => {
+                icon.addEventListener('click', this.handleIconClick.bind(this));
+            });
+
             const clearButton = document.getElementById('phylogeny-clear-button');
             if (clearButton) {
                 clearButton.addEventListener('click', this.clearSelection.bind(this));
@@ -613,6 +617,48 @@ const phylogenySelector = {
             this.currentView = 'graph';
 
             phylogenySelector.search.initialize();
+        },
+
+        handleIconClick(event) {
+            const iconId = event.currentTarget.id;
+            let phylogenyId;
+            
+            // Map icon IDs to phylogeny IDs
+            const iconToPhylogenyMap = {
+                'icon-birds': '3',
+                'icon-mammals': '40151',
+                'icon-fishes': '47178',
+                'icon-reptiles': '26036',
+                'icon-amphibians': '20978',
+                'icon-insects': '47158',
+                'icon-arachnids': '47119',
+                'icon-molluscs': '47115',
+                'icon-plants': '47126',
+                'icon-fungi': '47170'
+            };
+
+            phylogenyId = iconToPhylogenyMap[iconId];
+
+            if (phylogenyId) {
+                state.setPhylogenyId(phylogenyId);
+                state.setCurrentActiveNodeId(phylogenyId);
+                this.updateActiveTaxonDisplay(phylogenyId);
+                
+                // Update views
+                if (this.currentView === 'graph') {
+                    const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
+                    const pathToRoot = phylogenySelector.graphView.getPathToRoot(hierarchyObj, phylogenyId);
+                    phylogenySelector.graphView.updateGraph(pathToRoot);
+                } else {
+                    phylogenySelector.cloudView.renderCloudView();
+                }
+
+                // Update icon states
+                document.querySelectorAll('.phylogeny-icon').forEach(icon => {
+                    icon.classList.remove('active');
+                });
+                event.currentTarget.classList.add('active');
+            }
         },
 
         focusSearchInput() {
