@@ -3,6 +3,14 @@ import logger from './logger.js';
 import state from './state.js';
 
 const dragAndDrop = {
+    // Modules:
+    // - state
+    // - init
+    // - eventListeners
+    // - dragHandlers
+    // - dropHandlers
+    // - utils
+
     state: {
         draggedElement: null,
         touchOffset: { x: 0, y: 0 },
@@ -13,28 +21,28 @@ const dragAndDrop = {
 
     init: {
         initialize() {
-            this.state.gameContainer = document.querySelector('.game-container');
-            this.eventListeners.addEventListeners();
+            dragAndDrop.state.gameContainer = document.querySelector('.game-container');
+            dragAndDrop.eventListeners.addEventListeners();
         },
     },
 
     eventListeners: {
         addEventListeners() {
             document.querySelectorAll('.name-pair__item--draggable').forEach(element => {
-                element.addEventListener('dragstart', this.dragHandlers.dragStart.bind(this));
-                element.addEventListener('mousedown', this.dragHandlers.mouseStart.bind(this));
-                element.addEventListener('touchstart', this.dragHandlers.touchStart.bind(this), { passive: false });
-                element.addEventListener('touchmove', this.dragHandlers.touchMove.bind(this), { passive: false });
-                element.addEventListener('touchend', this.dragHandlers.touchEnd.bind(this), { passive: false });
+                element.addEventListener('dragstart', dragAndDrop.dragHandlers.dragStart.bind(this));
+                element.addEventListener('mousedown', dragAndDrop.dragHandlers.mouseStart.bind(this));
+                element.addEventListener('touchstart', dragAndDrop.dragHandlers.touchStart.bind(this), { passive: false });
+                element.addEventListener('touchmove', dragAndDrop.dragHandlers.touchMove.bind(this), { passive: false });
+                element.addEventListener('touchend', dragAndDrop.dragHandlers.touchEnd.bind(this), { passive: false });
             });
 
-            document.addEventListener('mousemove', this.dragHandlers.mouseMove.bind(this));
-            document.addEventListener('mouseup', this.dragHandlers.mouseEnd.bind(this));
+            document.addEventListener('mousemove', dragAndDrop.dragHandlers.mouseMove.bind(this));
+            document.addEventListener('mouseup', dragAndDrop.dragHandlers.mouseEnd.bind(this));
 
             document.querySelectorAll('.image-container').forEach(element => {
-                element.addEventListener('dragover', this.dropHandlers.dragOver.bind(this));
-                element.addEventListener('dragleave', this.dropHandlers.dragLeave.bind(this));
-                element.addEventListener('drop', this.dropHandlers.drop.bind(this));
+                element.addEventListener('dragover', dragAndDrop.dropHandlers.dragOver.bind(this));
+                element.addEventListener('dragleave', dragAndDrop.dropHandlers.dragLeave.bind(this));
+                element.addEventListener('drop', dragAndDrop.dropHandlers.drop.bind(this));
             });
         },
     },
@@ -42,47 +50,49 @@ const dragAndDrop = {
     dragHandlers: {
         mouseStart(e) {
             e.preventDefault();
-            this.state.draggedElement = e.target.closest('.name-pair__item--draggable');
-            if (!this.state.draggedElement) return;
+            dragAndDrop.state.draggedElement = e.target.closest('.name-pair__item--draggable');
+            if (!dragAndDrop.state.draggedElement) return;
 
-            const rect = this.state.draggedElement.getBoundingClientRect();
-            this.state.touchOffset = {
+            const rect = dragAndDrop.state.draggedElement.getBoundingClientRect();
+            dragAndDrop.state.touchOffset = {
                 x: e.clientX - rect.left,
                 y: e.clientY - rect.top
             };
-            this.state.initialY = e.clientY;
-            this.utils.captureOtherElementPosition();
+            dragAndDrop.state.initialX = e.clientX;
+            dragAndDrop.state.initialY = e.clientY;
+            dragAndDrop.utils.captureOtherElementPosition();
 
-            this.state.draggedElement.classList.add('name-pair__item--dragging');
-            this.state.draggedElement.style.zIndex = '1000';
+            dragAndDrop.state.draggedElement.classList.add('name-pair__item--dragging');
+            dragAndDrop.state.draggedElement.style.zIndex = '1000';
 
-            this.utils.updateElementPosition(e);
+            dragAndDrop.utils.updateElementPosition(e);
         },
 
         touchStart(e) {
             e.preventDefault();
-            this.state.draggedElement = e.target.closest('.name-pair__item--draggable');
-            if (!this.state.draggedElement) return;
+            dragAndDrop.state.draggedElement = e.target.closest('.name-pair__item--draggable');
+            if (!dragAndDrop.state.draggedElement) return;
 
             const touch = e.touches[0];
-            const rect = this.state.draggedElement.getBoundingClientRect();
-            this.state.touchOffset = {
+            const rect = dragAndDrop.state.draggedElement.getBoundingClientRect();
+            dragAndDrop.state.touchOffset = {
                 x: touch.clientX - rect.left,
                 y: touch.clientY - rect.top
             };
-            this.state.initialY = touch.clientY;
-            this.utils.captureOtherElementPosition();
+            dragAndDrop.state.initialX = touch.clientX;
+            dragAndDrop.state.initialY = touch.clientY;
+            dragAndDrop.utils.captureOtherElementPosition();
 
-            this.state.draggedElement.classList.add('name-pair__item--dragging');
-            this.state.draggedElement.style.zIndex = '1000';
+            dragAndDrop.state.draggedElement.classList.add('name-pair__item--dragging');
+            dragAndDrop.state.draggedElement.style.zIndex = '1000';
 
-            this.utils.updateElementPosition(touch);
+            dragAndDrop.utils.updateElementPosition(touch);
         },
 
         mouseMove(e) {
-            if (this.state.draggedElement) {
+            if (dragAndDrop.state.draggedElement) {
                 e.preventDefault();
-                this.utils.updateElementPosition(e);
+                dragAndDrop.utils.updateElementPosition(e);
             }
         },
 
@@ -92,9 +102,9 @@ const dragAndDrop = {
 
         touchMove(e) {
             e.preventDefault();
-            if (this.state.draggedElement) {
+            if (dragAndDrop.state.draggedElement) {
                 const touch = e.touches[0];
-                this.utils.updateElementPosition(touch);
+                dragAndDrop.utils.updateElementPosition(touch);
             } else {
                 logger.debug('No dragged element during touchMove');
             }
@@ -102,27 +112,27 @@ const dragAndDrop = {
 
 
         mouseEnd(e) {
-            if (this.state.draggedElement) {
-                const dropZone = this.utils.getDropZone(e);
+            if (dragAndDrop.state.draggedElement) {
+                const dropZone = dragAndDrop.utils.getDropZone(e);
                 if (dropZone) {
-                    this.dropHandlers.handleDrop(dropZone);
+                    dragAndDrop.dropHandlers.handleDrop(dropZone);
                 } else {
-                    this.utils.resetDraggedElement();
+                    dragAndDrop.utils.resetDraggedElement();
                 }
-                this.state.draggedElement = null;
+                dragAndDrop.state.draggedElement = null;
             }
         },
 
         touchEnd(e) {
             e.preventDefault();
-            if (this.state.draggedElement) {
-                const dropZone = this.utils.getDropZone(e);
+            if (dragAndDrop.state.draggedElement) {
+                const dropZone = dragAndDrop.utils.getDropZone(e);
                 if (dropZone) {
-                    this.dropHandlers.handleDrop(dropZone);
+                    dragAndDrop.dropHandlers.handleDrop(dropZone);
                 } else {
-                    this.utils.resetDraggedElement();
+                    dragAndDrop.utils.resetDraggedElement();
                 }
-                this.state.draggedElement = null;
+                dragAndDrop.state.draggedElement = null;
             }
         },
     },
@@ -160,19 +170,19 @@ const dragAndDrop = {
             this.handleDrop(dropZone, draggedElement);
         },
 
-        handleDrop(dropZone, draggedElement = this.state.draggedElement) {
+        handleDrop(dropZone, draggedElement = dragAndDrop.state.draggedElement) {
             if (!draggedElement) return;
 
-            const isCorrect = this.utils.isAnswerCorrect(dropZone.id, draggedElement.id);
+            const isCorrect = dragAndDrop.utils.isAnswerCorrect(dropZone.id, draggedElement.id);
             const otherElement = draggedElement.id === 'name-x' ?
                 document.getElementById('name-y') :
                 document.getElementById('name-x');
 
-            this.utils.animateElement(draggedElement, dropZone, isCorrect);
-            this.utils.animateElement(otherElement, this.utils.getOtherDropZone(dropZone), isCorrect);
+            dragAndDrop.utils.animateElement(draggedElement, dropZone, isCorrect);
+            dragAndDrop.utils.animateElement(otherElement, dragAndDrop.utils.getOtherDropZone(dropZone), isCorrect);
 
             setTimeout(() => {
-                this.utils.finalizeDropAnimation(draggedElement, otherElement, dropZone, isCorrect);
+                dragAndDrop.utils.finalizeDropAnimation(draggedElement, otherElement, dropZone, isCorrect);
                 // Ensure the game is in PLAYING state before checking the answer
                 state.setState(state.GameState.PLAYING);
                 gameLogic.checkAnswer(dropZone.id);
@@ -181,13 +191,15 @@ const dragAndDrop = {
     },
 
     utils: {
+
         captureOtherElementPosition() {
-            const otherElement = this.state.draggedElement.id === 'name-x' ?
+            const otherElement = dragAndDrop.state.draggedElement.id === 'name-x' ?
                 document.getElementById('name-y') :
                 document.getElementById('name-x');
             if (otherElement) {
                 const rect = otherElement.getBoundingClientRect();
-                this.state.otherElementInitialY = rect.top;
+                dragAndDrop.state.otherElementInitialX = rect.left;
+                dragAndDrop.state.otherElementInitialY = rect.top;
             }
         },
 
@@ -241,11 +253,11 @@ const dragAndDrop = {
         },
 
         resetDraggedElement() {
-            if (!this.state.draggedElement) return;
+            if (!dragAndDrop.state.draggedElement) return;
 
             const elements = [
-                this.state.draggedElement,
-                this.state.draggedElement.id === 'name-x' ? document.getElementById('name-y') : document.getElementById('name-x')
+                dragAndDrop.state.draggedElement,
+                dragAndDrop.state.draggedElement.id === 'name-x' ? document.getElementById('name-y') : document.getElementById('name-x')
             ];
 
             elements.forEach(element => {
@@ -257,42 +269,87 @@ const dragAndDrop = {
                 container.appendChild(element);
             });
 
-            this.state.draggedElement = null;
+            dragAndDrop.state.draggedElement = null;
+        },
+
+        getOrientation() {
+            return document.body.classList.contains('landscape-layout') ? 'landscape' : 'portrait';
         },
 
         updateElementPosition(event) {
             if (!dragAndDrop.state.draggedElement || !dragAndDrop.state.gameContainer) {
-                // logger.debug('Dragged element or game container is null, skipping update');
                 return;
             }
 
             const gameContainerRect = dragAndDrop.state.gameContainer.getBoundingClientRect();
             const elementWidth = dragAndDrop.state.draggedElement.offsetWidth;
+            const elementHeight = dragAndDrop.state.draggedElement.offsetHeight;
+            const clientX = event.touches ? event.touches[0].clientX : event.clientX;
             const clientY = event.touches ? event.touches[0].clientY : event.clientY;
-            const deltaY = clientY - dragAndDrop.state.initialY;
 
-            const leftPosition = gameContainerRect.left + (gameContainerRect.width / 2) - (elementWidth / 2);
-            const topPosition = clientY - dragAndDrop.state.touchOffset.y;
+            const orientation = this.getOrientation();
+
+            let leftPosition, topPosition;
+
+            if (orientation === 'landscape') {
+                const deltaX = clientX - dragAndDrop.state.initialX;
+                leftPosition = clientX - dragAndDrop.state.touchOffset.x;
+                topPosition = gameContainerRect.top + (gameContainerRect.height / 2) - (elementHeight / 2);
+                this.mirrorOtherElementHorizontal(deltaX, gameContainerRect, elementHeight);
+            } else {
+                const deltaY = clientY - dragAndDrop.state.initialY;
+                leftPosition = gameContainerRect.left + (gameContainerRect.width / 2) - (elementWidth / 2);
+                topPosition = clientY - dragAndDrop.state.touchOffset.y;
+                this.mirrorOtherElementVertical(deltaY, gameContainerRect, elementWidth);
+            }
 
             requestAnimationFrame(() => {
-                if (dragAndDrop.state.draggedElement) {  // Add this check
+                if (dragAndDrop.state.draggedElement) {
                     dragAndDrop.state.draggedElement.style.position = 'fixed';
                     dragAndDrop.state.draggedElement.style.left = `${leftPosition}px`;
                     dragAndDrop.state.draggedElement.style.top = `${topPosition}px`;
-
-                    this.utils.mirrorOtherElement(deltaY, gameContainerRect, elementWidth);
                 }
             });
         },
 
-        mirrorOtherElement(deltaY, gameContainerRect, elementWidth) {
-            const otherElement = this.state.draggedElement.id === 'name-x' ?
+/*        mirrorOtherElement(deltaY, gameContainerRect, elementWidth) {
+            const otherElement = dragAndDrop.state.draggedElement.id === 'name-x' ?
                 document.getElementById('name-y') :
                 document.getElementById('name-x');
 
             if (otherElement) {
                 const leftPosition = gameContainerRect.left + (gameContainerRect.width / 2) - (elementWidth / 2);
-                const topPosition = this.state.otherElementInitialY - deltaY;
+                const topPosition = dragAndDrop.state.otherElementInitialY - deltaY;
+
+                otherElement.style.position = 'fixed';
+                otherElement.style.left = `${leftPosition}px`;
+                otherElement.style.top = `${topPosition}px`;
+            }
+        },*/
+
+        mirrorOtherElementHorizontal(deltaX, gameContainerRect, elementHeight) {
+            const otherElement = dragAndDrop.state.draggedElement.id === 'name-x' ?
+                document.getElementById('name-y') :
+                document.getElementById('name-x');
+
+            if (otherElement) {
+                const leftPosition = dragAndDrop.state.otherElementInitialX - deltaX;
+                const topPosition = gameContainerRect.top + (gameContainerRect.height / 2) - (elementHeight / 2);
+
+                otherElement.style.position = 'fixed';
+                otherElement.style.left = `${leftPosition}px`;
+                otherElement.style.top = `${topPosition}px`;
+            }
+        },
+
+        mirrorOtherElementVertical(deltaY, gameContainerRect, elementWidth) {
+            const otherElement = dragAndDrop.state.draggedElement.id === 'name-x' ?
+                document.getElementById('name-y') :
+                document.getElementById('name-x');
+
+            if (otherElement) {
+                const leftPosition = gameContainerRect.left + (gameContainerRect.width / 2) - (elementWidth / 2);
+                const topPosition = dragAndDrop.state.otherElementInitialY - deltaY;
 
                 otherElement.style.position = 'fixed';
                 otherElement.style.left = `${leftPosition}px`;
@@ -345,7 +402,7 @@ const dragAndDrop = {
                 dropZone.innerHTML = '';
                 dropZone.appendChild(draggedElement);
 
-                const otherDropZone = this.utils.getOtherDropZone(dropZone);
+                const otherDropZone = dragAndDrop.utils.getOtherDropZone(dropZone);
                 otherDropZone.innerHTML = '';
                 otherDropZone.appendChild(otherElement);
             } else {
@@ -369,13 +426,13 @@ const dragAndDrop = {
             const otherDropZone = document.getElementById(dropZonePosition === 'upper' ? 'drop-2' : 'drop-1');
 
             if (draggedElement && dropZone) {
-                const isCorrect = this.utils.isAnswerCorrect(dropZone.id, draggedElement.id);
+                const isCorrect = dragAndDrop.utils.isAnswerCorrect(dropZone.id, draggedElement.id);
 
-                this.utils.animateElement(draggedElement, dropZone, isCorrect);
-                this.utils.animateElement(otherElement, otherDropZone, isCorrect);
+                dragAndDrop.utils.animateElement(draggedElement, dropZone, isCorrect);
+                dragAndDrop.utils.animateElement(otherElement, otherDropZone, isCorrect);
 
                 setTimeout(() => {
-                    this.utils.finalizeDropAnimation(draggedElement, otherElement, dropZone, isCorrect);
+                    dragAndDrop.utils.finalizeDropAnimation(draggedElement, otherElement, dropZone, isCorrect);
                     // Ensure the game is in PLAYING state before checking the answer
                     state.setState(state.GameState.PLAYING);
                     gameLogic.checkAnswer(dropZone.id);
@@ -385,16 +442,17 @@ const dragAndDrop = {
     },
 };
 
-// Bind all methods to ensure correct 'this' context
-Object.keys(dragAndDrop).forEach(key => {
-    if (typeof dragAndDrop[key] === 'object') {
-        Object.keys(dragAndDrop[key]).forEach(methodKey => {
-            if (typeof dragAndDrop[key][methodKey] === 'function') {
-                dragAndDrop[key][methodKey] = dragAndDrop[key][methodKey].bind(dragAndDrop);
-            }
-        });
-    }
-});
+// Bind all methods in dragAndDrop and its nested objects
+const bindMethodsRecursively = (obj) => {
+    Object.keys(obj).forEach(key => {
+        if (typeof obj[key] === 'function') {
+            obj[key] = obj[key].bind(obj);
+        } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+            bindMethodsRecursively(obj[key]);
+        }
+    });
+};
+bindMethodsRecursively(dragAndDrop);
 
 const publicAPI = {
     initialize: dragAndDrop.init.initialize,
