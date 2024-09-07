@@ -43855,5 +43855,502 @@
       "AS",
       "OC"
     ]
+  },
+  "21359": {
+    "taxonName": "Bufonidae",
+    "vernacularName": "True toads",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      20978,
+      20979,
+      21359
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Contains over 600 species of toads worldwide.",
+      "Some species have potent skin toxins for defense.",
+      "Includes the only known viviparous frogs."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ]
+  },
+  "20979": {
+    "taxonName": "Anura",
+    "vernacularName": "Frogs and toads",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      20978,
+      20979
+    ],
+    "rank": "Order",
+    "taxonFacts": [
+      "Largest order of amphibians with over 7,000 species.",
+      "Includes frogs and toads, known for jumping abilities.",
+      "Exhibits diverse reproductive strategies and habitats."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "27880": {
+    "taxonName": "Gymnophiona",
+    "vernacularName": "Caecilians",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      20978,
+      27880
+    ],
+    "rank": "Order",
+    "taxonFacts": [
+      "They are legless amphibians.",
+      "Primarily found in tropical regions around the world.",
+      "Some species can grow over a meter long."
+    ],
+    "range": [
+      "AF",
+      "AS",
+      "SA"
+    ]
+  },
+  "27701": {
+    "taxonName": "Salamandridae",
+    "vernacularName": "Newts",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      20978,
+      26718,
+      27701
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Family includes newts and salamanders.",
+      "Many species exhibit bright coloration as warning signs.",
+      "Some can regenerate lost limbs and tails."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ]
+  },
+  "23702": {
+    "taxonName": "Agalychnis callidryas",
+    "vernacularName": "Red-eyed tree frog",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      20978,
+      20979,
+      23540,
+      1530492,
+      23694,
+      23702
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Famous for its vibrant green and red coloration.",
+      "Uses its bright colors to ward off predators."
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ]
+  },
+  "553515": {
+    "taxonName": "Rhinella marina",
+    "vernacularName": "Cane toad",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      20978,
+      20979,
+      21359,
+      64819,
+      553515
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Poisonous when consumed.",
+      "Introduced species causing ecological issues in Australia.",
+      "Can consume a wide variety of prey items."
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ]
+  },
+  "371057": {
+    "taxonName": "Gekkota",
+    "vernacularName": "Geckos",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26172,
+      85552,
+      371057
+    ],
+    "rank": "Infraorder",
+    "taxonFacts": [
+      "Geckos have adhesive toe pads.",
+      "Some species can change color for camouflage.",
+      "Many geckos are nocturnal and vocalize at night."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "64988": {
+    "taxonName": "Anaxyrus terrestris",
+    "vernacularName": "Southern toad",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      20978,
+      20979,
+      21359,
+      64747,
+      64988
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Can be found in various habitats, including forests.",
+      "Breeds in temporary ponds during rainy seasons."
+    ],
+    "range": [
+      "NA"
+    ]
+  },
+  "64968": {
+    "taxonName": "Anaxyrus americanus",
+    "vernacularName": "American toad",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      20978,
+      20979,
+      21359,
+      64747,
+      64968
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Can live for over 30 years in captivity.",
+      "Produces a distinctive trill during mating calls."
+    ],
+    "range": [
+      "NA"
+    ]
+  },
+  "69758": {
+    "taxonName": "Lumbricidae",
+    "vernacularName": "Earthworms",
+    "ancestryIds": [
+      1,
+      47491,
+      63089,
+      333586,
+      152943,
+      1418362,
+      69758
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Vital for soil health.",
+      "Some species can regenerate lost segments.",
+      "Play a key role in aerating and enriching soil."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ]
+  },
+  "326296": {
+    "taxonName": "Bufo bufo",
+    "vernacularName": "European toad",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      20978,
+      20979,
+      21359,
+      21360,
+      326296
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Can produce toxins that deter predators.",
+      "Often found in gardens and woodlands."
+    ],
+    "range": [
+      "EU"
+    ]
+  },
+  "40019": {
+    "taxonName": "Testudinidae",
+    "vernacularName": "Tortoises",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      39532,
+      40019
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Some species can live over 100 years.",
+      "Primarily herbivorous, feeding on grasses and leaves."
+    ],
+    "range": [
+      "AF",
+      "EU",
+      "AS"
+    ]
+  },
+  "134927": {
+    "taxonName": "Agalychnis spurrelli",
+    "vernacularName": "Gliding leaf frog",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      20978,
+      20979,
+      23540,
+      1530492,
+      23694,
+      134927
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Inhabits humid tropical forests in Central America.",
+      "Breeds in temporary water bodies."
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ]
+  },
+  "25591": {
+    "taxonName": "Rana temporaria",
+    "vernacularName": "European common frog",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      20978,
+      20979,
+      25473,
+      25474,
+      25591
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Found across Europe in various habitats.",
+      "Hibernates during winter months in burrows."
+    ],
+    "range": [
+      "EU"
+    ]
+  },
+  "63081": {
+    "taxonName": "Hirudinea",
+    "vernacularName": "Leeches",
+    "ancestryIds": [
+      1,
+      47491,
+      63089,
+      63081
+    ],
+    "rank": "Subclass",
+    "taxonFacts": [
+      "Includes leeches, some of which are blood-feeders.",
+      "Can be found in freshwater, marine, and terrestrial habitats.",
+      "Some species have medicinal uses in modern therapies."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ]
+  },
+  "26718": {
+    "taxonName": "Caudata",
+    "vernacularName": "Salamanders",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      20978,
+      26718
+    ],
+    "rank": "Order",
+    "taxonFacts": [
+      "Many species exhibit external fertilization.",
+      "Some can regenerate limbs and tails."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ]
+  },
+  "39760": {
+    "taxonName": "Emydidae",
+    "vernacularName": "Pond and box turtles",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      39532,
+      39760
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Family includes pond and box turtles.",
+      "Many species are semi-aquatic, living in freshwater.",
+      "Some can retract their heads into their shells."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ]
+  },
+  "23540": {
+    "taxonName": "Hylidae",
+    "vernacularName": "Tree frogs and allies",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      20978,
+      20979,
+      23540
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Family includes tree frogs, known for climbing abilities.",
+      "Many species are brightly colored for camouflage.",
+      "Some can produce unique vocalizations during mating."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ]
+  },
+  "39680": {
+    "taxonName": "Chelydridae",
+    "vernacularName": "Snapping turtles",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      39532,
+      39680
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Known for their powerful jaws.",
+      "Can be aggressive when threatened.",
+      "Primarily found in freshwater habitats."
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ]
+  },
+  "26909": {
+    "taxonName": "Plethodontidae",
+    "vernacularName": "Lungless salamanders",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      20978,
+      26718,
+      26909
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Respiration occurs through their skin and mouth.",
+      "Many species are found in moist forest environments."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU"
+    ]
+  },
+  "25473": {
+    "taxonName": "Ranidae",
+    "vernacularName": "Typical frogs",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      20978,
+      20979,
+      25473
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Found in a variety of aquatic habitats.",
+      "Some species can be very vocal during mating."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ]
   }
 }

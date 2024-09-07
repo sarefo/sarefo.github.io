@@ -14920,5 +14920,294 @@
       "AS",
       "EU"
     ]
+  },
+  "858": {
+    "pairName": "Long-jawed orbweavers vs Comb-footed spiders",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      47551,
+      47371
+    ],
+    "taxonNames": [
+      "Tetragnathidae",
+      "Theridiidae"
+    ],
+    "range": [
+      "AS",
+      "EU",
+      "SA",
+      "OC",
+      "NA",
+      "AF"
+    ]
+  },
+  "859": {
+    "pairName": "Frogs and toads vs Salamanders",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      20979,
+      26718
+    ],
+    "taxonNames": [
+      "Anura",
+      "Caudata"
+    ],
+    "range": [
+      "AS",
+      "EU",
+      "SA",
+      "NA",
+      "AF"
+    ]
+  },
+  "860": {
+    "pairName": "Caecilians vs Earthworms",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      27880,
+      69758
+    ],
+    "taxonNames": [
+      "Gymnophiona",
+      "Lumbricidae"
+    ],
+    "range": [
+      "SA",
+      "AS",
+      "AF"
+    ]
+  },
+  "861": {
+    "pairName": "Earthworms vs Leeches",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      69758,
+      63081
+    ],
+    "taxonNames": [
+      "Lumbricidae",
+      "Hirudinea"
+    ],
+    "range": [
+      "AS",
+      "EU",
+      "SA",
+      "NA",
+      "AF"
+    ]
+  },
+  "862": {
+    "pairName": "Caecilians vs Legless Geckos",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      27880,
+      36925
+    ],
+    "taxonNames": [
+      "Gymnophiona",
+      "Pygopodidae"
+    ],
+    "range": []
+  },
+  "863": {
+    "pairName": "Newts vs Lungless salamanders",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      27701,
+      26909
+    ],
+    "taxonNames": [
+      "Salamandridae",
+      "Plethodontidae"
+    ],
+    "range": [
+      "SA",
+      "AF",
+      "EU",
+      "NA"
+    ]
+  },
+  "864": {
+    "pairName": "Salamanders vs Geckos",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      26718,
+      371057
+    ],
+    "taxonNames": [
+      "Caudata",
+      "Gekkota"
+    ],
+    "range": [
+      "AS",
+      "EU",
+      "SA",
+      "NA",
+      "AF"
+    ]
+  },
+  "865": {
+    "pairName": "Typical frogs vs Tree frogs and allies",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      25473,
+      23540
+    ],
+    "taxonNames": [
+      "Ranidae",
+      "Hylidae"
+    ],
+    "range": [
+      "AS",
+      "EU",
+      "SA",
+      "NA",
+      "AF"
+    ]
+  },
+  "866": {
+    "pairName": "Typical frogs vs True toads",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      25473,
+      21359
+    ],
+    "taxonNames": [
+      "Ranidae",
+      "Bufonidae"
+    ],
+    "range": [
+      "AS",
+      "EU",
+      "SA",
+      "NA",
+      "AF"
+    ]
+  },
+  "867": {
+    "pairName": "True toads vs Tree frogs and allies",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      21359,
+      23540
+    ],
+    "taxonNames": [
+      "Bufonidae",
+      "Hylidae"
+    ],
+    "range": [
+      "AS",
+      "EU",
+      "SA",
+      "NA",
+      "AF"
+    ]
+  },
+  "868": {
+    "pairName": "Cane toad vs American toad",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      553515,
+      64968
+    ],
+    "taxonNames": [
+      "Rhinella marina",
+      "Anaxyrus americanus"
+    ],
+    "range": [
+      "NA"
+    ]
+  },
+  "869": {
+    "pairName": "Southern toad vs American toad",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      64988,
+      64968
+    ],
+    "taxonNames": [
+      "Anaxyrus terrestris",
+      "Anaxyrus americanus"
+    ],
+    "range": [
+      "NA"
+    ]
+  },
+  "870": {
+    "pairName": "European toad vs European common frog",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      326296,
+      25591
+    ],
+    "taxonNames": [
+      "Bufo bufo",
+      "Rana temporaria"
+    ],
+    "range": [
+      "EU"
+    ]
+  },
+  "871": {
+    "pairName": "Red-eyed tree frog vs Gliding leaf frog",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      23702,
+      134927
+    ],
+    "taxonNames": [
+      "Agalychnis callidryas",
+      "Agalychnis spurrelli"
+    ],
+    "range": [
+      "SA",
+      "NA"
+    ]
+  },
+  "872": {
+    "pairName": "Pond and box turtles vs Tortoises",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      39760,
+      40019
+    ],
+    "taxonNames": [
+      "Emydidae",
+      "Testudinidae"
+    ],
+    "range": [
+      "AS",
+      "AF",
+      "EU"
+    ]
+  },
+  "873": {
+    "pairName": "Snapping turtles vs Tortoises",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      39680,
+      40019
+    ],
+    "taxonNames": [
+      "Chelydridae",
+      "Testudinidae"
+    ],
+    "range": []
   }
 }

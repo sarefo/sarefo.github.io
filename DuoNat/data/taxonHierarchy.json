@@ -20818,5 +20818,191 @@
     "vernacularName": "Hackled orbweavers and net-casting spiders",
     "rank": "Superfamily",
     "parentId": "342614"
+  },
+  "20979": {
+    "taxonName": "Anura",
+    "vernacularName": "Frogs and toads",
+    "rank": "Order",
+    "parentId": "20978"
+  },
+  "21359": {
+    "taxonName": "Bufonidae",
+    "vernacularName": "True toads",
+    "rank": "Family",
+    "parentId": "20979"
+  },
+  "27880": {
+    "taxonName": "Gymnophiona",
+    "vernacularName": "Caecilians",
+    "rank": "Order",
+    "parentId": "20978"
+  },
+  "26718": {
+    "taxonName": "Caudata",
+    "vernacularName": "Salamanders",
+    "rank": "Order",
+    "parentId": "20978"
+  },
+  "27701": {
+    "taxonName": "Salamandridae",
+    "vernacularName": "Newts",
+    "rank": "Family",
+    "parentId": "26718"
+  },
+  "23540": {
+    "taxonName": "Hylidae",
+    "vernacularName": "Tree frogs and allies",
+    "rank": "Family",
+    "parentId": "20979"
+  },
+  "1530492": {
+    "taxonName": "Phyllomedusinae",
+    "vernacularName": "Leaf frogs",
+    "rank": "Subfamily",
+    "parentId": "23540"
+  },
+  "23694": {
+    "taxonName": "Agalychnis",
+    "vernacularName": "Leaf frogs",
+    "rank": "Genus",
+    "parentId": "1530492"
+  },
+  "23702": {
+    "taxonName": "Agalychnis callidryas",
+    "vernacularName": "Red-eyed tree frog",
+    "rank": "Species",
+    "parentId": "23694"
+  },
+  "64819": {
+    "taxonName": "Rhinella",
+    "vernacularName": "Beaked toads",
+    "rank": "Genus",
+    "parentId": "21359"
+  },
+  "553515": {
+    "taxonName": "Rhinella marina",
+    "vernacularName": "Cane toad",
+    "rank": "Species",
+    "parentId": "64819"
+  },
+  "64747": {
+    "taxonName": "Anaxyrus",
+    "vernacularName": "North american toads",
+    "rank": "Genus",
+    "parentId": "21359"
+  },
+  "64988": {
+    "taxonName": "Anaxyrus terrestris",
+    "vernacularName": "Southern toad",
+    "rank": "Species",
+    "parentId": "64747"
+  },
+  "64968": {
+    "taxonName": "Anaxyrus americanus",
+    "vernacularName": "American toad",
+    "rank": "Species",
+    "parentId": "64747"
+  },
+  "47491": {
+    "taxonName": "Annelida",
+    "vernacularName": "Segmented worms",
+    "rank": "Phylum",
+    "parentId": "1"
+  },
+  "63089": {
+    "taxonName": "Clitellata",
+    "vernacularName": "Clitellates",
+    "rank": "Class",
+    "parentId": "47491"
+  },
+  "333586": {
+    "taxonName": "Oligochaeta",
+    "vernacularName": "Earthworms and allies",
+    "rank": "Subclass",
+    "parentId": "63089"
+  },
+  "152943": {
+    "taxonName": "Crassiclitellata",
+    "vernacularName": "-",
+    "rank": "Order",
+    "parentId": "333586"
+  },
+  "1418362": {
+    "taxonName": "Lumbricina",
+    "vernacularName": "-",
+    "rank": "Suborder",
+    "parentId": "152943"
+  },
+  "69758": {
+    "taxonName": "Lumbricidae",
+    "vernacularName": "Earthworms",
+    "rank": "Family",
+    "parentId": "1418362"
+  },
+  "21360": {
+    "taxonName": "Bufo",
+    "vernacularName": "Old world toads",
+    "rank": "Genus",
+    "parentId": "21359"
+  },
+  "326296": {
+    "taxonName": "Bufo bufo",
+    "vernacularName": "European toad",
+    "rank": "Species",
+    "parentId": "21360"
+  },
+  "40019": {
+    "taxonName": "Testudinidae",
+    "vernacularName": "Tortoises",
+    "rank": "Family",
+    "parentId": "39532"
+  },
+  "134927": {
+    "taxonName": "Agalychnis spurrelli",
+    "vernacularName": "Gliding leaf frog",
+    "rank": "Species",
+    "parentId": "23694"
+  },
+  "25473": {
+    "taxonName": "Ranidae",
+    "vernacularName": "Typical frogs",
+    "rank": "Family",
+    "parentId": "20979"
+  },
+  "25474": {
+    "taxonName": "Rana",
+    "vernacularName": "Pond frogs",
+    "rank": "Genus",
+    "parentId": "25473"
+  },
+  "25591": {
+    "taxonName": "Rana temporaria",
+    "vernacularName": "European common frog",
+    "rank": "Species",
+    "parentId": "25474"
+  },
+  "63081": {
+    "taxonName": "Hirudinea",
+    "vernacularName": "Leeches",
+    "rank": "Subclass",
+    "parentId": "63089"
+  },
+  "39760": {
+    "taxonName": "Emydidae",
+    "vernacularName": "Pond and box turtles",
+    "rank": "Family",
+    "parentId": "39532"
+  },
+  "39680": {
+    "taxonName": "Chelydridae",
+    "vernacularName": "Snapping turtles",
+    "rank": "Family",
+    "parentId": "39532"
+  },
+  "26909": {
+    "taxonName": "Plethodontidae",
+    "vernacularName": "Lungless salamanders",
+    "rank": "Family",
+    "parentId": "26718"
   }
 }
