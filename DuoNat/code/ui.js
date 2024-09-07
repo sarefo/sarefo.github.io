@@ -489,30 +489,33 @@ const ui = {
     },
 
     orientation: {
+
+        minWidth: 1024, // Adjust as needed
+
         setInitialOrientation() {
             const isLandscape = window.innerWidth > window.innerHeight;
-            const minWidth = 1024; // Adjust this value as needed
-            state.setUseLandscape(isLandscape && window.innerWidth >= minWidth);
+            state.setUseLandscape(isLandscape && window.innerWidth >= this.minWidth);
             this.applyOrientationLayout();
         },
 
         applyOrientationLayout() {
-            // TODO enable once ready
             let useLandscape;
+            // disable for testing purposes
             // false = disable landscape mode
-            if (true) { useLandscape = state.getUseLandscape() } else { useLandscape = false;}
+            //if (true) { useLandscape = state.getUseLandscape() } else { useLandscape = false;}
+            useLandscape = state.getUseLandscape();
             document.body.classList.toggle('landscape-layout', useLandscape);
             document.body.classList.toggle('portrait-layout', !useLandscape);
 
-            this.updateMainViewLayout(useLandscape);
-            this.updateInfoDialogLayout(useLandscape);
+            //this.updateMainViewLayout(useLandscape);
+            //this.updateInfoDialogLayout(useLandscape);
             //this.updateNameTilesLayout(useLandscape);
-            //this.updateUIContainerPosition(useLandscape); // Add this line
+            //this.updateUIContainerPosition(useLandscape);
 
             logger.warn("Orientation changed to", useLandscape ? "landscape" : "portrait");
         },
 
-        updateMainViewLayout(useLandscape) {
+        /*updateMainViewLayout(useLandscape) {
             const gameContainer = document.querySelector('.game-container');
             if (useLandscape) {
                 //gameContainer.classList.add('landscape');
@@ -522,16 +525,16 @@ const ui = {
                 //gameContainer.classList.remove('landscape');
                 // Enable swiping in portrait mode
             }
-        },
+        },*/
 
-        updateInfoDialogLayout(useLandscape) {
+        /*updateInfoDialogLayout(useLandscape) {
             // This function will be called when the info dialog is opened
             // You'll need to modify your info dialog code to use this
             const infoDialog = document.querySelector('.info-dialog');
             if (infoDialog) {
                 infoDialog.classList.toggle('landscape', useLandscape);
             }
-        },
+        },*/
 
         /*updateNameTilesLayout(useLandscape) {
             const namePair = document.querySelector('.name-pair');
@@ -564,8 +567,7 @@ const ui = {
 
         handleOrientationChange() {
             const isLandscape = window.innerWidth > window.innerHeight;
-            const minWidth = 1024; // Adjust this value as needed
-            const newUseLandscape = isLandscape && window.innerWidth >= minWidth;
+            const newUseLandscape = isLandscape && window.innerWidth >= this.minWidth;
             
             if (newUseLandscape !== state.getUseLandscape()) {
                 state.setUseLandscape(newUseLandscape);

@@ -13,6 +13,7 @@ const eventUIButtons = {
         this.initializeMainMenuListeners();
         this.initializeLevelIndicator();
         this.initializeLongPressHandler();
+        this.initializeNextPairButton();
     },
 
     safeAddEventListener(id, eventType, handler) {
@@ -90,6 +91,25 @@ const eventUIButtons = {
         levelIndicator.addEventListener('touchmove', (e) => {
             clearTimeout(longPressTimer);
         }, { passive: true });
+    },
+
+    initializeNextPairButton() {
+        const nextPairButton = document.getElementById('next-pair-button');
+        if (nextPairButton) {
+            nextPairButton.addEventListener('click', this.handleNextPairClick.bind(this));
+            logger.trace("next pair button clicked");
+        } else {
+            logger.warn('Next pair button not found');
+        }
+    },
+
+    handleNextPairClick() {
+        if (!this.isLoadingNewPair) {
+            this.isLoadingNewPair = true;
+            pairManager.loadNewPair().finally(() => {
+                this.isLoadingNewPair = false;
+            });
+        }
     },
 
     handleThumbsUp(index) {
