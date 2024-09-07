@@ -3378,7 +3378,7 @@
     ]
   },
   "191": {
-    "pairName": "Copperheads",
+    "pairName": "Copperhead vs Cottonmouth",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -3394,7 +3394,7 @@
     ]
   },
   "192": {
-    "pairName": "Fer-de-lance",
+    "pairName": "Lancehead vs Terciopelo",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -3410,7 +3410,7 @@
     ]
   },
   "193": {
-    "pairName": "African Vipers",
+    "pairName": "Puff Adder vs Gaboon Viper",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -3443,7 +3443,7 @@
     ]
   },
   "195": {
-    "pairName": "Large Pythons",
+    "pairName": "Reticulated vs Burmese Python",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -3459,7 +3459,7 @@
     ]
   },
   "196": {
-    "pairName": "Large Constrictors",
+    "pairName": "Boa vs Anaconda",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -3491,7 +3491,7 @@
     ]
   },
   "198": {
-    "pairName": "Rat Snakes",
+    "pairName": "Corn vs Rat Snake",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -3539,7 +3539,7 @@
     ]
   },
   "201": {
-    "pairName": "North American Colubrids",
+    "pairName": "Gopher Snake vs Rat Snake",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -3555,7 +3555,7 @@
     ]
   },
   "202": {
-    "pairName": "Racers",
+    "pairName": "Racer vs Coachwhip",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -3587,7 +3587,7 @@
     ]
   },
   "204": {
-    "pairName": "Green Snakes",
+    "pairName": "Greensnakes",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -3603,7 +3603,7 @@
     ]
   },
   "205": {
-    "pairName": "Water Snakes",
+    "pairName": "Watersnakes",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -3619,7 +3619,7 @@
     ]
   },
   "206": {
-    "pairName": "Queen Snakes",
+    "pairName": "Queensnake vs Ribbon Snake",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -3635,7 +3635,7 @@
     ]
   },
   "207": {
-    "pairName": "Brown Snakes",
+    "pairName": "Brownsnake vs Red-bellied Snake",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -3651,7 +3651,7 @@
     ]
   },
   "208": {
-    "pairName": "Ring-necked Snakes",
+    "pairName": "Ring-necked vs Sharp-tailed Snake",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -3683,7 +3683,7 @@
     ]
   },
   "210": {
-    "pairName": "North American Boas",
+    "pairName": "Rosy vs Rubber Boa",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -3751,7 +3751,7 @@
     ]
   },
   "214": {
-    "pairName": "Coral Snakes",
+    "pairName": "Coralsnakes",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -3767,7 +3767,7 @@
     ]
   },
   "215": {
-    "pairName": "Puerto Rican Boas",
+    "pairName": "Hispaniolan vs Puerto Rican Boa",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -3783,7 +3783,7 @@
     ]
   },
   "216": {
-    "pairName": "Asian Cat Snakes",
+    "pairName": "Tree Snake vs Cat Snake",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -3815,7 +3815,7 @@
     ]
   },
   "218": {
-    "pairName": "Pit Vipers",
+    "pairName": "Pit Viper vs Tree Viper",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -3831,7 +3831,7 @@
     ]
   },
   "219": {
-    "pairName": "Asian Water Snakes",
+    "pairName": "Keelbacks",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -3847,7 +3847,7 @@
     ]
   },
   "220": {
-    "pairName": "Batfish",
+    "pairName": "Longfin vs Round Batfish",
     "level": "2",
     "tags": [
       "ocean"
@@ -3866,7 +3866,7 @@
     ]
   },
   "221": {
-    "pairName": "Platax Batfish",
+    "pairName": "Golden vs Round Batfish",
     "level": "3",
     "tags": [
       "ocean"
@@ -3885,7 +3885,7 @@
     ]
   },
   "222": {
-    "pairName": "Teira Batfish Group",
+    "pairName": "Longfin vs Golden Batfish",
     "level": "3",
     "tags": [
       "ocean"
@@ -3904,7 +3904,7 @@
     ]
   },
   "223": {
-    "pairName": "Boxfish",
+    "pairName": "Spotted vs Striped Boxfish",
     "level": "2",
     "tags": [
       "ocean"
@@ -3923,7 +3923,7 @@
     ]
   },
   "224": {
-    "pairName": "Butterflyfish",
+    "pairName": "Coralfish vs Butterflyfish",
     "level": "2",
     "tags": [
       "ocean"
@@ -3942,7 +3942,7 @@
     ]
   },
   "225": {
-    "pairName": "Vagabond Butterflyfish Group",
+    "pairName": "Vagabond vs Redfin Butterflyfish",
     "level": "2",
     "tags": [
       "ocean"
@@ -3961,7 +3961,7 @@
     ]
   },
   "226": {
-    "pairName": "Heniochus Butterflyfish",
+    "pairName": "Humphead vs Pennant Butterflyfish",
     "level": "2",
     "tags": [
       "ocean"
@@ -3980,7 +3980,7 @@
     ]
   },
   "227": {
-    "pairName": "Longfin Bannerfish Group",
+    "pairName": "Longfin vs Schooling Bannerfish",
     "level": "3",
     "tags": [
       "ocean"
@@ -3999,7 +3999,7 @@
     ]
   },
   "228": {
-    "pairName": "Tropical Snappers",
+    "pairName": "Emperor Breams vs Snappers",
     "level": "2",
     "tags": [
       "ocean"
@@ -4018,7 +4018,7 @@
     ]
   },
   "229": {
-    "pairName": "Red Snappers",
+    "pairName": "Saddletail vs Crimson Snappers",
     "level": "2",
     "tags": [
       "ocean"
@@ -4037,7 +4037,7 @@
     ]
   },
   "230": {
-    "pairName": "Sweetlips",
+    "pairName": "Painted vs Harlequin Sweetlip",
     "level": "2",
     "tags": [
       "ocean"
@@ -4056,7 +4056,7 @@
     ]
   },
   "231": {
-    "pairName": "Fusiliers",
+    "pairName": "Yellowtail vs Blue-and-yello Fusilier",
     "level": "2",
     "tags": [
       "ocean"
@@ -4075,7 +4075,7 @@
     ]
   },
   "232": {
-    "pairName": "Monocle Breams",
+    "pairName": "Bridles vs Lined Monocle Bream",
     "level": "2",
     "tags": [
       "ocean"
@@ -4094,7 +4094,7 @@
     ]
   },
   "233": {
-    "pairName": "Blennies",
+    "pairName": "Jewelled vs Breastspot Blennie",
     "level": "2",
     "tags": [
       "ocean"
@@ -4113,7 +4113,7 @@
     ]
   },
   "234": {
-    "pairName": "Jacks",
+    "pairName": "Orange-spotted vs Yellow-spotted Trevally",
     "level": "2",
     "tags": [
       "ocean"
@@ -4133,7 +4133,7 @@
     ]
   },
   "235": {
-    "pairName": "Soles",
+    "pairName": "Peacock vs Tiger Sole",
     "level": "1",
     "tags": [
       "ocean"
@@ -4152,7 +4152,7 @@
     ]
   },
   "236": {
-    "pairName": "Barracudas",
+    "pairName": "Yellowtail vs Pickhandle Barracuda",
     "level": "2",
     "tags": [
       "ocean"
@@ -4171,7 +4171,7 @@
     ]
   },
   "237": {
-    "pairName": "Sergeant Majors",
+    "pairName": "Bengal vs Scissortail Sergeant",
     "level": "2",
     "tags": [
       "ocean"
@@ -4190,7 +4190,7 @@
     ]
   },
   "238": {
-    "pairName": "Damselfish",
+    "pairName": "Sergeant Majors vs Humbugs",
     "level": "2",
     "tags": [
       "ocean"
@@ -4210,7 +4210,7 @@
     ]
   },
   "239": {
-    "pairName": "Blue Damselfish",
+    "pairName": "Neon vs Goldbelly Damselfish",
     "level": "2",
     "tags": [
       "ocean"
@@ -4229,7 +4229,7 @@
     ]
   },
   "240": {
-    "pairName": "Clownfish",
+    "pairName": "Saddleback vs Clark's Anemonefish",
     "level": "2",
     "tags": [
       "ocean"
@@ -4248,7 +4248,7 @@
     ]
   },
   "241": {
-    "pairName": "Spiny Damselfish",
+    "pairName": "Thai vs Threespot Damselfish",
     "level": "3",
     "tags": [
       "ocean"
@@ -4267,7 +4267,7 @@
     ]
   },
   "242": {
-    "pairName": "Prawn-gobies",
+    "pairName": "Nakedhead vs Redmargin Shrimpgoby",
     "level": "2",
     "tags": [
       "ocean"
@@ -4286,7 +4286,7 @@
     ]
   },
   "243": {
-    "pairName": "Pygmy Gobies",
+    "pairName": "Whitestriped vs Striped Pygmygoby",
     "level": "2",
     "tags": [
       "ocean"
@@ -4305,7 +4305,7 @@
     ]
   },
   "244": {
-    "pairName": "Decorated Gobies",
+    "pairName": "Decorated vs Ornate Sandgoby",
     "level": "2",
     "tags": [
       "ocean"
@@ -4324,7 +4324,7 @@
     ]
   },
   "245": {
-    "pairName": "Dartfish",
+    "pairName": "Threadfin vs Pearly Dartfish",
     "level": "2",
     "tags": [
       "ocean"
@@ -4343,7 +4343,7 @@
     ]
   },
   "246": {
-    "pairName": "Cardinalfish",
+    "pairName": "Yellowstriped vs Wassinki Cardinalfish",
     "level": "3",
     "tags": [
       "ocean"
@@ -4362,7 +4362,7 @@
     ]
   },
   "247": {
-    "pairName": "Groupers",
+    "pairName": "Goldspotted vs Flowery Rockcod",
     "level": "2",
     "tags": [
       "ocean"
@@ -4381,7 +4381,7 @@
     ]
   },
   "248": {
-    "pairName": "Wrasses",
+    "pairName": "Floral vs Tripletail Maori Wrasses",
     "level": "2",
     "tags": [
       "ocean"
@@ -4400,7 +4400,7 @@
     ]
   },
   "249": {
-    "pairName": "Checkerboard Wrasses",
+    "pairName": "Checkerboard vs Chain-lined Wrasse",
     "level": "2",
     "tags": [
       "ocean"
@@ -4419,7 +4419,7 @@
     ]
   },
   "250": {
-    "pairName": "Parrotfish",
+    "pairName": "Surf vs East-Indies Parrotfish",
     "level": "2",
     "tags": [
       "ocean"
