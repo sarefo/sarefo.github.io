@@ -190,6 +190,16 @@
     opacity: 1;
 }
 
+.portrait-layout .name-pair__overlay {
+    width: 100%; /*not sure if ok*/
+}
+.landscape-layout .name-pair__overlay {
+    width: 100%;
+    height: 400px; /* TODO weird temporary hack */
+    max-height: 210%;
+    /*top: 220px;  TODO make flexible */
+}
+
 .name-pair__overlay-message {
     font-size: 2.4em;
     font-weight: bold;

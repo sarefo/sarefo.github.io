@@ -491,7 +491,7 @@ const ui = {
     orientation: {
         setInitialOrientation() {
             const isLandscape = window.innerWidth > window.innerHeight;
-            const minWidth = 768; // Adjust this value as needed
+            const minWidth = 1200; // Adjust this value as needed
             state.setUseLandscape(isLandscape && window.innerWidth >= minWidth);
             this.applyOrientationLayout();
         },
@@ -499,6 +499,7 @@ const ui = {
         applyOrientationLayout() {
             // TODO enable once ready
             let useLandscape;
+            // false = disable landscape mode
             if (false) { useLandscape = state.getUseLandscape() } else { useLandscape = false;}
             document.body.classList.toggle('landscape-layout', useLandscape);
             document.body.classList.toggle('portrait-layout', !useLandscape);
@@ -563,7 +564,7 @@ const ui = {
 
         handleOrientationChange() {
             const isLandscape = window.innerWidth > window.innerHeight;
-            const minWidth = 768; // Adjust this value as needed
+            const minWidth = 1200; // Adjust this value as needed
             const newUseLandscape = isLandscape && window.innerWidth >= minWidth;
             
             if (newUseLandscape !== state.getUseLandscape()) {
