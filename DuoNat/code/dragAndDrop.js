@@ -294,8 +294,12 @@ const dragAndDrop = {
 
             if (orientation === 'landscape') {
                 const deltaX = clientX - dragAndDrop.state.initialX;
-                leftPosition = clientX - dragAndDrop.state.touchOffset.x;
-                topPosition = gameContainerRect.top + (gameContainerRect.height / 2) - (elementHeight / 2);
+                leftPosition = clientX - dragAndDrop.state.touchOffset.x - (gameContainerRect.width / 2) + (elementWidth / 2);
+                
+                // Push the tile half a screen higher
+                // Doesn't work for some reason
+                //topPosition = window.innerHeight / 2 - elementHeight / 2;
+                
                 this.mirrorOtherElementHorizontal(deltaX, gameContainerRect, elementHeight);
             } else {
                 const deltaY = clientY - dragAndDrop.state.initialY;
@@ -319,8 +323,9 @@ const dragAndDrop = {
                 document.getElementById('name-x');
 
             if (otherElement) {
-                const leftPosition = dragAndDrop.state.otherElementInitialX - deltaX;
-                const topPosition = gameContainerRect.top + (gameContainerRect.height / 2) - (elementHeight / 2);
+                const leftPosition = dragAndDrop.state.otherElementInitialX - deltaX - (gameContainerRect.height / 2);
+                //const topPosition = dragAndDrop.state.otherElementInitialY;
+                const topPosition = gameContainerRect.top; //+ (gameContainerRect.height / 2) - (elementHeight / 2);
 
                 otherElement.style.position = 'fixed';
                 otherElement.style.left = `${leftPosition}px`;
