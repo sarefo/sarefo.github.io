@@ -507,43 +507,9 @@ const ui = {
             document.body.classList.toggle('landscape-layout', useLandscape);
             document.body.classList.toggle('portrait-layout', !useLandscape);
 
-            //this.updateMainViewLayout(useLandscape);
-            //this.updateInfoDialogLayout(useLandscape);
-            //this.updateNameTilesLayout(useLandscape);
-            //this.updateUIContainerPosition(useLandscape);
-
             logger.warn("Orientation changed to", useLandscape ? "landscape" : "portrait");
         },
 
-        /*updateMainViewLayout(useLandscape) {
-            const gameContainer = document.querySelector('.game-container');
-            if (useLandscape) {
-                //gameContainer.classList.add('landscape');
-                // Disable swiping in landscape mode
-                // You'll need to implement this in your swipe handling code
-            } else {
-                //gameContainer.classList.remove('landscape');
-                // Enable swiping in portrait mode
-            }
-        },*/
-
-        /*updateInfoDialogLayout(useLandscape) {
-            // This function will be called when the info dialog is opened
-            // You'll need to modify your info dialog code to use this
-            const infoDialog = document.querySelector('.info-dialog');
-            if (infoDialog) {
-                infoDialog.classList.toggle('landscape', useLandscape);
-            }
-        },*/
-
-        /*updateNameTilesLayout(useLandscape) {
-            const namePair = document.querySelector('.name-pair');
-            if (useLandscape) {
-                namePair.classList.add('landscape');
-            } else {
-                namePair.classList.remove('landscape');
-            }
-        },*/
 
         updateUIContainerPosition(useLandscape) {
             const uiContainer = document.querySelector('.ui-container');
