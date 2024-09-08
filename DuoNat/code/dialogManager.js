@@ -95,7 +95,7 @@ const dialogManager = {
                 event.stopPropagation();
                 if (state.getUseLandscape()) {
                     const swipeText = document.getElementById('help-dialog-swipe-text');
-                    swipeText.innerHTML = 'Press Left key for next pair';
+                    swipeText.innerHTML = '"Next Pair" button loads new pair';
                 }
                 if (!tutorial.isActive()) {
                     dialogManager.core.openDialog('help-dialog');

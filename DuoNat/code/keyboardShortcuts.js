@@ -38,9 +38,11 @@ const keyboardShortcuts = {
         }
 
         const shortcutActions = {
-            'arrowleft': this.handleArrowLeft.bind(this),
+            'n': this.handleArrowLeft.bind(this),
             'arrowup': () => dragAndDrop.moveTileToDropZone('left', 'upper'),
+            'arrowleft': () => dragAndDrop.moveTileToDropZone('left', 'upper'),
             'arrowdown': () => dragAndDrop.moveTileToDropZone('left', 'lower'),
+            'arrowright': () => dragAndDrop.moveTileToDropZone('left', 'lower'),
             'c': collectionManager.openCollectionManagerDialog,
             'e': () => dialogManager.openDialog('enter-pair-dialog'),
             'i': () => infoDialog.showInfoDialog(1),

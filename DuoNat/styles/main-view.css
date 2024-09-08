@@ -74,6 +74,12 @@
 .portrait-layout #image-container-2 {
     margin-bottom: 4px;
 }
+.landscape-layout #image-container-1 {
+    margin-right: 4px;
+}
+.landscape-layout #image-container-2 {
+    margin-left: 4px;
+}
 
 .image-container__image {
     position: absolute;
@@ -447,10 +453,12 @@
 }
 .landscape-layout .next-pair-button {
     display: flex;
+    align-items: center;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     bottom: 10px;
+    height: 2.45em;
     z-index: 10;
 }
 
