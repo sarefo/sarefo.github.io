@@ -512,27 +512,6 @@ const ui = {
             logger.warn("Orientation changed to", useLandscape ? "landscape" : "portrait");
         },
 
-
-        updateUIContainerPosition(useLandscape) {
-            const uiContainer = document.querySelector('.ui-container');
-            if (!uiContainer) return;
-
-            if (useLandscape) {
-                uiContainer.style.left = '50%';
-                uiContainer.style.right = 'auto';
-                uiContainer.style.top = '20px';
-                uiContainer.style.transform = 'translateX(-50%)';
-                uiContainer.style.width = 'auto';
-            } else {
-                uiContainer.style.left = '50%';
-                uiContainer.style.right = 'auto';
-                uiContainer.style.top = '10px';
-                uiContainer.style.transform = 'translateX(-50%)';
-                uiContainer.style.width = '98vw';
-                uiContainer.style.maxWidth = 'var(--max-image-width)';
-            }
-        },
-
         handleOrientationChange() {
             const isLandscape = window.innerWidth > window.innerHeight;
             const newUseLandscape = isLandscape && window.innerWidth >= this.minWidth;
