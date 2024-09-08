@@ -1,15 +1,17 @@
-import dragAndDrop from './dragAndDrop.js';
-import dialogManager from './dialogManager.js';
+import logger from './logger.js';
 import state from './state.js';
-import tutorial from './tutorial.js';
 import ui from './ui.js';
 import utils from './utils.js';
-import logger from './logger.js';
 
+import dragAndDrop from './dragAndDrop.js';
+import tutorial from './tutorial.js';
+
+import dialogManager from './dialogs/dialogManager.js';
+
+import eventUIButtons from './eventUIButtons.js';
 import keyboardShortcuts from './keyboardShortcuts.js';
 import searchHandler from './searchHandler.js';
 import swipeHandler from './swipeHandler.js';
-import eventUIButtons from './eventUIButtons.js';
 
 const eventInitializer = {
     initialize() {

@@ -1,11 +1,13 @@
 import api from './api.js';
-import collectionManager from './collectionManager.js';
-import dialogManager from './dialogManager.js';
-import filtering from './filtering.js';
-import gameLogic from './gameLogic.js';
 import logger from './logger.js';
 import state from './state.js';
 import ui from './ui.js';
+
+import filtering from './filtering.js';
+import gameLogic from './gameLogic.js';
+
+import collectionManager from './dialogs/collectionManager.js';
+import dialogManager from './dialogs/dialogManager.js';
 
 const vernacularNameCache = new Map();
 

@@ -1,7 +1,8 @@
-import api from './api.js';
+import api from '../api.js';
+import logger from '../logger.js';
+import state from '../state.js';
+
 import dialogManager from './dialogManager.js';
-import logger from './logger.js';
-import state from './state.js';
 
 const enterPair = {
 

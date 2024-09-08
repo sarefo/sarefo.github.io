@@ -1,20 +1,22 @@
-import ancestryDialog from './ancestryDialog.js';
-import collectionManager from './collectionManager.js';
-import dialogManager from './dialogManager.js';
-import dragAndDrop from './dragAndDrop.js';
-import pairManager from './pairManager.js';
-import hintSystem from './hintSystem.js';
-import infoDialog from './infoDialog.js';
 import logger from './logger.js';
-import preloader from './preloader.js';
-import rangeSelector from './rangeSelector.js';
-import searchHandler from './searchHandler.js';
 import state from './state.js';
-import sharing from './sharing.js';
-import testingDialog from './testingDialog.js';
-import tutorial from './tutorial.js';
 import ui from './ui.js';
 import utils from './utils.js';
+
+import dragAndDrop from './dragAndDrop.js';
+import hintSystem from './hintSystem.js';
+import pairManager from './pairManager.js';
+import preloader from './preloader.js';
+import searchHandler from './searchHandler.js';
+import sharing from './sharing.js';
+import tutorial from './tutorial.js';
+
+import ancestryDialog from './dialogs/ancestryDialog.js';
+import collectionManager from './dialogs/collectionManager.js';
+import dialogManager from './dialogs/dialogManager.js';
+import infoDialog from './dialogs/infoDialog.js';
+import rangeSelector from './dialogs/rangeSelector.js';
+import testingDialog from './dialogs/testingDialog.js';
 
 const keyboardShortcuts = {
     isEnabled: true,

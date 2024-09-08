@@ -1,6 +1,7 @@
-import gameLogic from './gameLogic.js';
 import logger from './logger.js';
 import state from './state.js';
+
+import gameLogic from './gameLogic.js';
 
 const dragAndDrop = {
     // Modules:

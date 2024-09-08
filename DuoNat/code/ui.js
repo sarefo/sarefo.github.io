@@ -1,11 +1,13 @@
-import collectionManager from './collectionManager.js';
 import config from './config.js';
+import logger from './logger.js';
+import state from './state.js';
+
 import filtering from './filtering.js';
 import hintSystem from './hintSystem.js';
-import logger from './logger.js';
 import pairManager from './pairManager.js';
-import state from './state.js';
 import tutorial from './tutorial.js';
+
+import collectionManager from './dialogs/collectionManager.js';
 
 const ui = {
 

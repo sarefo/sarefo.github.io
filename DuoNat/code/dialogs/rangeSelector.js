@@ -1,12 +1,14 @@
-import api from './api.js';
+import api from '../api.js';
+import logger from '../logger.js';
+import state from '../state.js';
+import ui from '../ui.js';
+
+import filtering from '../filtering.js';
+import gameLogic from '../gameLogic.js';
+import worldMap from '../worldMap.js';
+
 import collectionManager from './collectionManager.js';
 import dialogManager from './dialogManager.js';
-import filtering from './filtering.js';
-import gameLogic from './gameLogic.js';
-import logger from './logger.js';
-import state from './state.js';
-import ui from './ui.js';
-import worldMap from './worldMap.js';
 
 const rangeSelector = {
     selectedContinents: new Set(),

@@ -1,4 +1,5 @@
 import logger from './logger.js';
+
 // DOM elements
 const elements = {
     image1: document.getElementById('image-1'),

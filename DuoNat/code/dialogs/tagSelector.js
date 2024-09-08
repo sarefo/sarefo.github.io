@@ -1,10 +1,11 @@
-import api from './api.js';
+import api from '../api.js';
+import state from '../state.js';
+import logger from '../logger.js';
+
+import filtering from '../filtering.js';
+
 import collectionManager from './collectionManager.js';
 import dialogManager from './dialogManager.js';
-import filtering from './filtering.js';
-//import preloader from './preloader.js';
-import state from './state.js';
-import logger from './logger.js';
 
 const tagSelector = {
     selectedTags: new Set(),

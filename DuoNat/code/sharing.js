@@ -1,7 +1,8 @@
-import dialogManager from './dialogManager.js';
 import logger from './logger.js';
 import state from './state.js';
 import url from './url.js';
+
+import dialogManager from './dialogs/dialogManager.js';
 
 const sharing = {
     updateShareDialog(shareUrl) {

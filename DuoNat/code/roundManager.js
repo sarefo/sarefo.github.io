@@ -1,12 +1,13 @@
 import api from './api.js';
 import config from './config.js';
-import errorHandling from './errorHandling.js';
-import hintSystem from './hintSystem.js';
 import logger from './logger.js';
-import preloader from './preloader.js';
 import state from './state.js';
 import ui from './ui.js';
 import utils from './utils.js';
+
+import errorHandling from './errorHandling.js';
+import hintSystem from './hintSystem.js';
+import preloader from './preloader.js';
 import worldMap from './worldMap.js';
 
 const roundManager = {

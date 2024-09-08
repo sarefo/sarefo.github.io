@@ -1,8 +1,9 @@
-import dialogManager from './dialogManager.js';
 import logger from './logger.js';
 import state from './state.js';
-import tagSelector from './tagSelector.js';
 import utils from './utils.js';
+
+import dialogManager from './dialogs/dialogManager.js';
+import tagSelector from './dialogs/tagSelector.js';
 
 const url = {
     read: {

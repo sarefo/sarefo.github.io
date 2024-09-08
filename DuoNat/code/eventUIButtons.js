@@ -1,12 +1,14 @@
-import collectionManager from './collectionManager.js';
-import dialogManager from './dialogManager.js';
-import pairManager from './pairManager.js';
 import logger from './logger.js';
-import ancestryDialog from './ancestryDialog.js';
-import testingDialog from './testingDialog.js';
 import ui from './ui.js';
-import sharing from './sharing.js';
 import utils from './utils.js';
+
+import pairManager from './pairManager.js';
+import sharing from './sharing.js';
+
+import ancestryDialog from './dialogs/ancestryDialog.js';
+import collectionManager from './dialogs/collectionManager.js';
+import dialogManager from './dialogs/dialogManager.js';
+import testingDialog from './dialogs/testingDialog.js';
 
 const eventUIButtons = {
     initialize() {

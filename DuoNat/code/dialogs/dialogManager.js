@@ -1,18 +1,20 @@
-import api from './api.js';
+import api from '../api.js';
+import logger from '../logger.js';
+import state from '../state.js';
+import ui from '../ui.js';
+
+import eventMain from '../eventMain.js';
+import reporting from '../reporting.js';
+import tutorial from '../tutorial.js';
+
 import collectionManager from './collectionManager.js';
 import enterPair from './enterPair.js';
 import iNatDownDialog from './iNatDownDialog.js';
 import infoDialog from './infoDialog.js';
-import logger from './logger.js';
-import eventMain from './eventMain.js';
 import phylogenySelector from './phylogenySelector.js';
 import rangeSelector from './rangeSelector.js';
-import reporting from './reporting.js';
-import state from './state.js';
 import tagSelector from './tagSelector.js';
 import testingDialog from './testingDialog.js';
-import tutorial from './tutorial.js';
-import ui from './ui.js';
 
 const dialogManager = {
     dialogIds: [

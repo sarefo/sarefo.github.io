@@ -1,4 +1,5 @@
 import logger from './logger.js';
+
 import swipeHandler from './swipeHandler.js';
 
 const imagePanner = {

@@ -1,13 +1,14 @@
 import api from './api.js';
 import config from './config.js';
-import filtering from './filtering.js';
-import hintSystem from './hintSystem.js';
 import logger from './logger.js';
-import preloader from './preloader.js';
-import roundManager from './roundManager.js';
 import state from './state.js';
 import ui from './ui.js';
 import url from './url.js';
+
+import filtering from './filtering.js';
+import hintSystem from './hintSystem.js';
+import preloader from './preloader.js';
+import roundManager from './roundManager.js';
 
 const pairManager = {
     currentCollectionSubset: [],

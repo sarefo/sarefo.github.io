@@ -1,9 +1,11 @@
+import api from '../api.js';
+import logger from '../logger.js';
+import state from '../state.js';
+import utils from '../utils.js';
+
+import d3Graphs from '../d3Graphs.js';
+
 import ancestryPopup from './ancestryPopup.js';
-import api from './api.js';
-import d3Graphs from './d3Graphs.js';
-import logger from './logger.js';
-import state from './state.js';
-import utils from './utils.js';
 import dialogManager from './dialogManager.js';
 
 const ancestryDialog = {

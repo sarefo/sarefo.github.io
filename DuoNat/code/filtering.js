@@ -1,11 +1,13 @@
 import api from './api.js';
-import collectionManager from './collectionManager.js';
-import eventMain from './eventMain.js';
 import logger from './logger.js';
-import rangeSelector from './rangeSelector.js';
 import state from './state.js';
-import tagSelector from './tagSelector.js';
 import utils from './utils.js';
+
+import eventMain from './eventMain.js';
+
+import collectionManager from './dialogs/collectionManager.js';
+import rangeSelector from './dialogs/rangeSelector.js';
+import tagSelector from './dialogs/tagSelector.js';
 
 const filtering = {
     getActiveFilters() {

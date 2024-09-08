@@ -1,7 +1,8 @@
-import { BaseTree } from './BaseTree.js';
 import logger from '../logger.js';
 import state from '../state.js';
 import utils from '../utils.js';
+
+import { BaseTree } from './BaseTree.js';
 
 export class HierarchicalTree extends BaseTree {
     constructor(container, rootNode, showTaxonomicNames) {

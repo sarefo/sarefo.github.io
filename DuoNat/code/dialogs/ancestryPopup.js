@@ -1,8 +1,9 @@
-import api from './api.js';
+import api from '../api.js';
+import state from '../state.js';
+
 import collectionManager from './collectionManager.js';
 import dialogManager from './dialogManager.js';
 import phylogenySelector from './phylogenySelector.js';
-import state from './state.js';
 
 const ancestryPopup = {
     initialize() {

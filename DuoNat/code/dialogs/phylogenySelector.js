@@ -1,11 +1,13 @@
-import api from './api.js';
+import api from '../api.js';
+import logger from '../logger.js';
+import state from '../state.js';
+import utils from '../utils.js';
+
+import d3Graphs from '../d3Graphs.js';
+import filtering from '../filtering.js';
+
 import collectionManager from './collectionManager.js';
-import d3Graphs from './d3Graphs.js';
 import dialogManager from './dialogManager.js';
-import filtering from './filtering.js';
-import logger from './logger.js';
-import state from './state.js';
-import utils from './utils.js';
 
 const phylogenySelector = {
     currentView: 'graph',

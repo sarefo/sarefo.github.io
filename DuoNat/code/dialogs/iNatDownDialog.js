@@ -1,9 +1,11 @@
-import api from './api.js';
-import logger from './logger.js';
-import state from './state.js';
+import api from '../api.js';
+import logger from '../logger.js';
+import state from '../state.js';
+import ui from '../ui.js';
+
+import pairManager from '../pairManager.js';
+
 import dialogManager from './dialogManager.js';
-import pairManager from './pairManager.js';
-import ui from './ui.js';
 
 const iNatDownDialog = {
 

@@ -1,7 +1,8 @@
 import api from './api.js';
 import logger from './logger.js';
-import pairManager from './pairManager.js';
 import state from './state.js';
+
+import pairManager from './pairManager.js';
 
 const preloader = {
     preloadedImages: {

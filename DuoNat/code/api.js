@@ -1,8 +1,10 @@
 import config from './config.js';
-import iNatDownDialog from './iNatDownDialog.js';
 import logger from './logger.js';
 import state from './state.js';
+
 import TaxonomyHierarchy from './taxonomyHierarchy.js';
+
+import iNatDownDialog from './dialogs/iNatDownDialog.js';
 
 const handleApiError = (error, context) => {
     logger.error(`API Error in ${context}:`, error);

@@ -1,8 +1,10 @@
-import { BaseTree } from './BaseTree.js';
 import logger from '../logger.js';
-import phylogenySelector from '../phylogenySelector.js';
 import state from '../state.js';
 import utils from '../utils.js';
+
+import phylogenySelector from '../dialogs/phylogenySelector.js';
+
+import { BaseTree } from './BaseTree.js';
 
 export class RadialTree extends BaseTree {
     constructor(container, rootNode, showTaxonomicNames) {

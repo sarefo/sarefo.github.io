@@ -1,18 +1,20 @@
-import api from './api.js';
+import api from '../api.js';
+import logger from '../logger.js';
+import state from '../state.js';
+import ui from '../ui.js';
+import utils from '../utils.js';
+
+import eventMain from '../eventMain.js';
+import filtering from '../filtering.js';
+import gameLogic from '../gameLogic.js';
+import pairManager from '../pairManager.js';
+import preloader from '../preloader.js';
+import worldMap from '../worldMap.js';
+
 import dialogManager from './dialogManager.js';
-import eventMain from './eventMain.js';
-import filtering from './filtering.js';
-import gameLogic from './gameLogic.js';
-import logger from './logger.js';
-import pairManager from './pairManager.js';
 import phylogenySelector from './phylogenySelector.js';
 import rangeSelector from './rangeSelector.js';
-import preloader from './preloader.js';
-import state from './state.js';
 import tagSelector from './tagSelector.js';
-import ui from './ui.js';
-import utils from './utils.js';
-import worldMap from './worldMap.js';
 
 const vernacularNameCache = new Map();
 

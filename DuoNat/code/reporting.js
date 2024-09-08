@@ -1,7 +1,8 @@
-import dialogManager from './dialogManager.js';
 import logger from './logger.js';
 import state from './state.js';
 import ui from './ui.js';
+
+import dialogManager from './dialogs/dialogManager.js';
 
 const reporting = {
 

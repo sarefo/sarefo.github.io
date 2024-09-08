@@ -218,14 +218,16 @@
 }
 .landscape-layout .name-pair {
     flex-direction: column;
-    max-width:320px;
-/* TODO hack to prevent pair from twitching after load most of the time */
-    min-height: 180px;
-    gap: 8px;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    /*width: auto;*/
+    width:320px;
+    max-width:320px;
+/* TODO hack to prevent pair from twitching after load most of the time */
+    min-height: 180px;
+    gap: 8px;
     z-index: 10;
 }
 
@@ -283,6 +285,7 @@
 }
 
 .landscape-layout .name-pair__item--draggable {
+    position: relative;
     width: 100%; /* Full width of the name-pair container */
     max-width: none; /* Remove max-width constraint */
 }

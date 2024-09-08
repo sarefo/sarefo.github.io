@@ -1,12 +1,14 @@
 import config from './config.js';
-import collectionManager from './collectionManager.js';
-import dialogManager from './dialogManager.js';
-import eventMain from './eventMain.js';
 import logger from './logger.js';
-import preloader from './preloader.js';
 import state from './state.js';
 import ui from './ui.js';
 import utils from './utils.js';
+
+import eventMain from './eventMain.js';
+import preloader from './preloader.js';
+
+import collectionManager from './dialogs/collectionManager.js';
+import dialogManager from './dialogs/dialogManager.js';
 
 class Tutorial {
     constructor() {

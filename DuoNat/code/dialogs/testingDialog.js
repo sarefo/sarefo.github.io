@@ -1,7 +1,9 @@
-import api from './api.js';
-import d3Graphs from './d3Graphs.js';
+import api from '../api.js';
+import logger from '../logger.js';
+
+import d3Graphs from '../d3Graphs.js';
+
 import dialogManager from './dialogManager.js';
-import logger from './logger.js';
 
 const testingDialog = {
     initialize() {
