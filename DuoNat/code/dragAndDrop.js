@@ -312,21 +312,6 @@ const dragAndDrop = {
             });
         },
 
-/*        mirrorOtherElement(deltaY, gameContainerRect, elementWidth) {
-            const otherElement = dragAndDrop.state.draggedElement.id === 'name-x' ?
-                document.getElementById('name-y') :
-                document.getElementById('name-x');
-
-            if (otherElement) {
-                const leftPosition = gameContainerRect.left + (gameContainerRect.width / 2) - (elementWidth / 2);
-                const topPosition = dragAndDrop.state.otherElementInitialY - deltaY;
-
-                otherElement.style.position = 'fixed';
-                otherElement.style.left = `${leftPosition}px`;
-                otherElement.style.top = `${topPosition}px`;
-            }
-        },*/
-
         mirrorOtherElementHorizontal(deltaX, gameContainerRect, elementHeight) {
             const otherElement = dragAndDrop.state.draggedElement.id === 'name-x' ?
                 document.getElementById('name-y') :
