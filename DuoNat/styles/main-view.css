@@ -56,7 +56,7 @@
 .landscape-layout .image-container {
     max-width: calc(50% - 8px); /* Adjusted to allow for some gap */
     max-height: 86vh;
-    //max-height: none;
+    /*max-height: none;*/
     margin: 8px;
     aspect-ratio: 3/4;
 }
@@ -260,12 +260,11 @@
     hyphens: auto;
     box-shadow: 0 0 0 2px white;
     cursor: grab;
-    transition: box-shadow var(--transition-speed) ease;
     -webkit-touch-callout: none !important;
     -webkit-user-select: none !important;
     user-select: none !important;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
-    transition: left 0.1s ease-out, top 0.1s ease-out;
+    transition: box-shadow var(--transition-speed) ease, left 0.1s ease-out, top 0.1s ease-out;
 }
 
 .name-pair__item--draggable:hover {
@@ -327,32 +326,28 @@
     width: 300px !important;
     opacity: 0.9 !important;
     border: 2px solid white !important;
-    box-shadow: 0 0 0 2px white, 0 0 10px 3px rgba(255, 255, 255, 0.7);
     box-shadow: 0 0 10px 3px rgba(255, 255, 255, 0.7) !important;
     -webkit-box-shadow: 0 0 10px 3px rgba(255, 255, 255, 0.7) !important;
     /*transition: all 0.1s ease-out !important;*/
     z-index: 1000 !important;
-    transform: translateZ(0) !important;
-    -webkit-transform: scale(1.05) translateZ(0) !important;
+    transform: scale(1.05) translateZ(0) !important;
     -webkit-backface-visibility: hidden !important;
     -webkit-perspective: 1000 !important;
     cursor: grabbing !important;
 }
-
 .name-pair__item--dragging {
     /* Ensure the element is rendered as its own layer */
     -webkit-transform: translateZ(0) !important;
     transition: none;
 }
 .landscape-layout .name-pair__item--dragging {
-    transition: none;
 }
 
-.name-pair__item--draggable {
+/*.name-pair__item--draggable {
     -khtml-user-select: none !important;
     -moz-user-select: none !important;
     -ms-user-select: none !important;
-}
+}*/
 
 /* Message overlay */
 
@@ -419,8 +414,6 @@
 
 /* Next pair button */
 
-.next-pair-button {
-}
 .portrait-layout .next-pair-button {
     display: none;
 }
