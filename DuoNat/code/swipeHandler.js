@@ -57,7 +57,8 @@ const swipeHandler = {
 
     handleMouseDown(e) {
         if (imagePanner.isPanningEnabled && this.isPanning) return; 
-        if (this.isPanning || !e.target.closest('.image-container') || e.target.closest('.info-button')) return;
+        if (this.isPanning || !e.target.closest('.image-container')
+                || e.target.closest('.info-button') || state.getUseLandscape()) return;
         if (e.target.closest('.name-pair__item--draggable')) return;
         this.startX = e.clientX;
         this.startY = e.clientY;
@@ -67,7 +68,8 @@ const swipeHandler = {
 
     handleTouchStart(e) {
         if (imagePanner.isPanningEnabled && this.isPanning) return; 
-        if (this.isPanning || !e.target.closest('.image-container') || e.target.closest('.info-button')) {
+        if (this.isPanning || !e.target.closest('.image-container')
+                || e.target.closest('.info-button') || state.getUseLandscape()) {
             return;
         }
         this.startX = e.touches[0].clientX;
@@ -77,7 +79,7 @@ const swipeHandler = {
     },
 
     handleSwipeOrDrag(e) {
-        if (!this.isDragging || this.swipeDisabled || this.isPanning) {
+        if (!this.isDragging || this.swipeDisabled || this.isPanning || state.getUseLandscape()) {
             this.isDragging = false;
             return;
         }
