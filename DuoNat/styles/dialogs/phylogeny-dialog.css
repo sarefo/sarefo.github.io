@@ -14,6 +14,10 @@
     gap: 4px;
 }
 
+.landscape-layout .phylogeny-dialog__content {
+    flex-direction: row;
+}
+
 #phylogeny-done-button {
     height: 1.4em;
     display: flex;
@@ -73,12 +77,13 @@
 }
 
 .phylogeny-icon:hover {
-    transform: scale(1.05);
-    fill: var(--primary-color);
+    /* TODO persists on touch devices */
+    /*transform: scale(1.05);
+    fill: var(--primary-color);*/
 }
 
 .phylogeny-icon.active {
-    fill: var(--primary-color);
+    /*fill: var(--primary-color);*/
 }
 
 /* Controls */
