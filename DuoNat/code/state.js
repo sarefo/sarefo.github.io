@@ -34,6 +34,7 @@ let gameState = {
     hideCollManTaxa: true,
     hasKeyboard: true,
     useLandscape: false,
+    useSingleLevel: false, // debug only
 
     isInitialLoad: true,
 
@@ -44,6 +45,7 @@ let gameState = {
     // Filters
     currentPairID: null,
     selectedLevel: '',
+    selectedLevels: [],
     selectedRanges: [],
     selectedTags: [],
     phylogenyId: null,
@@ -302,6 +304,16 @@ const publicAPI = {
         }
     },
 
+    getUseSingleLevel: () => gameState.useSingleLevel,
+
+    getSelectedLevels: () => gameState.selectedLevels,
+    setSelectedLevels: (levels) => {
+        if (Array.isArray(levels)) {
+            updateGameState('selectedLevels', [...levels]);
+        } else {
+            logger.error('Selected levels must be an array');
+        }
+    },
     getSelectedLevel: () => gameState.selectedLevel,
     setSelectedLevel: (level) => {
         if (level === '' || (typeof level === 'string' && !isNaN(level) && level.trim() !== '')) {

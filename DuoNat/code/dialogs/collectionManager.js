@@ -1,4 +1,5 @@
 import api from '../api.js';
+import config from '../config.js';
 import logger from '../logger.js';
 import state from '../state.js';
 import ui from '../ui.js';
@@ -115,8 +116,19 @@ const collectionManager = {
         initializeLevelDropdown() {
             const levelDropdown = document.getElementById('level-filter-dropdown');
             if (levelDropdown) {
+                levelDropdown.innerHTML = `
+                    <option value="">All Levels</option>
+                    <option value="1">Easy</option>
+                    <option value="2">Medium</option>
+                    <option value="3">Hard</option>
+                    ${!state.getUseSingleLevel() ? `
+                    <option value="1,2">Easy + Medium</option>
+                    <option value="2,3">Medium + Hard</option>
+                    ` : ''}
+                `;
                 levelDropdown.addEventListener('change', (event) => {
-                    state.setSelectedLevel(event.target.value);
+                    const selectedLevels = event.target.value.split(',').map(Number);
+                    state.setSelectedLevels(selectedLevels);
                     collectionManager.taxonList.onFiltersChanged();
                 });
             }
@@ -471,22 +483,26 @@ const collectionManager = {
             if (levelDropdown) {
                 const activeFilters = filtering.getActiveFilters();
                 const counts = await filtering.countPairsPerLevel(activeFilters);
-                const totalCount = counts['1'] + counts['2'] + counts['3'];
-                const selectedLevel = state.getSelectedLevel();
+                const totalCount = Object.values(counts).reduce((a, b) => a + b, 0);
+                const selectedLevels = state.getSelectedLevels();
                 
                 levelDropdown.innerHTML = `
                     <option value="">All Levels (${totalCount})</option>
                     <option value="1">Easy (${counts['1']})</option>
                     <option value="2">Medium (${counts['2']})</option>
                     <option value="3">Hard (${counts['3']})</option>
+                    ${!state.getUseSingleLevel() ? `
+                    <option value="1,2">Easy + Medium (${counts['1'] + counts['2']})</option>
+                    <option value="2,3">Medium + Hard (${counts['2'] + counts['3']})</option>
+                    ` : ''}
                 `;
                 
-                levelDropdown.value = selectedLevel;
+                levelDropdown.value = selectedLevels.join(',');
 
                 // Update the selected option text to show filtered count
-                if (selectedLevel) {
-                    const filteredCount = await this.getFilteredCountForLevel(selectedLevel);
-                    const selectedOption = levelDropdown.querySelector(`option[value="${selectedLevel}"]`);
+                if (selectedLevels.length > 0) {
+                    const filteredCount = await this.getFilteredCountForLevels(selectedLevels);
+                    const selectedOption = levelDropdown.querySelector(`option[value="${selectedLevels.join(',')}"]`);
                     if (selectedOption) {
                         const levelText = selectedOption.textContent.split(' (')[0];
                         selectedOption.textContent = `${levelText} (${filteredCount})`;
@@ -495,10 +511,11 @@ const collectionManager = {
             }
         },
 
-        async getFilteredCountForLevel(level) {
+        // Update the getFilteredCountForLevel function to handle multiple levels
+        async getFilteredCountForLevels(levels) {
             const activeFilters = filtering.getActiveFilters();
             const filteredPairs = await filtering.getFilteredTaxonPairs(activeFilters);
-            return filteredPairs.filter(pair => pair.level === level).length;
+            return filteredPairs.filter(pair => levels.includes(Number(pair.level))).length;
         },
 
         async updateLevelCounts() {
@@ -527,8 +544,8 @@ const collectionManager = {
         },
 
         async handleLevelChange(event) {
-            const selectedLevel = event.target.value;
-            state.setSelectedLevel(selectedLevel);
+            const selectedLevels = event.target.value.split(',').map(Number);
+            state.setSelectedLevels(selectedLevels);
             await collectionManager.ui.updateLevelCounts();
             await collectionManager.taxonList.onFiltersChanged();
         },

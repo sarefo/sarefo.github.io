@@ -30,14 +30,14 @@ const url = {
         updateState(params) {
             // Handle level
             if (params.level) {
-                const level = params.level === 'all' ? '' : params.level;
-                state.setSelectedLevel(level);
-                logger.debug("Skill level from URL:", level);
+                const levels = params.level === 'all' ? [] : params.level.split(',').map(Number);
+                state.setSelectedLevels(levels);
+                logger.debug("Skill levels from URL:", levels);
             } else if (Object.values(params).some(value => value !== null)) {
-                state.setSelectedLevel('');
-                logger.debug("Cleared default level due to URL parameters");
+                state.setSelectedLevels([]);
+                logger.debug("Cleared default levels due to URL parameters");
             } else {
-                state.setSelectedLevel('1');
+                state.setSelectedLevels([1]);
                 logger.debug("Set default skill level to 1");
             }
 
@@ -90,9 +90,9 @@ const url = {
                 url.searchParams.set('tags', activeTags.join(','));
             }
 
-            const selectedLevel = state.getSelectedLevel();
-            if (selectedLevel && selectedLevel !== '') {
-                url.searchParams.set('level', selectedLevel);
+            const selectedLevels = state.getSelectedLevels();
+            if (selectedLevels && selectedLevels.length > 0) {
+                url.searchParams.set('level', selectedLevels.join(','));
             }
 
             const selectedRanges = state.getSelectedRanges();
