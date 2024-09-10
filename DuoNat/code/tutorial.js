@@ -143,7 +143,7 @@ class Tutorial {
 
         let container;
         if (this.currentTutorial === 'main') {
-            container = document.body;
+            container = document.getElementById('game-container');
         } else if (this.currentTutorial === 'collectionManager') {
             container = document.getElementById('collection-dialog');
         } else if (this.currentTutorial === 'infoDialog') {
