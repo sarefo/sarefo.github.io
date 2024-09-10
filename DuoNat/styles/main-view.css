@@ -424,14 +424,14 @@
     left: 50%;
     transform: translateX(-50%);
     bottom: 10px;
-    height: 2.45em;
+    height: 2.0em;
     z-index: 10;
 }
 
 .main-view-logo {
     flex-direction: row;
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
     z-index: 10;
 }
 .portrait-layout .main-view-logo {
@@ -442,14 +442,14 @@
     position: absolute;
     left: 15vw;
     top: 10px;
-    margin-top: -30px;
+    margin-top: -8px;
     transform: translateX(-50%);
 }
 .main-view-title {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    font-size: 2.5em;
+    font-size: 1.8em;
 }
 .portrait-layout .main-view-title {
     display: none;

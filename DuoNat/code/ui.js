@@ -509,7 +509,7 @@ const ui = {
             document.body.classList.toggle('landscape-layout', useLandscape);
             document.body.classList.toggle('portrait-layout', !useLandscape);
 
-            logger.warn("Orientation changed to", useLandscape ? "landscape" : "portrait");
+            //logger.warn("Orientation changed to", useLandscape ? "landscape" : "portrait");
         },
 
         handleOrientationChange() {

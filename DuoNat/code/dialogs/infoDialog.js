@@ -36,6 +36,9 @@ const infoDialog = {
         const dialog = document.getElementById('info-dialog');
         this.frameImage(imageIndex);
 
+        const namePair = document.getElementById('name-pair');
+        namePair.style.display = 'none';
+
         await this.populateDialogContent(currentTaxon);
         this.setupDialogButtons(currentTaxon, imageIndex);
         this.positionDialog(dialog, imageIndex);
@@ -256,6 +259,9 @@ const infoDialog = {
     closeInfoDialog(dialog) {
         dialog.close();
         this.removeImageFraming();
+
+        const namePair = document.getElementById('name-pair');
+        namePair.style.display = 'flex';
     },
 
     handleDialogClose() {
