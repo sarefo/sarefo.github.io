@@ -4438,7 +4438,7 @@
     ]
   },
   "251": {
-    "pairName": "Sandperches",
+    "pairName": "Whitestripe vs Spotted Sandperch",
     "level": "2",
     "tags": [
       "ocean"
@@ -4457,7 +4457,7 @@
     ]
   },
   "252": {
-    "pairName": "Lionfish",
+    "pairName": "Common vs Spotfin Lionfish",
     "level": "2",
     "tags": [
       "ocean"
@@ -4476,7 +4476,7 @@
     ]
   },
   "253": {
-    "pairName": "Bridled Gobies",
+    "pairName": "Shoulderspot Gobies",
     "level": "3",
     "tags": [
       "ocean"
@@ -4495,7 +4495,7 @@
     ]
   },
   "254": {
-    "pairName": "Wormfish",
+    "pairName": "Curious vs Yellowstripe Wormfish",
     "level": "2",
     "tags": [
       "ocean"
@@ -4514,7 +4514,7 @@
     ]
   },
   "255": {
-    "pairName": "Manta Rays",
+    "pairName": "Reef vs Oceanic Manta Ray",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -4531,7 +4531,7 @@
     ]
   },
   "256": {
-    "pairName": "Swallowtail Butterflies",
+    "pairName": "Old World vs Chinese Swallowtail",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -4547,7 +4547,7 @@
     ]
   },
   "257": {
-    "pairName": "North American Swallowtails",
+    "pairName": "Black vs Anise Swallowtail",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -4563,7 +4563,7 @@
     ]
   },
   "258": {
-    "pairName": "Longwing Butterflies",
+    "pairName": "Postmen",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -4580,7 +4580,7 @@
     ]
   },
   "259": {
-    "pairName": "Red Admiral Butterflies",
+    "RairName": "Red vs Indian Red Admiral",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -4596,7 +4596,7 @@
     ]
   },
   "260": {
-    "pairName": "Cabbage White Butterflies",
+    "pairName": "Small vs Green-veined White",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -4614,7 +4614,7 @@
     ]
   },
   "261": {
-    "pairName": "Copper Butterflies",
+    "pairName": "Small vs Large Copper",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -4631,7 +4631,7 @@
     ]
   },
   "262": {
-    "pairName": "Peacock Butterflies",
+    "pairName": "European Peacock vs Small Tortoiseshell",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -4648,7 +4648,7 @@
     ]
   },
   "263": {
-    "pairName": "Brimstone Butterflies",
+    "pairName": "Brimstone vs Cleopatra Butterfly",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -4666,7 +4666,7 @@
     ]
   },
   "264": {
-    "pairName": "Comma Butterflies",
+    "pairName": "Comma vs Questionmark",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -4680,7 +4680,7 @@
     "range": []
   },
   "265": {
-    "pairName": "Large Nymphalid Butterflies",
+    "pairName": "Mourning Cloak vs Large Tortoiseshell",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -4697,7 +4697,7 @@
     ]
   },
   "266": {
-    "pairName": "Ringlet Butterflies",
+    "pairName": "Arran Brown vs Large Ringlet",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -4713,7 +4713,7 @@
     ]
   },
   "267": {
-    "pairName": "Monarch Butterflies",
+    "pairName": "Monarch vs Queen",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -4730,7 +4730,7 @@
     ]
   },
   "268": {
-    "pairName": "True Butterflies",
+    "pairName": "Butterflies vs Geometrid Moths",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -4751,7 +4751,7 @@
     ]
   },
   "269": {
-    "pairName": "Butterflies vs Moths",
+    "pairName": "Butterflies vs Hawk Moths",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -4788,7 +4788,7 @@
     ]
   },
   "271": {
-    "pairName": "Large Hawkmoths",
+    "pairName": "Poplar vs Eyed Hawkmoth",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -4805,7 +4805,7 @@
     ]
   },
   "272": {
-    "pairName": "Red Underwing Moths",
+    "pairName": "Red vs Dark Crimson Underwing",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -4822,7 +4822,7 @@
     ]
   },
   "273": {
-    "pairName": "Io Moths",
+    "pairName": "Io Moth vs Cecrops Eyed Silkmoth",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -4838,7 +4838,7 @@
     ]
   },
   "274": {
-    "pairName": "Emperor Moths",
+    "pairName": "Small Emperor vs Giant Peacock Moth",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -4855,7 +4855,7 @@
     ]
   },
   "275": {
-    "pairName": "Tiger Moths",
+    "pairName": "Garden vs Wood Tiger",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -4873,7 +4873,7 @@
     ]
   },
   "276": {
-    "pairName": "Dart Moths",
+    "pairName": "Black-letter Dart vs Double Square-spot",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -4890,7 +4890,7 @@
     ]
   },
   "277": {
-    "pairName": "Jersey Tiger Moths",
+    "pairName": "Jersey vs Scarlet Tiger",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -4907,7 +4907,7 @@
     ]
   },
   "278": {
-    "pairName": "Prominent Moths",
+    "pairName": "Buff-tip vs Puff Moth",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -4924,7 +4924,7 @@
     ]
   },
   "279": {
-    "pairName": "Carpenter Moths",
+    "pairName": "Goat vs Wood Leopard Moth",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -4941,7 +4941,7 @@
     ]
   },
   "280": {
-    "pairName": "Sphinx Moths",
+    "pairName": "Carolina Sphinx vs Five-spotted Hawk Moth",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -4958,7 +4958,7 @@
     ]
   },
   "281": {
-    "pairName": "Luna Moths",
+    "pairName": "North American Luni Moth vs Chinese Moon Moth",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -4972,7 +4972,7 @@
     "range": []
   },
   "282": {
-    "pairName": "Bagworm Moths",
+    "pairName": "Bagworm vs Fungus Moths",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -4993,7 +4993,7 @@
     ]
   },
   "283": {
-    "pairName": "Leaf Roller Moths",
+    "pairName": "Leafroller vs Burnet Moths",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -5014,7 +5014,7 @@
     ]
   },
   "284": {
-    "pairName": "Burnet Moths",
+    "pairName": "Burnet vs Slug Caterpillar Moths",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -5035,7 +5035,7 @@
     ]
   },
   "285": {
-    "pairName": "Wave Moths",
+    "pairName": "Lace-border Moths",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -5049,7 +5049,7 @@
     "range": []
   },
   "286": {
-    "pairName": "Tiger Moths",
+    "pairName": "Wasp Moths",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -5065,7 +5065,7 @@
     ]
   },
   "287": {
-    "pairName": "Clearwing Moths",
+    "pairName": "Wasps and Moth mimic",
     "level": "1",
     "tags": [
       "mimicry"
@@ -5102,7 +5102,7 @@
     ]
   },
   "289": {
-    "pairName": "Large Bees",
+    "pairName": "Bumble Bee vs Carpenter Bee",
     "level": "1",
     "tags": [
       "pollinators"
@@ -5121,7 +5121,7 @@
     ]
   },
   "290": {
-    "pairName": "Large Wasps",
+    "pairName": "European vs Yellow-legged Hornet",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -5138,7 +5138,7 @@
     ]
   },
   "291": {
-    "pairName": "Honey Bees",
+    "pairName": "Western vs Asian Honey Bee",
     "level": "3",
     "tags": [
       "pollinators"
@@ -5156,7 +5156,7 @@
     ]
   },
   "292": {
-    "pairName": "Bumblebees",
+    "pairName": "Common vs Moss Carder Bee",
     "level": "2",
     "tags": [
       "pollinators"
@@ -5175,7 +5175,7 @@
     ]
   },
   "293": {
-    "pairName": "Social Wasps",
+    "pairName": "European vs German Yellowjacket",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -5193,7 +5193,7 @@
     ]
   },
   "294": {
-    "pairName": "Ants vs Ant Mimics",
+    "pairName": "Ants vs Ant Mimicking Jumping Spiders",
     "level": "2",
     "tags": [
       "mimicry"
@@ -5216,7 +5216,7 @@
     ]
   },
   "295": {
-    "pairName": "Ant Subfamilies",
+    "pairName": "Formicine vs Myrmicine Ants",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -5237,7 +5237,7 @@
     ]
   },
   "296": {
-    "pairName": "Primitive Ants",
+    "pairName": "Bull vs Myrmicine Ants",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -5253,7 +5253,7 @@
     ]
   },
   "297": {
-    "pairName": "Diverse Ant Groups",
+    "pairName": "Odorous vs Carpenter Ants",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -5274,7 +5274,7 @@
     ]
   },
   "298": {
-    "pairName": "Stinging Ants",
+    "pairName": "Ponerine vs Carpenter Ants",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -5295,7 +5295,7 @@
     ]
   },
   "299": {
-    "pairName": "Primitive vs Stinging Ants",
+    "pairName": "Ponerine Ants vs Paraponerinae",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -5311,7 +5311,7 @@
     ]
   },
   "300": {
-    "pairName": "Invasive Ants",
+    "pairName": "Yellow Crazy Ant vs Red Fire Ant",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -5351,7 +5351,7 @@
     ]
   },
   "302": {
-    "pairName": "Large Beetles",
+    "pairName": "Stag Beetle vs Tanner",
     "level": "1",
     "tags": [],
     "taxa": [
@@ -5368,7 +5368,7 @@
     ]
   },
   "303": {
-    "pairName": "Ladybugs",
+    "pairName": "Seven-spotted vs Asian Lady Beetle",
     "level": "2",
     "tags": [],
     "taxa": [
