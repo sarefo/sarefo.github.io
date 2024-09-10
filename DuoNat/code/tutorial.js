@@ -375,10 +375,17 @@ const tutorial = new Tutorial();
 const mainTutorialSteps = [
 
 
-    { message: "Welcome to DuoNat!<br>Let's learn how to play.", highlight: null, duration: 4000 },
-    { message: "Learn to distinguish two different taxa.", highlights: ['#image-container-1', '#image-container-2'], duration: 5000 },
-    { message: "Drag a name to the correct image.", highlight: null /*'.name-pair'*/, duration: 5000, action: () => tutorial.animateDragDemo() },
-    { message: "If correct, play another round of the same pair.", highlight: null, duration: 6000, action: () => tutorial.demonstrateImageSwitch() },
+    { message: "Welcome to DuoNat!<br>Let's learn how to play.",
+      highlight: null,
+      duration: 4000 },
+    { message: "Learn to distinguish two different taxa.",
+      highlights: ['#image-container-1', '#image-container-2'], duration: 5000 },
+    { message: "Drag a name to the correct image.",
+      highlight: null /*'.name-pair'*/, duration: 5000,
+      action: () => tutorial.animateDragDemo() },
+    { message: "If correct, play another round of the same pair.",
+      highlight: null, duration: 6000,
+      action: () => tutorial.demonstrateImageSwitch() },
     {
         message: () => {
             const isLandscape = state.getUseLandscape();
@@ -395,7 +402,9 @@ const mainTutorialSteps = [
         },
         duration: 6000
     },
-    { message: "Get more info about a taxon.", highlights: ['#info-button-1', '#info-button-2'], duration: 6000 },
+    { message: "Get more info about a taxon.",
+      highlights: ['#info-button-1', '#info-button-2'],
+      duration: 6000 },
     { message: "Share the current pair and collection.", highlight: '#share-button', duration: 6000 },
     { message: "Change difficulty, browse or filter.", highlight: '#level-indicator', duration: 5000 },
     { message: "Filter by common ancestry.", highlight: '#ancestry-button', duration: 5000 },
@@ -405,12 +414,14 @@ const mainTutorialSteps = [
 const collectionManagerTutorialSteps = [
     { message: "Here you can choose which pairs to play.", highlight: null, duration: 4000 },
     { message: "Easy or hard? Set the level here.", highlight: '#level-filter-dropdown', duration: 5000 },
-    { message: "Which part of the Tree of Life do you want to play? Choose here.", highlight: '#select-phylogeny-button', duration: 5000 },
+    { message: "Which part of the Tree of Life do you want to play? Choose here.",
+      highlight: '#select-phylogeny-button', duration: 5000 },
     { message: "You can select tags here.", highlight: '#select-tags-button', duration: 5000 },
     { message: "Click the map to restrict by continent.", highlight: '.filter-summary__map', duration: 5000 },
     { message: "Search by taxon or common name.", highlight: '#taxon-search', duration: 5000 },
     { message: "Clear all filters to access all pairs.", highlight: '#clear-all-filters', duration: 5000 },
-    { message: "Click on 'Play' to play your filtered collection.", highlight: '#collection-done-button', duration: 5000 }
+    { message: "Click on 'Play' to play your filtered collection.",
+      highlight: '#collection-done-button', duration: 5000 }
 ];
 
 const infoDialogTutorialSteps = [

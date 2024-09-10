@@ -265,8 +265,6 @@
     user-select: none !important;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
     transition: box-shadow var(--transition-speed) ease, left 0.1s ease-out, top 0.1s ease-out;
-    /*transform: translate3d(0,0,0);
-    will-change: transform;*/
 }
 
 .name-pair__item--draggable:hover {
@@ -330,7 +328,6 @@
     border: 2px solid white !important;
     box-shadow: 0 0 10px 3px rgba(255, 255, 255, 0.7) !important;
     -webkit-box-shadow: 0 0 10px 3px rgba(255, 255, 255, 0.7) !important;
-    /*transition: all 0.1s ease-out !important;*/
     z-index: 1000 !important;
     transform: scale(1.05) translateZ(0) !important;
     -webkit-backface-visibility: hidden !important;
@@ -341,16 +338,9 @@
     /* Ensure the element is rendered as its own layer */
     -webkit-transform: translateZ(0) !important;
     transition: none;
-    /*transform: scale(1.05) translate3d(0, 0, 0) !important;*/
 }
 .landscape-layout .name-pair__item--dragging {
 }
-
-/*.name-pair__item--draggable {
-    -khtml-user-select: none !important;
-    -moz-user-select: none !important;
-    -ms-user-select: none !important;
-}*/
 
 /* Message overlay */
 
