@@ -265,6 +265,8 @@
     user-select: none !important;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
     transition: box-shadow var(--transition-speed) ease, left 0.1s ease-out, top 0.1s ease-out;
+    /*transform: translate3d(0,0,0);
+    will-change: transform;*/
 }
 
 .name-pair__item--draggable:hover {
@@ -339,6 +341,7 @@
     /* Ensure the element is rendered as its own layer */
     -webkit-transform: translateZ(0) !important;
     transition: none;
+    /*transform: scale(1.05) translate3d(0, 0, 0) !important;*/
 }
 .landscape-layout .name-pair__item--dragging {
 }
