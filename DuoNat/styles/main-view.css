@@ -352,7 +352,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 10001;
+    z-index: 1001;
     opacity: 0;
     pointer-events: none;
     transition: opacity var(--transition-speed) ease, background-color var(--transition-speed) ease;

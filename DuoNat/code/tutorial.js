@@ -28,6 +28,7 @@ class Tutorial {
         if (tutorialType === 'main') {
             this.closeHelpDialog();
             this.showInitialOverlay();
+            this.createTutorialOverlay();
         } else if (tutorialType === 'collectionManager') {
             this.expandTaxonPairs();
             this.createOverlay('collection-dialog');
@@ -35,7 +36,11 @@ class Tutorial {
             this.createOverlay('info-dialog');
         }
     }
-
+    createTutorialOverlay() {
+        this.tutorialOverlay = document.createElement('div');
+        this.tutorialOverlay.className = 'tutorial-overlay';
+        document.body.appendChild(this.tutorialOverlay);
+    }
     closeHelpDialog() {
         const helpDialog = document.getElementById('help-dialog');
         if (helpDialog && helpDialog.open) {
@@ -158,6 +163,7 @@ class Tutorial {
         highlight.style.height = `${targetRect.height}px`;
         highlight.style.top = `${targetRect.top - containerRect.top}px`;
         highlight.style.left = `${targetRect.left - containerRect.left}px`;
+        highlight.style.zIndex = '999';
 
         const animationDuration = 1; // seconds
         const iterationCount = Math.floor(duration / 1000 / animationDuration);
@@ -379,7 +385,7 @@ const mainTutorialSteps = [
       highlight: null,
       duration: 4000 },
     { message: "Learn to distinguish two different taxa.",
-      highlights: ['#image-container-1', '#image-container-2'], duration: 5000 },
+      highlight: null, duration: 5000 },
     { message: "Drag a name to the correct image.",
       highlight: null /*'.name-pair'*/, duration: 5000,
       action: () => tutorial.animateDragDemo() },
