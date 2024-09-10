@@ -5386,7 +5386,7 @@
     ]
   },
   "304": {
-    "pairName": "Tiger Beetles",
+    "pairName": "Green vs Dune Tiger Beetle",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -5403,7 +5403,7 @@
     ]
   },
   "305": {
-    "pairName": "Longhorn Beetles",
+    "pairName": "Capricorn Beetles",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -5420,7 +5420,7 @@
     ]
   },
   "306": {
-    "pairName": "Chafer Beetles",
+    "pairName": "Common vs Summer Chafer",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -5454,7 +5454,7 @@
     ]
   },
   "308": {
-    "pairName": "Two-spot Ladybugs",
+    "pairName": "Two-spot vs Ten-spot Lady Beetle",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -5471,7 +5471,7 @@
     ]
   },
   "309": {
-    "pairName": "Spotted Ladybugs",
+    "pairName": "14 vs 22-spot Lady Beetle",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -5488,7 +5488,7 @@
     ]
   },
   "310": {
-    "pairName": "Variegated Ladybugs",
+    "pairName": "Variegated vs 13-spot Lady Beetle",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -5506,7 +5506,7 @@
     ]
   },
   "311": {
-    "pairName": "Eyed Ladybugs",
+    "pairName": "Eyed vs Cream-spotteed Lady Beetle",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -5524,7 +5524,7 @@
     ]
   },
   "312": {
-    "pairName": "Eleven-spot Ladybugs",
+    "pairName": "11 vs Scarce 7-spot Lady Beetle",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -5541,7 +5541,7 @@
     ]
   },
   "313": {
-    "pairName": "Cream-spot Ladybugs",
+    "pairName": "Orange vs 12-spot Lady Beetle",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -5558,7 +5558,7 @@
     ]
   },
   "314": {
-    "pairName": "Orange Ladybugs",
+    "pairName": "18 vs 22-spot Lady Beetle",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -5575,7 +5575,7 @@
     ]
   },
   "315": {
-    "pairName": "Kidney-spot Ladybugs",
+    "pairName": "Kidney-spot vs Heather Lady Beetle",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -5592,7 +5592,7 @@
     ]
   },
   "316": {
-    "pairName": "Pine Ladybugs",
+    "pairName": "Pine vs Ant-nest Lady Beetle",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -5609,7 +5609,7 @@
     ]
   },
   "317": {
-    "pairName": "24-spot Ladybugs",
+    "pairName": "24-spot vs No-spot Lady Beetle",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -5626,7 +5626,7 @@
     ]
   },
   "318": {
-    "pairName": "Water Ladybugs",
+    "pairName": "Water vs 14-spot Lady Beetle",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -5643,7 +5643,7 @@
     ]
   },
   "319": {
-    "pairName": "Cream-streaked Ladybugs",
+    "pairName": "Cream-streaked vs Large spotted Lady Beetle",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -5659,7 +5659,7 @@
     ]
   },
   "320": {
-    "pairName": "Striped Ladybugs",
+    "pairName": "Oenopia Lady Beetles",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -5676,7 +5676,7 @@
     ]
   },
   "321": {
-    "pairName": "Convergent Ladybugs",
+    "pairName": "Spotted Pink vs Convergent Lady Beetle",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -5693,7 +5693,7 @@
     ]
   },
   "322": {
-    "pairName": "Hieroglyphic Ladybugs",
+    "pairName": "Hieroglyphic vs Three-banded Lady Beetles",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -5710,7 +5710,7 @@
     ]
   },
   "323": {
-    "pairName": "Asian Ladybugs",
+    "pairName": "6-spot Zigzag vs Small Transverse Lady Beetles",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -5727,7 +5727,7 @@
     ]
   },
   "324": {
-    "pairName": "Large Mantids",
+    "pairName": "European vs Chinese Mantid",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -5744,7 +5744,7 @@
     ]
   },
   "325": {
-    "pairName": "Conehead Mantids",
+    "pairName": "Mediterranean vs Fasciated Conehead Mantid",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -5762,7 +5762,7 @@
     ]
   },
   "326": {
-    "pairName": "Mediterranean Mantids",
+    "pairName": "Dwarf vs Grey Mantid",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -5778,7 +5778,7 @@
     ]
   },
   "327": {
-    "pairName": "Giant Mantids",
+    "pairName": "Giant African vs Asian Mantid",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -5792,7 +5792,7 @@
     "range": []
   },
   "328": {
-    "pairName": "Asian Mantids",
+    "pairName": "Giant Asian vs Gressitt's Mantid",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -5808,7 +5808,7 @@
     ]
   },
   "329": {
-    "pairName": "Field Crickets",
+    "pairName": "European vs Southern Field Cricket",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -5825,7 +5825,7 @@
     ]
   },
   "330": {
-    "pairName": "Great Green Bush-crickets",
+    "pairName": "Great vs Upland Green Bush-cricket",
     "level": "3",
     "tags": [],
     "taxa": [
