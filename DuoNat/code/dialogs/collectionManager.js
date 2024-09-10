@@ -478,38 +478,39 @@ const collectionManager = {
             }
         },
 
-        async updateLevelDropdown() {
-            const levelDropdown = document.getElementById('level-filter-dropdown');
-            if (levelDropdown) {
-                const activeFilters = filtering.getActiveFilters();
-                const counts = await filtering.countPairsPerLevel(activeFilters);
-                const totalCount = Object.values(counts).reduce((a, b) => a + b, 0);
-                const selectedLevels = state.getSelectedLevels();
-                
-                levelDropdown.innerHTML = `
-                    <option value="">All Levels (${totalCount})</option>
-                    <option value="1">Easy (${counts['1']})</option>
-                    <option value="2">Medium (${counts['2']})</option>
-                    <option value="3">Hard (${counts['3']})</option>
-                    ${!state.getUseSingleLevel() ? `
-                    <option value="1,2">Easy + Medium (${counts['1'] + counts['2']})</option>
-                    <option value="2,3">Medium + Hard (${counts['2'] + counts['3']})</option>
-                    ` : ''}
-                `;
-                
-                levelDropdown.value = selectedLevels.join(',');
+    async updateLevelDropdown() {
+        const levelDropdown = document.getElementById('level-filter-dropdown');
+        if (levelDropdown) {
+            const activeFilters = filtering.getActiveFilters();
+            const counts = await filtering.countPairsPerLevel(activeFilters);
+            const totalCount = Object.values(counts).reduce((a, b) => a + b, 0);
+            const selectedLevels = state.getSelectedLevels();
+            
+            levelDropdown.innerHTML = `
+                <option value="">All Levels (${totalCount})</option>
+                <option value="1">Easy (${counts['1']})</option>
+                <option value="2">Medium (${counts['2']})</option>
+                <option value="3">Hard (${counts['3']})</option>
+                ${!state.getUseSingleLevel() ? `
+                <option value="1,2">Easy + Medium</option>
+                <option value="2,3">Medium + Hard</option>
+                ` : ''}
+            `;
+            
+            levelDropdown.value = selectedLevels.join(',');
 
-                // Update the selected option text to show filtered count
-                if (selectedLevels.length > 0) {
-                    const filteredCount = await this.getFilteredCountForLevels(selectedLevels);
-                    const selectedOption = levelDropdown.querySelector(`option[value="${selectedLevels.join(',')}"]`);
-                    if (selectedOption) {
-                        const levelText = selectedOption.textContent.split(' (')[0];
-                        selectedOption.textContent = `${levelText} (${filteredCount})`;
-                    }
-                }
+            // Update the selected option text to show filtered count
+            if (selectedLevels.length > 0) {
+                const filteredCount = await this.getFilteredCountForLevels(selectedLevels);
+                const selectedOption = levelDropdown.querySelector(`option[value="${selectedLevels.join(',')}"]`);
+                //const selectedOption = levelDropdown.querySelector(`option[value="${selectedLevels.join(',')}"]`);
+                /*if (selectedOption) {
+                    const levelText = selectedOption.textContent.split(' (')[0];
+                    selectedOption.textContent = `${levelText} (${filteredCount})`;
+                }*/
             }
-        },
+        }
+    },
 
         // Update the getFilteredCountForLevel function to handle multiple levels
         async getFilteredCountForLevels(levels) {
@@ -529,7 +530,7 @@ const collectionManager = {
                 const updateOption = async (option) => {
                     if (option.value === '') {
                         option.textContent = `All Levels (${totalCount})`;
-                    } else {
+                    } else if (["1", "2", "3"].includes(option.value)) {
                         const level = option.value;
                         const count = level === selectedLevel ? 
                             await this.getFilteredCountForLevel(level) : 
