@@ -294,13 +294,9 @@ const dragAndDrop = {
 
             if (orientation === 'landscape') {
                 const deltaX = clientX - dragAndDrop.state.initialX;
+                topPosition = gameContainerRect.top + (elementHeight / 2);
                 leftPosition = clientX - dragAndDrop.state.touchOffset.x - (gameContainerRect.width / 2) + (elementWidth / 2);
-                
-                // Push the tile half a screen higher
-                // Doesn't work for some reason
-                //topPosition = window.innerHeight / 2 - elementHeight / 2;
-                
-                this.mirrorOtherElementHorizontal(deltaX, gameContainerRect, elementHeight);
+                this.mirrorOtherElementHorizontal(deltaX, gameContainerRect, elementHeight, elementWidth);
             } else {
                 const deltaY = clientY - dragAndDrop.state.initialY;
                 leftPosition = gameContainerRect.left + (gameContainerRect.width / 2) - (elementWidth / 2);
@@ -317,15 +313,14 @@ const dragAndDrop = {
             });
         },
 
-        mirrorOtherElementHorizontal(deltaX, gameContainerRect, elementHeight) {
+        mirrorOtherElementHorizontal(deltaX, gameContainerRect, elementHeight, elementWidth) {
             const otherElement = dragAndDrop.state.draggedElement.id === 'name-x' ?
                 document.getElementById('name-y') :
                 document.getElementById('name-x');
 
             if (otherElement) {
-                const leftPosition = dragAndDrop.state.otherElementInitialX - deltaX - (gameContainerRect.height / 2);
-                //const topPosition = dragAndDrop.state.otherElementInitialY;
-                const topPosition = gameContainerRect.top; //+ (gameContainerRect.height / 2) - (elementHeight / 2);
+                const topPosition = gameContainerRect.top + (elementHeight / 2);
+                const leftPosition = dragAndDrop.state.otherElementInitialX - deltaX - (gameContainerRect.width / 2)+ (elementWidth / 2);
 
                 otherElement.style.position = 'fixed';
                 otherElement.style.left = `${leftPosition}px`;
