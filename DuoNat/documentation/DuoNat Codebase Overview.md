@@ -34,6 +34,7 @@ The DuoNat project is primarily written in JavaScript, with HTML and CSS for the
 
 ### Component-Specific Modules
 
++ dialog-specific modules are in code/dialogs
 + `ancestryDialog.js`: Visualizes taxonomic relationships between two active taxa.
 + `ancestryPopup.js`: provides per-node functionality in the ancestryDialog.
 + `collectionManager.js` : Handles the collection manager dialog and its components.
