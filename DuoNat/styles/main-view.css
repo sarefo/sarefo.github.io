@@ -261,7 +261,7 @@
     white-space: nowrap;
     word-break: break-word;
     hyphens: auto;
-    box-shadow: 0 0 0 2px white;
+    /*box-shadow: 0 0 0 2px white;*/
     cursor: grab;
     -webkit-touch-callout: none !important;
     -webkit-user-select: none !important;
@@ -276,10 +276,15 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.portrait-layout .name-pair__item--draggable {
+    box-shadow: 0 0 0 2px white;
+}
+
 .landscape-layout .name-pair__item--draggable {
     position: relative;
     width: 100%; /* Full width of the name-pair container */
     max-width: none; /* Remove max-width constraint */
+    box-shadow: 0 0 0 2px white;
 }
 
 .name-pair__item--landing {

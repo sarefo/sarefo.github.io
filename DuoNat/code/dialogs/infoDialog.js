@@ -41,6 +41,7 @@ const infoDialog = {
             namePair.classList.add('name-pair--hidden');
             namePair.style.display = 'none !important';
             logger.debug("name pair should be hidden now");
+        } else {
         }
 
         await this.populateDialogContent(currentTaxon);
@@ -249,17 +250,18 @@ const infoDialog = {
             const namePairHeight = parseInt(window.getComputedStyle(namePairContainer).height);
             const namePairTop = container1Rect.bottom;
             const namePairBottom = container2Rect.top;
+            logger.debug("namePairHeight, namePairTop, namePairBottom:", namePairHeight,namePairTop, namePairBottom);
 
             if (imageIndex === 1) {
                 // For top image, position from name-pair top to bottom of screen
-                dialog.style.top = `${namePairTop - (namePairHeight / 2)}px`;
+                dialog.style.top = `${namePairTop + 4}px`;
                 dialog.style.bottom = image2Container.bottom;
-                dialog.style.height = `${window.innerHeight - namePairTop + (namePairHeight / 2)}px`;
+                dialog.style.height = `${window.innerHeight - namePairTop - 8 }px`;
             } else {
                 // For bottom image, position from top of screen to name-pair bottom
-                dialog.style.top = '0px';
-                dialog.style.bottom = `${image1Container.bottom + (namePairHeight / 2)}px`;
-                dialog.style.height = `${namePairBottom + (namePairHeight / 2)}px`;
+                dialog.style.top = '4px';
+                dialog.style.bottom = `${image1Container.bottom - 8}px`;
+                dialog.style.height = `${namePairBottom - 8}px`;
             }
         }
 
