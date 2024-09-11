@@ -36,8 +36,11 @@ const infoDialog = {
         const dialog = document.getElementById('info-dialog');
         this.frameImage(imageIndex);
 
-        const namePair = document.getElementById('name-pair');
-        namePair.style.display = 'none';
+        if (state.getUseLandscape()) {
+            const namePair = document.getElementById('name-pair');
+            namePair.style.display = 'none';
+            logger.debug("name pair should be gone now");
+        }
 
         await this.populateDialogContent(currentTaxon);
         this.setupDialogButtons(currentTaxon, imageIndex);
@@ -210,67 +213,54 @@ const infoDialog = {
     },
 
     positionDialog(dialog, imageIndex) {
-        const leftImageContainer = document.getElementById('image-container-1');
-        const rightImageContainer = document.getElementById('image-container-2');
-        const namePairContainer = document.querySelector('.name-pair');
+        const image1Container = document.getElementById('image-container-1');
+        const image2Container = document.getElementById('image-container-2');
+        const namePairContainer = document.getElementById('name-pair');
 
-        if (!leftImageContainer || !rightImageContainer || !namePairContainer) {
+        if (!image1Container || !image2Container || !namePairContainer) {
             logger.error('One or more required elements not found');
             return;
         }
 
-        const leftContainerRect = leftImageContainer.getBoundingClientRect();
-        const rightContainerRect = rightImageContainer.getBoundingClientRect();
+        const container1Rect = image1Container.getBoundingClientRect();
+        const container2Rect = image2Container.getBoundingClientRect();
         const namePairRect = namePairContainer.getBoundingClientRect();
 
-        logger.debug('Left container rect:', leftContainerRect);
-        logger.debug('Right container rect:', rightContainerRect);
-        logger.debug('Name pair rect:', namePairRect);
-
         if (state.getUseLandscape()) {
-            // Landscape mode positioning (unchanged)
+            // Landscape mode positioning
             if (imageIndex === 1) {
-                dialog.style.left = `${rightContainerRect.left}px`;
-                dialog.style.right = `${window.innerWidth - rightContainerRect.right}px`;
-                dialog.style.top = `${rightContainerRect.top}px`;
-                dialog.style.bottom = `${window.innerHeight - rightContainerRect.bottom}px`;
+                dialog.style.left = `${container2Rect.left}px`;
+                dialog.style.right = `${window.innerWidth - container2Rect.right}px`;
+                dialog.style.top = `${container2Rect.top}px`;
+                dialog.style.bottom = `${window.innerHeight - container2Rect.bottom}px`;
             } else {
-                dialog.style.left = `${leftContainerRect.left}px`;
-                dialog.style.right = `${window.innerWidth - leftContainerRect.right}px`;
-                dialog.style.top = `${leftContainerRect.top}px`;
-                dialog.style.bottom = `${window.innerHeight - leftContainerRect.bottom}px`;
+                dialog.style.left = `${container1Rect.left}px`;
+                dialog.style.right = `${window.innerWidth - container1Rect.right}px`;
+                dialog.style.top = `${container1Rect.top}px`;
+                dialog.style.bottom = `${window.innerHeight - container1Rect.bottom}px`;
             }
         } else {
-            // Portrait mode positioning (updated)
+            // Portrait mode positioning
             dialog.style.left = '50%';
             dialog.style.right = 'auto';
             dialog.style.width = '100%';
             
-            const totalHeight = window.innerHeight;
-            const imageHeight = leftContainerRect.height; // Assuming both images have the same height
-            const namePairHeight = totalHeight - (2 * imageHeight);
+            const namePairHeight = parseInt(window.getComputedStyle(namePairContainer).height);
+            const namePairTop = container1Rect.bottom;
+            const namePairBottom = container2Rect.top;
 
             if (imageIndex === 1) {
                 // For top image, position from name-pair top to bottom of screen
-                dialog.style.top = `${imageHeight}px`;
-                dialog.style.bottom = '0px';
-                dialog.style.height = `${totalHeight - imageHeight}px`;
+                dialog.style.top = `${namePairTop - (namePairHeight / 2)}px`;
+                dialog.style.bottom = image2Container.bottom;
+                dialog.style.height = `${window.innerHeight - namePairTop + (namePairHeight / 2)}px`;
             } else {
                 // For bottom image, position from top of screen to name-pair bottom
                 dialog.style.top = '0px';
-                dialog.style.bottom = `${imageHeight + namePairHeight}px`;
-                dialog.style.height = `${totalHeight - imageHeight - namePairHeight}px`;
+                dialog.style.bottom = `${image1Container.bottom + (namePairHeight / 2)}px`;
+                dialog.style.height = `${namePairBottom + (namePairHeight / 2)}px`;
             }
         }
-
-        logger.debug(`Dialog position for image ${imageIndex}:`, {
-            top: dialog.style.top,
-            bottom: dialog.style.bottom,
-            left: dialog.style.left,
-            right: dialog.style.right,
-            width: dialog.style.width,
-            height: dialog.style.height
-        });
 
         // Ensure name-pair container remains visible
         namePairContainer.style.display = 'flex';
