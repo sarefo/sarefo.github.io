@@ -7738,7 +7738,7 @@
     ]
   },
   "451": {
-    "pairName": "Wolf Spiders",
+    "pairName": "Spotted vs Common Wolf Spider",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -7772,7 +7772,7 @@
     ]
   },
   "453": {
-    "pairName": "Green Spiders",
+    "pairName": "Green Huntsman vs Agrarian Sac Spider",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -7789,7 +7789,7 @@
     ]
   },
   "454": {
-    "pairName": "Crab Spiders",
+    "pairName": "Xysticus Crab Spiders",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -7806,7 +7806,7 @@
     ]
   },
   "455": {
-    "pairName": "Funnel Weavers",
+    "pairName": "Agelena vs Allagelena Funnel Weavers",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -7823,7 +7823,7 @@
     ]
   },
   "456": {
-    "pairName": "Orb Weavers",
+    "pairName": "Oak Spider vs Cucumber Green Spider",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -7840,7 +7840,7 @@
     ]
   },
   "457": {
-    "pairName": "Bridge Spiders",
+    "pairName": "Larinioides Orbweavers",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -7858,7 +7858,7 @@
     ]
   },
   "458": {
-    "pairName": "Walnut Orb-weavers",
+    "pairName": "Nuctenea Orbweavers",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -7875,7 +7875,7 @@
     ]
   },
   "459": {
-    "pairName": "Autumn Spiders",
+    "pairName": "Metellina Orbweavers",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -7891,7 +7891,7 @@
     ]
   },
   "460": {
-    "pairName": "Long-jawed Orb Weavers",
+    "pairName": "Stretch Spiders",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -7908,7 +7908,7 @@
     ]
   },
   "461": {
-    "pairName": "Running Crab Spiders",
+    "pairName": "Philodromus Running Crab Spiders",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -7925,7 +7925,7 @@
     ]
   },
   "462": {
-    "pairName": "Ghost Spiders",
+    "pairName": "Anyphaena Ghost Spiders",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -7941,7 +7941,7 @@
     ]
   },
   "463": {
-    "pairName": "Flower Crab Spiders",
+    "pairName": "Green Crab Spider vs Napoleon Spider",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -7958,7 +7958,7 @@
     ]
   },
   "464": {
-    "pairName": "Funnel-web House Spiders",
+    "pairName": "Hobo vs Charcoal Spider",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -7974,7 +7974,7 @@
     ]
   },
   "465": {
-    "pairName": "Stone Spiders",
+    "pairName": "Stone vs Common Ground-spider",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -7991,7 +7991,7 @@
     ]
   },
   "466": {
-    "pairName": "Malacostracan Crustaceans",
+    "pairName": "Decapods vs Amphipods",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -8012,7 +8012,7 @@
     ]
   },
   "467": {
-    "pairName": "Higher Crustaceans",
+    "pairName": "Decapods vs Mantis Shrimps",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -8033,7 +8033,7 @@
     ]
   },
   "468": {
-    "pairName": "Hermit Crabs",
+    "pairName": "Hairy Red vs White-spotted Hermit Crab",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -8050,7 +8050,7 @@
     ]
   },
   "469": {
-    "pairName": "Hermit Crabs",
+    "pairName": "Orange-striped vs Long-legged Hermit Crab",
     "level": "1",
     "tags": [],
     "taxa": [
@@ -8067,7 +8067,7 @@
     ]
   },
   "470": {
-    "pairName": "Swimming Crabs",
+    "pairName": "Asian Blue vs Three-spotted Swimming Crab",
     "level": "1",
     "tags": [],
     "taxa": [
@@ -8084,7 +8084,7 @@
     ]
   },
   "471": {
-    "pairName": "Reef Crabs",
+    "pairName": "Floral vs Red Egg Crab",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -8101,7 +8101,7 @@
     ]
   },
   "472": {
-    "pairName": "Hinge-beak Shrimps",
+    "pairName": "Urocaridella Cleaner Shrimps",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -8118,7 +8118,7 @@
     ]
   },
   "473": {
-    "pairName": "Giant Clams",
+    "pairName": "Boring vs Small Giant Clam",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -8135,7 +8135,7 @@
     ]
   },
   "474": {
-    "pairName": "Giant Clams",
+    "pairName": "Small vs Fluted Giant Clam",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -8152,7 +8152,7 @@
     ]
   },
   "475": {
-    "pairName": "Cuttlefish",
+    "pairName": "Pharaoh vs Broatclub Cuttlefish",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -8168,7 +8168,7 @@
     ]
   },
   "476": {
-    "pairName": "Cowries",
+    "pairName": "Tiger vs Arabian Cowry",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -8185,7 +8185,7 @@
     ]
   },
   "477": {
-    "pairName": "Cephalopod Orders",
+    "pairName": "Cuttlefishes vs Inshore Squids",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -8206,7 +8206,7 @@
     ]
   },
   "478": {
-    "pairName": "Gastropod Clades",
+    "pairName": "Neritimorpha vs Heterobranchia",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -8227,7 +8227,7 @@
     ]
   },
   "479": {
-    "pairName": "Gastropod Clades",
+    "pairName": "Vetigastropoda vs Heterobranchia",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -8248,7 +8248,7 @@
     ]
   },
   "480": {
-    "pairName": "Gastropod Clades",
+    "pairName": "Vetigastropoda vs Caenogastropoda",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -8269,7 +8269,7 @@
     ]
   },
   "481": {
-    "pairName": "Gastropod Clades",
+    "pairName": "Vetigastropoda vs True Limpets",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -8290,7 +8290,7 @@
     ]
   },
   "482": {
-    "pairName": "Giant African Land Snails",
+    "pairName": "Giant Blonde vs African Giant Snail",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -8374,7 +8374,7 @@
     ]
   },
   "487": {
-    "pairName": "Hypselodoris Nudibranchs",
+    "pairName": "Hypselodoris vs Goniobranchus Nudibranchs",
     "level": "1",
     "tags": [],
     "taxa": [
@@ -8459,7 +8459,7 @@
     ]
   },
   "492": {
-    "pairName": "Phyllidia Nudibranchs",
+    "pairName": "Elegant vs Sky-blue Phyllidia",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -8476,7 +8476,7 @@
     ]
   },
   "493": {
-    "pairName": "Phyllidia Nudibranchs",
+    "pairName": "Elegant vs Painted Phyllidia",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -8493,7 +8493,7 @@
     ]
   },
   "494": {
-    "pairName": "Phyllidia Nudibranchs",
+    "pairName": "Elegant vs Varicose Phyllidia",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -8510,7 +8510,7 @@
     ]
   },
   "495": {
-    "pairName": "Phyllidia Nudibranchs",
+    "pairName": "Sky-blue vs Painted Phyllidia",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -8527,7 +8527,7 @@
     ]
   },
   "496": {
-    "pairName": "Phyllidia Nudibranchs",
+    "pairName": "Sky-blue vs Varicose Phyllidia",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -8544,7 +8544,7 @@
     ]
   },
   "497": {
-    "pairName": "Phyllidia Nudibranchs",
+    "pairName": "Varicose vs Painted Phyllidia",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -8561,7 +8561,7 @@
     ]
   },
   "498": {
-    "pairName": "Phyllidiella Nudibranchs",
+    "pairName": "Pustulose vs Krempf's Phyllidiella",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -8612,7 +8612,7 @@
     ]
   },
   "501": {
-    "pairName": "Sea Slugs vs Flatworms",
+    "pairName": "Nudibranchs vs Flatworms",
     "level": "2",
     "tags": [
       "ocean"
@@ -8635,7 +8635,7 @@
     ]
   },
   "502": {
-    "pairName": "Chromodoris Nudibranchs",
+    "pairName": "Magnificent vs Kuiter's Chromodoris",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -8652,7 +8652,7 @@
     ]
   },
   "503": {
-    "pairName": "Hypselodoris Nudibranchs",
+    "pairName": "Bullock's vs Painted Hypselodoris",
     "level": "1",
     "tags": [],
     "taxa": [
@@ -8669,7 +8669,7 @@
     ]
   },
   "504": {
-    "pairName": "Goniobranchus Nudibranchs",
+    "pairName": "Splendid vs Red-netted Goniobranchus",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -8702,7 +8702,7 @@
     ]
   },
   "506": {
-    "pairName": "Glossodoris Nudibranchs",
+    "pairName": "Girdled vs Brown-edge Glossodoris",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -8719,7 +8719,7 @@
     ]
   },
   "507": {
-    "pairName": "Nembrotha Nudibranchs",
+    "pairName": "Dusky vs Crested Nembrotha",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -8736,7 +8736,7 @@
     ]
   },
   "508": {
-    "pairName": "Tambja Nudibranchs",
+    "pairName": "Gloomy vs Verco's Nudibranch",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -8752,7 +8752,7 @@
     ]
   },
   "509": {
-    "pairName": "Flabellinopsis Nudibranchs",
+    "pairName": "Spanish Shawl vs Bertsch's Aeolid",
     "level": "1",
     "tags": [],
     "taxa": [
@@ -8852,7 +8852,7 @@
     ]
   },
   "515": {
-    "pairName": "Pteraeolidia Nudibranchs",
+    "pairName": "Blue Dragons",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -8885,7 +8885,7 @@
     ]
   },
   "517": {
-    "pairName": "Antiopella Nudibranchs",
+    "pairName": "Antiopella vs Janolus Nudibranchs",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -8950,7 +8950,7 @@
     ]
   },
   "521": {
-    "pairName": "Hexabranchus Nudibranchs",
+    "pairName": "Spanish Dancers",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -9012,7 +9012,7 @@
     ]
   },
   "525": {
-    "pairName": "Fromia Starfish",
+    "pairName": "Tiled vs Pebbled Sea Star",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -9029,7 +9029,7 @@
     ]
   },
   "526": {
-    "pairName": "Marine Flatworms",
+    "pairName": "Pseudobiceros vs Acanthozoon Marine Flatworms",
     "level": "1",
     "tags": [
       "ocean"
@@ -9048,7 +9048,7 @@
     ]
   },
   "527": {
-    "pairName": "Corals",
+    "pairName": "Octocorals vs Hexacorallians",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -9069,7 +9069,7 @@
     ]
   },
   "528": {
-    "pairName": "Bubble Corals",
+    "pairName": "Bubble vs Pearl Bubble Coral",
     "level": "1",
     "tags": [],
     "taxa": [
@@ -9086,7 +9086,7 @@
     ]
   },
   "529": {
-    "pairName": "Brain Corals",
+    "pairName": "Maze vs Brain Corals",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -9103,7 +9103,7 @@
     ]
   },
   "530": {
-    "pairName": "Stony Corals",
+    "pairName": "Cauliflower vs Fire Corals",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -9120,7 +9120,7 @@
     ]
   },
   "531": {
-    "pairName": "Soft Corals",
+    "pairName": "Dendronephthya vs Scleronephthya Soft Corals",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -9223,7 +9223,7 @@
     ]
   },
   "537": {
-    "pairName": "Jellyfish",
+    "pairName": "Lion's Mane vs Versuriga Jellyfish",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -9239,7 +9239,7 @@
     ]
   },
   "538": {
-    "pairName": "Sea Anemones",
+    "pairName": "Corkscrew vs Magnificient Sea Anemones",
     "level": "1",
     "tags": [],
     "taxa": [
@@ -9256,7 +9256,7 @@
     ]
   },
   "539": {
-    "pairName": "Carpet Anemones",
+    "pairName": "Haddon's vs Giant Carpot Anemone",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -9273,7 +9273,7 @@
     ]
   },
   "540": {
-    "pairName": "Mushroom Anemones",
+    "pairName": "Elephant Ear vs Bullseye Mushroom Anemone",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -9290,7 +9290,7 @@
     ]
   },
   "541": {
-    "pairName": "Comb Jellies vs True Jellyfish",
+    "pairName": "Comb Jellies vs True Jellies",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -9311,7 +9311,7 @@
     ]
   },
   "542": {
-    "pairName": "Sea Cucumbers",
+    "pairName": "Greenfish vs Black Sea Cucumber",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -9328,7 +9328,7 @@
     ]
   },
   "543": {
-    "pairName": "Mushrooms",
+    "pairName": "European Destroying Angel vs Meadow Mushroom",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -9346,7 +9346,7 @@
     ]
   },
   "544": {
-    "pairName": "Ascomycete Fungi",
+    "pairName": "Gyromitra vs True Morels",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -9364,7 +9364,7 @@
     ]
   },
   "545": {
-    "pairName": "Amanita Mushrooms",
+    "pairName": "Fly Agaric vs Caesar's Mushroom",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -9382,7 +9382,7 @@
     ]
   },
   "546": {
-    "pairName": "Deadly Amanitas",
+    "pairName": "Deathcap vs Fool's Mushroom",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -9400,7 +9400,7 @@
     ]
   },
   "547": {
-    "pairName": "Bolete Mushrooms",
+    "pairName": "King vs Bitter Bolete",
     "level": "1",
     "tags": [],
     "taxa": [
@@ -9418,7 +9418,7 @@
     ]
   },
   "548": {
-    "pairName": "Chanterelles",
+    "pairName": "Golden vs False Chanterelle",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -9436,7 +9436,7 @@
     ]
   },
   "549": {
-    "pairName": "Morel Mushrooms",
+    "pairName": "Yellow vs False Morel",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -9454,7 +9454,7 @@
     ]
   },
   "550": {
-    "pairName": "Scaber Stalk Mushrooms",
+    "pairName": "Brown vs Orange Birch Bolete",
     "level": "1",
     "tags": [],
     "taxa": [
