@@ -38,8 +38,9 @@ const infoDialog = {
 
         if (state.getUseLandscape()) {
             const namePair = document.getElementById('name-pair');
-            namePair.style.display = 'none';
-            logger.debug("name pair should be gone now");
+            namePair.classList.add('name-pair--hidden');
+            namePair.style.display = 'none !important';
+            logger.debug("name pair should be hidden now");
         }
 
         await this.populateDialogContent(currentTaxon);
@@ -277,12 +278,16 @@ const infoDialog = {
         dialog.close();
         this.removeImageFraming();
 
-        const namePair = document.getElementById('name-pair');
-        namePair.style.display = 'flex';
+        if (state.getUseLandscape()) {
+            const namePair = document.getElementById('name-pair');
+            namePair.classList.remove('name-pair--hidden');
+            namePair.style.display = 'flex'; // Reset to default
+            logger.debug("name-pair should be visible again");
+        }
     },
 
     handleDialogClose() {
-        this.removeImageFraming();
+        this.closeInfoDialog(document.getElementById('info-dialog'));
     },
 
     frameImage(imageIndex) {
