@@ -121,10 +121,8 @@ const collectionManager = {
                     <option value="1">Easy</option>
                     <option value="2">Medium</option>
                     <option value="3">Hard</option>
-                    ${!state.getUseSingleLevel() ? `
                     <option value="1,2">Easy + Medium</option>
                     <option value="2,3">Medium + Hard</option>
-                    ` : ''}
                 `;
                 levelDropdown.addEventListener('change', (event) => {
                     const selectedLevels = event.target.value.split(',').map(Number);
@@ -491,10 +489,8 @@ const collectionManager = {
                 <option value="1">Easy (${counts['1']})</option>
                 <option value="2">Medium (${counts['2']})</option>
                 <option value="3">Hard (${counts['3']})</option>
-                ${!state.getUseSingleLevel() ? `
                 <option value="1,2">Easy + Medium</option>
                 <option value="2,3">Medium + Hard</option>
-                ` : ''}
             `;
             
             levelDropdown.value = selectedLevels.join(',');

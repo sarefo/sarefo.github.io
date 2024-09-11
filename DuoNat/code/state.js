@@ -34,7 +34,6 @@ let gameState = {
     hideCollManTaxa: true,
     hasKeyboard: true,
     useLandscape: false,
-    useSingleLevel: false, // debug only
 
     isInitialLoad: true,
 
@@ -303,8 +302,6 @@ const publicAPI = {
             logger.error('Selected tags must be an array');
         }
     },
-
-    getUseSingleLevel: () => gameState.useSingleLevel,
 
     getSelectedLevels: () => gameState.selectedLevels,
     setSelectedLevels: (levels) => {
