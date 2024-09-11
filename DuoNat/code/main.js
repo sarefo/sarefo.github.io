@@ -1,5 +1,6 @@
 import api from './api.js';
 import config from './config.js';
+import filtering from './filtering.js';
 import logger, { LogLevel } from './logger.js';
 import state from './state.js';
 import ui from './ui.js';
@@ -25,11 +26,16 @@ async function initializeApp() {
 
     state.setHasKeyboard(hasKeyboard());
 
-    url.handleUrlParameters();
+    const urlParams = url.handleUrlParameters();
 
     await initializeComponents();
 
-    pairManager.loadNewPair();
+    // Check if a pairID was provided in the URL
+    if (urlParams.pairID) {
+        pairManager.loadNewPair(urlParams.pairID);
+    } else {
+        pairManager.loadNewPair();
+    }
 
     pairManager.setHighestPairID(); // only used for "+" pair walking atm
     logger.info("App initialization complete");
