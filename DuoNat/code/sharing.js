@@ -142,9 +142,9 @@ const sharing = {
         }
 
         if (selectedOptions.includes('level')) {
-            const selectedLevel = state.getSelectedLevel();
-            if (selectedLevel && selectedLevel !== '') {
-                url.searchParams.set('level', selectedLevel);
+            const selectedLevels = state.getSelectedLevels();
+            if (selectedLevels && selectedLevels.length > 0) {
+                url.searchParams.set('level', selectedLevels.join(','));
             }
         }
 
