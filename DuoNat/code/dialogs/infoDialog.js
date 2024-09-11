@@ -214,39 +214,66 @@ const infoDialog = {
         const rightImageContainer = document.getElementById('image-container-2');
         const namePairContainer = document.querySelector('.name-pair');
 
+        if (!leftImageContainer || !rightImageContainer || !namePairContainer) {
+            logger.error('One or more required elements not found');
+            return;
+        }
+
         const leftContainerRect = leftImageContainer.getBoundingClientRect();
         const rightContainerRect = rightImageContainer.getBoundingClientRect();
         const namePairRect = namePairContainer.getBoundingClientRect();
 
+        logger.debug('Left container rect:', leftContainerRect);
+        logger.debug('Right container rect:', rightContainerRect);
+        logger.debug('Name pair rect:', namePairRect);
+
         if (state.getUseLandscape()) {
-            // Landscape mode
+            // Landscape mode positioning (unchanged)
             if (imageIndex === 1) {
-                // For left image, position dialog over right image
                 dialog.style.left = `${rightContainerRect.left}px`;
                 dialog.style.right = `${window.innerWidth - rightContainerRect.right}px`;
                 dialog.style.top = `${rightContainerRect.top}px`;
                 dialog.style.bottom = `${window.innerHeight - rightContainerRect.bottom}px`;
             } else {
-                // For right image, position dialog over left image
                 dialog.style.left = `${leftContainerRect.left}px`;
                 dialog.style.right = `${window.innerWidth - leftContainerRect.right}px`;
                 dialog.style.top = `${leftContainerRect.top}px`;
                 dialog.style.bottom = `${window.innerHeight - leftContainerRect.bottom}px`;
             }
         } else {
-            // Portrait mode (existing code)
-            if (imageIndex === 1) {
-                dialog.style.top = `${namePairRect.top}px`;
-                dialog.style.bottom = `${window.innerHeight - rightContainerRect.bottom}px`;
-            } else {
-                dialog.style.top = `${leftContainerRect.top}px`;
-                dialog.style.bottom = `${window.innerHeight - namePairRect.bottom}px`;
-            }
+            // Portrait mode positioning (updated)
             dialog.style.left = '50%';
             dialog.style.right = 'auto';
             dialog.style.width = '100%';
+            
+            const totalHeight = window.innerHeight;
+            const imageHeight = leftContainerRect.height; // Assuming both images have the same height
+            const namePairHeight = totalHeight - (2 * imageHeight);
+
+            if (imageIndex === 1) {
+                // For top image, position from name-pair top to bottom of screen
+                dialog.style.top = `${imageHeight}px`;
+                dialog.style.bottom = '0px';
+                dialog.style.height = `${totalHeight - imageHeight}px`;
+            } else {
+                // For bottom image, position from top of screen to name-pair bottom
+                dialog.style.top = '0px';
+                dialog.style.bottom = `${imageHeight + namePairHeight}px`;
+                dialog.style.height = `${totalHeight - imageHeight - namePairHeight}px`;
+            }
         }
-        dialog.style.height = 'auto';
+
+        logger.debug(`Dialog position for image ${imageIndex}:`, {
+            top: dialog.style.top,
+            bottom: dialog.style.bottom,
+            left: dialog.style.left,
+            right: dialog.style.right,
+            width: dialog.style.width,
+            height: dialog.style.height
+        });
+
+        // Ensure name-pair container remains visible
+        namePairContainer.style.display = 'flex';
     },
 
     setupDialogEventListeners(dialog, imageIndex) {
