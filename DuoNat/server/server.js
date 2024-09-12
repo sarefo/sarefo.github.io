@@ -5,6 +5,13 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  dbName: 'duonat' // Make sure this matches your database name
+}).then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.error('Could not connect to MongoDB:', err));
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -77,6 +84,9 @@ const TaxonHierarchy = mongoose.model('TaxonHierarchy', taxonHierarchySchema, 't
 app.get('/api/taxonHierarchy', async (req, res) => {
   try {
     console.log('Fetching taxon hierarchy...');
+    console.log('TaxonHierarchy model:', TaxonHierarchy);
+    console.log('Collection name:', TaxonHierarchy.collection.name);
+    
     const taxonHierarchy = await TaxonHierarchy.find({}).lean();
     console.log('Fetched taxon hierarchy:', taxonHierarchy.length, 'documents');
     
@@ -87,9 +97,11 @@ app.get('/api/taxonHierarchy', async (req, res) => {
       const count = await TaxonHierarchy.countDocuments();
       console.log(`Number of documents in taxonHierarchy collection: ${count}`);
       
-      // Try to fetch a single document
-      const sampleDocument = await TaxonHierarchy.findOne({});
-      console.log('Sample document:', sampleDocument);
+      // Try to fetch a single document directly from MongoDB
+      const db = mongoose.connection.db;
+      const collection = db.collection('taxonHierarchy');
+      const sampleDocument = await collection.findOne({});
+      console.log('Sample document from direct MongoDB query:', sampleDocument);
     } else if (taxonHierarchy.length > 0) {
       console.log('Sample document:', JSON.stringify(taxonHierarchy[0], null, 2));
     }
