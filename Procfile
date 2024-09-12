@@ -1,1 +1,1 @@
-web: npm start --prefix DuoNat/server
+web: cd DuoNat/server && npm install && npm start
