@@ -28,24 +28,6 @@ If no URL parameters are provided, the first pair after the app starts up loads 
 ### Main objectives
 It's important that the app runs smooth, and the code is robust and stable, and easy to read, so I can expand it without losing track, or breaking dependencies or functions all the time.
 
-#### Image preloading
-
-Here's an outline of how I currently think the image loading works:
-
-|Session|Pair|Round|Action                                         |
-|-------|----|-----|-----------------------------------------------|
-|1      |1   |1    |Load images for taxon pair                     |
-|1      |1   |1    |Use images from initial loading                |
-|1      |1   |1    |Preload images for round 2                     |
-|1      |1   |1    |Preload images for pair 2 round 1              |
-|1      |1   |2    |Use images from round 2 preload                |
-|1      |1   |2    |Preload images for round 3 taxon pair          |
-|       |    |…    |                                               |
-|1      |2   |1    |Use images from pair 2 preload                 |
-|1      |2   |1    |Preload images for round 2 taxon pair          |
-|1      |2   |1    |Preload images for pair 3 taxon pair round 1   |
-|       |    |…    |                                               |
-
 ### Possible uses
 + naturalist fun:
     + people just enjoy the game
@@ -58,34 +40,38 @@ Here's an outline of how I currently think the image loading works:
 
 ## Project structure
 
-### Main window
+### User-facing
+#### Main window
 The main window is presented to the user at startup. That's where they will be most of their time. The user is presented with two images, and needs to drag a name tile to one of them. If correct, the game proceeds to the next round of the same taxon pair. If incorrect, the user needs to try again.
 
 On each image, there's an info button, which opens an info dialog. There's also a mini world map, which shows the taxon's range.
 
-### Info dialogs
+#### Info dialogs
 Each picture has its own info dialog. The user can access external information about the image, iNaturalist observation or taxon there. It also has a link to Wikipedia (if available). There are preliminary taxon facts (provided by Perplexity.ai on 20240726). The dialog displays over most of the UI, leaving just the image that belongs to the taxon visible.
 
-### Help dialog
+#### Help dialog
 The help dialog contains information about the most important functions of the game. It has a link to a tutorial, which shows the main functions of the game.
 
 ### Collection manager dialog
 Currently this displays a list of all taxon pairs, locally saved in a JSON file. The user can filter by phylogeny, tags, range or level, or search by taxon. Below is a list of taxon pairs. The user can click on one, and open it this way. There's also a "Play" button, which activates the currently filtered collection.
 
-#### Range selection dialog
+##### Range selection dialog
 This displays a world map, where the user selects which continents to include in the "range" filter. Currently, if there are multiple continents selected, pairs where all members occur at any of them are selected (eg. Africa + Oceania selected includes pairs that have a range including Africa, or including Oceania).
 
-#### Tag cloud dialog
+##### Tag cloud dialog
 This dialog currently displays all the available tags for the current filters. The idea is to replace this with a taxonomic hierarchy that's intuitive to browse, and only leave non-taxonomic tags (such as "mimicry" or "fun" here).
 
-#### Phylogeny selector dialog
+##### Phylogeny selector dialog
 This dialog shows a radial graph of the taxon hierarchy. In the center is the active node, which is the currently active phylogeny ID of the filter. It always displays its parent node, and its child nodes. The user can traverse the hierarchy this way, and select a new phylogeny ID. This filters the collection by all taxon pairs that contain at least one taxon in that part of the tree.
 
-### Ancestry dialog
+#### Ancestry dialog
 The ancestry graph shows how the two active taxa are connected taxonomically. It's also a way to link to the iNaturalist or Wikipedia taxon pages of the taxa in its entire hierarchy. The user can also use any node to filter the collection, and then gets redirected to the collection manager.
 
-### Enter taxa dialog
+#### Enter taxa dialog
 This is currently poorly maintained. The user can input two taxa, which will be used in a new pair. Currently there's no server-side functionality, but when there is, those can also be stored for future use. Also, once taxon pairs are implemented, the user will be able to input more than two taxa. Another idea is to only input one, and the app will create a taxon pairs from all the sister taxa at that level.
+
+### Server-side
+I'm in the process of migrating backend data processing to MongoDB, using Heroku as middleware. I'm currently the free layers of both, and I'm really inexperienced in both, so this part is hard for me.
 
 ## Architectural changes
 + you suggested some big changes in the past, and I'm willing to tackle them, if it helps me later to build a better app.
