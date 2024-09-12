@@ -122,14 +122,24 @@ const api = (() => {
                 return taxonomyHierarchy;
             },
 
-            // fetch from JSON file
+            // fetch from JSON file or MongoDB
             fetchTaxonPairs: async function () {
                 try {
-                    const response = await fetch('./data/taxonPairs.json');
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
+                    let taxonPairs;
+                    if (config.useMongoDB) {
+                        const response = await fetch(`${config.serverUrl}/api/taxonPairs`);
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        taxonPairs = await response.json();
+                    } else {
+                        const response = await fetch('./data/taxonPairs.json');
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        taxonPairs = await response.json();
                     }
-                    const taxonPairs = await response.json();
+                    
                     return Object.entries(taxonPairs).map(([pairID, pair]) => ({
                         ...pair,
                         pairID,
