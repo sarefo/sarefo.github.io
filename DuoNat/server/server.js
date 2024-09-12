@@ -30,7 +30,8 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 
 app.get('/api/taxonInfo', async (req, res) => {
   try {
-    const taxonInfo = await TaxonInfo.find({});
+    const taxonInfo = await TaxonInfo.find({}).lean();
+    console.log('Raw taxon info:', JSON.stringify(taxonInfo, null, 2));
     console.log('Fetched taxon info:', taxonInfo.length, 'documents');
     if (taxonInfo.length > 0) {
       console.log('Sample document:', JSON.stringify(taxonInfo[0], null, 2));
