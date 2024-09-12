@@ -21,7 +21,7 @@ STYLES_DIRECTORY = 'styles'
 SKIP_EXTENSIONS = {'.swp', '.old', '.png', '.mp3'}
 
 # Files to always exclude
-ALWAYS_EXCLUDE_FILES = {'package-lock.json', 'package.json', 'webpack.config.js'}
+ALWAYS_EXCLUDE_FILES = {'package-lock.json', 'webpack.config.js'}
 
 # Root directory to list files from (parent directory)
 ROOT_DIRECTORY = '../'
