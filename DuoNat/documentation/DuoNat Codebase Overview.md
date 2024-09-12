@@ -78,7 +78,8 @@ The DuoNat project is primarily written in JavaScript, with HTML and CSS for the
 + `testingDialog.js` : Testing dialog to check out things not ready for primetime.
 
 ### Server-side code
-+ server/ contains the code that is supposed to be pushed to heroku. Heroku has auto-deployment from github enabled, so no need to manually push code there.
++ server/ contains the code that is supposed to be pushed to Heroku. Heroku has auto-deployment from github enabled, so no need to manually push code there.
++ server/public is normally not used, it's just for testing purposes, as Heroku should only be responsible for the backend.
 
 ## HTML Structure
 

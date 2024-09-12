@@ -16,6 +16,13 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('Could not connect to MongoDB:', err));
 
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('Connected to MongoDB');
+    console.log('MongoDB URI:', process.env.MONGODB_URI);
+  })
+  .catch(err => console.error('Could not connect to MongoDB:', err));
+
 // Define Taxon Schema
 const taxonInfoSchema = new mongoose.Schema({
   taxonId: String,
