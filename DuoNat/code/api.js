@@ -39,8 +39,10 @@ const api = (() => {
                             if (!response.ok) {
                                 throw new Error(`HTTP error! status: ${response.status}`);
                             }
-                            taxonInfo = await response.json();
-                            logger.debug(`Loaded ${Object.keys(taxonInfo).length} taxon info entries from MongoDB`);
+                    const data = await response.json();
+                    taxonInfo = data;
+                    logger.debug(`Loaded ${Object.keys(taxonInfo).length} taxon info entries from MongoDB`);
+                    logger.debug('First taxon info entry:', JSON.stringify(taxonInfo[Object.keys(taxonInfo)[0]], null, 2));
                         } else {
                             logger.debug('Loading taxon info from JSON file');
                             const response = await fetch('./data/taxonInfo.json');
