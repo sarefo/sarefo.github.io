@@ -44,9 +44,6 @@ const api = (() => {
                               return acc;
                             }, {});
                             logger.debug(`Loaded ${Object.keys(taxonInfo).length} taxon info entries from MongoDB`);
-                            /*if (Object.keys(taxonInfo).length > 0) {
-                              logger.debug('First taxon info entry:', JSON.stringify(taxonInfo[Object.keys(taxonInfo)[0]], null, 2));
-                            }*/
                           } else {
                             logger.debug('Loading taxon info from JSON file');
                             const response = await fetch('./data/taxonInfo.json');
@@ -56,15 +53,10 @@ const api = (() => {
                             taxonInfo = await response.json();
                         }
 
-                        // Load hierarchy data (this remains unchanged)
-                        const hierarchyResponse = await fetch('./data/taxonHierarchy.json');
-                        if (!hierarchyResponse.ok) {
-                            throw new Error(`HTTP error! status: ${hierarchyResponse.status}`);
-                        }
-                        const hierarchyData = await hierarchyResponse.json();
-                        taxonomyHierarchy = new TaxonomyHierarchy(hierarchyData);
+                        // Load taxonomy hierarchy if not already loaded
+                        await this.loadTaxonomyHierarchy();
 
-                        // Add any missing taxa from taxonInfo
+                        // Add any missing taxa from taxonInfo to taxonomyHierarchy
                         Object.entries(taxonInfo).forEach(([id, taxon]) => {
                             if (!taxonomyHierarchy.getTaxonById(id)) {
                                 taxonomyHierarchy.addTaxon(taxon);
@@ -86,6 +78,7 @@ const api = (() => {
                         try {
                             logger.debug(`Fetching taxonomy hierarchy from ${config.serverUrl}/api/taxonHierarchy`);
                             const response = await fetch(`${config.serverUrl}/api/taxonHierarchy`);
+
                             logger.debug(`Response status: ${response.status}`);
                             if (!response.ok) {
                                 throw new Error(`HTTP error! status: ${response.status}`);
