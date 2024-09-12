@@ -138,6 +138,9 @@ This is currently poorly maintained. The user can input two taxa, which will be 
 + Chrome for testing
 + iPhone 7 and Pixel 7a for mobile testing
 + github for code management
++ github.io hosts the client-facing part of the app
++ heroku is supposed to host the server-facing part of the app
++ MongoDB will carry the DB functionality, with heroku as middleware
 + iNaturalist and its API for taxon information
 + Discord for community management (currently, there aren't any community members apart from me)
 + Photoshop at times for icon design etc.

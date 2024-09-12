@@ -71,6 +71,9 @@ The DuoNat project is primarily written in JavaScript, with HTML and CSS for the
 ### Other
 + `testingDialog.js` : Testing dialog to check out things not ready for primetime.
 
+### Server-side code
++ server/ contains the code that is supposed to be pushed to heroku.
+
 ## HTML Structure
 
 The `index.html` file contains the main structure of the application, including:
