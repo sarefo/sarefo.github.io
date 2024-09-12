@@ -55,3 +55,5 @@ DuoNat/data/processing/data_entry_workflow/2newTaxonPairsForPerplexity.json
 DuoNat/data/processing/data_entry_workflow/5newTaxonPairs.json
 DuoNat/server/.env
 /DuoNat/server/node_modules
+/node_modules
+package-lock.json

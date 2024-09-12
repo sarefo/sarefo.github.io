@@ -8,5 +8,10 @@
   "scripts": {
     "start": "cd DuoNat/server && npm install && npm start"
   },
-  "cacheDirectories": ["DuoNat/server/node_modules"]
+  "cacheDirectories": [
+    "DuoNat/server/node_modules"
+  ],
+  "dependencies": {
+    "cors": "^2.8.5"
+  }
 }
