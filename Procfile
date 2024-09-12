@@ -1,1 +1,1 @@
-web: node DuoNat/server/server.js
+web: npm start --prefix DuoNat/server
