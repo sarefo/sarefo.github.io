@@ -11,6 +11,12 @@ The DuoNat project is primarily written in JavaScript, with HTML and CSS for the
 - `data/`: Contains JSON files with taxon information and pairs.
 - `images/`: Likely contains image assets used in the application.
 
+## Non-code files
++ I have a package.json in the root folder sarefo.github.io
++ another package.json in the /DuoNat folder
++ and a third package.jos in the /DuoNat/server folder. there's also a .env file there.
++ there's a Procfile in the root folder
+
 ## Key JavaScript Modules
 
 ### Core Application Logic
