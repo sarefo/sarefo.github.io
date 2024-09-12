@@ -17,22 +17,44 @@ const api = (() => {
 
     return {
         taxonomy: {
+            fetchTaxonInfoFromMongoDB: async function (taxonId) {
+                try {
+                    const response = await fetch(`${config.serverUrl}/api/taxonInfo/${taxonId}`);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return await response.json();
+                } catch (error) {
+                    logger.error('Error fetching taxon info from MongoDB:', error);
+                    return null;
+                }
+            },
+
             loadTaxonInfo: async function () {
                 try {
                     if (taxonInfo === null) {
-                        const [taxonInfoResponse, hierarchyResponse] = await Promise.all([
-                            fetch('./data/taxonInfo.json'),
-                            fetch('./data/taxonHierarchy.json')
-                        ]);
-
-                        if (!taxonInfoResponse.ok || !hierarchyResponse.ok) {
-                            throw new Error(`HTTP error! status: ${taxonInfoResponse.status} or ${hierarchyResponse.status}`);
+                        if (config.useMongoDB) {
+                            logger.debug('Loading taxon info from MongoDB');
+                            const response = await fetch(`${config.serverUrl}/api/taxonInfo`);
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            taxonInfo = await response.json();
+                        } else {
+                            logger.debug('Loading taxon info from JSON file');
+                            const response = await fetch('./data/taxonInfo.json');
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            taxonInfo = await response.json();
                         }
 
-                        taxonInfo = await taxonInfoResponse.json();
+                        // Load hierarchy data (this remains unchanged)
+                        const hierarchyResponse = await fetch('./data/taxonHierarchy.json');
+                        if (!hierarchyResponse.ok) {
+                            throw new Error(`HTTP error! status: ${hierarchyResponse.status}`);
+                        }
                         const hierarchyData = await hierarchyResponse.json();
-
-                        // Use the pre-generated hierarchy
                         taxonomyHierarchy = new TaxonomyHierarchy(hierarchyData);
 
                         // Add any missing taxa from taxonInfo

@@ -6,7 +6,7 @@
     "node": ">=16.20.1"
   },
   "scripts": {
-    "start": "cd DuoNat/server && npm install && npm start"
+    "start": "node DuoNat/server/server.js"
   },
   "cacheDirectories": [
     "DuoNat/server/node_modules"

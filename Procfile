@@ -1,1 +1,1 @@
-web: cd DuoNat/server && npm install && npm start
+web: node DuoNat/server/server.js
