@@ -53,3 +53,4 @@ DuoNat/data/processing/data_entry_workflow/1newTaxonInputPairs.txt
 DuoNat/data/taxonPairs.json.old
 DuoNat/data/processing/data_entry_workflow/2newTaxonPairsForPerplexity.json
 DuoNat/data/processing/data_entry_workflow/5newTaxonPairs.json
+DuoNat/server/.env
