@@ -98,7 +98,12 @@ const api = (() => {
                                 throw new Error(`Unexpected content type: ${contentType}`);
                             }
                             hierarchyData = await response.json();
-                            logger.debug(`Loaded ${Object.keys(hierarchyData).length} taxon hierarchy entries from MongoDB`);
+                            logger.debug(`Received hierarchyData with ${Object.keys(hierarchyData).length} entries`);
+                            if (Object.keys(hierarchyData).length === 0) {
+                                logger.warn('Received empty hierarchy data from server');
+                            } else {
+                                logger.debug('First entry:', JSON.stringify(Object.values(hierarchyData)[0], null, 2));
+                            }
                         } catch (error) {
                             logger.error('Error fetching taxon hierarchy from MongoDB:', error);
                             throw error;

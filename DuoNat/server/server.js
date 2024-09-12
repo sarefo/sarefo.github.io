@@ -86,6 +86,10 @@ app.get('/api/taxonHierarchy', async (req, res) => {
       console.log('Collections in the database:', collections.map(c => c.name));
       const count = await TaxonHierarchy.countDocuments();
       console.log(`Number of documents in taxonHierarchy collection: ${count}`);
+      
+      // Try to fetch a single document
+      const sampleDocument = await TaxonHierarchy.findOne({});
+      console.log('Sample document:', sampleDocument);
     } else if (taxonHierarchy.length > 0) {
       console.log('Sample document:', JSON.stringify(taxonHierarchy[0], null, 2));
     }
@@ -94,6 +98,7 @@ app.get('/api/taxonHierarchy', async (req, res) => {
       acc[item.taxonId] = item;
       return acc;
     }, {});
+    console.log('Sending response with', Object.keys(hierarchyObject).length, 'items');
     res.json(hierarchyObject);
   } catch (error) {
     console.error('Error fetching taxon hierarchy:', error);
