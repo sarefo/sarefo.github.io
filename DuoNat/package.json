@@ -7,6 +7,7 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "mongodb": "^6.8.1",
     "vis-network": "^9.1.2"
   },
   "scripts": {

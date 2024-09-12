@@ -1,0 +1,907 @@
+This file provides up to date listings of relevant parts of my code base. These are up-to-date versions, so everything you see in here will be exactly like this in my project. Every file is indicated with '# <file name>' at the start. Be aware that there may be other files in my code that are not included. If you need them, please tell me so during the conversation. Do not just make up stuff instead.
+
+
+#==> Listing for documentation/Claude DuoNat Whitepaper.md:
+
+# DuoNat Whitepaper for LLM agents
+This file gives some context about what the DuoNat app is about, what I'm trying to achieve and so on. Please take its content into account when answering a prompt.
+
+## App overview
+### Main workflow
+The web app DuoNat has the following goals:
+1. provide a simple, elegant main screen, where the user is presented with two images of two taxa from iNaturalist.
+2. help the user learn to distinguish the two presented taxa, based on visual clues
+3. be engaging and addictive, helping the user to explore biodiversity, and become better at identifying taxa
+
+The nomenclature for the game is like this:
++ the whole time from starting up the app to closing it is called a "session".
++ it can have one or more "pairs". every pair consists of one or more "rounds".
++ the user can filter the complete list of available taxon pairs. these filtered lists are called "collections".
++ during a "pair", the game uses the same taxon pair throughout. a taxon pair is an array of two taxa.
++ during a "round", a pair of images are displayed, for the currently active taxon pair. every round, there will be two different images for that same taxon pair. The user needs to guess which image belongs to which taxon.
+
+A pair can get its two taxa either randomly from a list of taxon pairs (in taxonPairs.json), or defined by the user. The latter can happen by:
++ providing the two taxa in the URL as optional parameters, or
++ by defining them inside the app using the "Enter pair" dialog.
+If no URL parameters are provided, the first pair after the app starts up loads a random pair from the taxon pair list. Other options are accessed via
++ "Manage collection" (let's the user select a pair from the taxon pair list) options.
+
+### Sharing
++ the user can easily share the currently active collection and pair by tapping on the "Share" icon. This creates a link or QR to the app with the relevant information encoded in the URL.
++ This sharing link is an important component of the game, helping with its virality, as users can easily share interesting pairs with others
+
+### Main objectives
+It's important that the app runs smooth, and the code is robust and stable, and easy to read, so I can expand it without losing track, or breaking dependencies or functions all the time.
+
+#### Image preloading
+
+Here's an outline of how I currently think the image loading works:
+
+|Session|Pair|Round|Action                                         |
+|-------|----|-----|-----------------------------------------------|
+|1      |1   |1    |Load images for taxon pair                     |
+|1      |1   |1    |Use images from initial loading                |
+|1      |1   |1    |Preload images for round 2                     |
+|1      |1   |1    |Preload images for pair 2 round 1              |
+|1      |1   |2    |Use images from round 2 preload                |
+|1      |1   |2    |Preload images for round 3 taxon pair          |
+|       |    |…    |                                               |
+|1      |2   |1    |Use images from pair 2 preload                 |
+|1      |2   |1    |Preload images for round 2 taxon pair          |
+|1      |2   |1    |Preload images for pair 3 taxon pair round 1   |
+|       |    |…    |                                               |
+
+### Possible uses
++ naturalist fun:
+    + people just enjoy the game
++ children
+    + easy pairs for children, eg. "cats/dogs" or such
++ hobby taxonomists
+    + people that want to become better of visually identifying taxa
++ biology students
+    + people that want to have a fun and effective way of improving their professional ID skills
+
+## Project structure
+
+### Main window
+The main window is presented to the user at startup. That's where they will be most of their time. The user is presented with two images, and needs to drag a name tile to one of them. If correct, the game proceeds to the next round of the same taxon pair. If incorrect, the user needs to try again.
+
+On each image, there's an info button, which opens an info dialog. There's also a mini world map, which shows the taxon's range.
+
+### Info dialogs
+Each picture has its own info dialog. The user can access external information about the image, iNaturalist observation or taxon there. It also has a link to Wikipedia (if available). There are preliminary taxon facts (provided by Perplexity.ai on 20240726). The dialog displays over most of the UI, leaving just the image that belongs to the taxon visible.
+
+### Help dialog
+The help dialog contains information about the most important functions of the game. It has a link to a tutorial, which shows the main functions of the game.
+
+### Collection manager dialog
+Currently this displays a list of all taxon pairs, locally saved in a JSON file. The user can filter by phylogeny, tags, range or level, or search by taxon. Below is a list of taxon pairs. The user can click on one, and open it this way. There's also a "Play" button, which activates the currently filtered collection.
+
+#### Range selection dialog
+This displays a world map, where the user selects which continents to include in the "range" filter. Currently, if there are multiple continents selected, pairs where all members occur at any of them are selected (eg. Africa + Oceania selected includes pairs that have a range including Africa, or including Oceania).
+
+#### Tag cloud dialog
+This dialog currently displays all the available tags for the current filters. The idea is to replace this with a taxonomic hierarchy that's intuitive to browse, and only leave non-taxonomic tags (such as "mimicry" or "fun" here).
+
+#### Phylogeny selector dialog
+This dialog shows a radial graph of the taxon hierarchy. In the center is the active node, which is the currently active phylogeny ID of the filter. It always displays its parent node, and its child nodes. The user can traverse the hierarchy this way, and select a new phylogeny ID. This filters the collection by all taxon pairs that contain at least one taxon in that part of the tree.
+
+### Ancestry dialog
+The ancestry graph shows how the two active taxa are connected taxonomically. It's also a way to link to the iNaturalist or Wikipedia taxon pages of the taxa in its entire hierarchy. The user can also use any node to filter the collection, and then gets redirected to the collection manager.
+
+### Enter taxa dialog
+This is currently poorly maintained. The user can input two taxa, which will be used in a new pair. Currently there's no server-side functionality, but when there is, those can also be stored for future use. Also, once taxon pairs are implemented, the user will be able to input more than two taxa. Another idea is to only input one, and the app will create a taxon pairs from all the sister taxa at that level.
+
+## Architectural changes
++ you suggested some big changes in the past, and I'm willing to tackle them, if it helps me later to build a better app.
++ for example, you suggested using TypeScript for this kind of app. I don't know how feasible that is for me, a single not very smart or well-trained hobby programmer.
+
+## Code sanity + cleanup
++ also, I'm always happy for suggestions regarding cleaning up my code
+    + for example, removing parts that are definitely not used anymore
+    + also, ideas for reducing the size of the code, if they definitely don't break any existing functionality (this is important!!)
+    + simplify whenever possible; again, WITHOUT BREAKING ANY FUNCTIONALITY!
+    + improve error handling
+    + reduce duplication
+    + modularize functions in line with the Single Responsibility Principle
+    + consistency of code
+    + optimize loading, and speed in general
+    + improve and update naming of functions, variables etc.
+    + using BEM for CSS
+    + add a decent amount of comments
+    + I couldn't get unit tests to work, but I'm aware it's something that would help
+
+## Problems
+
+### Coding and AI problems
++ while Claude was a big help in coming that far in creating the app, currently the complexity of the codebase, together with the limitations of Claude Sonnet 3.5, lead to many things breaking when trying to improve core functionality. This is time-consuming and frustrating. Also, I'm not an expert programmer, so I hit my limit of understanding pretty fast. So it would be nice to keep an eye on how to improve the code so it's easier to understand the code (for AI and me), and so changes in one part don't easily break other parts. I'm very open to suggestions here!
+
+### Testing
++ At the moment, I keep missing broken functionality, and only notice it once the code got uploaded into the production environment. That's not great. If there are some automated ways to remedy this, that would help.
++ Also, currently my workflow is like this:
+    + write the code on a local machine
+    + test it a bit
+    + upload to github.io
++ One problem with this approach is that I don't know how to properly test my code on my local machine for Android or iPhone. I know there are emulators (I'm using the Chrome F12 "device toolbar" functionality on Windows 11). But they don't catch all the problems for example with dragging behavior: it might work well when testing on Windows, but doesn't work on my Pixel 6a, for example.
++ So I definitely need a better approach to this. One idea I'm having is to have a beta and a production version on github.io, so I can test beta versions, and move them to production once they feel ready. If you have other ideas, let me know.
+
+### Current known bugs
+#### Responsive layout
++ the dialogs should be fully visible and nicely positioned and layouted on big and small screens, in landscape and portrait mode. this is not fully working yet.
+
+#### Main screen layout
++ currently, the main screen is optimized for Pixel 7a phones. It should also display cleanly on smaller phones, such as iPhone 7. There should be a different display mode for widescreen displays, which ranges from laptop screens to small phone screens. During widescreen display, the images should be on the left and the right, with the name tiles between them, one above the other.
+
+#### Cache problems
++ I currently have some functionality at the beginning of index.html to increase the version number, for cache busting
++ however, the version number needs to be manually incremented for this to work. not a big deal, but I sometimes forget, and then need to push to github again just for this
++ I kind of suspect that cache problems might be to blame for SVG icons not always loading properly from the ./images/icons.svg file
+
+### Tools I'm using
++ I'm using Trello for keeping track of ideas and bugs
++ gvim with many tabs for writing the code
++ Chrome for testing
++ iPhone 7 and Pixel 7a for mobile testing
++ github for code management
++ iNaturalist and its API for taxon information
++ Discord for community management (currently, there aren't any community members apart from me)
++ Photoshop at times for icon design etc.
+
+### External data processing
+As I'm currently without server-side functionality, I process some data using local python scripts.
++ taxonHierarchy.json is updated using the script data/processing/hierarchy/updateHierarchy.py
++ there's a workflow for adding taxon info and pairs. this is in data/processing/taxonPairs.
++ data/processing/range has a script to add range data to pairs from single taxa.
+
+## LLM behavior requirements
++ if a task seems complicated, please think it through step by step, explaining your reasoning.
++ always let me know when I made a mistake or might have forgotten to add information that you need.
++ if you encounter comments in my code, never remove them. I sometimes put them there for a reason ;)
++ I want the code to contain ample console logging, so I can figure out what happens when I run it, and to help with debugging with your assistance.
++ if you provide code, please either provide whole functions, or exactly tell me which lines to change, as otherwise it's sometimes confusing and time-consuming to figure this out from partial function with ellipses. I especially don't like it if you provide part of a function, then write "…other code", then provide another part of the same function. that's super confusing!
+
+
+
+#==> Listing for documentation/DuoNat Codebase Overview.md:
+
+# DuoNat Codebase Overview
+
+## Project Structure
+
+The DuoNat project is primarily written in JavaScript, with HTML and CSS for the frontend. The codebase is organized into several key directories and files:
+
+- `index.html`: The main HTML file for the application.
+- `html/dialogs/*`: The HTML files for the app's dialogs. 
+- `code/`: Contains most of the JavaScript modules.
+- `styles/`: Contains CSS files for styling the application.
+- `data/`: Contains JSON files with taxon information and pairs.
+- `images/`: Likely contains image assets used in the application.
+
+## Key JavaScript Modules
+
+### Core Application Logic
+
++ `main.js`: Entry point for the application, initializes various components.
++ `gameLogic.js`: Implements game rules and mechanics.
++ `state.js`: Manages the application's state.
+
+### UI and Interaction
+
++ `ui.js`: Manages user interface updates and interactions.
++ `eventMain.js`: Handles user input and events. Calls the following modules:
+++ `eventInitializer.js`: Initializing general events
+++ `eventUIButtons.js`: Main screen button functionality
+++ `keyboardShortcuts.js`: Global keyboard shortcuts
+++ `searchHandler.js`: Search functionality
+++ `swipeHandler.js`: Swiping on the main screen
++ `dragAndDrop.js`: Implements drag-and-drop functionality.
++ `hintSystem.js`: Setting up the hints on the game screen
++ `dialogManager.js`: Manages dialogs in the application.
+
+### Component-Specific Modules
+
++ `ancestryDialog.js`: Visualizes taxonomic relationships between two active taxa.
++ `ancestryPopup.js`: provides per-node functionality in the ancestryDialog.
++ `collectionManager.js` : Handles the collection manager dialog and its components.
++ `enterPair.js`: Code for the 'Enter new pair' dialog.
++ `infoDialog.js` : Handles the info dialog and its components.
++ `iNatDownDialog.js` : Handles the iNaturalist down detector dialog
++ `rangeSelector.js`: Handles geographical range selection.
++ `phylogenySelector.js` : Handles the phylogeny selection dialog.
++ `reporting.js`: Code for the reporting dialog.
++ `sharing.js`: Code for sharing dialog.
++ `tagSelector.js`: Manages the tag cloud feature.
+
+### Data Management and API
+
++ `api.js`: Handles API calls to iNaturalist and local data fetching.
++ `preloader.js`: Manages preloading of images and data.
++ `pairManager.js`: Manages taxon pairs, including loading them
++ `roundManager.js`: Manages loading game rounds
++ `taxonomyHierarchy.js`: class with hierarchy of game's taxonomic content
+
+### Utilities and Helpers
+
++ `config.js`: Stores configuration settings.
++ `errorHandling.js`: Error handling.
++ `logger.js`: Provides logging functionality.
++ `url.js`: Loading and writing URL parameters.
++ `utils.js`: Contains utility functions used throughout the application.
+
+### Visualization and Special Features
+
++ `worldMap.js`: Handles rendering and interaction with world maps.
++ `d3Graphs.js`: Creates D3.js-based graphs for data visualization. The corresponding modules are in the d3/ folder.
+
+### Other
++ `testingDialog.js` : Testing dialog to check out things not ready for primetime.
+
+## HTML Structure
+
+The `index.html` file contains the main structure of the application, including:
+
+- Loading screen
+- Game container
+- UI elements like buttons and overlays
+
+The dialogs all have their own html files, in html/dialogs/.
+
+## CSS Organization
+
+The CSS is organized into several files:
+
+- `main.css`: Main CSS file that imports others.
+- `base.css`: Base styles and CSS reset.
+- `components/`: Directory containing CSS for specific components.
+- `layout/`: CSS for layout-specific styles.
+
+## Data Files
+
+1. `taxonInfo.json`: Contains detailed information about individual taxa.
+2. `taxonPair.json`: Defines pairs of taxa used in the game.
+3. `taxonHierarchy.json`: Represents the taxonomic hierarchy of species.
+
+## Key Features and Concepts
+
+1. Taxon pair system for quiz gameplay.
+2. Drag-and-drop interface for answering questions.
+3. Dynamic loading and preloading of taxon information and images.
+4. Integration with iNaturalist API for taxon data.
+5. Visualization of taxonomic relationships.
+6. Geographical filtering using world map selection.
+7. Tag-based filtering of taxon pairs.
+8. Responsive design for various device sizes.
+
+## Coding Best Practices
+
+- Functions from other modules can only be accessed via their public API.
+- For console output, use logger.debug() (or logger.warn() / logger.error()).
+- Try not to have functions that are longer than 50 lines. Instead, break them into subfunctions, so that the flow can be easily understood by a human. Let's adhere to the Single Responsibility Principle.
+- The code should be efficient, while allowing a reader to follow the logic of interaction of elements such as preloading etc.
+
+## Notes for Future Development
+
+- The codebase is modular, allowing for easy expansion of features.
+- There's a focus on performance optimization, especially with image preloading.
+- The project uses modern JavaScript features and follows a component-based architecture.
+- There's an emphasis on maintaining a smooth user experience across devices.
+
+When working on specific features or bug fixes, you can request relevant modules based on this overview. For example, if working on the drag-and-drop functionality, you'd primarily need `dragAndDrop.js`, `eventHandlers.js`, and possibly `gameLogic.js`. Note that the user may already have provided some of them at the beginning of a discussion.
+
+
+
+#==> Listing for code/api.js:
+
+import config from './config.js';
+import logger from './logger.js';
+import state from './state.js';
+
+import TaxonomyHierarchy from './taxonomyHierarchy.js';
+
+import iNatDownDialog from './dialogs/iNatDownDialog.js';
+
+const handleApiError = (error, context) => {
+    logger.error(`API Error in ${context}:`, error);
+    throw new Error(`Error in ${context}: ${error.message}`);
+};
+
+const api = (() => {
+    let taxonomyHierarchy = null;
+    let taxonInfo = null;
+
+    return {
+        taxonomy: {
+            loadTaxonInfo: async function () {
+                try {
+                    if (taxonInfo === null) {
+                        const [taxonInfoResponse, hierarchyResponse] = await Promise.all([
+                            fetch('./data/taxonInfo.json'),
+                            fetch('./data/taxonHierarchy.json')
+                        ]);
+
+                        if (!taxonInfoResponse.ok || !hierarchyResponse.ok) {
+                            throw new Error(`HTTP error! status: ${taxonInfoResponse.status} or ${hierarchyResponse.status}`);
+                        }
+
+                        taxonInfo = await taxonInfoResponse.json();
+                        const hierarchyData = await hierarchyResponse.json();
+
+                        // Use the pre-generated hierarchy
+                        taxonomyHierarchy = new TaxonomyHierarchy(hierarchyData);
+
+                        // Add any missing taxa from taxonInfo
+                        Object.entries(taxonInfo).forEach(([id, taxon]) => {
+                            if (!taxonomyHierarchy.getTaxonById(id)) {
+                                taxonomyHierarchy.addTaxon(taxon);
+                            }
+                        });
+                    }
+                    return taxonInfo;
+                } catch (error) {
+                    logger.error('Error in loadTaxonInfo:', error);
+                    throw error;
+                }
+            },
+
+            loadTaxonomyHierarchy: async function () {
+                if (taxonomyHierarchy === null) {
+                    const hierarchyResponse = await fetch('./data/taxonHierarchy.json');
+
+                    if (!hierarchyResponse.ok) {
+                        throw new Error(`HTTP error! status: ${hierarchyResponse.status}`);
+                    }
+
+                    const hierarchyData = await hierarchyResponse.json();
+                    taxonomyHierarchy = new TaxonomyHierarchy(hierarchyData);
+
+                    // Load additional taxon info if needed
+                    const taxonInfoResponse = await fetch('./data/taxonInfo.json');
+                    if (taxonInfoResponse.ok) {
+                        const taxonInfo = await taxonInfoResponse.json();
+                        Object.values(taxonInfo).forEach(taxon => {
+                            taxonomyHierarchy.addTaxon(taxon);
+                        });
+                    }
+                }
+                return taxonomyHierarchy;
+            },
+
+            getTaxonomyHierarchy: function () {
+                return taxonomyHierarchy;
+            },
+
+            // fetch from JSON file
+            fetchTaxonPairs: async function () {
+                try {
+                    const response = await fetch('./data/taxonPairs.json');
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const taxonPairs = await response.json();
+                    return Object.entries(taxonPairs).map(([pairID, pair]) => ({
+                        ...pair,
+                        pairID,
+                        taxonA: pair.taxonNames[0],
+                        taxonB: pair.taxonNames[1]
+                    }));
+                } catch (error) {
+                    handleApiError(error, 'fetchTaxonPairs');
+                }
+            },
+
+            async checkLocalTaxonData(taxonName) {
+                logger.debug(`Checking local data for taxon: ${taxonName}`);
+                if (!taxonName || typeof taxonName !== 'string') {
+                    logger.error(`Invalid taxon name: ${taxonName}`);
+                    return null;
+                }
+                const taxonInfo = await this.loadTaxonInfo();
+                const lowercaseTaxonName = taxonName.toLowerCase();
+
+                for (const [id, info] of Object.entries(taxonInfo)) {
+                    const infoTaxonName = info.taxonName || '';
+                    const infoVernacularName = info.vernacularName || '';
+
+                    if (infoTaxonName.toLowerCase() === lowercaseTaxonName ||
+                        infoVernacularName.toLowerCase() === lowercaseTaxonName) {
+                        logger.debug(`Taxon found in local data: ${infoTaxonName}`);
+                        return {
+                            id: parseInt(id),
+                            name: infoTaxonName,
+                            preferred_common_name: infoVernacularName
+                        };
+                    }
+                }
+                logger.debug('Taxon not found in local data');
+                return null;
+            },
+
+            // for user input of new taxon pairs
+            validateTaxon: async function (taxonName) {
+                try {
+                    if (!taxonName || typeof taxonName !== 'string') {
+                        logger.error(`Invalid taxon name: ${taxonName}`);
+                        return null;
+                    }
+
+                    // First, check local data
+                    const localTaxon = await this.checkLocalTaxonData(taxonName);
+                    if (localTaxon) {
+                        logger.debug('Taxon found in local data');
+                        return localTaxon;
+                    }
+
+                    // If not found locally, then use the API
+                    const response = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${encodeURIComponent(taxonName)}`);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    logger.debug(`API response for ${taxonName}:`, data);
+                    return data.results.length > 0 ? data.results[0] : null;
+                } catch (error) {
+                    logger.error('Error in validateTaxon:', error);
+                    return null;
+                }
+            },
+
+            fetchTaxonId: async function (taxonName) {
+                try {
+                    logger.debug(`Fetching taxon ID for ${taxonName}`);
+                    
+                    // First, check local data
+                    const localTaxon = await this.checkLocalTaxonData(taxonName);
+                    if (localTaxon) {
+                        logger.debug(`Taxon ID for ${taxonName} found locally:`, localTaxon.id);
+                        return localTaxon.id;
+                    }
+
+                    // If not found locally, then use the API
+                    const response = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${encodeURIComponent(taxonName)}&per_page=1`);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    const data = await response.json();
+                    if (data.results.length === 0) throw new Error(`Taxon not found: ${taxonName}`);
+                    logger.debug(`Taxon ID for ${taxonName} fetched from API:`, data.results[0].id);
+                    return data.results[0].id;
+                } catch (error) {
+                    handleApiError(error, 'fetchTaxonId');
+                }
+            },
+
+            fetchTaxonDetails: async function (name) {
+                try {
+                    const response = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${encodeURIComponent(name)}&per_page=1&all_names=true`);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    const data = await response.json();
+                    if (data.results.length === 0) throw new Error(`Taxon not found: ${name}`);
+                    return data.results[0];
+                } catch (error) {
+                    handleApiError(error, 'fetchTaxonDetails');
+                }
+            },
+
+            fetchTaxonHints: async function (taxonId) {
+                try {
+                    const taxonInfo = await this.loadTaxonInfo();
+                    const taxonData = taxonInfo[taxonId];
+                    return taxonData && taxonData.hints ? taxonData.hints : null;
+                } catch (error) {
+                    logger.error('Error in fetchTaxonHints:', error);
+                    return null;
+                }
+            },
+
+            async getAncestryFromLocalData(taxonName) {
+                const taxonInfo = await this.loadTaxonInfo();
+                const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxonName.toLowerCase());
+                return taxonData ? taxonData.ancestryIds.map(id => parseInt(id)) : [];
+            },
+
+            fetchAncestorDetails: async function (ancestorIds) {
+                try {
+                    const ancestorDetails = new Map();
+                    const taxonInfo = await this.loadTaxonInfo();
+
+                    for (const id of ancestorIds) {
+                        const localData = taxonomyHierarchy.getTaxonById(id.toString());
+                        if (localData) {
+                            ancestorDetails.set(id, {
+                                id: parseInt(id),
+                                name: localData.taxonName,
+                                rank: localData.rank,
+                                preferred_common_name: localData.vernacularName
+                            });
+                            logger.debug(`Using local ancestry data for ID ${id}:`, localData);
+                        } else {
+                            const response = await fetch(`https://api.inaturalist.org/v1/taxa/${id}`);
+                            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                            const data = await response.json();
+                            if (data.results.length > 0) {
+                                ancestorDetails.set(id, data.results[0]);
+                                logger.debug(`Fetched ancestry data from iNat for ID ${id}:`, data.results[0]);
+                            }
+                        }
+                    }
+                    return ancestorDetails;
+                } catch (error) {
+                    handleApiError(error, 'fetchAncestorDetails');
+                }
+            },
+
+        },
+
+        images: {
+
+            // called from preloader.fetchDifferentImage()
+            async fetchMultipleImages(taxonName, count = 12) {
+                try {
+                    if (!taxonName || typeof taxonName !== 'string') {
+                        throw new Error(`Invalid taxon name: ${taxonName}`);
+                    }
+
+                    // First, try to get the taxon ID from local data
+                    const taxonInfo = await api.taxonomy.loadTaxonInfo();
+                    const localTaxon = Object.values(taxonInfo).find(info => 
+                        info.taxonName && info.taxonName.toLowerCase() === taxonName.toLowerCase()
+                    );
+
+                    let taxonId;
+                    if (localTaxon) {
+                        taxonId = Object.keys(taxonInfo).find(key => taxonInfo[key] === localTaxon);
+                        //logger.debug(`Using local taxon ID for ${taxonName}: ${taxonId}`);
+                    } else {
+                        // If not found locally, fall back to API call
+                        logger.debug(`Taxon ${taxonName} not found locally, fetching from API`);
+                        const searchResponse = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${encodeURIComponent(taxonName)}`);
+                        if (!searchResponse.ok) throw new Error(`HTTP error! status: ${searchResponse.status}`);
+                        const searchData = await searchResponse.json();
+                        if (searchData.results.length === 0) throw new Error(`Taxon not found: ${taxonName}`);
+                        taxonId = searchData.results[0].id;
+                    }
+
+                    let images;
+                    if (config.useObservationImages) {
+                        images = await this.fetchImagesFromObservations(taxonId, count);
+                    } else {
+                        images = await this.fetchImagesFromGallery(taxonId, count);
+                    }
+
+                    images = [...new Set(images)];
+                    images = images.sort(() => Math.random() - 0.5);
+
+                    //logger.debug(`Fetched ${images.length} images for taxon: ${taxonName}`);
+                    return images.slice(0, Math.min(count, images.length));
+
+                } catch (error) {
+                    logger.error(`Error in fetchMultipleImages for taxon ${taxonName}:`, error);
+                    return []; // Return an empty array instead of throwing an error
+                }
+            },
+
+            fetchImagesFromObservations: async function (taxonId, count) {
+                let images;
+                let baseUrl = `https://api.inaturalist.org/v1/observations?taxon_id=${taxonId}&photos=true&per_page=${count}&order=desc&order_by=votes`;
+                baseUrl += '&term_id=1&term_value_id=2'; // adults only
+                baseUrl += '&term_id=17&term_value_id=18'; // alive only TODO doesn't seem to work
+                logger.debug("baseUrl is ", baseUrl);
+                //baseUrl += '&term_id=1&term_value_id=4,5,6,8'; // non-adults only
+                //baseUrl += '&term_id=9&term_value_id=10'; // 10 = female • 11 = male
+                const observationResponse = await fetch(baseUrl);
+                if (!observationResponse.ok) throw new Error(`HTTP error! status: ${observationResponse.status}`);
+                const observationData = await observationResponse.json();
+                images = observationData.results.map(obs => obs.photos[0].url.replace('square', 'medium'));
+                return images;
+            },
+            fetchImagesFromGallery: async function (taxonId, count) {
+                let images;
+                const taxonResponse = await fetch(`https://api.inaturalist.org/v1/taxa/${taxonId}?photos=true`);
+                if (!taxonResponse.ok) throw new Error(`HTTP error! status: ${taxonResponse.status}`);
+                const taxonData = await taxonResponse.json();
+                if (taxonData.results.length === 0) throw new Error('No details found for the taxon');
+                const taxon = taxonData.results[0];
+                images = taxon.taxon_photos.map(photo => photo.photo.url.replace('square', 'medium'));
+                return images;
+            },
+
+        },
+
+        sound: {
+            async fetchRandomObservationWithSound() {
+                const url = "https://api.inaturalist.org/v1/observations?order_by=random&sounds=true";
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch observations');
+                }
+                const data = await response.json();
+                const observationsWithSounds = data.results.filter(obs => obs.sounds && obs.sounds.length > 0);
+                return observationsWithSounds.length > 0 ? observationsWithSounds[Math.floor(Math.random() * observationsWithSounds.length)] : null;
+            },
+        },
+
+        vernacular: {
+            // fetch vernacular name of taxon from local file or iNat
+            fetchVernacular: async function (taxonName) {
+                const taxonInfo = await api.taxonomy.loadTaxonInfo();
+
+                // Find the entry with matching taxonName
+                const entry = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxonName.toLowerCase());
+
+                if (entry) {
+                    // Return the vernacularName even if it's an empty string
+                    return entry.vernacularName;
+                } else {
+                    logger.warn(`Taxon not found in local data: ${taxonName}`);
+                    // Only fetch from API if the taxon is not in our local data at all
+                    return this.fetchVernacularFromAPI(taxonName);
+                }
+            },
+
+            fetchVernacularFromAPI: async function (taxonName) {
+                logger.debug("Fetching vernacular from iNat API for: " + taxonName);
+                try {
+                    const baseUrl = 'https://api.inaturalist.org/v1/taxa/autocomplete';
+                    const response = await fetch(`${baseUrl}?q=${encodeURIComponent(taxonName)}`);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    const data = await response.json();
+                    if (data.results && data.results.length > 0) {
+                        const taxon = data.results[0];
+                        return taxon.preferred_common_name || "";
+                    } else {
+                        return "";
+                    }
+                } catch (error) {
+                    handleApiError(error, 'fetchVernacularFromAPI');
+                    return "";
+                }
+            },
+        },
+
+        externalAPIs: {
+            // function to check if iNaturalist API is reachable
+            isINaturalistReachable: async function () {
+                try {
+                    const response = await fetch('https://api.inaturalist.org/v1/taxa?q=test');
+                    return response.ok;
+                } catch (error) {
+                    logger.error('Error pinging iNaturalist API:', error);
+                    return false;
+                }
+            },
+
+            async checkINaturalistReachability() {
+                if (!await this.isINaturalistReachable()) {
+                    iNatDownDialog.showINatDownDialog();
+                    state.setState(state.GameState.IDLE);
+                    return false;
+                } else {
+                    iNatDownDialog.hideINatDownDialog();
+                    return true;
+                }
+            },
+
+            checkWikipediaPage: async function (taxonName) {
+                const encodedTaxonName = encodeURIComponent(taxonName);
+                const apiUrl = `https://en.wikipedia.org/w/api.php?action=query&titles=${encodedTaxonName}&format=json&origin=*`;
+
+                try {
+                    const response = await fetch(apiUrl);
+                    const data = await response.json();
+                    const pages = data.query.pages;
+
+                    // If the page exists, it will have a positive page ID
+                    return !pages[-1];
+                } catch (error) {
+                    logger.error('Error checking Wikipedia page:', error);
+                    return false;
+                }
+            },
+        },
+
+        utils: {
+            // TODO for now only gives photo page
+            getObservationURLFromImageURL(imageURL) {
+                const match = imageURL.match(/\/photos\/(\d+)\//);
+                if (match && match[1]) {
+                    return `https://www.inaturalist.org/photos/${match[1]}`;
+                }
+                return null;
+            },
+        }
+
+    };
+})();
+
+// Bind all methods in api and its nested objects
+Object.keys(api).forEach(key => {
+    if (typeof api[key] === 'object') {
+        Object.keys(api[key]).forEach(nestedKey => {
+            if (typeof api[key][nestedKey] === 'function') {
+                api[key][nestedKey] = api[key][nestedKey].bind(api[key]);
+            }
+        });
+    }
+});
+
+const publicAPI = {
+    taxonomy: {
+        validateTaxon: api.taxonomy.validateTaxon,
+        fetchTaxonPairs: api.taxonomy.fetchTaxonPairs,
+        fetchTaxonHints: api.taxonomy.fetchTaxonHints,
+        loadTaxonInfo: api.taxonomy.loadTaxonInfo,
+        fetchTaxonId: api.taxonomy.fetchTaxonId,
+        getAncestryFromLocalData: api.taxonomy.getAncestryFromLocalData,
+        fetchAncestorDetails: api.taxonomy.fetchAncestorDetails,
+        getTaxonomyHierarchy: api.taxonomy.getTaxonomyHierarchy,
+        loadTaxonomyHierarchy: api.taxonomy.loadTaxonomyHierarchy,
+        fetchTaxonDetails: api.taxonomy.fetchTaxonDetails
+    },
+    images: {
+        //fetchRandomImage: api.images.fetchRandomImage,
+        fetchMultipleImages: api.images.fetchMultipleImages
+    },
+    sound: {
+        fetchRandomObservationWithSound: api.sound.fetchRandomObservationWithSound,
+    },
+    vernacular: {
+        fetchVernacular: api.vernacular.fetchVernacular
+    },
+    externalAPIs: {
+        isINaturalistReachable: api.externalAPIs.isINaturalistReachable,
+        checkINaturalistReachability: api.externalAPIs.checkINaturalistReachability,
+        checkWikipediaPage: api.externalAPIs.checkWikipediaPage
+    },
+    utils: {
+        getObservationURLFromImageURL: api.utils.getObservationURLFromImageURL
+    }
+};
+
+// Bind publicAPI methods
+Object.keys(publicAPI).forEach(key => {
+    if (typeof publicAPI[key] === 'object') {
+        Object.keys(publicAPI[key]).forEach(nestedKey => {
+            if (typeof publicAPI[key][nestedKey] === 'function') {
+                publicAPI[key][nestedKey] = publicAPI[key][nestedKey].bind(api);
+            }
+        });
+    }
+});
+
+export default publicAPI;
+
+
+
+#==> data/taxonInfo.json (Sample entries)
+
+#==> These are two sample entries of this file:
+
+{
+  "48312": {
+    "taxonName": "Abudefduf",
+    "vernacularName": "Sergeant Majors",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      47178,
+      1303737,
+      48313,
+      1303643,
+      48312
+    ],
+    "rank": "Genus",
+    "taxonFacts": [
+      "Marine fish genus in the family Pomacentridae",
+      "Found in tropical and subtropical waters worldwide",
+      "Many species are popular in the aquarium trade"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "EU",
+      "AS",
+      "AF",
+      "OC"
+    ],
+    "hints": [
+      "Bright yellow body",
+      "Black stripes on the face",
+      "Small size compared to other fish"
+    ]
+  },
+  "337754": {
+    "taxonName": "Abudefduf bengalensis",
+    "vernacularName": "Bengal Sergeant",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      47178,
+      1303737,
+      48313,
+      1303643,
+      48312,
+      337754
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Native to the Indo-Pacific region",
+      "Inhabits coral reefs and rocky areas",
+      "Omnivorous, feeding on algae and small invertebrates"
+    ],
+    "range": [
+      "AS",
+      "OC"
+    ],
+    "hints": [
+      "Black stripes on yellow body",
+      "Relatively elongated body shape",
+      "Distinctive forked tail"
+    ]
+  }
+}
+
+
+#==> data/taxonPairs.json (Sample entries)
+
+#==> These are two sample entries of this file:
+
+{
+  "1": {
+    "pairName": "Cats vs Dogs",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      41944,
+      42043
+    ],
+    "taxonNames": [
+      "Felidae",
+      "Canidae"
+    ],
+    "range": [
+      "SA",
+      "EU",
+      "AF",
+      "NA",
+      "AS"
+    ]
+  },
+  "2": {
+    "pairName": "Wild Canines",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      42048,
+      42051
+    ],
+    "taxonNames": [
+      "Canis lupus",
+      "Canis latrans"
+    ],
+    "range": [
+      "NA"
+    ]
+  }
+}
+
+
+#==> data/taxonHierarchy.json (Sample entries)
+
+#==> These are two sample entries of this file:
+
+{
+  "48460": {
+    "taxonName": "Life",
+    "vernacularName": "-",
+    "rank": "Stateofmatter",
+    "parentId": null
+  },
+  "1": {
+    "taxonName": "Animalia",
+    "vernacularName": "Animals",
+    "rank": "Kingdom",
+    "parentId": "48460"
+  }
+}
+

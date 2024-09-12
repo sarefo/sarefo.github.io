@@ -1,0 +1,3007 @@
+[
+  {
+    "setName": "Large Carnivorous Mammals",
+    "tags": ["mammals", "carnivores"],
+    "taxaNames": ["Felidae", "Canidae"]
+  },
+  {
+    "setName": "Wild Canines",
+    "tags": ["mammals", "canines"],
+    "taxaNames": ["Canis lupus", "Canis latrans"]
+  },
+  {
+    "setName": "North American Bears",
+    "tags": ["mammals", "bears"],
+    "taxaNames": ["Ursus arctos", "Ursus americanus"]
+  },
+  {
+    "setName": "Spotted Big Cats",
+    "tags": ["mammals", "big cats"],
+    "taxaNames": ["Panthera onca", "Panthera pardus"]
+  },
+  {
+    "setName": "Pinnipeds",
+    "tags": ["mammals", "marine mammals"],
+    "taxaNames": ["Otariidae", "Phocidae"]
+  },
+  {
+    "setName": "Cetaceans",
+    "tags": ["mammals", "marine mammals"],
+    "taxaNames": ["Mysticeti", "Odontoceti"]
+  },
+  {
+    "setName": "Primates",
+    "tags": ["mammals", "primates"],
+    "taxaNames": ["Haplorhini", "Strepsirrhini"]
+  },
+  {
+    "setName": "Simian Primates",
+    "tags": ["mammals", "monkeys"],
+    "taxaNames": ["Catarrhini", "Platyrrhini"]
+  },
+  {
+    "setName": "Catarrhini",
+    "tags": ["mammals", "primates"],
+    "taxaNames": ["Hominoidea", "Cercopithecidae"]
+  },
+  {
+    "setName": "Elephants",
+    "tags": ["mammals", "proboscideans"],
+    "taxaNames": ["Elephas", "Loxodonta"]
+  },
+  {
+    "setName": "African Elephants",
+    "tags": ["mammals", "proboscideans"],
+    "taxaNames": ["Loxodonta africana", "Loxodonta cyclotis"]
+  },
+  {
+    "setName": "Placental Mammals",
+    "tags": ["mammals", "placentals"],
+    "taxaNames": ["Laurasiatheria", "Euarchontoglires"]
+  },
+  {
+    "setName": "Placental Mammals",
+    "tags": ["mammals", "placentals"],
+    "taxaNames": ["Xenarthra", "Afrotheria"]
+  },
+  {
+    "setName": "Placental Mammals",
+    "tags": ["mammals", "placentals"],
+    "taxaNames": ["Afrotheria", "Laurasiatheria"]
+  },
+  {
+    "setName": "Large Felines",
+    "tags": ["mammals", "cats"],
+    "taxaNames": ["Puma concolor", "Acinonyx jubatus"]
+  },
+  {
+    "setName": "Ocelot-like Cats",
+    "tags": ["mammals", "wildcats"],
+    "taxaNames": ["Leopardus pardalis", "Leopardus wiedii"]
+  },
+  {
+    "setName": "Lynx Species",
+    "tags": ["mammals", "wildcats"],
+    "taxaNames": ["Lynx rufus", "Lynx canadensis"]
+  },
+  {
+    "setName": "Fox Species",
+    "tags": ["mammals", "canines"],
+    "taxaNames": ["Vulpes vulpes", "Vulpes corsac"]
+  },
+  {
+    "setName": "Wolf Species",
+    "tags": ["mammals", "canines"],
+    "taxaNames": ["Canis lupus", "Canis rufus"]
+  },
+  {
+    "setName": "Black Bears",
+    "tags": ["mammals", "bears"],
+    "taxaNames": ["Ursus americanus", "Ursus thibetanus"]
+  },
+  {
+    "setName": "Sea Lions",
+    "tags": ["mammals", "pinnipeds"],
+    "taxaNames": ["Zalophus californianus", "Eumetopias jubatus"]
+  },
+  {
+    "setName": "True Seals",
+    "tags": ["mammals", "pinnipeds"],
+    "taxaNames": ["Phoca vitulina", "Halichoerus grypus"]
+  },
+  {
+    "setName": "Dolphins",
+    "tags": ["mammals", "cetaceans"],
+    "taxaNames": ["Tursiops truncatus", "Stenella frontalis"]
+  },
+  {
+    "setName": "Rorqual Whales",
+    "tags": ["mammals", "cetaceans"],
+    "taxaNames": ["Balaenoptera physalus", "Balaenoptera borealis"]
+  },
+  {
+    "setName": "Large Baleen Whales",
+    "tags": ["mammals", "cetaceans"],
+    "taxaNames": ["Balaenoptera physalus", "Balaenoptera musculus"]
+  },
+  {
+    "setName": "Sei Whale Group",
+    "tags": ["mammals", "cetaceans"],
+    "taxaNames": ["Balaenoptera borealis", "Balaenoptera edeni"]
+  },
+  {
+    "setName": "Minke Whales",
+    "tags": ["mammals", "cetaceans"],
+    "taxaNames": ["Balaenoptera acutorostrata", "Balaenoptera bonaerensis"]
+  },
+  {
+    "setName": "Baleen Whales",
+    "tags": ["mammals", "cetaceans"],
+    "taxaNames": ["Megaptera novaeangliae", "Eubalaena glacialis"]
+  },
+  {
+    "setName": "Right Whales",
+    "tags": ["mammals", "cetaceans"],
+    "taxaNames": ["Eubalaena glacialis", "Eubalaena australis"]
+  },
+  {
+    "setName": "Sperm Whales",
+    "tags": ["mammals", "cetaceans"],
+    "taxaNames": ["Physeter macrocephalus", "Kogia breviceps"]
+  },
+  {
+    "setName": "Dwarf Sperm Whales",
+    "tags": ["mammals", "cetaceans"],
+    "taxaNames": ["Kogia breviceps", "Kogia sima"]
+  },
+  {
+    "setName": "Large Oceanic Dolphins",
+    "tags": ["mammals", "cetaceans"],
+    "taxaNames": ["Orcinus orca", "Pseudorca crassidens"]
+  },
+  {
+    "setName": "Pilot Whales",
+    "tags": ["mammals", "cetaceans"],
+    "taxaNames": ["Globicephala melas", "Globicephala macrorhynchus"]
+  },
+  {
+    "setName": "Bottlenose Dolphins",
+    "tags": ["mammals", "cetaceans"],
+    "taxaNames": ["Tursiops truncatus", "Tursiops aduncus"]
+  },
+  {
+    "setName": "Spotted Dolphins",
+    "tags": ["mammals", "cetaceans"],
+    "taxaNames": ["Stenella attenuata", "Stenella frontalis"]
+  },
+  {
+    "setName": "Striped Dolphins",
+    "tags": ["mammals", "cetaceans"],
+    "taxaNames": ["Stenella coeruleoalba", "Stenella longirostris"]
+  },
+  {
+    "setName": "Oceanic Dolphins",
+    "tags": ["mammals", "cetaceans"],
+    "taxaNames": ["Leucopleurus acutus", "Sagmatias obliquidens"]
+  },
+  {
+    "setName": "White-beaked Dolphins",
+    "tags": ["mammals", "cetaceans"],
+    "taxaNames": ["Lagenorhynchus albirostris", "Sagmatias obscurus"]
+  },
+  {
+    "setName": "Rough-toothed Dolphins",
+    "tags": ["mammals", "cetaceans"],
+    "taxaNames": ["Grampus griseus", "Steno bredanensis"]
+  },
+  {
+    "setName": "Porpoises",
+    "tags": ["mammals", "cetaceans"],
+    "taxaNames": ["Phocoena phocoena", "Phocoenoides dalli"]
+  },
+  {
+    "setName": "Beaked Whales",
+    "tags": ["mammals", "cetaceans"],
+    "taxaNames": ["Mesoplodon bidens", "Mesoplodon europaeus"]
+  },
+  {
+    "setName": "Large Beaked Whales",
+    "tags": ["mammals", "cetaceans"],
+    "taxaNames": ["Ziphius cavirostris", "Hyperoodon ampullatus"]
+  },
+  {
+    "setName": "River Dolphins",
+    "tags": ["mammals", "cetaceans"],
+    "taxaNames": ["Inia geoffrensis", "Platanista gangetica"]
+  },
+  {
+    "setName": "Arctic Whales",
+    "tags": ["mammals", "cetaceans"],
+    "taxaNames": ["Delphinapterus leucas", "Monodon monoceros"]
+  },
+  {
+    "setName": "Cephalorhynchus Dolphins",
+    "tags": ["mammals", "cetaceans"],
+    "taxaNames": ["Cephalorhynchus hectori", "Cephalorhynchus commersonii"]
+  },
+  {
+    "setName": "Tucuxi Dolphins",
+    "tags": ["mammals", "cetaceans"],
+    "taxaNames": ["Sotalia fluviatilis", "Sotalia guianensis"]
+  },
+  {
+    "setName": "Small Oceanic Dolphins",
+    "tags": ["mammals", "cetaceans"],
+    "taxaNames": ["Peponocephala electra", "Feresa attenuata"]
+  },
+  {
+    "setName": "Right Whale Dolphins",
+    "tags": ["mammals", "cetaceans"],
+    "taxaNames": ["Lissodelphis borealis", "Lissodelphis peronii"]
+  },
+  {
+    "setName": "New World Deer",
+    "tags": ["mammals", "cervids"],
+    "taxaNames": ["Odocoileus virginianus", "Odocoileus hemionus"]
+  },
+  {
+    "setName": "Red Deer Group",
+    "tags": ["mammals", "cervids"],
+    "taxaNames": ["Cervus elaphus", "Cervus canadensis"]
+  },
+  {
+    "setName": "Large North American Cervids",
+    "tags": ["mammals", "cervids"],
+    "taxaNames": ["Alces alces", "Cervus canadensis"]
+  },
+  {
+    "setName": "Large Bovines",
+    "tags": ["mammals", "bovids"],
+    "taxaNames": ["Bison bison", "Bos taurus"]
+  },
+  {
+    "setName": "Wild Sheep",
+    "tags": ["mammals", "bovids"],
+    "taxaNames": ["Ovis canadensis", "Ovis dalli"]
+  },
+  {
+    "setName": "Mountain Bovids",
+    "tags": ["mammals", "bovids"],
+    "taxaNames": ["Oreamnos americanus", "Ovis dalli"]
+  },
+  {
+    "setName": "Cold-adapted Cervids",
+    "tags": ["mammals", "cervids"],
+    "taxaNames": ["Rangifer tarandus", "Alces alces"]
+  },
+  {
+    "setName": "Zebras",
+    "tags": ["mammals", "equids"],
+    "taxaNames": ["Equus zebra", "Equus quagga"]
+  },
+  {
+    "setName": "Elephants",
+    "tags": ["mammals", "proboscideans"],
+    "taxaNames": ["Loxodonta africana", "Elephas maximus"]
+  },
+  {
+    "setName": "Hippopotamuses",
+    "tags": ["mammals", "artiodactyls"],
+    "taxaNames": ["Hippopotamus amphibius", "Choeropsis liberiensis"]
+  },
+  {
+    "setName": "Rhinoceroses",
+    "tags": ["mammals", "perissodactyls"],
+    "taxaNames": ["Diceros bicornis", "Ceratotherium simum"]
+  },
+  {
+    "setName": "Chimpanzees",
+    "tags": ["mammals", "great apes"],
+    "taxaNames": ["Pan troglodytes", "Pan paniscus"]
+  },
+  {
+    "setName": "Gorillas",
+    "tags": ["mammals", "great apes"],
+    "taxaNames": ["Gorilla beringei", "Gorilla gorilla"]
+  },
+  {
+    "setName": "Orangutans",
+    "tags": ["mammals", "great apes"],
+    "taxaNames": ["Pongo abelii", "Pongo pygmaeus"]
+  },
+  {
+    "setName": "Macaques",
+    "tags": ["mammals", "old world monkeys"],
+    "taxaNames": ["Macaca mulatta", "Macaca fascicularis"]
+  },
+  {
+    "setName": "Baboons",
+    "tags": ["mammals", "old world monkeys"],
+    "taxaNames": ["Papio anubis", "Papio hamadryas"]
+  },
+  {
+    "setName": "Lemurs",
+    "tags": ["mammals", "primates"],
+    "taxaNames": ["Lemur catta", "Varecia variegata"]
+  },
+  {
+    "setName": "Tree Squirrels",
+    "tags": ["mammals", "rodents"],
+    "taxaNames": ["Sciurus carolinensis", "Sciurus niger"]
+  },
+  {
+    "setName": "Chipmunks",
+    "tags": ["mammals", "rodents"],
+    "taxaNames": ["Tamias striatus", "Eutamias sibiricus"]
+  },
+  {
+    "setName": "Marmots",
+    "tags": ["mammals", "rodents"],
+    "taxaNames": ["Marmota monax", "Marmota flaviventris"]
+  },
+  {
+    "setName": "Hamsters",
+    "tags": ["mammals", "rodents"],
+    "taxaNames": ["Cricetus cricetus", "Mesocricetus auratus"]
+  },
+  {
+    "setName": "Rats",
+    "tags": ["mammals", "rodents"],
+    "taxaNames": ["Rattus norvegicus", "Rattus rattus"]
+  },
+  {
+    "setName": "Small Rodents",
+    "tags": ["mammals", "rodents"],
+    "taxaNames": ["Mus musculus", "Apodemus sylvaticus"]
+  },
+  {
+    "setName": "Opossums",
+    "tags": ["mammals", "marsupials"],
+    "taxaNames": ["Didelphis virginiana", "Didelphis marsupialis"]
+  },
+  {
+    "setName": "Arboreal Marsupials",
+    "tags": ["mammals", "marsupials"],
+    "taxaNames": ["Trichosurus vulpecula", "Pseudocheirus peregrinus"]
+  },
+  {
+    "setName": "Large Kangaroos",
+    "tags": ["mammals", "marsupials"],
+    "taxaNames": ["Osphranter rufus", "Macropus giganteus"]
+  },
+  {
+    "setName": "Carnivorous Marsupials",
+    "tags": ["mammals", "marsupials"],
+    "taxaNames": ["Sarcophilus harrisii", "Dasyurus maculatus"]
+  },
+  {
+    "setName": "Wombats",
+    "tags": ["mammals", "marsupials"],
+    "taxaNames": ["Vombatus ursinus", "Lasiorhinus latifrons"]
+  },
+  {
+    "setName": "Large Mouse-eared Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Myotis myotis", "Myotis blythii"]
+  },
+  {
+    "setName": "Water Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Myotis daubentonii", "Myotis dasycneme"]
+  },
+  {
+    "setName": "Whiskered Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Myotis nattereri", "Myotis emarginatus"]
+  },
+  {
+    "setName": "Long-eared Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Myotis bechsteinii", "Plecotus auritus"]
+  },
+  {
+    "setName": "Small Brown Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Myotis lucifugus", "Myotis yumanensis"]
+  },
+  {
+    "setName": "Serotine Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Eptesicus serotinus", "Eptesicus nilssonii"]
+  },
+  {
+    "setName": "Brown Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Eptesicus fuscus", "Lasionycteris noctivagans"]
+  },
+  {
+    "setName": "Noctule Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Nyctalus noctula", "Nyctalus leisleri"]
+  },
+  {
+    "setName": "Pipistrelle Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Pipistrellus pipistrellus", "Pipistrellus pygmaeus"]
+  },
+  {
+    "setName": "Nathusius' Pipistrelle Group",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Pipistrellus nathusii", "Pipistrellus kuhlii"]
+  },
+  {
+    "setName": "Long-eared Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Plecotus auritus", "Plecotus austriacus"]
+  },
+  {
+    "setName": "European Vesper Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Barbastella barbastellus", "Myotis mystacinus"]
+  },
+  {
+    "setName": "Horseshoe Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Rhinolophus ferrumequinum", "Rhinolophus hipposideros"]
+  },
+  {
+    "setName": "Mediterranean Horseshoe Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Rhinolophus euryale", "Rhinolophus mehelyi"]
+  },
+  {
+    "setName": "Free-tailed Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Tadarida brasiliensis", "Tadarida teniotis"]
+  },
+  {
+    "setName": "Bent-winged Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Miniopterus schreibersii", "Miniopterus fuliginosus"]
+  },
+  {
+    "setName": "Mustached Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Pteronotus parnellii", "Pteronotus davyi"]
+  },
+  {
+    "setName": "Fruit-eating Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Artibeus jamaicensis", "Artibeus lituratus"]
+  },
+  {
+    "setName": "Short-tailed Fruit Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Carollia perspicillata", "Carollia brevicaudum"]
+  },
+  {
+    "setName": "Nectar-feeding Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Glossophaga soricina", "Leptonycteris yerbabuenae"]
+  },
+  {
+    "setName": "Vampire Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Desmodus rotundus", "Diaemus youngii"]
+  },
+  {
+    "setName": "Leaf-nosed Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Macrotus californicus", "Macrotus waterhousii"]
+  },
+  {
+    "setName": "Asian Roundleaf Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Hipposideros armiger", "Hipposideros swinhoei"]
+  },
+  {
+    "setName": "Rousette Fruit Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Rousettus aegyptiacus", "Rousettus leschenaultii"]
+  },
+  {
+    "setName": "Flying Foxes",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Pteropus giganteus", "Pteropus vampyrus"]
+  },
+  {
+    "setName": "Short-nosed Fruit Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Cynopterus brachyotis", "Cynopterus sphinx"]
+  },
+  {
+    "setName": "Long-tongued Fruit Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Eonycteris spelaea", "Macroglossus minimus"]
+  },
+  {
+    "setName": "Slit-faced Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Nycteris thebaica", "Nycteris macrotis"]
+  },
+  {
+    "setName": "False Vampire Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Lyroderma lyra", "Megaderma spasma"]
+  },
+  {
+    "setName": "Tomb Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Taphozous melanopogon", "Taphozous theobaldi"]
+  },
+  {
+    "setName": "Small Asian Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Craseonycteris thonglongyai", "Myotis siligorensis"]
+  },
+  {
+    "setName": "Tube-nosed Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Murina cyclotis", "Murina suilla"]
+  },
+  {
+    "setName": "Woolly Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Kerivoula papillosa", "Kerivoula hardwickii"]
+  },
+  {
+    "setName": "Australian Long-eared Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Chalinolobus gouldii", "Chalinolobus morio"]
+  },
+  {
+    "setName": "Australian Long-eared Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Nyctophilus geoffroyi", "Nyctophilus gouldi"]
+  },
+  {
+    "setName": "Australian Free-tailed Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Ozimops planiceps", "Micronomus norfolkensis"]
+  },
+  {
+    "setName": "Asian House Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Scotophilus kuhlii", "Scotophilus heathii"]
+  },
+  {
+    "setName": "African Pipistrelle Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Afronycteris nanus", "Laephotis capensis"]
+  },
+  {
+    "setName": "American Hoary Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Lasiurus cinereus", "Lasiurus borealis"]
+  },
+  {
+    "setName": "American Mastiff Bats",
+    "tags": ["mammals", "bats"],
+    "taxaNames": ["Eumops perotis", "Eumops underwoodi"]
+  },
+  {
+    "setName": "European Hedgehogs",
+    "tags": ["mammals", "insectivores"],
+    "taxaNames": ["Erinaceus europaeus", "Erinaceus roumanicus"]
+  },
+  {
+    "setName": "Common Shrews",
+    "tags": ["mammals", "insectivores"],
+    "taxaNames": ["Sorex araneus", "Sorex minutus"]
+  },
+  {
+    "setName": "Procyonids",
+    "tags": ["mammals", "carnivores"],
+    "taxaNames": ["Procyon lotor", "Nasua nasua"]
+  },
+  {
+    "setName": "Badgers",
+    "tags": ["mammals", "carnivores"],
+    "taxaNames": ["Meles meles", "Taxidea taxus"]
+  },
+  {
+    "setName": "Mustelids",
+    "tags": ["mammals", "carnivores"],
+    "taxaNames": ["Neogale vison", "Mustela putorius"]
+  },
+  {
+    "setName": "Raptors",
+    "tags": ["birds", "birds of prey"],
+    "taxaNames": ["Accipiter nisus", "Falco tinnunculus"]
+  },
+  {
+    "setName": "Large Corvids",
+    "tags": ["birds", "passerines"],
+    "taxaNames": ["Corvus corax", "Corvus corone"]
+  },
+  {
+    "setName": "Pigeons and Doves",
+    "tags": ["birds", "columbiformes"],
+    "taxaNames": ["Zenaida", "Columba"]
+  },
+  {
+    "setName": "Seed-eating Birds",
+    "tags": ["birds"],
+    "taxaNames": ["Columbidae", "Corvidae"]
+  },
+  {
+    "setName": "Large Gulls",
+    "tags": ["birds", "seabirds"],
+    "taxaNames": ["Larus argentatus", "Larus fuscus"]
+  },
+  {
+    "setName": "Old World Sparrows",
+    "tags": ["birds", "passerines"],
+    "taxaNames": ["Passer domesticus", "Passer montanus"]
+  },
+  {
+    "setName": "Crows",
+    "tags": ["birds", "passerines"],
+    "taxaNames": ["Corvus corone", "Corvus frugilegus"]
+  },
+  {
+    "setName": "Tits",
+    "tags": ["birds", "passerines"],
+    "taxaNames": ["Parus major", "Cyanistes caeruleus"]
+  },
+  {
+    "setName": "Old World Flycatchers",
+    "tags": ["birds", "passerines"],
+    "taxaNames": ["Erithacus rubecula", "Luscinia svecica"]
+  },
+  {
+    "setName": "Thrushes",
+    "tags": ["birds", "passerines"],
+    "taxaNames": ["Turdus merula", "Turdus philomelos"]
+  },
+  {
+    "setName": "Old World Warblers",
+    "tags": ["birds", "passerines"],
+    "taxaNames": ["Sylvia atricapilla", "Sylvia borin"]
+  },
+  {
+    "setName": "Leaf Warblers",
+    "tags": ["birds", "passerines"],
+    "taxaNames": ["Phylloscopus trochilus", "Phylloscopus collybita"]
+  },
+  {
+    "setName": "Finches",
+    "tags": ["birds", "passerines"],
+    "taxaNames": ["Fringilla coelebs", "Fringilla montifringilla"]
+  },
+  {
+    "setName": "Goldfinches",
+    "tags": ["birds", "passerines"],
+    "taxaNames": ["Carduelis carduelis", "Spinus spinus"]
+  },
+  {
+    "setName": "Buntings",
+    "tags": ["birds", "passerines"],
+    "taxaNames": ["Emberiza citrinella", "Emberiza schoeniclus"]
+  },
+  {
+    "setName": "Swallows",
+    "tags": ["birds", "passerines"],
+    "taxaNames": ["Hirundo rustica", "Delichon urbicum"]
+  },
+  {
+    "setName": "Larks",
+    "tags": ["birds", "passerines"],
+    "taxaNames": ["Alauda arvensis", "Lullula arborea"]
+  },
+  {
+    "setName": "Wagtails",
+    "tags": ["birds", "passerines"],
+    "taxaNames": ["Motacilla alba", "Motacilla flava"]
+  },
+  {
+    "setName": "Starlings",
+    "tags": ["birds", "passerines"],
+    "taxaNames": ["Sturnus vulgaris", "Sturnus unicolor"]
+  },
+  {
+    "setName": "Jays and Magpies",
+    "tags": ["birds", "passerines"],
+    "taxaNames": ["Garrulus glandarius", "Pica pica"]
+  },
+  {
+    "setName": "Large Raptors",
+    "tags": ["birds", "birds of prey"],
+    "taxaNames": ["Buteo buteo", "Pernis apivorus"]
+  },
+  {
+    "setName": "Accipiters",
+    "tags": ["birds", "birds of prey"],
+    "taxaNames": ["Accipiter nisus", "Accipiter gentilis"]
+  },
+  {
+    "setName": "Falcons",
+    "tags": ["birds", "birds of prey"],
+    "taxaNames": ["Falco tinnunculus", "Falco naumanni"]
+  },
+  {
+    "setName": "Large Eagles",
+    "tags": ["birds", "birds of prey"],
+    "taxaNames": ["Aquila chrysaetos", "Haliaeetus albicilla"]
+  },
+  {
+    "setName": "Herons",
+    "tags": ["birds", "wading birds"],
+    "taxaNames": ["Ardea cinerea", "Ardea purpurea"]
+  },
+  {
+    "setName": "Egrets",
+    "tags": ["birds", "wading birds"],
+    "taxaNames": ["Egretta garzetta", "Bubulcus ibis"]
+  },
+  {
+    "setName": "Storks",
+    "tags": ["birds", "wading birds"],
+    "taxaNames": ["Ciconia ciconia", "Ciconia nigra"]
+  },
+  {
+    "setName": "Terns",
+    "tags": ["birds", "seabirds"],
+    "taxaNames": ["Sterna hirundo", "Sterna paradisaea"]
+  },
+  {
+    "setName": "Auks",
+    "tags": ["birds", "seabirds"],
+    "taxaNames": ["Alca torda", "Uria aalge"]
+  },
+  {
+    "setName": "Pigeons",
+    "tags": ["birds", "columbiformes"],
+    "taxaNames": ["Columba palumbus", "Columba oenas"]
+  },
+  {
+    "setName": "Doves",
+    "tags": ["birds", "columbiformes"],
+    "taxaNames": ["Streptopelia decaocto", "Streptopelia turtur"]
+  },
+  {
+    "setName": "Cuckoos and Raptors",
+    "tags": ["birds"],
+    "taxaNames": ["Cuculus canorus", "Accipiter nisus"]
+  },
+  {
+    "setName": "Owls",
+    "tags": ["birds", "birds of prey"],
+    "taxaNames": ["Tyto alba", "Asio flammeus"]
+  },
+  {
+    "setName": "Wood Owls",
+    "tags": ["birds", "birds of prey"],
+    "taxaNames": ["Strix aluco", "Strix nebulosa"]
+  },
+  {
+    "setName": "Swifts and Swallows",
+    "tags": ["birds"],
+    "taxaNames": ["Apus apus", "Hirundo rustica"]
+  },
+  {
+    "setName": "Colorful Small Birds",
+    "tags": ["birds"],
+    "taxaNames": ["Alcedo atthis", "Merops apiaster"]
+  },
+  {
+    "setName": "Hoopoes and Rollers",
+    "tags": ["birds"],
+    "taxaNames": ["Upupa epops", "Coracias garrulus"]
+  },
+  {
+    "setName": "Green Woodpeckers",
+    "tags": ["birds", "piciformes"],
+    "taxaNames": ["Picus viridis", "Picus canus"]
+  },
+  {
+    "setName": "European Woodpeckers",
+    "tags": ["birds", "piciformes"],
+    "taxaNames": ["Dendrocopos major", "Dendrocoptes medius"]
+  },
+  {
+    "setName": "Dabbling Ducks",
+    "tags": ["birds", "waterfowl"],
+    "taxaNames": ["Anas platyrhynchos", "Anas acuta"]
+  },
+  {
+    "setName": "Diving Ducks",
+    "tags": ["birds", "waterfowl"],
+    "taxaNames": ["Aythya ferina", "Aythya fuligula"]
+  },
+  {
+    "setName": "Mergansers",
+    "tags": ["birds", "waterfowl"],
+    "taxaNames": ["Mergus merganser", "Mergus serrator"]
+  },
+  {
+    "setName": "Grebes",
+    "tags": ["birds", "waterbirds"],
+    "taxaNames": ["Podiceps cristatus", "Podiceps grisegena"]
+  },
+  {
+    "setName": "Cormorants",
+    "tags": ["birds", "seabirds"],
+    "taxaNames": ["Phalacrocorax carbo", "Gulosus aristotelis"]
+  },
+  {
+    "setName": "Rails",
+    "tags": ["birds", "waterbirds"],
+    "taxaNames": ["Fulica atra", "Gallinula chloropus"]
+  },
+  {
+    "setName": "Plovers",
+    "tags": ["birds", "shorebirds"],
+    "taxaNames": ["Vanellus vanellus", "Pluvialis apricaria"]
+  },
+  {
+    "setName": "Sandpipers",
+    "tags": ["birds", "shorebirds"],
+    "taxaNames": ["Tringa totanus", "Tringa nebularia"]
+  },
+  {
+    "setName": "Small Waders",
+    "tags": ["birds", "shorebirds"],
+    "taxaNames": ["Calidris alpina", "Calidris ferruginea"]
+  },
+  {
+    "setName": "Curlews",
+    "tags": ["birds", "shorebirds"],
+    "taxaNames": ["Numenius arquata", "Numenius phaeopus"]
+  },
+  {
+    "setName": "Snipes",
+    "tags": ["birds", "shorebirds"],
+    "taxaNames": ["Scolopax rusticola", "Gallinago gallinago"]
+  },
+  {
+    "setName": "Coastal Shorebirds",
+    "tags": ["birds", "shorebirds"],
+    "taxaNames": ["Haematopus ostralegus", "Recurvirostra avosetta"]
+  },
+  {
+    "setName": "Stone-curlews and Plovers",
+    "tags": ["birds", "shorebirds"],
+    "taxaNames": ["Burhinus oedicnemus", "Pluvialis apricaria"]
+  },
+  {
+    "setName": "Skuas",
+    "tags": ["birds", "seabirds"],
+    "taxaNames": ["Stercorarius parasiticus", "Stercorarius longicaudus"]
+  },
+  {
+    "setName": "Large Reptiles",
+    "tags": ["reptiles"],
+    "taxaNames": ["Crocodylidae", "Alligatoridae"]
+  },
+  {
+    "setName": "Legless Lizards and Snakes",
+    "tags": ["reptiles"],
+    "taxaNames": ["Pygopodidae", "Colubridae"]
+  },
+  {
+    "setName": "Sea Turtles",
+    "tags": ["reptiles", "marine reptiles"],
+    "taxaNames": ["Chelonia mydas", "Eretmochelys imbricata"]
+  },
+  {
+    "setName": "European Snakes",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Vipera berus", "Natrix natrix"]
+  },
+  {
+    "setName": "European Water Snakes",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Natrix natrix", "Natrix helvetica"]
+  },
+  {
+    "setName": "European Vipers",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Vipera berus", "Vipera aspis"]
+  },
+  {
+    "setName": "Small European Snakes",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Coronella austriaca", "Vipera berus"]
+  },
+  {
+    "setName": "European Rat Snakes",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Zamenis longissimus", "Hierophis viridiflavus"]
+  },
+  {
+    "setName": "Four-lined Snakes",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Elaphe quatuorlineata", "Elaphe sauromates"]
+  },
+  {
+    "setName": "Mediterranean Snakes",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Malpolon monspessulanus", "Hierophis viridiflavus"]
+  },
+  {
+    "setName": "Asian Cobras",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Naja naja", "Naja kaouthia"]
+  },
+  {
+    "setName": "Asian Cobras",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Naja naja", "Naja atra"]
+  },
+  {
+    "setName": "Kraits",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Bungarus caeruleus", "Bungarus candidus"]
+  },
+  {
+    "setName": "Mambas",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Dendroaspis polylepis", "Dendroaspis angusticeps"]
+  },
+  {
+    "setName": "Rattlesnakes",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Crotalus atrox", "Crotalus scutulatus"]
+  },
+  {
+    "setName": "Pygmy Rattlesnakes",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Sistrurus catenatus", "Sistrurus miliarius"]
+  },
+  {
+    "setName": "Copperheads",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Agkistrodon contortrix", "Agkistrodon piscivorus"]
+  },
+  {
+    "setName": "Fer-de-lance",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Bothrops atrox", "Bothrops asper"]
+  },
+  {
+    "setName": "African Vipers",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Bitis arietans", "Bitis gabonica"]
+  },
+  {
+    "setName": "Saw-scaled Vipers",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Echis carinatus", "Echis coloratus"]
+  },
+  {
+    "setName": "Large Pythons",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Malayopython reticulatus", "Python bivittatus"]
+  },
+  {
+    "setName": "Large Constrictors",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Boa constrictor", "Eunectes murinus"]
+  },
+  {
+    "setName": "Carpet Pythons",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Morelia spilota", "Morelia bredli"]
+  },
+  {
+    "setName": "Rat Snakes",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Pantherophis guttatus", "Pantherophis alleghaniensis"]
+  },
+  {
+    "setName": "Kingsnakes",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Lampropeltis getula", "Lampropeltis californiae"]
+  },
+  {
+    "setName": "Garter Snakes",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Thamnophis sirtalis", "Thamnophis elegans"]
+  },
+  {
+    "setName": "North American Colubrids",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Pituophis catenifer", "Pantherophis obsoletus"]
+  },
+  {
+    "setName": "Racers",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Coluber constrictor", "Masticophis flagellum"]
+  },
+  {
+    "setName": "Hognose Snakes",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Heterodon platirhinos", "Heterodon nasicus"]
+  },
+  {
+    "setName": "Green Snakes",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Opheodrys aestivus", "Opheodrys vernalis"]
+  },
+  {
+    "setName": "Water Snakes",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Nerodia sipedon", "Nerodia fasciata"]
+  },
+  {
+    "setName": "Queen Snakes",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Regina septemvittata", "Thamnophis saurita"]
+  },
+  {
+    "setName": "Brown Snakes",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Storeria dekayi", "Storeria occipitomaculata"]
+  },
+  {
+    "setName": "Ring-necked Snakes",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Diadophis punctatus", "Contia tenuis"]
+  },
+  {
+    "setName": "Crowned Snakes",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Tantilla coronata", "Tantilla relicta"]
+  },
+  {
+    "setName": "North American Boas",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Lichanura trivirgata", "Charina bottae"]
+  },
+  {
+    "setName": "Sand Boas",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Eryx johnii", "Eryx conicus"]
+  },
+  {
+    "setName": "File Snakes",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Acrochordus granulatus", "Acrochordus javanicus"]
+  },
+  {
+    "setName": "Sea Snakes",
+    "tags": ["reptiles", "snakes", "marine reptiles"],
+    "taxaNames": ["Laticauda colubrina", "Hydrophis platurus"]
+  },
+  {
+    "setName": "Coral Snakes",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Micrurus fulvius", "Micrurus tener"]
+  },
+  {
+    "setName": "Puerto Rican Boas",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Chilabothrus striatus", "Chilabothrus inornatus"]
+  },
+  {
+    "setName": "Asian Cat Snakes",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Boiga irregularis", "Boiga cynodon"]
+  },
+  {
+    "setName": "Kukri Snakes",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Oligodon octolineatus", "Oligodon fasciolatus"]
+  },
+  {
+    "setName": "Pit Vipers",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Trimeresurus albolabris", "Trimeresurus popeiorum"]
+  },
+  {
+    "setName": "Asian Water Snakes",
+    "tags": ["reptiles", "snakes"],
+    "taxaNames": ["Fowlea piscator", "Fowlea flavipunctata"]
+  },
+  {
+    "setName": "Batfish",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Platax teira", "Platax orbicularis"]
+  },
+  {
+    "setName": "Platax Batfish",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Platax boersii", "Platax orbicularis"]
+  },
+  {
+    "setName": "Teira Batfish Group",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Platax teira", "Platax boersii"]
+  },
+  {
+    "setName": "Boxfish",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Ostracion meleagris", "Ostracion solorense"]
+  },
+  {
+    "setName": "Butterflyfish",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Coradion chrysozonus", "Chelmon rostratus"]
+  },
+  {
+    "setName": "Vagabond Butterflyfish Group",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Chaetodon vagabundus", "Chaetodon lunulatus"]
+  },
+  {
+    "setName": "Heniochus Butterflyfish",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Heniochus varius", "Heniochus chrysostomus"]
+  },
+  {
+    "setName": "Longfin Bannerfish Group",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Heniochus acuminatus", "Heniochus diphreutes"]
+  },
+  {
+    "setName": "Tropical Snappers",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Lethrinidae", "Lutjanidae"]
+  },
+  {
+    "setName": "Red Snappers",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Lutjanus malabaricus", "Lutjanus erythropterus"]
+  },
+  {
+    "setName": "Sweetlips",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Diagramma pictum", "Plectorhinchus chaetodonoides"]
+  },
+  {
+    "setName": "Fusiliers",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Caesio cuning", "Caesio teres"]
+  },
+  {
+    "setName": "Monocle Breams",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Scolopsis bilineata", "Scolopsis lineata"]
+  },
+  {
+    "setName": "Blennies",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Salarias fasciatus", "Salarias guttatus"]
+  },
+  {
+    "setName": "Jacks",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Flavocaranx bajad", "Turrum fulvoguttatum"]
+  },
+  {
+    "setName": "Soles",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Pardachirus pavoninus", "Soleichthys heterorhinos"]
+  },
+  {
+    "setName": "Barracudas",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Sphyraena flavicauda", "Sphyraena jello"]
+  },
+  {
+    "setName": "Sergeant Majors",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Abudefduf bengalensis", "Abudefduf sexfasciatus"]
+  },
+  {
+    "setName": "Damselfish",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Abudefduf", "Dascyllus"]
+  },
+  {
+    "setName": "Blue Damselfish",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Pomacentrus coelestis", "Pomacentrus auriventris"]
+  },
+  {
+    "setName": "Clownfish",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Amphiprion polymnus", "Amphiprion clarkii"]
+  },
+  {
+    "setName": "Spiny Damselfish",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Pomacentrus polyspinus", "Pomacentrus tripunctatus"]
+  },
+  {
+    "setName": "Prawn-gobies",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Amblyeleotris gymnocephala", "Amblyeleotris rubrimarginata"]
+  },
+  {
+    "setName": "Pygmy Gobies",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Eviota guttata", "Eviota sebreei"]
+  },
+  {
+    "setName": "Decorated Gobies",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Istigobius decoratus", "Istigobius ornatus"]
+  },
+  {
+    "setName": "Dartfish",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Ptereleotris hanae", "Ptereleotris microlepis"]
+  },
+  {
+    "setName": "Cardinalfish",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Ostorhinchus cyanosoma", "Ostorhinchus wassinki"]
+  },
+  {
+    "setName": "Groupers",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Epinephelus coioides", "Epinephelus fuscoguttatus"]
+  },
+  {
+    "setName": "Wrasses",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Cheilinus chlorourus", "Cheilinus trilobatus"]
+  },
+  {
+    "setName": "Checkerboard Wrasses",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Halichoeres hortulanus", "Halichoeres leucurus"]
+  },
+  {
+    "setName": "Parrotfish",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Scarus rivulatus", "Scarus hypselopterus"]
+  },
+  {
+    "setName": "Sandperches",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Parapercis xanthozona", "Parapercis hexophtalma"]
+  },
+  {
+    "setName": "Lionfish",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Pterois volitans", "Pterois antennata"]
+  },
+  {
+    "setName": "Bridled Gobies",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Gnatholepis cauerensis", "Gnatholepis anjerensis"]
+  },
+  {
+    "setName": "Wormfish",
+    "tags": ["fish", "marine fish"],
+    "taxaNames": ["Gunnellichthys curiosus", "Gunnellichthys viridescens"]
+  },
+  {
+    "setName": "Manta Rays",
+    "tags": ["fish", "cartilaginous fish"],
+    "taxaNames": ["Mobula alfredi", "Mobula birostris"]
+  },
+  {
+    "setName": "Swallowtail Butterflies",
+    "tags": ["insects", "butterflies"],
+    "taxaNames": ["Papilio machaon", "Papilio xuthus"]
+  },
+  {
+    "setName": "North American Swallowtails",
+    "tags": ["insects", "butterflies"],
+    "taxaNames": ["Papilio polyxenes", "Papilio zelicaon"]
+  },
+  {
+    "setName": "Longwing Butterflies",
+    "tags": ["insects", "butterflies"],
+    "taxaNames": ["Heliconius melpomene", "Heliconius erato"]
+  },
+  {
+    "setName": "Red Admiral Butterflies",
+    "tags": ["insects", "butterflies"],
+    "taxaNames": ["Vanessa atalanta", "Vanessa indica"]
+  },
+  {
+    "setName": "Cabbage White Butterflies",
+    "tags": ["insects", "butterflies"],
+    "taxaNames": ["Pieris rapae", "Pieris napi"]
+  },
+  {
+    "setName": "Copper Butterflies",
+    "tags": ["insects", "butterflies"],
+    "taxaNames": ["Lycaena phlaeas", "Lycaena dispar"]
+  },
+  {
+    "setName": "Peacock Butterflies",
+    "tags": ["insects", "butterflies"],
+    "taxaNames": ["Aglais io", "Aglais urticae"]
+  },
+  {
+    "setName": "Brimstone Butterflies",
+    "tags": ["insects", "butterflies"],
+    "taxaNames": ["Gonepteryx rhamni", "Gonepteryx cleopatra"]
+  },
+  {
+    "setName": "Comma Butterflies",
+    "tags": ["insects", "butterflies"],
+    "taxaNames": ["Polygonia c-album", "Polygonia interrogationis"]
+  },
+  {
+    "setName": "Large Nymphalid Butterflies",
+    "tags": ["insects", "butterflies"],
+    "taxaNames": ["Nymphalis antiopa", "Nymphalis polychloros"]
+  },
+  {
+    "setName": "Ringlet Butterflies",
+    "tags": ["insects", "butterflies"],
+    "taxaNames": ["Erebia ligea", "Erebia euryale"]
+  },
+  {
+    "setName": "Monarch Butterflies",
+    "tags": ["insects", "butterflies"],
+    "taxaNames": ["Danaus plexippus", "Danaus gilippus"]
+  },
+  {
+    "setName": "True Butterflies",
+    "tags": ["insects", "lepidoptera"],
+    "taxaNames": ["Papilionoidea", "Geometroidea"]
+  },
+  {
+    "setName": "Butterflies and Moths",
+    "tags": ["insects", "lepidoptera"],
+    "taxaNames": ["Papilionoidea", "Bombycoidea"]
+  },
+  {
+    "setName": "Death's-head Hawkmoths",
+    "tags": ["insects", "moths"],
+    "taxaNames": ["Acherontia atropos", "Acherontia styx"]
+  },
+  {
+    "setName": "Large Hawkmoths",
+    "tags": ["insects", "moths"],
+    "taxaNames": ["Laothoe populi", "Smerinthus ocellata"]
+  },
+  {
+    "setName": "Red Underwing Moths",
+    "tags": ["insects", "moths"],
+    "taxaNames": ["Catocala nupta", "Catocala sponsa"]
+  },
+  {
+    "setName": "Io Moths",
+    "tags": ["insects", "moths"],
+    "taxaNames": ["Automeris io", "Automeris cecrops"]
+  },
+  {
+    "setName": "Emperor Moths",
+    "tags": ["insects", "moths"],
+    "taxaNames": ["Saturnia pavonia", "Saturnia pyri"]
+  },
+  {
+    "setName": "Tiger Moths",
+    "tags": ["insects", "moths"],
+    "taxaNames": ["Arctia caja", "Arctia plantaginis"]
+  },
+  {
+    "setName": "Dart Moths",
+    "tags": ["insects", "moths"],
+    "taxaNames": ["Xestia c-nigrum", "Xestia triangulum"]
+  },
+  {
+    "setName": "Jersey Tiger Moths",
+    "tags": ["insects", "moths"],
+    "taxaNames": ["Euplagia quadripunctaria", "Callimorpha dominula"]
+  },
+  {
+    "setName": "Prominent Moths",
+    "tags": ["insects", "moths"],
+    "taxaNames": ["Phalera bucephala", "Cerura vinula"]
+  },
+  {
+    "setName": "Carpenter Moths",
+    "tags": ["insects", "moths"],
+    "taxaNames": ["Cossus cossus", "Zeuzera pyrina"]
+  },
+  {
+    "setName": "Sphinx Moths",
+    "tags": ["insects", "moths"],
+    "taxaNames": ["Manduca sexta", "Manduca quinquemaculatus"]
+  },
+  {
+    "setName": "Luna Moths",
+    "tags": ["insects", "moths"],
+    "taxaNames": ["Actias luna", "Actias dubernardi"]
+  },
+  {
+    "setName": "Bagworm Moths",
+    "tags": ["insects", "moths"],
+    "taxaNames": ["Psychidae", "Tineidae"]
+  },
+  {
+    "setName": "Leaf Roller Moths",
+    "tags": ["insects", "moths"],
+    "taxaNames": ["Tortricidae", "Zygaenidae"]
+  },
+  {
+    "setName": "Burnet Moths",
+    "tags": ["insects", "moths"],
+    "taxaNames": ["Zygaenidae", "Limacodidae"]
+  },
+  {
+    "setName": "Wave Moths",
+    "tags": ["insects", "moths"],
+    "taxaNames": ["Scopula propinquaria", "Scopula limboundata"]
+  },
+  {
+    "setName": "Tiger Moths",
+    "tags": ["insects", "moths"],
+    "taxaNames": ["Caeneressa diaphana", "Amata huebneri"]
+  },
+  {
+    "setName": "Clearwing Moths",
+    "tags": ["insects", "moths"],
+    "taxaNames": ["Synanthedon", "Vespoidea"]
+  },
+  {
+    "setName": "Giant Moth Group",
+    "tags": ["insects", "moths"],
+    "taxaNames": ["Acheron longus", "Maezous formosana"]
+  },
+  {
+    "setName": "Large Bees",
+    "tags": ["insects", "hymenoptera"],
+    "taxaNames": ["Bombus terrestris", "Xylocopa violacea"]
+  },
+  {
+    "setName": "Large Wasps",
+    "tags": ["insects", "hymenoptera"],
+    "taxaNames": ["Vespa crabro", "Vespa velutina"]
+  },
+  {
+    "setName": "Honey Bees",
+    "tags": ["insects", "hymenoptera"],
+    "taxaNames": ["Apis mellifera", "Apis cerana"]
+  },
+  {
+    "setName": "Bumblebees",
+    "tags": ["insects", "hymenoptera"],
+    "taxaNames": ["Bombus pascuorum", "Bombus muscorum"]
+  },
+  {
+    "setName": "Social Wasps",
+    "tags": ["insects", "hymenoptera"],
+    "taxaNames": ["Vespula vulgaris", "Vespula germanica"]
+  },
+  {
+    "setName": "Ants and Ant Mimics",
+    "tags": ["insects", "hymenoptera"],
+    "taxaNames": ["Formicidae", "Myrmarachnini"]
+  },
+  {
+    "setName": "Ant Subfamilies",
+    "tags": ["insects", "hymenoptera"],
+    "taxaNames": ["Formicinae", "Myrmicinae"]
+  },
+  {
+    "setName": "Primitive Ants",
+    "tags": ["insects", "hymenoptera"],
+    "taxaNames": ["Myrmeciinae", "Myrmicinae"]
+  },
+  {
+    "setName": "Diverse Ant Groups",
+    "tags": ["insects", "hymenoptera"],
+    "taxaNames": ["Dolichoderinae", "Camponotus"]
+  },
+  {
+    "setName": "Stinging Ants",
+    "tags": ["insects", "hymenoptera"],
+    "taxaNames": ["Ponerinae", "Camponotus"]
+  },
+  {
+    "setName": "Primitive and Stinging Ants",
+    "tags": ["insects", "hymenoptera"],
+    "taxaNames": ["Ponerinae", "Paraponerinae"]
+  },
+  {
+    "setName": "Invasive Ants",
+    "tags": ["insects", "hymenoptera"],
+    "taxaNames": ["Anoplolepis gracilipes", "Solenopsis invicta"]
+  },
+  {
+    "setName": "Hoverflies and Wasps",
+    "tags": ["insects"],
+    "taxaNames": ["Syrphidae", "Vespoidea"]
+  },
+  {
+    "setName": "Large Beetles",
+    "tags": ["insects", "coleoptera"],
+    "taxaNames": ["Lucanus cervus", "Prionus coriarius"]
+  },
+  {
+    "setName": "Ladybirds",
+    "tags": ["insects", "coleoptera"],
+    "taxaNames": ["Coccinella septempunctata", "Harmonia axyridis"]
+  },
+  {
+    "setName": "Tiger Beetles",
+    "tags": ["insects", "coleoptera"],
+    "taxaNames": ["Cicindela campestris", "Cicindela hybrida"]
+  },
+  {
+    "setName": "Longhorn Beetles",
+    "tags": ["insects", "coleoptera"],
+    "taxaNames": ["Cerambyx cerdo", "Cerambyx scopolii"]
+  },
+  {
+    "setName": "Chafer Beetles",
+    "tags": ["insects", "coleoptera"],
+    "taxaNames": ["Melolontha melolontha", "Amphimallon solstitiale"]
+  },
+  {
+    "setName": "Bark Beetles",
+    "tags": ["insects", "coleoptera"],
+    "taxaNames": ["Ips typographus", "Ips sexdentatus"]
+  },
+  {
+    "setName": "Two-spot Ladybirds",
+    "tags": ["insects", "coleoptera"],
+    "taxaNames": ["Adalia bipunctata", "Adalia decempunctata"]
+  },
+  {
+    "setName": "Spotted Ladybirds",
+    "tags": ["insects", "coleoptera"],
+    "taxaNames": ["Propylea quatuordecimpunctata", "Psyllobora vigintiduopunctata"]
+  },
+  {
+    "setName": "Variegated Ladybirds",
+    "tags": ["insects", "coleoptera"],
+    "taxaNames": ["Hippodamia variegata", "Hippodamia tredecimpunctata"]
+  },
+  {
+    "setName": "Eyed Ladybirds",
+    "tags": ["insects", "coleoptera"],
+    "taxaNames": ["Anatis ocellata", "Calvia quatuordecimguttata"]
+  },
+  {
+    "setName": "Eleven-spot Ladybirds",
+    "tags": ["insects", "coleoptera"],
+    "taxaNames": ["Coccinella undecimpunctata", "Coccinella magnifica"]
+  },
+  {
+    "setName": "Cream-spot Ladybirds",
+    "tags": ["insects", "coleoptera"],
+    "taxaNames": ["Halyzia sedecimguttata", "Vibidia duodecimguttata"]
+  },
+  {
+    "setName": "Orange Ladybirds",
+    "tags": ["insects", "coleoptera"],
+    "taxaNames": ["Myrrha octodecimguttata", "Sospita vigintiguttata"]
+  },
+  {
+    "setName": "Kidney-spot Ladybirds",
+    "tags": ["insects", "coleoptera"],
+    "taxaNames": ["Chilocorus renipustulatus", "Chilocorus bipustulatus"]
+  },
+  {
+    "setName": "Pine Ladybirds",
+    "tags": ["insects", "coleoptera"],
+    "taxaNames": ["Exochomus quadripustulatus", "Platynaspis luteorubra"]
+  },
+  {
+    "setName": "24-spot Ladybirds",
+    "tags": ["insects", "coleoptera"],
+    "taxaNames": ["Subcoccinella vigintiquatuorpunctata", "Cynegetis impunctata"]
+  },
+  {
+    "setName": "Water Ladybirds",
+    "tags": ["insects", "coleoptera"],
+    "taxaNames": ["Anisosticta novemdecimpunctata", "Coccinula quatuordecimpustulata"]
+  },
+  {
+    "setName": "Cream-streaked Ladybirds",
+    "tags": ["insects", "coleoptera"],
+    "taxaNames": ["Harmonia quadripunctata", "Harmonia conformis"]
+  },
+  {
+    "setName": "Striped Ladybirds",
+    "tags": ["insects", "coleoptera"],
+    "taxaNames": ["Oenopia conglobata", "Oenopia lyncea"]
+  },
+  {
+    "setName": "Convergent Ladybirds",
+    "tags": ["insects", "coleoptera"],
+    "taxaNames": ["Coleomegilla maculata", "Hippodamia convergens"]
+  },
+  {
+    "setName": "Hieroglyphic Ladybirds",
+    "tags": ["insects", "coleoptera"],
+    "taxaNames": ["Coccinella hieroglyphica", "Coccinella trifasciata"]
+  },
+  {
+    "setName": "Asian Ladybirds",
+    "tags": ["insects", "coleoptera"],
+    "taxaNames": ["Cheilomenes sexmaculata", "Coccinella transversalis"]
+  },
+  {
+    "setName": "Large Mantids",
+    "tags": ["insects", "mantodea"],
+    "taxaNames": ["Mantis religiosa", "Tenodera sinensis"]
+  },
+  {
+    "setName": "Conehead Mantids",
+    "tags": ["insects", "mantodea"],
+    "taxaNames": ["Empusa pennata", "Empusa fasciata"]
+  },
+  {
+    "setName": "Mediterranean Mantids",
+    "tags": ["insects", "mantodea"],
+    "taxaNames": ["Ameles spallanzania", "Ameles decolor"]
+  },
+  {
+    "setName": "Giant Mantids",
+    "tags": ["insects", "mantodea"],
+    "taxaNames": ["Sphodromantis viridis", "Hierodula membranacea"]
+  },
+  {
+    "setName": "Asian Mantids",
+    "tags": ["insects", "mantodea"],
+    "taxaNames": ["Hierodula patellifera", "Tropidomantis gressitti"]
+  },
+  {
+    "setName": "Field Crickets",
+    "tags": ["insects", "orthoptera"],
+    "taxaNames": ["Gryllus campestris", "Gryllus bimaculatus"]
+  },
+  {
+    "setName": "Great Green Bush-crickets",
+    "tags": ["insects", "orthoptera"],
+    "taxaNames": ["Tettigonia viridissima", "Tettigonia cantans"]
+  },
+  {
+    "setName": "Sickle Bush-crickets",
+    "tags": ["insects", "orthoptera"],
+    "taxaNames": ["Phaneroptera falcata", "Phaneroptera nana"]
+  },
+  {
+    "setName": "Cone-headed Grasshoppers",
+    "tags": ["insects", "orthoptera"],
+    "taxaNames": ["Conocephalus fuscus", "Conocephalus dorsalis"]
+  },
+  {
+    "setName": "Oak Bush-crickets",
+    "tags": ["insects", "orthoptera"],
+    "taxaNames": ["Meconema thalassinum", "Meconema meridionale"]
+  },
+  {
+    "setName": "Grasshoppers and Crickets",
+    "tags": ["insects", "orthoptera"],
+    "taxaNames": ["Caelifera", "Ensifera"]
+  },
+  {
+    "setName": "Katydids and Grasshoppers",
+    "tags": ["insects", "orthoptera"],
+    "taxaNames": ["Tettigoniidae", "Acridoidea"]
+  },
+  {
+    "setName": "Earwigs",
+    "tags": ["insects", "dermaptera"],
+    "taxaNames": ["Forficula auricularia", "Chelidurella acanthopygia"]
+  },
+  {
+    "setName": "Demoiselle Damselflies",
+    "tags": ["insects", "odonata"],
+    "taxaNames": ["Calopteryx virgo", "Calopteryx splendens"]
+  },
+  {
+    "setName": "Hawker Dragonflies",
+    "tags": ["insects", "odonata"],
+    "taxaNames": ["Aeshna cyanea", "Aeshna mixta"]
+  },
+  {
+    "setName": "Darter Dragonflies",
+    "tags": ["insects", "odonata"],
+    "taxaNames": ["Sympetrum striolatum", "Sympetrum vulgatum"]
+  },
+  {
+    "setName": "Broad-bodied Dragonflies",
+    "tags": ["insects", "odonata"],
+    "taxaNames": ["Libellula depressa", "Libellula quadrimaculata"]
+  },
+  {
+    "setName": "Emperor Dragonflies",
+    "tags": ["insects", "odonata"],
+    "taxaNames": ["Anax imperator", "Anax parthenope"]
+  },
+  {
+    "setName": "Golden-ringed Dragonflies",
+    "tags": ["insects", "odonata"],
+    "taxaNames": ["Cordulegaster boltonii", "Cordulegaster bidentata"]
+  },
+  {
+    "setName": "Club-tailed Dragonflies",
+    "tags": ["insects", "odonata"],
+    "taxaNames": ["Gomphus vulgatissimus", "Onychogomphus forcipatus"]
+  },
+  {
+    "setName": "Skimmer Dragonflies",
+    "tags": ["insects", "odonata"],
+    "taxaNames": ["Orthetrum cancellatum", "Orthetrum albistylum"]
+  },
+  {
+    "setName": "Whiteface Dragonflies",
+    "tags": ["insects", "odonata"],
+    "taxaNames": ["Leucorrhinia dubia", "Leucorrhinia rubicunda"]
+  },
+  {
+    "setName": "Emerald Dragonflies",
+    "tags": ["insects", "odonata"],
+    "taxaNames": ["Somatochlora metallica", "Cordulia aenea"]
+  },
+  {
+    "setName": "Red Damselflies",
+    "tags": ["insects", "odonata"],
+    "taxaNames": ["Pyrrhosoma nymphula", "Ceriagrion tenellum"]
+  },
+  {
+    "setName": "Blue-tailed Damselflies",
+    "tags": ["insects", "odonata"],
+    "taxaNames": ["Ischnura elegans", "Ischnura pumilio"]
+  },
+  {
+    "setName": "Azure Damselflies",
+    "tags": ["insects", "odonata"],
+    "taxaNames": ["Coenagrion puella", "Coenagrion pulchellum"]
+  },
+  {
+    "setName": "Common Blue Damselflies",
+    "tags": ["insects", "odonata"],
+    "taxaNames": ["Enallagma cyathigerum", "Coenagrion hastulatum"]
+  },
+  {
+    "setName": "Emerald Damselflies",
+    "tags": ["insects", "odonata"],
+    "taxaNames": ["Lestes sponsa", "Lestes dryas"]
+  },
+  {
+    "setName": "White-legged Damselflies",
+    "tags": ["insects", "odonata"],
+    "taxaNames": ["Platycnemis pennipes", "Platycnemis latipes"]
+  },
+  {
+    "setName": "Red-eyed Damselflies",
+    "tags": ["insects", "odonata"],
+    "taxaNames": ["Erythromma najas", "Erythromma viridulum"]
+  },
+  {
+    "setName": "Dragonflies and Damselflies",
+    "tags": ["insects", "odonata"],
+    "taxaNames": ["Anisoptera", "Zygoptera"]
+  },
+  {
+    "setName": "Stick Insects",
+    "tags": ["insects", "phasmatodea"],
+    "taxaNames": ["Bacillus rossius", "Bacillus atticus"]
+  },
+  {
+    "setName": "European Stick Insects",
+    "tags": ["insects", "phasmatodea"],
+    "taxaNames": ["Clonopsis gallica", "Pijnackeria hispanica"]
+  },
+  {
+    "setName": "Laboratory Stick Insects",
+    "tags": ["insects", "phasmatodea"],
+    "taxaNames": ["Carausius morosus", "Medauroidea extradentata"]
+  },
+  {
+    "setName": "European Cicadas",
+    "tags": ["insects", "hemiptera"],
+    "taxaNames": ["Cicada orni", "Lyristes plebejus"]
+  },
+  {
+    "setName": "Red Cicadas",
+    "tags": ["insects", "hemiptera"],
+    "taxaNames": ["Tibicina haematodes", "Tibicina quadrisignata"]
+  },
+  {
+    "setName": "Mountain Cicadas",
+    "tags": ["insects", "hemiptera"],
+    "taxaNames": ["Cicadetta montana", "Cicadetta brevipennis"]
+  },
+  {
+    "setName": "Leafhoppers and Planthoppers",
+    "tags": ["insects", "hemiptera"],
+    "taxaNames": ["Cicadellidae", "Fulgoroidea"]
+  },
+  {
+    "setName": "Hemipteran Suborders",
+    "tags": ["insects", "hemiptera"],
+    "taxaNames": ["Auchenorrhyncha", "Sternorrhyncha"]
+  },
+  {
+    "setName": "Asian Stink Bugs",
+    "tags": ["insects", "hemiptera"],
+    "taxaNames": ["Erthesina fullo", "Halyomorpha halys"]
+  },
+  {
+    "setName": "Invasive Stink Bugs",
+    "tags": ["insects", "hemiptera"],
+    "taxaNames": ["Halyomorpha halys", "Rhaphigaster nebulosa"]
+  },
+  {
+    "setName": "Cotton Stainers",
+    "tags": ["insects", "hemiptera"],
+    "taxaNames": ["Dindymus sanguineus", "Antilochus nigripes"]
+  },
+  {
+    "setName": "Scale Insects",
+    "tags": ["insects", "hemiptera"],
+    "taxaNames": ["Pseudococcidae", "Icerya"]
+  },
+  {
+    "setName": "Cottony Cushion Scales",
+    "tags": ["insects", "hemiptera"],
+    "taxaNames": ["Icerya seychellarum", "Icerya aegyptiaca"]
+  },
+  {
+    "setName": "Lacewings",
+    "tags": ["insects", "neuroptera"],
+    "taxaNames": ["Chrysopa perla", "Chrysoperla carnea"]
+  },
+  {
+    "setName": "Scorpionflies",
+    "tags": ["insects", "mecoptera"],
+    "taxaNames": ["Panorpa communis", "Panorpa germanica"]
+  },
+  {
+    "setName": "Robber Flies",
+    "tags": ["insects", "diptera"],
+    "taxaNames": ["Asilus crabroniformis", "Philonicus albiceps"]
+  },
+  {
+    "setName": "Forest Robber Flies",
+    "tags": ["insects", "diptera"],
+    "taxaNames": ["Dioctria rufipes", "Dioctria atricapilla"]
+  },
+  {
+    "setName": "Large Robber Flies",
+    "tags": ["insects", "diptera"],
+    "taxaNames": ["Laphria flava", "Laphria gilva"]
+  },
+  {
+    "setName": "Common Robber Flies",
+    "tags": ["insects", "diptera"],
+    "taxaNames": ["Tolmerus atricapillus", "Tolmerus cingulatus"]
+  },
+  {
+    "setName": "March Flies",
+    "tags": ["insects", "diptera"],
+    "taxaNames": ["Bibio marci", "Bibio leucopterus"]
+  },
+  {
+    "setName": "Fly Suborders",
+    "tags": ["insects", "diptera"],
+    "taxaNames": ["Brachycera", "Nematocera"]
+  },
+  {
+    "setName": "Fly Infraorders",
+    "tags": ["insects", "diptera"],
+    "taxaNames": ["Cyclorrhapha", "Orthorrhapha"]
+  },
+  {
+    "setName": "Fly Sections",
+    "tags": ["insects", "diptera"],
+    "taxaNames": ["Acalyptratae", "Calyptratae"]
+  },
+  {
+    "setName": "Golden Orb-weavers",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Nephila pilipes", "Trichonephila clavata"]
+  },
+  {
+    "setName": "Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Hasarius adansoni", "Chinattus tibialis"]
+  },
+  {
+    "setName": "Zebra Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Menemerus bivittatus", "Menemerus nigli"]
+  },
+  {
+    "setName": "Menemerus Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Menemerus bivittatus", "Menemerus semilimbatus"]
+  },
+  {
+    "setName": "Colorful Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Rhene flavicomans", "Irura bidenticulata"]
+  },
+  {
+    "setName": "Rhene Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Rhene flavicomans", "Rhene atrata"]
+  },
+  {
+    "setName": "Thiania Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Thiania bhamoensis", "Thiania suboppressa"]
+  },
+  {
+    "setName": "Carrhotus Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Carrhotus sannio", "Carrhotus viduus"]
+  },
+  {
+    "setName": "Telamonia Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Telamonia caprina", "Telamonia festiva"]
+  },
+  {
+    "setName": "Epocilla Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Epocilla calcarata", "Telamonia festiva"]
+  },
+  {
+    "setName": "Pancorius Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Pancorius crassipes", "Epocilla calcarata"]
+  },
+  {
+    "setName": "Epocilla Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Epocilla calcarata", "Epocilla blairei"]
+  },
+  {
+    "setName": "Portia Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Portia orientalis", "Portia labiata"]
+  },
+  {
+    "setName": "Phintella Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Phintelloides versicolor", "Phintella bifurcilinea"]
+  },
+  {
+    "setName": "Siler Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Siler collingwoodi", "Siler semiglaucus"]
+  },
+  {
+    "setName": "Phidippus Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Phidippus audax", "Phidippus regius"]
+  },
+  {
+    "setName": "Zebra Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Salticus scenicus", "Salticus cingulatus"]
+  },
+  {
+    "setName": "Marpissa Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Marpissa muscosa", "Marpissa radiata"]
+  },
+  {
+    "setName": "Evarcha Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Evarcha arcuata", "Evarcha falcata"]
+  },
+  {
+    "setName": "Heliophanus Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Heliophanus flavipes", "Heliophanus cupreus"]
+  },
+  {
+    "setName": "Plexippus Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Plexippus paykulli", "Plexippus petersi"]
+  },
+  {
+    "setName": "Menemerus Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Menemerus semilimbatus", "Menemerus bivittatus"]
+  },
+  {
+    "setName": "Attulus Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Attulus pubescens", "Attulus fasciger"]
+  },
+  {
+    "setName": "Carrhotus Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Carrhotus xanthogramma", "Carrhotus sannio"]
+  },
+  {
+    "setName": "Habronattus Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Habronattus coecatus", "Habronattus pyrrithrix"]
+  },
+  {
+    "setName": "Pellenes Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Pellenes tripunctatus", "Pellenes nigrociliatus"]
+  },
+  {
+    "setName": "Synageles Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Synageles venator", "Synageles occidentalis"]
+  },
+  {
+    "setName": "Icius Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Icius hamatus", "Icius subinermis"]
+  },
+  {
+    "setName": "Saitis Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Saitis barbipes", "Saitis tauricus"]
+  },
+  {
+    "setName": "Euophrys Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Euophrys frontalis", "Euophrys herbigrada"]
+  },
+  {
+    "setName": "Neon Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Neon reticulatus", "Neon robustus"]
+  },
+  {
+    "setName": "Lyssomanes Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Lyssomanes viridis", "Lyssomanes portoricensis"]
+  },
+  {
+    "setName": "Portia Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Portia fimbriata", "Portia labiata"]
+  },
+  {
+    "setName": "Hyllus Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Hyllus diardi", "Hyllus semicupreus"]
+  },
+  {
+    "setName": "Thyene Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Thyene imperialis", "Thyene coccineovittata"]
+  },
+  {
+    "setName": "Ant-mimicking Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Myrmarachne formicaria", "Myrmarachne melanotarsa"]
+  },
+  {
+    "setName": "Pseudicius Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Pseudicius encarpatus", "Pseudicius badius"]
+  },
+  {
+    "setName": "Aelurillus Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Aelurillus v-insignitus", "Aelurillus aeruginosus"]
+  },
+  {
+    "setName": "Cosmophasis Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Cosmophasis thalassina", "Cosmophasis micarioides"]
+  },
+  {
+    "setName": "Epeus Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Epeus flavobilineatus", "Epeus indicus"]
+  },
+  {
+    "setName": "Icius and Pancorius Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Icius", "Pancorius"]
+  },
+  {
+    "setName": "Harmochirus Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Harmochirus brachiatus", "Harmochirus luculentus"]
+  },
+  {
+    "setName": "Holcolaetis Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Holcolaetis vellerea", "Holcolaetis zuluensis"]
+  },
+  {
+    "setName": "Australian Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Mopsus mormon", "Sandalodes bipenicillatus"]
+  },
+  {
+    "setName": "Mopsus and Epeus Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Mopsus mormon", "Epeus flavobilineatus"]
+  },
+  {
+    "setName": "Phintella Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Phintelloides versicolor", "Phintella vittata"]
+  },
+  {
+    "setName": "Telamonia Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Telamonia dimidiata", "Telamonia festiva"]
+  },
+  {
+    "setName": "Orb-weaver Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Araneus diadematus", "Araneus marmoreus"]
+  },
+  {
+    "setName": "Garden Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Argiope bruennichi", "Argiope trifasciata"]
+  },
+  {
+    "setName": "Black Widow Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Latrodectus mactans", "Latrodectus hesperus"]
+  },
+  {
+    "setName": "Recluse Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Loxosceles reclusa", "Loxosceles laeta"]
+  },
+  {
+    "setName": "House Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Tegenaria domestica", "Eratigena atrica"]
+  },
+  {
+    "setName": "Cellar Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Pholcus phalangioides", "Holocnemus pluchei"]
+  },
+  {
+    "setName": "Crab Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Misumena vatia", "Thomisus onustus"]
+  },
+  {
+    "setName": "Common Jumping Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Salticus scenicus", "Menemerus semilimbatus"]
+  },
+  {
+    "setName": "Large Wolf Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Lycosa tarantula", "Hogna carolinensis"]
+  },
+  {
+    "setName": "Nursery Web Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Pisaurina mira", "Dolomedes tenebrosus"]
+  },
+  {
+    "setName": "Golden Silk Orb-weavers",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Trichonephila clavipes", "Trichonephila clavata"]
+  },
+  {
+    "setName": "False Widow Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Steatoda grossa", "Steatoda nobilis"]
+  },
+  {
+    "setName": "Orb-weaver Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Zygiella x-notata", "Neoscona crucifera"]
+  },
+  {
+    "setName": "Wandering Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Cupiennius salei", "Phoneutria fera"]
+  },
+  {
+    "setName": "Comb-footed Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Theridion grallator", "Theridula emertoni"]
+  },
+  {
+    "setName": "Large Orb-weavers",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Argiope aurantia", "Trichonephila clavipes"]
+  },
+  {
+    "setName": "False Widow Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Steatoda grossa", "Steatoda nobilis"]
+  },
+  {
+    "setName": "Orb Weavers",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Zygiella x-notata", "Neoscona crucifera"]
+  },
+  {
+    "setName": "Wandering Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Cupiennius salei", "Phoneutria fera"]
+  },
+  {
+    "setName": "Comb-footed Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Theridion grallator", "Theridula emertoni"]
+  },
+  {
+    "setName": "Large Orb-weavers",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Argiope aurantia", "Trichonephila clavipes"]
+  },
+  {
+    "setName": "Sheet Weavers",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Linyphia triangularis", "Neriene radiata"]
+  },
+  {
+    "setName": "Woodlouse Hunters",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Dysdera crocata", "Dysdera erythrina"]
+  },
+  {
+    "setName": "Tube Web Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Segestria florentina", "Segestria senoculata"]
+  },
+  {
+    "setName": "Lace-webbed Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Amaurobius ferox", "Amaurobius similis"]
+  },
+  {
+    "setName": "Sac Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Clubiona corticalis", "Clubiona pallidula"]
+  },
+  {
+    "setName": "Wolf Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Pardosa amentata", "Pardosa pullata"]
+  },
+  {
+    "setName": "Ground Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Alopecosa pulverulenta", "Trochosa terricola"]
+  },
+  {
+    "setName": "Green Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Micrommata virescens", "Cheiracanthium inclusum"]
+  },
+  {
+    "setName": "Crab Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Xysticus cristatus", "Xysticus audax"]
+  },
+  {
+    "setName": "Funnel Weavers",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Agelena labyrinthica", "Allagelena gracilens"]
+  },
+  {
+    "setName": "Orb Weavers",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Aculepeira ceropegia", "Araniella cucurbitina"]
+  },
+  {
+    "setName": "Bridge Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Larinioides cornutus", "Larinioides sclopetarius"]
+  },
+  {
+    "setName": "Walnut Orb-weavers",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Nuctenea umbratica", "Nuctenea silvicultrix"]
+  },
+  {
+    "setName": "Autumn Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Metellina segmentata", "Metellina merianae"]
+  },
+  {
+    "setName": "Long-jawed Orb Weavers",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Tetragnatha extensa", "Tetragnatha montana"]
+  },
+  {
+    "setName": "Running Crab Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Philodromus dispar", "Philodromus aureolus"]
+  },
+  {
+    "setName": "Ghost Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Anyphaena accentuata", "Anyphaena sabina"]
+  },
+  {
+    "setName": "Flower Crab Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Diaea dorsata", "Synema globosum"]
+  },
+  {
+    "setName": "Funnel-web House Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Eratigena agrestis", "Tegenaria ferruginea"]
+  },
+  {
+    "setName": "Stone Spiders",
+    "tags": ["arachnids", "spiders"],
+    "taxaNames": ["Drassodes lapidosus", "Drassodes cupreus"]
+  },
+  {
+    "setName": "Malacostracan Crustaceans",
+    "tags": ["crustaceans"],
+    "taxaNames": ["Eucarida", "Peracarida"]
+  },
+  {
+    "setName": "Higher Crustaceans",
+    "tags": ["crustaceans"],
+    "taxaNames": ["Eumalacostraca", "Hoplocarida"]
+  },
+  {
+    "setName": "Hermit Crabs",
+    "tags": ["crustaceans"],
+    "taxaNames": ["Dardanus lagopodes", "Dardanus megistos"]
+  },
+  {
+    "setName": "Hermit Crabs",
+    "tags": ["crustaceans"],
+    "taxaNames": ["Clibanarius infraspinatus", "Clibanarius longitarsus"]
+  },
+  {
+    "setName": "Swimming Crabs",
+    "tags": ["crustaceans"],
+    "taxaNames": ["Portunus pelagicus", "Portunus sanguinolentus"]
+  },
+  {
+    "setName": "Reef Crabs",
+    "tags": ["crustaceans"],
+    "taxaNames": ["Atergatis floridus", "Atergatis integerrimus"]
+  },
+  {
+    "setName": "Hinge-beak Shrimps",
+    "tags": ["crustaceans"],
+    "taxaNames": ["Urocaridella antonbruunii", "Urocaridella pulchella"]
+  },
+  {
+    "setName": "Giant Clams",
+    "tags": ["mollusks", "bivalves"],
+    "taxaNames": ["Tridacna crocea", "Tridacna maxima"]
+  },
+  {
+    "setName": "Giant Clams",
+    "tags": ["mollusks", "bivalves"],
+    "taxaNames": ["Tridacna maxima", "Tridacna squamosa"]
+  },
+  {
+    "setName": "Cuttlefish",
+    "tags": ["mollusks", "cephalopods"],
+    "taxaNames": ["Acanthosepion pharaonis", "Ascarosepion latimanus"]
+  },
+  {
+    "setName": "Cowries",
+    "tags": ["mollusks", "gastropods"],
+    "taxaNames": ["Cypraea tigris", "Mauritia arabica"]
+  },
+  {
+    "setName": "Cephalopod Orders",
+    "tags": ["mollusks", "cephalopods"],
+    "taxaNames": ["Sepiida", "Myopsida"]
+  },
+  {
+    "setName": "Gastropod Clades",
+    "tags": ["mollusks", "gastropods"],
+    "taxaNames": ["Neritimorpha", "Heterobranchia"]
+  },
+  {
+    "setName": "Gastropod Clades",
+    "tags": ["mollusks", "gastropods"],
+    "taxaNames": ["Vetigastropoda", "Heterobranchia"]
+  },
+  {
+    "setName": "Gastropod Clades",
+    "tags": ["mollusks", "gastropods"],
+    "taxaNames": ["Vetigastropoda", "Caenogastropoda"]
+  },
+  {
+    "setName": "Gastropod Clades",
+    "tags": ["mollusks", "gastropods"],
+    "taxaNames": ["Vetigastropoda", "Patellogastropoda"]
+  },
+  {
+    "setName": "Giant African Land Snails",
+    "tags": ["mollusks", "gastropods"],
+    "taxaNames": ["Lissachatina immaculata", "Lissachatina fulica"]
+  },
+  {
+    "setName": "Unidentia Nudibranchs",
+    "tags": ["mollusks", "sea slugs"],
+    "taxaNames": ["Unidentia aliciae", "Unidentia angelvaldesi"]
+  },
+  {
+    "setName": "Armina Nudibranchs",
+    "tags": ["mollusks", "sea slugs"],
+    "taxaNames": ["Armina scotti", "Armina semperi"]
+  },
+  {
+    "setName": "Dermatobranchus Nudibranchs",
+    "tags": ["mollusks", "sea slugs"],
+    "taxaNames": ["Dermatobranchus fortunatus", "Dermatobranchus striatus"]
+  },
+  {
+    "setName": "Goniobranchus Nudibranchs",
+    "tags": ["mollusks", "sea slugs"],
+    "taxaNames": ["Goniobranchus sinensis", "Goniobranchus trimarginatus"]
+  },
+  {
+    "setName": "Hypselodoris Nudibranchs",
+    "tags": ["mollusks", "sea slugs"],
+    "taxaNames": ["Hypselodoris maculosa", "Goniobranchus fidelis"]
+  },
+  {
+    "setName": "Hypselodoris Nudibranchs",
+    "tags": ["mollusks", "sea slugs"],
+    "taxaNames": ["Hypselodoris katherinae", "Hypselodoris tryoni"]
+  },
+  {
+    "setName": "Mexichromis Nudibranchs",
+    "tags": ["mollusks", "sea slugs"],
+    "taxaNames": ["Mexichromis mariei", "Mexichromis multituberculata"]
+  },
+  {
+    "setName": "Costasiella Sea Slugs",
+    "tags": ["mollusks", "sea slugs"],
+    "taxaNames": ["Costasiella kuroshimae", "Costasiella usagi"]
+  },
+  {
+    "setName": "Coryphellina Nudibranchs",
+    "tags": ["mollusks", "sea slugs"],
+    "taxaNames": ["Coryphellina exoptata", "Coryphellina rubrolineata"]
+  },
+  {
+    "setName": "Phyllidia Nudibranchs",
+    "tags": ["mollusks", "sea slugs"],
+    "taxaNames": ["Phyllidia elegans", "Phyllidia coelestis"]
+  },
+  {
+    "setName": "Phyllidia Nudibranchs",
+    "tags": ["mollusks", "sea slugs"],
+    "taxaNames": ["Phyllidia elegans", "Phyllidia picta"]
+  },
+  {
+    "setName": "Phyllidia Nudibranchs",
+    "tags": ["mollusks", "sea slugs"],
+    "taxaNames": ["Phyllidia elegans", "Phyllidia varicosa"]
+  },
+  {
+    "setName": "Phyllidia Nudibranchs",
+    "tags": ["mollusks", "sea slugs"],
+    "taxaNames": ["Phyllidia coelestis", "Phyllidia picta"]
+  },
+  {
+    "setName": "Phyllidia Nudibranchs",
+    "tags": ["mollusks", "sea slugs"],
+    "taxaNames": ["Phyllidia coelestis", "Phyllidia varicosa"]
+  },
+  {
+    "setName": "Phyllidia Nudibranchs",
+    "tags": ["mollusks", "sea slugs"],
+    "taxaNames": ["Phyllidia varicosa", "Phyllidia picta"]
+  },
+  {
+    "setName": "Phyllidiella Nudibranchs",
+    "tags": ["mollusks", "sea slugs"],
+    "taxaNames": ["Phyllidiella pustulosa", "Phyllidiopsis krempfi"]
+  },
+  {
+    "setName": "Plocamopherus Nudibranchs",
+    "tags": ["mollusks", "sea slugs"],
+    "taxaNames": ["Plocamopherus imperialis", "Plocamopherus tilesii"]
+  },
+  {
+    "setName": "Elysia Sea Slugs",
+    "tags": ["mollusks", "sea slugs"],
+    "taxaNames": ["Elysia asbecki", "Elysia tomentosa"]
+  },
+  {
+    "setName": "Sea Slugs and Flatworms",
+    "tags": ["marine invertebrates"],
+    "taxaNames": ["Nudibranchia", "Polycladida"]
+  },
+  {
+    "setName": "Chromodoris Nudibranchs",
+    "tags": ["mollusks", "sea slugs", "nudibranchs"],
+    "taxaNames": ["Chromodoris magnifica", "Chromodoris kuiteri"]
+  },
+  {
+    "setName": "Hypselodoris Nudibranchs",
+    "tags": ["mollusks", "sea slugs", "nudibranchs"],
+    "taxaNames": ["Hypselodoris bullockii", "Hypselodoris infucata"]
+  },
+  {
+    "setName": "Goniobranchus Nudibranchs",
+    "tags": ["mollusks", "sea slugs", "nudibranchs"],
+    "taxaNames": ["Goniobranchus splendidus", "Goniobranchus tinctorius"]
+  },
+  {
+    "setName": "Felimare Nudibranchs",
+    "tags": ["mollusks", "sea slugs", "nudibranchs"],
+    "taxaNames": ["Felimare picta", "Felimare villafranca"]
+  },
+  {
+    "setName": "Glossodoris Nudibranchs",
+    "tags": ["mollusks", "sea slugs", "nudibranchs"],
+    "taxaNames": ["Glossodoris cincta", "Glossodoris hikuerensis"]
+  },
+  {
+    "setName": "Nembrotha Nudibranchs",
+    "tags": ["mollusks", "sea slugs", "nudibranchs"],
+    "taxaNames": ["Nembrotha kubaryana", "Nembrotha cristata"]
+  },
+  {
+    "setName": "Tambja Nudibranchs",
+    "tags": ["mollusks", "sea slugs", "nudibranchs"],
+    "taxaNames": ["Tambja morosa", "Tambja verconis"]
+  },
+  {
+    "setName": "Flabellinopsis Nudibranchs",
+    "tags": ["mollusks", "sea slugs", "nudibranchs"],
+    "taxaNames": ["Flabellinopsis iodinea", "Edmundsella bertschi"]
+  },
+  {
+    "setName": "Berghia Nudibranchs",
+    "tags": ["mollusks", "sea slugs", "nudibranchs"],
+    "taxaNames": ["Berghia coerulescens", "Berghia verrucicornis"]
+  },
+  {
+    "setName": "Doriopsilla Nudibranchs",
+    "tags": ["mollusks", "sea slugs", "nudibranchs"],
+    "taxaNames": ["Doriopsilla areolata", "Doriopsilla pelseneeri"]
+  },
+  {
+    "setName": "Dendrodoris Nudibranchs",
+    "tags": ["mollusks", "sea slugs", "nudibranchs"],
+    "taxaNames": ["Dendrodoris fumata", "Dendrodoris nigra"]
+  },
+  {
+    "setName": "Phyllidiella Nudibranchs",
+    "tags": ["mollusks", "sea slugs", "nudibranchs"],
+    "taxaNames": ["Phyllidiella pustulosa", "Phyllidiella nigra"]
+  },
+  {
+    "setName": "Phyllodesmium Nudibranchs",
+    "tags": ["mollusks", "sea slugs", "nudibranchs"],
+    "taxaNames": ["Phyllodesmium longicirrum", "Phyllodesmium briareum"]
+  },
+  {
+    "setName": "Pteraeolidia Nudibranchs",
+    "tags": ["mollusks", "sea slugs", "nudibranchs"],
+    "taxaNames": ["Pteraeolidia ianthina", "Pteraeolidia semperi"]
+  },
+  {
+    "setName": "Candiella Nudibranchs",
+    "tags": ["mollusks", "sea slugs", "nudibranchs"],
+    "taxaNames": ["Candiella odhneri", "Candiella plebeia"]
+  },
+  {
+    "setName": "Antiopella Nudibranchs",
+    "tags": ["mollusks", "sea slugs", "nudibranchs"],
+    "taxaNames": ["Antiopella cristata", "Janolus hyalinus"]
+  },
+  {
+    "setName": "Polycera Nudibranchs",
+    "tags": ["mollusks", "sea slugs", "nudibranchs"],
+    "taxaNames": ["Polycera quadrilineata", "Polycera faeroensis"]
+  },
+  {
+    "setName": "Diaphorodoris Nudibranchs",
+    "tags": ["mollusks", "sea slugs", "nudibranchs"],
+    "taxaNames": ["Diaphorodoris luteocincta", "Diaphorodoris alba"]
+  },
+  {
+    "setName": "Rostanga Nudibranchs",
+    "tags": ["mollusks", "sea slugs", "nudibranchs"],
+    "taxaNames": ["Rostanga pulchra", "Rostanga arbutus"]
+  },
+  {
+    "setName": "Hexabranchus Nudibranchs",
+    "tags": ["mollusks", "sea slugs", "nudibranchs"],
+    "taxaNames": ["Hexabranchus sanguineus", "Hexabranchus morsomus"]
+  },
+  {
+    "setName": "Cadlina Nudibranchs",
+    "tags": ["mollusks", "sea slugs", "nudibranchs"],
+    "taxaNames": ["Cadlina laevis", "Cadlina pellucida"]
+  },
+  {
+    "setName": "Doto Nudibranchs",
+    "tags": ["mollusks", "sea slugs", "nudibranchs"],
+    "taxaNames": ["Doto coronata", "Doto pinnatifida"]
+  },
+  {
+    "setName": "Trapania Nudibranchs",
+    "tags": ["mollusks", "sea slugs", "nudibranchs"],
+    "taxaNames": ["Trapania lineata", "Trapania tartanella"]
+  },
+  {
+    "setName": "Fromia Starfish",
+    "tags": ["echinoderms", "starfish"],
+    "taxaNames": ["Fromia monilis", "Fromia heffernani"]
+  },
+  {
+    "setName": "Marine Flatworms",
+    "tags": ["flatworms", "marine invertebrates"],
+    "taxaNames": ["Pseudobiceros bedfordi", "Acanthozoon"]
+  },
+  {
+    "setName": "Corals",
+    "tags": ["cnidarians", "anthozoans"],
+    "taxaNames": ["Octocorallia", "Hexacorallia"]
+  },
+  {
+    "setName": "Bubble Corals",
+    "tags": ["cnidarians", "hard corals"],
+    "taxaNames": ["Plerogyra sinuosa", "Physogyra lichtensteini"]
+  },
+  {
+    "setName": "Brain Corals",
+    "tags": ["cnidarians", "hard corals"],
+    "taxaNames": ["Platygyra", "Lobophyllia"]
+  },
+  {
+    "setName": "Stony Corals",
+    "tags": ["cnidarians", "hard corals"],
+    "taxaNames": ["Pocillopora", "Millepora"]
+  },
+  {
+    "setName": "Soft Corals",
+    "tags": ["cnidarians", "soft corals"],
+    "taxaNames": ["Dendronephthya", "Scleronephthya"]
+  },
+  {
+    "setName": "Acropora Corals",
+    "tags": ["cnidarians", "hard corals"],
+    "taxaNames": ["Acropora millepora", "Acropora hyacinthus"]
+  },
+  {
+    "setName": "Staghorn Corals",
+    "tags": ["cnidarians", "hard corals"],
+    "taxaNames": ["Acropora muricata", "Acropora intermedia"]
+  },
+  {
+    "setName": "Montipora Corals",
+    "tags": ["cnidarians", "hard corals"],
+    "taxaNames": ["Montipora digitata", "Montipora verrucosa"]
+  },
+  {
+    "setName": "Pachyseris Corals",
+    "tags": ["cnidarians", "hard corals"],
+    "taxaNames": ["Pachyseris foliosa", "Pachyseris speciosa"]
+  },
+  {
+    "setName": "Pavona Corals",
+    "tags": ["cnidarians", "hard corals"],
+    "taxaNames": ["Pavona cactus", "Pavona decussata"]
+  },
+  {
+    "setName": "Jellyfish",
+    "tags": ["cnidarians", "jellyfish"],
+    "taxaNames": ["Cyanea capillata", "Versuriga anadyomene"]
+  },
+  {
+    "setName": "Sea Anemones",
+    "tags": ["cnidarians", "sea anemones"],
+    "taxaNames": ["Heteractis doreensis", "Radianthus magnifica"]
+  },
+  {
+    "setName": "Carpet Anemones",
+    "tags": ["cnidarians", "sea anemones"],
+    "taxaNames": ["Stichodactyla haddoni", "Stichodactyla gigantea"]
+  },
+  {
+    "setName": "Mushroom Anemones",
+    "tags": ["cnidarians", "corallimorpharians"],
+    "taxaNames": ["Amplexidiscus fenestrafer", "Rhodactis inchoata"]
+  },
+  {
+    "setName": "Comb Jellies and True Jellyfish",
+    "tags": ["marine invertebrates"],
+    "taxaNames": ["Ctenophora", "Scyphozoa"]
+  },
+  {
+    "setName": "Sea Cucumbers",
+    "tags": ["echinoderms", "sea cucumbers"],
+    "taxaNames": ["Stichopus chloronotus", "Holothuria leucospilota"]
+  },
+  {
+    "setName": "Mushrooms",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Amanita virosa", "Agaricus campestris"]
+  },
+  {
+    "setName": "Ascomycete Fungi",
+    "tags": ["fungi", "ascomycetes"],
+    "taxaNames": ["Gyromitra", "Morchella"]
+  },
+  {
+    "setName": "Amanita Mushrooms",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Amanita muscaria", "Amanita caesarea"]
+  },
+  {
+    "setName": "Deadly Amanitas",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Amanita phalloides", "Amanita verna"]
+  },
+  {
+    "setName": "Bolete Mushrooms",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Boletus edulis", "Tylopilus felleus"]
+  },
+  {
+    "setName": "Chanterelles",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Cantharellus cibarius", "Hygrophoropsis aurantiaca"]
+  },
+  {
+    "setName": "Morel Mushrooms",
+    "tags": ["fungi", "ascomycetes"],
+    "taxaNames": ["Morchella esculenta", "Gyromitra esculenta"]
+  },
+  {
+    "setName": "Scaber Stalk Mushrooms",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Leccinum scabrum", "Leccinum versipelle"]
+  },
+  {
+    "setName": "Milk-cap Mushrooms",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Lactarius deliciosus", "Lactarius deterrimus"]
+  },
+  {
+    "setName": "Parasol Mushrooms",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Macrolepiota procera", "Chlorophyllum molybdites"]
+  },
+  {
+    "setName": "Inky Cap Mushrooms",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Coprinus comatus", "Coprinopsis atramentaria"]
+  },
+  {
+    "setName": "Shelf Fungi",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Ganoderma lucidum", "Ganoderma applanatum"]
+  },
+  {
+    "setName": "Oyster Mushrooms",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Pleurotus ostreatus", "Pleurocybella porrigens"]
+  },
+  {
+    "setName": "Honey Mushrooms",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Armillaria mellea", "Hypholoma fasciculare"]
+  },
+  {
+    "setName": "Button Mushrooms",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Agaricus bisporus", "Agaricus xanthodermus"]
+  },
+  {
+    "setName": "Matsutake Mushrooms",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Tricholoma matsutake", "Tricholoma magnivelare"]
+  },
+  {
+    "setName": "Russula Mushrooms",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Russula emetica", "Russula paludosa"]
+  },
+  {
+    "setName": "Hedgehog Mushrooms",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Hydnum repandum", "Hydnum rufescens"]
+  },
+  {
+    "setName": "Polypores",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Laetiporus sulphureus", "Cerioporus squamosus"]
+  },
+  {
+    "setName": "Bracket Fungi",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Fistulina hepatica", "Ganoderma resinaceum"]
+  },
+  {
+    "setName": "Horn of Plenty Mushrooms",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Craterellus cornucopioides", "Craterellus cinereus"]
+  },
+  {
+    "setName": "Lion's Mane Mushrooms",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Hericium erinaceus", "Hericium coralloides"]
+  },
+  {
+    "setName": "Jelly Fungi",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Tremella mesenterica", "Naematelia aurantia"]
+  },
+  {
+    "setName": "Wood Ear Fungi",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Auricularia auricula-judae", "Exidia glandulosa"]
+  },
+  {
+    "setName": "Enoki Mushrooms",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Flammulina velutipes", "Galerina marginata"]
+  },
+  {
+    "setName": "Psilocybe Mushrooms",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Psilocybe cubensis", "Psilocybe semilanceata"]
+  },
+  {
+    "setName": "Slippery Jack Mushrooms",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Suillus luteus", "Suillus granulatus"]
+  },
+  {
+    "setName": "Cortinarius Mushrooms",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Cortinarius violaceus", "Cortinarius iodes"]
+  },
+  {
+    "setName": "Shiitake Mushrooms",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Lentinula edodes", "Lentinus tigrinus"]
+  },
+  {
+    "setName": "Puffballs",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Calvatia gigantea", "Lycoperdon perlatum"]
+  },
+  {
+    "setName": "Medicinal Polypores",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Inonotus obliquus", "Fomes fomentarius"]
+  },
+  {
+    "setName": "Split Gill Mushrooms",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Schizophyllum commune", "Trametes betulina"]
+  },
+  {
+    "setName": "Turkey Tail Mushrooms",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Trametes versicolor", "Stereum ostrea"]
+  },
+  {
+    "setName": "Poison Pax Mushrooms",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Paxillus involutus", "Tapinella atrotomentosa"]
+  },
+  {
+    "setName": "Boletes",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Xerocomellus chrysenteron", "Xerocomellus pruinatus"]
+  },
+  {
+    "setName": "Amanita Mushrooms",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Amanita pantherina", "Amanita rubescens"]
+  },
+  {
+    "setName": "Clitocybe Mushrooms",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Clitocybe nebularis", "Entoloma sinuatum"]
+  },
+  {
+    "setName": "Inky Cap Mushrooms",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Coprinellus micaceus", "Parasola plicatilis"]
+  },
+  {
+    "setName": "Bracket Fungi",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Fomitopsis pinicola", "Fomitopsis betulina"]
+  },
+  {
+    "setName": "Stinkhorn Mushrooms",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Phallus impudicus", "Mutinus caninus"]
+  },
+  {
+    "setName": "Earthball Mushrooms",
+    "tags": ["fungi", "basidiomycetes"],
+    "taxaNames": ["Scleroderma citrinum", "Pisolithus tinctorius"]
+  },
+  {
+    "setName": "Flowering Plants",
+    "tags": ["plants", "angiosperms"],
+    "taxaNames": ["Magnoliopsida", "Liliopsida"]
+  },
+  {
+    "setName": "Flowering Plant Families",
+    "tags": ["plants", "angiosperms"],
+    "taxaNames": ["Asteraceae", "Brassicaceae"]
+  },
+  {
+    "setName": "Flowering Plant Families",
+    "tags": ["plants", "angiosperms"],
+    "taxaNames": ["Apiaceae", "Brassicaceae"]
+  },
+  {
+    "setName": "Oak Trees",
+    "tags": ["plants", "trees"],
+    "taxaNames": ["Quercus robur", "Quercus petraea"]
+  },
+  {
+    "setName": "Birch Trees",
+    "tags": ["plants", "trees"],
+    "taxaNames": ["Betula pendula", "Betula pubescens"]
+  },
+  {
+    "setName": "Coniferous Trees",
+    "tags": ["plants", "trees"],
+    "taxaNames": ["Pinus sylvestris", "Picea abies"]
+  },
+  {
+    "setName": "Poplar Trees",
+    "tags": ["plants", "trees"],
+    "taxaNames": ["Populus tremula", "Populus alba"]
+  },
+  {
+    "setName": "Buttercups",
+    "tags": ["plants", "flowers"],
+    "taxaNames": ["Ranunculus acris", "Ranunculus repens"]
+  },
+  {
+    "setName": "Dandelions",
+    "tags": ["plants", "flowers"],
+    "taxaNames": ["Taraxacum officinale", "Leontodon hispidus"]
+  },
+  {
+    "setName": "Nightshades",
+    "tags": ["plants", "nightshades"],
+    "taxaNames": ["Solanum nigrum", "Solanum americanum"]
+  },
+  {
+    "setName": "Climbing Plants",
+    "tags": ["plants", "vines"],
+    "taxaNames": ["Psychotria serpens", "Ficus pumila"]
+  },
+  {
+    "setName": "Climbing Plants",
+    "tags": ["plants", "vines"],
+    "taxaNames": ["Psychotria serpens", "Lemmaphyllum microphyllum"]
+  },
+  {
+    "setName": "Climbing Plants",
+    "tags": ["plants", "vines"],
+    "taxaNames": ["Ficus pumila", "Lemmaphyllum microphyllum"]
+  },
+  {
+    "setName": "Flowering Shrubs",
+    "tags": ["plants", "shrubs"],
+    "taxaNames": ["Rhaphiolepis indica", "Rhodomyrtus tomentosa"]
+  },
+  {
+    "setName": "Chickweeds",
+    "tags": ["plants", "flowers"],
+    "taxaNames": ["Stellaria graminea", "Rabelera holostea"]
+  },
+  {
+    "setName": "Seaweeds",
+    "tags": ["algae", "marine plants"],
+    "taxaNames": ["Rhodophyta", "Phaeophyceae"]
+  },
+  {
+    "setName": "Algae",
+    "tags": ["algae", "marine plants"],
+    "taxaNames": ["Chlorophyta", "Phaeophyceae"]
+  },
+  {
+    "setName": "Red Algae",
+    "tags": ["algae", "marine plants"],
+    "taxaNames": ["Corallinales", "Peyssonneliaceae"]
+  }
+]

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>DuoNat • iNat Taxonomy Trainer</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta http-equiv="Cache-Control" content="no-cache">
+
+    <!-- For iOS devices -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- For Android devices -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#74ac00">
+
+    <!-- cache busting by appending version code. change code in script! also FOUC buster -->
+    <script src="./code/version.js" defer></script>
+
+    <link rel="stylesheet" href="./styles/main.css">
+
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" href="./images/favicon.png" type="image/png">
+
+    <script type="module" src="./code/main.js" defer></script>
+
+</head>
+
+<body>
+
+<div id="loading-screen" class="loading-screen">
+    <!-- Loading screen at app start. I fought FOUC and won. -->
+    <style>
+        #loading-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #dfe9c8; font-family: 'Open Sans', Arial, sans-serif;
+            display: flex; justify-content: center; align-items: center; text-align: center;
+            z-index: 9000; transition: opacity 0.5s ease-out;
+        }
+        .loading-screen__content { opacity: 0; }
+        .loading-screen__content.fade-in { opacity: 1; }
+        .loading-screen--fade-out { opacity: 0; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+    <div class="loading-screen__content" style="transition:opacity 0.8s ease-in-out;">
+        <img src="./images/icon-512x512.png" alt="DuoNat logo" class="loading-screen__logo"
+            style="width:100px; height:100px; margin-bottom:-20px;">
+        <h1 class="loading-screen__title" style="font-size:2.5em; margin-bottom:10px;">
+            <span class="loading-screen__title-duo" style="color:#ac0028">Duo</span><span class="loading-screen__title-nat" style="color:#74ac00">Nat</span>
+        </h1>
+        <p class="loading-screen__message" style=" font-size: 1.2em; color: #666; margin-bottom: 20px;">Loading amazing creatures...</p>
+        <div id="loading-screen__spinner" class="loading-screen__spinner"
+            style="border: 5px solid #dfe9c8; border-top: 5px solid var(--primary-color); border-radius: 50%;
+            width: 50px; height: 50px; margin: 0 auto;
+            animation: spin 1s linear infinite;"></div>
+    </div>
+</div>
+
+<!-- App main screen -->
+<div id="game-container" class="game-container">
+
+<div class="image-container" id="image-container-1">
+  <img class="image-container__image" src="" alt="Taxon 1 Image" id="image-1">
+
+  <div class="image-container__world-map" id="world-map-1"></div>
+
+  <div class="image-container__drop-zone" id="drop-1"></div>
+
+        <div id="drop-1" class="droppable"></div>
+
+        <div class="image-container__buttons" id="image-buttons-1">
+            <!-- enable when functionality added -->
+            <!--<button class="icon-button image-container__button image-container__button--thumbs-up" id="thumbs-up-1" title="Like this image" data-tooltip="Like this image">
+                <svg class="icon"><use href="./images/icons.svg#icon-thumb-up"/></svg>
+            </button>
+            <button class="icon-button image-container__button image-container__button--thumbs-down" id="thumbs-down-1" title="Dislike this image" data-tooltip="Dislike this image">
+                <svg class="icon"><use href="./images/icons.svg#icon-thumb-down"/></svg>
+            </button>-->
+            <button class="icon-button image-container__button image-container__button--hint" id="hint-button-1" title="Show hint" aria-label="Show hint">
+                <svg class="icon image-container__button-icon"><use href="./images/icons.svg#icon-lightbulb"/></svg>
+            </button>
+            <button class="icon-button image-container__button image-container__button--info" id="info-button-1" title="Taxon info" aria-label="Taxon info">
+                <svg class="icon image-container__button-icon"><use href="./images/icons.svg#icon-info"/></svg>
+            </button>
+        </div>
+
+</div>
+
+    <div id="name-pair" class="name-pair">
+
+        <div class="name-pair__container name-pair__container--x">
+            <div id="name-x" class="name-pair__item name-pair__item--draggable" draggable="true"></div>
+        </div>
+
+        <div class="name-pair__container name-pair__container--y">
+            <div id="name-y" class="name-pair__item name-pair__item--draggable" draggable="true"></div>
+        </div>
+
+        <div id="overlay" class="name-pair__overlay">
+            <div id="overlay-message" class="name-pair__overlay-message"></div>
+        </div>
+
+    </div>
+
+    <div class="image-container" id="image-container-2">
+      <img class="image-container__image" src="" alt="Taxon 2 Image" id="image-2">
+
+      <div class="image-container__world-map" id="world-map-2"></div>
+
+      <div class="image-container__drop-zone" id="drop-2"></div>
+            <div id="drop-2" class="droppable"></div>
+
+            <div class="image-container__buttons" id="image-buttons-2">
+                <!-- enable when functionality added -->
+                <!--<button class="icon-button image-container__button image-container__button--thumbs-up" id="thumbs-up-2" title="Like this image" data-tooltip="Like this image">
+                    <svg class="icon"><use href="./images/icons.svg#icon-thumb-up"/></svg>
+                </button>
+                <button class="icon-button image-container__button image-container__button--thumbs-down" id="thumbs-down-2" title="Dislike this image" data-tooltip="Dislike this image">
+                    <svg class="icon"><use href="./images/icons.svg#icon-thumb-down"/></svg>
+                </button>-->
+                <button class="icon-button image-container__button image-container__button--hint" id="hint-button-2" title="Show hint" aria-label="Show hint">
+                    <svg class="icon image-container__button-icon"><use href="./images/icons.svg#icon-lightbulb"/></svg>
+                </button>
+                <button class="icon-button image-container__button image-container__button--info" id="info-button-2" title="Taxon info" aria-label="Taxon info">
+                    <svg class="icon image-container__button-icon"><use href="./images/icons.svg#icon-info"/></svg>
+                </button>
+            </div>
+
+    </div>
+
+    <button id="next-pair-button" class="dialog-button next-pair-button" aria-label="Next pair">Next pair</button>
+
+    <div id="main-view-logo" class="main-view-logo">
+        <img src="./images/icon-512x512.png" alt="DuoNat logo" class="">
+        <h1 class="main-view-title">
+            <span class="help-dialog__title-duo">Duo</span>
+            <span class="help-dialog__title-nat">Nat</span>
+        </h1>
+    </div>
+
+</div> <!-- game-container -->
+
+<!-- These only appear under special circumstances -->
+
+<div id="swipe-info-message" class="swipe-info-message">New random pair</div>
+
+
+
+<!-- overlay buttons on the main screen -->
+
+<div class="ui-container">
+
+    <div class="ui-left-group">
+        <div id="level-indicator" class="level-indicator icon" title="Change level" aria-label="Change level" role="button" tabindex="0">
+            <!-- Chili icons will be inserted here dynamically -->
+        </div>
+        <button class="icon-button" id="ancestry-button" title="Ancestry" aria-label="Show common ancestry">
+            <svg class="icon"><use href="./images/icons.svg#icon-phylogeny"/></svg>
+        </button>
+    </div>
+
+    <div class="ui-buttons">
+        <button class="icon-button" id="help-button" title="Help" aria-label="Open help dialog">
+            <svg class="icon">
+                <use href="./images/icons.svg#icon-help"/>
+            </svg>
+        </button>
+
+        <button class="icon-button" id="share-button" title="Share" aria-label="Share this pair">
+          <svg class="icon"><use href="./images/icons.svg#icon-share"/></svg>
+        </button>
+
+        <!-- Main menu -->
+        <div class="main-menu">
+
+            <button class="icon-button" id="menu-toggle" title="Menu" aria-label="Open menu">
+              <svg class="icon"><use href="./images/icons.svg#icon-menu"/></svg>
+            </button>
+
+          <div class="main-menu__dropdown main-menu__dropdown--top">
+
+            <!--<div class="main-menu__item">
+              <span class="main-menu__label">Common ancestry</span>
+              <button class="icon-button" id="ancestry-button" title="Ancestry" aria-label="Show common ancestry">
+                  <svg class="icon"><use href="./images/icons.svg#icon-phylogeny"/></svg>
+              </button>
+            </div>-->
+
+            <!--<div class="main-menu__item">
+              <span class="main-menu__label">Manage collections</span>
+              <button class="icon-button" id="collection-button" aria-label="Select new pair">
+                <svg class="icon"><use href="./images/icons.svg#icon-list"/></svg>
+              </button>
+            </div>-->
+
+            <div class="main-menu__item">
+              <span class="main-menu__label">Enter new pair</span>
+              <button class="icon-button" id="enter-pair-button" title="Enter pair" aria-label="Enter new pair">
+                <svg class="icon"><use href="./images/icons.svg#icon-plus"/></svg>
+              </button>
+            </div>
+
+            <div class="main-menu__item">
+              <span class="main-menu__label">Surprise!</span>
+              <button class="icon-button" id="surprise-button" title="Surprise" aria-label="Surprise!">
+                <svg class="icon"><use href="./images/icons.svg#icon-star"/></svg>
+              </button>
+            </div>
+
+            <!-- enable when functionality added 
+            <div class="main-menu__item">
+              <span class="main-menu__label">Like this pair</span>
+            <button class="icon-button" id="like-button" aria-label="Like this pair">
+              <svg class="icon"><use href="./images/icons.svg#icon-heart"/></svg>
+            </button>
+            </div>
+
+            <div class="main-menu__item">
+              <span class="main-menu__label">Trash this pair</span>
+            <button class="icon-button" id="trash-button" aria-label="Trash this pair">
+              <svg class="icon"><use href="./images/icons.svg#icon-trash"/></svg>
+            </button>
+            </div> -->
+
+          </div>
+
+          <div class="main-menu__dropdown main-menu__dropdown--bottom">
+
+
+          </div> <!-- bottom-group -->
+
+        </div> <!-- main menu -->
+
+    </div> <!-- ui-buttons -->
+
+</div> <!-- ui-container -->
+
+</body>
+</html>

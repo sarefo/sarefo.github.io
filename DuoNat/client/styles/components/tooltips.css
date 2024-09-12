@@ -1,0 +1,18 @@
+/* not currently used */
+
+.tooltip {
+    position: absolute;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+
+.tooltip.visible {
+    opacity: 1;
+}

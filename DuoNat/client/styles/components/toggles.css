@@ -1,0 +1,124 @@
+.view-toggle-container {
+    display: inline-block;
+    /*margin-right: 10px;*/
+}
+
+.view-toggle__checkbox {
+    display: none;
+}
+
+.view-toggle__label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    width: 160px;
+    padding: 1px 0;
+    border-radius: var(--border-radius);
+    font-size:0.95em;
+    background-color: #e0e0e0;
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+
+.view-toggle__option {
+    z-index: 1;
+    flex: 1;
+    text-align: center;
+    padding: 3px 0;
+    font-weight: bold;
+    color: #888;
+    transition: color 0.3s ease;
+    user-select: none;
+}
+
+.view-toggle__slider {
+    position: absolute;
+    /*left: 4px;
+    top: 4px;
+    width: calc(50% - 4px);
+    height: calc(100% - 8px);*/
+        width: 50%;
+        height: 100%;
+    border-radius: var(--border-radius);
+    background-color: #74ac00;
+    transition: transform 0.3s ease;
+}
+
+.view-toggle__checkbox:checked + .view-toggle__label .view-toggle__slider {
+    transform: translateX(calc(100% + 4px));
+    transform: translateX(100%);
+}
+
+.view-toggle__checkbox:checked + .view-toggle__label .view-toggle__option--cloud,
+.view-toggle__checkbox:not(:checked) + .view-toggle__label .view-toggle__option--graph {
+    color: #fff;
+}
+
+.view-toggle__label.checked .view-toggle__slider {
+    transform: translateX(100%);
+}
+
+.view-toggle__label.checked .view-toggle__option--taxa,
+.view-toggle__label:not(.checked) .view-toggle__option--common {
+    color: #fff;
+}
+
+#ancestry-name-toggle:checked + .view-toggle__label .view-toggle__option--common,
+#ancestry-name-toggle:not(:checked) + .view-toggle__label .view-toggle__option--taxa {
+    color: #888;
+}
+
+#phylogeny-name-toggle:checked + .view-toggle__label .view-toggle__option--taxa,
+#phylogeny-name-toggle:not(:checked) + .view-toggle__label .view-toggle__option--common,
+#ancestry-name-toggle:checked + .view-toggle__label .view-toggle__option--taxa,
+#ancestry-name-toggle:not(:checked) + .view-toggle__label .view-toggle__option--common {
+    color: #fff;
+}
+
+/* Toggle checkboxes */
+
+.toggle-checkbox__label {
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    background-color: #ccc;
+    border-radius: 12px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.toggle-checkbox__label::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: white;
+    top: 2px;
+    left: 2px;
+    transition: 0.3s;
+}
+
+.toggle-checkbox:checked + .toggle-checkbox__label {
+    background-color: #74ac00;
+}
+
+.toggle-checkbox:checked + .toggle-checkbox__label::after {
+    left: calc(100% - 22px);
+}
+
+.toggle-checkbox__text {
+    margin-left: 4px;
+    /*font-size: var(--normal-font-size);*/
+    color: var(--dark-neutral-color);
+    margin: 0 4px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+/* QR dialog toggle checkboxes */
+
+.toggle-checkbox {
+    display: none;
+}

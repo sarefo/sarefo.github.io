@@ -1,0 +1,147 @@
+{
+  "53600": {
+    "taxonName": "Maratus",
+    "vernacularName": "Peacock spiders",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      342614,
+      367200,
+      48139,
+      606933,
+      712073,
+      53600
+    ],
+    "rank": "Genus",
+    "taxonFacts": [
+      "Known for their vibrant colors and elaborate courtship dances.",
+      "Males perform intricate displays to attract females.",
+      "Found primarily in Australia and New Guinea."
+    ],
+    "range": [
+      "OC"
+    ]
+  },
+  "420581": {
+    "taxonName": "Saitis",
+    "vernacularName": "Saitis banner-legged jumping spiders",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      342614,
+      367200,
+      48139,
+      606933,
+      712073,
+      420581
+    ],
+    "rank": "Genus",
+    "taxonFacts": [
+      "Small jumping spiders with distinctive patterns.",
+      "Some species mimic ants to avoid predators.",
+      "Widely distributed across various habitats."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ]
+  },
+  "446956": {
+    "taxonName": "Rhinolophoidea",
+    "vernacularName": "Rhinolophoid bats",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      40268,
+      446945,
+      446956
+    ],
+    "rank": "Superfamily",
+    "taxonFacts": [
+      "Includes bats known for their nose-leaf structures.",
+      "Use echolocation to navigate and hunt insects.",
+      "Found in diverse habitats across the world."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ]
+  },
+  "1317244": {
+    "taxonName": "Pteropodoidea",
+    "vernacularName": "Fruit bats",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      40268,
+      446945,
+      1317244
+    ],
+    "rank": "Superfamily",
+    "taxonFacts": [
+      "Commonly known as sea butterflies, they are pelagic snails.",
+      "Use wing-like structures for swimming in the ocean.",
+      "Play a role in marine food webs as prey."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ]
+  },
+  "446946": {
+    "taxonName": "Yangochiroptera",
+    "vernacularName": "",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      40268,
+      446946
+    ],
+    "rank": "Suborder",
+    "taxonFacts": [
+      "Includes bats with diverse diets, from insects to fruit.",
+      "Some species can live over 30 years.",
+      "Found in various ecosystems globally."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ]
+  }
+}

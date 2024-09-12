@@ -1,0 +1,42 @@
+<!-- Info dialog -->
+
+<dialog id="info-dialog" class="standard-dialog info-dialog">
+
+    <div class="dialog-header">
+        <h3 id="info-dialog-taxon" class="dialog-title info-dialog__taxon"></h3>
+        <div class="dialog-header-buttons">
+            <button id="info-help-button" class="dialog-help-button info-dialog__help-button" title="Start Tutorial" aria-label="Start Tutorial">
+                <svg class=""><use href="./images/icons.svg#icon-help"/></svg>
+            </button>
+            <button id="info-close-button" class="dialog-close-button" aria-label="Close">×</button>
+        </div>
+    </div>
+
+<!--    <div class="dialog-content">-->
+        <div class="info-dialog__header">
+            <div id="info-dialog-vernacular" class="info-dialog__vernacular"></div>
+        </div>
+        <div id="info-dialog-facts" class="info-dialog__facts"></div>
+
+        <div class="info-dialog__buttons">
+<!--          <button id="hints-button" class="icon-button info-dialog__button info-dialog__button--hints" title="Hints" aria-label="Show identification hints (TODO)">
+            <svg class="info-dialog__button-icon icon"><use href="./images/icons.svg#icon-lightbulb"/></svg>
+          </button>-->
+          <button id="wiki-button" class="icon-button info-dialog__button info-dialog__button--wiki" title="Wikipedia page" aria-label="Open Wikipedia page">
+            <svg class="info-dialog__button-icon icon"><use href="./images/icons.svg#icon-wiki"/></svg>
+          </button>
+            <button id="photo-button" class="icon-button info-dialog__button info-dialog__button--photo inat-button" title="Photo Page" aria-label="Open iNat photo page">
+              <svg class="info-dialog__button-icon icon"><use href="./images/icons.svg#icon-camera"/></svg>
+            </button>
+            <button id="observation-button" class="icon-button info-dialog__button info-dialog__button--observation inat-button" title="Observation page" aria-label="Open iNat observation (TODO)">
+              <svg class="info-dialog__button-icon icon info-dialog__button--inactive"><use href="./images/icons.svg#icon-microscope"/></svg>
+            </button>
+            <button id="taxon-button" class="icon-button info-dialog__button info-dialog__button--taxon inat-button" title="Taxon page" aria-label="Open taxon page">
+              <svg class="info-dialog__button-icon icon"><use href="./images/icons.svg#icon-inat"/></svg>
+            </button>
+          <button id="report-button" class="icon-button info-dialog__button info-dialog__button--report" title="Report problem" aria-label="Report problem">
+            <svg class="info-dialog__button-icon icon"><use href="./images/icons.svg#icon-report"/></svg>
+          </button>
+       </div>
+<!--    </div>-->
+</dialog>

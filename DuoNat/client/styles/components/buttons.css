@@ -1,0 +1,215 @@
+/* For icons in general */
+.icon {
+    width: 24px;
+    height: 24px;
+    fill: var(--dark-neutral-color);
+    transition: transform 0.2s ease, fill 0.2s ease;
+}
+
+.icon:hover,
+.icon-button:hover {
+    transform: scale(1.1);
+}
+
+.icon:active,
+.icon-button:active {
+    transform: scale(0.95);
+}
+
+.dialog-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: larger;
+    font-weight: bold;
+}
+
+.dialog-button:hover,
+.dialog-button:focus {
+    background-color: #5c8a00;
+}
+
+/* For buttons containing icons */
+.icon-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.6);
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    transition: background-color var(--transition-speed) ease, transform 0.2s ease;
+}
+
+.icon-button:hover {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.ui-container {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+}
+.portrait-layout .ui-container {
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 98vw;
+    max-width: var(--max-image-width);
+
+}
+.landscape-layout .ui-container {
+    top: 10px;
+    left: 50%;
+    right: auto;
+    width: auto;
+    transform: translateX(-50%);
+    gap: 60px;
+}
+
+.ui-left-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ui-buttons {
+    display: flex;
+    gap: 10px;
+    padding-right: 8px;
+}
+
+/* Level indicator on main screen */
+.level-indicator {
+    position: static;
+    height: 40px;
+    border-radius: 20px;
+    margin-left: 10px;
+    padding-left: 4px;
+    padding-right: 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.6);
+    z-index: 2000;
+}
+
+.level-indicator:focus {
+    outline: none;
+}
+
+.level-indicator .icon-chili {
+    width: 22px;
+    height: 22px;
+    fill: var(--primary-counter-color);
+    fill: var(--dark-neutral-color);
+    margin-right: 0px;
+}
+
+.level-indicator .icon-chili:last-child {
+    margin-right: 0;
+}
+
+/* Main window buttons */
+
+#help-button,
+#share-button,
+#menu-toggle {
+    position: static;
+    z-index: 1000;
+}
+
+#like-button {
+    fill: var(--primary-color);
+}
+
+#trash-button {
+    fill: var(--primary-counter-color);
+}
+
+/* Styles for image button containers */
+
+.image-container__buttons {
+    position: absolute;
+    left: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#image-buttons-1,
+#image-buttons-2 {
+    bottom: 10px;
+}
+
+.image-container__button {
+    margin-bottom: 10px;
+    width: 36px;
+    height: 36px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .image-container__button {
+        width: 32px;
+        height: 32px;
+    }
+
+    .image-container__button-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* Hint button */
+.image-container__button--hint {
+    /*    position: absolute;
+    bottom: 10px;
+    left: 55px;*/
+}
+
+.image-container__button--hint.inactive {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.image-container__button--hint.inactive:hover {
+    background-color: transparent;
+}
+
+/* Globe icon button */
+
+/* TODO not recognized right now */
+.image-container__button--globe {
+    position: absolute;
+    bottom: 10px;
+    left: 60px;
+    /*    left: 120px;*/
+    display: none;
+    /* Initially hidden, shown when globe view is active */
+}
+
+.image-container__button--globe:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    transform: scale(1.1);
+}
+
+.image-container__button--globe:active {
+    transform: scale(0.95);
+}
+
+.image-container__button--globe .icon {
+    width: 24px;
+    height: 24px;
+    fill: var(--dark-neutral-color);
+}

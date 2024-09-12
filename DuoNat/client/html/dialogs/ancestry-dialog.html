@@ -1,0 +1,39 @@
+<!-- Ancestry dialog -->
+
+<dialog id="ancestry-dialog" class="standard-dialog ancestry-dialog">
+
+    <div class="dialog-header">
+        <h3 id="ancestry-dialog-taxon" class="dialog-title  ancestry-dialog__title">Common Ancestry</h3>
+        <div class="dialog-header-buttons">
+            <button id="ancestry-close-button" class="dialog-close-button" aria-label="Close">×</button>
+        </div>
+    </div>
+
+    <div class="ancestry-dialog__controls">
+
+        <!--<div class="ancestry-dialog__controls--buttons">
+        </div>-->
+
+        <div class="ancestry-dialog__controls--toggles">
+
+            <div class="view-toggle-container">
+                <input type="checkbox" id="ancestry-name-toggle" class="view-toggle__checkbox" checked>
+                <label for="ancestry-name-toggle" class="view-toggle__label">
+                    <span class="view-toggle__option view-toggle__option--common">Common</span>
+                    <span class="view-toggle__slider"></span>
+                    <span class="view-toggle__option view-toggle__option--taxa">Taxa</span>
+                </label>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="ancestry-dialog__hint">Click on a node for more!</div>
+
+<!--    <div class="dialog-content">-->
+        <div id="ancestry-dialog__graph" class="ancestry-dialog__graph"></div>
+<!--    </div>-->
+</dialog>
+
+
