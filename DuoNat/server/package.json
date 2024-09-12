@@ -5,7 +5,6 @@
   "description": "DuoNat - iNat Taxonomy Trainer Server",
   "main": "server.js",
   "license": "ISC",
-  "type": "module",
   "scripts": {
     "start": "node server.js"
   },
