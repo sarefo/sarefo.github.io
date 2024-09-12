@@ -76,27 +76,22 @@ const api = (() => {
 
                     if (config.useMongoDB) {
                         try {
-                            logger.debug(`Fetching taxonomy hierarchy from ${config.serverUrl}/api/taxonHierarchy`);
+                            //logger.debug(`Fetching taxonomy hierarchy from ${config.serverUrl}/api/taxonHierarchy`);
                             const response = await fetch(`${config.serverUrl}/api/taxonHierarchy`);
 
-                            logger.debug(`Response status: ${response.status}`);
+                            //logger.debug(`Response status: ${response.status}`);
                             if (!response.ok) {
                                 throw new Error(`HTTP error! status: ${response.status}`);
                             }
                             const contentType = response.headers.get("content-type");
-                            logger.debug(`Content-Type: ${contentType}`);
+                            //logger.debug(`Content-Type: ${contentType}`);
                             if (!contentType || !contentType.includes("application/json")) {
                                 const text = await response.text();
                                 logger.error('Unexpected response:', text.substring(0, 200));
                                 throw new Error(`Unexpected content type: ${contentType}`);
                             }
                             hierarchyData = await response.json();
-                            logger.debug(`Received hierarchyData with ${Object.keys(hierarchyData).length} entries`);
-                            if (Object.keys(hierarchyData).length === 0) {
-                                logger.warn('Received empty hierarchy data from server');
-                            } else {
-                                logger.debug('First entry:', JSON.stringify(Object.values(hierarchyData)[0], null, 2));
-                            }
+                            logger.debug(`Loaded hierarchyData with ${Object.keys(hierarchyData).length} entries`);
                         } catch (error) {
                             logger.error('Error fetching taxon hierarchy from MongoDB:', error);
                             throw error;
