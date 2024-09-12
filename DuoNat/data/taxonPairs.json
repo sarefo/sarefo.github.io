@@ -9472,7 +9472,7 @@
     ]
   },
   "551": {
-    "pairName": "Milk-cap Mushrooms",
+    "pairName": "Saffron vs Orange-latex Milk-cap",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -9489,7 +9489,7 @@
     ]
   },
   "552": {
-    "pairName": "Parasol Mushrooms",
+    "pairName": "Parasols",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -9506,7 +9506,7 @@
     ]
   },
   "553": {
-    "pairName": "Inky Cap Mushrooms",
+    "pairName": "Shaggy Mane vs Common Ink Cap",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -9524,7 +9524,7 @@
     ]
   },
   "554": {
-    "pairName": "Shelf Fungi",
+    "pairName": "Ganoderma Shelf Fungi",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -9542,7 +9542,7 @@
     ]
   },
   "555": {
-    "pairName": "Oyster Mushrooms",
+    "pairName": "Oyster Mushroom vs Angel's Wings",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -9560,7 +9560,7 @@
     ]
   },
   "556": {
-    "pairName": "Honey Mushrooms",
+    "pairName": "Honey Mushroom vs Sulphur Tuft",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -9578,7 +9578,7 @@
     ]
   },
   "557": {
-    "pairName": "Button Mushrooms",
+    "pairName": "White Button vs Yellow Stainer",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -9610,7 +9610,7 @@
     "range": []
   },
   "559": {
-    "pairName": "Russula Mushrooms",
+    "pairName": "Sickener vs Hintapink",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -9627,7 +9627,7 @@
     ]
   },
   "560": {
-    "pairName": "Hedgehog Mushrooms",
+    "pairName": "Wood vs Terracotta Hedgehog Mushrooms",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -9645,7 +9645,7 @@
     ]
   },
   "561": {
-    "pairName": "Polypores",
+    "pairName": "Chicken of the Woods vs Dryad's Saddle",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -9663,7 +9663,7 @@
     ]
   },
   "562": {
-    "pairName": "Bracket Fungi",
+    "pairName": "Beefsteak Polypore vs Ganoderma",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -9681,7 +9681,7 @@
     ]
   },
   "563": {
-    "pairName": "Horn of Plenty Mushrooms",
+    "pairName": "Horn of Plenty vs Ashen Chanterelle",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -9716,7 +9716,7 @@
     ]
   },
   "565": {
-    "pairName": "Jelly Fungi",
+    "pairName": "Witch's Butter vs Golden Ear",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -9734,7 +9734,7 @@
     ]
   },
   "566": {
-    "pairName": "Wood Ear Fungi",
+    "pairName": "Wood Ear vs Black Witch's Butter",
     "level": "1",
     "tags": [],
     "taxa": [
@@ -9751,7 +9751,7 @@
     ]
   },
   "567": {
-    "pairName": "Enoki Mushrooms",
+    "pairName": "Velvet Foot vs Funeral Bell",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -9820,7 +9820,7 @@
     ]
   },
   "571": {
-    "pairName": "Shiitake Mushrooms",
+    "pairName": "Shiitake vs Tiger Sawgill",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -9836,7 +9836,7 @@
     ]
   },
   "572": {
-    "pairName": "Puffballs",
+    "pairName": "Giant vs Common Puffball",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -9854,7 +9854,7 @@
     ]
   },
   "573": {
-    "pairName": "Medicinal Polypores",
+    "pairName": "Chaga vs Hoof Fungus",
     "level": "1",
     "tags": [],
     "taxa": [
@@ -9872,7 +9872,7 @@
     ]
   },
   "574": {
-    "pairName": "Split Gill Mushrooms",
+    "pairName": "Splitgill vs Gilled Polypore",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -9890,7 +9890,7 @@
     ]
   },
   "575": {
-    "pairName": "Turkey Tail Mushrooms",
+    "pairName": "Trametes vs False Turkey Tail",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -9908,7 +9908,7 @@
     ]
   },
   "576": {
-    "pairName": "Poison Pax Mushrooms",
+    "pairName": "Brown Roll-Rim vs Velvet-footed Pax",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -9926,7 +9926,7 @@
     ]
   },
   "577": {
-    "pairName": "Boletes",
+    "pairName": "Red-cracking vs Matte Bolete",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -9944,7 +9944,7 @@
     ]
   },
   "578": {
-    "pairName": "Amanita Mushrooms",
+    "pairName": "Panthercap vs Blusher",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -9962,7 +9962,7 @@
     ]
   },
   "579": {
-    "pairName": "Clitocybe Mushrooms",
+    "pairName": "Clitocybe vs Livid Pinkgill",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -9979,7 +9979,7 @@
     ]
   },
   "580": {
-    "pairName": "Inky Cap Mushrooms",
+    "pairName": "Mica Cap vs Pleated Inkcap",
     "level": "1",
     "tags": [],
     "taxa": [
@@ -9997,7 +9997,7 @@
     ]
   },
   "581": {
-    "pairName": "Bracket Fungi",
+    "pairName": "Fomitopsis Bracket Fungi",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -10015,7 +10015,7 @@
     ]
   },
   "582": {
-    "pairName": "Stinkhorn Mushrooms",
+    "pairName": "Common vs Dog Stinkhorn",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -10033,7 +10033,7 @@
     ]
   },
   "583": {
-    "pairName": "Earthball Mushrooms",
+    "pairName": "Common Earthball vs Dead Man's Foot",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -10051,7 +10051,7 @@
     ]
   },
   "584": {
-    "pairName": "Flowering Plants",
+    "pairName": "Dicots vs Monocots",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -10072,7 +10072,7 @@
     ]
   },
   "585": {
-    "pairName": "Flowering Plant Families",
+    "pairName": "Asteraceae vs Brassicaceae",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -10093,7 +10093,7 @@
     ]
   },
   "586": {
-    "pairName": "Flowering Plant Families",
+    "pairName": "Apiaceae vs Brassicaceae",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -10114,7 +10114,7 @@
     ]
   },
   "587": {
-    "pairName": "Oak Trees",
+    "pairName": "Pedunculate vs Sessile Oak",
     "level": "3",
     "tags": [
       "trees"
@@ -10133,7 +10133,7 @@
     ]
   },
   "588": {
-    "pairName": "Birch Trees",
+    "pairName": "Silver vs Downy Birch",
     "level": "3",
     "tags": [
       "trees"
@@ -10152,7 +10152,7 @@
     ]
   },
   "589": {
-    "pairName": "Coniferous Trees",
+    "pairName": "Scots Pine vs Norway Spruce",
     "level": "3",
     "tags": [
       "trees"
@@ -10171,7 +10171,7 @@
     ]
   },
   "590": {
-    "pairName": "Poplar Trees",
+    "pairName": "Aspen vs White Poplar",
     "level": "3",
     "tags": [
       "trees"
@@ -10190,7 +10190,7 @@
     ]
   },
   "591": {
-    "pairName": "Buttercups",
+    "pairName": "Meadow vs Creeping Buttercup",
     "level": "3",
     "tags": [
       "flowers"
@@ -10210,7 +10210,7 @@
     ]
   },
   "592": {
-    "pairName": "Dandelions",
+    "pairName": "Dandelion vs Hawkbit",
     "level": "3",
     "tags": [
       "flowers"
@@ -10229,7 +10229,7 @@
     ]
   },
   "593": {
-    "pairName": "Nightshades",
+    "pairName": "Black Nightshades",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -10250,7 +10250,7 @@
     ]
   },
   "594": {
-    "pairName": "Climbing Plants",
+    "pairName": "Creeping Psychotria vs Climbing Fig",
     "level": "1",
     "tags": [
       "vines"
@@ -10268,7 +10268,7 @@
     ]
   },
   "595": {
-    "pairName": "Climbing Plants",
+    "pairName": "Creeping Psychotria vs Green Penny Fern",
     "level": "1",
     "tags": [
       "vines"
@@ -10286,7 +10286,7 @@
     ]
   },
   "596": {
-    "pairName": "Climbing Plants",
+    "pairName": "Climbing Fig vs Green Penny Fern",
     "level": "1",
     "tags": [
       "vines"
@@ -10304,7 +10304,7 @@
     ]
   },
   "597": {
-    "pairName": "Flowering Shrubs",
+    "pairName": "Indian Hawthorn vs Rose Myrtle",
     "level": "1",
     "tags": [
       "shrubs",
@@ -10323,7 +10323,7 @@
     ]
   },
   "598": {
-    "pairName": "Chickweeds",
+    "pairName": "Lesser vs Greater Stitchwort",
     "level": "2",
     "tags": [
       "flowers"
@@ -10342,7 +10342,7 @@
     ]
   },
   "599": {
-    "pairName": "Seaweeds",
+    "pairName": "Red vs Brown Algae",
     "level": "2",
     "tags": [
       "algae",
@@ -10366,7 +10366,7 @@
     ]
   },
   "600": {
-    "pairName": "Algae",
+    "pairName": "Green vs Brown Algae",
     "level": "2",
     "tags": [
       "algae",
@@ -10390,7 +10390,7 @@
     ]
   },
   "601": {
-    "pairName": "Red Algae",
+    "pairName": "Coralline Algae vs Peyssonneliaceae",
     "level": "3",
     "tags": [
       "algae",
@@ -10414,7 +10414,7 @@
     ]
   },
   "602": {
-    "pairName": "Caterpillars vs Mimics",
+    "pairName": "Caterpillar Spider vs Caterpillar",
     "level": "1",
     "tags": [
       "mimicry"
