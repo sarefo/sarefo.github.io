@@ -18,13 +18,13 @@ app.use(express.json());
 
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('Could not connect to MongoDB:', err));
-
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
+  .then(async () => {
     console.log('Connected to MongoDB');
     console.log('MongoDB URI:', process.env.MONGODB_URI);
+    
+    // Test query
+    const testDoc = await mongoose.connection.db.collection('taxonInfo').findOne({});
+    console.log('Test document from taxonInfo collection:', testDoc);
   })
   .catch(err => console.error('Could not connect to MongoDB:', err));
 

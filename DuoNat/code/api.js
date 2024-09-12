@@ -33,21 +33,21 @@ const api = (() => {
             loadTaxonInfo: async function () {
                 try {
                     if (taxonInfo === null) {
-                      if (config.useMongoDB) {
-                        logger.debug('Loading taxon info from MongoDB');
-                        const response = await fetch(`${config.serverUrl}/api/taxonInfo`);
-                        if (!response.ok) {
-                          throw new Error(`HTTP error! status: ${response.status}`);
-                        }
-                        const rawData = await response.text();
-                        logger.debug('Raw server response:', rawData);
-                        const data = JSON.parse(rawData);
-                        taxonInfo = data;
-                        logger.debug(`Loaded ${Object.keys(taxonInfo).length} taxon info entries from MongoDB`);
-                        if (Object.keys(taxonInfo).length > 0) {
-                          logger.debug('First taxon info entry:', JSON.stringify(taxonInfo[Object.keys(taxonInfo)[0]], null, 2));
-                        }
-                      } else {
+                          if (config.useMongoDB) {
+                            const response = await fetch(`${config.serverUrl}/api/taxonInfo`);
+                            if (!response.ok) {
+                              throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            const data = await response.json();
+                            taxonInfo = data.reduce((acc, item) => {
+                              acc[item.taxonId] = item;
+                              return acc;
+                            }, {});
+                            logger.debug(`Loaded ${Object.keys(taxonInfo).length} taxon info entries from MongoDB`);
+                            /*if (Object.keys(taxonInfo).length > 0) {
+                              logger.debug('First taxon info entry:', JSON.stringify(taxonInfo[Object.keys(taxonInfo)[0]], null, 2));
+                            }*/
+                          } else {
                             logger.debug('Loading taxon info from JSON file');
                             const response = await fetch('./data/taxonInfo.json');
                             if (!response.ok) {
