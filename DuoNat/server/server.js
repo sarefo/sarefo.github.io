@@ -79,11 +79,17 @@ app.get('/api/taxonHierarchy', async (req, res) => {
     console.log('Fetching taxon hierarchy...');
     const taxonHierarchy = await TaxonHierarchy.find({}).lean();
     console.log('Fetched taxon hierarchy:', taxonHierarchy.length, 'documents');
-    if (taxonHierarchy.length > 0) {
+    
+    if (taxonHierarchy.length === 0) {
+      console.log('No documents found in taxonHierarchy collection');
+      const collections = await mongoose.connection.db.listCollections().toArray();
+      console.log('Collections in the database:', collections.map(c => c.name));
+      const count = await TaxonHierarchy.countDocuments();
+      console.log(`Number of documents in taxonHierarchy collection: ${count}`);
+    } else if (taxonHierarchy.length > 0) {
       console.log('Sample document:', JSON.stringify(taxonHierarchy[0], null, 2));
-    } else {
-      console.log('No taxon hierarchy documents found');
     }
+    
     const hierarchyObject = taxonHierarchy.reduce((acc, item) => {
       acc[item.taxonId] = item;
       return acc;
