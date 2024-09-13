@@ -82,9 +82,9 @@ app.get('/api/taxonInfo', async (req, res) => {
   try {
     const taxonInfo = await TaxonInfo.find({}).lean();
     console.log('Fetched taxon info:', taxonInfo.length, 'documents');
-    if (taxonInfo.length > 0) {
-      console.log('Sample document:', JSON.stringify(taxonInfo[0], null, 2));
-    }
+    //if (taxonInfo.length > 0) {
+      //console.log('Sample document:', JSON.stringify(taxonInfo[0], null, 2));
+    //}
     res.json(taxonInfo);
   } catch (error) {
     console.error('Error fetching taxon info:', error);
@@ -94,7 +94,7 @@ app.get('/api/taxonInfo', async (req, res) => {
 
 app.get('/api/taxonPairs', async (req, res) => {
   try {
-    console.log('Fetching taxon pairs...');
+    //console.log('Fetching taxon pairs...');
     const taxonPairs = await TaxonPair.find({}).lean();
     console.log('Fetched taxon pairs:', taxonPairs.length, 'documents');
     
@@ -111,7 +111,7 @@ app.get('/api/taxonPairs', async (req, res) => {
       const sampleDocument = await collection.findOne({});
       console.log('Sample document from direct MongoDB query:', sampleDocument);
     } else if (taxonPairs.length > 0) {
-      console.log('Sample document:', JSON.stringify(taxonPairs[0], null, 2));
+      //console.log('Sample document:', JSON.stringify(taxonPairs[0], null, 2));
     }
     
     res.json(taxonPairs);
@@ -124,11 +124,11 @@ app.get('/api/taxonPairs', async (req, res) => {
 app.get('/api/taxonHierarchy', async (req, res) => {
   try {
     console.log('Fetching taxon hierarchy...');
-    console.log('TaxonHierarchy model:', TaxonHierarchy);
-    console.log('Collection name:', TaxonHierarchy.collection.name);
+    //console.log('TaxonHierarchy model:', TaxonHierarchy);
+    //console.log('Collection name:', TaxonHierarchy.collection.name);
     
     const taxonHierarchy = await TaxonHierarchy.find({}).lean();
-    console.log('Fetched taxon hierarchy:', taxonHierarchy.length, 'documents');
+    //console.log('Fetched taxon hierarchy:', taxonHierarchy.length, 'documents');
     
     if (taxonHierarchy.length === 0) {
       console.log('No documents found in taxonHierarchy collection');
@@ -141,16 +141,16 @@ app.get('/api/taxonHierarchy', async (req, res) => {
       const db = mongoose.connection.db;
       const collection = db.collection('taxonHierarchy');
       const sampleDocument = await collection.findOne({});
-      console.log('Sample document from direct MongoDB query:', sampleDocument);
+      //console.log('Sample document from direct MongoDB query:', sampleDocument);
     } else if (taxonHierarchy.length > 0) {
-      console.log('Sample document:', JSON.stringify(taxonHierarchy[0], null, 2));
+      //console.log('Sample document:', JSON.stringify(taxonHierarchy[0], null, 2));
     }
     
     const hierarchyObject = taxonHierarchy.reduce((acc, item) => {
       acc[item.taxonId] = item;
       return acc;
     }, {});
-    console.log('Sending response with', Object.keys(hierarchyObject).length, 'items');
+    //console.log('Sending response with', Object.keys(hierarchyObject).length, 'items');
     res.json(hierarchyObject);
   } catch (error) {
     console.error('Error fetching taxon hierarchy:', error);

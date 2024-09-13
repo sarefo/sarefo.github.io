@@ -101,9 +101,9 @@ The CSS is organized into several files:
 - `layout/`: CSS for layout-specific styles.
 
 ## Data Files
-
+These are about to be replaced with MongoDB collections.
 1. `taxonInfo.json`: Contains detailed information about individual taxa.
-2. `taxonPair.json`: Defines pairs of taxa used in the game.
+2. `taxonPairs.json`: Defines pairs of taxa used in the game.
 3. `taxonHierarchy.json`: Represents the taxonomic hierarchy of species.
 
 ## Key Features and Concepts

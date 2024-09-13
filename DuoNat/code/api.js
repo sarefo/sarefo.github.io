@@ -132,6 +132,7 @@ const api = (() => {
                             throw new Error(`HTTP error! status: ${response.status}`);
                         }
                         taxonPairs = await response.json();
+                        logger.debug(`Loaded taxonPairs with ${Object.keys(taxonPairs).length} entries`);
                     } else {
                         const response = await fetch('./data/taxonPairs.json');
                         if (!response.ok) {

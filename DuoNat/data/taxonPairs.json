@@ -10474,7 +10474,7 @@
     ]
   },
   "603": {
-    "pairName": "Beetles vs Thrips",
+    "pairName": "Rove Beetles vs Thrips",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -10555,7 +10555,7 @@
     ]
   },
   "613": {
-    "pairName": "Beaver vs Marmot",
+    "pairName": "Beavers vs Marmots",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -10573,7 +10573,7 @@
     ]
   },
   "614": {
-    "pairName": "Beaver vs Otter",
+    "pairName": "Beavers vs Otters",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -10791,7 +10791,7 @@
     "range": []
   },
   "625": {
-    "pairName": "Butterfly fishes",
+    "pairName": "Eightband Butterflyfish vs Convict Surgeonfish",
     "level": "1",
     "tags": [
       "ocean"
@@ -10851,7 +10851,7 @@
     ]
   },
   "628": {
-    "pairName": "Butterfly fishes",
+    "pairName": "Raccoon vs Hong Kong Butterflyfish",
     "level": "2",
     "tags": [
       "ocean"
@@ -10869,7 +10869,7 @@
     ]
   },
   "629": {
-    "pairName": "Butterfly fishes",
+    "pairName": "Oriental vs Raccoon Butterflyfish",
     "level": "2",
     "tags": [
       "ocean"
@@ -10887,7 +10887,7 @@
     ]
   },
   "630": {
-    "pairName": "Skunks",
+    "pairName": "Hooded vs Striped Skunk",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -10903,7 +10903,7 @@
     ]
   },
   "631": {
-    "pairName": "Skunk vs Ratel",
+    "pairName": "Honey Badger vs Striped Skunk",
     "level": "1",
     "tags": [],
     "taxa": [
@@ -10917,7 +10917,7 @@
     "range": []
   },
   "632": {
-    "pairName": "Skunk vs Honey badger",
+    "pairName": "Striped Skunk vs European Badger",
     "level": "1",
     "tags": [],
     "taxa": [
@@ -10931,7 +10931,7 @@
     "range": []
   },
   "633": {
-    "pairName": "Badger vs Ratel",
+    "pairName": "European Badger vs Honey Badger",
     "level": "1",
     "tags": [],
     "taxa": [
@@ -10984,7 +10984,7 @@
     ]
   },
   "636": {
-    "pairName": "Daddy Long Legs",
+    "pairName": "Cellar Spiders vs Huntsmen",
     "level": "1",
     "tags": [],
     "taxa": [
@@ -11022,7 +11022,7 @@
     ]
   },
   "638": {
-    "pairName": "Invasive Flatworms",
+    "pairName": "New Guinea vs Blue Garden Flatworm",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -11040,7 +11040,7 @@
     ]
   },
   "639": {
-    "pairName": "Butterfly mimicry",
+    "pairName": "Viceroy vs Monarch",
     "level": "3",
     "tags": [
       "mimicry"
@@ -11058,7 +11058,7 @@
     ]
   },
   "640": {
-    "pairName": "Coral snake mimics",
+    "pairName": "Coralsnakes vs Scarlet Kingsnake",
     "level": "2",
     "tags": [
       "mimicry"
@@ -11076,7 +11076,7 @@
     ]
   },
   "641": {
-    "pairName": "Turkey vulture mimic",
+    "pairName": "Zone-tailed Hawk vs Turkey Vulture",
     "level": "1",
     "tags": [
       "mimicry"
@@ -11095,7 +11095,7 @@
     ]
   },
   "643": {
-    "pairName": "Friarbird mimic",
+    "pairName": "Pied Cuckooshrike vs Friarbirds",
     "level": "2",
     "tags": [
       "mimicry"
@@ -11113,7 +11113,7 @@
     ]
   },
   "644": {
-    "pairName": "Real vs fake hawks",
+    "pairName": "Hawks vs Hawk-cuckoos",
     "level": "1",
     "tags": [
       "mimicry"
@@ -11131,7 +11131,7 @@
     ]
   },
   "645": {
-    "pairName": "Fangblenny mimicry",
+    "pairName": "Bluestriped vs Blackline Fangblenny",
     "level": "2",
     "tags": [
       "ocean",
@@ -11150,7 +11150,7 @@
     ]
   },
   "646": {
-    "pairName": "Cleanerfish mimicry",
+    "pairName": "False Cleaner vs Bluestreaked Cleaner Wrasse",
     "level": "3",
     "tags": [
       "ocean",
@@ -11287,7 +11287,7 @@
     ]
   },
   "657": {
-    "pairName": "Millipedes",
+    "pairName": "Juliformia vs Merocheta",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -11373,7 +11373,7 @@
     ]
   },
   "663": {
-    "pairName": "Beautiful Jumping Spiders",
+    "pairName": "Peacock Jumping Spiders vs Saitis",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -11387,7 +11387,7 @@
     "range": []
   },
   "664": {
-    "pairName": "Nose-leaf vs other bats",
+    "pairName": "Fruit Bats vs Nose-leaf bats",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -11404,7 +11404,7 @@
     ]
   },
   "665": {
-    "pairName": "Fruit bats vs other bats",
+    "pairName": "Fruit bats vs Microbats",
     "level": "1",
     "tags": [],
     "taxa": [
@@ -13094,7 +13094,7 @@
     ]
   },
   "759": {
-    "pairName": "Destructor ant vs. Fire ant",
+    "pairName": "Destructor ant vs Fire ant",
     "level": "3",
     "tags": [
       "invasive"
@@ -13417,7 +13417,7 @@
     ]
   },
   "777": {
-    "pairName": "Lucorum-group bumble bees vs Common Carder Bumble Bee",
+    "pairName": "Lucorum bumble bees vs Common Carder Bumble Bee",
     "level": "2",
     "tags": [
       "pollinators"
@@ -13435,7 +13435,7 @@
     ]
   },
   "778": {
-    "pairName": "Lucorum-group bumble bees vs Buff-tailed Bumble Bee",
+    "pairName": "Lucorum bumble bees vs Buff-tailed Bumble Bee",
     "level": "3",
     "tags": [
       "pollinators"
@@ -13453,7 +13453,7 @@
     ]
   },
   "779": {
-    "pairName": "Lucorum-group bumble bees vs Early bumble bee",
+    "pairName": "Lucorum bumble bees vs Early bumble bee",
     "level": "2",
     "tags": [
       "pollinators"
@@ -13471,7 +13471,7 @@
     ]
   },
   "780": {
-    "pairName": "Lucorum-group bumble bees vs Tree bumble bee",
+    "pairName": "Lucorum bumble bees vs Tree bumble bee",
     "level": "1",
     "tags": [
       "pollinators"
@@ -13561,7 +13561,7 @@
     ]
   },
   "785": {
-    "pairName": "Garden bumble bee vs Lucorum-group bumble bees",
+    "pairName": "Garden bumble bee vs Lucorum bumble bees",
     "level": "3",
     "tags": [
       "pollinators"
@@ -13739,7 +13739,7 @@
     ]
   },
   "794": {
-    "pairName": "White octoblepharum moss vs White moss",
+    "pairName": "White Octoblepharum moss vs White moss",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -14880,7 +14880,7 @@
     ]
   },
   "856": {
-    "pairName": "Hackled orbweavers and net-casting spiders vs Orbweavers and allies",
+    "pairName": "Hackled orbweavers vs Orbweavers",
     "level": "2",
     "tags": [],
     "taxa": [
@@ -15054,7 +15054,7 @@
     ]
   },
   "865": {
-    "pairName": "Typical frogs vs Tree frogs and allies",
+    "pairName": "Typical frogs vs Tree frogs",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -15094,7 +15094,7 @@
     ]
   },
   "867": {
-    "pairName": "True toads vs Tree frogs and allies",
+    "pairName": "True toads vs Tree frogs",
     "level": "2",
     "tags": [],
     "taxa": [
