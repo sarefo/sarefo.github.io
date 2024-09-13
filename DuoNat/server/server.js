@@ -34,7 +34,7 @@ mongoose.connect(process.env.MONGODB_URI, {
     
     // Test query
     const testDoc = await TaxonInfo.findOne({}).lean();
-    console.log('Test document from taxonInfo collection:', testDoc);
+    //console.log('Test document from taxonInfo collection:', testDoc);
   } catch (error) {
     console.error('Error creating indexes or querying:', error);
   }

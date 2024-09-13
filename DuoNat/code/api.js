@@ -14,10 +14,14 @@ const handleApiError = (error, context) => {
 const api = (() => {
     let taxonomyHierarchy = null;
     let taxonInfo = null;
+    let cachedTaxonPairs = null;
 
     return {
         taxonomy: {
             fetchTaxonInfoFromMongoDB: async function (taxonId) {
+                if (!config.useMongoDB) {
+                    return null;
+                }
                 try {
                     const response = await fetch(`${config.serverUrl}/api/taxonInfo/${taxonId}`);
                     if (!response.ok) {
@@ -31,34 +35,20 @@ const api = (() => {
             },
 
             loadTaxonInfo: async function () {
-                try {
+                if (!config.useMongoDB) {
                     if (taxonInfo === null) {
-                        if (config.useMongoDB) {
-                            taxonInfo = {};
-                        } else {
-                            logger.debug('Loading taxon info from JSON file');
-                            const response = await fetch('./data/taxonInfo.json');
-                            if (!response.ok) {
-                                throw new Error(`HTTP error! status: ${response.status}`);
-                            }
-                            taxonInfo = await response.json();
+                        logger.debug('Loading taxon info from JSON file');
+                        const response = await fetch('./data/taxonInfo.json');
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
                         }
-
-                        // Load taxonomy hierarchy if not already loaded
-                        await this.loadTaxonomyHierarchy();
-
-                        // Add any missing taxa from taxonInfo to taxonomyHierarchy
-                        Object.entries(taxonInfo).forEach(([id, taxon]) => {
-                            if (!taxonomyHierarchy.getTaxonById(id)) {
-                                taxonomyHierarchy.addTaxon(taxon);
-                            }
-                        });
+                        taxonInfo = await response.json();
                     }
                     return taxonInfo;
-                } catch (error) {
-                    logger.error('Error in loadTaxonInfo:', error);
-                    throw error;
                 }
+                // When using MongoDB, we'll fetch specific taxon info as needed
+                logger.trace("dummy taxonInfo fetch: should not happen.");
+                return {};
             },
 
             loadTaxonomyHierarchy: async function () {
@@ -115,6 +105,11 @@ const api = (() => {
 
             // fetch from JSON file or MongoDB
             fetchTaxonPairs: async function () {
+                if (cachedTaxonPairs) {
+                    logger.debug("Using cached taxon pairs");
+                    return cachedTaxonPairs;
+                }
+
                 try {
                     let taxonPairs;
                     if (config.useMongoDB) {
@@ -123,7 +118,6 @@ const api = (() => {
                             throw new Error(`HTTP error! status: ${response.status}`);
                         }
                         taxonPairs = await response.json();
-                        logger.debug(`Loaded taxonPairs with ${Object.keys(taxonPairs).length} entries`);
                     } else {
                         const response = await fetch('./data/taxonPairs.json');
                         if (!response.ok) {
@@ -132,12 +126,15 @@ const api = (() => {
                         taxonPairs = await response.json();
                     }
                     
-                    return Object.entries(taxonPairs).map(([pairID, pair]) => ({
+                    cachedTaxonPairs = Object.entries(taxonPairs).map(([pairID, pair]) => ({
                         ...pair,
                         pairID,
                         taxonA: pair.taxonNames[0],
                         taxonB: pair.taxonNames[1]
                     }));
+
+                    logger.debug(`Loaded and cached taxonPairs with ${cachedTaxonPairs.length} entries`);
+                    return cachedTaxonPairs;
                 } catch (error) {
                     handleApiError(error, 'fetchTaxonPairs');
                 }
@@ -374,7 +371,7 @@ const api = (() => {
         },
 
         vernacular: {
-            // fetch vernacular name of taxon from local file or iNat
+            // fetch vernacular name of taxon from MongoDB, local file or iNat
             fetchVernacular: async function (taxonName) {
                 if (config.useMongoDB) {
                     try {
