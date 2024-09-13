@@ -3,6 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
+const app = express();
+const PORT = process.env.PORT || 3000;
 
 // Define Taxon Schema
 const taxonInfoSchema = new mongoose.Schema({
@@ -48,18 +50,6 @@ app.use(express.json());
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'public')));
-
-// MongoDB connection
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(async () => {
-    console.log('Connected to MongoDB');
-    console.log('MongoDB URI:', process.env.MONGODB_URI);
-    
-    // Test query
-    const testDoc = await mongoose.connection.db.collection('taxonInfo').findOne({});
-    console.log('Test document from taxonInfo collection:', testDoc);
-  })
-  .catch(err => console.error('Could not connect to MongoDB:', err));
 
 app.get('/api/test', (req, res) => {
   res.json({ message: 'Server is working' });
