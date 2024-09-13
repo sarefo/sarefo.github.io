@@ -1,4 +1,5 @@
 import api from './api.js';
+import config from './config.js';
 import logger from './logger.js';
 import state from './state.js';
 
@@ -41,8 +42,14 @@ const hintSystem = {
     },
 
     async getTaxonId(taxonName) {
-        const taxonInfo = await api.taxonomy.loadTaxonInfo();
-        return Object.keys(taxonInfo).find(id => taxonInfo[id].taxonName === taxonName);
+        if (config.useMongoDB) {
+            //logger.trace("trying to get taxonID from MongoDB in hintSystem.js");
+            const taxonInfo = await api.taxonomy.fetchTaxonInfoFromMongoDB(taxonName);
+            return taxonInfo ? taxonInfo.taxonId : null;
+        } else {
+            const taxonInfo = await api.taxonomy.loadTaxonInfo();
+            return Object.keys(taxonInfo).find(id => taxonInfo[id].taxonName === taxonName);
+        }
     },
 
     displayRandomHint(hints, index) {

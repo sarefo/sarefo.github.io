@@ -18,13 +18,25 @@ const api = (() => {
 
     return {
         taxonomy: {
-            fetchTaxonInfoFromMongoDB: async function (taxonId) {
+            fetchTaxonInfoFromMongoDB: async function (taxonIdentifier) {
                 if (!config.useMongoDB) {
                     return null;
                 }
                 try {
-                    const response = await fetch(`${config.serverUrl}/api/taxonInfo/${taxonId}`);
+                    let url;
+                    if (isNaN(taxonIdentifier)) {
+                        // If it's not a number, assume it's a name
+                        url = `${config.serverUrl}/api/taxonInfo?taxonName=${encodeURIComponent(taxonIdentifier)}`;
+                    } else {
+                        // If it's a number, assume it's an ID
+                        url = `${config.serverUrl}/api/taxonInfo/${taxonIdentifier}`;
+                    }
+                    const response = await fetch(url);
                     if (!response.ok) {
+                        if (response.status === 404) {
+                            logger.warn(`Taxon not found in MongoDB: ${taxonIdentifier}`);
+                            return null;
+                        }
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
                     return await response.json();
@@ -47,7 +59,7 @@ const api = (() => {
                     return taxonInfo;
                 }
                 // When using MongoDB, we'll fetch specific taxon info as needed
-                logger.trace("dummy taxonInfo fetch: should not happen.");
+                logger.trace("dummy taxonInfo fetch: should not happen, but fine for now.");
                 return {};
             },
 
@@ -146,7 +158,7 @@ const api = (() => {
                     logger.error(`Invalid taxon name: ${taxonName}`);
                     return null;
                 }
-                const taxonInfo = await this.loadTaxonInfo();
+                const taxonInfo = await api.taxonomy.loadTaxonInfo();
                 const lowercaseTaxonName = taxonName.toLowerCase();
 
                 for (const [id, info] of Object.entries(taxonInfo)) {
@@ -291,19 +303,28 @@ const api = (() => {
                         throw new Error(`Invalid taxon name: ${taxonName}`);
                     }
 
-                    // First, try to get the taxon ID from local data
-                    const taxonInfo = await api.taxonomy.loadTaxonInfo();
-                    const localTaxon = Object.values(taxonInfo).find(info => 
-                        info.taxonName && info.taxonName.toLowerCase() === taxonName.toLowerCase()
-                    );
-
                     let taxonId;
-                    if (localTaxon) {
-                        taxonId = Object.keys(taxonInfo).find(key => taxonInfo[key] === localTaxon);
-                        //logger.debug(`Using local taxon ID for ${taxonName}: ${taxonId}`);
+                    if (config.useMongoDB) {
+                        const taxonInfo = await api.taxonomy.fetchTaxonInfoFromMongoDB(taxonName);
+                        if (taxonInfo) {
+                            taxonId = taxonInfo.taxonId;
+                            logger.debug(`Using MongoDB taxon ID for ${taxonName}: ${taxonId}`);
+                        }
                     } else {
-                        // If not found locally, fall back to API call
-                        logger.debug(`Taxon ${taxonName} not found locally, fetching from API`);
+                        // Existing code for JSON file
+                        const taxonInfo = await api.taxonomy.loadTaxonInfo();
+                        const localTaxon = Object.values(taxonInfo).find(info => 
+                            info.taxonName && info.taxonName.toLowerCase() === taxonName.toLowerCase()
+                        );
+                        if (localTaxon) {
+                            taxonId = Object.keys(taxonInfo).find(key => taxonInfo[key] === localTaxon);
+                            logger.debug(`Using local taxon ID for ${taxonName}: ${taxonId}`);
+                        }
+                    }
+
+                    if (!taxonId) {
+                        logger.warn(`Taxon ${taxonName} not found locally, fetching from API`);
+                        // Existing code for API fallback
                         const searchResponse = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${encodeURIComponent(taxonName)}`);
                         if (!searchResponse.ok) throw new Error(`HTTP error! status: ${searchResponse.status}`);
                         const searchData = await searchResponse.json();
@@ -311,6 +332,7 @@ const api = (() => {
                         taxonId = searchData.results[0].id;
                     }
 
+                    // Rest of the function remains the same
                     let images;
                     if (config.useObservationImages) {
                         images = await this.fetchImagesFromObservations(taxonId, count);
@@ -336,14 +358,13 @@ const api = (() => {
                 baseUrl += '&term_id=1&term_value_id=2'; // adults only
                 baseUrl += '&term_id=17&term_value_id=18'; // alive only TODO doesn't seem to work
                 logger.debug("baseUrl is ", baseUrl);
-                //baseUrl += '&term_id=1&term_value_id=4,5,6,8'; // non-adults only
-                //baseUrl += '&term_id=9&term_value_id=10'; // 10 = female • 11 = male
                 const observationResponse = await fetch(baseUrl);
                 if (!observationResponse.ok) throw new Error(`HTTP error! status: ${observationResponse.status}`);
                 const observationData = await observationResponse.json();
                 images = observationData.results.map(obs => obs.photos[0].url.replace('square', 'medium'));
                 return images;
             },
+
             fetchImagesFromGallery: async function (taxonId, count) {
                 let images;
                 const taxonResponse = await fetch(`https://api.inaturalist.org/v1/taxa/${taxonId}?photos=true`);
@@ -495,6 +516,7 @@ const publicAPI = {
         fetchTaxonHints: api.taxonomy.fetchTaxonHints,
         loadTaxonInfo: api.taxonomy.loadTaxonInfo,
         fetchTaxonId: api.taxonomy.fetchTaxonId,
+        fetchTaxonInfoFromMongoDB: api.taxonomy.fetchTaxonInfoFromMongoDB,
         getAncestryFromLocalData: api.taxonomy.getAncestryFromLocalData,
         fetchAncestorDetails: api.taxonomy.fetchAncestorDetails,
         getTaxonomyHierarchy: api.taxonomy.getTaxonomyHierarchy,
