@@ -8,8 +8,8 @@ const PORT = process.env.PORT || 3000;
 
 // Define Taxon Schema
 const taxonInfoSchema = new mongoose.Schema({
-  taxonId: { type: String, index: true }, // Add index here
-  taxonName: String,
+  taxonId: { type: String, index: true },
+  taxonName: { type: String, index: true },
   vernacularName: String,
   ancestryIds: [Number],
   rank: String,
@@ -25,7 +25,7 @@ mongoose.connect(process.env.MONGODB_URI, {
   dbName: 'duonat' // Make sure this matches your database name
 }).then(async () => {
   console.log('Connected to MongoDB');
-  console.log('MongoDB URI:', process.env.MONGODB_URI);
+  //console.log('MongoDB URI:', process.env.MONGODB_URI);
   
   // Create index if it doesn't exist
   try {
