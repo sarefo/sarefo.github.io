@@ -33,18 +33,9 @@ const api = (() => {
             loadTaxonInfo: async function () {
                 try {
                     if (taxonInfo === null) {
-                          if (config.useMongoDB) {
-                            const response = await fetch(`${config.serverUrl}/api/taxonInfo`);
-                            if (!response.ok) {
-                              throw new Error(`HTTP error! status: ${response.status}`);
-                            }
-                            const data = await response.json();
-                            taxonInfo = data.reduce((acc, item) => {
-                              acc[item.taxonId] = item;
-                              return acc;
-                            }, {});
-                            logger.debug(`Loaded ${Object.keys(taxonInfo).length} taxon info entries from MongoDB`);
-                          } else {
+                        if (config.useMongoDB) {
+                            taxonInfo = {};
+                        } else {
                             logger.debug('Loading taxon info from JSON file');
                             const response = await fetch('./data/taxonInfo.json');
                             if (!response.ok) {
@@ -396,11 +387,11 @@ const api = (() => {
                 } else {
                     logger.warn(`Taxon not found in local data: ${taxonName}`);
                     // Only fetch from API if the taxon is not in our local data at all
-                    return this.fetchVernacularFromAPI(taxonName);
+                    return this.fetchVernacularFromINat(taxonName);
                 }
             },
 
-            fetchVernacularFromAPI: async function (taxonName) {
+            fetchVernacularFromINat: async function (taxonName) {
                 logger.debug("Fetching vernacular from iNat API for: " + taxonName);
                 try {
                     const baseUrl = 'https://api.inaturalist.org/v1/taxa/autocomplete';
@@ -414,7 +405,7 @@ const api = (() => {
                         return "";
                     }
                 } catch (error) {
-                    handleApiError(error, 'fetchVernacularFromAPI');
+                    handleApiError(error, 'fetchVernacularFromINat');
                     return "";
                 }
             },

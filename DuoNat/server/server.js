@@ -1,19 +1,42 @@
-console.log("first line");
 const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 
+// Define Taxon Schema
+const taxonInfoSchema = new mongoose.Schema({
+  taxonId: { type: String, index: true }, // Add index here
+  taxonName: String,
+  vernacularName: String,
+  ancestryIds: [Number],
+  rank: String,
+  taxonFacts: [String],
+  range: [String],
+  hints: [String]
+}, { strict: false });
+
+
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   dbName: 'duonat' // Make sure this matches your database name
-}).then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('Could not connect to MongoDB:', err));
-
-const app = express();
-const PORT = process.env.PORT || 3000;
+}).then(async () => {
+  console.log('Connected to MongoDB');
+  console.log('MongoDB URI:', process.env.MONGODB_URI);
+  
+  // Create index if it doesn't exist
+  try {
+    await TaxonInfo.createIndexes();
+    console.log('Indexes for TaxonInfo created successfully');
+    
+    // Test query
+    const testDoc = await TaxonInfo.findOne({}).lean();
+    console.log('Test document from taxonInfo collection:', testDoc);
+  } catch (error) {
+    console.error('Error creating indexes or querying:', error);
+  }
+}).catch(err => console.error('Could not connect to MongoDB:', err));
 
 app.use(cors({
   origin: '*', // Be more specific in production
@@ -41,19 +64,6 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 app.get('/api/test', (req, res) => {
   res.json({ message: 'Server is working' });
 });
-
-// Define Taxon Schema
-const taxonInfoSchema = new mongoose.Schema({
-  taxonId: String,
-  taxonName: String,
-  vernacularName: String,
-  ancestryIds: [Number],
-  rank: String,
-  taxonFacts: [String],
-  range: [String],
-  hints: [String]
-}, { strict: false });
-
 
 const taxonPairSchema = new mongoose.Schema({
   pairID: String,
@@ -86,6 +96,20 @@ app.get('/api/taxonInfo', async (req, res) => {
       //console.log('Sample document:', JSON.stringify(taxonInfo[0], null, 2));
     //}
     res.json(taxonInfo);
+  } catch (error) {
+    console.error('Error fetching taxon info:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+});
+
+app.get('/api/taxonInfo/:taxonId', async (req, res) => {
+  try {
+    const taxonId = req.params.taxonId;
+    const taxon = await TaxonInfo.findOne({ taxonId: taxonId }).lean();
+    if (!taxon) {
+      return res.status(404).json({ message: 'Taxon not found' });
+    }
+    res.json(taxon);
   } catch (error) {
     console.error('Error fetching taxon info:', error);
     res.status(500).json({ message: 'Server error', error: error.message });
