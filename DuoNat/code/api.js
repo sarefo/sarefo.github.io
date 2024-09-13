@@ -383,22 +383,23 @@ const api = (() => {
                         if (data && data.vernacularName) {
                             return data.vernacularName;
                         }
-                        logger.warn(`Taxon not found in MongoDB: ${taxonName}`);
+                        logger.warn(`Vernacular name not found in MongoDB for: ${taxonName}`);
                     } catch (error) {
                         logger.error('Error fetching vernacular from MongoDB:', error);
                     }
-                }
-
-                // If MongoDB fetch fails or is not used, fall back to the original method
-                const taxonInfo = await api.taxonomy.loadTaxonInfo();
-                const entry = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxonName.toLowerCase());
-
-                if (entry) {
-                    return entry.vernacularName;
                 } else {
-                    logger.warn(`Taxon not found in local data: ${taxonName}`);
-                    return this.fetchVernacularFromINat(taxonName);
+                    // Fetch from JSON file
+                    const taxonInfo = await api.taxonomy.loadTaxonInfo();
+                    const entry = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxonName.toLowerCase());
+                    if (entry && entry.vernacularName) {
+                        return entry.vernacularName;
+                    }
+                    logger.warn(`Vernacular name not found in local data for: ${taxonName}`);
                 }
+
+                // If we reach here, we couldn't find the vernacular name in our primary source
+                // We can decide to fall back to iNat API or return null/empty string
+                return this.fetchVernacularFromINat(taxonName);
             },
 
             fetchVernacularFromINat: async function (taxonName) {

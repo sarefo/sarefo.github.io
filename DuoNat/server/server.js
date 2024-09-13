@@ -79,17 +79,17 @@ const TaxonHierarchy = mongoose.model('TaxonHierarchy', taxonHierarchySchema, 't
 
 // Add routes to fetch data
 app.get('/api/taxonInfo', async (req, res) => {
-  try {
-    const taxonInfo = await TaxonInfo.find({}).lean();
-    console.log('Fetched taxon info:', taxonInfo.length, 'documents');
-    //if (taxonInfo.length > 0) {
-      //console.log('Sample document:', JSON.stringify(taxonInfo[0], null, 2));
-    //}
-    res.json(taxonInfo);
-  } catch (error) {
-    console.error('Error fetching taxon info:', error);
-    res.status(500).json({ message: 'Server error', error: error.message });
-  }
+    try {
+        const taxonName = req.query.taxonName;
+        const taxon = await TaxonInfo.findOne({ taxonName: { $regex: new RegExp(`^${taxonName}$`, 'i') } }).lean();
+        if (!taxon) {
+            return res.status(404).json({ message: 'Taxon not found' });
+        }
+        res.json(taxon);
+    } catch (error) {
+        console.error('Error fetching taxon info:', error);
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
 });
 
 app.get('/api/taxonInfo/:taxonId', async (req, res) => {
