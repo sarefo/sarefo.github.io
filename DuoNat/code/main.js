@@ -38,6 +38,7 @@ async function initializeApp() {
     }
 
     pairManager.setHighestPairID(); // only used for "+" pair walking atm
+    await api.taxonomy.loadTaxonomyHierarchy(); // TODO defer or avoid?
     logger.info("App initialization complete");
 }
 
@@ -46,7 +47,6 @@ const initializeLogger = () => {
 };
 
 async function initializeComponents() {
-    await api.taxonomy.loadTaxonomyHierarchy();
     ui.initialize();
     await dialogManager.initialize();
     eventMain.initialize();

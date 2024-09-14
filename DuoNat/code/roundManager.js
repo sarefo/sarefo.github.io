@@ -219,11 +219,23 @@ const roundManager = {
         },
 
         async getContinentForTaxon(taxon) {
-            const taxonInfo = await api.taxonomy.loadTaxonInfo();
-            const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxon.toLowerCase());
+            if (config.useMongoDB) {
+                try {
+                    const taxonInfo = await api.taxonomy.fetchTaxonInfoFromMongoDB(taxon);
+                    if (taxonInfo && taxonInfo.range && taxonInfo.range.length > 0) {
+                        return taxonInfo.range.map(code => worldMap.getFullContinentName(code));
+                    }
+                } catch (error) {
+                    logger.error(`Error fetching continent for taxon ${taxon}:`, error);
+                }
+            } else {
+                // Existing code for JSON file
+                const taxonInfo = await api.taxonomy.loadTaxonInfo();
+                const taxonData = Object.values(taxonInfo).find(info => info.taxonName.toLowerCase() === taxon.toLowerCase());
 
-            if (taxonData && taxonData.range && taxonData.range.length > 0) {
-                return taxonData.range.map(code => worldMap.getFullContinentName(code));
+                if (taxonData && taxonData.range && taxonData.range.length > 0) {
+                    return taxonData.range.map(code => worldMap.getFullContinentName(code));
+                }
             }
             return [];
         },
