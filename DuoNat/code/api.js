@@ -18,7 +18,7 @@ const api = (() => {
 
     return {
         taxonomy: {
-            fetchTaxonInfoFromMongoDB: async function (taxonIdentifier) {
+            fetchTaxonInfoFromMongoDB: async function (taxonIdentifier, fields = null) {
                 if (!config.useMongoDB) {
                     return null;
                 }
@@ -31,6 +31,12 @@ const api = (() => {
                         // If it's a number, assume it's an ID
                         url = `${config.serverUrl}/api/taxonInfo/${taxonIdentifier}`;
                     }
+                    
+                    // Add fields parameter if specified
+                    if (fields) {
+                        url += `${url.includes('?') ? '&' : '?'}fields=${fields.join(',')}`;
+                    }
+
                     const response = await fetch(url);
                     if (!response.ok) {
                         if (response.status === 404) {

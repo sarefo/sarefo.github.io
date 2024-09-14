@@ -81,7 +81,14 @@ const TaxonHierarchy = mongoose.model('TaxonHierarchy', taxonHierarchySchema, 't
 app.get('/api/taxonInfo', async (req, res) => {
     try {
         const taxonName = req.query.taxonName;
-        const taxon = await TaxonInfo.findOne({ taxonName: { $regex: new RegExp(`^${taxonName}$`, 'i') } }).lean();
+        const fields = req.query.fields ? req.query.fields.split(',') : null;
+
+        let query = TaxonInfo.findOne({ taxonName: { $regex: new RegExp(`^${taxonName}$`, 'i') } });
+        if (fields) {
+            query = query.select(fields.join(' '));
+        }
+        const taxon = await query.lean();
+
         if (!taxon) {
             return res.status(404).json({ message: 'Taxon not found' });
         }
@@ -93,17 +100,24 @@ app.get('/api/taxonInfo', async (req, res) => {
 });
 
 app.get('/api/taxonInfo/:taxonId', async (req, res) => {
-  try {
-    const taxonId = req.params.taxonId;
-    const taxon = await TaxonInfo.findOne({ taxonId: taxonId }).lean();
-    if (!taxon) {
-      return res.status(404).json({ message: 'Taxon not found' });
+    try {
+        const taxonId = req.params.taxonId;
+        const fields = req.query.fields ? req.query.fields.split(',') : null;
+
+        let query = TaxonInfo.findOne({ taxonId: taxonId });
+        if (fields) {
+            query = query.select(fields.join(' '));
+        }
+        const taxon = await query.lean();
+
+        if (!taxon) {
+            return res.status(404).json({ message: 'Taxon not found' });
+        }
+        res.json(taxon);
+    } catch (error) {
+        console.error('Error fetching taxon info:', error);
+        res.status(500).json({ message: 'Server error', error: error.message });
     }
-    res.json(taxon);
-  } catch (error) {
-    console.error('Error fetching taxon info:', error);
-    res.status(500).json({ message: 'Server error', error: error.message });
-  }
 });
 
 app.get('/api/taxonHints/:taxonId', async (req, res) => {
