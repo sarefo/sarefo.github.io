@@ -246,9 +246,23 @@ const api = (() => {
 
             fetchTaxonHints: async function (taxonId) {
                 try {
-                    const taxonInfo = await this.loadTaxonInfo();
-                    const taxonData = taxonInfo[taxonId];
-                    return taxonData && taxonData.hints ? taxonData.hints : null;
+                    if (config.useMongoDB) {
+                        const response = await fetch(`${config.serverUrl}/api/taxonHints/${taxonId}`);
+                        if (!response.ok) {
+                            if (response.status === 404) {
+                                logger.warn(`Hints not found for taxon ID: ${taxonId}`);
+                                return null;
+                            }
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        const data = await response.json();
+                        return data.hints;
+                    } else {
+                        // Existing code for JSON file
+                        const taxonInfo = await this.loadTaxonInfo();
+                        const taxonData = taxonInfo[taxonId];
+                        return taxonData && taxonData.hints ? taxonData.hints : null;
+                    }
                 } catch (error) {
                     logger.error('Error in fetchTaxonHints:', error);
                     return null;

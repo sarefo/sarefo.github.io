@@ -106,6 +106,20 @@ app.get('/api/taxonInfo/:taxonId', async (req, res) => {
   }
 });
 
+app.get('/api/taxonHints/:taxonId', async (req, res) => {
+    try {
+        const taxonId = req.params.taxonId;
+        const taxon = await TaxonInfo.findOne({ taxonId: taxonId }).select('hints').lean();
+        if (!taxon) {
+            return res.status(404).json({ message: 'Taxon hints not found' });
+        }
+        res.json({ hints: taxon.hints || [] });
+    } catch (error) {
+        console.error('Error fetching taxon hints:', error);
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+});
+
 app.get('/api/taxonInfo', async (req, res) => {
   try {
     const taxonName = req.query.taxonName;
