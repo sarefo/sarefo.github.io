@@ -18,43 +18,6 @@ const taxonInfoSchema = new mongoose.Schema({
   hints: [String]
 }, { strict: false });
 
-
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  dbName: 'duonat' // Make sure this matches your database name
-}).then(async () => {
-  console.log('Connected to MongoDB');
-  //console.log('MongoDB URI:', process.env.MONGODB_URI);
-  
-  // Create index if it doesn't exist
-  try {
-    await TaxonInfo.createIndexes();
-    console.log('Indexes for TaxonInfo created successfully');
-    
-    // Test query
-    const testDoc = await TaxonInfo.findOne({}).lean();
-    //console.log('Test document from taxonInfo collection:', testDoc);
-  } catch (error) {
-    console.error('Error creating indexes or querying:', error);
-  }
-}).catch(err => console.error('Could not connect to MongoDB:', err));
-
-app.use(cors({
-  origin: '*', // Be more specific in production
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
-
-app.use(express.json());
-
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.get('/api/test', (req, res) => {
-  res.json({ message: 'Server is working' });
-});
-
 const taxonPairSchema = new mongoose.Schema({
   pairID: String,
   pairName: String,
@@ -73,11 +36,46 @@ const taxonHierarchySchema = new mongoose.Schema({
   parentId: String
 }, { strict: false });
 
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  dbName: 'duonat'
+}).then(async () => {
+  console.log('Connected to MongoDB');
+  
+  // Create index if it doesn't exist
+  try {
+    await TaxonInfo.createIndexes();
+    console.log('Indexes for TaxonInfo created successfully');
+    
+    // Test query
+    const testDoc = await TaxonInfo.findOne({}).lean();
+  } catch (error) {
+    console.error('Error creating indexes or querying:', error);
+  }
+}).catch(err => console.error('Could not connect to MongoDB:', err));
+
 const TaxonInfo = mongoose.model('TaxonInfo', taxonInfoSchema, 'taxonInfo');
 const TaxonPair = mongoose.model('TaxonPair', taxonPairSchema, 'taxonPairs');
 const TaxonHierarchy = mongoose.model('TaxonHierarchy', taxonHierarchySchema, 'taxonHierarchy');
 
+app.use(cors({
+  origin: '*', // Be more specific in production
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+app.use(express.json());
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'Server is working' });
+});
+
 // Add routes to fetch data
+
 app.get('/api/taxonInfo', async (req, res) => {
     try {
         const taxonName = req.query.taxonName;
