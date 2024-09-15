@@ -224,10 +224,17 @@ const collectionManager = {
         list.innerHTML = '';
       }
 
-      for (const pair of pairs) {
-        const button = await this.createTaxonPairButton(pair);
-        list.appendChild(button);
-      }
+      // Create a document fragment to hold all the new elements
+      const fragment = document.createDocumentFragment();
+
+      // Create all buttons at once
+      const buttons = await Promise.all(pairs.map(pair => this.createTaxonPairButton(pair)));
+
+      // Append all buttons to the fragment
+      buttons.forEach(button => fragment.appendChild(button));
+
+      // Append the fragment to the list (this is a single DOM operation)
+      list.appendChild(fragment);
 
       if (pairs.length === 0) {
         this.displayNoResultsMessage(list);
@@ -295,16 +302,18 @@ const collectionManager = {
         },
 
         async createTaxonPairButton(pair) {
-            const button = document.createElement('button');
-            button.className = 'taxon-pair-button';
+          const button = document.createElement('button');
+          button.className = 'taxon-pair-button';
 
-            const vernacular1 = await getCachedVernacularName(pair.taxonNames[0]);
-            const vernacular2 = await getCachedVernacularName(pair.taxonNames[1]);
+          const [vernacular1, vernacular2] = await Promise.all([
+            getCachedVernacularName(pair.taxonNames[0]),
+            getCachedVernacularName(pair.taxonNames[1])
+          ]);
 
-            button.innerHTML = collectionManager.taxonList.createButtonHTML(pair, vernacular1, vernacular2);
-            button.onclick = () => collectionManager.eventHandlers.handleTaxonPairSelection(pair);
+          button.innerHTML = this.createButtonHTML(pair, vernacular1, vernacular2);
+          button.addEventListener('click', () => collectionManager.eventHandlers.handleTaxonPairSelection(pair));
 
-            return button;
+          return button;
         },
 
         createButtonHTML(pair, vernacular1, vernacular2) {

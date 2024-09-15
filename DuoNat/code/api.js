@@ -122,41 +122,44 @@ const api = (() => {
             },
 
             // fetch from JSON file or MongoDB
-            fetchTaxonPairs: async function () {
-                                 logger.trace("invoked fetchTaxonPairs()");
-                if (cachedTaxonPairs) {
-                    logger.debug("Using cached taxon pairs");
-                    return cachedTaxonPairs;
-                }
+            async fetchTaxonPairs() {
+              try {
+                if (config.useMongoDB) {
+                  const response = await fetch(`${config.serverUrl}/api/taxonPairs`);
+                  if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                  }
+                  const data = await response.json();
+                  console.log('Raw response from server:', data); // Add this line
+                  
+                  // Check if data.results exists and is an array
+                  if (!Array.isArray(data.results)) {
+                    throw new Error('Invalid response format: results is not an array');
+                  }
 
-                try {
-                    let taxonPairs;
-                    if (config.useMongoDB) {
-                        const response = await fetch(`${config.serverUrl}/api/taxonPairs`);
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
-                        }
-                        taxonPairs = await response.json();
-                    } else {
-                        const response = await fetch('./data/taxonPairs.json');
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
-                        }
-                        taxonPairs = await response.json();
-                    }
-                    
-                    cachedTaxonPairs = Object.entries(taxonPairs).map(([pairID, pair]) => ({
-                        ...pair,
-                        pairID,
-                        taxonA: pair.taxonNames[0],
-                        taxonB: pair.taxonNames[1]
-                    }));
-
-                    logger.debug(`Loaded and cached taxonPairs with ${cachedTaxonPairs.length} entries`);
-                    return cachedTaxonPairs;
-                } catch (error) {
-                    handleApiError(error, 'fetchTaxonPairs');
+                  return data.results.map(pair => ({
+                    ...pair,
+                    pairID: pair.pairID,
+                    taxonA: pair.taxonNames[0],
+                    taxonB: pair.taxonNames[1]
+                  }));
+                } else {
+                  // Existing code for JSON file
+                  const response = await fetch('./data/taxonPairs.json');
+                  if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                  }
+                  const taxonPairs = await response.json();
+                  return Object.entries(taxonPairs).map(([pairID, pair]) => ({
+                    ...pair,
+                    pairID,
+                    taxonA: pair.taxonNames[0],
+                    taxonB: pair.taxonNames[1]
+                  }));
                 }
+              } catch (error) {
+                handleApiError(error, 'fetchTaxonPairs');
+              }
             },
 
         async fetchPaginatedTaxonPairs(filters, searchTerm, page, pageSize) {
@@ -572,6 +575,7 @@ const publicAPI = {
     taxonomy: {
         validateTaxon: api.taxonomy.validateTaxon,
         fetchTaxonPairs: api.taxonomy.fetchTaxonPairs,
+        fetchPaginatedTaxonPairs: api.taxonomy.fetchPaginatedTaxonPairs,
         fetchTaxonHints: api.taxonomy.fetchTaxonHints,
         loadTaxonInfo: api.taxonomy.loadTaxonInfo,
         fetchTaxonId: api.taxonomy.fetchTaxonId,
