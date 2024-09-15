@@ -118,16 +118,6 @@ const pairManager = {
             }
         },
 
-        /*resetUsedImagesForNewPair(newPair) {
-            const currentUsedImages = state.getUsedImages();
-            const updatedUsedImages = { ...currentUsedImages };
-            delete updatedUsedImages[newPair.taxonA];
-            delete updatedUsedImages[newPair.taxonB];
-            state.updateGameStateMultiple({
-                usedImages: updatedUsedImages
-            });
-        },*/
-
         async selectPairForLoading() {
             const preloadedPair = preloader.getPreloadedImagesForNextPair()?.pair;
             if (preloadedPair) {
