@@ -6,7 +6,8 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Define Taxon Schema
+// Define Schemata
+
 const taxonInfoSchema = new mongoose.Schema({
   taxonId: { type: String, index: true },
   taxonName: { type: String, index: true },
@@ -35,6 +36,8 @@ const taxonHierarchySchema = new mongoose.Schema({
   rank: String,
   parentId: String
 }, { strict: false });
+
+// Connecting to DB
 
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
@@ -73,6 +76,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/api/test', (req, res) => {
   res.json({ message: 'Server is working' });
 });
+
 
 // Add routes to fetch data
 
@@ -174,6 +178,20 @@ app.get('/api/taxonPairs', async (req, res) => {
     console.error('Error fetching taxon pairs:', error);
     res.status(500).json({ message: 'Server error', error: error.toString() });
   }
+});
+
+app.get('/api/taxonPairs/:pairID', async (req, res) => {
+    try {
+        const pairID = req.params.pairID;
+        const pair = await TaxonPair.findOne({ pairID: pairID }).lean();
+        if (!pair) {
+            return res.status(404).json({ message: 'Pair not found' });
+        }
+        res.json(pair);
+    } catch (error) {
+        console.error('Error fetching pair by ID:', error);
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
 });
 
 app.get('/api/taxonHierarchy', async (req, res) => {

@@ -123,6 +123,7 @@ const api = (() => {
 
             // fetch from JSON file or MongoDB
             fetchTaxonPairs: async function () {
+                                 logger.trace("invoked fetchTaxonPairs()");
                 if (cachedTaxonPairs) {
                     logger.debug("Using cached taxon pairs");
                     return cachedTaxonPairs;
@@ -155,6 +156,26 @@ const api = (() => {
                     return cachedTaxonPairs;
                 } catch (error) {
                     handleApiError(error, 'fetchTaxonPairs');
+                }
+            },
+
+            fetchPairByID: async function (pairID) {
+                if (!config.useMongoDB) {
+                    return null;
+                }
+                try {
+                    const response = await fetch(`${config.serverUrl}/api/taxonPairs/${pairID}`);
+                    if (!response.ok) {
+                        if (response.status === 404) {
+                            logger.warn(`Pair with ID ${pairID} not found in MongoDB`);
+                            return null;
+                        }
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return await response.json();
+                } catch (error) {
+                    logger.error('Error fetching pair by ID from MongoDB:', error);
+                    return null;
                 }
             },
 

@@ -109,8 +109,13 @@ const pairManager = {
         // - loadPairByID()
         // - preloader.preloadPairByID()
         async getPairByID(pairID) {
-            const allPairs = await api.taxonomy.fetchTaxonPairs();
-            return allPairs.find(pair => pair.pairID === pairID);
+            logger.trace("getPairByID");
+            if (config.useMongoDB) {
+                return await api.taxonomy.fetchPairByID(pairID);
+            } else {
+                const allPairs = await api.taxonomy.fetchTaxonPairs();
+                return allPairs.find(pair => pair.pairID === pairID);
+            }
         },
 
         /*resetUsedImagesForNewPair(newPair) {
@@ -282,7 +287,7 @@ const pairManager = {
 
         async getAllPairIDs() {
             try {
-                const allPairs = await api.taxonomy.fetchTaxonPairs();
+                const allPairs = await api.taxonomy.fetchTaxonPairs(); // TODO
                 return allPairs.map(pair => pair.pairID);
             } catch (error) {
                 logger.error("Error fetching all pair IDs:", error);

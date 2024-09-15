@@ -163,7 +163,7 @@ const filtering = {
     },
 
     async countPairsPerLevel(filters) {
-        const taxonPairs = await api.taxonomy.fetchTaxonPairs();
+        const taxonPairs = await api.taxonomy.fetchTaxonPairs(); // TODO why
         
         // Create a copy of filters without the levels
         const filtersWithoutLevels = {...filters, levels: []};
