@@ -147,53 +147,113 @@ const collectionManager = {
             );
         },
 
-        async updateTaxonList(isInitialLoad = false, isPairIDSearch = false) {
-            const filters = filtering.getActiveFilters();
-            const searchTerm = state.getSearchTerm();
+    async updateTaxonList(isInitialLoad = false, isPairIDSearch = false) {
+      const filters = filtering.getActiveFilters();
+      const searchTerm = state.getSearchTerm();
+      const page = isInitialLoad ? 1 : (state.getCurrentPage() || 1);
+      const pageSize = 20;
 
-            try {
-                const taxonPairs = await api.taxonomy.fetchTaxonPairs();
-                let filteredPairs;
+      try {
+        let filteredPairs;
+        let totalCount;
 
-                if (isPairIDSearch) {
-                    filteredPairs = taxonPairs.filter(pair => pair.pairID.toString() === searchTerm);
-                } else {
-                    filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
-                    filteredPairs = this.filterTaxonPairsBySearch(filteredPairs, searchTerm);
-                }
+        if (config.useMongoDB) {
+          if (isPairIDSearch) {
+            // Handle pair ID search
+            filteredPairs = await api.taxonomy.fetchPairByID(searchTerm);
+            totalCount = filteredPairs ? 1 : 0;
+          } else {
+            // Fetch paginated results from MongoDB
+            const result = await this.fetchPaginatedPairs(filters, searchTerm, page, pageSize);
+            filteredPairs = result.results;
+            totalCount = result.totalCount;
+          }
+        } else {
+          // Existing code for JSON file
+          const taxonPairs = await api.taxonomy.fetchTaxonPairs();
+          filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
+          if (isPairIDSearch) {
+            filteredPairs = filteredPairs.filter(pair => pair.pairID.toString() === searchTerm);
+          } else {
+            filteredPairs = this.filterTaxonPairsBySearch(filteredPairs, searchTerm);
+          }
+          totalCount = filteredPairs.length;
+        }
 
-                // Only consider the active pair if this is the initial load of the collection manager
-                if (isInitialLoad) {
-                    const currentPair = this.getCurrentActivePair();
-                    if (currentPair) {
-                        // Remove the current pair from the filtered list if it exists
-                        filteredPairs = filteredPairs.filter(pair => pair.pairID !== currentPair.pairID);
-                        // Add the current pair to the beginning of the list
-                        filteredPairs.unshift(currentPair);
-                    }
-                }
-
-                // Update UI
-                await this.renderTaxonList(filteredPairs);
-                collectionManager.ui.updateActiveCollectionCount(filteredPairs.length);
-                collectionManager.ui.updateFilterSummary();
-
-                return filteredPairs;
-            } catch (error) {
-                logger.error("Error in updateTaxonList:", error);
-                return [];
+        // Handle initial load case
+        if (isInitialLoad) {
+          const currentPair = this.getCurrentActivePair();
+          if (currentPair) {
+            if (config.useMongoDB) {
+              // For MongoDB, we need to ensure the current pair is included
+              const currentPairExists = filteredPairs.some(pair => pair.pairID === currentPair.pairID);
+              if (!currentPairExists) {
+                filteredPairs.unshift(currentPair);
+                totalCount += 1;
+              }
+            } else {
+              // For JSON, we can manipulate the array directly
+              filteredPairs = filteredPairs.filter(pair => pair.pairID !== currentPair.pairID);
+              filteredPairs.unshift(currentPair);
             }
-        },
+          }
+        }
 
-        async renderTaxonList(pairs) {
-            const list = document.getElementById('taxon-pair-list');
-            if (list) {
-                list.innerHTML = '';
-            }
-            await this.renderVisibleTaxonPairs(pairs);
-            collectionManager.ui.updateActiveCollectionCount(pairs.length);
-            this.syncTaxonInfoVisibility();
-        },
+        // Update UI
+        await this.renderTaxonList(filteredPairs, isInitialLoad, page < 2);
+        collectionManager.ui.updateActiveCollectionCount(totalCount);
+        collectionManager.ui.updateFilterSummary();
+
+        return { results: filteredPairs, totalCount };
+      } catch (error) {
+        logger.error("Error in updateTaxonList:", error);
+        return { results: [], totalCount: 0 };
+      }
+    },
+
+    async fetchPaginatedPairs(filters, searchTerm, page, pageSize) {
+      // Implement this method in your API module
+      return await api.taxonomy.fetchPaginatedTaxonPairs(filters, searchTerm, page, pageSize);
+    },
+
+    async renderTaxonList(pairs, isInitialLoad, clearExisting = true) {
+      const list = document.getElementById('taxon-pair-list');
+      if (!list) return;
+
+      if (clearExisting) {
+        list.innerHTML = '';
+      }
+
+      for (const pair of pairs) {
+        const button = await this.createTaxonPairButton(pair);
+        list.appendChild(button);
+      }
+
+      if (pairs.length === 0) {
+        this.displayNoResultsMessage(list);
+      } else if (pairs.length >= 20) { // Assuming 20 is the page size
+        this.addLoadMoreButton(list);
+      }
+    },
+
+    addLoadMoreButton(list) {
+      const existingButton = list.querySelector('.load-more-button');
+      if (existingButton) {
+        existingButton.remove();
+      }
+
+      const loadMoreButton = document.createElement('button');
+      loadMoreButton.textContent = 'Load More';
+      loadMoreButton.className = 'load-more-button';
+      loadMoreButton.addEventListener('click', () => this.loadMorePairs());
+      list.appendChild(loadMoreButton);
+    },
+
+    async loadMorePairs() {
+      const currentPage = state.getCurrentPage() || 1;
+      state.setCurrentPage(currentPage + 1);
+      await this.updateTaxonList(false, false);
+    },
 
         initializeTaxonInfoVisibility() {
             const taxonInfoToggle = document.getElementById('taxon-info-toggle');
@@ -232,14 +292,6 @@ const collectionManager = {
             if (pairs.length > 20) {
                 this.addLoadMoreButton(list, pairs);
             }
-        },
-
-        addLoadMoreButton(list, pairs) {
-            const loadMoreButton = document.createElement('button');
-            loadMoreButton.textContent = 'Load More';
-            loadMoreButton.className = 'load-more-button';
-            loadMoreButton.addEventListener('click', () => this.loadMorePairs(pairs, 20));
-            list.appendChild(loadMoreButton);
         },
 
         async createTaxonPairButton(pair) {
