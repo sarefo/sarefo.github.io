@@ -159,6 +159,24 @@ const api = (() => {
                 }
             },
 
+        async fetchPaginatedTaxonPairs(filters, searchTerm, page, pageSize) {
+          if (!config.useMongoDB) {
+            // Fallback to existing method for JSON data
+            return this.fetchTaxonPairs();
+          }
+
+          try {
+            const response = await fetch(`${config.serverUrl}/api/taxonPairs?page=${page}&pageSize=${pageSize}&filters=${JSON.stringify(filters)}&search=${searchTerm}`);
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return await response.json();
+          } catch (error) {
+            logger.error('Error fetching paginated taxon pairs from MongoDB:', error);
+            return { results: [], totalCount: 0, hasMore: false };
+          }
+        },
+
             fetchPairByID: async function (pairID) {
                 if (!config.useMongoDB) {
                     return null;

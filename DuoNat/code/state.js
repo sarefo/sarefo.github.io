@@ -52,6 +52,8 @@ let gameState = {
 
     currentActiveNodeId: null,
 
+    currentPage: 1,
+
     // Round
 
     taxonNameX: null,
@@ -337,6 +339,11 @@ const publicAPI = {
     getCurrentActiveNodeId: () => gameState.currentActiveNodeId,
     setCurrentActiveNodeId: (nodeId) => {
         updateGameState('currentActiveNodeId', nodeId);
+    },
+
+    getCurrentPage: () => gameState.currentPage,
+    setCurrentPage: (currentPage) => {
+        updateGameState('currentPage', currentPage);
     },
 
     getCurrentRound: () => ({ ...gameState.currentRound }),
