@@ -150,30 +150,25 @@ app.get('/api/taxonInfo', async (req, res) => {
   }
 });
 
-
 app.get('/api/taxonPairs', async (req, res) => {
   try {
-    //console.log('Fetching taxon pairs...');
-    const taxonPairs = await TaxonPair.find({}).lean();
-    console.log('Fetched taxon pairs:', taxonPairs.length, 'documents');
-    
-    if (taxonPairs.length === 0) {
-      console.log('No documents found in taxonPairs collection');
-      const collections = await mongoose.connection.db.listCollections().toArray();
-      console.log('Collections in the database:', collections.map(c => c.name));
-      const count = await TaxonPair.countDocuments();
-      console.log(`Number of documents in taxonPairs collection: ${count}`);
-      
-      // Try to fetch a single document directly from MongoDB
-      const db = mongoose.connection.db;
-      const collection = db.collection('taxonPairs');
-      const sampleDocument = await collection.findOne({});
-      console.log('Sample document from direct MongoDB query:', sampleDocument);
-    } else if (taxonPairs.length > 0) {
-      //console.log('Sample document:', JSON.stringify(taxonPairs[0], null, 2));
-    }
-    
-    res.json(taxonPairs);
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = parseInt(req.query.pageSize) || 20;
+    const filters = JSON.parse(req.query.filters || '{}');
+    const searchTerm = req.query.search || '';
+
+    const query = buildQuery(filters, searchTerm);
+    const totalCount = await TaxonPair.countDocuments(query);
+    const pairs = await TaxonPair.find(query)
+      .skip((page - 1) * pageSize)
+      .limit(pageSize)
+      .lean();
+
+    res.json({
+      results: pairs,
+      totalCount,
+      hasMore: totalCount > page * pageSize
+    });
   } catch (error) {
     console.error('Error fetching taxon pairs:', error);
     res.status(500).json({ message: 'Server error', error: error.toString() });
@@ -240,3 +235,42 @@ app.get('*', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+
+function buildQuery(filters, searchTerm) {
+  const query = {};
+
+  // Handle levels filter
+  if (filters.levels && filters.levels.length > 0) {
+    query.level = { $in: filters.levels };
+  }
+
+  // Handle ranges filter
+  if (filters.ranges && filters.ranges.length > 0) {
+    query.range = { $in: filters.ranges };
+  }
+
+  // Handle tags filter
+  if (filters.tags && filters.tags.length > 0) {
+    query.tags = { $all: filters.tags };
+  }
+
+  // Handle phylogeny filter
+  if (filters.phylogenyId) {
+    // This requires a more complex query, possibly using aggregation
+    // For now, we'll use a simplified version
+    query['taxa'] = { $elemMatch: { $eq: filters.phylogenyId } };
+  }
+
+  // Handle search term
+  if (searchTerm) {
+    query.$or = [
+      { taxonNames: { $regex: searchTerm, $options: 'i' } },
+      { pairName: { $regex: searchTerm, $options: 'i' } },
+      { tags: { $regex: searchTerm, $options: 'i' } },
+      { pairID: searchTerm } // Exact match for pairID
+    ];
+  }
+
+  return query;
+}
