@@ -111,14 +111,15 @@ const filtering = {
         return pair.taxa.some(taxonId => filtering.isDescendantOf(taxonId, phylogenyId));
     },
 
-    filterTaxonPairs(taxonPairs, filters) {
-        return taxonPairs.filter(pair => {
+    filterTaxonPairs(pairs, filters) {
+        return pairs.filter(pair => {
             const matchesLevels = filters.levels.length === 0 || filters.levels.includes(Number(pair.level));
             const matchesRanges = !filters.ranges || filters.ranges.length === 0 ||
-                (pair.range && pair.range.some(range => filters.ranges.includes(range)));
-            const matchesTags = filters.tags.length === 0 ||
-                filters.tags.every(tag => pair.tags.includes(tag));
-            const matchesPhylogeny = this.pairMatchesPhylogeny(pair, filters.phylogenyId);
+                (pair.range && pair.range.some(r => filters.ranges.includes(r)));
+            const matchesTags = !filters.tags || filters.tags.length === 0 ||
+                (pair.tags && filters.tags.every(tag => pair.tags.includes(tag)));
+            const matchesPhylogeny = !filters.phylogenyId ||
+                pair.taxa.some(taxonId => this.isDescendantOf(taxonId, filters.phylogenyId));
 
             return matchesLevels && matchesRanges && matchesTags && matchesPhylogeny;
         });

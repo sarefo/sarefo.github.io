@@ -161,7 +161,6 @@ const pairManager = {
         // - selectPairForLoading() < loadNewPair()
         // - preloader.preloadForNextPair()
         async selectRandomPair() {
-
             // First, try to get the next pair from the pairManager
             const nextPair = await this.getNextPairFromCollection();
             if (nextPair) return nextPair;
@@ -173,6 +172,7 @@ const pairManager = {
             const filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
             
             if (filteredPairs.length === 0) {
+                logger.error("No pairs available in the current collection");
                 throw new Error("No pairs available in the current collection");
             }
             
@@ -240,10 +240,18 @@ const pairManager = {
             this.isInitialized = true;
             this.isInitializing = true;
             try {
-                const filters = filtering.getActiveFilters();
-                const { results: filteredPairs, totalCount } = await api.taxonomy.fetchPaginatedTaxonPairs(filters, '', 1, 42);
-                
-                logger.debug(`Fetched ${filteredPairs.length} filtered pairs out of ${totalCount} total`);
+                let filteredPairs;
+                if (config.useMongoDB) {
+                    const filters = filtering.getActiveFilters();
+                    const { results, totalCount } = await api.taxonomy.fetchPaginatedTaxonPairs(filters, '', 1, 42);
+                    filteredPairs = results;
+                    logger.debug(`Fetched ${filteredPairs.length} filtered pairs out of ${totalCount} total`);
+                } else {
+                    const allPairs = await api.taxonomy.fetchTaxonPairs();
+                    const filters = filtering.getActiveFilters();
+                    filteredPairs = filtering.filterTaxonPairs(allPairs, filters);
+                    logger.debug(`Filtered ${filteredPairs.length} pairs out of ${allPairs.length} total`);
+                }
                 
                 pairManager.allFilteredPairs = filteredPairs;
                 
@@ -253,6 +261,8 @@ const pairManager = {
                 const availablePairs = filteredPairs.filter(pair => pair.pairID !== this.lastUsedPairID);
                 pairManager.currentCollectionSubset = pairManager.utilities.getRandomSubset(availablePairs, subsetSize);
                 logger.debug(`Created subset of ${pairManager.currentCollectionSubset.length} pairs`);
+            } catch (error) {
+                logger.error('Error initializing collection subset:', error);
             } finally {
                 this.isInitializing = false;
             }

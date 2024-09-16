@@ -22,6 +22,10 @@ const api = (() => {
                 if (!config.useMongoDB) {
                     return null;
                 }
+                if (!taxonIdentifier) {
+                    logger.warn('Attempted to fetch taxon info with undefined or null identifier');
+                    return null;
+                }
                 try {
                     let url;
                     if (isNaN(taxonIdentifier)) {
@@ -149,12 +153,15 @@ const api = (() => {
                 if (config.useMongoDB) {
                   const response = await fetch(`${config.serverUrl}/api/taxonPairs`);
                   if (!response.ok) {
+                    const text = await response.text();
+                    if (text.startsWith('<!DOCTYPE html>')) {
+                      throw new Error(`Server returned HTML instead of JSON. Status: ${response.status}`);
+                    }
                     throw new Error(`HTTP error! status: ${response.status}`);
                   }
                   const data = await response.json();
                   console.log('Raw response from server:', data); // Add this line
                   
-                  // Check if data.results exists and is an array
                   if (!Array.isArray(data.results)) {
                     throw new Error('Invalid response format: results is not an array');
                   }
