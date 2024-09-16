@@ -229,8 +229,13 @@ const collectionManager = {
       // Create a document fragment to hold all the new elements
       const fragment = document.createDocumentFragment();
 
-      // Create all buttons at once
-      const buttons = await Promise.all(pairs.map(pair => this.createTaxonPairButton(pair)));
+      let buttons;
+      if (config.useMongoDB) {
+          buttons = await this.createTaxonPairButtons(pairs);
+      } else { // old style
+          // Create all buttons at once
+          buttons = await Promise.all(pairs.map(pair => this.createTaxonPairButton(pair)));
+      }
 
       // Append all buttons to the fragment
       buttons.forEach(button => fragment.appendChild(button));
@@ -316,6 +321,33 @@ const collectionManager = {
           button.addEventListener('click', () => collectionManager.eventHandlers.handleTaxonPairSelection(pair));
 
           return button;
+        },
+
+        async createTaxonPairButtons(pairs) {
+            const allTaxonNames = pairs.flatMap(pair => pair.taxonNames);
+            const uniqueTaxonNames = [...new Set(allTaxonNames)];
+            
+            let vernacularNames;
+            if (config.useMongoDB) {
+                vernacularNames = await api.taxonomy.fetchBulkTaxonInfo(uniqueTaxonNames);
+            } else {
+                vernacularNames = Object.fromEntries(await Promise.all(
+                    uniqueTaxonNames.map(async name => [name, await getCachedVernacularName(name)])
+                ));
+            }
+
+            return pairs.map(pair => {
+                const button = document.createElement('button');
+                button.className = 'taxon-pair-button';
+
+                const vernacular1 = vernacularNames[pair.taxonNames[0]] || '-';
+                const vernacular2 = vernacularNames[pair.taxonNames[1]] || '-';
+
+                button.innerHTML = this.createButtonHTML(pair, vernacular1, vernacular2);
+                button.addEventListener('click', () => collectionManager.eventHandlers.handleTaxonPairSelection(pair));
+
+                return button;
+            });
         },
 
         createButtonHTML(pair, vernacular1, vernacular2) {

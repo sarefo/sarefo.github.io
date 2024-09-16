@@ -102,6 +102,29 @@ app.get('/api/taxonInfo', async (req, res) => {
     }
 });
 
+app.post('/api/bulkTaxonInfo', async (req, res) => {
+    try {
+        const { taxonNames } = req.body;
+        if (!Array.isArray(taxonNames)) {
+            return res.status(400).json({ message: 'Invalid input: taxonNames should be an array' });
+        }
+
+        const taxonInfo = await TaxonInfo.find({ 
+            taxonName: { $in: taxonNames } 
+        }).select('taxonName vernacularName').lean();
+
+        const taxonMap = taxonInfo.reduce((acc, taxon) => {
+            acc[taxon.taxonName] = taxon.vernacularName;
+            return acc;
+        }, {});
+
+        res.json(taxonMap);
+    } catch (error) {
+        console.error('Error fetching bulk taxon info:', error);
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+});
+
 app.get('/api/taxonInfo/:taxonId', async (req, res) => {
     try {
         const taxonId = req.params.taxonId;
@@ -137,20 +160,9 @@ app.get('/api/taxonHints/:taxonId', async (req, res) => {
     }
 });
 
-app.get('/api/taxonInfo', async (req, res) => {
-  try {
-    const taxonName = req.query.taxonName;
-    const taxon = await TaxonInfo.findOne({ taxonName: { $regex: new RegExp(`^${taxonName}$`, 'i') } }).lean();
-    if (!taxon) {
-      return res.status(404).json({ message: 'Taxon not found' });
-    }
-    res.json(taxon);
-  } catch (error) {
-    console.error('Error fetching taxon info:', error);
-    res.status(500).json({ message: 'Server error', error: error.message });
-  }
-});
 
+
+// TaxonPairs:
 app.post('/api/taxonPairs', async (req, res) => {
     try {
         const { filters, searchTerm, page, pageSize } = req.body;
@@ -216,6 +228,7 @@ app.get('/api/taxonPairs/:pairID', async (req, res) => {
     }
 });
 
+// TaxonHierarchy:
 app.get('/api/taxonHierarchy', async (req, res) => {
   try {
     console.log('Fetching taxon hierarchy...');

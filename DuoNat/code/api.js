@@ -52,6 +52,28 @@ const api = (() => {
                 }
             },
 
+            async fetchBulkTaxonInfo(taxonNames) {
+                if (!config.useMongoDB) {
+                    return null;
+                }
+                try {
+                    const response = await fetch(`${config.serverUrl}/api/bulkTaxonInfo`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ taxonNames }),
+                    });
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return await response.json();
+                } catch (error) {
+                    logger.error('Error fetching bulk taxon info from MongoDB:', error);
+                    return null;
+                }
+            },
+
             loadTaxonInfo: async function () {
                 if (!config.useMongoDB) {
                     if (taxonInfo === null) {
@@ -662,6 +684,7 @@ const publicAPI = {
     taxonomy: {
         validateTaxon: api.taxonomy.validateTaxon,
         fetchTaxonPairs: api.taxonomy.fetchTaxonPairs,
+        fetchBulkTaxonInfo: api.taxonomy.fetchBulkTaxonInfo,
         fetchPaginatedTaxonPairs: api.taxonomy.fetchPaginatedTaxonPairs,
         fetchTaxonHints: api.taxonomy.fetchTaxonHints,
         loadTaxonInfo: api.taxonomy.loadTaxonInfo,
