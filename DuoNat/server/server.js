@@ -228,7 +228,7 @@ app.get('/api/taxonPairs/:pairID', async (req, res) => {
     }
 });
 
-app.get('/api/taxonPairs/levelCounts', async (req, res) => {
+app.get('/api/taxonPairs/:levelCounts', async (req, res) => {
     try {
         const filters = JSON.parse(req.query.filters || '{}');
         const query = buildMongoQuery(filters);
