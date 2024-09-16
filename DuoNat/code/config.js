@@ -2,7 +2,7 @@
 
 const config = {
 
-    useMongoDB: true,
+    useMongoDB: false,
     serverUrl: (() => {
         // Check if we're running in a production environment
         if (window.location.hostname === 'duonat-210dcde9c851.herokuapp.com') {
