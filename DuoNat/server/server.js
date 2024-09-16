@@ -189,29 +189,30 @@ app.post('/api/taxonPairs', async (req, res) => {
     }
 });
 
-app.get('/api/taxonPairs', async (req, res) => {
-  try {
-    const page = parseInt(req.query.page) || 1;
-    const pageSize = parseInt(req.query.pageSize) || 20;
-    const filters = JSON.parse(req.query.filters || '{}');
-    const searchTerm = req.query.search || '';
+app.post('/api/taxonPairs', async (req, res) => {
+    try {
+        const { filters, searchTerm, page, pageSize } = req.body;
+        const query = buildMongoQuery(filters, searchTerm);
+        const options = {
+            skip: (page - 1) * pageSize,
+            limit: pageSize,
+            sort: { pairID: 1 }
+        };
 
-    const query = buildMongoQuery(filters, searchTerm);
-    const totalCount = await TaxonPair.countDocuments(query);
-    const pairs = await TaxonPair.find(query)
-      .skip((page - 1) * pageSize)
-      .limit(pageSize)
-      .lean();
+        const [results, totalCount] = await Promise.all([
+            TaxonPair.find(query, null, options).lean(),
+            TaxonPair.countDocuments(query)
+        ]);
 
-    res.json({
-      results: pairs,
-      totalCount,
-      hasMore: totalCount > page * pageSize
-    });
-  } catch (error) {
-    console.error('Error fetching taxon pairs:', error);
-    res.status(500).json({ message: 'Server error', error: error.toString() });
-  }
+        res.json({
+            results,
+            totalCount,
+            hasMore: totalCount > page * pageSize
+        });
+    } catch (error) {
+        console.error('Error fetching paginated taxon pairs:', error);
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
 });
 
 app.get('/api/taxonPairs/levelCounts', async (req, res) => {

@@ -187,16 +187,23 @@ const pairManager = {
 
         // called only from selectRandomPair()
         async getNextPairFromCollection() {
+            logger.debug(`getNextPairFromCollection called. useMongoDB: ${config.useMongoDB}`);
             if (!pairManager.isInitialized || pairManager.currentCollectionSubset.length === 0) {
+                logger.debug('Initializing collection subset');
                 await pairManager.collectionSubsets.initializeCollectionSubset();
             }
+
+            logger.debug(`Current collection subset size: ${pairManager.currentCollectionSubset.length}`);
+            logger.debug(`Used pair IDs: ${Array.from(pairManager.usedPairIDs).join(', ')}`);
 
             let nextPair;
             do {
                 if (pairManager.currentCollectionSubset.length === 0) {
+                    logger.debug('Reinitializing collection subset');
                     await pairManager.collectionSubsets.initializeCollectionSubset();
                 }
                 nextPair = pairManager.currentCollectionSubset.pop();
+                logger.debug(`Selected next pair: ${nextPair ? nextPair.pairID : 'none'}`);
             } while (nextPair && pairManager.usedPairIDs.has(nextPair.pairID));
 
             if (nextPair) {
@@ -205,6 +212,7 @@ const pairManager = {
 
                 // Reset usedPairIDs if all pairs have been used
                 if (pairManager.usedPairIDs.size === pairManager.allFilteredPairs.length) {
+                    logger.debug('Resetting used pair IDs');
                     pairManager.usedPairIDs.clear();
                     pairManager.usedPairIDs.add(nextPair.pairID);  // Keep the current pair in usedPairIDs
                 }
@@ -214,6 +222,7 @@ const pairManager = {
 
             return nextPair;
         },
+
     },
 
     collectionSubsets: {
@@ -223,21 +232,27 @@ const pairManager = {
         // - getNextPairFromCollection()
         // - preloader.preloadForNextPair()
         async initializeCollectionSubset() {
+            logger.debug(`initializeCollectionSubset called. useMongoDB: ${config.useMongoDB}`);
             if (this.isInitializing) {
                 logger.warn('Collection subset initialization already in progress, skipping');
                 return;
             }
             this.isInitialized = true;
+            this.isInitializing = true;
             try {
-                const allPairs = await api.taxonomy.fetchTaxonPairs();
                 const filters = filtering.getActiveFilters();
-                pairManager.allFilteredPairs = filtering.filterTaxonPairs(allPairs, filters);
+                const { results: filteredPairs, totalCount } = await api.taxonomy.fetchPaginatedTaxonPairs(filters, '', 1, 42);
                 
-                const subsetSize = Math.min(42, pairManager.allFilteredPairs.length);
+                logger.debug(`Fetched ${filteredPairs.length} filtered pairs out of ${totalCount} total`);
+                
+                pairManager.allFilteredPairs = filteredPairs;
+                
+                const subsetSize = Math.min(42, filteredPairs.length);
 
                 // Filter out the last used pair when creating a new subset
-                const availablePairs = pairManager.allFilteredPairs.filter(pair => pair.pairID !== this.lastUsedPairID);
+                const availablePairs = filteredPairs.filter(pair => pair.pairID !== this.lastUsedPairID);
                 pairManager.currentCollectionSubset = pairManager.utilities.getRandomSubset(availablePairs, subsetSize);
+                logger.debug(`Created subset of ${pairManager.currentCollectionSubset.length} pairs`);
             } finally {
                 this.isInitializing = false;
             }
