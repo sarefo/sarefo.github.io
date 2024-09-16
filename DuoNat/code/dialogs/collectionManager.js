@@ -151,7 +151,6 @@ const collectionManager = {
         },
 
     async updateTaxonList(isInitialLoad = false, isPairIDSearch = false) {
-    console.log('updateTaxonList called', { isInitialLoad, isPairIDSearch });
         const filters = filtering.getActiveFilters();
         const searchTerm = state.getSearchTerm();
         const page = isInitialLoad ? 1 : (state.getCurrentPage() || 1);
@@ -212,11 +211,8 @@ const collectionManager = {
     },
 
     async renderTaxonList(pairs, isInitialLoad, clearExisting = true, hasMore = false) {
-    console.log('renderTaxonList called', { pairsLength: pairs.length, isInitialLoad, clearExisting, hasMore });
         const list = document.getElementById('taxon-pair-list');
         if (!list) return;
-
-        logger.debug(`Rendering taxon list: ${pairs.length} pairs, clearExisting: ${clearExisting}, hasMore: ${hasMore}`);
 
         if (clearExisting) {
             list.innerHTML = '';
@@ -235,7 +231,6 @@ const collectionManager = {
         if (pairs.length === 0 && clearExisting) {
             this.displayNoResultsMessage(list);
         } else if (hasMore) {
-            logger.debug('Adding Load More button');
             this.addLoadMoreButton(list);
         } else {
             logger.debug('No more pairs to load');
@@ -252,11 +247,9 @@ const collectionManager = {
         loadMoreButton.textContent = 'Load More';
         loadMoreButton.className = 'load-more-button';
         loadMoreButton.addEventListener('click', () => {
-            logger.debug('Load More button clicked');
             this.loadMorePairs();
         });
         list.appendChild(loadMoreButton);
-        logger.debug('Load More button added to the list');
     },
 
 async loadMorePairs() {
@@ -277,7 +270,6 @@ async loadMorePairs() {
             const loadMoreButton = document.querySelector('.load-more-button');
             if (loadMoreButton) {
                 loadMoreButton.remove();
-                logger.debug('Removed Load More button');
             }
         }
     } catch (error) {
