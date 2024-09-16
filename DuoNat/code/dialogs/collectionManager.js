@@ -573,9 +573,11 @@ async loadMorePairs() {
             const levelDropdown = document.getElementById('level-filter-dropdown');
             if (levelDropdown) {
                 const activeFilters = filtering.getActiveFilters();
-                let counts;
+                console.log('Active filters:', activeFilters);
+                let counts = { total: 0, levels: { '1': 0, '2': 0, '3': 0 } };
                 if (config.useMongoDB) {
                     const fetchedCounts = await api.taxonomy.fetchLevelCounts(activeFilters);
+                    console.log('Fetched counts:', fetchedCounts);
                     if (fetchedCounts) {
                         counts = fetchedCounts;
                     }
@@ -584,6 +586,9 @@ async loadMorePairs() {
                 }
                 const totalCount = Object.values(counts).reduce((a, b) => a + b, 0);
                 const selectedLevels = state.getSelectedLevels();
+                
+                console.log('Total count:', totalCount);
+                console.log('Counts per level:', counts.levels);
                 
                 levelDropdown.innerHTML = `
                     <option value="">All Levels (${totalCount})</option>
@@ -598,7 +603,7 @@ async loadMorePairs() {
 
                 // Update the selected option text to show filtered count
                 if (selectedLevels.length > 0) {
-                    const filteredCount = await this.getFilteredCountForLevels(selectedLevels);
+                    const filteredCount = selectedLevels.reduce((sum, level) => sum + (counts.levels[level] || 0), 0);
                     const selectedOption = levelDropdown.querySelector(`option[value="${selectedLevels.join(',')}"]`);
                     if (selectedOption) {
                         const levelText = selectedOption.textContent.split(' (')[0];

@@ -217,8 +217,11 @@ app.get('/api/taxonPairs', async (req, res) => {
 app.get('/api/taxonPairs/levelCounts', async (req, res) => {
     try {
         const filters = JSON.parse(req.query.filters || '{}');
+        console.log('Received filters:', filters);
+
         const query = buildMongoQuery(filters);
-        
+        console.log('Built MongoDB query:', query);
+
         // Remove the level filter for this count
         delete query.level;
 
@@ -228,12 +231,9 @@ app.get('/api/taxonPairs/levelCounts', async (req, res) => {
                 $group: { 
                     _id: null,
                     total: { $sum: 1 },
-                    levels: { 
-                        $push: { 
-                            level: "$level", 
-                            count: 1 
-                        } 
-                    }
+                    level1: { $sum: { $cond: [{ $eq: ['$level', '1'] }, 1, 0] } },
+                    level2: { $sum: { $cond: [{ $eq: ['$level', '2'] }, 1, 0] } },
+                    level3: { $sum: { $cond: [{ $eq: ['$level', '3'] }, 1, 0] } }
                 } 
             },
             { 
@@ -241,32 +241,24 @@ app.get('/api/taxonPairs/levelCounts', async (req, res) => {
                     _id: 0,
                     total: 1,
                     levels: {
-                        $arrayToObject: {
-                            $map: {
-                                input: ["1", "2", "3"],
-                                as: "level",
-                                in: {
-                                    k: "$$level",
-                                    v: {
-                                        $size: {
-                                            $filter: { input: "$levels", cond: { $eq: ["$$this.level", "$$level"] } }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        '1': '$level1',
+                        '2': '$level2',
+                        '3': '$level3'
                     }
                 } 
             }
         ]);
 
         const result = counts.length > 0 ? counts[0] : { total: 0, levels: { '1': 0, '2': 0, '3': 0 } };
+        console.log('Aggregation result:', result);
+
         res.json(result);
     } catch (error) {
         console.error('Error fetching level counts:', error);
         res.status(500).json({ message: 'Server error', error: error.toString() });
     }
 });
+
 
 app.get('/api/taxonPairs/:pairID', async (req, res) => {
     try {
