@@ -4,15 +4,6 @@ import state from './state.js';
 
 import TaxonomyHierarchy from './taxonomyHierarchy.js';
 
-let TaxonPair;
-if (config.useMongoDB) {
-    import('../server/models/TaxonPair.js').then(module => {
-        TaxonPair = module.default;
-    }).catch(err => {
-        logger.error('Error importing TaxonPair model:', err);
-    });
-}
-
 import iNatDownDialog from './dialogs/iNatDownDialog.js';
 
 const handleApiError = (error, context) => {
@@ -181,22 +172,28 @@ const api = (() => {
 
             async fetchPaginatedTaxonPairsFromMongoDB(filters, searchTerm, page, pageSize) {
                 try {
-                    const query = this.buildMongoQuery(filters, searchTerm);
-                    const options = {
-                        skip: (page - 1) * pageSize,
-                        limit: pageSize,
-                        sort: { pairID: 1 }
-                    };
+                    const response = await fetch(`${config.serverUrl}/api/taxonPairs`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            filters,
+                            searchTerm,
+                            page,
+                            pageSize
+                        }),
+                    });
 
-                    const [results, totalCount] = await Promise.all([
-                        TaxonPair.find(query, null, options).lean(),
-                        TaxonPair.countDocuments(query)
-                    ]);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
 
+                    const data = await response.json();
                     return {
-                        results,
-                        totalCount,
-                        hasMore: totalCount > page * pageSize
+                        results: data.results,
+                        totalCount: data.totalCount,
+                        hasMore: data.hasMore
                     };
                 } catch (error) {
                     logger.error('Error fetching paginated taxon pairs from MongoDB:', error);

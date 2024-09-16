@@ -184,7 +184,7 @@ app.get('/api/taxonPairs', async (req, res) => {
     const filters = JSON.parse(req.query.filters || '{}');
     const searchTerm = req.query.search || '';
 
-    const query = buildQuery(filters, searchTerm);
+    const query = buildMongoQuery(filters, searchTerm);
     const totalCount = await TaxonPair.countDocuments(query);
     const pairs = await TaxonPair.find(query)
       .skip((page - 1) * pageSize)
