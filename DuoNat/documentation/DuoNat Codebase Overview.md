@@ -74,9 +74,6 @@ The DuoNat project is primarily written in JavaScript, with HTML and CSS for the
 + `worldMap.js`: Handles rendering and interaction with world maps.
 + `d3Graphs.js`: Creates D3.js-based graphs for data visualization. The corresponding modules are in the d3/ folder.
 
-### Other
-+ `testingDialog.js` : Testing dialog to check out things not ready for primetime.
-
 ### Server-side code
 + server/ contains the code that is supposed to be pushed to Heroku. Heroku has auto-deployment from github enabled, so no need to manually push code there.
 + server/public is normally not used, it's just for testing purposes, as Heroku should only be responsible for the backend.
