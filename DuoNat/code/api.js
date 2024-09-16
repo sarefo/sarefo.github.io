@@ -4,6 +4,15 @@ import state from './state.js';
 
 import TaxonomyHierarchy from './taxonomyHierarchy.js';
 
+let TaxonPair;
+if (config.useMongoDB) {
+    import('../server/models/TaxonPair.js').then(module => {
+        TaxonPair = module.default;
+    }).catch(err => {
+        logger.error('Error importing TaxonPair model:', err);
+    });
+}
+
 import iNatDownDialog from './dialogs/iNatDownDialog.js';
 
 const handleApiError = (error, context) => {
@@ -162,23 +171,104 @@ const api = (() => {
               }
             },
 
-        async fetchPaginatedTaxonPairs(filters, searchTerm, page, pageSize) {
-          if (!config.useMongoDB) {
-            // Fallback to existing method for JSON data
-            return this.fetchTaxonPairs();
-          }
+            async fetchPaginatedTaxonPairs(filters, searchTerm, page, pageSize) {
+                if (config.useMongoDB) {
+                    return this.fetchPaginatedTaxonPairsFromMongoDB(filters, searchTerm, page, pageSize);
+                } else {
+                    return this.fetchPaginatedTaxonPairsFromJSON(filters, searchTerm, page, pageSize);
+                }
+            },
 
-          try {
-            const response = await fetch(`${config.serverUrl}/api/taxonPairs?page=${page}&pageSize=${pageSize}&filters=${JSON.stringify(filters)}&search=${searchTerm}`);
-            if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return await response.json();
-          } catch (error) {
-            logger.error('Error fetching paginated taxon pairs from MongoDB:', error);
-            return { results: [], totalCount: 0, hasMore: false };
-          }
-        },
+            async fetchPaginatedTaxonPairsFromMongoDB(filters, searchTerm, page, pageSize) {
+                try {
+                    const query = this.buildMongoQuery(filters, searchTerm);
+                    const options = {
+                        skip: (page - 1) * pageSize,
+                        limit: pageSize,
+                        sort: { pairID: 1 }
+                    };
+
+                    const [results, totalCount] = await Promise.all([
+                        TaxonPair.find(query, null, options).lean(),
+                        TaxonPair.countDocuments(query)
+                    ]);
+
+                    return {
+                        results,
+                        totalCount,
+                        hasMore: totalCount > page * pageSize
+                    };
+                } catch (error) {
+                    logger.error('Error fetching paginated taxon pairs from MongoDB:', error);
+                    throw error;
+                }
+            },
+
+            buildMongoQuery(filters, searchTerm) {
+                const query = {};
+
+                if (filters.levels && filters.levels.length > 0) {
+                    query.level = { $in: filters.levels };
+                }
+
+                if (filters.ranges && filters.ranges.length > 0) {
+                    query.range = { $in: filters.ranges };
+                }
+
+                if (filters.tags && filters.tags.length > 0) {
+                    query.tags = { $all: filters.tags };
+                }
+
+                if (filters.phylogenyId) {
+                    query['taxa'] = { $elemMatch: { $eq: filters.phylogenyId } };
+                }
+
+                if (searchTerm) {
+                    query.$or = [
+                        { taxonNames: { $regex: searchTerm, $options: 'i' } },
+                        { pairName: { $regex: searchTerm, $options: 'i' } },
+                        { tags: { $regex: searchTerm, $options: 'i' } },
+                        { pairID: searchTerm }
+                    ];
+                }
+
+                return query;
+            },
+
+            async fetchPaginatedTaxonPairsFromJSON(filters, searchTerm, page, pageSize) {
+                try {
+                    const allPairs = await this.fetchTaxonPairs();
+                    const filteredPairs = this.filterTaxonPairs(allPairs, filters, searchTerm);
+                    const totalCount = filteredPairs.length;
+                    const startIndex = (page - 1) * pageSize;
+                    const results = filteredPairs.slice(startIndex, startIndex + pageSize);
+
+                    return {
+                        results,
+                        totalCount,
+                        hasMore: totalCount > page * pageSize
+                    };
+                } catch (error) {
+                    logger.error('Error fetching paginated taxon pairs from JSON:', error);
+                    throw error;
+                }
+            },
+
+            filterTaxonPairs(pairs, filters, searchTerm) {
+                return pairs.filter(pair => {
+                    const matchesLevels = !filters.levels.length || filters.levels.includes(pair.level);
+                    const matchesRanges = !filters.ranges.length || pair.range.some(r => filters.ranges.includes(r));
+                    const matchesTags = !filters.tags.length || filters.tags.every(tag => pair.tags.includes(tag));
+                    const matchesPhylogeny = !filters.phylogenyId || pair.taxa.includes(filters.phylogenyId);
+                    const matchesSearch = !searchTerm || 
+                        pair.taxonNames.some(name => name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                        pair.pairName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                        pair.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                        pair.pairID === searchTerm;
+
+                    return matchesLevels && matchesRanges && matchesTags && matchesPhylogeny && matchesSearch;
+                });
+            },
 
             fetchPairByID: async function (pairID) {
                 if (!config.useMongoDB) {

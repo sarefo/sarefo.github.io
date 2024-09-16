@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -150,6 +151,32 @@ app.get('/api/taxonInfo', async (req, res) => {
   }
 });
 
+app.post('/api/taxonPairs', async (req, res) => {
+    try {
+        const { filters, searchTerm, page, pageSize } = req.body;
+        const query = buildMongoQuery(filters, searchTerm);
+        const options = {
+            skip: (page - 1) * pageSize,
+            limit: pageSize,
+            sort: { pairID: 1 }
+        };
+
+        const [results, totalCount] = await Promise.all([
+            TaxonPair.find(query, null, options).lean(),
+            TaxonPair.countDocuments(query)
+        ]);
+
+        res.json({
+            results,
+            totalCount,
+            hasMore: totalCount > page * pageSize
+        });
+    } catch (error) {
+        console.error('Error fetching paginated taxon pairs:', error);
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+});
+
 app.get('/api/taxonPairs', async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
@@ -237,7 +264,7 @@ app.listen(PORT, () => {
 });
 
 
-function buildQuery(filters, searchTerm) {
+function buildMongoQuery(filters, searchTerm) {
   const query = {};
 
   // Handle levels filter
