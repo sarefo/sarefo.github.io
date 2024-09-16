@@ -219,24 +219,48 @@ app.get('/api/taxonPairs/levelCounts', async (req, res) => {
         const filters = JSON.parse(req.query.filters || '{}');
         const query = buildMongoQuery(filters);
         
+        // Remove the level filter for this count
+        delete query.level;
+
         const counts = await TaxonPair.aggregate([
             { $match: query },
-            { $group: { _id: '$level', count: { $sum: 1 } } },
-            { $project: { level: '$_id', count: 1, _id: 0 } }
+            { 
+                $group: { 
+                    _id: null,
+                    total: { $sum: 1 },
+                    levels: { 
+                        $push: { 
+                            level: "$level", 
+                            count: 1 
+                        } 
+                    }
+                } 
+            },
+            { 
+                $project: { 
+                    _id: 0,
+                    total: 1,
+                    levels: {
+                        $arrayToObject: {
+                            $map: {
+                                input: ["1", "2", "3"],
+                                as: "level",
+                                in: {
+                                    k: "$$level",
+                                    v: {
+                                        $size: {
+                                            $filter: { input: "$levels", cond: { $eq: ["$$this.level", "$$level"] } }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } 
+            }
         ]);
 
-        const result = {
-            '1': 0,
-            '2': 0,
-            '3': 0,
-            total: 0
-        };
-
-        counts.forEach(item => {
-            result[item.level] = item.count;
-            result.total += item.count;
-        });
-
+        const result = counts.length > 0 ? counts[0] : { total: 0, levels: { '1': 0, '2': 0, '3': 0 } };
         res.json(result);
     } catch (error) {
         console.error('Error fetching level counts:', error);

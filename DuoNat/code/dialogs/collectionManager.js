@@ -575,7 +575,10 @@ async loadMorePairs() {
                 const activeFilters = filtering.getActiveFilters();
                 let counts;
                 if (config.useMongoDB) {
-                    counts = await api.taxonomy.fetchLevelCounts(activeFilters);
+                    const fetchedCounts = await api.taxonomy.fetchLevelCounts(activeFilters);
+                    if (fetchedCounts) {
+                        counts = fetchedCounts;
+                    }
                 } else {
                     counts = await filtering.countPairsPerLevel(activeFilters);
                 }
