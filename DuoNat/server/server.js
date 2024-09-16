@@ -214,21 +214,7 @@ app.get('/api/taxonPairs', async (req, res) => {
   }
 });
 
-app.get('/api/taxonPairs/:pairID', async (req, res) => {
-    try {
-        const pairID = req.params.pairID;
-        const pair = await TaxonPair.findOne({ pairID: pairID }).lean();
-        if (!pair) {
-            return res.status(404).json({ message: 'Pair not found' });
-        }
-        res.json(pair);
-    } catch (error) {
-        console.error('Error fetching pair by ID:', error);
-        res.status(500).json({ message: 'Server error', error: error.message });
-    }
-});
-
-app.get('/api/taxonPairs/:levelCounts', async (req, res) => {
+app.get('/api/taxonPairs/levelCounts', async (req, res) => {
     try {
         const filters = JSON.parse(req.query.filters || '{}');
         const query = buildMongoQuery(filters);
@@ -255,6 +241,20 @@ app.get('/api/taxonPairs/:levelCounts', async (req, res) => {
     } catch (error) {
         console.error('Error fetching level counts:', error);
         res.status(500).json({ message: 'Server error', error: error.toString() });
+    }
+});
+
+app.get('/api/taxonPairs/:pairID', async (req, res) => {
+    try {
+        const pairID = req.params.pairID;
+        const pair = await TaxonPair.findOne({ pairID: pairID }).lean();
+        if (!pair) {
+            return res.status(404).json({ message: 'Pair not found' });
+        }
+        res.json(pair);
+    } catch (error) {
+        console.error('Error fetching pair by ID:', error);
+        res.status(500).json({ message: 'Server error', error: error.message });
     }
 });
 
