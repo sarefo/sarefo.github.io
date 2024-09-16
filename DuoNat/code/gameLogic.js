@@ -1,8 +1,9 @@
 import config from './config.js';
 import logger from './logger.js';
 import state from './state.js';
-import ui from './ui.js';
 import utils from './utils.js';
+
+import ui from './ui.js';
 
 import roundManager from './roundManager.js';
 

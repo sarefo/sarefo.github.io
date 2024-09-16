@@ -1,9 +1,9 @@
 import eventInitializer from './eventInitializer.js';
 import eventUIButtons from './eventUIButtons.js';
 import keyboardShortcuts from './keyboardShortcuts.js';
-import searchHandler from './searchHandler.js';
 import swipeHandler from './swipeHandler.js';
 
+import searchHandler from '../searchHandler.js';
 //import imagePanner from './imagePanner.js';
 
 const eventMain = {

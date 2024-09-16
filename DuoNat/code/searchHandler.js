@@ -1,6 +1,7 @@
-import api from './api.js';
 import logger from './logger.js';
 import state from './state.js';
+
+import api from './api.js';
 import ui from './ui.js';
 
 import filtering from './filtering.js';

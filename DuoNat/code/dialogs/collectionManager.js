@@ -1,11 +1,13 @@
-import api from '../api.js';
 import config from '../config.js';
 import logger from '../logger.js';
 import state from '../state.js';
-import ui from '../ui.js';
 import utils from '../utils.js';
 
-import eventMain from '../eventMain.js';
+import api from '../api.js';
+import ui from '../ui.js';
+
+import eventMain from '../events/eventMain.js';
+
 import filtering from '../filtering.js';
 import gameLogic from '../gameLogic.js';
 import pairManager from '../pairManager.js';

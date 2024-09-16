@@ -1,6 +1,6 @@
 import logger from './logger.js';
 
-import swipeHandler from './swipeHandler.js';
+import swipeHandler from './events/swipeHandler.js';
 
 const imagePanner = {
     isPanningEnabled: false, // TODO for debugging

@@ -1,12 +1,13 @@
-import api from './api.js';
 import config from './config.js';
-import filtering from './filtering.js';
 import logger, { LogLevel } from './logger.js';
 import state from './state.js';
+
+import api from './api.js';
+import filtering from './filtering.js';
 import ui from './ui.js';
 import url from './url.js';
 
-import eventMain from './eventMain.js';
+import eventMain from './events/eventMain.js';
 
 import pairManager from './pairManager.js';
 

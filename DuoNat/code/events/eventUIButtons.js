@@ -1,20 +1,19 @@
-import logger from './logger.js';
-import ui from './ui.js';
-import utils from './utils.js';
+import logger from '../logger.js';
+import ui from '../ui.js';
+import utils from '../utils.js';
 
-import pairManager from './pairManager.js';
-import sharing from './sharing.js';
+import pairManager from '../pairManager.js';
+import sharing from '../sharing.js';
 
-import ancestryDialog from './dialogs/ancestryDialog.js';
-import collectionManager from './dialogs/collectionManager.js';
-import dialogManager from './dialogs/dialogManager.js';
-import testingDialog from './dialogs/testingDialog.js';
+import ancestryDialog from '../dialogs/ancestryDialog.js';
+import collectionManager from '../dialogs/collectionManager.js';
+import dialogManager from '../dialogs/dialogManager.js';
 
 const eventUIButtons = {
     initialize() {
         this.initializeMainMenuListeners();
         this.initializeLevelIndicator();
-        this.initializeLongPressHandler();
+        //this.initializeLongPressHandler();
         this.initializeNextPairButton();
     },
 
@@ -76,7 +75,7 @@ const eventUIButtons = {
         collectionManager.openCollectionManagerDialog();
     },
 
-    initializeLongPressHandler() {
+    /*initializeLongPressHandler() {
         const levelIndicator = document.getElementById('level-indicator');
         let longPressTimer;
 
@@ -93,7 +92,7 @@ const eventUIButtons = {
         levelIndicator.addEventListener('touchmove', (e) => {
             clearTimeout(longPressTimer);
         }, { passive: true });
-    },
+    },*/
 
     initializeNextPairButton() {
         const nextPairButton = document.getElementById('next-pair-button');

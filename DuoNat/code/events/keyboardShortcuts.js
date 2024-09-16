@@ -1,22 +1,22 @@
-import logger from './logger.js';
-import state from './state.js';
-import ui from './ui.js';
-import utils from './utils.js';
+import logger from '../logger.js';
+import state from '../state.js';
+import ui from '../ui.js';
+import utils from '../utils.js';
 
 import dragAndDrop from './dragAndDrop.js';
-import hintSystem from './hintSystem.js';
-import pairManager from './pairManager.js';
-import preloader from './preloader.js';
-import searchHandler from './searchHandler.js';
-import sharing from './sharing.js';
-import tutorial from './tutorial.js';
 
-import ancestryDialog from './dialogs/ancestryDialog.js';
-import collectionManager from './dialogs/collectionManager.js';
-import dialogManager from './dialogs/dialogManager.js';
-import infoDialog from './dialogs/infoDialog.js';
-import rangeSelector from './dialogs/rangeSelector.js';
-import testingDialog from './dialogs/testingDialog.js';
+import hintSystem from '../hintSystem.js';
+import pairManager from '../pairManager.js';
+import preloader from '../preloader.js';
+import searchHandler from '../searchHandler.js';
+import sharing from '../sharing.js';
+import tutorial from '../tutorial.js';
+
+import ancestryDialog from '../dialogs/ancestryDialog.js';
+import collectionManager from '../dialogs/collectionManager.js';
+import dialogManager from '../dialogs/dialogManager.js';
+import infoDialog from '../dialogs/infoDialog.js';
+import rangeSelector from '../dialogs/rangeSelector.js';
 
 const keyboardShortcuts = {
     isEnabled: true,
@@ -56,7 +56,6 @@ const keyboardShortcuts = {
             'k': () => dialogManager.openDialog('keyboard-shortcuts-dialog'),
             'm': ui.toggleMainMenu,
             's': sharing.shareCurrentPair,
-            't': testingDialog.openDialog,
             '+': this.incrementPairID.bind(this),
             'x': () => document.getElementById('surprise-button').click()
         };

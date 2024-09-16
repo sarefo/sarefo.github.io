@@ -3,7 +3,8 @@ import logger from '../logger.js';
 import state from '../state.js';
 import ui from '../ui.js';
 
-import eventMain from '../eventMain.js';
+import eventMain from '../events/eventMain.js';
+
 import reporting from '../reporting.js';
 import tutorial from '../tutorial.js';
 
@@ -14,7 +15,6 @@ import infoDialog from './infoDialog.js';
 import phylogenySelector from './phylogenySelector.js';
 import rangeSelector from './rangeSelector.js';
 import tagSelector from './tagSelector.js';
-import testingDialog from './testingDialog.js';
 
 const dialogManager = {
     dialogIds: [
@@ -62,7 +62,6 @@ const dialogManager = {
             rangeSelector.initialize();
             phylogenySelector.initialize();
             reporting.initialize();
-            testingDialog.initialize();
             enterPair.initialize();
 
             this.initializeHelpDialog();

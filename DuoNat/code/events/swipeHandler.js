@@ -1,8 +1,8 @@
-import logger from './logger.js';
-import state from './state.js';
+import logger from '../logger.js';
+import state from '../state.js';
 
-import imagePanner from './imagePanner.js';
-import pairManager from './pairManager.js';
+import imagePanner from '../imagePanner.js';
+import pairManager from '../pairManager.js';
 
 const swipeHandler = {
     isLoadingNewPair: false,

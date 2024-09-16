@@ -1,16 +1,16 @@
-import logger from './logger.js';
-import state from './state.js';
-import ui from './ui.js';
-import utils from './utils.js';
+import logger from '../logger.js';
+import state from '../state.js';
+import ui from '../ui.js';
+import utils from '../utils.js';
+
+import tutorial from '../tutorial.js';
+import searchHandler from '../searchHandler.js';
+
+import dialogManager from '../dialogs/dialogManager.js';
 
 import dragAndDrop from './dragAndDrop.js';
-import tutorial from './tutorial.js';
-
-import dialogManager from './dialogs/dialogManager.js';
-
 import eventUIButtons from './eventUIButtons.js';
 import keyboardShortcuts from './keyboardShortcuts.js';
-import searchHandler from './searchHandler.js';
 import swipeHandler from './swipeHandler.js';
 
 const eventInitializer = {

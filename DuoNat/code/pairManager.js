@@ -1,9 +1,10 @@
-import api from './api.js';
 import config from './config.js';
 import logger from './logger.js';
 import state from './state.js';
-import ui from './ui.js';
 import url from './url.js';
+
+import api from './api.js';
+import ui from './ui.js';
 
 import filtering from './filtering.js';
 import hintSystem from './hintSystem.js';

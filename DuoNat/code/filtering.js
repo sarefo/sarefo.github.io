@@ -1,9 +1,10 @@
-import api from './api.js';
 import logger from './logger.js';
 import state from './state.js';
 import utils from './utils.js';
 
-import eventMain from './eventMain.js';
+import api from './api.js';
+
+import eventMain from './events/eventMain.js';
 
 import collectionManager from './dialogs/collectionManager.js';
 import rangeSelector from './dialogs/rangeSelector.js';

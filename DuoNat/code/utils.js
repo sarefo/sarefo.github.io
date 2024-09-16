@@ -1,5 +1,6 @@
-import api from './api.js'; // for sound
 import logger from './logger.js';
+
+import api from './api.js'; // for sound
 
 const utils = {
     ui: {

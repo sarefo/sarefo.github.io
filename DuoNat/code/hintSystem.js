@@ -1,7 +1,8 @@
-import api from './api.js';
 import config from './config.js';
 import logger from './logger.js';
 import state from './state.js';
+
+import api from './api.js';
 
 const hintSystem = {
     initialize() {
