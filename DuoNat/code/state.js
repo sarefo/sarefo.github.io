@@ -53,6 +53,7 @@ let gameState = {
     currentActiveNodeId: null,
 
     currentPage: 1,
+    totalTaxonPairCount: 0,
 
     // Round
 
@@ -344,6 +345,11 @@ const publicAPI = {
     getCurrentPage: () => gameState.currentPage,
     setCurrentPage: (currentPage) => {
         updateGameState('currentPage', currentPage);
+    },
+
+    getTotalTaxonPairCount: () => gameState.totalTaxonPairCount,
+    setTotalTaxonPairCount: (count) => {
+        updateGameState('totalTaxonPairCount', count);
     },
 
     getCurrentRound: () => ({ ...gameState.currentRound }),
