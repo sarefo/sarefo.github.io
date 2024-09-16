@@ -150,124 +150,134 @@ const collectionManager = {
         },
 
     async updateTaxonList(isInitialLoad = false, isPairIDSearch = false) {
-      const filters = filtering.getActiveFilters();
-      const searchTerm = state.getSearchTerm();
-      const page = isInitialLoad ? 1 : (state.getCurrentPage() || 1);
-      const pageSize = 20;
+        const filters = filtering.getActiveFilters();
+        const searchTerm = state.getSearchTerm();
+        const page = isInitialLoad ? 1 : (state.getCurrentPage() || 1);
+        const pageSize = 20;
 
-      try {
-        let filteredPairs;
-        let totalCount;
-
-        if (config.useMongoDB) {
-          if (isPairIDSearch) {
-            // Handle pair ID search
-            filteredPairs = await api.taxonomy.fetchPairByID(searchTerm);
-            totalCount = filteredPairs ? 1 : 0;
-          } else {
-            // Fetch paginated results from MongoDB
-            const result = await this.fetchPaginatedPairs(filters, searchTerm, page, pageSize);
-            filteredPairs = result.results;
-            totalCount = result.totalCount;
-          }
-        } else {
-          // Existing code for JSON file
-          const taxonPairs = await api.taxonomy.fetchTaxonPairs();
-          filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
-          if (isPairIDSearch) {
-            filteredPairs = filteredPairs.filter(pair => pair.pairID.toString() === searchTerm);
-          } else {
-            filteredPairs = this.filterTaxonPairsBySearch(filteredPairs, searchTerm);
-          }
-          totalCount = filteredPairs.length;
-        }
-
-        // Handle initial load case
-        if (isInitialLoad) {
-          const currentPair = this.getCurrentActivePair();
-          if (currentPair) {
+        try {
+            let result;
             if (config.useMongoDB) {
-              // For MongoDB, we need to ensure the current pair is included
-              const currentPairExists = filteredPairs.some(pair => pair.pairID === currentPair.pairID);
-              if (!currentPairExists) {
-                filteredPairs.unshift(currentPair);
-                totalCount += 1;
-              }
+                if (isPairIDSearch) {
+                    const pair = await api.taxonomy.fetchPairByID(searchTerm);
+                    result = {
+                        results: pair ? [pair] : [],
+                        totalCount: pair ? 1 : 0,
+                        hasMore: false
+                    };
+                } else {
+                    result = await api.taxonomy.fetchPaginatedTaxonPairs(filters, searchTerm, page, pageSize);
+                }
             } else {
-              // For JSON, we can manipulate the array directly
-              filteredPairs = filteredPairs.filter(pair => pair.pairID !== currentPair.pairID);
-              filteredPairs.unshift(currentPair);
+                // Existing code for JSON file
+                const taxonPairs = await api.taxonomy.fetchTaxonPairs();
+                let filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
+                if (isPairIDSearch) {
+                    filteredPairs = filteredPairs.filter(pair => pair.pairID.toString() === searchTerm);
+                } else {
+                    filteredPairs = this.filterTaxonPairsBySearch(filteredPairs, searchTerm);
+                }
+                const startIndex = (page - 1) * pageSize;
+                result = {
+                    results: filteredPairs.slice(startIndex, startIndex + pageSize),
+                    totalCount: filteredPairs.length,
+                    hasMore: filteredPairs.length > page * pageSize
+                };
             }
-          }
+
+            // Handle initial load case
+            if (isInitialLoad) {
+                const currentPair = this.getCurrentActivePair();
+                if (currentPair && !result.results.some(pair => pair.pairID === currentPair.pairID)) {
+                    result.results.unshift(currentPair);
+                    result.totalCount += 1;
+                }
+            }
+
+            // Update UI
+            await this.renderTaxonList(result.results, isInitialLoad, page === 1, result.hasMore);
+            collectionManager.ui.updateActiveCollectionCount(result.totalCount);
+            collectionManager.ui.updateFilterSummary();
+
+            return result;
+        } catch (error) {
+            logger.error("Error in updateTaxonList:", error);
+            return { results: [], totalCount: 0, hasMore: false };
+        }
+    },
+
+    async renderTaxonList(pairs, isInitialLoad, clearExisting = true, hasMore = false) {
+        const list = document.getElementById('taxon-pair-list');
+        if (!list) return;
+
+        logger.debug(`Rendering taxon list: ${pairs.length} pairs, clearExisting: ${clearExisting}, hasMore: ${hasMore}`);
+
+        if (clearExisting) {
+            list.innerHTML = '';
         }
 
-        // Update UI
-        await this.renderTaxonList(filteredPairs, isInitialLoad, page < 2);
-        collectionManager.ui.updateActiveCollectionCount(totalCount);
-        collectionManager.ui.updateFilterSummary();
+        const fragment = document.createDocumentFragment();
+        const buttons = await this.createTaxonPairButtons(pairs);
+        buttons.forEach(button => fragment.appendChild(button));
+        list.appendChild(fragment);
 
-        return { results: filteredPairs, totalCount };
-      } catch (error) {
-        logger.error("Error in updateTaxonList:", error);
-        return { results: [], totalCount: 0 };
-      }
-    },
+        const loadMoreButton = list.querySelector('.load-more-button');
+        if (loadMoreButton) {
+            loadMoreButton.remove();
+        }
 
-    async fetchPaginatedPairs(filters, searchTerm, page, pageSize) {
-      // Implement this method in your API module
-      return await api.taxonomy.fetchPaginatedTaxonPairs(filters, searchTerm, page, pageSize);
-    },
-
-    async renderTaxonList(pairs, isInitialLoad, clearExisting = true) {
-      const list = document.getElementById('taxon-pair-list');
-      if (!list) return;
-
-      if (clearExisting) {
-        list.innerHTML = '';
-      }
-
-      // Create a document fragment to hold all the new elements
-      const fragment = document.createDocumentFragment();
-
-      let buttons;
-      if (config.useMongoDB) {
-          buttons = await this.createTaxonPairButtons(pairs);
-      } else { // old style
-          // Create all buttons at once
-          buttons = await Promise.all(pairs.map(pair => this.createTaxonPairButton(pair)));
-      }
-
-      // Append all buttons to the fragment
-      buttons.forEach(button => fragment.appendChild(button));
-
-      // Append the fragment to the list (this is a single DOM operation)
-      list.appendChild(fragment);
-
-      if (pairs.length === 0) {
-        this.displayNoResultsMessage(list);
-      } else if (pairs.length >= 20) { // Assuming 20 is the page size
-        this.addLoadMoreButton(list);
-      }
+        if (pairs.length === 0 && clearExisting) {
+            this.displayNoResultsMessage(list);
+        } else if (hasMore) {
+            logger.debug('Adding Load More button');
+            this.addLoadMoreButton(list);
+        } else {
+            logger.debug('No more pairs to load');
+        }
     },
 
     addLoadMoreButton(list) {
-      const existingButton = list.querySelector('.load-more-button');
-      if (existingButton) {
-        existingButton.remove();
-      }
+        const existingButton = list.querySelector('.load-more-button');
+        if (existingButton) {
+            existingButton.remove();
+        }
 
-      const loadMoreButton = document.createElement('button');
-      loadMoreButton.textContent = 'Load More';
-      loadMoreButton.className = 'load-more-button';
-      loadMoreButton.addEventListener('click', () => this.loadMorePairs());
-      list.appendChild(loadMoreButton);
+        const loadMoreButton = document.createElement('button');
+        loadMoreButton.textContent = 'Load More';
+        loadMoreButton.className = 'load-more-button';
+        loadMoreButton.addEventListener('click', () => {
+            logger.debug('Load More button clicked');
+            this.loadMorePairs();
+        });
+        list.appendChild(loadMoreButton);
+        logger.debug('Load More button added to the list');
     },
 
-    async loadMorePairs() {
-      const currentPage = state.getCurrentPage() || 1;
-      state.setCurrentPage(currentPage + 1);
-      await this.updateTaxonList(false, false);
-    },
+async loadMorePairs() {
+    const currentPage = state.getCurrentPage() || 1;
+    const nextPage = currentPage + 1;
+    state.setCurrentPage(nextPage);
+    
+    try {
+        const result = await this.updateTaxonList(false, false);
+        
+        if (result && result.results) {
+            await this.renderTaxonList(result.results, false, false, result.hasMore);
+        } else {
+            logger.warn('No results or unexpected result structure from updateTaxonList');
+        }
+
+        if (result && !result.hasMore) {
+            const loadMoreButton = document.querySelector('.load-more-button');
+            if (loadMoreButton) {
+                loadMoreButton.remove();
+                logger.debug('Removed Load More button');
+            }
+        }
+    } catch (error) {
+        logger.error('Error in loadMorePairs:', error);
+    }
+},
 
         initializeTaxonInfoVisibility() {
             const taxonInfoToggle = document.getElementById('taxon-info-toggle');
@@ -416,18 +426,6 @@ const collectionManager = {
         getChiliHtml(level) {
             const chiliCount = parseInt(level) || 0;
             return Array(chiliCount).fill('<svg class="icon taxon-pair__icon-chili"><use href="./images/icons.svg#icon-spicy"/></svg>').join('');
-        },
-
-        loadMorePairs: async function (pairs, startIndex) {
-            const list = document.getElementById('taxon-pair-list');
-            const nextPairs = pairs.slice(startIndex, startIndex + 20);
-
-            for (const pair of nextPairs) {
-                const button = await this.createTaxonPairButton(pair);
-                list.insertBefore(button, list.lastChild);
-            }
-
-            this.updateLoadMoreButton(list, pairs, startIndex);
         },
 
         updateLoadMoreButton(list, pairs, startIndex) {
@@ -754,7 +752,7 @@ const publicAPI = {
 
     updateTaxonList: collectionManager.taxonList.updateTaxonList,
     renderTaxonList: collectionManager.taxonList.renderTaxonList,
-    onFiltersChanged: collectionManager.taxonList.updateTaxonList,
+    onFiltersChanged: collectionManager.taxonList.onFiltersChanged,
     syncTaxonInfoVisibility: collectionManager.taxonList.syncTaxonInfoVisibility,
 
     updateFilterSummary: collectionManager.ui.updateFilterSummary,
