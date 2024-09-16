@@ -463,6 +463,23 @@ const api = (() => {
                 }
             },
 
+            async fetchLevelCounts(filters) {
+                if (!config.useMongoDB) {
+                    return null;
+                }
+                try {
+                    const queryString = new URLSearchParams({ filters: JSON.stringify(filters) }).toString();
+                    const response = await fetch(`${config.serverUrl}/api/taxonPairs/levelCounts?${queryString}`);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return await response.json();
+                } catch (error) {
+                    logger.error('Error fetching level counts from MongoDB:', error);
+                    return null;
+                }
+            },
+
         },
 
         images: {
@@ -686,6 +703,7 @@ const publicAPI = {
         fetchTaxonPairs: api.taxonomy.fetchTaxonPairs,
         fetchBulkTaxonInfo: api.taxonomy.fetchBulkTaxonInfo,
         fetchPaginatedTaxonPairs: api.taxonomy.fetchPaginatedTaxonPairs,
+        fetchLevelCounts: api.taxonomy.fetchLevelCounts,
         fetchTaxonHints: api.taxonomy.fetchTaxonHints,
         loadTaxonInfo: api.taxonomy.loadTaxonInfo,
         fetchTaxonId: api.taxonomy.fetchTaxonId,

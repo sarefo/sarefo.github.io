@@ -228,6 +228,36 @@ app.get('/api/taxonPairs/:pairID', async (req, res) => {
     }
 });
 
+app.get('/api/taxonPairs/levelCounts', async (req, res) => {
+    try {
+        const filters = JSON.parse(req.query.filters || '{}');
+        const query = buildMongoQuery(filters);
+        
+        const counts = await TaxonPair.aggregate([
+            { $match: query },
+            { $group: { _id: '$level', count: { $sum: 1 } } },
+            { $project: { level: '$_id', count: 1, _id: 0 } }
+        ]);
+
+        const result = {
+            '1': 0,
+            '2': 0,
+            '3': 0,
+            total: 0
+        };
+
+        counts.forEach(item => {
+            result[item.level] = item.count;
+            result.total += item.count;
+        });
+
+        res.json(result);
+    } catch (error) {
+        console.error('Error fetching level counts:', error);
+        res.status(500).json({ message: 'Server error', error: error.toString() });
+    }
+});
+
 // TaxonHierarchy:
 app.get('/api/taxonHierarchy', async (req, res) => {
   try {
