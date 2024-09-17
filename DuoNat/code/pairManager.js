@@ -81,7 +81,7 @@ const pairManager = {
                 throw new Error("Failed to select a pair");
             }
 
-            logger.debug("Raw pair data:", JSON.stringify(newPairData, null, 2));
+            //logger.debug("Raw pair data:", JSON.stringify(newPairData, null, 2));
 
             // Map taxonNames to taxonA and taxonB if they're not present
             if (!newPairData.taxonA && !newPairData.taxonB && newPairData.taxonNames) {

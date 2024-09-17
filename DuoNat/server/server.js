@@ -266,11 +266,13 @@ app.get('/api/taxonPairs/levelCounts', async (req, res) => {
     }
 });
 
-// Add this new route in server.js
 app.get('/api/tagCounts', async (req, res) => {
     try {
+        console.log('Received request for tag counts');
         const filters = JSON.parse(req.query.filters || '{}');
+        console.log('Filters:', filters);
         const query = buildMongoQuery(filters);
+        console.log('MongoDB query:', query);
 
         const tagCounts = await TaxonPair.aggregate([
             { $match: query },
@@ -279,7 +281,10 @@ app.get('/api/tagCounts', async (req, res) => {
             { $sort: { count: -1 } }
         ]);
 
-        res.json(Object.fromEntries(tagCounts.map(tag => [tag._id, tag.count])));
+        console.log('Tag counts:', tagCounts);
+        const result = Object.fromEntries(tagCounts.map(tag => [tag._id, tag.count]));
+        console.log('Sending tag counts:', result);
+        res.json(result);
     } catch (error) {
         console.error('Error fetching tag counts:', error);
         res.status(500).json({ message: 'Server error', error: error.message });

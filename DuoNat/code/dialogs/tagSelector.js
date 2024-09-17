@@ -1,7 +1,8 @@
-import api from '../api.js';
+import config from '../config.js';
 import state from '../state.js';
 import logger from '../logger.js';
 
+import api from '../api.js';
 import filtering from '../filtering.js';
 
 import collectionManager from './collectionManager.js';
@@ -132,30 +133,29 @@ const tagSelector = {
     dataManager: {
 
         async getTagCounts() {
-            const tagCounts = {};
-            const filters = filtering.getActiveFilters();
-            const filteredPairs = await filtering.getFilteredTaxonPairs(filters);
+            if (config.useMongoDB) {
+                const filters = filtering.getActiveFilters();
+                const response = await fetch(`${config.serverUrl}/api/tagCounts?filters=${encodeURIComponent(JSON.stringify(filters))}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return await response.json();
+            } else {
+                // Existing code for JSON file
+                const tagCounts = {};
+                const filters = filtering.getActiveFilters();
+                const filteredPairs = await filtering.getFilteredTaxonPairs(filters);
 
-            filteredPairs.forEach(pair => {
-                pair.tags.forEach(tag => {
-                    if (!tagSelector.selectedTags.has(tag)) {
-                        tagCounts[tag] = (tagCounts[tag] || 0) + 1;
-                    }
+                filteredPairs.forEach(pair => {
+                    pair.tags.forEach(tag => {
+                        if (!tagSelector.selectedTags.has(tag)) {
+                            tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+                        }
+                    });
                 });
-            });
-            return tagCounts;
+                return tagCounts;
+            }
         },
-
-        /*async updateFilteredPairs() {
-            return null;
-            logger.trace("updateFilteredPairs");
-            const filters = filtering.getActiveFilters();
-            tagSelector.filteredPairs = await filtering.getFilteredTaxonPairs(filters);
-
-            await collectionManager.renderTaxonList(tagSelector.filteredPairs);
-            collectionManager.updateActiveCollectionCount(tagSelector.filteredPairs.length);
-            tagSelector.uiManager.updateMatchingPairsCount();
-        },*/
 
         async clearTagsInCloud() {
             tagSelector.selectedTags.clear();
