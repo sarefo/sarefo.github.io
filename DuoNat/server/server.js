@@ -241,6 +241,16 @@ app.get('/api/taxonPairs', async (req, res) => {
   }
 });
 
+app.get('/api/allTaxonPairs', async (req, res) => {
+  try {
+    const allPairs = await TaxonPair.find({}).lean();
+    res.json(allPairs);
+  } catch (error) {
+    console.error('Error fetching all taxon pairs:', error);
+    res.status(500).json({ message: 'Server error', error: error.toString() });
+  }
+});
+
 app.get('/api/taxonPairs/levelCounts', async (req, res) => {
     try {
         const filters = JSON.parse(req.query.filters || '{}');
