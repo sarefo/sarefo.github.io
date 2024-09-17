@@ -82,6 +82,10 @@ const tagSelector = {
 
     uiManager: {
 
+        calculateTotalPairs(tagCounts) {
+            return Object.values(tagCounts).reduce((sum, count) => sum + count, 0);
+        },
+
         renderTagCloud(tagCounts) {
             logger.debug('Rendering tag cloud with counts:', tagCounts);
             const container = document.getElementById('tag-container');
@@ -92,7 +96,14 @@ const tagSelector = {
                 return;
             }
 
+            const totalPairs = this.calculateTotalPairs(tagCounts);
             const maxCount = Math.max(...Object.values(tagCounts));
+
+            // Add total pairs count
+            const totalElement = document.createElement('div');
+            totalElement.className = 'total-pairs-count';
+            totalElement.textContent = `Total pairs: ${totalPairs}`;
+            container.appendChild(totalElement);
 
             // Add currently selected tags first
             tagSelector.selectedTags.forEach(tag => {
