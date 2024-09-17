@@ -21,13 +21,6 @@ const api = (() => {
     return {
         taxonomy: {
             fetchTaxonInfoFromMongoDB: async function (taxonIdentifier, fields = null) {
-                if (!config.useMongoDB) {
-                    return null;
-                }
-                if (!taxonIdentifier) {
-                    logger.warn('Attempted to fetch taxon info with undefined or null identifier');
-                    return null;
-                }
                 try {
                     // Try to get from cache first
                     const cachedInfo = await cache.getTaxonInfo(taxonIdentifier);
@@ -90,20 +83,34 @@ const api = (() => {
             },
 
             loadTaxonInfo: async function () {
-                if (!config.useMongoDB) {
-                    if (taxonInfo === null) {
-                        //logger.debug('Loading taxon info from JSON file');
-                        const response = await fetch('./data/taxonInfo.json');
+                if (taxonInfo === null) {
+                    try {
+                        // Try to get from cache first
+                        const cachedInfo = await cache.db.taxonInfo.toArray();
+                        if (cachedInfo.length > 0) {
+                            taxonInfo = cachedInfo.reduce((acc, item) => {
+                                acc[item.taxonId] = item;
+                                return acc;
+                            }, {});
+                            return taxonInfo;
+                        }
+
+                        // If not in cache, fetch from server
+                        const response = await fetch(`${config.serverUrl}/api/taxonInfo/all`);
                         if (!response.ok) {
                             throw new Error(`HTTP error! status: ${response.status}`);
                         }
-                        taxonInfo = await response.json();
+                        const data = await response.json();
+                        
+                        // Update cache and local variable
+                        await cache.db.taxonInfo.bulkPut(Object.values(data).map(item => ({...item, lastUpdated: Date.now()})));
+                        taxonInfo = data;
+                    } catch (error) {
+                        logger.error('Error loading taxon info:', error);
+                        taxonInfo = {};
                     }
-                    return taxonInfo;
                 }
-                // When using MongoDB, we'll fetch specific taxon info as needed
-                logger.trace("dummy taxonInfo fetch: should not happen, but fine for now.");
-                return {};
+                return taxonInfo;
             },
 
             loadTaxonomyHierarchy: async function () {

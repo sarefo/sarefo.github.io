@@ -13,6 +13,16 @@ class DuoNatCache {
     }
 
     async getTaxonInfo(taxonId) {
+        if (taxonId === 'all') {
+            let cachedInfo = await this.db.taxonInfo.toArray();
+            if (cachedInfo.length > 0 && this.isCacheValid(cachedInfo[0].lastUpdated)) {
+                return cachedInfo.reduce((acc, item) => {
+                    acc[item.taxonId] = item;
+                    return acc;
+                }, {});
+            }
+            return null;
+        }
         let cachedInfo = await this.db.taxonInfo.get(taxonId);
         if (cachedInfo && this.isCacheValid(cachedInfo.lastUpdated)) {
             return cachedInfo;

@@ -125,6 +125,20 @@ app.post('/api/bulkTaxonInfo', async (req, res) => {
     }
 });
 
+app.get('/api/taxonInfo/all', async (req, res) => {
+    try {
+        const allTaxonInfo = await TaxonInfo.find({}).lean();
+        const taxonInfoObject = allTaxonInfo.reduce((acc, taxon) => {
+            acc[taxon.taxonId] = taxon;
+            return acc;
+        }, {});
+        res.json(taxonInfoObject);
+    } catch (error) {
+        console.error('Error fetching all taxon info:', error);
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+});
+
 app.get('/api/taxonInfo/:taxonId', async (req, res) => {
     try {
         const taxonId = req.params.taxonId;
