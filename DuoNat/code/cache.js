@@ -47,6 +47,21 @@ class DuoNatCache {
         return fetchedPair;
     }
 
+    async getAllTaxonPairs() {
+      let cachedPairs = await this.db.taxonPairs.toArray();
+      if (cachedPairs.length > 0 && this.isCacheValid(cachedPairs[0].lastUpdated)) {
+        return cachedPairs;
+      }
+      return null;
+    }
+
+    async updateTaxonPairs(taxonPairs) {
+      await this.db.taxonPairs.clear();
+      await this.db.taxonPairs.bulkPut(
+        taxonPairs.map(pair => ({...pair, lastUpdated: Date.now()}))
+      );
+    }
+
     async getTaxonHierarchy() {
         let cachedHierarchy = await this.db.taxonHierarchy.toArray();
         if (cachedHierarchy.length > 0 && this.isCacheValid(cachedHierarchy[0].lastUpdated)) {

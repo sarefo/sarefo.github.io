@@ -158,25 +158,16 @@ const api = (() => {
                 return taxonomyHierarchy;
             },
 
-            // fetch from JSON file or MongoDB
-            async fetchTaxonPairs() {
+            // fetch from MongoDB
+            fetchTaxonPairs: async function () {
               try {
                 if (config.useMongoDB) {
+                  // Existing MongoDB code remains unchanged
                   const response = await fetch(`${config.serverUrl}/api/taxonPairs`);
                   if (!response.ok) {
-                    const text = await response.text();
-                    if (text.startsWith('<!DOCTYPE html>')) {
-                      throw new Error(`Server returned HTML instead of JSON. Status: ${response.status}`);
-                    }
                     throw new Error(`HTTP error! status: ${response.status}`);
                   }
                   const data = await response.json();
-                  console.log('Raw response from server:', data); // Add this line
-                  
-                  if (!Array.isArray(data.results)) {
-                    throw new Error('Invalid response format: results is not an array');
-                  }
-
                   return data.results.map(pair => ({
                     ...pair,
                     pairID: pair.pairID,
@@ -184,18 +175,22 @@ const api = (() => {
                     taxonB: pair.taxonNames[1]
                   }));
                 } else {
-                  // Existing code for JSON file
-                  const response = await fetch('./data/taxonPairs.json');
+                  // New code for fetching all taxon pairs and caching
+                  let cachedPairs = await cache.getAllTaxonPairs();
+                  if (cachedPairs) {
+                    return cachedPairs;
+                  }
+
+                  const response = await fetch(`${config.serverUrl}/api/allTaxonPairs`);
                   if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                   }
-                  const taxonPairs = await response.json();
-                  return Object.entries(taxonPairs).map(([pairID, pair]) => ({
-                    ...pair,
-                    pairID,
-                    taxonA: pair.taxonNames[0],
-                    taxonB: pair.taxonNames[1]
-                  }));
+                  const allPairs = await response.json();
+
+                  // Cache the fetched pairs
+                  await cache.updateTaxonPairs(allPairs);
+
+                  return allPairs;
                 }
               } catch (error) {
                 handleApiError(error, 'fetchTaxonPairs');
