@@ -57,8 +57,8 @@ class DuoNatCache {
     }
 
     isCacheValid(lastUpdated) {
-        // Consider cache valid for 24 hours
-        return Date.now() - lastUpdated < 24 * 60 * 60 * 1000;
+        // Consider cache valid for 30 days
+        return Date.now() - lastUpdated < 24 * 60 * 60 * 1000 * 30;
     }
 }
 
