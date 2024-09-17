@@ -633,17 +633,17 @@ async loadMorePairs() {
         },
 
         async updateLevelCounts() {
-            console.log('updateLevelCounts called');
+            //console.log('updateLevelCounts called');
             const levelDropdown = document.getElementById('level-filter-dropdown');
             if (levelDropdown) {
                 const activeFilters = filtering.getActiveFilters();
-                console.log('Active filters:', activeFilters);
+                //console.log('Active filters:', activeFilters);
 
                 let counts = { total: 0, '1': 0, '2': 0, '3': 0 };
                 
                 if (config.useMongoDB) {
                     const fetchedCounts = await api.taxonomy.fetchLevelCounts(activeFilters);
-                    console.log('Fetched counts:', fetchedCounts);
+                    //console.log('Fetched counts:', fetchedCounts);
                     if (fetchedCounts) {
                         counts = {
                             total: fetchedCounts.total,
@@ -666,8 +666,8 @@ async loadMorePairs() {
                 
                 state.setTotalTaxonPairCount(totalCount);
                 
-                console.log('Total count:', totalCount);
-                console.log('Counts per level:', counts);
+                //console.log('Total count:', totalCount);
+                //console.log('Counts per level:', counts);
                 
                 levelDropdown.innerHTML = `
                     <option value="">All Levels (${counts.total})</option>
@@ -692,7 +692,7 @@ async loadMorePairs() {
                 // Update the active collection count
                 this.updateActiveCollectionCount(totalCount);
 
-                console.log('updateLevelCounts finished');
+                //console.log('updateLevelCounts finished');
             }
         },
 
@@ -742,7 +742,7 @@ async loadMorePairs() {
                 
                 // Get the current pair
                 const currentPair = state.getCurrentTaxonImageCollection()?.pair;
-                logger.debug("currentPair", currentPair);
+                //logger.debug("currentPair", currentPair);
 
                 // Check if the current pair is in the filtered collection
                 const currentPairInCollection = currentPair && filteredPairs.some(pair => pair.pairID === currentPair.pairID);
