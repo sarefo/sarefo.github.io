@@ -286,8 +286,8 @@ app.get('/api/tagCounts', async (req, res) => {
                 $project: {
                     tagStatus: {
                         $cond: {
-                            if: { $eq: [{ $size: "$tags" }, 0] },
-                            then: "untagged",
+                            if: { $eq: [{ $size: { $ifNull: ["$tags", []] } }, 0] },
+                            then: ["untagged"],
                             else: "$tags"
                         }
                     }
