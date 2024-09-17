@@ -708,6 +708,7 @@ const publicAPI = {
     taxonomy: {
         validateTaxon: api.taxonomy.validateTaxon,
         fetchTaxonPairs: api.taxonomy.fetchTaxonPairs,
+        fetchPairByID: api.taxonomy.fetchPairByID,
         fetchBulkTaxonInfo: api.taxonomy.fetchBulkTaxonInfo,
         fetchPaginatedTaxonPairs: api.taxonomy.fetchPaginatedTaxonPairs,
         fetchLevelCounts: api.taxonomy.fetchLevelCounts,
