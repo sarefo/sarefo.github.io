@@ -633,17 +633,14 @@ async loadMorePairs() {
         },
 
         async updateLevelCounts() {
-            //console.log('updateLevelCounts called');
             const levelDropdown = document.getElementById('level-filter-dropdown');
             if (levelDropdown) {
                 const activeFilters = filtering.getActiveFilters();
-                //console.log('Active filters:', activeFilters);
 
                 let counts = { total: 0, '1': 0, '2': 0, '3': 0 };
                 
                 if (config.useMongoDB) {
                     const fetchedCounts = await api.taxonomy.fetchLevelCounts(activeFilters);
-                    //console.log('Fetched counts:', fetchedCounts);
                     if (fetchedCounts) {
                         counts = {
                             total: fetchedCounts.total,
@@ -659,16 +656,14 @@ async loadMorePairs() {
                 const selectedLevels = state.getSelectedLevels();
                 let totalCount = counts.total;
 
-                // If levels are selected, recalculate the total
+                // If specific levels are selected, recalculate the total
                 if (selectedLevels.length > 0) {
                     totalCount = selectedLevels.reduce((sum, level) => sum + (counts[level] || 0), 0);
                 }
                 
                 state.setTotalTaxonPairCount(totalCount);
                 
-                //console.log('Total count:', totalCount);
-                //console.log('Counts per level:', counts);
-                
+                // don't show counts for 1,2 or 2,3
                 levelDropdown.innerHTML = `
                     <option value="">All Levels (${counts.total})</option>
                     <option value="1">Easy (${counts['1']})</option>
@@ -678,31 +673,27 @@ async loadMorePairs() {
                     <option value="2,3">Medium + Hard</option>
                 `;
                 
-                levelDropdown.value = selectedLevels.join(',');
+                levelDropdown.value = selectedLevels.length > 0 ? selectedLevels.join(',') : "";
 
                 // Update the selected option text to show filtered count
-                if (selectedLevels.length > 0) {
-                    const selectedOption = levelDropdown.querySelector(`option[value="${selectedLevels.join(',')}"]`);
-                    if (selectedOption) {
-                        const levelText = selectedOption.textContent.split(' (')[0];
-                        selectedOption.textContent = `${levelText} (${totalCount})`;
-                    }
+                const selectedOption = levelDropdown.querySelector(`option[value="${levelDropdown.value}"]`);
+                if (selectedOption) {
+                    const levelText = selectedOption.textContent.split(' (')[0];
+                    selectedOption.textContent = `${levelText} (${totalCount})`;
                 }
 
                 // Update the active collection count
                 this.updateActiveCollectionCount(totalCount);
-
-                //console.log('updateLevelCounts finished');
             }
         },
 
         async handleLevelChange(event) {
-            const selectedLevels = event.target.value.split(',').map(Number);
+            const selectedValue = event.target.value;
+            const selectedLevels = selectedValue ? selectedValue.split(',').map(Number) : [];
             state.setSelectedLevels(selectedLevels);
             await collectionManager.ui.updateLevelCounts();
             await collectionManager.taxonList.onFiltersChanged();
         },
-
 
         async openCollectionManagerDialog() {
             dialogManager.openDialog('collection-dialog');
