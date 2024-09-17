@@ -266,6 +266,25 @@ app.get('/api/taxonPairs/levelCounts', async (req, res) => {
     }
 });
 
+// Add this new route in server.js
+app.get('/api/tagCounts', async (req, res) => {
+    try {
+        const filters = JSON.parse(req.query.filters || '{}');
+        const query = buildMongoQuery(filters);
+
+        const tagCounts = await TaxonPair.aggregate([
+            { $match: query },
+            { $unwind: '$tags' },
+            { $group: { _id: '$tags', count: { $sum: 1 } } },
+            { $sort: { count: -1 } }
+        ]);
+
+        res.json(Object.fromEntries(tagCounts.map(tag => [tag._id, tag.count])));
+    } catch (error) {
+        console.error('Error fetching tag counts:', error);
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+});
 
 app.get('/api/taxonPairs/:pairID', async (req, res) => {
     try {
