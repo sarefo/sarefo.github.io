@@ -665,7 +665,7 @@ async loadMorePairs() {
                 
                 // don't show counts for 1,2 or 2,3
                 levelDropdown.innerHTML = `
-                    <option value="">All Levels (${counts.total})</option>
+                    <option value="">All Levels (${counts['1']+counts['2']+counts['3']})</option>
                     <option value="1">Easy (${counts['1']})</option>
                     <option value="2">Medium (${counts['2']})</option>
                     <option value="3">Hard (${counts['3']})</option>
