@@ -274,18 +274,39 @@ app.get('/api/tagCounts', async (req, res) => {
         const query = buildMongoQuery(filters);
         console.log('MongoDB query:', query);
 
-        // Check total count of matching documents
         const totalCount = await TaxonPair.countDocuments(query);
         console.log('Total matching documents:', totalCount);
 
-        // Log a sample matching document
         const sampleDoc = await TaxonPair.findOne(query);
         console.log('Sample matching document:', sampleDoc);
 
         const pipeline = [
             { $match: query },
-            { $unwind: '$tags' },
-            { $group: { _id: '$tags', count: { $sum: 1 } } },
+            {
+                $facet: {
+                    taggedDocs: [
+                        { $match: { tags: { $ne: [] } } },
+                        { $unwind: '$tags' },
+                        { $group: { _id: '$tags', count: { $sum: 1 } } },
+                    ],
+                    untaggedCount: [
+                        { $match: { $or: [{ tags: { $eq: [] } }, { tags: { $exists: false } }] } },
+                        { $count: 'count' }
+                    ]
+                }
+            },
+            {
+                $project: {
+                    allTags: {
+                        $concatArrays: [
+                            '$taggedDocs',
+                            { $ifNull: [{ $map: { input: '$untaggedCount', as: 'uc', in: { _id: 'untagged', count: '$$uc.count' } } }, []] }
+                        ]
+                    }
+                }
+            },
+            { $unwind: '$allTags' },
+            { $replaceRoot: { newRoot: '$allTags' } },
             { $sort: { count: -1 } }
         ];
 
