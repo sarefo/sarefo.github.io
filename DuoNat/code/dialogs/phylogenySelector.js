@@ -792,17 +792,33 @@ const phylogenySelector = {
 
         handleDoneButton() {
             const activeNodeId = d3Graphs.getActiveNodeId();
-            if (activeNodeId) {
-                state.setPhylogenyId(activeNodeId);
-                //logger.debug(`Phylogeny ID set to: ${activeNodeId}`);
-            } else {
-                // If no node is selected, clear the phylogeny filter
-                state.setPhylogenyId(null);
-                //logger.debug('Phylogeny filter cleared');
+            const currentPhylogenyId = state.getPhylogenyId();
+
+            let filtersChanged = false;
+
+            if (activeNodeId !== currentPhylogenyId) {
+                if (activeNodeId) {
+                    state.setPhylogenyId(activeNodeId);
+                } else {
+                    // If no node is selected, clear the phylogeny filter
+                    state.setPhylogenyId(null);
+                }
+                filtersChanged = true;
             }
-            collectionManager.updateFilterSummary();
-            collectionManager.onFiltersChanged();
-            collectionManager.updateLevelCounts();
+
+            const currentFilters = filtering.getActiveFilters();
+            const previousFilters = state.getPreviousFilters();
+
+            if (filtersChanged || filtering.haveFiltersChanged(currentFilters, previousFilters)) {
+                logger.debug('Phylogeny filters changed, updating taxon list');
+                collectionManager.updateTaxonList();
+                collectionManager.updateLevelCounts();
+                state.setPreviousFilters(currentFilters);
+                collectionManager.updateFilterSummary();
+            } else {
+                logger.debug('No changes in phylogeny filters, skipping taxon list update');
+            }
+
             dialogManager.closeDialog('phylogeny-dialog');
         },
 

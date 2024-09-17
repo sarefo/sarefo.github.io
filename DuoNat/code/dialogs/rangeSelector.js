@@ -35,9 +35,17 @@ const rangeSelector = {
     },
 
     closeRangeDialog() {
+        const currentFilters = filtering.getActiveFilters();
+        const previousFilters = state.getPreviousFilters();
+
+        if (filtering.haveFiltersChanged(currentFilters, previousFilters)) {
+            collectionManager.updateTaxonList();
+            collectionManager.updateLevelCounts();
+            state.setPreviousFilters(currentFilters);
+            collectionManager.updateFilterSummary();
+        }
+
         dialogManager.closeDialog('range-dialog');
-        collectionManager.updateTaxonList();
-        collectionManager.updateFilterSummary();
     },
 
     getSelectedRanges() {

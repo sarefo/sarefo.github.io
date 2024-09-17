@@ -203,6 +203,8 @@ const collectionManager = {
             collectionManager.ui.updateActiveCollectionCount(totalCount);
             collectionManager.ui.updateFilterSummary();
 
+            state.setPreviousFilters(filtering.getActiveFilters());
+
             return result;
         } catch (error) {
             logger.error("Error in updateTaxonList:", error);

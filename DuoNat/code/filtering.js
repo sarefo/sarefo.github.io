@@ -49,6 +49,20 @@ const filtering = {
         collectionManager.updateFilterSummary();
     },
 
+    haveFiltersChanged(currentFilters, previousFilters) {
+        const levelsChanged = !utils.array.arraysEqual(currentFilters.levels, previousFilters.levels);
+        const rangesChanged = !utils.array.arraysEqual(currentFilters.ranges, previousFilters.ranges);
+        const tagsChanged = !utils.array.arraysEqual(currentFilters.tags, previousFilters.tags);
+        const phylogenyChanged = currentFilters.phylogenyId !== previousFilters.phylogenyId;
+
+        logger.debug('Levels changed:', levelsChanged);
+        logger.debug('Ranges changed:', rangesChanged);
+        logger.debug('Tags changed:', tagsChanged);
+        logger.debug('Phylogeny changed:', phylogenyChanged);
+
+        return levelsChanged || rangesChanged || tagsChanged || phylogenyChanged;
+    },
+
     getAvailableTaxonIds(filteredPairs) {
         const taxonIds = new Set();
         filteredPairs.forEach(pair => {
@@ -200,6 +214,7 @@ const publicAPI = {
     applyFilters: filtering.applyFilters,
     areAllFiltersDefault: filtering.areAllFiltersDefault,
     clearAllFilters: filtering.clearAllFilters,
+    haveFiltersChanged: filtering.haveFiltersChanged,
     filterTaxonPairs: filtering.filterTaxonPairs,
     getActiveFilters: filtering.getActiveFilters,
     getFilteredTaxonPairs: filtering.getFilteredTaxonPairs,

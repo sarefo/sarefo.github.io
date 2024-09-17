@@ -221,8 +221,25 @@ const tagSelector = {
     },
 
     closeTagSelector() {
-        collectionManager.updateTaxonList();
-        collectionManager.updateLevelCounts();
+        const currentFilters = filtering.getActiveFilters();
+        const previousFilters = state.getPreviousFilters();
+
+        logger.debug('Current filters:', currentFilters);
+        logger.debug('Previous filters:', previousFilters);
+
+        const filtersChanged = filtering.haveFiltersChanged(currentFilters, previousFilters);
+        logger.debug('Filters changed:', filtersChanged);
+
+        if (filtersChanged) {
+            logger.debug('Updating taxon list due to filter changes');
+            collectionManager.updateTaxonList();
+            collectionManager.updateLevelCounts();
+            state.setPreviousFilters(currentFilters);
+        } else {
+            logger.debug('Skipping taxon list update as filters have not changed');
+        }
+
+        collectionManager.updateFilterSummary();
         dialogManager.closeDialog('tag-dialog', true);
     },
 

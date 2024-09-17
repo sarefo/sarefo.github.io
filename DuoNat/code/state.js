@@ -50,6 +50,13 @@ let gameState = {
     phylogenyId: null,
     searchTerm: "",
 
+    previousFilters: {
+        levels: [],
+        ranges: [],
+        tags: [],
+        phylogenyId: null
+    },
+
     currentActiveNodeId: null,
 
     currentPage: 1,
@@ -330,6 +337,16 @@ const publicAPI = {
         } else {
             logger.error('Selected ranges must be an array');
         }
+    },
+
+    getPreviousFilters: () => ({ ...gameState.previousFilters }),
+    setPreviousFilters(filters) {
+        updateGameState('previousFilters', {
+            levels: [...filters.levels],
+            ranges: [...filters.ranges],
+            tags: [...filters.tags],
+            phylogenyId: filters.phylogenyId
+        });
     },
 
     getPhylogenyId: () => gameState.phylogenyId,
