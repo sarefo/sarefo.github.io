@@ -183,15 +183,15 @@ const preloader = {
         },
 
         async preloadPairImages(pair) {
-            if (!pair || !pair.taxonA || !pair.taxonB) {
+            if (!pair || !pair.taxonNames || pair.taxonNames.length < 2) {
                 logger.error("Invalid pair data for preloading images:", pair);
                 return;
             }
 
             try {
                 const [image1URL, image2URL] = await Promise.all([
-                    preloader.imageLoader.fetchDifferentImage(pair.taxonA, null),
-                    preloader.imageLoader.fetchDifferentImage(pair.taxonB, null)
+                    preloader.imageLoader.fetchDifferentImage(pair.taxonNames[0], null),
+                    preloader.imageLoader.fetchDifferentImage(pair.taxonNames[1], null)
                 ]);
 
                 if (image1URL && image2URL) {

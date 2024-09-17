@@ -29,12 +29,28 @@ const pairManager = {
             try {
                 await this.checkINaturalistReachability();
                 newPairData = await this.selectPair(pairID);
+                
+                if (!newPairData) {
+                    throw new Error("Failed to select a valid pair");
+                }
+                
+                logger.debug("Selected pair data:", newPairData);
+                
+                if (!newPairData.pairID) {
+                    throw new Error("Selected pair is missing pairID");
+                }
+                
                 state.setCurrentPairID(newPairData.pairID);
+
+                if (!newPairData.taxonNames || newPairData.taxonNames.length < 2) {
+                    throw new Error("Selected pair is missing taxon information");
+                }
 
                 const imageURLs = await this.getImageURLs(newPairData);
                 await this.updateStateForNewPair(newPairData, imageURLs);
                 await this.performPostPairLoadingTasks(newPairData);
             } catch (error) {
+                logger.error("Error in loadNewPair:", error);
                 pairManager.errorHandling.handlePairLoadingError(error);
             } finally {
                 this.finalizePairLoading(newPairData);
@@ -65,20 +81,30 @@ const pairManager = {
                 throw new Error("Failed to select a pair");
             }
 
-            //state.setNextSelectedPair(newPairData);
-                //logger.debug("loading pair:", newPairData.pairID);
+            logger.debug("Raw pair data:", JSON.stringify(newPairData, null, 2));
+
+            // Map taxonNames to taxonA and taxonB if they're not present
+            if (!newPairData.taxonA && !newPairData.taxonB && newPairData.taxonNames) {
+                newPairData.taxonA = newPairData.taxonNames[0];
+                newPairData.taxonB = newPairData.taxonNames[1];
+            }
+
             return newPairData;
         },
 
         async getImageURLs(newPairData) {
+            if (!newPairData || !newPairData.taxonNames || newPairData.taxonNames.length < 2) {
+                throw new Error("Invalid pair data: missing taxon information");
+            }
+
             let preloadedImages = preloader.hasPreloadedPair() ? preloader.getPreloadedImagesForNextPair() : null;
 
-            if (preloadedImages && preloadedImages.pair.pairID === newPairData.pairID) {
+            if (preloadedImages && preloadedImages.pair && preloadedImages.pair.pairID === newPairData.pairID) {
                 preloader.clearPreloadedPair();
                 return {taxonA: preloadedImages.taxonA, taxonB: preloadedImages.taxonB};
             } else {
-                const taxonAImage = await preloader.fetchDifferentImage(newPairData.taxonA || newPairData.taxonNames[0], null);
-                const taxonBImage = await preloader.fetchDifferentImage(newPairData.taxonB || newPairData.taxonNames[1], null);
+                const taxonAImage = await preloader.fetchDifferentImage(newPairData.taxonNames[0], null);
+                const taxonBImage = await preloader.fetchDifferentImage(newPairData.taxonNames[1], null);
                 return {taxonA: taxonAImage, taxonB: taxonBImage};
             }
         },
@@ -86,10 +112,9 @@ const pairManager = {
         async updateStateForNewPair(newPairData, imageURLs) {
             state.updateGameStateForNewPair(newPairData, imageURLs);
             state.updateGameStateMultiple({
-                taxonImage1: newPairData.taxonA,
-                taxonImage2: newPairData.taxonB,
+                taxonImage1: newPairData.taxonNames[0],
+                taxonImage2: newPairData.taxonNames[1],
             });
-            //state.setNextSelectedPair(null);
         },
 
         async performPostPairLoadingTasks(newPairData) {
