@@ -60,6 +60,7 @@ The DuoNat project is primarily written in JavaScript, with HTML and CSS for the
 + `pairManager.js`: Manages taxon pairs, including loading them
 + `roundManager.js`: Manages loading game rounds
 + `taxonomyHierarchy.js`: class with hierarchy of game's taxonomic content
++ `cache.js`: Caching using Dexie and IndexedDB
 
 ### Utilities and Helpers
 

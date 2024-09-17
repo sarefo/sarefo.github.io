@@ -2,6 +2,8 @@ import config from './config.js';
 import logger from './logger.js';
 import state from './state.js';
 
+import cache from './cache.js';
+
 import TaxonomyHierarchy from './taxonomyHierarchy.js';
 
 import iNatDownDialog from './dialogs/iNatDownDialog.js';
@@ -27,16 +29,20 @@ const api = (() => {
                     return null;
                 }
                 try {
+                    // Try to get from cache first
+                    const cachedInfo = await cache.getTaxonInfo(taxonIdentifier);
+                    if (cachedInfo) {
+                        return cachedInfo;
+                    }
+
+                    // If not in cache, fetch from server
                     let url;
                     if (isNaN(taxonIdentifier)) {
-                        // If it's not a number, assume it's a name
                         url = `${config.serverUrl}/api/taxonInfo?taxonName=${encodeURIComponent(taxonIdentifier)}`;
                     } else {
-                        // If it's a number, assume it's an ID
                         url = `${config.serverUrl}/api/taxonInfo/${taxonIdentifier}`;
                     }
                     
-                    // Add fields parameter if specified
                     if (fields) {
                         url += `${url.includes('?') ? '&' : '?'}fields=${fields.join(',')}`;
                     }
@@ -49,7 +55,12 @@ const api = (() => {
                         }
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
-                    return await response.json();
+                    const data = await response.json();
+                    
+                    // Update cache
+                    await cache.db.taxonInfo.put({...data, lastUpdated: Date.now()});
+                    
+                    return data;
                 } catch (error) {
                     logger.error('Error fetching taxon info from MongoDB:', error);
                     return null;
@@ -97,36 +108,38 @@ const api = (() => {
 
             loadTaxonomyHierarchy: async function () {
                 if (taxonomyHierarchy === null) {
-                    let hierarchyData;
+                    let hierarchyData = await cache.getTaxonHierarchy();
 
-                    if (config.useMongoDB) {
-                        try {
-                            //logger.debug(`Fetching taxonomy hierarchy from ${config.serverUrl}/api/taxonHierarchy`);
-                            const response = await fetch(`${config.serverUrl}/api/taxonHierarchy`);
-
-                            //logger.debug(`Response status: ${response.status}`);
-                            if (!response.ok) {
-                                throw new Error(`HTTP error! status: ${response.status}`);
+                    if (!hierarchyData) {
+                        if (config.useMongoDB) {
+                            try {
+                                const response = await fetch(`${config.serverUrl}/api/taxonHierarchy`);
+                                if (!response.ok) {
+                                    throw new Error(`HTTP error! status: ${response.status}`);
+                                }
+                                hierarchyData = await response.json();
+                                logger.debug(`Loaded hierarchyData with ${Object.keys(hierarchyData).length} entries`);
+                                
+                                // Update cache
+                                await cache.db.taxonHierarchy.clear();
+                                await cache.db.taxonHierarchy.bulkPut(
+                                    Object.entries(hierarchyData).map(([id, data]) => ({
+                                        ...data,
+                                        taxonId: id,
+                                        lastUpdated: Date.now()
+                                    }))
+                                );
+                            } catch (error) {
+                                logger.error('Error fetching taxon hierarchy from MongoDB:', error);
+                                throw error;
                             }
-                            const contentType = response.headers.get("content-type");
-                            //logger.debug(`Content-Type: ${contentType}`);
-                            if (!contentType || !contentType.includes("application/json")) {
-                                const text = await response.text();
-                                logger.error('Unexpected response:', text.substring(0, 200));
-                                throw new Error(`Unexpected content type: ${contentType}`);
+                        } else {
+                            const hierarchyResponse = await fetch('./data/taxonHierarchy.json');
+                            if (!hierarchyResponse.ok) {
+                                throw new Error(`HTTP error! status: ${hierarchyResponse.status}`);
                             }
-                            hierarchyData = await response.json();
-                            logger.debug(`Loaded hierarchyData with ${Object.keys(hierarchyData).length} entries`);
-                        } catch (error) {
-                            logger.error('Error fetching taxon hierarchy from MongoDB:', error);
-                            throw error;
+                            hierarchyData = await hierarchyResponse.json();
                         }
-                    } else {
-                        const hierarchyResponse = await fetch('./data/taxonHierarchy.json');
-                        if (!hierarchyResponse.ok) {
-                            throw new Error(`HTTP error! status: ${hierarchyResponse.status}`);
-                        }
-                        hierarchyData = await hierarchyResponse.json();
                     }
 
                     taxonomyHierarchy = new TaxonomyHierarchy(hierarchyData);
