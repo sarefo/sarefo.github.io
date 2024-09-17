@@ -86,21 +86,35 @@ const tagSelector = {
             logger.debug('Rendering tag cloud with counts:', tagCounts);
             const container = document.getElementById('tag-container');
             container.innerHTML = '';
+            
+            if (Object.keys(tagCounts).length === 0) {
+                container.innerHTML = '<p>No tags found for the current selection.</p>';
+                return;
+            }
+
             const maxCount = Math.max(...Object.values(tagCounts));
 
             // Add currently selected tags first
             tagSelector.selectedTags.forEach(tag => {
-                const tagElement = this.createTagElement(tag, maxCount, true);
+                const tagElement = this.createTagElement(tag, tagCounts[tag] || 0, true, maxCount);
                 container.appendChild(tagElement);
             });
 
             // Add other available tags
             Object.entries(tagCounts).forEach(([tag, count]) => {
-                if (!tagSelector.selectedTags.has(tag)) {
+                if (!tagSelector.selectedTags.has(tag) && tag !== 'untagged') {
                     const tagElement = this.createTagElement(tag, count, false, maxCount);
                     container.appendChild(tagElement);
                 }
             });
+
+            // Add untagged count if present
+            if (tagCounts.untagged) {
+                const untaggedElement = document.createElement('div');
+                untaggedElement.className = 'untagged-count';
+                untaggedElement.textContent = `Untagged: ${tagCounts.untagged}`;
+                container.appendChild(untaggedElement);
+            }
 
             logger.debug('Tag cloud rendered');
         },

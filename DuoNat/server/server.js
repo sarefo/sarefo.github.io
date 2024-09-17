@@ -283,36 +283,23 @@ app.get('/api/tagCounts', async (req, res) => {
         const pipeline = [
             { $match: query },
             {
-                $facet: {
-                    taggedDocs: [
-                        { $match: { tags: { $exists: true, $ne: [] } } },
-                        { $unwind: '$tags' },
-                        { $group: { _id: '$tags', count: { $sum: 1 } } },
-                    ],
-                    untaggedCount: [
-                        { $match: { $or: [{ tags: { $exists: false } }, { tags: [] }] } },
-                        { $count: 'count' }
-                    ]
-                }
-            },
-            {
                 $project: {
-                    allTags: {
-                        $concatArrays: [
-                            '$taggedDocs',
-                            {
-                                $cond: {
-                                    if: { $gt: [{ $size: '$untaggedCount' }, 0] },
-                                    then: [{ _id: 'untagged', count: { $arrayElemAt: ['$untaggedCount.count', 0] } }],
-                                    else: []
-                                }
-                            }
-                        ]
+                    tagStatus: {
+                        $cond: {
+                            if: { $eq: [{ $size: "$tags" }, 0] },
+                            then: "untagged",
+                            else: "$tags"
+                        }
                     }
                 }
             },
-            { $unwind: '$allTags' },
-            { $replaceRoot: { newRoot: '$allTags' } },
+            { $unwind: "$tagStatus" },
+            {
+                $group: {
+                    _id: "$tagStatus",
+                    count: { $sum: 1 }
+                }
+            },
             { $sort: { count: -1 } }
         ];
 
