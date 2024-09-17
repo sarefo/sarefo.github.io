@@ -216,10 +216,17 @@ app.get('/api/taxonPairs', async (req, res) => {
     console.log('Built MongoDB query:', query);
 
     const totalCount = await TaxonPair.countDocuments(query);
-    const pairs = await TaxonPair.find(query)
-      .skip((page - 1) * pageSize)
-      .limit(pageSize)
-      .lean();
+
+    // If pageSize is very large, use a more efficient method
+    let pairs;
+    if (pageSize > 1000) {
+      pairs = await TaxonPair.find(query).lean();
+    } else {
+      pairs = await TaxonPair.find(query)
+        .skip((page - 1) * pageSize)
+        .limit(pageSize)
+        .lean();
+    }
 
     console.log(`Found ${pairs.length} pairs out of ${totalCount} total`);
 
@@ -233,7 +240,6 @@ app.get('/api/taxonPairs', async (req, res) => {
     res.status(500).json({ message: 'Server error', error: error.toString() });
   }
 });
-
 
 app.get('/api/taxonPairs/levelCounts', async (req, res) => {
     try {
