@@ -50,20 +50,17 @@ class DuoNatCache {
     async getTaxonHierarchy() {
         let cachedHierarchy = await this.db.taxonHierarchy.toArray();
         if (cachedHierarchy.length > 0 && this.isCacheValid(cachedHierarchy[0].lastUpdated)) {
-            return cachedHierarchy;
+            return cachedHierarchy.reduce((acc, item) => {
+                acc[item.taxonId] = {
+                    taxonName: item.taxonName,
+                    vernacularName: item.vernacularName,
+                    rank: item.rank,
+                    parentId: item.parentId
+                };
+                return acc;
+            }, {});
         }
-        const fetchedHierarchy = await api.taxonomy.loadTaxonomyHierarchy();
-        if (fetchedHierarchy) {
-            await this.db.taxonHierarchy.clear();
-            await this.db.taxonHierarchy.bulkPut(
-                Object.entries(fetchedHierarchy).map(([id, data]) => ({
-                    ...data,
-                    taxonId: id,
-                    lastUpdated: Date.now()
-                }))
-            );
-        }
-        return fetchedHierarchy;
+        return null;
     }
 
     isCacheValid(lastUpdated) {
