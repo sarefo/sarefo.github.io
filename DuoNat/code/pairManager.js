@@ -34,8 +34,6 @@ const pairManager = {
                     throw new Error("Failed to select a valid pair");
                 }
                 
-                logger.debug("Selected pair data:", newPairData);
-                
                 if (!newPairData.pairID) {
                     throw new Error("Selected pair is missing pairID");
                 }
@@ -212,23 +210,16 @@ const pairManager = {
 
         // called only from selectRandomPair()
         async getNextPairFromCollection() {
-            logger.debug(`getNextPairFromCollection called. useMongoDB: ${config.useMongoDB}`);
             if (!pairManager.isInitialized || pairManager.currentCollectionSubset.length === 0) {
-                logger.debug('Initializing collection subset');
                 await pairManager.collectionSubsets.initializeCollectionSubset();
             }
-
-            logger.debug(`Current collection subset size: ${pairManager.currentCollectionSubset.length}`);
-            logger.debug(`Used pair IDs: ${Array.from(pairManager.usedPairIDs).join(', ')}`);
 
             let nextPair;
             do {
                 if (pairManager.currentCollectionSubset.length === 0) {
-                    logger.debug('Reinitializing collection subset');
                     await pairManager.collectionSubsets.initializeCollectionSubset();
                 }
                 nextPair = pairManager.currentCollectionSubset.pop();
-                logger.debug(`Selected next pair: ${nextPair ? nextPair.pairID : 'none'}`);
             } while (nextPair && pairManager.usedPairIDs.has(nextPair.pairID));
 
             if (nextPair) {
@@ -237,7 +228,6 @@ const pairManager = {
 
                 // Reset usedPairIDs if all pairs have been used
                 if (pairManager.usedPairIDs.size === pairManager.allFilteredPairs.length) {
-                    logger.debug('Resetting used pair IDs');
                     pairManager.usedPairIDs.clear();
                     pairManager.usedPairIDs.add(nextPair.pairID);  // Keep the current pair in usedPairIDs
                 }
@@ -257,7 +247,7 @@ const pairManager = {
         // - getNextPairFromCollection()
         // - preloader.preloadForNextPair()
         async initializeCollectionSubset() {
-            logger.debug(`initializeCollectionSubset called. useMongoDB: ${config.useMongoDB}`);
+            //logger.debug(`initializeCollectionSubset called. useMongoDB: ${config.useMongoDB}`);
             if (this.isInitializing) {
                 logger.warn('Collection subset initialization already in progress, skipping');
                 return;
@@ -270,12 +260,12 @@ const pairManager = {
                     const filters = filtering.getActiveFilters();
                     const { results, totalCount } = await api.taxonomy.fetchPaginatedTaxonPairs(filters, '', 1, 42);
                     filteredPairs = results;
-                    logger.debug(`Fetched ${filteredPairs.length} filtered pairs out of ${totalCount} total`);
+                    //logger.debug(`Fetched ${filteredPairs.length} filtered pairs out of ${totalCount} total`);
                 } else {
                     const allPairs = await api.taxonomy.fetchTaxonPairs();
                     const filters = filtering.getActiveFilters();
                     filteredPairs = filtering.filterTaxonPairs(allPairs, filters);
-                    logger.debug(`Filtered ${filteredPairs.length} pairs out of ${allPairs.length} total`);
+                    //logger.debug(`Filtered ${filteredPairs.length} pairs out of ${allPairs.length} total`);
                 }
                 
                 pairManager.allFilteredPairs = filteredPairs;
@@ -285,7 +275,7 @@ const pairManager = {
                 // Filter out the last used pair when creating a new subset
                 const availablePairs = filteredPairs.filter(pair => pair.pairID !== this.lastUsedPairID);
                 pairManager.currentCollectionSubset = pairManager.utilities.getRandomSubset(availablePairs, subsetSize);
-                logger.debug(`Created subset of ${pairManager.currentCollectionSubset.length} pairs`);
+                //logger.debug(`Created subset of ${pairManager.currentCollectionSubset.length} pairs`);
             } catch (error) {
                 logger.error('Error initializing collection subset:', error);
             } finally {

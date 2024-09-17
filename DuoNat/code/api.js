@@ -92,7 +92,7 @@ const api = (() => {
             loadTaxonInfo: async function () {
                 if (!config.useMongoDB) {
                     if (taxonInfo === null) {
-                        logger.debug('Loading taxon info from JSON file');
+                        //logger.debug('Loading taxon info from JSON file');
                         const response = await fetch('./data/taxonInfo.json');
                         if (!response.ok) {
                             throw new Error(`HTTP error! status: ${response.status}`);
@@ -330,7 +330,7 @@ const api = (() => {
             },
 
             async checkLocalTaxonData(taxonName) {
-                logger.debug(`Checking local data for taxon: ${taxonName}`);
+                //logger.debug(`Checking local data for taxon: ${taxonName}`);
                 if (!taxonName || typeof taxonName !== 'string') {
                     logger.error(`Invalid taxon name: ${taxonName}`);
                     return null;
@@ -344,7 +344,7 @@ const api = (() => {
 
                     if (infoTaxonName.toLowerCase() === lowercaseTaxonName ||
                         infoVernacularName.toLowerCase() === lowercaseTaxonName) {
-                        logger.debug(`Taxon found in local data: ${infoTaxonName}`);
+                        //logger.debug(`Taxon found in local data: ${infoTaxonName}`);
                         return {
                             id: parseInt(id),
                             name: infoTaxonName,
@@ -352,7 +352,7 @@ const api = (() => {
                         };
                     }
                 }
-                logger.debug('Taxon not found in local data');
+                //logger.debug('Taxon not found in local data');
                 return null;
             },
 
@@ -367,7 +367,7 @@ const api = (() => {
                     // First, check local data
                     const localTaxon = await this.checkLocalTaxonData(taxonName);
                     if (localTaxon) {
-                        logger.debug('Taxon found in local data');
+                        //logger.debug('Taxon found in local data');
                         return localTaxon;
                     }
 
@@ -378,7 +378,7 @@ const api = (() => {
                     }
 
                     const data = await response.json();
-                    logger.debug(`API response for ${taxonName}:`, data);
+                    //logger.debug(`API response for ${taxonName}:`, data);
                     return data.results.length > 0 ? data.results[0] : null;
                 } catch (error) {
                     logger.error('Error in validateTaxon:', error);
@@ -388,12 +388,12 @@ const api = (() => {
 
             fetchTaxonId: async function (taxonName) {
                 try {
-                    logger.debug(`Fetching taxon ID for ${taxonName}`);
+                    //logger.debug(`Fetching taxon ID for ${taxonName}`);
                     
                     // First, check local data
                     const localTaxon = await this.checkLocalTaxonData(taxonName);
                     if (localTaxon) {
-                        logger.debug(`Taxon ID for ${taxonName} found locally:`, localTaxon.id);
+                        //logger.debug(`Taxon ID for ${taxonName} found locally:`, localTaxon.id);
                         return localTaxon.id;
                     }
 
@@ -402,7 +402,7 @@ const api = (() => {
                     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                     const data = await response.json();
                     if (data.results.length === 0) throw new Error(`Taxon not found: ${taxonName}`);
-                    logger.debug(`Taxon ID for ${taxonName} fetched from API:`, data.results[0].id);
+                    //logger.debug(`Taxon ID for ${taxonName} fetched from API:`, data.results[0].id);
                     return data.results[0].id;
                 } catch (error) {
                     handleApiError(error, 'fetchTaxonId');
@@ -466,14 +466,14 @@ const api = (() => {
                                 rank: localData.rank,
                                 preferred_common_name: localData.vernacularName
                             });
-                            logger.debug(`Using local ancestry data for ID ${id}:`, localData);
+                            //logger.debug(`Using local ancestry data for ID ${id}:`, localData);
                         } else {
                             const response = await fetch(`https://api.inaturalist.org/v1/taxa/${id}`);
                             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                             const data = await response.json();
                             if (data.results.length > 0) {
                                 ancestorDetails.set(id, data.results[0]);
-                                logger.debug(`Fetched ancestry data from iNat for ID ${id}:`, data.results[0]);
+                                //logger.debug(`Fetched ancestry data from iNat for ID ${id}:`, data.results[0]);
                             }
                         }
                     }
@@ -516,7 +516,7 @@ const api = (() => {
                         const taxonInfo = await api.taxonomy.fetchTaxonInfoFromMongoDB(taxonName);
                         if (taxonInfo) {
                             taxonId = taxonInfo.taxonId;
-                            logger.debug(`Using MongoDB taxon ID for ${taxonName}: ${taxonId}`);
+                            //logger.debug(`Using MongoDB taxon ID for ${taxonName}: ${taxonId}`);
                         }
                     } else {
                         // Existing code for JSON file
@@ -526,7 +526,7 @@ const api = (() => {
                         );
                         if (localTaxon) {
                             taxonId = Object.keys(taxonInfo).find(key => taxonInfo[key] === localTaxon);
-                            logger.debug(`Using local taxon ID for ${taxonName}: ${taxonId}`);
+                            //logger.debug(`Using local taxon ID for ${taxonName}: ${taxonId}`);
                         }
                     }
 
@@ -565,7 +565,7 @@ const api = (() => {
                 let baseUrl = `https://api.inaturalist.org/v1/observations?taxon_id=${taxonId}&photos=true&per_page=${count}&order=desc&order_by=votes`;
                 baseUrl += '&term_id=1&term_value_id=2'; // adults only
                 baseUrl += '&term_id=17&term_value_id=18'; // alive only TODO doesn't seem to work
-                logger.debug("baseUrl is ", baseUrl);
+                //logger.debug("baseUrl is ", baseUrl);
                 const observationResponse = await fetch(baseUrl);
                 if (!observationResponse.ok) throw new Error(`HTTP error! status: ${observationResponse.status}`);
                 const observationData = await observationResponse.json();
@@ -632,7 +632,7 @@ const api = (() => {
             },
 
             fetchVernacularFromINat: async function (taxonName) {
-                logger.debug("Fetching vernacular from iNat API for: " + taxonName);
+                //logger.debug("Fetching vernacular from iNat API for: " + taxonName);
                 try {
                     const baseUrl = 'https://api.inaturalist.org/v1/taxa/autocomplete';
                     const response = await fetch(`${baseUrl}?q=${encodeURIComponent(taxonName)}`);
