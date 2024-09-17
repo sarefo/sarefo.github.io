@@ -649,40 +649,47 @@ async loadMorePairs() {
                             '2': fetchedCounts.levels['2'] || 0,
                             '3': fetchedCounts.levels['3'] || 0
                         };
-                        state.setTotalTaxonPairCount(counts.total);
                     }
                 } else {
                     counts = await filtering.countPairsPerLevel(activeFilters);
                 }
 
-                const totalCount = counts.total;
                 const selectedLevels = state.getSelectedLevels();
+                let totalCount = counts.total;
+
+                // If levels are selected, recalculate the total
+                if (selectedLevels.length > 0) {
+                    totalCount = selectedLevels.reduce((sum, level) => sum + (counts[level] || 0), 0);
+                }
+                
+                state.setTotalTaxonPairCount(totalCount);
                 
                 console.log('Total count:', totalCount);
                 console.log('Counts per level:', counts);
                 
                 levelDropdown.innerHTML = `
-                    <option value="">All Levels (${totalCount})</option>
+                    <option value="">All Levels (${counts.total})</option>
                     <option value="1">Easy (${counts['1']})</option>
                     <option value="2">Medium (${counts['2']})</option>
                     <option value="3">Hard (${counts['3']})</option>
                     <option value="1,2">Easy + Medium</option>
                     <option value="2,3">Medium + Hard</option>
                 `;
-                    /*<option value="1,2">Easy + Medium (${counts['1'] + counts['2']})</option>
-                    <option value="2,3">Medium + Hard (${counts['2'] + counts['3']})</option>*/
                 
                 levelDropdown.value = selectedLevels.join(',');
 
                 // Update the selected option text to show filtered count
                 if (selectedLevels.length > 0) {
-                    const filteredCount = selectedLevels.reduce((sum, level) => sum + (counts[level] || 0), 0);
                     const selectedOption = levelDropdown.querySelector(`option[value="${selectedLevels.join(',')}"]`);
                     if (selectedOption) {
                         const levelText = selectedOption.textContent.split(' (')[0];
-                        selectedOption.textContent = `${levelText} (${filteredCount})`;
+                        selectedOption.textContent = `${levelText} (${totalCount})`;
                     }
                 }
+
+                // Update the active collection count
+                this.updateActiveCollectionCount(totalCount);
+
                 console.log('updateLevelCounts finished');
             }
         },
