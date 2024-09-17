@@ -274,14 +274,26 @@ app.get('/api/tagCounts', async (req, res) => {
         const query = buildMongoQuery(filters);
         console.log('MongoDB query:', query);
 
-        const tagCounts = await TaxonPair.aggregate([
+        // Check total count of matching documents
+        const totalCount = await TaxonPair.countDocuments(query);
+        console.log('Total matching documents:', totalCount);
+
+        // Log a sample matching document
+        const sampleDoc = await TaxonPair.findOne(query);
+        console.log('Sample matching document:', sampleDoc);
+
+        const pipeline = [
             { $match: query },
             { $unwind: '$tags' },
             { $group: { _id: '$tags', count: { $sum: 1 } } },
             { $sort: { count: -1 } }
-        ]);
+        ];
 
-        console.log('Tag counts:', tagCounts);
+        console.log('Aggregation pipeline:', JSON.stringify(pipeline));
+
+        const tagCounts = await TaxonPair.aggregate(pipeline);
+
+        console.log('Raw tag counts:', tagCounts);
         const result = Object.fromEntries(tagCounts.map(tag => [tag._id, tag.count]));
         console.log('Sending tag counts:', result);
         res.json(result);

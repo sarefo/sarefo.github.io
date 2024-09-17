@@ -82,7 +82,8 @@ const tagSelector = {
 
     uiManager: {
 
-        async renderTagCloud(tagCounts) {
+        renderTagCloud(tagCounts) {
+            logger.debug('Rendering tag cloud with counts:', tagCounts);
             const container = document.getElementById('tag-container');
             container.innerHTML = '';
             const maxCount = Math.max(...Object.values(tagCounts));
@@ -95,9 +96,13 @@ const tagSelector = {
 
             // Add other available tags
             Object.entries(tagCounts).forEach(([tag, count]) => {
-                const tagElement = this.createTagElement(tag, count, false, maxCount);
-                container.appendChild(tagElement);
+                if (!tagSelector.selectedTags.has(tag)) {
+                    const tagElement = this.createTagElement(tag, count, false, maxCount);
+                    container.appendChild(tagElement);
+                }
             });
+
+            logger.debug('Tag cloud rendered');
         },
 
         createTagElement(tag, count, isSelected, maxCount) {
@@ -124,7 +129,9 @@ const tagSelector = {
             const countElement = document.getElementById('matching-pairs-count');
             if (countElement) {
                 const filters = filtering.getActiveFilters();
+                logger.debug('Filters for matching pairs count:', filters);
                 const filteredPairs = await filtering.getFilteredTaxonPairs(filters);
+                logger.debug('Filtered pairs count:', filteredPairs.length);
                 countElement.textContent = `Matching pairs: ${filteredPairs.length}`;
             }
         },
@@ -134,12 +141,21 @@ const tagSelector = {
 
         async getTagCounts() {
             if (config.useMongoDB) {
+                logger.debug('Using MongoDB for tag counts');
                 const filters = filtering.getActiveFilters();
-                const response = await fetch(`${config.serverUrl}/api/tagCounts?filters=${encodeURIComponent(JSON.stringify(filters))}`);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                logger.debug('Filters for tag counts:', filters);
+                try {
+                    const response = await fetch(`${config.serverUrl}/api/tagCounts?filters=${encodeURIComponent(JSON.stringify(filters))}`);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const tagCounts = await response.json();
+                    logger.debug('Received tag counts from MongoDB:', tagCounts);
+                    return tagCounts;
+                } catch (error) {
+                    logger.error('Error fetching tag counts from MongoDB:', error);
+                    return {};
                 }
-                return await response.json();
             } else {
                 // Existing code for JSON file
                 const tagCounts = {};
@@ -165,7 +181,9 @@ const tagSelector = {
 
     // Functions that don't fit neatly into the above categories can remain at the top level
     async openTagSelector() {
+        logger.debug('Opening tag selector');
         const tagCounts = await this.dataManager.getTagCounts();
+        logger.debug('Tag counts:', tagCounts);
         this.uiManager.renderTagCloud(tagCounts);
         await this.uiManager.updateMatchingPairsCount();
         dialogManager.openDialog('tag-dialog');
