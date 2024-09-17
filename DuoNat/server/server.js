@@ -285,12 +285,12 @@ app.get('/api/tagCounts', async (req, res) => {
             {
                 $facet: {
                     taggedDocs: [
-                        { $match: { tags: { $ne: [] } } },
+                        { $match: { tags: { $exists: true, $ne: [] } } },
                         { $unwind: '$tags' },
                         { $group: { _id: '$tags', count: { $sum: 1 } } },
                     ],
                     untaggedCount: [
-                        { $match: { $or: [{ tags: { $eq: [] } }, { tags: { $exists: false } }] } },
+                        { $match: { $or: [{ tags: { $exists: false } }, { tags: [] }] } },
                         { $count: 'count' }
                     ]
                 }
@@ -300,7 +300,13 @@ app.get('/api/tagCounts', async (req, res) => {
                     allTags: {
                         $concatArrays: [
                             '$taggedDocs',
-                            { $ifNull: [{ $map: { input: '$untaggedCount', as: 'uc', in: { _id: 'untagged', count: '$$uc.count' } } }, []] }
+                            {
+                                $cond: {
+                                    if: { $gt: [{ $size: '$untaggedCount' }, 0] },
+                                    then: [{ _id: 'untagged', count: { $arrayElemAt: ['$untaggedCount.count', 0] } }],
+                                    else: []
+                                }
+                            }
                         ]
                     }
                 }
