@@ -18,6 +18,16 @@ const errorHandling = {
             //state.updateGameStateMultiple({ isInitialLoad: false });
         }
     },
+
+    handleApiError: (error, context) => {
+        logger.error(`API Error in ${context}:`, error);
+        // Add more sophisticated error handling logic here
+    },
+
+    handleUIError: (error, context) => {
+        logger.error(`UI Error in ${context}:`, error);
+        // Add UI-specific error handling logic here
+    },
 };
 
 // Bind all methods and its nested objects
@@ -35,6 +45,8 @@ bindMethodsRecursively(errorHandling);
 
 const publicAPI = {
     handleSetupError: errorHandling.handleSetupError,
+    handleApiError: errorHandling.handleApiError,
+    handleUIError: errorHandling.handleUIError,
 };
 
 // Bind publicAPI methods
