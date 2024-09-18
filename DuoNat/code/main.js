@@ -9,48 +9,46 @@ import ui from './ui.js';
 import url from './url.js';
 
 import eventMain from './events/eventMain.js';
-
 import pairManager from './pairManager.js';
-
 import dialogManager from './dialogs/dialogManager.js';
 
 let isInitialized = false;
 
 async function initializeApp() {
-    if (isInitialized) {
-        logger.debug("App already initialized, skipping");
-        return;
-    } else isInitialized = true;
+    if (isInitialized) { logger.debug("App already initialized, skipping"); return; }
+    else isInitialized = true;
 
     //cache.clearAllData(); // for DEBUG
 
     initializeLogger();
     logger.info("Initializing app");
 
-    state.setHasKeyboard(hasKeyboard());
+    ui.setInitialOrientation();
 
     const urlParams = url.handleUrlParameters();
 
+    // Load initial pair as fast as possible:
+    await loadInitialPair(urlParams.pairID);
 
-    //await api.taxonomy.fetchTaxonPairs(); // TODO probably remove
+    // Initialize everything non-essential for first round play
     await initializeComponents();
-
-    let initialPair;
-    if (urlParams.pairID) {
-        initialPair = await pairManager.getPairByID(urlParams.pairID);
-    } else {
-        initialPair = await api.taxonomy.fetchRandomLevelOnePair();
-    }
-
-    await pairManager.loadNewPair(initialPair.pairID);
 
     // Start background loading of bulk data
     loadBulkDataInBackground();
-    await dialogManager.initialize();
-    eventMain.initialize();
 
-    pairManager.setHighestPairID(); // only used for "+" pair walking atm
     logger.info("App initialization complete");
+}
+
+async function loadInitialPair(pairID = null) {
+    let initialPair;
+    if (pairID) {
+        initialPair = await pairManager.getPairByID(pairID);
+    } else {
+        // TODO consider preloaded pair from previous session
+        initialPair = await api.taxonomy.fetchRandomLevelOnePair();
+    }
+    // TODO minimize number of external calls for initial pair
+    await pairManager.loadNewPair(initialPair.pairID);
 }
 
 const initializeLogger = () => {
@@ -59,6 +57,10 @@ const initializeLogger = () => {
 
 async function initializeComponents() {
     ui.initialize();
+    state.setHasKeyboard(hasKeyboard());
+    pairManager.setHighestPairID(); // only used for "+" pair walking atm
+    await dialogManager.initialize();
+    eventMain.initialize();
 }
 
 function hasKeyboard() {

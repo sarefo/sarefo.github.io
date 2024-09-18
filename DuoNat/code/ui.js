@@ -32,8 +32,6 @@ const ui = {
             this.initializeMenu();
             this.setupOutsideClickHandler();
             hintSystem.initialize();
-            // TODO determine screen orientation
-            ui.orientation.setInitialOrientation();
         },
 
         initializeMenu() {
@@ -570,6 +568,7 @@ const publicAPI = {
     showPopupNotification: ui.notifications.showPopupNotification,
     hideLoadingScreen: ui.notifications.hideLoadingScreen,
     handleOrientationChange: ui.orientation.handleOrientationChange,
+    setInitialOrientation: ui.orientation.setInitialOrientation,
 };
 
 export default publicAPI;

@@ -57,3 +57,4 @@ DuoNat/server/.env
 /DuoNat/server/node_modules
 /node_modules
 package-lock.json
+DuoNat/tools/127.0.0.1.har
