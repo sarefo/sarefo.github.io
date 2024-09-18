@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Establish early connections to speed up loading -->
+    <link rel="preconnect" href="https://api.inaturalist.org">
+    <link rel="preconnect" href="https://inaturalist-open-data.s3.amazonaws.com">
+    <link rel="preconnect" href="https://unpkg.com">
+
     <title>DuoNat • iNat Taxonomy Trainer</title>
 
     <meta charset="UTF-8">
@@ -21,11 +26,6 @@
 
     <link rel="manifest" href="./manifest.json">
     <link rel="icon" href="./images/favicon.png" type="image/png">
-
-    <!-- Establish early connections to speed up loading -->
-    <link rel="preconnect" href="https://api.inaturalist.org">
-    <link rel="preconnect" href="https://inaturalist-open-data.s3.amazonaws.com">
-    <link rel="preconnect" href="https://unpkg.com">
 
     <script type="module" src="./code/main.js" defer></script>
 
