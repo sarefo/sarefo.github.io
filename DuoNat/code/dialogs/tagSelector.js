@@ -100,10 +100,10 @@ const tagSelector = {
             const maxCount = Math.max(...Object.values(tagCounts));
 
             // Add total pairs count
-            const totalElement = document.createElement('div');
+            /*const totalElement = document.createElement('div');
             totalElement.className = 'total-pairs-count';
             totalElement.textContent = `Total pairs: ${totalPairs}`;
-            container.appendChild(totalElement);
+            container.appendChild(totalElement);*/
 
             // Add currently selected tags first
             tagSelector.selectedTags.forEach(tag => {
@@ -182,16 +182,13 @@ const tagSelector = {
                     return {};
                 }
             } else {
-                // Existing code for JSON file
                 const tagCounts = {};
                 const filters = filtering.getActiveFilters();
                 const filteredPairs = await filtering.getFilteredTaxonPairs(filters);
 
                 filteredPairs.forEach(pair => {
                     pair.tags.forEach(tag => {
-                        if (!tagSelector.selectedTags.has(tag)) {
-                            tagCounts[tag] = (tagCounts[tag] || 0) + 1;
-                        }
+                        tagCounts[tag] = (tagCounts[tag] || 0) + 1;
                     });
                 });
                 return tagCounts;
