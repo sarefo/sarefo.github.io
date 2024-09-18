@@ -654,7 +654,7 @@ async loadMorePairs() {
                 }
 
                 const selectedLevels = state.getSelectedLevels();
-                let totalCount = counts.total;
+                let totalCount = counts['1'] + counts['2'] + counts['3'];
 
                 // If specific levels are selected, recalculate the total
                 if (selectedLevels.length > 0) {

@@ -133,7 +133,6 @@ const pairManager = {
         // - loadPairByID()
         // - preloader.preloadPairByID()
         async getPairByID(pairID) {
-            logger.trace("getPairByID");
             if (config.useMongoDB) {
                 return await api.taxonomy.fetchPairByID(pairID);
             } else {
