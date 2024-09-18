@@ -2,7 +2,9 @@
 
 const config = {
 
+    debug: true, // false > production
     useMongoDB: false,
+
     serverUrl: (() => {
         // Check if we're running in a production environment
         if (window.location.hostname === 'duonat-210dcde9c851.herokuapp.com') {
@@ -15,7 +17,6 @@ const config = {
     //serverUrl: 'https://duonat-210dcde9c851.herokuapp.com/',
     //serverUrl: 'http://localhost:3000'  // Update this with your Heroku URL when deployed
 
-    debug: true, // set to false for less console output
 
     // overlay colors
     overlayColors: {

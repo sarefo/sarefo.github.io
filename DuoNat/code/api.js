@@ -178,19 +178,21 @@ const api = (() => {
                   // New code for fetching all taxon pairs and caching
                   let cachedPairs = await cache.getAllTaxonPairs();
                   if (cachedPairs) {
+                    logger.debug("getting allTaxonPairs from cache");
                     return cachedPairs;
+                  } else {
+                      logger.trace("fetching allTaxonPairs from MongoDB");
+                      const response = await fetch(`${config.serverUrl}/api/allTaxonPairs`);
+                      if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                      }
+                      const allPairs = await response.json();
+
+                      // Cache the fetched pairs
+                      await cache.updateTaxonPairs(allPairs);
+
+                      return allPairs;
                   }
-
-                  const response = await fetch(`${config.serverUrl}/api/allTaxonPairs`);
-                  if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                  }
-                  const allPairs = await response.json();
-
-                  // Cache the fetched pairs
-                  await cache.updateTaxonPairs(allPairs);
-
-                  return allPairs;
                 }
               } catch (error) {
                 handleApiError(error, 'fetchTaxonPairs');

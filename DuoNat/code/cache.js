@@ -1,5 +1,8 @@
 import Dexie from 'https://unpkg.com/dexie@latest/dist/dexie.mjs';
 
+import config from './config.js';
+import logger from './logger.js';
+
 import api from './api.js';
 
 class DuoNatCache {
@@ -11,6 +14,16 @@ class DuoNatCache {
             taxonHierarchy: 'taxonId, lastUpdated'
         });
     }
+
+      async clearAllData() {
+        try {
+          await this.db.delete();
+          await this.db.open();
+          logger.info("Dexie cache completely cleared");
+        } catch (error) {
+          logger.error("Error clearing Dexie cache:", error);
+        }
+      }
 
     async getTaxonInfo(taxonId) {
         if (taxonId === 'all') {
@@ -81,6 +94,7 @@ class DuoNatCache {
     isCacheValid(lastUpdated) {
         // Consider cache valid for 30 days
         return Date.now() - lastUpdated < 24 * 60 * 60 * 1000 * 30;
+
     }
 }
 

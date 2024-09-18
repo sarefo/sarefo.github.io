@@ -3,6 +3,7 @@ import logger, { LogLevel } from './logger.js';
 import state from './state.js';
 
 import api from './api.js';
+import cache from './cache.js';
 import filtering from './filtering.js';
 import ui from './ui.js';
 import url from './url.js';
@@ -28,6 +29,8 @@ async function initializeApp() {
     state.setHasKeyboard(hasKeyboard());
 
     const urlParams = url.handleUrlParameters();
+
+    cache.clearAllData(); // DEBUG
 
     await initializeComponents();
 
