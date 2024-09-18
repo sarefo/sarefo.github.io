@@ -27,7 +27,7 @@ const pairManager = {
 
             let newPairData;
             try {
-                await this.checkINaturalistReachability();
+                //await this.checkINaturalistReachability();
                 newPairData = await this.selectPair(pairID);
                 
                 if (!newPairData) {
