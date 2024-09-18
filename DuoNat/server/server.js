@@ -241,6 +241,24 @@ app.get('/api/taxonPairs', async (req, res) => {
   }
 });
 
+app.get('/api/randomLevelOnePair', async (req, res) => {
+    try {
+        const randomPair = await TaxonPair.aggregate([
+            { $match: { level: "1" } },
+            { $sample: { size: 1 } }
+        ]);
+        
+        if (randomPair.length === 0) {
+            return res.status(404).json({ message: 'No level 1 pair found' });
+        }
+        
+        res.json(randomPair[0]);
+    } catch (error) {
+        console.error('Error fetching random level one pair:', error);
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+});
+
 app.get('/api/allTaxonPairs', async (req, res) => {
   try {
     const allPairs = await TaxonPair.find({}).lean();
