@@ -55,6 +55,19 @@ const pairManager = {
             }
         },
 
+        // called in main.initializeApp()
+        async loadInitialPair(pairID = null) {
+            let initialPair;
+            if (pairID) {
+                initialPair = await this.getPairByID(pairID);
+            } else {
+                // TODO consider preloaded pair from previous session
+                initialPair = await api.taxonomy.fetchRandomLevelOnePair();
+            }
+            // TODO minimize number of external calls for initial pair
+            await this.loadNewPair(initialPair.pairID);
+        },
+
         async checkINaturalistReachability() {
             if (!await api.externalAPIs.checkINaturalistReachability()) {
                 throw new Error("iNaturalist is not reachable");
@@ -353,6 +366,7 @@ const publicAPI = {
     loadNewPair: pairManager.pairLoading.loadNewPair,
     getPairByID: pairManager.pairLoading.getPairByID,
     loadPairByID: pairManager.pairLoading.loadPairByID,
+    loadInitialPair: pairManager.pairLoading.loadInitialPair,
     selectRandomPair: pairManager.pairSelection.selectRandomPair,
     setHighestPairID: pairManager.utilities.setHighestPairID,
 };

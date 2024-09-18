@@ -28,7 +28,7 @@ async function initializeApp() {
     const urlParams = url.handleUrlParameters();
 
     // Load initial pair as fast as possible:
-    await loadInitialPair(urlParams.pairID);
+    await pairManager.loadInitialPair(urlParams.pairID);
 
     // Initialize everything non-essential for first round play
     await initializeComponents();
@@ -39,18 +39,6 @@ async function initializeApp() {
     logger.info("App initialization complete");
 }
 
-async function loadInitialPair(pairID = null) {
-    let initialPair;
-    if (pairID) {
-        initialPair = await pairManager.getPairByID(pairID);
-    } else {
-        // TODO consider preloaded pair from previous session
-        initialPair = await api.taxonomy.fetchRandomLevelOnePair();
-    }
-    // TODO minimize number of external calls for initial pair
-    await pairManager.loadNewPair(initialPair.pairID);
-}
-
 const initializeLogger = () => {
     logger.setLevel(config.debug ? LogLevel.DEBUG : LogLevel.INFO);
 };
@@ -58,9 +46,9 @@ const initializeLogger = () => {
 async function initializeComponents() {
     ui.initialize();
     state.setHasKeyboard(hasKeyboard());
-    pairManager.setHighestPairID(); // only used for "+" pair walking atm
     await dialogManager.initialize();
     eventMain.initialize();
+    pairManager.setHighestPairID(); // only used for "+" pair walking atm
 }
 
 function hasKeyboard() {
@@ -72,11 +60,11 @@ function hasKeyboard() {
 function loadBulkDataInBackground() {
     setTimeout(async () => {
         try {
-            logger.info("Loading bulk data");
+            logger.debug("Loading bulk data");
             await api.taxonomy.loadTaxonomyHierarchy();
             await api.taxonomy.loadTaxonInfo();
             //await pairManager.collectionSubsets.refreshCollectionSubset();
-            logger.info("Bulk data loaded successfully");
+            logger.debug("Bulk data loaded successfully");
         } catch (error) {
             logger.error("Error loading bulk data in background:", error);
         }
@@ -86,6 +74,7 @@ function loadBulkDataInBackground() {
 initializeApp().catch(error => {
     logger.error('Error initializing app:', error);
 });
+
 
 // Expose initializeApp to the global scope
 window.initializeApp = initializeApp;
