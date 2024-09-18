@@ -22,28 +22,32 @@ async function initializeApp() {
         return;
     } else isInitialized = true;
 
-    initializeLogger();
+    cache.clearAllData(); // for DEBUG
 
+    initializeLogger();
     logger.info("Initializing app");
 
     state.setHasKeyboard(hasKeyboard());
 
     const urlParams = url.handleUrlParameters();
 
-    //cache.clearAllData(); // DEBUG
 
-    await api.taxonomy.fetchTaxonPairs();
+    //await api.taxonomy.fetchTaxonPairs(); // TODO probably remove
     await initializeComponents();
 
-    // Check if a pairID was provided in the URL
+    let initialPair;
     if (urlParams.pairID) {
-        pairManager.loadNewPair(urlParams.pairID);
+        initialPair = await pairManager.getPairByID(urlParams.pairID);
     } else {
-        pairManager.loadNewPair();
+        initialPair = await api.taxonomy.fetchRandomLevelOnePair();
     }
 
+    await pairManager.loadNewPair(initialPair.pairID);
+
+    // Start background loading of bulk data
+    loadBulkDataInBackground();
+
     pairManager.setHighestPairID(); // only used for "+" pair walking atm
-    await api.taxonomy.loadTaxonomyHierarchy(); // TODO defer or avoid?
     logger.info("App initialization complete");
 }
 
@@ -61,6 +65,20 @@ function hasKeyboard() {
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     const isTablet = /(tablet|ipad|playbook|silk)|(android(?!.*mobile))/i.test(navigator.userAgent);
     return !isMobile && !isTablet;
+}
+
+function loadBulkDataInBackground() {
+    setTimeout(async () => {
+        try {
+            logger.info("Loading bulk data");
+            await api.taxonomy.loadTaxonomyHierarchy();
+            await api.taxonomy.loadTaxonInfo();
+            //await pairManager.collectionSubsets.refreshCollectionSubset();
+            logger.info("Bulk data loaded successfully");
+        } catch (error) {
+            logger.error("Error loading bulk data in background:", error);
+        }
+    }, 0);
 }
 
 initializeApp().catch(error => {

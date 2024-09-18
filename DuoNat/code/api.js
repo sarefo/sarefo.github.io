@@ -37,7 +37,7 @@ const api = (() => {
                     } else {
                         url = `${config.serverUrl}/api/taxonInfo/${taxonIdentifier}`;
                     }
-                    
+
                     if (fields) {
                         url += `${url.includes('?') ? '&' : '?'}fields=${fields.join(',')}`;
                     }
@@ -51,10 +51,10 @@ const api = (() => {
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
                     const data = await response.json();
-                    
+
                     // Update cache
-                    await cache.db.taxonInfo.put({...data, lastUpdated: Date.now()});
-                    
+                    await cache.db.taxonInfo.put({ ...data, lastUpdated: Date.now() });
+
                     return data;
                 } catch (error) {
                     logger.error('Error fetching taxon info from MongoDB:', error);
@@ -103,9 +103,9 @@ const api = (() => {
                             throw new Error(`HTTP error! status: ${response.status}`);
                         }
                         const data = await response.json();
-                        
+
                         // Update cache and local variable
-                        await cache.db.taxonInfo.bulkPut(Object.values(data).map(item => ({...item, lastUpdated: Date.now()})));
+                        await cache.db.taxonInfo.bulkPut(Object.values(data).map(item => ({ ...item, lastUpdated: Date.now() })));
                         taxonInfo = data;
                     } catch (error) {
                         logger.error('Error loading taxon info:', error);
@@ -128,7 +128,7 @@ const api = (() => {
                                 }
                                 hierarchyData = await response.json();
                                 logger.debug(`Loaded hierarchyData with ${Object.keys(hierarchyData).length} entries`);
-                                
+
                                 // Update cache
                                 await cache.db.taxonHierarchy.clear();
                                 await cache.db.taxonHierarchy.bulkPut(
@@ -162,25 +162,25 @@ const api = (() => {
 
             // fetch from MongoDB
             async fetchTaxonPairs() {
-              if (cachedAllTaxonPairs === null) {
-                // Try to get from Dexie cache first
-                const cachedPairs = await cache.getAllTaxonPairs();
-                if (cachedPairs) {
-                  logger.debug("Using taxon pairs from Dexie cache");
-                  cachedAllTaxonPairs = cachedPairs;
-                } else {
-                  // If not in Dexie cache, fetch from MongoDB
-                  logger.trace("Fetching allTaxonPairs from MongoDB");
-                  const response = await fetch(`${config.serverUrl}/api/allTaxonPairs`);
-                  if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                  }
-                  cachedAllTaxonPairs = await response.json();
-                  // Update Dexie cache
-                  await cache.updateTaxonPairs(cachedAllTaxonPairs);
+                if (cachedAllTaxonPairs === null) {
+                    // Try to get from Dexie cache first
+                    const cachedPairs = await cache.getAllTaxonPairs();
+                    if (cachedPairs) {
+                        logger.debug("Using taxon pairs from Dexie cache");
+                        cachedAllTaxonPairs = cachedPairs;
+                    } else {
+                        // If not in Dexie cache, fetch from MongoDB
+                        logger.trace("Fetching allTaxonPairs from MongoDB");
+                        const response = await fetch(`${config.serverUrl}/api/allTaxonPairs`);
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        cachedAllTaxonPairs = await response.json();
+                        // Update Dexie cache
+                        await cache.updateTaxonPairs(cachedAllTaxonPairs);
+                    }
                 }
-              }
-              return cachedAllTaxonPairs;
+                return cachedAllTaxonPairs;
             },
 
             async fetchPaginatedTaxonPairs(filters, searchTerm, page, pageSize) {
@@ -278,7 +278,7 @@ const api = (() => {
                     const matchesRanges = !filters.ranges.length || pair.range.some(r => filters.ranges.includes(r));
                     const matchesTags = !filters.tags.length || filters.tags.every(tag => pair.tags.includes(tag));
                     const matchesPhylogeny = !filters.phylogenyId || pair.taxa.includes(filters.phylogenyId);
-                    const matchesSearch = !searchTerm || 
+                    const matchesSearch = !searchTerm ||
                         pair.taxonNames.some(name => name.toLowerCase().includes(searchTerm.toLowerCase())) ||
                         pair.pairName.toLowerCase().includes(searchTerm.toLowerCase()) ||
                         pair.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())) ||
@@ -305,6 +305,19 @@ const api = (() => {
                 } catch (error) {
                     logger.error('Error fetching pair by ID from MongoDB:', error);
                     return null;
+                }
+            },
+
+            async fetchRandomLevelOnePair() {
+                try {
+                    const response = await fetch(`${config.serverUrl}/api/randomLevelOnePair`);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return await response.json();
+                } catch (error) {
+                    logger.error('Error fetching random level one pair:', error);
+                    throw error;
                 }
             },
 
@@ -368,7 +381,7 @@ const api = (() => {
             fetchTaxonId: async function (taxonName) {
                 try {
                     //logger.debug(`Fetching taxon ID for ${taxonName}`);
-                    
+
                     // First, check local data
                     const localTaxon = await this.checkLocalTaxonData(taxonName);
                     if (localTaxon) {
@@ -500,7 +513,7 @@ const api = (() => {
                     } else {
                         // Existing code for JSON file
                         const taxonInfo = await api.taxonomy.loadTaxonInfo();
-                        const localTaxon = Object.values(taxonInfo).find(info => 
+                        const localTaxon = Object.values(taxonInfo).find(info =>
                             info.taxonName && info.taxonName.toLowerCase() === taxonName.toLowerCase()
                         );
                         if (localTaxon) {
@@ -701,6 +714,7 @@ const publicAPI = {
         validateTaxon: api.taxonomy.validateTaxon,
         fetchTaxonPairs: api.taxonomy.fetchTaxonPairs,
         fetchPairByID: api.taxonomy.fetchPairByID,
+        fetchRandomLevelOnePair: api.taxonomy.fetchRandomLevelOnePair,
         fetchBulkTaxonInfo: api.taxonomy.fetchBulkTaxonInfo,
         fetchPaginatedTaxonPairs: api.taxonomy.fetchPaginatedTaxonPairs,
         fetchLevelCounts: api.taxonomy.fetchLevelCounts,
