@@ -30,8 +30,9 @@ async function initializeApp() {
 
     const urlParams = url.handleUrlParameters();
 
-    cache.clearAllData(); // DEBUG
+    //cache.clearAllData(); // DEBUG
 
+    await api.taxonomy.fetchTaxonPairs();
     await initializeComponents();
 
     // Check if a pairID was provided in the URL

@@ -13,6 +13,8 @@ const handleApiError = (error, context) => {
     throw new Error(`Error in ${context}: ${error.message}`);
 };
 
+let cachedAllTaxonPairs = null;
+
 const api = (() => {
     let taxonomyHierarchy = null;
     let taxonInfo = null;
@@ -159,44 +161,26 @@ const api = (() => {
             },
 
             // fetch from MongoDB
-            fetchTaxonPairs: async function () {
-              try {
-                if (config.useMongoDB) {
-                  // Existing MongoDB code remains unchanged
-                  const response = await fetch(`${config.serverUrl}/api/taxonPairs`);
+            async fetchTaxonPairs() {
+              if (cachedAllTaxonPairs === null) {
+                // Try to get from Dexie cache first
+                const cachedPairs = await cache.getAllTaxonPairs();
+                if (cachedPairs) {
+                  logger.debug("Using taxon pairs from Dexie cache");
+                  cachedAllTaxonPairs = cachedPairs;
+                } else {
+                  // If not in Dexie cache, fetch from MongoDB
+                  logger.trace("Fetching allTaxonPairs from MongoDB");
+                  const response = await fetch(`${config.serverUrl}/api/allTaxonPairs`);
                   if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                   }
-                  const data = await response.json();
-                  return data.results.map(pair => ({
-                    ...pair,
-                    pairID: pair.pairID,
-                    taxonA: pair.taxonNames[0],
-                    taxonB: pair.taxonNames[1]
-                  }));
-                } else {
-                  // New code for fetching all taxon pairs and caching
-                  let cachedPairs = await cache.getAllTaxonPairs();
-                  if (cachedPairs) {
-                    logger.debug("getting allTaxonPairs from cache");
-                    return cachedPairs;
-                  } else {
-                      logger.trace("fetching allTaxonPairs from MongoDB");
-                      const response = await fetch(`${config.serverUrl}/api/allTaxonPairs`);
-                      if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                      }
-                      const allPairs = await response.json();
-
-                      // Cache the fetched pairs
-                      await cache.updateTaxonPairs(allPairs);
-
-                      return allPairs;
-                  }
+                  cachedAllTaxonPairs = await response.json();
+                  // Update Dexie cache
+                  await cache.updateTaxonPairs(cachedAllTaxonPairs);
                 }
-              } catch (error) {
-                handleApiError(error, 'fetchTaxonPairs');
               }
+              return cachedAllTaxonPairs;
             },
 
             async fetchPaginatedTaxonPairs(filters, searchTerm, page, pageSize) {
