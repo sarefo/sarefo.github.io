@@ -46,6 +46,8 @@ async function initializeApp() {
 
     // Start background loading of bulk data
     loadBulkDataInBackground();
+    await dialogManager.initialize();
+    eventMain.initialize();
 
     pairManager.setHighestPairID(); // only used for "+" pair walking atm
     logger.info("App initialization complete");
@@ -57,8 +59,6 @@ const initializeLogger = () => {
 
 async function initializeComponents() {
     ui.initialize();
-    await dialogManager.initialize();
-    eventMain.initialize();
 }
 
 function hasKeyboard() {
