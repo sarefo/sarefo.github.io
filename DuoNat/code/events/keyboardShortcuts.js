@@ -23,7 +23,6 @@ const keyboardShortcuts = {
     debouncedKeyboardHandler: null,
 
     initialize() {
-        this.initializeSelectPairDialogShortcuts();
         this.initializeKeyboardShortcutsButton();
         this.debouncedKeyboardHandler = utils.ui.debounce(
             this.handleKeyboardShortcuts.bind(this),
@@ -35,7 +34,7 @@ const keyboardShortcuts = {
     handleKeyboardShortcuts(event) {
         const isDialogOpen = dialogManager.isAnyDialogOpen();
         if (!this.isEnabled || this.shouldIgnoreKeyboardShortcut(event) || isDialogOpen) {
-        //logger.debug(`Keyboard shortcut ignored. isEnabled: ${this.isEnabled}, shouldIgnore: ${this.shouldIgnoreKeyboardShortcut(event)}, isDialogOpen: ${isDialogOpen}`);
+            //logger.debug(`Keyboard shortcut ignored. isEnabled: ${this.isEnabled}, shouldIgnore: ${this.shouldIgnoreKeyboardShortcut(event)}, isDialogOpen: ${isDialogOpen}`);
             return;
         }
 
@@ -71,7 +70,7 @@ const keyboardShortcuts = {
         if (!this.isEnabled) {
             this.isEnabled = true;
             document.addEventListener('keydown', this.debouncedKeyboardHandler);
-        //logger.debug('Keyboard shortcuts enabled');
+            //logger.debug('Keyboard shortcuts enabled');
         }
     },
 
@@ -79,7 +78,7 @@ const keyboardShortcuts = {
         if (this.isEnabled) {
             this.isEnabled = false;
             document.removeEventListener('keydown', this.debouncedKeyboardHandler);
-        //logger.debug('Keyboard shortcuts disabled');
+            //logger.debug('Keyboard shortcuts disabled');
         }
     },
 
@@ -96,7 +95,7 @@ const keyboardShortcuts = {
             });
         }
     },
-  handleArrowLeft() {
+    handleArrowLeft() {
         if (!this.isLoadingNewPair) {
             this.isLoadingNewPair = true;
             pairManager.loadNewPair().finally(() => {
@@ -155,46 +154,6 @@ const keyboardShortcuts = {
             await pairManager.loadNewPair();
         } catch (error) {
             logger.error("Error incrementing pair ID:", error);
-        }
-    },
-
-    initializeSelectPairDialogShortcuts() {
-        const dialog = document.getElementById('collection-dialog');
-        dialog.addEventListener('keydown', this.handleSelectPairDialogKeydown.bind(this));
-    },
-
-    handleSelectPairDialogKeydown(event) {
-        if (event.altKey) {
-            switch (event.key.toLowerCase()) {
-                case 't':
-                    event.preventDefault();
-                    document.getElementById('select-tags-button').click();
-                    break;
-                case 'f':
-                    event.preventDefault();
-                    document.getElementById('clear-all-filters').click();
-                    break;
-                case 'r':
-                    event.preventDefault();
-                    rangeSelector.openRangeDialog();
-                    break;
-                case 'p':
-                    event.preventDefault();
-                    document.getElementById('select-phylogeny-button').click();
-                    break;
-                case 'l':
-                    event.preventDefault();
-                    document.getElementById('level-filter-dropdown').focus();
-                    break;
-                case 's':
-                    event.preventDefault();
-                    document.getElementById('taxon-search').focus();
-                    break;
-                case 'c':
-                    event.preventDefault();
-                    searchHandler.handleClearSearch();
-                    break;
-            }
         }
     },
 

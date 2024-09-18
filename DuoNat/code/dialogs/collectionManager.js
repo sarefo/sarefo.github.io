@@ -32,6 +32,7 @@ async function getCachedVernacularName(taxonName) {
 const collectionManager = {
     initialization: {
         isInitialized: false,
+
         initialize() {
             if (this.isInitialized) {
                 logger.warn("Collection manager already initialized, skipping");
@@ -45,6 +46,7 @@ const collectionManager = {
             this.initializeClearFiltersButton();
             this.initializeLevelDropdown();
             this.initializePhylogenySelector();
+            collectionManager.eventHandlers.initializeCollectionManagerShortcuts();
 
             const levelDropdown = document.getElementById('level-filter-dropdown');
             if (levelDropdown) {
@@ -719,6 +721,46 @@ async loadMorePairs() {
 
     eventHandlers: {
         isSelectionInProgress: false,
+
+        initializeCollectionManagerShortcuts() {
+            const dialog = document.getElementById('collection-dialog');
+            dialog.addEventListener('keydown', this.handleCollectionManagerKeydown.bind(this));
+        },
+
+        handleCollectionManagerKeydown(event) {
+            if (event.altKey) {
+                switch (event.key.toLowerCase()) {
+                    case 't':
+                        event.preventDefault();
+                        document.getElementById('select-tags-button').click();
+                        break;
+                    case 'f':
+                        event.preventDefault();
+                        document.getElementById('clear-all-filters').click();
+                        break;
+                    case 'r':
+                        event.preventDefault();
+                        rangeSelector.openRangeDialog();
+                        break;
+                    case 'p':
+                        event.preventDefault();
+                        document.getElementById('select-phylogeny-button').click();
+                        break;
+                    case 'l':
+                        event.preventDefault();
+                        document.getElementById('level-filter-dropdown').focus();
+                        break;
+                    case 's':
+                        event.preventDefault();
+                        document.getElementById('taxon-search').focus();
+                        break;
+                    case 'c':
+                        event.preventDefault();
+                        searchHandler.handleClearSearch();
+                        break;
+                }
+            }
+        },
 
         async handleCollectionManagerDone() {
             this.isLoadingNewPair = true;
