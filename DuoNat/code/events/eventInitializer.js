@@ -23,6 +23,7 @@ const eventInitializer = {
         this.initializeSearchFunctionality();
         this.initializeHelpButton();
         this.initializeTutorialButton();
+        this.initializeSupportButton();
         this.initializeDiscordButton();
         this.initializeDialogCloseButtons();
         this.initializeSearchInput();
@@ -123,6 +124,15 @@ const eventInitializer = {
             tutorialButton.addEventListener('click', startTutorial);
         } else {
             logger.warn('Tutorial button not found');
+        }
+    },
+
+    initializeSupportButton() {
+        const supportButton = document.getElementById('support-button');
+        if (supportButton) {
+            supportButton.addEventListener('click', () => {
+                window.open('https://patreon.com/portioid', '_blank');
+            });
         }
     },
 
