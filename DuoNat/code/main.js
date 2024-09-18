@@ -22,7 +22,7 @@ async function initializeApp() {
         return;
     } else isInitialized = true;
 
-    cache.clearAllData(); // for DEBUG
+    //cache.clearAllData(); // for DEBUG
 
     initializeLogger();
     logger.info("Initializing app");
