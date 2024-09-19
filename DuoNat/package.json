@@ -10,6 +10,7 @@
     "dexie": "^4.0.8",
     "dotenv": "^16.4.5",
     "mongodb": "^6.8.1",
-    "mongoose": "^8.6.2"
+    "mongoose": "^8.6.2",
+    "node-fetch": "^3.3.2"
   }
 }
