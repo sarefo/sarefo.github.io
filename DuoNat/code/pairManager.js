@@ -34,15 +34,7 @@ const pairManager = {
                     throw new Error("Failed to select a valid pair");
                 }
                 
-                if (!newPairData.pairID) {
-                    throw new Error("Selected pair is missing pairID");
-                }
-                
                 state.setCurrentPairID(newPairData.pairID);
-
-                if (!newPairData.taxonNames || newPairData.taxonNames.length < 2) {
-                    throw new Error("Selected pair is missing taxon information");
-                }
 
                 const imageURLs = await this.getImageURLs(newPairData);
                 await this.updateStateForNewPair(newPairData, imageURLs);
@@ -92,9 +84,8 @@ const pairManager = {
                 throw new Error("Failed to select a pair");
             }
 
-            //logger.debug("Raw pair data:", JSON.stringify(newPairData, null, 2));
-
             // Map taxonNames to taxonA and taxonB if they're not present
+            // TODO this seems like a hack and should be cleaned up
             if (!newPairData.taxonA && !newPairData.taxonB && newPairData.taxonNames) {
                 newPairData.taxonA = newPairData.taxonNames[0];
                 newPairData.taxonB = newPairData.taxonNames[1];
@@ -299,6 +290,7 @@ const pairManager = {
         // loadNewPair()
         // - collectionManager.handleCollectionManagerDone()
         async refreshCollectionSubset() {
+            //logger.trace("refreshCollectionSubset()");
             pairManager.isInitialized = false;
             pairManager.usedPairIDs.clear();
             pairManager.lastUsedPairID = null;
