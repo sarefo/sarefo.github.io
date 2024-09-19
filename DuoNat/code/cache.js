@@ -12,7 +12,8 @@ class DuoNatCache {
             taxonInfo: 'taxonId, taxonName, vernacularName, lastUpdated',
             taxonPairs: 'pairID, lastUpdated',
             taxonHierarchy: 'taxonId, lastUpdated',
-            initialPair: '++id, pairData, images',
+            initialPair: '++id, pairData',
+            initialImages: '++id, taxonName, imageBlob'
         });
     }
 
@@ -31,19 +32,39 @@ class DuoNatCache {
         try {
             await this.db.initialPair.clear();
             await this.db.initialPair.add({
-                pairData: pair,
-                images: images
+                pairData: pair
             });
-            logger.debug('Initial pair cached successfully');
+
+            await this.db.initialImages.clear();
+            for (const [taxonName, imageUrl] of Object.entries(images)) {
+                const response = await fetch(imageUrl);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                const blob = await response.blob();
+                await this.db.initialImages.add({
+                    taxonName: taxonName,
+                    imageBlob: blob
+                });
+            }
+            logger.debug('Initial pair and images cached successfully');
         } catch (error) {
-            logger.error('Error caching initial pair:', error);
+            logger.error('Error caching initial pair and images:', error);
         }
     }
 
     async getInitialPair() {
         try {
-            const cachedPairs = await this.db.initialPair.toArray();
-            return cachedPairs.length > 0 ? cachedPairs[0] : null;
+            const cachedPair = await this.db.initialPair.toArray();
+            const cachedImages = await this.db.initialImages.toArray();
+            
+            if (cachedPair.length > 0 && cachedImages.length === 2) {
+                const pairData = cachedPair[0].pairData;
+                const images = {};
+                for (const image of cachedImages) {
+                    images[image.taxonName] = URL.createObjectURL(image.imageBlob);
+                }
+                return { pairData, images };
+            }
+            return null;
         } catch (error) {
             logger.error('Error retrieving initial pair:', error);
             return null;
