@@ -55,35 +55,45 @@ const roundManager = {
 
         async loadAndSetupImages(imageData) {
             this.prepareImagesForLoading();
-            const { taxonImage1URL, taxonImage2URL } = imageData;
+            const { taxonImage1URL, taxonImage2URL, isNewPair } = imageData;
             await Promise.all([
-                this.loadImage(state.getElement('image1'), taxonImage1URL),
-                this.loadImage(state.getElement('image2'), taxonImage2URL)
+                this.loadImage(state.getElement('image1'), taxonImage1URL, isNewPair),
+                this.loadImage(state.getElement('image2'), taxonImage2URL, isNewPair)
             ]);
         },
 
-        async loadImage(imgElement, src) {
+        async loadImage(imgElement, src, isNewPair) {
             return new Promise((resolve) => {
                 const img = new Image();
                 img.onload = () => {
-                    imgElement.classList.add('image-container__image--fade-out');
-                    imgElement.src = src;
-                    imgElement.classList.remove('image-container__image--loading');
-                    
-                    // Use requestAnimationFrame to ensure the fade-out is applied before fading in
-                    requestAnimationFrame(() => {
-                        requestAnimationFrame(() => {
-                            imgElement.classList.remove('image-container__image--fade-out');
-                            imgElement.classList.add('image-container__image--fade-in');
-                            
-                            // Remove the fade-in class after the transition is complete
-                            setTimeout(() => {
-                                imgElement.classList.remove('image-container__image--fade-in');
-                                resolve();
-                            }, 300); // Match the CSS transition duration
-                        });
-                    });
+                    if (!isNewPair) {
+                        // For subsequent rounds in the same pair, fade out first
+                        imgElement.classList.add('image-container__image--fade-out');
+                        setTimeout(() => {
+                            setNewImage();
+                        }, 300); // Match the CSS transition duration for fade-out
+                    } else {
+                        // For new pairs, immediately set and fade in the new image
+                        setNewImage();
+                    }
                 };
+
+                function setNewImage() {
+                    imgElement.src = src;
+                    imgElement.classList.remove('image-container__image--loading', 'image-container__image--fade-out');
+                    
+                    // Trigger reflow to ensure the browser recognizes the change
+                    void imgElement.offsetWidth;
+
+                    imgElement.classList.add('image-container__image--fade-in');
+
+                    // Remove the fade-in class after the transition is complete
+                    setTimeout(() => {
+                        imgElement.classList.remove('image-container__image--fade-in');
+                        resolve();
+                    }, 300); // Match the CSS transition duration
+                }
+
                 img.src = src;
             });
         },
@@ -116,7 +126,10 @@ const roundManager = {
                 ? this.getNewPairImages(pairData)
                 : await this.getExistingPairImages(pairData);
 
-            return this.randomizeImages(images, pairData.pair);
+            return {
+                ...this.randomizeImages(images, pairData.pair),
+                isNewPair: pairData.isNewPair
+            };
         },
 
         getNewPairImages(pairData) {
