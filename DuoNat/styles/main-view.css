@@ -128,10 +128,6 @@
     /*transition: opacity var(--transition-speed) ease-in-out;*/
 }
 
-.image-container__image--loaded {
-    opacity: 1;
-}
-
 /* Hint overlay */
 .hint-overlay {
     position: absolute;
