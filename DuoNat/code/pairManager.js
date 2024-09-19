@@ -4,6 +4,7 @@ import state from './state.js';
 import url from './url.js';
 
 import api from './api.js';
+import cache from './cache.js';
 import ui from './ui.js';
 
 import filtering from './filtering.js';
@@ -21,7 +22,7 @@ const pairManager = {
     pairLoading: {
 
         // called from collMan, iNatDown, enterPair, main
-        async loadNewPair(pairID = null) {
+        async loadNewPair(pairID = null, preloadedImages = null) {
             state.setIsNewPair(true);
             state.setState(state.GameState.LOADING_PAIR);
 
@@ -36,7 +37,8 @@ const pairManager = {
                 
                 state.setCurrentPairID(newPairData.pairID);
 
-                const imageURLs = await this.getImageURLs(newPairData);
+                //const imageURLs = await this.getImageURLs(newPairData);
+                const imageURLs = preloadedImages || await this.getImageURLs(newPairData);
                 await this.updateStateForNewPair(newPairData, imageURLs);
                 await this.performPostPairLoadingTasks(newPairData);
             } catch (error) {
@@ -49,15 +51,32 @@ const pairManager = {
 
         // called in main.initializeApp()
         async loadInitialPair(pairID = null) {
-            let initialPair;
+            let initialPair, initialImages;
             if (pairID) {
                 initialPair = await this.getPairByID(pairID);
+                initialImages = await this.getImageURLs(initialPair);
             } else {
-                // TODO consider preloaded pair from previous session
-                initialPair = await api.taxonomy.fetchRandomLevelOnePair();
+                const cachedInitialPair = await cache.getInitialPair();
+                if (cachedInitialPair) {
+                    logger.debug("Using cached initial pair");
+                    initialPair = cachedInitialPair.pairData;
+                    initialImages = cachedInitialPair.images;
+                } else {
+                    logger.debug("Fetching random initial pair");
+                    initialPair = await api.taxonomy.fetchRandomLevelOnePair();
+                    initialImages = await this.getImageURLs(initialPair);
+                }
             }
-            // TODO minimize number of external calls for initial pair
-            await this.loadNewPair(initialPair.pairID);
+            await this.loadNewPair(initialPair.pairID, initialImages);
+            
+            // After loading the initial pair, cache a different pair for next session
+            this.cacheNextInitialPair();
+        },
+
+        async cacheNextInitialPair() {
+            const nextPair = await api.taxonomy.fetchRandomLevelOnePair();
+            const nextImages = await this.getImageURLs(nextPair);
+            await cache.cacheInitialPair(nextPair, nextImages);
         },
 
         async checkINaturalistReachability() {

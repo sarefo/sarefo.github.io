@@ -11,7 +11,8 @@ class DuoNatCache {
         this.db.version(1).stores({
             taxonInfo: 'taxonId, taxonName, vernacularName, lastUpdated',
             taxonPairs: 'pairID, lastUpdated',
-            taxonHierarchy: 'taxonId, lastUpdated'
+            taxonHierarchy: 'taxonId, lastUpdated',
+            initialPair: '++id, pairData, images',
         });
     }
 
@@ -26,8 +27,27 @@ class DuoNatCache {
     }
 
     // load a pair at startup to speed up game start
-    async cacheInitialPair(pair) {
-        await this.db.taxonPairs.put({ ...pair, lastUpdated: Date.now() });
+    async cacheInitialPair(pair, images) {
+        try {
+            await this.db.initialPair.clear();
+            await this.db.initialPair.add({
+                pairData: pair,
+                images: images
+            });
+            logger.debug('Initial pair cached successfully');
+        } catch (error) {
+            logger.error('Error caching initial pair:', error);
+        }
+    }
+
+    async getInitialPair() {
+        try {
+            const cachedPairs = await this.db.initialPair.toArray();
+            return cachedPairs.length > 0 ? cachedPairs[0] : null;
+        } catch (error) {
+            logger.error('Error retrieving initial pair:', error);
+            return null;
+        }
     }
 
     async getTaxonInfo(taxonId) {
