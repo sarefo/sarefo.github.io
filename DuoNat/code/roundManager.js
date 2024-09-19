@@ -32,7 +32,6 @@ const roundManager = {
                 
                 state.updateGameStateForRound(pairData.pair, imageData, nameTileData);
                 await ui.updateUIAfterSetup();
-                await this.fadeInNewImages();
 
             } catch (error) {
                 errorHandling.handleSetupError(error);
@@ -55,12 +54,28 @@ const roundManager = {
         },
 
         async loadAndSetupImages(imageData) {
-            ui.prepareImagesForLoading();
+            this.prepareImagesForLoading();
             const { taxonImage1URL, taxonImage2URL } = imageData;
             await Promise.all([
-                roundManager.setupRoundComponents.loadImage(state.getElement('image1'), taxonImage1URL),
-                roundManager.setupRoundComponents.loadImage(state.getElement('image2'), taxonImage2URL)
+                this.loadImage(state.getElement('image1'), taxonImage1URL),
+                this.loadImage(state.getElement('image2'), taxonImage2URL)
             ]);
+        },
+
+        async loadImage(imgElement, src) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => {
+                    imgElement.src = src;
+                    imgElement.classList.remove('image-container__image--loading');
+                    imgElement.classList.add('image-container__image--fade-in');
+                    setTimeout(() => {
+                        imgElement.classList.remove('image-container__image--fade-in');
+                        resolve();
+                    }, 300); // Match the CSS transition duration
+                };
+                img.src = src;
+            });
         },
 
         async setupNameTilesAndWorldMaps(pairData, imageData) {
@@ -141,19 +156,6 @@ const roundManager = {
             };
         },
 
-        async fadeInNewImages() {
-            const image1 = state.getElement('image1');
-            const image2 = state.getElement('image2');
-            
-            image1.classList.add('image-container__image--fade-in');
-            image2.classList.add('image-container__image--fade-in');
-            
-            await new Promise(resolve => setTimeout(resolve, 300)); // Match CSS transition
-
-            image1.classList.remove('image-container__image--fade-in');
-            image2.classList.remove('image-container__image--fade-in');
-        },
-
         setObservationURLs(imageData) {
             state.setObservationURL(imageData.taxonImage1URL, 1);
             state.setObservationURL(imageData.taxonImage2URL, 2);
@@ -166,25 +168,17 @@ const roundManager = {
                 },
             });
         },
+
+        prepareImagesForLoading() {
+            const image1 = state.getElement('image1');
+            const image2 = state.getElement('image2');
+            
+            image1.classList.add('image-container__image--loading');
+            image2.classList.add('image-container__image--loading');
+        },
     },
 
     setupRoundComponents: {
-
-        // called only from loadNewRound()
-        async loadImage(imgElement, src) {
-            return new Promise((resolve) => {
-                const img = new Image();
-                img.onload = () => {
-                    imgElement.src = src;
-                    imgElement.classList.remove('image-container__image--loading');
-                    setTimeout(() => {
-                        imgElement.classList.add('image-container__image--loaded');
-                        resolve();
-                    }, 50);
-                };
-                img.src = src;
-            });
-        },
 
         // called only from loadNewRound()
         async setupNameTiles(pair, randomized, taxonImage1, taxonImage2) {

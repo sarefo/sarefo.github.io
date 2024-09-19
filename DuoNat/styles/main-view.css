@@ -99,7 +99,7 @@
     font-weight: bold;
     border-radius: var(--border-radius);
 
-    transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
 
     pointer-events: none;
 
@@ -115,13 +115,21 @@
     transition: opacity 0.3s ease-in-out;
 }
 
+.image-container__image--fade-out {
+    opacity: 0;
+}
+
 .image-container__image--fade-in {
     opacity: 1;
 }
 
 .image-container__image--loading {
-    opacity: 0.6;
-    transition: opacity var(--transition-speed) ease-in-out;
+    opacity: 0;
+    /*transition: opacity var(--transition-speed) ease-in-out;*/
+}
+
+.image-container__image--loaded {
+    opacity: 1;
 }
 
 /* Hint overlay */

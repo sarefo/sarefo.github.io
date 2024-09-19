@@ -471,23 +471,6 @@ const ui = {
         },
     },
 
-    imageHandling: {
-
-        // called from:
-        // - roundManager.loadNewRound()
-        // - gameLogic.handleCorrectAnswer()
-        prepareImagesForLoading() {
-            const image1 = state.getElement('image1');
-            const image2 = state.getElement('image2');
-            
-            image1.classList.remove('image-container__image--fade-in');
-            image2.classList.remove('image-container__image--fade-in');
-            
-            image1.classList.add('image-container__image--loading');
-            image2.classList.add('image-container__image--loading');
-        },
-    },
-
     orientation: {
 
         minWidth: 1024, // Adjust as needed
@@ -545,7 +528,6 @@ const publicAPI = {
     setupNameTilesUI: ui.nameTiles.setupNameTilesUI,
     resetDraggables: ui.nameTiles.resetDraggables,
     updateUIAfterSetup: ui.layoutManagement.updateUIAfterSetup,
-    prepareImagesForLoading: ui.imageHandling.prepareImagesForLoading,
 
     // Overlay
     showOverlay: ui.overlay.showOverlay,
