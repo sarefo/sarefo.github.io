@@ -7,6 +7,8 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const fetch = require('node-fetch');
+
 // Define Schemata
 
 const taxonInfoSchema = new mongoose.Schema({
@@ -376,6 +378,27 @@ app.get('/api/taxonPairs/:pairID', async (req, res) => {
     } catch (error) {
         console.error('Error fetching pair by ID:', error);
         res.status(500).json({ message: 'Server error', error: error.message });
+    }
+});
+
+// Images
+app.get('/proxy-image', async (req, res) => {
+    const imageUrl = req.query.url;
+    if (!imageUrl) {
+        return res.status(400).send('No image URL provided');
+    }
+
+    try {
+        const response = await fetch(imageUrl);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        
+        const contentType = response.headers.get('content-type');
+        res.setHeader('Content-Type', contentType);
+        
+        response.body.pipe(res);
+    } catch (error) {
+        console.error('Error proxying image:', error);
+        res.status(500).send('Error fetching image');
     }
 });
 
