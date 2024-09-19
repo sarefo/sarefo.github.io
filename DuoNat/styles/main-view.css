@@ -110,6 +110,7 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+/* used in tutorial */
 .image-container__image--fade {
     opacity: 0;
     transition: opacity 0.3s ease-in-out;

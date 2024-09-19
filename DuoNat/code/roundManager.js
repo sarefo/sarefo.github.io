@@ -183,8 +183,10 @@ const roundManager = {
             const image1 = state.getElement('image1');
             const image2 = state.getElement('image2');
             
-            image1.classList.add('image-container__image--loading', 'image-container__image--fade-out');
-            image2.classList.add('image-container__image--loading', 'image-container__image--fade-out');
+            image1.classList.remove('image-container__image--fade-in', 'image-container__image--fade-out');
+            image2.classList.remove('image-container__image--fade-in', 'image-container__image--fade-out');
+            image1.classList.add('image-container__image--loading');
+            image2.classList.add('image-container__image--loading');
         },
 
     },
