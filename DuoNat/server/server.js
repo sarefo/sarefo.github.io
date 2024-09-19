@@ -1,8 +1,3 @@
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-
-import fetch from 'node-fetch';
-
 const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
@@ -12,6 +7,7 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const fetch = require('node-fetch');
 
 // Define Schemata
 
