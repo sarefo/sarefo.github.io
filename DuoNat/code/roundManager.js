@@ -126,8 +126,13 @@ const roundManager = {
 
             const preloadedRoundImages = preloader.getPreloadedImagesForNextRound();
             if (preloadedRoundImages && preloadedRoundImages.taxonA && preloadedRoundImages.taxonB) {
-                preloader.clearPreloadedRound();
-                return { taxonA: preloadedRoundImages.taxonA, taxonB: preloadedRoundImages.taxonB };
+                // check to ensure the preloaded images are for the current pair
+                if (preloadedRoundImages.pairID === pair.pairID) {
+                    preloader.clearPreloadedRound();
+                    return { taxonA: preloadedRoundImages.taxonA, taxonB: preloadedRoundImages.taxonB };
+                } else {
+                    logger.warn('Preloaded images do not match current pair, fetching new images');
+                }
             }
 
             return {

@@ -103,6 +103,7 @@ const preloader = {
         async preloadForNextRound() {
             try {
                 const { pair, image1URL, image2URL } = state.getCurrentTaxonImageCollection();
+                const pairID = pair.pairID;
                 const [newImage1URL, newImage2URL] = await Promise.all([
                     preloader.imageLoader.fetchDifferentImage(pair.taxonA, image1URL),
                     preloader.imageLoader.fetchDifferentImage(pair.taxonB, image2URL)
@@ -113,7 +114,11 @@ const preloader = {
                     preloader.imageLoader.preloadImage(newImage2URL)
                 ]);
 
-                preloader.preloadedImages.nextRound = { taxonA: newImage1URL, taxonB: newImage2URL };
+                preloader.preloadedImages.nextRound = {
+                    taxonA: newImage1URL,
+                    taxonB: newImage2URL,
+                    pairID: pairID
+                };
                 logger.debug("Preloading completed for next round");
             } catch (error) {
                 logger.error("Error during round preloading:", error);
