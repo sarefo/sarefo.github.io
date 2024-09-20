@@ -101,21 +101,13 @@ const enterPair = {
         };
         this.dialogMessage.textContent = 'Saving new pair...';
         try {
-            await this.savePairToJson(newPair);
+            //await this.savePairToJson(newPair);
             //state.setNextSelectedPair(newPair);
             dialogManager.closeDialog();
             pairManager.loadNewPair();
         } catch (error) {
             throw new Error('Error saving new pair');
         }
-    },
-
-    async savePairToJson(newPair) {
-        const response = await fetch('./data/taxonPairs.json');
-        const taxonPairs = await response.json();
-        taxonPairs.push(newPair);
-        // Here you would typically save the updated taxonPairs back to the server
-        // For now, we'll just simulate that it was saved successfully
     },
 
     displayValidationError() {

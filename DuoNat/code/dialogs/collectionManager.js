@@ -172,7 +172,7 @@ const collectionManager = {
                     result = await api.taxonomy.fetchPaginatedTaxonPairs(filters, searchTerm, page, pageSize);
                 }
             } else {
-                // Existing code for JSON file
+                // using full data mongodb fetch for now
                 const taxonPairs = await api.taxonomy.fetchTaxonPairs();
                 let filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
                 if (isPairIDSearch) {

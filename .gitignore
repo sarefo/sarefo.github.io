@@ -58,3 +58,5 @@ DuoNat/server/.env
 /node_modules
 package-lock.json
 DuoNat/tools/127.0.0.1.har
+/DuoNat/data/backup
+DuoNat/data/old/taxonSets.json.old

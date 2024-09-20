@@ -120,34 +120,26 @@ const api = (() => {
                     let hierarchyData = await cache.getTaxonHierarchy();
 
                     if (!hierarchyData) {
-                        if (config.useMongoDB) {
-                            try {
-                                const response = await fetch(`${config.serverUrl}/api/taxonHierarchy`);
-                                if (!response.ok) {
-                                    throw new Error(`HTTP error! status: ${response.status}`);
-                                }
-                                hierarchyData = await response.json();
-                                logger.debug(`Loaded hierarchyData with ${Object.keys(hierarchyData).length} entries`);
+                        try {
+                            const response = await fetch(`${config.serverUrl}/api/taxonHierarchy`);
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            hierarchyData = await response.json();
+                            logger.debug(`Loaded hierarchyData with ${Object.keys(hierarchyData).length} entries`);
 
-                                // Update cache
-                                await cache.db.taxonHierarchy.clear();
-                                await cache.db.taxonHierarchy.bulkPut(
-                                    Object.entries(hierarchyData).map(([id, data]) => ({
-                                        ...data,
-                                        taxonId: id,
-                                        lastUpdated: Date.now()
-                                    }))
-                                );
-                            } catch (error) {
-                                logger.error('Error fetching taxon hierarchy from MongoDB:', error);
-                                throw error;
-                            }
-                        } else {
-                            const hierarchyResponse = await fetch('./data/taxonHierarchy.json');
-                            if (!hierarchyResponse.ok) {
-                                throw new Error(`HTTP error! status: ${hierarchyResponse.status}`);
-                            }
-                            hierarchyData = await hierarchyResponse.json();
+                            // Update cache
+                            await cache.db.taxonHierarchy.clear();
+                            await cache.db.taxonHierarchy.bulkPut(
+                                Object.entries(hierarchyData).map(([id, data]) => ({
+                                    ...data,
+                                    taxonId: id,
+                                    lastUpdated: Date.now()
+                                }))
+                            );
+                        } catch (error) {
+                            logger.error('Error fetching taxon hierarchy from MongoDB:', error);
+                            throw error;
                         }
                     }
 
