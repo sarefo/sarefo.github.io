@@ -27,7 +27,7 @@ ALWAYS_EXCLUDE_FILES = {'package-lock.json', 'webpack.config.js'}
 ROOT_DIRECTORY = '../'
 
 # JSON files to include sample entries from
-SAMPLE_JSON_FILES = ['data/backup/taxonInfo.json', 'data/backup/taxonPairs.json', 'data/backup/taxonHierarchy.json']
+SAMPLE_JSON_FILES = ['server/backups/taxonInfo.json', 'server/backups/taxonPairs.json', 'server/backups/taxonHierarchy.json']
 
 def save_selection(selection):
     with open(CONFIG_FILE, 'w') as f:
@@ -114,12 +114,20 @@ def append_json_sample(file, output_file):
     with open(file_path, 'r') as f:
         data = json.load(f)
     
-    sample_data = dict(list(data.items())[:2])
-    
     with open(output_file, 'a') as out_f:
-        out_f.write(f"\n#==> {file} (Sample entries)\n\n")
-        out_f.write("#==> These are two sample entries of this file:\n\n")
-        json.dump(sample_data, out_f, indent=2)
+        out_f.write(f"\n#==> {file} (Two sample entries)\n\n")
+        
+        if isinstance(data, list):
+            # If it's a list, take the first two items
+            sample_data = data[:2]
+            json.dump(sample_data, out_f, indent=2)
+        elif isinstance(data, dict):
+            # If it's a dictionary, take the first two items
+            sample_data = dict(list(data.items())[:2])
+            json.dump(sample_data, out_f, indent=2)
+        else:
+            out_f.write("Unexpected data format\n")
+        
         out_f.write("\n\n")
 
 def main():
@@ -153,7 +161,7 @@ def main():
 
     if save_file:
         with open(OUTPUT_FILE, 'w') as out_f:
-            out_f.write(f"This file provides up to date listings of relevant parts of my code base. These are up-to-date versions, so everything you see in here will be exactly like this in my project. Every file is indicated with '# <file name>' at the start. Be aware that there may be other files in my code that are not included. If you need them, please tell me so during the conversation. Do not just make up stuff instead.\n\n")
+            out_f.write(f"This file provides up to date listings of relevant parts of my code base. These are up-to-date versions, so everything you see in here will be exactly like this in my project. Every file is indicated with '#==> <file name>' at the start. Samples from the MongoDB database collections are provided. Be aware that there may be other files in my code that are not included. If you need them, please tell me so during the conversation. Do not just make up stuff instead.\n\n")
 
         for file in selected_files:
             append_file_contents(file, OUTPUT_FILE)
