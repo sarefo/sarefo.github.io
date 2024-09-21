@@ -47,8 +47,8 @@ const searchHandler = {
         const isNumericSearch = /^\d+$/.test(searchTerm);
 
         let filteredPairs;
+        // interpret numeric input as pairID:
         if (isNumericSearch) {
-            // For numeric searches, we'll let collectionManager handle it
             filteredPairs = await collectionManager.updateTaxonList(false, true);
         } else {
             filteredPairs = await collectionManager.updateTaxonList(false);

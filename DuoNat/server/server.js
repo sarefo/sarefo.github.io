@@ -17,7 +17,8 @@ const taxonInfoSchema = new mongoose.Schema({
   rank: String,
   taxonFacts: [String],
   range: [String],
-  hints: [String]
+  hints: [String],
+  enabled: { type: Boolean, default: false }
 }, { strict: false });
 
 const taxonPairSchema = new mongoose.Schema({
@@ -27,7 +28,8 @@ const taxonPairSchema = new mongoose.Schema({
   tags: [String],
   taxa: [Number],
   taxonNames: [String],
-  range: [String]
+  range: [String],
+  enabled: { type: Boolean, default: false }
 }, { strict: false });
 
 const taxonHierarchySchema = new mongoose.Schema({
