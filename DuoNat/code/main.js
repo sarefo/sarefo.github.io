@@ -19,6 +19,7 @@ async function initializeApp() {
     else isInitialized = true;
 
     //cache.clearAllData(); // for DEBUG
+    //return null;
 
     initializeLogger();
     logger.info("Initializing app");

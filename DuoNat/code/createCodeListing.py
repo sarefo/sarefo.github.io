@@ -27,7 +27,7 @@ ALWAYS_EXCLUDE_FILES = {'package-lock.json', 'webpack.config.js'}
 ROOT_DIRECTORY = '../'
 
 # JSON files to include sample entries from
-SAMPLE_JSON_FILES = ['data/taxonInfo.json', 'data/taxonPairs.json', 'data/taxonHierarchy.json']
+SAMPLE_JSON_FILES = ['data/backup/taxonInfo.json', 'data/backup/taxonPairs.json', 'data/backup/taxonHierarchy.json']
 
 def save_selection(selection):
     with open(CONFIG_FILE, 'w') as f:

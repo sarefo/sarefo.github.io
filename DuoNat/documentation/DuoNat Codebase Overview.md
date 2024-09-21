@@ -104,6 +104,10 @@ These are about to be replaced with MongoDB collections.
 2. `taxonPairs.json`: Defines pairs of taxa used in the game.
 3. `taxonHierarchy.json`: Represents the taxonomic hierarchy of species.
 
+## Helper scripts outside of web app
+- `server/backup_mongodb.js`: backs up the collections.
+- `server/restore_mongodb.js`: writes the local JSON files to MongoDB, overwriting the collections there.
+
 ## Key Features and Concepts
 
 1. Taxon pair system for quiz gameplay.
@@ -127,6 +131,11 @@ These are about to be replaced with MongoDB collections.
 - The codebase is modular, allowing for easy expansion of features.
 - There's a focus on performance optimization, especially with image preloading.
 - The project uses modern JavaScript features and follows a component-based architecture.
+- Most of the code uses ES modules. But the server/ backend part uses Node.js with Express.js.
 - There's an emphasis on maintaining a smooth user experience across devices.
+- I want to start using Firebase, at least for user management, maybe also for hosting and messaging.
+- It's important to be able to add taxon pair data to the database soon, in a semi-automatic, robust way.
+- The app should also be able to determine the location of the user (or they provide it), and then filter for "near here" taxa.
 
+## Advice to LLM
 When working on specific features or bug fixes, you can request relevant modules based on this overview. For example, if working on the drag-and-drop functionality, you'd primarily need `dragAndDrop.js`, `eventHandlers.js`, and possibly `gameLogic.js`. Note that the user may already have provided some of them at the beginning of a discussion.
