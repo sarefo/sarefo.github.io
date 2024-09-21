@@ -141,12 +141,12 @@ const pairManager = {
         async performPostPairLoadingTasks(newPairData) {
             await pairManager.collectionSubsets.refreshCollectionSubset();
             await roundManager.loadNewRound();
+            ui.setNamePairHeight();
             await hintSystem.updateAllHintButtons();
         },
 
         finalizePairLoading(newPairData) {
             preloader.preloadForNextPair();
-            ui.setNamePairHeight();
             ui.updateLevelIndicator(newPairData.level);
             state.setState(state.GameState.PLAYING);
         },
