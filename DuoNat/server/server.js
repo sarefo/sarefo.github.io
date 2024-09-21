@@ -88,7 +88,8 @@ app.get('/api/taxonInfo', async (req, res) => {
         const taxonName = req.query.taxonName;
         const fields = req.query.fields ? req.query.fields.split(',') : null;
 
-        let query = TaxonInfo.findOne({ taxonName: { $regex: new RegExp(`^${taxonName}$`, 'i') } });
+        //let query = TaxonInfo.findOne({ taxonName: { $regex: new RegExp(`^${taxonName}$`, 'i') } });
+        let query = TaxonInfo.findOne({ taxonName: { $regex: new RegExp(`^${taxonName}$`, 'i') }, enabled: true });
         if (fields) {
             query = query.select(fields.join(' '));
         }
@@ -183,6 +184,7 @@ app.post('/api/taxonPairs', async (req, res) => {
     try {
         const { filters, searchTerm, page, pageSize } = req.body;
         const query = buildMongoQuery(filters, searchTerm);
+        query.enabled = true;
         const options = {
             skip: (page - 1) * pageSize,
             limit: pageSize,
@@ -203,6 +205,16 @@ app.post('/api/taxonPairs', async (req, res) => {
         console.error('Error fetching paginated taxon pairs:', error);
         res.status(500).json({ message: 'Server error', error: error.message });
     }
+});
+
+app.get('/api/disabledPairs', async (req, res) => {
+  try {
+    const disabledPairs = await TaxonPair.find({ enabled: false }).lean();
+    res.json(disabledPairs);
+  } catch (error) {
+    console.error('Error fetching disabled pairs:', error);
+    res.status(500).json({ message: 'Server error', error: error.toString() });
+  }
 });
 
 app.get('/api/taxonPairs', async (req, res) => {
