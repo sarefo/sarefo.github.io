@@ -126,7 +126,8 @@ const filtering = {
         return pair.taxa.some(taxonId => filtering.isDescendantOf(taxonId, phylogenyId));
     },
 
-    filterTaxonPairs(pairs, filters) {
+    filterTaxonPairs(pairs, filters, searchTerm) {
+        logger.debug("filtering taxon pairs");
         return pairs.filter(pair => {
             const matchesLevels = filters.levels.length === 0 || filters.levels.includes(Number(pair.level));
             const matchesRanges = !filters.ranges || filters.ranges.length === 0 ||
@@ -135,8 +136,13 @@ const filtering = {
                 (pair.tags && filters.tags.every(tag => pair.tags.includes(tag)));
             const matchesPhylogeny = !filters.phylogenyId ||
                 pair.taxa.some(taxonId => this.isDescendantOf(taxonId, filters.phylogenyId));
+            const matchesSearch = !searchTerm ||
+                pair.taxonNames.some(name => name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                pair.pairName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                (pair.tags && pair.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))) ||
+                pair.pairID === searchTerm;
 
-            return matchesLevels && matchesRanges && matchesTags && matchesPhylogeny;
+            return matchesLevels && matchesRanges && matchesTags && matchesPhylogeny && matchesSearch;
         });
     },
 

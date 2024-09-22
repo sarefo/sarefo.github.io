@@ -4,6 +4,8 @@ import state from './state.js';
 
 import cache from './cache.js';
 
+import filtering from './filtering.js';
+
 import TaxonomyHierarchy from './taxonomyHierarchy.js';
 
 import iNatDownDialog from './dialogs/iNatDownDialog.js';
@@ -248,7 +250,7 @@ const api = (() => {
             async fetchPaginatedTaxonPairsFromJSON(filters, searchTerm, page, pageSize) {
                 try {
                     const allPairs = await this.fetchTaxonPairs();
-                    const filteredPairs = this.filterTaxonPairs(allPairs, filters, searchTerm);
+                    const filteredPairs = filtering.filterTaxonPairs(allPairs, filters, searchTerm);
                     const totalCount = filteredPairs.length;
                     const startIndex = (page - 1) * pageSize;
                     const results = filteredPairs.slice(startIndex, startIndex + pageSize);
@@ -262,22 +264,6 @@ const api = (() => {
                     logger.error('Error fetching paginated taxon pairs from JSON:', error);
                     throw error;
                 }
-            },
-
-            filterTaxonPairs(pairs, filters, searchTerm) {
-                return pairs.filter(pair => {
-                    const matchesLevels = !filters.levels.length || filters.levels.includes(pair.level);
-                    const matchesRanges = !filters.ranges.length || pair.range.some(r => filters.ranges.includes(r));
-                    const matchesTags = !filters.tags.length || filters.tags.every(tag => pair.tags.includes(tag));
-                    const matchesPhylogeny = !filters.phylogenyId || pair.taxa.includes(filters.phylogenyId);
-                    const matchesSearch = !searchTerm ||
-                        pair.taxonNames.some(name => name.toLowerCase().includes(searchTerm.toLowerCase())) ||
-                        pair.pairName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                        pair.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())) ||
-                        pair.pairID === searchTerm;
-
-                    return matchesLevels && matchesRanges && matchesTags && matchesPhylogeny && matchesSearch;
-                });
             },
 
             fetchPairByID: async function (pairID) {
