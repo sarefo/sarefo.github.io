@@ -32,7 +32,7 @@ const filtering = {
     clearAllFilters() {
         state.setSelectedTags([]);
         state.setSelectedRanges([]);
-        state.setSelectedLevel('');
+        state.setSelectedLevels([]);
         state.setPhylogenyId(null);
         state.setSearchTerm('');
 
@@ -47,6 +47,7 @@ const filtering = {
         eventMain.resetSearch();
         collectionManager.updateLevelCounts();
         collectionManager.updateFilterSummary();
+        collectionManager.onFiltersChanged();
     },
 
     haveFiltersChanged(currentFilters, previousFilters) {
