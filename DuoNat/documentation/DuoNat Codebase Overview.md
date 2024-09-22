@@ -66,6 +66,7 @@ The DuoNat project is primarily written in JavaScript, with HTML and CSS for the
 
 + `config.js`: Stores configuration settings.
 + `errorHandling.js`: Error handling.
++ `installPrompt.js`: Prompts mobile users to install the web app.
 + `logger.js`: Provides logging functionality.
 + `url.js`: Loading and writing URL parameters.
 + `utils.js`: Contains utility functions used throughout the application.
