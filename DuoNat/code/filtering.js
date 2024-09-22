@@ -127,7 +127,6 @@ const filtering = {
     },
 
     filterTaxonPairs(pairs, filters, searchTerm) {
-        logger.debug("filtering taxon pairs");
         return pairs.filter(pair => {
             const matchesLevels = filters.levels.length === 0 || filters.levels.includes(Number(pair.level));
             const matchesRanges = !filters.ranges || filters.ranges.length === 0 ||
