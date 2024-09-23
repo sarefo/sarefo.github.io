@@ -416,7 +416,21 @@ const ui = {
 
     nameTiles: {
         setupNameTilesUI(nameX, nameY, nameXVernacular, nameYVernacular) {
-            const { nameOne, nameTwo, vernacularOne, vernacularTwo } = this._randomizeNames(nameX, nameY, nameXVernacular, nameYVernacular);
+            const randomize_names = false; // disabling randomized name placement for now
+            let nameOne, nameTwo, vernacularOne, vernacularTwo;
+            if (randomize_names) {
+               //const { nameOne, nameTwo, vernacularOne, vernacularTwo } = this._randomizeNames(nameX, nameY, nameXVernacular, nameYVernacular);
+            } else {
+                // so the problem is that nameX and nameY are retrieved from taxonImage1/2, which are already randomized.
+                // let's thus just order the names alphabetically.
+                const [firstTaxon, secondTaxon] = [nameX, nameY].sort();
+                const [firstVernacular, secondVernacular] = firstTaxon === nameX ? [nameXVernacular, nameYVernacular] : [nameYVernacular, nameXVernacular];
+                // Assign sorted names to nameOne and nameTwo
+                nameOne = firstTaxon;
+                nameTwo = secondTaxon;
+                vernacularOne = firstVernacular;
+                vernacularTwo = secondVernacular;
+            }
 
             this._setNameAttributes(nameOne, nameTwo);
             this._setNameContent(nameOne, nameTwo, vernacularOne, vernacularTwo);
