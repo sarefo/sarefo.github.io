@@ -145,10 +145,10 @@ const collectionManager = {
             
             const searchTermLower = searchTerm.toLowerCase();
             return pairs.filter(pair => 
-                pair.taxonNames.some(name => name.toLowerCase().includes(searchTermLower)) ||
-                pair.pairName.toLowerCase().includes(searchTermLower) ||
-                pair.tags.some(tag => tag.toLowerCase().includes(searchTermLower)) ||
-                pair.pairID.toString() === searchTerm
+                (pair.taxonNames && pair.taxonNames.some(name => name && name.toLowerCase().includes(searchTermLower))) ||
+                (pair.pairName && pair.pairName.toLowerCase().includes(searchTermLower)) ||
+                (pair.tags && pair.tags.some(tag => tag && tag.toLowerCase().includes(searchTermLower))) ||
+                (pair.pairID && pair.pairID.toString() === searchTerm)
             );
         },
 
