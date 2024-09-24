@@ -31669,5 +31669,239 @@
     "rank": "Species",
     "parentId": "85035",
     "__v": 0
+  },
+  {
+    "_id": "66f2d0cba9039dd18c1f627c",
+    "taxonId": "233598",
+    "taxonName": "Vulpes lagopus",
+    "vernacularName": "Arctic fox",
+    "rank": "Species",
+    "parentId": "42054",
+    "__v": 0
+  },
+  {
+    "_id": "66f2d0cfa9039dd18c1f628b",
+    "taxonId": "41644",
+    "taxonName": "Ursus maritimus",
+    "vernacularName": "Polar bear",
+    "rank": "Species",
+    "parentId": "41637",
+    "__v": 0
+  },
+  {
+    "_id": "66f2d0d4a9039dd18c1f629a",
+    "taxonId": "41967",
+    "taxonName": "Panthera tigris",
+    "vernacularName": "Tiger",
+    "rank": "Species",
+    "parentId": "41962",
+    "__v": 0
+  },
+  {
+    "_id": "66f2d0d8a9039dd18c1f62a9",
+    "taxonId": "41964",
+    "taxonName": "Panthera leo",
+    "vernacularName": "Lion",
+    "rank": "Species",
+    "parentId": "41962",
+    "__v": 0
+  },
+  {
+    "_id": "66f2d0dda9039dd18c1f62b6",
+    "taxonId": "43344",
+    "taxonName": "Rhinoceros",
+    "vernacularName": "One-horned rhinoceroses",
+    "rank": "Genus",
+    "parentId": "43341",
+    "__v": 0
+  },
+  {
+    "_id": "66f2d0dda9039dd18c1f62b9",
+    "taxonId": "43345",
+    "taxonName": "Rhinoceros unicornis",
+    "vernacularName": "Indian rhinoceros",
+    "rank": "Species",
+    "parentId": "43344",
+    "__v": 0
+  },
+  {
+    "_id": "66f2d0e2a9039dd18c1f62c8",
+    "taxonId": "846305",
+    "taxonName": "Tragelaphini",
+    "vernacularName": "Spiral-horned antelopes",
+    "rank": "Tribe",
+    "parentId": "568826",
+    "__v": 0
+  },
+  {
+    "_id": "66f2d0e3a9039dd18c1f62cb",
+    "taxonId": "42337",
+    "taxonName": "Tragelaphus",
+    "vernacularName": "Spiral-horned antelopes",
+    "rank": "Genus",
+    "parentId": "846305",
+    "__v": 0
+  },
+  {
+    "_id": "66f2d0e4a9039dd18c1f62ce",
+    "taxonId": "1431371",
+    "taxonName": "Tragelaphus",
+    "vernacularName": "-",
+    "rank": "Subgenus",
+    "parentId": "42337",
+    "__v": 0
+  },
+  {
+    "_id": "66f2d0e4a9039dd18c1f62d1",
+    "taxonId": "42344",
+    "taxonName": "Tragelaphus eurycerus",
+    "vernacularName": "Bongo",
+    "rank": "Species",
+    "parentId": "1431371",
+    "__v": 0
+  },
+  {
+    "_id": "66f2d0eaa9039dd18c1f62e2",
+    "taxonId": "1431372",
+    "taxonName": "Nyala",
+    "vernacularName": "Nyalas",
+    "rank": "Subgenus",
+    "parentId": "42337",
+    "__v": 0
+  },
+  {
+    "_id": "66f2d0eba9039dd18c1f62e5",
+    "taxonId": "42342",
+    "taxonName": "Tragelaphus angasii",
+    "vernacularName": "Nyala",
+    "rank": "Species",
+    "parentId": "1431372",
+    "__v": 0
+  },
+  {
+    "_id": "66f2d0f0a9039dd18c1f62f6",
+    "taxonId": "1431370",
+    "taxonName": "Taurotragus",
+    "vernacularName": "Elands",
+    "rank": "Subgenus",
+    "parentId": "42337",
+    "__v": 0
+  },
+  {
+    "_id": "66f2d0f1a9039dd18c1f62f9",
+    "taxonId": "75192",
+    "taxonName": "Tragelaphus oryx",
+    "vernacularName": "Common eland",
+    "rank": "Species",
+    "parentId": "1431370",
+    "__v": 0
+  },
+  {
+    "_id": "66f2d0f5a9039dd18c1f6305",
+    "taxonId": "870765",
+    "taxonName": "Hystricomorpha",
+    "vernacularName": "Ctenohystricans",
+    "rank": "Suborder",
+    "parentId": "43698",
+    "__v": 0
+  },
+  {
+    "_id": "66f2d0f6a9039dd18c1f6308",
+    "taxonId": "870767",
+    "taxonName": "Hystricognathi",
+    "vernacularName": "Hystricognaths",
+    "rank": "Infraorder",
+    "parentId": "870765",
+    "__v": 0
+  },
+  {
+    "_id": "66f2d0f7a9039dd18c1f630b",
+    "taxonId": "870769",
+    "taxonName": "Cavioidea",
+    "vernacularName": "Cavies, agoutis, and pacas",
+    "rank": "Superfamily",
+    "parentId": "870767",
+    "__v": 0
+  },
+  {
+    "_id": "66f2d0f7a9039dd18c1f630e",
+    "taxonId": "43795",
+    "taxonName": "Caviidae",
+    "vernacularName": "Cavies",
+    "rank": "Family",
+    "parentId": "870769",
+    "__v": 0
+  },
+  {
+    "_id": "66f2d0f8a9039dd18c1f6311",
+    "taxonId": "846257",
+    "taxonName": "Hydrochoerinae",
+    "vernacularName": "Capybaras and rock cavies",
+    "rank": "Subfamily",
+    "parentId": "43795",
+    "__v": 0
+  },
+  {
+    "_id": "66f2d0f9a9039dd18c1f6314",
+    "taxonId": "71855",
+    "taxonName": "Hydrochoerus",
+    "vernacularName": "Capybaras",
+    "rank": "Genus",
+    "parentId": "846257",
+    "__v": 0
+  },
+  {
+    "_id": "66f2d0faa9039dd18c1f6317",
+    "taxonId": "74442",
+    "taxonName": "Hydrochoerus hydrochaeris",
+    "vernacularName": "Capybara",
+    "rank": "Species",
+    "parentId": "71855",
+    "__v": 0
+  },
+  {
+    "_id": "66f2d0ffa9039dd18c1f6326",
+    "taxonId": "71389",
+    "taxonName": "Dasyproctidae",
+    "vernacularName": "Agoutis and acouchis",
+    "rank": "Family",
+    "parentId": "870769",
+    "__v": 0
+  },
+  {
+    "_id": "66f2d100a9039dd18c1f6329",
+    "taxonId": "43711",
+    "taxonName": "Dasyprocta",
+    "vernacularName": "Agoutis",
+    "rank": "Genus",
+    "parentId": "71389",
+    "__v": 0
+  },
+  {
+    "_id": "66f2d100a9039dd18c1f632c",
+    "taxonId": "43712",
+    "taxonName": "Dasyprocta punctata",
+    "vernacularName": "Central american agouti",
+    "rank": "Species",
+    "parentId": "43711",
+    "__v": 0
+  },
+  {
+    "_id": "66f2d104a9039dd18c1f6336",
+    "taxonId": "14865",
+    "taxonName": "Gracula",
+    "vernacularName": "Hill mynas",
+    "rank": "Genus",
+    "parentId": "14841",
+    "__v": 0
+  },
+  {
+    "_id": "66f2d104a9039dd18c1f6339",
+    "taxonId": "204517",
+    "taxonName": "Gracula religiosa",
+    "vernacularName": "Common hill myna",
+    "rank": "Species",
+    "parentId": "14865",
+    "__v": 0
   }
 ]

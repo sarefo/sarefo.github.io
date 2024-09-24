@@ -18803,5 +18803,283 @@
     ],
     "enabled": true,
     "__v": 0
+  },
+  {
+    "_id": "66f2cdcba9039dd18c1f620b",
+    "pairID": "880",
+    "pairName": "Arctic vs Red Fox",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      233598,
+      42069
+    ],
+    "taxonNames": [
+      "Vulpes lagopus",
+      "Vulpes vulpes"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f2cdcda9039dd18c1f6211",
+    "pairID": "881",
+    "pairName": "Fox vs Wolf",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      42069,
+      42048
+    ],
+    "taxonNames": [
+      "Vulpes vulpes",
+      "Canis lupus"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f2cdcfa9039dd18c1f6217",
+    "pairID": "882",
+    "pairName": "Polar Bear vs Arctic Fox",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      41644,
+      233598
+    ],
+    "taxonNames": [
+      "Ursus maritimus",
+      "Vulpes lagopus"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f2cdd1a9039dd18c1f621d",
+    "pairID": "883",
+    "pairName": "Brown vs Polar Bear",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      41641,
+      41644
+    ],
+    "taxonNames": [
+      "Ursus arctos",
+      "Ursus maritimus"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f2cdd3a9039dd18c1f6223",
+    "pairID": "884",
+    "pairName": "Tiger vs Lion",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      41967,
+      41964
+    ],
+    "taxonNames": [
+      "Panthera tigris",
+      "Panthera leo"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f2cdd5a9039dd18c1f6229",
+    "pairID": "885",
+    "pairName": "Mountain Lion vs Lion",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      42007,
+      41964
+    ],
+    "taxonNames": [
+      "Puma concolor",
+      "Panthera leo"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f2cdd7a9039dd18c1f6232",
+    "pairID": "886",
+    "pairName": "Black vs Indian Rhinoceros",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      43350,
+      43345
+    ],
+    "taxonNames": [
+      "Diceros bicornis",
+      "Rhinoceros unicornis"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f2cdd9a9039dd18c1f6238",
+    "pairID": "887",
+    "pairName": "White vs Indian Rhinoceros",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      43348,
+      43345
+    ],
+    "taxonNames": [
+      "Ceratotherium simum",
+      "Rhinoceros unicornis"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f2cddca9039dd18c1f6241",
+    "pairID": "888",
+    "pairName": "Bongo vs Nyala",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      42344,
+      42342
+    ],
+    "taxonNames": [
+      "Tragelaphus eurycerus",
+      "Tragelaphus angasii"
+    ],
+    "range": [
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2cddea9039dd18c1f6247",
+    "pairID": "889",
+    "pairName": "Bongo vs Eland",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      42344,
+      75192
+    ],
+    "taxonNames": [
+      "Tragelaphus eurycerus",
+      "Tragelaphus oryx"
+    ],
+    "range": [
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f2cde0a9039dd18c1f624d",
+    "pairID": "890",
+    "pairName": "Nyala vs Eland",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      42342,
+      75192
+    ],
+    "taxonNames": [
+      "Tragelaphus angasii",
+      "Tragelaphus oryx"
+    ],
+    "range": [
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f2cde2a9039dd18c1f6253",
+    "pairID": "891",
+    "pairName": "Capybara vs Agouti",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      74442,
+      43712
+    ],
+    "taxonNames": [
+      "Hydrochoerus hydrochaeris",
+      "Dasyprocta punctata"
+    ],
+    "range": [
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f2cde4a9039dd18c1f6259",
+    "pairID": "892",
+    "pairName": "Capybara vs Beavers",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      74442,
+      43792
+    ],
+    "taxonNames": [
+      "Hydrochoerus hydrochaeris",
+      "Castor"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f2cde6a9039dd18c1f625f",
+    "pairID": "893",
+    "pairName": "Common Myna vs Hill Myna",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      204454,
+      204517
+    ],
+    "taxonNames": [
+      "Acridotheres tristis",
+      "Gracula religiosa"
+    ],
+    "range": [
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
   }
 ]

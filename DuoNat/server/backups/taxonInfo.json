@@ -51118,7 +51118,8 @@
       "SA",
       "AF",
       "EU",
-      "AS"
+      "AS",
+      "OC"
     ],
     "hints": [],
     "enabled": true,
@@ -51214,6 +51215,359 @@
     "range": [
       "NA",
       "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2cc75a9039dd18c1f61bb",
+    "taxonId": "233598",
+    "taxonName": "Vulpes lagopus",
+    "vernacularName": "Arctic fox",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      42043,
+      42054
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Adapted to Arctic conditions with thick fur and small ears",
+      "Hunts lemmings, voles, birds, eggs and carrion",
+      "Dens in burrows, rock crevices or under buildings"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2cc78a9039dd18c1f61c1",
+    "taxonId": "41644",
+    "taxonName": "Ursus maritimus",
+    "vernacularName": "Polar bear",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41636,
+      846255,
+      41637
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Largest land carnivore, weighing up to 1500 pounds",
+      "Adapted to hunting seals on sea ice",
+      "Excellent swimmer, can swim continuously for over 100 miles"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2cc7aa9039dd18c1f61c7",
+    "taxonId": "41967",
+    "taxonName": "Panthera tigris",
+    "vernacularName": "Tiger",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41944,
+      846273,
+      41962
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Largest living cat species, weighing up to 800 pounds",
+      "Excellent swimmer and climber, hunts deer and wild boar",
+      "Stripes serve as camouflage in tall grass and forest"
+    ],
+    "range": [
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2cc7da9039dd18c1f61ca",
+    "taxonId": "41964",
+    "taxonName": "Panthera leo",
+    "vernacularName": "Lion",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41944,
+      846273,
+      41962
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Second largest living cat after the tiger",
+      "Females hunt cooperatively in prides, males protect territory",
+      "Manes of males may signal fighting ability to rivals"
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2cc80a9039dd18c1f61d2",
+    "taxonId": "43345",
+    "taxonName": "Rhinoceros unicornis",
+    "vernacularName": "Indian rhinoceros",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      43327,
+      43341,
+      43344
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "One of the largest land mammals, weighing up to 6000 pounds",
+      "Adapted to grazing on tall grasses and aquatic plants",
+      "Solitary and territorial, uses its horn for defense and display"
+    ],
+    "range": [
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2cc83a9039dd18c1f61d9",
+    "taxonId": "42344",
+    "taxonName": "Tragelaphus eurycerus",
+    "vernacularName": "Bongo",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      152870,
+      424850,
+      42241,
+      568826,
+      846305,
+      42337,
+      1431371
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Largest forest antelope, males weigh up to 1000 pounds",
+      "Spiral-shaped horns are present only in males",
+      "Lives in small family groups in dense rainforest"
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2cc84a9039dd18c1f61dc",
+    "taxonId": "42342",
+    "taxonName": "Tragelaphus angasii",
+    "vernacularName": "Nyala",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      152870,
+      424850,
+      42241,
+      568826,
+      846305,
+      42337,
+      1431372
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "A spiral-horned antelope",
+      "Males are dark brown with white stripes, females reddish-brown",
+      "Lives in small herds in woodlands and thickets"
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2cc85a9039dd18c1f61e0",
+    "taxonId": "75192",
+    "taxonName": "Tragelaphus oryx",
+    "vernacularName": "Common eland",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      152870,
+      424850,
+      42241,
+      568826,
+      846305,
+      42337,
+      1431370
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Also called the gemsbok, a large desert-adapted antelope",
+      "Straight, spear-like horns are present in both sexes",
+      "Lives in herds in semi-desert and savanna habitats"
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2cc87a9039dd18c1f61e5",
+    "taxonId": "74442",
+    "taxonName": "Hydrochoerus hydrochaeris",
+    "vernacularName": "Capybara",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43698,
+      870765,
+      870767,
+      870769,
+      43795,
+      846257,
+      71855
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "World's largest rodent, weighing up to 150 pounds",
+      "Excellent swimmer, lives near rivers, lakes and marshes",
+      "Highly social, lives in groups of up to 100 individuals"
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2cc89a9039dd18c1f61e8",
+    "taxonId": "43712",
+    "taxonName": "Dasyprocta punctata",
+    "vernacularName": "Central american agouti",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43698,
+      870765,
+      870767,
+      870769,
+      71389,
+      43711
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Helps disperse seeds of rainforest trees by burying nuts",
+      "Runs with a distinctive high-stepping gait"
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2cc8ba9039dd18c1f61ee",
+    "taxonId": "204517",
+    "taxonName": "Gracula religiosa",
+    "vernacularName": "Common hill myna",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      14841,
+      14865
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "A popular pet bird",
+      "Known for its ability to mimic human speech",
+      "Lives in small flocks in tropical forests"
+    ],
+    "range": [
       "AS"
     ],
     "hints": [],
