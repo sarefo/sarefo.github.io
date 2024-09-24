@@ -31507,5 +31507,41 @@
     "rank": "Family",
     "parentId": "1555675",
     "__v": 0
+  },
+  {
+    "_id": "66eb2b45f4c3d1a26d812934",
+    "taxonId": "51558",
+    "taxonName": "Bombyliidae",
+    "vernacularName": "Bee Flies",
+    "rank": "family",
+    "parentId": "354603",
+    "__v": 0
+  },
+  {
+    "_id": "66eb2b46f4c3d1a26d812937",
+    "taxonId": "205719",
+    "taxonName": "Anthracinae",
+    "vernacularName": "-",
+    "rank": "subfamily",
+    "parentId": "51558",
+    "__v": 0
+  },
+  {
+    "_id": "66eb2b47f4c3d1a26d81293a",
+    "taxonId": "496694",
+    "taxonName": "Exoprosopini",
+    "vernacularName": "-",
+    "rank": "tribe",
+    "parentId": "205719",
+    "__v": 0
+  },
+  {
+    "_id": "66eb2b47f4c3d1a26d81293d",
+    "taxonId": "246066",
+    "taxonName": "Ligyra",
+    "vernacularName": "-",
+    "rank": "genus",
+    "parentId": "496694",
+    "__v": 0
   }
 ]
