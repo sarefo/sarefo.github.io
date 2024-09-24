@@ -18695,7 +18695,7 @@
     "range": [
       "AS"
     ],
-    "enabled": false,
+    "enabled": true,
     "__v": 1
   },
   {
@@ -18715,7 +18715,29 @@
     "range": [
       "EU"
     ],
-    "enabled": false,
+    "enabled": true,
     "__v": 0
+  },
+  {
+    "_id": "66f29bd12250bef48a5f95ec",
+    "pairID": "876",
+    "pairName": "Night Heron vs Grey Heron",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      4981,
+      4954
+    ],
+    "taxonNames": [
+      "Nycticorax nycticorax",
+      "Ardea cinerea"
+    ],
+    "range": [
+      "EU",
+      "AF",
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 1
   }
 ]
