@@ -18739,5 +18739,69 @@
     ],
     "enabled": true,
     "__v": 1
+  },
+  {
+    "_id": "66f2a1a6a9039dd18c1f614d",
+    "pairID": "877",
+    "pairName": "Beach She-Oak vs Pines",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      62888,
+      47561
+    ],
+    "taxonNames": [
+      "Casuarina equisetifolia",
+      "Pinus"
+    ],
+    "range": [
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f2a1a8a9039dd18c1f6153",
+    "pairID": "878",
+    "pairName": "Barklice vs Termites",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      120991,
+      118903
+    ],
+    "taxonNames": [
+      "Psocidae",
+      "Termitoidae"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f2a1aaa9039dd18c1f6159",
+    "pairID": "879",
+    "pairName": "Humpback vs Arabesque Orbweaver",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      446667,
+      119342
+    ],
+    "taxonNames": [
+      "Eriovixia excelsa",
+      "Neoscona arabesca"
+    ],
+    "range": [
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
   }
 ]

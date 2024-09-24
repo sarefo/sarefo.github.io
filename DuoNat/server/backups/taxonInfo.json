@@ -51033,5 +51033,191 @@
     "hints": [],
     "enabled": true,
     "__v": 1
+  },
+  {
+    "_id": "66f2a0c6a9039dd18c1f612b",
+    "taxonId": "62888",
+    "taxonName": "Casuarina equisetifolia",
+    "vernacularName": "Beach sheoak",
+    "ancestryIds": [
+      47126,
+      211194,
+      47125,
+      47124,
+      47853,
+      62890,
+      62891
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Can fix atmospheric nitrogen through symbiotic relationships.",
+      "Produces winged seeds that disperse easily by wind.",
+      "Adaptable to coastal habitats and sandy soils."
+    ],
+    "range": [
+      "AS",
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2a0c7a9039dd18c1f612e",
+    "taxonId": "47561",
+    "taxonName": "Pinus",
+    "vernacularName": "Pines",
+    "ancestryIds": [
+      47126,
+      211194,
+      136329,
+      47375,
+      47562,
+      1456301
+    ],
+    "rank": "Genus",
+    "taxonFacts": [
+      "Includes over 100 species of coniferous trees.",
+      "Pines can live for thousands of years.",
+      "Seeds are often dispersed by wind and animals."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2a0c8a9039dd18c1f6131",
+    "taxonId": "120991",
+    "taxonName": "Psocidae",
+    "vernacularName": "Common barklice",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      83187,
+      144300,
+      474468
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Known for feeding on fungi and organic detritus.",
+      "Some species can spin silk from mouth glands.",
+      "They are among the most primitive hemipteroids."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2a0c9a9039dd18c1f6134",
+    "taxonId": "118903",
+    "taxonName": "Termitoidae",
+    "vernacularName": "Termites",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      81769,
+      129743
+    ],
+    "rank": "Epifamily",
+    "taxonFacts": [
+      "Termite colonies can contain millions of individuals.",
+      "Queens can produce up to 10 million eggs yearly.",
+      "They play a crucial role in decomposing wood."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2a0caa9039dd18c1f6137",
+    "taxonId": "446667",
+    "taxonName": "Eriovixia excelsa",
+    "vernacularName": "Hump back araneid spider",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      342614,
+      319384,
+      47535,
+      1569805,
+      145654
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for its unique leaf-shaped web structures.",
+      "Camouflaged to blend in with its surroundings.",
+      "Found primarily in tropical forests of Asia."
+    ],
+    "range": [
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2a0cba9039dd18c1f613a",
+    "taxonId": "119342",
+    "taxonName": "Neoscona arabesca",
+    "vernacularName": "Arabesque orbweaver",
+    "ancestryIds": [
+      1,
+      47120,
+      245097,
+      47119,
+      47118,
+      120474,
+      342614,
+      319384,
+      47535,
+      417879,
+      85035
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Commonly found in fields and gardens.",
+      "Females build large, intricate orb webs.",
+      "Non-aggressive and rarely bite humans."
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
   }
 ]

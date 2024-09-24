@@ -31552,5 +31552,122 @@
     "rank": "Species",
     "parentId": "246066",
     "__v": 0
+  },
+  {
+    "_id": "66f2a24ea9039dd18c1f6166",
+    "taxonId": "62890",
+    "taxonName": "Casuarinaceae",
+    "vernacularName": "Sheoaks",
+    "rank": "Family",
+    "parentId": "47853",
+    "__v": 0
+  },
+  {
+    "_id": "66f2a24fa9039dd18c1f6169",
+    "taxonId": "62891",
+    "taxonName": "Casuarina",
+    "vernacularName": "Beefwoods",
+    "rank": "Genus",
+    "parentId": "62890",
+    "__v": 0
+  },
+  {
+    "_id": "66f2a250a9039dd18c1f616c",
+    "taxonId": "62888",
+    "taxonName": "Casuarina equisetifolia",
+    "vernacularName": "Beach sheoak",
+    "rank": "Species",
+    "parentId": "62891",
+    "__v": 0
+  },
+  {
+    "_id": "66f2a255a9039dd18c1f617d",
+    "taxonId": "83187",
+    "taxonName": "Psocodea",
+    "vernacularName": "Barklice, booklice, and parasitic lice",
+    "rank": "Order",
+    "parentId": "184884",
+    "__v": 0
+  },
+  {
+    "_id": "66f2a256a9039dd18c1f6180",
+    "taxonId": "144300",
+    "taxonName": "Psocomorpha",
+    "vernacularName": "-",
+    "rank": "Suborder",
+    "parentId": "83187",
+    "__v": 0
+  },
+  {
+    "_id": "66f2a257a9039dd18c1f6183",
+    "taxonId": "474468",
+    "taxonName": "Psocetae",
+    "vernacularName": "-",
+    "rank": "Infraorder",
+    "parentId": "144300",
+    "__v": 0
+  },
+  {
+    "_id": "66f2a257a9039dd18c1f6186",
+    "taxonId": "120991",
+    "taxonName": "Psocidae",
+    "vernacularName": "Common barklice",
+    "rank": "Family",
+    "parentId": "474468",
+    "__v": 0
+  },
+  {
+    "_id": "66f2a25aa9039dd18c1f6190",
+    "taxonId": "129743",
+    "taxonName": "Blattoidea",
+    "vernacularName": "Typical cockroaches and termites",
+    "rank": "Superfamily",
+    "parentId": "81769",
+    "__v": 0
+  },
+  {
+    "_id": "66f2a25ba9039dd18c1f6193",
+    "taxonId": "118903",
+    "taxonName": "Termitoidae",
+    "vernacularName": "Termites",
+    "rank": "Epifamily",
+    "parentId": "129743",
+    "__v": 0
+  },
+  {
+    "_id": "66f2a25fa9039dd18c1f61a0",
+    "taxonId": "1569805",
+    "taxonName": "Polytinae",
+    "vernacularName": "-",
+    "rank": "Subfamily",
+    "parentId": "47535",
+    "__v": 0
+  },
+  {
+    "_id": "66f2a260a9039dd18c1f61a3",
+    "taxonId": "145654",
+    "taxonName": "Eriovixia",
+    "vernacularName": "Tailed araneid spiders",
+    "rank": "Genus",
+    "parentId": "1569805",
+    "__v": 0
+  },
+  {
+    "_id": "66f2a261a9039dd18c1f61a6",
+    "taxonId": "446667",
+    "taxonName": "Eriovixia excelsa",
+    "vernacularName": "Hump back araneid spider",
+    "rank": "Species",
+    "parentId": "145654",
+    "__v": 0
+  },
+  {
+    "_id": "66f2a265a9039dd18c1f61b5",
+    "taxonId": "119342",
+    "taxonName": "Neoscona arabesca",
+    "vernacularName": "Arabesque orbweaver",
+    "rank": "Species",
+    "parentId": "85035",
+    "__v": 0
   }
 ]
