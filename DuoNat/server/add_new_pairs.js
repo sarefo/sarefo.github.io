@@ -67,8 +67,8 @@ async function fetchTaxonDetails(taxonName) {
             return {
                 id: result.id,
                 taxonName: result.name,
-                vernacularName: result.preferred_common_name || '-',
-                rank: result.rank
+                vernacularName: result.preferred_common_name ? capitalizeFirstLetter(result.preferred_common_name) : '-',
+                rank: capitalizeFirstLetter(result.rank)
             };
         }
         return null;
@@ -76,6 +76,10 @@ async function fetchTaxonDetails(taxonName) {
         console.error(`Error fetching taxon details for ${taxonName}:`, error);
         return null;
     }
+}
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
 
 async function promptForCorrection(taxonName) {
@@ -106,8 +110,8 @@ async function fetchTaxonById(taxonId) {
             const result = data.results[0];
             return {
                 taxonName: result.name,
-                vernacularName: result.preferred_common_name || '-',
-                rank: result.rank
+                vernacularName: result.preferred_common_name ? capitalizeFirstLetter(result.preferred_common_name) : '-',
+                rank: capitalizeFirstLetter(result.rank)
             };
         }
         return null;
@@ -172,9 +176,9 @@ async function processTaxa() {
                         const newTaxon = new TaxonInfo({
                             taxonId: taxonDetails.id.toString(),
                             taxonName: taxonDetails.taxonName,
-                            vernacularName: taxonDetails.vernacularName,
+                            vernacularName: capitalizeFirstLetter(taxonDetails.vernacularName),
                             ancestryIds: ancestry,
-                            rank: taxonDetails.rank,
+                            rank: capitalizeFirstLetter(taxonDetails.rank),
                             taxonFacts: [],
                             range: [],
                             enabled: false
@@ -206,6 +210,7 @@ async function processTaxa() {
     console.log(`\nSummary:`);
     console.log(`Taxa added: ${taxaAdded}`);
     console.log(`Taxa skipped: ${taxaSkipped}`);
+    await generatePerplexityPrompt();
 }
 
 async function updateInputFile(corrections) {
@@ -220,6 +225,30 @@ async function updateInputFile(corrections) {
         console.log(`Input file ${INPUT_FILE} has been updated with corrections.`);
     } catch (error) {
         console.error('Error updating input file:', error);
+    }
+}
+
+async function generatePerplexityPrompt() {
+    try {
+        const newTaxa = await TaxonInfo.find({ enabled: false });
+        const taxonNames = newTaxa.map(taxon => taxon.taxonName);
+
+        let prompt = "Use this prompt in Perplexity, then save its output in '3perplexityData.json':\n\n";
+        prompt += await fs.readFile('../data/processing/data_entry_workflow/perplexityPrompt.txt', 'utf8');
+        prompt += "\n\n";
+        prompt += taxonNames.join('\n');
+
+        console.log(prompt);
+
+        // Optionally, write to a file
+        //await fs.writeFile('perplexityPrompt.txt', prompt);
+        //console.log("Perplexity prompt has been saved to 'perplexityPrompt.txt'");
+
+        // If you want to copy to clipboard (Note: This won't work in all environments)
+         await clipboardy.write(prompt);
+         console.log("Perplexity prompt has been copied to the clipboard.");
+    } catch (error) {
+        console.error('Error generating Perplexity prompt:', error);
     }
 }
 
@@ -282,12 +311,15 @@ async function createTaxonPairs() {
                         enabled: false
                     });
                     await newPair.save();
-                    console.log(`Created new pair: ${taxon1} vs ${taxon2}`);
+                    console.log(`Created new pair: ${taxon1} vs ${taxon2} with ID ${newPairID}`);
+                    pairsCreated++;
                 } else {
                     console.log(`Pair already exists: ${taxon1} vs ${taxon2}`);
+                    pairsSkipped++;
                 }
             } else {
                 console.log(`Could not create pair: ${taxon1} vs ${taxon2} - missing taxon info`);
+                pairsSkipped++;
             }
         }
     } catch (error) {
@@ -300,8 +332,12 @@ async function createTaxonPairs() {
 
 async function getNextPairID() {
     try {
-        const lastPair = await TaxonPair.findOne().sort('-pairID');
-        return lastPair ? (parseInt(lastPair.pairID) + 1).toString() : "1";
+        const lastPair = await TaxonPair.findOne({}, { pairID: 1 }).sort({ pairID: -1 });
+        if (lastPair) {
+            const lastID = parseInt(lastPair.pairID, 10);
+            return (lastID + 1).toString();
+        }
+        return "1";
     } catch (error) {
         console.error('Error getting next pair ID:', error);
         throw error;
@@ -346,7 +382,7 @@ async function updateHierarchy() {
     console.log("Updating taxon hierarchy...");
     try {
         // Ensure the root "Life" taxon exists
-        await TaxonHierarchy.findOneAndUpdate(
+        /*await TaxonHierarchy.findOneAndUpdate(
             { taxonId: "48460" },
             {
                 taxonName: "Life",
@@ -355,7 +391,7 @@ async function updateHierarchy() {
                 parentId: null
             },
             { upsert: true }
-        );
+        );*/
 
         const newTaxa = await TaxonInfo.find({ enabled: false });
         console.log(`Processing ${newTaxa.length} new taxa...`);
@@ -376,8 +412,8 @@ async function updateHierarchy() {
                         await TaxonHierarchy.create({
                             taxonId: currentId,
                             taxonName: taxonDetails.taxonName,
-                            vernacularName: taxonDetails.vernacularName,
-                            rank: taxonDetails.rank,
+                            vernacularName: capitalizeFirstLetter(taxonDetails.vernacularName),
+                            rank: capitalizeFirstLetter(taxonDetails.rank),
                             parentId: parentId
                         });
                         console.log(`Added new hierarchy entry for ${taxonDetails.taxonName}`);
@@ -387,6 +423,19 @@ async function updateHierarchy() {
                 } else {
                     console.log(`Hierarchy entry already exists for ${existingHierarchyEntry.taxonName}`);
                 }
+            }
+
+            // Add the taxon itself to the hierarchy if not already present
+            const taxonHierarchyEntry = await TaxonHierarchy.findOne({ taxonId: taxon.taxonId });
+            if (!taxonHierarchyEntry) {
+                await TaxonHierarchy.create({
+                    taxonId: taxon.taxonId,
+                    taxonName: taxon.taxonName,
+                    vernacularName: capitalizeFirstLetter(taxon.vernacularName),
+                    rank: capitalizeFirstLetter(taxon.rank),
+                    parentId: taxon.ancestryIds.length > 0 ? taxon.ancestryIds[taxon.ancestryIds.length - 1].toString() : "48460"
+                });
+                console.log(`Added new hierarchy entry for ${taxon.taxonName}`);
             }
 
             // Mark the taxon as enabled after processing

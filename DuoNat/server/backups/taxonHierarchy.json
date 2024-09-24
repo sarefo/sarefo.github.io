@@ -31513,7 +31513,7 @@
     "taxonId": "51558",
     "taxonName": "Bombyliidae",
     "vernacularName": "Bee Flies",
-    "rank": "family",
+    "rank": "Family",
     "parentId": "354603",
     "__v": 0
   },
@@ -31522,7 +31522,7 @@
     "taxonId": "205719",
     "taxonName": "Anthracinae",
     "vernacularName": "-",
-    "rank": "subfamily",
+    "rank": "Subfamily",
     "parentId": "51558",
     "__v": 0
   },
@@ -31531,7 +31531,7 @@
     "taxonId": "496694",
     "taxonName": "Exoprosopini",
     "vernacularName": "-",
-    "rank": "tribe",
+    "rank": "Tribe",
     "parentId": "205719",
     "__v": 0
   },
@@ -31540,8 +31540,17 @@
     "taxonId": "246066",
     "taxonName": "Ligyra",
     "vernacularName": "-",
-    "rank": "genus",
+    "rank": "Genus",
     "parentId": "496694",
+    "__v": 0
+  },
+  {
+    "_id": "66f28cc54fe45465d69bb16d",
+    "taxonId": "246065",
+    "taxonName": "Ligyra tantalus",
+    "vernacularName": "-",
+    "rank": "Species",
+    "parentId": "246066",
     "__v": 0
   }
 ]
