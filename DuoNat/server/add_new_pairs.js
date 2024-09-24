@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const readline = require('readline');
 const fs = require('fs').promises;
+const path = require('path');
+
 require('dotenv').config();
 
 // MongoDB connection
@@ -96,6 +98,91 @@ async function promptForCorrection(taxonName) {
     }
 }
 
+// backup and restore db collections
+const BACKUP_DIR = path.join(__dirname, 'backups');
+
+async function backupCollections() {
+    console.log("Backing up MongoDB collections...");
+    try {
+        // Ensure backup directory exists
+        await fs.mkdir(BACKUP_DIR, { recursive: true });
+
+        // Rename old backups
+        const files = await fs.readdir(BACKUP_DIR);
+        for (const file of files) {
+            if (file.endsWith('.json')) {
+                const filePath = path.join(BACKUP_DIR, file);
+                const newFilePath = path.join(BACKUP_DIR, `${file}.old`);
+                await fs.rename(filePath, newFilePath);
+                console.log(`Renamed ${file} to ${file}.old`);
+            }
+        }
+
+        // Get all collection names
+        const collections = await mongoose.connection.db.listCollections().toArray();
+        
+        for (const collection of collections) {
+            const collectionName = collection.name;
+            console.log(`Backing up collection: ${collectionName}`);
+            
+            // Fetch all documents from the collection
+            const documents = await mongoose.connection.db.collection(collectionName).find({}).toArray();
+            
+            // Write to JSON file
+            const backupPath = path.join(BACKUP_DIR, `${collectionName}.json`);
+            await fs.writeFile(backupPath, JSON.stringify(documents, null, 2));
+            
+            console.log(`Backup completed for ${collectionName}`);
+        }
+        
+        console.log('All collections backed up successfully');
+    } catch (error) {
+        console.error('Error during backup:', error);
+    }
+}
+
+async function restoreCollections() {
+    console.log("Restoring MongoDB collections...");
+    try {
+        const confirmed = await promptUser('WARNING: This will overwrite all data in MongoDB. Are you sure you want to proceed? (yes/no): ', 
+            val => ['yes', 'no'].includes(val.toLowerCase()));
+        
+        if (confirmed.toLowerCase() !== 'yes') {
+            console.log('Restore operation cancelled.');
+            return;
+        }
+
+        // Get all JSON files in the backup directory
+        const backupFiles = await fs.readdir(BACKUP_DIR);
+        const jsonFiles = backupFiles.filter(file => file.endsWith('.json'));
+        
+        for (const file of jsonFiles) {
+            const collectionName = path.parse(file).name;
+            console.log(`Restoring collection: ${collectionName}`);
+            
+            // Read the JSON file
+            const backupPath = path.join(BACKUP_DIR, file);
+            const fileContent = await fs.readFile(backupPath, 'utf8');
+            const documents = JSON.parse(fileContent);
+            
+            // Clear existing data in the collection
+            await mongoose.connection.db.collection(collectionName).deleteMany({});
+            
+            // Insert the backup data
+            if (documents.length > 0) {
+                await mongoose.connection.db.collection(collectionName).insertMany(documents);
+            }
+            
+            console.log(`Restore completed for ${collectionName}`);
+        }
+        
+        console.log('All collections restored successfully');
+    } catch (error) {
+        console.error('Error during restore:', error);
+    }
+}
+
+// main code
 async function fetchTaxonById(taxonId) {
     if (!taxonId || isNaN(taxonId)) {
         throw new Error('Invalid taxon ID provided');
@@ -332,11 +419,16 @@ async function createTaxonPairs() {
 
 async function getNextPairID() {
     try {
-        const lastPair = await TaxonPair.findOne({}, { pairID: 1 }).sort({ pairID: -1 });
-        if (lastPair) {
-            const lastID = parseInt(lastPair.pairID, 10);
-            return (lastID + 1).toString();
+        const allPairs = await TaxonPair.find({}, { pairID: 1 }).lean();
+        console.log(`Total pairs found: ${allPairs.length}`);
+        if (allPairs.length > 0) {
+            const highestID = Math.max(...allPairs.map(pair => parseInt(pair.pairID, 10)));
+            console.log(`Highest existing pairID: ${highestID}`);
+            const nextID = (highestID + 1).toString();
+            console.log(`Next pairID to be used: ${nextID}`);
+            return nextID;
         }
+        console.log('No existing pairs found. Starting with pairID: 1');
         return "1";
     } catch (error) {
         console.error('Error getting next pair ID:', error);
@@ -448,12 +540,15 @@ async function updateHierarchy() {
     }
 }
 
-async function enableAllNewTaxa() {
+async function enableAllNewEntries() {
     try {
-        const result = await TaxonInfo.updateMany({ enabled: false }, { enabled: true });
-        console.log(`Updated ${result.modifiedCount} taxa to enabled=true`);
+        const taxaResult = await TaxonInfo.updateMany({ enabled: false }, { enabled: true });
+        const pairsResult = await TaxonPair.updateMany({ enabled: false }, { enabled: true });
+        
+        console.log(`Updated ${taxaResult.modifiedCount} taxa to enabled=true`);
+        console.log(`Updated ${pairsResult.modifiedCount} taxon pairs to enabled=true`);
     } catch (error) {
-        console.error('Error enabling new taxa:', error);
+        console.error('Error enabling new taxa and pairs:', error);
     }
 }
 
@@ -487,7 +582,9 @@ async function displayMenu(lastAction) {
         "Create taxon pairs",
         "Update pair metadata",
         "Update taxon hierarchy",
-        "Enable all new taxa"
+        "Enable all new taxa and pairs",
+        "Backup MongoDB collections",
+        "Restore MongoDB collections"
     ];
     
     options.forEach((option, index) => {
@@ -499,7 +596,7 @@ async function displayMenu(lastAction) {
     });
     console.log("0. Exit");
 
-    const choice = await promptUser("Enter your choice (0-6): ", val => ['0','1','2','3','4','5','6'].includes(val));
+    const choice = await promptUser("Enter your choice (0-8): ", val => ['0','1','2','3','4','5','6','7','8'].includes(val));
     return parseInt(choice);
 }
 
@@ -531,8 +628,16 @@ async function main() {
                 lastAction = 5;
                 break;
             case 6:
-                await enableAllNewTaxa();
+                await enableAllNewEntries();
                 lastAction = 0;  // Reset to beginning after completing all steps
+                break;
+            case 7:
+                await backupCollections();
+                lastAction = 7;
+                break;
+            case 8:
+                await restoreCollections();
+                lastAction = 8;
                 break;
             case 0:
                 console.log("Exiting...");

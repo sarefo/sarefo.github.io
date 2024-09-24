@@ -9182,7 +9182,7 @@
   {
     "_id": "66e332d503631a605bca0b42",
     "pairID": "433",
-    "pairName": "Carolina vs Tarantual Wolf Spider",
+    "pairName": "Carolina vs Tarantula Wolf Spider",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -18697,5 +18697,25 @@
     ],
     "enabled": false,
     "__v": 1
+  },
+  {
+    "_id": "66f2955ca25f8583aa52fa7e",
+    "pairID": "875",
+    "pairName": "Tarantula vs Tarantula",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      347861,
+      47424
+    ],
+    "taxonNames": [
+      "Lycosa tarantula",
+      "Theraphosidae"
+    ],
+    "range": [
+      "EU"
+    ],
+    "enabled": false,
+    "__v": 0
   }
 ]
