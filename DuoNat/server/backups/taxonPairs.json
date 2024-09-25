@@ -19081,5 +19081,313 @@
     ],
     "enabled": true,
     "__v": 0
+  },
+  {
+    "_id": "66f2f5d4a9039dd18c1f63bf",
+    "pairID": "894",
+    "pairName": "Western Grey Kangaroo vs Wallaby",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      42881,
+      42973
+    ],
+    "taxonNames": [
+      "Macropus fuliginosus",
+      "Wallabia bicolor"
+    ],
+    "range": [
+      "AU"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f2f5d6a9039dd18c1f63c5",
+    "pairID": "895",
+    "pairName": "Komodo Dragon vs Iguana",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      39449,
+      35342
+    ],
+    "taxonNames": [
+      "Varanus komodoensis",
+      "Iguana iguana"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f2f5d8a9039dd18c1f63cb",
+    "pairID": "896",
+    "pairName": "Blue-and-yellow vs Scarlet Macaw",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      19018,
+      19022
+    ],
+    "taxonNames": [
+      "Ara ararauna",
+      "Ara macao"
+    ],
+    "range": [
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f2f5daa9039dd18c1f63d1",
+    "pairID": "897",
+    "pairName": "Red-and-green vs Scarlet Macaw",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      19022,
+      19016
+    ],
+    "taxonNames": [
+      "Ara macao",
+      "Ara chloropterus"
+    ],
+    "range": [
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f2f5dda9039dd18c1f63d7",
+    "pairID": "898",
+    "pairName": "Military vs Chestnut-fronted Macaw",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      72520,
+      19020
+    ],
+    "taxonNames": [
+      "Ara severus",
+      "Ara militaris"
+    ],
+    "range": [
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f2f5dea9039dd18c1f63dd",
+    "pairID": "899",
+    "pairName": "Scarlet vs Chestnut-fronted Macaw",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      72520,
+      19022
+    ],
+    "taxonNames": [
+      "Ara severus",
+      "Ara macao"
+    ],
+    "range": [
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f2f5e0a9039dd18c1f63e3",
+    "pairID": "900",
+    "pairName": "Dugong vs West-Indian Manatee",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      46316,
+      46311
+    ],
+    "taxonNames": [
+      "Trichechus manatus",
+      "Dugong dugon"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f2f5e2a9039dd18c1f63e9",
+    "pairID": "901",
+    "pairName": "Manatee vs Walrus",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      46316,
+      41766
+    ],
+    "taxonNames": [
+      "Trichechus manatus",
+      "Odobenus rosmarus"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f2f5e4a9039dd18c1f63ef",
+    "pairID": "902",
+    "pairName": "Meerkat vs Mongoose",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      41943,
+      41921
+    ],
+    "taxonNames": [
+      "Suricata suricatta",
+      "Mungos mungo"
+    ],
+    "range": [
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f2f5e6a9039dd18c1f63f5",
+    "pairID": "903",
+    "pairName": "Yellow Mongoose vs Meerkat",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      41943,
+      41911
+    ],
+    "taxonNames": [
+      "Suricata suricatta",
+      "Cynictis penicillata"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f2f5e8a9039dd18c1f63fb",
+    "pairID": "904",
+    "pairName": "Prairie Dog vs Meerkat",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      41943,
+      46179
+    ],
+    "taxonNames": [
+      "Suricata suricatta",
+      "Cynomys ludovicianus"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f2f5eaa9039dd18c1f6401",
+    "pairID": "905",
+    "pairName": "Okapi vs Chital",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      42155,
+      42166
+    ],
+    "taxonNames": [
+      "Okapia johnstoni",
+      "Axis axis"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f2f5eca9039dd18c1f6407",
+    "pairID": "906",
+    "pairName": "Emperor vs King Penguin",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      3821,
+      3820
+    ],
+    "taxonNames": [
+      "Aptenodytes patagonicus",
+      "Aptenodytes forsteri"
+    ],
+    "range": [
+      "OC"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f2f5eea9039dd18c1f640d",
+    "pairID": "907",
+    "pairName": "Gentoo vs Humboldt Penguin",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      3808,
+      3814
+    ],
+    "taxonNames": [
+      "Pygoscelis papua",
+      "Spheniscus humboldti"
+    ],
+    "range": [
+      "OC"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f2f5efa9039dd18c1f6413",
+    "pairID": "908",
+    "pairName": "Harbor Seal vs Sea Lion",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      41740,
+      41708
+    ],
+    "taxonNames": [
+      "Zalophus californianus",
+      "Phoca vitulina"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2f5f1a9039dd18c1f6419",
+    "pairID": "909",
+    "pairName": "Elephant Seal vs Walrus",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      41728,
+      41766
+    ],
+    "taxonNames": [
+      "Mirounga angustirostris",
+      "Odobenus rosmarus"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 1
   }
 ]

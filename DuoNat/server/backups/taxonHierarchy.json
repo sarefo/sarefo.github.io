@@ -31903,5 +31903,482 @@
     "rank": "Species",
     "parentId": "14865",
     "__v": 0
+  },
+  {
+    "_id": "66f2f9f3a9039dd18c1f643a",
+    "taxonId": "42881",
+    "taxonName": "Macropus fuliginosus",
+    "vernacularName": "Western grey kangaroo",
+    "rank": "Species",
+    "parentId": "42865",
+    "__v": 0
+  },
+  {
+    "_id": "66f2f9f8a9039dd18c1f6449",
+    "taxonId": "42972",
+    "taxonName": "Wallabia",
+    "vernacularName": "Swamp wallabies",
+    "rank": "Genus",
+    "parentId": "1317293",
+    "__v": 0
+  },
+  {
+    "_id": "66f2f9f8a9039dd18c1f644c",
+    "taxonId": "42973",
+    "taxonName": "Wallabia bicolor",
+    "vernacularName": "Swamp wallaby",
+    "rank": "Species",
+    "parentId": "42972",
+    "__v": 0
+  },
+  {
+    "_id": "66f2f9fba9039dd18c1f6456",
+    "taxonId": "39392",
+    "taxonName": "Varanidae",
+    "vernacularName": "Monitor lizards",
+    "rank": "Family",
+    "parentId": "85552",
+    "__v": 0
+  },
+  {
+    "_id": "66f2f9fca9039dd18c1f6459",
+    "taxonId": "39393",
+    "taxonName": "Varanus",
+    "vernacularName": "Monitor lizards",
+    "rank": "Genus",
+    "parentId": "39392",
+    "__v": 0
+  },
+  {
+    "_id": "66f2f9fda9039dd18c1f645c",
+    "taxonId": "39449",
+    "taxonName": "Varanus komodoensis",
+    "vernacularName": "Komodo dragon",
+    "rank": "Species",
+    "parentId": "39393",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa00a9039dd18c1f6466",
+    "taxonId": "35278",
+    "taxonName": "Iguanidae",
+    "vernacularName": "Iguanas and chuckwallas",
+    "rank": "Family",
+    "parentId": "85552",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa01a9039dd18c1f6469",
+    "taxonId": "35341",
+    "taxonName": "Iguana",
+    "vernacularName": "Typical iguanas",
+    "rank": "Genus",
+    "parentId": "35278",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa02a9039dd18c1f646c",
+    "taxonId": "35342",
+    "taxonName": "Iguana iguana",
+    "vernacularName": "Green iguana",
+    "rank": "Species",
+    "parentId": "35341",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa05a9039dd18c1f6475",
+    "taxonId": "18875",
+    "taxonName": "Psittacidae",
+    "vernacularName": "New world and african parrots",
+    "rank": "Family",
+    "parentId": "18874",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa05a9039dd18c1f6478",
+    "taxonId": "19015",
+    "taxonName": "Ara",
+    "vernacularName": "Typical macaws",
+    "rank": "Genus",
+    "parentId": "18875",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa06a9039dd18c1f647b",
+    "taxonId": "19018",
+    "taxonName": "Ara ararauna",
+    "vernacularName": "Blue-and-yellow macaw",
+    "rank": "Species",
+    "parentId": "19015",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa0ba9039dd18c1f6486",
+    "taxonId": "19022",
+    "taxonName": "Ara macao",
+    "vernacularName": "Scarlet macaw",
+    "rank": "Species",
+    "parentId": "19015",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa0ea9039dd18c1f6491",
+    "taxonId": "19016",
+    "taxonName": "Ara chloropterus",
+    "vernacularName": "Red-and-green macaw",
+    "rank": "Species",
+    "parentId": "19015",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa11a9039dd18c1f649c",
+    "taxonId": "72520",
+    "taxonName": "Ara severus",
+    "vernacularName": "Chestnut-fronted macaw",
+    "rank": "Species",
+    "parentId": "19015",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa14a9039dd18c1f64a7",
+    "taxonId": "19020",
+    "taxonName": "Ara militaris",
+    "vernacularName": "Military macaw",
+    "rank": "Species",
+    "parentId": "19015",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa18a9039dd18c1f64b3",
+    "taxonId": "46314",
+    "taxonName": "Trichechidae",
+    "vernacularName": "Manatees",
+    "rank": "Family",
+    "parentId": "46306",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa19a9039dd18c1f64b6",
+    "taxonId": "46315",
+    "taxonName": "Trichechus",
+    "vernacularName": "Manatees",
+    "rank": "Genus",
+    "parentId": "46314",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa1aa9039dd18c1f64b9",
+    "taxonId": "46316",
+    "taxonName": "Trichechus manatus",
+    "vernacularName": "West indian manatee",
+    "rank": "Species",
+    "parentId": "46315",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa1ea9039dd18c1f64c5",
+    "taxonId": "46307",
+    "taxonName": "Dugongidae",
+    "vernacularName": "Dugongs",
+    "rank": "Family",
+    "parentId": "46306",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa1fa9039dd18c1f64c8",
+    "taxonId": "846236",
+    "taxonName": "Dugonginae",
+    "vernacularName": "Dugongs",
+    "rank": "Subfamily",
+    "parentId": "46307",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa20a9039dd18c1f64cb",
+    "taxonId": "46310",
+    "taxonName": "Dugong",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "846236",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa20a9039dd18c1f64ce",
+    "taxonId": "46311",
+    "taxonName": "Dugong dugon",
+    "vernacularName": "Dugong",
+    "rank": "Species",
+    "parentId": "46310",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa24a9039dd18c1f64db",
+    "taxonId": "41764",
+    "taxonName": "Odobenidae",
+    "vernacularName": "Walruses",
+    "rank": "Family",
+    "parentId": "372843",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa25a9039dd18c1f64de",
+    "taxonId": "41765",
+    "taxonName": "Odobenus",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "41764",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa26a9039dd18c1f64e1",
+    "taxonId": "41766",
+    "taxonName": "Odobenus rosmarus",
+    "vernacularName": "Walrus",
+    "rank": "Species",
+    "parentId": "41765",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa2aa9039dd18c1f64ed",
+    "taxonId": "41893",
+    "taxonName": "Herpestidae",
+    "vernacularName": "Mongooses",
+    "rank": "Family",
+    "parentId": "41573",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa2ba9039dd18c1f64f0",
+    "taxonId": "846227",
+    "taxonName": "Mungotinae",
+    "vernacularName": "Social mongooses",
+    "rank": "Subfamily",
+    "parentId": "41893",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa2ca9039dd18c1f64f3",
+    "taxonId": "41942",
+    "taxonName": "Suricata",
+    "vernacularName": "Meerkats",
+    "rank": "Genus",
+    "parentId": "846227",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa2ca9039dd18c1f64f6",
+    "taxonId": "41943",
+    "taxonName": "Suricata suricatta",
+    "vernacularName": "Meerkat",
+    "rank": "Species",
+    "parentId": "41942",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa31a9039dd18c1f6504",
+    "taxonId": "41920",
+    "taxonName": "Mungos",
+    "vernacularName": "Banded mongooses",
+    "rank": "Genus",
+    "parentId": "846227",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa32a9039dd18c1f6507",
+    "taxonId": "41921",
+    "taxonName": "Mungos mungo",
+    "vernacularName": "Banded mongoose",
+    "rank": "Species",
+    "parentId": "41920",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa36a9039dd18c1f6514",
+    "taxonId": "846196",
+    "taxonName": "Herpestinae",
+    "vernacularName": "Solitary mongooses",
+    "rank": "Subfamily",
+    "parentId": "41893",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa37a9039dd18c1f6517",
+    "taxonId": "41910",
+    "taxonName": "Cynictis",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "846196",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa37a9039dd18c1f651a",
+    "taxonId": "41911",
+    "taxonName": "Cynictis penicillata",
+    "vernacularName": "Yellow mongoose",
+    "rank": "Species",
+    "parentId": "41910",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa3da9039dd18c1f652a",
+    "taxonId": "46175",
+    "taxonName": "Cynomys",
+    "vernacularName": "Prairie dogs",
+    "rank": "Genus",
+    "parentId": "209650",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa3ea9039dd18c1f652d",
+    "taxonId": "1431488",
+    "taxonName": "Cynomys",
+    "vernacularName": "Black-tailed prairie dogs",
+    "rank": "Subgenus",
+    "parentId": "46175",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa3ea9039dd18c1f6530",
+    "taxonId": "46179",
+    "taxonName": "Cynomys ludovicianus",
+    "vernacularName": "Black-tailed prairie dog",
+    "rank": "Species",
+    "parentId": "1431488",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa42a9039dd18c1f653d",
+    "taxonId": "42153",
+    "taxonName": "Giraffidae",
+    "vernacularName": "Giraffes and okapi",
+    "rank": "Family",
+    "parentId": "424850",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa43a9039dd18c1f6540",
+    "taxonId": "42154",
+    "taxonName": "Okapia",
+    "vernacularName": "Okapis",
+    "rank": "Genus",
+    "parentId": "42153",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa44a9039dd18c1f6543",
+    "taxonId": "42155",
+    "taxonName": "Okapia johnstoni",
+    "vernacularName": "Okapi",
+    "rank": "Species",
+    "parentId": "42154",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa49a9039dd18c1f6553",
+    "taxonId": "42162",
+    "taxonName": "Axis",
+    "vernacularName": "Axis deer",
+    "rank": "Genus",
+    "parentId": "846317",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa4aa9039dd18c1f6556",
+    "taxonId": "42166",
+    "taxonName": "Axis axis",
+    "vernacularName": "Chital",
+    "rank": "Species",
+    "parentId": "42162",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa4da9039dd18c1f655f",
+    "taxonId": "3806",
+    "taxonName": "Spheniscidae",
+    "vernacularName": "Penguins",
+    "rank": "Family",
+    "parentId": "67564",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa4da9039dd18c1f6562",
+    "taxonId": "3819",
+    "taxonName": "Aptenodytes",
+    "vernacularName": "Great penguins",
+    "rank": "Genus",
+    "parentId": "3806",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa4ea9039dd18c1f6565",
+    "taxonId": "3821",
+    "taxonName": "Aptenodytes patagonicus",
+    "vernacularName": "King penguin",
+    "rank": "Species",
+    "parentId": "3819",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa51a9039dd18c1f6570",
+    "taxonId": "3820",
+    "taxonName": "Aptenodytes forsteri",
+    "vernacularName": "Emperor penguin",
+    "rank": "Species",
+    "parentId": "3819",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa55a9039dd18c1f657a",
+    "taxonId": "3807",
+    "taxonName": "Pygoscelis",
+    "vernacularName": "Brush-tailed penguins",
+    "rank": "Genus",
+    "parentId": "3806",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa55a9039dd18c1f657d",
+    "taxonId": "3808",
+    "taxonName": "Pygoscelis papua",
+    "vernacularName": "Gentoo penguin",
+    "rank": "Species",
+    "parentId": "3807",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa59a9039dd18c1f6587",
+    "taxonId": "3811",
+    "taxonName": "Spheniscus",
+    "vernacularName": "Banded penguins",
+    "rank": "Genus",
+    "parentId": "3806",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa59a9039dd18c1f658a",
+    "taxonId": "3814",
+    "taxonName": "Spheniscus humboldti",
+    "vernacularName": "Humboldt penguin",
+    "rank": "Species",
+    "parentId": "3811",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa5ea9039dd18c1f6598",
+    "taxonId": "41727",
+    "taxonName": "Mirounga",
+    "vernacularName": "Elephant seals",
+    "rank": "Genus",
+    "parentId": "41687",
+    "__v": 0
+  },
+  {
+    "_id": "66f2fa5fa9039dd18c1f659b",
+    "taxonId": "41728",
+    "taxonName": "Mirounga angustirostris",
+    "vernacularName": "Northern elephant seal",
+    "rank": "Species",
+    "parentId": "41727",
+    "__v": 0
   }
 ]

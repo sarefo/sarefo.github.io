@@ -51573,5 +51573,684 @@
     "hints": [],
     "enabled": true,
     "__v": 1
+  },
+  {
+    "_id": "66f2f2f3a9039dd18c1f633f",
+    "taxonId": "42881",
+    "taxonName": "Macropus fuliginosus",
+    "vernacularName": "Western grey kangaroo",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848319,
+      42711,
+      1539327,
+      42864,
+      846231,
+      1317293,
+      42865
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for its powerful hind legs and long tail.",
+      "Can leap over 3 meters in a single bound.",
+      "Primarily herbivorous, feeding on grasses and leaves."
+    ],
+    "range": [
+      "AU"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2f2f4a9039dd18c1f6342",
+    "taxonId": "42973",
+    "taxonName": "Wallabia bicolor",
+    "vernacularName": "Swamp wallaby",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848319,
+      42711,
+      1539327,
+      42864,
+      846231,
+      1317293,
+      42972
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Has a unique two-tone fur pattern.",
+      "Prefers dense vegetation near water sources.",
+      "Social animals often seen in small groups."
+    ],
+    "range": [
+      "AU"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2f2f5a9039dd18c1f6345",
+    "taxonId": "39449",
+    "taxonName": "Varanus komodoensis",
+    "vernacularName": "Komodo dragon",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26172,
+      85552,
+      39392,
+      39393
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Largest living lizard species on Earth.",
+      "Saliva contains bacteria that can poison prey.",
+      "Can consume up to 80 percent of body weight."
+    ],
+    "range": [
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2f2f6a9039dd18c1f6348",
+    "taxonId": "35342",
+    "taxonName": "Iguana iguana",
+    "vernacularName": "Green iguana",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26172,
+      85552,
+      35278,
+      35341
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Can hold breath underwater for up to 30 minutes.",
+      "Juveniles are more insectivorous than adults.",
+      "Males may turn orange during breeding season."
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2f2f7a9039dd18c1f634b",
+    "taxonId": "19018",
+    "taxonName": "Ara ararauna",
+    "vernacularName": "Blue-and-yellow macaw",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      18874,
+      18875,
+      19015
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for its vibrant blue and yellow feathers.",
+      "Can mimic human speech and other sounds.",
+      "Nests in tree cavities, often near rivers."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2f2f8a9039dd18c1f634e",
+    "taxonId": "19022",
+    "taxonName": "Ara macao",
+    "vernacularName": "Scarlet macaw",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      18874,
+      18875,
+      19015
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Recognizable by its bright red plumage.",
+      "Forms strong pair bonds with mates.",
+      "Diet primarily consists of fruits and nuts."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2f2faa9039dd18c1f6352",
+    "taxonId": "19016",
+    "taxonName": "Ara chloropterus",
+    "vernacularName": "Red-and-green macaw",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      18874,
+      18875,
+      19015
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Features a distinctive green wing coloration.",
+      "Lives in pairs or small family groups.",
+      "Requires large trees for nesting sites."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2f2fba9039dd18c1f6355",
+    "taxonId": "72520",
+    "taxonName": "Ara severus",
+    "vernacularName": "Chestnut-fronted macaw",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      18874,
+      18875,
+      19015
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for its loud, raucous calls.",
+      "Often seen in mixed-species flocks.",
+      "Feeds on seeds, fruits, and flowers."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2f2fca9039dd18c1f6358",
+    "taxonId": "19020",
+    "taxonName": "Ara militaris",
+    "vernacularName": "Military macaw",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      18874,
+      18875,
+      19015
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Has a striking green and red coloration.",
+      "Nests in tree cavities, often high up.",
+      "Diet includes fruits, nuts, and seeds."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2f2fea9039dd18c1f635d",
+    "taxonId": "46316",
+    "taxonName": "Trichechus manatus",
+    "vernacularName": "West indian manatee",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848321,
+      46306,
+      46314,
+      46315
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Herbivorous, feeding mainly on aquatic plants.",
+      "Can hold breath underwater for up to 20 minutes."
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2f2ffa9039dd18c1f6360",
+    "taxonId": "46311",
+    "taxonName": "Dugong dugon",
+    "vernacularName": "Dugong",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848321,
+      46306,
+      46307,
+      846236,
+      46310
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Related to manatees but has a dolphin-like tail.",
+      "Feeds primarily on seagrass in shallow waters.",
+      "Can live up to 70 years in the wild."
+    ],
+    "range": [
+      "AF",
+      "AS",
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2f300a9039dd18c1f6364",
+    "taxonId": "41766",
+    "taxonName": "Odobenus rosmarus",
+    "vernacularName": "Walrus",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      372843,
+      41764,
+      41765
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for its long tusks and whiskers.",
+      "Tusks are actually elongated canine teeth.",
+      "Social animals often found in large herds."
+    ],
+    "range": [
+      "NA",
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2f301a9039dd18c1f6367",
+    "taxonId": "41943",
+    "taxonName": "Suricata suricatta",
+    "vernacularName": "Meerkat",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41893,
+      846227,
+      41942
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Meerkats are highly social and live in groups.",
+      "Sentinel behavior helps protect against predators.",
+      "Communicate using various vocalizations among members."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2f303a9039dd18c1f636a",
+    "taxonId": "41921",
+    "taxonName": "Mungos mungo",
+    "vernacularName": "Banded mongoose",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41893,
+      846227,
+      41920
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for their social behavior.",
+      "Vocal grooming helps maintain group cohesion.",
+      "Territorial disputes can lead to violent clashes."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2f305a9039dd18c1f636e",
+    "taxonId": "41911",
+    "taxonName": "Cynictis penicillata",
+    "vernacularName": "Yellow mongoose",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41893,
+      846196,
+      41910
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Endangered due to habitat loss and disease outbreaks.",
+      "Social animals living in family groups."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2f306a9039dd18c1f6372",
+    "taxonId": "46179",
+    "taxonName": "Cynomys ludovicianus",
+    "vernacularName": "Black-tailed prairie dog",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43698,
+      129411,
+      45933,
+      339572,
+      209650,
+      46175,
+      1431488
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Live in complex burrows.",
+      "They communicate using a variety of vocalizations.",
+      "Play an important role in their ecosystem as prey."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2f307a9039dd18c1f6375",
+    "taxonId": "42155",
+    "taxonName": "Okapia johnstoni",
+    "vernacularName": "Okapi",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      152870,
+      424850,
+      42153,
+      42154
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Related to giraffes but has zebra-like stripes.",
+      "Primarily herbivorous, feeding on leaves and fruits.",
+      "Found only in the rainforests of the Congo."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2f308a9039dd18c1f6378",
+    "taxonId": "42166",
+    "taxonName": "Axis axis",
+    "vernacularName": "Chital",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      152870,
+      424850,
+      42158,
+      846198,
+      846317,
+      42162
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Males grow antlers that they shed annually.",
+      "Live in herds that can number over a hundred."
+    ],
+    "range": [
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2f30aa9039dd18c1f637b",
+    "taxonId": "3821",
+    "taxonName": "Aptenodytes patagonicus",
+    "vernacularName": "King penguin",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67564,
+      3806,
+      3819
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Second largest penguin species.",
+      "Breeds during the harsh Antarctic winter months.",
+      "Can dive over 300 meters in search of food."
+    ],
+    "range": [
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2f30ba9039dd18c1f637e",
+    "taxonId": "3820",
+    "taxonName": "Aptenodytes forsteri",
+    "vernacularName": "Emperor penguin",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67564,
+      3806,
+      3819
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "The emperor penguin is the largest penguin species.",
+      "Breeds during the coldest part of the Antarctic winter.",
+      "Can dive deeper than any other bird species."
+    ],
+    "range": [
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2f30ca9039dd18c1f6381",
+    "taxonId": "3808",
+    "taxonName": "Pygoscelis papua",
+    "vernacularName": "Gentoo penguin",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67564,
+      3806,
+      3807
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Gentoo penguins are recognized by their orange beaks.",
+      "Fast swimmers can reach speeds up to 36 km/h (22 mph).",
+      "Nests are built from pebbles and stones."
+    ],
+    "range": [
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2f30da9039dd18c1f6384",
+    "taxonId": "3814",
+    "taxonName": "Spheniscus humboldti",
+    "vernacularName": "Humboldt penguin",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67564,
+      3806,
+      3811
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Humboldt penguins are native to the coasts of South America.",
+      "Social animals often seen in large colonies.",
+      "Diving can reach depths of over 100 meters."
+    ],
+    "range": [
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f2f30fa9039dd18c1f6389",
+    "taxonId": "41728",
+    "taxonName": "Mirounga angustirostris",
+    "vernacularName": "Northern elephant seal",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      372843,
+      41687,
+      41727
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Can weigh over two tons (1,800 kg).",
+      "Males have large proboscises used for mating displays.",
+      "Dives can last over an hour while hunting."
+    ],
+    "range": [
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
   }
 ]
