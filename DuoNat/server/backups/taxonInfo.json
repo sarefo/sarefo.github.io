@@ -52283,5 +52283,98 @@
     "hints": [],
     "enabled": true,
     "__v": 1
+  },
+  {
+    "_id": "66f3140d85bd7e920db834c4",
+    "taxonId": "41886",
+    "taxonName": "Crocuta crocuta",
+    "vernacularName": "Spotted hyena",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41884,
+      846226,
+      41885
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Females are larger than males and lead the clan",
+      "Hunts in groups and can take down big animals",
+      "Communicates with yells, whoops and cackles up to 5km"
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f3140e85bd7e920db834c7",
+    "taxonId": "41888",
+    "taxonName": "Hyaena hyaena",
+    "vernacularName": "Striped hyaena",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41884,
+      846226,
+      41887
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Solitary or lives in small family groups",
+      "Scavenges for food but also hunts small animals",
+      "Has a distinctive black and white striped coat"
+    ],
+    "range": [
+      "AF",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f3140f85bd7e920db834cb",
+    "taxonId": "1210966",
+    "taxonName": "Lupulella mesomelas",
+    "vernacularName": "Black-backed jackal",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      42043,
+      1210963
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Adapts well to living near human settlements",
+      "Hunts small mammals, birds, reptiles and insects",
+      "Mates between May and August with 60-day gestation"
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
   }
 ]

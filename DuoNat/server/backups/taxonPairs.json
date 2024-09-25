@@ -19427,5 +19427,45 @@
     "range": [],
     "enabled": true,
     "__v": 0
+  },
+  {
+    "_id": "66f3146185bd7e920db834d8",
+    "pairID": "912",
+    "pairName": "Spotted vs Striped Hyaena",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      41886,
+      41888
+    ],
+    "taxonNames": [
+      "Crocuta crocuta",
+      "Hyaena hyaena"
+    ],
+    "range": [
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f3146385bd7e920db834de",
+    "pairID": "913",
+    "pairName": "Spotted Hyaena vs Black-backed Jackal",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      41886,
+      1210966
+    ],
+    "taxonNames": [
+      "Crocuta crocuta",
+      "Lupulella mesomelas"
+    ],
+    "range": [
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
   }
 ]

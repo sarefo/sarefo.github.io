@@ -32389,5 +32389,77 @@
     "rank": "Species",
     "parentId": "41962",
     "__v": 0
+  },
+  {
+    "_id": "66f314c885bd7e920db834e5",
+    "taxonId": "41885",
+    "taxonName": "Crocuta",
+    "vernacularName": "Common hyenas",
+    "rank": "Genus",
+    "parentId": "846226",
+    "__v": 0
+  },
+  {
+    "_id": "66f314c985bd7e920db834e8",
+    "taxonId": "846226",
+    "taxonName": "Hyaeninae",
+    "vernacularName": "Bone-cracking hyaenas",
+    "rank": "Subfamily",
+    "parentId": "41884",
+    "__v": 0
+  },
+  {
+    "_id": "66f314ca85bd7e920db834eb",
+    "taxonId": "41884",
+    "taxonName": "Hyaenidae",
+    "vernacularName": "Hyaenas",
+    "rank": "Family",
+    "parentId": "41573",
+    "__v": 0
+  },
+  {
+    "_id": "66f314cb85bd7e920db834ef",
+    "taxonId": "41886",
+    "taxonName": "Crocuta crocuta",
+    "vernacularName": "Spotted hyena",
+    "rank": "Species",
+    "parentId": "41885",
+    "__v": 0
+  },
+  {
+    "_id": "66f314cc85bd7e920db834f3",
+    "taxonId": "41887",
+    "taxonName": "Hyaena",
+    "vernacularName": "Striped hyenas",
+    "rank": "Genus",
+    "parentId": "846226",
+    "__v": 0
+  },
+  {
+    "_id": "66f314cd85bd7e920db834f7",
+    "taxonId": "41888",
+    "taxonName": "Hyaena hyaena",
+    "vernacularName": "Striped hyaena",
+    "rank": "Species",
+    "parentId": "41887",
+    "__v": 0
+  },
+  {
+    "_id": "66f314d085bd7e920db834fb",
+    "taxonId": "1210963",
+    "taxonName": "Lupulella",
+    "vernacularName": "African jackals",
+    "rank": "Genus",
+    "parentId": "42043",
+    "__v": 0
+  },
+  {
+    "_id": "66f314d185bd7e920db834ff",
+    "taxonId": "1210966",
+    "taxonName": "Lupulella mesomelas",
+    "vernacularName": "Black-backed jackal",
+    "rank": "Species",
+    "parentId": "1210963",
+    "__v": 0
   }
 ]
