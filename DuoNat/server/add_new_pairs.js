@@ -473,28 +473,17 @@ async function updatePairMetadata() {
 async function updateHierarchy() {
     console.log("Updating taxon hierarchy...");
     try {
-        // Ensure the root "Life" taxon exists
-        /*await TaxonHierarchy.findOneAndUpdate(
-            { taxonId: "48460" },
-            {
-                taxonName: "Life",
-                vernacularName: "-",
-                rank: "Stateofmatter",
-                parentId: null
-            },
-            { upsert: true }
-        );*/
-
         const newTaxa = await TaxonInfo.find({ enabled: false });
         console.log(`Processing ${newTaxa.length} new taxa...`);
 
         for (const taxon of newTaxa) {
             console.log(`Processing ${taxon.taxonName}...`);
-            const ancestryIds = taxon.ancestryIds || [];
+            const ancestryIds = [...taxon.ancestryIds].reverse(); // Reverse the order
             
-            for (let i = 0; i < ancestryIds.length; i++) {
+            let shouldContinue = true;
+            for (let i = 0; i < ancestryIds.length && shouldContinue; i++) {
                 const currentId = ancestryIds[i].toString();
-                const parentId = i === 0 ? "48460" : ancestryIds[i-1].toString();
+                const parentId = i === ancestryIds.length - 1 ? "48460" : ancestryIds[i+1].toString();
 
                 const existingHierarchyEntry = await TaxonHierarchy.findOne({ taxonId: currentId });
                 
@@ -514,10 +503,11 @@ async function updateHierarchy() {
                     }
                 } else {
                     console.log(`Hierarchy entry already exists for ${existingHierarchyEntry.taxonName}`);
+                    shouldContinue = false; // Stop processing ancestors if one is found
                 }
             }
 
-            // Add the taxon itself to the hierarchy if not already present
+            // Always add the current taxon to the hierarchy
             const taxonHierarchyEntry = await TaxonHierarchy.findOne({ taxonId: taxon.taxonId });
             if (!taxonHierarchyEntry) {
                 await TaxonHierarchy.create({
@@ -629,11 +619,11 @@ async function main() {
                 break;
             case 6:
                 await enableAllNewEntries();
-                lastAction = 0;  // Reset to beginning after completing all steps
+                lastAction = 6;
                 break;
             case 7:
                 await backupCollections();
-                lastAction = 7;
+                lastAction = 0; // Reset to beginning after completing all steps
                 break;
             case 8:
                 await restoreCollections();
