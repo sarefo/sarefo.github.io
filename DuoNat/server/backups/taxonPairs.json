@@ -19389,5 +19389,43 @@
     "range": [],
     "enabled": true,
     "__v": 1
+  },
+  {
+    "_id": "66f30e775c3bae4715332bb8",
+    "pairID": "910",
+    "pairName": "Leopard vs Snow Leopard",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      74831,
+      41963
+    ],
+    "taxonNames": [
+      "Panthera uncia",
+      "Panthera pardus"
+    ],
+    "range": [
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f30e785c3bae4715332bbe",
+    "pairID": "911",
+    "pairName": "Jaguar vs Snow Leopard",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      74831,
+      41970
+    ],
+    "taxonNames": [
+      "Panthera uncia",
+      "Panthera onca"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
   }
 ]

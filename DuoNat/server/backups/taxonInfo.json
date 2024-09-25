@@ -52252,5 +52252,36 @@
     "hints": [],
     "enabled": true,
     "__v": 1
+  },
+  {
+    "_id": "66f30e375c3bae4715332bac",
+    "taxonId": "74831",
+    "taxonName": "Panthera uncia",
+    "vernacularName": "Snow leopard",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41944,
+      846273,
+      41962
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Snow leopards are more closely related to tigers than leopards.",
+      "They can leap up to six times their body length.",
+      "Snow leopards are often called ghosts of the mountains."
+    ],
+    "range": [
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
   }
 ]
