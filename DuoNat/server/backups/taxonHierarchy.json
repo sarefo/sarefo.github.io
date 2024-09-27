@@ -32695,5 +32695,95 @@
     "rank": "Species",
     "parentId": "1369273",
     "__v": 0
+  },
+  {
+    "_id": "66f402fd6e3c006c8ab2aaec",
+    "taxonId": "42041",
+    "taxonName": "Caracal",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "846179",
+    "__v": 0
+  },
+  {
+    "_id": "66f402fe6e3c006c8ab2aaf0",
+    "taxonId": "42042",
+    "taxonName": "Caracal caracal",
+    "vernacularName": "Caracal",
+    "rank": "Species",
+    "parentId": "42041",
+    "__v": 0
+  },
+  {
+    "_id": "66f402ff6e3c006c8ab2aaf4",
+    "taxonId": "42024",
+    "taxonName": "Leptailurus",
+    "vernacularName": "Servals",
+    "rank": "Genus",
+    "parentId": "846179",
+    "__v": 0
+  },
+  {
+    "_id": "66f403006e3c006c8ab2aaf8",
+    "taxonId": "42025",
+    "taxonName": "Leptailurus serval",
+    "vernacularName": "Serval",
+    "rank": "Species",
+    "parentId": "42024",
+    "__v": 0
+  },
+  {
+    "_id": "66f403016e3c006c8ab2aafc",
+    "taxonId": "197783",
+    "taxonName": "Herpailurus",
+    "vernacularName": "Jaguarundis",
+    "rank": "Genus",
+    "parentId": "846179",
+    "__v": 0
+  },
+  {
+    "_id": "66f403026e3c006c8ab2ab00",
+    "taxonId": "197781",
+    "taxonName": "Herpailurus yagouaroundi",
+    "vernacularName": "Jaguarundi",
+    "rank": "Species",
+    "parentId": "197783",
+    "__v": 0
+  },
+  {
+    "_id": "66f403036e3c006c8ab2ab04",
+    "taxonId": "42086",
+    "taxonName": "Cerdocyon",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "42043",
+    "__v": 0
+  },
+  {
+    "_id": "66f403046e3c006c8ab2ab08",
+    "taxonId": "42087",
+    "taxonName": "Cerdocyon thous",
+    "vernacularName": "Crab-eating fox",
+    "rank": "Species",
+    "parentId": "42086",
+    "__v": 0
+  },
+  {
+    "_id": "66f403056e3c006c8ab2ab0c",
+    "taxonId": "42075",
+    "taxonName": "Urocyon",
+    "vernacularName": "Gray foxes",
+    "rank": "Genus",
+    "parentId": "42043",
+    "__v": 0
+  },
+  {
+    "_id": "66f403066e3c006c8ab2ab10",
+    "taxonId": "42076",
+    "taxonName": "Urocyon cinereoargenteus",
+    "vernacularName": "Gray fox",
+    "rank": "Species",
+    "parentId": "42075",
+    "__v": 0
   }
 ]

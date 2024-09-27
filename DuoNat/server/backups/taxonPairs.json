@@ -19701,5 +19701,102 @@
     ],
     "enabled": true,
     "__v": 0
+  },
+  {
+    "_id": "66f401956e3c006c8ab2aaca",
+    "pairID": "926",
+    "pairName": "Caracal vs Serval",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      42042,
+      42025
+    ],
+    "taxonNames": [
+      "Caracal caracal",
+      "Leptailurus serval"
+    ],
+    "range": [
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f401976e3c006c8ab2aad0",
+    "pairID": "927",
+    "pairName": "Serval vs Bobcat",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      42025,
+      41976
+    ],
+    "taxonNames": [
+      "Leptailurus serval",
+      "Lynx rufus"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f401996e3c006c8ab2aad6",
+    "pairID": "928",
+    "pairName": "Cheetah vs Margay",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      41988,
+      41955
+    ],
+    "taxonNames": [
+      "Leopardus wiedii",
+      "Acinonyx jubatus"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4019a6e3c006c8ab2aadc",
+    "pairID": "929",
+    "pairName": "Mountain Lion vs Jaguarundi",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      197781,
+      42007
+    ],
+    "taxonNames": [
+      "Herpailurus yagouaroundi",
+      "Puma concolor"
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4019c6e3c006c8ab2aae2",
+    "pairID": "930",
+    "pairName": "Crab-eating vs Gray Fox",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      42087,
+      42076
+    ],
+    "taxonNames": [
+      "Cerdocyon thous",
+      "Urocyon cinereoargenteus"
+    ],
+    "range": [
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
   }
 ]

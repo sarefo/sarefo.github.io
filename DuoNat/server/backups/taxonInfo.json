@@ -52945,5 +52945,161 @@
     "hints": [],
     "enabled": true,
     "__v": 1
+  },
+  {
+    "_id": "66f400a76e3c006c8ab2aaa8",
+    "taxonId": "42042",
+    "taxonName": "Caracal caracal",
+    "vernacularName": "Caracal",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41944,
+      846179,
+      42041
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Caracals can leap 3 meters to catch birds",
+      "Caracals were once trained for hunting in Iran",
+      "Caracals can kill prey larger than themselves"
+    ],
+    "range": [
+      "AF",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f400a86e3c006c8ab2aaab",
+    "taxonId": "42025",
+    "taxonName": "Leptailurus serval",
+    "vernacularName": "Serval",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41944,
+      846179,
+      42024
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Servals have the longest legs of any cat",
+      "Servals can jump 2 meters to catch birds",
+      "Servals are excellent swimmers for a cat"
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f400ab6e3c006c8ab2aab2",
+    "taxonId": "197781",
+    "taxonName": "Herpailurus yagouaroundi",
+    "vernacularName": "Jaguarundi",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41944,
+      846179,
+      197783
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Jaguarundis come in two color morphs: gray and red",
+      "Jaguarundis are the only cat species with no spots",
+      "Jaguarundis can swim well and climb trees easily"
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f400ac6e3c006c8ab2aab6",
+    "taxonId": "42087",
+    "taxonName": "Cerdocyon thous",
+    "vernacularName": "Crab-eating fox",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      42043,
+      42086
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Crab-eating foxes are the only South American canids",
+      "Crab-eating foxes have partially webbed feet for swimming",
+      "Crab-eating foxes are excellent climbers for a canid"
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f400ad6e3c006c8ab2aab9",
+    "taxonId": "42076",
+    "taxonName": "Urocyon cinereoargenteus",
+    "vernacularName": "Gray fox",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      42043,
+      42075
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Gray foxes are the only climbing canids in America",
+      "Gray foxes can retract their claws like cats",
+      "Gray foxes are the smallest canids in North America"
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
   }
 ]
