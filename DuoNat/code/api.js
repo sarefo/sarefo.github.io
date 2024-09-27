@@ -268,6 +268,7 @@ const api = (() => {
 
             fetchPairByID: async function (pairID) {
                 if (!config.useMongoDB) {
+                    logger.warn('MongoDB is not being used, cannot fetch pair by ID');
                     return null;
                 }
                 try {

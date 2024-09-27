@@ -382,10 +382,13 @@ app.get('/api/tagCounts', async (req, res) => {
 app.get('/api/taxonPairs/:pairID', async (req, res) => {
     try {
         const pairID = req.params.pairID;
+        //console.log(`Fetching pair with ID: ${pairID}`);
         const pair = await TaxonPair.findOne({ pairID: pairID }).lean();
         if (!pair) {
+            //console.log(`Pair with ID ${pairID} not found`);
             return res.status(404).json({ message: 'Pair not found' });
         }
+        //console.log(`Found pair: ${JSON.stringify(pair)}`);
         res.json(pair);
     } catch (error) {
         console.error('Error fetching pair by ID:', error);

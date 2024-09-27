@@ -54,6 +54,14 @@ const pairManager = {
             let initialPair, initialImages;
             if (pairID) {
                 initialPair = await this.getPairByID(pairID);
+
+                //logger.debug(`Initial pair data: ${JSON.stringify(initialPair)}`);
+                if (!initialPair) {
+                    logger.warn(`Pair with ID ${pairID} not found. Falling back to random pair selection.`);
+                    initialPair = await api.taxonomy.fetchRandomLevelOnePair();
+                    logger.debug(`Random pair selected: ${JSON.stringify(initialPair)}`);
+                }
+
                 initialImages = await this.getImageURLs(initialPair);
             } else {
                 const cachedInitialPair = await cache.getInitialPair();
