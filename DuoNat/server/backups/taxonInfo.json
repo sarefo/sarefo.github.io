@@ -53101,5 +53101,404 @@
     "hints": [],
     "enabled": true,
     "__v": 1
+  },
+  {
+    "_id": "66f4068c62ad3f1dd22697ae",
+    "taxonId": "41678",
+    "taxonName": "Potos flavus",
+    "vernacularName": "Kinkajou",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41660,
+      41677
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Arboreal with a prehensile tail.",
+      "Feeds primarily on fruit and nectar.",
+      "Can rotate hind feet for climbing."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4068d62ad3f1dd22697b1",
+    "taxonId": "325998",
+    "taxonName": "Bassaricyon neblina",
+    "vernacularName": "Olinguito",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41660,
+      41679
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Discovered as a new species in 2013.",
+      "Lives in montane forests of the Andes.",
+      "Diet includes fruit and small vertebrates."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4068e62ad3f1dd22697b4",
+    "taxonId": "41673",
+    "taxonName": "Nasua narica",
+    "vernacularName": "White-nosed coati",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41660,
+      41669
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Highly social and often found in groups.",
+      "Known for their flexible and prehensile tails.",
+      "They can consume a variety of food items."
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4069062ad3f1dd22697bb",
+    "taxonId": "1431872",
+    "taxonName": "Nasua olivacea",
+    "vernacularName": "Mountain coati",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41660,
+      41669
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Primarily found in rainforest habitats.",
+      "Diet includes fruits, insects, and small animals.",
+      "They exhibit strong social behavior and bonding."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4069262ad3f1dd22697c0",
+    "taxonId": "41774",
+    "taxonName": "Eira barbara",
+    "vernacularName": "Tayra",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41770,
+      846241,
+      41773
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Adaptable omnivores found in forests and savannas.",
+      "Known for their agility and curiosity.",
+      "Can control pest populations effectively."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4069362ad3f1dd22697c3",
+    "taxonId": "41778",
+    "taxonName": "Lontra longicaudis",
+    "vernacularName": "Neotropical river otter",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41770,
+      526556,
+      41775
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Prefers aquatic habitats and is a skilled swimmer.",
+      "Dives for food, mainly fish and crustaceans.",
+      "They have social structures typically led by females."
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4069462ad3f1dd22697c6",
+    "taxonId": "41825",
+    "taxonName": "Galictis vittata",
+    "vernacularName": "Greater grison",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41770,
+      846246,
+      41823
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Also known as the South American Wolverine.",
+      "They are known for their fierce temperament.",
+      "Uses den sites for raising their young."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4069662ad3f1dd22697cb",
+    "taxonId": "851014",
+    "taxonName": "Canis aureus",
+    "vernacularName": "Golden jackal",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      42043,
+      42044
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Adaptable scavengers thriving in various habitats.",
+      "They are skilled at hunting small mammals.",
+      "Known for their vocal communication, using various calls."
+    ],
+    "range": [
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4069762ad3f1dd22697ce",
+    "taxonId": "855311",
+    "taxonName": "Nyctereutes procyonoides",
+    "vernacularName": "Mainland raccoon dog",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      42043,
+      42098
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Breeds once a year with seasonal monogamy.",
+      "Can be found in diverse habitats and climates.",
+      "They use vocal sounds to communicate among pairs."
+    ],
+    "range": [
+      "AS",
+      "EU"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4069862ad3f1dd22697d2",
+    "taxonId": "42095",
+    "taxonName": "Otocyon megalotis",
+    "vernacularName": "Bat-eared fox",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      42043,
+      42094
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Adapted for a diet primarily of insects and fruit.",
+      "Known for their distinctive large ears for hunting.",
+      "They can run quickly when threatened."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4069962ad3f1dd22697d5",
+    "taxonId": "42055",
+    "taxonName": "Vulpes chama",
+    "vernacularName": "Cape fox",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      42043,
+      42054
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Can survive long periods without water.",
+      "Uses burrows and dens for shelter.",
+      "Often forages at night for food."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4069a62ad3f1dd22697d8",
+    "taxonId": "1306005",
+    "taxonName": "Proteles cristatus",
+    "vernacularName": "Southern aardwolf",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41884,
+      846282,
+      41891
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "A termite specialist.",
+      "Not related to true wolves or aardvarks.",
+      "Often found in East and Southern Africa."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4069b62ad3f1dd22697dc",
+    "taxonId": "42091",
+    "taxonName": "Chrysocyon brachyurus",
+    "vernacularName": "Maned wolf",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      42043,
+      42090
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "The largest canid in South America.",
+      "Known for its long legs and golden-red coat.",
+      "Plays a key role in its ecosystem as a predator."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
   }
 ]

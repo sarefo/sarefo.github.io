@@ -32785,5 +32785,221 @@
     "rank": "Species",
     "parentId": "42075",
     "__v": 0
+  },
+  {
+    "_id": "66f4096262ad3f1dd2269851",
+    "taxonId": "41677",
+    "taxonName": "Potos",
+    "vernacularName": "Kinkajous",
+    "rank": "Genus",
+    "parentId": "41660",
+    "__v": 0
+  },
+  {
+    "_id": "66f4096362ad3f1dd2269855",
+    "taxonId": "41678",
+    "taxonName": "Potos flavus",
+    "vernacularName": "Kinkajou",
+    "rank": "Species",
+    "parentId": "41677",
+    "__v": 0
+  },
+  {
+    "_id": "66f4096462ad3f1dd2269859",
+    "taxonId": "41679",
+    "taxonName": "Bassaricyon",
+    "vernacularName": "Olingos",
+    "rank": "Genus",
+    "parentId": "41660",
+    "__v": 0
+  },
+  {
+    "_id": "66f4096562ad3f1dd226985d",
+    "taxonId": "325998",
+    "taxonName": "Bassaricyon neblina",
+    "vernacularName": "Olinguito",
+    "rank": "Species",
+    "parentId": "41679",
+    "__v": 0
+  },
+  {
+    "_id": "66f4096662ad3f1dd2269862",
+    "taxonId": "41673",
+    "taxonName": "Nasua narica",
+    "vernacularName": "White-nosed coati",
+    "rank": "Species",
+    "parentId": "41669",
+    "__v": 0
+  },
+  {
+    "_id": "66f4096862ad3f1dd2269867",
+    "taxonId": "1431872",
+    "taxonName": "Nasua olivacea",
+    "vernacularName": "Mountain coati",
+    "rank": "Species",
+    "parentId": "41669",
+    "__v": 0
+  },
+  {
+    "_id": "66f4096962ad3f1dd226986b",
+    "taxonId": "41773",
+    "taxonName": "Eira",
+    "vernacularName": "Tayras",
+    "rank": "Genus",
+    "parentId": "846241",
+    "__v": 0
+  },
+  {
+    "_id": "66f4096a62ad3f1dd226986f",
+    "taxonId": "41774",
+    "taxonName": "Eira barbara",
+    "vernacularName": "Tayra",
+    "rank": "Species",
+    "parentId": "41773",
+    "__v": 0
+  },
+  {
+    "_id": "66f4096b62ad3f1dd2269873",
+    "taxonId": "41775",
+    "taxonName": "Lontra",
+    "vernacularName": "New world river otters",
+    "rank": "Genus",
+    "parentId": "526556",
+    "__v": 0
+  },
+  {
+    "_id": "66f4096c62ad3f1dd2269877",
+    "taxonId": "41778",
+    "taxonName": "Lontra longicaudis",
+    "vernacularName": "Neotropical river otter",
+    "rank": "Species",
+    "parentId": "41775",
+    "__v": 0
+  },
+  {
+    "_id": "66f4096d62ad3f1dd226987b",
+    "taxonId": "41823",
+    "taxonName": "Galictis",
+    "vernacularName": "Grisons",
+    "rank": "Genus",
+    "parentId": "846246",
+    "__v": 0
+  },
+  {
+    "_id": "66f4096e62ad3f1dd226987e",
+    "taxonId": "846246",
+    "taxonName": "Ictonychinae",
+    "vernacularName": "Zorillas, grisons, and allies",
+    "rank": "Subfamily",
+    "parentId": "41770",
+    "__v": 0
+  },
+  {
+    "_id": "66f4096f62ad3f1dd2269882",
+    "taxonId": "41825",
+    "taxonName": "Galictis vittata",
+    "vernacularName": "Greater grison",
+    "rank": "Species",
+    "parentId": "41823",
+    "__v": 0
+  },
+  {
+    "_id": "66f4097062ad3f1dd2269887",
+    "taxonId": "851014",
+    "taxonName": "Canis aureus",
+    "vernacularName": "Golden jackal",
+    "rank": "Species",
+    "parentId": "42044",
+    "__v": 0
+  },
+  {
+    "_id": "66f4097162ad3f1dd226988b",
+    "taxonId": "42098",
+    "taxonName": "Nyctereutes",
+    "vernacularName": "Raccoon dogs",
+    "rank": "Genus",
+    "parentId": "42043",
+    "__v": 0
+  },
+  {
+    "_id": "66f4097262ad3f1dd226988f",
+    "taxonId": "855311",
+    "taxonName": "Nyctereutes procyonoides",
+    "vernacularName": "Mainland raccoon dog",
+    "rank": "Species",
+    "parentId": "42098",
+    "__v": 0
+  },
+  {
+    "_id": "66f4097362ad3f1dd2269893",
+    "taxonId": "42094",
+    "taxonName": "Otocyon",
+    "vernacularName": "Bat-eared foxes",
+    "rank": "Genus",
+    "parentId": "42043",
+    "__v": 0
+  },
+  {
+    "_id": "66f4097462ad3f1dd2269897",
+    "taxonId": "42095",
+    "taxonName": "Otocyon megalotis",
+    "vernacularName": "Bat-eared fox",
+    "rank": "Species",
+    "parentId": "42094",
+    "__v": 0
+  },
+  {
+    "_id": "66f4097562ad3f1dd226989c",
+    "taxonId": "42055",
+    "taxonName": "Vulpes chama",
+    "vernacularName": "Cape fox",
+    "rank": "Species",
+    "parentId": "42054",
+    "__v": 0
+  },
+  {
+    "_id": "66f4097762ad3f1dd22698a0",
+    "taxonId": "41891",
+    "taxonName": "Proteles",
+    "vernacularName": "Aardwolves",
+    "rank": "Genus",
+    "parentId": "846282",
+    "__v": 0
+  },
+  {
+    "_id": "66f4097762ad3f1dd22698a3",
+    "taxonId": "846282",
+    "taxonName": "Protelinae",
+    "vernacularName": "Aardwolves",
+    "rank": "Subfamily",
+    "parentId": "41884",
+    "__v": 0
+  },
+  {
+    "_id": "66f4097862ad3f1dd22698a7",
+    "taxonId": "1306005",
+    "taxonName": "Proteles cristatus",
+    "vernacularName": "Southern aardwolf",
+    "rank": "Species",
+    "parentId": "41891",
+    "__v": 0
+  },
+  {
+    "_id": "66f4097962ad3f1dd22698ab",
+    "taxonId": "42090",
+    "taxonName": "Chrysocyon",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "42043",
+    "__v": 0
+  },
+  {
+    "_id": "66f4097a62ad3f1dd22698af",
+    "taxonId": "42091",
+    "taxonName": "Chrysocyon brachyurus",
+    "vernacularName": "Maned wolf",
+    "rank": "Species",
+    "parentId": "42090",
+    "__v": 0
   }
 ]

@@ -19798,5 +19798,241 @@
     ],
     "enabled": true,
     "__v": 0
+  },
+  {
+    "_id": "66f4075f62ad3f1dd22697fe",
+    "pairID": "931",
+    "pairName": "Olinguito vs Kinkajou",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      41678,
+      325998
+    ],
+    "taxonNames": [
+      "Potos flavus",
+      "Bassaricyon neblina"
+    ],
+    "range": [
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4076162ad3f1dd2269804",
+    "pairID": "932",
+    "pairName": "White-nosed Coati vs Raccoon",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      41673,
+      41663
+    ],
+    "taxonNames": [
+      "Nasua narica",
+      "Procyon lotor"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4076362ad3f1dd226980a",
+    "pairID": "933",
+    "pairName": "White-nosed vs South American Coati",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      41673,
+      41670
+    ],
+    "taxonNames": [
+      "Nasua narica",
+      "Nasua nasua"
+    ],
+    "range": [
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4076462ad3f1dd2269810",
+    "pairID": "934",
+    "pairName": "White-nosed vs Mountain Coati",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      41673,
+      1431872
+    ],
+    "taxonNames": [
+      "Nasua narica",
+      "Nasua olivacea"
+    ],
+    "range": [
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4076662ad3f1dd2269816",
+    "pairID": "935",
+    "pairName": "South American vs Mountain Coati",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      41670,
+      1431872
+    ],
+    "taxonNames": [
+      "Nasua nasua",
+      "Nasua olivacea"
+    ],
+    "range": [
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4076862ad3f1dd226981c",
+    "pairID": "936",
+    "pairName": "Tayra vs River Otter",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      41774,
+      41778
+    ],
+    "taxonNames": [
+      "Eira barbara",
+      "Lontra longicaudis"
+    ],
+    "range": [
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4076a62ad3f1dd2269822",
+    "pairID": "937",
+    "pairName": "Grison vs Honey Badger",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      41825,
+      41834
+    ],
+    "taxonNames": [
+      "Galictis vittata",
+      "Mellivora capensis"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4076f62ad3f1dd2269828",
+    "pairID": "938",
+    "pairName": "Golden vs Black-backed Jackal",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      1210966,
+      851014
+    ],
+    "taxonNames": [
+      "Lupulella mesomelas",
+      "Canis aureus"
+    ],
+    "range": [
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4077162ad3f1dd226982e",
+    "pairID": "939",
+    "pairName": "Raccoon vs Raccoon Dog",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      855311,
+      41663
+    ],
+    "taxonNames": [
+      "Nyctereutes procyonoides",
+      "Procyon lotor"
+    ],
+    "range": [
+      "EU"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4077362ad3f1dd2269834",
+    "pairID": "940",
+    "pairName": "Bat-eared vs Cape Fox",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      42095,
+      42055
+    ],
+    "taxonNames": [
+      "Otocyon megalotis",
+      "Vulpes chama"
+    ],
+    "range": [
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4077562ad3f1dd226983a",
+    "pairID": "941",
+    "pairName": "Striped Hyaena vs Aardwolf",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      1306005,
+      41888
+    ],
+    "taxonNames": [
+      "Proteles cristatus",
+      "Hyaena hyaena"
+    ],
+    "range": [
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4077762ad3f1dd2269840",
+    "pairID": "942",
+    "pairName": "Maned Wolf vs Red Fox",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      42091,
+      42069
+    ],
+    "taxonNames": [
+      "Chrysocyon brachyurus",
+      "Vulpes vulpes"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
   }
 ]
