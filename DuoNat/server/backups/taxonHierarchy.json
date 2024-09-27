@@ -33154,5 +33154,113 @@
     "rank": "Species",
     "parentId": "45940",
     "__v": 0
+  },
+  {
+    "_id": "66f43c4a19ab669612aebf6a",
+    "taxonId": "3816",
+    "taxonName": "Eudyptula",
+    "vernacularName": "Little penguins",
+    "rank": "Genus",
+    "parentId": "3806",
+    "__v": 0
+  },
+  {
+    "_id": "66f43c4b19ab669612aebf6e",
+    "taxonId": "3817",
+    "taxonName": "Eudyptula minor",
+    "vernacularName": "Little penguin",
+    "rank": "Species",
+    "parentId": "3816",
+    "__v": 0
+  },
+  {
+    "_id": "66f43c4c19ab669612aebf73",
+    "taxonId": "3813",
+    "taxonName": "Spheniscus demersus",
+    "vernacularName": "African penguin",
+    "rank": "Species",
+    "parentId": "3811",
+    "__v": 0
+  },
+  {
+    "_id": "66f43c4d19ab669612aebf77",
+    "taxonId": "3822",
+    "taxonName": "Eudyptes",
+    "vernacularName": "Crested penguins",
+    "rank": "Genus",
+    "parentId": "3806",
+    "__v": 0
+  },
+  {
+    "_id": "66f43c4e19ab669612aebf7b",
+    "taxonId": "100696",
+    "taxonName": "Eudyptes moseleyi",
+    "vernacularName": "Northern rockhopper penguin",
+    "rank": "Species",
+    "parentId": "3822",
+    "__v": 0
+  },
+  {
+    "_id": "66f43c5019ab669612aebf80",
+    "taxonId": "54549",
+    "taxonName": "Pygoscelis antarcticus",
+    "vernacularName": "Chinstrap penguin",
+    "rank": "Species",
+    "parentId": "3807",
+    "__v": 0
+  },
+  {
+    "_id": "66f43c5119ab669612aebf85",
+    "taxonId": "3810",
+    "taxonName": "Pygoscelis adeliae",
+    "vernacularName": "Adelie penguin",
+    "rank": "Species",
+    "parentId": "3807",
+    "__v": 0
+  },
+  {
+    "_id": "66f43c5319ab669612aebf8c",
+    "taxonId": "4541",
+    "taxonName": "Aethia",
+    "vernacularName": "Typical auklets",
+    "rank": "Genus",
+    "parentId": "71295",
+    "__v": 0
+  },
+  {
+    "_id": "66f43c5419ab669612aebf90",
+    "taxonId": "4543",
+    "taxonName": "Aethia psittacula",
+    "vernacularName": "Parakeet auklet",
+    "rank": "Species",
+    "parentId": "4541",
+    "__v": 0
+  },
+  {
+    "_id": "66f43c5519ab669612aebf94",
+    "taxonId": "4503",
+    "taxonName": "Fratercula",
+    "vernacularName": "Puffins",
+    "rank": "Genus",
+    "parentId": "71295",
+    "__v": 0
+  },
+  {
+    "_id": "66f43c5619ab669612aebf98",
+    "taxonId": "4509",
+    "taxonName": "Fratercula cirrhata",
+    "vernacularName": "Tufted puffin",
+    "rank": "Species",
+    "parentId": "4503",
+    "__v": 0
+  },
+  {
+    "_id": "66f43c5719ab669612aebf9d",
+    "taxonId": "4508",
+    "taxonName": "Fratercula corniculata",
+    "vernacularName": "Horned puffin",
+    "rank": "Species",
+    "parentId": "4503",
+    "__v": 0
   }
 ]

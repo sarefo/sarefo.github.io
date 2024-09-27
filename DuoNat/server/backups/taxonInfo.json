@@ -53913,5 +53913,248 @@
     "hints": [],
     "enabled": true,
     "__v": 1
+  },
+  {
+    "_id": "66f4390a48dc5bde8380df82",
+    "taxonId": "3817",
+    "taxonName": "Eudyptula minor",
+    "vernacularName": "Little penguin",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67564,
+      3806,
+      3816
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known as the smallest species of penguin.",
+      "They are good little divers with agile swimming abilities.",
+      "These penguins don't migrate and inhabit coastal areas year-round."
+    ],
+    "range": [
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4397119ab669612aebf11",
+    "taxonId": "3813",
+    "taxonName": "Spheniscus demersus",
+    "vernacularName": "African penguin",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67564,
+      3806,
+      3811
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "They have a special gland to expel salt from their bodies.",
+      "Colonial breeders often establish large nesting colonies.",
+      "African penguins are considered endangered due to habitat loss."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4397219ab669612aebf14",
+    "taxonId": "100696",
+    "taxonName": "Eudyptes moseleyi",
+    "vernacularName": "Northern rockhopper penguin",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67564,
+      3806,
+      3822
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "They are known for their striking yellow crest feathers.",
+      "This species has seen a dramatic population decline of 90%.",
+      "Northern rockhoppers gather in large breeding colonies on islands."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4397319ab669612aebf17",
+    "taxonId": "54549",
+    "taxonName": "Pygoscelis antarcticus",
+    "vernacularName": "Chinstrap penguin",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67564,
+      3806,
+      3807
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Chinstraps are social birds, often found in large colonies.",
+      "They can swim up to 80 km to forage for food.",
+      "Their distinctive chinstrap resembles a helmet strap for protection."
+    ],
+    "range": [
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4397419ab669612aebf1a",
+    "taxonId": "3810",
+    "taxonName": "Pygoscelis adeliae",
+    "vernacularName": "Adelie penguin",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67564,
+      3806,
+      3807
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Adélie penguins are the most widely distributed penguins.",
+      "They migrate to pack ice in search of food during winter.",
+      "They are often referred to as the quintessential Antarctic penguin."
+    ],
+    "range": [
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4397519ab669612aebf1e",
+    "taxonId": "3806",
+    "taxonName": "Spheniscidae",
+    "vernacularName": "Penguins",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67564
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "The family includes 18 species of flightless sea birds.",
+      "They primarily inhabit Southern Hemisphere regions, including Antarctica.",
+      "Penguins are known for their unique adaptations to marine life."
+    ],
+    "range": [
+      "AF",
+      "SA",
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4397619ab669612aebf21",
+    "taxonId": "4543",
+    "taxonName": "Aethia psittacula",
+    "vernacularName": "Parakeet auklet",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67561,
+      71295,
+      4541
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Parakeet auklets are small seabirds found in the North Pacific.",
+      "These birds breed in burrows on coastal cliffs and islands.",
+      "Their name derives from their parakeet-like appearance."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4397719ab669612aebf25",
+    "taxonId": "4509",
+    "taxonName": "Fratercula cirrhata",
+    "vernacularName": "Tufted puffin",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67561,
+      71295,
+      4503
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Tufted puffins wear impressive long head plumes during breeding.",
+      "They spend most of their life at sea away from land.",
+      "These birds are known for their colorful, striking bills."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4397819ab669612aebf28",
+    "taxonId": "4508",
+    "taxonName": "Fratercula corniculata",
+    "vernacularName": "Horned puffin",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      67561,
+      71295,
+      4503
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Horned puffins dive deep to catch fish for their young.",
+      "They nest on cliffs, unlike many other puffin species.",
+      "These seabirds are recognized by their unique horn-like protuberance."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
   }
 ]

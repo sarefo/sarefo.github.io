@@ -20294,5 +20294,121 @@
     ],
     "enabled": true,
     "__v": 0
+  },
+  {
+    "_id": "66f43a9019ab669612aebf41",
+    "pairID": "956",
+    "pairName": "Little vs Humboldt Penguin",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      3817,
+      3814
+    ],
+    "taxonNames": [
+      "Eudyptula minor",
+      "Spheniscus humboldti"
+    ],
+    "range": [
+      "OC"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f43a9219ab669612aebf47",
+    "pairID": "957",
+    "pairName": "Norther Rockhopper vs African Penguin",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      3813,
+      100696
+    ],
+    "taxonNames": [
+      "Spheniscus demersus",
+      "Eudyptes moseleyi"
+    ],
+    "range": [
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f43a9419ab669612aebf4d",
+    "pairID": "958",
+    "pairName": "Chinstrap vs Adelie Penguin",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      54549,
+      3810
+    ],
+    "taxonNames": [
+      "Pygoscelis antarcticus",
+      "Pygoscelis adeliae"
+    ],
+    "range": [
+      "OC"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f43a9619ab669612aebf53",
+    "pairID": "959",
+    "pairName": "Auks vs Penguins",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      71295,
+      3806
+    ],
+    "taxonNames": [
+      "Alcidae",
+      "Spheniscidae"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f43a9819ab669612aebf59",
+    "pairID": "960",
+    "pairName": "Parakeet Auklet vs Gentoo Penguin",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      4543,
+      3808
+    ],
+    "taxonNames": [
+      "Aethia psittacula",
+      "Pygoscelis papua"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f43a9919ab669612aebf5f",
+    "pairID": "961",
+    "pairName": "Tufted vs Horned Puffin",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      4509,
+      4508
+    ],
+    "taxonNames": [
+      "Fratercula cirrhata",
+      "Fratercula corniculata"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
   }
 ]
