@@ -369,7 +369,6 @@ async function mergePerplexityData() {
                     await taxon.save();
                     taxaUpdated++;
                     logSuccess(`Updated ${taxonName} with Perplexity data`);
-                    console.log(`Updated ${taxonName} with Perplexity data`);
                 } else {
                     logNeutral(`No new data to update for ${taxonName}`);
                 }
@@ -519,7 +518,7 @@ async function updateHierarchy() {
                         logWarning(`Could not fetch details for taxon ID: ${currentId}`);
                     }
                 } else {
-                    console.log(`Hierarchy entry already exists for ${existingHierarchyEntry.taxonName}`);
+                    logNeutral(`Hierarchy entry already exists for ${existingHierarchyEntry.taxonName}`);
                     shouldContinue = false; // Stop processing ancestors if one is found
                 }
             }
@@ -534,7 +533,7 @@ async function updateHierarchy() {
                     rank: capitalizeFirstLetter(taxon.rank),
                     parentId: taxon.ancestryIds.length > 0 ? taxon.ancestryIds[taxon.ancestryIds.length - 1].toString() : "48460"
                 });
-                console.log(`Added new hierarchy entry for ${taxon.taxonName}`);
+                logSuccess(`Added new hierarchy entry for ${taxon.taxonName}`);
             }
 
             // Mark the taxon as enabled after processing
