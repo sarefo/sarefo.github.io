@@ -166,7 +166,7 @@ const pairManager = {
 
         async selectPairForLoading() {
             const preloadedPair = preloader.getPreloadedImagesForNextPair()?.pair;
-            if (preloadedPair) {
+            if (preloadedPair && this.isPairInCurrentCollection(preloadedPair)) {
                 return preloadedPair;
             } else {
                 const selectedPair = await pairManager.pairSelection.selectRandomPair();
@@ -177,6 +177,11 @@ const pairManager = {
                     return null;
                 }
             }
+        },
+
+        isPairInCurrentCollection(pair) {
+            const filters = filtering.getActiveFilters();
+            return filtering.pairMatchesFilters(pair, filters);
         },
 
         // only called by keyboardShortcuts.incrementPairID()
