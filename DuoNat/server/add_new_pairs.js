@@ -388,7 +388,11 @@ async function mergePerplexityData() {
 async function createTaxonPairs() {
     let pairsCreated = 0;
     let pairsSkipped = 0;
+    let nextPairID;
+
     try {
+        nextPairID = await getNextPairID();
+
         const fileContent = await fs.readFile(INPUT_FILE, 'utf8');
         const taxonPairs = fileContent.split('\n').filter(line => line.trim() !== '');
 
@@ -422,6 +426,7 @@ async function createTaxonPairs() {
                     await newPair.save();
                     logSuccess(`Created new pair: ${taxon1} vs ${taxon2} with ID ${newPairID}`);
                     pairsCreated++;
+                    nextPairID++; // Increment the pair ID for the next pair
                 } else {
                     logNeutral(`Pair already exists: ${taxon1} vs ${taxon2}`);
                     pairsSkipped++;
