@@ -20805,5 +20805,125 @@
     ],
     "enabled": true,
     "__v": 0
+  },
+  {
+    "_id": "66f476a1c9a9a0230c04249f",
+    "pairID": "982",
+    "pairName": "Song vs Chipping Sparrow",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      9135,
+      9100
+    ],
+    "taxonNames": [
+      "Spizella passerina",
+      "Melospiza melodia"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f476a3c9a9a0230c0424a5",
+    "pairID": "983",
+    "pairName": "House Finch vs Song Sparrow",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      9100,
+      199840
+    ],
+    "taxonNames": [
+      "Melospiza melodia",
+      "Haemorhous mexicanus"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f476a5c9a9a0230c0424ab",
+    "pairID": "984",
+    "pairName": "House vs Purple Finch",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      199840,
+      199841
+    ],
+    "taxonNames": [
+      "Haemorhous mexicanus",
+      "Haemorhous purpureus"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f476a7c9a9a0230c0424b1",
+    "pairID": "985",
+    "pairName": "Northern Cardinal vs Pyrrhuloxia",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      9083,
+      9081
+    ],
+    "taxonNames": [
+      "Cardinalis cardinalis",
+      "Cardinalis sinuatus"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f476a9c9a9a0230c0424b7",
+    "pairID": "986",
+    "pairName": "Northern Cardinal vs Summer Tanager",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      9083,
+      9915
+    ],
+    "taxonNames": [
+      "Cardinalis cardinalis",
+      "Piranga rubra"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f476abc9a9a0230c0424bd",
+    "pairID": "987",
+    "pairName": "Summer vs Scarlet Tanager",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      9915,
+      9921
+    ],
+    "taxonNames": [
+      "Piranga rubra",
+      "Piranga olivacea"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
   }
 ]

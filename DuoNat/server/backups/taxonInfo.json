@@ -54961,5 +54961,194 @@
     "hints": [],
     "enabled": true,
     "__v": 1
+  },
+  {
+    "_id": "66f4761fc9a9a0230c042472",
+    "taxonId": "9135",
+    "taxonName": "Spizella passerina",
+    "vernacularName": "Chipping sparrow",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      559248,
+      9132
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Breeds across North America, migrating south in winter.",
+      "Nests are built in dense shrubs for protection.",
+      "Diet consists mainly of seeds and insects."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f47622c9a9a0230c042477",
+    "taxonId": "199840",
+    "taxonName": "Haemorhous mexicanus",
+    "vernacularName": "House finch",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      9079,
+      199910
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Adaptable to urban environments and human habitats.",
+      "Males sing to establish territory and attract mates.",
+      "Diet includes seeds, fruits, and insects."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f47623c9a9a0230c04247b",
+    "taxonId": "199841",
+    "taxonName": "Haemorhous purpureus",
+    "vernacularName": "Purple finch",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      9079,
+      199910
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for its vibrant purple plumage in males.",
+      "Often found in open woodlands and gardens.",
+      "Feeds primarily on seeds and berries."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f47625c9a9a0230c04247e",
+    "taxonId": "9083",
+    "taxonName": "Cardinalis cardinalis",
+    "vernacularName": "Northern cardinal",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      71305,
+      9080
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Males sing over 200 songs per hour during breeding.",
+      "Named after the red robes of Catholic cardinals.",
+      "State bird of seven U.S. states."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f47626c9a9a0230c042481",
+    "taxonId": "9081",
+    "taxonName": "Cardinalis sinuatus",
+    "vernacularName": "Pyrrhuloxia",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      71305,
+      9080
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Found in deserts.",
+      "Females are grayish brown with red highlights.",
+      "Forms large flocks during winter foraging."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f47627c9a9a0230c042485",
+    "taxonId": "9915",
+    "taxonName": "Piranga rubra",
+    "vernacularName": "Summer tanager",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      71305,
+      9913
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Males are bright red, especially during breeding season.",
+      "Nests are often built in trees near water sources.",
+      "Diet includes insects, fruits, and berries."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f47629c9a9a0230c042489",
+    "taxonId": "9921",
+    "taxonName": "Piranga olivacea",
+    "vernacularName": "Scarlet tanager",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      71305,
+      9913
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Males are strikingly red.",
+      "Prefers mature forests for nesting and foraging.",
+      "Feeds mainly on insects and ripe fruits."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
   }
 ]

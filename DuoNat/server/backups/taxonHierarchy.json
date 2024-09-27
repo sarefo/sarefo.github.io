@@ -33685,5 +33685,113 @@
     "rank": "Species",
     "parentId": "9091",
     "__v": 0
+  },
+  {
+    "_id": "66f4782ec9a9a0230c0424c8",
+    "taxonId": "9132",
+    "taxonName": "Spizella",
+    "vernacularName": "Spizella sparrows",
+    "rank": "Genus",
+    "parentId": "559248",
+    "__v": 0
+  },
+  {
+    "_id": "66f4782ec9a9a0230c0424cc",
+    "taxonId": "9135",
+    "taxonName": "Spizella passerina",
+    "vernacularName": "Chipping sparrow",
+    "rank": "Species",
+    "parentId": "9132",
+    "__v": 0
+  },
+  {
+    "_id": "66f47830c9a9a0230c0424d0",
+    "taxonId": "199910",
+    "taxonName": "Haemorhous",
+    "vernacularName": "American rosefinches",
+    "rank": "Genus",
+    "parentId": "9079",
+    "__v": 0
+  },
+  {
+    "_id": "66f47830c9a9a0230c0424d4",
+    "taxonId": "199840",
+    "taxonName": "Haemorhous mexicanus",
+    "vernacularName": "House finch",
+    "rank": "Species",
+    "parentId": "199910",
+    "__v": 0
+  },
+  {
+    "_id": "66f47832c9a9a0230c0424d9",
+    "taxonId": "199841",
+    "taxonName": "Haemorhous purpureus",
+    "vernacularName": "Purple finch",
+    "rank": "Species",
+    "parentId": "199910",
+    "__v": 0
+  },
+  {
+    "_id": "66f47833c9a9a0230c0424dd",
+    "taxonId": "9080",
+    "taxonName": "Cardinalis",
+    "vernacularName": "Typical cardinals",
+    "rank": "Genus",
+    "parentId": "71305",
+    "__v": 0
+  },
+  {
+    "_id": "66f47834c9a9a0230c0424e0",
+    "taxonId": "71305",
+    "taxonName": "Cardinalidae",
+    "vernacularName": "Cardinals and allies",
+    "rank": "Family",
+    "parentId": "7251",
+    "__v": 0
+  },
+  {
+    "_id": "66f47834c9a9a0230c0424e4",
+    "taxonId": "9083",
+    "taxonName": "Cardinalis cardinalis",
+    "vernacularName": "Northern cardinal",
+    "rank": "Species",
+    "parentId": "9080",
+    "__v": 0
+  },
+  {
+    "_id": "66f47836c9a9a0230c0424e9",
+    "taxonId": "9081",
+    "taxonName": "Cardinalis sinuatus",
+    "vernacularName": "Pyrrhuloxia",
+    "rank": "Species",
+    "parentId": "9080",
+    "__v": 0
+  },
+  {
+    "_id": "66f47837c9a9a0230c0424ed",
+    "taxonId": "9913",
+    "taxonName": "Piranga",
+    "vernacularName": "Piranga tanagers",
+    "rank": "Genus",
+    "parentId": "71305",
+    "__v": 0
+  },
+  {
+    "_id": "66f47838c9a9a0230c0424f1",
+    "taxonId": "9915",
+    "taxonName": "Piranga rubra",
+    "vernacularName": "Summer tanager",
+    "rank": "Species",
+    "parentId": "9913",
+    "__v": 0
+  },
+  {
+    "_id": "66f47839c9a9a0230c0424f6",
+    "taxonId": "9921",
+    "taxonName": "Piranga olivacea",
+    "vernacularName": "Scarlet tanager",
+    "rank": "Species",
+    "parentId": "9913",
+    "__v": 0
   }
 ]
