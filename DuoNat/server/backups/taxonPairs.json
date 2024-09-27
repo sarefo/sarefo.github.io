@@ -20925,5 +20925,23 @@
     ],
     "enabled": true,
     "__v": 0
+  },
+  {
+    "_id": "66f48d83b13727b4a2dde278",
+    "pairID": "988",
+    "pairName": "Tuatara vs Western Fence Lizard",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      200834,
+      36204
+    ],
+    "taxonNames": [
+      "Sphenodon punctatus",
+      "Sceloporus occidentalis"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
   }
 ]

@@ -55150,5 +55150,62 @@
     "hints": [],
     "enabled": true,
     "__v": 1
+  },
+  {
+    "_id": "66f48cd9b13727b4a2dde269",
+    "taxonId": "200834",
+    "taxonName": "Sphenodon punctatus",
+    "vernacularName": "Tuatara",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26162,
+      372879,
+      26164,
+      26165
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Survived since the Triassic period, over 240 million years ago.",
+      "Has a unique third eye on top of its head.",
+      "Only found on a few islands in New Zealand."
+    ],
+    "range": [
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f48cdbb13727b4a2dde26c",
+    "taxonId": "36204",
+    "taxonName": "Sceloporus occidentalis",
+    "vernacularName": "Western fence lizard",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26172,
+      85552,
+      36074,
+      797562,
+      36141
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Helps reduce Lyme disease transmission through its blood proteins.",
+      "Males perform push-ups to attract females during mating season.",
+      "Commonly found sunning on logs and rocks in its habitat."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
   }
 ]

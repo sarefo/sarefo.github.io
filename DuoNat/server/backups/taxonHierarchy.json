@@ -33793,5 +33793,86 @@
     "rank": "Species",
     "parentId": "9913",
     "__v": 0
+  },
+  {
+    "_id": "66f48e05b13727b4a2dde27e",
+    "taxonId": "26165",
+    "taxonName": "Sphenodon",
+    "vernacularName": "Tuataras",
+    "rank": "Genus",
+    "parentId": "26164",
+    "__v": 0
+  },
+  {
+    "_id": "66f48e06b13727b4a2dde281",
+    "taxonId": "26164",
+    "taxonName": "Sphenodontidae",
+    "vernacularName": "Tuataras",
+    "rank": "Family",
+    "parentId": "372879",
+    "__v": 0
+  },
+  {
+    "_id": "66f48e07b13727b4a2dde284",
+    "taxonId": "372879",
+    "taxonName": "Sphenodontia",
+    "vernacularName": "Sphenodonts",
+    "rank": "Suborder",
+    "parentId": "26162",
+    "__v": 0
+  },
+  {
+    "_id": "66f48e08b13727b4a2dde287",
+    "taxonId": "26162",
+    "taxonName": "Rhynchocephalia",
+    "vernacularName": "Rhynchocephalians",
+    "rank": "Order",
+    "parentId": "26036",
+    "__v": 0
+  },
+  {
+    "_id": "66f48e09b13727b4a2dde28b",
+    "taxonId": "200834",
+    "taxonName": "Sphenodon punctatus",
+    "vernacularName": "Tuatara",
+    "rank": "Species",
+    "parentId": "26165",
+    "__v": 0
+  },
+  {
+    "_id": "66f48e0ab13727b4a2dde28f",
+    "taxonId": "36141",
+    "taxonName": "Sceloporus",
+    "vernacularName": "Spiny lizards",
+    "rank": "Genus",
+    "parentId": "797562",
+    "__v": 0
+  },
+  {
+    "_id": "66f48e0bb13727b4a2dde292",
+    "taxonId": "797562",
+    "taxonName": "Sceloporinae",
+    "vernacularName": "Sceloporine lizards",
+    "rank": "Subfamily",
+    "parentId": "36074",
+    "__v": 0
+  },
+  {
+    "_id": "66f48e0cb13727b4a2dde295",
+    "taxonId": "36074",
+    "taxonName": "Phrynosomatidae",
+    "vernacularName": "Phrynosomatid lizards",
+    "rank": "Family",
+    "parentId": "85552",
+    "__v": 0
+  },
+  {
+    "_id": "66f48e0db13727b4a2dde299",
+    "taxonId": "36204",
+    "taxonName": "Sceloporus occidentalis",
+    "vernacularName": "Western fence lizard",
+    "rank": "Species",
+    "parentId": "36141",
+    "__v": 0
   }
 ]
