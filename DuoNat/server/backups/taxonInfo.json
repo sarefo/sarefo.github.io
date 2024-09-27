@@ -53500,5 +53500,35 @@
     "hints": [],
     "enabled": true,
     "__v": 1
+  },
+  {
+    "_id": "66f422b662ad3f1dd22698b5",
+    "taxonId": "1210965",
+    "taxonName": "Lupulella adusta",
+    "vernacularName": "Side-striped jackal",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      42043,
+      1210963
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Native to central and southern Africa",
+      "Dwells in woodland and scrub areas",
+      "Eats small animals, carrion and fruit"
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
   }
 ]

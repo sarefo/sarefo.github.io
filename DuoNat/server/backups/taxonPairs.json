@@ -20034,5 +20034,23 @@
     "range": [],
     "enabled": true,
     "__v": 0
+  },
+  {
+    "_id": "66f4235d62ad3f1dd22698bf",
+    "pairID": "943",
+    "pairName": "Coyote vs Jackal",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      1210965,
+      42051
+    ],
+    "taxonNames": [
+      "Lupulella adusta",
+      "Canis latrans"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
   }
 ]

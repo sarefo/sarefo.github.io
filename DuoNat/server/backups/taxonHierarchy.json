@@ -33001,5 +33001,14 @@
     "rank": "Species",
     "parentId": "42090",
     "__v": 0
+  },
+  {
+    "_id": "66f423a762ad3f1dd22698c6",
+    "taxonId": "1210965",
+    "taxonName": "Lupulella adusta",
+    "vernacularName": "Side-striped jackal",
+    "rank": "Species",
+    "parentId": "1210963",
+    "__v": 0
   }
 ]
