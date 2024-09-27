@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const clipboardy = require('clipboardy');
+//const clipboardy = require('clipboardy');
 const readline = require('readline');
 const fs = require('fs').promises;
 const path = require('path');
@@ -334,8 +334,8 @@ async function generatePerplexityPrompt() {
         //console.log("Perplexity prompt has been saved to 'perplexityPrompt.txt'");
 
         // If you want to copy to clipboard (Note: This won't work in all environments)
-         await clipboardy.write(prompt);
-         console.log("Perplexity prompt has been copied to the clipboard.");
+         //await clipboardy.write(prompt);
+         //console.log("Perplexity prompt has been copied to the clipboard.");
     } catch (error) {
         console.error('Error generating Perplexity prompt:', error);
     }
