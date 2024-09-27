@@ -54156,5 +54156,341 @@
     "hints": [],
     "enabled": true,
     "__v": 1
+  },
+  {
+    "_id": "66f45b1112f47520920341e3",
+    "taxonId": "42122",
+    "taxonName": "Phacochoerus africanus",
+    "vernacularName": "Common warthog",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      152870,
+      848343,
+      42118,
+      1365630,
+      1365632,
+      42121
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Lives in grasslands and savannas.",
+      "Can run up to 30 kilometers per hour.",
+      "Known to dig burrows for shelter."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f45b1212f47520920341e6",
+    "taxonId": "42134",
+    "taxonName": "Sus scrofa",
+    "vernacularName": "Eurasian wild pig",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      152870,
+      848343,
+      42118,
+      1365630,
+      1365636,
+      42126
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Originated in Europe and Asia.",
+      "Considered an invasive species in North America.",
+      "Can weigh up to 300 kg."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f45b1312f47520920341ea",
+    "taxonId": "42138",
+    "taxonName": "Potamochoerus larvatus",
+    "vernacularName": "Bushpig",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      152870,
+      848343,
+      42118,
+      1365630,
+      1365633,
+      42137
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Prefers dense forest and riverine habitats.",
+      "Mainly nocturnal and highly social animals.",
+      "Diet is mostly fruits and tubers."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f45b1412f47520920341ee",
+    "taxonId": "42139",
+    "taxonName": "Potamochoerus porcus",
+    "vernacularName": "Red river hog",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      152870,
+      848343,
+      42118,
+      1365630,
+      1365633,
+      42137
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Often found in thickets and swamps.",
+      "Known for vibrant reddish-brown fur.",
+      "Excellent swimmers and fast runners."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f45b1512f47520920341f1",
+    "taxonId": "42113",
+    "taxonName": "Pecari tajacu",
+    "vernacularName": "Collared peccary",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      152870,
+      848343,
+      42111,
+      42112
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Forms small groups called sounders.",
+      "Found in tropical and subtropical regions.",
+      "Important food source for various predators."
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f45b1712f47520920341f5",
+    "taxonId": "74191",
+    "taxonName": "Chlorocebus tantalus",
+    "vernacularName": "Tantalus monkey",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43367,
+      786045,
+      936377,
+      936369,
+      43443,
+      479424,
+      846302,
+      43522
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Inhabits a wide range across Africa.",
+      "Adaptable to various habitats and altitudes.",
+      "Plays an important role in seed dispersal."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f45b1812f47520920341f8",
+    "taxonId": "43462",
+    "taxonName": "Erythrocebus patas",
+    "vernacularName": "Patas monkey",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43367,
+      786045,
+      936377,
+      936369,
+      43443,
+      479424,
+      846302,
+      43461
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for speed and agility on land.",
+      "Usually found in open savannas and grasslands.",
+      "Form stable social groups with one male."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f45b1912f47520920341fb",
+    "taxonId": "42120",
+    "taxonName": "Hylochoerus meinertzhageni",
+    "vernacularName": "Giant forest hog",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      152870,
+      848343,
+      42118,
+      1365630,
+      1365633,
+      42119
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Lives mainly in equatorial forests.",
+      "The largest of the forest-dwelling pigs.",
+      "Can cover large distances daily foraging."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f45b1b12f4752092034201",
+    "taxonId": "74099",
+    "taxonName": "Babyrousa celebensis",
+    "vernacularName": "Sulawesi babirusa",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      152870,
+      848343,
+      42118,
+      1365630,
+      1365631,
+      42124
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for unique tusks that grow upward.",
+      "Inhabits rainforests and wetlands in Indonesia.",
+      "Often found near water sources."
+    ],
+    "range": [
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f45b1c12f4752092034205",
+    "taxonId": "42136",
+    "taxonName": "Sus barbatus",
+    "vernacularName": "Western bearded pig",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      152870,
+      848343,
+      42118,
+      1365630,
+      1365636,
+      42126
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Has a distinctive beard of hair.",
+      "Inhabits the rainforest of Southeast Asia.",
+      "Plays a role in maintaining seed dispersal."
+    ],
+    "range": [
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
   }
 ]

@@ -33262,5 +33262,248 @@
     "rank": "Species",
     "parentId": "4503",
     "__v": 0
+  },
+  {
+    "_id": "66f45d9212f475209203425b",
+    "taxonId": "42121",
+    "taxonName": "Phacochoerus",
+    "vernacularName": "Warthogs",
+    "rank": "Genus",
+    "parentId": "1365632",
+    "__v": 0
+  },
+  {
+    "_id": "66f45d9312f475209203425e",
+    "taxonId": "1365632",
+    "taxonName": "Phacochoerini",
+    "vernacularName": "Warthogs",
+    "rank": "Tribe",
+    "parentId": "1365630",
+    "__v": 0
+  },
+  {
+    "_id": "66f45d9412f4752092034261",
+    "taxonId": "1365630",
+    "taxonName": "Suinae",
+    "vernacularName": "Suines",
+    "rank": "Subfamily",
+    "parentId": "42118",
+    "__v": 0
+  },
+  {
+    "_id": "66f45d9512f4752092034264",
+    "taxonId": "42118",
+    "taxonName": "Suidae",
+    "vernacularName": "Suids",
+    "rank": "Family",
+    "parentId": "848343",
+    "__v": 0
+  },
+  {
+    "_id": "66f45d9612f4752092034267",
+    "taxonId": "848343",
+    "taxonName": "Suina",
+    "vernacularName": "Suids and peccaries",
+    "rank": "Suborder",
+    "parentId": "152870",
+    "__v": 0
+  },
+  {
+    "_id": "66f45d9712f475209203426b",
+    "taxonId": "42122",
+    "taxonName": "Phacochoerus africanus",
+    "vernacularName": "Common warthog",
+    "rank": "Species",
+    "parentId": "42121",
+    "__v": 0
+  },
+  {
+    "_id": "66f45d9812f475209203426f",
+    "taxonId": "42126",
+    "taxonName": "Sus",
+    "vernacularName": "Boars and warty pigs",
+    "rank": "Genus",
+    "parentId": "1365636",
+    "__v": 0
+  },
+  {
+    "_id": "66f45d9912f4752092034272",
+    "taxonId": "1365636",
+    "taxonName": "Suini",
+    "vernacularName": "Typical pigs",
+    "rank": "Tribe",
+    "parentId": "1365630",
+    "__v": 0
+  },
+  {
+    "_id": "66f45d9a12f4752092034276",
+    "taxonId": "42134",
+    "taxonName": "Sus scrofa",
+    "vernacularName": "Eurasian wild pig",
+    "rank": "Species",
+    "parentId": "42126",
+    "__v": 0
+  },
+  {
+    "_id": "66f45d9b12f475209203427a",
+    "taxonId": "42137",
+    "taxonName": "Potamochoerus",
+    "vernacularName": "Bushpigs",
+    "rank": "Genus",
+    "parentId": "1365633",
+    "__v": 0
+  },
+  {
+    "_id": "66f45d9c12f475209203427d",
+    "taxonId": "1365633",
+    "taxonName": "Potamochoerini",
+    "vernacularName": "Bushpigs and forest hogs",
+    "rank": "Tribe",
+    "parentId": "1365630",
+    "__v": 0
+  },
+  {
+    "_id": "66f45d9d12f4752092034281",
+    "taxonId": "42138",
+    "taxonName": "Potamochoerus larvatus",
+    "vernacularName": "Bushpig",
+    "rank": "Species",
+    "parentId": "42137",
+    "__v": 0
+  },
+  {
+    "_id": "66f45d9e12f4752092034286",
+    "taxonId": "42139",
+    "taxonName": "Potamochoerus porcus",
+    "vernacularName": "Red river hog",
+    "rank": "Species",
+    "parentId": "42137",
+    "__v": 0
+  },
+  {
+    "_id": "66f45d9f12f475209203428a",
+    "taxonId": "42112",
+    "taxonName": "Pecari",
+    "vernacularName": "Javelinas",
+    "rank": "Genus",
+    "parentId": "42111",
+    "__v": 0
+  },
+  {
+    "_id": "66f45da012f475209203428d",
+    "taxonId": "42111",
+    "taxonName": "Tayassuidae",
+    "vernacularName": "Peccaries",
+    "rank": "Family",
+    "parentId": "848343",
+    "__v": 0
+  },
+  {
+    "_id": "66f45da112f4752092034291",
+    "taxonId": "42113",
+    "taxonName": "Pecari tajacu",
+    "vernacularName": "Collared peccary",
+    "rank": "Species",
+    "parentId": "42112",
+    "__v": 0
+  },
+  {
+    "_id": "66f45da212f4752092034295",
+    "taxonId": "43522",
+    "taxonName": "Chlorocebus",
+    "vernacularName": "Savannah monkeys",
+    "rank": "Genus",
+    "parentId": "846302",
+    "__v": 0
+  },
+  {
+    "_id": "66f45da312f4752092034298",
+    "taxonId": "846302",
+    "taxonName": "Cercopithecini",
+    "vernacularName": "Guenons, vervet monkeys, and talapoins",
+    "rank": "Tribe",
+    "parentId": "479424",
+    "__v": 0
+  },
+  {
+    "_id": "66f45da412f475209203429c",
+    "taxonId": "74191",
+    "taxonName": "Chlorocebus tantalus",
+    "vernacularName": "Tantalus monkey",
+    "rank": "Species",
+    "parentId": "43522",
+    "__v": 0
+  },
+  {
+    "_id": "66f45da512f47520920342a0",
+    "taxonId": "43461",
+    "taxonName": "Erythrocebus",
+    "vernacularName": "Patas monkeys",
+    "rank": "Genus",
+    "parentId": "846302",
+    "__v": 0
+  },
+  {
+    "_id": "66f45da612f47520920342a4",
+    "taxonId": "43462",
+    "taxonName": "Erythrocebus patas",
+    "vernacularName": "Patas monkey",
+    "rank": "Species",
+    "parentId": "43461",
+    "__v": 0
+  },
+  {
+    "_id": "66f45da712f47520920342a8",
+    "taxonId": "42119",
+    "taxonName": "Hylochoerus",
+    "vernacularName": "Forest hogs",
+    "rank": "Genus",
+    "parentId": "1365633",
+    "__v": 0
+  },
+  {
+    "_id": "66f45da812f47520920342ac",
+    "taxonId": "42120",
+    "taxonName": "Hylochoerus meinertzhageni",
+    "vernacularName": "Giant forest hog",
+    "rank": "Species",
+    "parentId": "42119",
+    "__v": 0
+  },
+  {
+    "_id": "66f45da912f47520920342b0",
+    "taxonId": "42124",
+    "taxonName": "Babyrousa",
+    "vernacularName": "Babirusas",
+    "rank": "Genus",
+    "parentId": "1365631",
+    "__v": 0
+  },
+  {
+    "_id": "66f45daa12f47520920342b3",
+    "taxonId": "1365631",
+    "taxonName": "Babyrousini",
+    "vernacularName": "Babirusas",
+    "rank": "Tribe",
+    "parentId": "1365630",
+    "__v": 0
+  },
+  {
+    "_id": "66f45dab12f47520920342b7",
+    "taxonId": "74099",
+    "taxonName": "Babyrousa celebensis",
+    "vernacularName": "Sulawesi babirusa",
+    "rank": "Species",
+    "parentId": "42124",
+    "__v": 0
+  },
+  {
+    "_id": "66f45dac12f47520920342bc",
+    "taxonId": "42136",
+    "taxonName": "Sus barbatus",
+    "vernacularName": "Western bearded pig",
+    "rank": "Species",
+    "parentId": "42126",
+    "__v": 0
   }
 ]

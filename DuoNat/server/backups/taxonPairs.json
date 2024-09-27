@@ -20410,5 +20410,162 @@
     ],
     "enabled": true,
     "__v": 0
+  },
+  {
+    "_id": "66f45c0812f4752092034221",
+    "pairID": "962",
+    "pairName": "Warthog vs Wild Boar",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      42122,
+      42134
+    ],
+    "taxonNames": [
+      "Phacochoerus africanus",
+      "Sus scrofa"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f45c0912f4752092034227",
+    "pairID": "963",
+    "pairName": "Warthog vs Bushpig",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      42122,
+      42138
+    ],
+    "taxonNames": [
+      "Phacochoerus africanus",
+      "Potamochoerus larvatus"
+    ],
+    "range": [
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f45c0b12f475209203422d",
+    "pairID": "964",
+    "pairName": "Red River Hog vs Bushpig",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      42138,
+      42139
+    ],
+    "taxonNames": [
+      "Potamochoerus larvatus",
+      "Potamochoerus porcus"
+    ],
+    "range": [
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f45c0d12f4752092034233",
+    "pairID": "965",
+    "pairName": "Collared Peccary vs Wild Boar",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      42113,
+      42134
+    ],
+    "taxonNames": [
+      "Pecari tajacu",
+      "Sus scrofa"
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f45c0f12f4752092034239",
+    "pairID": "966",
+    "pairName": "Patas vs Tantalus monkey",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      74191,
+      43462
+    ],
+    "taxonNames": [
+      "Chlorocebus tantalus",
+      "Erythrocebus patas"
+    ],
+    "range": [
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f45c1112f475209203423f",
+    "pairID": "967",
+    "pairName": "Giant Forest Hog vs Warthog",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      42120,
+      42122
+    ],
+    "taxonNames": [
+      "Hylochoerus meinertzhageni",
+      "Phacochoerus africanus"
+    ],
+    "range": [
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f45c1412f4752092034248",
+    "pairID": "968",
+    "pairName": "Sulawesi Babirusa vs Warthog",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      74099,
+      42122
+    ],
+    "taxonNames": [
+      "Babyrousa celebensis",
+      "Phacochoerus africanus"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f45c1612f475209203424e",
+    "pairID": "969",
+    "pairName": "Wild Boar vs Bearded Pig",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      42136,
+      42134
+    ],
+    "taxonNames": [
+      "Sus barbatus",
+      "Sus scrofa"
+    ],
+    "range": [
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
   }
 ]
