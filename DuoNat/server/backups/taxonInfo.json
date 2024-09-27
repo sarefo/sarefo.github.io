@@ -52376,5 +52376,574 @@
     "hints": [],
     "enabled": true,
     "__v": 1
+  },
+  {
+    "_id": "66f3df1185bd7e920db83505",
+    "taxonId": "43428",
+    "taxonName": "Saimiri sciureus",
+    "vernacularName": "Common squirrel monkey",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43367,
+      786045,
+      936377,
+      554251,
+      43399,
+      846286,
+      43423
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Inhabits tropical forests across South America.",
+      "Known for their social behavior and vocalizations.",
+      "Primarily feeds on fruits and insects."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f3df1585bd7e920db83508",
+    "taxonId": "1369296",
+    "taxonName": "Cebus imitator",
+    "vernacularName": "Central american white-faced capuchin",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43367,
+      786045,
+      936377,
+      554251,
+      43399,
+      752186,
+      43429
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Found in neotropical rainforests of Central America.",
+      "They demonstrate complex cognitive skills.",
+      "Males weigh up to 3.3 kg."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f3df1885bd7e920db8350c",
+    "taxonId": "43433",
+    "taxonName": "Cebus albifrons",
+    "vernacularName": "White-fronted capuchin",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43367,
+      786045,
+      936377,
+      554251,
+      43399,
+      752186,
+      43429
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Named for their distinctive facial markings.",
+      "Habitat ranges from Venezuela to Brazil.",
+      "Their diet consists mainly of fruits and seeds."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f3df1c85bd7e920db8350f",
+    "taxonId": "1368519",
+    "taxonName": "Saimiri cassiquiarensis",
+    "vernacularName": "Humboldt’s squirrel monkey",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43367,
+      786045,
+      936377,
+      554251,
+      43399,
+      846286,
+      43423
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Slow-moving, social, and forages in groups.",
+      "Found in parts of southern Venezuela.",
+      "Species vulnerable due to habitat loss."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f3df2085bd7e920db83512",
+    "taxonId": "43425",
+    "taxonName": "Saimiri oerstedii",
+    "vernacularName": "Central american squirrel monkey",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43367,
+      786045,
+      936377,
+      554251,
+      43399,
+      846286,
+      43423
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Native to the Pacific coastal regions of Central America.",
+      "Strongly arboreal, seldom descend to the ground.",
+      "Cooperative breeding observed in their groups."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f3df2285bd7e920db83515",
+    "taxonId": "410834",
+    "taxonName": "Sapajus nigritus",
+    "vernacularName": "Black capuchin",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43367,
+      786045,
+      936377,
+      554251,
+      43399,
+      752186,
+      343175
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Thrives in southeastern South America’s rainforests.",
+      "Capuchins are known for their tool-using abilities."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f3df2685bd7e920db83518",
+    "taxonId": "496700",
+    "taxonName": "Sapajus apella",
+    "vernacularName": "Brown capuchin",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43367,
+      786045,
+      936377,
+      554251,
+      43399,
+      752186,
+      343175
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Common in Amazon River Basin forests.",
+      "Known for their intelligence and adaptability.",
+      "They are social and highly vocal."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f3df2885bd7e920db8351b",
+    "taxonId": "516974",
+    "taxonName": "Sapajus libidinosus",
+    "vernacularName": "Black-striped capuchin",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43367,
+      786045,
+      936377,
+      554251,
+      43399,
+      752186,
+      343175
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for their remarkable tool use.",
+      "Inhabits dry forests and savannah landscapes.",
+      "They can weigh up to 3.7 kg."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f3df2c85bd7e920db8351f",
+    "taxonId": "43391",
+    "taxonName": "Saguinus oedipus",
+    "vernacularName": "Cotton-headed tamarin",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43367,
+      786045,
+      936377,
+      554251,
+      846205,
+      43379,
+      1482966
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Characteristic for its cotton-top hairstyle.",
+      "Predominantly found in Colombia’s forests.",
+      "Highly social and depends on group living."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f3df2f85bd7e920db83522",
+    "taxonId": "43385",
+    "taxonName": "Saguinus leucopus",
+    "vernacularName": "Silvery-brown tamarin",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43367,
+      786045,
+      936377,
+      554251,
+      846205,
+      43379,
+      1482966
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Largely inhabits rainforest regions of Colombia.",
+      "Diet consists of fruits, insects, and small vertebrates.",
+      "Known for their loud calls."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f3df3285bd7e920db83525",
+    "taxonId": "43384",
+    "taxonName": "Saguinus geoffroyi",
+    "vernacularName": "Geoffroy’s tamarin",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43367,
+      786045,
+      936377,
+      554251,
+      846205,
+      43379,
+      1482966
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "The smallest monkey species in Panama.",
+      "Ranges from Costa Rica to Colombia.",
+      "They often sleep in tree cavities for safety."
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f3df3685bd7e920db8352b",
+    "taxonId": "43396",
+    "taxonName": "Leontopithecus rosalia",
+    "vernacularName": "Golden lion tamarin",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43367,
+      786045,
+      936377,
+      554251,
+      846205,
+      43392
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Endangered and found in Brazil's Atlantic forests.",
+      "They sleep in tree hollows for protection.",
+      "A conservation success story in reintroduction efforts."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f3df3885bd7e920db83530",
+    "taxonId": "43394",
+    "taxonName": "Leontopithecus chrysomelas",
+    "vernacularName": "Golden-headed lion tamarin",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43367,
+      786045,
+      936377,
+      554251,
+      846205,
+      43392
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Native to Brazil, primarily in rainforest habitats.",
+      "Their population is endangered due to habitat loss."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f3df3b85bd7e920db83533",
+    "taxonId": "846205",
+    "taxonName": "Callitrichidae",
+    "vernacularName": "Marmosets and tamarins",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43367,
+      786045,
+      936377,
+      554251
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Includes marmosets and tamarins in their family.",
+      "Typically small and social primates.",
+      "Known for their high reproductive rates."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f3df3e85bd7e920db83536",
+    "taxonId": "43399",
+    "taxonName": "Cebidae",
+    "vernacularName": "Cebid monkeys",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43367,
+      786045,
+      936377,
+      554251
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "A diverse family containing capuchins and squirrel monkeys.",
+      "Found in tropical and sub-tropical regions.",
+      "Known for their intelligence and ability to use tools."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f3df4085bd7e920db83539",
+    "taxonId": "43386",
+    "taxonName": "Saguinus nigricollis",
+    "vernacularName": "Black-mantled tamarin",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43367,
+      786045,
+      936377,
+      554251,
+      846205,
+      43379,
+      1369273
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Reside mainly in jungles of Ecuador and Peru.",
+      "Known for their black and reddish fur.",
+      "They rely on dense forests for food and shelter."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f3df4385bd7e920db8353c",
+    "taxonId": "1368626",
+    "taxonName": "Saguinus weddelli",
+    "vernacularName": "White-mantled tamarin",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43367,
+      786045,
+      936377,
+      554251,
+      846205,
+      43379,
+      1369273
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Found in unique habitats of northwestern Bolivia.",
+      "Previously considered a subspecies of <i>S. fuscicollis</i>.",
+      "Adaptable to changing environments and food sources."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
   }
 ]

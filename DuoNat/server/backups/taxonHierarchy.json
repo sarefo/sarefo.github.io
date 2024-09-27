@@ -32461,5 +32461,239 @@
     "rank": "Species",
     "parentId": "1210963",
     "__v": 0
+  },
+  {
+    "_id": "66f3e42e85bd7e920db835b8",
+    "taxonId": "43423",
+    "taxonName": "Saimiri",
+    "vernacularName": "Squirrel monkeys",
+    "rank": "Genus",
+    "parentId": "846286",
+    "__v": 0
+  },
+  {
+    "_id": "66f3e43085bd7e920db835bb",
+    "taxonId": "846286",
+    "taxonName": "Saimiriinae",
+    "vernacularName": "Squirrel monkeys",
+    "rank": "Subfamily",
+    "parentId": "43399",
+    "__v": 0
+  },
+  {
+    "_id": "66f3e43185bd7e920db835be",
+    "taxonId": "43399",
+    "taxonName": "Cebidae",
+    "vernacularName": "Cebid monkeys",
+    "rank": "Family",
+    "parentId": "554251",
+    "__v": 0
+  },
+  {
+    "_id": "66f3e43185bd7e920db835c2",
+    "taxonId": "43428",
+    "taxonName": "Saimiri sciureus",
+    "vernacularName": "Common squirrel monkey",
+    "rank": "Species",
+    "parentId": "43423",
+    "__v": 0
+  },
+  {
+    "_id": "66f3e43385bd7e920db835c6",
+    "taxonId": "43429",
+    "taxonName": "Cebus",
+    "vernacularName": "Gracile capuchins",
+    "rank": "Genus",
+    "parentId": "752186",
+    "__v": 0
+  },
+  {
+    "_id": "66f3e43485bd7e920db835c9",
+    "taxonId": "752186",
+    "taxonName": "Cebinae",
+    "vernacularName": "Capuchins",
+    "rank": "Subfamily",
+    "parentId": "43399",
+    "__v": 0
+  },
+  {
+    "_id": "66f3e43585bd7e920db835cd",
+    "taxonId": "1369296",
+    "taxonName": "Cebus imitator",
+    "vernacularName": "Central american white-faced capuchin",
+    "rank": "Species",
+    "parentId": "43429",
+    "__v": 0
+  },
+  {
+    "_id": "66f3e43685bd7e920db835d2",
+    "taxonId": "43433",
+    "taxonName": "Cebus albifrons",
+    "vernacularName": "White-fronted capuchin",
+    "rank": "Species",
+    "parentId": "43429",
+    "__v": 0
+  },
+  {
+    "_id": "66f3e43785bd7e920db835d7",
+    "taxonId": "1368519",
+    "taxonName": "Saimiri cassiquiarensis",
+    "vernacularName": "Humboldt’s squirrel monkey",
+    "rank": "Species",
+    "parentId": "43423",
+    "__v": 0
+  },
+  {
+    "_id": "66f3e43985bd7e920db835dc",
+    "taxonId": "43425",
+    "taxonName": "Saimiri oerstedii",
+    "vernacularName": "Central american squirrel monkey",
+    "rank": "Species",
+    "parentId": "43423",
+    "__v": 0
+  },
+  {
+    "_id": "66f3e43b85bd7e920db835e0",
+    "taxonId": "343175",
+    "taxonName": "Sapajus",
+    "vernacularName": "Robust capuchins",
+    "rank": "Genus",
+    "parentId": "752186",
+    "__v": 0
+  },
+  {
+    "_id": "66f3e43c85bd7e920db835e4",
+    "taxonId": "410834",
+    "taxonName": "Sapajus nigritus",
+    "vernacularName": "Black capuchin",
+    "rank": "Species",
+    "parentId": "343175",
+    "__v": 0
+  },
+  {
+    "_id": "66f3e43d85bd7e920db835e9",
+    "taxonId": "496700",
+    "taxonName": "Sapajus apella",
+    "vernacularName": "Brown capuchin",
+    "rank": "Species",
+    "parentId": "343175",
+    "__v": 0
+  },
+  {
+    "_id": "66f3e43e85bd7e920db835ee",
+    "taxonId": "516974",
+    "taxonName": "Sapajus libidinosus",
+    "vernacularName": "Black-striped capuchin",
+    "rank": "Species",
+    "parentId": "343175",
+    "__v": 0
+  },
+  {
+    "_id": "66f3e44085bd7e920db835f2",
+    "taxonId": "1482966",
+    "taxonName": "Oedipomidas",
+    "vernacularName": "-",
+    "rank": "Subgenus",
+    "parentId": "43379",
+    "__v": 0
+  },
+  {
+    "_id": "66f3e44185bd7e920db835f5",
+    "taxonId": "43379",
+    "taxonName": "Saguinus",
+    "vernacularName": "Tamarins",
+    "rank": "Genus",
+    "parentId": "846205",
+    "__v": 0
+  },
+  {
+    "_id": "66f3e44285bd7e920db835f8",
+    "taxonId": "846205",
+    "taxonName": "Callitrichidae",
+    "vernacularName": "Marmosets and tamarins",
+    "rank": "Family",
+    "parentId": "554251",
+    "__v": 0
+  },
+  {
+    "_id": "66f3e44385bd7e920db835fc",
+    "taxonId": "43391",
+    "taxonName": "Saguinus oedipus",
+    "vernacularName": "Cotton-headed tamarin",
+    "rank": "Species",
+    "parentId": "1482966",
+    "__v": 0
+  },
+  {
+    "_id": "66f3e44485bd7e920db83601",
+    "taxonId": "43385",
+    "taxonName": "Saguinus leucopus",
+    "vernacularName": "Silvery-brown tamarin",
+    "rank": "Species",
+    "parentId": "1482966",
+    "__v": 0
+  },
+  {
+    "_id": "66f3e44585bd7e920db83606",
+    "taxonId": "43384",
+    "taxonName": "Saguinus geoffroyi",
+    "vernacularName": "Geoffroy’s tamarin",
+    "rank": "Species",
+    "parentId": "1482966",
+    "__v": 0
+  },
+  {
+    "_id": "66f3e44785bd7e920db8360a",
+    "taxonId": "43392",
+    "taxonName": "Leontopithecus",
+    "vernacularName": "Lion tamarins",
+    "rank": "Genus",
+    "parentId": "846205",
+    "__v": 0
+  },
+  {
+    "_id": "66f3e44785bd7e920db8360e",
+    "taxonId": "43396",
+    "taxonName": "Leontopithecus rosalia",
+    "vernacularName": "Golden lion tamarin",
+    "rank": "Species",
+    "parentId": "43392",
+    "__v": 0
+  },
+  {
+    "_id": "66f3e44985bd7e920db83613",
+    "taxonId": "43394",
+    "taxonName": "Leontopithecus chrysomelas",
+    "vernacularName": "Golden-headed lion tamarin",
+    "rank": "Species",
+    "parentId": "43392",
+    "__v": 0
+  },
+  {
+    "_id": "66f3e44e85bd7e920db8361d",
+    "taxonId": "1369273",
+    "taxonName": "Leontocebus",
+    "vernacularName": "-",
+    "rank": "Subgenus",
+    "parentId": "43379",
+    "__v": 0
+  },
+  {
+    "_id": "66f3e44f85bd7e920db83621",
+    "taxonId": "43386",
+    "taxonName": "Saguinus nigricollis",
+    "vernacularName": "Black-mantled tamarin",
+    "rank": "Species",
+    "parentId": "1369273",
+    "__v": 0
+  },
+  {
+    "_id": "66f3e45085bd7e920db83626",
+    "taxonId": "1368626",
+    "taxonName": "Saguinus weddelli",
+    "vernacularName": "White-mantled tamarin",
+    "rank": "Species",
+    "parentId": "1369273",
+    "__v": 0
   }
 ]

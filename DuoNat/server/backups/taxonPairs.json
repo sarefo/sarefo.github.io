@@ -19467,5 +19467,239 @@
     ],
     "enabled": true,
     "__v": 0
+  },
+  {
+    "_id": "66f3e19885bd7e920db83565",
+    "pairID": "914",
+    "pairName": "Capuchin vs Squirrel Monkey",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      43428,
+      1369296
+    ],
+    "taxonNames": [
+      "Saimiri sciureus",
+      "Cebus imitator"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f3e19b85bd7e920db8356b",
+    "pairID": "915",
+    "pairName": "White-fronted vs White-faces Capuchin",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      1369296,
+      43433
+    ],
+    "taxonNames": [
+      "Cebus imitator",
+      "Cebus albifrons"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f3e19d85bd7e920db83571",
+    "pairID": "916",
+    "pairName": "Humboldt's vs Central American Squirrel Monkey",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      1368519,
+      43425
+    ],
+    "taxonNames": [
+      "Saimiri cassiquiarensis",
+      "Saimiri oerstedii"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f3e19f85bd7e920db83577",
+    "pairID": "917",
+    "pairName": "Brown vs Black Capuchin",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      410834,
+      496700
+    ],
+    "taxonNames": [
+      "Sapajus nigritus",
+      "Sapajus apella"
+    ],
+    "range": [
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f3e1a085bd7e920db8357d",
+    "pairID": "918",
+    "pairName": "Black vs Black-striped Capuchin",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      516974,
+      410834
+    ],
+    "taxonNames": [
+      "Sapajus libidinosus",
+      "Sapajus nigritus"
+    ],
+    "range": [
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f3e1a285bd7e920db83583",
+    "pairID": "919",
+    "pairName": "Cotton-headed vs Silvery-brown Tamarin",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      43391,
+      43385
+    ],
+    "taxonNames": [
+      "Saguinus oedipus",
+      "Saguinus leucopus"
+    ],
+    "range": [
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f3e1a485bd7e920db83589",
+    "pairID": "920",
+    "pairName": "Cotton-headed vs Geoffroy's Tamarin",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      43384,
+      43391
+    ],
+    "taxonNames": [
+      "Saguinus geoffroyi",
+      "Saguinus oedipus"
+    ],
+    "range": [
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f3e1a685bd7e920db8358f",
+    "pairID": "921",
+    "pairName": "Geoffroy's vs Silvery-brown Tamarin",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      43384,
+      43385
+    ],
+    "taxonNames": [
+      "Saguinus geoffroyi",
+      "Saguinus leucopus"
+    ],
+    "range": [
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f3e1a885bd7e920db83595",
+    "pairID": "922",
+    "pairName": "Cotton-headed vs Golden Lion Tamarin",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      43396,
+      43391
+    ],
+    "taxonNames": [
+      "Leontopithecus rosalia",
+      "Saguinus oedipus"
+    ],
+    "range": [
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f3e1aa85bd7e920db8359b",
+    "pairID": "923",
+    "pairName": "Golden vs Golden-headed Lion Tamarin",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      43396,
+      43394
+    ],
+    "taxonNames": [
+      "Leontopithecus rosalia",
+      "Leontopithecus chrysomelas"
+    ],
+    "range": [
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f3e1ac85bd7e920db835a1",
+    "pairID": "924",
+    "pairName": "Cebid Monkeys vs Marmosets and Tamarins",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      846205,
+      43399
+    ],
+    "taxonNames": [
+      "Callitrichidae",
+      "Cebidae"
+    ],
+    "range": [
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f3e1ae85bd7e920db835a7",
+    "pairID": "925",
+    "pairName": "Black-mantled vs White-mantled Tamarin",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      43386,
+      1368626
+    ],
+    "taxonNames": [
+      "Saguinus nigricollis",
+      "Saguinus weddelli"
+    ],
+    "range": [
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
   }
 ]
