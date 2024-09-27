@@ -33010,5 +33010,149 @@
     "rank": "Species",
     "parentId": "1210963",
     "__v": 0
+  },
+  {
+    "_id": "66f433d062ad3f1dd226996b",
+    "taxonId": "41790",
+    "taxonName": "Martes",
+    "vernacularName": "Martens",
+    "rank": "Genus",
+    "parentId": "846241",
+    "__v": 0
+  },
+  {
+    "_id": "66f433d162ad3f1dd226996f",
+    "taxonId": "41798",
+    "taxonName": "Martes americana",
+    "vernacularName": "American marten",
+    "rank": "Species",
+    "parentId": "41790",
+    "__v": 0
+  },
+  {
+    "_id": "66f433d262ad3f1dd2269974",
+    "taxonId": "41805",
+    "taxonName": "Mustela lutreola",
+    "vernacularName": "European mink",
+    "rank": "Species",
+    "parentId": "41801",
+    "__v": 0
+  },
+  {
+    "_id": "66f433d362ad3f1dd2269979",
+    "taxonId": "1264427",
+    "taxonName": "Mustela richardsonii",
+    "vernacularName": "Short-tailed weasel",
+    "rank": "Species",
+    "parentId": "41801",
+    "__v": 0
+  },
+  {
+    "_id": "66f433d462ad3f1dd226997e",
+    "taxonId": "1264431",
+    "taxonName": "Neogale frenata",
+    "vernacularName": "Long-tailed weasel",
+    "rank": "Species",
+    "parentId": "1264428",
+    "__v": 0
+  },
+  {
+    "_id": "66f433d662ad3f1dd2269983",
+    "taxonId": "41808",
+    "taxonName": "Mustela erminea",
+    "vernacularName": "Eurasian stoat",
+    "rank": "Species",
+    "parentId": "41801",
+    "__v": 0
+  },
+  {
+    "_id": "66f433d762ad3f1dd2269988",
+    "taxonId": "569428",
+    "taxonName": "Mustela nivalis",
+    "vernacularName": "Least weasel",
+    "rank": "Species",
+    "parentId": "41801",
+    "__v": 0
+  },
+  {
+    "_id": "66f433d862ad3f1dd226998d",
+    "taxonId": "41796",
+    "taxonName": "Martes martes",
+    "vernacularName": "Eurasian pine marten",
+    "rank": "Species",
+    "parentId": "41790",
+    "__v": 0
+  },
+  {
+    "_id": "66f433da62ad3f1dd2269992",
+    "taxonId": "41800",
+    "taxonName": "Martes foina",
+    "vernacularName": "Stone marten",
+    "rank": "Species",
+    "parentId": "41790",
+    "__v": 0
+  },
+  {
+    "_id": "66f433db62ad3f1dd2269996",
+    "taxonId": "1431495",
+    "taxonName": "Sciurus",
+    "vernacularName": "Palearctic tree squirrels",
+    "rank": "Subgenus",
+    "parentId": "45994",
+    "__v": 0
+  },
+  {
+    "_id": "66f433dc62ad3f1dd226999a",
+    "taxonId": "46001",
+    "taxonName": "Sciurus vulgaris",
+    "vernacularName": "Eurasian red squirrel",
+    "rank": "Species",
+    "parentId": "1431495",
+    "__v": 0
+  },
+  {
+    "_id": "66f433de62ad3f1dd22699a1",
+    "taxonId": "45940",
+    "taxonName": "Callosciurus",
+    "vernacularName": "Beautiful squirrels",
+    "rank": "Genus",
+    "parentId": "339579",
+    "__v": 0
+  },
+  {
+    "_id": "66f433df62ad3f1dd22699a4",
+    "taxonId": "339579",
+    "taxonName": "Callosciurini",
+    "vernacularName": "Beautiful squirrels",
+    "rank": "Tribe",
+    "parentId": "339580",
+    "__v": 0
+  },
+  {
+    "_id": "66f433e062ad3f1dd22699a7",
+    "taxonId": "339580",
+    "taxonName": "Callosciurinae",
+    "vernacularName": "Beautiful and palm squirrels",
+    "rank": "Subfamily",
+    "parentId": "45933",
+    "__v": 0
+  },
+  {
+    "_id": "66f433e162ad3f1dd22699ab",
+    "taxonId": "45952",
+    "taxonName": "Callosciurus erythraeus",
+    "vernacularName": "Pallas' squirrel",
+    "rank": "Species",
+    "parentId": "45940",
+    "__v": 0
+  },
+  {
+    "_id": "66f433e262ad3f1dd22699b0",
+    "taxonId": "45949",
+    "taxonName": "Callosciurus finlaysonii",
+    "vernacularName": "Finlayson's squirrel",
+    "rank": "Species",
+    "parentId": "45940",
+    "__v": 0
   }
 ]

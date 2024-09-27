@@ -53530,5 +53530,388 @@
     "hints": [],
     "enabled": true,
     "__v": 1
+  },
+  {
+    "_id": "66f4305862ad3f1dd22698cf",
+    "taxonId": "41798",
+    "taxonName": "Martes americana",
+    "vernacularName": "American marten",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41770,
+      846241,
+      41790
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Native to northern North America.",
+      "Mostly found in forests with dense tree coverage.",
+      "Diet includes small mammals and fruits."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4305a62ad3f1dd22698d3",
+    "taxonId": "41805",
+    "taxonName": "Mustela lutreola",
+    "vernacularName": "European mink",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41770,
+      526558,
+      41801
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Thrives in densely shaded areas near water.",
+      "Constructs burrows or uses abandoned ones.",
+      "Has a thick undercoat during winter."
+    ],
+    "range": [
+      "EU"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4305b62ad3f1dd22698d6",
+    "taxonId": "1264427",
+    "taxonName": "Mustela richardsonii",
+    "vernacularName": "Short-tailed weasel",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41770,
+      526558,
+      41801
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Widely distributed across most of North America.",
+      "Has distinct genetic traits from related species."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4305c62ad3f1dd22698d9",
+    "taxonId": "1264431",
+    "taxonName": "Neogale frenata",
+    "vernacularName": "Long-tailed weasel",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41770,
+      526558,
+      1264428
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Primarily active during dawn and dusk.",
+      "Can consume rabbits and small birds in its diet."
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4305d62ad3f1dd22698dc",
+    "taxonId": "41808",
+    "taxonName": "Mustela erminea",
+    "vernacularName": "Eurasian stoat",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41770,
+      526558,
+      41801
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known as ermine in its winter coat.",
+      "Adapts well to cold climates worldwide.",
+      "Used to symbolize purity in historical contexts."
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4305e62ad3f1dd22698df",
+    "taxonId": "569428",
+    "taxonName": "Mustela nivalis",
+    "vernacularName": "Least weasel",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41770,
+      526558,
+      41801
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Smallest carnivorous mammal in the world.",
+      "Seasonally changes coat from brown to white.",
+      "Has been known to hunt rabbits as well."
+    ],
+    "range": [
+      "NA",
+      "EU"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4305f62ad3f1dd22698e2",
+    "taxonId": "41796",
+    "taxonName": "Martes martes",
+    "vernacularName": "Eurasian pine marten",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41770,
+      846241,
+      41790
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Native to Europe and parts of Asia.",
+      "Diet consists of fruits and small mammals.",
+      "Known for its agility in trees."
+    ],
+    "range": [
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4306062ad3f1dd22698e5",
+    "taxonId": "41800",
+    "taxonName": "Martes foina",
+    "vernacularName": "Stone marten",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      41573,
+      41770,
+      846241,
+      41790
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Common in various parts of Europe and Asia.",
+      "Often found in urban areas as well.",
+      "Maintains multiple nests to improve survival."
+    ],
+    "range": [
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4306262ad3f1dd22698ec",
+    "taxonId": "46001",
+    "taxonName": "Sciurus vulgaris",
+    "vernacularName": "Eurasian red squirrel",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43698,
+      129411,
+      45933,
+      332614,
+      339575,
+      45994,
+      1431495
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Habitat includes forests of Europe and Asia.",
+      "Known for gathering and storing food in winter.",
+      "Has been extirpated in parts of Great Britain."
+    ],
+    "range": [
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4306562ad3f1dd22698f3",
+    "taxonId": "46175",
+    "taxonName": "Cynomys",
+    "vernacularName": "Prairie dogs",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43698,
+      129411,
+      45933,
+      339572,
+      209650
+    ],
+    "rank": "Genus",
+    "taxonFacts": [
+      "Comprises several prairie dog species.",
+      "Known for creating extensive burrow systems.",
+      "Prairie dogs communicate through a complex vocal system."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4306662ad3f1dd22698f6",
+    "taxonId": "45952",
+    "taxonName": "Callosciurus erythraeus",
+    "vernacularName": "Pallas' squirrel",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43698,
+      129411,
+      45933,
+      339580,
+      339579,
+      45940
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Native to Southeast Asia and China.",
+      "Has notable color variations among subspecies."
+    ],
+    "range": [
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4306762ad3f1dd22698f9",
+    "taxonId": "45949",
+    "taxonName": "Callosciurus finlaysonii",
+    "vernacularName": "Finlayson's squirrel",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43698,
+      129411,
+      45933,
+      339580,
+      339579,
+      45940
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Found in several Southeast Asian countries.",
+      "Adapted to urban environments around Bangkok."
+    ],
+    "range": [
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
   }
 ]

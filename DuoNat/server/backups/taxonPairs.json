@@ -20052,5 +20052,247 @@
     "range": [],
     "enabled": true,
     "__v": 0
+  },
+  {
+    "_id": "66f4315962ad3f1dd2269918",
+    "pairID": "944",
+    "pairName": "American Mink vs Fisher",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      1264432,
+      453109
+    ],
+    "taxonNames": [
+      "Neogale vison",
+      "Pekania pennanti"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4315b62ad3f1dd226991e",
+    "pairID": "945",
+    "pairName": "American Marten vs American Mink",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      1264432,
+      41798
+    ],
+    "taxonNames": [
+      "Neogale vison",
+      "Martes americana"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4315c62ad3f1dd2269924",
+    "pairID": "946",
+    "pairName": "European vs American Mink",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      1264432,
+      41805
+    ],
+    "taxonNames": [
+      "Neogale vison",
+      "Mustela lutreola"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4315e62ad3f1dd226992a",
+    "pairID": "947",
+    "pairName": "Short-tailed vs Long-tailed Weasel",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      1264427,
+      1264431
+    ],
+    "taxonNames": [
+      "Mustela richardsonii",
+      "Neogale frenata"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4316062ad3f1dd2269930",
+    "pairID": "948",
+    "pairName": "Eurasian Stoat vs Least Weasel",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      41808,
+      569428
+    ],
+    "taxonNames": [
+      "Mustela erminea",
+      "Mustela nivalis"
+    ],
+    "range": [
+      "NA",
+      "EU"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4316262ad3f1dd2269936",
+    "pairID": "949",
+    "pairName": "Stone vs Pine Marten",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      41796,
+      41800
+    ],
+    "taxonNames": [
+      "Martes martes",
+      "Martes foina"
+    ],
+    "range": [
+      "EU",
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4316462ad3f1dd226993c",
+    "pairID": "950",
+    "pairName": "Pine Marten vs Polecat",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      41812,
+      41796
+    ],
+    "taxonNames": [
+      "Mustela putorius",
+      "Martes martes"
+    ],
+    "range": [
+      "EU",
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4316662ad3f1dd2269942",
+    "pairID": "951",
+    "pairName": "Stone Marten vs Polecat",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      41812,
+      41800
+    ],
+    "taxonNames": [
+      "Mustela putorius",
+      "Martes foina"
+    ],
+    "range": [
+      "EU",
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4316862ad3f1dd2269948",
+    "pairID": "952",
+    "pairName": "Easter Gray vs Eurasian Red Squirrel",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      46001,
+      46017
+    ],
+    "taxonNames": [
+      "Sciurus vulgaris",
+      "Sciurus carolinensis"
+    ],
+    "range": [
+      "EU"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4316a62ad3f1dd226994e",
+    "pairID": "953",
+    "pairName": "Groundhog vs Muskrat",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      46095,
+      45763
+    ],
+    "taxonNames": [
+      "Marmota monax",
+      "Ondatra zibethicus"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4316c62ad3f1dd2269954",
+    "pairID": "954",
+    "pairName": "Prairie Dogs vs Groundhog",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      46095,
+      46175
+    ],
+    "taxonNames": [
+      "Marmota monax",
+      "Cynomys"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4316e62ad3f1dd226995a",
+    "pairID": "955",
+    "pairName": "Pallas' vs Finlayson's Squirrel",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      45952,
+      45949
+    ],
+    "taxonNames": [
+      "Callosciurus erythraeus",
+      "Callosciurus finlaysonii"
+    ],
+    "range": [
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
   }
 ]
