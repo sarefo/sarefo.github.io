@@ -54492,5 +54492,474 @@
     "hints": [],
     "enabled": true,
     "__v": 1
+  },
+  {
+    "_id": "66f46102a2109e7850b4e91b",
+    "taxonId": "7089",
+    "taxonName": "Branta canadensis",
+    "vernacularName": "Canada goose",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      6888,
+      6912,
+      7086
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Native to North America and parts of Europe.",
+      "Known for its strong migratory behavior.",
+      "Monogamous, forming lifelong pair bonds."
+    ],
+    "range": [
+      "NA",
+      "EU"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f46103a2109e7850b4e91e",
+    "taxonId": "7101",
+    "taxonName": "Branta leucopsis",
+    "vernacularName": "Barnacle goose",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      6888,
+      6912,
+      7086
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Nests in Greenland and Svalbard.",
+      "Wintering primarily in Scotland and Ireland.",
+      "Once thought to hatch from goose barnacles."
+    ],
+    "range": [
+      "EU"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f46104a2109e7850b4e922",
+    "taxonId": "59220",
+    "taxonName": "Branta hutchinsii",
+    "vernacularName": "Cackling goose",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      6888,
+      6912,
+      7086
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Smaller than the Canada goose.",
+      "Breeds in Alaska and Canada.",
+      "Known for its loud, high-pitched call."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f46106a2109e7850b4e925",
+    "taxonId": "6921",
+    "taxonName": "Cygnus olor",
+    "vernacularName": "Mute swan",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      6888,
+      6912,
+      6913
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Native to much of Eurasia and Africa.",
+      "Introduced to North America, where it thrives.",
+      "Less vocal than other swan species."
+    ],
+    "range": [
+      "AF",
+      "EU",
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f46107a2109e7850b4e928",
+    "taxonId": "6915",
+    "taxonName": "Cygnus buccinator",
+    "vernacularName": "Trumpeter swan",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      6888,
+      6912,
+      6913
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Largest swan species in North America.",
+      "Can weigh over 13.5 kg and be 1.6 m long.",
+      "Found mainly in Alaska and Canada."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f46109a2109e7850b4e92b",
+    "taxonId": "6914",
+    "taxonName": "Cygnus atratus",
+    "vernacularName": "Black swan",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      6888,
+      6912,
+      6913
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Native to Australia and Tasmania.",
+      "Rarely seen beyond introduced populations.",
+      "Known for its striking black plumage."
+    ],
+    "range": [
+      "AS",
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4610aa2109e7850b4e92e",
+    "taxonId": "72789",
+    "taxonName": "Cygnus melancoryphus",
+    "vernacularName": "Black-necked swan",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      6888,
+      6912,
+      6913
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Breeds in southern South America.",
+      "Migrates north during winter months.",
+      "Has a distinctive black neck and head."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4610ba2109e7850b4e931",
+    "taxonId": "6916",
+    "taxonName": "Cygnus cygnus",
+    "vernacularName": "Whooper swan",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      6888,
+      6912,
+      6913
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Breeds in Northern Europe and Siberia.",
+      "Migrates to milder wintering grounds.",
+      "Known for its elegant flying formation."
+    ],
+    "range": [
+      "EU"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4610ca2109e7850b4e934",
+    "taxonId": "6917",
+    "taxonName": "Cygnus columbianus",
+    "vernacularName": "Tundra swan",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      6888,
+      6912,
+      6913
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Nests in the Arctic tundra.",
+      "Migrates along the Pacific and Atlantic coasts.",
+      "Often seen in small family groups."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4610ea2109e7850b4e939",
+    "taxonId": "6913",
+    "taxonName": "Cygnus",
+    "vernacularName": "True swans",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      6888,
+      6912
+    ],
+    "rank": "Genus",
+    "taxonFacts": [
+      "Includes all swan species worldwide.",
+      "Known for their long necks and elegance.",
+      "Breeds near waterways for food."
+    ],
+    "range": [
+      "AF",
+      "EU",
+      "NA",
+      "AS",
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4610fa2109e7850b4e93c",
+    "taxonId": "7006",
+    "taxonName": "Anser",
+    "vernacularName": "Grey geese",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      6888,
+      6912
+    ],
+    "rank": "Genus",
+    "taxonFacts": [
+      "Includes true geese of North America and Eurasia.",
+      "Often seen grazing in wetlands.",
+      "Known for their migratory behavior."
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f46111a2109e7850b4e93f",
+    "taxonId": "7018",
+    "taxonName": "Anser anser",
+    "vernacularName": "Greylag goose",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      6888,
+      6912,
+      7006
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Ancestor of most domestic goose breeds.",
+      "Nest in wetlands and lakes.",
+      "Migrates south in winter."
+    ],
+    "range": [
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f46112a2109e7850b4e942",
+    "taxonId": "7019",
+    "taxonName": "Anser albifrons",
+    "vernacularName": "Greater white-fronted goose",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      6888,
+      6912,
+      7006
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Breeds in the Palearctic and Nearctic.",
+      "Known for its unique white forehead.",
+      "Wintering in the Gulf Coast region."
+    ],
+    "range": [
+      "NA",
+      "EU"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f46113a2109e7850b4e945",
+    "taxonId": "558426",
+    "taxonName": "Anser caerulescens",
+    "vernacularName": "Snow goose",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      6888,
+      6912,
+      7006
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Undergoes long migrations between Arctic and Southern USA.",
+      "Has distinct white and blue morphs.",
+      "Flocks can number in the thousands during migration."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f46115a2109e7850b4e949",
+    "taxonId": "7014",
+    "taxonName": "Anser cygnoides",
+    "vernacularName": "Swan goose",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      6888,
+      6912,
+      7006
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Natural breeding range includes Mongolia and Northern China.",
+      "Famous for its elegant neck and body.",
+      "Vagrant populations seen in Japan and Korea."
+    ],
+    "range": [
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f46116a2109e7850b4e94d",
+    "taxonId": "9100",
+    "taxonName": "Melospiza melodia",
+    "vernacularName": "Song sparrow",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      559248,
+      9091
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Common songbird found across North America.",
+      "Known for its melodious and varied songs.",
+      "Nest in various habitats including marshes."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f46118a2109e7850b4e952",
+    "taxonId": "9096",
+    "taxonName": "Melospiza georgiana",
+    "vernacularName": "Swamp sparrow",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      559248,
+      9091
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Primarily found in wetland areas of North America.",
+      "Common migrant and summer resident.",
+      "Feeds on seeds and invertebrates in shallow waters."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
   }
 ]

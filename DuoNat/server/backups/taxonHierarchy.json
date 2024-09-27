@@ -33505,5 +33505,185 @@
     "rank": "Species",
     "parentId": "42126",
     "__v": 0
+  },
+  {
+    "_id": "66f46f1a3f89e47170fb8d38",
+    "taxonId": "7086",
+    "taxonName": "Branta",
+    "vernacularName": "Black geese",
+    "rank": "Genus",
+    "parentId": "6912",
+    "__v": 0
+  },
+  {
+    "_id": "66f46f1b3f89e47170fb8d3c",
+    "taxonId": "7089",
+    "taxonName": "Branta canadensis",
+    "vernacularName": "Canada goose",
+    "rank": "Species",
+    "parentId": "7086",
+    "__v": 0
+  },
+  {
+    "_id": "66f46f1c3f89e47170fb8d41",
+    "taxonId": "7101",
+    "taxonName": "Branta leucopsis",
+    "vernacularName": "Barnacle goose",
+    "rank": "Species",
+    "parentId": "7086",
+    "__v": 0
+  },
+  {
+    "_id": "66f46f1d3f89e47170fb8d46",
+    "taxonId": "59220",
+    "taxonName": "Branta hutchinsii",
+    "vernacularName": "Cackling goose",
+    "rank": "Species",
+    "parentId": "7086",
+    "__v": 0
+  },
+  {
+    "_id": "66f46f1f3f89e47170fb8d4a",
+    "taxonId": "6913",
+    "taxonName": "Cygnus",
+    "vernacularName": "True swans",
+    "rank": "Genus",
+    "parentId": "6912",
+    "__v": 0
+  },
+  {
+    "_id": "66f46f1f3f89e47170fb8d4e",
+    "taxonId": "6921",
+    "taxonName": "Cygnus olor",
+    "vernacularName": "Mute swan",
+    "rank": "Species",
+    "parentId": "6913",
+    "__v": 0
+  },
+  {
+    "_id": "66f46f213f89e47170fb8d53",
+    "taxonId": "6915",
+    "taxonName": "Cygnus buccinator",
+    "vernacularName": "Trumpeter swan",
+    "rank": "Species",
+    "parentId": "6913",
+    "__v": 0
+  },
+  {
+    "_id": "66f46f223f89e47170fb8d58",
+    "taxonId": "6914",
+    "taxonName": "Cygnus atratus",
+    "vernacularName": "Black swan",
+    "rank": "Species",
+    "parentId": "6913",
+    "__v": 0
+  },
+  {
+    "_id": "66f46f233f89e47170fb8d5d",
+    "taxonId": "72789",
+    "taxonName": "Cygnus melancoryphus",
+    "vernacularName": "Black-necked swan",
+    "rank": "Species",
+    "parentId": "6913",
+    "__v": 0
+  },
+  {
+    "_id": "66f46f243f89e47170fb8d62",
+    "taxonId": "6916",
+    "taxonName": "Cygnus cygnus",
+    "vernacularName": "Whooper swan",
+    "rank": "Species",
+    "parentId": "6913",
+    "__v": 0
+  },
+  {
+    "_id": "66f46f263f89e47170fb8d67",
+    "taxonId": "6917",
+    "taxonName": "Cygnus columbianus",
+    "vernacularName": "Tundra swan",
+    "rank": "Species",
+    "parentId": "6913",
+    "__v": 0
+  },
+  {
+    "_id": "66f46f283f89e47170fb8d6f",
+    "taxonId": "7006",
+    "taxonName": "Anser",
+    "vernacularName": "Grey geese",
+    "rank": "Genus",
+    "parentId": "6912",
+    "__v": 0
+  },
+  {
+    "_id": "66f46f293f89e47170fb8d74",
+    "taxonId": "7018",
+    "taxonName": "Anser anser",
+    "vernacularName": "Greylag goose",
+    "rank": "Species",
+    "parentId": "7006",
+    "__v": 0
+  },
+  {
+    "_id": "66f46f2a3f89e47170fb8d79",
+    "taxonId": "7019",
+    "taxonName": "Anser albifrons",
+    "vernacularName": "Greater white-fronted goose",
+    "rank": "Species",
+    "parentId": "7006",
+    "__v": 0
+  },
+  {
+    "_id": "66f46f2b3f89e47170fb8d7e",
+    "taxonId": "558426",
+    "taxonName": "Anser caerulescens",
+    "vernacularName": "Snow goose",
+    "rank": "Species",
+    "parentId": "7006",
+    "__v": 0
+  },
+  {
+    "_id": "66f46f2d3f89e47170fb8d83",
+    "taxonId": "7014",
+    "taxonName": "Anser cygnoides",
+    "vernacularName": "Swan goose",
+    "rank": "Species",
+    "parentId": "7006",
+    "__v": 0
+  },
+  {
+    "_id": "66f46f2e3f89e47170fb8d87",
+    "taxonId": "9091",
+    "taxonName": "Melospiza",
+    "vernacularName": "Melospiza sparrows",
+    "rank": "Genus",
+    "parentId": "559248",
+    "__v": 0
+  },
+  {
+    "_id": "66f46f2f3f89e47170fb8d8a",
+    "taxonId": "559248",
+    "taxonName": "Passerellidae",
+    "vernacularName": "New world sparrows",
+    "rank": "Family",
+    "parentId": "7251",
+    "__v": 0
+  },
+  {
+    "_id": "66f46f303f89e47170fb8d8e",
+    "taxonId": "9100",
+    "taxonName": "Melospiza melodia",
+    "vernacularName": "Song sparrow",
+    "rank": "Species",
+    "parentId": "9091",
+    "__v": 0
+  },
+  {
+    "_id": "66f46f313f89e47170fb8d93",
+    "taxonId": "9096",
+    "taxonName": "Melospiza georgiana",
+    "vernacularName": "Swamp sparrow",
+    "rank": "Species",
+    "parentId": "9091",
+    "__v": 0
   }
 ]

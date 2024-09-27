@@ -20567,5 +20567,243 @@
     ],
     "enabled": true,
     "__v": 0
+  },
+  {
+    "_id": "66f46228a2109e7850b4e97b",
+    "pairID": "970",
+    "pairName": "Canada vs Barnacle Goose",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      7089,
+      7101
+    ],
+    "taxonNames": [
+      "Branta canadensis",
+      "Branta leucopsis"
+    ],
+    "range": [
+      "EU"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4622aa2109e7850b4e981",
+    "pairID": "971",
+    "pairName": "Canada vs Cackling Goose",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      7089,
+      59220
+    ],
+    "taxonNames": [
+      "Branta canadensis",
+      "Branta hutchinsii"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4622ca2109e7850b4e987",
+    "pairID": "972",
+    "pairName": "Trumpeter vs Mute Swan",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      6921,
+      6915
+    ],
+    "taxonNames": [
+      "Cygnus olor",
+      "Cygnus buccinator"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4622ea2109e7850b4e98d",
+    "pairID": "973",
+    "pairName": "Black vs Black-necked Swan",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      6914,
+      72789
+    ],
+    "taxonNames": [
+      "Cygnus atratus",
+      "Cygnus melancoryphus"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f46230a2109e7850b4e993",
+    "pairID": "974",
+    "pairName": "Tundra vs Whooper Swan",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      6916,
+      6917
+    ],
+    "taxonNames": [
+      "Cygnus cygnus",
+      "Cygnus columbianus"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f46232a2109e7850b4e999",
+    "pairID": "975",
+    "pairName": "Mute vs Whooper Swan",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      6916,
+      6921
+    ],
+    "taxonNames": [
+      "Cygnus cygnus",
+      "Cygnus olor"
+    ],
+    "range": [
+      "EU"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f46233a2109e7850b4e99f",
+    "pairID": "976",
+    "pairName": "Geese vs Swans",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      6913,
+      7006
+    ],
+    "taxonNames": [
+      "Cygnus",
+      "Anser"
+    ],
+    "range": [
+      "EU",
+      "NA",
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f46235a2109e7850b4e9a5",
+    "pairID": "977",
+    "pairName": "White-fronted vs Greylag Goose",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      7018,
+      7019
+    ],
+    "taxonNames": [
+      "Anser anser",
+      "Anser albifrons"
+    ],
+    "range": [
+      "EU"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f46237a2109e7850b4e9ab",
+    "pairID": "978",
+    "pairName": "Snow Goose vs Mute Swan",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      558426,
+      6921
+    ],
+    "taxonNames": [
+      "Anser caerulescens",
+      "Cygnus olor"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f46239a2109e7850b4e9b1",
+    "pairID": "979",
+    "pairName": "Greylag Goose vs Swan Goose",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      7014,
+      7018
+    ],
+    "taxonNames": [
+      "Anser cygnoides",
+      "Anser anser"
+    ],
+    "range": [
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4623ba2109e7850b4e9b7",
+    "pairID": "980",
+    "pairName": "Song vs House Sparrow",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      9100,
+      13858
+    ],
+    "taxonNames": [
+      "Melospiza melodia",
+      "Passer domesticus"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4623da2109e7850b4e9bd",
+    "pairID": "981",
+    "pairName": "Swamp vs Song Sparrow",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      9100,
+      9096
+    ],
+    "taxonNames": [
+      "Melospiza melodia",
+      "Melospiza georgiana"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
   }
 ]
