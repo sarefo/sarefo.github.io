@@ -170,9 +170,19 @@
     align-items: center;
     padding: 20px;
 
-    font-size: 28px;
-
     z-index: 100;
+}
+
+.hint-content {
+    font-size: 28px;
+    text-align: center;
+    max-width: 100%;
+    word-wrap: break-word;
+}
+
+.hint-content i {
+    font-style: italic;
+    display: inline;
 }
 
 /* World map overlays on images */
