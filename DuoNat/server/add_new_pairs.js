@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+
+const clipboardy = require('clipboardy');
 const readline = require('readline');
 const fs = require('fs').promises;
 const path = require('path');
@@ -347,12 +349,25 @@ async function mergePerplexityData() {
         for (const [taxonName, data] of Object.entries(perplexityData)) {
             const taxon = await TaxonInfo.findOne({ taxonName });
             if (taxon) {
-                taxon.taxonFacts = data.taxonFacts || [];
-                taxon.range = data.range || [];
-                await taxon.save();
-                console.log(`Updated ${taxonName} with Perplexity data`);
+                let updated = false;
+                if (data.taxonFacts && data.taxonFacts.length > 0) {
+                    taxon.taxonFacts = data.taxonFacts;
+                    updated = true;
+                }
+                if (data.range && data.range.length > 0) {
+                    taxon.range = data.range;
+                    updated = true;
+                }
+                if (updated) {
+                    await taxon.save();
+                    taxaUpdated++;
+                    console.log(`Updated ${taxonName} with Perplexity data`);
+                } else {
+                    console.log(`No new data to update for ${taxonName}`);
+                }
             } else {
                 console.log(`Taxon not found: ${taxonName}`);
+                taxaNotFound++;
             }
         }
     } catch (error) {
@@ -445,22 +460,16 @@ async function updatePairMetadata() {
         }
 
         console.log(`Found ${pairs.length} pairs with level 0.`);
-        const confirm = await promptUser("Do you want to update these pairs? (y/n): ", val => ['y', 'n'].includes(val.toLowerCase()));
-        
-        if (confirm.toLowerCase() !== 'y') {
-            console.log("Update cancelled.");
-            return;
-        }
 
         for (const pair of pairs) {
             console.log(`\nPair ${pair.pairID}: ${pair.taxonNames.join(', ')}`);
             
             pair.level = await promptUser("Enter level (1-3): ", val => ['1','2','3'].includes(val));
             
+            pair.pairName = await promptUser("Enter a name for this pair: ");
+            
             const tagsInput = await promptUser("Enter tags (comma-separated): ");
             pair.tags = tagsInput ? tagsInput.split(',').map(tag => tag.trim()) : [];
-            
-            pair.pairName = await promptUser("Enter a name for this pair: ");
             
             await pair.save();
         }
