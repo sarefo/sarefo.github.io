@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+const chalk = require('chalk');
 //const clipboardy = require('clipboardy');
 const readline = require('readline');
 const fs = require('fs').promises;
@@ -99,6 +100,12 @@ async function promptForCorrection(taxonName) {
         return null;
     }
 }
+
+// Helper functions for colored console output
+const logSuccess = (message) => console.log(chalk.green(message));
+const logError = (message) => console.error(chalk.red(message));
+const logNeutral = (message) => console.log(chalk.blue(message));
+const logWarning = (message) => console.log(chalk.yellow(message));
 
 // backup and restore db collections
 const BACKUP_DIR = path.join(__dirname, 'backups');
@@ -273,12 +280,12 @@ async function processTaxa() {
                             enabled: false
                         });
                         await newTaxon.save();
-                        console.log(`Added new taxon: ${taxonToUse}`);
+                        logSuccess(`Added new taxon: ${taxonToUse}`);
                     } else {
-                        console.log(`Could not fetch details for: ${taxonToUse}`);
+                        logWarning(`Could not fetch details for: ${taxonToUse}`);
                     }
                 } else {
-                    console.log(`Taxon already exists: ${taxonToUse}`);
+                    logNeutral(`Taxon already exists: ${taxonToUse}`);
                 }
             }
         }
@@ -361,12 +368,13 @@ async function mergePerplexityData() {
                 if (updated) {
                     await taxon.save();
                     taxaUpdated++;
+                    logSuccess(`Updated ${taxonName} with Perplexity data`);
                     console.log(`Updated ${taxonName} with Perplexity data`);
                 } else {
-                    console.log(`No new data to update for ${taxonName}`);
+                    logNeutral(`No new data to update for ${taxonName}`);
                 }
             } else {
-                console.log(`Taxon not found: ${taxonName}`);
+                logWarning(`Taxon not found: ${taxonName}`);
                 taxaNotFound++;
             }
         }
@@ -413,14 +421,14 @@ async function createTaxonPairs() {
                         enabled: false
                     });
                     await newPair.save();
-                    console.log(`Created new pair: ${taxon1} vs ${taxon2} with ID ${newPairID}`);
+                    logSuccess(`Created new pair: ${taxon1} vs ${taxon2} with ID ${newPairID}`);
                     pairsCreated++;
                 } else {
-                    console.log(`Pair already exists: ${taxon1} vs ${taxon2}`);
+                    logNeutral(`Pair already exists: ${taxon1} vs ${taxon2}`);
                     pairsSkipped++;
                 }
             } else {
-                console.log(`Could not create pair: ${taxon1} vs ${taxon2} - missing taxon info`);
+                logWarning(`Could not create pair: ${taxon1} vs ${taxon2} - missing taxon info`);
                 pairsSkipped++;
             }
         }
@@ -506,9 +514,9 @@ async function updateHierarchy() {
                             rank: capitalizeFirstLetter(taxonDetails.rank),
                             parentId: parentId
                         });
-                        console.log(`Added new hierarchy entry for ${taxonDetails.taxonName}`);
+                        logSuccess(`Added new hierarchy entry for ${taxonDetails.taxonName}`);
                     } else {
-                        console.log(`Could not fetch details for taxon ID: ${currentId}`);
+                        logWarning(`Could not fetch details for taxon ID: ${currentId}`);
                     }
                 } else {
                     console.log(`Hierarchy entry already exists for ${existingHierarchyEntry.taxonName}`);
@@ -588,12 +596,12 @@ async function displayMenu(lastAction) {
     
     options.forEach((option, index) => {
         if (index + 1 === lastAction + 1) {
-            console.log(`${index + 1}. ${option} <- Recommended next step`);
+            console.log(chalk.green(`${index + 1}. ${option} <- Recommended next step`));
         } else {
             console.log(`${index + 1}. ${option}`);
         }
     });
-    console.log("0. Exit");
+    console.log(chalk.yellow("0. Exit"));
 
     const choice = await promptUser("Enter your choice (0-8): ", val => ['0','1','2','3','4','5','6','7','8'].includes(val));
     return parseInt(choice);
