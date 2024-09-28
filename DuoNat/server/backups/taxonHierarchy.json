@@ -34180,5 +34180,635 @@
     "rank": "Species",
     "parentId": "31420",
     "__v": 0
+  },
+  {
+    "_id": "66f4afae680d2b76bb6488f0",
+    "taxonId": "12727",
+    "taxonName": "Turdus migratorius",
+    "vernacularName": "American robin",
+    "rank": "Species",
+    "parentId": "12705",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afb0680d2b76bb6488f4",
+    "taxonId": "178659",
+    "taxonName": "Valgus",
+    "vernacularName": "Valgus",
+    "rank": "Genus",
+    "parentId": "520060",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afb1680d2b76bb6488f7",
+    "taxonId": "520060",
+    "taxonName": "Valgini",
+    "vernacularName": "-",
+    "rank": "Tribe",
+    "parentId": "127588",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afb2680d2b76bb6488fa",
+    "taxonId": "127588",
+    "taxonName": "Cetoniinae",
+    "vernacularName": "Fruit and flower chafers",
+    "rank": "Subfamily",
+    "parentId": "48201",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afb3680d2b76bb6488fe",
+    "taxonId": "338214",
+    "taxonName": "Valgus hemipterus",
+    "vernacularName": "Bug flower chafer",
+    "rank": "Species",
+    "parentId": "178659",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afb4680d2b76bb648903",
+    "taxonId": "233377",
+    "taxonName": "Valgus canaliculatus",
+    "vernacularName": "-",
+    "rank": "Species",
+    "parentId": "178659",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afb6680d2b76bb648907",
+    "taxonId": "1130193",
+    "taxonName": "Oxythyrea",
+    "vernacularName": "Dotted fruit chafers",
+    "rank": "Subgenus",
+    "parentId": "68329",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afb7680d2b76bb64890a",
+    "taxonId": "68329",
+    "taxonName": "Oxythyrea",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "1008821",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afb8680d2b76bb64890d",
+    "taxonId": "1008821",
+    "taxonName": "Leucocelina",
+    "vernacularName": "-",
+    "rank": "Subtribe",
+    "parentId": "245840",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afb8680d2b76bb648910",
+    "taxonId": "245840",
+    "taxonName": "Cetoniini",
+    "vernacularName": "Rose chafers",
+    "rank": "Tribe",
+    "parentId": "127588",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afb9680d2b76bb648914",
+    "taxonId": "68328",
+    "taxonName": "Oxythyrea funesta",
+    "vernacularName": "Mediterranean spotted chafer",
+    "rank": "Species",
+    "parentId": "1130193",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afbb680d2b76bb648918",
+    "taxonId": "71100",
+    "taxonName": "Tropinota",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "1008821",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afbb680d2b76bb64891c",
+    "taxonId": "357480",
+    "taxonName": "Tropinota hirta",
+    "vernacularName": "Apple blossom beetle",
+    "rank": "Species",
+    "parentId": "71100",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afbd680d2b76bb648920",
+    "taxonId": "12935",
+    "taxonName": "Sialia",
+    "vernacularName": "Bluebirds",
+    "rank": "Genus",
+    "parentId": "15977",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afbe680d2b76bb648924",
+    "taxonId": "12942",
+    "taxonName": "Sialia sialis",
+    "vernacularName": "Eastern bluebird",
+    "rank": "Species",
+    "parentId": "12935",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afbf680d2b76bb648929",
+    "taxonId": "12937",
+    "taxonName": "Sialia mexicana",
+    "vernacularName": "Western bluebird",
+    "rank": "Species",
+    "parentId": "12935",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afc0680d2b76bb64892d",
+    "taxonId": "10223",
+    "taxonName": "Passerina",
+    "vernacularName": "North american buntings",
+    "rank": "Genus",
+    "parentId": "71305",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afc1680d2b76bb648931",
+    "taxonId": "10234",
+    "taxonName": "Passerina amoena",
+    "vernacularName": "Lazuli bunting",
+    "rank": "Species",
+    "parentId": "10223",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afc2680d2b76bb648936",
+    "taxonId": "10227",
+    "taxonName": "Passerina cyanea",
+    "vernacularName": "Indigo bunting",
+    "rank": "Species",
+    "parentId": "10223",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afc4680d2b76bb64893c",
+    "taxonId": "9519",
+    "taxonName": "Cyanocompsa parellina",
+    "vernacularName": "Blue bunting",
+    "rank": "Species",
+    "parentId": "9518",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afc5680d2b76bb648941",
+    "taxonId": "10224",
+    "taxonName": "Passerina ciris",
+    "vernacularName": "Painted bunting",
+    "rank": "Species",
+    "parentId": "10223",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afc6680d2b76bb648946",
+    "taxonId": "10228",
+    "taxonName": "Passerina versicolor",
+    "vernacularName": "Varied bunting",
+    "rank": "Species",
+    "parentId": "10223",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afc8680d2b76bb64894a",
+    "taxonId": "10287",
+    "taxonName": "Volatinia",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "71369",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afc9680d2b76bb64894d",
+    "taxonId": "71369",
+    "taxonName": "Thraupidae",
+    "vernacularName": "Tanagers and allies",
+    "rank": "Family",
+    "parentId": "7251",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afca680d2b76bb648951",
+    "taxonId": "10288",
+    "taxonName": "Volatinia jacarina",
+    "vernacularName": "Blue-black grassquit",
+    "rank": "Species",
+    "parentId": "10287",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afcb680d2b76bb648955",
+    "taxonId": "10260",
+    "taxonName": "Cyanerpes",
+    "vernacularName": "Blue honeycreepers",
+    "rank": "Genus",
+    "parentId": "71369",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afcc680d2b76bb648959",
+    "taxonId": "10262",
+    "taxonName": "Cyanerpes cyaneus",
+    "vernacularName": "Red-legged honeycreeper",
+    "rank": "Species",
+    "parentId": "10260",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afce680d2b76bb64895e",
+    "taxonId": "10264",
+    "taxonName": "Cyanerpes lucidus",
+    "vernacularName": "Shining honeycreeper",
+    "rank": "Species",
+    "parentId": "10260",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afcf680d2b76bb648962",
+    "taxonId": "16446",
+    "taxonName": "Pyrocephalus",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "980017",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afd0680d2b76bb648965",
+    "taxonId": "980017",
+    "taxonName": "Tyrannidae",
+    "vernacularName": "Tyrant flycatchers",
+    "rank": "Family",
+    "parentId": "7251",
+    "__v": 0
+  },
+  {
+    "_id": "66f4afd1680d2b76bb648969",
+    "taxonId": "16447",
+    "taxonName": "Pyrocephalus rubinus",
+    "vernacularName": "Vermilion flycatcher",
+    "rank": "Species",
+    "parentId": "16446",
+    "__v": 0
+  },
+  {
+    "_id": "66f824074fe45465d69bb17f",
+    "taxonId": "9518",
+    "taxonName": "Cyanocompsa",
+    "vernacularName": "Blue Buntings",
+    "rank": "Genus",
+    "__v": 0,
+    "parentId": "71305"
+  },
+  {
+    "_id": "66f4be99dcd62e6d503e7f19",
+    "taxonId": "879",
+    "taxonName": "Gallus",
+    "vernacularName": "Junglefowl",
+    "rank": "Genus",
+    "parentId": "574",
+    "__v": 0
+  },
+  {
+    "_id": "66f4be9adcd62e6d503e7f1d",
+    "taxonId": "882",
+    "taxonName": "Gallus gallus",
+    "vernacularName": "Red junglefowl",
+    "rank": "Species",
+    "parentId": "879",
+    "__v": 0
+  },
+  {
+    "_id": "66f4be9bdcd62e6d503e7f22",
+    "taxonId": "888",
+    "taxonName": "Gallus varius",
+    "vernacularName": "Green junglefowl",
+    "rank": "Species",
+    "parentId": "879",
+    "__v": 0
+  },
+  {
+    "_id": "66f4be9cdcd62e6d503e7f27",
+    "taxonId": "880",
+    "taxonName": "Gallus sonneratii",
+    "vernacularName": "Grey junglefowl",
+    "rank": "Species",
+    "parentId": "879",
+    "__v": 0
+  },
+  {
+    "_id": "66f4be9edcd62e6d503e7f2c",
+    "taxonId": "367470",
+    "taxonName": "Gallus lafayettii",
+    "vernacularName": "Sri lanka junglefowl",
+    "rank": "Species",
+    "parentId": "879",
+    "__v": 0
+  },
+  {
+    "_id": "66f4bea0dcd62e6d503e7f30",
+    "taxonId": "980",
+    "taxonName": "Phasianus",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "574",
+    "__v": 0
+  },
+  {
+    "_id": "66f4bea1dcd62e6d503e7f34",
+    "taxonId": "981",
+    "taxonName": "Phasianus colchicus",
+    "vernacularName": "Ring-necked pheasant",
+    "rank": "Species",
+    "parentId": "980",
+    "__v": 0
+  },
+  {
+    "_id": "66f4bea2dcd62e6d503e7f38",
+    "taxonId": "1153",
+    "taxonName": "Syrmaticus",
+    "vernacularName": "Long-tailed pheasants",
+    "rank": "Genus",
+    "parentId": "574",
+    "__v": 0
+  },
+  {
+    "_id": "66f4bea3dcd62e6d503e7f3c",
+    "taxonId": "1154",
+    "taxonName": "Syrmaticus reevesii",
+    "vernacularName": "Reeves's pheasant",
+    "rank": "Species",
+    "parentId": "1153",
+    "__v": 0
+  },
+  {
+    "_id": "66f4bea4dcd62e6d503e7f40",
+    "taxonId": "1199",
+    "taxonName": "Pavo",
+    "vernacularName": "Peafowl",
+    "rank": "Genus",
+    "parentId": "574",
+    "__v": 0
+  },
+  {
+    "_id": "66f4bea5dcd62e6d503e7f44",
+    "taxonId": "1204",
+    "taxonName": "Pavo cristatus",
+    "vernacularName": "Indian peafowl",
+    "rank": "Species",
+    "parentId": "1199",
+    "__v": 0
+  },
+  {
+    "_id": "66f4bea6dcd62e6d503e7f48",
+    "taxonId": "1427",
+    "taxonName": "Numida",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "1426",
+    "__v": 0
+  },
+  {
+    "_id": "66f4bea7dcd62e6d503e7f4b",
+    "taxonId": "1426",
+    "taxonName": "Numididae",
+    "vernacularName": "Guineafowl",
+    "rank": "Family",
+    "parentId": "573",
+    "__v": 0
+  },
+  {
+    "_id": "66f4bea8dcd62e6d503e7f4f",
+    "taxonId": "1428",
+    "taxonName": "Numida meleagris",
+    "vernacularName": "Helmeted guineafowl",
+    "rank": "Species",
+    "parentId": "1427",
+    "__v": 0
+  },
+  {
+    "_id": "66f4bea9dcd62e6d503e7f53",
+    "taxonId": "1448",
+    "taxonName": "Acryllium",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "1426",
+    "__v": 0
+  },
+  {
+    "_id": "66f4beaadcd62e6d503e7f57",
+    "taxonId": "1449",
+    "taxonName": "Acryllium vulturinum",
+    "vernacularName": "Vulturine guineafowl",
+    "rank": "Species",
+    "parentId": "1448",
+    "__v": 0
+  },
+  {
+    "_id": "66f4beabdcd62e6d503e7f5c",
+    "taxonId": "906",
+    "taxonName": "Meleagris gallopavo",
+    "vernacularName": "Wild turkey",
+    "rank": "Species",
+    "parentId": "905",
+    "__v": 0
+  },
+  {
+    "_id": "66f4beaddcd62e6d503e7f61",
+    "taxonId": "20500",
+    "taxonName": "Casuarius casuarius",
+    "vernacularName": "Southern cassowary",
+    "rank": "Species",
+    "parentId": "20498",
+    "__v": 0
+  },
+  {
+    "_id": "66f4beaedcd62e6d503e7f66",
+    "taxonId": "913",
+    "taxonName": "Meleagris ocellata",
+    "vernacularName": "Ocellated turkey",
+    "rank": "Species",
+    "parentId": "905",
+    "__v": 0
+  },
+  {
+    "_id": "66f4beafdcd62e6d503e7f6a",
+    "taxonId": "5435",
+    "taxonName": "Bucorvus",
+    "vernacularName": "Ground hornbills",
+    "rank": "Genus",
+    "parentId": "85648",
+    "__v": 0
+  },
+  {
+    "_id": "66f4beb0dcd62e6d503e7f6d",
+    "taxonId": "85648",
+    "taxonName": "Bucorvidae",
+    "vernacularName": "Ground hornbills",
+    "rank": "Family",
+    "parentId": "525653",
+    "__v": 0
+  },
+  {
+    "_id": "66f4beb1dcd62e6d503e7f71",
+    "taxonId": "144281",
+    "taxonName": "Bucorvus leadbeateri",
+    "vernacularName": "Southern ground hornbill",
+    "rank": "Species",
+    "parentId": "5435",
+    "__v": 0
+  },
+  {
+    "_id": "66f4beb3dcd62e6d503e7f76",
+    "taxonId": "5437",
+    "taxonName": "Bucorvus abyssinicus",
+    "vernacularName": "Abyssinian ground hornbill",
+    "rank": "Species",
+    "parentId": "5435",
+    "__v": 0
+  },
+  {
+    "_id": "66f4beb4dcd62e6d503e7f7a",
+    "taxonId": "507910",
+    "taxonName": "Bycanistes",
+    "vernacularName": "Bycanistes hornbills",
+    "rank": "Genus",
+    "parentId": "5438",
+    "__v": 0
+  },
+  {
+    "_id": "66f4beb5dcd62e6d503e7f7d",
+    "taxonId": "5438",
+    "taxonName": "Bucerotidae",
+    "vernacularName": "Hornbills",
+    "rank": "Family",
+    "parentId": "525653",
+    "__v": 0
+  },
+  {
+    "_id": "66f4beb6dcd62e6d503e7f81",
+    "taxonId": "507913",
+    "taxonName": "Bycanistes bucinator",
+    "vernacularName": "Trumpeter hornbill",
+    "rank": "Species",
+    "parentId": "507910",
+    "__v": 0
+  },
+  {
+    "_id": "66f4beb7dcd62e6d503e7f86",
+    "taxonId": "507912",
+    "taxonName": "Bycanistes brevis",
+    "vernacularName": "Silvery-cheeked hornbill",
+    "rank": "Species",
+    "parentId": "507910",
+    "__v": 0
+  },
+  {
+    "_id": "66f4beb9dcd62e6d503e7f8a",
+    "taxonId": "5527",
+    "taxonName": "Buceros",
+    "vernacularName": "Large asian hornbills",
+    "rank": "Genus",
+    "parentId": "5438",
+    "__v": 0
+  },
+  {
+    "_id": "66f4bebadcd62e6d503e7f8e",
+    "taxonId": "5532",
+    "taxonName": "Buceros rhinoceros",
+    "vernacularName": "Rhinoceros hornbill",
+    "rank": "Species",
+    "parentId": "5527",
+    "__v": 0
+  },
+  {
+    "_id": "66f4bebbdcd62e6d503e7f93",
+    "taxonId": "5536",
+    "taxonName": "Buceros bicornis",
+    "vernacularName": "Great hornbill",
+    "rank": "Species",
+    "parentId": "5527",
+    "__v": 0
+  },
+  {
+    "_id": "66f4bebcdcd62e6d503e7f97",
+    "taxonId": "5548",
+    "taxonName": "Anthracoceros",
+    "vernacularName": "Asian pied hornbills and allies",
+    "rank": "Genus",
+    "parentId": "5438",
+    "__v": 0
+  },
+  {
+    "_id": "66f4bebddcd62e6d503e7f9b",
+    "taxonId": "5551",
+    "taxonName": "Anthracoceros albirostris",
+    "vernacularName": "Oriental pied hornbill",
+    "rank": "Species",
+    "parentId": "5548",
+    "__v": 0
+  },
+  {
+    "_id": "66f4bebedcd62e6d503e7f9f",
+    "taxonId": "18792",
+    "taxonName": "Ramphastos",
+    "vernacularName": "Large toucans",
+    "rank": "Genus",
+    "parentId": "18485",
+    "__v": 0
+  },
+  {
+    "_id": "66f4bebfdcd62e6d503e7fa2",
+    "taxonId": "18485",
+    "taxonName": "Ramphastidae",
+    "vernacularName": "Toucans",
+    "rank": "Family",
+    "parentId": "17550",
+    "__v": 0
+  },
+  {
+    "_id": "66f4bec0dcd62e6d503e7fa6",
+    "taxonId": "18793",
+    "taxonName": "Ramphastos toco",
+    "vernacularName": "Toco toucan",
+    "rank": "Species",
+    "parentId": "18792",
+    "__v": 0
+  },
+  {
+    "_id": "66f4bec1dcd62e6d503e7fab",
+    "taxonId": "18796",
+    "taxonName": "Ramphastos sulfuratus",
+    "vernacularName": "Keel-billed toucan",
+    "rank": "Species",
+    "parentId": "18792",
+    "__v": 0
+  },
+  {
+    "_id": "66f4bec2dcd62e6d503e7fb0",
+    "taxonId": "18808",
+    "taxonName": "Ramphastos dicolorus",
+    "vernacularName": "Red-breasted toucan",
+    "rank": "Species",
+    "parentId": "18792",
+    "__v": 0
+  },
+  {
+    "_id": "66f4bec4dcd62e6d503e7fb5",
+    "taxonId": "18803",
+    "taxonName": "Ramphastos vitellinus",
+    "vernacularName": "Channel-billed toucan",
+    "rank": "Species",
+    "parentId": "18792",
+    "__v": 0
   }
 ]

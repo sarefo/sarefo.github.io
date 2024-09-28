@@ -21181,5 +21181,561 @@
     "range": [],
     "enabled": true,
     "__v": 0
+  },
+  {
+    "_id": "66f4ad06680d2b76bb64889c",
+    "pairID": "1001",
+    "pairName": "American Robin vs Eurasian Blackbird",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      12727,
+      12716
+    ],
+    "taxonNames": [
+      "Turdus migratorius",
+      "Turdus merula"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4ad07680d2b76bb6488a2",
+    "pairID": "1002",
+    "pairName": "Flower Chafers",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      338214,
+      233377
+    ],
+    "taxonNames": [
+      "Valgus hemipterus",
+      "Valgus canaliculatus"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4ad09680d2b76bb6488a8",
+    "pairID": "1003",
+    "pairName": "Apple Blossom Beetle vs Mediterranean Spotted Chafer",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      68328,
+      357480
+    ],
+    "taxonNames": [
+      "Oxythyrea funesta",
+      "Tropinota hirta"
+    ],
+    "range": [
+      "EU"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4ad0b680d2b76bb6488ae",
+    "pairID": "1004",
+    "pairName": "Western vs Easter Bluebird",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      12942,
+      12937
+    ],
+    "taxonNames": [
+      "Sialia sialis",
+      "Sialia mexicana"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4ad0d680d2b76bb6488b4",
+    "pairID": "1005",
+    "pairName": "Western Bluebird vs Lazuli Bunting",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      12937,
+      10234
+    ],
+    "taxonNames": [
+      "Sialia mexicana",
+      "Passerina amoena"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4ad0f680d2b76bb6488ba",
+    "pairID": "1006",
+    "pairName": "Lazuli vs Indigo Bunting",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      10234,
+      10227
+    ],
+    "taxonNames": [
+      "Passerina amoena",
+      "Passerina cyanea"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4ad11680d2b76bb6488c0",
+    "pairID": "1007",
+    "pairName": "Blue vs Indigo Bunting",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      10227,
+      9519
+    ],
+    "taxonNames": [
+      "Passerina cyanea",
+      "Cyanocompsa parellina"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4ad13680d2b76bb6488c6",
+    "pairID": "1008",
+    "pairName": "Painted vs Varied Bunting",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      10224,
+      10228
+    ],
+    "taxonNames": [
+      "Passerina ciris",
+      "Passerina versicolor"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4ad14680d2b76bb6488cc",
+    "pairID": "1009",
+    "pairName": "Blue Bunting vs Blue-black Grassquit",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      9519,
+      10288
+    ],
+    "taxonNames": [
+      "Cyanocompsa parellina",
+      "Volatinia jacarina"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4ad16680d2b76bb6488d2",
+    "pairID": "1010",
+    "pairName": "Red-legged vs Shining Honeycreeper",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      10262,
+      10264
+    ],
+    "taxonNames": [
+      "Cyanerpes cyaneus",
+      "Cyanerpes lucidus"
+    ],
+    "range": [
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4ad18680d2b76bb6488d8",
+    "pairID": "1011",
+    "pairName": "Vermillion Flycatcher vs Scarlet Tanager",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      16447,
+      9921
+    ],
+    "taxonNames": [
+      "Pyrocephalus rubinus",
+      "Piranga olivacea"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4ad1a680d2b76bb6488de",
+    "pairID": "1012",
+    "pairName": "Northern Cardinal vs Scarlet Tanager",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      9921,
+      9083
+    ],
+    "taxonNames": [
+      "Piranga olivacea",
+      "Cardinalis cardinalis"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4bb71dcd62e6d503e7eaa",
+    "pairID": "1013",
+    "pairName": "Red vs Green Junglefowl",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      882,
+      888
+    ],
+    "taxonNames": [
+      "Gallus gallus",
+      "Gallus varius"
+    ],
+    "range": [
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4bb73dcd62e6d503e7eb0",
+    "pairID": "1014",
+    "pairName": "Sri Lanka vs Grey Junglefowl",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      880,
+      367470
+    ],
+    "taxonNames": [
+      "Gallus sonneratii",
+      "Gallus lafayettii"
+    ],
+    "range": [
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4bb75dcd62e6d503e7eb6",
+    "pairID": "1015",
+    "pairName": "Ring-necked vs Reeves' Pheasant",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      981,
+      1154
+    ],
+    "taxonNames": [
+      "Phasianus colchicus",
+      "Syrmaticus reevesii"
+    ],
+    "range": [
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4bb77dcd62e6d503e7ebc",
+    "pairID": "1016",
+    "pairName": "Peacock vs Helmeted Guineafowl",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      1204,
+      1428
+    ],
+    "taxonNames": [
+      "Pavo cristatus",
+      "Numida meleagris"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4bb78dcd62e6d503e7ec2",
+    "pairID": "1017",
+    "pairName": "Helmeted vs Vulturine Guineafowl",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      1428,
+      1449
+    ],
+    "taxonNames": [
+      "Numida meleagris",
+      "Acryllium vulturinum"
+    ],
+    "range": [
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4bb7adcd62e6d503e7ec8",
+    "pairID": "1018",
+    "pairName": "Helmeted Guineafowl vs Wild Turkey",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      1428,
+      906
+    ],
+    "taxonNames": [
+      "Numida meleagris",
+      "Meleagris gallopavo"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4bb7cdcd62e6d503e7ece",
+    "pairID": "1019",
+    "pairName": "Cassowary vs Guineafowl",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      1428,
+      20500
+    ],
+    "taxonNames": [
+      "Numida meleagris",
+      "Casuarius casuarius"
+    ],
+    "range": [
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4bb7edcd62e6d503e7ed4",
+    "pairID": "1020",
+    "pairName": "Wild vs Ocellated Turkey",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      913,
+      906
+    ],
+    "taxonNames": [
+      "Meleagris ocellata",
+      "Meleagris gallopavo"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4bb80dcd62e6d503e7eda",
+    "pairID": "1021",
+    "pairName": "Southern vs Abyssinian Ground Hornbill",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      144281,
+      5437
+    ],
+    "taxonNames": [
+      "Bucorvus leadbeateri",
+      "Bucorvus abyssinicus"
+    ],
+    "range": [
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4bb82dcd62e6d503e7ee0",
+    "pairID": "1022",
+    "pairName": "Silvery-cheeked vs Trumpeter Hornbill",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      507913,
+      507912
+    ],
+    "taxonNames": [
+      "Bycanistes bucinator",
+      "Bycanistes brevis"
+    ],
+    "range": [
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4bb84dcd62e6d503e7ee6",
+    "pairID": "1023",
+    "pairName": "Great vs Rhinoceros Hornbill",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      5532,
+      5536
+    ],
+    "taxonNames": [
+      "Buceros rhinoceros",
+      "Buceros bicornis"
+    ],
+    "range": [
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4bb86dcd62e6d503e7eec",
+    "pairID": "1024",
+    "pairName": "Oriental Pied vs Rhinoceros Hornbill",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      5551,
+      5532
+    ],
+    "taxonNames": [
+      "Anthracoceros albirostris",
+      "Buceros rhinoceros"
+    ],
+    "range": [
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4bb88dcd62e6d503e7ef2",
+    "pairID": "1025",
+    "pairName": "Keel-billed vs Toco Toucan",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      18793,
+      18796
+    ],
+    "taxonNames": [
+      "Ramphastos toco",
+      "Ramphastos sulfuratus"
+    ],
+    "range": [
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4bb8adcd62e6d503e7ef8",
+    "pairID": "1026",
+    "pairName": "Red-breasted vs Keel-billed Toucan",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      18796,
+      18808
+    ],
+    "taxonNames": [
+      "Ramphastos sulfuratus",
+      "Ramphastos dicolorus"
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4bb8cdcd62e6d503e7efe",
+    "pairID": "1027",
+    "pairName": "Red-breasted vs Channel-billed Toucan",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      18803,
+      18808
+    ],
+    "taxonNames": [
+      "Ramphastos vitellinus",
+      "Ramphastos dicolorus"
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4bb8edcd62e6d503e7f04",
+    "pairID": "1028",
+    "pairName": "Hornbills vs Toucans",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      18485,
+      5438
+    ],
+    "taxonNames": [
+      "Ramphastidae",
+      "Bucerotidae"
+    ],
+    "range": [
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
   }
 ]

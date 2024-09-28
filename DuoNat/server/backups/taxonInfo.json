@@ -55753,5 +55753,1147 @@
     "hints": [],
     "enabled": true,
     "__v": 1
+  },
+  {
+    "_id": "66f4ac58680d2b76bb64883f",
+    "taxonId": "12727",
+    "taxonName": "Turdus migratorius",
+    "vernacularName": "American robin",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      15977,
+      12705
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Breeds across North America, known for its song.",
+      "Diet consists of fruits, insects, and earthworms.",
+      "Not all individuals migrate; some remain year-round."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4ac59680d2b76bb648843",
+    "taxonId": "338214",
+    "taxonName": "Valgus hemipterus",
+    "vernacularName": "Bug flower chafer",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47208,
+      71130,
+      702480,
+      48202,
+      48201,
+      127588,
+      520060,
+      178659
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Found in Mexico and southern USA.",
+      "Adults are known for their vibrant colors.",
+      "Primarily feed on flowers and foliage."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4ac5a680d2b76bb648846",
+    "taxonId": "233377",
+    "taxonName": "Valgus canaliculatus",
+    "vernacularName": "-",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47208,
+      71130,
+      702480,
+      48202,
+      48201,
+      127588,
+      520060,
+      178659
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Usually lives in moist environments.",
+      "Has specialized mouthparts for leaf feeding.",
+      "Known for their distinctive body shape."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4ac5b680d2b76bb648849",
+    "taxonId": "68328",
+    "taxonName": "Oxythyrea funesta",
+    "vernacularName": "Mediterranean spotted chafer",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47208,
+      71130,
+      702480,
+      48202,
+      48201,
+      127588,
+      245840,
+      1008821,
+      68329,
+      1130193
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Adults can be seen on flowers in summer.",
+      "Larvae feed on decomposing plant material.",
+      "A pest to various crops and garden plants."
+    ],
+    "range": [
+      "EU"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4ac5c680d2b76bb64884c",
+    "taxonId": "357480",
+    "taxonName": "Tropinota hirta",
+    "vernacularName": "Apple blossom beetle",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47208,
+      71130,
+      702480,
+      48202,
+      48201,
+      127588,
+      245840,
+      1008821,
+      71100
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Common pest on cultivated fruits and flowers.",
+      "Known to cause damage to apple crops.",
+      "Adults are hairy and have a robust build."
+    ],
+    "range": [
+      "EU"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4ac5d680d2b76bb64884f",
+    "taxonId": "12942",
+    "taxonName": "Sialia sialis",
+    "vernacularName": "Eastern bluebird",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      15977,
+      12935
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Prefers open areas for nesting and foraging.",
+      "Often seen in parks and gardens.",
+      "Is often blue-bright male in spring."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4ac5f680d2b76bb648852",
+    "taxonId": "12937",
+    "taxonName": "Sialia mexicana",
+    "vernacularName": "Western bluebird",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      15977,
+      12935
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Western bluebird with vibrant blue plumage.",
+      "Inhabits open woodlands and grasslands.",
+      "Diet includes insects and fruits."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4ac60680d2b76bb648856",
+    "taxonId": "10234",
+    "taxonName": "Passerina amoena",
+    "vernacularName": "Lazuli bunting",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      71305,
+      10223
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Males have bright blue plumage during breeding.",
+      "Inhabits grasslands and open shrublands.",
+      "Famous for their beautiful songs."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4ac61680d2b76bb64885a",
+    "taxonId": "10227",
+    "taxonName": "Passerina cyanea",
+    "vernacularName": "Indigo bunting",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      71305,
+      10223
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for their vibrant colors and songs.",
+      "Migrations observed across North America.",
+      "Appear blue and black during breeding season."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4ac63680d2b76bb64885e",
+    "taxonId": "9519",
+    "taxonName": "Cyanocompsa parellina",
+    "vernacularName": "Blue bunting",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      71305,
+      9518
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Males present striking blue feathers.",
+      "Found from Mexico to Central America.",
+      "Commonly seen in open areas and gardens."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4ac64680d2b76bb648861",
+    "taxonId": "10224",
+    "taxonName": "Passerina ciris",
+    "vernacularName": "Painted bunting",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      71305,
+      10223
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Males have a colorful mixture of colors.",
+      "Typically found in coastal areas.",
+      "Diet mainly consists of seeds and insects."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4ac65680d2b76bb648864",
+    "taxonId": "10228",
+    "taxonName": "Passerina versicolor",
+    "vernacularName": "Varied bunting",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      71305,
+      10223
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Has a vibrant range of plumage colors.",
+      "Inhabits areas close to water bodies.",
+      "Migrates sometimes for nesting purposes."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4ac66680d2b76bb648868",
+    "taxonId": "10288",
+    "taxonName": "Volatinia jacarina",
+    "vernacularName": "Blue-black grassquit",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      71369,
+      10287
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Common in tropical areas of Central America.",
+      "Provides vibrant visual displays for mating.",
+      "Often spotted in grassy areas near water."
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4ac67680d2b76bb64886b",
+    "taxonId": "10262",
+    "taxonName": "Cyanerpes cyaneus",
+    "vernacularName": "Red-legged honeycreeper",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      71369,
+      10260
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Prefers tropical forests and edges for habitat.",
+      "Males exhibit bright blue plumage.",
+      "Feed primarily on nectar from flowers."
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4ac68680d2b76bb64886e",
+    "taxonId": "10264",
+    "taxonName": "Cyanerpes lucidus",
+    "vernacularName": "Shining honeycreeper",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      71369,
+      10260
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Found in various tropical habitats.",
+      "Diet mainly consists of nectar and fruits.",
+      "Known for its striking coloration."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4ac69680d2b76bb648871",
+    "taxonId": "16447",
+    "taxonName": "Pyrocephalus rubinus",
+    "vernacularName": "Vermilion flycatcher",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      980017,
+      16446
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Males display vibrant red plumage.",
+      "Inhabits open and shrubby areas.",
+      "Subspecies vary widely across its range."
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4b8c5dcd62e6d503e7e21",
+    "taxonId": "882",
+    "taxonName": "Gallus gallus",
+    "vernacularName": "Red junglefowl",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      573,
+      574,
+      879
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Originated in Southeast Asia over 7,000 years ago.",
+      "Domesticated chickens are descendants of this species.",
+      "They have a complex social hierarchy within flocks."
+    ],
+    "range": [
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4b8c6dcd62e6d503e7e24",
+    "taxonId": "888",
+    "taxonName": "Gallus varius",
+    "vernacularName": "Green junglefowl",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      573,
+      574,
+      879
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Diverged from other junglefowl at least 4 million years ago.",
+      "Native to islands like Java and Bali.",
+      "Hybridization with domestic chickens has been observed."
+    ],
+    "range": [
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4b8c7dcd62e6d503e7e27",
+    "taxonId": "880",
+    "taxonName": "Gallus sonneratii",
+    "vernacularName": "Grey junglefowl",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      573,
+      574,
+      879
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Endemic to India, particularly in forested areas.",
+      "Known for its distinctive courtship displays.",
+      "Contributes to the genetic diversity of domestic chickens."
+    ],
+    "range": [
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4b8c9dcd62e6d503e7e2a",
+    "taxonId": "367470",
+    "taxonName": "Gallus lafayettii",
+    "vernacularName": "Sri lanka junglefowl",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      573,
+      574,
+      879
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "National bird of Sri Lanka, symbolizing cultural heritage.",
+      "Closely related to red junglefowl and grey junglefowl.",
+      "Diverged from red junglefowl about 2.8 million years ago."
+    ],
+    "range": [
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4b8cbdcd62e6d503e7e2d",
+    "taxonId": "981",
+    "taxonName": "Phasianus colchicus",
+    "vernacularName": "Ring-necked pheasant",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      573,
+      574,
+      980
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Native to Asia but widely introduced elsewhere.",
+      "Known for its vibrant plumage and elaborate mating rituals.",
+      "Important game bird in many cultures worldwide."
+    ],
+    "range": [
+      "AS",
+      "EU"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4b8ccdcd62e6d503e7e30",
+    "taxonId": "1154",
+    "taxonName": "Syrmaticus reevesii",
+    "vernacularName": "Reeves's pheasant",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      573,
+      574,
+      1153
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Native to China and parts of Taiwan.",
+      "Males have long tail feathers, reaching up to 90 cm.",
+      "Often found in dense, wooded habitats."
+    ],
+    "range": [
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4b8cddcd62e6d503e7e33",
+    "taxonId": "1204",
+    "taxonName": "Pavo cristatus",
+    "vernacularName": "Indian peafowl",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      573,
+      574,
+      1199
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Famous for its spectacular tail feathers during courtship.",
+      "Native to the Indian subcontinent and Sri Lanka.",
+      "Culturally significant in many societies, symbolizing beauty."
+    ],
+    "range": [
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4b8cfdcd62e6d503e7e36",
+    "taxonId": "1428",
+    "taxonName": "Numida meleagris",
+    "vernacularName": "Helmeted guineafowl",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      573,
+      1426,
+      1427
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for its unique spotted plumage and loud calls.",
+      "Native to Africa, particularly in savanna regions.",
+      "Domesticated varieties are raised for meat and eggs."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4b8d0dcd62e6d503e7e3a",
+    "taxonId": "1449",
+    "taxonName": "Acryllium vulturinum",
+    "vernacularName": "Vulturine guineafowl",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      573,
+      1426,
+      1448
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Distinguished by its striking blue and white plumage.",
+      "Inhabits open grasslands and savannas in Africa."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4b8d2dcd62e6d503e7e3e",
+    "taxonId": "906",
+    "taxonName": "Meleagris gallopavo",
+    "vernacularName": "Wild turkey",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      573,
+      574,
+      905
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Native to North America.",
+      "Domesticated varieties are popular for Thanksgiving meals.",
+      "Can fly short distances despite their size."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4b8d3dcd62e6d503e7e42",
+    "taxonId": "20500",
+    "taxonName": "Casuarius casuarius",
+    "vernacularName": "Southern cassowary",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      367702,
+      508252,
+      20498
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "A large flightless bird.",
+      "Primarily found in tropical rainforests of New Guinea.",
+      "Can be very dangerous due to their powerful legs."
+    ],
+    "range": [
+      "OC",
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4b8d4dcd62e6d503e7e45",
+    "taxonId": "913",
+    "taxonName": "Meleagris ocellata",
+    "vernacularName": "Ocellated turkey",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      573,
+      574,
+      905
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Found in Yucatán.",
+      "Distinguished by its colorful feather patterns and eye spots.",
+      "Ocellated refers to the eye-like spots on its tail."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4b8d6dcd62e6d503e7e49",
+    "taxonId": "144281",
+    "taxonName": "Bucorvus leadbeateri",
+    "vernacularName": "Southern ground hornbill",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      525653,
+      85648,
+      5435
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "A social species living in groups.",
+      "IUCN Red List classifies it as vulnerable due to habitat loss.",
+      "Cultural significance in various African traditions and folklore."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4b8d7dcd62e6d503e7e4c",
+    "taxonId": "5437",
+    "taxonName": "Bucorvus abyssinicus",
+    "vernacularName": "Abyssinian ground hornbill",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      525653,
+      85648,
+      5435
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Primarily found in East Africa.",
+      "Forages on the ground for insects, reptiles, and small mammals.",
+      "Threatened by habitat destruction and hunting pressures."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4b8d8dcd62e6d503e7e4f",
+    "taxonId": "507913",
+    "taxonName": "Bycanistes bucinator",
+    "vernacularName": "Trumpeter hornbill",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      525653,
+      5438,
+      507910
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for its loud calls.",
+      "Found in tropical forests across Central Africa.",
+      "Plays a role in seed dispersal within its habitat."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4b8d9dcd62e6d503e7e52",
+    "taxonId": "507912",
+    "taxonName": "Bycanistes brevis",
+    "vernacularName": "Silvery-cheeked hornbill",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      525653,
+      5438,
+      507910
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Native to West Africa.",
+      "Lives in pairs or small groups within forest habitats.",
+      "Feeds mainly on fruits’ but also insects and small animals."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4b8dadcd62e6d503e7e55",
+    "taxonId": "5532",
+    "taxonName": "Buceros rhinoceros",
+    "vernacularName": "Rhinoceros hornbill",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      525653,
+      5438,
+      5527
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for its impressive size.",
+      "Found in Southeast Asia’s tropical forests.",
+      "Important seed disperser aiding forest regeneration."
+    ],
+    "range": [
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4b8dbdcd62e6d503e7e58",
+    "taxonId": "5536",
+    "taxonName": "Buceros bicornis",
+    "vernacularName": "Great hornbill",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      525653,
+      5438,
+      5527
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Can live up to fifty years in captivity.",
+      "Feeds on fruits, small mammals, and insects.",
+      "Important for seed dispersal of certain tree species."
+    ],
+    "range": [
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4b8dcdcd62e6d503e7e5b",
+    "taxonId": "5551",
+    "taxonName": "Anthracoceros albirostris",
+    "vernacularName": "Oriental pied hornbill",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      525653,
+      5438,
+      5548
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Is found mainly in Southeast Asia.",
+      "Known for its striking white bill and black plumage.",
+      "Plays a role in forest ecosystems as a seed disperser."
+    ],
+    "range": [
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4b8dddcd62e6d503e7e5f",
+    "taxonId": "18793",
+    "taxonName": "Ramphastos toco",
+    "vernacularName": "Toco toucan",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      17550,
+      18485,
+      18792
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Has the largest bill relative to body size.",
+      "Native to South America's tropical rainforests.",
+      "Famous for its bright colors and playful behavior."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4b8dedcd62e6d503e7e62",
+    "taxonId": "18796",
+    "taxonName": "Ramphastos sulfuratus",
+    "vernacularName": "Keel-billed toucan",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      17550,
+      18485,
+      18792
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Recognized by its colorful bill.",
+      "Often seen feeding on fruits in canopy trees.",
+      "Cultural symbol in Central America’s indigenous communities."
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4b8e3dcd62e6d503e7e66",
+    "taxonId": "18808",
+    "taxonName": "Ramphastos dicolorus",
+    "vernacularName": "Red-breasted toucan",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      17550,
+      18485,
+      18792
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Has a distinctive black collar.",
+      "Inhabits lowland forests from Central to South America.",
+      "Feeds on fruits and insects, aiding seed dispersal."
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4b8e4dcd62e6d503e7e69",
+    "taxonId": "18803",
+    "taxonName": "Ramphastos vitellinus",
+    "vernacularName": "Channel-billed toucan",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      17550,
+      18485,
+      18792
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for its vibrant throat color.",
+      "Found across Central America's tropical forests.",
+      "Often seen in pairs or small family groups."
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4b8e5dcd62e6d503e7e6d",
+    "taxonId": "18485",
+    "taxonName": "Ramphastidae",
+    "vernacularName": "Toucans",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      17550
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Family includes toucans and aracaris.",
+      "Known for their large colorful bills.",
+      "Play important roles as frugivores in ecosystems."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4b8e6dcd62e6d503e7e70",
+    "taxonId": "5438",
+    "taxonName": "Bucerotidae",
+    "vernacularName": "Hornbills",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      525653
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Family includes hornbills known for their unique nesting behavior.",
+      "Many species are threatened due to habitat loss.",
+      "Hornbills play vital roles as seed dispersers."
+    ],
+    "range": [
+      "AF",
+      "AS",
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
   }
 ]
