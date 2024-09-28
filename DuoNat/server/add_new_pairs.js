@@ -83,6 +83,18 @@ async function fetchTaxonDetails(taxonName) {
     }
 }
 
+async function retry(fn, retries = 3, delay = 1000) {
+    for (let i = 0; i < retries; i++) {
+        try {
+            return await fn();
+        } catch (error) {
+            if (i === retries - 1) throw error;
+            console.log(`Attempt ${i + 1} failed. Retrying in ${delay}ms...`);
+            await new Promise(resolve => setTimeout(resolve, delay));
+        }
+    }
+}
+
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
@@ -196,25 +208,27 @@ async function fetchTaxonById(taxonId) {
     if (!taxonId || isNaN(taxonId)) {
         throw new Error('Invalid taxon ID provided');
     }
-    try {
-        const response = await fetch(`https://api.inaturalist.org/v1/taxa/${taxonId}`);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+    return retry(async () => {
+        try {
+            const response = await fetch(`https://api.inaturalist.org/v1/taxa/${taxonId}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            if (data.results.length > 0) {
+                const result = data.results[0];
+                return {
+                    taxonName: result.name,
+                    vernacularName: result.preferred_common_name ? capitalizeFirstLetter(result.preferred_common_name) : '-',
+                    rank: capitalizeFirstLetter(result.rank)
+                };
+            }
+            return null;
+        } catch (error) {
+            console.error(`Error fetching taxon details by ID ${taxonId}:`, error);
+            throw error; // Re-throw the error for the retry mechanism
         }
-        const data = await response.json();
-        if (data.results.length > 0) {
-            const result = data.results[0];
-            return {
-                taxonName: result.name,
-                vernacularName: result.preferred_common_name ? capitalizeFirstLetter(result.preferred_common_name) : '-',
-                rank: capitalizeFirstLetter(result.rank)
-            };
-        }
-        return null;
-    } catch (error) {
-        console.error(`Error fetching taxon details by ID ${taxonId}:`, error);
-        return null;
-    }
+    });
 }
 
 async function fetchAncestry(taxonId) {
@@ -509,18 +523,28 @@ async function updateHierarchy() {
                 const existingHierarchyEntry = await TaxonHierarchy.findOne({ taxonId: currentId });
                 
                 if (!existingHierarchyEntry) {
-                    const taxonDetails = await fetchTaxonById(currentId);
-                    if (taxonDetails) {
-                        await TaxonHierarchy.create({
-                            taxonId: currentId,
-                            taxonName: taxonDetails.taxonName,
-                            vernacularName: capitalizeFirstLetter(taxonDetails.vernacularName),
-                            rank: capitalizeFirstLetter(taxonDetails.rank),
-                            parentId: parentId
-                        });
-                        logSuccess(`Added new hierarchy entry for ${taxonDetails.taxonName}`);
-                    } else {
-                        logWarning(`Could not fetch details for taxon ID: ${currentId}`);
+                    try {
+                        const taxonDetails = await fetchTaxonById(currentId);
+                        if (taxonDetails) {
+                            await TaxonHierarchy.create({
+                                taxonId: currentId,
+                                taxonName: taxonDetails.taxonName,
+                                vernacularName: capitalizeFirstLetter(taxonDetails.vernacularName),
+                                rank: capitalizeFirstLetter(taxonDetails.rank),
+                                parentId: parentId
+                            });
+                            logSuccess(`Added new hierarchy entry for ${taxonDetails.taxonName}`);
+                        } else {
+                            logWarning(`Could not fetch details for taxon ID: ${currentId}`);
+                        }
+                    } catch (error) {
+                        logError(`Failed to process taxon ID: ${currentId}. Error: ${error.message}`);
+                        // Optionally, you can add a prompt here to ask if the user wants to retry manually
+                        const retry = await promptUser("Do you want to retry processing this taxon? (y/n): ", val => ['y', 'n'].includes(val.toLowerCase()));
+                        if (retry.toLowerCase() === 'y') {
+                            i--; // Decrement i to retry the current taxon
+                            continue;
+                        }
                     }
                 } else {
                     logNeutral(`Hierarchy entry already exists for ${existingHierarchyEntry.taxonName}`);
@@ -531,14 +555,23 @@ async function updateHierarchy() {
             // Always add the current taxon to the hierarchy
             const taxonHierarchyEntry = await TaxonHierarchy.findOne({ taxonId: taxon.taxonId });
             if (!taxonHierarchyEntry) {
-                await TaxonHierarchy.create({
-                    taxonId: taxon.taxonId,
-                    taxonName: taxon.taxonName,
-                    vernacularName: capitalizeFirstLetter(taxon.vernacularName),
-                    rank: capitalizeFirstLetter(taxon.rank),
-                    parentId: taxon.ancestryIds.length > 0 ? taxon.ancestryIds[taxon.ancestryIds.length - 1].toString() : "48460"
-                });
-                logSuccess(`Added new hierarchy entry for ${taxon.taxonName}`);
+                try {
+                    await TaxonHierarchy.create({
+                        taxonId: taxon.taxonId,
+                        taxonName: taxon.taxonName,
+                        vernacularName: capitalizeFirstLetter(taxon.vernacularName),
+                        rank: capitalizeFirstLetter(taxon.rank),
+                        parentId: taxon.ancestryIds.length > 0 ? taxon.ancestryIds[taxon.ancestryIds.length - 1].toString() : "48460"
+                    });
+                    logSuccess(`Added new hierarchy entry for ${taxon.taxonName}`);
+                } catch (error) {
+                    logError(`Failed to add hierarchy entry for ${taxon.taxonName}. Error: ${error.message}`);
+                    const retry = await promptUser("Do you want to retry adding this taxon? (y/n): ", val => ['y', 'n'].includes(val.toLowerCase()));
+                    if (retry.toLowerCase() === 'y') {
+                        i--; // Decrement i to retry the current taxon
+                        continue;
+                    }
+                }
             }
 
             // Mark the taxon as enabled after processing
