@@ -20943,5 +20943,243 @@
     "range": [],
     "enabled": true,
     "__v": 0
+  },
+  {
+    "_id": "66f4a2a7680d2b76bb64875d",
+    "pairID": "989",
+    "pairName": "Green vs Brown Anole",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      116461,
+      36514
+    ],
+    "taxonNames": [
+      "Anolis sagrei",
+      "Anolis carolinensis"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4a2a9680d2b76bb648763",
+    "pairID": "990",
+    "pairName": "Alligator Lizard vs House Gecko",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      32055,
+      34435
+    ],
+    "taxonNames": [
+      "Elgaria multicarinata",
+      "Hemidactylus turcicus"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4a2ab680d2b76bb648769",
+    "pairID": "991",
+    "pairName": "Tropical vs Mediterranean House Gecko",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      34435,
+      68492
+    ],
+    "taxonNames": [
+      "Hemidactylus turcicus",
+      "Hemidactylus mabouia"
+    ],
+    "range": [
+      "NA",
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4a2ad680d2b76bb64876f",
+    "pairID": "992",
+    "pairName": "Tokay vs Forest Gecko",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      34615,
+      34601
+    ],
+    "taxonNames": [
+      "Gekko gecko",
+      "Gekko smithii"
+    ],
+    "range": [
+      "OC"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4a2af680d2b76bb648775",
+    "pairID": "993",
+    "pairName": "Asian vs Flat-tailed House Gecko",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      33376,
+      51940
+    ],
+    "taxonNames": [
+      "Hemidactylus platyurus",
+      "Hemidactylus frenatus"
+    ],
+    "range": [
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4a2b1680d2b76bb64877b",
+    "pairID": "994",
+    "pairName": "Reeves' vs Tokay Gecko",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      121132,
+      34615
+    ],
+    "taxonNames": [
+      "Gekko reevesii",
+      "Gekko gecko"
+    ],
+    "range": [
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4a2b3680d2b76bb648781",
+    "pairID": "995",
+    "pairName": "Chameleons vs Geckos",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      32805,
+      33177
+    ],
+    "taxonNames": [
+      "Chamaeleonidae",
+      "Gekkonidae"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4a2b5680d2b76bb648787",
+    "pairID": "996",
+    "pairName": "Dwarf vs Common Chameleon",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      32864,
+      32972
+    ],
+    "taxonNames": [
+      "Chamaeleo chamaeleon",
+      "Bradypodion damaranum"
+    ],
+    "range": [
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4a2b7680d2b76bb64878d",
+    "pairID": "997",
+    "pairName": "Flap-necked vs Jackson's Chameleon",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      32807,
+      32854
+    ],
+    "taxonNames": [
+      "Trioceros jacksonii",
+      "Chamaeleo dilepis"
+    ],
+    "range": [
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4a2b8680d2b76bb648793",
+    "pairID": "998",
+    "pairName": "Veiled vs Flap-necked Chameleon",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      32854,
+      32873
+    ],
+    "taxonNames": [
+      "Chamaeleo dilepis",
+      "Chamaeleo calyptratus"
+    ],
+    "range": [
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4a2ba680d2b76bb648799",
+    "pairID": "999",
+    "pairName": "Green Basilisk vs Green Iguana",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      35342,
+      33119
+    ],
+    "taxonNames": [
+      "Iguana iguana",
+      "Basiliscus plumifrons"
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f4a2bc680d2b76bb64879f",
+    "pairID": "1000",
+    "pairName": "Green Iguana vs Chinese Water Dragon",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      35342,
+      31424
+    ],
+    "taxonNames": [
+      "Iguana iguana",
+      "Physignathus cocincinus"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
   }
 ]

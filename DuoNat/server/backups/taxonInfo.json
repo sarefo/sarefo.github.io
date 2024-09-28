@@ -55207,5 +55207,551 @@
     "hints": [],
     "enabled": true,
     "__v": 1
+  },
+  {
+    "_id": "66f4a156680d2b76bb6486f4",
+    "taxonId": "116461",
+    "taxonName": "Anolis sagrei",
+    "vernacularName": "Brown anole",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26172,
+      85552,
+      200152,
+      36362
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Native to the Bahamas and Cuba.",
+      "Competes with native anole species in Florida.",
+      "Can change color based on temperature and mood."
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4a158680d2b76bb6486f7",
+    "taxonId": "36514",
+    "taxonName": "Anolis carolinensis",
+    "vernacularName": "Green anole",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26172,
+      85552,
+      200152,
+      36362
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Commonly found in urban and suburban areas.",
+      "Males display colorful dewlaps to attract females.",
+      "Considered a model for evolutionary studies."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4a159680d2b76bb6486fa",
+    "taxonId": "32055",
+    "taxonName": "Elgaria multicarinata",
+    "vernacularName": "Southern alligator lizard",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26172,
+      85552,
+      31888,
+      797512,
+      32049
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Can regenerate its tail after losing it.",
+      "Prefers sandy soils for burrowing."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4a15a680d2b76bb6486fd",
+    "taxonId": "34435",
+    "taxonName": "Hemidactylus turcicus",
+    "vernacularName": "Mediterranean house gecko",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26172,
+      85552,
+      371057,
+      33177,
+      34434
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Widely distributed due to human introduction.",
+      "Active at night, hunting insects attracted to lights."
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AF",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4a15c680d2b76bb648701",
+    "taxonId": "68492",
+    "taxonName": "Hemidactylus mabouia",
+    "vernacularName": "Tropical house gecko",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26172,
+      85552,
+      371057,
+      33177,
+      34434
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Thrives in urban environments worldwide.",
+      "Can reproduce all year in warm climates."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4a15d680d2b76bb648704",
+    "taxonId": "34615",
+    "taxonName": "Gekko gecko",
+    "vernacularName": "Tokay gecko",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26172,
+      85552,
+      371057,
+      33177,
+      34591
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for its vocalizations.",
+      "Strong territorial behavior; can bite hard when threatened.",
+      "Uses its tail for balance while climbing."
+    ],
+    "range": [
+      "AS",
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4a15e680d2b76bb648707",
+    "taxonId": "34601",
+    "taxonName": "Gekko smithii",
+    "vernacularName": "Large forest gecko",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26172,
+      85552,
+      371057,
+      33177,
+      34591
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Native to the Solomon Islands.",
+      "Primarily nocturnal, hunts insects at night.",
+      "Has a unique ability to change skin color."
+    ],
+    "range": [
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4a15f680d2b76bb64870a",
+    "taxonId": "33376",
+    "taxonName": "Hemidactylus platyurus",
+    "vernacularName": "Flat-tailed house gecko",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26172,
+      85552,
+      371057,
+      33177,
+      34434
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Common house gecko in Southeast Asia.",
+      "Recognizable by its flat, fringed tail.",
+      "Adapts well to urban and rural environments."
+    ],
+    "range": [
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4a160680d2b76bb64870d",
+    "taxonId": "51940",
+    "taxonName": "Hemidactylus frenatus",
+    "vernacularName": "Asian house gecko",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26172,
+      85552,
+      371057,
+      33177,
+      34434
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Found in many countries due to human transport.",
+      "Has temperature-dependent sex determination."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4a161680d2b76bb648710",
+    "taxonId": "121132",
+    "taxonName": "Gekko reevesii",
+    "vernacularName": "Reeves' tokay gecko",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26172,
+      85552,
+      371057,
+      33177,
+      34591
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known as Reeves' or Chinese gecko.",
+      "Prefers humid environments, often near water sources.",
+      "Can live up to twenty years in captivity."
+    ],
+    "range": [
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4a163680d2b76bb648714",
+    "taxonId": "32805",
+    "taxonName": "Chamaeleonidae",
+    "vernacularName": "Chameleons",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26172,
+      85552
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Family includes over one hundred species of chameleons.",
+      "Known for their ability to change color.",
+      "Have a specialized tongue for catching prey."
+    ],
+    "range": [
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4a164680d2b76bb648717",
+    "taxonId": "33177",
+    "taxonName": "Gekkonidae",
+    "vernacularName": "Typical geckos",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26172,
+      85552,
+      371057
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "True geckos family includes over one hundred species.",
+      "Sticky toe pads allow climbing smooth surfaces.",
+      "Some species can vocalize and communicate through sounds."
+    ],
+    "range": [
+      ""
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4a165680d2b76bb64871a",
+    "taxonId": "32864",
+    "taxonName": "Chamaeleo chamaeleon",
+    "vernacularName": "Common chameleon",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26172,
+      85552,
+      32805,
+      32806
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Common chameleon is widely distributed across Africa.",
+      "Color change helps with temperature regulation and camouflage.",
+      "Zygodactylous feet aid in grasping branches securely."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4a166680d2b76bb64871d",
+    "taxonId": "32972",
+    "taxonName": "Bradypodion damaranum",
+    "vernacularName": "Knysna dwarf chameleon",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26172,
+      85552,
+      32805,
+      32942
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Endemic to South Africa's fynbos biome.",
+      "Known for its small size and vibrant colors.",
+      "Primarily herbivorous, feeding on leaves and flowers."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4a167680d2b76bb648720",
+    "taxonId": "32807",
+    "taxonName": "Trioceros jacksonii",
+    "vernacularName": "Jackson's chameleon",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26172,
+      85552,
+      32805,
+      92645
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Native to East Africa.",
+      "Possesses three distinct horns on males' heads.",
+      "Primarily arboreal, often found in trees."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4a168680d2b76bb648723",
+    "taxonId": "32854",
+    "taxonName": "Chamaeleo dilepis",
+    "vernacularName": "Flap-necked chameleon",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26172,
+      85552,
+      32805,
+      32806
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known as the flap-necked chameleon.",
+      "Uses color change for communication and camouflage.",
+      "Primarily insectivorous, hunting small insects."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4a169680d2b76bb648727",
+    "taxonId": "32873",
+    "taxonName": "Chamaeleo calyptratus",
+    "vernacularName": "Veiled chameleon",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26172,
+      85552,
+      32805,
+      32806
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Native to Yemen and Saudi Arabia.",
+      "Highly sought after in the pet trade."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4a16a680d2b76bb64872b",
+    "taxonId": "33119",
+    "taxonName": "Basiliscus plumifrons",
+    "vernacularName": "Green basilisk",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26172,
+      85552,
+      33113,
+      33117
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Also called the Jesus Christ lizard.",
+      "Can run on water using specialized toe pads.",
+      "Native to Central America's rainforests."
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f4a16c680d2b76bb64872f",
+    "taxonId": "31424",
+    "taxonName": "Physignathus cocincinus",
+    "vernacularName": "Chinese water dragon",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      26036,
+      26172,
+      85552,
+      31096,
+      797578,
+      31420
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Chinese water dragon thrives in humid environments.",
+      "Omnivorous diet includes insects and vegetables.",
+      "Popular pet due to its docile nature."
+    ],
+    "range": [
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
   }
 ]

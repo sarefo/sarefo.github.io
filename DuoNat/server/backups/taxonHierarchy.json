@@ -33874,5 +33874,311 @@
     "rank": "Species",
     "parentId": "36141",
     "__v": 0
+  },
+  {
+    "_id": "66f4a44b680d2b76bb6487b0",
+    "taxonId": "36362",
+    "taxonName": "Anolis",
+    "vernacularName": "Anoles",
+    "rank": "Genus",
+    "parentId": "200152",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a44c680d2b76bb6487b3",
+    "taxonId": "200152",
+    "taxonName": "Anolidae",
+    "vernacularName": "Anoles",
+    "rank": "Family",
+    "parentId": "85552",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a44d680d2b76bb6487b7",
+    "taxonId": "116461",
+    "taxonName": "Anolis sagrei",
+    "vernacularName": "Brown anole",
+    "rank": "Species",
+    "parentId": "36362",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a44f680d2b76bb6487bc",
+    "taxonId": "36514",
+    "taxonName": "Anolis carolinensis",
+    "vernacularName": "Green anole",
+    "rank": "Species",
+    "parentId": "36362",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a450680d2b76bb6487c0",
+    "taxonId": "32049",
+    "taxonName": "Elgaria",
+    "vernacularName": "Western alligator lizards",
+    "rank": "Genus",
+    "parentId": "797512",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a451680d2b76bb6487c3",
+    "taxonId": "797512",
+    "taxonName": "Gerrhonotinae",
+    "vernacularName": "Alligator lizards",
+    "rank": "Subfamily",
+    "parentId": "31888",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a451680d2b76bb6487c6",
+    "taxonId": "31888",
+    "taxonName": "Anguidae",
+    "vernacularName": "Glass and alligator lizards",
+    "rank": "Family",
+    "parentId": "85552",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a452680d2b76bb6487ca",
+    "taxonId": "32055",
+    "taxonName": "Elgaria multicarinata",
+    "vernacularName": "Southern alligator lizard",
+    "rank": "Species",
+    "parentId": "32049",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a454680d2b76bb6487ce",
+    "taxonId": "34434",
+    "taxonName": "Hemidactylus",
+    "vernacularName": "House geckos",
+    "rank": "Genus",
+    "parentId": "33177",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a455680d2b76bb6487d1",
+    "taxonId": "33177",
+    "taxonName": "Gekkonidae",
+    "vernacularName": "Typical geckos",
+    "rank": "Family",
+    "parentId": "371057",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a456680d2b76bb6487d5",
+    "taxonId": "34435",
+    "taxonName": "Hemidactylus turcicus",
+    "vernacularName": "Mediterranean house gecko",
+    "rank": "Species",
+    "parentId": "34434",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a457680d2b76bb6487da",
+    "taxonId": "68492",
+    "taxonName": "Hemidactylus mabouia",
+    "vernacularName": "Tropical house gecko",
+    "rank": "Species",
+    "parentId": "34434",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a458680d2b76bb6487de",
+    "taxonId": "34591",
+    "taxonName": "Gekko",
+    "vernacularName": "Calling geckos",
+    "rank": "Genus",
+    "parentId": "33177",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a459680d2b76bb6487e2",
+    "taxonId": "34615",
+    "taxonName": "Gekko gecko",
+    "vernacularName": "Tokay gecko",
+    "rank": "Species",
+    "parentId": "34591",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a45a680d2b76bb6487e7",
+    "taxonId": "34601",
+    "taxonName": "Gekko smithii",
+    "vernacularName": "Large forest gecko",
+    "rank": "Species",
+    "parentId": "34591",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a45b680d2b76bb6487ec",
+    "taxonId": "33376",
+    "taxonName": "Hemidactylus platyurus",
+    "vernacularName": "Flat-tailed house gecko",
+    "rank": "Species",
+    "parentId": "34434",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a45d680d2b76bb6487f1",
+    "taxonId": "51940",
+    "taxonName": "Hemidactylus frenatus",
+    "vernacularName": "Asian house gecko",
+    "rank": "Species",
+    "parentId": "34434",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a45e680d2b76bb6487f6",
+    "taxonId": "121132",
+    "taxonName": "Gekko reevesii",
+    "vernacularName": "Reeves' tokay gecko",
+    "rank": "Species",
+    "parentId": "34591",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a45f680d2b76bb6487fb",
+    "taxonId": "32805",
+    "taxonName": "Chamaeleonidae",
+    "vernacularName": "Chameleons",
+    "rank": "Family",
+    "parentId": "85552",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a462680d2b76bb648802",
+    "taxonId": "32806",
+    "taxonName": "Chamaeleo",
+    "vernacularName": "Typical chameleons",
+    "rank": "Genus",
+    "parentId": "32805",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a463680d2b76bb648806",
+    "taxonId": "32864",
+    "taxonName": "Chamaeleo chamaeleon",
+    "vernacularName": "Common chameleon",
+    "rank": "Species",
+    "parentId": "32806",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a464680d2b76bb64880a",
+    "taxonId": "32942",
+    "taxonName": "Bradypodion",
+    "vernacularName": "Southern african dwarf chameleons",
+    "rank": "Genus",
+    "parentId": "32805",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a465680d2b76bb64880e",
+    "taxonId": "32972",
+    "taxonName": "Bradypodion damaranum",
+    "vernacularName": "Knysna dwarf chameleon",
+    "rank": "Species",
+    "parentId": "32942",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a466680d2b76bb648812",
+    "taxonId": "92645",
+    "taxonName": "Trioceros",
+    "vernacularName": "Equatorial chameleons",
+    "rank": "Genus",
+    "parentId": "32805",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a467680d2b76bb648816",
+    "taxonId": "32807",
+    "taxonName": "Trioceros jacksonii",
+    "vernacularName": "Jackson's chameleon",
+    "rank": "Species",
+    "parentId": "92645",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a468680d2b76bb64881b",
+    "taxonId": "32854",
+    "taxonName": "Chamaeleo dilepis",
+    "vernacularName": "Flap-necked chameleon",
+    "rank": "Species",
+    "parentId": "32806",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a469680d2b76bb648820",
+    "taxonId": "32873",
+    "taxonName": "Chamaeleo calyptratus",
+    "vernacularName": "Veiled chameleon",
+    "rank": "Species",
+    "parentId": "32806",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a46b680d2b76bb648824",
+    "taxonId": "33117",
+    "taxonName": "Basiliscus",
+    "vernacularName": "Basilisks",
+    "rank": "Genus",
+    "parentId": "33113",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a46c680d2b76bb648827",
+    "taxonId": "33113",
+    "taxonName": "Corytophanidae",
+    "vernacularName": "Helmeted lizards",
+    "rank": "Family",
+    "parentId": "85552",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a46d680d2b76bb64882b",
+    "taxonId": "33119",
+    "taxonName": "Basiliscus plumifrons",
+    "vernacularName": "Green basilisk",
+    "rank": "Species",
+    "parentId": "33117",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a46e680d2b76bb64882f",
+    "taxonId": "31420",
+    "taxonName": "Physignathus",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "797578",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a46f680d2b76bb648832",
+    "taxonId": "797578",
+    "taxonName": "Amphibolurinae",
+    "vernacularName": "Bearded dragons, water dragons, and allies",
+    "rank": "Subfamily",
+    "parentId": "31096",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a46f680d2b76bb648835",
+    "taxonId": "31096",
+    "taxonName": "Agamidae",
+    "vernacularName": "Dragons",
+    "rank": "Family",
+    "parentId": "85552",
+    "__v": 0
+  },
+  {
+    "_id": "66f4a470680d2b76bb648839",
+    "taxonId": "31424",
+    "taxonName": "Physignathus cocincinus",
+    "vernacularName": "Chinese water dragon",
+    "rank": "Species",
+    "parentId": "31420",
+    "__v": 0
   }
 ]
