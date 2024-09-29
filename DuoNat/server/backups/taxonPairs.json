@@ -22041,5 +22041,163 @@
     "range": [],
     "enabled": true,
     "__v": 0
+  },
+  {
+    "_id": "66f982a6dcd62e6d503e81b2",
+    "pairID": "1044",
+    "pairName": "Horned vs Opalescent Nudibranch",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      494603,
+      495552
+    ],
+    "taxonNames": [
+      "Hermissenda opalescens",
+      "Hermissenda crassicornis"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f982a9dcd62e6d503e81b8",
+    "pairID": "1045",
+    "pairName": "Opalescent vs White-and-orange-tipped Nudibranch",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      494603,
+      886884
+    ],
+    "taxonNames": [
+      "Hermissenda opalescens",
+      "Antiopella fusca"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f982abdcd62e6d503e81be",
+    "pairID": "1046",
+    "pairName": "Three-lined vs Red-fingered Coryphella",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      1392222,
+      633193
+    ],
+    "taxonNames": [
+      "Coryphella trilineata",
+      "Coryphella verrucosa"
+    ],
+    "range": [
+      "EU"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f982addcd62e6d503e81c4",
+    "pairID": "1047",
+    "pairName": "Yellowhead vs Laguna Aeolid",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      632118,
+      632120
+    ],
+    "taxonNames": [
+      "Diaphoreolis lagunae",
+      "Diaphoreolis flavovulta"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f982afdcd62e6d503e81ca",
+    "pairID": "1048",
+    "pairName": "Atkinson's vs Hopkins' Rose Nudibranch",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      1520980,
+      1521046
+    ],
+    "taxonNames": [
+      "Ceratodoris rosacea",
+      "Ceratodoris atkinsonorum"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f982b1dcd62e6d503e81d0",
+    "pairID": "1049",
+    "pairName": "Clown vs Spotted Dorid",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      47110,
+      47454
+    ],
+    "taxonNames": [
+      "Triopha maculata",
+      "Triopha catalinae"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f982b3dcd62e6d503e81d6",
+    "pairID": "1050",
+    "pairName": "San Diego vs Leopard Dorid",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      508884,
+      508237
+    ],
+    "taxonNames": [
+      "Diaulula sandiegensis",
+      "Diaulula odonoghuei"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f982b4dcd62e6d503e81dc",
+    "pairID": "1051",
+    "pairName": "Black-margined Nudibranchs",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      468042,
+      499445
+    ],
+    "taxonNames": [
+      "Doriprismatica atromarginata",
+      "Doriprismatica sibogae"
+    ],
+    "range": [
+      "OC"
+    ],
+    "enabled": true,
+    "__v": 0
   }
 ]

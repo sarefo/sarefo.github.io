@@ -35233,5 +35233,230 @@
     "rank": "Species",
     "parentId": "42719",
     "__v": 0
+  },
+  {
+    "_id": "66f9848adcd62e6d503e81e9",
+    "taxonId": "47210",
+    "taxonName": "Hermissenda",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "870988",
+    "__v": 0
+  },
+  {
+    "_id": "66f9848bdcd62e6d503e81ed",
+    "taxonId": "494603",
+    "taxonName": "Hermissenda opalescens",
+    "vernacularName": "Opalescent nudibranch",
+    "rank": "Species",
+    "parentId": "47210",
+    "__v": 0
+  },
+  {
+    "_id": "66f9848cdcd62e6d503e81f2",
+    "taxonId": "495552",
+    "taxonName": "Hermissenda crassicornis",
+    "vernacularName": "Horned nudibranch",
+    "rank": "Species",
+    "parentId": "47210",
+    "__v": 0
+  },
+  {
+    "_id": "66f9848ddcd62e6d503e81f7",
+    "taxonId": "886884",
+    "taxonName": "Antiopella fusca",
+    "vernacularName": "White-and-orange-tipped nudibranch",
+    "rank": "Species",
+    "parentId": "886885",
+    "__v": 0
+  },
+  {
+    "_id": "66f9848fdcd62e6d503e81fb",
+    "taxonId": "622831",
+    "taxonName": "Coryphella",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "870989",
+    "__v": 0
+  },
+  {
+    "_id": "66f98490dcd62e6d503e81fe",
+    "taxonId": "870989",
+    "taxonName": "Coryphellidae",
+    "vernacularName": "-",
+    "rank": "Family",
+    "parentId": "500752",
+    "__v": 0
+  },
+  {
+    "_id": "66f98491dcd62e6d503e8202",
+    "taxonId": "1392222",
+    "taxonName": "Coryphella trilineata",
+    "vernacularName": "Three-lined aeolid",
+    "rank": "Species",
+    "parentId": "622831",
+    "__v": 0
+  },
+  {
+    "_id": "66f98492dcd62e6d503e8207",
+    "taxonId": "633193",
+    "taxonName": "Coryphella verrucosa",
+    "vernacularName": "Red-fingered coryphella",
+    "rank": "Species",
+    "parentId": "622831",
+    "__v": 0
+  },
+  {
+    "_id": "66f98494dcd62e6d503e820b",
+    "taxonId": "564606",
+    "taxonName": "Diaphoreolis",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "564605",
+    "__v": 0
+  },
+  {
+    "_id": "66f98495dcd62e6d503e820e",
+    "taxonId": "564605",
+    "taxonName": "Trinchesiidae",
+    "vernacularName": "-",
+    "rank": "Family",
+    "parentId": "500752",
+    "__v": 0
+  },
+  {
+    "_id": "66f98496dcd62e6d503e8212",
+    "taxonId": "632118",
+    "taxonName": "Diaphoreolis lagunae",
+    "vernacularName": "Laguna aeolid",
+    "rank": "Species",
+    "parentId": "564606",
+    "__v": 0
+  },
+  {
+    "_id": "66f98497dcd62e6d503e8217",
+    "taxonId": "632120",
+    "taxonName": "Diaphoreolis flavovulta",
+    "vernacularName": "Yellowhead aeolid",
+    "rank": "Species",
+    "parentId": "564606",
+    "__v": 0
+  },
+  {
+    "_id": "66f98499dcd62e6d503e821b",
+    "taxonId": "1520978",
+    "taxonName": "Ceratodoris",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "1528749",
+    "__v": 0
+  },
+  {
+    "_id": "66f9849adcd62e6d503e821e",
+    "taxonId": "1528749",
+    "taxonName": "Goniodoridinae",
+    "vernacularName": "-",
+    "rank": "Subfamily",
+    "parentId": "47140",
+    "__v": 0
+  },
+  {
+    "_id": "66f9849bdcd62e6d503e8222",
+    "taxonId": "1520980",
+    "taxonName": "Ceratodoris rosacea",
+    "vernacularName": "Hopkins' rose nudibranch",
+    "rank": "Species",
+    "parentId": "1520978",
+    "__v": 0
+  },
+  {
+    "_id": "66f9849cdcd62e6d503e8227",
+    "taxonId": "1521046",
+    "taxonName": "Ceratodoris atkinsonorum",
+    "vernacularName": "-",
+    "rank": "Species",
+    "parentId": "1520978",
+    "__v": 0
+  },
+  {
+    "_id": "66f9849edcd62e6d503e822b",
+    "taxonId": "47111",
+    "taxonName": "Triopha",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "628408",
+    "__v": 0
+  },
+  {
+    "_id": "66f9849fdcd62e6d503e822f",
+    "taxonId": "47110",
+    "taxonName": "Triopha maculata",
+    "vernacularName": "Spotted dorid",
+    "rank": "Species",
+    "parentId": "47111",
+    "__v": 0
+  },
+  {
+    "_id": "66f984a0dcd62e6d503e8234",
+    "taxonId": "47454",
+    "taxonName": "Triopha catalinae",
+    "vernacularName": "Clown dorid",
+    "rank": "Species",
+    "parentId": "47111",
+    "__v": 0
+  },
+  {
+    "_id": "66f984a1dcd62e6d503e8238",
+    "taxonId": "47510",
+    "taxonName": "Diaulula",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "47507",
+    "__v": 0
+  },
+  {
+    "_id": "66f984a2dcd62e6d503e823c",
+    "taxonId": "508884",
+    "taxonName": "Diaulula sandiegensis",
+    "vernacularName": "San diego dorid",
+    "rank": "Species",
+    "parentId": "47510",
+    "__v": 0
+  },
+  {
+    "_id": "66f984a4dcd62e6d503e8241",
+    "taxonId": "508237",
+    "taxonName": "Diaulula odonoghuei",
+    "vernacularName": "Northern leopard dorid",
+    "rank": "Species",
+    "parentId": "47510",
+    "__v": 0
+  },
+  {
+    "_id": "66f984a5dcd62e6d503e8245",
+    "taxonId": "467969",
+    "taxonName": "Doriprismatica",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "1067489",
+    "__v": 0
+  },
+  {
+    "_id": "66f984a6dcd62e6d503e8249",
+    "taxonId": "468042",
+    "taxonName": "Doriprismatica atromarginata",
+    "vernacularName": "Black-margined nudibranch",
+    "rank": "Species",
+    "parentId": "467969",
+    "__v": 0
+  },
+  {
+    "_id": "66f984a7dcd62e6d503e824e",
+    "taxonId": "499445",
+    "taxonName": "Doriprismatica sibogae",
+    "vernacularName": "-",
+    "rank": "Species",
+    "parentId": "467969",
+    "__v": 0
   }
 ]

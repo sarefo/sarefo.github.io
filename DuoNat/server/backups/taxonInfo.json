@@ -57574,5 +57574,497 @@
     "hints": [],
     "enabled": true,
     "__v": 1
+  },
+  {
+    "_id": "66f98149dcd62e6d503e8161",
+    "taxonId": "494603",
+    "taxonName": "Hermissenda opalescens",
+    "vernacularName": "Opalescent nudibranch",
+    "ancestryIds": [
+      1,
+      47115,
+      47114,
+      551391,
+      775797,
+      775799,
+      775801,
+      47113,
+      801475,
+      564817,
+      870988,
+      47210
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Used in studies on memory and learning.",
+      "Feeds on hydroids and sea anemones.",
+      "Fights other nudibranchs for territory."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f9814adcd62e6d503e8164",
+    "taxonId": "495552",
+    "taxonName": "Hermissenda crassicornis",
+    "vernacularName": "Horned nudibranch",
+    "ancestryIds": [
+      1,
+      47115,
+      47114,
+      551391,
+      775797,
+      775799,
+      775801,
+      47113,
+      801475,
+      564817,
+      870988,
+      47210
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for its vibrant orange and white stripes.",
+      "Prefers to eat tunicates and hydroids.",
+      "Can grow up to 50 mm in length."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f9814bdcd62e6d503e8168",
+    "taxonId": "886884",
+    "taxonName": "Antiopella fusca",
+    "vernacularName": "White-and-orange-tipped nudibranch",
+    "ancestryIds": [
+      1,
+      47115,
+      47114,
+      551391,
+      775797,
+      775799,
+      775801,
+      47113,
+      801475,
+      631925,
+      989731,
+      886885
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Inhabits shallow waters near rocky substrates.",
+      "Feeds on small invertebrates like hydroids.",
+      "Can regenerate lost body parts."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f9814cdcd62e6d503e816b",
+    "taxonId": "1392222",
+    "taxonName": "Coryphella trilineata",
+    "vernacularName": "Three-lined aeolid",
+    "ancestryIds": [
+      1,
+      47115,
+      47114,
+      551391,
+      775797,
+      775799,
+      775801,
+      47113,
+      801475,
+      500752,
+      870989,
+      622831
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Utilizes nematocysts from prey for defense.",
+      "Commonly found in shallow coastal waters.",
+      "Can grow up to 50 mm long."
+    ],
+    "range": [
+      "EU"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f9814ddcd62e6d503e816e",
+    "taxonId": "633193",
+    "taxonName": "Coryphella verrucosa",
+    "vernacularName": "Red-fingered coryphella",
+    "ancestryIds": [
+      1,
+      47115,
+      47114,
+      551391,
+      775797,
+      775799,
+      775801,
+      47113,
+      801475,
+      500752,
+      870989,
+      622831
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Feeds primarily on hydroids.",
+      "Exhibits vibrant colors for camouflage."
+    ],
+    "range": [
+      "EU"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f9814edcd62e6d503e8171",
+    "taxonId": "632118",
+    "taxonName": "Diaphoreolis lagunae",
+    "vernacularName": "Laguna aeolid",
+    "ancestryIds": [
+      1,
+      47115,
+      47114,
+      551391,
+      775797,
+      775799,
+      775801,
+      47113,
+      801475,
+      500752,
+      564605,
+      564606
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Prefers sandy substrates in shallow waters.",
+      "Feeds on small cnidarians and hydroids.",
+      "Known for its striking coloration patterns."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f9814fdcd62e6d503e8174",
+    "taxonId": "632120",
+    "taxonName": "Diaphoreolis flavovulta",
+    "vernacularName": "Yellowhead aeolid",
+    "ancestryIds": [
+      1,
+      47115,
+      47114,
+      551391,
+      775797,
+      775799,
+      775801,
+      47113,
+      801475,
+      500752,
+      564605,
+      564606
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Commonly found in warm coastal waters.",
+      "Feeds on soft-bodied marine organisms."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f98151dcd62e6d503e8177",
+    "taxonId": "1520980",
+    "taxonName": "Ceratodoris rosacea",
+    "vernacularName": "Hopkins' rose nudibranch",
+    "ancestryIds": [
+      1,
+      47115,
+      47114,
+      551391,
+      775797,
+      775799,
+      775801,
+      47113,
+      801476,
+      801480,
+      564804,
+      47140,
+      1528749,
+      1520978
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for its bright pink coloration.",
+      "Feeds on sponge species found in its habitat.",
+      "Can be found at various depths in the ocean."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f98152dcd62e6d503e817a",
+    "taxonId": "1521046",
+    "taxonName": "Ceratodoris atkinsonorum",
+    "vernacularName": "-",
+    "ancestryIds": [
+      1,
+      47115,
+      47114,
+      551391,
+      775797,
+      775799,
+      775801,
+      47113,
+      801476,
+      801480,
+      564804,
+      47140,
+      1528749,
+      1520978
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Inhabits coral reefs and rocky areas.",
+      "Feeds primarily on sponges, especially during night.",
+      "Has a unique ability to blend into surroundings."
+    ],
+    "range": [
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f98153dcd62e6d503e817d",
+    "taxonId": "47110",
+    "taxonName": "Triopha maculata",
+    "vernacularName": "Spotted dorid",
+    "ancestryIds": [
+      1,
+      47115,
+      47114,
+      551391,
+      775797,
+      775799,
+      775801,
+      47113,
+      801476,
+      801480,
+      564808,
+      47767,
+      628408,
+      47111
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Recognized for its distinctive spotted pattern.",
+      "Feeds on hydroids and small marine organisms.",
+      "Can be found in intertidal zones."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f98154dcd62e6d503e8180",
+    "taxonId": "47454",
+    "taxonName": "Triopha catalinae",
+    "vernacularName": "Clown dorid",
+    "ancestryIds": [
+      1,
+      47115,
+      47114,
+      551391,
+      775797,
+      775799,
+      775801,
+      47113,
+      801476,
+      801480,
+      564808,
+      47767,
+      628408,
+      47111
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Inhabits rocky shores and kelp forests.",
+      "Known for its bright colors and patterns.",
+      "Feeds mainly on hydroids and anemones."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f98155dcd62e6d503e8183",
+    "taxonId": "508884",
+    "taxonName": "Diaulula sandiegensis",
+    "vernacularName": "San diego dorid",
+    "ancestryIds": [
+      1,
+      47115,
+      47114,
+      551391,
+      775797,
+      775799,
+      775801,
+      47113,
+      801476,
+      801480,
+      528872,
+      47507,
+      47510
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Prefers sandy bottoms in shallow waters.",
+      "Feeds on various types of sponges.",
+      "Can change color to blend with surroundings."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f98156dcd62e6d503e8186",
+    "taxonId": "508237",
+    "taxonName": "Diaulula odonoghuei",
+    "vernacularName": "Northern leopard dorid",
+    "ancestryIds": [
+      1,
+      47115,
+      47114,
+      551391,
+      775797,
+      775799,
+      775801,
+      47113,
+      801476,
+      801480,
+      528872,
+      47507,
+      47510
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Often found in rocky intertidal zones.",
+      "Utilizes camouflage to avoid predators.",
+      "Diet consists mainly of sponges."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f98157dcd62e6d503e8189",
+    "taxonId": "468042",
+    "taxonName": "Doriprismatica atromarginata",
+    "vernacularName": "Black-margined nudibranch",
+    "ancestryIds": [
+      1,
+      47115,
+      47114,
+      551391,
+      775797,
+      775799,
+      775801,
+      47113,
+      801476,
+      801480,
+      989732,
+      47402,
+      1067489,
+      467969
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Dressed in bright colors for warning predators.",
+      "Steals stinging cells from prey for defense.",
+      "Lives in various marine habitats, often near coral reefs."
+    ],
+    "range": [
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f98159dcd62e6d503e818c",
+    "taxonId": "499445",
+    "taxonName": "Doriprismatica sibogae",
+    "vernacularName": "-",
+    "ancestryIds": [
+      1,
+      47115,
+      47114,
+      551391,
+      775797,
+      775799,
+      775801,
+      47113,
+      801476,
+      801480,
+      989732,
+      47402,
+      1067489,
+      467969
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Utilizes bright colors as a warning signal.",
+      "Feeds primarily on hydroids and similar organisms.",
+      "Found in coral reef ecosystems, showcasing diversity."
+    ],
+    "range": [
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
   }
 ]
