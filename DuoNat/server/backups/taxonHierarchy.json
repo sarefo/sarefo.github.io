@@ -34810,5 +34810,50 @@
     "rank": "Species",
     "parentId": "18792",
     "__v": 0
+  },
+  {
+    "_id": "66f566c1dcd62e6d503e7fed",
+    "taxonId": "5305",
+    "taxonName": "Haliaeetus leucocephalus",
+    "vernacularName": "Bald eagle",
+    "rank": "Species",
+    "parentId": "5303",
+    "__v": 0
+  },
+  {
+    "_id": "66f566c3dcd62e6d503e7ff1",
+    "taxonId": "71725",
+    "taxonName": "Pandion",
+    "vernacularName": "Ospreys",
+    "rank": "Genus",
+    "parentId": "200958",
+    "__v": 0
+  },
+  {
+    "_id": "66f566c4dcd62e6d503e7ff4",
+    "taxonId": "200958",
+    "taxonName": "Pandionidae",
+    "vernacularName": "Ospreys",
+    "rank": "Family",
+    "parentId": "71261",
+    "__v": 0
+  },
+  {
+    "_id": "66f566c5dcd62e6d503e7ff8",
+    "taxonId": "116999",
+    "taxonName": "Pandion haliaetus",
+    "vernacularName": "Osprey",
+    "rank": "Species",
+    "parentId": "71725",
+    "__v": 0
+  },
+  {
+    "_id": "66f566c6dcd62e6d503e7ffd",
+    "taxonId": "5212",
+    "taxonName": "Buteo jamaicensis",
+    "vernacularName": "Red-tailed hawk",
+    "rank": "Species",
+    "parentId": "5179",
+    "__v": 0
   }
 ]

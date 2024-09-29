@@ -20830,7 +20830,7 @@
     "_id": "66f476a3c9a9a0230c0424a5",
     "pairID": "983",
     "pairName": "House Finch vs Song Sparrow",
-    "level": "1",
+    "level": "2",
     "tags": [],
     "taxa": [
       9100,
@@ -21734,6 +21734,66 @@
     ],
     "range": [
       "AF"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f5661fdcd62e6d503e7fd8",
+    "pairID": "1029",
+    "pairName": "Golden vs Bald Eagle",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      5305,
+      5074
+    ],
+    "taxonNames": [
+      "Haliaeetus leucocephalus",
+      "Aquila chrysaetos"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f56623dcd62e6d503e7fde",
+    "pairID": "1030",
+    "pairName": "Osprey vs Bald Eagle",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      116999,
+      5305
+    ],
+    "taxonNames": [
+      "Pandion haliaetus",
+      "Haliaeetus leucocephalus"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f56626dcd62e6d503e7fe4",
+    "pairID": "1031",
+    "pairName": "Red-tailed Hawk vs Osprey",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      116999,
+      5212
+    ],
+    "taxonNames": [
+      "Pandion haliaetus",
+      "Buteo jamaicensis"
+    ],
+    "range": [
+      "NA"
     ],
     "enabled": true,
     "__v": 0

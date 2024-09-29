@@ -56895,5 +56895,91 @@
     "hints": [],
     "enabled": true,
     "__v": 1
+  },
+  {
+    "_id": "66f565cadcd62e6d503e7fc1",
+    "taxonId": "5305",
+    "taxonName": "Haliaeetus leucocephalus",
+    "vernacularName": "Bald eagle",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      71261,
+      5067,
+      1542783,
+      5303
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "It is the national bird of the United States.",
+      "Bald eagles can live up to 30 years in the wild.",
+      "They build the largest nests of any bird species."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f565ccdcd62e6d503e7fc5",
+    "taxonId": "116999",
+    "taxonName": "Pandion haliaetus",
+    "vernacularName": "Osprey",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      71261,
+      200958,
+      71725
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Ospreys can dive from heights of over 100 feet.",
+      "They have a unique toe arrangement for gripping fish.",
+      "Ospreys migrate thousands of miles between breeding grounds."
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AS",
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f565cedcd62e6d503e7fca",
+    "taxonId": "5212",
+    "taxonName": "Buteo jamaicensis",
+    "vernacularName": "Red-tailed hawk",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      71261,
+      5067,
+      1542783,
+      5179
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Red-tailed hawks are known for their distinctive call.",
+      "They have excellent eyesight, eight times better than humans.",
+      "These hawks can weigh up to three pounds."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
   }
 ]
