@@ -34855,5 +34855,383 @@
     "rank": "Species",
     "parentId": "5179",
     "__v": 0
+  },
+  {
+    "_id": "66f97e87dcd62e6d503e80bb",
+    "taxonId": "1431511",
+    "taxonName": "Coendou",
+    "vernacularName": "-",
+    "rank": "Subgenus",
+    "parentId": "44018",
+    "__v": 0
+  },
+  {
+    "_id": "66f97e88dcd62e6d503e80be",
+    "taxonId": "44018",
+    "taxonName": "Coendou",
+    "vernacularName": "Neotropical porcupines",
+    "rank": "Genus",
+    "parentId": "846222",
+    "__v": 0
+  },
+  {
+    "_id": "66f97e88dcd62e6d503e80c1",
+    "taxonId": "846222",
+    "taxonName": "Erethizontinae",
+    "vernacularName": "Neotropical and north american porcupines",
+    "rank": "Subfamily",
+    "parentId": "44010",
+    "__v": 0
+  },
+  {
+    "_id": "66f97e89dcd62e6d503e80c4",
+    "taxonId": "44010",
+    "taxonName": "Erethizontidae",
+    "vernacularName": "New world porcupines",
+    "rank": "Family",
+    "parentId": "870774",
+    "__v": 0
+  },
+  {
+    "_id": "66f97e8adcd62e6d503e80c7",
+    "taxonId": "870774",
+    "taxonName": "Erethizontoidea",
+    "vernacularName": "New world porcupines",
+    "rank": "Superfamily",
+    "parentId": "870767",
+    "__v": 0
+  },
+  {
+    "_id": "66f97e8bdcd62e6d503e80cb",
+    "taxonId": "197791",
+    "taxonName": "Coendou mexicanus",
+    "vernacularName": "Mexican hairy dwarf porcupine",
+    "rank": "Species",
+    "parentId": "1431511",
+    "__v": 0
+  },
+  {
+    "_id": "66f97e8cdcd62e6d503e80cf",
+    "taxonId": "1431510",
+    "taxonName": "Sphiggurus",
+    "vernacularName": "-",
+    "rank": "Subgenus",
+    "parentId": "44018",
+    "__v": 0
+  },
+  {
+    "_id": "66f97e8ddcd62e6d503e80d3",
+    "taxonId": "552456",
+    "taxonName": "Coendou spinosus",
+    "vernacularName": "Paraguay hairy dwarf porcupine",
+    "rank": "Species",
+    "parentId": "1431510",
+    "__v": 0
+  },
+  {
+    "_id": "66f97e8edcd62e6d503e80d7",
+    "taxonId": "44025",
+    "taxonName": "Erethizon",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "846222",
+    "__v": 0
+  },
+  {
+    "_id": "66f97e8fdcd62e6d503e80db",
+    "taxonId": "44026",
+    "taxonName": "Erethizon dorsatum",
+    "vernacularName": "North american porcupine",
+    "rank": "Species",
+    "parentId": "44025",
+    "__v": 0
+  },
+  {
+    "_id": "66f97e91dcd62e6d503e80df",
+    "taxonId": "1431508",
+    "taxonName": "Hystrix",
+    "vernacularName": "Crested porcupines",
+    "rank": "Subgenus",
+    "parentId": "44168",
+    "__v": 0
+  },
+  {
+    "_id": "66f97e91dcd62e6d503e80e2",
+    "taxonId": "44168",
+    "taxonName": "Hystrix",
+    "vernacularName": "Crested porcupines and allies",
+    "rank": "Genus",
+    "parentId": "44167",
+    "__v": 0
+  },
+  {
+    "_id": "66f97e92dcd62e6d503e80e5",
+    "taxonId": "44167",
+    "taxonName": "Hystricidae",
+    "vernacularName": "Old world porcupines",
+    "rank": "Family",
+    "parentId": "870767",
+    "__v": 0
+  },
+  {
+    "_id": "66f97e93dcd62e6d503e80e9",
+    "taxonId": "44171",
+    "taxonName": "Hystrix cristata",
+    "vernacularName": "Crested porcupine",
+    "rank": "Species",
+    "parentId": "1431508",
+    "__v": 0
+  },
+  {
+    "_id": "66f97e94dcd62e6d503e80ee",
+    "taxonId": "44173",
+    "taxonName": "Hystrix africaeaustralis",
+    "vernacularName": "Cape porcupine",
+    "rank": "Species",
+    "parentId": "1431508",
+    "__v": 0
+  },
+  {
+    "_id": "66f97e96dcd62e6d503e80f2",
+    "taxonId": "44179",
+    "taxonName": "Atherurus",
+    "vernacularName": "Brush-tailed porcupines",
+    "rank": "Genus",
+    "parentId": "44167",
+    "__v": 0
+  },
+  {
+    "_id": "66f97e96dcd62e6d503e80f6",
+    "taxonId": "44181",
+    "taxonName": "Atherurus africanus",
+    "vernacularName": "African brush-tailed porcupine",
+    "rank": "Species",
+    "parentId": "44179",
+    "__v": 0
+  },
+  {
+    "_id": "66f97e98dcd62e6d503e80fb",
+    "taxonId": "43794",
+    "taxonName": "Castor canadensis",
+    "vernacularName": "American beaver",
+    "rank": "Species",
+    "parentId": "43792",
+    "__v": 0
+  },
+  {
+    "_id": "66f97e9cdcd62e6d503e8105",
+    "taxonId": "46881",
+    "taxonName": "Blarina",
+    "vernacularName": "Short-tailed shrews",
+    "rank": "Genus",
+    "parentId": "846322",
+    "__v": 0
+  },
+  {
+    "_id": "66f97e9ddcd62e6d503e8108",
+    "taxonId": "846322",
+    "taxonName": "Blarinini",
+    "vernacularName": "Short-tailed and small-eared shrews",
+    "rank": "Tribe",
+    "parentId": "542443",
+    "__v": 0
+  },
+  {
+    "_id": "66f97e9edcd62e6d503e810c",
+    "taxonId": "63113",
+    "taxonName": "Blarina brevicauda",
+    "vernacularName": "Northern short-tailed shrew",
+    "rank": "Species",
+    "parentId": "46881",
+    "__v": 0
+  },
+  {
+    "_id": "66f97e9fdcd62e6d503e8110",
+    "taxonId": "46511",
+    "taxonName": "Suncus",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "496911",
+    "__v": 0
+  },
+  {
+    "_id": "66f97ea0dcd62e6d503e8113",
+    "taxonId": "496911",
+    "taxonName": "Crocidurinae",
+    "vernacularName": "White-toothed shrews",
+    "rank": "Subfamily",
+    "parentId": "46341",
+    "__v": 0
+  },
+  {
+    "_id": "66f97ea1dcd62e6d503e8117",
+    "taxonId": "46531",
+    "taxonName": "Suncus murinus",
+    "vernacularName": "Asian house shrew",
+    "rank": "Species",
+    "parentId": "46511",
+    "__v": 0
+  },
+  {
+    "_id": "66f97ea2dcd62e6d503e811b",
+    "taxonId": "43034",
+    "taxonName": "Echinosorex",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "846238",
+    "__v": 0
+  },
+  {
+    "_id": "66f97ea3dcd62e6d503e811e",
+    "taxonId": "846238",
+    "taxonName": "Galericinae",
+    "vernacularName": "Gymnures",
+    "rank": "Subfamily",
+    "parentId": "43011",
+    "__v": 0
+  },
+  {
+    "_id": "66f97ea4dcd62e6d503e8122",
+    "taxonId": "1370747",
+    "taxonName": "Echinosorex gymnurus",
+    "vernacularName": "Moonrat",
+    "rank": "Species",
+    "parentId": "43034",
+    "__v": 0
+  },
+  {
+    "_id": "66f97ea5dcd62e6d503e8126",
+    "taxonId": "44177",
+    "taxonName": "Trichys",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "44167",
+    "__v": 0
+  },
+  {
+    "_id": "66f97ea6dcd62e6d503e812a",
+    "taxonId": "44178",
+    "taxonName": "Trichys fasciculata",
+    "vernacularName": "Long-tailed porcupine",
+    "rank": "Species",
+    "parentId": "44177",
+    "__v": 0
+  },
+  {
+    "_id": "66f97ea7dcd62e6d503e812e",
+    "taxonId": "1431479",
+    "taxonName": "Megascapheus",
+    "vernacularName": "-",
+    "rank": "Subgenus",
+    "parentId": "44061",
+    "__v": 0
+  },
+  {
+    "_id": "66f97ea8dcd62e6d503e8131",
+    "taxonId": "44061",
+    "taxonName": "Thomomys",
+    "vernacularName": "Western pocket gophers",
+    "rank": "Genus",
+    "parentId": "846288",
+    "__v": 0
+  },
+  {
+    "_id": "66f97ea9dcd62e6d503e8134",
+    "taxonId": "846288",
+    "taxonName": "Thomomyini",
+    "vernacularName": "Western pocket gophers",
+    "rank": "Tribe",
+    "parentId": "1317270",
+    "__v": 0
+  },
+  {
+    "_id": "66f97eaadcd62e6d503e8137",
+    "taxonId": "1317270",
+    "taxonName": "Geomyinae",
+    "vernacularName": "-",
+    "rank": "Subfamily",
+    "parentId": "44027",
+    "__v": 0
+  },
+  {
+    "_id": "66f97eabdcd62e6d503e813a",
+    "taxonId": "44027",
+    "taxonName": "Geomyidae",
+    "vernacularName": "Pocket gophers",
+    "rank": "Family",
+    "parentId": "870764",
+    "__v": 0
+  },
+  {
+    "_id": "66f97eabdcd62e6d503e813e",
+    "taxonId": "44062",
+    "taxonName": "Thomomys bottae",
+    "vernacularName": "Botta's pocket gopher",
+    "rank": "Species",
+    "parentId": "1431479",
+    "__v": 0
+  },
+  {
+    "_id": "66f97eaddcd62e6d503e8143",
+    "taxonId": "45568",
+    "taxonName": "Apodemus agrarius",
+    "vernacularName": "Striped field mouse",
+    "rank": "Species",
+    "parentId": "45547",
+    "__v": 0
+  },
+  {
+    "_id": "66f97eaedcd62e6d503e8147",
+    "taxonId": "1317329",
+    "taxonName": "Clethrionomys",
+    "vernacularName": "Red-backed voles",
+    "rank": "Genus",
+    "parentId": "1317290",
+    "__v": 0
+  },
+  {
+    "_id": "66f97eafdcd62e6d503e814a",
+    "taxonId": "1317290",
+    "taxonName": "Clethrionomyini",
+    "vernacularName": "Red-backed voles and allies",
+    "rank": "Tribe",
+    "parentId": "179534",
+    "__v": 0
+  },
+  {
+    "_id": "66f97eb0dcd62e6d503e814e",
+    "taxonId": "1431273",
+    "taxonName": "Clethrionomys glareolus",
+    "vernacularName": "Bank vole",
+    "rank": "Species",
+    "parentId": "1317329",
+    "__v": 0
+  },
+  {
+    "_id": "66f97eb2dcd62e6d503e8152",
+    "taxonId": "46265",
+    "taxonName": "Glaucomys",
+    "vernacularName": "New world flying squirrels",
+    "rank": "Genus",
+    "parentId": "339576",
+    "__v": 0
+  },
+  {
+    "_id": "66f97eb3dcd62e6d503e8156",
+    "taxonId": "46272",
+    "taxonName": "Glaucomys volans",
+    "vernacularName": "Southern flying squirrel",
+    "rank": "Species",
+    "parentId": "46265",
+    "__v": 0
+  },
+  {
+    "_id": "66f97eb4dcd62e6d503e815b",
+    "taxonId": "42723",
+    "taxonName": "Petaurus breviceps",
+    "vernacularName": "Sugar glider",
+    "rank": "Species",
+    "parentId": "42719",
+    "__v": 0
   }
 ]

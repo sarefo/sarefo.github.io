@@ -56981,5 +56981,598 @@
     "hints": [],
     "enabled": true,
     "__v": 1
+  },
+  {
+    "_id": "66f97ac9dcd62e6d503e8003",
+    "taxonId": "197791",
+    "taxonName": "Coendou mexicanus",
+    "vernacularName": "Mexican hairy dwarf porcupine",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43698,
+      870765,
+      870767,
+      870774,
+      44010,
+      846222,
+      44018,
+      1431511
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Endemic to Central America.",
+      "Diet consists mainly of fruits and leaves.",
+      "Active mainly at night."
+    ],
+    "range": [
+      "NA",
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f97acadcd62e6d503e8006",
+    "taxonId": "552456",
+    "taxonName": "Coendou spinosus",
+    "vernacularName": "Paraguay hairy dwarf porcupine",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43698,
+      870765,
+      870767,
+      870774,
+      44010,
+      846222,
+      44018,
+      1431510
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Prefers tropical rainforests for habitat.",
+      "Known for its spiny coat for defense.",
+      "Diets include fruits, flowers, and leaves."
+    ],
+    "range": [
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f97accdcd62e6d503e8009",
+    "taxonId": "44026",
+    "taxonName": "Erethizon dorsatum",
+    "vernacularName": "North american porcupine",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43698,
+      870765,
+      870767,
+      870774,
+      44010,
+      846222,
+      44025
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Considered a large rodent in North America.",
+      "Has around 30,000 quills for protection.",
+      "Quills can detach easily upon contact."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f97acedcd62e6d503e800c",
+    "taxonId": "44171",
+    "taxonName": "Hystrix cristata",
+    "vernacularName": "Crested porcupine",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43698,
+      870765,
+      870767,
+      44167,
+      44168,
+      1431508
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Inhabits regions from Italy to Africa.",
+      "Can live almost 30 years in captivity.",
+      "Known as one of the largest rodents."
+    ],
+    "range": [
+      "EU",
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f97acfdcd62e6d503e800f",
+    "taxonId": "44173",
+    "taxonName": "Hystrix africaeaustralis",
+    "vernacularName": "Cape porcupine",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43698,
+      870765,
+      870767,
+      44167,
+      44168,
+      1431508
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Largest rodent in sub-Saharan Africa.",
+      "Prefers rocky hills for shelter.",
+      "Can build dens up to 20m long."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f97ad0dcd62e6d503e8012",
+    "taxonId": "44181",
+    "taxonName": "Atherurus africanus",
+    "vernacularName": "African brush-tailed porcupine",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43698,
+      870765,
+      870767,
+      44167,
+      44179
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Typically nocturnal and herbivorous.",
+      "Has long, flexible spines for defense."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f97ad2dcd62e6d503e8016",
+    "taxonId": "43794",
+    "taxonName": "Castor canadensis",
+    "vernacularName": "American beaver",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43698,
+      870764,
+      43791,
+      43792
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Largest rodent in North America.",
+      "Adept builders, create dams and lodges.",
+      "Play a significant role in the ecosystem."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f97ad4dcd62e6d503e8019",
+    "taxonId": "43698",
+    "taxonName": "Rodentia",
+    "vernacularName": "Rodents",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323
+    ],
+    "rank": "Order",
+    "taxonFacts": [
+      "Largest order of mammals by species count.",
+      "Adaptations include gnawing teeth for survival.",
+      "Can be found on every continent except Antarctica."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f97ad6dcd62e6d503e801c",
+    "taxonId": "533971",
+    "taxonName": "Eulipotyphla",
+    "vernacularName": "Shrews, moles, hedgehogs, and allies",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324
+    ],
+    "rank": "Order",
+    "taxonFacts": [
+      "Includes moles and shrews.",
+      "Primarily insectivorous mammals.",
+      "They often have specialized burrowing adaptations."
+    ],
+    "range": [
+      "NA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f97ad7dcd62e6d503e8020",
+    "taxonId": "63113",
+    "taxonName": "Blarina brevicauda",
+    "vernacularName": "Northern short-tailed shrew",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      533971,
+      1474222,
+      46341,
+      542443,
+      846322,
+      46881
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Native to eastern North America.",
+      "Utilizes a venomous bite for prey capture.",
+      "Inhabits moist woodland areas."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f97ad9dcd62e6d503e8023",
+    "taxonId": "46531",
+    "taxonName": "Suncus murinus",
+    "vernacularName": "Asian house shrew",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      533971,
+      1474222,
+      46341,
+      496911,
+      46511
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Common in urban areas of Asia and Africa.",
+      "They are considered commensals with humans.",
+      "Known for their swift speed and agility."
+    ],
+    "range": [
+      "AS",
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f97adbdcd62e6d503e8029",
+    "taxonId": "1370747",
+    "taxonName": "Echinosorex gymnurus",
+    "vernacularName": "Moonrat",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848324,
+      533971,
+      1474222,
+      43011,
+      846238,
+      43034
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Found in Southeast Asia’s forests.",
+      "Primarily carnivorous.",
+      "Prefers habitats near water sources."
+    ],
+    "range": [
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f97adcdcd62e6d503e802c",
+    "taxonId": "44178",
+    "taxonName": "Trichys fasciculata",
+    "vernacularName": "Long-tailed porcupine",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43698,
+      870765,
+      870767,
+      44167,
+      44177
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Inhabits the rainforests of Southeast Asia.",
+      "Mostly terrestrial but adept climbers.",
+      "Known as the long-tailed porcupine."
+    ],
+    "range": [
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f97adddcd62e6d503e802f",
+    "taxonId": "44062",
+    "taxonName": "Thomomys bottae",
+    "vernacularName": "Botta's pocket gopher",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43698,
+      870764,
+      44027,
+      1317270,
+      846288,
+      44061,
+      1431479
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Native to western North America.",
+      "Primarily fossorial, good at burrowing.",
+      "Can adapt to various soil types."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f97adedcd62e6d503e8033",
+    "taxonId": "45568",
+    "taxonName": "Apodemus agrarius",
+    "vernacularName": "Striped field mouse",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43698,
+      870778,
+      488924,
+      44185,
+      735171,
+      846313,
+      45547
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Inhabits various grassy and wooded areas.",
+      "Has a prominent black stripe on its back.",
+      "Capable of breeding year-round."
+    ],
+    "range": [
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f97adfdcd62e6d503e8036",
+    "taxonId": "1431273",
+    "taxonName": "Clethrionomys glareolus",
+    "vernacularName": "Bank vole",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43698,
+      870778,
+      488924,
+      55986,
+      179534,
+      1317290,
+      1317329
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Commonly found in woodlands and hedgerows.",
+      "Prefers habitats with dense vegetation."
+    ],
+    "range": [
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f97ae1dcd62e6d503e8039",
+    "taxonId": "46272",
+    "taxonName": "Glaucomys volans",
+    "vernacularName": "Southern flying squirrel",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43698,
+      129411,
+      45933,
+      332614,
+      339576,
+      46265
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for its gliding ability between trees.",
+      "Habitat includes North American forests.",
+      "Social creatures often live in family groups."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f97ae2dcd62e6d503e803c",
+    "taxonId": "42723",
+    "taxonName": "Petaurus breviceps",
+    "vernacularName": "Sugar glider",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848319,
+      42711,
+      1539329,
+      42718,
+      846276,
+      42719
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for its gliding adaptation.",
+      "Habitat includes eucalypt forests of Australia.",
+      "Popular as exotic pets in many regions."
+    ],
+    "range": [
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
   }
 ]

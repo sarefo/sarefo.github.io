@@ -21797,5 +21797,249 @@
     ],
     "enabled": true,
     "__v": 0
+  },
+  {
+    "_id": "66f97c09dcd62e6d503e8068",
+    "pairID": "1032",
+    "pairName": "Mexican vs Paraguay Hairy Dwarf Porcupine",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      197791,
+      552456
+    ],
+    "taxonNames": [
+      "Coendou mexicanus",
+      "Coendou spinosus"
+    ],
+    "range": [
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f97c0bdcd62e6d503e806e",
+    "pairID": "1033",
+    "pairName": "North American vs Crested Porcupine",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      44026,
+      44171
+    ],
+    "taxonNames": [
+      "Erethizon dorsatum",
+      "Hystrix cristata"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f97c0ddcd62e6d503e8074",
+    "pairID": "1034",
+    "pairName": "African Brush-tailed vs Cape Porcupine",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      44173,
+      44181
+    ],
+    "taxonNames": [
+      "Hystrix africaeaustralis",
+      "Atherurus africanus"
+    ],
+    "range": [
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f97c0fdcd62e6d503e807a",
+    "pairID": "1035",
+    "pairName": "American Beaver vs North American Porcupine",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      44026,
+      43794
+    ],
+    "taxonNames": [
+      "Erethizon dorsatum",
+      "Castor canadensis"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f97c11dcd62e6d503e8080",
+    "pairID": "1036",
+    "pairName": "Rodents vs Insectivores",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      43698,
+      533971
+    ],
+    "taxonNames": [
+      "Rodentia",
+      "Eulipotyphla"
+    ],
+    "range": [
+      "NA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f97c13dcd62e6d503e8086",
+    "pairID": "1037",
+    "pairName": "European Mole vs Northern Short-tailed Shrew",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      46970,
+      63113
+    ],
+    "taxonNames": [
+      "Talpa europaea",
+      "Blarina brevicauda"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f97c15dcd62e6d503e808c",
+    "pairID": "1038",
+    "pairName": "House Mouse vs Asian House Shrew",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      46531,
+      44705
+    ],
+    "taxonNames": [
+      "Suncus murinus",
+      "Mus musculus"
+    ],
+    "range": [
+      "AS",
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f97c17dcd62e6d503e8092",
+    "pairID": "1039",
+    "pairName": "Brown Rat vs House Mouse",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      44576,
+      44705
+    ],
+    "taxonNames": [
+      "Rattus norvegicus",
+      "Mus musculus"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "EU",
+      "AS",
+      "AF",
+      "OC"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f97c19dcd62e6d503e8098",
+    "pairID": "1040",
+    "pairName": "Moonrat vs Long-tailed Porcupine",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      1370747,
+      44178
+    ],
+    "taxonNames": [
+      "Echinosorex gymnurus",
+      "Trichys fasciculata"
+    ],
+    "range": [
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f97c1bdcd62e6d503e809e",
+    "pairID": "1041",
+    "pairName": "Groundhog vs Pocket Gopher",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      44062,
+      46095
+    ],
+    "taxonNames": [
+      "Thomomys bottae",
+      "Marmota monax"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f97c1ddcd62e6d503e80a4",
+    "pairID": "1042",
+    "pairName": "Striped Field Mouse vs Bank Vole",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      45568,
+      1431273
+    ],
+    "taxonNames": [
+      "Apodemus agrarius",
+      "Clethrionomys glareolus"
+    ],
+    "range": [
+      "EU",
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f97c1fdcd62e6d503e80aa",
+    "pairID": "1043",
+    "pairName": "Sugar Glider vs Southern Flying Squirrel",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      46272,
+      42723
+    ],
+    "taxonNames": [
+      "Glaucomys volans",
+      "Petaurus breviceps"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
   }
 ]
