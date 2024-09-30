@@ -22199,5 +22199,69 @@
     ],
     "enabled": true,
     "__v": 0
+  },
+  {
+    "_id": "66f98cbcdcd62e6d503e8273",
+    "pairID": "1052",
+    "pairName": "Pumpkinseed vs Bluegill",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      49614,
+      49591
+    ],
+    "taxonNames": [
+      "Lepomis gibbosus",
+      "Lepomis macrochirus"
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AF",
+      "SA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f98cbedcd62e6d503e8279",
+    "pairID": "1053",
+    "pairName": "Moorish Idol vs Longfin Bannerfish",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      83290,
+      102631
+    ],
+    "taxonNames": [
+      "Zanclus cornutus",
+      "Heniochus acuminatus"
+    ],
+    "range": [
+      "AS",
+      "OC"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f98cc0dcd62e6d503e827f",
+    "pairID": "1054",
+    "pairName": "Orbicular vs Banggai Cardinalfish",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      111185,
+      320624
+    ],
+    "taxonNames": [
+      "Pterapogon kauderni",
+      "Sphaeramia orbicularis"
+    ],
+    "range": [
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
   }
 ]

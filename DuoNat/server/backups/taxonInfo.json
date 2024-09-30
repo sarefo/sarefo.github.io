@@ -58066,5 +58066,158 @@
     "hints": [],
     "enabled": true,
     "__v": 1
+  },
+  {
+    "_id": "66f98c21dcd62e6d503e8254",
+    "taxonId": "49614",
+    "taxonName": "Lepomis gibbosus",
+    "vernacularName": "Pumpkinseed",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      47178,
+      1303731,
+      1303755,
+      49588,
+      1303639,
+      49592
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Important prey for birds and larger fish.",
+      "Impacts insect populations through consumption.",
+      "Found in North America and introduced globally."
+    ],
+    "range": [
+      "NA",
+      "EU",
+      "AF",
+      "SA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f98c22dcd62e6d503e8257",
+    "taxonId": "49591",
+    "taxonName": "Lepomis macrochirus",
+    "vernacularName": "Bluegill",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      47178,
+      1303731,
+      1303755,
+      49588,
+      1303639,
+      49592
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Native to North America in freshwater habitats.",
+      "Introduced widely across various continents.",
+      "Prefers lakes and slow-moving rocky streams."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "EU",
+      "AF",
+      "AS",
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f98c23dcd62e6d503e825a",
+    "taxonId": "83290",
+    "taxonName": "Zanclus cornutus",
+    "vernacularName": "Moorish idol",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      47178,
+      1303726,
+      83291,
+      83292
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Single species in the family Zanclidae.",
+      "Distinctive long dorsal fin spine in adults.",
+      "Found on reefs in the Indo-Pacific region."
+    ],
+    "range": [
+      "AS",
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f98c25dcd62e6d503e825e",
+    "taxonId": "111185",
+    "taxonName": "Pterapogon kauderni",
+    "vernacularName": "Banggai cardinalfish",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      47178,
+      1303725,
+      1555683,
+      85594,
+      788694,
+      91541
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Popular in the aquarium trade for its appearance.",
+      "Endangered due to habitat destruction and capture."
+    ],
+    "range": [
+      "AS",
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f98c26dcd62e6d503e8261",
+    "taxonId": "320624",
+    "taxonName": "Sphaeramia orbicularis",
+    "vernacularName": "Orbicular cardinalfish",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      47178,
+      1303725,
+      1555683,
+      85594,
+      788694,
+      92155
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Male incubates eggs for about eight days.",
+      "Feeds mainly on planktonic crustaceans at night.",
+      "Forms small aggregations in coastal waters."
+    ],
+    "range": [
+      "AF",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
   }
 ]
