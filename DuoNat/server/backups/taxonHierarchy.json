@@ -35584,5 +35584,698 @@
     "rank": "Species",
     "parentId": "92155",
     "__v": 0
+  },
+  {
+    "_id": "66f9b1e3dcd62e6d503e8338",
+    "taxonId": "122240",
+    "taxonName": "Porcellio",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "122239",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1e4dcd62e6d503e833b",
+    "taxonId": "122239",
+    "taxonName": "Porcellionidae",
+    "vernacularName": "Porcellionid woodlice",
+    "rank": "Family",
+    "parentId": "343798",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1e5dcd62e6d503e833e",
+    "taxonId": "343798",
+    "taxonName": "Crinocheta",
+    "vernacularName": "-",
+    "rank": "Zoosection",
+    "parentId": "343783",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1e6dcd62e6d503e8341",
+    "taxonId": "343783",
+    "taxonName": "Holoverticata",
+    "vernacularName": "Woodlice and pillbugs",
+    "rank": "Infraorder",
+    "parentId": "84718",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1e6dcd62e6d503e8344",
+    "taxonId": "84718",
+    "taxonName": "Oniscidea",
+    "vernacularName": "Woodlice, pillbugs, and rock slaters",
+    "rank": "Suborder",
+    "parentId": "48147",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1e7dcd62e6d503e8347",
+    "taxonId": "48147",
+    "taxonName": "Isopoda",
+    "vernacularName": "Isopods",
+    "rank": "Order",
+    "parentId": "144114",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1e8dcd62e6d503e834b",
+    "taxonId": "122238",
+    "taxonName": "Porcellio scaber",
+    "vernacularName": "Common rough woodlouse",
+    "rank": "Species",
+    "parentId": "122240",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1eadcd62e6d503e834f",
+    "taxonId": "56081",
+    "taxonName": "Glomeris",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "999529",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1eadcd62e6d503e8352",
+    "taxonId": "999529",
+    "taxonName": "Glomerini",
+    "vernacularName": "-",
+    "rank": "Tribe",
+    "parentId": "999516",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1ebdcd62e6d503e8355",
+    "taxonId": "999516",
+    "taxonName": "Glomerinae",
+    "vernacularName": "-",
+    "rank": "Subfamily",
+    "parentId": "56080",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1ecdcd62e6d503e8358",
+    "taxonId": "56080",
+    "taxonName": "Glomeridae",
+    "vernacularName": "-",
+    "rank": "Family",
+    "parentId": "999510",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1eddcd62e6d503e835b",
+    "taxonId": "999510",
+    "taxonName": "Glomeroidea",
+    "vernacularName": "-",
+    "rank": "Superfamily",
+    "parentId": "56079",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1eedcd62e6d503e835e",
+    "taxonId": "56079",
+    "taxonName": "Glomerida",
+    "vernacularName": "Northern pill millipedes",
+    "rank": "Order",
+    "parentId": "999505",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1efdcd62e6d503e8361",
+    "taxonId": "999505",
+    "taxonName": "Oniscomorpha",
+    "vernacularName": "Pill millipedes",
+    "rank": "Superorder",
+    "parentId": "372768",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1efdcd62e6d503e8364",
+    "taxonId": "372768",
+    "taxonName": "Pentazonia",
+    "vernacularName": "Pill and slug millipedes",
+    "rank": "Infraclass",
+    "parentId": "551278",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1f0dcd62e6d503e8368",
+    "taxonId": "56078",
+    "taxonName": "Glomeris marginata",
+    "vernacularName": "Common pill millipede",
+    "rank": "Species",
+    "parentId": "56081",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1f2dcd62e6d503e836c",
+    "taxonId": "48295",
+    "taxonName": "Armadillidium",
+    "vernacularName": "Pillbugs",
+    "rank": "Genus",
+    "parentId": "48296",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1f2dcd62e6d503e836f",
+    "taxonId": "48296",
+    "taxonName": "Armadillidiidae",
+    "vernacularName": "Pill woodlice",
+    "rank": "Family",
+    "parentId": "343798",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1f3dcd62e6d503e8373",
+    "taxonId": "56083",
+    "taxonName": "Armadillidium vulgare",
+    "vernacularName": "Common pill woodlouse",
+    "rank": "Species",
+    "parentId": "48295",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1f5dcd62e6d503e8378",
+    "taxonId": "851440",
+    "taxonName": "Glomeris intermedia",
+    "vernacularName": "-",
+    "rank": "Species",
+    "parentId": "56081",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1f6dcd62e6d503e837c",
+    "taxonId": "48290",
+    "taxonName": "Oniscus",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "48291",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1f7dcd62e6d503e837f",
+    "taxonId": "48291",
+    "taxonName": "Oniscidae",
+    "vernacularName": "Sow bugs",
+    "rank": "Family",
+    "parentId": "343798",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1f8dcd62e6d503e8383",
+    "taxonId": "48284",
+    "taxonName": "Oniscus asellus",
+    "vernacularName": "Common shiny woodlouse",
+    "rank": "Species",
+    "parentId": "48290",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1f9dcd62e6d503e8387",
+    "taxonId": "47827",
+    "taxonName": "Cancer",
+    "vernacularName": "Edible crabs",
+    "rank": "Genus",
+    "parentId": "47828",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1fadcd62e6d503e838a",
+    "taxonId": "47828",
+    "taxonName": "Cancridae",
+    "vernacularName": "Rock crabs",
+    "rank": "Family",
+    "parentId": "47829",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1fbdcd62e6d503e838d",
+    "taxonId": "47829",
+    "taxonName": "Cancroidea",
+    "vernacularName": "Rock and horse crabs",
+    "rank": "Superfamily",
+    "parentId": "447514",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1fcdcd62e6d503e8391",
+    "taxonId": "47826",
+    "taxonName": "Cancer productus",
+    "vernacularName": "Red rock crab",
+    "rank": "Species",
+    "parentId": "47827",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1fddcd62e6d503e8395",
+    "taxonId": "202316",
+    "taxonName": "Romaleon",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "47828",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1fedcd62e6d503e8399",
+    "taxonId": "202315",
+    "taxonName": "Romaleon antennarium",
+    "vernacularName": "Pacific rock crab",
+    "rank": "Species",
+    "parentId": "202316",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b1ffdcd62e6d503e839d",
+    "taxonId": "49725",
+    "taxonName": "Pugettia",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "1091520",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b200dcd62e6d503e83a0",
+    "taxonId": "1091520",
+    "taxonName": "Epialtinae",
+    "vernacularName": "-",
+    "rank": "Subfamily",
+    "parentId": "49724",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b201dcd62e6d503e83a3",
+    "taxonId": "49724",
+    "taxonName": "Epialtidae",
+    "vernacularName": "Kelp crabs",
+    "rank": "Family",
+    "parentId": "47715",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b201dcd62e6d503e83a6",
+    "taxonId": "47715",
+    "taxonName": "Majoidea",
+    "vernacularName": "Spider crabs and decorator crabs",
+    "rank": "Superfamily",
+    "parentId": "447514",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b202dcd62e6d503e83aa",
+    "taxonId": "49723",
+    "taxonName": "Pugettia producta",
+    "vernacularName": "Northern kelp crab",
+    "rank": "Species",
+    "parentId": "49725",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b204dcd62e6d503e83af",
+    "taxonId": "49726",
+    "taxonName": "Pugettia richii",
+    "vernacularName": "Cryptic kelp crab",
+    "rank": "Species",
+    "parentId": "49725",
+    "__v": 0
+  },
+  {
+    "_id": "66f9b205dcd62e6d503e83b4",
+    "taxonId": "130169",
+    "taxonName": "Porcellio spinicornis",
+    "vernacularName": "Brickwork woodlouse",
+    "rank": "Species",
+    "parentId": "122240",
+    "__v": 0
+  },
+  {
+    "_id": "66fc3585f811e305cea35881",
+    "taxonId": "145377",
+    "taxonName": "Evanioidea",
+    "vernacularName": "Aulacid, carrot, and ensign wasps",
+    "rank": "Superfamily",
+    "parentId": "124417",
+    "__v": 0
+  },
+  {
+    "_id": "66fc3586f811e305cea35885",
+    "taxonId": "199595",
+    "taxonName": "Evaniidae",
+    "vernacularName": "Ensign wasps",
+    "rank": "Family",
+    "parentId": "145377",
+    "__v": 0
+  },
+  {
+    "_id": "66fc3587f811e305cea3588a",
+    "taxonId": "48742",
+    "taxonName": "Sphecidae",
+    "vernacularName": "Thread-waisted wasps",
+    "rank": "Family",
+    "parentId": "47222",
+    "__v": 0
+  },
+  {
+    "_id": "66fc3589f811e305cea3588e",
+    "taxonId": "250306",
+    "taxonName": "Evania",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "199595",
+    "__v": 0
+  },
+  {
+    "_id": "66fc358af811e305cea35892",
+    "taxonId": "264674",
+    "taxonName": "Evania appendigaster",
+    "vernacularName": "Blue-eyed ensign wasp",
+    "rank": "Species",
+    "parentId": "250306",
+    "__v": 0
+  },
+  {
+    "_id": "66fc358cf811e305cea35896",
+    "taxonId": "132335",
+    "taxonName": "Chalybion",
+    "vernacularName": "Blue mud-dauber wasps",
+    "rank": "Genus",
+    "parentId": "471021",
+    "__v": 0
+  },
+  {
+    "_id": "66fc358ef811e305cea35899",
+    "taxonId": "471021",
+    "taxonName": "Sceliphrini",
+    "vernacularName": "Mud-dauber wasps",
+    "rank": "Tribe",
+    "parentId": "470913",
+    "__v": 0
+  },
+  {
+    "_id": "66fc3590f811e305cea3589c",
+    "taxonId": "470913",
+    "taxonName": "Sceliphrinae",
+    "vernacularName": "Mud-dauber wasps and allies",
+    "rank": "Subfamily",
+    "parentId": "48742",
+    "__v": 0
+  },
+  {
+    "_id": "66fc3591f811e305cea358a0",
+    "taxonId": "133790",
+    "taxonName": "Chalybion californicum",
+    "vernacularName": "Nearctic blue mud-dauber wasp",
+    "rank": "Species",
+    "parentId": "132335",
+    "__v": 0
+  },
+  {
+    "_id": "66fc3593f811e305cea358a4",
+    "taxonId": "145558",
+    "taxonName": "Leptocorisa",
+    "vernacularName": "-",
+    "rank": "Genus",
+    "parentId": "556562",
+    "__v": 0
+  },
+  {
+    "_id": "66fc3595f811e305cea358a7",
+    "taxonId": "556562",
+    "taxonName": "Leptocorisini",
+    "vernacularName": "-",
+    "rank": "Tribe",
+    "parentId": "482518",
+    "__v": 0
+  },
+  {
+    "_id": "66fc3597f811e305cea358aa",
+    "taxonId": "482518",
+    "taxonName": "Micrelytrinae",
+    "vernacularName": "-",
+    "rank": "Subfamily",
+    "parentId": "62059",
+    "__v": 0
+  },
+  {
+    "_id": "66fc3599f811e305cea358ad",
+    "taxonId": "62059",
+    "taxonName": "Alydidae",
+    "vernacularName": "Broad-headed bugs",
+    "rank": "Family",
+    "parentId": "51776",
+    "__v": 0
+  },
+  {
+    "_id": "66fc359bf811e305cea358b0",
+    "taxonId": "51776",
+    "taxonName": "Coreoidea",
+    "vernacularName": "Leaf-footed bugs and allies",
+    "rank": "Superfamily",
+    "parentId": "372868",
+    "__v": 0
+  },
+  {
+    "_id": "66fc359bf811e305cea358b4",
+    "taxonId": "145554",
+    "taxonName": "Leptocorisa acuta",
+    "vernacularName": "Paddy bug",
+    "rank": "Species",
+    "parentId": "145558",
+    "__v": 0
+  },
+  {
+    "_id": "66fc359ef811e305cea358b8",
+    "taxonId": "548112",
+    "taxonName": "Tipula",
+    "vernacularName": "-",
+    "rank": "Subgenus",
+    "parentId": "60393",
+    "__v": 0
+  },
+  {
+    "_id": "66fc35a0f811e305cea358bb",
+    "taxonId": "60393",
+    "taxonName": "Tipula",
+    "vernacularName": "Common crane flies",
+    "rank": "Genus",
+    "parentId": "466643",
+    "__v": 0
+  },
+  {
+    "_id": "66fc35a1f811e305cea358be",
+    "taxonId": "466643",
+    "taxonName": "Tipulinae",
+    "vernacularName": "-",
+    "rank": "Subfamily",
+    "parentId": "51225",
+    "__v": 0
+  },
+  {
+    "_id": "66fc35a3f811e305cea358c1",
+    "taxonId": "51225",
+    "taxonName": "Tipulidae",
+    "vernacularName": "Large crane flies",
+    "rank": "Family",
+    "parentId": "51226",
+    "__v": 0
+  },
+  {
+    "_id": "66fc35a5f811e305cea358c4",
+    "taxonId": "51226",
+    "taxonName": "Tipuloidea",
+    "vernacularName": "Typical crane flies",
+    "rank": "Superfamily",
+    "parentId": "179916",
+    "__v": 0
+  },
+  {
+    "_id": "66fc35a7f811e305cea358c7",
+    "taxonId": "179916",
+    "taxonName": "Tipulomorpha",
+    "vernacularName": "Crane flies",
+    "rank": "Infraorder",
+    "parentId": "154259",
+    "__v": 0
+  },
+  {
+    "_id": "66fc35a8f811e305cea358cb",
+    "taxonId": "61917",
+    "taxonName": "Tipula paludosa",
+    "vernacularName": "European crane fly",
+    "rank": "Species",
+    "parentId": "548112",
+    "__v": 0
+  },
+  {
+    "_id": "66fc35abf811e305cea358d2",
+    "taxonId": "513826",
+    "taxonName": "Culicoidea",
+    "vernacularName": "-",
+    "rank": "Superfamily",
+    "parentId": "153429",
+    "__v": 0
+  },
+  {
+    "_id": "66fc35acf811e305cea358d6",
+    "taxonId": "52134",
+    "taxonName": "Culicidae",
+    "vernacularName": "Mosquitoes",
+    "rank": "Family",
+    "parentId": "513826",
+    "__v": 0
+  },
+  {
+    "_id": "66fc35aef811e305cea358da",
+    "taxonId": "60417",
+    "taxonName": "Nephrotoma",
+    "vernacularName": "Tiger crane flies",
+    "rank": "Genus",
+    "parentId": "466643",
+    "__v": 0
+  },
+  {
+    "_id": "66fc35aff811e305cea358de",
+    "taxonId": "60428",
+    "taxonName": "Nephrotoma ferruginea",
+    "vernacularName": "Ferruginous tiger crane fly",
+    "rank": "Species",
+    "parentId": "60417",
+    "__v": 0
+  },
+  {
+    "_id": "66fc35b1f811e305cea358e2",
+    "taxonId": "466651",
+    "taxonName": "Nippotipula",
+    "vernacularName": "-",
+    "rank": "Subgenus",
+    "parentId": "60393",
+    "__v": 0
+  },
+  {
+    "_id": "66fc35b2f811e305cea358e6",
+    "taxonId": "153079",
+    "taxonName": "Tipula abdominalis",
+    "vernacularName": "Giant crane fly",
+    "rank": "Species",
+    "parentId": "466651",
+    "__v": 0
+  },
+  {
+    "_id": "66fc35b3f811e305cea358eb",
+    "taxonId": "132968",
+    "taxonName": "Nephrotoma appendiculata",
+    "vernacularName": "Spotted cranefly",
+    "rank": "Species",
+    "parentId": "60417",
+    "__v": 0
+  },
+  {
+    "_id": "66fc35b4f811e305cea358f0",
+    "taxonId": "53275",
+    "taxonName": "Chironomidae",
+    "vernacularName": "Non-biting midges",
+    "rank": "Family",
+    "parentId": "509764",
+    "__v": 0
+  },
+  {
+    "_id": "66fc35b6f811e305cea358f5",
+    "taxonId": "53225",
+    "taxonName": "Rhopalidae",
+    "vernacularName": "Scentless plant bugs",
+    "rank": "Family",
+    "parentId": "51776",
+    "__v": 0
+  },
+  {
+    "_id": "66fc35b7f811e305cea358fa",
+    "taxonId": "51777",
+    "taxonName": "Coreidae",
+    "vernacularName": "Leaf-footed bugs",
+    "rank": "Family",
+    "parentId": "51776",
+    "__v": 0
+  },
+  {
+    "_id": "66fc35baf811e305cea35905",
+    "taxonId": "49525",
+    "taxonName": "Scutelleridae",
+    "vernacularName": "Jewel bugs",
+    "rank": "Family",
+    "parentId": "47743",
+    "__v": 0
+  },
+  {
+    "_id": "66fc35bdf811e305cea35909",
+    "taxonId": "466233",
+    "taxonName": "Lygaeoidea",
+    "vernacularName": "Seed bugs and allies",
+    "rank": "Superfamily",
+    "parentId": "372868",
+    "__v": 0
+  },
+  {
+    "_id": "66fc35bef811e305cea3590d",
+    "taxonId": "55558",
+    "taxonName": "Lygaeidae",
+    "vernacularName": "Seed bugs",
+    "rank": "Family",
+    "parentId": "466233",
+    "__v": 0
+  },
+  {
+    "_id": "66fc35c0f811e305cea35911",
+    "taxonId": "53504",
+    "taxonName": "Miroidea",
+    "vernacularName": "-",
+    "rank": "Superfamily",
+    "parentId": "372850",
+    "__v": 0
+  },
+  {
+    "_id": "66fc35c2f811e305cea35914",
+    "taxonId": "372850",
+    "taxonName": "Cimicomorpha",
+    "vernacularName": "Cimicomorph bugs",
+    "rank": "Infraorder",
+    "parentId": "61267",
+    "__v": 0
+  },
+  {
+    "_id": "66fc35c3f811e305cea35918",
+    "taxonId": "53505",
+    "taxonName": "Miridae",
+    "vernacularName": "Plant bugs",
+    "rank": "Family",
+    "parentId": "53504",
+    "__v": 0
+  },
+  {
+    "_id": "66fc35c4f811e305cea3591d",
+    "taxonId": "53506",
+    "taxonName": "Tingidae",
+    "vernacularName": "Lace bugs",
+    "rank": "Family",
+    "parentId": "53504",
+    "__v": 0
+  },
+  {
+    "_id": "66fc35c6f811e305cea35921",
+    "taxonId": "133754",
+    "taxonName": "Reduvioidea",
+    "vernacularName": "-",
+    "rank": "Superfamily",
+    "parentId": "372850",
+    "__v": 0
+  },
+  {
+    "_id": "66fc35c7f811e305cea35925",
+    "taxonId": "48959",
+    "taxonName": "Reduviidae",
+    "vernacularName": "Assassin bugs",
+    "rank": "Family",
+    "parentId": "133754",
+    "__v": 0
   }
 ]

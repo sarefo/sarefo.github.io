@@ -68,7 +68,9 @@
     "pairID": "4",
     "pairName": "Leopard vs Jaguar",
     "level": "2",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       41970,
       41963
@@ -199,7 +201,9 @@
     "pairID": "10",
     "pairName": "African vs Asian Elephants",
     "level": "2",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       43696,
       43693
@@ -300,7 +304,9 @@
     "pairID": "15",
     "pairName": "Cougar vs Cheetah",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       42007,
       41955
@@ -1271,7 +1277,9 @@
     "pairID": "58",
     "pairName": "Hippopotamuses",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       42149,
       74192
@@ -2632,7 +2640,9 @@
     "pairID": "125",
     "pairName": "Crows vs Pigeons",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       2715,
       7823
@@ -2723,7 +2733,9 @@
     "pairID": "129",
     "pairName": "Blue vs Great Tit",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       203153,
       144849
@@ -2745,7 +2757,9 @@
     "pairID": "130",
     "pairName": "Robin vs Bluethroat",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       13094,
       13071
@@ -6487,7 +6501,8 @@
     "pairName": "Hoverflies vs Wasps",
     "level": "1",
     "tags": [
-      "mimicry"
+      "mimicry",
+      "popular"
     ],
     "taxa": [
       49995,
@@ -9119,7 +9134,7 @@
   {
     "_id": "66e332d503631a605bca0b3f",
     "pairID": "430",
-    "pairName": "Long-bodies vs Marbled Cellar Spider",
+    "pairName": "Long-bodied vs Marbled Cellar Spider",
     "level": "3",
     "tags": [],
     "taxa": [
@@ -12957,7 +12972,9 @@
     "pairID": "612",
     "pairName": "Platypus vs Beaver",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       43236,
       43792
@@ -13241,7 +13258,9 @@
     "pairID": "624",
     "pairName": "Hedgehogs vs Echidna",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       846194,
       43237
@@ -13395,7 +13414,9 @@
     "pairID": "631",
     "pairName": "Honey Badger vs Striped Skunk",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       41834,
       41880
@@ -13413,7 +13434,9 @@
     "pairID": "632",
     "pairName": "Striped Skunk vs European Badger",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       855297,
       41880
@@ -13431,7 +13454,9 @@
     "pairID": "633",
     "pairName": "European Badger vs Honey Badger",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       855297,
       41834
@@ -13496,7 +13521,9 @@
     "pairID": "636",
     "pairName": "Cellar Spiders vs Huntsmen",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       47823,
       57409
@@ -13758,7 +13785,9 @@
     "pairID": "649",
     "pairName": "Winged Insects vs Silverfishes",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       184884,
       48301
@@ -13866,7 +13895,9 @@
     "pairID": "656",
     "pairName": "Centipedes vs Millipedes",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       49556,
       47735
@@ -13938,7 +13969,9 @@
     "pairID": "660",
     "pairName": "Armadillos vs Pangolins",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       67639,
       43357
@@ -14038,7 +14071,9 @@
     "pairID": "665",
     "pairName": "Fruit bats vs Microbats",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       1317244,
       446946
@@ -14059,7 +14094,9 @@
     "pairID": "666",
     "pairName": "Koalas vs Wombats",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       42981,
       43001
@@ -14229,7 +14266,9 @@
     "pairID": "675",
     "pairName": "Dromedaries vs Bactrian camels",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       81542,
       524409
@@ -17072,7 +17111,8 @@
     "pairName": "Giant panda vs Common Raccoon",
     "level": "1",
     "tags": [
-      "fun"
+      "fun",
+      "popular"
     ],
     "taxa": [
       41659,
@@ -17091,7 +17131,9 @@
     "pairID": "803",
     "pairName": "Giant panda vs Red panda",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       41659,
       41653
@@ -17622,7 +17664,8 @@
     "pairName": "Common lantana vs Chinese ixora",
     "level": "1",
     "tags": [
-      "hk"
+      "hk",
+      "popular"
     ],
     "taxa": [
       50333,
@@ -18083,7 +18126,8 @@
     "pairName": "Common drone fly vs Western Honey Bee",
     "level": "1",
     "tags": [
-      "mimicry"
+      "mimicry",
+      "popular"
     ],
     "taxa": [
       55719,
@@ -18178,7 +18222,9 @@
     "pairID": "852",
     "pairName": "Tarantulas vs Wolf spiders",
     "level": "2",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       47424,
       47416
@@ -18831,7 +18877,9 @@
     "pairID": "881",
     "pairName": "Fox vs Wolf",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       42069,
       42048
@@ -19223,7 +19271,9 @@
     "pairID": "901",
     "pairName": "Manatee vs Walrus",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       46316,
       41766
@@ -19243,7 +19293,9 @@
     "pairID": "902",
     "pairName": "Meerkat vs Mongoose",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       41943,
       41921
@@ -19281,7 +19333,9 @@
     "pairID": "904",
     "pairName": "Prairie Dog vs Meerkat",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       41943,
       46179
@@ -19433,7 +19487,9 @@
     "pairID": "912",
     "pairName": "Spotted vs Striped Hyaena",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       41886,
       41888
@@ -19587,7 +19643,9 @@
     "pairID": "920",
     "pairName": "Cotton-headed vs Geoffroy's Tamarin",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       43384,
       43391
@@ -19824,7 +19882,9 @@
     "pairID": "932",
     "pairName": "White-nosed Coati vs Raccoon",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       41673,
       41663
@@ -19962,7 +20022,9 @@
     "pairID": "939",
     "pairName": "Raccoon vs Raccoon Dog",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       855311,
       41663
@@ -20300,7 +20362,9 @@
     "pairID": "956",
     "pairName": "Little vs Humboldt Penguin",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       3817,
       3814
@@ -20360,7 +20424,9 @@
     "pairID": "959",
     "pairName": "Auks vs Penguins",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       71295,
       3806
@@ -21070,7 +21136,9 @@
     "pairID": "995",
     "pairName": "Chameleons vs Geckos",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       32805,
       33177
@@ -21523,7 +21591,9 @@
     "pairID": "1018",
     "pairName": "Helmeted Guineafowl vs Wild Turkey",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       1428,
       906
@@ -21621,7 +21691,9 @@
     "pairID": "1023",
     "pairName": "Great vs Rhinoceros Hornbill",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       5532,
       5536
@@ -21922,7 +21994,9 @@
     "pairID": "1038",
     "pairName": "House Mouse vs Asian House Shrew",
     "level": "1",
-    "tags": [],
+    "tags": [
+      "popular"
+    ],
     "taxa": [
       46531,
       44705
@@ -22260,6 +22334,552 @@
     ],
     "range": [
       "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f9b042dcd62e6d503e8301",
+    "pairID": "1055",
+    "pairName": "Pill Millipede vs Woodlouse",
+    "level": "1",
+    "tags": [
+      "popular"
+    ],
+    "taxa": [
+      122238,
+      56078
+    ],
+    "taxonNames": [
+      "Porcellio scaber",
+      "Glomeris marginata"
+    ],
+    "range": [
+      "AF",
+      "EU"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f9b044dcd62e6d503e8307",
+    "pairID": "1056",
+    "pairName": "Pill Millipede vs Pill Woodlouse",
+    "level": "1",
+    "tags": [
+      "popular"
+    ],
+    "taxa": [
+      56078,
+      56083
+    ],
+    "taxonNames": [
+      "Glomeris marginata",
+      "Armadillidium vulgare"
+    ],
+    "range": [
+      "EU",
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f9b046dcd62e6d503e830d",
+    "pairID": "1057",
+    "pairName": "Pill vs Rough Woodlouse",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      56083,
+      122238
+    ],
+    "taxonNames": [
+      "Armadillidium vulgare",
+      "Porcellio scaber"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f9b048dcd62e6d503e8313",
+    "pairID": "1058",
+    "pairName": "Pill Millipedes",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      56078,
+      851440
+    ],
+    "taxonNames": [
+      "Glomeris marginata",
+      "Glomeris intermedia"
+    ],
+    "range": [
+      "EU"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f9b04adcd62e6d503e8319",
+    "pairID": "1059",
+    "pairName": "Shiny vs Rough Woodlouse",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      122238,
+      48284
+    ],
+    "taxonNames": [
+      "Porcellio scaber",
+      "Oniscus asellus"
+    ],
+    "range": [
+      "NA",
+      "EU"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f9b04cdcd62e6d503e831f",
+    "pairID": "1060",
+    "pairName": "Red vs Pacific Rock Crab",
+    "level": "3",
+    "tags": [],
+    "taxa": [
+      47826,
+      202315
+    ],
+    "taxonNames": [
+      "Cancer productus",
+      "Romaleon antennarium"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f9b04edcd62e6d503e8325",
+    "pairID": "1061",
+    "pairName": "Northern vs Cryptic Kelp Crab",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      49723,
+      49726
+    ],
+    "taxonNames": [
+      "Pugettia producta",
+      "Pugettia richii"
+    ],
+    "range": [
+      "NA"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66f9b050dcd62e6d503e832b",
+    "pairID": "1062",
+    "pairName": "Rough vs Brickword Woodlouse",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      130169,
+      122238
+    ],
+    "taxonNames": [
+      "Porcellio spinicornis",
+      "Porcellio scaber"
+    ],
+    "range": [
+      "EU"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66fc32a9f811e305cea35812",
+    "pairID": "1063",
+    "pairName": "Thread-waisted vs Ensign Wasps",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      199595,
+      48742
+    ],
+    "taxonNames": [
+      "Evaniidae",
+      "Sphecidae"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66fc32abf811e305cea35818",
+    "pairID": "1064",
+    "pairName": "Mud-dauber vs Ensign Wasp",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      264674,
+      133790
+    ],
+    "taxonNames": [
+      "Evania appendigaster",
+      "Chalybion californicum"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66fc32adf811e305cea3581e",
+    "pairID": "1065",
+    "pairName": "Paddy Bug vs European Crane Fly",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      145554,
+      61917
+    ],
+    "taxonNames": [
+      "Leptocorisa acuta",
+      "Tipula paludosa"
+    ],
+    "range": [],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66fc32aff811e305cea35824",
+    "pairID": "1066",
+    "pairName": "Mosquitoes vs Crane Flies",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      51225,
+      52134
+    ],
+    "taxonNames": [
+      "Tipulidae",
+      "Culicidae"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66fc32b0f811e305cea3582a",
+    "pairID": "1067",
+    "pairName": "Tiger vs Giant Crane Fly",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      60428,
+      153079
+    ],
+    "taxonNames": [
+      "Nephrotoma ferruginea",
+      "Tipula abdominalis"
+    ],
+    "range": [
+      "NA",
+      "EU"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66fc32b2f811e305cea35830",
+    "pairID": "1068",
+    "pairName": "Spotted vs European Crane Fly",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      61917,
+      132968
+    ],
+    "taxonNames": [
+      "Tipula paludosa",
+      "Nephrotoma appendiculata"
+    ],
+    "range": [
+      "NA",
+      "EU"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66fc32b4f811e305cea35836",
+    "pairID": "1069",
+    "pairName": "Non-biting Midges vs Craneflies",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      53275,
+      51225
+    ],
+    "taxonNames": [
+      "Chironomidae",
+      "Tipulidae"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66fc32b6f811e305cea3583c",
+    "pairID": "1070",
+    "pairName": "Leaf-footed vs Scentless Plant Bugs",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      53225,
+      51777
+    ],
+    "taxonNames": [
+      "Rhopalidae",
+      "Coreidae"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66fc32b8f811e305cea35842",
+    "pairID": "1071",
+    "pairName": "Broad-headed vs Leaf-footed Bugs",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      62059,
+      51777
+    ],
+    "taxonNames": [
+      "Alydidae",
+      "Coreidae"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66fc32baf811e305cea35848",
+    "pairID": "1072",
+    "pairName": "Broad-headed vs Scentless Plant Bugs",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      53225,
+      62059
+    ],
+    "taxonNames": [
+      "Rhopalidae",
+      "Alydidae"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66fc32bcf811e305cea3584e",
+    "pairID": "1073",
+    "pairName": "Stink vs Jewel Bugs",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      47742,
+      49525
+    ],
+    "taxonNames": [
+      "Pentatomidae",
+      "Scutelleridae"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66fc32bef811e305cea35854",
+    "pairID": "1074",
+    "pairName": "Stink vs Seed Bugs",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      47742,
+      55558
+    ],
+    "taxonNames": [
+      "Pentatomidae",
+      "Lygaeidae"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66fc32bff811e305cea3585a",
+    "pairID": "1075",
+    "pairName": "Lace vs Plant Bugs",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      53505,
+      53506
+    ],
+    "taxonNames": [
+      "Miridae",
+      "Tingidae"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66fc32c1f811e305cea35860",
+    "pairID": "1076",
+    "pairName": "Plant vs Stink Bugs",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      53505,
+      47742
+    ],
+    "taxonNames": [
+      "Miridae",
+      "Pentatomidae"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66fc32c3f811e305cea35866",
+    "pairID": "1077",
+    "pairName": "Leaf-footed vs Assassin Bugs",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      51777,
+      48959
+    ],
+    "taxonNames": [
+      "Coreidae",
+      "Reduviidae"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "66fc32c5f811e305cea3586c",
+    "pairID": "1078",
+    "pairName": "True Hoppers vs True Bugs",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      125816,
+      61267
+    ],
+    "taxonNames": [
+      "Auchenorrhyncha",
+      "Heteroptera"
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "EU",
+      "AS",
+      "AF",
+      "OC"
     ],
     "enabled": true,
     "__v": 0

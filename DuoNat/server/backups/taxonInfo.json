@@ -58219,5 +58219,1050 @@
     "hints": [],
     "enabled": true,
     "__v": 1
+  },
+  {
+    "_id": "66f9afb6dcd62e6d503e82c4",
+    "taxonId": "122238",
+    "taxonName": "Porcellio scaber",
+    "vernacularName": "Common rough woodlouse",
+    "ancestryIds": [
+      1,
+      47120,
+      85493,
+      473790,
+      47187,
+      774775,
+      144114,
+      48147,
+      84718,
+      343783,
+      343798,
+      122239,
+      122240
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Native to Europe, now found worldwide.",
+      "Prefers damp environments to prevent desiccation.",
+      "Feeds mainly on decaying plant matter."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f9afb7dcd62e6d503e82c7",
+    "taxonId": "56078",
+    "taxonName": "Glomeris marginata",
+    "vernacularName": "Common pill millipede",
+    "ancestryIds": [
+      1,
+      47120,
+      144128,
+      47735,
+      551278,
+      372768,
+      999505,
+      56079,
+      999510,
+      56080,
+      999516,
+      999529,
+      56081
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Commonly found in damp forest habitats.",
+      "Can roll into a ball for protection.",
+      "Primarily feeds on decomposing organic material."
+    ],
+    "range": [
+      "EU",
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f9afbbdcd62e6d503e82cb",
+    "taxonId": "56083",
+    "taxonName": "Armadillidium vulgare",
+    "vernacularName": "Common pill woodlouse",
+    "ancestryIds": [
+      1,
+      47120,
+      85493,
+      473790,
+      47187,
+      774775,
+      144114,
+      48147,
+      84718,
+      343783,
+      343798,
+      48296,
+      48295
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for its ability to roll into a ball.",
+      "Thrives in moist, temperate climates worldwide.",
+      "Can survive in various terrestrial habitats."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f9afbddcd62e6d503e82d1",
+    "taxonId": "851440",
+    "taxonName": "Glomeris intermedia",
+    "vernacularName": "-",
+    "ancestryIds": [
+      1,
+      47120,
+      144128,
+      47735,
+      551278,
+      372768,
+      999505,
+      56079,
+      999510,
+      56080,
+      999516,
+      999529,
+      56081
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Typically found in leaf litter and soil.",
+      "Exhibits a unique rolling behavior for defense.",
+      "Plays a role in nutrient recycling in ecosystems."
+    ],
+    "range": [
+      "EU"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f9afbfdcd62e6d503e82d5",
+    "taxonId": "48284",
+    "taxonName": "Oniscus asellus",
+    "vernacularName": "Common shiny woodlouse",
+    "ancestryIds": [
+      1,
+      47120,
+      85493,
+      473790,
+      47187,
+      774775,
+      144114,
+      48147,
+      84718,
+      343783,
+      343798,
+      48291,
+      48290
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Most widespread woodlouse species in Europe.",
+      "Found under stones and decaying wood.",
+      "Can tolerate low calcium environments."
+    ],
+    "range": [
+      "NA",
+      "EU"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f9afc0dcd62e6d503e82d8",
+    "taxonId": "47826",
+    "taxonName": "Cancer productus",
+    "vernacularName": "Red rock crab",
+    "ancestryIds": [
+      1,
+      47120,
+      85493,
+      473790,
+      47187,
+      774775,
+      144113,
+      47186,
+      118451,
+      121639,
+      706185,
+      447514,
+      47829,
+      47828,
+      47827
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Diet varies seasonally between plants and animals.",
+      "Females can carry up to 84,000 eggs."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f9afc1dcd62e6d503e82db",
+    "taxonId": "202315",
+    "taxonName": "Romaleon antennarium",
+    "vernacularName": "Pacific rock crab",
+    "ancestryIds": [
+      1,
+      47120,
+      85493,
+      473790,
+      47187,
+      774775,
+      144113,
+      47186,
+      118451,
+      121639,
+      706185,
+      447514,
+      47829,
+      47828,
+      202316
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known as the spider crab due to its long legs.",
+      "Primarily herbivorous, feeding on algae.",
+      "Found in rocky intertidal zones."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f9afc2dcd62e6d503e82de",
+    "taxonId": "49723",
+    "taxonName": "Pugettia producta",
+    "vernacularName": "Northern kelp crab",
+    "ancestryIds": [
+      1,
+      47120,
+      85493,
+      473790,
+      47187,
+      774775,
+      144113,
+      47186,
+      118451,
+      121639,
+      706185,
+      447514,
+      47715,
+      49724,
+      1091520,
+      49725
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Often associated with kelp forests and algae beds.",
+      "Males are typically larger than females.",
+      "Can change color based on environment."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f9afc3dcd62e6d503e82e1",
+    "taxonId": "49726",
+    "taxonName": "Pugettia richii",
+    "vernacularName": "Cryptic kelp crab",
+    "ancestryIds": [
+      1,
+      47120,
+      85493,
+      473790,
+      47187,
+      774775,
+      144113,
+      47186,
+      118451,
+      121639,
+      706185,
+      447514,
+      47715,
+      49724,
+      1091520,
+      49725
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Prefers shallow waters near rocky substrates.",
+      "Feeds primarily on brown algae and detritus.",
+      "Has a distinctive square-shaped carapace."
+    ],
+    "range": [
+      "NA"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66f9afc4dcd62e6d503e82e4",
+    "taxonId": "130169",
+    "taxonName": "Porcellio spinicornis",
+    "vernacularName": "Brickwork woodlouse",
+    "ancestryIds": [
+      1,
+      47120,
+      85493,
+      473790,
+      47187,
+      774775,
+      144114,
+      48147,
+      84718,
+      343783,
+      343798,
+      122239,
+      122240
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Typically found in dry, calcareous habitats.",
+      "Has a distinctive dark stripe down its back.",
+      "Often seen active at night."
+    ],
+    "range": [
+      "EU"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66fc3030f811e305cea35799",
+    "taxonId": "199595",
+    "taxonName": "Evaniidae",
+    "vernacularName": "Ensign wasps",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47201,
+      124417,
+      145377
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Ensign wasps have existed for over 25 million years.",
+      "They lay eggs inside cockroach egg cases.",
+      "About 400 species are found worldwide."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66fc3033f811e305cea3579c",
+    "taxonId": "48742",
+    "taxonName": "Sphecidae",
+    "vernacularName": "Thread-waisted wasps",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47201,
+      124417,
+      326777,
+      47222
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "These wasps are important pest control agents.",
+      "They paralyze prey and store it for larvae.",
+      "Many species are solitary and nest underground."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66fc3037f811e305cea3579f",
+    "taxonId": "264674",
+    "taxonName": "Evania appendigaster",
+    "vernacularName": "Blue-eyed ensign wasp",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47201,
+      124417,
+      145377,
+      199595,
+      250306
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Lays its egg into a cockroach egg case.",
+      "Found throughout tropics and subtropics."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS",
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66fc303af811e305cea357a2",
+    "taxonId": "133790",
+    "taxonName": "Chalybion californicum",
+    "vernacularName": "Nearctic blue mud-dauber wasp",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47201,
+      124417,
+      326777,
+      47222,
+      48742,
+      470913,
+      471021,
+      132335
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Known for preying on black widow spiders.",
+      "Builds nests by stealing from other wasps.",
+      "Adults feed on nectar from various flowers."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66fc303df811e305cea357a5",
+    "taxonId": "145554",
+    "taxonName": "Leptocorisa acuta",
+    "vernacularName": "Paddy bug",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47744,
+      61267,
+      372868,
+      51776,
+      62059,
+      482518,
+      556562,
+      145558
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "A significant pest of rice crops.",
+      "Feeds on developing grains, reducing yield.",
+      "Recorded from northern Australia and Malesia."
+    ],
+    "range": [
+      "AS",
+      "OC"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66fc3040f811e305cea357a8",
+    "taxonId": "61917",
+    "taxonName": "Tipula paludosa",
+    "vernacularName": "European crane fly",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47822,
+      154259,
+      179916,
+      51226,
+      51225,
+      466643,
+      60393,
+      548112
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Larvae are major pests in grasslands.",
+      "Widespread across Europe and North America."
+    ],
+    "range": [
+      "NA",
+      "EU"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66fc3043f811e305cea357ab",
+    "taxonId": "51225",
+    "taxonName": "Tipulidae",
+    "vernacularName": "Large crane flies",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47822,
+      154259,
+      179916,
+      51226
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Includes many species resembling mosquitoes.",
+      "Larvae often live in moist soil environments.",
+      "Adults are primarily active in spring and summer."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66fc3046f811e305cea357ae",
+    "taxonId": "52134",
+    "taxonName": "Culicidae",
+    "vernacularName": "Mosquitoes",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47822,
+      154259,
+      153429,
+      513826
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "True mosquitoes are vectors for many diseases.",
+      "Anopheles mosquitoes transmit malaria.",
+      "They undergo complete metamorphosis in water."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66fc3049f811e305cea357b1",
+    "taxonId": "60428",
+    "taxonName": "Nephrotoma ferruginea",
+    "vernacularName": "Ferruginous tiger crane fly",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47822,
+      154259,
+      179916,
+      51226,
+      51225,
+      466643,
+      60417
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Larvae develop in moist soil or decaying matter.",
+      "Adults are often seen near water bodies."
+    ],
+    "range": [
+      "NA",
+      "EU"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66fc304cf811e305cea357b4",
+    "taxonId": "153079",
+    "taxonName": "Tipula abdominalis",
+    "vernacularName": "Giant crane fly",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47822,
+      154259,
+      179916,
+      51226,
+      51225,
+      466643,
+      60393,
+      466651
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "It prefers habitats near water sources.",
+      "Adult flies are most active during late summer."
+    ],
+    "range": [
+      "NA",
+      "EU"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66fc3050f811e305cea357b8",
+    "taxonId": "132968",
+    "taxonName": "Nephrotoma appendiculata",
+    "vernacularName": "Spotted cranefly",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47822,
+      154259,
+      179916,
+      51226,
+      51225,
+      466643,
+      60417
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Often found in forested areas or wetlands.",
+      "Larvae feed on decaying plant matter.",
+      "Adults can be recognized by their long legs."
+    ],
+    "range": [
+      "NA",
+      "EU"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66fc3053f811e305cea357bb",
+    "taxonId": "53275",
+    "taxonName": "Chironomidae",
+    "vernacularName": "Non-biting midges",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47822,
+      154259,
+      153429,
+      509764
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Larvae live in aquatic environments.",
+      "Adults are important food for fish."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66fc3056f811e305cea357bf",
+    "taxonId": "53225",
+    "taxonName": "Rhopalidae",
+    "vernacularName": "Scentless plant bugs",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47744,
+      61267,
+      372868,
+      51776
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Feed primarily on plant sap.",
+      "Some species can be agricultural pests."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66fc3059f811e305cea357c2",
+    "taxonId": "51777",
+    "taxonName": "Coreidae",
+    "vernacularName": "Leaf-footed bugs",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47744,
+      61267,
+      372868,
+      51776
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Known for their distinctive flattened hind legs.",
+      "Many species are agricultural pests."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66fc305cf811e305cea357c5",
+    "taxonId": "62059",
+    "taxonName": "Alydidae",
+    "vernacularName": "Broad-headed bugs",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47744,
+      61267,
+      372868,
+      51776
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Some species can be pests of crops.",
+      "They have a wide distribution globally."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66fc3060f811e305cea357cb",
+    "taxonId": "47742",
+    "taxonName": "Pentatomidae",
+    "vernacularName": "Stink bugs",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47744,
+      61267,
+      372868,
+      47743
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Many species are agricultural pests.",
+      "They have a shield-like body shape."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66fc3063f811e305cea357ce",
+    "taxonId": "49525",
+    "taxonName": "Scutelleridae",
+    "vernacularName": "Jewel bugs",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47744,
+      61267,
+      372868,
+      47743
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Known as jewel bugs for their shiny appearance.",
+      "Feed on plant sap, often causing damage.",
+      "Some species mimic other insects for protection."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66fc3067f811e305cea357d2",
+    "taxonId": "55558",
+    "taxonName": "Lygaeidae",
+    "vernacularName": "Seed bugs",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47744,
+      61267,
+      372868,
+      466233
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Commonly known as seed bugs, feeding on seeds.",
+      "Some species are beneficial predators of pests.",
+      "They exhibit diverse colors and patterns."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66fc3069f811e305cea357d5",
+    "taxonId": "53505",
+    "taxonName": "Miridae",
+    "vernacularName": "Plant bugs",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47744,
+      61267,
+      372850,
+      53504
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Often found on foliage.",
+      "Many species are important agricultural pests.",
+      "They can produce distinctive sounds when disturbed."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66fc306cf811e305cea357d8",
+    "taxonId": "53506",
+    "taxonName": "Tingidae",
+    "vernacularName": "Lace bugs",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47744,
+      61267,
+      372850,
+      53504
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Commonly referred to as lace bugs due to their appearance.",
+      "Feed on plant sap, particularly from leaves.",
+      "Some species can cause significant damage to plants."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "66fc3070f811e305cea357de",
+    "taxonId": "48959",
+    "taxonName": "Reduviidae",
+    "vernacularName": "Assassin bugs",
+    "ancestryIds": [
+      1,
+      47120,
+      372739,
+      47158,
+      184884,
+      47744,
+      61267,
+      372850,
+      133754
+    ],
+    "rank": "Family",
+    "taxonFacts": [
+      "Known as assassin bugs, they are effective predators.",
+      "Some species can transmit Chagas disease to humans.",
+      "They have a distinctive elongated head and beak."
+    ],
+    "range": [
+      "NA",
+      "SA",
+      "AF",
+      "EU",
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
   }
 ]
