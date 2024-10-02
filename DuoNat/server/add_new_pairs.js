@@ -60,6 +60,10 @@ const INPUT_FILE = '../data/processing/data_entry_workflow/1newTaxonInputPairs.t
 const PERPLEXITY_FILE = '../data/processing/data_entry_workflow/3perplexityData.json';
 
 // Helper functions
+async function wait(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 async function fetchTaxonDetails(taxonName) {
     if (!taxonName || typeof taxonName !== 'string') {
         throw new Error('Invalid taxon name provided');
@@ -67,6 +71,7 @@ async function fetchTaxonDetails(taxonName) {
     try {
         const response = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${encodeURIComponent(taxonName)}`);
         const data = await response.json();
+        await wait(1000);
         if (data.results.length > 0) {
             const result = data.results[0];
             return {
@@ -215,6 +220,7 @@ async function fetchTaxonById(taxonId) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
+            await wait(1000);
             if (data.results.length > 0) {
                 const result = data.results[0];
                 return {
@@ -241,6 +247,7 @@ async function fetchAncestry(taxonId) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
+        await wait(1000);
         if (data.results && data.results.length > 0) {
             return data.results[0].ancestors.map(ancestor => ancestor.id);
         }
@@ -461,12 +468,12 @@ async function createTaxonPairs() {
 async function getNextPairID() {
     try {
         const allPairs = await TaxonPair.find({}, { pairID: 1 }).lean();
-        console.log(`Total pairs found: ${allPairs.length}`);
+        //console.log(`Total pairs found: ${allPairs.length}`);
         if (allPairs.length > 0) {
             const highestID = Math.max(...allPairs.map(pair => parseInt(pair.pairID, 10)));
-            console.log(`Highest existing pairID: ${highestID}`);
+            //console.log(`Highest existing pairID: ${highestID}`);
             const nextID = (highestID + 1).toString();
-            console.log(`Next pairID to be used: ${nextID}`);
+            //console.log(`Next pairID to be used: ${nextID}`);
             return nextID;
         }
         console.log('No existing pairs found. Starting with pairID: 1');
