@@ -36565,5 +36565,59 @@
     "rank": "Species",
     "parentId": "5362",
     "__v": 0
+  },
+  {
+    "_id": "670ebaa57ddad031d0008d0e",
+    "taxonId": "43469",
+    "taxonName": "Cercopithecus",
+    "vernacularName": "Guenons",
+    "rank": "Genus",
+    "parentId": "846302",
+    "__v": 0
+  },
+  {
+    "_id": "670ebaa67ddad031d0008d12",
+    "taxonId": "43473",
+    "taxonName": "Cercopithecus neglectus",
+    "vernacularName": "De brazza's monkey",
+    "rank": "Species",
+    "parentId": "43469",
+    "__v": 0
+  },
+  {
+    "_id": "670ebaa87ddad031d0008d17",
+    "taxonId": "43486",
+    "taxonName": "Cercopithecus mitis",
+    "vernacularName": "Blue monkey",
+    "rank": "Species",
+    "parentId": "43469",
+    "__v": 0
+  },
+  {
+    "_id": "670ebaaa7ddad031d0008d1c",
+    "taxonId": "43476",
+    "taxonName": "Cercopithecus erythrogaster",
+    "vernacularName": "White-throated monkey",
+    "rank": "Species",
+    "parentId": "43469",
+    "__v": 0
+  },
+  {
+    "_id": "670ebaac7ddad031d0008d21",
+    "taxonId": "43477",
+    "taxonName": "Cercopithecus cephus",
+    "vernacularName": "Moustached monkey",
+    "rank": "Species",
+    "parentId": "43469",
+    "__v": 0
+  },
+  {
+    "_id": "670ebaae7ddad031d0008d26",
+    "taxonId": "43480",
+    "taxonName": "Cercopithecus ascanius",
+    "vernacularName": "Red-tailed monkey",
+    "rank": "Species",
+    "parentId": "43469",
+    "__v": 0
   }
 ]

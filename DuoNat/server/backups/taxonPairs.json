@@ -23207,5 +23207,65 @@
     ],
     "enabled": true,
     "__v": 0
+  },
+  {
+    "_id": "670eb9c17ddad031d0008cfa",
+    "pairID": "1095",
+    "pairName": "Blue vs De Brazza's Monkey",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      43473,
+      43486
+    ],
+    "taxonNames": [
+      "Cercopithecus neglectus",
+      "Cercopithecus mitis"
+    ],
+    "range": [
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "670eb9c37ddad031d0008d00",
+    "pairID": "1096",
+    "pairName": "Blue vs White-throated Monkey",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      43486,
+      43476
+    ],
+    "taxonNames": [
+      "Cercopithecus mitis",
+      "Cercopithecus erythrogaster"
+    ],
+    "range": [
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "670eb9c67ddad031d0008d06",
+    "pairID": "1097",
+    "pairName": "Red-tailed vs Moustached Monkey",
+    "level": "1",
+    "tags": [],
+    "taxa": [
+      43477,
+      43480
+    ],
+    "taxonNames": [
+      "Cercopithecus cephus",
+      "Cercopithecus ascanius"
+    ],
+    "range": [
+      "AF"
+    ],
+    "enabled": true,
+    "__v": 0
   }
 ]

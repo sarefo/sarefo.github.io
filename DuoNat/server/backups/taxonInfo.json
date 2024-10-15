@@ -59849,5 +59849,180 @@
     "hints": [],
     "enabled": true,
     "__v": 1
+  },
+  {
+    "_id": "670eb80d7ddad031d0008cdb",
+    "taxonId": "43473",
+    "taxonName": "Cercopithecus neglectus",
+    "vernacularName": "De brazza's monkey",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43367,
+      786045,
+      936377,
+      936369,
+      43443,
+      479424,
+      846302,
+      43469
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Swamp monkeys are excellent swimmers.",
+      "They communicate through physical actions.",
+      "Males can weigh up to 15 pounds."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "670eb8137ddad031d0008cde",
+    "taxonId": "43486",
+    "taxonName": "Cercopithecus mitis",
+    "vernacularName": "Blue monkey",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43367,
+      786045,
+      936377,
+      936369,
+      43443,
+      479424,
+      846302,
+      43469
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Blue monkeys thrive in humid rainforests of Africa.",
+      "They often form groups of 10 to 40 individuals.",
+      "Known for their complex vocalizations and social bonds."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "670eb8177ddad031d0008ce2",
+    "taxonId": "43476",
+    "taxonName": "Cercopithecus erythrogaster",
+    "vernacularName": "White-throated monkey",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43367,
+      786045,
+      936377,
+      936369,
+      43443,
+      479424,
+      846302,
+      43469
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "These monkeys mainly feed on fruits and insects.",
+      "Usually live in small groups of four to five.",
+      "Found in Nigeria and Benin rainforests."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "670eb81b7ddad031d0008ce5",
+    "taxonId": "43477",
+    "taxonName": "Cercopithecus cephus",
+    "vernacularName": "Moustached monkey",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43367,
+      786045,
+      936377,
+      936369,
+      43443,
+      479424,
+      846302,
+      43469
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Moustached monkeys are agile tree leapers.",
+      "They primarily feed on oil palm nuts.",
+      "Known for their distinctive facial coloration."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
+  },
+  {
+    "_id": "670eb81e7ddad031d0008ce8",
+    "taxonId": "43480",
+    "taxonName": "Cercopithecus ascanius",
+    "vernacularName": "Red-tailed monkey",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      40151,
+      848317,
+      848320,
+      848323,
+      43367,
+      786045,
+      936377,
+      936369,
+      43443,
+      479424,
+      846302,
+      43469
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Redtail monkeys exhibit polygynous mating systems.",
+      "Infants have woolly gray fur at birth.",
+      "They play a role in seed dispersal."
+    ],
+    "range": [
+      "AF"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
   }
 ]
