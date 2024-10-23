@@ -62,10 +62,8 @@ def categorize_files(all_files):
     for file in all_files:
         if file.startswith(CODE_DIRECTORY):
             categories['code'].append(file)
-        elif file.endswith('.html'):
-            categories['html'].append(file)
-        elif file.startswith(STYLES_DIRECTORY):
-            categories['css'].append(file)
+        elif file.endswith('.html') or file.startswith(STYLES_DIRECTORY):
+            categories['markup'].append(file)  # Combined CSS and HTML
         else:
             categories['others'].append(file)
     return categories
@@ -79,23 +77,23 @@ def shorten_filename(filename):
 def display_selection(selection, categorized_files):
     print("\nSelect files to include in the listing (Enter the number to toggle selection):")
     
-    # Print column titles
-    print(f"{'CODE':^38}{'CSS':^38}{'HTML':^38}{'OTHERS':^38}")
-    print("-" * 152)
+    # Print column titles with wider columns for better readability
+    print(f"{'CODE':^50}{'HTML & CSS':^50}{'OTHERS':^50}")
+    print("-" * 150)
 
     max_length = max(len(category) for category in categorized_files.values())
     
     for i in range(max_length):
         row = []
-        for category in ['code', 'css', 'html', 'others']:
+        for category in ['code', 'markup', 'others']:  # Changed 'css' and 'html' to 'markup'
             if i < len(categorized_files[category]):
                 file = categorized_files[category][i]
                 status = "[x]" if file in selection else "[ ]"
                 index = all_files.index(file) + 1
                 shortened_file = shorten_filename(file)
-                row.append(f"{index:3}. {status} {shortened_file[:30]:<30}")
+                row.append(f"{index:3}. {status} {shortened_file[:40]:<40}")
             else:
-                row.append(" " * 38)
+                row.append(" " * 50)
         print("".join(row))
     
     print("\nPress 's' to create the listing. 'q' to quit.\n")
