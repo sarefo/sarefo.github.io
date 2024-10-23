@@ -60024,5 +60024,32 @@
     "hints": [],
     "enabled": true,
     "__v": 1
+  },
+  {
+    "_id": "6719432a399832231f7853c3",
+    "taxonId": "14593",
+    "taxonName": "Pycnonotus cafer",
+    "vernacularName": "Red-vented bulbul",
+    "ancestryIds": [
+      1,
+      2,
+      355675,
+      3,
+      7251,
+      14556,
+      14587
+    ],
+    "rank": "Species",
+    "taxonFacts": [
+      "Highly adaptable, thriving in urban and rural areas.",
+      "Known for its loud, cheerful peep-peep calls.",
+      "Considered one of the world's top invasive species."
+    ],
+    "range": [
+      "AS"
+    ],
+    "hints": [],
+    "enabled": true,
+    "__v": 1
   }
 ]

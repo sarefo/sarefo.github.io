@@ -23267,5 +23267,45 @@
     ],
     "enabled": true,
     "__v": 0
+  },
+  {
+    "_id": "67194392399832231f7853d0",
+    "pairID": "1098",
+    "pairName": "Red-vented vs Red-whiskered Bulbul",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      14593,
+      14591
+    ],
+    "taxonNames": [
+      "Pycnonotus cafer",
+      "Pycnonotus jocosus"
+    ],
+    "range": [
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
+  },
+  {
+    "_id": "67194395399832231f7853d6",
+    "pairID": "1099",
+    "pairName": "Sooty-headed vs Red-vented Bulbul",
+    "level": "2",
+    "tags": [],
+    "taxa": [
+      14593,
+      14626
+    ],
+    "taxonNames": [
+      "Pycnonotus cafer",
+      "Pycnonotus aurigaster"
+    ],
+    "range": [
+      "AS"
+    ],
+    "enabled": true,
+    "__v": 0
   }
 ]
