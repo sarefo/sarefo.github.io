@@ -42,17 +42,18 @@ const eventInitializer = {
         const containers = [state.getElement('image1Container'), state.getElement('image2Container')];
         containers.forEach(container => {
             if (container) {
-                // Use pointer events instead of separate mouse/touch events
-                container.addEventListener('pointerdown', (e) => swipeHandler.handlePointerDown(e), { passive: true });
-                container.addEventListener('pointermove', (e) => swipeHandler.handlePointerMove(e), { passive: true });
-                container.addEventListener('pointerup', (e) => swipeHandler.handlePointerUp(e));
-                container.addEventListener('pointercancel', (e) => swipeHandler.handlePointerCancel(e));
-                container.addEventListener('pointerleave', (e) => swipeHandler.handlePointerCancel(e));
+                container.addEventListener('mousedown', (e) => swipeHandler.handleMouseDown(e));
+                container.addEventListener('touchstart', (e) => swipeHandler.handleTouchStart(e), { passive: true });
+                container.addEventListener('mousemove', (e) => swipeHandler.handleDragMove(e));
+                container.addEventListener('touchmove', (e) => swipeHandler.handleDragMove(e), { passive: true });
+                container.addEventListener('mouseup', (e) => swipeHandler.handleSwipeOrDrag(e));
+                container.addEventListener('touchend', (e) => swipeHandler.handleSwipeOrDrag(e));
             } else {
                 logger.warn('Image container not found');
             }
         });
     },
+
     initializeThumbsEvents() {
         ['1', '2'].forEach(index => {
             this.safeAddEventListener(`thumbs-up-${index}`, 'click', () => eventUIButtons.handleThumbsUp(index));
