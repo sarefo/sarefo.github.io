@@ -1,274 +1,223 @@
 import logger from '../logger.js';
 import state from '../state.js';
-
 import imagePanner from '../imagePanner.js';
 import pairManager from '../pairManager.js';
 
-const swipeHandler = {
-    isLoadingNewPair: false,
+class SwipeHandler {
+    constructor() {
+        // Configuration
+        this.config = {
+            minSwipeDistance: window.innerWidth * 0.10, // 10% of screen width
+            swipeOutDuration: 300, // ms
+            maxRotation: 15, // degrees
+            verticalThreshold: window.innerHeight * 0.1 // 10% of screen height
+        };
 
-    swipeOutThreshold: 50, // Increased from 30 to make it less sensitive
-    swipeThreshold: 30, // Minimum horizontal distance to trigger a swipe
-    isSwipeDetected: false,
-    isPanning: false,
+        // State
+        this.state = {
+            isActive: false,
+            startX: 0,
+            startY: 0,
+            startTime: 0,
+            currentX: 0,
+            currentY: 0
+        };
 
-    swipeRestraint: 100,
-    maxRotation: 15,
-    animationDuration: 300,
-    swipeDisabled: false,
+        // Elements
+        this.elements = {
+            gameContainer: null,
+            swipeMessage: null
+        };
 
-    startX: 0,
-    endX: 0,
-    isDragging: false,
-    gameContainer: null,
-    touchStartX: 0,
-    touchStartY: 0,
-    touchEndX: 0,
-    touchEndY: 0,
+        // Initialize bound methods
+        this.handlePointerDown = this.handlePointerDown.bind(this);
+        this.handlePointerMove = this.handlePointerMove.bind(this);
+        this.handlePointerUp = this.handlePointerUp.bind(this);
+        this.handlePointerCancel = this.handlePointerCancel.bind(this);
+    }
 
     initialize() {
-        this.gameContainer = document.querySelector('.game-container');
-        if (!this.gameContainer) {
+        this.elements.gameContainer = document.querySelector('.game-container');
+        this.elements.swipeMessage = document.getElementById('swipe-info-message');
+
+        if (!this.elements.gameContainer) {
             logger.error('Game container not found');
             return;
         }
-        this.addSwipeListeners();
-        this.hideSwipeInfoMessage();
-    },
 
-    addSwipeListeners() {
-        [state.getElement('image1Container'), state.getElement('image2Container')].forEach((container) => {
-            this.addContainerListeners(container);
+        // Update thresholds on resize
+        window.addEventListener('resize', () => {
+            this.config.minSwipeDistance = window.innerWidth * 0.10;
+            this.config.verticalThreshold = window.innerHeight * 0.1;
         });
-    },
 
-    addContainerListeners(container) {
-        container.addEventListener('mousedown', this.handleMouseDown.bind(this));
-        container.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: true });
-        container.addEventListener('mousemove', this.handleDragMove.bind(this));
-        container.addEventListener('touchmove', this.handleDragMove.bind(this), { passive: true });
-        container.addEventListener('mouseup', this.handleSwipeOrDrag.bind(this));
-        container.addEventListener('touchend', this.handleSwipeOrDrag.bind(this));
-    },
+        this.hideSwipeMessage();
+    }
 
-    setPanningState(state) {
-        this.isPanning = state;
-    },
-
-    handleMouseDown(e) {
-        if (imagePanner.isPanningEnabled && this.isPanning) return; 
-        if (this.isPanning || !e.target.closest('.image-container')
-                || e.target.closest('.info-button') || state.getUseLandscape()) return;
-        if (e.target.closest('.name-pair__item--draggable')) return;
-        this.startX = e.clientX;
-        this.startY = e.clientY;
-        this.isDragging = true;
-        this.isSwipeDetected = false;
-    },
-
-    handleTouchStart(e) {
-        if (imagePanner.isPanningEnabled && this.isPanning) return; 
-        if (this.isPanning || !e.target.closest('.image-container')
-                || e.target.closest('.info-button') || state.getUseLandscape()) {
-            return;
-        }
-        this.startX = e.touches[0].clientX;
-        this.startY = e.touches[0].clientY;
-        this.isDragging = true;
-        this.isSwipeDetected = false;
-    },
-
-    handleSwipeOrDrag(e) {
-        if (!this.isDragging || this.swipeDisabled || this.isPanning || state.getUseLandscape()) {
-            this.isDragging = false;
+    handlePointerDown(event) {
+        // Ignore if panning is enabled or we're in landscape mode
+        if (imagePanner.isPanningEnabled || state.getUseLandscape() || 
+            event.target.closest('.info-button') || 
+            event.target.closest('.name-pair__item--draggable')) {
             return;
         }
 
-        const { endX, endY } = this.getEndCoordinates(e);
-        const deltaX = this.startX - endX;
-        const deltaY = Math.abs(this.startY - endY);
+        logger.debug('Pointer down detected');
 
-        if (this.isValidSwipe(deltaX, deltaY)) {
-            this.performSwipeOutAnimation(deltaX);
+        // Store the event target for pointer capture
+        this.currentTarget = event.target;
+        this.currentTarget.setPointerCapture(event.pointerId);
+
+        this.state = {
+            isActive: true,
+            startX: event.clientX,
+            startY: event.clientY,
+            startTime: Date.now(),
+            currentX: event.clientX,
+            currentY: event.clientY
+        };
+    }
+
+    handlePointerMove(event) {
+        if (!this.state.isActive) return;
+
+        this.state.currentX = event.clientX;
+        this.state.currentY = event.clientY;
+
+        const deltaX = this.state.startX - this.state.currentX;
+        const deltaY = Math.abs(this.state.startY - this.state.currentY);
+
+        // Cancel if vertical movement is too much
+        if (deltaY > this.config.verticalThreshold) {
+            this.resetSwipe();
+            return;
+        }
+
+        if (deltaX > 0) {
+            this.updateSwipeAnimation(deltaX);
+        }
+    }
+
+    handlePointerUp(event) {
+        if (!this.state.isActive) return;
+
+        const deltaX = this.state.startX - event.clientX;
+        logger.debug(`Swipe completed: deltaX=${deltaX}`);
+
+        if (deltaX > this.config.minSwipeDistance) {
+            this.completeSwipe(deltaX);
         } else {
-            this.resetSwipeAnimation();
+            this.resetSwipe();
         }
 
-        this.finishSwipeOrDrag();
-    },
-
-    getEndCoordinates(e) {
-        if (e.type.includes('touch')) {
-            return { endX: e.changedTouches[0].clientX, endY: e.changedTouches[0].clientY };
+        if (this.currentTarget) {
+            this.currentTarget.releasePointerCapture(event.pointerId);
+            this.currentTarget = null;
         }
-        return { endX: e.clientX, endY: e.clientY };
-    },
+        this.state.isActive = false;
+    }
 
-    isValidSwipe(deltaX, deltaY) {
-        return deltaX > this.swipeOutThreshold && deltaY < this.swipeRestraint;
-    },
-
-    finishSwipeOrDrag() {
-        this.isDragging = false;
-        this.resetGameContainer();
-    },
-
-    resetGameContainer() {
-        this.gameContainer.style.transform = 'none';
-        this.gameContainer.style.opacity = '1';
-        document.getElementById('swipe-info-message').style.opacity = '0';
-    },
-
-    handleDragMove(e) {
-        if (!this.isDragging || this.swipeDisabled || this.isPanning) return;
-
-        const { currentX, currentY } = this.getCurrentCoordinates(e);
-        const deltaX = this.startX - currentX;
-        const deltaY = Math.abs(this.startY - currentY);
-
-        if (Math.abs(deltaX) > this.swipeThreshold && !this.isSwipeDetected) {
-            this.isSwipeDetected = true;
-            imagePanner.cancelPanning();
+    handlePointerCancel(event) {
+        if (this.state.isActive) {
+            logger.debug('Pointer cancel/leave detected');
+            this.resetSwipe();
+            if (this.currentTarget) {
+                this.currentTarget.releasePointerCapture(event.pointerId);
+                this.currentTarget = null;
+            }
+            this.state.isActive = false;
         }
+    }
 
-        if (this.isSwipeDetected && this.isValidDragMove(deltaX, deltaY)) {
-            this.updateDragAnimation(deltaX);
-        } else {
-            this.resetSwipeAnimation();
-        }
-    },
-
-    getCurrentCoordinates(e) {
-        if (e.type.includes('touch')) {
-            return { currentX: e.touches[0].clientX, currentY: e.touches[0].clientY };
-        }
-        return { currentX: e.clientX, currentY: e.clientY };
-    },
-
-    isValidDragMove(deltaX, deltaY) {
-        return deltaX > 0 && deltaY < this.swipeRestraint;
-    },
-
-    updateDragAnimation(deltaX) {
-        const progress = Math.min(deltaX / this.swipeOutThreshold, 1);
-        const rotation = progress * -this.maxRotation;
+    updateSwipeAnimation(deltaX) {
+        const progress = Math.min(deltaX / this.config.minSwipeDistance, 1);
+        const rotation = progress * -this.config.maxRotation;
         const opacity = 1 - progress * 0.3;
 
         requestAnimationFrame(() => {
-            this.gameContainer.style.transform = `rotate(${rotation}deg) translateX(${-deltaX}px)`;
-            this.gameContainer.style.opacity = opacity;
+            this.elements.gameContainer.style.transform = 
+                `rotate(${rotation}deg) translateX(${-deltaX}px)`;
+            this.elements.gameContainer.style.opacity = opacity;
 
-            if (progress > 0) {
-                this.showSwipeInfoMessage();
+            if (progress > 0.2) {
+                this.showSwipeMessage();
             } else {
-                this.hideSwipeInfoMessage();
+                this.hideSwipeMessage();
             }
         });
-    },
+    }
 
-    performSwipeOutAnimation(initialDeltaX) {
-        this.hideSwipeInfoMessage();
-        this.animateSwipeOut(initialDeltaX);
-        this.scheduleNewPairLoad();
-    },
-
-    showSwipeInfoMessage() {
-        const swipeInfoMessage = document.getElementById('swipe-info-message');
-        swipeInfoMessage.style.display = 'block';
-
-        // Force a reflow to ensure the transition is applied
-        void swipeInfoMessage.offsetWidth;
-
-        swipeInfoMessage.style.transition = 'opacity 0.3s ease';
-        swipeInfoMessage.style.opacity = '1';
-    },
-
-    hideSwipeInfoMessage() {
-        const swipeInfoMessage = document.getElementById('swipe-info-message');
-        swipeInfoMessage.style.transition = 'opacity 0.3s ease';
-        swipeInfoMessage.style.opacity = '0';
-
-        // Ensure the message is hidden after the transition
-        setTimeout(() => {
-            swipeInfoMessage.style.display = 'none';
-        }, 300);
-    },
-
-    animateSwipeOut(initialDeltaX) {
-        const startRotation = (initialDeltaX / this.swipeOutThreshold) * -this.maxRotation;
-        this.setInitialSwipeOutStyles(startRotation, initialDeltaX);
-        this.setFinalSwipeOutStyles();
-    },
-
-    setInitialSwipeOutStyles(startRotation, initialDeltaX) {
-        this.gameContainer.style.transition = `transform ${this.animationDuration}ms ease-out, opacity ${this.animationDuration}ms ease-out`;
-        this.gameContainer.style.transform = `rotate(${startRotation}deg) translateX(-${initialDeltaX}px)`;
-    },
-
-    setFinalSwipeOutStyles() {
+    completeSwipe(deltaX) {
+        logger.debug('Completing swipe animation');
+        this.hideSwipeMessage();
+        
+        // Set transition properties
+        this.elements.gameContainer.style.transition = 
+            `transform ${this.config.swipeOutDuration}ms ease-out, opacity ${this.config.swipeOutDuration}ms ease-out`;
+        
+        // Animate out
         requestAnimationFrame(() => {
-            this.gameContainer.style.transform = `rotate(${-this.maxRotation}deg) translateX(-100%)`;
-            this.gameContainer.style.opacity = '0';
-        });
-    },
-
-    scheduleNewPairLoad() {
-        setTimeout(() => {
-            this.resetContainerForNewPair();
-            pairManager.loadNewPair();
-            //pairManager.loadNewPair(); // TODO loads same pair ?!
-            this.fadeInNewPair();
-        }, this.animationDuration);
-    },
-
-    resetContainerForNewPair() {
-        this.gameContainer.style.transition = 'none';
-        this.gameContainer.style.transform = 'none';
-        this.gameContainer.style.opacity = '0';
-    },
-
-
-    fadeInNewPair() {
-        requestAnimationFrame(() => {
-            this.gameContainer.style.transition = 'opacity 300ms ease-in';
-            this.gameContainer.style.opacity = '1';
+            this.elements.gameContainer.style.transform = 
+                `rotate(${-this.config.maxRotation}deg) translateX(-100%)`;
+            this.elements.gameContainer.style.opacity = '0';
         });
 
+        // Load new pair after animation
         setTimeout(() => {
-            this.gameContainer.style.transition = '';
-        }, 300);
-    },
+            this.elements.gameContainer.style.transition = 'none';
+            this.elements.gameContainer.style.transform = 'none';
+            this.elements.gameContainer.style.opacity = '0';
 
-    resetSwipeAnimation() {
-        this.hideSwipeInfoMessage();
+            pairManager.loadNewPair().then(() => {
+                requestAnimationFrame(() => {
+                    this.elements.gameContainer.style.transition = 'opacity 300ms ease-in';
+                    this.elements.gameContainer.style.opacity = '1';
 
-        this.gameContainer.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-        this.gameContainer.style.transform = 'none';
-        this.gameContainer.style.opacity = '1';
+                    // Clear transition after fade in
+                    setTimeout(() => {
+                        this.elements.gameContainer.style.transition = '';
+                    }, 300);
+                });
+            });
+        }, this.config.swipeOutDuration);
+    }
 
-        // Force a reflow to ensure the transition is applied
-        void this.gameContainer.offsetWidth;
+    resetSwipe() {
+        logger.debug('Resetting swipe animation');
+        this.hideSwipeMessage();
+        
+        this.elements.gameContainer.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+        this.elements.gameContainer.style.transform = 'none';
+        this.elements.gameContainer.style.opacity = '1';
 
         setTimeout(() => {
-            this.gameContainer.style.transition = '';
+            this.elements.gameContainer.style.transition = '';
         }, 300);
-    },
+    }
+
+    showSwipeMessage() {
+        this.elements.swipeMessage.style.display = 'block';
+        void this.elements.swipeMessage.offsetWidth; // Force reflow
+        this.elements.swipeMessage.style.opacity = '1';
+    }
+
+    hideSwipeMessage() {
+        this.elements.swipeMessage.style.opacity = '0';
+        setTimeout(() => {
+            this.elements.swipeMessage.style.display = 'none';
+        }, 300);
+    }
 
     disable() {
-        this.swipeDisabled = true;
-    },
+        this.state.isActive = false;
+    }
 
     enable() {
-        this.swipeDisabled = false;
+        // Just reset the state; event listeners are managed by eventInitializer
+        this.state.isActive = false;
     }
-};
+}
 
-// Bind all methods to ensure correct 'this' context
-Object.keys(swipeHandler).forEach(key => {
-    if (typeof swipeHandler[key] === 'function') {
-        swipeHandler[key] = swipeHandler[key].bind(swipeHandler);
-    }
-});
+const swipeHandler = new SwipeHandler();
 
 export default swipeHandler;
-// don't call directly; API is in eventMain
