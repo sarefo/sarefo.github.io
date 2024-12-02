@@ -452,44 +452,20 @@ const phylogenySelector = {
                 .filter(node => {
                     const matchesTaxonName = node.taxonName.toLowerCase().includes(searchTerm);
                     const matchesVernacularName = node.vernacularName && 
-                                                  node.vernacularName !== "-" && 
-                                                  node.vernacularName.toLowerCase().includes(searchTerm);
+                                                node.vernacularName !== "-" && 
+                                                node.vernacularName.toLowerCase().includes(searchTerm);
                     
-                    if (matchesTaxonName || matchesVernacularName) {
-                        const isAvailable = this.isNodeOrDescendantAvailable(node, availableTaxonIds, hierarchyObj);
-                        return isAvailable;
-                    }
-                    
-                    return false;
+                    // Remove the availability check to search the whole tree
+                    return matchesTaxonName || matchesVernacularName;
+                })
+                // Sort results by relevance
+                .sort((a, b) => {
+                    const scoreA = this.getMatchScore(a, searchTerm);
+                    const scoreB = this.getMatchScore(b, searchTerm);
+                    return scoreB - scoreA;
                 });
 
             return matchingNodes;
-        },
-
-        isNodeOrDescendantAvailable(node, availableTaxonIds, hierarchyObj) {
-            if (availableTaxonIds.includes(node.id)) {
-                return true;
-            }
-
-            const stack = [node.id];
-            const visited = new Set();
-
-            while (stack.length > 0) {
-                const currentId = stack.pop();
-                if (visited.has(currentId)) continue;
-                visited.add(currentId);
-
-                if (availableTaxonIds.includes(currentId)) {
-                    return true;
-                }
-
-                const children = Array.from(hierarchyObj.nodes.values())
-                    .filter(n => n.parentId === currentId)
-                    .map(n => n.id);
-                stack.push(...children);
-            }
-
-            return false;
         },
 
         getMatchScore(node, searchTerm) {
@@ -503,6 +479,7 @@ const phylogenySelector = {
 
         displaySearchResults(results, availableTaxonIds) {
             const searchResults = document.getElementById('phylogeny-search-results');
+            const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
 
             searchResults.innerHTML = '';
             if (results.length > 0) {
@@ -512,23 +489,46 @@ const phylogenySelector = {
                     resultItem.className = 'phylogeny-dialog__search-result';
                     resultItem.dataset.nodeId = node.id;
                     
-                    // Create separate spans for taxon name and vernacular name
+                    // Create container for name and path
+                    const nameContainer = document.createElement('div');
+                    
+                    // Add taxon name
                     const taxonNameSpan = document.createElement('span');
                     taxonNameSpan.textContent = node.taxonName;
-                    
-                    // Apply italic style to genus and species
                     if (node.rank === 'Genus' || node.rank === 'Species') {
                         taxonNameSpan.style.fontStyle = 'italic';
                     }
+                    nameContainer.appendChild(taxonNameSpan);
                     
-                    resultItem.appendChild(taxonNameSpan);
-                    
+                    // Add vernacular name if available
                     if (node.vernacularName && node.vernacularName !== "-") {
                         const vernacularSpan = document.createElement('span');
-                        vernacularSpan.textContent = ` (${utils.string.truncate(node.vernacularName,24)})`;
-                        resultItem.appendChild(vernacularSpan);
+                        vernacularSpan.textContent = ` (${utils.string.truncate(node.vernacularName, 24)})`;
+                        nameContainer.appendChild(vernacularSpan);
+                    }
+
+                    // Add taxonomy path
+                    const pathContainer = document.createElement('div');
+                    pathContainer.className = 'phylogeny-dialog__search-result-path';
+                    
+                    // Get path to root
+                    let currentNode = node;
+                    const path = [];
+                    while (currentNode && currentNode.parentId) {
+                        const parent = hierarchyObj.getTaxonById(currentNode.parentId);
+                        if (parent) {
+                            path.unshift(parent.vernacularName !== "-" ? parent.vernacularName : parent.taxonName);
+                        }
+                        currentNode = parent;
+                        if (path.length >= 2) break; // Show only last two ancestors
                     }
                     
+                    if (path.length > 0) {
+                        pathContainer.textContent = path.join(" > ");
+                    }
+                    
+                    resultItem.appendChild(nameContainer);
+                    resultItem.appendChild(pathContainer);
                     searchResults.appendChild(resultItem);
                 });
             } else {
@@ -538,31 +538,58 @@ const phylogenySelector = {
 
         clearSearchResults() {
             const searchResults = document.getElementById('phylogeny-search-results');
+            const searchInput = document.getElementById('phylogeny-search');
+            
             if (searchResults) {
                 searchResults.innerHTML = '';
                 searchResults.style.display = 'none';
+            }
+            
+            if (searchInput) {
+                searchInput.value = '';
+                // Make sure the clear button is hidden
+                this.updateClearButtonVisibility('');
             }
         },
 
         handleSearchResultClick(event) {
             let target = event.target;
-            // If the clicked element is a span, get its parent div
-            if (target.tagName.toLowerCase() === 'span') {
+            
+            // Keep going up until we find the search result div with the nodeId
+            while (target && !target.dataset.nodeId && target.parentElement) {
                 target = target.parentElement;
             }
-            const nodeId = target.dataset.nodeId;
+            
+            const nodeId = target?.dataset.nodeId;
             if (nodeId) {
+                // Update phylogeny ID in state
+                state.setPhylogenyId(nodeId);
+                
+                // Update current active node
+                state.setCurrentActiveNodeId(nodeId);
+                
+                // Update active taxon display
+                phylogenySelector.uiControls.updateActiveTaxonDisplay(nodeId);
+                
+                // Get and display the path
                 const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
                 const pathToRoot = phylogenySelector.graphView.getPathToRoot(hierarchyObj, nodeId);
+                
+                // Update the graph view
                 phylogenySelector.graphView.updateGraph(pathToRoot);
+                
+                // Clear the search
                 this.clearSearchResults();
-
-                state.setCurrentActiveNodeId(nodeId);
+                
+                // Update any listeners
                 if (this.onNodeSelect) {
                     this.onNodeSelect(nodeId);
                 }
+                
+                // Log for debugging
+                logger.debug('Selected node from search:', nodeId);
             } else {
-                console.warn('No nodeId found for clicked element');
+                logger.warn('No nodeId found for clicked element');
             }
         },
 
