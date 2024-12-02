@@ -77,8 +77,7 @@ const filtering = {
     isDescendantOf(taxonId, ancestorId) {
         const hierarchy = api.taxonomy.getTaxonomyHierarchy();
         if (!hierarchy) {
-            logger.error('Taxonomy hierarchy not loaded');
-            return false;
+            return true; // Allow through if hierarchy not loaded
         }
 
         let currentNode = hierarchy.getTaxonById(taxonId);
@@ -123,7 +122,14 @@ const filtering = {
 
     matchesPhylogeny(pair, phylogenyId) {
         if (!phylogenyId) return true;
-        return pair.taxa.some(taxonId => filtering.isDescendantOf(taxonId, phylogenyId));
+        
+        const hierarchy = api.taxonomy.getTaxonomyHierarchy();
+        if (!hierarchy) {
+            logger.debug('Taxonomy hierarchy not loaded yet, deferring phylogeny filtering');
+            return true; // Allow all pairs through until hierarchy is loaded
+        }
+        
+        return pair.taxa.some(taxonId => this.isDescendantOf(taxonId, phylogenyId));
     },
 
     filterTaxonPairs(pairs, filters, searchTerm) {

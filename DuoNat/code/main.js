@@ -64,8 +64,14 @@ function loadBulkDataInBackground() {
             logger.debug("Loading bulk data");
             await api.taxonomy.loadTaxonomyHierarchy();
             await api.taxonomy.loadTaxonInfo();
-            //await pairManager.collectionSubsets.refreshCollectionSubset();
             logger.debug("Bulk data loaded successfully");
+            
+            // If we have a phylogeny filter, reapply filters now that hierarchy is loaded
+            const urlParams = url.handleUrlParameters();
+            if (urlParams.phylogenyID) {
+                logger.debug("Reapplying filters with loaded taxonomy hierarchy");
+                await pairManager.collectionSubsets.refreshCollectionSubset();
+            }
         } catch (error) {
             logger.error("Error loading bulk data in background:", error);
         }
