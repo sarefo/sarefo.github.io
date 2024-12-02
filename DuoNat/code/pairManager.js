@@ -52,39 +52,67 @@ const pairManager = {
         // called in main.initializeApp()
         async loadInitialPair(pairID = null) {
             let initialPair, initialImages;
+            const filters = filtering.getActiveFilters();
+
+            // Case 1: Specific pair ID provided
             if (pairID) {
                 initialPair = await this.getPairByID(pairID);
-
-                //logger.debug(`Initial pair data: ${JSON.stringify(initialPair)}`);
-                if (!initialPair) {
-                    logger.warn(`Pair with ID ${pairID} not found. Falling back to random pair selection.`);
-                    initialPair = await api.taxonomy.fetchRandomLevelOnePair();
-                    logger.debug(`Random pair selected: ${JSON.stringify(initialPair)}`);
-                }
-
-                initialImages = await this.getImageURLs(initialPair);
-            } else {
-                const cachedInitialPair = await cache.getInitialPair();
-                if (cachedInitialPair) {
-                    logger.debug("Using cached initial pair");
-                    initialPair = cachedInitialPair.pairData;
-                    initialImages = cachedInitialPair.images;
-                } else {
-                    logger.debug("Fetching random initial pair");
-                    initialPair = await api.taxonomy.fetchRandomLevelOnePair();
-                    initialImages = await this.getImageURLs(initialPair);
+                if (!initialPair || !filtering.pairMatchesFilters(initialPair, filters)) {
+                    logger.warn(`Pair with ID ${pairID} not found or doesn't match filters. Falling back to filtered random selection.`);
+                    initialPair = null;
                 }
             }
+
+            // Case 2: Try cached pair if no specific pair ID or specified pair was invalid
+            if (!initialPair) {
+                const cachedInitialPair = await cache.getInitialPair();
+                if (cachedInitialPair && filtering.pairMatchesFilters(cachedInitialPair.pairData, filters)) {
+                    logger.debug("Using cached initial pair that matches filters");
+                    initialPair = cachedInitialPair.pairData;
+                    initialImages = cachedInitialPair.images;
+                }
+            }
+
+            // Case 3: Fall back to random filtered pair if needed
+            if (!initialPair) {
+                logger.debug("Fetching random initial pair matching filters");
+                const allPairs = await api.taxonomy.fetchTaxonPairs();
+                const filteredPairs = filtering.filterTaxonPairs(allPairs, filters);
+                
+                if (filteredPairs.length === 0) {
+                    logger.warn("No pairs match current filters, falling back to unfiltered selection");
+                    initialPair = await api.taxonomy.fetchRandomLevelOnePair();
+                } else {
+                    const randomIndex = Math.floor(Math.random() * filteredPairs.length);
+                    initialPair = filteredPairs[randomIndex];
+                }
+            }
+
+            // Get images if not already loaded from cache
+            if (!initialImages) {
+                initialImages = await this.getImageURLs(initialPair);
+            }
+
             await this.loadNewPair(initialPair.pairID, initialImages);
             
-            // After loading the initial pair, cache a different pair for next session
+            // After loading the initial pair, cache a different filtered pair for next session
             this.cacheNextInitialPair();
         },
 
         async cacheNextInitialPair() {
-            const nextPair = await api.taxonomy.fetchRandomLevelOnePair();
-            const nextImages = await this.getImageURLs(nextPair);
-            await cache.cacheInitialPair(nextPair, nextImages);
+            try {
+                const filters = filtering.getActiveFilters();
+                const allPairs = await api.taxonomy.fetchTaxonPairs();
+                const filteredPairs = filtering.filterTaxonPairs(allPairs, filters);
+                
+                if (filteredPairs.length > 0) {
+                    const nextPair = filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
+                    const nextImages = await this.getImageURLs(nextPair);
+                    await cache.cacheInitialPair(nextPair, nextImages);
+                }
+            } catch (error) {
+                logger.error("Error caching next initial pair:", error);
+            }
         },
 
         async checkINaturalistReachability() {

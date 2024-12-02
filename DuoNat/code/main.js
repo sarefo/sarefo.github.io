@@ -18,9 +18,6 @@ async function initializeApp() {
     if (isInitialized) { logger.debug("App already initialized, skipping"); return; }
     else isInitialized = true;
 
-    //cache.clearAllData(); // for DEBUG
-    //return null;
-
     initializeLogger();
     logger.info("Initializing app");
 
@@ -28,14 +25,25 @@ async function initializeApp() {
 
     const urlParams = url.handleUrlParameters();
 
-    // Load initial pair as fast as possible:
+    // If we have a phylogenyID parameter, we need to load taxonomy first
+    if (urlParams.phylogenyID) {
+        logger.debug("PhylogenyID parameter detected, loading taxonomy before initial pair");
+        await api.taxonomy.loadTaxonomyHierarchy();
+    }
+
+    // Load initial pair
     await pairManager.loadInitialPair(urlParams.pairID);
 
     // Initialize everything non-essential for first round play
     await initializeComponents();
 
-    // Start background loading of bulk data
-    loadBulkDataInBackground();
+    // Start background loading of remaining bulk data
+    if (!urlParams.phylogenyID) {
+        loadBulkDataInBackground();
+    } else {
+        // Load remaining bulk data that wasn't loaded earlier
+        await api.taxonomy.loadTaxonInfo();
+    }
 
     logger.info("App initialization complete");
 }
@@ -66,12 +74,7 @@ function loadBulkDataInBackground() {
             await api.taxonomy.loadTaxonInfo();
             logger.debug("Bulk data loaded successfully");
             
-            // If we have a phylogeny filter, reapply filters now that hierarchy is loaded
-            const urlParams = url.handleUrlParameters();
-            if (urlParams.phylogenyID) {
-                logger.debug("Reapplying filters with loaded taxonomy hierarchy");
-                await pairManager.collectionSubsets.refreshCollectionSubset();
-            }
+            // No need to reapply filters here anymore since we handle phylogenyID upfront
         } catch (error) {
             logger.error("Error loading bulk data in background:", error);
         }
