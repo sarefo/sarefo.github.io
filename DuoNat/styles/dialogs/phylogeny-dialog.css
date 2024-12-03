@@ -167,8 +167,10 @@
     font-weight: bold;
     font-size: larger;
     color: var(--primary-counter-color);
-    height: 1em;
-    margin-bottom: 4px;
+    min-height: 1em;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
 }
 
 .phylogeny-dialog__active-taxon #active-taxon-vernacular {
