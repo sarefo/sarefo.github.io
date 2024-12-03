@@ -18,22 +18,36 @@ const ancestryPopup = {
         document.getElementById('ancestry-popup-filter').addEventListener('click', () => this.filterHere());
     },
 
-    async openPopup(taxon) {
+    openPopup(taxon) {
         const popup = document.getElementById('ancestry-popup');
         const taxonElement = document.getElementById('ancestry-popup-title');
         const vernacularElement = document.getElementById('ancestry-popup-vernacular');
         const wikiButton = document.getElementById('ancestry-popup-wiki');
 
+        // Immediately set content and show popup
         taxonElement.textContent = `${taxon.rank} ${taxon.taxonName}`;
         vernacularElement.textContent = taxon.vernacularName && taxon.vernacularName !== "-" ? `(${taxon.vernacularName})` : '';
-
+        
+        // Start with Wikipedia button enabled
+        this.toggleButtonState(wikiButton, true);
+        
         this.currentTaxon = taxon;
-
-        // Check for Wikipedia page and update button state
-        const hasWikipediaPage = await api.externalAPIs.checkWikipediaPage(taxon.taxonName);
-        this.toggleButtonState(wikiButton, hasWikipediaPage);
-
         popup.showModal();
+
+        // Check Wikipedia availability asynchronously
+        this.checkWikipediaAvailability(taxon.taxonName, wikiButton);
+    },
+
+    async checkWikipediaAvailability(taxonName, wikiButton) {
+        try {
+            const hasWikipediaPage = await api.externalAPIs.checkWikipediaPage(taxonName);
+            if (!hasWikipediaPage) {
+                this.toggleButtonState(wikiButton, false);
+            }
+        } catch (error) {
+            console.warn('Failed to check Wikipedia availability:', error);
+            this.toggleButtonState(wikiButton, false);
+        }
     },
 
     closePopup() {
@@ -41,7 +55,7 @@ const ancestryPopup = {
         popup.close();
     },
 
-    async openInaturalist() {
+    openInaturalist() {
         if (this.currentTaxon) {
             window.open(`https://www.inaturalist.org/taxa/${this.currentTaxon.id}`, '_blank');
         }
@@ -104,4 +118,3 @@ Object.keys(publicAPI).forEach(key => {
 });
 
 export default publicAPI;
-
