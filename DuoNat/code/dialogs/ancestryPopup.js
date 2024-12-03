@@ -1,5 +1,6 @@
 import api from '../api.js';
 import state from '../state.js';
+import utils from '../utils.js';
 
 import collectionManager from './collectionManager.js';
 import dialogManager from './dialogManager.js';
@@ -24,9 +25,10 @@ const ancestryPopup = {
         const vernacularElement = document.getElementById('ancestry-popup-vernacular');
         const wikiButton = document.getElementById('ancestry-popup-wiki');
 
-        // Immediately set content and show popup
-        taxonElement.textContent = `${taxon.rank} ${taxon.taxonName}`;
-        vernacularElement.textContent = taxon.vernacularName && taxon.vernacularName !== "-" ? `(${taxon.vernacularName})` : '';
+        // Format taxon name based on rank
+        taxonElement.innerHTML = this.formatTaxonName(taxon);
+        vernacularElement.textContent = taxon.vernacularName && taxon.vernacularName !== "-" ? 
+            `(${taxon.vernacularName})` : '';
         
         // Start with Wikipedia button enabled
         this.toggleButtonState(wikiButton, true);
@@ -36,6 +38,22 @@ const ancestryPopup = {
 
         // Check Wikipedia availability asynchronously
         this.checkWikipediaAvailability(taxon.taxonName, wikiButton);
+    },
+
+    formatTaxonName(taxon) {
+        const rank = taxon.rank.toLowerCase();
+        const name = taxon.taxonName;
+
+        if (rank === 'species') {
+            // For species, italicize the whole name
+            return `<i>${name}</i>`;
+        } else if (rank === 'genus') {
+            // For genus, just italicize
+            return `<i>${name}</i>`;
+        } else {
+            // For higher ranks, include the rank name and don't italicize
+            return `${utils.string.capitalizeFirstLetter(rank)} ${name}`;
+        }
     },
 
     async checkWikipediaAvailability(taxonName, wikiButton) {
