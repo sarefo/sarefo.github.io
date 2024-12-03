@@ -15,27 +15,27 @@ import roundManager from './roundManager.js';
 const pairManager = {
     currentCollectionSubset: [],
     allFilteredPairs: [],
-    usedPairIDs: new Set(),
-    lastUsedPairID: null,
+    usedPairIds: new Set(),
+    lastUsedPairId: null,
     isInitialized: false,
 
     pairLoading: {
 
         // called from collMan, iNatDown, enterPair, main
-        async loadNewPair(pairID = null, preloadedImages = null) {
+        async loadNewPair(pairId = null, preloadedImages = null) {
             state.setIsNewPair(true);
             state.setState(state.GameState.LOADING_PAIR);
 
             let newPairData;
             try {
                 //await this.checkINaturalistReachability();
-                newPairData = await this.selectPair(pairID);
+                newPairData = await this.selectPair(pairId);
                 
                 if (!newPairData) {
                     throw new Error("Failed to select a valid pair");
                 }
                 
-                state.setCurrentPairID(newPairData.pairID);
+                state.setCurrentPairId(newPairData.pairId);
 
                 //const imageURLs = await this.getImageURLs(newPairData);
                 const imageURLs = preloadedImages || await this.getImageURLs(newPairData);
@@ -50,15 +50,15 @@ const pairManager = {
         },
 
         // called in main.initializeApp()
-        async loadInitialPair(pairID = null) {
+        async loadInitialPair(pairId = null) {
             let initialPair, initialImages;
             const filters = filtering.getActiveFilters();
 
             // Case 1: Specific pair ID provided
-            if (pairID) {
-                initialPair = await this.getPairByID(pairID);
+            if (pairId) {
+                initialPair = await this.getPairById(pairId);
                 if (!initialPair || !filtering.pairMatchesFilters(initialPair, filters)) {
-                    logger.warn(`Pair with ID ${pairID} not found or doesn't match filters. Falling back to filtered random selection.`);
+                    logger.warn(`Pair with ID ${pairId} not found or doesn't match filters. Falling back to filtered random selection.`);
                     initialPair = null;
                 }
             }
@@ -93,7 +93,7 @@ const pairManager = {
                 initialImages = await this.getImageURLs(initialPair);
             }
 
-            await this.loadNewPair(initialPair.pairID, initialImages);
+            await this.loadNewPair(initialPair.pairId, initialImages);
             
             // After loading the initial pair, cache a different filtered pair for next session
             this.cacheNextInitialPair();
@@ -121,16 +121,16 @@ const pairManager = {
             }
         },
 
-        async selectPair(pairID) {
+        async selectPair(pairId) {
             let newPairData;
 
-            // Always select a new pair when pairID is null
-            if (pairID === null) {
+            // Always select a new pair when pairId is null
+            if (pairId === null) {
                 newPairData = await this.selectPairForLoading();
             } else {
-                newPairData = await this.getPairByID(pairID);
+                newPairData = await this.getPairById(pairId);
                 if (!newPairData) {
-                    logger.warn(`Pair with ID ${pairID} not found. Falling back to random selection.`);
+                    logger.warn(`Pair with ID ${pairId} not found. Falling back to random selection.`);
                     newPairData = await this.selectPairForLoading();
                 }
             } 
@@ -156,7 +156,7 @@ const pairManager = {
 
             let preloadedImages = preloader.hasPreloadedPair() ? preloader.getPreloadedImagesForNextPair() : null;
 
-            if (preloadedImages && preloadedImages.pair && preloadedImages.pair.pairID === newPairData.pairID) {
+            if (preloadedImages && preloadedImages.pair && preloadedImages.pair.pairId === newPairData.pairId) {
                 preloader.clearPreloadedPair();
                 return {taxonA: preloadedImages.taxonA, taxonB: preloadedImages.taxonB};
             } else {
@@ -189,14 +189,14 @@ const pairManager = {
 
         // called from
         // - loadNewPair()
-        // - loadPairByID()
-        // - preloader.preloadPairByID()
-        async getPairByID(pairID) {
+        // - loadPairById()
+        // - preloader.preloadPairById()
+        async getPairById(pairId) {
             if (config.useMongoDB) {
-                return await api.taxonomy.fetchPairByID(pairID);
+                return await api.taxonomy.fetchPairById(pairId);
             } else {
                 const allPairs = await api.taxonomy.fetchTaxonPairs();
-                return allPairs.find(pair => pair.pairID === pairID);
+                return allPairs.find(pair => pair.pairId === pairId);
             }
         },
 
@@ -220,23 +220,23 @@ const pairManager = {
             return filtering.pairMatchesFilters(pair, filters);
         },
 
-        // only called by keyboardShortcuts.incrementPairID()
-        async loadPairByID(pairID, clearFilters = false) {
+        // only called by keyboardShortcuts.incrementPairId()
+        async loadPairById(pairId, clearFilters = false) {
             try {
                 if (clearFilters) {
                     filtering.clearAllFilters();
                 }
 
-                const newPair = await this.getPairByID(pairID);
+                const newPair = await this.getPairById(pairId);
                 if (newPair) {
-                    await this.loadNewPair(pairID);  // Pass the pairID here
-                    //const nextPairID = String(Number(pairID) + 1);
-                    //preloader.preloadPairByID(nextPairID);
+                    await this.loadNewPair(pairId);  // Pass the pairId here
+                    //const nextPairId = String(Number(pairId) + 1);
+                    //preloader.preloadPairById(nextPairId);
                 } else {
-                    logger.warn(`Pair with ID ${pairID} not found.`);
+                    logger.warn(`Pair with ID ${pairId} not found.`);
                 }
             } catch (error) {
-                logger.error(`Error loading pair with ID ${pairID}:`, error);
+                logger.error(`Error loading pair with ID ${pairId}:`, error);
             }
         },
     },
@@ -266,7 +266,7 @@ const pairManager = {
             const selectedPair = filteredPairs[randomIndex];
             
             // Inform pairManager about this selection
-            pairManager.usedPairIDs.add(selectedPair.pairID);
+            pairManager.usedPairIds.add(selectedPair.pairId);
             
             return selectedPair;
         },
@@ -283,16 +283,16 @@ const pairManager = {
                     await pairManager.collectionSubsets.initializeCollectionSubset();
                 }
                 nextPair = pairManager.currentCollectionSubset.pop();
-            } while (nextPair && pairManager.usedPairIDs.has(nextPair.pairID));
+            } while (nextPair && pairManager.usedPairIds.has(nextPair.pairId));
 
             if (nextPair) {
-                pairManager.usedPairIDs.add(nextPair.pairID);
-                pairManager.lastUsedPairID = nextPair.pairID;
+                pairManager.usedPairIds.add(nextPair.pairId);
+                pairManager.lastUsedPairId = nextPair.pairId;
 
-                // Reset usedPairIDs if all pairs have been used
-                if (pairManager.usedPairIDs.size === pairManager.allFilteredPairs.length) {
-                    pairManager.usedPairIDs.clear();
-                    pairManager.usedPairIDs.add(nextPair.pairID);  // Keep the current pair in usedPairIDs
+                // Reset usedPairIds if all pairs have been used
+                if (pairManager.usedPairIds.size === pairManager.allFilteredPairs.length) {
+                    pairManager.usedPairIds.clear();
+                    pairManager.usedPairIds.add(nextPair.pairId);  // Keep the current pair in usedPairIds
                 }
             } else {
                 logger.warn('No next pair available, this should not happen');
@@ -336,7 +336,7 @@ const pairManager = {
                 const subsetSize = Math.min(42, filteredPairs.length);
 
                 // Filter out the last used pair when creating a new subset
-                const availablePairs = filteredPairs.filter(pair => pair.pairID !== this.lastUsedPairID);
+                const availablePairs = filteredPairs.filter(pair => pair.pairId !== this.lastUsedPairId);
                 pairManager.currentCollectionSubset = pairManager.utilities.getRandomSubset(availablePairs, subsetSize);
                 //logger.debug(`Created subset of ${pairManager.currentCollectionSubset.length} pairs`);
             } catch (error) {
@@ -352,8 +352,8 @@ const pairManager = {
         async refreshCollectionSubset() {
             //logger.trace("refreshCollectionSubset()");
             pairManager.isInitialized = false;
-            pairManager.usedPairIDs.clear();
-            pairManager.lastUsedPairID = null;
+            pairManager.usedPairIds.clear();
+            pairManager.lastUsedPairId = null;
             preloader.isCollectionSubsetInitialized = false;
             await this.initializeCollectionSubset();
         },
@@ -380,21 +380,21 @@ const pairManager = {
             }
         },
 
-        async getAllPairIDs() {
+        async getAllPairIds() {
             try {
                 const allPairs = await api.taxonomy.fetchTaxonPairs(); // TODO
-                return allPairs.map(pair => pair.pairID);
+                return allPairs.map(pair => pair.pairId);
             } catch (error) {
                 logger.error("Error fetching all pair IDs:", error);
                 return [];
             }
         },
 
-        async setHighestPairID() {
-            const allPairIDs = await this.getAllPairIDs();
-            const sortedPairIDs = allPairIDs.sort((a, b) => Number(a) - Number(b));
-            const highestPairID = sortedPairIDs[sortedPairIDs.length - 1];
-            state.setHighestPairID(highestPairID);
+        async setHighestPairId() {
+            const allPairIds = await this.getAllPairIds();
+            const sortedPairIds = allPairIds.sort((a, b) => Number(a) - Number(b));
+            const highestPairId = sortedPairIds[sortedPairIds.length - 1];
+            state.setHighestPairId(highestPairId);
         },
     },
 };
@@ -416,11 +416,11 @@ const publicAPI = {
     refreshCollectionSubset: pairManager.collectionSubsets.refreshCollectionSubset,
 
     loadNewPair: pairManager.pairLoading.loadNewPair,
-    getPairByID: pairManager.pairLoading.getPairByID,
-    loadPairByID: pairManager.pairLoading.loadPairByID,
+    getPairById: pairManager.pairLoading.getPairById,
+    loadPairById: pairManager.pairLoading.loadPairById,
     loadInitialPair: pairManager.pairLoading.loadInitialPair,
     selectRandomPair: pairManager.pairSelection.selectRandomPair,
-    setHighestPairID: pairManager.utilities.setHighestPairID,
+    setHighestPairId: pairManager.utilities.setHighestPairId,
 };
 
 // Bind publicAPI methods

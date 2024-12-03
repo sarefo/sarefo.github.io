@@ -79,11 +79,11 @@ const sharing = {
 
         const options = [
             /*{ value: 'taxa', label: 'Taxa', isPresent: params.has('taxonA') || params.has('taxonB') },*/
-            { value: 'pairID', label: 'Pair ID', isPresent: params.has('pairID') },
+            { value: 'pairId', label: 'Pair ID', isPresent: params.has('pairId') },
             { value: 'tags', label: 'Tags', isPresent: params.has('tags') },
             { value: 'level', label: 'Level', isPresent: params.has('level') },
             { value: 'ranges', label: 'Ranges', isPresent: params.has('ranges') },
-            { value: 'phylogenyID', label: 'Phylogeny', isPresent: params.has('phylogenyID') }
+            { value: 'phylogenyId', label: 'Phylogeny', isPresent: params.has('phylogenyId') }
         ];
 
         options.forEach(option => {
@@ -129,9 +129,9 @@ const sharing = {
             url.searchParams.set('taxonB', taxonB);
         }
 
-        if (selectedOptions.includes('pairID') && currentTaxonImageCollection && currentTaxonImageCollection.pair) {
-            const { pairID } = currentTaxonImageCollection.pair;
-            if (pairID) url.searchParams.set('pairID', pairID);
+        if (selectedOptions.includes('pairId') && currentTaxonImageCollection && currentTaxonImageCollection.pair) {
+            const { pairId } = currentTaxonImageCollection.pair;
+            if (pairId) url.searchParams.set('pairId', pairId);
         }
 
         if (selectedOptions.includes('tags')) {
@@ -155,10 +155,10 @@ const sharing = {
             }
         }
 
-        if (selectedOptions.includes('phylogenyID')) {
-            const phylogenyID = state.getPhylogenyID();
-            if (phylogenyID) {
-                url.searchParams.set('phylogenyID', phylogenyID);
+        if (selectedOptions.includes('phylogenyId')) {
+            const phylogenyId = state.getPhylogenyId();
+            if (phylogenyId) {
+                url.searchParams.set('phylogenyId', phylogenyId);
             }
         }
     },

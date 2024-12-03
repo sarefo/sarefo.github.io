@@ -231,8 +231,8 @@ const api = (() => {
                     query.tags = { $all: filters.tags };
                 }
 
-                if (filters.phylogenyID) {
-                    query['taxa'] = { $elemMatch: { $eq: filters.phylogenyID } };
+                if (filters.phylogenyId) {
+                    query['taxa'] = { $elemMatch: { $eq: filters.phylogenyId } };
                 }
 
                 if (searchTerm) {
@@ -240,7 +240,7 @@ const api = (() => {
                         { taxonNames: { $regex: searchTerm, $options: 'i' } },
                         { pairName: { $regex: searchTerm, $options: 'i' } },
                         { tags: { $regex: searchTerm, $options: 'i' } },
-                        { pairID: searchTerm }
+                        { pairId: searchTerm }
                     ];
                 }
 
@@ -266,16 +266,16 @@ const api = (() => {
                 }
             },
 
-            fetchPairByID: async function (pairID) {
+            fetchPairById: async function (pairId) {
                 if (!config.useMongoDB) {
                     logger.warn('MongoDB is not being used, cannot fetch pair by ID');
                     return null;
                 }
                 try {
-                    const response = await fetch(`${config.serverUrl}/api/taxonPairs/${pairID}`);
+                    const response = await fetch(`${config.serverUrl}/api/taxonPairs/${pairId}`);
                     if (!response.ok) {
                         if (response.status === 404) {
-                            logger.warn(`Pair with ID ${pairID} not found in MongoDB`);
+                            logger.warn(`Pair with ID ${pairId} not found in MongoDB`);
                             return null;
                         }
                         throw new Error(`HTTP error! status: ${response.status}`);
@@ -692,7 +692,7 @@ const publicAPI = {
     taxonomy: {
         validateTaxon: api.taxonomy.validateTaxon,
         fetchTaxonPairs: api.taxonomy.fetchTaxonPairs,
-        fetchPairByID: api.taxonomy.fetchPairByID,
+        fetchPairById: api.taxonomy.fetchPairById,
         fetchRandomLevelOnePair: api.taxonomy.fetchRandomLevelOnePair,
         fetchBulkTaxonInfo: api.taxonomy.fetchBulkTaxonInfo,
         fetchPaginatedTaxonPairs: api.taxonomy.fetchPaginatedTaxonPairs,

@@ -11,12 +11,12 @@ const url = {
             const params = new URLSearchParams(window.location.search);
             return {
                 level: params.get('level'),
-                pairID: params.get('pairID'),
+                pairId: params.get('pairId'),
                 taxonA: params.get('taxonA'),
                 taxonB: params.get('taxonB'),
                 ranges: params.get('ranges'),
                 tags: params.get('tags'),
-                phylogenyID: params.get('phylogenyID'),
+                phylogenyId: params.get('phylogenyId'),
                 searchTerm: params.get('searchTerm')
             };
         },
@@ -42,7 +42,7 @@ const url = {
             }
 
             // Handle other parameters
-            if (params.pairID) state.setCurrentPairID(params.pairID);
+            if (params.pairId) state.setCurrentPairId(params.pairId);
             /*if (params.taxonA && params.taxonB) {
                 // You might want to add a new state method to handle taxa from URL
                 state.setTaxaFromUrl(params.taxonA, params.taxonB);
@@ -50,19 +50,19 @@ const url = {
             }*/
             if (params.ranges) state.setSelectedRanges(params.ranges.split(','));
             if (params.tags) state.setSelectedTags(params.tags.split(','));
-            if (params.phylogenyID) state.setPhylogenyID(params.phylogenyID);
+            if (params.phylogenyId) state.setPhylogenyId(params.phylogenyId);
             if (params.searchTerm) state.setSearchTerm(params.searchTerm);
         },
 
         createFilters(params) {
             return {
                 level: state.getSelectedLevel(),
-                pairID: params.pairID,
+                pairId: params.pairId,
                 /*taxonA: params.taxonA,
                 taxonB: params.taxonB,*/
                 ranges: state.getSelectedRanges(),
                 tags: state.getSelectedTags(),
-                phylogenyID: state.getPhylogenyID(),
+                phylogenyId: state.getPhylogenyId(),
                 searchTerm: state.getSearchTerm(),
             };
     }
@@ -74,8 +74,8 @@ const url = {
             let currentTaxonImageCollection = state.getCurrentTaxonImageCollection();
 
             if (currentTaxonImageCollection && currentTaxonImageCollection.pair) {
-                const { pairID, taxonA, taxonB } = currentTaxonImageCollection.pair;
-                if (pairID) currentUrl.searchParams.set('pairID', pairID);
+                const { pairId, taxonA, taxonB } = currentTaxonImageCollection.pair;
+                if (pairId) currentUrl.searchParams.set('pairId', pairId);
                 /*currentUrl.searchParams.set('taxonA', taxonA);
                 currentUrl.searchParams.set('taxonB', taxonB);*/
             }
@@ -100,9 +100,9 @@ const url = {
                 url.searchParams.set('ranges', selectedRanges.join(','));
             }
 
-            const phylogenyID = state.getPhylogenyID();
-            if (phylogenyID) {
-                url.searchParams.set('phylogenyID', phylogenyID);
+            const phylogenyId = state.getPhylogenyId();
+            if (phylogenyId) {
+                url.searchParams.set('phylogenyId', phylogenyId);
             }
         },
     },

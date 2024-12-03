@@ -10,7 +10,7 @@ class DuoNatCache {
         this.db = new Dexie('DuoNatCache');
         this.db.version(1).stores({
             taxonInfo: 'taxonId, taxonName, vernacularName, lastUpdated',
-            taxonPairs: 'pairID, lastUpdated',
+            taxonPairs: 'pairId, lastUpdated',
             taxonHierarchy: 'taxonId, lastUpdated',
             initialPair: '++id, pairData, images',
         });
@@ -73,12 +73,12 @@ class DuoNatCache {
     return fetchedInfo;
 }
 
-    async getTaxonPair(pairID) {
-    let cachedPair = await this.db.taxonPairs.get(pairID);
+    async getTaxonPair(pairId) {
+    let cachedPair = await this.db.taxonPairs.get(pairId);
     if (cachedPair && this.isCacheValid(cachedPair.lastUpdated)) {
         return cachedPair;
     }
-    const fetchedPair = await api.taxonomy.fetchPairByID(pairID);
+    const fetchedPair = await api.taxonomy.fetchPairById(pairId);
     if (fetchedPair) {
         await this.db.taxonPairs.put({ ...fetchedPair, lastUpdated: Date.now() });
     }

@@ -22,7 +22,7 @@ const taxonInfoSchema = new mongoose.Schema({
 }, { strict: false });
 
 const taxonPairSchema = new mongoose.Schema({
-  pairID: String,
+  pairId: String,
   pairName: String,
   level: String,
   tags: [String],
@@ -188,7 +188,7 @@ app.post('/api/taxonPairs', async (req, res) => {
         const options = {
             skip: (page - 1) * pageSize,
             limit: pageSize,
-            sort: { pairID: 1 }
+            sort: { pairId: 1 }
         };
 
         const [results, totalCount] = await Promise.all([
@@ -379,13 +379,13 @@ app.get('/api/tagCounts', async (req, res) => {
     }
 });
 
-app.get('/api/taxonPairs/:pairID', async (req, res) => {
+app.get('/api/taxonPairs/:pairId', async (req, res) => {
     try {
-        const pairID = req.params.pairID;
-        //console.log(`Fetching pair with ID: ${pairID}`);
-        const pair = await TaxonPair.findOne({ pairID: pairID }).lean();
+        const pairId = req.params.pairId;
+        //console.log(`Fetching pair with ID: ${pairId}`);
+        const pair = await TaxonPair.findOne({ pairId: pairId }).lean();
         if (!pair) {
-            //console.log(`Pair with ID ${pairID} not found`);
+            //console.log(`Pair with ID ${pairId} not found`);
             return res.status(404).json({ message: 'Pair not found' });
         }
         //console.log(`Found pair: ${JSON.stringify(pair)}`);
@@ -464,10 +464,10 @@ function buildMongoQuery(filters, searchTerm) {
   }
 
   // Handle phylogeny filter
-  if (filters.phylogenyID) {
+  if (filters.phylogenyId) {
     // This requires a more complex query, possibly using aggregation
     // For now, we'll use a simplified version
-    query['taxa'] = { $elemMatch: { $eq: filters.phylogenyID } };
+    query['taxa'] = { $elemMatch: { $eq: filters.phylogenyId } };
   }
 
   // Handle search term
@@ -476,7 +476,7 @@ function buildMongoQuery(filters, searchTerm) {
       { taxonNames: { $regex: searchTerm, $options: 'i' } },
       { pairName: { $regex: searchTerm, $options: 'i' } },
       { tags: { $regex: searchTerm, $options: 'i' } },
-      { pairID: searchTerm } // Exact match for pairID
+      { pairId: searchTerm } // Exact match for pairID
     ];
   }
 

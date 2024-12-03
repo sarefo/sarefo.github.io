@@ -148,11 +148,11 @@ const collectionManager = {
                 (pair.taxonNames && pair.taxonNames.some(name => name && name.toLowerCase().includes(searchTermLower))) ||
                 (pair.pairName && pair.pairName.toLowerCase().includes(searchTermLower)) ||
                 (pair.tags && pair.tags.some(tag => tag && tag.toLowerCase().includes(searchTermLower))) ||
-                (pair.pairID && pair.pairID.toString() === searchTerm)
+                (pair.pairId && pair.pairId.toString() === searchTerm)
             );
         },
 
-    async updateTaxonList(isInitialLoad = false, isPairIDSearch = false) {
+    async updateTaxonList(isInitialLoad = false, isPairIdSearch = false) {
         const filters = filtering.getActiveFilters();
         const searchTerm = state.getSearchTerm();
         const page = isInitialLoad ? 1 : (state.getCurrentPage() || 1);
@@ -161,8 +161,8 @@ const collectionManager = {
         try {
             let result;
             if (config.useMongoDB) {
-                if (isPairIDSearch) {
-                    const pair = await api.taxonomy.fetchPairByID(searchTerm);
+                if (isPairIdSearch) {
+                    const pair = await api.taxonomy.fetchPairById(searchTerm);
                     result = {
                         results: pair ? [pair] : [],
                         totalCount: pair ? 1 : 0,
@@ -175,8 +175,8 @@ const collectionManager = {
                 // using full data mongodb fetch for now
                 const taxonPairs = await api.taxonomy.fetchTaxonPairs();
                 let filteredPairs = filtering.filterTaxonPairs(taxonPairs, filters);
-                if (isPairIDSearch) {
-                    filteredPairs = filteredPairs.filter(pair => pair.pairID.toString() === searchTerm);
+                if (isPairIdSearch) {
+                    filteredPairs = filteredPairs.filter(pair => pair.pairId.toString() === searchTerm);
                 } else {
                     filteredPairs = this.filterTaxonPairsBySearch(filteredPairs, searchTerm);
                 }
@@ -191,7 +191,7 @@ const collectionManager = {
             // Handle initial load case
             if (isInitialLoad) {
                 const currentPair = this.getCurrentActivePair();
-                if (currentPair && !result.results.some(pair => pair.pairID === currentPair.pairID)) {
+                if (currentPair && !result.results.some(pair => pair.pairId === currentPair.pairId)) {
                     result.results.unshift(currentPair);
                     result.totalCount += 1;
                 }
@@ -495,7 +495,7 @@ async loadMorePairs() {
                 taxonNames: [currentPair.taxonA, currentPair.taxonB],
                 pairName: currentPair.pairName,
                 tags: currentPair.tags,
-                pairID: currentPair.pairID,
+                pairId: currentPair.pairId,
                 level: currentPair.level
             } : null;
         },
@@ -534,7 +534,7 @@ async loadMorePairs() {
 
         updatePhylogenyDisplay: async function() {
             const phylogenyElement = document.querySelector('.filter-summary__phylogeny');
-            const activePhylogenyId = state.getPhylogenyID();
+            const activePhylogenyId = state.getPhylogenyId();
 
             if (activePhylogenyId) {
                 const taxonomyHierarchy = api.taxonomy.getTaxonomyHierarchy();
@@ -778,7 +778,7 @@ async loadMorePairs() {
                 //logger.debug("currentPair", currentPair);
 
                 // Check if the current pair is in the filtered collection
-                const currentPairInCollection = currentPair && filteredPairs.some(pair => pair.pairID === currentPair.pairID);
+                const currentPairInCollection = currentPair && filteredPairs.some(pair => pair.pairId === currentPair.pairId);
 
                 if (!currentPairInCollection && filteredPairs.length > 0) {
                     // Only load a new pair if the current pair is not in the filtered collection
@@ -786,7 +786,7 @@ async loadMorePairs() {
                     preloader.clearPreloadedPair();
 
                     const randomPair = filteredPairs[Math.floor(Math.random() * filteredPairs.length)];
-                    await pairManager.loadNewPair(randomPair.pairID);
+                    await pairManager.loadNewPair(randomPair.pairId);
                     if (this.loadNewPairTimeout) {
                         clearTimeout(this.loadNewPairTimeout);
                     }
@@ -811,7 +811,7 @@ async loadMorePairs() {
                 taxonB: pair.taxonNames[1],
                 pairName: pair.pairName,
                 tags: [...pair.tags],
-                pairID: pair.pairID,
+                pairId: pair.pairId,
                 level: pair.level
             };
             //logger.debug('Selected pair:', selectedPair);
@@ -820,8 +820,8 @@ async loadMorePairs() {
             // Clear the preloaded pair before setting up the new game
             preloader.clearPreloadedPair();
             
-            // Pass the pairID to loadNewPair
-            pairManager.loadNewPair(selectedPair.pairID).finally(() => {
+            // Pass the pairId to loadNewPair
+            pairManager.loadNewPair(selectedPair.pairId).finally(() => {
                 this.isSelectionInProgress = false;
             });
         },

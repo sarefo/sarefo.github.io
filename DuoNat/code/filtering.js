@@ -16,7 +16,7 @@ const filtering = {
             levels: state.getSelectedLevels(),
             ranges: state.getSelectedRanges(),
             tags: state.getSelectedTags(),
-            phylogenyID: state.getPhylogenyID(),
+            phylogenyId: state.getPhylogenyId(),
         };
     },
 
@@ -25,7 +25,7 @@ const filtering = {
         return filters.tags.length === 0 &&
             filters.ranges.length === 0 &&
             filters.level === '' &&
-            filters.phylogenyID === null &&
+            filters.phylogenyId === null &&
             filters.searchTerm === '';
     },
 
@@ -33,7 +33,7 @@ const filtering = {
         state.setSelectedTags([]);
         state.setSelectedRanges([]);
         state.setSelectedLevels([]);
-        state.setPhylogenyID(null);
+        state.setPhylogenyId(null);
         state.setSearchTerm('');
 
         const levelDropdown = document.getElementById('level-filter-dropdown');
@@ -54,7 +54,7 @@ const filtering = {
         const levelsChanged = !utils.array.arraysEqual(currentFilters.levels, previousFilters.levels);
         const rangesChanged = !utils.array.arraysEqual(currentFilters.ranges, previousFilters.ranges);
         const tagsChanged = !utils.array.arraysEqual(currentFilters.tags, previousFilters.tags);
-        const phylogenyChanged = currentFilters.phylogenyID !== previousFilters.phylogenyID;
+        const phylogenyChanged = currentFilters.phylogenyId !== previousFilters.phylogenyId;
 
         logger.debug('Levels changed:', levelsChanged);
         logger.debug('Ranges changed:', rangesChanged);
@@ -95,7 +95,7 @@ const filtering = {
         return this.matchesLevel(pair, filters.level) &&
             this.matchesTags(pair, filters.tags) &&
             this.matchesRanges(pair, filters.ranges) &&
-            this.matchesPhylogeny(pair, filters.phylogenyID);
+            this.matchesPhylogeny(pair, filters.phylogenyId);
     },
 
     matchesLevel(pair, selectedLevels) {
@@ -120,8 +120,8 @@ const filtering = {
             (pair.tags && pair.tags.some(tag => tag.toLowerCase().includes(lowercaseSearch)));
     },
 
-    matchesPhylogeny(pair, phylogenyID) {
-        if (!phylogenyID) return true;
+    matchesPhylogeny(pair, phylogenyId) {
+        if (!phylogenyId) return true;
         
         const hierarchy = api.taxonomy.getTaxonomyHierarchy();
         if (!hierarchy) {
@@ -129,7 +129,7 @@ const filtering = {
             return true; // Allow all pairs through until hierarchy is loaded
         }
         
-        return pair.taxa.some(taxonId => this.isDescendantOf(taxonId, phylogenyID));
+        return pair.taxa.some(taxonId => this.isDescendantOf(taxonId, phylogenyId));
     },
 
     filterTaxonPairs(pairs, filters, searchTerm) {
@@ -139,21 +139,21 @@ const filtering = {
                 (pair.range && pair.range.some(r => filters.ranges.includes(r)));
             const matchesTags = !filters.tags || filters.tags.length === 0 ||
                 (pair.tags && filters.tags.every(tag => pair.tags.includes(tag)));
-            const matchesPhylogeny = !filters.phylogenyID ||
-                pair.taxa.some(taxonId => this.isDescendantOf(taxonId, filters.phylogenyID));
+            const matchesPhylogeny = !filters.phylogenyId ||
+                pair.taxa.some(taxonId => this.isDescendantOf(taxonId, filters.phylogenyId));
             const matchesSearch = !searchTerm ||
                 pair.taxonNames.some(name => name.toLowerCase().includes(searchTerm.toLowerCase())) ||
                 pair.pairName.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 (pair.tags && pair.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))) ||
-                pair.pairID === searchTerm;
+                pair.pairId === searchTerm;
 
             return matchesLevels && matchesRanges && matchesTags && matchesPhylogeny && matchesSearch;
         });
     },
 
-    pairMatchesPhylogeny(pair, phylogenyID) {
-        if (!phylogenyID) return true;
-        return pair.taxa.some(taxonId => this.isDescendantOf(taxonId, phylogenyID));
+    pairMatchesPhylogeny(pair, phylogenyId) {
+        if (!phylogenyId) return true;
+        return pair.taxa.some(taxonId => this.isDescendantOf(taxonId, phylogenyId));
     },
 
     pairMatchesFilters(pair, filters) {
@@ -162,8 +162,8 @@ const filtering = {
             (pair.range && pair.range.some(range => filters.ranges.includes(range)));
         const matchesTags = !filters.tags || filters.tags.length === 0 ||
             pair.tags.some(tag => filters.tags.includes(tag));
-        const matchesPhylogeny = !filters.phylogenyID ||
-            pair.taxa.some(taxonId => this.isDescendantOf(taxonId, filters.phylogenyID));
+        const matchesPhylogeny = !filters.phylogenyId ||
+            pair.taxa.some(taxonId => this.isDescendantOf(taxonId, filters.phylogenyId));
 
         return matchesLevels && matchesRanges && matchesTags && matchesPhylogeny;
     },

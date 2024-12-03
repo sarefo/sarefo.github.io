@@ -37,24 +37,24 @@ let gameState = {
 
     isInitialLoad: true,
 
-    highestPairID: null,
+    highestPairId: null,
 
     //infoDialogImageIndex: null,
 
     // Filters
-    currentPairID: null,
+    currentPairId: null,
     selectedLevel: '',
     selectedLevels: [],
     selectedRanges: [],
     selectedTags: [],
-    phylogenyID: null,
+    phylogenyId: null,
     searchTerm: "",
 
     previousFilters: {
         levels: [],
         ranges: [],
         tags: [],
-        phylogenyID: null
+        phylogenyId: null
     },
 
     currentActiveNodeId: null,
@@ -92,7 +92,7 @@ let gameState = {
     isNewPairFlag: true,
 
     // Preloading
-    preloadNextPairID: false,
+    preloadNextPairId: false,
 
     preloadedPair: null,
     preloadedImages: {
@@ -200,7 +200,7 @@ const publicAPI = {
                 randomized,
             },
         });
-        this.setCurrentPairID(pair.pairID || this.getCurrentPairID());
+        this.setCurrentPairId(pair.pairId || this.getCurrentPairId());
     },
 
     // Game State
@@ -223,10 +223,10 @@ const publicAPI = {
         }
     },
 
-    // preload next pairID if set - in preloader.preloadForNextPair()
-    getPreloadNextPairID: () => gameState.preloadNextPairID,
-    setPreloadNextPairID: (pair) => {
-        updateGameState('preloadNextPairID', pair);
+    // preload next pairId if set - in preloader.preloadForNextPair()
+    getPreloadNextPairId: () => gameState.preloadNextPairId,
+    setPreloadNextPairId: (pair) => {
+        updateGameState('preloadNextPairId', pair);
     },
 
     //getObservationURLs: () => ({ ...gameState.currentObservationURLs }),
@@ -289,9 +289,9 @@ const publicAPI = {
         };
     },
 
-    getHighestPairID: () => gameState.highestPairID,
-    setHighestPairID: (id) => {
-        updateGameState('highestPairID', id);
+    getHighestPairId: () => gameState.highestPairId,
+    setHighestPairId: (id) => {
+        updateGameState('highestPairId', id);
     },
 
     getSearchTerm: () => gameState.searchTerm,
@@ -299,9 +299,9 @@ const publicAPI = {
         updateGameState('searchTerm', searchTerm);
     },
 
-    getCurrentPairID: () => gameState.currentPairID,
-    setCurrentPairID: (id) => {
-        updateGameState('currentPairID', id);
+    getCurrentPairId: () => gameState.currentPairId,
+    setCurrentPairId: (id) => {
+        updateGameState('currentPairId', id);
     },
 
     getSelectedTags: () => [...gameState.selectedTags],
@@ -345,13 +345,13 @@ const publicAPI = {
             levels: [...filters.levels],
             ranges: [...filters.ranges],
             tags: [...filters.tags],
-            phylogenyID: filters.phylogenyID
+            phylogenyId: filters.phylogenyId
         });
     },
 
-    getPhylogenyID: () => gameState.phylogenyID,
-    setPhylogenyID: (nodeId) => {
-        updateGameState('phylogenyID', nodeId);
+    getPhylogenyId: () => gameState.phylogenyId,
+    setPhylogenyId: (nodeId) => {
+        updateGameState('phylogenyId', nodeId);
     },
 
     getCurrentActiveNodeId: () => gameState.currentActiveNodeId,
@@ -425,9 +425,9 @@ const publicAPI = {
         }
     },
 
-    getCurrentPairID: () => gameState.currentPairID,
-    setCurrentPairID: (id) => {
-        updateGameState('currentPairID', id);
+    getCurrentPairId: () => gameState.currentPairId,
+    setCurrentPairId: (id) => {
+        updateGameState('currentPairId', id);
     },
 
     getShowTaxonomicNames: () => gameState.showTaxonomicNames,
@@ -491,7 +491,7 @@ const publicAPI = {
                 taxonB: new Set([images.taxonB]),
             },
         });
-        this.setCurrentPairID(newPair.pairID || state.getCurrentPairID());
+        this.setCurrentPairId(newPair.pairId || state.getCurrentPairId());
     },
 
     // called only from roundManager.setupRound()
@@ -517,7 +517,7 @@ const publicAPI = {
         let info = '';
         if (gameState.currentTaxonImageCollection && gameState.currentTaxonImageCollection.pair) {
             const pair = gameState.currentTaxonImageCollection.pair;
-            info += `Current Pair ID: ${pair.pairID}\n`;
+            info += `Current Pair ID: ${pair.pairId}\n`;
             info += `Taxon 1: ${pair.taxonA}\n`;
             info += `Taxon 2: ${pair.taxonB}\n`;
         }

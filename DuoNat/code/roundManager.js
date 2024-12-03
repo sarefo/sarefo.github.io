@@ -165,7 +165,7 @@ const roundManager = {
             const preloadedRoundImages = preloader.getPreloadedImagesForNextRound();
             if (preloadedRoundImages && preloadedRoundImages.taxonA && preloadedRoundImages.taxonB) {
                 // check to ensure the preloaded images are for the current pair
-                if (preloadedRoundImages.pairID === pair.pairID) {
+                if (preloadedRoundImages.pairId === pair.pairId) {
                     preloader.clearPreloadedRound();
                     return { taxonA: preloadedRoundImages.taxonA, taxonB: preloadedRoundImages.taxonB };
                 } else {

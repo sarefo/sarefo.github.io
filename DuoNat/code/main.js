@@ -25,20 +25,20 @@ async function initializeApp() {
 
     const urlParams = url.handleUrlParameters();
 
-    // If we have a phylogenyID parameter, we need to load taxonomy first
-    if (urlParams.phylogenyID) {
-        logger.debug("PhylogenyID parameter detected, loading taxonomy before initial pair");
+    // If we have a phylogenyId parameter, we need to load taxonomy first
+    if (urlParams.phylogenyId) {
+        logger.debug("PhylogenyId parameter detected, loading taxonomy before initial pair");
         await api.taxonomy.loadTaxonomyHierarchy();
     }
 
     // Load initial pair
-    await pairManager.loadInitialPair(urlParams.pairID);
+    await pairManager.loadInitialPair(urlParams.pairId);
 
     // Initialize everything non-essential for first round play
     await initializeComponents();
 
     // Start background loading of remaining bulk data
-    if (!urlParams.phylogenyID) {
+    if (!urlParams.phylogenyId) {
         loadBulkDataInBackground();
     } else {
         // Load remaining bulk data that wasn't loaded earlier
@@ -57,7 +57,7 @@ async function initializeComponents() {
     state.setHasKeyboard(hasKeyboard());
     await dialogManager.initialize();
     eventMain.initialize();
-    pairManager.setHighestPairID(); // only used for "+" pair walking atm
+    pairManager.setHighestPairId(); // only used for "+" pair walking atm
 }
 
 function hasKeyboard() {
@@ -74,7 +74,7 @@ function loadBulkDataInBackground() {
             await api.taxonomy.loadTaxonInfo();
             logger.debug("Bulk data loaded successfully");
             
-            // No need to reapply filters here anymore since we handle phylogenyID upfront
+            // No need to reapply filters here anymore since we handle phylogenyId upfront
         } catch (error) {
             logger.error("Error loading bulk data in background:", error);
         }

@@ -55,7 +55,7 @@ const keyboardShortcuts = {
             'k': () => dialogManager.openDialog('keyboard-shortcuts-dialog'),
             'm': ui.toggleMainMenu,
             's': sharing.shareCurrentPair,
-            '+': this.incrementPairID.bind(this),
+            '+': this.incrementPairId.bind(this),
             'x': () => document.getElementById('surprise-button').click()
         };
 
@@ -110,40 +110,40 @@ const keyboardShortcuts = {
         }
     },
 
-    async incrementPairID() {
-        const currentPairID = state.getCurrentTaxonImageCollection()?.pair?.pairID;
-        if (!currentPairID) {
+    async incrementPairId() {
+        const currentPairId = state.getCurrentTaxonImageCollection()?.pair?.pairId;
+        if (!currentPairId) {
             logger.warn("No current pair ID found");
             return;
         }
 
         try {
-            const highestPairID = state.getHighestPairID();
+            const highestPairId = state.getHighestPairId();
 
-            let nextPairID;
+            let nextPairId;
             let attempts = 0;
             const maxAttempts = 10;
 
             do {
-                if (currentPairID === highestPairID || attempts >= maxAttempts) {
-                    nextPairID = "1";
+                if (currentPairId === highestPairId || attempts >= maxAttempts) {
+                    nextPairId = "1";
                 } else {
-                    nextPairID = String(Number(currentPairID) + 1);
+                    nextPairId = String(Number(currentPairId) + 1);
                 }
-                const nextPair = await pairManager.getPairByID(nextPairID);
+                const nextPair = await pairManager.getPairById(nextPairId);
                 if (nextPair) {
-                    logger.debug(`Incrementing from pair ID ${currentPairID} to ${nextPairID}`);
-                    state.setPreloadNextPairID(true);
-                    await pairManager.loadPairByID(nextPairID, true);
+                    logger.debug(`Incrementing from pair ID ${currentPairId} to ${nextPairId}`);
+                    state.setPreloadNextPairId(true);
+                    await pairManager.loadPairById(nextPairId, true);
 
                     // Preload the next pair ID
-                    let preloadPairID = String(Number(nextPairID) + 1);
-                    if (preloadPairID > highestPairID) {
-                        preloadPairID = "1";
+                    let preloadPairId = String(Number(nextPairId) + 1);
+                    if (preloadPairId > highestPairId) {
+                        preloadPairId = "1";
                     }
-                    const preloadPair = await pairManager.getPairByID(preloadPairID);
+                    const preloadPair = await pairManager.getPairById(preloadPairId);
                     if (preloadPair) {
-                        await preloader.preloadPairByID(preloadPairID);
+                        await preloader.preloadPairById(preloadPairId);
                     }
                     return;
                 }

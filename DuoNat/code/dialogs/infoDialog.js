@@ -108,8 +108,8 @@ const infoDialog = {
             return;
         }
 
-        const photoID = imageURL.split("/").slice(-2, -1)[0];
-        const photoURL = `https://www.inaturalist.org/photos/${photoID}`;
+        const photoId = imageURL.split("/").slice(-2, -1)[0];
+        const photoURL = `https://www.inaturalist.org/photos/${photoId}`;
         photoButton.onclick = () => {
             window.open(photoURL, '_blank');
             dialogManager.closeDialog('info-dialog');

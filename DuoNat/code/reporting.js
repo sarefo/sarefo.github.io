@@ -206,7 +206,7 @@ const reporting = {
             info += `Taxon A: ${pair.taxonA}\n`;
             info += `Taxon B: ${pair.taxonB}\n`;
             info += `Pair Name: ${pair.pairName || 'N/A'}\n`;
-            info += `Pair ID: ${pair.pairID || 'N/A'}\n`;
+            info += `Pair ID: ${pair.pairId || 'N/A'}\n`;
             info += `Level: ${pair.level || 'N/A'}\n`;
         } else {
             info += "Current taxon pair information not available\n";

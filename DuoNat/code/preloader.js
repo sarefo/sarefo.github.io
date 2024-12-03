@@ -103,7 +103,7 @@ const preloader = {
         async preloadForNextRound() {
             try {
                 const { pair, image1URL, image2URL } = state.getCurrentTaxonImageCollection();
-                const pairID = pair.pairID;
+                const pairId = pair.pairId;
                 const [newImage1URL, newImage2URL] = await Promise.all([
                     preloader.imageLoader.fetchDifferentImage(pair.taxonA, image1URL),
                     preloader.imageLoader.fetchDifferentImage(pair.taxonB, image2URL)
@@ -117,7 +117,7 @@ const preloader = {
                 preloader.preloadedImages.nextRound = {
                     taxonA: newImage1URL,
                     taxonB: newImage2URL,
-                    pairID: pairID
+                    pairId: pairId
                 };
                 logger.debug("Preloading completed for next round");
             } catch (error) {
@@ -162,10 +162,10 @@ const preloader = {
                     this.isCollectionSubsetInitialized = true;
                 }
 
-                // for pairID walking via "+"
-                if (state.getPreloadNextPairID()) {
-                    // Skip preloading as it's already done in incrementPairID
-                    state.setPreloadNextPairID(false);
+                // for pairId walking via "+"
+                if (state.getPreloadNextPairId()) {
+                    // Skip preloading as it's already done in incrementPairId
+                    state.setPreloadNextPairId(false);
                     return;
                 }
                     
@@ -174,7 +174,7 @@ const preloader = {
 
                 if (newPair) {
                     await this.preloadPairImages(newPair);
-                    logger.debug("Preloading completed for next pair:", newPair.pairID, newPair);
+                    logger.debug("Preloading completed for next pair:", newPair.pairId, newPair);
                 } else {
                     logger.warn("No valid pairs found for preloading");
                     preloader.preloadedImages.nextPair = null;
@@ -304,16 +304,16 @@ const preloader = {
         },
 
         // used by "+" shortcut for ID walking
-        async preloadPairByID(pairID) {
+        async preloadPairById(pairId) {
             try {
-                const nextPair = await pairManager.getPairByID(pairID);
+                const nextPair = await pairManager.getPairById(pairId);
                 if (nextPair) {
                     await this.preloadPairImages(nextPair);
                 } else {
-                    logger.warn(`Pair with ID ${pairID} not found for preloading`);
+                    logger.warn(`Pair with ID ${pairId} not found for preloading`);
                 }
             } catch (error) {
-                logger.error(`Error preloading pair with ID ${pairID}:`, error);
+                logger.error(`Error preloading pair with ID ${pairId}:`, error);
             }
         },
     },
@@ -338,7 +338,7 @@ const publicAPI = {
     clearPreloadedPair: preloader.pairPreloader.clearPreloadedPair,
 
     preloadNewPairWithTags: preloader.pairPreloader.preloadNewPairWithTags,
-    preloadPairByID: preloader.pairPreloader.preloadPairByID,
+    preloadPairById: preloader.pairPreloader.preloadPairById,
     preloadForNextPair: preloader.pairPreloader.preloadForNextPair,
 
     // Rounds
