@@ -50,7 +50,7 @@ const url = {
             }*/
             if (params.ranges) state.setSelectedRanges(params.ranges.split(','));
             if (params.tags) state.setSelectedTags(params.tags.split(','));
-            if (params.phylogenyID) state.setPhylogenyId(params.phylogenyID);
+            if (params.phylogenyID) state.setPhylogenyID(params.phylogenyID);
             if (params.searchTerm) state.setSearchTerm(params.searchTerm);
         },
 
@@ -62,7 +62,7 @@ const url = {
                 taxonB: params.taxonB,*/
                 ranges: state.getSelectedRanges(),
                 tags: state.getSelectedTags(),
-                phylogenyId: state.getPhylogenyId(),
+                phylogenyID: state.getPhylogenyID(),
                 searchTerm: state.getSearchTerm(),
             };
     }
@@ -100,7 +100,7 @@ const url = {
                 url.searchParams.set('ranges', selectedRanges.join(','));
             }
 
-            const phylogenyID = state.getPhylogenyId();
+            const phylogenyID = state.getPhylogenyID();
             if (phylogenyID) {
                 url.searchParams.set('phylogenyID', phylogenyID);
             }

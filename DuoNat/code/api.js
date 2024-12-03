@@ -231,8 +231,8 @@ const api = (() => {
                     query.tags = { $all: filters.tags };
                 }
 
-                if (filters.phylogenyId) {
-                    query['taxa'] = { $elemMatch: { $eq: filters.phylogenyId } };
+                if (filters.phylogenyID) {
+                    query['taxa'] = { $elemMatch: { $eq: filters.phylogenyID } };
                 }
 
                 if (searchTerm) {

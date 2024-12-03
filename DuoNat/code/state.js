@@ -47,14 +47,14 @@ let gameState = {
     selectedLevels: [],
     selectedRanges: [],
     selectedTags: [],
-    phylogenyId: null,
+    phylogenyID: null,
     searchTerm: "",
 
     previousFilters: {
         levels: [],
         ranges: [],
         tags: [],
-        phylogenyId: null
+        phylogenyID: null
     },
 
     currentActiveNodeId: null,
@@ -345,13 +345,13 @@ const publicAPI = {
             levels: [...filters.levels],
             ranges: [...filters.ranges],
             tags: [...filters.tags],
-            phylogenyId: filters.phylogenyId
+            phylogenyID: filters.phylogenyID
         });
     },
 
-    getPhylogenyId: () => gameState.phylogenyId,
-    setPhylogenyId: (nodeId) => {
-        updateGameState('phylogenyId', nodeId);
+    getPhylogenyID: () => gameState.phylogenyID,
+    setPhylogenyID: (nodeId) => {
+        updateGameState('phylogenyID', nodeId);
     },
 
     getCurrentActiveNodeId: () => gameState.currentActiveNodeId,

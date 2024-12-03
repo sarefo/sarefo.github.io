@@ -53,14 +53,14 @@ const phylogenySelector = {
                 const filters = filtering.getActiveFilters();
                 const taxonPairs = await api.taxonomy.fetchTaxonPairs();
 
-                const { phylogenyId, ...otherFilters } = filters;
+                const { phylogenyID, ...otherFilters } = filters;
                 const filteredPairs = filtering.filterTaxonPairs(taxonPairs, otherFilters);
                 
                 const availableTaxonIds = filtering.getAvailableTaxonIds(filteredPairs);
 
                 const rootNode = this.convertHierarchyToNestedObject(hierarchyObj, availableTaxonIds, filteredPairs);
                 
-                const currentPhylogenyId = state.getPhylogenyId();
+                const currentPhylogenyId = state.getPhylogenyID();
 
                 graphContainer.innerHTML = '';
                 const tree = await d3Graphs.createTree(graphContainer, rootNode, state.getShowTaxonomicNames());
@@ -563,7 +563,7 @@ const phylogenySelector = {
             const nodeId = target?.dataset.nodeId;
             if (nodeId) {
                 // Update phylogeny ID in state
-                state.setPhylogenyId(nodeId);
+                state.setPhylogenyID(nodeId);
                 
                 // Update current active node
                 state.setCurrentActiveNodeId(nodeId);
@@ -650,7 +650,7 @@ const phylogenySelector = {
 
         handleIconClick(event) {
             const iconId = event.currentTarget.id;
-            let phylogenyId;
+            let phylogenyID;
             
             // Map icon IDs to phylogeny IDs
             const iconToPhylogenyMap = {
@@ -666,17 +666,17 @@ const phylogenySelector = {
                 'icon-fungi': '47170'
             };
 
-            phylogenyId = iconToPhylogenyMap[iconId];
+            phylogenyID = iconToPhylogenyMap[iconId];
 
-            if (phylogenyId) {
-                state.setPhylogenyId(phylogenyId);
-                state.setCurrentActiveNodeId(phylogenyId);
-                this.updateActiveTaxonDisplay(phylogenyId);
+            if (phylogenyID) {
+                state.setPhylogenyID(phylogenyID);
+                state.setCurrentActiveNodeId(phylogenyID);
+                this.updateActiveTaxonDisplay(phylogenyID);
                 
                 // Update views
                 if (this.currentView === 'graph') {
                     const hierarchyObj = api.taxonomy.getTaxonomyHierarchy();
-                    const pathToRoot = phylogenySelector.graphView.getPathToRoot(hierarchyObj, phylogenyId);
+                    const pathToRoot = phylogenySelector.graphView.getPathToRoot(hierarchyObj, phylogenyID);
                     phylogenySelector.graphView.updateGraph(pathToRoot);
                 } else {
                     phylogenySelector.cloudView.renderCloudView();
@@ -819,16 +819,16 @@ const phylogenySelector = {
 
         handleDoneButton() {
             const activeNodeId = d3Graphs.getActiveNodeId();
-            const currentPhylogenyId = state.getPhylogenyId();
+            const currentPhylogenyId = state.getPhylogenyID();
 
             let filtersChanged = false;
 
             if (activeNodeId !== currentPhylogenyId) {
                 if (activeNodeId) {
-                    state.setPhylogenyId(activeNodeId);
+                    state.setPhylogenyID(activeNodeId);
                 } else {
                     // If no node is selected, clear the phylogeny filter
-                    state.setPhylogenyId(null);
+                    state.setPhylogenyID(null);
                 }
                 filtersChanged = true;
             }
@@ -850,7 +850,7 @@ const phylogenySelector = {
         },
 
         clearSelection() {
-            state.setPhylogenyId(null);
+            state.setPhylogenyID(null);
             state.setCurrentActiveNodeId(null);
             phylogenySelector.graphView.updateGraph();
             if (this.currentView === 'cloud') {

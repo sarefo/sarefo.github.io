@@ -534,7 +534,7 @@ async loadMorePairs() {
 
         updatePhylogenyDisplay: async function() {
             const phylogenyElement = document.querySelector('.filter-summary__phylogeny');
-            const activePhylogenyId = state.getPhylogenyId();
+            const activePhylogenyId = state.getPhylogenyID();
 
             if (activePhylogenyId) {
                 const taxonomyHierarchy = api.taxonomy.getTaxonomyHierarchy();

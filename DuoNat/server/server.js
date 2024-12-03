@@ -464,10 +464,10 @@ function buildMongoQuery(filters, searchTerm) {
   }
 
   // Handle phylogeny filter
-  if (filters.phylogenyId) {
+  if (filters.phylogenyID) {
     // This requires a more complex query, possibly using aggregation
     // For now, we'll use a simplified version
-    query['taxa'] = { $elemMatch: { $eq: filters.phylogenyId } };
+    query['taxa'] = { $elemMatch: { $eq: filters.phylogenyID } };
   }
 
   // Handle search term

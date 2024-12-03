@@ -156,7 +156,7 @@ const sharing = {
         }
 
         if (selectedOptions.includes('phylogenyID')) {
-            const phylogenyID = state.getPhylogenyId();
+            const phylogenyID = state.getPhylogenyID();
             if (phylogenyID) {
                 url.searchParams.set('phylogenyID', phylogenyID);
             }

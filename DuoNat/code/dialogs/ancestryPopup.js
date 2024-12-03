@@ -70,7 +70,7 @@ const ancestryPopup = {
 
     filterHere() {
         if (this.currentTaxon) {
-            state.setPhylogenyId(this.currentTaxon.id);
+            state.setPhylogenyID(this.currentTaxon.id);
             phylogenySelector.updateGraph();
         }
         this.closePopup();
