@@ -54,8 +54,7 @@ const filtering = {
         return filters.tags.length === 0 &&
             filters.ranges.length === 0 &&
             filters.level === '' &&
-            filters.phylogenyId === null &&
-            filters.searchTerm === '';
+            filters.phylogenyId === null;
     },
 
     clearAllFilters() {
@@ -121,40 +120,6 @@ const filtering = {
             const filterValue = key === 'phylogeny' ? [filters[key], hierarchy] : filters[key];
             return matchFn(pair, filterValue);
         });
-    },
-
-    matchesLevel(pair, selectedLevels) {
-        return selectedLevels.length === 0 || selectedLevels.includes(Number(pair.level));
-    },
-
-    matchesTags(pair, selectedTags) {
-        return selectedTags.length === 0 ||
-            (pair.tags && selectedTags.every(tag => pair.tags.includes(tag)));
-    },
-
-    matchesRanges(pair, selectedRanges) {
-        return selectedRanges.length === 0 ||
-            (pair.range && pair.range.some(range => selectedRanges.includes(range)));
-    },
-
-    matchesSearch(pair, searchTerm) {
-        if (!searchTerm) return true;
-        const lowercaseSearch = searchTerm.toLowerCase();
-        return (pair.taxonNames && pair.taxonNames.some(name => name.toLowerCase().includes(lowercaseSearch))) ||
-            (pair.pairName && pair.pairName.toLowerCase().includes(lowercaseSearch)) ||
-            (pair.tags && pair.tags.some(tag => tag.toLowerCase().includes(lowercaseSearch)));
-    },
-
-    matchesPhylogeny(pair, phylogenyId) {
-        if (!phylogenyId) return true;
-        
-        const hierarchy = api.taxonomy.getTaxonomyHierarchy();
-        if (!hierarchy) {
-            logger.debug('Taxonomy hierarchy not loaded yet, deferring phylogeny filtering');
-            return true; // Allow all pairs through until hierarchy is loaded
-        }
-        
-        return pair.taxa.some(taxonId => this.isDescendantOf(taxonId, phylogenyId));
     },
 
     filterTaxonPairs(pairs, filters, searchTerm) {
