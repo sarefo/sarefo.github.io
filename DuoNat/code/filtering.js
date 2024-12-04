@@ -84,11 +84,6 @@ const filtering = {
         const tagsChanged = !utils.array.arraysEqual(currentFilters.tags, previousFilters.tags);
         const phylogenyChanged = currentFilters.phylogenyId !== previousFilters.phylogenyId;
 
-        logger.debug('Levels changed:', levelsChanged);
-        logger.debug('Ranges changed:', rangesChanged);
-        logger.debug('Tags changed:', tagsChanged);
-        logger.debug('Phylogeny changed:', phylogenyChanged);
-
         return levelsChanged || rangesChanged || tagsChanged || phylogenyChanged;
     },
 

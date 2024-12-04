@@ -74,16 +74,25 @@ class DuoNatCache {
 }
 
     async getTaxonPair(pairId) {
-    let cachedPair = await this.db.taxonPairs.get(pairId);
-    if (cachedPair && this.isCacheValid(cachedPair.lastUpdated)) {
-        return cachedPair;
+        try {
+            let cachedPair = await this.db.taxonPairs.get(pairId);
+            if (cachedPair && this.isCacheValid(cachedPair.lastUpdated)) {
+                return cachedPair;
+            }
+            const fetchedPair = await api.taxonomy.fetchPairById(pairId);
+            if (fetchedPair) {
+                if (!fetchedPair.pairId) {
+                    logger.error('Fetched pair missing pairId:', fetchedPair);
+                    return fetchedPair;
+                }
+                await this.db.taxonPairs.put({ ...fetchedPair, lastUpdated: Date.now() });
+            }
+            return fetchedPair;
+        } catch (error) {
+            logger.error('Error in getTaxonPair:', error, 'for pairId:', pairId);
+            throw error;
+        }
     }
-    const fetchedPair = await api.taxonomy.fetchPairById(pairId);
-    if (fetchedPair) {
-        await this.db.taxonPairs.put({ ...fetchedPair, lastUpdated: Date.now() });
-    }
-    return fetchedPair;
-}
 
     async getAllTaxonPairs() {
     let cachedPairs = await this.db.taxonPairs.toArray();
@@ -94,12 +103,28 @@ class DuoNatCache {
 }
 
     async updateTaxonPairs(taxonPairs) {
-    await this.db.taxonPairs.clear();
-    await this.db.taxonPairs.bulkPut(
-        taxonPairs.map(pair => ({ ...pair, lastUpdated: Date.now() }))
-    );
-}
+        try {
+            if (!Array.isArray(taxonPairs)) {
+                logger.error('updateTaxonPairs received non-array:', taxonPairs);
+                return;
+            }
+            
+            // Validate each pair before bulk put
+            const validPairs = taxonPairs.map(pair => {
+                if (!pair.pairId) {
+                    logger.error('Pair missing pairId:', pair);
+                    return null;
+                }
+                return { ...pair, lastUpdated: Date.now() };
+            }).filter(pair => pair !== null);
 
+            await this.db.taxonPairs.clear();
+            await this.db.taxonPairs.bulkPut(validPairs);
+        } catch (error) {
+            logger.error('Error in updateTaxonPairs:', error);
+            throw error;
+        }
+    }
     async getTaxonHierarchy() {
     let cachedHierarchy = await this.db.taxonHierarchy.toArray();
     if (cachedHierarchy.length > 0 && this.isCacheValid(cachedHierarchy[0].lastUpdated)) {
