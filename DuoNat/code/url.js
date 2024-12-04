@@ -93,6 +93,9 @@ const url = {
             const selectedLevels = state.getSelectedLevels();
             if (selectedLevels && selectedLevels.length > 0) {
                 url.searchParams.set('level', selectedLevels.join(','));
+            } else {
+                // If no levels are selected, explicitly set 'all'
+                url.searchParams.set('level', 'all');
             }
 
             const selectedRanges = state.getSelectedRanges();
