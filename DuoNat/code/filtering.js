@@ -205,7 +205,6 @@ Object.keys(filtering).forEach(key => {
 });
 
 const publicAPI = {
-    applyFilters: filtering.applyFilters,
     areAllFiltersDefault: filtering.areAllFiltersDefault,
     clearAllFilters: filtering.clearAllFilters,
     haveFiltersChanged: filtering.haveFiltersChanged,
