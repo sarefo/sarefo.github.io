@@ -18,8 +18,8 @@ async function initializeApp() {
     if (isInitialized) { logger.debug("App already initialized, skipping"); return; }
     else isInitialized = true;
 
-    cache.clearAllData(); // DEBUG
-    return null; 
+    //cache.clearAllData(); // DEBUG
+    //return null; 
 
     initializeLogger();
     logger.info("Initializing app");
