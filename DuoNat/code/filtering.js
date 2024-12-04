@@ -11,6 +11,35 @@ import rangeSelector from './dialogs/rangeSelector.js';
 import tagSelector from './dialogs/tagSelector.js';
 
 const filtering = {
+    matchCriteria: {
+        level: (pair, selectedLevels) => 
+            selectedLevels.length === 0 || selectedLevels.includes(Number(pair.level)),
+
+        ranges: (pair, selectedRanges) =>
+            !selectedRanges?.length || (pair.range && pair.range.some(r => selectedRanges.includes(r))),
+
+        tags: (pair, selectedTags) =>
+            !selectedTags?.length || (pair.tags && selectedTags.every(tag => pair.tags.includes(tag))),
+
+        search: (pair, searchTerm) => {
+            if (!searchTerm) return true;
+            const term = searchTerm.toLowerCase();
+            return (pair.taxonNames && pair.taxonNames.some(name => name.toLowerCase().includes(term))) ||
+                (pair.pairName && pair.pairName.toLowerCase().includes(term)) ||
+                (pair.tags && pair.tags.some(tag => tag.toLowerCase().includes(term))) ||
+                pair.pairId === searchTerm;
+        },
+
+        phylogeny: (pair, phylogenyId, taxonomyHierarchy) => {
+            if (!phylogenyId) return true;
+            if (!taxonomyHierarchy) {
+                logger.debug('Taxonomy hierarchy not loaded, deferring phylogeny filtering');
+                return true;
+            }
+            return pair.taxa.some(taxonId => filtering.isDescendantOf(taxonId, phylogenyId));
+        }
+    },
+
     getActiveFilters() {
         return {
             levels: state.getSelectedLevels(),
@@ -65,13 +94,8 @@ const filtering = {
     },
 
     getAvailableTaxonIds(filteredPairs) {
-        const taxonIds = new Set();
-        filteredPairs.forEach(pair => {
-            if (Array.isArray(pair.taxa)) {
-                pair.taxa.forEach(taxonId => taxonIds.add(taxonId.toString()));
-            }
-        });
-        return Array.from(taxonIds);
+        return [...new Set(filteredPairs.flatMap(pair => 
+            Array.isArray(pair.taxa) ? pair.taxa.map(String) : []))];
     },
 
     isDescendantOf(taxonId, ancestorId) {
@@ -92,10 +116,11 @@ const filtering = {
     },
 
     checkAllFilterCriteria(pair, filters) {
-        return this.matchesLevel(pair, filters.level) &&
-            this.matchesTags(pair, filters.tags) &&
-            this.matchesRanges(pair, filters.ranges) &&
-            this.matchesPhylogeny(pair, filters.phylogenyId);
+        const hierarchy = api.taxonomy.getTaxonomyHierarchy();
+        return Object.entries(this.matchCriteria).every(([key, matchFn]) => {
+            const filterValue = key === 'phylogeny' ? [filters[key], hierarchy] : filters[key];
+            return matchFn(pair, filterValue);
+        });
     },
 
     matchesLevel(pair, selectedLevels) {
@@ -191,26 +216,18 @@ const filtering = {
     },
 
     async countPairsPerLevel(filters) {
-        const taxonPairs = await api.taxonomy.fetchTaxonPairs(); // TODO why
+        // Just use fetchTaxonPairs since we don't have getAllPairs
+        const taxonPairs = await api.taxonomy.fetchTaxonPairs();
         
-        // Create a copy of filters without the levels
         const filtersWithoutLevels = {...filters, levels: []};
-        
         const filteredPairs = this.filterTaxonPairs(taxonPairs, filtersWithoutLevels);
         
-        const counts = {
-            '1': 0,
-            '2': 0,
-            '3': 0
-        };
-
-        filteredPairs.forEach(pair => {
+        return filteredPairs.reduce((counts, pair) => {
             if (pair.level in counts) {
                 counts[pair.level]++;
             }
-        });
-
-        return counts;
+            return counts;
+        }, { '1': 0, '2': 0, '3': 0 });
     },
 
 };
