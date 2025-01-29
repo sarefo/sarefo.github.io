@@ -1,6 +1,7 @@
 import os
 import json
 from collections import defaultdict
+#import subprocess
 
 # Configuration file to save the selected files
 CONFIG_FILE = '_file_selection.json'
@@ -130,6 +131,7 @@ def append_json_sample(file, output_file):
 
 def main():
     global all_files
+#    subprocess.run(['./output_tree.sh'], check=True) # refresh tree file
     all_files = list_files(ROOT_DIRECTORY)
     categorized_files = categorize_files(all_files)
     selected_files = load_selection()

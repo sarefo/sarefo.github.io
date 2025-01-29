@@ -12,6 +12,7 @@
     "DuoNat/server/node_modules"
   ],
   "dependencies": {
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "firebase-admin": "^13.0.2"
   }
 }
