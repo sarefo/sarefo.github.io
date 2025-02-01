@@ -53,7 +53,7 @@ Each picture has its own info dialog. The user can access external information a
 The help dialog contains information about the most important functions of the game. It has a link to a tutorial, which shows the main functions of the game.
 
 ### Collection manager dialog
-Currently this displays a list of all taxon pairs, locally saved in a JSON file. The user can filter by phylogeny, tags, range or level, or search by taxon. Below is a list of taxon pairs. The user can click on one, and open it this way. There's also a "Play" button, which activates the currently filtered collection.
+Currently this displays a list of all taxon pairs. These come from a remote database, but are cached locally via Dexie. The user can filter by phylogeny, tags, range or level, or search by taxon. Below is a list of taxon pairs. The user can click on one, and open it this way. There's also a "Play" button, which activates the currently filtered collection.
 
 ##### Range selection dialog
 This displays a world map, where the user selects which continents to include in the "range" filter. Currently, if there are multiple continents selected, pairs where all members occur at any of them are selected (eg. Africa + Oceania selected includes pairs that have a range including Africa, or including Oceania).
@@ -71,7 +71,7 @@ The ancestry graph shows how the two active taxa are connected taxonomically. It
 This is currently poorly maintained. The user can input two taxa, which will be used in a new pair. Currently there's no server-side functionality, but when there is, those can also be stored for future use. Also, once taxon pairs are implemented, the user will be able to input more than two taxa. Another idea is to only input one, and the app will create a taxon pairs from all the sister taxa at that level.
 
 ### Server-side
-I'm in the process of migrating backend data processing to MongoDB, using Heroku as middleware. I'm currently the free layers of both, and I'm really inexperienced in both, so this part is hard for me.
+I recently (late January 2025) ported everything from Github Pages + Heroku + MongoDB to Firebase. So everything should be in one place. Github is only used for version control management. The server for the frontend is at duonat-45.web.app currently. Using localhost:3000 for local testing.
 
 ## Architectural changes
 + you suggested some big changes in the past, and I'm willing to tackle them, if it helps me later to build a better app.
@@ -124,9 +124,7 @@ I'm in the process of migrating backend data processing to MongoDB, using Heroku
 + Chrome for testing
 + iPhone 7 and Pixel 7a for mobile testing
 + github for code management
-+ github.io hosts the client-facing part of the app
-+ heroku is supposed to host the server-facing part of the app
-+ MongoDB will carry the DB functionality, with heroku as middleware
++ Firebase manages the server, and the database functionality
 + iNaturalist and its API for taxon information
 + Discord for community management (currently, there aren't any community members apart from me)
 + Photoshop at times for icon design etc.
