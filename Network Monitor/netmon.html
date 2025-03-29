@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Network Monitor</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 8px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            overflow: hidden;
+            width: 160px;
+            height: 120px;
+        }
+        #status {
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 8px;
+        }
+        #metrics {
+            display: flex;
+            justify-content: space-between;
+        }
+        .metric {
+            text-align: center;
+            flex: 1;
+        }
+        .online { background-color: #c8e6c9; color: #2e7d32; }
+        .offline { background-color: #ffcdd2; color: #c62828; }
+        .slow { background-color: #fff9c4; color: #f57f17; }
+    </style>
+</head>
+<body>
+    <div id="status">Checking...</div>
+    <div id="metrics">
+        <div class="metric">
+            <div id="latency">--</div>
+            <div>Latency</div>
+        </div>
+        <div class="metric">
+            <div id="lastCheck">--</div>
+            <div>Last Check</div>
+        </div>
+    </div>
+
+    <script>
+        const statusEl = document.getElementById('status');
+        const latencyEl = document.getElementById('latency');
+        const lastCheckEl = document.getElementById('lastCheck');
+        
+        // Use a small image to test connectivity with minimal bandwidth
+        const testUrl = 'https://www.google.com/favicon.ico';
+        const slowThreshold = 500; // ms
+        
+        function checkConnection() {
+            const startTime = Date.now();
+            lastCheckEl.textContent = new Date().toLocaleTimeString();
+            
+            fetch(testUrl, { 
+                method: 'HEAD',
+                cache: 'no-store',
+                mode: 'no-cors'
+            })
+            .then(() => {
+                const latency = Date.now() - startTime;
+                latencyEl.textContent = latency + 'ms';
+                
+                if (latency > slowThreshold) {
+                    statusEl.textContent = 'Slow Connection';
+                    statusEl.className = 'slow';
+                } else {
+                    statusEl.textContent = 'Online';
+                    statusEl.className = 'online';
+                }
+            })
+            .catch(() => {
+                statusEl.textContent = 'Offline';
+                statusEl.className = 'offline';
+                latencyEl.textContent = '--';
+            });
+        }
+        
+        // Check initially and then every 10 seconds
+        checkConnection();
+        setInterval(checkConnection, 5000);
+    </script>
+</body>
+</html>

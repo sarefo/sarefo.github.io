@@ -1,0 +1,1 @@
+"C:\Program Files\Google\Chrome\Application\chrome.exe" --app=file://"C:\Users\stefa\OneDrive\Documents\GitHub\sarefo.github.io\Network Monitor\netmon.html" --window-size=300,120
