@@ -33,7 +33,7 @@ const translations = {
         inaturalistTitle: "Mein iNaturalist",
         inaturalistDescription: "Entdecke meine Naturbeobachtungen aus aller Welt.",
         photographyTitle: "Fotografie",
-        photographyDescription: "Eine kuratierte Sammlung meiner besten Naturfotografie.",
+        photographyDescription: "Eine kuratierte Sammlung meiner besten Naturfotos.",
         biodiversityTitle: "Biodiversitäts-Ressourcen",
         biodiversityDescription: "Selbst ausdruckbare Biodiversitätskalender, um Naturbewusstsein in deinen Alltag zu bringen.",
         githubTitle: "GitHub-Projekte",
