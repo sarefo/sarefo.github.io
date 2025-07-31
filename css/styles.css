@@ -47,18 +47,14 @@ body {
 }
 
 .header h1 {
+    font-family: 'Inter', sans-serif;
     font-size: 3rem;
     color: var(--primary-color);
-    font-weight: 300;
-    letter-spacing: 2px;
-    margin-bottom: 8px;
-}
-
-.header .tagline {
-    font-size: 1.1rem;
-    color: var(--text-light);
+    font-weight: 800;
+    letter-spacing: 1px;
     margin-bottom: 16px;
 }
+
 
 .contact-email {
     display: inline-flex;
@@ -88,7 +84,7 @@ body {
 
 /* Hero Section */
 .hero-section {
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .hero-projects {
@@ -136,9 +132,6 @@ body {
     flex-shrink: 0;
 }
 
-.hero-card.secondary h3 {
-    color: var(--text-color);
-}
 
 .hero-card p {
     color: var(--text-light);
@@ -158,6 +151,16 @@ body {
     border-radius: var(--border-radius);
     padding: 25px;
     box-shadow: var(--shadow);
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition);
+    border: 2px solid transparent;
+}
+
+.section:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--primary-color);
 }
 
 .section h3 {
@@ -279,8 +282,18 @@ body {
         padding: 15px;
     }
     
+    .header {
+        margin-bottom: 25px;
+        padding: 15px 0;
+    }
+    
     .header h1 {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+        margin-bottom: 12px;
+    }
+    
+    .hero-section {
+        margin-bottom: 25px;
     }
     
     .hero-projects {
@@ -329,25 +342,56 @@ body {
     }
     
     .header {
-        margin-bottom: 30px;
+        margin-bottom: 20px;
+        padding: 10px 0;
     }
     
     .header h1 {
-        font-size: 2rem;
-        letter-spacing: 1px;
+        font-size: 1.8rem;
+        letter-spacing: 0.5px;
+        margin-bottom: 10px;
+    }
+    
+    .hero-section {
+        margin-bottom: 20px;
     }
     
     .hero-card {
-        padding: 15px;
+        padding: 12px;
+    }
+    
+    .hero-card h3 {
+        font-size: 1.2rem;
+        margin-bottom: 8px;
+    }
+    
+    .hero-card .card-icon {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .content-sections {
+        gap: 15px;
+        margin-bottom: 25px;
     }
     
     .section {
-        padding: 15px;
+        padding: 12px;
+    }
+    
+    .section h3 {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
     }
     
     .contact-email {
-        font-size: 0.9rem;
-        padding: 6px 12px;
+        font-size: 0.85rem;
+        padding: 6px 10px;
+    }
+    
+    .email-icon {
+        width: 14px;
+        height: 14px;
     }
 }
 
