@@ -28,6 +28,7 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/language-switcher.css">
 
     <!-- Preconnect to external domains for performance -->
     <link rel="preconnect" href="https://duo-nat.web.app">
@@ -38,10 +39,19 @@
 
 <body>
     <div class="container">
+        <!-- Language Switcher -->
+        <div class="language-switcher">
+            <button class="language-btn active" data-lang="en">EN</button>
+            <button class="language-btn" data-lang="de">DE</button>
+            <button class="language-btn" data-lang="fr">FR</button>
+            <button class="language-btn" data-lang="es">ES</button>
+            <button class="language-btn" data-lang="pt">PT</button>
+        </div>
+
         <!-- Header Section -->
         <header class="header">
-            <h1>Sarefo</h1>
-            <a href="#" id="contact-email" class="contact-email" aria-label="Contact email">
+            <h1 data-i18n="header">Sarefo</h1>
+            <a href="#" id="contact-email" class="contact-email" data-i18n-aria="contactEmail">
                 <svg class="email-icon" viewBox="0 0 24 24" fill="currentColor">
                     <path
                         d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z" />
@@ -56,19 +66,18 @@
                 <a href="https://duo-nat.web.app" class="hero-card primary" target="_blank" rel="noopener">
                     <h3>
                         <img src="images/duonat-icon.png" alt="DuoNat" class="card-icon">
-                        DuoNat
+                        <span data-i18n="duonatTitle">DuoNat</span>
                     </h3>
-                    <p>Biodiversity explorer, using iNaturalist data. Learn to recognize species
-                        with photos from citizen scientists worldwide.</p>
+                    <p data-i18n="duonatDescription">Discover biodiversity with iNaturalist data. The best way to learn species :)</p>
                 </a>
 
                 <a href="https://www.inaturalist.org/observations?user_id=portioid&verifiable=any"
                     class="hero-card secondary" target="_blank" rel="noopener">
                     <h3>
                         <img src="images/inat-icon.svg" alt="iNaturalist" class="card-icon">
-                        My iNaturalist
+                        <span data-i18n="inaturalistTitle">My iNaturalist</span>
                     </h3>
-                    <p>Explore my nature observations from around the world, documenting biodiversity.</p>
+                    <p data-i18n="inaturalistDescription">Explore my nature observations from around the world.</p>
                 </a>
             </div>
         </section>
@@ -77,36 +86,38 @@
         <section class="content-sections">
             <a href="https://www.flickr.com/photos/155623578@N06/albums/" class="section" target="_blank"
                 rel="noopener">
-                <h3>Photography</h3>
-                <p>A curated collection of my best nature and wildlife photography.</p>
+                <h3 data-i18n="photographyTitle">Photography</h3>
+                <p data-i18n="photographyDescription">A curated collection of my best nature photography.</p>
             </a>
 
             <a href="https://drive.google.com/drive/folders/1ruTXLxR3I0eDZwea4KkOVjJhpZ3FucSm" class="section"
                 target="_blank" rel="noopener">
-                <h3>Biodiversity Resources</h3>
-                <p>Print-your-own biodiversity calendars to bring nature awareness into your daily life.</p>
+                <h3 data-i18n="biodiversityTitle">Biodiversity Resources</h3>
+                <p data-i18n="biodiversityDescription">Print-your-own biodiversity calendars to bring nature awareness into your daily life.</p>
             </a>
         </section>
 
         <!-- GitHub Projects Section -->
         <section class="github-section">
             <div class="github-header" tabindex="0">
-                <h3>GitHub Projects</h3>
+                <h3 data-i18n="githubTitle">GitHub Projects</h3>
                 <span class="expand-icon">▼</span>
             </div>
             <div class="github-projects">
                 <ul>
-                    <li><a href="langlearn/index.html">Spanish Tense Trainer</a></li>
-                    <li><a href="Recorder/index.html">Recorder ABC Trainer</a></li>
-                    <li><a href="strudel/index.html">Strudel File Manager</a></li>
-                    <li><a href="Claude Pong/index.html">Pong Game built with Claude 3.5</a></li>
-                    <li><a href="/calendar/">Calendar</a></li>
+                    <li><a href="langlearn/index.html" data-i18n="spanishTrainer">Spanish Tense Trainer</a></li>
+                    <li><a href="Recorder/index.html" data-i18n="recorderTrainer">Recorder ABC Trainer</a></li>
+                    <li><a href="strudel/index.html" data-i18n="strudelManager">Strudel File Manager</a></li>
+                    <li><a href="Claude Pong/index.html" data-i18n="pongGame">Pong Game</a></li>
+                    <li><a href="/calendar/" data-i18n="calendar">Calendar</a></li>
                 </ul>
             </div>
         </section>
     </div>
 
     <!-- JavaScript -->
+    <script src="js/translations.js"></script>
+    <script src="js/i18n.js"></script>
     <script src="js/main.js"></script>
 </body>
 
