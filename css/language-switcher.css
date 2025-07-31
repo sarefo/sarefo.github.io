@@ -3,8 +3,8 @@
     display: flex;
     justify-content: center;
     gap: 8px;
-    margin-bottom: 20px;
-    padding: 15px 0;
+    margin-bottom: 15px;
+    padding: 10px 0;
 }
 
 .language-btn {
@@ -46,31 +46,32 @@
 @media (max-width: 768px) {
     .language-switcher {
         gap: 6px;
-        margin-bottom: 15px;
-        padding: 12px 0;
+        margin-bottom: 8px;
+        padding: 8px 0;
     }
     
     .language-btn {
-        padding: 6px 10px;
-        font-size: 0.85rem;
-        min-width: 40px;
+        padding: 5px 9px;
+        font-size: 0.8rem;
+        min-width: 38px;
     }
 }
 
 @media (max-width: 480px) {
     .language-switcher {
-        gap: 4px;
-        margin-bottom: 12px;
-        padding: 10px 0;
+        gap: 3px;
+        margin-bottom: 5px;
+        padding: 5px 0;
         flex-wrap: wrap;
         justify-content: center;
     }
     
     .language-btn {
-        padding: 6px 8px;
-        font-size: 0.8rem;
-        min-width: 36px;
-        border-radius: 6px;
+        padding: 4px 7px;
+        font-size: 0.75rem;
+        min-width: 34px;
+        border-radius: 5px;
+        font-weight: 500;
     }
 }
 
