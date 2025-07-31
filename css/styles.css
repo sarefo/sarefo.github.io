@@ -1,0 +1,393 @@
+/* CSS Variables */
+:root {
+    --primary-color: #74ac00;
+    --primary-dark: #5a8500;
+    --primary-light: #8bc614;
+    --text-color: #333;
+    --text-light: #666;
+    --background: #f9f9f9;
+    --card-background: #fff;
+    --border-color: #e0e0e0;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.15);
+    --border-radius: 12px;
+    --transition: all 0.3s ease;
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Helvetica Neue', 'Segoe UI', Roboto, Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background);
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Container */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 20px 0;
+}
+
+.header h1 {
+    font-size: 3rem;
+    color: var(--primary-color);
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.header .tagline {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    margin-bottom: 16px;
+}
+
+.contact-email {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 8px 16px;
+    background: var(--card-background);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.contact-email:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-hover);
+    color: var(--primary-color);
+}
+
+.email-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* Hero Section */
+.hero-section {
+    margin-bottom: 50px;
+}
+
+.hero-projects {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.hero-card {
+    background: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    text-decoration: none;
+    color: inherit;
+    border: 2px solid transparent;
+}
+
+.hero-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--primary-color);
+}
+
+.hero-card.primary {
+    border-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--card-background) 0%, #f8fdf5 100%);
+}
+
+.hero-card h3 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.hero-card .card-icon {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+}
+
+.hero-card.secondary h3 {
+    color: var(--text-color);
+}
+
+.hero-card p {
+    color: var(--text-light);
+    line-height: 1.5;
+}
+
+/* Content Sections */
+.content-sections {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.section {
+    background: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 25px;
+    box-shadow: var(--shadow);
+}
+
+.section h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.section p {
+    color: var(--text-light);
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.section-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+    padding: 8px 0;
+}
+
+.section-link:hover {
+    color: var(--primary-dark);
+    transform: translateX(3px);
+}
+
+.section-link::after {
+    content: '→';
+    transition: var(--transition);
+}
+
+.section-link:hover::after {
+    transform: translateX(3px);
+}
+
+/* GitHub Projects Section */
+.github-section {
+    background: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.github-header {
+    padding: 25px;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.github-header:hover {
+    background: #f8f9fa;
+}
+
+.github-header h3 {
+    color: var(--primary-color);
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.expand-icon {
+    transition: var(--transition);
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
+.github-section.expanded .expand-icon {
+    transform: rotate(180deg);
+}
+
+.github-projects {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.github-section.expanded .github-projects {
+    max-height: 500px;
+}
+
+.github-projects ul {
+    list-style: none;
+    padding: 0;
+}
+
+.github-projects li {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.github-projects li:last-child {
+    border-bottom: none;
+}
+
+.github-projects a {
+    display: block;
+    padding: 15px 25px;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.github-projects a:hover {
+    background: #f8f9fa;
+    color: var(--primary-color);
+    padding-left: 35px;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .header h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-projects {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .hero-card {
+        padding: 20px;
+    }
+    
+    .hero-card h3 {
+        font-size: 1.3rem;
+    }
+    
+    .hero-card .card-icon {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .content-sections {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .section {
+        padding: 20px;
+    }
+    
+    .github-header {
+        padding: 20px;
+    }
+    
+    .github-projects a {
+        padding: 12px 20px;
+    }
+    
+    .github-projects a:hover {
+        padding-left: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .header {
+        margin-bottom: 30px;
+    }
+    
+    .header h1 {
+        font-size: 2rem;
+        letter-spacing: 1px;
+    }
+    
+    .hero-card {
+        padding: 15px;
+    }
+    
+    .section {
+        padding: 15px;
+    }
+    
+    .contact-email {
+        font-size: 0.9rem;
+        padding: 6px 12px;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Focus styles for keyboard navigation */
+.hero-card:focus,
+.section-link:focus,
+.github-header:focus,
+.github-projects a:focus,
+.contact-email:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Dark mode media query (optional) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-color: #e0e0e0;
+        --text-light: #b0b0b0;
+        --background: #1a1a1a;
+        --card-background: #2d2d2d;
+        --border-color: #404040;
+        --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+    
+    .hero-card.primary {
+        background: linear-gradient(135deg, var(--card-background) 0%, #1f2d1a 100%);
+    }
+    
+    .github-header:hover,
+    .github-projects a:hover {
+        background: #3a3a3a;
+    }
+}

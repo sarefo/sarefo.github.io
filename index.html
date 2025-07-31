@@ -4,84 +4,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sarefo @ github.io</title>
-    <style>
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            background-color: #f9f9f9;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 40px;
-            font-size: 2.5rem;
-            color: #2c3e50;
-            letter-spacing: 1px;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        li {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        a {
-            color: #333;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 1.1rem;
-            padding: 10px 15px;
-            border-radius: 5px;
-            display: inline-block;
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            width: 40%;
-            max-width: 400px;
-        }
-
-        a:hover,
-        a:focus {
-            color: #666;
-            background-color: #f0f0f0;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        @media (max-width: 600px) {
-            body {
-                padding: 20px 15px;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-
-            a {
-                font-size: 1rem;
-            }
-        }
-    </style>
+    <title>Sarefo - Nature, Code & Photography</title>
+    <meta name="description" content="Stefan's projects: nature identification tools, photography, and coding projects focused on biodiversity and learning.">
+    <meta name="theme-color" content="#74ac00">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Sarefo - Nature, Code & Photography">
+    <meta property="og:description" content="Stefan's projects: nature identification tools, photography, and coding projects focused on biodiversity and learning.">
+    <meta property="og:url" content="https://sarefo.github.io">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Preconnect to external domains for performance -->
+    <link rel="preconnect" href="https://duo-nat.web.app">
+    <link rel="preconnect" href="https://www.inaturalist.org">
+    <link rel="preconnect" href="https://www.flickr.com">
+    <link rel="preconnect" href="https://drive.google.com">
 </head>
 
 <body>
-    <h1>Sarefo</h1>
-    <ul>
-        <li><a href="https://duo-nat.web.app">iNaturalist Taxonomy Trainer</a></li>
-        <li><a href="langlearn/index.html">Spanish Tense Trainer</a></li>
-        <li><a href="Recorder/index.html">Recorder ABC Trainer</a></li>
-        <li><a href="strudel/index.html">Strudel File Manager</a></li>
-        <li><a href="Claude Pong/index.html">Pong Game built with Claude 3.5</a></li>
-        <li><a href="/calendar/">Calendar</a></li>
-    </ul>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <h1>Sarefo</h1>
+            <p class="tagline">Nature enthusiast, developer, photographer</p>
+            <a href="#" id="contact-email" class="contact-email" aria-label="Contact email">
+                <svg class="email-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z"/>
+                </svg>
+                Loading...
+            </a>
+        </header>
+
+        <!-- Hero Projects Section -->
+        <section class="hero-section">
+            <div class="hero-projects">
+                <a href="https://duo-nat.web.app" class="hero-card primary" target="_blank" rel="noopener">
+                    <h3>
+                        <img src="images/duonat-icon.png" alt="DuoNat" class="card-icon">
+                        DuoNat
+                    </h3>
+                    <p>Interactive nature identification trainer using iNaturalist data. Learn to recognize species through engaging quizzes with real photos from citizen scientists worldwide.</p>
+                </a>
+                
+                <a href="https://www.inaturalist.org/observations?user_id=portioid&verifiable=any" class="hero-card secondary" target="_blank" rel="noopener">
+                    <h3>
+                        <img src="images/inat-icon.svg" alt="iNaturalist" class="card-icon">
+                        My iNaturalist
+                    </h3>
+                    <p>Explore my nature observations from around the world, documenting biodiversity one photo at a time.</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- Content Sections -->
+        <section class="content-sections">
+            <div class="section">
+                <h3>Photography</h3>
+                <p>A curated collection of my best nature and wildlife photography from travels and local explorations.</p>
+                <a href="https://www.flickr.com/photos/155623578@N06/albums/" class="section-link" target="_blank" rel="noopener">
+                    View Flickr Albums
+                </a>
+            </div>
+            
+            <div class="section">
+                <h3>Biodiversity Resources</h3>
+                <p>Print-your-own biodiversity calendars and educational materials to bring nature awareness into your daily life.</p>
+                <a href="https://drive.google.com/drive/folders/1ruTXLxR3I0eDZwea4KkOVjJhpZ3FucSm" class="section-link" target="_blank" rel="noopener">
+                    Access Calendar Files
+                </a>
+            </div>
+        </section>
+
+        <!-- GitHub Projects Section -->
+        <section class="github-section">
+            <div class="github-header" tabindex="0">
+                <h3>GitHub Projects</h3>
+                <span class="expand-icon">▼</span>
+            </div>
+            <div class="github-projects">
+                <ul>
+                    <li><a href="langlearn/index.html">Spanish Tense Trainer</a></li>
+                    <li><a href="Recorder/index.html">Recorder ABC Trainer</a></li>
+                    <li><a href="strudel/index.html">Strudel File Manager</a></li>
+                    <li><a href="Claude Pong/index.html">Pong Game built with Claude 3.5</a></li>
+                    <li><a href="/calendar/">Calendar</a></li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
 </body>
 
 </html>
