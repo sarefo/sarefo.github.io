@@ -1,11 +1,14 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
     "allow": [
       "mcp__puppeteer__puppeteer_screenshot",
       "mcp__puppeteer__puppeteer_click",
       "mcp__puppeteer__puppeteer_navigate",
       "mcp__puppeteer__puppeteer_evaluate",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__get-library-docs"
     ],
     "deny": []
   }
