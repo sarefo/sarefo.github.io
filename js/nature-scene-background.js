@@ -6,6 +6,7 @@ class WaterInsectsBackground {
         this.canvas = null;
         this.waterWaves = [];
         this.insects = [];
+        this.seaStars = [];
         this.animationId = null;
         this.time = 0;
         
@@ -18,6 +19,7 @@ class WaterInsectsBackground {
         this.detectContentBounds();
         this.createWaterSection();
         this.createInsects();
+        this.createSeaStars();
         this.startAnimation();
         
         // Handle window resize
@@ -54,6 +56,7 @@ class WaterInsectsBackground {
         // Create groups for different elements
         this.waterGroup = new paper.Group();
         this.insectsGroup = new paper.Group();
+        this.seaStarsGroup = new paper.Group();
     }
 
     getWaterColor() {
@@ -64,6 +67,11 @@ class WaterInsectsBackground {
     getInsectColor() {
         const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         return isDark ? 'rgba(180, 140, 100, 0.6)' : 'rgba(80, 60, 40, 0.7)';
+    }
+
+    getSeaStarColor() {
+        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        return isDark ? 'rgba(120, 140, 160, 0.6)' : 'rgba(80, 100, 120, 0.7)';
     }
 
     detectContentBounds() {
@@ -300,6 +308,84 @@ class WaterInsectsBackground {
         return insectData;
     }
 
+    createSeaStars() {
+        const viewWidth = paper.view.size.width;
+        const viewHeight = paper.view.size.height;
+        const waterHeight = viewHeight / 3;
+        const waterTop = viewHeight - waterHeight;
+        const seaStarCount = 4 + Math.floor(Math.random() * 3);
+        
+        for (let i = 0; i < seaStarCount; i++) {
+            const seaStar = this.createSeaStar(viewWidth, waterHeight, waterTop);
+            this.seaStars.push(seaStar);
+            this.seaStarsGroup.addChild(seaStar.group);
+        }
+    }
+
+    createSeaStar(viewWidth, waterHeight, waterTop) {
+        const seaStarColor = this.getSeaStarColor();
+        const group = new paper.Group();
+        
+        // Position sea star in water area
+        const x = Math.random() * viewWidth;
+        const y = waterTop + (waterHeight * 0.4) + Math.random() * (waterHeight * 0.4);
+        const center = new paper.Point(x, y);
+        const size = 8 + Math.random() * 6;
+        
+        // Create proper pentameric starfish with continuous symmetry
+        const starfish = new paper.Path();
+        const armLength = size * 1.1;
+        const armWidth = size * 0.35;
+        const centerRadius = size * 0.25;
+        
+        // Create 10 points (2 per arm) for perfect 5-fold symmetry
+        for (let i = 0; i < 10; i++) {
+            const angle = (i * 36) * Math.PI / 180; // 36 degrees between points
+            const isArmTip = i % 2 === 0;
+            
+            let radius;
+            if (isArmTip) {
+                // Arm tips - extend outward
+                radius = armLength;
+            } else {
+                // Between arms - create the "waist" between arms
+                radius = centerRadius + armWidth * 0.6;
+            }
+            
+            const x = center.x + Math.cos(angle) * radius;
+            const y = center.y + Math.sin(angle) * radius;
+            
+            if (i === 0) {
+                starfish.moveTo(x, y);
+            } else {
+                starfish.lineTo(x, y);
+            }
+        }
+        
+        starfish.closed = true;
+        starfish.smooth({ type: 'continuous', factor: 0.85 });
+        starfish.fillColor = seaStarColor;
+        
+        group.addChild(starfish);
+        
+        // Animation properties
+        const seaStarData = {
+            group: group,
+            center: center.clone(),
+            angle: Math.random() * Math.PI * 2,
+            speed: 0.2 + Math.random() * 0.3,
+            rotationSpeed: 0.005 + Math.random() * 0.01,
+            waterBounds: {
+                top: waterTop + waterHeight * 0.3,
+                bottom: waterTop + waterHeight * 0.9,
+                left: size,
+                right: viewWidth - size
+            }
+        };
+        
+        return seaStarData;
+    }
+
     wouldCollideWithContent(point, margin = 50) {
         for (let bound of this.contentBounds) {
             if (point.x > bound.left - margin &&
@@ -364,6 +450,25 @@ class WaterInsectsBackground {
             insect.group.rotation = rotation;
         });
         
+        // Animate sea stars with gentle floating and slow rotation
+        this.seaStars.forEach(seaStar => {
+            // Very slow, gentle horizontal drift
+            seaStar.angle += seaStar.speed * 0.002;
+            
+            // Gentle floating motion - mostly horizontal with slight vertical drift
+            const x = seaStar.center.x + Math.sin(this.time * 0.4) * 25;
+            const y = seaStar.center.y + Math.sin(this.time * 0.25 + seaStar.angle) * 12;
+            
+            // Keep sea stars within water bounds
+            const constrainedX = Math.max(seaStar.waterBounds.left, Math.min(seaStar.waterBounds.right, x));
+            const constrainedY = Math.max(seaStar.waterBounds.top, Math.min(seaStar.waterBounds.bottom, y));
+            
+            seaStar.group.position = new paper.Point(constrainedX, constrainedY);
+            
+            // Gentle rotation
+            seaStar.group.rotation += seaStar.rotationSpeed;
+        });
+        
         paper.view.draw();
         this.animationId = requestAnimationFrame(() => this.animate());
     }
@@ -371,6 +476,7 @@ class WaterInsectsBackground {
     updateTheme() {
         const newWaterColor = this.getWaterColor();
         const newInsectColor = this.getInsectColor();
+        const newFishColor = this.getFishColor();
         
         // Update water colors
         this.waterWaves.forEach(wave => {
@@ -402,6 +508,14 @@ class WaterInsectsBackground {
                     child.strokeColor = newInsectColor.replace(/[\d\.]+\)$/, '0.4)');
                 }
             });
+        });
+        
+        // Update sea star colors
+        const newSeaStarColor = this.getSeaStarColor();
+        this.seaStars.forEach(seaStar => {
+            if (seaStar.group.children[0] && seaStar.group.children[0].fillColor) {
+                seaStar.group.children[0].fillColor = newSeaStarColor;
+            }
         });
         
         paper.view.draw();
