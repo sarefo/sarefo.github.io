@@ -37,6 +37,8 @@ body {
     margin: 0 auto;
     padding: 20px;
     min-height: 100vh;
+    position: relative;
+    z-index: 1;
 }
 
 /* Header */
