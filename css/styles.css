@@ -98,6 +98,7 @@ body {
 
 .hero-card {
     background: var(--card-background);
+    background: rgba(255, 255, 255, 0.92);
     border-radius: var(--border-radius);
     padding: 30px;
     box-shadow: var(--shadow);
@@ -150,6 +151,7 @@ body {
 
 .section {
     background: var(--card-background);
+    background: rgba(255, 255, 255, 0.92);
     border-radius: var(--border-radius);
     padding: 25px;
     box-shadow: var(--shadow);
@@ -206,6 +208,7 @@ body {
 /* GitHub Projects Section */
 .github-section {
     background: var(--card-background);
+    background: rgba(255, 255, 255, 0.92);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
     overflow: hidden;
@@ -428,8 +431,20 @@ body {
         --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.4);
     }
     
+    .hero-card {
+        background: rgba(45, 45, 45, 0.92);
+    }
+    
+    .section {
+        background: rgba(45, 45, 45, 0.92);
+    }
+    
+    .github-section {
+        background: rgba(45, 45, 45, 0.92);
+    }
+    
     .hero-card.primary {
-        background: linear-gradient(135deg, var(--card-background) 0%, #1f2d1a 100%);
+        background: linear-gradient(135deg, rgba(45, 45, 45, 0.92) 0%, rgba(31, 45, 26, 0.92) 100%);
     }
     
     .github-header:hover,
