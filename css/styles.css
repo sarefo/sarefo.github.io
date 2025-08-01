@@ -98,7 +98,7 @@ body {
 
 .hero-card {
     background: var(--card-background);
-    background: rgba(255, 255, 255, 0.92);
+    background: rgba(255, 255, 255, 0.82);
     border-radius: var(--border-radius);
     padding: 30px;
     box-shadow: var(--shadow);
@@ -151,7 +151,7 @@ body {
 
 .section {
     background: var(--card-background);
-    background: rgba(255, 255, 255, 0.92);
+    background: rgba(255, 255, 255, 0.82);
     border-radius: var(--border-radius);
     padding: 25px;
     box-shadow: var(--shadow);
@@ -208,7 +208,7 @@ body {
 /* GitHub Projects Section */
 .github-section {
     background: var(--card-background);
-    background: rgba(255, 255, 255, 0.92);
+    background: rgba(255, 255, 255, 0.82);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
     overflow: hidden;
@@ -286,56 +286,56 @@ body {
     .container {
         padding: 15px;
     }
-    
+
     .header {
         margin-bottom: 20px;
         padding: 10px 0;
     }
-    
+
     .header h1 {
         font-size: 2.2rem;
         margin-bottom: 12px;
     }
-    
+
     .hero-section {
         margin-bottom: 25px;
     }
-    
+
     .hero-projects {
         grid-template-columns: 1fr;
         gap: 15px;
     }
-    
+
     .hero-card {
         padding: 20px;
     }
-    
+
     .hero-card h3 {
         font-size: 1.3rem;
     }
-    
+
     .hero-card .card-icon {
         width: 28px;
         height: 28px;
     }
-    
+
     .content-sections {
         grid-template-columns: 1fr;
         gap: 20px;
     }
-    
+
     .section {
         padding: 20px;
     }
-    
+
     .github-header {
         padding: 20px;
     }
-    
+
     .github-projects a {
         padding: 12px 20px;
     }
-    
+
     .github-projects a:hover {
         padding-left: 30px;
     }
@@ -345,55 +345,55 @@ body {
     .container {
         padding: 10px;
     }
-    
+
     .header {
         margin-bottom: 12px;
         padding: 5px 0;
     }
-    
+
     .header h1 {
         font-size: 1.8rem;
         letter-spacing: 0.5px;
         margin-bottom: 10px;
     }
-    
+
     .hero-section {
         margin-bottom: 20px;
     }
-    
+
     .hero-card {
         padding: 12px;
     }
-    
+
     .hero-card h3 {
         font-size: 1.2rem;
         margin-bottom: 8px;
     }
-    
+
     .hero-card .card-icon {
         width: 24px;
         height: 24px;
     }
-    
+
     .content-sections {
         gap: 15px;
         margin-bottom: 25px;
     }
-    
+
     .section {
         padding: 12px;
     }
-    
+
     .section h3 {
         font-size: 1.1rem;
         margin-bottom: 8px;
     }
-    
+
     .contact-email {
         font-size: 0.85rem;
         padding: 6px 10px;
     }
-    
+
     .email-icon {
         width: 14px;
         height: 14px;
@@ -430,23 +430,23 @@ body {
         --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.4);
     }
-    
+
     .hero-card {
-        background: rgba(45, 45, 45, 0.92);
+        background: rgba(45, 45, 45, 0.82);
     }
-    
+
     .section {
-        background: rgba(45, 45, 45, 0.92);
+        background: rgba(45, 45, 45, 0.82);
     }
-    
+
     .github-section {
-        background: rgba(45, 45, 45, 0.92);
+        background: rgba(45, 45, 45, 0.82);
     }
-    
+
     .hero-card.primary {
-        background: linear-gradient(135deg, rgba(45, 45, 45, 0.92) 0%, rgba(31, 45, 26, 0.92) 100%);
+        background: linear-gradient(135deg, rgba(45, 45, 45, 0.82) 0%, rgba(31, 45, 26, 0.82) 100%);
     }
-    
+
     .github-header:hover,
     .github-projects a:hover {
         background: #3a3a3a;
