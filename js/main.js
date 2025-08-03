@@ -177,6 +177,30 @@ class PageAnalytics {
     }
 }
 
+// Android detection and URL redirection
+class AndroidRedirect {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        if (this.isAndroid()) {
+            this.updateDuoNatLink();
+        }
+    }
+
+    isAndroid() {
+        return /Android/i.test(navigator.userAgent);
+    }
+
+    updateDuoNatLink() {
+        const duoNatLink = document.querySelector('a[href="https://duo-nat.web.app"]');
+        if (duoNatLink) {
+            duoNatLink.href = 'https://play.google.com/store/apps/details?id=app.duo_nat';
+        }
+    }
+}
+
 // Theme detection and handling
 class ThemeManager {
     constructor() {
@@ -218,6 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new SmoothScroll();
     new PageAnalytics();
     new ThemeManager();
+    new AndroidRedirect();
 });
 
 // Handle any uncaught errors gracefully
@@ -232,5 +257,6 @@ window.SarefoSite = {
     GitHubToggle,
     SmoothScroll,
     PageAnalytics,
-    ThemeManager
+    ThemeManager,
+    AndroidRedirect
 };
