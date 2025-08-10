@@ -15,9 +15,14 @@ class EmailProtection {
     }
 
     setupEmailReveal(element) {
+        // Get current language and translation
+        const currentLanguage = localStorage.getItem('selectedLanguage') || 'en';
+        const translation = translations[currentLanguage] || translations['en'];
+        const revealText = translation.emailRevealText || 'Click to reveal email';
+        
         // Initially show a placeholder
-        element.textContent = 'Click to reveal email';
-        element.setAttribute('aria-label', 'Click to reveal email address');
+        element.textContent = revealText;
+        element.setAttribute('aria-label', revealText);
         
         // Add click handler to reveal actual email
         element.addEventListener('click', (e) => {
