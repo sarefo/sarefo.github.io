@@ -4,25 +4,22 @@
 class EmailProtection {
     constructor() {
         this.emailParts = ['sarefo', 'gmail', 'com'];
+        this.emailElement = null;
+        this.isRevealed = false;
         this.init();
     }
 
     init() {
-        const emailElement = document.getElementById('contact-email');
-        if (emailElement) {
-            this.setupEmailReveal(emailElement);
+        this.emailElement = document.getElementById('contact-email');
+        if (this.emailElement) {
+            this.setupEmailReveal(this.emailElement);
+            this.setupLanguageListener();
         }
     }
 
     setupEmailReveal(element) {
-        // Get current language and translation
-        const currentLanguage = localStorage.getItem('selectedLanguage') || 'en';
-        const translation = translations[currentLanguage] || translations['en'];
-        const revealText = translation.emailRevealText || 'Click to reveal email';
-        
-        // Initially show a placeholder
-        element.textContent = revealText;
-        element.setAttribute('aria-label', revealText);
+        // Initially show localized placeholder
+        this.updateEmailText();
         
         // Add click handler to reveal actual email
         element.addEventListener('click', (e) => {
@@ -53,6 +50,32 @@ class EmailProtection {
         // Remove click handler after reveal
         element.onclick = null;
         element.onkeydown = null;
+        this.isRevealed = true;
+    }
+
+    setupLanguageListener() {
+        // Listen for language changes
+        document.querySelectorAll('.language-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // Use setTimeout to ensure language has switched
+                setTimeout(() => {
+                    if (!this.isRevealed) {
+                        this.updateEmailText();
+                    }
+                }, 50);
+            });
+        });
+    }
+
+    updateEmailText() {
+        if (!this.emailElement || this.isRevealed) return;
+        
+        const currentLanguage = localStorage.getItem('selectedLanguage') || 'en';
+        const translation = translations[currentLanguage] || translations['en'];
+        const revealText = translation.emailRevealText || 'Click to reveal email';
+        
+        this.emailElement.textContent = revealText;
+        this.emailElement.setAttribute('aria-label', revealText);
     }
 }
 
