@@ -14,6 +14,11 @@ class I18n {
         
         // Load the current language
         this.loadLanguage(this.currentLanguage);
+        
+        // Ensure URL updates are applied even on initial load
+        setTimeout(() => {
+            this.updateLanguageUrls(this.currentLanguage);
+        }, 100);
     }
 
     setupLanguageSwitcher() {
@@ -67,6 +72,9 @@ class I18n {
         // Update aria-labels and other attributes
         this.updateAttributes(translation);
         
+        // Update language-dependent URLs
+        this.updateLanguageUrls(language);
+        
         // Set active language button
         this.setActiveLanguageButton(language);
     }
@@ -111,6 +119,26 @@ class I18n {
                 element.setAttribute('aria-label', translation[key]);
             }
         });
+    }
+
+    updateLanguageUrls(language) {
+        // Update LocNat guide link with language parameter  
+        // Use multiple selectors to ensure we find the link
+        const locnatLink = document.querySelector('a[href="guide/index.html"]') || 
+                          document.querySelector('a[href^="guide/index.html"]') ||
+                          document.querySelector('a.hero-card[href^="guide"]');
+        
+        if (locnatLink) {
+            const oldHref = locnatLink.href;
+            if (language === 'en') {
+                locnatLink.href = 'guide/index.html';
+            } else {
+                locnatLink.href = `guide/index.html?lang=${language}`;
+            }
+            console.log(`Updated LocNat link from "${oldHref}" to "${locnatLink.href}" for language: ${language}`);
+        } else {
+            console.warn('LocNat link not found for language update');
+        }
     }
 
     setActiveLanguageButton(language) {
