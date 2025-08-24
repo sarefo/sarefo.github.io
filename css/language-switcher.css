@@ -23,22 +23,22 @@
 }
 
 .language-btn:hover {
-    background: var(--primary-light);
-    color: white;
-    border-color: var(--primary-color);
+    background: var(--text-light);
+    color: var(--card-background);
+    border-color: var(--text-light);
     transform: translateY(-1px);
     box-shadow: var(--shadow);
 }
 
 .language-btn.active {
-    background: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
+    background: var(--text-color);
+    color: var(--background);
+    border-color: var(--text-color);
     box-shadow: var(--shadow);
 }
 
 .language-btn:focus {
-    outline: 2px solid var(--primary-color);
+    outline: 2px solid var(--text-color);
     outline-offset: 2px;
 }
 
@@ -75,18 +75,17 @@
     }
 }
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-    .language-btn {
-        background: var(--card-background);
-        border-color: var(--border-color);
-        color: var(--text-light);
-    }
-    
-    .language-btn:hover {
-        background: var(--primary-color);
-        border-color: var(--primary-color);
-    }
+/* Theme-specific adjustments for ink themes */
+[data-theme="ink-dark"] .language-btn.active {
+    background: var(--text-light);
+    color: var(--background);
+    border-color: var(--text-light);
+}
+
+[data-theme="ink-dark"] .language-btn:hover {
+    background: var(--border-color);
+    color: var(--text-color);
+    border-color: var(--border-color);
 }
 
 /* Accessibility improvements */

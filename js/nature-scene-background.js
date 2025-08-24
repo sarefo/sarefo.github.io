@@ -29,6 +29,15 @@ class WaterInsectsBackground {
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
             this.updateTheme();
         });
+        
+        // Watch for manual theme changes
+        const observer = new MutationObserver(() => {
+            this.updateTheme();
+        });
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['data-theme']
+        });
     }
 
     createCanvas() {
@@ -59,19 +68,30 @@ class WaterInsectsBackground {
         this.seaStarsGroup = new paper.Group();
     }
 
-    getWaterColor() {
-        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        return isDark ? 'rgba(100, 150, 200, 0.3)' : 'rgba(120, 180, 240, 0.4)';
+    isDarkTheme() {
+        const theme = document.documentElement.getAttribute('data-theme');
+        return theme?.includes('dark') || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    }
+
+    getWaterColor(opacity) {
+        const isDark = this.isDarkTheme();
+        // Pure greyscale - ensure NO color tint
+        const grey = isDark ? 230 : 70;  // Very light grey in dark, dark grey in light
+        return `rgba(${grey}, ${grey}, ${grey}, ${opacity || 0.15})`;
     }
 
     getInsectColor() {
-        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        return isDark ? 'rgba(180, 140, 100, 0.6)' : 'rgba(80, 60, 40, 0.7)';
+        const isDark = this.isDarkTheme();
+        // Pure greyscale for insects
+        const grey = isDark ? 220 : 60;
+        return `rgba(${grey}, ${grey}, ${grey}, 0.5)`;
     }
 
     getSeaStarColor() {
-        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        return isDark ? 'rgba(120, 140, 160, 0.6)' : 'rgba(80, 100, 120, 0.7)';
+        const isDark = this.isDarkTheme();
+        // Pure greyscale for sea stars
+        const grey = isDark ? 210 : 80;
+        return `rgba(${grey}, ${grey}, ${grey}, 0.4)`;
     }
 
     detectContentBounds() {
@@ -124,8 +144,14 @@ class WaterInsectsBackground {
     }
 
     createWaveLayer(width, height, top, layer) {
-        const waterColor = this.getWaterColor();
-        const opacity = 0.3 - (layer * 0.05);
+        // Calculate opacity for this layer
+        const isDark = this.isDarkTheme();
+        const baseOpacity = isDark ? 0.25 : 0.15;
+        const opacity = baseOpacity - (layer * 0.03);
+        
+        // Get pure greyscale color
+        const waterColor = this.getWaterColor(opacity);
+        
         const waveHeight = 20 + (layer * 5);
         const frequency = 0.003 + (layer * 0.001);
         
@@ -148,7 +174,8 @@ class WaterInsectsBackground {
         wave.lineTo(0, height + top);
         wave.closed = true;
         
-        wave.fillColor = waterColor.replace(/[\d\.]+\)$/, `${opacity})`);
+        // Use the pure greyscale waterColor directly
+        wave.fillColor = waterColor;
         
         // Store wave properties for animation
         wave.waveData = {
@@ -474,14 +501,44 @@ class WaterInsectsBackground {
     }
 
     updateTheme() {
-        const newWaterColor = this.getWaterColor();
-        const newInsectColor = this.getInsectColor();
-        const newFishColor = this.getFishColor();
+        const isDark = this.isDarkTheme();
         
-        // Update water colors
-        this.waterWaves.forEach(wave => {
-            const opacity = 0.3 - (wave.waveData.layer * 0.05);
-            wave.fillColor = newWaterColor.replace(/[\d\.]+\)$/, `${opacity})`);
+        // Update water colors with pure greyscale
+        this.waterWaves.forEach((wave, index) => {
+            const baseOpacity = isDark ? 0.25 : 0.15;
+            const opacity = baseOpacity - (index * 0.03);
+            wave.fillColor = this.getWaterColor(opacity);
+        });
+        
+        const newInsectColor = this.getInsectColor();
+        const newSeaStarColor = this.getSeaStarColor();
+        
+        // Update insect colors
+        this.insects.forEach(insect => {
+            if (insect.item && insect.item.children) {
+                insect.item.children.forEach(child => {
+                    if (child.fillColor) {
+                        const opacity = child.fillColor.components[3] || 0.5;
+                        child.fillColor = newInsectColor.replace(/[\d\.]+\)$/, `${opacity})`);
+                    }
+                    if (child.strokeColor) {
+                        const opacity = child.strokeColor.components[3] || 0.5;
+                        child.strokeColor = newInsectColor.replace(/[\d\.]+\)$/, `${opacity})`);
+                    }
+                });
+            }
+        });
+        
+        // Update sea star colors
+        this.seaStars.forEach(seaStar => {
+            if (seaStar.item && seaStar.item.children) {
+                seaStar.item.children.forEach(child => {
+                    if (child.fillColor) {
+                        const opacity = child.fillColor.components[3] || 0.5;
+                        child.fillColor = newSeaStarColor.replace(/[\d\.]+\)$/, `${opacity})`);
+                    }
+                });
+            }
         });
         
         // Update insect colors
@@ -510,8 +567,7 @@ class WaterInsectsBackground {
             });
         });
         
-        // Update sea star colors
-        const newSeaStarColor = this.getSeaStarColor();
+        // Update sea star colors (already declared above)
         this.seaStars.forEach(seaStar => {
             if (seaStar.group.children[0] && seaStar.group.children[0].fillColor) {
                 seaStar.group.children[0].fillColor = newSeaStarColor;
@@ -551,5 +607,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Wait a moment to ensure Paper.js is loaded
     setTimeout(() => {
         window.waterInsectsBackground = new WaterInsectsBackground();
+        // Force initial theme update and redraw to ensure correct colors
+        setTimeout(() => {
+            if (window.waterInsectsBackground) {
+                window.waterInsectsBackground.updateTheme();
+                // Force Paper.js to redraw
+                if (paper && paper.view) {
+                    paper.view.draw();
+                }
+            }
+        }, 300);
     }, 100);
 });

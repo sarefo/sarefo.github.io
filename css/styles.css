@@ -1,5 +1,21 @@
-/* CSS Variables */
+/* CSS Variables - Default to ink-light theme */
 :root {
+    --primary-color: #1a1a1a;
+    --primary-dark: #000000;
+    --primary-light: #3a3a3a;
+    --text-color: #0f0f0f;
+    --text-light: #2a2a2a;
+    --background: #ffffff;
+    --card-background: #fafafa;
+    --border-color: #d0d0d0;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    --shadow-hover: 0 3px 8px rgba(0, 0, 0, 0.18);
+    --border-radius: 12px;
+    --transition: all 0.3s ease;
+}
+
+/* Original Light Theme (preserved) */
+[data-theme="original-light"] {
     --primary-color: #74ac00;
     --primary-dark: #5a8500;
     --primary-light: #8bc614;
@@ -10,8 +26,48 @@
     --border-color: #e0e0e0;
     --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.15);
-    --border-radius: 12px;
-    --transition: all 0.3s ease;
+}
+
+/* Original Dark Theme (preserved) */
+[data-theme="original-dark"] {
+    --primary-color: #74ac00;
+    --primary-dark: #5a8500;
+    --primary-light: #8bc614;
+    --text-color: #e0e0e0;
+    --text-light: #b0b0b0;
+    --background: #2a2a2a;
+    --card-background: #2d2d2d;
+    --border-color: #404040;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* New Ink on Paper Light Theme (default) */
+[data-theme="ink-light"] {
+    --primary-color: #1a1a1a;
+    --primary-dark: #000000;
+    --primary-light: #3a3a3a;
+    --text-color: #0f0f0f;
+    --text-light: #2a2a2a;
+    --background: #ffffff;
+    --card-background: #fafafa;
+    --border-color: #d0d0d0;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    --shadow-hover: 0 3px 8px rgba(0, 0, 0, 0.18);
+}
+
+/* New Inverted Dark Theme */
+[data-theme="ink-dark"] {
+    --primary-color: #f0f0f0;
+    --primary-dark: #ffffff;
+    --primary-light: #d0d0d0;
+    --text-color: #f5f5f5;
+    --text-light: #e0e0e0;
+    --background: #0a0a0a;
+    --card-background: #141414;
+    --border-color: #2a2a2a;
+    --shadow: 0 1px 3px rgba(255, 255, 255, 0.05);
+    --shadow-hover: 0 3px 8px rgba(255, 255, 255, 0.08);
 }
 
 /* Reset and Base Styles */
@@ -132,12 +188,49 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    filter: grayscale(100%) brightness(0) invert(0);
+    opacity: 0.8;
+}
+
+/* Make icons responsive to theme */
+[data-theme="ink-light"] .hero-card .card-icon {
+    filter: grayscale(100%) brightness(0) invert(0);
+}
+
+[data-theme="ink-dark"] .hero-card .card-icon {
+    filter: grayscale(100%) brightness(0) invert(1);
+}
+
+[data-theme="original-dark"] .hero-card .card-icon {
+    filter: grayscale(100%) brightness(0) invert(0.8);
 }
 
 .hero-card .emoji-icon {
     font-size: 24px;
     line-height: 1;
     font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+    filter: grayscale(100%);
+    opacity: 0.8;
+}
+
+/* Make emoji icons responsive to theme - match image icon darkness */
+[data-theme="ink-light"] .hero-card .emoji-icon {
+    filter: grayscale(100%) brightness(0) invert(0);
+}
+
+[data-theme="ink-dark"] .hero-card .emoji-icon {
+    filter: grayscale(100%) brightness(0) invert(1);
+}
+
+[data-theme="original-dark"] .hero-card .emoji-icon {
+    filter: grayscale(100%) brightness(1.5);
+}
+
+/* Also handle when no data-theme is set but system is in dark mode */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) .hero-card .emoji-icon {
+        filter: grayscale(100%) brightness(0) invert(1);
+    }
 }
 
 
@@ -452,33 +545,87 @@ body {
     outline-offset: 2px;
 }
 
-/* Dark mode media query (optional) */
+/* Dark mode media query - applies ink-dark theme by default */
 @media (prefers-color-scheme: dark) {
-    :root {
-        --text-color: #e0e0e0;
-        --text-light: #b0b0b0;
-        --background: #2a2a2a;
-        --card-background: #2d2d2d;
-        --border-color: #404040;
-        --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-        --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.4);
+    :root:not([data-theme]) {
+        --primary-color: #f0f0f0;
+        --primary-dark: #ffffff;
+        --primary-light: #d0d0d0;
+        --text-color: #f5f5f5;
+        --text-light: #e0e0e0;
+        --background: #0a0a0a;
+        --card-background: #141414;
+        --border-color: #2a2a2a;
+        --shadow: 0 1px 3px rgba(255, 255, 255, 0.05);
+        --shadow-hover: 0 3px 8px rgba(255, 255, 255, 0.08);
     }
 
-    .hero-card {
-        background: rgba(45, 45, 45, 0.82);
+    :root:not([data-theme]) .hero-card {
+        background: rgba(20, 20, 20, 0.82);
     }
 
-    .section {
-        background: rgba(45, 45, 45, 0.82);
+    :root:not([data-theme]) .section {
+        background: rgba(20, 20, 20, 0.82);
     }
 
-    .github-section {
-        background: rgba(45, 45, 45, 0.82);
+    :root:not([data-theme]) .github-section {
+        background: rgba(20, 20, 20, 0.82);
     }
 
-
-    .github-header:hover,
-    .github-projects a:hover {
-        background: #3a3a3a;
+    :root:not([data-theme]) .github-header:hover,
+    :root:not([data-theme]) .github-projects a:hover {
+        background: #1f1f1f;
     }
+}
+
+/* Theme-specific card backgrounds */
+[data-theme="ink-light"] .hero-card {
+    background: rgba(250, 250, 250, 0.95);
+}
+
+[data-theme="ink-light"] .section {
+    background: rgba(250, 250, 250, 0.95);
+}
+
+[data-theme="ink-light"] .github-section {
+    background: rgba(250, 250, 250, 0.95);
+}
+
+[data-theme="ink-light"] .github-header:hover,
+[data-theme="ink-light"] .github-projects a:hover {
+    background: #f0f0f0;
+}
+
+[data-theme="ink-dark"] .hero-card {
+    background: rgba(20, 20, 20, 0.95);
+}
+
+[data-theme="ink-dark"] .section {
+    background: rgba(20, 20, 20, 0.95);
+}
+
+[data-theme="ink-dark"] .github-section {
+    background: rgba(20, 20, 20, 0.95);
+}
+
+[data-theme="ink-dark"] .github-header:hover,
+[data-theme="ink-dark"] .github-projects a:hover {
+    background: #1f1f1f;
+}
+
+[data-theme="original-dark"] .hero-card {
+    background: rgba(45, 45, 45, 0.82);
+}
+
+[data-theme="original-dark"] .section {
+    background: rgba(45, 45, 45, 0.82);
+}
+
+[data-theme="original-dark"] .github-section {
+    background: rgba(45, 45, 45, 0.82);
+}
+
+[data-theme="original-dark"] .github-header:hover,
+[data-theme="original-dark"] .github-projects a:hover {
+    background: #3a3a3a;
 }

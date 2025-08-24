@@ -232,45 +232,104 @@ class AndroidRedirect {
 // Theme detection and handling
 class ThemeManager {
     constructor() {
+        this.themes = {
+            'ink-light': {
+                name: 'Ink on Paper',
+                metaColor: '#ffffff'
+            },
+            'ink-dark': {
+                name: 'Inverted',
+                metaColor: '#0a0a0a'
+            },
+            'original-light': {
+                name: 'Original Light',
+                metaColor: '#f0f8f0'
+            },
+            'original-dark': {
+                name: 'Original Dark',
+                metaColor: '#2a2a2a'
+            }
+        };
+        this.currentTheme = null;
         this.init();
     }
 
     init() {
-        // Listen for system theme changes
-        if (window.matchMedia) {
-            const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-            mediaQuery.addEventListener('change', (e) => {
-                this.handleThemeChange(e.matches);
-            });
-            
-            // Initial check
-            this.handleThemeChange(mediaQuery.matches);
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('preferredTheme');
+        
+        if (savedTheme && this.themes[savedTheme]) {
+            this.setTheme(savedTheme);
+        } else {
+            // Use system preference to determine initial theme
+            if (window.matchMedia) {
+                const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+                const defaultTheme = mediaQuery.matches ? 'ink-dark' : 'ink-light';
+                this.setTheme(defaultTheme);
+                
+                // Listen for system theme changes only if no manual preference
+                mediaQuery.addEventListener('change', (e) => {
+                    if (!localStorage.getItem('preferredTheme')) {
+                        this.setTheme(e.matches ? 'ink-dark' : 'ink-light');
+                    }
+                });
+            } else {
+                this.setTheme('ink-light');
+            }
         }
     }
 
-    handleThemeChange(isDark) {
-        // Update meta theme-color for mobile browsers
-        let themeColor = isDark ? '#1a1a1a' : '#f9f9f9';
-        let metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    setTheme(themeName) {
+        if (!this.themes[themeName]) return;
         
+        this.currentTheme = themeName;
+        document.documentElement.setAttribute('data-theme', themeName);
+        
+        // Update meta theme-color for mobile browsers
+        let metaThemeColor = document.querySelector('meta[name="theme-color"]');
         if (!metaThemeColor) {
             metaThemeColor = document.createElement('meta');
             metaThemeColor.name = 'theme-color';
             document.head.appendChild(metaThemeColor);
         }
-        
-        metaThemeColor.content = themeColor;
+        metaThemeColor.content = this.themes[themeName].metaColor;
+    }
+
+    toggleTheme() {
+        // Cycle through themes: ink-light -> ink-dark -> ink-light
+        const newTheme = this.currentTheme === 'ink-light' ? 'ink-dark' : 'ink-light';
+        this.setTheme(newTheme);
+        localStorage.setItem('preferredTheme', newTheme);
+    }
+
+    // Method to switch back to original themes if needed
+    useOriginalThemes() {
+        const isDark = this.currentTheme?.includes('dark');
+        const newTheme = isDark ? 'original-dark' : 'original-light';
+        this.setTheme(newTheme);
+        localStorage.setItem('preferredTheme', newTheme);
+    }
+
+    // Method to switch to new ink themes
+    useInkThemes() {
+        const isDark = this.currentTheme?.includes('dark');
+        const newTheme = isDark ? 'ink-dark' : 'ink-light';
+        this.setTheme(newTheme);
+        localStorage.setItem('preferredTheme', newTheme);
     }
 }
 
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
+    const themeManager = new ThemeManager();
     new EmailProtection();
     new GitHubToggle();
     new SmoothScroll();
     new PageAnalytics();
-    new ThemeManager();
     new AndroidRedirect();
+    
+    // Expose theme manager for console access
+    window.themeManager = themeManager;
 });
 
 // Handle any uncaught errors gracefully
