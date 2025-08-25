@@ -63,9 +63,9 @@
     --primary-light: #d0d0d0;
     --text-color: #f5f5f5;
     --text-light: #e0e0e0;
-    --background: #0a0a0a;
-    --card-background: #141414;
-    --border-color: #2a2a2a;
+    --background: #1a1a1a;
+    --card-background: #252525;
+    --border-color: #3a3a3a;
     --shadow: 0 1px 3px rgba(255, 255, 255, 0.05);
     --shadow-hover: 0 3px 8px rgba(255, 255, 255, 0.08);
 }
@@ -553,28 +553,28 @@ body {
         --primary-light: #d0d0d0;
         --text-color: #f5f5f5;
         --text-light: #e0e0e0;
-        --background: #0a0a0a;
-        --card-background: #141414;
-        --border-color: #2a2a2a;
+        --background: #1a1a1a;
+        --card-background: #252525;
+        --border-color: #3a3a3a;
         --shadow: 0 1px 3px rgba(255, 255, 255, 0.05);
         --shadow-hover: 0 3px 8px rgba(255, 255, 255, 0.08);
     }
 
     :root:not([data-theme]) .hero-card {
-        background: rgba(20, 20, 20, 0.82);
+        background: rgba(37, 37, 37, 0.82);
     }
 
     :root:not([data-theme]) .section {
-        background: rgba(20, 20, 20, 0.82);
+        background: rgba(37, 37, 37, 0.82);
     }
 
     :root:not([data-theme]) .github-section {
-        background: rgba(20, 20, 20, 0.82);
+        background: rgba(37, 37, 37, 0.82);
     }
 
     :root:not([data-theme]) .github-header:hover,
     :root:not([data-theme]) .github-projects a:hover {
-        background: #1f1f1f;
+        background: #2f2f2f;
     }
 }
 
@@ -597,20 +597,20 @@ body {
 }
 
 [data-theme="ink-dark"] .hero-card {
-    background: rgba(20, 20, 20, 0.95);
+    background: rgba(37, 37, 37, 0.95);
 }
 
 [data-theme="ink-dark"] .section {
-    background: rgba(20, 20, 20, 0.95);
+    background: rgba(37, 37, 37, 0.95);
 }
 
 [data-theme="ink-dark"] .github-section {
-    background: rgba(20, 20, 20, 0.95);
+    background: rgba(37, 37, 37, 0.95);
 }
 
 [data-theme="ink-dark"] .github-header:hover,
 [data-theme="ink-dark"] .github-projects a:hover {
-    background: #1f1f1f;
+    background: #2f2f2f;
 }
 
 [data-theme="original-dark"] .hero-card {
