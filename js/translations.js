@@ -194,7 +194,7 @@ const translations = {
         inaturalistTitle: "我的 iNaturalist",
         inaturalistDescription: "探索我來自世界各地的自然觀察記錄。",
         locnatTitle: "LocNat",
-        locnatDescription: "觀察你周圍的生物。"
+        locnatDescription: "觀察你周圍的生物。",
         photographyTitle: "攝影",
         photographyDescription: "我最佳自然攝影作品的集合。",
         biodiversityTitle: "生物多樣性日曆",
