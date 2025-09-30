@@ -259,10 +259,10 @@ class WaterInsectsBackground {
             mainPoints.push(new paper.Point(x, y));
         }
 
-        // Create main stem with tapering width
+        // Create main stem
         const mainStem = new paper.Path();
         mainStem.strokeColor = color;
-        mainStem.strokeWidth = 4.5;
+        mainStem.strokeWidth = 3.5;
         mainStem.strokeCap = 'round';
         this.floralGroup.addChild(mainStem);
 
@@ -460,7 +460,7 @@ class WaterInsectsBackground {
         // Create a natural curl by continuing the vine's direction and gradually bending it back
         const tendril = new paper.Path();
         tendril.strokeColor = color;
-        tendril.strokeWidth = 2.5;
+        tendril.strokeWidth = 4.5; // Match main vine thickness
         tendril.strokeCap = 'round';
 
         const numPoints = 15;
@@ -472,9 +472,9 @@ class WaterInsectsBackground {
         for (let i = 1; i <= numPoints; i++) {
             const t = i / numPoints;
 
-            // Gradually increase the curvature (bend more and more)
+            // Gradually increase the curvature (bend more and more) - reduced curvature
             // The angle change accelerates as we progress, creating the inward curl
-            const angleChange = -direction * 0.25 * (1 + t * 2); // Increasing bend
+            const angleChange = -direction * 0.2 * (1 + t * 1.5); // Less aggressive bend
             currentAngle += angleChange;
 
             // Step size decreases as we curl tighter
@@ -493,7 +493,7 @@ class WaterInsectsBackground {
 
         // Add small bulb at the end
         const endPoint = tendril.lastSegment.point;
-        const bulb = new paper.Path.Circle(endPoint, 3);
+        const bulb = new paper.Path.Circle(endPoint, 3.5);
         bulb.fillColor = color;
         group.addChild(bulb);
 
@@ -931,10 +931,35 @@ class WaterInsectsBackground {
                     // Calculate the actual ending angle of the vine
                     const vineEndingAngle = Math.atan2(topPoint.y - preTop.y, topPoint.x - preTop.x);
 
-                    // Create elegant coiling spiral that continues the natural flow direction
-                    const spiralTendril = this.createCurlingTendril(topPoint, ornament.direction, 40, ornament.color, vineEndingAngle);
-                    this.floralGroup.addChild(spiralTendril);
-                    ornament.decorations[99] = spiralTendril;
+                    // Generate curl points
+                    const curlPoints = [];
+                    let currentAngle = vineEndingAngle;
+                    let currentPoint = topPoint.clone();
+                    const numCurlPoints = 15;
+                    const curlLength = 40;
+
+                    for (let i = 1; i <= numCurlPoints; i++) {
+                        const t = i / numCurlPoints;
+                        const angleChange = -ornament.direction * 0.2 * (1 + t * 1.5);
+                        currentAngle += angleChange;
+                        const stepSize = curlLength * 0.15 * (1 - t * 0.5);
+                        currentPoint = currentPoint.add(new paper.Point(
+                            Math.cos(currentAngle) * stepSize,
+                            Math.sin(currentAngle) * stepSize
+                        ));
+                        curlPoints.push(currentPoint);
+                    }
+
+                    // Add curl points to main stem (seamless continuation)
+                    curlPoints.forEach(pt => ornament.mainStem.add(pt));
+                    ornament.mainStem.smooth({ type: 'catmull-rom', factor: 0.7 });
+
+                    // Add bulb at the end
+                    const endPoint = curlPoints[curlPoints.length - 1];
+                    const bulb = new paper.Path.Circle(endPoint, 3.5);
+                    bulb.fillColor = ornament.color;
+                    this.floralGroup.addChild(bulb);
+                    ornament.decorations[99] = bulb;
                 }
             }
         });
