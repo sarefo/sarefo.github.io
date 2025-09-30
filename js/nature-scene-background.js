@@ -653,49 +653,54 @@ class WaterInsectsBackground {
     createSeaStar(viewWidth, waterHeight, waterTop) {
         const seaStarColor = this.getSeaStarColor();
         const group = new paper.Group();
-        
+
         // Position sea star in water area
         const x = Math.random() * viewWidth;
         const y = waterTop + (waterHeight * 0.4) + Math.random() * (waterHeight * 0.4);
         const center = new paper.Point(x, y);
         const size = 8 + Math.random() * 6;
-        
-        // Create proper pentameric starfish with continuous symmetry
+
+        // Create organic starfish with rounded arms
         const starfish = new paper.Path();
-        const armLength = size * 1.1;
-        const armWidth = size * 0.35;
-        const centerRadius = size * 0.25;
-        
-        // Create 10 points (2 per arm) for perfect 5-fold symmetry
-        for (let i = 0; i < 10; i++) {
-            const angle = (i * 36) * Math.PI / 180; // 36 degrees between points
-            const isArmTip = i % 2 === 0;
-            
-            let radius;
-            if (isArmTip) {
-                // Arm tips - extend outward
-                radius = armLength;
-            } else {
-                // Between arms - create the "waist" between arms
-                radius = centerRadius + armWidth * 0.6;
-            }
-            
-            const x = center.x + Math.cos(angle) * radius;
-            const y = center.y + Math.sin(angle) * radius;
-            
-            if (i === 0) {
-                starfish.moveTo(x, y);
-            } else {
-                starfish.lineTo(x, y);
+        const numArms = 5;
+        const armLength = size * 2.2;
+        const armBaseWidth = size * 0.55;
+        const pointsPerArm = 7; // More points = rounder arms
+
+        for (let arm = 0; arm < numArms; arm++) {
+            const armBaseAngle = (arm * 72 - 90) * Math.PI / 180;
+            const nextArmAngle = ((arm + 1) * 72 - 90) * Math.PI / 180;
+
+            // Create points from valley to tip to valley
+            for (let i = 0; i <= pointsPerArm; i++) {
+                const t = i / pointsPerArm; // 0 to 1
+
+                // Angle sweeps from valley (previous arm) to tip to valley (next arm)
+                const angleSpan = 72 * Math.PI / 180; // degrees between arm centers
+                const currentAngle = armBaseAngle - angleSpan/2 + t * angleSpan;
+
+                // Radius: starts at valley, extends to arm tip at center, back to valley
+                // Use a smooth curve for the radius
+                const radiusCurve = Math.sin(t * Math.PI); // 0 -> 1 -> 0
+                const radius = armBaseWidth + (armLength - armBaseWidth) * radiusCurve;
+
+                const px = center.x + Math.cos(currentAngle) * radius;
+                const py = center.y + Math.sin(currentAngle) * radius;
+
+                if (arm === 0 && i === 0) {
+                    starfish.moveTo(px, py);
+                } else {
+                    starfish.lineTo(px, py);
+                }
             }
         }
-        
+
         starfish.closed = true;
-        starfish.smooth({ type: 'continuous', factor: 0.85 });
+        starfish.smooth({ type: 'continuous', factor: 0.8 });
         starfish.fillColor = seaStarColor;
-        
+
         group.addChild(starfish);
-        
+
         // Animation properties
         const seaStarData = {
             group: group,
@@ -706,11 +711,11 @@ class WaterInsectsBackground {
             waterBounds: {
                 top: waterTop + waterHeight * 0.3,
                 bottom: waterTop + waterHeight * 0.9,
-                left: size,
-                right: viewWidth - size
+                left: size * 2,
+                right: viewWidth - size * 2
             }
         };
-        
+
         return seaStarData;
     }
 
