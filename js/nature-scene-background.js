@@ -556,75 +556,56 @@ class WaterInsectsBackground {
             abdomenSegments.push(segment);
         }
         
-        // Wings - 4 wings like a dragonfly with more realistic shapes
+        // Wings - 4 wings like a dragonfly, each in its own group for independent animation
         const wingSize = size * 0.6;
-        const wings = [];
-        
-        // Create wing shape (more dragonfly-like)
-        const createWingShape = (centerPoint, wingLength, wingWidth) => {
-            const wing = new paper.Path();
-            wing.add(centerPoint);
-            wing.add(centerPoint.add([wingLength * 0.3, -wingWidth * 0.2]));
-            wing.add(centerPoint.add([wingLength, -wingWidth * 0.1]));
-            wing.add(centerPoint.add([wingLength * 0.9, wingWidth * 0.3]));
-            wing.add(centerPoint.add([wingLength * 0.6, wingWidth * 0.5]));
-            wing.add(centerPoint.add([wingLength * 0.2, wingWidth * 0.3]));
-            wing.closed = true;
-            wing.smooth({ type: 'continuous', factor: 0.7 });
-            return wing;
-        };
-        
-        // Upper wings (larger)
-        const upperWing1 = createWingShape(
-            center.add([-size * 0.1, -size * 0.3]), 
-            -wingSize * 1.2, 
-            wingSize * 0.6
-        );
-        const upperWing2 = createWingShape(
-            center.add([size * 0.1, -size * 0.3]), 
-            wingSize * 1.2, 
-            wingSize * 0.6
-        );
-        
-        // Lower wings (smaller)
-        const lowerWing1 = createWingShape(
-            center.add([-size * 0.1, -size * 0.1]), 
-            -wingSize * 0.9, 
-            wingSize * 0.4
-        );
-        const lowerWing2 = createWingShape(
-            center.add([size * 0.1, -size * 0.1]), 
-            wingSize * 0.9, 
-            wingSize * 0.4
-        );
-        
-        wings.push(upperWing1, upperWing2, lowerWing1, lowerWing2);
-        
-        wings.forEach(wing => {
+        const wingGroups = [];
+
+        // Wing attachment points on thorax
+        const leftUpperAttach = center.add([-size * 0.12, -size * 0.3]);
+        const rightUpperAttach = center.add([size * 0.12, -size * 0.3]);
+        const leftLowerAttach = center.add([-size * 0.08, -size * 0.15]);
+        const rightLowerAttach = center.add([size * 0.08, -size * 0.15]);
+
+        // Create wing shape (simple elongated oval for flutter)
+        const createWing = (attachPoint, length, isLeft) => {
+            const wingGroup = new paper.Group();
+            const direction = isLeft ? -1 : 1;
+
+            const wing = new paper.Path.Ellipse({
+                center: attachPoint.add([direction * length * 0.5, 0]),
+                size: [length, length * 0.35]
+            });
             wing.fillColor = insectColor.replace(/[\d\.]+\)$/, '0.15)');
             wing.strokeColor = insectColor.replace(/[\d\.]+\)$/, '0.6)');
             wing.strokeWidth = 0.5;
-        });
-        
-        // Add wing veins for more detail
-        wings.forEach(wing => {
-            const vein1 = new paper.Path.Line(
-                wing.segments[0].point,
-                wing.segments[2].point
+
+            // Add simple vein
+            const vein = new paper.Path.Line(
+                attachPoint,
+                attachPoint.add([direction * length, 0])
             );
-            const vein2 = new paper.Path.Line(
-                wing.segments[1].point,
-                wing.segments[4].point
-            );
-            [vein1, vein2].forEach(vein => {
-                vein.strokeColor = insectColor.replace(/[\d\.]+\)$/, '0.4)');
-                vein.strokeWidth = 0.3;
-                group.addChild(vein);
-            });
-        });
-        
-        // Add all parts to group in proper order (wings first, then body)
-        wings.forEach(wing => group.addChild(wing));
+            vein.strokeColor = insectColor.replace(/[\d\.]+\)$/, '0.4)');
+            vein.strokeWidth = 0.3;
+
+            wingGroup.addChild(wing);
+            wingGroup.addChild(vein);
+
+            // Set pivot point at attachment for rotation
+            wingGroup.pivot = attachPoint;
+
+            return { group: wingGroup, attachPoint: attachPoint };
+        };
+
+        // Create all four wings
+        const leftUpperWing = createWing(leftUpperAttach, wingSize * 1.2, true);
+        const rightUpperWing = createWing(rightUpperAttach, wingSize * 1.2, false);
+        const leftLowerWing = createWing(leftLowerAttach, wingSize * 0.9, true);
+        const rightLowerWing = createWing(rightLowerAttach, wingSize * 0.9, false);
+
+        wingGroups.push(leftUpperWing, rightUpperWing, leftLowerWing, rightLowerWing);
+
+        // Add all parts to main group in proper order (wings first, then body)
+        wingGroups.forEach(wg => group.addChild(wg.group));
         abdomenSegments.forEach(segment => group.addChild(segment));
         group.addChild(thorax);
         group.addChild(head);
@@ -639,9 +620,10 @@ class WaterInsectsBackground {
             speed: 0.5 + Math.random() * 0.5,
             radius: 50 + Math.random() * 100,
             wingPhase: Math.random() * Math.PI * 2,
-            wingSpeed: 8 + Math.random() * 4,
-            wings: wings,
-            bodyParts: [...abdomenSegments, thorax, head, leftEye, rightEye]
+            wingSpeed: 5 + Math.random() * 3, // Slower wing flutter (5-8 Hz)
+            wingGroups: wingGroups, // Array of wing objects with groups and attach points
+            bodyRotation: Math.random() * 360, // Initial random rotation
+            rotationSpeed: (Math.random() - 0.5) * 0.6 // Much faster rotation (per frame)
         };
         
         return insectData;
@@ -757,37 +739,52 @@ class WaterInsectsBackground {
             });
         });
         
-        // Animate insects with swirling motion (inspired by tadpoles example)
+        // Animate insects with random wandering motion
         this.insects.forEach(insect => {
-            // Update angle for circular motion
-            insect.angle += insect.speed * 0.02;
-            
-            // Calculate new position in circular/spiral motion
-            const spiralRadius = insect.radius + Math.sin(this.time * 0.5) * 20;
-            const x = insect.center.x + Math.cos(insect.angle) * spiralRadius;
-            const y = insect.center.y + Math.sin(insect.angle) * spiralRadius * 0.6;
-            
-            // Avoid content areas
-            const newPos = new paper.Point(x, y);
-            if (!this.wouldCollideWithContent(newPos, 80)) {
-                insect.group.position = newPos;
+            const viewWidth = paper.view.size.width;
+            const viewHeight = paper.view.size.height;
+            const waterHeight = viewHeight / 3;
+            const waterTop = viewHeight - waterHeight;
+
+            // Initialize target if needed
+            if (!insect.targetX) {
+                insect.targetX = Math.random() * viewWidth;
+                insect.targetY = Math.random() * (waterTop - 50) + 25;
             }
-            
-            // Animate wing flapping
-            insect.wingPhase += insect.wingSpeed * 0.1;
-            const wingScale = 1 + Math.sin(insect.wingPhase) * 0.2;
-            
-            // Scale wings to simulate flapping (wings are first 4 children)
-            insect.wings.forEach(wing => {
-                wing.scaling = wingScale;
-            });
-            
-            // Rotate insect to face movement direction
-            const rotation = Math.atan2(
-                Math.sin(insect.angle) * spiralRadius * 0.6,
-                Math.cos(insect.angle) * spiralRadius
-            ) * 180 / Math.PI;
-            insect.group.rotation = rotation;
+
+            // Move toward target
+            const currentPos = insect.group.position;
+            const dx = insect.targetX - currentPos.x;
+            const dy = insect.targetY - currentPos.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            // Pick new target when close or occasionally
+            if (distance < 50 || Math.random() < 0.02) {
+                insect.targetX = Math.random() * viewWidth;
+                insect.targetY = Math.random() * (waterTop - 50) + 25;
+            } else if (distance > 1) {
+                // Move toward target
+                const moveSpeed = 2; // pixels per frame
+                const newX = currentPos.x + (dx / distance) * moveSpeed;
+                const newY = currentPos.y + (dy / distance) * moveSpeed;
+
+                insect.group.position = new paper.Point(newX, newY);
+            }
+
+            // Slow random body rotation (per frame, like sea stars)
+            insect.group.rotation += insect.rotationSpeed;
+
+            // Animate wing flapping - wings flutter up and down
+            insect.wingPhase += insect.wingSpeed * deltaTime;
+
+            // Wings flutter symmetrically up and down
+            const flapAngle = Math.sin(insect.wingPhase) * 50; // Up to 50 degrees
+
+            // Apply flapping to wings only
+            if (insect.wingGroups[0]) insect.wingGroups[0].group.rotation = flapAngle; // Left upper
+            if (insect.wingGroups[1]) insect.wingGroups[1].group.rotation = flapAngle; // Right upper
+            if (insect.wingGroups[2]) insect.wingGroups[2].group.rotation = flapAngle; // Left lower
+            if (insect.wingGroups[3]) insect.wingGroups[3].group.rotation = flapAngle; // Right lower
         });
         
         // Animate sea stars with gentle floating and slow rotation
@@ -1013,25 +1010,35 @@ class WaterInsectsBackground {
         // Update insect colors
         this.insects.forEach(insect => {
             // Update wings
-            insect.wings.forEach(wing => {
-                wing.fillColor = newInsectColor.replace(/[\d\.]+\)$/, '0.15)');
-                wing.strokeColor = newInsectColor.replace(/[\d\.]+\)$/, '0.6)');
-            });
-            
-            // Update body parts
-            insect.bodyParts.forEach(part => {
-                if (part.fillColor) {
-                    part.fillColor = newInsectColor;
-                }
-                if (part.strokeColor) {
-                    part.strokeColor = newInsectColor;
-                }
-            });
-            
-            // Update wing veins (they're in the group but not in wings or bodyParts arrays)
+            if (insect.wingGroups) {
+                insect.wingGroups.forEach(wg => {
+                    wg.group.children.forEach(child => {
+                        if (child.fillColor) {
+                            child.fillColor = newInsectColor.replace(/[\d\.]+\)$/, '0.15)');
+                        }
+                        if (child.strokeColor) {
+                            if (child.strokeWidth === 0.3) {
+                                child.strokeColor = newInsectColor.replace(/[\d\.]+\)$/, '0.4)'); // Vein
+                            } else {
+                                child.strokeColor = newInsectColor.replace(/[\d\.]+\)$/, '0.6)'); // Wing edge
+                            }
+                        }
+                    });
+                });
+            }
+
+            // Update body parts (all children that aren't wings)
             insect.group.children.forEach(child => {
-                if (child.strokeColor && child.strokeWidth === 0.3) { // Wing veins
-                    child.strokeColor = newInsectColor.replace(/[\d\.]+\)$/, '0.4)');
+                // Skip wing groups
+                if (insect.wingGroups && insect.wingGroups.some(wg => wg.group === child)) {
+                    return;
+                }
+
+                if (child.fillColor) {
+                    child.fillColor = newInsectColor;
+                }
+                if (child.strokeColor) {
+                    child.strokeColor = newInsectColor;
                 }
             });
         });
