@@ -642,9 +642,33 @@ class WaterInsectsBackground {
         const waterHeight = viewHeight / 3;
         const waterTop = viewHeight - waterHeight;
         const seaStarCount = 4 + Math.floor(Math.random() * 3);
-        
+
+        const positions = []; // Track positions to avoid overlap
+        const minDistance = 50; // Minimum distance between sea stars (accounting for arm length)
+
         for (let i = 0; i < seaStarCount; i++) {
-            const seaStar = this.createSeaStar(viewWidth, waterHeight, waterTop);
+            let seaStar;
+            let attempts = 0;
+            let validPosition = false;
+
+            // Try to find a non-overlapping position
+            while (!validPosition && attempts < 20) {
+                seaStar = this.createSeaStar(viewWidth, waterHeight, waterTop);
+                const newPos = seaStar.center;
+
+                // Check if position is far enough from existing sea stars
+                validPosition = positions.every(pos => {
+                    const dx = newPos.x - pos.x;
+                    const dy = newPos.y - pos.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    return distance >= minDistance;
+                });
+
+                attempts++;
+            }
+
+            // Add the sea star even if we didn't find perfect spacing
+            positions.push(seaStar.center);
             this.seaStars.push(seaStar);
             this.seaStarsGroup.addChild(seaStar.group);
         }
