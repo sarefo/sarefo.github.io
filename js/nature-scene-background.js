@@ -113,8 +113,8 @@ class WaterInsectsBackground {
     getSeaStarColor() {
         const isDark = this.isDarkTheme();
         // Pure greyscale for sea stars
-        const grey = isDark ? 210 : 80;
-        return `rgba(${grey}, ${grey}, ${grey}, 0.4)`;
+        const grey = isDark ? 140 : 160;
+        return `rgba(${grey}, ${grey}, ${grey}, 0.8)`;
     }
 
     getFloralColor() {
