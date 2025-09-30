@@ -6,6 +6,13 @@
 // ========================================
 const ENABLE_FLORAL_ORNAMENTS = false; // toggle Jugendstil vines
 const DEBUG_SPIRALS_ONLY = false; // show only spirals for debugging
+
+// ========================================
+// INSECT MOVEMENT SETTINGS
+// ========================================
+const INSECT_MOVE_SPEED = 1; // pixels per frame (default: 2)
+const INSECT_TARGET_CHANGE_DISTANCE = 50; // pick new target when this close (default: 50)
+const INSECT_RANDOM_TARGET_CHANCE = 0.02; // chance per frame to pick new target (default: 0.02)
 // ========================================
 
 class WaterInsectsBackground {
@@ -759,14 +766,22 @@ class WaterInsectsBackground {
             const distance = Math.sqrt(dx * dx + dy * dy);
 
             // Pick new target when close or occasionally
-            if (distance < 50 || Math.random() < 0.02) {
-                insect.targetX = Math.random() * viewWidth;
-                insect.targetY = Math.random() * (waterTop - 50) + 25;
+            if (distance < INSECT_TARGET_CHANGE_DISTANCE || Math.random() < INSECT_RANDOM_TARGET_CHANCE) {
+                // Pick target that avoids content areas
+                let targetX, targetY;
+                let attempts = 0;
+                do {
+                    targetX = Math.random() * viewWidth;
+                    targetY = Math.random() * (waterTop - 50) + 25;
+                    attempts++;
+                } while (this.wouldCollideWithContent(new paper.Point(targetX, targetY), 100) && attempts < 10);
+
+                insect.targetX = targetX;
+                insect.targetY = targetY;
             } else if (distance > 1) {
                 // Move toward target
-                const moveSpeed = 2; // pixels per frame
-                const newX = currentPos.x + (dx / distance) * moveSpeed;
-                const newY = currentPos.y + (dy / distance) * moveSpeed;
+                const newX = currentPos.x + (dx / distance) * INSECT_MOVE_SPEED;
+                const newY = currentPos.y + (dy / distance) * INSECT_MOVE_SPEED;
 
                 insect.group.position = new paper.Point(newX, newY);
             }
