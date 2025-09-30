@@ -4,7 +4,7 @@
 // ========================================
 // FEATURE TOGGLES - Easy on/off switches
 // ========================================
-const ENABLE_FLORAL_ORNAMENTS = true; // toggle Jugendstil vines
+const ENABLE_FLORAL_ORNAMENTS = false; // toggle Jugendstil vines
 const DEBUG_SPIRALS_ONLY = false; // show only spirals for debugging
 // ========================================
 
