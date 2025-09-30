@@ -304,6 +304,7 @@ class WaterInsectsBackground {
                 stem: branchStem,
                 ratio: config.ratio,
                 points: branchPoints,
+                width: config.width,
                 decorations: []
             });
         });
@@ -454,13 +455,13 @@ class WaterInsectsBackground {
         return group;
     }
 
-    createCurlingTendril(startPoint, direction, length, color, startAngle) {
+    createCurlingTendril(startPoint, direction, length, color, startAngle, strokeWidth = 3.5) {
         const group = new paper.Group();
 
         // Create a natural curl by continuing the vine's direction and gradually bending it back
         const tendril = new paper.Path();
         tendril.strokeColor = color;
-        tendril.strokeWidth = 4.5; // Match main vine thickness
+        tendril.strokeWidth = strokeWidth;
         tendril.strokeCap = 'round';
 
         const numPoints = 15;
@@ -878,7 +879,7 @@ class WaterInsectsBackground {
                             if (branchIdx % 2 === 0) {
                                 decoration = this.createJugendstilLeaf(tipPoint, angle - Math.PI / 2, 10, ornament.color, 'simple');
                             } else {
-                                decoration = this.createCurlingTendril(tipPoint, ornament.direction, 15, ornament.color, angle);
+                                decoration = this.createCurlingTendril(tipPoint, ornament.direction, 15, ornament.color, angle, branch.width);
                             }
                             this.floralGroup.addChild(decoration);
                             branch.decorations[0] = decoration;
@@ -910,7 +911,7 @@ class WaterInsectsBackground {
                             const leafAngle = angle + (Math.PI / 2) * deco.side;
                             decoration = this.createJugendstilLeaf(point, leafAngle, deco.size || 14, ornament.color, deco.style);
                         } else if (deco.type === 'spiral') {
-                            decoration = this.createCurlingTendril(point, ornament.direction * deco.side, 22, ornament.color, angle);
+                            decoration = this.createCurlingTendril(point, ornament.direction * deco.side, 22, ornament.color, angle, 2.0);
                         } else if (deco.type === 'flower') {
                             decoration = this.createJugendstilBud(point, angle, 10, ornament.color, deco.style);
                         }
