@@ -4,7 +4,8 @@
 // ========================================
 // FEATURE TOGGLES - Easy on/off switches
 // ========================================
-const ENABLE_FLORAL_ORNAMENTS = false; // toggle Jugendstil vines
+const ENABLE_FLORAL_ORNAMENTS = true; // toggle Jugendstil vines
+const DEBUG_SPIRALS_ONLY = false; // show only spirals for debugging
 // ========================================
 
 class WaterInsectsBackground {
@@ -214,19 +215,17 @@ class WaterInsectsBackground {
     createFloralOrnaments() {
         const viewWidth = paper.view.size.width;
         const viewHeight = paper.view.size.height;
-        const waterHeight = viewHeight / 3;
-        const waterTop = viewHeight - waterHeight;
         const floralColor = this.getFloralColor();
 
         // Create symmetrical ornaments from both sides
-        // Start from outside the viewport (off-screen) at roughly upper third height
-        const startHeight = viewHeight * 0.33; // Upper third of screen
-        const ornamentHeight = startHeight * 0.85; // How far up they grow (most of upper third)
-        const ornamentWidth = viewWidth * 0.25; // How far they extend inward
+        // They should frame content without crossing center
+        const startHeight = viewHeight * 0.42; // Middle area
+        const ornamentHeight = startHeight * 0.7; // Upward reach
+        const ornamentWidth = Math.min(viewWidth * 0.28, 350); // Stop before center
 
         // Left side ornament - starts off-screen to the left
         this.createJugendstilVine(
-            new paper.Point(-50, startHeight),
+            new paper.Point(-30, startHeight),
             ornamentWidth,
             ornamentHeight,
             floralColor,
@@ -235,7 +234,7 @@ class WaterInsectsBackground {
 
         // Right side ornament - starts off-screen to the right
         this.createJugendstilVine(
-            new paper.Point(viewWidth + 50, startHeight),
+            new paper.Point(viewWidth + 30, startHeight),
             ornamentWidth,
             ornamentHeight,
             floralColor,
@@ -247,28 +246,72 @@ class WaterInsectsBackground {
         const isLeft = side === 'left';
         const direction = isLeft ? 1 : -1;
 
-        // Calculate all the points for the full vine
-        const points = [];
-        const numPoints = 12;
+        // Main vine with bold, flowing Jugendstil curve
+        const mainPoints = [];
+        const numMainPoints = 20;
 
-        for (let i = 0; i <= numPoints; i++) {
-            const t = i / numPoints;
-            const x = startPoint.x + direction * width * Math.sin(t * Math.PI * 0.6) * (1 - t * 0.3);
-            const y = startPoint.y - height * t * (0.8 + Math.sin(t * Math.PI) * 0.2);
-            points.push(new paper.Point(x, y));
+        for (let i = 0; i <= numMainPoints; i++) {
+            const t = i / numMainPoints;
+            // Strong inward curve with natural flow
+            const curveFactor = Math.sin(t * Math.PI * 0.9);
+            const x = startPoint.x + direction * width * (curveFactor * 1.1 + t * 0.7);
+            const y = startPoint.y - height * t;
+            mainPoints.push(new paper.Point(x, y));
         }
 
-        // Create the stem path (empty to start)
-        const stem = new paper.Path();
-        stem.strokeColor = color;
-        stem.strokeWidth = 4;
-        stem.strokeCap = 'round';
-        this.floralGroup.addChild(stem);
+        // Create main stem with tapering width
+        const mainStem = new paper.Path();
+        mainStem.strokeColor = color;
+        mainStem.strokeWidth = 4.5;
+        mainStem.strokeCap = 'round';
+        this.floralGroup.addChild(mainStem);
 
-        // Store ornament data for progressive drawing
+        // Create secondary flowing vines - more organic placement
+        const branches = [];
+        const branchConfigs = [
+            { ratio: 0.15, length: 0.5, curve: 1.2, width: 2.5 },
+            { ratio: 0.3, length: 0.45, curve: -0.8, width: 2.2 },
+            { ratio: 0.5, length: 0.4, curve: 1.0, width: 2.0 },
+            { ratio: 0.68, length: 0.35, curve: -0.9, width: 1.8 }
+        ];
+
+        branchConfigs.forEach(config => {
+            const branchStem = new paper.Path();
+            branchStem.strokeColor = color;
+            branchStem.strokeWidth = config.width;
+            branchStem.strokeCap = 'round';
+            this.floralGroup.addChild(branchStem);
+
+            const startIdx = Math.floor(config.ratio * mainPoints.length);
+            const branchStart = mainPoints[startIdx];
+            const branchLength = height * config.length;
+            const branchPoints = [];
+
+            // Organic flowing branch
+            const numBranchPoints = 10;
+            for (let i = 0; i <= numBranchPoints; i++) {
+                const t = i / numBranchPoints;
+                const baseAngle = -Math.PI / 2; // Start upward
+                const curveAngle = config.curve * direction * Math.sin(t * Math.PI * 0.7);
+                const angle = baseAngle + curveAngle;
+
+                const x = branchStart.x + Math.cos(angle) * branchLength * t;
+                const y = branchStart.y + Math.sin(angle) * branchLength * t;
+                branchPoints.push(new paper.Point(x, y));
+            }
+
+            branches.push({
+                stem: branchStem,
+                ratio: config.ratio,
+                points: branchPoints,
+                decorations: []
+            });
+        });
+
         this.floralOrnaments.push({
-            stem: stem,
-            points: points,
+            mainStem: mainStem,
+            mainPoints: mainPoints,
+            branches: branches,
             startPoint: startPoint,
             side: side,
             color: color,
@@ -278,116 +321,183 @@ class WaterInsectsBackground {
             targetHeight: height,
             currentHeight: 0,
             growing: true,
-            growthSpeed: 100, // pixels per second
-            decorations: [] // Will hold leaves, buds, tendrils as we add them
+            growthSpeed: 80,
+            decorations: []
         });
     }
 
-    createJugendstilLeaf(position, angle, size, color) {
-        const leaf = new paper.Path();
+    createJugendstilLeaf(position, angle, size, color, style = 'simple') {
+        const leafGroup = new paper.Group();
 
-        // Create elegant elongated leaf shape
-        const tip = position.add(new paper.Point(
-            Math.cos(angle) * size,
-            Math.sin(angle) * size
-        ));
+        if (style === 'pointed') {
+            // Pointed three-part leaf like in reference
+            const tip = position.add(new paper.Point(
+                Math.cos(angle) * size,
+                Math.sin(angle) * size
+            ));
 
-        const width = size * 0.4;
-        const side1 = position.add(new paper.Point(
-            Math.cos(angle + Math.PI / 2) * width * 0.3,
-            Math.sin(angle + Math.PI / 2) * width * 0.3
-        ));
-        const side2 = position.add(new paper.Point(
-            Math.cos(angle - Math.PI / 2) * width * 0.3,
-            Math.sin(angle - Math.PI / 2) * width * 0.3
-        ));
+            const width = size * 0.3;
+            const leaf = new paper.Path();
+            leaf.add(position);
+            leaf.add(position.add(new paper.Point(
+                Math.cos(angle + Math.PI / 3) * width,
+                Math.sin(angle + Math.PI / 3) * width
+            )));
+            leaf.add(tip);
+            leaf.add(position.add(new paper.Point(
+                Math.cos(angle - Math.PI / 3) * width,
+                Math.sin(angle - Math.PI / 3) * width
+            )));
+            leaf.closed = true;
+            leaf.smooth({ type: 'continuous', factor: 0.6 });
+            leaf.fillColor = color.replace(/[\d\.]+\)$/, '0.3)');
+            leaf.strokeColor = color;
+            leaf.strokeWidth = 1.5;
+            leafGroup.addChild(leaf);
 
-        leaf.add(position);
-        leaf.add(side1);
-        leaf.add(tip);
-        leaf.add(side2);
-        leaf.closed = true;
-        leaf.smooth({ type: 'continuous', factor: 0.8 });
+        } else {
+            // Simple elongated leaf
+            const tip = position.add(new paper.Point(
+                Math.cos(angle) * size,
+                Math.sin(angle) * size
+            ));
 
-        leaf.fillColor = color.replace(/[\d\.]+\)$/, '0.4)');
-        leaf.strokeColor = color;
-        leaf.strokeWidth = 2;
+            const width = size * 0.35;
+            const leaf = new paper.Path();
+            leaf.add(position);
+            leaf.add(position.add(new paper.Point(
+                Math.cos(angle + Math.PI / 2) * width * 0.4,
+                Math.sin(angle + Math.PI / 2) * width * 0.4
+            )));
+            leaf.add(tip);
+            leaf.add(position.add(new paper.Point(
+                Math.cos(angle - Math.PI / 2) * width * 0.4,
+                Math.sin(angle - Math.PI / 2) * width * 0.4
+            )));
+            leaf.closed = true;
+            leaf.smooth({ type: 'continuous', factor: 0.8 });
+            leaf.fillColor = color.replace(/[\d\.]+\)$/, '0.25)');
+            leaf.strokeColor = color;
+            leaf.strokeWidth = 1.5;
 
-        // Add central vein
-        const vein = new paper.Path.Line(position, tip);
-        vein.strokeColor = color.replace(/[\d\.]+\)$/, '0.5)');
-        vein.strokeWidth = 0.5;
+            // Add central vein
+            const vein = new paper.Path.Line(position, tip);
+            vein.strokeColor = color.replace(/[\d\.]+\)$/, '0.6)');
+            vein.strokeWidth = 0.8;
 
-        const leafGroup = new paper.Group([leaf, vein]);
+            leafGroup.addChild(leaf);
+            leafGroup.addChild(vein);
+        }
+
         return leafGroup;
     }
 
-    createJugendstilBud(position, baseAngle, size, color) {
+    createJugendstilBud(position, baseAngle, size, color, style = 'bud') {
         const group = new paper.Group();
+        const budAngle = baseAngle - Math.PI / 2;
 
-        // Create flower bud with Art Nouveau styling
-        const budAngle = baseAngle - Math.PI / 2; // Point upward from stem
-
-        // Stem for bud
+        // Stem for flower
+        const stemLength = size * 1.2;
         const stemEnd = position.add(new paper.Point(
-            Math.cos(budAngle) * size * 0.8,
-            Math.sin(budAngle) * size * 0.8
+            Math.cos(budAngle) * stemLength,
+            Math.sin(budAngle) * stemLength
         ));
-        const budStem = new paper.Path.Line(position, stemEnd);
+        const budStem = new paper.Path();
+        budStem.add(position);
+        budStem.add(position.add(new paper.Point(
+            Math.cos(budAngle) * stemLength * 0.5,
+            Math.sin(budAngle) * stemLength * 0.7
+        )));
+        budStem.add(stemEnd);
+        budStem.smooth();
         budStem.strokeColor = color;
         budStem.strokeWidth = 1.5;
         group.addChild(budStem);
 
-        // Bud bulb (teardrop shape)
-        const bud = new paper.Path.Circle(stemEnd, size * 0.35);
-        bud.fillColor = color.replace(/[\d\.]+\)$/, '0.45)');
-        bud.strokeColor = color;
-        bud.strokeWidth = 2;
+        if (style === 'bell') {
+            // Bell-shaped drooping flower like in reference
+            const flowerCenter = stemEnd.add(new paper.Point(0, size * 0.2));
 
-        // Add pointed tip
-        const tipPoint = stemEnd.add(new paper.Point(
-            Math.cos(budAngle) * size * 0.3,
-            Math.sin(budAngle) * size * 0.3
-        ));
-        const tip = new paper.Path([
-            stemEnd.add(new paper.Point(Math.cos(budAngle + Math.PI / 3) * size * 0.2, Math.sin(budAngle + Math.PI / 3) * size * 0.2)),
-            tipPoint,
-            stemEnd.add(new paper.Point(Math.cos(budAngle - Math.PI / 3) * size * 0.2, Math.sin(budAngle - Math.PI / 3) * size * 0.2))
-        ]);
-        tip.fillColor = color.replace(/[\d\.]+\)$/, '0.3)');
-        tip.strokeColor = color;
-        tip.strokeWidth = 1;
-        tip.smooth();
-
-        group.addChild(bud);
-        group.addChild(tip);
+            // Create bell shape with three petals
+            for (let i = 0; i < 3; i++) {
+                const petalAngle = budAngle + Math.PI + (i - 1) * Math.PI / 6;
+                const petal = new paper.Path();
+                petal.add(flowerCenter);
+                petal.add(flowerCenter.add(new paper.Point(
+                    Math.cos(petalAngle - 0.3) * size * 0.4,
+                    Math.sin(petalAngle - 0.3) * size * 0.4
+                )));
+                petal.add(flowerCenter.add(new paper.Point(
+                    Math.cos(petalAngle) * size * 0.6,
+                    Math.sin(petalAngle) * size * 0.6
+                )));
+                petal.add(flowerCenter.add(new paper.Point(
+                    Math.cos(petalAngle + 0.3) * size * 0.4,
+                    Math.sin(petalAngle + 0.3) * size * 0.4
+                )));
+                petal.closed = true;
+                petal.smooth();
+                petal.fillColor = color.replace(/[\d\.]+\)$/, '0.2)');
+                petal.strokeColor = color;
+                petal.strokeWidth = 1.2;
+                group.addChild(petal);
+            }
+        } else {
+            // Simple bud
+            const bud = new paper.Path.Circle(stemEnd, size * 0.4);
+            bud.fillColor = color.replace(/[\d\.]+\)$/, '0.3)');
+            bud.strokeColor = color;
+            bud.strokeWidth = 1.5;
+            group.addChild(bud);
+        }
 
         return group;
     }
 
-    createCurlingTendril(startPoint, direction, length, color) {
+    createCurlingTendril(startPoint, direction, length, color, startAngle) {
+        const group = new paper.Group();
+
+        // Create a natural curl by continuing the vine's direction and gradually bending it back
         const tendril = new paper.Path();
         tendril.strokeColor = color;
         tendril.strokeWidth = 2.5;
         tendril.strokeCap = 'round';
 
-        const numPoints = 20;
-        for (let i = 0; i <= numPoints; i++) {
+        const numPoints = 15;
+        let currentAngle = startAngle;
+        let currentPoint = startPoint.clone();
+
+        tendril.add(currentPoint);
+
+        for (let i = 1; i <= numPoints; i++) {
             const t = i / numPoints;
 
-            // Create spiral curl
-            const spiralRadius = length * t * 0.5;
-            const spiralAngle = -Math.PI / 2 + t * Math.PI * 2.5 * direction;
+            // Gradually increase the curvature (bend more and more)
+            // The angle change accelerates as we progress, creating the inward curl
+            const angleChange = -direction * 0.25 * (1 + t * 2); // Increasing bend
+            currentAngle += angleChange;
 
-            const x = startPoint.x + Math.cos(spiralAngle) * spiralRadius;
-            const y = startPoint.y - length * t * 0.3 + Math.sin(spiralAngle) * spiralRadius;
+            // Step size decreases as we curl tighter
+            const stepSize = length * 0.15 * (1 - t * 0.5);
 
-            tendril.add(new paper.Point(x, y));
+            currentPoint = currentPoint.add(new paper.Point(
+                Math.cos(currentAngle) * stepSize,
+                Math.sin(currentAngle) * stepSize
+            ));
+
+            tendril.add(currentPoint);
         }
 
         tendril.smooth({ type: 'catmull-rom', factor: 0.7 });
+        group.addChild(tendril);
 
-        return tendril;
+        // Add small bulb at the end
+        const endPoint = tendril.lastSegment.point;
+        const bulb = new paper.Path.Circle(endPoint, 3);
+        bulb.fillColor = color;
+        group.addChild(bulb);
+
+        return group;
     }
 
     createDragonfly(viewWidth, viewHeight) {
@@ -700,65 +810,131 @@ class WaterInsectsBackground {
 
         // Animate floral ornaments - progressive growth
         this.floralOrnaments.forEach((ornament, index) => {
+            if (DEBUG_SPIRALS_ONLY) {
+                // Skip everything except the terminal spiral
+                if (!ornament.decorations[99]) {
+                    ornament.growing = false;
+                    const topPoint = ornament.mainPoints[ornament.mainPoints.length - 1];
+                    const preTop = ornament.mainPoints[ornament.mainPoints.length - 2];
+                    const vineEndingAngle = Math.atan2(topPoint.y - preTop.y, topPoint.x - preTop.x);
+                    const spiralTendril = this.createCurlingTendril(topPoint, ornament.direction, 40, ornament.color, vineEndingAngle);
+                    this.floralGroup.addChild(spiralTendril);
+                    ornament.decorations[99] = spiralTendril;
+                }
+                return;
+            }
+
             if (ornament.growing) {
                 // Grow the ornament upward
                 ornament.currentHeight += ornament.growthSpeed * deltaTime;
 
                 // Calculate how far along the path we should be (0 to 1)
                 const progress = Math.min(ornament.currentHeight / ornament.targetHeight, 1);
-                const targetPointIndex = Math.floor(progress * (ornament.points.length - 1));
+                const targetPointIndex = Math.floor(progress * (ornament.mainPoints.length - 1));
 
-                // Build the stem progressively
-                ornament.stem.removeSegments();
+                // Build the main stem progressively
+                ornament.mainStem.removeSegments();
                 for (let i = 0; i <= targetPointIndex; i++) {
-                    ornament.stem.add(ornament.points[i]);
+                    ornament.mainStem.add(ornament.mainPoints[i]);
                 }
 
                 // If we're partway to the next point, add interpolated point
-                if (targetPointIndex < ornament.points.length - 1) {
-                    const nextProgress = (progress * (ornament.points.length - 1)) - targetPointIndex;
-                    const currentPt = ornament.points[targetPointIndex];
-                    const nextPt = ornament.points[targetPointIndex + 1];
+                if (targetPointIndex < ornament.mainPoints.length - 1) {
+                    const nextProgress = (progress * (ornament.mainPoints.length - 1)) - targetPointIndex;
+                    const currentPt = ornament.mainPoints[targetPointIndex];
+                    const nextPt = ornament.mainPoints[targetPointIndex + 1];
                     const interpPt = currentPt.add(nextPt.subtract(currentPt).multiply(nextProgress));
-                    ornament.stem.add(interpPt);
+                    ornament.mainStem.add(interpPt);
                 }
 
-                ornament.stem.smooth({ type: 'catmull-rom', factor: 0.6 });
+                ornament.mainStem.smooth({ type: 'catmull-rom', factor: 0.6 });
 
-                // Add decorations as we reach certain heights
-                const heightThresholds = [0.3, 0.5, 0.7, 0.85];
-                heightThresholds.forEach((threshold, idx) => {
-                    if (progress >= threshold && !ornament.decorations[idx]) {
-                        const pointIndex = Math.floor(threshold * (ornament.points.length - 1));
-                        const point = ornament.points[pointIndex];
+                // Draw branches as we reach them
+                ornament.branches.forEach((branch, branchIdx) => {
+                    if (progress >= branch.ratio && branch.points.length > 0) {
+                        const branchProgress = Math.min((progress - branch.ratio) / 0.25, 1);
+                        const branchTargetIdx = Math.floor(branchProgress * (branch.points.length - 1));
 
-                        if (idx < 2) {
-                            // Add leaves
-                            const nextPoint = ornament.points[Math.min(pointIndex + 1, ornament.points.length - 1)];
-                            const angle = Math.atan2(nextPoint.y - point.y, nextPoint.x - point.x);
-                            const leafSide = (idx % 2 === 0) ? 1 : -1;
-                            const leafAngle = angle + (Math.PI / 2) * leafSide;
-                            const leaf = this.createJugendstilLeaf(point, leafAngle, 18, ornament.color);
-                            this.floralGroup.addChild(leaf);
-                            ornament.decorations[idx] = leaf;
-                        } else {
-                            // Add flower buds
-                            const nextPoint = ornament.points[Math.min(pointIndex + 1, ornament.points.length - 1)];
-                            const angle = Math.atan2(nextPoint.y - point.y, nextPoint.x - point.x);
-                            const bud = this.createJugendstilBud(point, angle, 10, ornament.color);
-                            this.floralGroup.addChild(bud);
-                            ornament.decorations[idx] = bud;
+                        branch.stem.removeSegments();
+                        for (let i = 0; i <= branchTargetIdx; i++) {
+                            branch.stem.add(branch.points[i]);
+                        }
+                        if (branchProgress < 1 && branchTargetIdx < branch.points.length - 1) {
+                            const bp = (branchProgress * (branch.points.length - 1)) - branchTargetIdx;
+                            const curr = branch.points[branchTargetIdx];
+                            const next = branch.points[branchTargetIdx + 1];
+                            branch.stem.add(curr.add(next.subtract(curr).multiply(bp)));
+                        }
+                        branch.stem.smooth({ type: 'catmull-rom', factor: 0.6 });
+
+                        // Add decorations to branches when they're mostly grown
+                        if (branchProgress > 0.7 && !branch.decorations[0]) {
+                            const tipPoint = branch.points[branch.points.length - 1];
+                            const preTip = branch.points[Math.max(0, branch.points.length - 2)];
+                            const angle = Math.atan2(tipPoint.y - preTip.y, tipPoint.x - preTip.x);
+
+                            // Add small leaf or spiral at branch tip
+                            let decoration;
+                            if (branchIdx % 2 === 0) {
+                                decoration = this.createJugendstilLeaf(tipPoint, angle - Math.PI / 2, 10, ornament.color, 'simple');
+                            } else {
+                                decoration = this.createCurlingTendril(tipPoint, ornament.direction, 15, ornament.color, angle);
+                            }
+                            this.floralGroup.addChild(decoration);
+                            branch.decorations[0] = decoration;
                         }
                     }
                 });
 
-                // Finish growing
-                if (progress >= 1) {
+                // Add decorations - Jugendstil style with bell flowers and leaves
+                const decorationThresholds = [
+                    { ratio: 0.1, type: 'leaf', style: 'simple', side: -1, size: 16 },
+                    { ratio: 0.22, type: 'flower', style: 'bell', side: 1 },
+                    { ratio: 0.35, type: 'leaf', style: 'pointed', side: 1, size: 14 },
+                    { ratio: 0.48, type: 'flower', style: 'bell', side: -1 },
+                    { ratio: 0.58, type: 'spiral', side: 1 },
+                    { ratio: 0.68, type: 'leaf', style: 'simple', side: -1, size: 13 },
+                    { ratio: 0.78, type: 'flower', style: 'bell', side: 1 },
+                    { ratio: 0.88, type: 'leaf', style: 'pointed', side: -1, size: 12 }
+                ];
+
+                decorationThresholds.forEach((deco, idx) => {
+                    if (progress >= deco.ratio && !ornament.decorations[idx]) {
+                        const pointIndex = Math.floor(deco.ratio * (ornament.mainPoints.length - 1));
+                        const point = ornament.mainPoints[pointIndex];
+                        const nextPoint = ornament.mainPoints[Math.min(pointIndex + 1, ornament.mainPoints.length - 1)];
+                        const angle = Math.atan2(nextPoint.y - point.y, nextPoint.x - point.x);
+
+                        let decoration;
+                        if (deco.type === 'leaf') {
+                            const leafAngle = angle + (Math.PI / 2) * deco.side;
+                            decoration = this.createJugendstilLeaf(point, leafAngle, deco.size || 14, ornament.color, deco.style);
+                        } else if (deco.type === 'spiral') {
+                            decoration = this.createCurlingTendril(point, ornament.direction * deco.side, 22, ornament.color, angle);
+                        } else if (deco.type === 'flower') {
+                            decoration = this.createJugendstilBud(point, angle, 10, ornament.color, deco.style);
+                        }
+
+                        if (decoration) {
+                            this.floralGroup.addChild(decoration);
+                            ornament.decorations[idx] = decoration;
+                        }
+                    }
+                });
+
+                // Finish growing - add elegant coiling spiral continuing the vine's direction
+                if (progress >= 1 && !ornament.decorations[99]) {
                     ornament.growing = false;
-                    // Add tendril at top
-                    const topPoint = ornament.points[ornament.points.length - 1];
-                    const tendril = this.createCurlingTendril(topPoint, ornament.direction, 35, ornament.color);
-                    this.floralGroup.addChild(tendril);
+                    const topPoint = ornament.mainPoints[ornament.mainPoints.length - 1];
+                    const preTop = ornament.mainPoints[ornament.mainPoints.length - 2];
+
+                    // Calculate the actual ending angle of the vine
+                    const vineEndingAngle = Math.atan2(topPoint.y - preTop.y, topPoint.x - preTop.x);
+
+                    // Create elegant coiling spiral that continues the natural flow direction
+                    const spiralTendril = this.createCurlingTendril(topPoint, ornament.direction, 40, ornament.color, vineEndingAngle);
+                    this.floralGroup.addChild(spiralTendril);
+                    ornament.decorations[99] = spiralTendril;
                 }
             }
         });
@@ -844,9 +1020,17 @@ class WaterInsectsBackground {
         // Update floral ornament colors
         const newFloralColor = this.getFloralColor();
         this.floralOrnaments.forEach(ornament => {
-            // Update stem color
-            if (ornament.stem && ornament.stem.strokeColor) {
-                ornament.stem.strokeColor = newFloralColor;
+            // Update main stem color
+            if (ornament.mainStem && ornament.mainStem.strokeColor) {
+                ornament.mainStem.strokeColor = newFloralColor;
+            }
+            // Update branch colors
+            if (ornament.branches) {
+                ornament.branches.forEach(branch => {
+                    if (branch.stem && branch.stem.strokeColor) {
+                        branch.stem.strokeColor = newFloralColor;
+                    }
+                });
             }
             // Update decorations
             ornament.decorations.forEach(decoration => {
