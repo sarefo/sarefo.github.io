@@ -1,15 +1,23 @@
 // Water and Insects Background Animation
 // Lower third water animation with swirling insects above
 
+// ========================================
+// FEATURE TOGGLES - Easy on/off switches
+// ========================================
+const ENABLE_FLORAL_ORNAMENTS = false; // toggle Jugendstil vines
+// ========================================
+
 class WaterInsectsBackground {
     constructor() {
         this.canvas = null;
         this.waterWaves = [];
         this.insects = [];
         this.seaStars = [];
+        this.floralOrnaments = [];
         this.animationId = null;
         this.time = 0;
-        
+        this.resizeTimeout = null;
+
         this.init();
     }
 
@@ -18,18 +26,24 @@ class WaterInsectsBackground {
         this.setupPaper();
         this.detectContentBounds();
         this.createWaterSection();
+
+        // Only create floral ornaments if enabled
+        if (ENABLE_FLORAL_ORNAMENTS) {
+            this.createFloralOrnaments();
+        }
+
         this.createInsects();
         this.createSeaStars();
         this.startAnimation();
-        
+
         // Handle window resize
         window.addEventListener('resize', () => this.handleResize());
-        
+
         // Handle theme changes
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
             this.updateTheme();
         });
-        
+
         // Watch for manual theme changes
         const observer = new MutationObserver(() => {
             this.updateTheme();
@@ -61,11 +75,12 @@ class WaterInsectsBackground {
 
     setupPaper() {
         paper.setup(this.canvas);
-        
+
         // Create groups for different elements
         this.waterGroup = new paper.Group();
         this.insectsGroup = new paper.Group();
         this.seaStarsGroup = new paper.Group();
+        this.floralGroup = new paper.Group();
     }
 
     isDarkTheme() {
@@ -92,6 +107,13 @@ class WaterInsectsBackground {
         // Pure greyscale for sea stars
         const grey = isDark ? 210 : 80;
         return `rgba(${grey}, ${grey}, ${grey}, 0.4)`;
+    }
+
+    getFloralColor() {
+        const isDark = this.isDarkTheme();
+        // Pure greyscale for floral ornaments - much more visible
+        const grey = isDark ? 100 : 40;
+        return `rgba(${grey}, ${grey}, ${grey}, 0.8)`;
     }
 
     detectContentBounds() {
@@ -187,6 +209,185 @@ class WaterInsectsBackground {
         };
         
         return wave;
+    }
+
+    createFloralOrnaments() {
+        const viewWidth = paper.view.size.width;
+        const viewHeight = paper.view.size.height;
+        const waterHeight = viewHeight / 3;
+        const waterTop = viewHeight - waterHeight;
+        const floralColor = this.getFloralColor();
+
+        // Create symmetrical ornaments from both sides
+        // Start from outside the viewport (off-screen) at roughly upper third height
+        const startHeight = viewHeight * 0.33; // Upper third of screen
+        const ornamentHeight = startHeight * 0.85; // How far up they grow (most of upper third)
+        const ornamentWidth = viewWidth * 0.25; // How far they extend inward
+
+        // Left side ornament - starts off-screen to the left
+        this.createJugendstilVine(
+            new paper.Point(-50, startHeight),
+            ornamentWidth,
+            ornamentHeight,
+            floralColor,
+            'left'
+        );
+
+        // Right side ornament - starts off-screen to the right
+        this.createJugendstilVine(
+            new paper.Point(viewWidth + 50, startHeight),
+            ornamentWidth,
+            ornamentHeight,
+            floralColor,
+            'right'
+        );
+    }
+
+    createJugendstilVine(startPoint, width, height, color, side) {
+        const isLeft = side === 'left';
+        const direction = isLeft ? 1 : -1;
+
+        // Calculate all the points for the full vine
+        const points = [];
+        const numPoints = 12;
+
+        for (let i = 0; i <= numPoints; i++) {
+            const t = i / numPoints;
+            const x = startPoint.x + direction * width * Math.sin(t * Math.PI * 0.6) * (1 - t * 0.3);
+            const y = startPoint.y - height * t * (0.8 + Math.sin(t * Math.PI) * 0.2);
+            points.push(new paper.Point(x, y));
+        }
+
+        // Create the stem path (empty to start)
+        const stem = new paper.Path();
+        stem.strokeColor = color;
+        stem.strokeWidth = 4;
+        stem.strokeCap = 'round';
+        this.floralGroup.addChild(stem);
+
+        // Store ornament data for progressive drawing
+        this.floralOrnaments.push({
+            stem: stem,
+            points: points,
+            startPoint: startPoint,
+            side: side,
+            color: color,
+            direction: direction,
+            width: width,
+            height: height,
+            targetHeight: height,
+            currentHeight: 0,
+            growing: true,
+            growthSpeed: 100, // pixels per second
+            decorations: [] // Will hold leaves, buds, tendrils as we add them
+        });
+    }
+
+    createJugendstilLeaf(position, angle, size, color) {
+        const leaf = new paper.Path();
+
+        // Create elegant elongated leaf shape
+        const tip = position.add(new paper.Point(
+            Math.cos(angle) * size,
+            Math.sin(angle) * size
+        ));
+
+        const width = size * 0.4;
+        const side1 = position.add(new paper.Point(
+            Math.cos(angle + Math.PI / 2) * width * 0.3,
+            Math.sin(angle + Math.PI / 2) * width * 0.3
+        ));
+        const side2 = position.add(new paper.Point(
+            Math.cos(angle - Math.PI / 2) * width * 0.3,
+            Math.sin(angle - Math.PI / 2) * width * 0.3
+        ));
+
+        leaf.add(position);
+        leaf.add(side1);
+        leaf.add(tip);
+        leaf.add(side2);
+        leaf.closed = true;
+        leaf.smooth({ type: 'continuous', factor: 0.8 });
+
+        leaf.fillColor = color.replace(/[\d\.]+\)$/, '0.4)');
+        leaf.strokeColor = color;
+        leaf.strokeWidth = 2;
+
+        // Add central vein
+        const vein = new paper.Path.Line(position, tip);
+        vein.strokeColor = color.replace(/[\d\.]+\)$/, '0.5)');
+        vein.strokeWidth = 0.5;
+
+        const leafGroup = new paper.Group([leaf, vein]);
+        return leafGroup;
+    }
+
+    createJugendstilBud(position, baseAngle, size, color) {
+        const group = new paper.Group();
+
+        // Create flower bud with Art Nouveau styling
+        const budAngle = baseAngle - Math.PI / 2; // Point upward from stem
+
+        // Stem for bud
+        const stemEnd = position.add(new paper.Point(
+            Math.cos(budAngle) * size * 0.8,
+            Math.sin(budAngle) * size * 0.8
+        ));
+        const budStem = new paper.Path.Line(position, stemEnd);
+        budStem.strokeColor = color;
+        budStem.strokeWidth = 1.5;
+        group.addChild(budStem);
+
+        // Bud bulb (teardrop shape)
+        const bud = new paper.Path.Circle(stemEnd, size * 0.35);
+        bud.fillColor = color.replace(/[\d\.]+\)$/, '0.45)');
+        bud.strokeColor = color;
+        bud.strokeWidth = 2;
+
+        // Add pointed tip
+        const tipPoint = stemEnd.add(new paper.Point(
+            Math.cos(budAngle) * size * 0.3,
+            Math.sin(budAngle) * size * 0.3
+        ));
+        const tip = new paper.Path([
+            stemEnd.add(new paper.Point(Math.cos(budAngle + Math.PI / 3) * size * 0.2, Math.sin(budAngle + Math.PI / 3) * size * 0.2)),
+            tipPoint,
+            stemEnd.add(new paper.Point(Math.cos(budAngle - Math.PI / 3) * size * 0.2, Math.sin(budAngle - Math.PI / 3) * size * 0.2))
+        ]);
+        tip.fillColor = color.replace(/[\d\.]+\)$/, '0.3)');
+        tip.strokeColor = color;
+        tip.strokeWidth = 1;
+        tip.smooth();
+
+        group.addChild(bud);
+        group.addChild(tip);
+
+        return group;
+    }
+
+    createCurlingTendril(startPoint, direction, length, color) {
+        const tendril = new paper.Path();
+        tendril.strokeColor = color;
+        tendril.strokeWidth = 2.5;
+        tendril.strokeCap = 'round';
+
+        const numPoints = 20;
+        for (let i = 0; i <= numPoints; i++) {
+            const t = i / numPoints;
+
+            // Create spiral curl
+            const spiralRadius = length * t * 0.5;
+            const spiralAngle = -Math.PI / 2 + t * Math.PI * 2.5 * direction;
+
+            const x = startPoint.x + Math.cos(spiralAngle) * spiralRadius;
+            const y = startPoint.y - length * t * 0.3 + Math.sin(spiralAngle) * spiralRadius;
+
+            tendril.add(new paper.Point(x, y));
+        }
+
+        tendril.smooth({ type: 'catmull-rom', factor: 0.7 });
+
+        return tendril;
     }
 
     createDragonfly(viewWidth, viewHeight) {
@@ -431,7 +632,8 @@ class WaterInsectsBackground {
 
     animate() {
         this.time += 0.01;
-        
+        const deltaTime = 1 / 60; // Approximate frame time
+
         // Animate water waves
         this.waterWaves.forEach(wave => {
             const data = wave.waveData;
@@ -481,21 +683,86 @@ class WaterInsectsBackground {
         this.seaStars.forEach(seaStar => {
             // Very slow, gentle horizontal drift
             seaStar.angle += seaStar.speed * 0.002;
-            
+
             // Gentle floating motion - mostly horizontal with slight vertical drift
             const x = seaStar.center.x + Math.sin(this.time * 0.4) * 25;
             const y = seaStar.center.y + Math.sin(this.time * 0.25 + seaStar.angle) * 12;
-            
+
             // Keep sea stars within water bounds
             const constrainedX = Math.max(seaStar.waterBounds.left, Math.min(seaStar.waterBounds.right, x));
             const constrainedY = Math.max(seaStar.waterBounds.top, Math.min(seaStar.waterBounds.bottom, y));
-            
+
             seaStar.group.position = new paper.Point(constrainedX, constrainedY);
-            
+
             // Gentle rotation
             seaStar.group.rotation += seaStar.rotationSpeed;
         });
-        
+
+        // Animate floral ornaments - progressive growth
+        this.floralOrnaments.forEach((ornament, index) => {
+            if (ornament.growing) {
+                // Grow the ornament upward
+                ornament.currentHeight += ornament.growthSpeed * deltaTime;
+
+                // Calculate how far along the path we should be (0 to 1)
+                const progress = Math.min(ornament.currentHeight / ornament.targetHeight, 1);
+                const targetPointIndex = Math.floor(progress * (ornament.points.length - 1));
+
+                // Build the stem progressively
+                ornament.stem.removeSegments();
+                for (let i = 0; i <= targetPointIndex; i++) {
+                    ornament.stem.add(ornament.points[i]);
+                }
+
+                // If we're partway to the next point, add interpolated point
+                if (targetPointIndex < ornament.points.length - 1) {
+                    const nextProgress = (progress * (ornament.points.length - 1)) - targetPointIndex;
+                    const currentPt = ornament.points[targetPointIndex];
+                    const nextPt = ornament.points[targetPointIndex + 1];
+                    const interpPt = currentPt.add(nextPt.subtract(currentPt).multiply(nextProgress));
+                    ornament.stem.add(interpPt);
+                }
+
+                ornament.stem.smooth({ type: 'catmull-rom', factor: 0.6 });
+
+                // Add decorations as we reach certain heights
+                const heightThresholds = [0.3, 0.5, 0.7, 0.85];
+                heightThresholds.forEach((threshold, idx) => {
+                    if (progress >= threshold && !ornament.decorations[idx]) {
+                        const pointIndex = Math.floor(threshold * (ornament.points.length - 1));
+                        const point = ornament.points[pointIndex];
+
+                        if (idx < 2) {
+                            // Add leaves
+                            const nextPoint = ornament.points[Math.min(pointIndex + 1, ornament.points.length - 1)];
+                            const angle = Math.atan2(nextPoint.y - point.y, nextPoint.x - point.x);
+                            const leafSide = (idx % 2 === 0) ? 1 : -1;
+                            const leafAngle = angle + (Math.PI / 2) * leafSide;
+                            const leaf = this.createJugendstilLeaf(point, leafAngle, 18, ornament.color);
+                            this.floralGroup.addChild(leaf);
+                            ornament.decorations[idx] = leaf;
+                        } else {
+                            // Add flower buds
+                            const nextPoint = ornament.points[Math.min(pointIndex + 1, ornament.points.length - 1)];
+                            const angle = Math.atan2(nextPoint.y - point.y, nextPoint.x - point.x);
+                            const bud = this.createJugendstilBud(point, angle, 10, ornament.color);
+                            this.floralGroup.addChild(bud);
+                            ornament.decorations[idx] = bud;
+                        }
+                    }
+                });
+
+                // Finish growing
+                if (progress >= 1) {
+                    ornament.growing = false;
+                    // Add tendril at top
+                    const topPoint = ornament.points[ornament.points.length - 1];
+                    const tendril = this.createCurlingTendril(topPoint, ornament.direction, 35, ornament.color);
+                    this.floralGroup.addChild(tendril);
+                }
+            }
+        });
+
         paper.view.draw();
         this.animationId = requestAnimationFrame(() => this.animate());
     }
@@ -573,23 +840,68 @@ class WaterInsectsBackground {
                 seaStar.group.children[0].fillColor = newSeaStarColor;
             }
         });
-        
+
+        // Update floral ornament colors
+        const newFloralColor = this.getFloralColor();
+        this.floralOrnaments.forEach(ornament => {
+            // Update stem color
+            if (ornament.stem && ornament.stem.strokeColor) {
+                ornament.stem.strokeColor = newFloralColor;
+            }
+            // Update decorations
+            ornament.decorations.forEach(decoration => {
+                if (decoration) {
+                    this.updateFloralElementColors(decoration, newFloralColor);
+                }
+            });
+        });
+
         paper.view.draw();
     }
 
+    updateFloralElementColors(item, color) {
+        if (item.strokeColor) {
+            const opacity = item.strokeColor.alpha;
+            item.strokeColor = color.replace(/[\d\.]+\)$/, `${opacity})`);
+        }
+        if (item.fillColor) {
+            const opacity = item.fillColor.alpha;
+            item.fillColor = color.replace(/[\d\.]+\)$/, `${opacity})`);
+        }
+        if (item.children) {
+            item.children.forEach(child => this.updateFloralElementColors(child, color));
+        }
+    }
+
     handleResize() {
-        // Stop current animation
-        if (this.animationId) {
-            cancelAnimationFrame(this.animationId);
+        // Hide canvas immediately when resize starts
+        if (this.canvas && !this.resizeTimeout) {
+            this.canvas.style.opacity = '0';
         }
-        
-        // Remove existing canvas
-        if (this.canvas) {
-            this.canvas.remove();
+
+        // Clear any existing resize timeout
+        if (this.resizeTimeout) {
+            clearTimeout(this.resizeTimeout);
         }
-        
-        // Recreate everything
-        this.init();
+
+        // Wait 300ms after resize stops before recreating
+        this.resizeTimeout = setTimeout(() => {
+            // Stop current animation
+            if (this.animationId) {
+                cancelAnimationFrame(this.animationId);
+            }
+
+            // Remove existing canvas
+            if (this.canvas) {
+                this.canvas.remove();
+            }
+
+            // Recreate everything
+            this.init();
+
+            // Clear timeout reference
+            this.resizeTimeout = null;
+        }, 300);
     }
 
     destroy() {
