@@ -684,29 +684,43 @@ class WaterInsectsBackground {
         const center = new paper.Point(x, y);
         const size = 8 + Math.random() * 6;
 
-        // Create organic starfish with rounded arms
+        // Create organic starfish with rounded arms that grow from a fleshy body
         const starfish = new paper.Path();
         const numArms = 5;
         const armLength = size * 2.2;
-        const armBaseWidth = size * 0.55;
-        const pointsPerArm = 7; // More points = rounder arms
+        const bodyRadius = size * 0.8; // Fleshy central body
+        const pointsPerArm = 8; // More points for smoother curves
 
         for (let arm = 0; arm < numArms; arm++) {
             const armBaseAngle = (arm * 72 - 90) * Math.PI / 180;
-            const nextArmAngle = ((arm + 1) * 72 - 90) * Math.PI / 180;
 
-            // Create points from valley to tip to valley
+            // Create one full arm from valley to tip to next valley
             for (let i = 0; i <= pointsPerArm; i++) {
                 const t = i / pointsPerArm; // 0 to 1
 
-                // Angle sweeps from valley (previous arm) to tip to valley (next arm)
-                const angleSpan = 72 * Math.PI / 180; // degrees between arm centers
+                // Angle sweeps from one valley through tip to next valley
+                const angleSpan = 72 * Math.PI / 180;
                 const currentAngle = armBaseAngle - angleSpan/2 + t * angleSpan;
 
-                // Radius: starts at valley, extends to arm tip at center, back to valley
-                // Use a smooth curve for the radius
-                const radiusCurve = Math.sin(t * Math.PI); // 0 -> 1 -> 0
-                const radius = armBaseWidth + (armLength - armBaseWidth) * radiusCurve;
+                // Radius curve: body stays round, arm extends gradually
+                let radius;
+                if (t < 0.25) {
+                    // First quarter: in the valley, staying on body
+                    radius = bodyRadius * 0.9;
+                } else if (t < 0.5) {
+                    // Growing out from body to arm
+                    const growT = (t - 0.25) / 0.25;
+                    const growCurve = Math.sin(growT * Math.PI / 2); // Ease out
+                    radius = bodyRadius + (armLength - bodyRadius) * growCurve * 0.7;
+                } else if (t < 0.75) {
+                    // Extending to tip
+                    const extendT = (t - 0.5) / 0.25;
+                    radius = bodyRadius + (armLength - bodyRadius) * (0.7 + extendT * 0.3);
+                } else {
+                    // Returning to body valley
+                    const returnT = (t - 0.75) / 0.25;
+                    radius = bodyRadius + (armLength - bodyRadius) * (1 - returnT) * 0.7;
+                }
 
                 const px = center.x + Math.cos(currentAngle) * radius;
                 const py = center.y + Math.sin(currentAngle) * radius;
@@ -720,7 +734,7 @@ class WaterInsectsBackground {
         }
 
         starfish.closed = true;
-        starfish.smooth({ type: 'continuous', factor: 0.8 });
+        starfish.smooth({ type: 'continuous', factor: 0.9 });
         starfish.fillColor = seaStarColor;
 
         group.addChild(starfish);
