@@ -122,12 +122,12 @@ class I18n {
     }
 
     updateLanguageUrls(language) {
-        // Update LocNat guide link with language parameter  
+        // Update LocNat guide link with language parameter
         // Use multiple selectors to ensure we find the link
-        const locnatLink = document.querySelector('a[href="guide/index.html"]') || 
+        const locnatLink = document.querySelector('a[href="guide/index.html"]') ||
                           document.querySelector('a[href^="guide/index.html"]') ||
                           document.querySelector('a.hero-card[href^="guide"]');
-        
+
         if (locnatLink) {
             const oldHref = locnatLink.href;
             if (language === 'en') {
@@ -138,6 +138,17 @@ class I18n {
             console.log(`Updated LocNat link from "${oldHref}" to "${locnatLink.href}" for language: ${language}`);
         } else {
             console.warn('LocNat link not found for language update');
+        }
+
+        // Update calendar link with language parameter for German and Spanish only
+        const calendarLink = document.querySelector('a[href^="/calendar/"]');
+
+        if (calendarLink) {
+            if (language === 'de' || language === 'es') {
+                calendarLink.href = `/calendar/?print=1&lang=${language}`;
+            } else {
+                calendarLink.href = '/calendar/?print=1';
+            }
         }
     }
 
