@@ -21,7 +21,7 @@ const translations = {
         natureGuide: "Local Nature Guide",
         game2048: "2048 Game",
         spanishTrainer: "Spanish Tense Trainer",
-        recorderTrainer: "Recorder ABC Trainer",
+        fluteTrainer: "Flute ABC Trainer",
         strudelManager: "Strudel File Manager",
         pongGame: "Pong Game",
         calendar: "Calendar"
@@ -48,7 +48,7 @@ const translations = {
         natureGuide: "Lokaler Naturführer",
         game2048: "2048-Spiel",
         spanishTrainer: "Spanisch-Zeitformen-Trainer",
-        recorderTrainer: "Blockflöten-ABC-Trainer",
+        fluteTrainer: "Blockflöten-ABC-Trainer",
         strudelManager: "Strudel Dateimanager",
         pongGame: "Pong-Spiel",
         calendar: "Kalender"
@@ -75,7 +75,7 @@ const translations = {
         natureGuide: "Guide Nature Local",
         game2048: "Jeu 2048",
         spanishTrainer: "Entraîneur de Temps Espagnol",
-        recorderTrainer: "Entraîneur ABC de Flûte à Bec",
+        fluteTrainer: "Entraîneur ABC de Flûte à Bec",
         strudelManager: "Gestionnaire de Fichiers Strudel",
         pongGame: "Jeu Pong",
         calendar: "Calendrier"
@@ -102,7 +102,7 @@ const translations = {
         natureGuide: "Guía de Naturaleza Local",
         game2048: "Juego 2048",
         spanishTrainer: "Entrenador de Tiempos Verbales en Español",
-        recorderTrainer: "Entrenador ABC de Flauta Dulce",
+        fluteTrainer: "Entrenador ABC de Flauta Dulce",
         strudelManager: "Gestor de Archivos Strudel",
         pongGame: "Juego Pong",
         calendar: "Calendario"
@@ -129,7 +129,7 @@ const translations = {
         natureGuide: "Guia da Natureza Local",
         game2048: "Jogo 2048",
         spanishTrainer: "Treinador de Tempos Verbais em Espanhol",
-        recorderTrainer: "Treinador ABC de Flauta Doce",
+        fluteTrainer: "Treinador ABC de Flauta Doce",
         strudelManager: "Gerenciador de Arquivos Strudel",
         pongGame: "Jogo Pong",
         calendar: "Calendário"
@@ -156,7 +156,7 @@ const translations = {
         natureGuide: "คู่มือธรรมชาติท้องถิ่น",
         game2048: "เกม 2048",
         spanishTrainer: "โปรแกรมฝึกกาลสเปน",
-        recorderTrainer: "โปรแกรมฝึก Recorder ABC",
+        fluteTrainer: "โปรแกรมฝึก Flute ABC",
         strudelManager: "ตัวจัดการไฟล์ Strudel",
         pongGame: "เกม Pong",
         calendar: "ปฏิทิน"
@@ -183,7 +183,7 @@ const translations = {
         natureGuide: "Panduan Alam Lokal",
         game2048: "Game 2048",
         spanishTrainer: "Pelatih Tenses Bahasa Spanyol",
-        recorderTrainer: "Pelatih ABC Recorder",
+        fluteTrainer: "Pelatih ABC Flute",
         strudelManager: "Pengelola File Strudel",
         pongGame: "Game Pong",
         calendar: "Kalender"
@@ -210,7 +210,7 @@ const translations = {
         natureGuide: "本地自然指南",
         game2048: "2048 遊戲",
         spanishTrainer: "西班牙語時態訓練器",
-        recorderTrainer: "直笛 ABC 訓練器",
+        fluteTrainer: "直笛 ABC 訓練器",
         strudelManager: "Strudel 文件管理器",
         pongGame: "乒乓球遊戲",
         calendar: "日曆"
