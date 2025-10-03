@@ -1,5 +1,5 @@
 // Feature toggles
-const ENABLE_FLORAL_ORNAMENTS = true;
+const ENABLE_FLORAL_ORNAMENTS = false;
 const DEBUG_SPIRALS_ONLY = false;
 
 // Seeded random number generator for reproducible but varied vines
@@ -90,9 +90,9 @@ class FloralAnimator {
     isPointInContent(point, margin = 20) {
         return this.contentBounds.some(bounds => {
             return point.x >= bounds.left - margin &&
-                   point.x <= bounds.right + margin &&
-                   point.y >= bounds.top - margin &&
-                   point.y <= bounds.bottom + margin;
+                point.x <= bounds.right + margin &&
+                point.y >= bounds.top - margin &&
+                point.y <= bounds.bottom + margin;
         });
     }
 
