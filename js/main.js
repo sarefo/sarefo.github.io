@@ -13,7 +13,6 @@ class EmailProtection {
         this.emailElement = document.getElementById('contact-email');
         if (this.emailElement) {
             this.setupEmailReveal(this.emailElement);
-            this.setupLanguageListener();
         }
     }
 
@@ -51,20 +50,6 @@ class EmailProtection {
         element.onclick = null;
         element.onkeydown = null;
         this.isRevealed = true;
-    }
-
-    setupLanguageListener() {
-        // Listen for language changes
-        document.querySelectorAll('.language-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                // Use setTimeout to ensure language has switched
-                setTimeout(() => {
-                    if (!this.isRevealed) {
-                        this.updateEmailText();
-                    }
-                }, 50);
-            });
-        });
     }
 
     updateEmailText() {
@@ -156,52 +141,6 @@ class GitHubToggle {
         setTimeout(() => {
             document.body.removeChild(announcement);
         }, 1000);
-    }
-}
-
-// Smooth scrolling for internal links (if any)
-class SmoothScroll {
-    constructor() {
-        this.init();
-    }
-
-    init() {
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', (e) => {
-                e.preventDefault();
-                const target = document.querySelector(anchor.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    }
-}
-
-// Performance and analytics (minimal)
-class PageAnalytics {
-    constructor() {
-        this.startTime = performance.now();
-        this.init();
-    }
-
-    init() {
-        // Track page load time
-        window.addEventListener('load', () => {
-            const loadTime = performance.now() - this.startTime;
-            console.log(`Page loaded in ${Math.round(loadTime)}ms`);
-        });
-
-        // Track external link clicks (without personal data)
-        document.querySelectorAll('a[href^="http"]').forEach(link => {
-            link.addEventListener('click', () => {
-                const domain = new URL(link.href).hostname;
-                console.log(`External link clicked: ${domain}`);
-            });
-        });
     }
 }
 
@@ -301,35 +240,18 @@ class ThemeManager {
         this.setTheme(newTheme);
         localStorage.setItem('preferredTheme', newTheme);
     }
-
-    // Method to switch back to original themes if needed
-    useOriginalThemes() {
-        const isDark = this.currentTheme?.includes('dark');
-        const newTheme = isDark ? 'original-dark' : 'original-light';
-        this.setTheme(newTheme);
-        localStorage.setItem('preferredTheme', newTheme);
-    }
-
-    // Method to switch to new ink themes
-    useInkThemes() {
-        const isDark = this.currentTheme?.includes('dark');
-        const newTheme = isDark ? 'ink-dark' : 'ink-light';
-        this.setTheme(newTheme);
-        localStorage.setItem('preferredTheme', newTheme);
-    }
 }
 
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     const themeManager = new ThemeManager();
-    new EmailProtection();
+    const emailProtection = new EmailProtection();
     new GitHubToggle();
-    new SmoothScroll();
-    new PageAnalytics();
     new AndroidRedirect();
-    
-    // Expose theme manager for console access
+
+    // Expose for external access
     window.themeManager = themeManager;
+    window.emailProtection = emailProtection;
 });
 
 // Handle any uncaught errors gracefully
@@ -342,8 +264,6 @@ window.addEventListener('error', (e) => {
 window.SarefoSite = {
     EmailProtection,
     GitHubToggle,
-    SmoothScroll,
-    PageAnalytics,
     ThemeManager,
     AndroidRedirect
 };

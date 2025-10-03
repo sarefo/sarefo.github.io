@@ -34,7 +34,7 @@ class I18n {
 
     switchLanguage(language) {
         if (this.currentLanguage === language) return;
-        
+
         // Update active button
         document.querySelectorAll('.language-btn').forEach(btn => {
             btn.classList.remove('active');
@@ -42,14 +42,19 @@ class I18n {
                 btn.classList.add('active');
             }
         });
-        
+
         // Load new language
         this.loadLanguage(language);
-        
+
         // Save to localStorage
         localStorage.setItem('selectedLanguage', language);
-        
+
         this.currentLanguage = language;
+
+        // Update email text if email protection is available
+        if (window.emailProtection) {
+            window.emailProtection.updateEmailText();
+        }
     }
 
     loadLanguage(language) {

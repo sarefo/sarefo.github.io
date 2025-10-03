@@ -1036,35 +1036,7 @@ class WaterInsectsBackground {
         
         const newInsectColor = this.getInsectColor();
         const newSeaStarColor = this.getSeaStarColor();
-        
-        // Update insect colors
-        this.insects.forEach(insect => {
-            if (insect.item && insect.item.children) {
-                insect.item.children.forEach(child => {
-                    if (child.fillColor) {
-                        const opacity = child.fillColor.components[3] || 0.5;
-                        child.fillColor = newInsectColor.replace(/[\d\.]+\)$/, `${opacity})`);
-                    }
-                    if (child.strokeColor) {
-                        const opacity = child.strokeColor.components[3] || 0.5;
-                        child.strokeColor = newInsectColor.replace(/[\d\.]+\)$/, `${opacity})`);
-                    }
-                });
-            }
-        });
-        
-        // Update sea star colors
-        this.seaStars.forEach(seaStar => {
-            if (seaStar.item && seaStar.item.children) {
-                seaStar.item.children.forEach(child => {
-                    if (child.fillColor) {
-                        const opacity = child.fillColor.components[3] || 0.5;
-                        child.fillColor = newSeaStarColor.replace(/[\d\.]+\)$/, `${opacity})`);
-                    }
-                });
-            }
-        });
-        
+
         // Update insect colors
         this.insects.forEach(insect => {
             // Update wings
