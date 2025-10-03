@@ -5,10 +5,20 @@ When working in this directory, focus only on the homepage associated with `inde
 ## Main Files Structure
 
 The main homepage consists of:
-- `index.html` - The main homepage file
-- `js/` folder - JavaScript files for homepage functionality
-- `css/` folder - Stylesheets for homepage styling
-- `images/` folder - Image assets for the homepage
+- `index.html` - The main homepage file with multi-language support (EN, DE, FR, ES, PT, HK, TH, ID)
+- `css/` folder - Stylesheets (styles.css, language-switcher.css)
+- `images/` folder - Image assets (icons, photos)
+- `js/` folder - JavaScript files organized as follows:
+  - `main.js` - Main application logic and initialization
+  - `i18n.js` - Internationalization system
+  - `translations.js` - Translation strings for all supported languages
+  - `nature/` subfolder - Nature scene animation modules using Paper.js:
+    - `nature-scene-manager.js` - Coordinates all nature animations
+    - `theme-handler.js` - Handles theme changes
+    - `water-animator.js` - Water/wave animations
+    - `insect-animator.js` - Insect animations
+    - `sea-star-animator.js` - Sea star animations
+    - `floral-animator.js` - Floral/plant animations
 
 ## Ignore These Project Directories
 
