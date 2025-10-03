@@ -25,7 +25,7 @@ class NatureSceneManager {
         this.waterAnimator = new WaterAnimator(this.themeHandler, this.waterGroup);
         this.insectAnimator = new InsectAnimator(this.themeHandler, this.insectsGroup, this.contentBounds);
         this.seaStarAnimator = new SeaStarAnimator(this.themeHandler, this.seaStarsGroup);
-        this.floralAnimator = new FloralAnimator(this.themeHandler, this.floralGroup);
+        this.floralAnimator = new FloralAnimator(this.themeHandler, this.floralGroup, this.contentBounds);
 
         this.waterAnimator.createWaterSection(paper.view.size.width, paper.view.size.height);
         this.floralAnimator.createFloralOrnaments(paper.view.size.width, paper.view.size.height);
