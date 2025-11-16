@@ -24,6 +24,7 @@ const translations = {
         fluteTrainer: "Flute ABC Trainer",
         strudelManager: "Strudel File Manager",
         pongGame: "Pong Game",
+        ptPhrasesTitle: "PT Phrases",
         calendar: "Calendar"
     },
     de: {
@@ -51,6 +52,7 @@ const translations = {
         fluteTrainer: "Blockflöten-ABC-Trainer",
         strudelManager: "Strudel Dateimanager",
         pongGame: "Pong-Spiel",
+        ptPhrasesTitle: "PT Phrasen",
         calendar: "Kalender"
     },
     fr: {
@@ -78,6 +80,7 @@ const translations = {
         fluteTrainer: "Entraîneur ABC de Flûte à Bec",
         strudelManager: "Gestionnaire de Fichiers Strudel",
         pongGame: "Jeu Pong",
+        ptPhrasesTitle: "Phrases PT",
         calendar: "Calendrier"
     },
     es: {
@@ -105,6 +108,7 @@ const translations = {
         fluteTrainer: "Entrenador ABC de Flauta Dulce",
         strudelManager: "Gestor de Archivos Strudel",
         pongGame: "Juego Pong",
+        ptPhrasesTitle: "Frases PT",
         calendar: "Calendario"
     },
     pt: {
@@ -132,6 +136,7 @@ const translations = {
         fluteTrainer: "Treinador ABC de Flauta Doce",
         strudelManager: "Gerenciador de Arquivos Strudel",
         pongGame: "Jogo Pong",
+        ptPhrasesTitle: "Frases PT",
         calendar: "Calendário"
     },
     th: {
@@ -159,6 +164,7 @@ const translations = {
         fluteTrainer: "โปรแกรมฝึก Flute ABC",
         strudelManager: "ตัวจัดการไฟล์ Strudel",
         pongGame: "เกม Pong",
+        ptPhrasesTitle: "วลีภาษาโปรตุเกส",
         calendar: "ปฏิทิน"
     },
     id: {
@@ -186,6 +192,7 @@ const translations = {
         fluteTrainer: "Pelatih ABC Flute",
         strudelManager: "Pengelola File Strudel",
         pongGame: "Game Pong",
+        ptPhrasesTitle: "Frasa PT",
         calendar: "Kalender"
     },
     hk: {
@@ -213,6 +220,7 @@ const translations = {
         fluteTrainer: "直笛 ABC 訓練器",
         strudelManager: "Strudel 文件管理器",
         pongGame: "乒乓球遊戲",
+        ptPhrasesTitle: "葡文短語",
         calendar: "日曆"
     }
 };
