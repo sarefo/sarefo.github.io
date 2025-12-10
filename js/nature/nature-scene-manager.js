@@ -16,7 +16,7 @@ class NatureSceneManager {
         this.init();
     }
 
-    init() {
+    async init() {
         this.createCanvas();
         this.setupPaper();
         this.detectContentBounds();
@@ -36,10 +36,12 @@ class NatureSceneManager {
 
         this.waterAnimator.createWaterSection(paper.view.size.width, paper.view.size.height);
 
-        // Create floral ornaments using appropriate animator
+        // Create floral ornaments using appropriate animator (async for SVG loading)
         if (this.svgFloralAnimator) {
-            const svgElement = this.svgFloralAnimator.createFloralOrnaments(paper.view.size.width, paper.view.size.height);
-            document.body.appendChild(svgElement);
+            const svgElement = await this.svgFloralAnimator.createFloralOrnaments(paper.view.size.width, paper.view.size.height);
+            if (svgElement) {
+                document.body.appendChild(svgElement);
+            }
         } else if (this.floralAnimator) {
             this.floralAnimator.createFloralOrnaments(paper.view.size.width, paper.view.size.height);
         }
