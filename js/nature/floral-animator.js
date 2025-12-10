@@ -49,8 +49,21 @@ class FloralAnimator {
         if (!ENABLE_FLORAL_ORNAMENTS) return;
 
         const floralColor = this.themeHandler.getFloralColor();
-        const startHeight = viewHeight * 0.42;
-        const ornamentHeight = startHeight * 0.75;
+
+        // Responsive positioning: higher reach on large screens, move up on small screens
+        const isMobile = viewWidth <= 768;
+        const isSmallMobile = viewWidth <= 480;
+
+        // Starting height: lower on small screens to move ornaments up
+        const startHeight = isSmallMobile ? viewHeight * 0.35 :
+                           isMobile ? viewHeight * 0.38 :
+                           viewHeight * 0.42;
+
+        // Ornament height: taller on large screens, adjusted for small screens
+        const heightRatio = isSmallMobile ? 0.82 :
+                           isMobile ? 0.80 :
+                           0.82; // Increased from 0.75 to 0.82 for large screens
+        const ornamentHeight = startHeight * heightRatio;
         const ornamentWidth = Math.min(viewWidth * 0.32, 400);
 
         // Attractor points: on either side of "Sarefo" title
