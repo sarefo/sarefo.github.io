@@ -25,7 +25,7 @@ class SvgFloralAnimator {
             width: 100%;
             height: 70%;
             pointer-events: none;
-            z-index: 1;
+            z-index: -1;
             overflow: hidden;
         `;
 
@@ -51,30 +51,44 @@ class SvgFloralAnimator {
         group.setAttribute('class', `ornament-group ornament-${side}`);
 
         // Path bounds: x: 100-135, y: 40-165 (height ~125 units, width ~35 units)
-        // The ornament grows from right (x=132) toward left (x=100)
+        // The ornament grows from root (x=132) toward flowers (x=100), spanning ~32 units horizontally
         const pathHeight = 125;
+        const pathWidth = 32; // horizontal reach of the ornament
 
-        // Scale: make ornaments big enough that root is near water level (~65% down)
-        // and top flowers are above hero section
-        const waterLevel = viewHeight * 0.62;
-        const targetHeight = isMobile ? waterLevel * 0.7 : waterLevel * 0.85;
-        const scale = targetHeight / pathHeight;
+        let scale, rootY, tiltAngle;
 
-        // Tilt angle - ornaments tilt so they lean toward center
-        const tiltAngle = 8;
+        if (isMobile) {
+            // Mobile: small ornaments that frame the "Sarefo" h1
+            // Scale so the horizontal reach fits beside the header text
+            const targetReach = (viewWidth / 2) - 60;
+            scale = Math.max(1.8, Math.min(2.8, targetReach / pathWidth));
 
-        // Y position for the root (bottom of ornament) - near water level
-        const rootY = waterLevel;
+            // Position so flower tops start just below language switcher (~50px from top)
+            // The path has flowers at y=40 and root at y=165
+            // After transform, the flower top will be at: rootY - (165-40)*scale = rootY - 125*scale
+            // We want flower top at ~50px, so: rootY = 50 + 125*scale
+            const flowerTopY = 50; // just below language switcher
+            rootY = flowerTopY + (pathHeight * scale);
+            // Tilt scales from 0 at 460px to 8 at 600px
+            tiltAngle = Math.max(0, ((viewWidth - 460) / 140) * 8);
+        } else {
+            // Desktop: scale based on height to reach water level
+            const waterLevel = viewHeight * 0.62;
+            const targetHeight = waterLevel * 0.85;
+            scale = targetHeight / pathHeight;
+
+            // Position flower tops just below language switcher (~50px from top)
+            const flowerTopY = 50;
+            rootY = flowerTopY + (pathHeight * scale);
+            tiltAngle = 8;
+        }
 
         let transform;
-
-        // Push left ornament into view slightly on mobile only
-        const leftEdgeOffset = isMobile ? 15 : 0;
 
         if (isLeft) {
             // Left side: root at left edge, flip so ornament extends right toward center
             // Positive rotation because the flip will mirror it
-            transform = `translate(${leftEdgeOffset}, ${rootY}) rotate(${tiltAngle}) scale(${-scale}, ${scale}) translate(-132, -165)`;
+            transform = `translate(0, ${rootY}) rotate(${tiltAngle}) scale(${-scale}, ${scale}) translate(-132, -165)`;
         } else {
             // Right side: root at right edge, ornament extends left toward center
             transform = `translate(${viewWidth}, ${rootY}) rotate(${-tiltAngle}) scale(${scale}, ${scale}) translate(-132, -165)`;
