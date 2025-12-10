@@ -155,7 +155,7 @@ class InsectAnimator {
                 // Bias targets towards upper half - if insect is currently in top half,
                 // give it a 70% chance of staying in top half
                 const currentlyInTopHalf = currentPos.y < waterTop / 2;
-                const stayInTopHalf = currentlyInTopHalf && Math.random() < 0.7;
+                const stayInTopHalf = currentlyInTopHalf && Math.random() < 0.35;
 
                 if (stayInTopHalf) {
                     // Pick a target in the top half
