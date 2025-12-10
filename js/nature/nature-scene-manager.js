@@ -23,7 +23,7 @@ class NatureSceneManager {
 
         this.themeHandler = new ThemeHandler();
         this.waterAnimator = new WaterAnimator(this.themeHandler, this.waterGroup);
-        this.insectAnimator = new InsectAnimator(this.themeHandler, this.insectsGroup, this.contentBounds);
+        this.insectAnimator = new InsectAnimator(this.themeHandler, this.insectsGroup);
         this.seaStarAnimator = new SeaStarAnimator(this.themeHandler, this.seaStarsGroup);
 
         // Use SVG-based floral animator if available, otherwise fall back to Paper.js

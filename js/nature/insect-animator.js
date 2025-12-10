@@ -5,10 +5,9 @@ const INSECT_RANDOM_TARGET_CHANCE = 0.02;
 
 // Dragonfly creation and animation
 class InsectAnimator {
-    constructor(themeHandler, insectsGroup, contentBounds) {
+    constructor(themeHandler, insectsGroup) {
         this.themeHandler = themeHandler;
         this.insectsGroup = insectsGroup;
-        this.contentBounds = contentBounds;
         this.insects = [];
     }
 
@@ -26,14 +25,11 @@ class InsectAnimator {
         const insectColor = this.themeHandler.getInsectColor();
         const group = new paper.Group();
 
-        let x, y;
-        let attempts = 0;
-        do {
-            x = Math.random() * viewWidth;
-            y = Math.random() * (viewHeight * 0.67);
-            attempts++;
-        } while (this.wouldCollideWithContent(new paper.Point(x, y), 100) && attempts < 10);
+        const waterHeight = viewHeight / 3;
+        const waterTop = viewHeight - waterHeight;
 
+        const x = Math.random() * viewWidth;
+        const y = Math.random() * waterTop;
         const center = new paper.Point(x, y);
         const size = 8 + Math.random() * 4;
 
@@ -139,17 +135,6 @@ class InsectAnimator {
         };
     }
 
-    wouldCollideWithContent(point, margin = 50) {
-        for (let bound of this.contentBounds) {
-            if (point.x > bound.left - margin &&
-                point.x < bound.right + margin &&
-                point.y > bound.top - margin &&
-                point.y < bound.bottom + margin) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     animate(viewWidth, viewHeight, deltaTime) {
         const waterHeight = viewHeight / 3;
@@ -158,7 +143,7 @@ class InsectAnimator {
         this.insects.forEach(insect => {
             if (!insect.targetX) {
                 insect.targetX = Math.random() * viewWidth;
-                insect.targetY = Math.random() * (waterTop - 50) + 25;
+                insect.targetY = Math.random() * waterTop;
             }
 
             const currentPos = insect.group.position;
@@ -167,16 +152,19 @@ class InsectAnimator {
             const distance = Math.sqrt(dx * dx + dy * dy);
 
             if (distance < INSECT_TARGET_CHANGE_DISTANCE || Math.random() < INSECT_RANDOM_TARGET_CHANCE) {
-                let targetX, targetY;
-                let attempts = 0;
-                do {
-                    targetX = Math.random() * viewWidth;
-                    targetY = Math.random() * (waterTop - 50) + 25;
-                    attempts++;
-                } while (this.wouldCollideWithContent(new paper.Point(targetX, targetY), 100) && attempts < 10);
+                // Bias targets towards upper half - if insect is currently in top half,
+                // give it a 70% chance of staying in top half
+                const currentlyInTopHalf = currentPos.y < waterTop / 2;
+                const stayInTopHalf = currentlyInTopHalf && Math.random() < 0.7;
 
-                insect.targetX = targetX;
-                insect.targetY = targetY;
+                if (stayInTopHalf) {
+                    // Pick a target in the top half
+                    insect.targetY = Math.random() * (waterTop / 2);
+                } else {
+                    // Pick any target in the full range
+                    insect.targetY = Math.random() * waterTop;
+                }
+                insect.targetX = Math.random() * viewWidth;
             } else if (distance > 1) {
                 const newX = currentPos.x + (dx / distance) * INSECT_MOVE_SPEED;
                 const newY = currentPos.y + (dy / distance) * INSECT_MOVE_SPEED;
