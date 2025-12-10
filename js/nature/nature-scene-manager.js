@@ -25,10 +25,24 @@ class NatureSceneManager {
         this.waterAnimator = new WaterAnimator(this.themeHandler, this.waterGroup);
         this.insectAnimator = new InsectAnimator(this.themeHandler, this.insectsGroup, this.contentBounds);
         this.seaStarAnimator = new SeaStarAnimator(this.themeHandler, this.seaStarsGroup);
-        this.floralAnimator = new FloralAnimator(this.themeHandler, this.floralGroup, this.contentBounds);
+
+        // Use SVG-based floral animator if available, otherwise fall back to Paper.js
+        if (typeof SvgFloralAnimator !== 'undefined') {
+            this.svgFloralAnimator = new SvgFloralAnimator(this.themeHandler);
+            this.floralAnimator = null;
+        } else {
+            this.floralAnimator = new FloralAnimator(this.themeHandler, this.floralGroup, this.contentBounds);
+        }
 
         this.waterAnimator.createWaterSection(paper.view.size.width, paper.view.size.height);
-        this.floralAnimator.createFloralOrnaments(paper.view.size.width, paper.view.size.height);
+
+        // Create floral ornaments using appropriate animator
+        if (this.svgFloralAnimator) {
+            const svgElement = this.svgFloralAnimator.createFloralOrnaments(paper.view.size.width, paper.view.size.height);
+            document.body.appendChild(svgElement);
+        } else if (this.floralAnimator) {
+            this.floralAnimator.createFloralOrnaments(paper.view.size.width, paper.view.size.height);
+        }
         this.insectAnimator.createInsects(paper.view.size.width, paper.view.size.height);
         this.seaStarAnimator.createSeaStars(paper.view.size.width, paper.view.size.height);
 
@@ -109,7 +123,9 @@ class NatureSceneManager {
         this.waterAnimator.animate(this.time);
         this.insectAnimator.animate(paper.view.size.width, paper.view.size.height, deltaTime);
         this.seaStarAnimator.animate(this.time);
-        this.floralAnimator.animate(deltaTime);
+        if (this.floralAnimator) {
+            this.floralAnimator.animate(deltaTime);
+        }
 
         paper.view.draw();
         this.animationId = requestAnimationFrame(() => this.animate());
@@ -119,7 +135,12 @@ class NatureSceneManager {
         this.waterAnimator.updateTheme();
         this.insectAnimator.updateTheme();
         this.seaStarAnimator.updateTheme();
-        this.floralAnimator.updateTheme();
+        if (this.floralAnimator) {
+            this.floralAnimator.updateTheme();
+        }
+        if (this.svgFloralAnimator) {
+            this.svgFloralAnimator.updateTheme();
+        }
         paper.view.draw();
     }
 
@@ -139,6 +160,12 @@ class NatureSceneManager {
 
             if (this.canvas) {
                 this.canvas.remove();
+            }
+
+            // Remove SVG floral element if it exists
+            const existingSvg = document.querySelector('.floral-svg');
+            if (existingSvg) {
+                existingSvg.remove();
             }
 
             this.init();
