@@ -168,6 +168,59 @@ class AndroidRedirect {
     }
 }
 
+// Content toggle functionality
+class ContentToggle {
+    constructor() {
+        this.isHidden = false;
+        this.init();
+    }
+
+    init() {
+        const headerElement = document.querySelector('.header h1');
+        if (headerElement) {
+            this.setupToggle(headerElement);
+        }
+    }
+
+    setupToggle(element) {
+        element.style.cursor = 'pointer';
+        element.style.userSelect = 'none';
+
+        element.addEventListener('click', () => {
+            this.toggle();
+        });
+
+        // Keyboard support
+        element.setAttribute('tabindex', '0');
+        element.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.toggle();
+            }
+        });
+    }
+
+    toggle() {
+        this.isHidden = !this.isHidden;
+
+        // Select all non-nature elements
+        const elementsToToggle = [
+            '.language-switcher',
+            '.contact-email',
+            '.hero-section',
+            '.content-sections',
+            '.github-section'
+        ];
+
+        elementsToToggle.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                element.style.visibility = this.isHidden ? 'hidden' : 'visible';
+            }
+        });
+    }
+}
+
 // Theme detection and handling
 class ThemeManager {
     constructor() {
@@ -246,12 +299,14 @@ class ThemeManager {
 document.addEventListener('DOMContentLoaded', () => {
     const themeManager = new ThemeManager();
     const emailProtection = new EmailProtection();
+    const contentToggle = new ContentToggle();
     new GitHubToggle();
     new AndroidRedirect();
 
     // Expose for external access
     window.themeManager = themeManager;
     window.emailProtection = emailProtection;
+    window.contentToggle = contentToggle;
 });
 
 // Handle any uncaught errors gracefully
@@ -265,5 +320,6 @@ window.SarefoSite = {
     EmailProtection,
     GitHubToggle,
     ThemeManager,
-    AndroidRedirect
+    AndroidRedirect,
+    ContentToggle
 };
