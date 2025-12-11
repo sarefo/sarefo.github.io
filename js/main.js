@@ -185,6 +185,7 @@ class ContentToggle {
     setupToggle(element) {
         element.style.cursor = 'pointer';
         element.style.userSelect = 'none';
+        element.style.webkitTapHighlightColor = 'transparent';
 
         element.addEventListener('click', () => {
             this.toggle();
@@ -202,6 +203,13 @@ class ContentToggle {
 
     toggle() {
         this.isHidden = !this.isHidden;
+
+        // Toggle scrolling on body
+        if (this.isHidden) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
 
         // Select all non-nature elements
         const elementsToToggle = [
