@@ -7,6 +7,11 @@ class NatureSceneManager {
         this.resizeTimeout = null;
         this.contentBounds = [];
 
+        // Cursor tracking for insect swarming
+        this.cursorPosition = null;
+        this.lastCursorMoveTime = 0;
+        this.cursorInactivityTimeout = 5000;
+
         this.themeHandler = null;
         this.waterAnimator = null;
         this.insectAnimator = null;
@@ -19,6 +24,7 @@ class NatureSceneManager {
     async init() {
         this.createCanvas();
         this.setupPaper();
+        this.setupCursorTracking();
         this.detectContentBounds();
 
         this.themeHandler = new ThemeHandler();
@@ -92,6 +98,45 @@ class NatureSceneManager {
         this.floralGroup = new paper.Group();
     }
 
+    setupCursorTracking() {
+        // Track mouse position
+        document.addEventListener('mousemove', (e) => this.handleCursorMove(e.clientX, e.clientY));
+
+        // Track touch position (use first touch only)
+        document.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                this.handleCursorMove(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        }, { passive: true });
+
+        // Clear cursor when mouse leaves window
+        document.addEventListener('mouseleave', () => this.handleCursorLeave());
+
+        // Clear cursor when touch ends
+        document.addEventListener('touchend', () => this.handleCursorLeave());
+        document.addEventListener('touchcancel', () => this.handleCursorLeave());
+    }
+
+    handleCursorMove(x, y) {
+        this.cursorPosition = { x, y };
+        this.lastCursorMoveTime = Date.now();
+    }
+
+    handleCursorLeave() {
+        this.cursorPosition = null;
+    }
+
+    getActiveCursorPosition() {
+        if (!this.cursorPosition) return null;
+
+        const timeSinceMove = Date.now() - this.lastCursorMoveTime;
+        if (timeSinceMove > this.cursorInactivityTimeout) {
+            return null;
+        }
+
+        return this.cursorPosition;
+    }
+
     detectContentBounds() {
         this.contentBounds = [];
 
@@ -122,8 +167,9 @@ class NatureSceneManager {
         this.time += 0.01;
         const deltaTime = 1 / 60;
 
+        const activeCursor = this.getActiveCursorPosition();
         this.waterAnimator.animate(this.time);
-        this.insectAnimator.animate(paper.view.size.width, paper.view.size.height, deltaTime);
+        this.insectAnimator.animate(paper.view.size.width, paper.view.size.height, deltaTime, activeCursor);
         this.seaStarAnimator.animate(this.time);
         if (this.floralAnimator) {
             this.floralAnimator.animate(deltaTime);

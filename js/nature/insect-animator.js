@@ -3,6 +3,14 @@ const INSECT_MOVE_SPEED = 1;
 const INSECT_TARGET_CHANGE_DISTANCE = 50;
 const INSECT_RANDOM_TARGET_CHANCE = 0.02;
 
+// Cursor swarming behavior
+const CURSOR_ATTRACTION_RADIUS = 600;
+const CURSOR_ATTRACTION_STRENGTH = 0.85;
+const CURSOR_ORBIT_MIN_RADIUS = 20;
+const CURSOR_ORBIT_MAX_RADIUS = 80;
+const CURSOR_ORBIT_SPEED = 0.03;
+const CURSOR_SPEED_MULTIPLIER = 2.0;
+
 // Dragonfly creation and animation
 class InsectAnimator {
     constructor(themeHandler, insectsGroup) {
@@ -131,46 +139,28 @@ class InsectAnimator {
             wingSpeed: 5 + Math.random() * 3,
             wingGroups: wingGroups,
             bodyRotation: Math.random() * 360,
-            rotationSpeed: (Math.random() - 0.5) * 0.6
+            rotationSpeed: (Math.random() - 0.5) * 0.6,
+            orbitRadius: CURSOR_ORBIT_MIN_RADIUS + Math.random() * (CURSOR_ORBIT_MAX_RADIUS - CURSOR_ORBIT_MIN_RADIUS),
+            orbitAngle: Math.random() * Math.PI * 2,
+            orbitClockwise: Math.random() > 0.5,
+            curiosity: 0.6 + Math.random() * 0.4,
+            attractionStrength: CURSOR_ATTRACTION_STRENGTH * (0.8 + Math.random() * 0.4)
         };
     }
 
 
-    animate(viewWidth, viewHeight, deltaTime) {
+    animate(viewWidth, viewHeight, deltaTime, cursorPosition) {
         const waterHeight = viewHeight / 3;
         const waterTop = viewHeight - waterHeight;
 
         this.insects.forEach(insect => {
-            if (!insect.targetX) {
-                insect.targetX = Math.random() * viewWidth;
-                insect.targetY = Math.random() * waterTop;
-            }
+            // Calculate effective target (blends cursor attraction with random movement)
+            const effectiveTarget = this.calculateEffectiveTarget(insect, cursorPosition, viewWidth, waterTop);
 
-            const currentPos = insect.group.position;
-            const dx = insect.targetX - currentPos.x;
-            const dy = insect.targetY - currentPos.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
+            // Update insect position toward effective target
+            this.updateInsectPosition(insect, effectiveTarget);
 
-            if (distance < INSECT_TARGET_CHANGE_DISTANCE || Math.random() < INSECT_RANDOM_TARGET_CHANCE) {
-                // Bias targets towards upper half - if insect is currently in top half,
-                // give it a 70% chance of staying in top half
-                const currentlyInTopHalf = currentPos.y < waterTop / 2;
-                const stayInTopHalf = currentlyInTopHalf && Math.random() < 0.35;
-
-                if (stayInTopHalf) {
-                    // Pick a target in the top half
-                    insect.targetY = Math.random() * (waterTop / 2);
-                } else {
-                    // Pick any target in the full range
-                    insect.targetY = Math.random() * waterTop;
-                }
-                insect.targetX = Math.random() * viewWidth;
-            } else if (distance > 1) {
-                const newX = currentPos.x + (dx / distance) * INSECT_MOVE_SPEED;
-                const newY = currentPos.y + (dy / distance) * INSECT_MOVE_SPEED;
-                insect.group.position = new paper.Point(newX, newY);
-            }
-
+            // Update rotation and wing animation
             insect.group.rotation += insect.rotationSpeed;
 
             insect.wingPhase += insect.wingSpeed * deltaTime;
@@ -181,6 +171,82 @@ class InsectAnimator {
             if (insect.wingGroups[2]) insect.wingGroups[2].group.rotation = flapAngle;
             if (insect.wingGroups[3]) insect.wingGroups[3].group.rotation = flapAngle;
         });
+    }
+
+    calculateEffectiveTarget(insect, cursorPosition, viewWidth, waterTop) {
+        const currentPos = insect.group.position;
+
+        // Initialize random target if needed
+        if (!insect.targetX) {
+            insect.targetX = Math.random() * viewWidth;
+            insect.targetY = Math.random() * waterTop;
+        }
+
+        // Check if we need a new random target
+        const dxRandom = insect.targetX - currentPos.x;
+        const dyRandom = insect.targetY - currentPos.y;
+        const distanceToRandom = Math.sqrt(dxRandom * dxRandom + dyRandom * dyRandom);
+
+        if (distanceToRandom < INSECT_TARGET_CHANGE_DISTANCE || Math.random() < INSECT_RANDOM_TARGET_CHANCE) {
+            // Bias targets towards upper half
+            const currentlyInTopHalf = currentPos.y < waterTop / 2;
+            const stayInTopHalf = currentlyInTopHalf && Math.random() < 0.35;
+
+            if (stayInTopHalf) {
+                insect.targetY = Math.random() * (waterTop / 2);
+            } else {
+                insect.targetY = Math.random() * waterTop;
+            }
+            insect.targetX = Math.random() * viewWidth;
+        }
+
+        // If no cursor, return random target
+        if (!cursorPosition) {
+            return { x: insect.targetX, y: insect.targetY, isAttracted: false };
+        }
+
+        // Calculate distance to cursor
+        const dxCursor = cursorPosition.x - currentPos.x;
+        const dyCursor = cursorPosition.y - currentPos.y;
+        const distanceToCursor = Math.sqrt(dxCursor * dxCursor + dyCursor * dyCursor);
+
+        // If cursor is too far, ignore it
+        if (distanceToCursor > CURSOR_ATTRACTION_RADIUS) {
+            return { x: insect.targetX, y: insect.targetY, isAttracted: false };
+        }
+
+        // Calculate orbital target around cursor
+        insect.orbitAngle += (insect.orbitClockwise ? 1 : -1) * CURSOR_ORBIT_SPEED;
+        const orbitX = cursorPosition.x + Math.cos(insect.orbitAngle) * insect.orbitRadius;
+        const orbitY = cursorPosition.y + Math.sin(insect.orbitAngle) * insect.orbitRadius;
+
+        // Blend orbital target with random target
+        const blendFactor = insect.attractionStrength * insect.curiosity;
+        let effectiveX = insect.targetX * (1 - blendFactor) + orbitX * blendFactor;
+        let effectiveY = insect.targetY * (1 - blendFactor) + orbitY * blendFactor;
+
+        // Keep insects above water - clamp Y to stay above waterTop and wave peaks
+        effectiveY = Math.min(effectiveY, waterTop - 40);
+
+        return { x: effectiveX, y: effectiveY, isAttracted: true };
+    }
+
+    updateInsectPosition(insect, effectiveTarget) {
+        const currentPos = insect.group.position;
+        const dx = effectiveTarget.x - currentPos.x;
+        const dy = effectiveTarget.y - currentPos.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance > 1) {
+            // Use faster speed when attracted to cursor
+            const speed = effectiveTarget.isAttracted
+                ? INSECT_MOVE_SPEED * CURSOR_SPEED_MULTIPLIER
+                : INSECT_MOVE_SPEED;
+
+            const newX = currentPos.x + (dx / distance) * speed;
+            const newY = currentPos.y + (dy / distance) * speed;
+            insect.group.position = new paper.Point(newX, newY);
+        }
     }
 
     updateTheme() {
