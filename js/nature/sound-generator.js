@@ -29,18 +29,17 @@ const SOUND_CONFIGS = {
         dropDuration: 50,       // Duration of each drop sound in ms
         baseFrequency: 800,     // Base frequency for drop impact
         frequencyVariation: 400 // Random variation
+    },
+    mosquito: {
+        enabled: true,
+        volume: 0.005,          // Subtle buzzing
+        type: 'interval',       // Occasional buzzing
+        minInterval: 30000,     // Min 30 seconds between buzzes
+        maxInterval: 90000,     // Max 1.5 minutes between buzzes
+        duration: 2000,         // 2 second buzz duration
+        baseFrequency: 800,     // Base frequency for wing beat buzz
+        frequencyVariation: 100 // Random variation for natural sound
     }
-    // Future sounds easily added:
-    // mosquito: {
-    //     enabled: true,
-    //     type: 'interval',
-    //     volume: 0.03,
-    //     minInterval: 10000,
-    //     maxInterval: 30000,
-    //     duration: 2000,
-    //     baseFrequency: 600,
-    //     frequencyVariation: 50
-    // }
 };
 
 class SoundGenerator {
@@ -164,10 +163,9 @@ class SoundGenerator {
             case 'rain':
                 this.synthesizeRain(config);
                 break;
-            // Future sounds:
-            // case 'mosquito':
-            //     this.synthesizeMosquito(config);
-            //     break;
+            case 'mosquito':
+                this.synthesizeMosquito(config);
+                break;
         }
     }
 
@@ -352,6 +350,99 @@ class SoundGenerator {
 
         // Store nodes for cleanup
         this.continuousSounds.set('rain_background', [noise, highpass, lowpass, rainGain]);
+    }
+
+    synthesizeMosquito(config) {
+        const now = this.audioContext.currentTime;
+        const startTime = now + 0.01;
+        const duration = config.duration / 1000;
+
+        // Random base frequency for variation
+        const frequency = config.baseFrequency +
+            (Math.random() - 0.5) * config.frequencyVariation;
+
+        // Main oscillator - sawtooth for mosquito buzz
+        const oscillator = this.audioContext.createOscillator();
+        oscillator.frequency.value = frequency;
+        oscillator.type = 'sawtooth'; // Best represents mosquito sound
+
+        // Frequency modulation - smooth sine wave for closer/further effect
+        const fmOscillator = this.audioContext.createOscillator();
+        const fmGain = this.audioContext.createGain();
+        fmOscillator.frequency.value = 6; // 6 Hz modulation for natural variation
+        fmGain.gain.value = 40; // Subtle frequency wobble
+        fmOscillator.type = 'sine';
+        fmOscillator.connect(fmGain);
+        fmGain.connect(oscillator.detune);
+
+        // Stereo panner for spatial movement
+        const panner = this.audioContext.createStereoPanner();
+
+        // Random wandering pan with bias toward one side
+        const startPan = Math.random() > 0.5 ? -0.8 : 0.8; // Start near left or right
+        const endPan = -startPan; // End on opposite side
+        const wanderPoints = 8; // Number of random direction changes
+
+        panner.pan.setValueAtTime(startPan, startTime);
+
+        // Create random wandering path while trending toward end position
+        for (let i = 1; i <= wanderPoints; i++) {
+            const t = startTime + (duration * i / wanderPoints);
+            const progress = i / wanderPoints;
+
+            // Interpolate between start and end with random variation
+            const targetPan = startPan + (endPan - startPan) * progress;
+            const randomOffset = (Math.random() - 0.5) * 0.4; // Random wander ±0.2
+            const panValue = Math.max(-1, Math.min(1, targetPan + randomOffset));
+
+            panner.pan.linearRampToValueAtTime(panValue, t);
+        }
+
+        // Ensure we end at the target
+        panner.pan.linearRampToValueAtTime(endPan, startTime + duration);
+
+        // Gain for envelope and volume with random variation
+        const gainNode = this.audioContext.createGain();
+
+        // Connect: Oscillator -> Panner -> Gain -> Master
+        oscillator.connect(panner);
+        panner.connect(gainNode);
+        gainNode.connect(this.masterGain);
+
+        // Envelope with random volume variation
+        const fadeInTime = 0.3;
+        const fadeOutTime = 0.5;
+
+        gainNode.gain.setValueAtTime(0, startTime);
+        gainNode.gain.linearRampToValueAtTime(config.volume, startTime + fadeInTime);
+
+        // Add random volume fluctuations during the middle section
+        const volumePoints = 6;
+        for (let i = 0; i < volumePoints; i++) {
+            const t = startTime + fadeInTime + ((duration - fadeInTime - fadeOutTime) * i / volumePoints);
+            const volumeVariation = config.volume * (0.85 + Math.random() * 0.3); // ±15% variation
+            gainNode.gain.linearRampToValueAtTime(volumeVariation, t);
+        }
+
+        gainNode.gain.linearRampToValueAtTime(config.volume, startTime + duration - fadeOutTime);
+        gainNode.gain.linearRampToValueAtTime(0, startTime + duration);
+
+        // Start oscillators
+        fmOscillator.start(startTime);
+        oscillator.start(startTime);
+
+        // Stop oscillators
+        fmOscillator.stop(startTime + duration);
+        oscillator.stop(startTime + duration);
+
+        // Cleanup
+        oscillator.onended = () => {
+            fmOscillator.disconnect();
+            fmGain.disconnect();
+            oscillator.disconnect();
+            panner.disconnect();
+            gainNode.disconnect();
+        };
     }
 
     // Public API for mute control
