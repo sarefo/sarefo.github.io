@@ -39,6 +39,18 @@ const SOUND_CONFIGS = {
         duration: 2000,         // 2 second buzz duration
         baseFrequency: 800,     // Base frequency for wing beat buzz
         frequencyVariation: 100 // Random variation for natural sound
+    },
+    toad: {
+        enabled: true,
+        volume: 0.015,          // Volume for toad call
+        type: 'interval',       // Occasional calls
+        minInterval: 20000,     // Min 20 seconds between calls
+        maxInterval: 60000,     // Max 60 seconds between calls
+        croaksPerCall: 3,       // Number of croaks in a sequence
+        croakDuration: 200,     // Duration of each croak in ms
+        croakGap: 150,          // Gap between croaks in ms
+        baseFrequency: 400,     // Starting frequency for croak
+        frequencyDrop: 150      // How much pitch drops during croak
     }
 };
 
@@ -120,10 +132,10 @@ class SoundGenerator {
             if (config.enabled) {
                 console.log(`Scheduling ${soundType} (type: ${config.type})`);
                 if (config.type === 'interval') {
-                    // Play immediately on initialization for interval sounds
-                    this.scheduleNextSound(soundType, config, true);
+                    // Don't play immediately - let each sound start at a random time
+                    this.scheduleNextSound(soundType, config, false);
                 } else if (config.type === 'continuous') {
-                    // Start continuous sounds
+                    // Start continuous sounds immediately
                     this.startContinuousSound(soundType, config);
                 }
             }
@@ -165,6 +177,9 @@ class SoundGenerator {
                 break;
             case 'mosquito':
                 this.synthesizeMosquito(config);
+                break;
+            case 'toad':
+                this.synthesizeToad(config);
                 break;
         }
     }
@@ -442,6 +457,103 @@ class SoundGenerator {
             oscillator.disconnect();
             panner.disconnect();
             gainNode.disconnect();
+        };
+    }
+
+    synthesizeToad(config) {
+        const now = this.audioContext.currentTime;
+
+        // Create a sequence of individual croaks
+        for (let i = 0; i < config.croaksPerCall; i++) {
+            const croakStart = now + 0.01 + (i * (config.croakDuration + config.croakGap) / 1000);
+            this.createSingleCroak(croakStart, config);
+        }
+    }
+
+    createSingleCroak(startTime, config) {
+        const duration = config.croakDuration / 1000;
+
+        // Random variation for this croak
+        const freqVariation = (Math.random() - 0.5) * 80;
+        const startFreq = config.baseFrequency + freqVariation;
+        const endFreq = startFreq - config.frequencyDrop;
+
+        // Main oscillator - sine wave, cleaner base
+        const osc = this.audioContext.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(startFreq, startTime);
+        osc.frequency.exponentialRampToValueAtTime(endFreq, startTime + duration * 0.8);
+
+        // Second oscillator slightly detuned for thickness
+        const osc2 = this.audioContext.createOscillator();
+        osc2.type = 'sine';
+        osc2.frequency.setValueAtTime(startFreq * 1.01, startTime);
+        osc2.frequency.exponentialRampToValueAtTime(endFreq * 1.01, startTime + duration * 0.8);
+
+        // Third oscillator one octave up for brightness
+        const osc3 = this.audioContext.createOscillator();
+        osc3.type = 'sine';
+        osc3.frequency.setValueAtTime(startFreq * 2, startTime);
+        osc3.frequency.exponentialRampToValueAtTime(endFreq * 2, startTime + duration * 0.8);
+
+        // Resonant filter to shape the tone
+        const filter = this.audioContext.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.setValueAtTime(startFreq * 2, startTime);
+        filter.frequency.exponentialRampToValueAtTime(endFreq * 1.5, startTime + duration * 0.8);
+        filter.Q.value = 2;
+
+        // Gain nodes
+        const oscGain = this.audioContext.createGain();
+        const osc2Gain = this.audioContext.createGain();
+        const osc3Gain = this.audioContext.createGain();
+        const outputGain = this.audioContext.createGain();
+
+        // Mix levels
+        oscGain.gain.value = 1.0;
+        osc2Gain.gain.value = 0.5;
+        osc3Gain.gain.value = 0.2;
+
+        // Connect oscillators
+        osc.connect(oscGain);
+        osc2.connect(osc2Gain);
+        osc3.connect(osc3Gain);
+
+        oscGain.connect(filter);
+        osc2Gain.connect(filter);
+        osc3Gain.connect(filter);
+
+        filter.connect(outputGain);
+        outputGain.connect(this.masterGain);
+
+        // Envelope - quick attack, sustain, quick release
+        const attackTime = 0.015;
+        const releaseTime = 0.04;
+
+        outputGain.gain.setValueAtTime(0, startTime);
+        outputGain.gain.linearRampToValueAtTime(config.volume, startTime + attackTime);
+        outputGain.gain.setValueAtTime(config.volume, startTime + duration - releaseTime);
+        outputGain.gain.linearRampToValueAtTime(0, startTime + duration);
+
+        // Start and stop
+        osc.start(startTime);
+        osc2.start(startTime);
+        osc3.start(startTime);
+
+        osc.stop(startTime + duration + 0.05);
+        osc2.stop(startTime + duration + 0.05);
+        osc3.stop(startTime + duration + 0.05);
+
+        // Cleanup
+        osc.onended = () => {
+            osc.disconnect();
+            osc2.disconnect();
+            osc3.disconnect();
+            oscGain.disconnect();
+            osc2Gain.disconnect();
+            osc3Gain.disconnect();
+            filter.disconnect();
+            outputGain.disconnect();
         };
     }
 
