@@ -17,6 +17,8 @@ class NatureSceneManager {
         this.insectAnimator = null;
         this.seaStarAnimator = null;
         this.floralAnimator = null;
+        this.soundGenerator = null;
+        this.soundToggle = null;
 
         this.init();
     }
@@ -38,6 +40,12 @@ class NatureSceneManager {
             this.floralAnimator = null;
         } else {
             this.floralAnimator = new FloralAnimator(this.themeHandler, this.floralGroup, this.contentBounds);
+        }
+
+        // Initialize sound system
+        if (typeof SoundGenerator !== 'undefined') {
+            this.soundGenerator = new SoundGenerator(this.themeHandler);
+            this.soundToggle = new SoundToggle(this.soundGenerator);
         }
 
         this.waterAnimator.createWaterSection(paper.view.size.width, paper.view.size.height);
@@ -189,6 +197,9 @@ class NatureSceneManager {
         if (this.svgFloralAnimator) {
             this.svgFloralAnimator.updateTheme();
         }
+        if (this.soundGenerator) {
+            this.soundGenerator.updateTheme();
+        }
         paper.view.draw();
     }
 
@@ -228,6 +239,12 @@ class NatureSceneManager {
         }
         if (this.canvas) {
             this.canvas.remove();
+        }
+        if (this.soundGenerator) {
+            this.soundGenerator.destroy();
+        }
+        if (this.soundToggle) {
+            this.soundToggle.destroy();
         }
     }
 }
