@@ -51,6 +51,31 @@ const SOUND_CONFIGS = {
         croakGap: 150,          // Gap between croaks in ms
         baseFrequency: 400,     // Starting frequency for croak
         frequencyDrop: 150      // How much pitch drops during croak
+    },
+    songbird: {
+        enabled: true,
+        volume: 0.012,          // Volume for bird chirp
+        type: 'interval',       // Occasional chirping
+        minInterval: 15000,     // Min 15 seconds between chirps
+        maxInterval: 45000,     // Max 45 seconds between chirps
+        notesPerSong: 5,        // Number of notes in a song
+        noteDuration: 120,      // Duration of each note in ms
+        noteGap: 80,            // Gap between notes in ms
+        minFrequency: 2000,     // Min frequency for sweep (2kHz)
+        maxFrequency: 7000,     // Max frequency for sweep (7kHz)
+        frequencyVariation: 500 // Random variation in sweep range
+    },
+    owl: {
+        enabled: true,
+        volume: 0.018,          // Volume for owl hoot
+        type: 'interval',       // Occasional hooting
+        minInterval: 40000,     // Min 40 seconds between hoots
+        maxInterval: 120000,    // Max 2 minutes between hoots
+        hootsPerCall: 4,        // Number of hoots (hoo-h'HOO-hoo-hoo pattern)
+        hootDurations: [300, 150, 300, 300], // Duration pattern in ms
+        hootGaps: [400, 200, 400], // Gaps between hoots in ms
+        baseFrequency: 950,     // Fundamental frequency
+        harmonics: [2, 3, 4]    // Harmonic multipliers
     }
 };
 
@@ -59,7 +84,7 @@ class SoundGenerator {
         this.themeHandler = themeHandler;
         this.audioContext = null;
         this.masterGain = null;
-        this.isMuted = false;
+        this.isMuted = true; // Start muted (audio not initialized yet)
         this.isInitialized = false;
         this.isPageVisible = !document.hidden; // Track page visibility
         this.scheduledSounds = new Map(); // Track scheduled interval sounds
@@ -180,6 +205,12 @@ class SoundGenerator {
                 break;
             case 'toad':
                 this.synthesizeToad(config);
+                break;
+            case 'songbird':
+                this.synthesizeSongbird(config);
+                break;
+            case 'owl':
+                this.synthesizeOwl(config);
                 break;
         }
     }
@@ -557,8 +588,205 @@ class SoundGenerator {
         };
     }
 
+    synthesizeSongbird(config) {
+        const now = this.audioContext.currentTime;
+
+        // Create a melodic sequence of notes with varying pitch
+        for (let i = 0; i < config.notesPerSong; i++) {
+            const noteStart = now + 0.01 + (i * (config.noteDuration + config.noteGap) / 1000);
+            this.createBirdNote(noteStart, config, i);
+        }
+    }
+
+    createBirdNote(startTime, config, noteIndex) {
+        const duration = config.noteDuration / 1000;
+
+        // Create melodic patterns - rising, falling, or warbling
+        const patterns = [
+            { type: 'rising', startMult: 0.7, endMult: 1.2 },
+            { type: 'falling', startMult: 1.2, endMult: 0.7 },
+            { type: 'warble', startMult: 1.0, endMult: 1.1 }
+        ];
+        const pattern = patterns[noteIndex % patterns.length];
+
+        // Random frequency within songbird range
+        const baseFreq = config.minFrequency +
+            Math.random() * (config.maxFrequency - config.minFrequency);
+        const variation = (Math.random() - 0.5) * config.frequencyVariation;
+
+        const startFreq = (baseFreq + variation) * pattern.startMult;
+        const endFreq = (baseFreq + variation) * pattern.endMult;
+
+        // Main oscillator - sine wave for pure bird tone
+        const osc = this.audioContext.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(startFreq, startTime);
+
+        // Smooth FM sweep for natural bird sound
+        if (pattern.type === 'warble') {
+            // Add vibrato for warbling effect
+            const lfo = this.audioContext.createOscillator();
+            const lfoGain = this.audioContext.createGain();
+            lfo.frequency.value = 12; // 12 Hz vibrato
+            lfoGain.gain.value = 30; // ±30 Hz modulation
+            lfo.connect(lfoGain);
+            lfoGain.connect(osc.frequency);
+            lfo.start(startTime);
+            lfo.stop(startTime + duration);
+        }
+
+        osc.frequency.exponentialRampToValueAtTime(
+            Math.max(100, endFreq), // Prevent frequency from going too low
+            startTime + duration * 0.9
+        );
+
+        // Slight harmonic richness with triangle wave
+        const osc2 = this.audioContext.createOscillator();
+        osc2.type = 'triangle';
+        osc2.frequency.setValueAtTime(startFreq * 2, startTime);
+        osc2.frequency.exponentialRampToValueAtTime(
+            Math.max(100, endFreq * 2),
+            startTime + duration * 0.9
+        );
+
+        // Gain nodes for mixing
+        const oscGain = this.audioContext.createGain();
+        const osc2Gain = this.audioContext.createGain();
+        const outputGain = this.audioContext.createGain();
+
+        oscGain.gain.value = 1.0;
+        osc2Gain.gain.value = 0.15; // Subtle harmonic
+
+        // Connect
+        osc.connect(oscGain);
+        osc2.connect(osc2Gain);
+        oscGain.connect(outputGain);
+        osc2Gain.connect(outputGain);
+        outputGain.connect(this.masterGain);
+
+        // Envelope - quick attack, sustain, quick release for chirpy sound
+        const attackTime = 0.005;
+        const releaseTime = 0.02;
+
+        outputGain.gain.setValueAtTime(0, startTime);
+        outputGain.gain.linearRampToValueAtTime(config.volume, startTime + attackTime);
+        outputGain.gain.setValueAtTime(config.volume, startTime + duration - releaseTime);
+        outputGain.gain.linearRampToValueAtTime(0, startTime + duration);
+
+        // Start and stop
+        osc.start(startTime);
+        osc2.start(startTime);
+        osc.stop(startTime + duration);
+        osc2.stop(startTime + duration);
+
+        // Cleanup
+        osc.onended = () => {
+            osc.disconnect();
+            osc2.disconnect();
+            oscGain.disconnect();
+            osc2Gain.disconnect();
+            outputGain.disconnect();
+        };
+    }
+
+    synthesizeOwl(config) {
+        const now = this.audioContext.currentTime;
+
+        // Create the hoo-h'HOO-hoo-hoo pattern
+        let currentTime = now + 0.01;
+        for (let i = 0; i < config.hootsPerCall; i++) {
+            const hootDuration = config.hootDurations[i] / 1000;
+            const isEmphasis = i === 1; // Second hoot is emphasized (h'HOO)
+            this.createOwlHoot(currentTime, hootDuration, isEmphasis, config);
+
+            currentTime += hootDuration;
+            if (i < config.hootGaps.length) {
+                currentTime += config.hootGaps[i] / 1000;
+            }
+        }
+    }
+
+    createOwlHoot(startTime, duration, isEmphasis, config) {
+        const baseFreq = config.baseFrequency;
+
+        // Create fundamental frequency
+        const osc = this.audioContext.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.value = baseFreq;
+
+        // Add harmonics for richer owl sound
+        const harmonicOscs = [];
+        const harmonicGains = [];
+
+        config.harmonics.forEach((harmonic, index) => {
+            const harmOsc = this.audioContext.createOscillator();
+            harmOsc.type = 'sine';
+            harmOsc.frequency.value = baseFreq * harmonic;
+
+            const harmGain = this.audioContext.createGain();
+            // Each harmonic gets progressively quieter
+            harmGain.gain.value = 0.3 / (harmonic * 1.5);
+
+            harmonicOscs.push(harmOsc);
+            harmonicGains.push(harmGain);
+        });
+
+        // Lowpass filter for mellow owl tone
+        const lowpass = this.audioContext.createBiquadFilter();
+        lowpass.type = 'lowpass';
+        lowpass.frequency.value = 2000;
+        lowpass.Q.value = 1;
+
+        // Main gain
+        const outputGain = this.audioContext.createGain();
+
+        // Connect fundamental
+        osc.connect(lowpass);
+
+        // Connect harmonics
+        harmonicOscs.forEach((harmOsc, index) => {
+            harmOsc.connect(harmonicGains[index]);
+            harmonicGains[index].connect(lowpass);
+        });
+
+        lowpass.connect(outputGain);
+        outputGain.connect(this.masterGain);
+
+        // Envelope - emphasized hoot is louder
+        const volume = isEmphasis ? config.volume * 1.5 : config.volume;
+        const attackTime = isEmphasis ? 0.03 : 0.05;
+        const releaseTime = duration * 0.4;
+
+        outputGain.gain.setValueAtTime(0, startTime);
+        outputGain.gain.linearRampToValueAtTime(volume, startTime + attackTime);
+        outputGain.gain.setValueAtTime(volume * 0.9, startTime + duration * 0.3);
+        outputGain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+
+        // Start all oscillators
+        osc.start(startTime);
+        harmonicOscs.forEach(harmOsc => harmOsc.start(startTime));
+
+        // Stop all oscillators
+        osc.stop(startTime + duration);
+        harmonicOscs.forEach(harmOsc => harmOsc.stop(startTime + duration));
+
+        // Cleanup
+        osc.onended = () => {
+            osc.disconnect();
+            harmonicOscs.forEach(harmOsc => harmOsc.disconnect());
+            harmonicGains.forEach(harmGain => harmGain.disconnect());
+            lowpass.disconnect();
+            outputGain.disconnect();
+        };
+    }
+
     // Public API for mute control
     toggleMute() {
+        // Initialize audio on first unmute if not already initialized
+        if (!this.isInitialized && this.isMuted) {
+            this.initializeAudio();
+        }
+
         this.isMuted = !this.isMuted;
 
         if (this.masterGain) {
@@ -581,6 +809,10 @@ class SoundGenerator {
 
     getMuted() {
         return this.isMuted;
+    }
+
+    getInitialized() {
+        return this.isInitialized;
     }
 
     // Pause sound generation (when page becomes hidden)
