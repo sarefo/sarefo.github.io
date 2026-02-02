@@ -127,7 +127,7 @@ class SoundGenerator {
                 'background:#333;color:#fff;cursor:pointer;font:14px monospace;min-height:44px;';
             btn.addEventListener('click', async (e) => {
                 e.stopPropagation();
-                if (!this.isInitialized) this.initializeAudio();
+                if (!this.isInitialized) this.initializeAudio(false);
                 if (this.audioContext.state === 'suspended') {
                     await this.audioContext.resume();
                 }
@@ -138,6 +138,10 @@ class SoundGenerator {
             });
             panel.appendChild(btn);
         });
+
+        // Prevent any panel clicks from reaching the document listener
+        panel.addEventListener('click', (e) => e.stopPropagation());
+        panel.addEventListener('touchstart', (e) => e.stopPropagation());
 
         document.body.appendChild(panel);
     }
@@ -171,7 +175,7 @@ class SoundGenerator {
         });
     }
 
-    initializeAudio() {
+    initializeAudio(startSounds = true) {
         if (this.isInitialized) return;
 
         try {
@@ -188,7 +192,7 @@ class SoundGenerator {
 
             // Start sound generation immediately
             // Use setTimeout 0 to ensure AudioContext is fully ready
-            setTimeout(() => {
+            if (startSounds) setTimeout(() => {
                 this.startSoundGeneration();
             }, 0);
         } catch (error) {
