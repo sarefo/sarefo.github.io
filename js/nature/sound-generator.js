@@ -123,8 +123,8 @@ class SoundGenerator {
         soundTypes.forEach(([soundType, config]) => {
             const btn = document.createElement('button');
             btn.textContent = soundType.charAt(0).toUpperCase() + soundType.slice(1);
-            btn.style.cssText = 'padding:4px 10px;border:1px solid #555;border-radius:4px;' +
-                'background:#333;color:#fff;cursor:pointer;font:11px monospace;';
+            btn.style.cssText = 'padding:10px 16px;border:1px solid #555;border-radius:4px;' +
+                'background:#333;color:#fff;cursor:pointer;font:14px monospace;min-height:44px;';
             btn.addEventListener('click', async (e) => {
                 e.stopPropagation();
                 if (!this.isInitialized) this.initializeAudio();
