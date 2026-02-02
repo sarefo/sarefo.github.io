@@ -72,10 +72,17 @@ const SOUND_CONFIGS = {
         minInterval: 40000,     // Min 40 seconds between hoots
         maxInterval: 120000,    // Max 2 minutes between hoots
         hootsPerCall: 4,        // Number of hoots (hoo-h'HOO-hoo-hoo pattern)
-        hootDurations: [300, 150, 300, 300], // Duration pattern in ms
-        hootGaps: [400, 200, 400], // Gaps between hoots in ms
-        baseFrequency: 950,     // Fundamental frequency
-        harmonics: [2, 3, 4]    // Harmonic multipliers
+        hootDurations: [400, 600, 400, 500], // Duration pattern in ms
+        hootGaps: [300, 150, 350], // Gaps between hoots in ms
+        baseFrequency: 300,     // Fundamental frequency (~Great Horned Owl)
+        emphasisFrequency: 340, // h'HOO is higher-pitched
+        pitchGlide: 0.92,      // Subtle downward pitch bend
+        filterCutoff: 700,      // Lowpass cutoff for mellow tone
+        vibratoRate: 2.5,       // Subtle organic wobble (Hz)
+        vibratoDepth: 3,        // Vibrato depth in cents
+        breathiness: 0.35,      // Breath noise layer gain multiplier
+        breathFilterFreq: 400,  // Bandpass center for breath noise
+        breathFilterQ: 1.2      // Bandwidth of breath filter
     }
 };
 
@@ -94,6 +101,45 @@ class SoundGenerator {
         // Don't initialize AudioContext yet (autoplay policy)
         this.setupUserInteractionListener();
         this.setupVisibilityListener();
+        this.createDebugPanel();
+    }
+
+    createDebugPanel() {
+        if (!new URLSearchParams(window.location.search).has('sound-debug')) return;
+
+        const panel = document.createElement('div');
+        panel.style.cssText = 'position:fixed;bottom:16px;left:16px;background:rgba(0,0,0,0.85);' +
+            'color:#fff;padding:12px;border-radius:8px;z-index:99999;font:12px/1.4 monospace;' +
+            'display:flex;flex-wrap:wrap;gap:6px;max-width:260px;align-items:center;';
+
+        const title = document.createElement('div');
+        title.textContent = 'Sound Debug';
+        title.style.cssText = 'width:100%;font-weight:bold;margin-bottom:4px;';
+        panel.appendChild(title);
+
+        const soundTypes = Object.entries(this.soundConfigs)
+            .filter(([, cfg]) => cfg.type === 'interval');
+
+        soundTypes.forEach(([soundType, config]) => {
+            const btn = document.createElement('button');
+            btn.textContent = soundType.charAt(0).toUpperCase() + soundType.slice(1);
+            btn.style.cssText = 'padding:4px 10px;border:1px solid #555;border-radius:4px;' +
+                'background:#333;color:#fff;cursor:pointer;font:11px monospace;';
+            btn.addEventListener('click', async (e) => {
+                e.stopPropagation();
+                if (!this.isInitialized) this.initializeAudio();
+                if (this.audioContext.state === 'suspended') {
+                    await this.audioContext.resume();
+                }
+                this.isMuted = false;
+                this.masterGain.gain.value = 0.3;
+                console.log(`[Sound Debug] Playing: ${soundType}`, config);
+                this.playSound(soundType, config);
+            });
+            panel.appendChild(btn);
+        });
+
+        document.body.appendChild(panel);
     }
 
     setupUserInteractionListener() {
@@ -707,74 +753,125 @@ class SoundGenerator {
     }
 
     createOwlHoot(startTime, duration, isEmphasis, config) {
-        const baseFreq = config.baseFrequency;
+        const baseFreq = isEmphasis ? config.emphasisFrequency : config.baseFrequency;
+        const endFreq = baseFreq * config.pitchGlide;
 
-        // Create fundamental frequency
+        // --- Layer 1: Fundamental sine ---
         const osc = this.audioContext.createOscillator();
         osc.type = 'sine';
-        osc.frequency.value = baseFreq;
+        osc.frequency.setValueAtTime(baseFreq, startTime);
+        osc.frequency.exponentialRampToValueAtTime(endFreq, startTime + duration);
 
-        // Add harmonics for richer owl sound
-        const harmonicOscs = [];
-        const harmonicGains = [];
+        // --- Layer 2: 2nd harmonic (body) ---
+        const osc2 = this.audioContext.createOscillator();
+        osc2.type = 'sine';
+        osc2.frequency.setValueAtTime(baseFreq * 2, startTime);
+        osc2.frequency.exponentialRampToValueAtTime(endFreq * 2, startTime + duration);
+        const osc2Gain = this.audioContext.createGain();
+        osc2Gain.gain.value = 0.08;
 
-        config.harmonics.forEach((harmonic, index) => {
-            const harmOsc = this.audioContext.createOscillator();
-            harmOsc.type = 'sine';
-            harmOsc.frequency.value = baseFreq * harmonic;
+        // --- Layer 3: Sub-harmonic (chest resonance) ---
+        const oscSub = this.audioContext.createOscillator();
+        oscSub.type = 'sine';
+        oscSub.frequency.setValueAtTime(baseFreq * 0.5, startTime);
+        oscSub.frequency.exponentialRampToValueAtTime(endFreq * 0.5, startTime + duration);
+        const oscSubGain = this.audioContext.createGain();
+        oscSubGain.gain.value = 0.04;
 
-            const harmGain = this.audioContext.createGain();
-            // Each harmonic gets progressively quieter
-            harmGain.gain.value = 0.3 / (harmonic * 1.5);
+        // --- Vibrato LFO ---
+        const lfo = this.audioContext.createOscillator();
+        const lfoGain = this.audioContext.createGain();
+        lfo.frequency.value = config.vibratoRate;
+        lfoGain.gain.value = config.vibratoDepth;
+        lfo.connect(lfoGain);
+        lfoGain.connect(osc.detune);
+        lfoGain.connect(osc2.detune);
+        lfoGain.connect(oscSub.detune);
 
-            harmonicOscs.push(harmOsc);
-            harmonicGains.push(harmGain);
-        });
+        // --- Layer 4: Breath noise ---
+        const bufferSize = Math.ceil(this.audioContext.sampleRate * (duration + 0.1));
+        const noiseBuffer = this.audioContext.createBuffer(1, bufferSize, this.audioContext.sampleRate);
+        const noiseData = noiseBuffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+            noiseData[i] = Math.random() * 2 - 1;
+        }
+        const noise = this.audioContext.createBufferSource();
+        noise.buffer = noiseBuffer;
 
-        // Lowpass filter for mellow owl tone
+        const breathFilter = this.audioContext.createBiquadFilter();
+        breathFilter.type = 'bandpass';
+        breathFilter.frequency.value = config.breathFilterFreq;
+        breathFilter.Q.value = config.breathFilterQ;
+
+        const breathGain = this.audioContext.createGain();
+
+        // --- Lowpass filter for mellow tone ---
         const lowpass = this.audioContext.createBiquadFilter();
         lowpass.type = 'lowpass';
-        lowpass.frequency.value = 2000;
-        lowpass.Q.value = 1;
+        lowpass.frequency.value = config.filterCutoff;
+        lowpass.Q.value = 0.7;
 
-        // Main gain
+        // --- Output gain ---
         const outputGain = this.audioContext.createGain();
 
-        // Connect fundamental
+        // Connect tonal layers -> lowpass -> output
         osc.connect(lowpass);
-
-        // Connect harmonics
-        harmonicOscs.forEach((harmOsc, index) => {
-            harmOsc.connect(harmonicGains[index]);
-            harmonicGains[index].connect(lowpass);
-        });
-
+        osc2.connect(osc2Gain);
+        osc2Gain.connect(lowpass);
+        oscSub.connect(oscSubGain);
+        oscSubGain.connect(lowpass);
         lowpass.connect(outputGain);
+
+        // Connect breath noise (bypasses lowpass, has its own filter)
+        noise.connect(breathFilter);
+        breathFilter.connect(breathGain);
+        breathGain.connect(outputGain);
+
         outputGain.connect(this.masterGain);
 
-        // Envelope - emphasized hoot is louder
+        // --- Envelope ---
         const volume = isEmphasis ? config.volume * 1.5 : config.volume;
-        const attackTime = isEmphasis ? 0.03 : 0.05;
-        const releaseTime = duration * 0.4;
+        const attackTime = 0.08; // Smooth 80ms attack
+        const releaseStart = duration * 0.6;
 
         outputGain.gain.setValueAtTime(0, startTime);
         outputGain.gain.linearRampToValueAtTime(volume, startTime + attackTime);
-        outputGain.gain.setValueAtTime(volume * 0.9, startTime + duration * 0.3);
+        outputGain.gain.setValueAtTime(volume * 0.95, startTime + releaseStart);
         outputGain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
 
-        // Start all oscillators
+        // Breath envelope follows main but scaled
+        breathGain.gain.setValueAtTime(0, startTime);
+        breathGain.gain.linearRampToValueAtTime(volume * config.breathiness, startTime + attackTime);
+        breathGain.gain.setValueAtTime(volume * config.breathiness * 0.9, startTime + releaseStart);
+        breathGain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+
+        // --- Start ---
         osc.start(startTime);
-        harmonicOscs.forEach(harmOsc => harmOsc.start(startTime));
+        osc2.start(startTime);
+        oscSub.start(startTime);
+        lfo.start(startTime);
+        noise.start(startTime);
 
-        // Stop all oscillators
-        osc.stop(startTime + duration);
-        harmonicOscs.forEach(harmOsc => harmOsc.stop(startTime + duration));
+        // --- Stop ---
+        const stopTime = startTime + duration + 0.01;
+        osc.stop(stopTime);
+        osc2.stop(stopTime);
+        oscSub.stop(stopTime);
+        lfo.stop(stopTime);
+        noise.stop(stopTime);
 
-        // Cleanup
+        // --- Cleanup ---
         osc.onended = () => {
             osc.disconnect();
-            harmonicOscs.forEach(harmOsc => harmOsc.disconnect());
-            harmonicGains.forEach(harmGain => harmGain.disconnect());
+            osc2.disconnect();
+            oscSub.disconnect();
+            osc2Gain.disconnect();
+            oscSubGain.disconnect();
+            lfo.disconnect();
+            lfoGain.disconnect();
+            noise.disconnect();
+            breathFilter.disconnect();
+            breathGain.disconnect();
             lowpass.disconnect();
             outputGain.disconnect();
         };
