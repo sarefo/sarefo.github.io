@@ -25,6 +25,7 @@ const translations = {
         strudelManager: "Strudel File Manager",
         pongGame: "Pong Game",
         ptPhrasesTitle: "PT Phrases",
+        waykTitle: "WAYK Language Practice",
         calendar: "Calendar"
     },
     de: {
@@ -53,6 +54,7 @@ const translations = {
         strudelManager: "Strudel Dateimanager",
         pongGame: "Pong-Spiel",
         ptPhrasesTitle: "PT Phrasen",
+        waykTitle: "WAYK Sprachtraining",
         calendar: "Kalender"
     },
     fr: {
@@ -81,6 +83,7 @@ const translations = {
         strudelManager: "Gestionnaire de Fichiers Strudel",
         pongGame: "Jeu Pong",
         ptPhrasesTitle: "Phrases PT",
+        waykTitle: "Pratique du Langage WAYK",
         calendar: "Calendrier"
     },
     es: {
@@ -109,6 +112,7 @@ const translations = {
         strudelManager: "Gestor de Archivos Strudel",
         pongGame: "Juego Pong",
         ptPhrasesTitle: "Frases PT",
+        waykTitle: "Práctica de Idioma WAYK",
         calendar: "Calendario"
     },
     pt: {
@@ -137,6 +141,7 @@ const translations = {
         strudelManager: "Gerenciador de Arquivos Strudel",
         pongGame: "Jogo Pong",
         ptPhrasesTitle: "Frases PT",
+        waykTitle: "Prática de Idioma WAYK",
         calendar: "Calendário"
     },
     th: {
@@ -165,6 +170,7 @@ const translations = {
         strudelManager: "ตัวจัดการไฟล์ Strudel",
         pongGame: "เกม Pong",
         ptPhrasesTitle: "วลีภาษาโปรตุเกส",
+        waykTitle: "การฝึกภาษา WAYK",
         calendar: "ปฏิทิน"
     },
     id: {
@@ -193,6 +199,7 @@ const translations = {
         strudelManager: "Pengelola File Strudel",
         pongGame: "Game Pong",
         ptPhrasesTitle: "Frasa PT",
+        waykTitle: "Praktik Bahasa WAYK",
         calendar: "Kalender"
     },
     hk: {
@@ -221,6 +228,7 @@ const translations = {
         strudelManager: "Strudel 文件管理器",
         pongGame: "乒乓球遊戲",
         ptPhrasesTitle: "葡文短語",
+        waykTitle: "WAYK 語言練習",
         calendar: "日曆"
     }
 };
