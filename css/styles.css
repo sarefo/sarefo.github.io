@@ -349,7 +349,7 @@ body {
 }
 
 .github-section.expanded .github-projects {
-    max-height: 500px;
+    max-height: 800px;
 }
 
 .github-projects ul {
@@ -377,6 +377,21 @@ body {
     background: #f8f9fa;
     color: var(--primary-color);
     padding-left: 35px;
+}
+
+.github-projects .category-header {
+    padding: 10px 25px;
+    font-weight: 600;
+    color: var(--primary-color);
+    background: var(--card-background);
+    margin-top: 8px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.github-projects li:first-child.category-header {
+    margin-top: 0;
 }
 
 /* Tablet/Medium Screen Styles */
@@ -576,6 +591,10 @@ body {
     :root:not([data-theme]) .github-projects a:hover {
         background: #2f2f2f;
     }
+
+    :root:not([data-theme]) .github-projects .category-header {
+        background: #333333;
+    }
 }
 
 /* Theme-specific card backgrounds */
@@ -596,6 +615,10 @@ body {
     background: #f0f0f0;
 }
 
+[data-theme="ink-light"] .github-projects .category-header {
+    background: #e0e0e0;
+}
+
 [data-theme="ink-dark"] .hero-card {
     background: rgba(37, 37, 37, 0.95);
 }
@@ -613,6 +636,10 @@ body {
     background: #2f2f2f;
 }
 
+[data-theme="ink-dark"] .github-projects .category-header {
+    background: #353535;
+}
+
 [data-theme="original-dark"] .hero-card {
     background: rgba(45, 45, 45, 0.82);
 }
@@ -628,6 +655,10 @@ body {
 [data-theme="original-dark"] .github-header:hover,
 [data-theme="original-dark"] .github-projects a:hover {
     background: #3a3a3a;
+}
+
+[data-theme="original-dark"] .github-projects .category-header {
+    background: #383838;
 }
 
 /* Sound toggle button */
