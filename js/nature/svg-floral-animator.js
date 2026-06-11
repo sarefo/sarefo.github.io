@@ -7,6 +7,8 @@ class SvgFloralAnimator {
         this.animationDuration = 3; // seconds
         this.ornamentPathData = null; // Will be loaded from external SVG
         this.ornamentLoaded = false;
+        this.reduceMotion = false;
+        this.growAnimation = null;
     }
 
     // Load the ornament path from external SVG file
@@ -71,6 +73,11 @@ class SvgFloralAnimator {
 
         const color = this.themeHandler.getFloralColor();
 
+        this.reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!this.reduceMotion) {
+            this.createGrowthMask();
+        }
+
         // Create left ornament using traced path
         this.createTracedOrnament(viewWidth, viewHeight, 'left', color);
 
@@ -80,7 +87,86 @@ class SvgFloralAnimator {
         // Add CSS for animations
         this.addAnimationStyles();
 
+        // Kick off the root-to-tip growth once the SVG is in the document
+        // (SMIL needs the element attached before beginElement works)
+        if (!this.reduceMotion) {
+            setTimeout(() => this.startGrowth(), 150);
+        }
+
         return this.svg;
+    }
+
+    // Build a mask that reveals the ornament from its root upward, with a
+    // soft gradient edge so the growth front looks organic rather than a hard wipe.
+    // Mask content is in the ornament's local coordinate space (root at y=165,
+    // flowers at y=40), shared by both mirrored sides.
+    createGrowthMask() {
+        const ns = 'http://www.w3.org/2000/svg';
+        const defs = document.createElementNS(ns, 'defs');
+
+        const gradient = document.createElementNS(ns, 'linearGradient');
+        gradient.setAttribute('id', 'ornament-grow-edge');
+        gradient.setAttribute('x1', '0');
+        gradient.setAttribute('y1', '0');
+        gradient.setAttribute('x2', '0');
+        gradient.setAttribute('y2', '1');
+
+        const stopSoft = document.createElementNS(ns, 'stop');
+        stopSoft.setAttribute('offset', '0');
+        stopSoft.setAttribute('stop-color', '#fff');
+        stopSoft.setAttribute('stop-opacity', '0');
+        const stopSolid = document.createElementNS(ns, 'stop');
+        stopSolid.setAttribute('offset', '0.18');
+        stopSolid.setAttribute('stop-color', '#fff');
+        stopSolid.setAttribute('stop-opacity', '1');
+        gradient.appendChild(stopSoft);
+        gradient.appendChild(stopSolid);
+
+        const mask = document.createElementNS(ns, 'mask');
+        mask.setAttribute('id', 'ornament-grow-mask');
+        mask.setAttribute('maskUnits', 'userSpaceOnUse');
+        mask.setAttribute('x', '80');
+        mask.setAttribute('y', '-60');
+        mask.setAttribute('width', '75');
+        mask.setAttribute('height', '480');
+
+        // At rest the rect fully covers the ornament (viewBox y: 35-170) with the
+        // soft edge pushed above it; the animation slides it up from below the root.
+        const rect = document.createElementNS(ns, 'rect');
+        rect.setAttribute('x', '80');
+        rect.setAttribute('y', '-30');
+        rect.setAttribute('width', '75');
+        rect.setAttribute('height', '225');
+        rect.setAttribute('fill', 'url(#ornament-grow-edge)');
+
+        const anim = document.createElementNS(ns, 'animateTransform');
+        anim.setAttribute('attributeName', 'transform');
+        anim.setAttribute('type', 'translate');
+        anim.setAttribute('from', '0 205');
+        anim.setAttribute('to', '0 0');
+        anim.setAttribute('dur', '3s');
+        anim.setAttribute('begin', 'indefinite');
+        anim.setAttribute('fill', 'freeze');
+        anim.setAttribute('calcMode', 'spline');
+        anim.setAttribute('keyTimes', '0;1');
+        anim.setAttribute('keySplines', '0.45 0.05 0.25 1');
+
+        rect.appendChild(anim);
+        mask.appendChild(rect);
+        defs.appendChild(gradient);
+        defs.appendChild(mask);
+        this.svg.appendChild(defs);
+        this.growAnimation = anim;
+    }
+
+    startGrowth() {
+        if (this.growAnimation && typeof this.growAnimation.beginElement === 'function') {
+            try {
+                this.growAnimation.beginElement();
+            } catch (e) {
+                // SMIL unavailable: mask rests in its revealed state, ornament stays visible
+            }
+        }
     }
 
     createTracedOrnament(viewWidth, viewHeight, side, color) {
@@ -142,6 +228,9 @@ class SvgFloralAnimator {
         path.setAttribute('fill', color);
         path.setAttribute('fill-opacity', '0.85');
         path.setAttribute('class', 'traced-ornament');
+        if (!this.reduceMotion) {
+            path.setAttribute('mask', 'url(#ornament-grow-mask)');
+        }
 
         group.appendChild(path);
         this.svg.appendChild(group);
@@ -156,17 +245,39 @@ class SvgFloralAnimator {
         style.textContent = `
             .traced-ornament {
                 opacity: 0;
-                animation: fadeIn 0.8s ease-out 0.2s forwards;
+                transform-box: fill-box;
+                /* Root of the vine sits at the bottom of the path, ~91% across its bounds */
+                transform-origin: 91% 100%;
+                animation:
+                    ornamentFadeIn 1.2s ease-out 0.15s forwards,
+                    ornamentUnfurl 3s cubic-bezier(0.25, 0.6, 0.3, 1) 0.15s both;
             }
 
-            @keyframes fadeIn {
+            @keyframes ornamentFadeIn {
                 to {
                     opacity: 1;
                 }
             }
 
+            /* Stem grows outward from its root */
+            @keyframes ornamentUnfurl {
+                from {
+                    transform: scale(0.7);
+                }
+                to {
+                    transform: scale(1);
+                }
+            }
+
             .ornament-group {
                 transition: fill 0.3s ease;
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                .traced-ornament {
+                    animation: none;
+                    opacity: 1;
+                }
             }
         `;
         document.head.appendChild(style);

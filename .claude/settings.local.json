@@ -15,7 +15,14 @@
       "Bash(test:*)",
       "Bash(cat:*)",
       "WebSearch",
-      "PowerShell(l *)"
+      "PowerShell(l *)",
+      "PowerShell(Get-Content *)",
+      "mcp__chrome-devtools__new_page",
+      "mcp__chrome-devtools__list_pages",
+      "mcp__chrome-devtools__take_screenshot",
+      "mcp__chrome-devtools__evaluate_script",
+      "mcp__chrome-devtools__resize_page",
+      "mcp__chrome-devtools__navigate_page"
     ],
     "deny": []
   }
