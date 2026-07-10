@@ -20,15 +20,19 @@ class EmailProtection {
         // Initially show localized placeholder
         this.updateEmailText();
         
-        // Add click handler to reveal actual email;
-        // once revealed, let the default mailto: navigation happen
+        // First click reveals the address; later clicks copy it to the
+        // clipboard (mailto: is silent when no mail app is configured) while
+        // still letting the default mailto: navigation happen
         element.addEventListener('click', (e) => {
-            if (this.isRevealed) return;
+            if (this.isRevealed) {
+                this.copyEmail();
+                return;
+            }
             e.preventDefault();
             this.revealEmail(element);
         });
 
-        // Add keyboard support (Enter on a revealed link follows it natively)
+        // Add keyboard support (Enter on a revealed link fires click natively)
         element.addEventListener('keydown', (e) => {
             if (this.isRevealed) return;
             if (e.key === 'Enter' || e.key === ' ') {
@@ -38,14 +42,42 @@ class EmailProtection {
         });
     }
 
-    revealEmail(element) {
-        const email = `${this.emailParts[0]}@${this.emailParts[1]}.${this.emailParts[2]}`;
-        element.innerHTML = `
+    getEmail() {
+        return `${this.emailParts[0]}@${this.emailParts[1]}.${this.emailParts[2]}`;
+    }
+
+    setLinkContent(text) {
+        this.emailElement.innerHTML = `
             <svg class="email-icon" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z"/>
             </svg>
-            ${email}
+            ${text}
         `;
+    }
+
+    copyEmail() {
+        if (!navigator.clipboard) return;
+        navigator.clipboard.writeText(this.getEmail())
+            .then(() => this.showCopyFeedback())
+            .catch(() => {});
+    }
+
+    showCopyFeedback() {
+        if (this.copyFeedbackTimeout) clearTimeout(this.copyFeedbackTimeout);
+
+        const currentLanguage = localStorage.getItem('selectedLanguage') || 'en';
+        const translation = translations[currentLanguage] || translations['en'];
+        this.setLinkContent(translation.emailCopiedText || 'Copied to clipboard!');
+
+        this.copyFeedbackTimeout = setTimeout(() => {
+            this.setLinkContent(this.getEmail());
+            this.copyFeedbackTimeout = null;
+        }, 1500);
+    }
+
+    revealEmail(element) {
+        const email = this.getEmail();
+        this.setLinkContent(email);
         element.href = `mailto:${email}`;
         element.setAttribute('aria-label', `Email ${email}`);
         this.isRevealed = true;
