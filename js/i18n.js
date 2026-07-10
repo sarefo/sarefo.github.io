@@ -64,9 +64,10 @@ class I18n {
         }
 
         const translation = translations[language];
-        
-        // Update document language
-        document.documentElement.lang = language;
+
+        // Update document language (map internal codes to valid BCP-47 tags)
+        const bcp47Codes = { hk: 'zh-Hant-HK' };
+        document.documentElement.lang = bcp47Codes[language] || language;
         
         // Update meta tags
         this.updateMetaTags(translation);
@@ -134,15 +135,11 @@ class I18n {
                           document.querySelector('a.hero-card[href^="guide"]');
 
         if (locnatLink) {
-            const oldHref = locnatLink.href;
             if (language === 'en') {
                 locnatLink.href = 'guide/index.html';
             } else {
                 locnatLink.href = `guide/index.html?lang=${language}`;
             }
-            console.log(`Updated LocNat link from "${oldHref}" to "${locnatLink.href}" for language: ${language}`);
-        } else {
-            console.warn('LocNat link not found for language update');
         }
 
         // Update calendar link with language parameter for German and Spanish only

@@ -188,7 +188,6 @@ class SoundGenerator {
             this.masterGain.gain.value = this.isMuted ? 0 : 0.3; // Default volume 30%
 
             this.isInitialized = true;
-            console.log('Nature sounds initialized');
 
             // Start sound generation immediately
             // Use setTimeout 0 to ensure AudioContext is fully ready
@@ -201,11 +200,9 @@ class SoundGenerator {
     }
 
     startSoundGeneration() {
-        console.log('Starting sound generation...');
         // Start each enabled sound type
         Object.entries(this.soundConfigs).forEach(([soundType, config]) => {
             if (config.enabled) {
-                console.log(`Scheduling ${soundType} (type: ${config.type})`);
                 if (config.type === 'interval') {
                     // Don't play immediately - let each sound start at a random time
                     this.scheduleNextSound(soundType, config, false);

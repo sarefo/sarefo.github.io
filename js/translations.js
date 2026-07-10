@@ -21,16 +21,13 @@ const translations = {
         categoryLanguage: "Language",
         categoryMusic: "Music",
         categoryGames: "Games",
-        categoryMisc: "Misc",
-        natureGuide: "Local Nature Guide",
         game2048: "2048 Game",
         spanishTrainer: "Spanish Tense Trainer",
         fluteTrainer: "Flute ABC Trainer",
         strudelManager: "Strudel File Manager",
         pongGame: "Pong Game",
         ptPhrasesTitle: "PT Phrases",
-        waykTitle: "WAYK Language Practice",
-        calendar: "Calendar"
+        waykTitle: "WAYK Language Practice"
     },
     de: {
         title: "Sarefo - Natur, Code & Fotografie",
@@ -54,16 +51,13 @@ const translations = {
         categoryLanguage: "Sprache",
         categoryMusic: "Musik",
         categoryGames: "Spiele",
-        categoryMisc: "Sonstiges",
-        natureGuide: "Lokaler Naturführer",
         game2048: "2048-Spiel",
         spanishTrainer: "Spanisch-Zeitformen-Trainer",
         fluteTrainer: "Blockflöten-ABC-Trainer",
         strudelManager: "Strudel Dateimanager",
         pongGame: "Pong-Spiel",
         ptPhrasesTitle: "PT Phrasen",
-        waykTitle: "WAYK Sprachtraining",
-        calendar: "Kalender"
+        waykTitle: "WAYK Sprachtraining"
     },
     fr: {
         title: "Sarefo - Nature, Code & Photographie",
@@ -87,16 +81,13 @@ const translations = {
         categoryLanguage: "Langue",
         categoryMusic: "Musique",
         categoryGames: "Jeux",
-        categoryMisc: "Divers",
-        natureGuide: "Guide Nature Local",
         game2048: "Jeu 2048",
         spanishTrainer: "Entraîneur de Temps Espagnol",
         fluteTrainer: "Entraîneur ABC de Flûte à Bec",
         strudelManager: "Gestionnaire de Fichiers Strudel",
         pongGame: "Jeu Pong",
         ptPhrasesTitle: "Phrases PT",
-        waykTitle: "Pratique du Langage WAYK",
-        calendar: "Calendrier"
+        waykTitle: "Pratique du Langage WAYK"
     },
     es: {
         title: "Sarefo - Naturaleza, Código y Fotografía",
@@ -120,16 +111,13 @@ const translations = {
         categoryLanguage: "Idioma",
         categoryMusic: "Música",
         categoryGames: "Juegos",
-        categoryMisc: "Diversos",
-        natureGuide: "Guía de Naturaleza Local",
         game2048: "Juego 2048",
         spanishTrainer: "Entrenador de Tiempos Verbales en Español",
         fluteTrainer: "Entrenador ABC de Flauta Dulce",
         strudelManager: "Gestor de Archivos Strudel",
         pongGame: "Juego Pong",
         ptPhrasesTitle: "Frases PT",
-        waykTitle: "Práctica de Idioma WAYK",
-        calendar: "Calendario"
+        waykTitle: "Práctica de Idioma WAYK"
     },
     pt: {
         title: "Sarefo - Natureza, Código e Fotografia",
@@ -153,16 +141,13 @@ const translations = {
         categoryLanguage: "Idioma",
         categoryMusic: "Música",
         categoryGames: "Jogos",
-        categoryMisc: "Diversos",
-        natureGuide: "Guia da Natureza Local",
         game2048: "Jogo 2048",
         spanishTrainer: "Treinador de Tempos Verbais em Espanhol",
         fluteTrainer: "Treinador ABC de Flauta Doce",
         strudelManager: "Gerenciador de Arquivos Strudel",
         pongGame: "Jogo Pong",
         ptPhrasesTitle: "Frases PT",
-        waykTitle: "Prática de Idioma WAYK",
-        calendar: "Calendário"
+        waykTitle: "Prática de Idioma WAYK"
     },
     th: {
         title: "Sarefo - ธรรมชาติ โค้ด และการถ่ายภาพ",
@@ -186,16 +171,13 @@ const translations = {
         categoryLanguage: "ภาษา",
         categoryMusic: "ดนตรี",
         categoryGames: "เกม",
-        categoryMisc: "อื่นๆ",
-        natureGuide: "คู่มือธรรมชาติท้องถิ่น",
         game2048: "เกม 2048",
         spanishTrainer: "โปรแกรมฝึกกาลสเปน",
         fluteTrainer: "โปรแกรมฝึก Flute ABC",
         strudelManager: "ตัวจัดการไฟล์ Strudel",
         pongGame: "เกม Pong",
         ptPhrasesTitle: "วลีภาษาโปรตุเกส",
-        waykTitle: "การฝึกภาษา WAYK",
-        calendar: "ปฏิทิน"
+        waykTitle: "การฝึกภาษา WAYK"
     },
     id: {
         title: "Sarefo - Alam, Kode & Fotografi",
@@ -219,16 +201,13 @@ const translations = {
         categoryLanguage: "Bahasa",
         categoryMusic: "Musik",
         categoryGames: "Game",
-        categoryMisc: "Lainnya",
-        natureGuide: "Panduan Alam Lokal",
         game2048: "Game 2048",
         spanishTrainer: "Pelatih Tenses Bahasa Spanyol",
         fluteTrainer: "Pelatih ABC Flute",
         strudelManager: "Pengelola File Strudel",
         pongGame: "Game Pong",
         ptPhrasesTitle: "Frasa PT",
-        waykTitle: "Praktik Bahasa WAYK",
-        calendar: "Kalender"
+        waykTitle: "Praktik Bahasa WAYK"
     },
     hk: {
         title: "Sarefo - 自然、編程與攝影",
@@ -252,15 +231,12 @@ const translations = {
         categoryLanguage: "語言",
         categoryMusic: "音樂",
         categoryGames: "遊戲",
-        categoryMisc: "其他",
-        natureGuide: "本地自然指南",
         game2048: "2048 遊戲",
         spanishTrainer: "西班牙語時態訓練器",
         fluteTrainer: "直笛 ABC 訓練器",
         strudelManager: "Strudel 文件管理器",
         pongGame: "乒乓球遊戲",
         ptPhrasesTitle: "葡文短語",
-        waykTitle: "WAYK 語言練習",
-        calendar: "日曆"
+        waykTitle: "WAYK 語言練習"
     }
 };

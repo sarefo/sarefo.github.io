@@ -278,31 +278,6 @@ body {
     line-height: 1.5;
 }
 
-.section-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 500;
-    transition: var(--transition);
-    padding: 8px 0;
-}
-
-.section-link:hover {
-    color: var(--primary-dark);
-    transform: translateX(3px);
-}
-
-.section-link::after {
-    content: '→';
-    transition: var(--transition);
-}
-
-.section-link:hover::after {
-    transform: translateX(3px);
-}
-
 /* GitHub Projects Section */
 .github-section {
     background: var(--card-background);
@@ -552,7 +527,6 @@ body {
 
 /* Focus styles for keyboard navigation */
 .hero-card:focus,
-.section-link:focus,
 .github-header:focus,
 .github-projects a:focus,
 .contact-email:focus {

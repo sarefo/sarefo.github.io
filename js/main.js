@@ -20,14 +20,17 @@ class EmailProtection {
         // Initially show localized placeholder
         this.updateEmailText();
         
-        // Add click handler to reveal actual email
+        // Add click handler to reveal actual email;
+        // once revealed, let the default mailto: navigation happen
         element.addEventListener('click', (e) => {
+            if (this.isRevealed) return;
             e.preventDefault();
             this.revealEmail(element);
         });
 
-        // Add keyboard support
+        // Add keyboard support (Enter on a revealed link follows it natively)
         element.addEventListener('keydown', (e) => {
+            if (this.isRevealed) return;
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
                 this.revealEmail(element);
@@ -45,10 +48,6 @@ class EmailProtection {
         `;
         element.href = `mailto:${email}`;
         element.setAttribute('aria-label', `Email ${email}`);
-        
-        // Remove click handler after reveal
-        element.onclick = null;
-        element.onkeydown = null;
         this.isRevealed = true;
     }
 
@@ -187,17 +186,10 @@ class ContentToggle {
         element.style.userSelect = 'none';
         element.style.webkitTapHighlightColor = 'transparent';
 
+        // Pointer-only easter egg: kept out of the tab order so keyboard and
+        // screen-reader users don't hit a heading that blanks the page
         element.addEventListener('click', () => {
             this.toggle();
-        });
-
-        // Keyboard support
-        element.setAttribute('tabindex', '0');
-        element.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                this.toggle();
-            }
         });
     }
 

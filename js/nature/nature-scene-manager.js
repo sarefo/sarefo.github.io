@@ -24,12 +24,45 @@ class NatureSceneManager {
     }
 
     async init() {
-        this.createCanvas();
-        this.setupPaper();
+        // One-time setup: listeners, theme, sound. Scene (re)building lives in buildScene().
+        this.reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
         this.setupCursorTracking();
-        this.detectContentBounds();
 
         this.themeHandler = new ThemeHandler();
+
+        // Initialize sound system
+        if (typeof SoundGenerator !== 'undefined') {
+            this.soundGenerator = new SoundGenerator(this.themeHandler);
+            this.soundToggle = new SoundToggle(this.soundGenerator);
+        }
+
+        await this.buildScene();
+
+        window.addEventListener('resize', () => this.handleResize());
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            this.updateTheme();
+        });
+
+        this.reducedMotionQuery.addEventListener('change', () => {
+            this.stopAnimation();
+            this.startAnimation();
+        });
+
+        const observer = new MutationObserver(() => {
+            this.updateTheme();
+        });
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['data-theme']
+        });
+    }
+
+    async buildScene() {
+        this.createCanvas();
+        this.setupPaper();
+        this.detectContentBounds();
+
         this.waterAnimator = new WaterAnimator(this.themeHandler, this.waterGroup);
         this.insectAnimator = new InsectAnimator(this.themeHandler, this.insectsGroup);
         this.seaStarAnimator = new SeaStarAnimator(this.themeHandler, this.seaStarsGroup);
@@ -40,12 +73,6 @@ class NatureSceneManager {
             this.floralAnimator = null;
         } else {
             this.floralAnimator = new FloralAnimator(this.themeHandler, this.floralGroup, this.contentBounds);
-        }
-
-        // Initialize sound system
-        if (typeof SoundGenerator !== 'undefined') {
-            this.soundGenerator = new SoundGenerator(this.themeHandler);
-            this.soundToggle = new SoundToggle(this.soundGenerator);
         }
 
         this.waterAnimator.createWaterSection(paper.view.size.width, paper.view.size.height);
@@ -63,20 +90,6 @@ class NatureSceneManager {
         this.seaStarAnimator.createSeaStars(paper.view.size.width, paper.view.size.height);
 
         this.startAnimation();
-
-        window.addEventListener('resize', () => this.handleResize());
-
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-            this.updateTheme();
-        });
-
-        const observer = new MutationObserver(() => {
-            this.updateTheme();
-        });
-        observer.observe(document.documentElement, {
-            attributes: true,
-            attributeFilter: ['data-theme']
-        });
     }
 
     createCanvas() {
@@ -168,10 +181,22 @@ class NatureSceneManager {
     }
 
     startAnimation() {
+        // Honor prefers-reduced-motion: render a single static frame instead of looping
+        if (this.reducedMotionQuery && this.reducedMotionQuery.matches) {
+            this.renderFrame();
+            return;
+        }
         this.animate();
     }
 
-    animate() {
+    stopAnimation() {
+        if (this.animationId) {
+            cancelAnimationFrame(this.animationId);
+            this.animationId = null;
+        }
+    }
+
+    renderFrame() {
         this.time += 0.01;
         const deltaTime = 1 / 60;
 
@@ -184,6 +209,10 @@ class NatureSceneManager {
         }
 
         paper.view.draw();
+    }
+
+    animate() {
+        this.renderFrame();
         this.animationId = requestAnimationFrame(() => this.animate());
     }
 
@@ -213,9 +242,7 @@ class NatureSceneManager {
         }
 
         this.resizeTimeout = setTimeout(() => {
-            if (this.animationId) {
-                cancelAnimationFrame(this.animationId);
-            }
+            this.stopAnimation();
 
             if (this.canvas) {
                 this.canvas.remove();
@@ -227,7 +254,9 @@ class NatureSceneManager {
                 existingSvg.remove();
             }
 
-            this.init();
+            // Rebuild only the scene — listeners, observers and the
+            // sound system were set up once in init() and must not duplicate
+            this.buildScene();
 
             this.resizeTimeout = null;
         }, 300);

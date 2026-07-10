@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page not found - Sarefo</title>
+    <meta name="robots" content="noindex">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        .not-found {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            text-align: center;
+            gap: 16px;
+        }
+
+        .not-found .leaf {
+            font-size: 4rem;
+            filter: grayscale(100%);
+            opacity: 0.8;
+        }
+
+        .not-found h1 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+        }
+
+        .not-found p {
+            color: var(--text-light);
+        }
+
+        .not-found a {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 10px 24px;
+            border-radius: 20px;
+            background: var(--card-background);
+            color: var(--text-color);
+            text-decoration: none;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .not-found a:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-hover);
+            color: var(--primary-color);
+        }
+    </style>
+    <script>
+        // Apply the visitor's saved or system theme before first paint
+        (function () {
+            var theme = localStorage.getItem('preferredTheme');
+            if (!theme) {
+                theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+                    ? 'ink-dark' : 'ink-light';
+            }
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <main class="not-found">
+            <span class="leaf" aria-hidden="true">🌿</span>
+            <h1>404 - Page not found</h1>
+            <p>This page seems to have wandered off into the undergrowth.</p>
+            <a href="/">Back to the homepage</a>
+        </main>
+    </div>
+</body>
+
+</html>
