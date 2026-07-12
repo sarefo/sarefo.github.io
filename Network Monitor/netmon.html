@@ -13,6 +13,7 @@
             height: calc(100vh - 16px);
             overflow: hidden;
         }
+        body.compact { padding: 4px 6px; }
         #status {
             padding: 8px;
             text-align: center;
@@ -39,7 +40,7 @@
         #portsHeader {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             padding: 4px 0;
             border-top: 1px solid #ddd;
             font-size: 12px;
@@ -51,6 +52,22 @@
             gap: 3px;
             cursor: pointer;
             color: #555;
+        }
+        button {
+            border: 1px solid #ccc;
+            background: #f5f5f5;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            padding: 1px 6px;
+            line-height: 16px;
+        }
+        button:hover { background: #e0e0e0; }
+        button.awake { color: #bbb; }
+        button.awake.on {
+            background: #fff9c4;
+            border-color: #f9a825;
+            color: #f57f17;
         }
         #ports {
             flex: 1;
@@ -80,6 +97,11 @@
             max-width: 140px;
         }
         tr:nth-child(even) td { background: #f5f5f5; }
+        tr.selectable { cursor: pointer; }
+        tr.selectable:hover td { background: #e3f2fd; }
+        td.pin { max-width: 16px; width: 16px; color: #ccc; }
+        tr.pinned td.pin { color: #f9a825; }
+        tr.pinned td { background: #fff8e1; }
         .proto { color: #999; font-size: 11px; }
         .section-label {
             font-size: 11px;
@@ -88,9 +110,47 @@
             border-bottom: 1px solid #ddd;
         }
         #portsError { color: #c62828; font-size: 12px; padding: 4px; }
+        #hint { font-size: 11px; color: #999; padding: 2px 4px; }
+
+        /* --- compact mode: one slim bar with latency + pinned port chips --- */
+        #compactBar {
+            display: none;
+            align-items: center;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        body.compact #compactBar { display: flex; }
+        body.compact #status, body.compact #metrics,
+        body.compact #portsHeader, body.compact #ports { display: none; }
+        #compactLatency {
+            font-size: 12px;
+            padding: 2px 7px;
+            border-radius: 10px;
+            min-width: 44px;
+            text-align: center;
+        }
+        .chip {
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: #eee;
+            color: #999;
+            cursor: default;
+        }
+        .chip.open { background: #c8e6c9; color: #2e7d32; }
+        #compactBar .spacer { flex: 1; }
+        #compactBar .none { font-size: 11px; color: #999; }
     </style>
 </head>
 <body>
+    <div id="compactBar">
+        <span id="compactLatency">--</span>
+        <span id="chips"></span>
+        <span class="spacer"></span>
+        <button class="awake" id="awakeBtnCompact" title="Keep screen awake while visible">☀</button>
+        <button id="expandBtn" title="Expand">⤢</button>
+    </div>
+
     <div id="status">Checking...</div>
     <div id="metrics">
         <div class="metric">
@@ -105,9 +165,12 @@
 
     <div id="portsHeader">
         <b>Ports</b>
-        <label><input type="checkbox" id="showProcs"> processes</label>
+        <label><input type="checkbox" id="showSelected"> pinned</label>
+        <label><input type="checkbox" id="showProcs"> proc</label>
         <label><input type="checkbox" id="showUdp"> UDP</label>
         <label><input type="checkbox" id="showConns"> active</label>
+        <button class="awake" id="awakeBtn" title="Keep screen awake while visible">☀</button>
+        <button id="compactBtn" title="Compact view">–</button>
     </div>
     <div id="ports"><div id="portsError" hidden></div></div>
 
@@ -116,6 +179,9 @@
         const latencyEl = document.getElementById('latency');
         const lastCheckEl = document.getElementById('lastCheck');
         const portsEl = document.getElementById('ports');
+        const chipsEl = document.getElementById('chips');
+        const compactLatencyEl = document.getElementById('compactLatency');
+        const showSelected = document.getElementById('showSelected');
         const showProcs = document.getElementById('showProcs');
         const showUdp = document.getElementById('showUdp');
         const showConns = document.getElementById('showConns');
@@ -123,6 +189,92 @@
         // Use a small image to test connectivity with minimal bandwidth
         const testUrl = 'https://www.google.com/favicon.ico';
         const slowThreshold = 500; // ms
+
+        // --- persisted state ---
+        const pinned = new Set(JSON.parse(localStorage.getItem('netmonPinned') || '[]'));
+        showSelected.checked = localStorage.getItem('netmonShowSelected') === '1';
+
+        function savePinned() {
+            localStorage.setItem('netmonPinned', JSON.stringify([...pinned].sort((a, b) => a - b)));
+            localStorage.setItem('netmonShowSelected', showSelected.checked ? '1' : '0');
+        }
+
+        // --- compact mode ---
+        const FULL_SIZE = [340, 520], COMPACT_SIZE = [340, 76];
+        function setCompact(on) {
+            document.body.classList.toggle('compact', on);
+            localStorage.setItem('netmonCompact', on ? '1' : '0');
+            try {
+                const [w, h] = on ? COMPACT_SIZE : FULL_SIZE;
+                window.resizeTo(w, h);
+            } catch (e) { /* resize not allowed; view still collapses */ }
+        }
+        document.getElementById('compactBtn').onclick = () => setCompact(true);
+        document.getElementById('expandBtn').onclick = () => setCompact(false);
+        if (localStorage.getItem('netmonCompact') === '1') setCompact(true);
+
+        // --- keep screen awake while the window is visible (like a video player) ---
+        const awakeBtns = [document.getElementById('awakeBtn'),
+                           document.getElementById('awakeBtnCompact')];
+        let awakeEnabled = localStorage.getItem('netmonAwake') !== '0'; // default on
+        let wakeLock = null;
+
+        async function updateWakeLock() {
+            if (awakeEnabled && document.visibilityState === 'visible' && !wakeLock) {
+                try {
+                    wakeLock = await navigator.wakeLock.request('screen');
+                    // released by the browser when the window is hidden/minimized;
+                    // visibilitychange below re-acquires it
+                    wakeLock.addEventListener('release', () => { wakeLock = null; });
+                } catch (e) {
+                    wakeLock = null;
+                }
+            } else if (!awakeEnabled && wakeLock) {
+                wakeLock.release();
+                wakeLock = null;
+            }
+            for (const b of awakeBtns) b.classList.toggle('on', awakeEnabled);
+        }
+        for (const b of awakeBtns) {
+            b.onclick = () => {
+                awakeEnabled = !awakeEnabled;
+                localStorage.setItem('netmonAwake', awakeEnabled ? '1' : '0');
+                updateWakeLock();
+            };
+        }
+        document.addEventListener('visibilitychange', updateWakeLock);
+        updateWakeLock();
+
+        let portsData = null;
+        let lastLatencyText = '--';
+        let lastStatusClass = '';
+
+        function esc(s) {
+            return String(s).replace(/[&<>"]/g, c =>
+                ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+        }
+
+        function renderCompact() {
+            compactLatencyEl.textContent = lastLatencyText;
+            compactLatencyEl.className = lastStatusClass;
+
+            // which pinned ports are currently in use, and by what
+            const open = new Map();
+            if (portsData) {
+                for (const e of portsData.listening) {
+                    if (pinned.has(e.port)) {
+                        open.set(e.port, (open.get(e.port) ? open.get(e.port) + ', ' : '') + e.proc);
+                    }
+                }
+            }
+            let html = '';
+            for (const port of [...pinned].sort((a, b) => a - b)) {
+                const proc = open.get(port);
+                html += `<span class="chip${proc ? ' open' : ''}" ` +
+                    `title="${proc ? esc(proc) : 'not in use'}">${port}</span>`;
+            }
+            chipsEl.innerHTML = html || '<span class="none">no ports pinned</span>';
+        }
 
         function checkConnection() {
             const startTime = Date.now();
@@ -135,44 +287,51 @@
             })
             .then(() => {
                 const latency = Date.now() - startTime;
-                latencyEl.textContent = latency + 'ms';
-
-                if (latency > slowThreshold) {
-                    statusEl.textContent = 'Slow Connection';
-                    statusEl.className = 'slow';
-                } else {
-                    statusEl.textContent = 'Online';
-                    statusEl.className = 'online';
-                }
+                lastLatencyText = latency + 'ms';
+                lastStatusClass = latency > slowThreshold ? 'slow' : 'online';
+                latencyEl.textContent = lastLatencyText;
+                statusEl.textContent = lastStatusClass === 'slow' ? 'Slow Connection' : 'Online';
+                statusEl.className = lastStatusClass;
+                renderCompact();
             })
             .catch(() => {
+                lastLatencyText = '--';
+                lastStatusClass = 'offline';
                 statusEl.textContent = 'Offline';
                 statusEl.className = 'offline';
                 latencyEl.textContent = '--';
+                renderCompact();
             });
         }
 
-        let portsData = null;
-
-        function esc(s) {
-            return String(s).replace(/[&<>"]/g, c =>
-                ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+        function togglePin(port) {
+            pinned.has(port) ? pinned.delete(port) : pinned.add(port);
+            savePinned();
+            renderPorts();
+            renderCompact();
         }
 
         function renderPorts() {
             if (!portsData) return;
             const procs = showProcs.checked;
-            const listening = portsData.listening.filter(
+            let listening = portsData.listening.filter(
                 e => showUdp.checked || e.proto === 'TCP');
+            if (showSelected.checked) {
+                listening = listening.filter(e => pinned.has(e.port));
+            }
 
-            let html = '<table><tr><th>Port</th><th></th>' +
+            let html = '<table><tr><th></th><th>Port</th><th></th>' +
                 (procs ? '<th>Process</th>' : '') + '</tr>';
             for (const e of listening) {
-                html += `<tr><td>${e.port}</td><td class="proto">${e.proto}</td>` +
+                const isPinned = pinned.has(e.port);
+                html += `<tr class="selectable${isPinned ? ' pinned' : ''}" data-port="${e.port}">` +
+                    `<td class="pin">★</td>` +
+                    `<td>${e.port}</td><td class="proto">${e.proto}</td>` +
                     (procs ? `<td title="PID ${e.pid}">${esc(e.proc)}</td>` : '') +
                     '</tr>';
             }
             html += '</table>';
+            html += '<div id="hint">click a row to pin/unpin a port</div>';
 
             if (showConns.checked) {
                 html += '<div class="section-label">Active connections</div>';
@@ -186,6 +345,10 @@
                 html += '</table>';
             }
             portsEl.innerHTML = html;
+
+            for (const row of portsEl.querySelectorAll('tr.selectable')) {
+                row.onclick = () => togglePin(Number(row.dataset.port));
+            }
         }
 
         function fetchPorts() {
@@ -194,6 +357,7 @@
             .then(data => {
                 portsData = data;
                 renderPorts();
+                renderCompact();
             })
             .catch(() => {
                 portsEl.innerHTML = '<div id="portsError">Port info unavailable ' +
@@ -202,12 +366,15 @@
         }
 
         showProcs.onchange = showUdp.onchange = showConns.onchange = renderPorts;
+        showSelected.onchange = () => { savePinned(); renderPorts(); };
 
         // Check initially and then every 5 seconds
         checkConnection();
         fetchPorts();
+        renderCompact();
         setInterval(checkConnection, 5000);
         setInterval(fetchPorts, 5000);
+        setInterval(updateWakeLock, 30000); // safety net if the lock gets dropped
     </script>
 </body>
 </html>
