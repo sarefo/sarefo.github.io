@@ -7,28 +7,87 @@
             margin: 0;
             padding: 8px;
             font-family: Arial, sans-serif;
-            font-size: 14px;
+            font-size: 13px;
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 16px);
             overflow: hidden;
-            width: 160px;
-            height: 120px;
         }
         #status {
-            padding: 10px;
+            padding: 8px;
             text-align: center;
             border-radius: 5px;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         #metrics {
             display: flex;
             justify-content: space-between;
+            margin-bottom: 6px;
         }
         .metric {
             text-align: center;
             flex: 1;
         }
+        .metric div:last-child {
+            font-size: 11px;
+            color: #777;
+        }
         .online { background-color: #c8e6c9; color: #2e7d32; }
         .offline { background-color: #ffcdd2; color: #c62828; }
         .slow { background-color: #fff9c4; color: #f57f17; }
+
+        #portsHeader {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 4px 0;
+            border-top: 1px solid #ddd;
+            font-size: 12px;
+        }
+        #portsHeader b { margin-right: auto; }
+        #portsHeader label {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            cursor: pointer;
+            color: #555;
+        }
+        #ports {
+            flex: 1;
+            overflow-y: auto;
+            font-size: 12px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            text-align: left;
+            font-size: 11px;
+            color: #777;
+            font-weight: normal;
+            position: sticky;
+            top: 0;
+            background: #fff;
+            padding: 2px 4px;
+            border-bottom: 1px solid #ddd;
+        }
+        td {
+            padding: 1px 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 140px;
+        }
+        tr:nth-child(even) td { background: #f5f5f5; }
+        .proto { color: #999; font-size: 11px; }
+        .section-label {
+            font-size: 11px;
+            color: #777;
+            padding: 6px 0 2px;
+            border-bottom: 1px solid #ddd;
+        }
+        #portsError { color: #c62828; font-size: 12px; padding: 4px; }
     </style>
 </head>
 <body>
@@ -44,20 +103,32 @@
         </div>
     </div>
 
+    <div id="portsHeader">
+        <b>Ports</b>
+        <label><input type="checkbox" id="showProcs"> processes</label>
+        <label><input type="checkbox" id="showUdp"> UDP</label>
+        <label><input type="checkbox" id="showConns"> active</label>
+    </div>
+    <div id="ports"><div id="portsError" hidden></div></div>
+
     <script>
         const statusEl = document.getElementById('status');
         const latencyEl = document.getElementById('latency');
         const lastCheckEl = document.getElementById('lastCheck');
-        
+        const portsEl = document.getElementById('ports');
+        const showProcs = document.getElementById('showProcs');
+        const showUdp = document.getElementById('showUdp');
+        const showConns = document.getElementById('showConns');
+
         // Use a small image to test connectivity with minimal bandwidth
         const testUrl = 'https://www.google.com/favicon.ico';
         const slowThreshold = 500; // ms
-        
+
         function checkConnection() {
             const startTime = Date.now();
             lastCheckEl.textContent = new Date().toLocaleTimeString();
-            
-            fetch(testUrl, { 
+
+            fetch(testUrl, {
                 method: 'HEAD',
                 cache: 'no-store',
                 mode: 'no-cors'
@@ -65,7 +136,7 @@
             .then(() => {
                 const latency = Date.now() - startTime;
                 latencyEl.textContent = latency + 'ms';
-                
+
                 if (latency > slowThreshold) {
                     statusEl.textContent = 'Slow Connection';
                     statusEl.className = 'slow';
@@ -80,10 +151,63 @@
                 latencyEl.textContent = '--';
             });
         }
-        
-        // Check initially and then every 10 seconds
+
+        let portsData = null;
+
+        function esc(s) {
+            return String(s).replace(/[&<>"]/g, c =>
+                ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+        }
+
+        function renderPorts() {
+            if (!portsData) return;
+            const procs = showProcs.checked;
+            const listening = portsData.listening.filter(
+                e => showUdp.checked || e.proto === 'TCP');
+
+            let html = '<table><tr><th>Port</th><th></th>' +
+                (procs ? '<th>Process</th>' : '') + '</tr>';
+            for (const e of listening) {
+                html += `<tr><td>${e.port}</td><td class="proto">${e.proto}</td>` +
+                    (procs ? `<td title="PID ${e.pid}">${esc(e.proc)}</td>` : '') +
+                    '</tr>';
+            }
+            html += '</table>';
+
+            if (showConns.checked) {
+                html += '<div class="section-label">Active connections</div>';
+                html += '<table><tr><th>Port</th><th>Remote</th>' +
+                    (procs ? '<th>Process</th>' : '') + '</tr>';
+                for (const e of portsData.established) {
+                    html += `<tr><td>${e.port}</td><td title="${esc(e.remote)}">${esc(e.remote)}</td>` +
+                        (procs ? `<td title="PID ${e.pid}">${esc(e.proc)}</td>` : '') +
+                        '</tr>';
+                }
+                html += '</table>';
+            }
+            portsEl.innerHTML = html;
+        }
+
+        function fetchPorts() {
+            fetch('/api/ports', { cache: 'no-store' })
+            .then(r => r.json())
+            .then(data => {
+                portsData = data;
+                renderPorts();
+            })
+            .catch(() => {
+                portsEl.innerHTML = '<div id="portsError">Port info unavailable ' +
+                    '(open via netmon.bat so the local server is running)</div>';
+            });
+        }
+
+        showProcs.onchange = showUdp.onchange = showConns.onchange = renderPorts;
+
+        // Check initially and then every 5 seconds
         checkConnection();
+        fetchPorts();
         setInterval(checkConnection, 5000);
+        setInterval(fetchPorts, 5000);
     </script>
 </body>
 </html>
