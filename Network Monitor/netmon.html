@@ -138,6 +138,8 @@
             cursor: default;
         }
         .chip.open { background: #c8e6c9; color: #2e7d32; }
+        .chip.stale { background: #f5f5f5; color: #bbb; border: 1px dashed #bbb; }
+        #compactBar .stale-note { font-size: 11px; color: #c62828; }
         #compactBar .spacer { flex: 1; }
         #compactBar .none { font-size: 11px; color: #999; }
     </style>
@@ -246,6 +248,7 @@
         updateWakeLock();
 
         let portsData = null;
+        let portsStale = false; // backend unreachable; portsData is a leftover snapshot
         let lastLatencyText = '--';
         let lastStatusClass = '';
 
@@ -270,8 +273,14 @@
             let html = '';
             for (const port of [...pinned].sort((a, b) => a - b)) {
                 const proc = open.get(port);
-                html += `<span class="chip${proc ? ' open' : ''}" ` +
-                    `title="${proc ? esc(proc) : 'not in use'}">${port}</span>`;
+                const cls = portsStale ? ' stale' : (proc ? ' open' : '');
+                const title = portsStale ? 'unknown — port info unavailable'
+                    : (proc ? esc(proc) : 'not in use');
+                html += `<span class="chip${cls}" title="${title}">${port}</span>`;
+            }
+            if (portsStale) {
+                html += '<span class="stale-note" title="restart via netmon.bat">' +
+                    '⚠ no port data</span>';
             }
             chipsEl.innerHTML = html || '<span class="none">no ports pinned</span>';
         }
@@ -356,12 +365,15 @@
             .then(r => r.json())
             .then(data => {
                 portsData = data;
+                portsStale = false;
                 renderPorts();
                 renderCompact();
             })
             .catch(() => {
+                portsStale = true;
                 portsEl.innerHTML = '<div id="portsError">Port info unavailable ' +
                     '(open via netmon.bat so the local server is running)</div>';
+                renderCompact();
             });
         }
 
