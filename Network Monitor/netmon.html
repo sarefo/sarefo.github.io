@@ -215,6 +215,28 @@
         document.getElementById('expandBtn').onclick = () => setCompact(false);
         if (localStorage.getItem('netmonCompact') === '1') setCompact(true);
 
+        // --- remember window position across restarts ---
+        function restorePosition() {
+            try {
+                const pos = JSON.parse(localStorage.getItem('netmonPos'));
+                if (pos) window.moveTo(pos[0], pos[1]);
+            } catch (e) { /* move not allowed */ }
+        }
+        function savePosition() {
+            try {
+                localStorage.setItem('netmonPos', JSON.stringify([window.screenX, window.screenY]));
+            } catch (e) { /* ignore */ }
+        }
+        restorePosition();
+        setInterval(savePosition, 2000);
+
+        // --- tell the backend we're closing so it can exit right away,
+        // instead of relying on the idle-timeout safety net ---
+        function notifyShutdown() {
+            try { navigator.sendBeacon('/api/shutdown'); } catch (e) { /* ignore */ }
+        }
+        window.addEventListener('pagehide', notifyShutdown);
+
         // --- keep screen awake while the window is visible (like a video player) ---
         const awakeBtns = [document.getElementById('awakeBtn'),
                            document.getElementById('awakeBtnCompact')];

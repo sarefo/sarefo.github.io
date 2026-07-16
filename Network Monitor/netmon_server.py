@@ -17,7 +17,12 @@ import time
 
 PORT = 8399
 DIR = os.path.dirname(os.path.abspath(__file__))
-IDLE_TIMEOUT = 90  # seconds without a request before the server exits
+# Safety net only: the page explicitly signals shutdown via /api/shutdown when
+# closed. This just catches cases where that signal never arrives (crash,
+# force-kill). Kept long because Chrome throttles background/minimized tabs'
+# timers, which previously made the applet look "dead" after a normal
+# 90s idle timeout even though the window was still open.
+IDLE_TIMEOUT = 1800  # seconds without a request before the server exits
 CREATE_NO_WINDOW = 0x08000000
 
 last_request = time.time()
@@ -101,6 +106,17 @@ class Handler(http.server.BaseHTTPRequestHandler):
             self.send_header("Content-Length", str(len(body)))
             self.end_headers()
             self.wfile.write(body)
+        else:
+            self.send_error(404)
+
+    def do_POST(self):
+        if self.path == "/api/shutdown":
+            self.send_response(204)
+            self.send_header("Content-Length", "0")
+            self.end_headers()
+            # give the response a moment to reach the OS send buffer before
+            # the process disappears
+            threading.Timer(0.2, os._exit, args=[0]).start()
         else:
             self.send_error(404)
 
