@@ -270,6 +270,21 @@ test('explainFor: falls back when two entries force the same conclusion', () => 
   assertSetEqual(info.causes.map(c => c.id), ['kid1', 'kid2'], 'causes');
 });
 
+test('allelePairsFor: leaves the second slot open when the genotype is', () => {
+  // Type A is either AA or AO, so only one chromosome is pinned down.
+  const a = allelePairsFor('A+');
+  assert(a[0].alleles.join('/') === 'A/A or O', a[0].alleles.join('/'));
+  assert(a[1].alleles.join('/') === 'D/D or d', a[1].alleles.join('/'));
+});
+
+test('allelePairsFor: AB and O pin down both slots', () => {
+  // These two are the informative types: no ambiguity in either slot,
+  // which is why they constrain a family tree so much more than A or B.
+  assert(allelePairsFor('AB-')[0].alleles.join('/') === 'A/B');
+  assert(allelePairsFor('AB-')[1].alleles.join('/') === 'd/d');
+  assert(allelePairsFor('O+')[0].alleles.join('/') === 'O/O');
+});
+
 test('relationBetween: reads relationships off the family structure', () => {
   const groups = [
     { parents: ['grandfather', 'grandmother'], children: ['father'] },

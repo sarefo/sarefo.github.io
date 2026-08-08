@@ -174,6 +174,34 @@ function inheritanceNote(bt) {
   return { abo: aboNote, rh: rhNote };
 }
 
+// The two chromosome pairs behind a blood type, for drawing. ABO sits on
+// chromosome 9 and Rh (the RHD gene) on chromosome 1 -- genuinely separate
+// pairs, which is why the two are inherited independently.
+//
+// Each pair is returned as two allele slots. One slot is always certain;
+// the other may be undetermined, because a phenotype doesn't pin down a
+// genotype: type A is either AA or AO, so all we can say about the second
+// chromosome is "A or O". Types AB and O are the exceptions -- both of
+// their slots are certain, which is exactly why those two types carry so
+// much information in a family tree.
+function allelePairsFor(bt) {
+  const { abo, rh } = parseBloodType(bt);
+  return [
+    {
+      chromosome: 9,
+      gene: 'ABO',
+      alleles: abo === 'AB' ? ['A', 'B']
+             : abo === 'O'  ? ['O', 'O']
+             : [abo, abo + ' or O'],
+    },
+    {
+      chromosome: 1,
+      gene: 'Rh',
+      alleles: rh === '-' ? ['d', 'd'] : ['D', 'D or d'],
+    },
+  ];
+}
+
 // What a person of this blood type must have received from their parents
 // -- the mirror image of inheritanceNote(), used when the constraint
 // travels upward from a child to a parent.
