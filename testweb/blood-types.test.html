@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blood Type Engine — Tests</title>
+<style>
+  :root {
+    --bg: #eef2f4; --card: #ffffff; --ink: #1c2b33; --muted: #64767f;
+    --line: #dde5e8; --pass: #1a7f4b; --pass-bg: #e5f6ec;
+    --fail: #b3273e; --fail-bg: #fbe6ea;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14191c; --card: #1e2528; --ink: #eef3f5; --muted: #8fa0a8;
+      --line: #303b40; --pass: #4ed08a; --pass-bg: #16261e;
+      --fail: #e2596e; --fail-bg: #2a1a1e;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 2rem 1rem 4rem; background: var(--bg); color: var(--ink);
+    font: 15px/1.5 -apple-system, "Segoe UI", system-ui, sans-serif;
+  }
+  main { max-width: 640px; margin: 0 auto; }
+  h1 { font-size: 1.4rem; margin: 0 0 .3rem; }
+  .sub { color: var(--muted); font-size: .9rem; max-width: 60ch; margin: 0 0 1.4rem; }
+  code {
+    background: var(--line); border-radius: 4px; padding: .1em .35em;
+    font-size: .85em;
+  }
+
+  #summary {
+    font-weight: 700; border-radius: 10px; padding: .7rem 1rem;
+    margin-bottom: 1.2rem; font-size: .95rem;
+  }
+  #summary.all-pass { color: var(--pass); background: var(--pass-bg); }
+  #summary.some-fail { color: var(--fail); background: var(--fail-bg); }
+
+  ul#results { list-style: none; margin: 0; padding: 0; }
+  ul#results li {
+    display: flex; gap: .6rem; align-items: flex-start;
+    border: 1px solid var(--line); border-radius: 8px;
+    padding: .6rem .8rem; margin-bottom: .5rem; font-size: .88rem;
+  }
+  li.pass { border-left: 3px solid var(--pass); }
+  li.fail { border-left: 3px solid var(--fail); }
+  .mark { font-weight: 700; }
+  li.pass .mark { color: var(--pass); }
+  li.fail .mark { color: var(--fail); }
+  .body { flex: 1; }
+  .error {
+    margin-top: .3rem; color: var(--fail); font-size: .82rem;
+    font-family: ui-monospace, Consolas, monospace; white-space: pre-wrap;
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Blood Type Engine — Tests</h1>
+  <p class="sub">
+    Checks for the ABO/Rh inheritance logic in <code>blood-types-engine.js</code>
+    — the same file <code>blood-types.html</code> loads. Open this page in a
+    browser to run them; results appear below (and in the console). No
+    build step, no test framework — just plain functions that throw when a
+    check fails.
+  </p>
+
+  <div id="summary"></div>
+  <ul id="results"></ul>
+</main>
+
+<script src="blood-types-engine.js"></script>
+<script>
+// ---------------------------------------------------------------------
+// A tiny hand-rolled test harness.
+//
+// test(name, fn) runs fn(). If fn() runs to completion, the test passed.
+// If fn() throws (which our assert() helpers do on failure), the test
+// failed, and we record the error message. That's the entire mechanism —
+// no assertion library, no test runner, nothing to install.
+// ---------------------------------------------------------------------
+
+const results = [];
+
+function test(name, fn) {
+  try {
+    fn();
+    results.push({ name, pass: true });
+  } catch (err) {
+    results.push({ name, pass: false, error: err.message });
+  }
+}
+
+function assert(condition, message) {
+  if (!condition) throw new Error(message || 'assertion failed');
+}
+
+function assertSetEqual(actual, expected, label) {
+  const a = new Set(actual);
+  const e = new Set(expected);
+  const missing = [...e].filter(x => !a.has(x));
+  const extra = [...a].filter(x => !e.has(x));
+  assert(
+    missing.length === 0 && extra.length === 0,
+    `${label || 'sets differ'}: expected [${[...e].sort()}], got [${[...a].sort()}]`
+      + (missing.length ? ` — missing: ${missing}` : '')
+      + (extra.length ? ` — unexpected: ${extra}` : '')
+  );
+}
+
+// Helper so each test case can build a family and solve it in one line.
+function solve(state, familyGroups) {
+  return computeDomains(state, Object.keys(state), familyGroups);
+}
+
+// ---------------------------------------------------------------------
+// 1. punnett(): the building block. Given two genotypes, what could a
+//    single child inherit? These are plain Punnett squares.
+// ---------------------------------------------------------------------
+
+test('punnett: AA x BB always gives AB', () => {
+  assertSetEqual(punnett('AA', 'BB'), ['AB']);
+});
+
+test('punnett: AO x BO gives all four classic outcomes', () => {
+  // The textbook "two carriers" square: an A/O parent and a B/O parent
+  // can produce an AB child, an A child, a B child, or a surprise O child.
+  assertSetEqual(punnett('AO', 'BO'), ['AB', 'AO', 'BO', 'OO']);
+});
+
+test('punnett: Dd x dd can produce Rh- but never two D alleles', () => {
+  assertSetEqual(punnett('Dd', 'dd'), ['Dd', 'dd']);
+});
+
+// ---------------------------------------------------------------------
+// 2. parseBloodType(): splitting "AB-" into its ABO and Rh parts.
+// ---------------------------------------------------------------------
+
+test('parseBloodType: splits ABO and Rh components', () => {
+  const ab = parseBloodType('AB-');
+  assert(ab.abo === 'AB' && ab.rh === '-', `got ${JSON.stringify(ab)}`);
+  const o = parseBloodType('O+');
+  assert(o.abo === 'O' && o.rh === '+', `got ${JSON.stringify(o)}`);
+});
+
+// ---------------------------------------------------------------------
+// 3. computeDomains() + possibleTypesFor(): the actual reasoning engine.
+//    Each test builds a small family — the engine doesn't care how big
+//    the tree is, so tests can use just 2-3 people instead of the app's
+//    full 6-plus-children tree — and checks what it concludes.
+// ---------------------------------------------------------------------
+
+test('baseline: knowing nothing rules out nothing', () => {
+  const domains = solve({ person: null }, []);
+  const { types, contradiction } = possibleTypesFor('person', domains);
+  assertSetEqual(types, BLOOD_TYPES, 'a lone unknown person');
+  assert(!contradiction);
+});
+
+test('a known child can narrow an unknown parent', () => {
+  // Mother is B+, child is O+. An O+ child needs an O allele from BOTH
+  // parents, and "AB" blood type carries no O allele at all — so
+  // whatever Father is, he can't be AB.
+  const state = { father: null, mother: 'B+', child: 'O+' };
+  const groups = [{ parents: ['father', 'mother'], children: ['child'] }];
+  const domains = solve(state, groups);
+  const { types, contradiction } = possibleTypesFor('father', domains);
+  assert(!contradiction);
+  assertSetEqual(types, ['A+', 'A-', 'B+', 'B-', 'O+', 'O-'], 'father with mother B+, child O+');
+});
+
+test('an AB parent can leave the other parent fully unconstrained', () => {
+  // Counter-intuitive at first glance: with Mother AB+ and Child B+, every
+  // one of Father's 8 blood types still has some route to a B+ child (an
+  // AB mother can supply the B allele herself, or supply nothing useful
+  // and let Father supply an O) — so nothing gets ruled out here. Verified
+  // by hand, then in the live app, before this test was written.
+  const state = { father: null, mother: 'AB+', child: 'B+' };
+  const groups = [{ parents: ['father', 'mother'], children: ['child'] }];
+  const domains = solve(state, groups);
+  const { types, contradiction } = possibleTypesFor('father', domains);
+  assert(!contradiction);
+  assertSetEqual(types, BLOOD_TYPES, 'father with mother AB+, child B+');
+});
+
+test('an O parent can never have an AB child', () => {
+  // A well-known real-world genetics fact (sometimes cited in paternity
+  // disputes): type O carries neither an A nor a B allele, so an O parent
+  // can never contribute one — an AB child is genetically impossible,
+  // no matter what the other parent is.
+  const state = { father: 'O+', mother: null, child: 'AB+' };
+  const groups = [{ parents: ['father', 'mother'], children: ['child'] }];
+  const domains = solve(state, groups);
+  const { contradiction } = possibleTypesFor('child', domains);
+  assert(contradiction, 'expected a contradiction for an AB child of an O parent');
+});
+
+test('constraints propagate across two generations, not just one', () => {
+  // Grandmother is AB+, so she can only ever pass on an A or a B allele —
+  // never an O. Child is O+, which needs an O allele from every link in
+  // the chain down to them. So Father must supply an O to the child
+  // (ruling out AB for him, same idea as the two-generation test above)
+  // — but Father's own O must have come from Grandfather, since
+  // Grandmother genetically cannot supply one. That also rules out "OO"
+  // as an option for Father, which checking only Father+Mother+Child in
+  // isolation would miss entirely.
+  const state = {
+    grandfather: null,
+    grandmother: 'AB+',
+    father: null,
+    mother: null,
+    child: 'O+',
+  };
+  const groups = [
+    { parents: ['grandfather', 'grandmother'], children: ['father'] },
+    { parents: ['father', 'mother'], children: ['child'] },
+  ];
+  const domains = solve(state, groups);
+  const { types, contradiction } = possibleTypesFor('father', domains);
+  assert(!contradiction);
+  assertSetEqual(types, ['A+', 'A-', 'B+', 'B-'], 'father two generations from an AB+ grandmother, with an O+ child');
+});
+
+// ---------------------------------------------------------------------
+// 4. explainFor() + influenceOf(): the "why?" layer. These derive their
+//    answers from the engine by ablation (drop one known type, re-solve,
+//    see what changes), so what matters is that they name the RIGHT
+//    entries -- not merely plausible-sounding ones.
+// ---------------------------------------------------------------------
+
+const TRIO = [{ parents: ['father', 'mother'], children: ['child'] }];
+
+test('explainFor: blames the entry that actually did the narrowing', () => {
+  // Same setup as the narrowing test above: Mother B+, Child O+, and AB
+  // is out for Father. The child is the reason -- Mother B+ on its own
+  // rules out nothing for Father, so she must NOT be listed as a cause.
+  const state = { father: null, mother: 'B+', child: 'O+' };
+  const info = explainFor('father', state, Object.keys(state), TRIO);
+  assertSetEqual(info.ruledOut, ['AB+', 'AB-'], 'ruled out for father');
+  assertSetEqual(info.causes.map(c => c.id), ['child'], 'causes');
+  assert(info.causes[0].relation === 'child', `relation was ${info.causes[0].relation}`);
+});
+
+test('explainFor: no narrowing means no causes to report', () => {
+  // The AB+ mother / B+ child case again. Nothing is ruled out, so the
+  // explanation must stay empty rather than inventing a reason.
+  const state = { father: null, mother: 'AB+', child: 'B+' };
+  const info = explainFor('father', state, Object.keys(state), TRIO);
+  assert(info.ruledOut.length === 0, `ruled out: ${info.ruledOut}`);
+  assert(info.causes.length === 0, `causes: ${info.causes.map(c => c.id)}`);
+});
+
+test('explainFor: reports the conflicting entries in a contradiction', () => {
+  const state = { father: 'O+', mother: 'O+', child: 'AB+' };
+  const info = explainFor('child', state, Object.keys(state), TRIO);
+  assert(info.contradiction, 'expected a contradiction');
+  assert(info.causes.length > 0, 'a contradiction must name at least one culprit');
+});
+
+test('explainFor: falls back when two entries force the same conclusion', () => {
+  // Two O+ children both independently rule out AB for Father. Removing
+  // either one alone changes nothing, so plain ablation finds no cause --
+  // the fallback pass has to catch this, or the app would show a
+  // narrowing with no explanation at all.
+  const state = { father: null, mother: null, kid1: 'O+', kid2: 'O+' };
+  const groups = [{ parents: ['father', 'mother'], children: ['kid1', 'kid2'] }];
+  const info = explainFor('father', state, Object.keys(state), groups);
+  assertSetEqual(info.ruledOut, ['AB+', 'AB-'], 'ruled out for father');
+  assertSetEqual(info.causes.map(c => c.id), ['kid1', 'kid2'], 'causes');
+});
+
+test('relationBetween: reads relationships off the family structure', () => {
+  const groups = [
+    { parents: ['grandfather', 'grandmother'], children: ['father'] },
+    { parents: ['father', 'mother'], children: ['kid1', 'kid2'] },
+  ];
+  assert(relationBetween('father', 'grandmother', groups) === 'parent');
+  assert(relationBetween('father', 'mother', groups) === 'coparent');
+  assert(relationBetween('father', 'kid1', groups) === 'child');
+  assert(relationBetween('kid1', 'kid2', groups) === 'sibling');
+  assert(relationBetween('kid1', 'grandmother', groups) === 'relative');
+});
+
+test('influenceOf: lists who a known entry narrows, and by how much', () => {
+  // Child O+ is the only entry. It rules out AB for both parents.
+  const state = { father: null, mother: null, child: 'O+' };
+  const inf = influenceOf('child', state, Object.keys(state), TRIO);
+  assertSetEqual(inf.map(x => x.id), ['father', 'mother'], 'people influenced');
+  inf.forEach(x => {
+    assert(x.possible.length === 6, `${x.id} should be down to 6, got ${x.possible.length}`);
+    assert(x.wouldBe.length === 8, `${x.id} should be 8 without the entry`);
+  });
+});
+
+test('influenceOf: an unknown person influences nobody', () => {
+  const state = { father: null, mother: 'B+', child: 'O+' };
+  assert(influenceOf('father', state, Object.keys(state), TRIO).length === 0);
+});
+
+// ---------------------------------------------------------------------
+// Render results to the page, and mirror them to the console.
+// ---------------------------------------------------------------------
+
+const resultsEl = document.getElementById('results');
+const summaryEl = document.getElementById('summary');
+
+resultsEl.innerHTML = results.map(r => `
+  <li class="${r.pass ? 'pass' : 'fail'}">
+    <span class="mark">${r.pass ? '✓' : '✗'}</span>
+    <span class="body">${r.name}${r.error ? `<div class="error">${r.error}</div>` : ''}</span>
+  </li>
+`).join('');
+
+const passCount = results.filter(r => r.pass).length;
+summaryEl.textContent = `${passCount} / ${results.length} passed`;
+summaryEl.className = passCount === results.length ? 'all-pass' : 'some-fail';
+
+console.log(`Blood type engine tests: ${passCount}/${results.length} passed`);
+results.forEach(r => {
+  if (r.pass) console.log(`PASS  ${r.name}`);
+  else console.error(`FAIL  ${r.name}\n      ${r.error}`);
+});
+</script>
+</body>
+</html>

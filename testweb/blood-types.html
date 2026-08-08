@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Family Blood Type Explorer</title>
+<style>
+  :root {
+    --bg: #eef2f4;
+    --card: #ffffff;
+    --ink: #1c2b33;
+    --muted: #64767f;
+    --line: #dde5e8;
+    --accent: #b3273e;
+    --accent-soft: #f8dde2;
+    --selected: #1c2b33;
+    --impossible-bg: #eef1f2;
+    --impossible-ink: #a9b3b8;
+    --warn-bg: #fff2d9;
+    --warn-ink: #8a5a00;
+    --warn-line: #f0cd85;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14191c;
+      --card: #1e2528;
+      --ink: #eef3f5;
+      --muted: #8fa0a8;
+      --line: #303b40;
+      --accent: #e2596e;
+      --accent-soft: #3a2228;
+      --selected: #eef3f5;
+      --impossible-bg: #232b2e;
+      --impossible-ink: #4c5a60;
+      --warn-bg: #3a2f10;
+      --warn-ink: #f0c05c;
+      --warn-line: #5c4a1a;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14191c;
+    --card: #1e2528;
+    --ink: #eef3f5;
+    --muted: #8fa0a8;
+    --line: #303b40;
+    --accent: #e2596e;
+    --accent-soft: #3a2228;
+    --selected: #eef3f5;
+    --impossible-bg: #232b2e;
+    --impossible-ink: #4c5a60;
+    --warn-bg: #3a2f10;
+    --warn-ink: #f0c05c;
+    --warn-line: #5c4a1a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 2rem 1rem 4rem;
+    background: var(--bg);
+    color: var(--ink);
+    font: 15px/1.5 -apple-system, "Segoe UI", system-ui, sans-serif;
+  }
+  main { max-width: 760px; margin: 0 auto; }
+  h1 { font-size: 1.5rem; margin: 0 0 .3rem; font-weight: 700; letter-spacing: -.01em; }
+  .sub { color: var(--muted); margin: 0 0 1.1rem; font-size: .92rem; max-width: 56ch; }
+
+  .banner {
+    display: none;
+    align-items: flex-start;
+    gap: .55rem;
+    background: var(--warn-bg);
+    border: 1px solid var(--warn-line);
+    color: var(--warn-ink);
+    border-radius: 10px;
+    padding: .7rem .9rem;
+    font-size: .87rem;
+    margin-bottom: 1.2rem;
+  }
+  .banner.show { display: flex; }
+  .banner b { font-weight: 700; }
+
+  .toolbar { display: flex; justify-content: flex-end; gap: .5rem; margin-bottom: .9rem; }
+  .reset-btn, .theme-btn {
+    background: none; border: 1px solid var(--line); color: var(--muted);
+    border-radius: 8px; padding: .4rem .75rem; font-size: .8rem; cursor: pointer;
+    font-family: inherit;
+  }
+  .reset-btn:hover, .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .theme-btn { line-height: 1; }
+
+  .tree-scroll { overflow-x: auto; padding-bottom: .5rem; }
+  .tree { position: relative; min-width: 700px; }
+
+  .lines { position: absolute; top: 0; left: 0; pointer-events: none; overflow: visible; }
+  .tree-line { stroke: var(--line); stroke-width: 2; }
+
+  .gen { display: flex; justify-content: center; position: relative; z-index: 1; }
+  .gen-grandparents { gap: 3.2rem; margin-bottom: 2.4rem; }
+  .pair { display: flex; gap: .7rem; }
+  .gen-parents { gap: 3.2rem; margin-bottom: 2.6rem; }
+  .gen-children { gap: .7rem; flex-wrap: nowrap; margin-bottom: .6rem; }
+
+  .card {
+    width: 168px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: .65rem .6rem .7rem;
+    text-align: center;
+    box-shadow: 0 1px 2px rgba(20, 30, 35, .04);
+    position: relative;
+  }
+  .card.contradiction { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+
+  .card .remove {
+    position: absolute; top: -8px; right: -8px;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--card); border: 1px solid var(--line); color: var(--muted);
+    font-size: .7rem; line-height: 1; cursor: pointer; display: flex;
+    align-items: center; justify-content: center;
+  }
+  .card .remove:hover { border-color: var(--accent); color: var(--accent); }
+
+  .card .role {
+    font-size: .74rem; font-weight: 700; color: var(--muted);
+    text-transform: uppercase; letter-spacing: .03em;
+    min-height: 2.1em; display: flex; align-items: center; justify-content: center;
+    margin-bottom: .55rem;
+  }
+
+  .bt-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px;
+  }
+  .bt-btn {
+    font-family: inherit; font-size: .7rem; font-weight: 600;
+    border-radius: 6px; border: 1px solid transparent; padding: .32rem 0;
+    cursor: pointer; color: var(--ink); background: var(--accent-soft);
+  }
+  .bt-btn.impossible {
+    background: var(--impossible-bg); color: var(--impossible-ink);
+    cursor: not-allowed; text-decoration: line-through;
+    text-decoration-color: var(--impossible-ink);
+  }
+  .bt-btn.selected {
+    background: var(--selected); color: var(--card); border-color: var(--selected);
+  }
+  .bt-btn.possible:hover { filter: brightness(0.94); }
+  @media (prefers-color-scheme: dark) {
+    .bt-btn.possible:hover { filter: brightness(1.2); }
+  }
+
+  .status {
+    margin-top: .5rem; font-size: .68rem; color: var(--muted); min-height: 1.6em;
+    line-height: 1.35;
+  }
+  .status.warn { color: var(--accent); font-weight: 600; }
+
+  .why-btn {
+    font-family: inherit; font-size: .68rem; font-weight: 600;
+    background: none; border: none; border-bottom: 1px dotted var(--line);
+    color: var(--muted); padding: .1rem .2rem; margin-top: .3rem; cursor: pointer;
+  }
+  .why-btn:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  .card.focused { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+  .card.focused .why-btn { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .add-child-row { display: flex; justify-content: center; margin-top: .3rem; }
+  .add-btn {
+    font-family: inherit; background: none; border: 1px dashed var(--line);
+    color: var(--muted); border-radius: 8px; padding: .45rem 1rem;
+    font-size: .82rem; cursor: pointer;
+  }
+  .add-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .why-panel {
+    margin-top: 1.5rem; background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; padding: .95rem 1.1rem 1.05rem;
+  }
+  .why-panel h2 {
+    font-size: .74rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .03em; color: var(--muted); margin: 0 0 .55rem;
+  }
+  .why-panel p { margin: 0 0 .6rem; font-size: .88rem; }
+  .why-panel p:last-child { margin-bottom: 0; }
+  .why-panel .quiet { color: var(--muted); }
+  .why-panel ul {
+    margin: 0 0 .7rem; padding-left: 1.05rem;
+    display: flex; flex-direction: column; gap: .5rem;
+  }
+  .why-panel li { font-size: .86rem; line-height: 1.5; }
+  .why-panel li::marker { color: var(--muted); }
+
+  .type-chip {
+    display: inline-block; font-size: .72rem; font-weight: 600;
+    border-radius: 5px; padding: .08rem .32rem; margin: 0 .12rem .12rem 0;
+  }
+  .type-chip.out {
+    background: var(--impossible-bg); color: var(--impossible-ink);
+    text-decoration: line-through; text-decoration-color: var(--impossible-ink);
+  }
+  .type-chip.in { background: var(--accent-soft); color: var(--ink); }
+
+  .legend {
+    display: flex; gap: 1.3rem; flex-wrap: wrap; margin-top: 2rem;
+    font-size: .78rem; color: var(--muted);
+  }
+  .legend span { display: inline-flex; align-items: center; gap: .4rem; }
+  .swatch { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+  .swatch.sw-selected { background: var(--selected); }
+  .swatch.sw-possible { background: var(--accent-soft); border: 1px solid var(--line); }
+  .swatch.sw-impossible { background: var(--impossible-bg); border: 1px solid var(--line); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Family Blood Type Explorer</h1>
+  <p class="sub">Enter the blood types you already know. For everyone else, the tool works out — from ABO and Rh inheritance rules — which blood types are still genetically possible.</p>
+
+  <div class="banner" id="banner">
+    <span>⚠️</span>
+    <span><b>These blood types can't all be true together.</b> Something entered is genetically inconsistent with the rest of the family — check the outlined cards.</span>
+  </div>
+
+  <div class="toolbar">
+    <button class="theme-btn" id="themeToggle" aria-label="Toggle light/dark theme"></button>
+    <button class="reset-btn" id="resetAll">Reset all</button>
+  </div>
+
+  <div class="tree-scroll">
+    <div class="tree" id="tree">
+      <svg class="lines" id="lines"></svg>
+
+      <div class="gen gen-grandparents">
+        <div class="pair">
+          <div id="slot-pgf"></div>
+          <div id="slot-pgm"></div>
+        </div>
+        <div class="pair">
+          <div id="slot-mgf"></div>
+          <div id="slot-mgm"></div>
+        </div>
+      </div>
+
+      <div class="gen gen-parents">
+        <div id="slot-father"></div>
+        <div id="slot-mother"></div>
+      </div>
+
+      <div class="gen gen-children" id="childrenRow"></div>
+    </div>
+  </div>
+
+  <div class="add-child-row">
+    <button class="add-btn" id="addChild">+ Add child</button>
+  </div>
+
+  <section class="why-panel" id="whyPanel" aria-live="polite"></section>
+
+  <div class="legend">
+    <span><i class="swatch sw-selected"></i> known</span>
+    <span><i class="swatch sw-possible"></i> still possible</span>
+    <span><i class="swatch sw-impossible"></i> ruled out</span>
+  </div>
+</main>
+
+<script src="blood-types-engine.js"></script>
+<script>
+// The genetics engine (punnett, parseBloodType, propagate, computeDomains,
+// possibleTypesFor, and the ABO_*/RH_*/BLOOD_TYPES constants) lives in
+// blood-types-engine.js, loaded above. It's shared with blood-types.test.html
+// so the test suite exercises the exact same code this page runs.
+//
+// Everything below is specific to this page: the family tree structure,
+// wiring up the UI, and drawing the connector lines.
+
+const ROLES = [
+  { id: 'pgf', label: "Paternal Grandfather" },
+  { id: 'pgm', label: "Paternal Grandmother" },
+  { id: 'mgf', label: "Maternal Grandfather" },
+  { id: 'mgm', label: "Maternal Grandmother" },
+  { id: 'father', label: 'Father' },
+  { id: 'mother', label: 'Mother' },
+];
+
+const state = {};
+ROLES.forEach(r => state[r.id] = null);
+let children = ['child-1', 'child-2'];
+let childCounter = 2;
+children.forEach(id => state[id] = null);
+
+function allPersonIds() {
+  return [...ROLES.map(r => r.id), ...children];
+}
+
+function familyGroups() {
+  return [
+    { parents: ['pgf', 'pgm'], children: ['father'] },
+    { parents: ['mgf', 'mgm'], children: ['mother'] },
+    { parents: ['father', 'mother'], children: children.slice() },
+  ];
+}
+
+// Thin adapter: supplies this page's own state/family-tree shape to the
+// shared, reusable computeDomains() from blood-types-engine.js.
+function computeCurrentDomains() {
+  return computeDomains(state, allPersonIds(), familyGroups());
+}
+
+function labelOf(id) {
+  const role = ROLES.find(r => r.id === id);
+  if (role) return role.label;
+  const i = children.indexOf(id);
+  return i >= 0 ? `Child ${i + 1}` : id;
+}
+
+function setBloodType(id, bt) {
+  state[id] = (state[id] === bt) ? null : bt;
+  render();
+}
+
+// Which card the explanation panel is currently talking about.
+let focusedId = null;
+
+function createCard(id, label, removable) {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.dataset.card = id;
+
+  if (removable) {
+    const rm = document.createElement('button');
+    rm.className = 'remove';
+    rm.textContent = '✕';
+    rm.setAttribute('aria-label', 'Remove ' + label);
+    rm.addEventListener('click', () => {
+      children = children.filter(c => c !== id);
+      delete state[id];
+      render();
+    });
+    card.appendChild(rm);
+  }
+
+  const role = document.createElement('div');
+  role.className = 'role';
+  role.textContent = label;
+  card.appendChild(role);
+
+  const grid = document.createElement('div');
+  grid.className = 'bt-grid';
+  card.appendChild(grid);
+
+  const status = document.createElement('div');
+  status.className = 'status';
+  card.appendChild(status);
+
+  const why = document.createElement('button');
+  why.className = 'why-btn';
+  why.type = 'button';
+  why.textContent = 'Why?';
+  why.setAttribute('aria-label', 'Why these options for ' + label);
+  why.addEventListener('click', () => {
+    focusedId = (focusedId === id) ? null : id;
+    render();
+    if (focusedId) {
+      document.getElementById('whyPanel').scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+  });
+  card.appendChild(why);
+
+  return card;
+}
+
+function fillCard(card, id, domains) {
+  const known = state[id];
+  const { types: possible, contradiction } = possibleTypesFor(id, domains);
+  card.classList.toggle('contradiction', contradiction);
+  card.classList.toggle('focused', focusedId === id);
+
+  const grid = card.querySelector('.bt-grid');
+  grid.innerHTML = '';
+  BLOOD_TYPES.forEach(bt => {
+    const btn = document.createElement('button');
+    btn.className = 'bt-btn';
+    btn.textContent = bt;
+    btn.type = 'button';
+
+    if (known === bt) {
+      btn.classList.add('selected');
+      btn.setAttribute('aria-pressed', 'true');
+      btn.addEventListener('click', () => setBloodType(id, bt));
+    } else if (!known && possible.includes(bt)) {
+      btn.classList.add('possible');
+      btn.addEventListener('click', () => setBloodType(id, bt));
+    } else if (known) {
+      btn.classList.add('impossible');
+      btn.disabled = true;
+    } else {
+      btn.classList.add('impossible');
+      btn.disabled = true;
+    }
+    grid.appendChild(btn);
+  });
+
+  const status = card.querySelector('.status');
+  if (known) {
+    status.textContent = '';
+  } else if (contradiction) {
+    status.textContent = 'No type fits — check the family above.';
+    status.classList.add('warn');
+  } else {
+    status.textContent = possible.length === 8
+      ? ''
+      : `Possible: ${possible.join(', ')}`;
+    status.classList.remove('warn');
+  }
+}
+
+// ---------------------------------------------------------------------
+// The explanation panel.
+//
+// All the reasoning comes from explainFor()/influenceOf() in the engine;
+// everything here is phrasing. The engine hands back *which* entries did
+// the narrowing and how each one is related; these templates turn that
+// into a sentence, using the genetics clauses the engine supplies too, so
+// the prose can't quietly disagree with the calculation.
+// ---------------------------------------------------------------------
+
+function chips(types, cls) {
+  return types.map(t => `<span class="type-chip ${cls}">${t}</span>`).join('');
+}
+
+function causeSentence(personId, cause) {
+  const who = labelOf(cause.id), me = labelOf(personId), bt = cause.bloodType;
+  const down = inheritanceNote(bt);
+  const up = requirementNote(bt);
+
+  switch (cause.relation) {
+    case 'parent':
+      return `<b>${who} is ${bt}.</b> ${me} inherited one allele of each pair from `
+        + `them — and a ${bt} parent ${down.abo}, ${down.rh}.`;
+    case 'child':
+      return `<b>${who} is ${bt}.</b> That ${up.abo}, ${up.rh} — and ${me} is one of `
+        + `those two parents, so they have to be able to supply their share.`;
+    case 'coparent':
+      return `<b>${who} is ${bt}.</b> As the children's other parent they ${down.abo}, `
+        + `${down.rh}. Whatever the children need that ${who} can't supply, ${me} must.`;
+    case 'sibling':
+      return `<b>${who} is ${bt}.</b> A sibling's type constrains what the parents can `
+        + `carry, and the parents in turn constrain ${me}.`;
+    default:
+      return `<b>${who} is ${bt}.</b> That reaches ${me} indirectly, passed along `
+        + `through the relatives in between.`;
+  }
+}
+
+function renderWhy() {
+  const panel = document.getElementById('whyPanel');
+  const ids = allPersonIds();
+
+  if (!focusedId || !ids.includes(focusedId)) {
+    focusedId = null;
+    panel.innerHTML = `<h2>Reasoning</h2>`
+      + `<p class="quiet">Pick <b>Why?</b> on any card to see which entries produced `
+      + `its options — and which genetic rule did the work.</p>`;
+    return;
+  }
+
+  const id = focusedId, me = labelOf(id), known = state[id];
+  const info = explainFor(id, state, ids, familyGroups());
+  const knownOthers = ids.filter(p => p !== id && state[p]);
+  let html = `<h2>${me}</h2>`;
+
+  if (info.contradiction) {
+    html += `<p>No blood type at all fits ${me}. These entries can't be true together:</p>`;
+    html += info.causes.length
+      ? `<ul>${info.causes.map(c => `<li>${causeSentence(id, c)}</li>`).join('')}</ul>`
+        + `<p class="quiet">Clearing or changing any one of them resolves it.</p>`
+      : `<p class="quiet">The conflict comes from the family as a whole rather than `
+        + `any single entry — try clearing one and re-entering it.</p>`;
+
+  } else if (known) {
+    const down = inheritanceNote(known);
+    html += `<p>You entered <b>${known}</b>. To each of their children, ${me} ${down.abo}, ${down.rh}.</p>`;
+    const inf = influenceOf(id, state, ids, familyGroups());
+    if (inf.length) {
+      html += `<p class="quiet">Because of this entry, these relatives are narrowed:</p><ul>`
+        + inf.map(x => `<li><b>${labelOf(x.id)}</b> — from ${x.wouldBe.length} options `
+          + `down to ${x.possible.length}: ${chips(x.possible, 'in')}</li>`).join('')
+        + `</ul>`;
+    } else {
+      html += `<p class="quiet">On its own, this entry doesn't narrow anyone else yet. `
+        + `A single known type usually only bites once there's a second one to work `
+        + `against — a child, or the other parent.</p>`;
+    }
+
+  } else if (info.ruledOut.length === 0) {
+    if (!knownOthers.length) {
+      html += `<p>Nothing has been entered anywhere yet, so all eight types are open for ${me}.</p>`
+        + `<p class="quiet">Set a type on any card and watch the rest of the tree narrow.</p>`;
+    } else {
+      html += `<p>Nothing is ruled out — all eight types are still possible for ${me}.</p>`;
+      html += `<p class="quiet">The types entered so far `
+        + `(${knownOthers.map(p => `${labelOf(p)} ${state[p]}`).join(', ')}) leave every `
+        + `option open: each of ${me}'s eight types still has some inheritance route that fits.`
+        + (knownOthers.some(p => state[p].startsWith('AB'))
+            ? ` An AB relative is the usual reason — AB can supply an A <em>or</em> a B by `
+              + `itself, so it rarely forces the other parent's hand.`
+            : ``)
+        + `</p>`;
+    }
+
+  } else {
+    html += `<p>Ruled out: ${chips(info.ruledOut, 'out')}<br>`
+      + `Still possible: ${chips(info.possible, 'in')}</p>`;
+    html += `<ul>${info.causes.map(c => `<li>${causeSentence(id, c)}</li>`).join('')}</ul>`;
+    html += `<p class="quiet">Nothing else in the family tells the remaining `
+      + `${info.possible.length} apart.</p>`;
+  }
+
+  panel.innerHTML = html;
+}
+
+function drawLines() {
+  const svg = document.getElementById('lines');
+  const tree = document.getElementById('tree');
+  const treeRect = tree.getBoundingClientRect();
+  svg.setAttribute('width', tree.scrollWidth);
+  svg.setAttribute('height', tree.scrollHeight);
+  svg.innerHTML = '';
+
+  function rectOf(id) {
+    const el = tree.querySelector(`[data-card="${id}"]`);
+    if (!el) return null;
+    const r = el.getBoundingClientRect();
+    return {
+      cx: r.left - treeRect.left + r.width / 2,
+      top: r.top - treeRect.top,
+      bottom: r.bottom - treeRect.top,
+    };
+  }
+  function line(x1, y1, x2, y2) {
+    const l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    l.setAttribute('x1', x1);
+    l.setAttribute('y1', y1);
+    l.setAttribute('x2', x2);
+    l.setAttribute('y2', y2);
+    l.setAttribute('class', 'tree-line');
+    svg.appendChild(l);
+  }
+  function dropToParent(id1, id2, childId) {
+    const a = rectOf(id1), b = rectOf(id2), c = rectOf(childId);
+    if (!a || !b || !c) return;
+    const busY = a.bottom + 14;
+    line(a.cx, a.bottom, a.cx, busY);
+    line(b.cx, b.bottom, b.cx, busY);
+    line(Math.min(a.cx, b.cx), busY, Math.max(a.cx, b.cx), busY);
+    const midX = (a.cx + b.cx) / 2;
+    const elbowY = (busY + c.top) / 2;
+    line(midX, busY, midX, elbowY);
+    line(midX, elbowY, c.cx, elbowY);
+    line(c.cx, elbowY, c.cx, c.top);
+  }
+
+  dropToParent('pgf', 'pgm', 'father');
+  dropToParent('mgf', 'mgm', 'mother');
+
+  const fa = rectOf('father'), mo = rectOf('mother');
+  const kidRects = children.map(rectOf).filter(Boolean);
+  if (fa && mo) {
+    const coupleY = fa.bottom + 14;
+    line(fa.cx, fa.bottom, fa.cx, coupleY);
+    line(mo.cx, mo.bottom, mo.cx, coupleY);
+    line(fa.cx, coupleY, mo.cx, coupleY);
+    const midX = (fa.cx + mo.cx) / 2;
+    if (kidRects.length) {
+      const busY = coupleY + 22;
+      line(midX, coupleY, midX, busY);
+      const xs = kidRects.map(k => k.cx);
+      line(Math.min(...xs), busY, Math.max(...xs), busY);
+      kidRects.forEach(k => line(k.cx, busY, k.cx, k.top));
+    }
+  }
+}
+
+function render() {
+  const domains = computeCurrentDomains();
+
+  ROLES.forEach(r => {
+    const slot = document.getElementById('slot-' + r.id);
+    slot.innerHTML = '';
+    const card = createCard(r.id, r.label, false);
+    slot.appendChild(card);
+    fillCard(card, r.id, domains);
+  });
+
+  const childrenRow = document.getElementById('childrenRow');
+  childrenRow.innerHTML = '';
+  children.forEach((id, i) => {
+    const card = createCard(id, `Child ${i + 1}`, true);
+    childrenRow.appendChild(card);
+    fillCard(card, id, domains);
+  });
+
+  const anyContradiction = allPersonIds().some(id => {
+    const { contradiction } = possibleTypesFor(id, domains);
+    return contradiction;
+  });
+  document.getElementById('banner').classList.toggle('show', anyContradiction);
+
+  renderWhy();
+  requestAnimationFrame(drawLines);
+}
+
+document.getElementById('addChild').addEventListener('click', () => {
+  childCounter++;
+  const id = 'child-' + childCounter;
+  children.push(id);
+  state[id] = null;
+  render();
+});
+
+document.getElementById('resetAll').addEventListener('click', () => {
+  allPersonIds().forEach(id => state[id] = null);
+  render();
+});
+
+window.addEventListener('resize', () => requestAnimationFrame(drawLines));
+
+const themeToggle = document.getElementById('themeToggle');
+function applyTheme(theme) {
+  if (theme) {
+    document.documentElement.dataset.theme = theme;
+  } else {
+    delete document.documentElement.dataset.theme;
+  }
+  const isDark = theme
+    ? theme === 'dark'
+    : window.matchMedia('(prefers-color-scheme: dark)').matches;
+  themeToggle.textContent = isDark ? '☀️ Light' : '🌙 Dark';
+}
+themeToggle.addEventListener('click', () => {
+  const current = document.documentElement.dataset.theme
+    || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  const next = current === 'dark' ? 'light' : 'dark';
+  localStorage.setItem('blood-types-theme', next);
+  applyTheme(next);
+});
+applyTheme(localStorage.getItem('blood-types-theme'));
+
+render();
+</script>
+</body>
+</html>
