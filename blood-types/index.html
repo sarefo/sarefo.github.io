@@ -4,6 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Family Blood Type Explorer</title>
+<meta name="description" content="Enter the blood types you know for a family, and see which types are still genetically possible for everyone else — with the ABO and Rh reasoning explained step by step.">
+<meta name="color-scheme" content="light dark">
+<!-- Shown when the link is pasted into a chat app or social post. -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Family Blood Type Explorer">
+<meta property="og:description" content="Enter the blood types you know for a family, and see which types are still genetically possible for everyone else — with the reasoning explained.">
+<meta property="og:url" content="https://sarefo.github.io/blood-types/">
+<meta name="twitter:card" content="summary">
 <style>
   :root {
     --bg: #eef2f4;
@@ -349,8 +357,8 @@
 <script>
 // The genetics engine (punnett, parseBloodType, propagate, computeDomains,
 // possibleTypesFor, and the ABO_*/RH_*/BLOOD_TYPES constants) lives in
-// blood-types-engine.js, loaded above. It's shared with blood-types.test.html
-// so the test suite exercises the exact same code this page runs.
+// blood-types-engine.js, loaded above. It's shared with tests.html so the
+// test suite exercises the exact same code this page runs.
 //
 // Everything below is specific to this page: the family tree structure,
 // wiring up the UI, and drawing the connector lines.

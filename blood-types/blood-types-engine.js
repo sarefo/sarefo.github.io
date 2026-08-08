@@ -7,8 +7,8 @@
 // inputs and you always get the same output, so a test can just check
 // "did I get the expected output" with no setup/teardown dance.
 //
-// This file is loaded by BOTH blood-types.html (the real app) and
-// blood-types.test.html (the test suite) via a plain <script src=...> tag.
+// This file is loaded by BOTH index.html (the real app) and tests.html
+// (the test suite) via a plain <script src=...> tag.
 // That matters: the tests exercise this exact file, not a copy of it, so a
 // passing test suite really does mean the shipped app behaves this way.
 
