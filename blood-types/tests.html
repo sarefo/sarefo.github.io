@@ -270,21 +270,6 @@ test('explainFor: falls back when two entries force the same conclusion', () => 
   assertSetEqual(info.causes.map(c => c.id), ['kid1', 'kid2'], 'causes');
 });
 
-test('allelePairsFor: leaves the second slot open when the genotype is', () => {
-  // Type A is either AA or AO, so only one chromosome is pinned down.
-  const a = allelePairsFor('A+');
-  assert(a[0].alleles.join('/') === 'A/A or O', a[0].alleles.join('/'));
-  assert(a[1].alleles.join('/') === 'D/D or d', a[1].alleles.join('/'));
-});
-
-test('allelePairsFor: AB and O pin down both slots', () => {
-  // These two are the informative types: no ambiguity in either slot,
-  // which is why they constrain a family tree so much more than A or B.
-  assert(allelePairsFor('AB-')[0].alleles.join('/') === 'A/B');
-  assert(allelePairsFor('AB-')[1].alleles.join('/') === 'd/d');
-  assert(allelePairsFor('O+')[0].alleles.join('/') === 'O/O');
-});
-
 test('relationBetween: reads relationships off the family structure', () => {
   const groups = [
     { parents: ['grandfather', 'grandmother'], children: ['father'] },
@@ -311,6 +296,120 @@ test('influenceOf: lists who a known entry narrows, and by how much', () => {
 test('influenceOf: an unknown person influences nobody', () => {
   const state = { father: null, mother: 'B+', child: 'O+' };
   assert(influenceOf('father', state, Object.keys(state), TRIO).length === 0);
+});
+
+// ---------------------------------------------------------------------
+// 5. The chromosome layer: turning a set of possible genotypes back into
+//    two drawable allele slots. What matters here is that a picture never
+//    claims more (or less) than the solver actually knows.
+// ---------------------------------------------------------------------
+
+// "A|B or O" -- slots separated by |, candidates within a slot by " or ".
+function slotsAsText(group) {
+  return group.slots.map(s => s.alleles.join(' or ')).join('|');
+}
+
+test('decomposeSlots: reads {AA, AO} as one certain A plus one open slot', () => {
+  const d = decomposeSlots(['AA', 'AO'], ABO_ALLELES);
+  assert(d.slots.length === 2, 'expected two slots');
+  assert(d.slots[0].join('') === 'A', `first slot: ${d.slots[0]}`);
+  assertSetEqual(d.slots[1], ['A', 'O'], 'second slot');
+});
+
+test('decomposeSlots: a single genotype pins down both slots', () => {
+  const d = decomposeSlots(['BO'], ABO_ALLELES);
+  assert(d.slots[0].join('') === 'B' && d.slots[1].join('') === 'O',
+    `got ${JSON.stringify(d.slots)}`);
+});
+
+test('decomposeSlots: refuses to draw a set that has no slot reading', () => {
+  // "AB or OO" cannot be split into two independent slots: any pair of
+  // slots that can make AB and OO can also make AO, which this set
+  // excludes. Drawing it as slots would therefore overstate what's
+  // possible, so slots must come back null and the genotypes preserved.
+  const d = decomposeSlots(['AB', 'OO'], ABO_ALLELES);
+  assert(d.slots === null, `expected no decomposition, got ${JSON.stringify(d.slots)}`);
+  assertSetEqual(d.genotypes, ['AB', 'OO'], 'genotypes kept for the fallback');
+});
+
+test('decomposeSlots: every slot pair really multiplies back to its set', () => {
+  // The invariant behind the whole drawing layer, checked exhaustively
+  // over all 63 non-empty sets of ABO genotypes: whenever we do produce
+  // slots, recombining them must give back exactly the set we started
+  // with -- no genotype invented, none dropped.
+  for (let mask = 1; mask < (1 << ABO_ALL.length); mask++) {
+    const set = ABO_ALL.filter((_, i) => mask & (1 << i));
+    const d = decomposeSlots(set, ABO_ALLELES);
+    if (!d.slots) continue;
+    assertSetEqual(slotProduct(d.slots[0], d.slots[1]), set,
+      `slots for {${set}} multiply back wrong`);
+  }
+});
+
+test('allelePairsFor: leaves the second slot open when the genotype is', () => {
+  // Type A is either AA or AO, so only one chromosome is pinned down.
+  const a = allelePairsFor('A+');
+  assert(slotsAsText(a[0]) === 'A|A or O', slotsAsText(a[0]));
+  assert(slotsAsText(a[1]) === 'D|D or d', slotsAsText(a[1]));
+  assert(a[0].slots[0].certain && !a[0].slots[1].certain, 'certainty flags');
+});
+
+test('allelePairsFor: AB and O pin down both slots', () => {
+  // These two are the informative types: no ambiguity in either slot,
+  // which is why they constrain a family tree so much more than A or B.
+  assert(slotsAsText(allelePairsFor('AB-')[0]) === 'A|B');
+  assert(slotsAsText(allelePairsFor('AB-')[1]) === 'd|d');
+  assert(slotsAsText(allelePairsFor('O+')[0]) === 'O|O');
+  assert(allelePairsFor('AB-')[0].slots.every(s => s.certain), 'both slots certain');
+});
+
+test('allelePairsFor: a type on its own never claims a deduction', () => {
+  // Nothing has been inferred from anybody, so no slot may be flagged as
+  // coming from the family -- that flag is what the accent mark draws.
+  BLOOD_TYPES.forEach(bt => {
+    allelePairsFor(bt).forEach(g => g.slots.forEach(s => {
+      assert(!s.inferred, `${bt} claimed an inferred slot`);
+    }));
+  });
+});
+
+test('genotypeChartFor: an unknown person shows two wide-open slots', () => {
+  const state = { person: null };
+  const chart = genotypeChartFor('person', solve(state, []), null);
+  assert(chart[0].slots.every(s => s.open), 'ABO should be wide open');
+  assert(chart[0].slots.every(s => !s.inferred), 'nothing to infer from');
+});
+
+test('genotypeChartFor: the family upgrades an A parent to A + O', () => {
+  // The headline case for the icons. Mother is A+, her child is O+. Type A
+  // alone leaves her second chromosome ambiguous (A or O), but an O child
+  // needs an O from her -- so it must be O, and that O is something the
+  // family told us, not something her own blood type did.
+  const state = { mother: 'A+', father: null, child: 'O+' };
+  const groups = [{ parents: ['father', 'mother'], children: ['child'] }];
+  const chart = genotypeChartFor('mother', solve(state, groups), 'A+');
+  assert(slotsAsText(chart[0]) === 'A|O', slotsAsText(chart[0]));
+  assert(!chart[0].slots[0].inferred, 'the A comes from her own blood type');
+  assert(chart[0].slots[1].inferred, 'the O should be flagged as deduced');
+});
+
+test('genotypeChartFor: deduces an allele for someone with no entry at all', () => {
+  // Father's type is unknown, but his O+ child needs an O from him, so one
+  // of his ABO chromosomes is settled while the other stays open.
+  const state = { mother: 'A+', father: null, child: 'O+' };
+  const groups = [{ parents: ['father', 'mother'], children: ['child'] }];
+  const chart = genotypeChartFor('father', solve(state, groups), null);
+  assert(slotsAsText(chart[0]) === 'O|A or B or O', slotsAsText(chart[0]));
+  assert(chart[0].slots[0].inferred && chart[0].slots[1].inferred === false,
+    'only the settled slot is a deduction');
+});
+
+test('genotypeChartFor: an impossible person reports it instead of drawing', () => {
+  const state = { father: 'O+', mother: 'O+', child: 'AB+' };
+  const chart = genotypeChartFor('child', solve(state, TRIO), 'AB+');
+  assert(chart[0].contradiction, 'ABO should be contradictory');
+  assert(chart[0].slots.length === 0, 'no slots to draw');
+  assert(!chart[1].contradiction, 'Rh is fine on its own');
 });
 
 // ---------------------------------------------------------------------

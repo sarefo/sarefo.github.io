@@ -27,6 +27,18 @@
     --warn-bg: #fff2d9;
     --warn-ink: #8a5a00;
     --warn-line: #f0cd85;
+    /* One color per allele, used on every chromosome icon on the page.
+       A/B are a blue-orange pair (the safest split for color-blind
+       readers); the recessive O and d share one deliberately quiet gray,
+       because "carries nothing" is what they have in common. Crimson is
+       never an allele color -- it stays reserved for warnings, focus and
+       deductions. */
+    --al-A: #2f6fb0;
+    --al-B: #c26a15;
+    --al-O: #8b979e;
+    --al-D: #35835a;
+    --al-d: #8b979e;
+    --chr-open: #f1f4f6;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
@@ -43,6 +55,12 @@
       --warn-bg: #3a2f10;
       --warn-ink: #f0c05c;
       --warn-line: #5c4a1a;
+      --al-A: #6aaef0;
+      --al-B: #e8a35c;
+      --al-O: #79878f;
+      --al-D: #62c48e;
+      --al-d: #79878f;
+      --chr-open: #262f33;
     }
   }
   :root[data-theme="dark"] {
@@ -59,6 +77,12 @@
     --warn-bg: #3a2f10;
     --warn-ink: #f0c05c;
     --warn-line: #5c4a1a;
+    --al-A: #6aaef0;
+    --al-B: #e8a35c;
+    --al-O: #79878f;
+    --al-D: #62c48e;
+    --al-d: #79878f;
+    --chr-open: #262f33;
   }
   * { box-sizing: border-box; }
   body {
@@ -221,19 +245,75 @@
     font-size: .78rem; color: var(--muted);
   }
   .legend span { display: inline-flex; align-items: center; gap: .4rem; }
+  .legend.chromosomes { margin-top: .9rem; gap: 1.1rem; align-items: center; }
+  .legend .lead { color: var(--ink); font-weight: 600; }
   .swatch { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
   .swatch.sw-selected { background: var(--selected); }
   .swatch.sw-possible { background: var(--accent-soft); border: 1px solid var(--line); }
   .swatch.sw-impossible { background: var(--impossible-bg); border: 1px solid var(--line); }
 
-  /* Chromosome diagrams inside the explanations. Everything is drawn in
-     currentColor or a theme token, so both themes are handled for free. */
-  .chr-svg { display: block; margin: .55rem 0 .15rem; max-width: 100%; height: auto; }
-  .chr-body { fill: var(--accent-soft); stroke: currentColor; stroke-width: 1; }
-  .chr-waist { stroke: currentColor; stroke-width: 1; opacity: .45; }
-  .chr-gene { font-size: 7.5px; letter-spacing: .07em; fill: currentColor; opacity: .55; }
-  .chr-allele { font-size: 10px; font-weight: 700; fill: currentColor; }
+  /* ------------------------------------------------------------------
+     Chromosome icons.
+     One visual language at three sizes: compact on every person's card,
+     larger inside the explanations, smaller again in the legend.
+     Everything is drawn in theme tokens or currentColor, so both themes
+     are handled for free.
+
+     How to read one: a filled capsule is an allele we know that person
+     carries; a dashed capsule is a chromosome we can't pin down yet, with
+     its remaining candidates listed underneath; an accent underline marks
+     an allele the family tree gave us rather than the person's own type.
+     ------------------------------------------------------------------ */
+  .chr-svg { display: block; max-width: 100%; height: auto; }
+  .chr-svg.chr-panel { margin: .55rem 0 .15rem; }
+
+  /* A chromosome we know the allele of: solid allele color, no outline
+     needed. `fill` is set per capsule from the allele's own token. */
+  .chr-solid { stroke: none; }
+  /* A chromosome still undecided: hollow and dashed, so a card full of
+     unknowns reads as quiet background rather than as data. */
+  .chr-hollow {
+    fill: var(--chr-open); stroke: var(--muted); stroke-width: 1;
+    stroke-dasharray: 3 2.5; opacity: .8;
+  }
+  /* Same dashed outline, but transparent, for capsules that already have
+     candidate color bands drawn inside them. */
+  .chr-outline {
+    fill: none; stroke: var(--muted); stroke-width: 1;
+    stroke-dasharray: 3 2.5; opacity: .8;
+  }
+  /* The candidate colors banded inside a dashed capsule -- a hint of which
+     two alleles are in play, without claiming either. */
+  .chr-band { opacity: .34; }
+  .chr-conflict { fill: none; stroke: var(--accent); stroke-width: 1.2; stroke-dasharray: 3 2.5; }
+  .chr-bad { fill: var(--accent); }
+  /* The centromere pinch. On a filled capsule it's drawn in the card
+     color, which reads as a notch in both themes. */
+  .chr-waist-on { stroke: var(--card); stroke-width: 1.2; opacity: .75; }
+  .chr-waist-off { stroke: var(--muted); stroke-width: 1; opacity: .5; }
+
+  .chr-gene { letter-spacing: .07em; fill: currentColor; opacity: .55; }
+  .chr-allele { font-weight: 700; fill: currentColor; }
+  .chr-sep { fill: currentColor; opacity: .4; font-weight: 400; }
+  .chr-unknown { fill: currentColor; opacity: .38; }
   .chr-cap { font-size: 8.5px; fill: currentColor; opacity: .62; }
+  /* "The family told us this one." */
+  .chr-mark { stroke: var(--accent); stroke-width: 2; stroke-linecap: round; }
+
+  .chr-svg.chr-card .chr-gene { font-size: 7px; }
+  .chr-svg.chr-card .chr-allele { font-size: 10.5px; }
+  .chr-svg.chr-panel .chr-gene { font-size: 7.5px; }
+  .chr-svg.chr-panel .chr-allele { font-size: 10px; }
+  .chr-svg.chr-legend .chr-allele { font-size: 9px; }
+
+  .al-A { fill: var(--al-A); }
+  .al-B { fill: var(--al-B); }
+  .al-O { fill: var(--al-O); }
+  .al-D { fill: var(--al-D); }
+  .al-d { fill: var(--al-d); }
+
+  /* The strip on a person's card, between their role and their types. */
+  .chr-strip { display: flex; justify-content: center; margin: 0 0 .5rem; }
 
   /* ------------------------------------------------------------------
      Narrow screens (phones). The drawn tree needs ~700px to lay out four
@@ -295,7 +375,7 @@
 <body>
 <main>
   <h1>Family Blood Type Explorer</h1>
-  <p class="sub">Enter the blood types you already know. For everyone else, the tool works out — from ABO and Rh inheritance rules — which blood types are still genetically possible.</p>
+  <p class="sub">Enter the blood types you already know. For everyone else, the tool works out — from ABO and Rh inheritance rules — which blood types are still genetically possible. Every card shows the alleles that person must be carrying, on the two chromosome pairs that decide a blood type.</p>
 
   <div class="banner" id="banner">
     <span>⚠️</span>
@@ -351,6 +431,10 @@
     <span><i class="swatch sw-possible"></i> still possible</span>
     <span><i class="swatch sw-impossible"></i> ruled out</span>
   </div>
+
+  <!-- Samples are drawn by the same routine that draws the real icons,
+       so the legend can't drift out of step with them. -->
+  <div class="legend chromosomes" id="chrLegend"></div>
 </main>
 
 <script src="blood-types-engine.js"></script>
@@ -434,6 +518,12 @@ function createCard(id, label, removable) {
   role.textContent = label;
   card.appendChild(role);
 
+  // Which alleles this person must carry. Filled in by fillCard(), which
+  // is the one that has the solved domains.
+  const strip = document.createElement('div');
+  strip.className = 'chr-strip';
+  card.appendChild(strip);
+
   const grid = document.createElement('div');
   grid.className = 'bt-grid';
   card.appendChild(grid);
@@ -467,6 +557,15 @@ function fillCard(card, id, domains) {
   const { types: possible, contradiction } = possibleTypesFor(id, domains);
   card.classList.toggle('contradiction', contradiction);
   card.classList.toggle('focused', focusedId === id);
+
+  // The chromosomes come straight from the solved domains, so they show
+  // everything the family tree has established -- not just what this
+  // person's own entry says. An A+ mother of an O+ child draws as A + O,
+  // with the O marked as a deduction.
+  card.querySelector('.chr-strip').innerHTML = chromosomeSvg(
+    genotypeChartFor(id, domains, known),
+    { altPrefix: labelOf(id) }
+  );
 
   const grid = card.querySelector('.bt-grid');
   grid.innerHTML = '';
@@ -521,42 +620,182 @@ function chips(types, cls) {
   return types.map(t => `<span class="type-chip ${cls}">${t}</span>`).join('');
 }
 
-// Draws the two chromosome pairs a blood type implies: ABO on chromosome
-// 9, Rh on chromosome 1, two allele slots each. The allele strings come
-// from allelePairsFor() in the engine, so the picture and the calculation
-// are reading off the same genetics -- a slot showing "A or O" is showing
-// exactly the ambiguity the solver is carrying around internally.
-function chromosomeDiagram(bt, caption) {
-  const groups = allelePairsFor(bt);
-  const SLOT = 50, GROUP_GAP = 26, CH_W = 15, CH_H = 38, CH_TOP = 16;
-  const groupW = SLOT * 2;
-  const W = groupW * 2 + GROUP_GAP;
-  const H = caption ? 84 : 72;
+// ---------------------------------------------------------------------
+// Chromosome icons.
+//
+// One drawing routine serves all three places they appear: the compact
+// strip on every person's card, the larger diagrams inside the
+// explanations, and the samples in the legend. It draws nothing but what
+// the engine hands it, so a capsule showing "A/O" is showing exactly the
+// ambiguity the solver is still carrying for that person -- and a capsule
+// that has gone solid has gone solid because the family tree closed the
+// question, not because the drawing code decided it looked better that way.
+// ---------------------------------------------------------------------
 
-  let body = '';
-  groups.forEach((g, gi) => {
-    const gx = gi * (groupW + GROUP_GAP);
-    body += `<text class="chr-gene" x="${gx + groupW / 2}" y="8" text-anchor="middle">`
-      + `CHR ${g.chromosome} · ${g.gene}</text>`;
-    g.alleles.forEach((allele, ai) => {
-      const cx = gx + SLOT * ai + SLOT / 2;
-      const left = cx - CH_W / 2, waistY = CH_TOP + 13;
-      body += `<rect class="chr-body" x="${left}" y="${CH_TOP}" width="${CH_W}" `
-          + `height="${CH_H}" rx="${CH_W / 2}"/>`
-        + `<line class="chr-waist" x1="${left}" y1="${waistY}" x2="${left + CH_W}" y2="${waistY}"/>`
-        + `<text class="chr-allele" x="${cx}" y="${CH_TOP + CH_H + 12}" `
-          + `text-anchor="middle">${allele}</text>`;
+// clipPath ids have to be unique document-wide; cards are rebuilt from
+// scratch on every render, so a running counter is enough.
+let chrUid = 0;
+
+// The allele letters under one capsule: colored per allele, with a quiet
+// separator. Three candidates at this size is more noise than
+// information, so a wide-open ABO slot just says "?".
+function alleleText(alleles, sep) {
+  if (alleles.length >= 3) return `<tspan class="chr-unknown">?</tspan>`;
+  return alleles.map(a => `<tspan class="al-${a}">${a}</tspan>`)
+    .join(`<tspan class="chr-sep">${sep}</tspan>`);
+}
+
+// Plain-language version of one locus, for screen readers and hover.
+function describeGroup(g) {
+  if (g.contradiction) return 'no combination of alleles fits';
+  if (!g.exact) return `either ${g.genotypes.join(' or ')}`;
+  return g.slots.map(s => {
+    const list = s.alleles.length >= 3 ? 'undetermined' : s.alleles.join(' or ');
+    return s.inferred ? `${list} (deduced from relatives)` : list;
+  }).join(', and ');
+}
+
+// Three sizes of the same icon.
+//   cw/ch  capsule width and height
+//   slot   horizontal room per chromosome
+//   gap    space between the two loci
+//   top    capsule top edge -- room above it for the gene label
+//   lab    drop from the capsule's bottom to the allele label's baseline
+//   sep    between two allele letters. Non-breaking spaces, because
+//          ordinary ones can get collapsed away between tspans.
+const CHR_SIZES = {
+  card:   { cw: 19, ch: 36, slot: 30, gap: 18, top: 13, lab: 12, sep: '/' },
+  panel:  { cw: 15, ch: 38, slot: 50, gap: 26, top: 13, lab: 12, sep: ' or ' },
+  legend: { cw: 13, ch: 24, slot: 22, gap: 14, top: 2, lab: 10, sep: '/' },
+};
+
+function chromosomeSvg(chart, opts = {}) {
+  const variant = opts.variant || 'card';
+  const panel = variant === 'panel';
+  const { cw: CW, ch: CH, slot: SLOT, gap: GAP, top: TOP, lab: LAB, sep: SEP }
+    = CHR_SIZES[variant];
+  const labelY = TOP + CH + LAB;
+  const H = labelY + (opts.caption ? 18 : 7);
+
+  const waist = (left, on) => {
+    const y = TOP + CH * 0.34;
+    return `<line class="${on ? 'chr-waist-on' : 'chr-waist-off'}" x1="${left}" `
+      + `y1="${y}" x2="${left + CW}" y2="${y}"/>`;
+  };
+
+  let x = 0, body = '';
+  const alt = [];
+
+  chart.forEach(g => {
+    // A contradictory locus, or one with no faithful slot reading, still
+    // gets its two capsules drawn -- the icon keeps its shape instead of
+    // collapsing, and the label underneath carries the bad news.
+    const slots = g.slots.length ? g.slots : [null, null];
+    const groupW = SLOT * slots.length;
+
+    if (!opts.hideGene) {
+      const name = panel ? `CHR ${g.chromosome} · ${g.gene}`
+                         : `${g.gene} · ${g.chromosome}`;
+      body += `<text class="chr-gene" x="${x + groupW / 2}" y="${panel ? 8 : 7}" `
+        + `text-anchor="middle">${name}</text>`;
+    }
+
+    slots.forEach((slot, i) => {
+      const cx = x + SLOT * i + SLOT / 2;
+      const left = cx - CW / 2;
+      const rect = (cls, extra = '') => `<rect class="${cls}" x="${left}" y="${TOP}" `
+        + `width="${CW}" height="${CH}" rx="${CW / 2}" ${extra}/>`;
+
+      if (!slot || slot.open) {
+        // Nothing known about this chromosome yet: empty and dashed, so a
+        // fresh page reads as quiet background rather than as data.
+        body += rect(g.contradiction ? 'chr-conflict' : 'chr-hollow') + waist(left, false);
+      } else if (slot.certain) {
+        body += rect('chr-solid', `fill="var(--al-${slot.alleles[0]})"`) + waist(left, true);
+      } else {
+        // Undecided: hollow, with a band of each candidate's color inside
+        // as a hint of what's in play, clipped to the capsule outline.
+        const clip = `chrclip-${++chrUid}`;
+        const bandH = CH / slot.alleles.length;
+        body += `<clipPath id="${clip}">${rect('')}</clipPath>`
+          + `<g clip-path="url(#${clip})">`
+          + slot.alleles.map((a, bi) => `<rect class="chr-band" x="${left}" `
+              + `y="${TOP + bandH * bi}" width="${CW}" height="${bandH}" `
+              + `fill="var(--al-${a})"/>`).join('')
+          + `</g>`
+          + rect('chr-outline') + waist(left, false);
+      }
+
+      // Per-capsule label. The two exceptional cases label the pair as a
+      // whole instead, below.
+      if (slot) {
+        body += `<text class="chr-allele" x="${cx}" y="${labelY}" text-anchor="middle">`
+          + `${alleleText(slot.alleles, SEP)}</text>`;
+        if (slot.inferred) {
+          const hw = slot.alleles.length > 1 ? 10 : 5;
+          body += `<line class="chr-mark" x1="${cx - hw}" y1="${labelY + 4}" `
+            + `x2="${cx + hw}" y2="${labelY + 4}"/>`;
+        }
+      }
     });
+
+    if (!g.slots.length) {
+      const note = g.contradiction ? '✕ impossible'
+        : g.genotypes.length <= 3 ? g.genotypes.join(' or ')
+        : `1 of ${g.genotypes.length}`;
+      body += `<text class="chr-allele ${g.contradiction ? 'chr-bad' : 'chr-unknown'}" `
+        + `x="${x + groupW / 2}" y="${labelY}" text-anchor="middle">${note}</text>`;
+    }
+
+    alt.push(`${g.gene} on chromosome ${g.chromosome}: ${describeGroup(g)}`);
+    x += groupW + GAP;
   });
-  if (caption) {
-    body += `<text class="chr-cap" x="${W / 2}" y="${H - 3}" text-anchor="middle">${caption}</text>`;
+
+  const W = x - GAP;
+  if (opts.caption) {
+    body += `<text class="chr-cap" x="${W / 2}" y="${H - 3}" text-anchor="middle">`
+      + `${opts.caption}</text>`;
   }
 
-  const alt = `${bt}: on chromosome 9 the ABO alleles are `
-    + `${groups[0].alleles.join(' and ')}; on chromosome 1 the Rh alleles are `
-    + `${groups[1].alleles.join(' and ')}.`;
-  return `<svg class="chr-svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" `
-    + `role="img" aria-label="${alt}">${body}</svg>`;
+  const label = (opts.altPrefix ? opts.altPrefix + ' — ' : '') + alt.join('; ') + '.';
+  return `<svg class="chr-svg chr-${variant}" viewBox="0 0 ${W} ${H}" `
+    + `width="${W}" height="${H}" role="img" aria-label="${label}">`
+    + `<title>${label}</title>${body}</svg>`;
+}
+
+// The explanation panel talks about one entered blood type at a time, so
+// its diagrams show what that type alone implies -- matching the sentence
+// beside them, which is also about that one entry.
+function chromosomeDiagram(bt, caption) {
+  return chromosomeSvg(allelePairsFor(bt), {
+    variant: 'panel', caption, altPrefix: bt,
+  });
+}
+
+// How to read a chromosome icon, shown once at the bottom of the page.
+// Each sample is a real one-chromosome chart run through the real drawing
+// routine, so the legend is a demonstration rather than a description.
+function renderChrLegend() {
+  const sample = slot => chromosomeSvg(
+    [{ chromosome: 9, gene: 'ABO', locus: 'abo', slots: [slot],
+       exact: true, genotypes: [], contradiction: false }],
+    { variant: 'legend', hideGene: true, altPrefix: null });
+
+  const slot = (alleles, inferred) => ({
+    alleles, certain: alleles.length === 1,
+    open: alleles.length === 3, inferred,
+  });
+
+  const items = [
+    [slot(['A'], false), 'allele carried'],
+    [slot(['A', 'O'], false), 'either one'],
+    [slot(['O'], true), 'deduced from relatives'],
+    [slot(['A', 'B', 'O'], false), 'nothing known yet'],
+  ];
+
+  document.getElementById('chrLegend').innerHTML =
+    `<span class="lead">Chromosomes:</span>`
+    + items.map(([s, text]) => `<span>${sample(s)} ${text}</span>`).join('');
 }
 
 // A chromosome pair is read differently depending on which way the
@@ -860,6 +1099,7 @@ themeToggle.addEventListener('click', () => {
 });
 applyTheme(localStorage.getItem('blood-types-theme'));
 
+renderChrLegend();
 render();
 </script>
 </body>

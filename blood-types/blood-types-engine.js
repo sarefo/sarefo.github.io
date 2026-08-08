@@ -20,6 +20,22 @@ const ABO_FROM_PHENO = { A: ['AA', 'AO'], B: ['BB', 'BO'], AB: ['AB'], O: ['OO']
 const RH_FROM_PHENO = { '+': ['DD', 'Dd'], '-': ['dd'] };
 const BLOOD_TYPES = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 
+const ABO_ALLELES = ['A', 'B', 'O'];
+const RH_ALLELES = ['D', 'd'];
+
+// The two loci behind a blood type. ABO sits on chromosome 9 and Rh (the
+// RHD gene) on chromosome 1 -- genuinely separate chromosome pairs, which
+// is why the two halves of a blood type are inherited independently.
+//
+// `key` matches the keys used by parseBloodType() and computeDomains(), so
+// one loop can walk both loci without special-casing either.
+const LOCI = [
+  { key: 'abo', chromosome: 9, gene: 'ABO', alleles: ABO_ALLELES,
+    all: ABO_ALL, fromPheno: ABO_FROM_PHENO },
+  { key: 'rh', chromosome: 1, gene: 'Rh', alleles: RH_ALLELES,
+    all: RH_ALL, fromPheno: RH_FROM_PHENO },
+];
+
 // Combines two genotypes (each a 2-letter allele string, e.g. "AO") into
 // the set of genotypes a child could inherit from them -- a Punnett square.
 function punnett(g1, g2) {
@@ -174,32 +190,151 @@ function inheritanceNote(bt) {
   return { abo: aboNote, rh: rhNote };
 }
 
-// The two chromosome pairs behind a blood type, for drawing. ABO sits on
-// chromosome 9 and Rh (the RHD gene) on chromosome 1 -- genuinely separate
-// pairs, which is why the two are inherited independently.
+// =====================================================================
+// Drawing the chromosomes.
 //
-// Each pair is returned as two allele slots. One slot is always certain;
-// the other may be undetermined, because a phenotype doesn't pin down a
-// genotype: type A is either AA or AO, so all we can say about the second
-// chromosome is "A or O". Types AB and O are the exceptions -- both of
-// their slots are certain, which is exactly why those two types carry so
-// much information in a family tree.
+// The solver above thinks in whole genotypes: a person's ABO domain is a
+// SET like {AA, AO} ("type A, but we can't tell which"). A picture has to
+// think in slots instead -- two chromosomes side by side, each showing
+// what that one chromosome could carry. The functions here convert one
+// into the other, so the icons on screen are a view of the solver's own
+// state rather than a second, hand-written account of the genetics that
+// could drift away from it.
+// =====================================================================
+
+// Rank used to order alleles consistently wherever they're listed, so the
+// dominant/informative one comes first: "A or O", never "O or A".
+const ALLELE_ORDER = { A: 0, B: 1, O: 2, D: 0, d: 1 };
+
+function subsetsOf(items) {
+  const out = [];
+  for (let mask = 1; mask < (1 << items.length); mask++) {
+    out.push(items.filter((_, i) => mask & (1 << i)));
+  }
+  return out;
+}
+
+// Every genotype you get by taking one allele from slot 1 and one from
+// slot 2. Same allele-sorting convention as punnett(), so the strings line
+// up with the ones the solver uses.
+function slotProduct(s1, s2) {
+  const out = new Set();
+  for (const a of s1) for (const b of s2) out.add([a, b].sort().join(''));
+  return out;
+}
+
+// Fewer options first (so the certain slot is drawn on the left), then by
+// allele rank.
+function slotOrder(a, b) {
+  if (a.length !== b.length) return a.length - b.length;
+  return ALLELE_ORDER[a[0]] - ALLELE_ORDER[b[0]];
+}
+
+// Same inputs always give the same answer, and both the cards and the
+// explanation panel ask for the same handful of domains over and over, so
+// the search is worth caching. Returned objects are shared -- treat them
+// as read-only.
+const slotCache = new Map();
+
+// Reads a SET of possible genotypes back as two chromosome slots -- the
+// form you can actually draw.
+//
+// It's a search rather than a formula: try every pair of allele subsets
+// and keep the pair whose Punnett-style product is EXACTLY the given set.
+// Exactness is the whole point. {AA, AO} decomposes to A + (A or O), which
+// is honest. {AB, OO} has no decomposition at all -- "one of A/O and one
+// of B/O" would also admit AO and BO, which the solver has ruled out -- so
+// rather than draw a lie, slots comes back null and the caller falls back
+// to naming the genotypes.
+//
+// Returns { slots, genotypes }: slots is [[allele...], [allele...]] or
+// null; genotypes is always the sorted input, for that fallback.
+function decomposeSlots(genotypes, alleles) {
+  const list = [...genotypes].sort();
+  const cacheKey = alleles.join('') + '|' + list.join(',');
+  if (slotCache.has(cacheKey)) return slotCache.get(cacheKey);
+
+  const target = new Set(list);
+  let best = null;
+  if (target.size > 0) {
+    for (const s1 of subsetsOf(alleles)) {
+      for (const s2 of subsetsOf(alleles)) {
+        if (!setsEqual(slotProduct(s1, s2), target)) continue;
+        // Least total ambiguity wins: A + (A or O) beats any looser pair
+        // that happens to multiply out to the same set.
+        const score = s1.length + s2.length;
+        if (!best || score < best.score) {
+          best = { score, slots: [s1, s2].sort(slotOrder) };
+        }
+      }
+    }
+  }
+
+  const result = { slots: best ? best.slots : null, genotypes: list };
+  slotCache.set(cacheKey, result);
+  return result;
+}
+
+function isSubsetOf(a, b) {
+  return a.every(x => b.includes(x));
+}
+
+// The chromosome picture for one person: one entry per locus, each with
+// two allele slots.
+//
+//   domains    -- the { abo, rh } maps from computeDomains()
+//   bloodType  -- that person's own entered type, or null
+//
+// Every slot carries how sure we are of it, and -- the interesting part --
+// whether that certainty came from the family rather than from the
+// person's own blood type. Type A alone means AA or AO; an A parent of an
+// O child must be AO. `inferred` marks exactly those deductions, so the
+// drawing can point at what the family tree bought you.
+function genotypeChartFor(id, domains, bloodType) {
+  return LOCI.map(locus => {
+    const current = domains[locus.key][id] || new Set();
+    const ownGenotypes = bloodType
+      ? locus.fromPheno[parseBloodType(bloodType)[locus.key]]
+      : locus.all;
+    const here = decomposeSlots(current, locus.alleles);
+    const own = decomposeSlots(ownGenotypes, locus.alleles);
+
+    const slots = (here.slots || []).map((alleles, i) => {
+      const ownSlot = own.slots ? own.slots[i] : locus.alleles;
+      return {
+        alleles,
+        certain: alleles.length === 1,
+        // Nothing at all is pinned down: as wide as this locus can be.
+        open: alleles.length === locus.alleles.length,
+        inferred: alleles.length < ownSlot.length && isSubsetOf(alleles, ownSlot),
+      };
+    });
+
+    return {
+      chromosome: locus.chromosome,
+      gene: locus.gene,
+      locus: locus.key,
+      slots,
+      // False only in the rare no-decomposition case above; the caller
+      // then shows `genotypes` instead of per-slot alleles.
+      exact: here.slots !== null,
+      genotypes: here.genotypes,
+      contradiction: current.size === 0,
+    };
+  });
+}
+
+// The same picture for a blood type on its own, with no family around it
+// -- used by the explanation panel, which is talking about what one
+// entered type means in isolation. Because the domains handed in are built
+// from the phenotype alone, no slot ever comes back `inferred`.
 function allelePairsFor(bt) {
-  const { abo, rh } = parseBloodType(bt);
-  return [
-    {
-      chromosome: 9,
-      gene: 'ABO',
-      alleles: abo === 'AB' ? ['A', 'B']
-             : abo === 'O'  ? ['O', 'O']
-             : [abo, abo + ' or O'],
-    },
-    {
-      chromosome: 1,
-      gene: 'Rh',
-      alleles: rh === '-' ? ['d', 'd'] : ['D', 'D or d'],
-    },
-  ];
+  const pheno = parseBloodType(bt);
+  const domains = {};
+  LOCI.forEach(l => {
+    domains[l.key] = { _: new Set(l.fromPheno[pheno[l.key]]) };
+  });
+  return genotypeChartFor('_', domains, bt);
 }
 
 // What a person of this blood type must have received from their parents
