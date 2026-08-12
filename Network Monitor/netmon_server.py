@@ -6,6 +6,7 @@ Listens on 127.0.0.1 only. Exits by itself once the applet window has been
 closed (no requests for IDLE_TIMEOUT seconds).
 """
 import csv
+import ctypes
 import http.server
 import io
 import json
@@ -14,6 +15,7 @@ import subprocess
 import sys
 import threading
 import time
+from ctypes import wintypes
 
 PORT = 8399
 DIR = os.path.dirname(os.path.abspath(__file__))
@@ -34,6 +36,88 @@ CREATE_NO_WINDOW = 0x08000000
 
 last_request = time.time()
 shutdown_at = None  # timestamp set by /api/shutdown, cleared by any request
+
+
+GEOM_FILE = os.path.join(DIR, "netmon_geometry.json")
+WINDOW_TITLE = "Network Monitor"
+
+
+def find_window():
+    """HWND of the applet's Chrome --app window, or None."""
+    u = ctypes.windll.user32
+    hits = []
+    proto = ctypes.WINFUNCTYPE(ctypes.c_bool, wintypes.HWND, wintypes.LPARAM)
+
+    def cb(hwnd, _):
+        if not u.IsWindowVisible(hwnd):
+            return True
+        n = u.GetWindowTextLengthW(hwnd)
+        if not n:
+            return True
+        title = ctypes.create_unicode_buffer(n + 1)
+        u.GetWindowTextW(hwnd, title, n + 1)
+        cls = ctypes.create_unicode_buffer(256)
+        u.GetClassNameW(hwnd, cls, 256)
+        if title.value == WINDOW_TITLE and "Chrome_WidgetWin" in cls.value:
+            hits.append(hwnd)
+        return True
+
+    u.EnumWindows(proto(cb), 0)
+    return hits[0] if hits else None
+
+
+def window_rect(u, hwnd):
+    r = wintypes.RECT()
+    u.GetWindowRect(hwnd, ctypes.byref(r))
+    return [r.left, r.top, r.right - r.left, r.bottom - r.top]
+
+
+def manage_geometry():
+    """Restore the window to its last size/position, then keep recording it.
+
+    Chrome does not persist an --app window's bounds (verified: reopening one
+    always lands at ~half screen), and window.resizeTo() silently clamps to a
+    100px minimum height, which is taller than this applet's one-row bar needs.
+    Win32 MoveWindow has neither limitation, so the sizing lives here instead of
+    in the page. Everything in this function is in physical pixels, which is also
+    what MoveWindow wants -- no CSS-pixel/DPI conversion is involved.
+    """
+    u = ctypes.windll.user32
+    u.SetProcessDPIAware()
+    try:
+        with open(GEOM_FILE) as f:
+            saved = json.load(f)
+    except (OSError, ValueError):
+        saved = None
+
+    hwnd = None
+    deadline = time.time() + 30  # Chrome still starting up
+    while hwnd is None and time.time() < deadline:
+        hwnd = find_window()
+        if hwnd is None:
+            time.sleep(0.5)
+    if hwnd is None:
+        return
+
+    if saved and len(saved) == 4:
+        u.MoveWindow(hwnd, saved[0], saved[1], saved[2], saved[3], True)
+
+    while True:
+        time.sleep(2)
+        if not u.IsWindow(hwnd):
+            hwnd = find_window()
+            if hwnd is None:
+                continue
+        cur = window_rect(u, hwnd)
+        # ignore nonsense from a minimized or animating window
+        if cur[2] < 50 or cur[3] < 20 or cur == saved:
+            continue
+        saved = cur
+        try:
+            with open(GEOM_FILE, "w") as f:
+                json.dump(cur, f)
+        except OSError:
+            pass
 
 
 def run_hidden(args):
@@ -144,6 +228,7 @@ def main():
     except OSError:
         sys.exit(0)  # already running
     threading.Thread(target=watchdog, daemon=True).start()
+    threading.Thread(target=manage_geometry, daemon=True).start()
     server.serve_forever()
 
 

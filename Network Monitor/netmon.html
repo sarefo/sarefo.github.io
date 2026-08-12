@@ -13,10 +13,16 @@
             height: calc(100vh - 16px);
             overflow: hidden;
         }
-        /* height:auto matters -- the base rule's calc(100vh - 16px) assumes the
-           8px padding, so at compact's 4px it would leave the body shorter than
-           the bar and overflow:hidden would clip it once the window shrink-wraps */
-        body.compact { padding: 4px 6px; height: auto; }
+        /* The base rule's calc(100vh - 16px) assumes 8px padding; compact uses 4px,
+           so it needs its own height or overflow:hidden clips the bar. Chrome will
+           not make an --app window shorter than 100px outer (63px of viewport),
+           which is far more than the ~27px this bar needs, so center it vertically
+           rather than leaving it stranded at the top of the leftover space. */
+        body.compact {
+            padding: 4px 6px;
+            height: calc(100vh - 8px);
+            justify-content: center;
+        }
         #status {
             padding: 8px;
             text-align: center;
@@ -212,10 +218,11 @@
         }
 
         // --- compact mode ---
-        // Fallback for switching into a mode that has never been sized. Neither
-        // this nor the remembered size is applied on load -- Chrome restores the
-        // window itself, and anything here would just override what you dragged.
-        const DEFAULT_SIZE = { full: [340, 520], compact: [420, 72] };
+        // Used until a mode has been sized by hand. 100 is not a preference: it is
+        // the shortest an --app window can be, measured -- Chrome silently clamps
+        // anything smaller (30/40/50/60/80 all come back as 100).
+        const CHROME_MIN_HEIGHT = 100;
+        const DEFAULT_SIZE = { full: [340, 520], compact: [420, CHROME_MIN_HEIGHT] };
         const sizeKey = on => on ? 'netmonSizeCompact' : 'netmonSizeFull';
         // Past this the chips wrap to a second row instead of growing forever.
         const COMPACT_MAX_WIDTH = () => Math.round(screen.availWidth * 0.6);
@@ -273,10 +280,10 @@
         }
 
         // `resize` is only ever true for an explicit compact/expand toggle, where
-        // changing the window size is the whole point. On load it must stay false:
-        // Chrome already restores this --app window's own remembered bounds (see
-        // app_window_placement in its Preferences), and resizing on top of that is
-        // what reset the window on every single start.
+        // `resize` is false on load: netmon_server.py restores the window with
+        // Win32 MoveWindow, which -- unlike resizeTo() here -- is not clamped to a
+        // 100px minimum height, so it can reproduce a bar-height window. Resizing
+        // here on load would only clamp it back up and undo that.
         function setCompact(on, resize) {
             document.body.classList.toggle('compact', on);
             localStorage.setItem('netmonCompact', on ? '1' : '0');
@@ -296,9 +303,6 @@
         document.getElementById('compactBtn').onclick = () => setCompact(true, true);
         document.getElementById('expandBtn').onclick = () => setCompact(false, true);
 
-        // Chrome persists this window's position and size itself, so nothing here
-        // restores geometry on load. The only reason to record a size is to have
-        // something sensible to switch to when the compact/expand button is used.
         function saveSize() {
             try {
                 // ignore bogus dimensions while minimized/animating
@@ -309,8 +313,15 @@
                 }
             } catch (e) { /* ignore */ }
         }
-        // adopt the saved view mode without touching the window Chrome just placed
+        // adopt the saved view mode without touching the window the server placed
         setCompact(localStorage.getItem('netmonCompact') === '1', false);
+        // Record straight after a drag rather than only on the 2s tick, so closing
+        // the window right after resizing it still keeps the new size.
+        let saveTimer = null;
+        window.addEventListener('resize', () => {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(saveSize, 250);
+        });
         setInterval(saveSize, 2000);
 
         // --- tell the backend we're closing so it can exit right away,
