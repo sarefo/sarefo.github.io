@@ -212,9 +212,9 @@
         }
 
         // --- compact mode ---
-        // Only used on a cold start, before either mode has ever been sized. After
-        // that each mode remembers whatever size it was last left at, and that
-        // remembered size always wins -- see setCompact().
+        // Fallback for switching into a mode that has never been sized. Neither
+        // this nor the remembered size is applied on load -- Chrome restores the
+        // window itself, and anything here would just override what you dragged.
         const DEFAULT_SIZE = { full: [340, 520], compact: [420, 72] };
         const sizeKey = on => on ? 'netmonSizeCompact' : 'netmonSizeFull';
         // Past this the chips wrap to a second row instead of growing forever.
@@ -272,17 +272,20 @@
             return null;
         }
 
-        function setCompact(on) {
+        // `resize` is only ever true for an explicit compact/expand toggle, where
+        // changing the window size is the whole point. On load it must stay false:
+        // Chrome already restores this --app window's own remembered bounds (see
+        // app_window_placement in its Preferences), and resizing on top of that is
+        // what reset the window on every single start.
+        function setCompact(on, resize) {
             document.body.classList.toggle('compact', on);
             localStorage.setItem('netmonCompact', on ? '1' : '0');
+            if (!resize) return;
             const saved = savedSize(on);
             try {
                 const [w, h] = saved || DEFAULT_SIZE[on ? 'compact' : 'full'];
                 window.resizeTo(w, h);
             } catch (e) { /* resize not allowed; view still collapses */ }
-            // Auto-fit ONLY when this mode has never been sized. Once there is a
-            // remembered size it always wins -- a fit that keeps reasserting
-            // itself just undoes whatever the window was dragged to.
             if (!saved) fitCompactSize();
         }
         document.getElementById('compactBar').ondblclick = (e) => {
@@ -290,20 +293,14 @@
             if (e.target.closest('button')) return;
             fitCompactSize();
         };
-        document.getElementById('compactBtn').onclick = () => setCompact(true);
-        document.getElementById('expandBtn').onclick = () => setCompact(false);
+        document.getElementById('compactBtn').onclick = () => setCompact(true, true);
+        document.getElementById('expandBtn').onclick = () => setCompact(false, true);
 
-        // --- remember window position and per-mode size across restarts ---
-        function restorePosition() {
+        // Chrome persists this window's position and size itself, so nothing here
+        // restores geometry on load. The only reason to record a size is to have
+        // something sensible to switch to when the compact/expand button is used.
+        function saveSize() {
             try {
-                const pos = JSON.parse(localStorage.getItem('netmonPos'));
-                if (pos) window.moveTo(pos[0], pos[1]);
-            } catch (e) { /* move not allowed */ }
-        }
-        function saveGeometry() {
-            try {
-                localStorage.setItem('netmonPos',
-                    JSON.stringify([window.screenX, window.screenY]));
                 // ignore bogus dimensions while minimized/animating
                 if (window.outerWidth > 20 && window.outerHeight > 20) {
                     const on = document.body.classList.contains('compact');
@@ -312,10 +309,9 @@
                 }
             } catch (e) { /* ignore */ }
         }
-        restorePosition();
-        // applies the remembered size for whichever mode we start in
-        setCompact(localStorage.getItem('netmonCompact') === '1');
-        setInterval(saveGeometry, 2000);
+        // adopt the saved view mode without touching the window Chrome just placed
+        setCompact(localStorage.getItem('netmonCompact') === '1', false);
+        setInterval(saveSize, 2000);
 
         // --- tell the backend we're closing so it can exit right away,
         // instead of relying on the idle-timeout safety net ---
