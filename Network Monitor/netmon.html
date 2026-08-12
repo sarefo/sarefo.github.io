@@ -13,7 +13,10 @@
             height: calc(100vh - 16px);
             overflow: hidden;
         }
-        body.compact { padding: 4px 6px; }
+        /* height:auto matters -- the base rule's calc(100vh - 16px) assumes the
+           8px padding, so at compact's 4px it would leave the body shorter than
+           the bar and overflow:hidden would clip it once the window shrink-wraps */
+        body.compact { padding: 4px 6px; height: auto; }
         #status {
             padding: 8px;
             text-align: center;
@@ -211,14 +214,62 @@
         // --- compact mode ---
         // Only used until the window has been resized once; after that each mode
         // remembers whatever size it was last left at.
-        const DEFAULT_SIZE = { full: [340, 520], compact: [560, 150] };
+        // Compact size is not a user choice -- fitCompactSize() shrinks the window
+        // to exactly the bar, so these are only pre-fit starting guesses that keep
+        // a cold start from visibly jumping.
+        const DEFAULT_SIZE = { full: [340, 520], compact: [420, 72] };
         const sizeKey = on => on ? 'netmonSizeCompact' : 'netmonSizeFull';
+        // Past this the chips wrap to a second row instead of growing forever.
+        const COMPACT_MAX_WIDTH = () => Math.round(screen.availWidth * 0.6);
+
+        // Measure the bar at its natural, unwrapped size. It normally stretches to
+        // fill the window (the spacer is flex:1), so it has to be taken out of that
+        // layout for a moment to find out how much room it actually wants.
+        function naturalBarSize(bar, chips) {
+            const prevWrap = chips.style.flexWrap, prevWidth = bar.style.width;
+            chips.style.flexWrap = 'nowrap';
+            bar.style.width = 'max-content';
+            const size = [bar.scrollWidth, bar.getBoundingClientRect().height];
+            chips.style.flexWrap = prevWrap;
+            bar.style.width = prevWidth;
+            return size;
+        }
+
+        // Shrink-wrap the window around the compact bar: just wide enough for one
+        // row of elements, just tall enough for the rows it ends up using.
+        function fitCompactSize() {
+            if (!document.body.classList.contains('compact')) return;
+            try {
+                const bar = document.getElementById('compactBar');
+                const chips = document.getElementById('chips');
+                const cs = getComputedStyle(document.body);
+                const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+                const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+                const frameX = window.outerWidth - window.innerWidth;
+                const frameY = window.outerHeight - window.innerHeight;
+
+                const [natW] = naturalBarSize(bar, chips);
+                const w = Math.min(Math.round(natW + padX + frameX), COMPACT_MAX_WIDTH());
+                // measured live, so a width cap that forces chips to wrap is picked
+                // up on the next pass rather than clipping them
+                const h = Math.round(
+                    bar.getBoundingClientRect().height + padY + frameY);
+
+                // the guard keeps this from oscillating on every poll
+                if (w > 0 && h > 0 &&
+                    (Math.abs(w - window.outerWidth) > 2 ||
+                     Math.abs(h - window.outerHeight) > 2)) {
+                    window.resizeTo(w, h);
+                }
+            } catch (e) { /* resize not allowed; size just stays as-is */ }
+        }
 
         function savedSize(on) {
             try {
                 const s = JSON.parse(localStorage.getItem(sizeKey(on)));
+                // a fitted compact bar is only ~50px tall, so the floor is low
                 if (Array.isArray(s) && s.length === 2 &&
-                    s.every(n => Number.isFinite(n) && n > 100)) return s;
+                    s.every(n => Number.isFinite(n) && n > 20)) return s;
             } catch (e) { /* fall through to default */ }
             return DEFAULT_SIZE[on ? 'compact' : 'full'];
         }
@@ -230,6 +281,9 @@
                 const [w, h] = savedSize(on);
                 window.resizeTo(w, h);
             } catch (e) { /* resize not allowed; view still collapses */ }
+            // compact ignores the remembered size and shrink-wraps the bar; the
+            // saved value only avoids a visible jump before this runs
+            fitCompactSize();
         }
         document.getElementById('compactBtn').onclick = () => setCompact(true);
         document.getElementById('expandBtn').onclick = () => setCompact(false);
@@ -246,7 +300,7 @@
                 localStorage.setItem('netmonPos',
                     JSON.stringify([window.screenX, window.screenY]));
                 // ignore bogus dimensions while minimized/animating
-                if (window.outerWidth > 100 && window.outerHeight > 100) {
+                if (window.outerWidth > 20 && window.outerHeight > 20) {
                     const on = document.body.classList.contains('compact');
                     localStorage.setItem(sizeKey(on),
                         JSON.stringify([window.outerWidth, window.outerHeight]));
@@ -333,6 +387,7 @@
                     '⚠ no port data</span>';
             }
             chipsEl.innerHTML = html || '<span class="none">no ports pinned</span>';
+            fitCompactSize(); // chip count changed, so the ideal size may have too
         }
 
         function checkConnection() {
