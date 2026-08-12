@@ -212,11 +212,9 @@
         }
 
         // --- compact mode ---
-        // Only used until the window has been resized once; after that each mode
-        // remembers whatever size it was last left at.
-        // Compact size is not a user choice -- fitCompactSize() shrinks the window
-        // to exactly the bar, so these are only pre-fit starting guesses that keep
-        // a cold start from visibly jumping.
+        // Only used on a cold start, before either mode has ever been sized. After
+        // that each mode remembers whatever size it was last left at, and that
+        // remembered size always wins -- see setCompact().
         const DEFAULT_SIZE = { full: [340, 520], compact: [420, 72] };
         const sizeKey = on => on ? 'netmonSizeCompact' : 'netmonSizeFull';
         // Past this the chips wrap to a second row instead of growing forever.
@@ -271,20 +269,27 @@
                 if (Array.isArray(s) && s.length === 2 &&
                     s.every(n => Number.isFinite(n) && n > 20)) return s;
             } catch (e) { /* fall through to default */ }
-            return DEFAULT_SIZE[on ? 'compact' : 'full'];
+            return null;
         }
 
         function setCompact(on) {
             document.body.classList.toggle('compact', on);
             localStorage.setItem('netmonCompact', on ? '1' : '0');
+            const saved = savedSize(on);
             try {
-                const [w, h] = savedSize(on);
+                const [w, h] = saved || DEFAULT_SIZE[on ? 'compact' : 'full'];
                 window.resizeTo(w, h);
             } catch (e) { /* resize not allowed; view still collapses */ }
-            // compact ignores the remembered size and shrink-wraps the bar; the
-            // saved value only avoids a visible jump before this runs
-            fitCompactSize();
+            // Auto-fit ONLY when this mode has never been sized. Once there is a
+            // remembered size it always wins -- a fit that keeps reasserting
+            // itself just undoes whatever the window was dragged to.
+            if (!saved) fitCompactSize();
         }
+        document.getElementById('compactBar').ondblclick = (e) => {
+            // opt-in re-snug, for after pinning or unpinning ports
+            if (e.target.closest('button')) return;
+            fitCompactSize();
+        };
         document.getElementById('compactBtn').onclick = () => setCompact(true);
         document.getElementById('expandBtn').onclick = () => setCompact(false);
 
@@ -387,7 +392,6 @@
                     '⚠ no port data</span>';
             }
             chipsEl.innerHTML = html || '<span class="none">no ports pinned</span>';
-            fitCompactSize(); // chip count changed, so the ideal size may have too
         }
 
         function checkConnection() {
