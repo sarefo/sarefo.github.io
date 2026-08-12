@@ -100,7 +100,14 @@ def manage_geometry():
         return
 
     if saved and len(saved) == 4:
-        u.MoveWindow(hwnd, saved[0], saved[1], saved[2], saved[3], True)
+        # Chrome may still size the window itself for a moment after it appears,
+        # which would undo a single MoveWindow -- and the recording loop below
+        # would then save that as the new preference. Reassert briefly, and only
+        # start recording once it has settled.
+        settle = time.time() + 3
+        while time.time() < settle:
+            u.MoveWindow(hwnd, saved[0], saved[1], saved[2], saved[3], True)
+            time.sleep(0.3)
 
     while True:
         time.sleep(2)
