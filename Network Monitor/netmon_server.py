@@ -23,9 +23,17 @@ DIR = os.path.dirname(os.path.abspath(__file__))
 # timers, which previously made the applet look "dead" after a normal
 # 90s idle timeout even though the window was still open.
 IDLE_TIMEOUT = 1800  # seconds without a request before the server exits
+# The page's /api/shutdown beacon fires on `pagehide`, which Chrome also fires
+# when it merely discards or freezes the tab (common under memory pressure) --
+# not just on a real close. Exiting immediately therefore killed the backend
+# under a still-open window, which showed up as "no port data". So the beacon
+# now only *schedules* an exit; any further request cancels it, which a revived
+# page does on its next 5s poll.
+SHUTDOWN_GRACE = 20  # seconds between the close beacon and actually exiting
 CREATE_NO_WINDOW = 0x08000000
 
 last_request = time.time()
+shutdown_at = None  # timestamp set by /api/shutdown, cleared by any request
 
 
 def run_hidden(args):
@@ -89,8 +97,9 @@ class Handler(http.server.BaseHTTPRequestHandler):
         pass  # silent
 
     def do_GET(self):
-        global last_request
+        global last_request, shutdown_at
         last_request = time.time()
+        shutdown_at = None  # the page is alive after all; cancel any pending exit
         if self.path == "/" or self.path == "/netmon.html":
             with open(os.path.join(DIR, "netmon.html"), "rb") as f:
                 body = f.read()
@@ -110,20 +119,21 @@ class Handler(http.server.BaseHTTPRequestHandler):
             self.send_error(404)
 
     def do_POST(self):
+        global shutdown_at
         if self.path == "/api/shutdown":
+            shutdown_at = time.time() + SHUTDOWN_GRACE
             self.send_response(204)
             self.send_header("Content-Length", "0")
             self.end_headers()
-            # give the response a moment to reach the OS send buffer before
-            # the process disappears
-            threading.Timer(0.2, os._exit, args=[0]).start()
         else:
             self.send_error(404)
 
 
 def watchdog():
     while True:
-        time.sleep(10)
+        time.sleep(2)
+        if shutdown_at is not None and time.time() > shutdown_at:
+            os._exit(0)
         if time.time() - last_request > IDLE_TIMEOUT:
             os._exit(0)
 
