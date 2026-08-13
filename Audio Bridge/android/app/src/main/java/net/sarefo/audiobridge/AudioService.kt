@@ -88,6 +88,10 @@ class AudioService : Service() {
             sock.receiveBufferSize = 8192
             sock.tcpNoDelay = true
             sock.connect(InetSocketAddress("127.0.0.1", PORT), 3000)
+            // The server streams continuously (silence included) to every
+            // connected client, so 5 s without data can only mean the adb
+            // tunnel died. Without this, a dead link keeps showing "playing".
+            sock.soTimeout = 5000
 
             val input = DataInputStream(sock.getInputStream())
             val header = ByteArray(12)

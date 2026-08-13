@@ -14,4 +14,20 @@ call "%GRADLE%" --console=plain assembleDebug || exit /b 1
 
 echo.
 echo Installing on connected device(s)...
-"%ADB%" install -r "app\build\outputs\apk\debug\app-debug.apk"
+rem Plain `adb install` errors out when more than one device is attached, so
+rem install per serial. Also surface devices adb can see but cannot use yet
+rem (unauthorized = accept the debugging prompt on the phone).
+set FOUND=0
+for /f "skip=1 tokens=1,2" %%D in ('"%ADB%" devices') do (
+    if "%%E"=="device" (
+        set FOUND=1
+        echo   %%D
+        "%ADB%" -s %%D install -r "app\build\outputs\apk\debug\app-debug.apk"
+    ) else if not "%%E"=="" (
+        echo   %%D skipped: state "%%E" -- check the phone's screen
+    )
+)
+if "%FOUND%"=="0" (
+    echo No usable device. On the phone: enable Developer options ^> USB
+    echo debugging, turn OFF USB tethering, and accept the debugging prompt.
+)
