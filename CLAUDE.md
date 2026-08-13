@@ -25,6 +25,7 @@ The main homepage consists of:
 The following project directories should be ignored during development:
 
 - 2048
+- Audio Bridge
 - DuoNat-Firebase
 - Recorder
 - Claude Pong
