@@ -50,6 +50,21 @@ class MainActivity : Activity() {
             if (AudioService.running) stopService(intent)
             else startForegroundService(intent)
         }
+
+        val prefs = getSharedPreferences("audiobridge", MODE_PRIVATE)
+        val delayLabel = findViewById<TextView>(R.id.delayLabel)
+        AudioService.delayMs = prefs.getInt("delay_ms", 0)
+        delayLabel.text = "sync delay: ${AudioService.delayMs} ms"
+        val nudge = { step: Int ->
+            val v = (AudioService.delayMs + step).coerceIn(0, 3000)
+            AudioService.delayMs = v  // stream thread picks it up live
+            prefs.edit().putInt("delay_ms", v).apply()
+            delayLabel.text = "sync delay: $v ms"
+        }
+        findViewById<Button>(R.id.dm250).setOnClickListener { nudge(-250) }
+        findViewById<Button>(R.id.dm50).setOnClickListener { nudge(-50) }
+        findViewById<Button>(R.id.dp50).setOnClickListener { nudge(50) }
+        findViewById<Button>(R.id.dp250).setOnClickListener { nudge(250) }
     }
 
     override fun onResume() {

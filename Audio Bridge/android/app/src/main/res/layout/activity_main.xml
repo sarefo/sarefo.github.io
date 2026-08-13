@@ -33,6 +33,39 @@
         android:text="Connect" />
 
     <TextView
+        android:id="@+id/delayLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:textSize="16sp"
+        android:text="sync delay: 0 ms" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal">
+
+        <Button android:id="@+id/dm250" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="−250" />
+        <Button android:id="@+id/dm50" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="−50" />
+        <Button android:id="@+id/dp50" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="+50" />
+        <Button android:id="@+id/dp250" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="+250" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textSize="12sp"
+        android:alpha="0.6"
+        android:gravity="center"
+        android:text="Raise the delay on the faster phone until both match.\nSaved on this device." />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"

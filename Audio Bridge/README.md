@@ -52,6 +52,11 @@ Windows audio ──WASAPI loopback──> audiobridge_server.py ──TCP 127.0
 - The app bounds drift: a small TCP receive buffer plus a resync that skips
   any backlog over ~62 ms. The panel and the app both show drop/underrun
   counters, so latency problems are visible instead of guessed at.
+- **Sync delay** (in the app, saved per device): each phone's output chain —
+  especially its Bluetooth headset — adds its own latency, so multiple phones
+  drift apart audibly. Raise the delay on the *faster* phone (±50/±250 ms
+  buttons, live while playing) until they match. Delay can only be added, not
+  removed: everything syncs to the slowest device.
 - Port 44100 (not 47000+) because this machine silently reserves
   ~45000–48100 for Hyper-V/WSL NAT — binds there fail even though
   `netsh int ipv4 show excludedportrange` doesn't list them.

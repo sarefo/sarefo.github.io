@@ -34,6 +34,11 @@ class AudioService : Service() {
         // Skip backlog beyond ~62 ms so PC/phone clock drift cannot pile up.
         const val RESYNC_BYTES = 12_000
 
+        // Extra playback delay to line this device up with slower ones
+        // (typically: match a phone whose Bluetooth headset lags more).
+        // Set from MainActivity, persisted per device, live-adjustable.
+        @Volatile var delayMs: Int = 0
+
         // Polled by MainActivity; written only from the stream thread.
         @Volatile var state: String = "disconnected"
         @Volatile var bufferedBytes: Int = 0
@@ -48,6 +53,8 @@ class AudioService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (thread != null) return START_STICKY
+        delayMs = getSharedPreferences("audiobridge", MODE_PRIVATE)
+            .getInt("delay_ms", 0)
         startForegroundWithNotification()
         running = true
         thread = Thread(::streamLoop, "audio-stream").also { it.start() }
@@ -119,17 +126,38 @@ class AudioService : Service() {
                     .getProperty(AudioManager.PROPERTY_OUTPUT_FRAMES_PER_BUFFER)
                     ?.toIntOrNull() ?: 240
                 val buf = ByteArray(burstFrames * channels * 2)
+                val bytesPerMs = rate * channels * 2 / 1000
+
+                // Sync-delay line: hold delayMs worth of audio between the
+                // socket and the AudioTrack. The socket stays fully drained
+                // (so the drift resync below keeps working); the FIFO adds a
+                // constant, user-tunable offset. Raising the delay pauses
+                // output while the line refills (a silence gap = the added
+                // delay); lowering it discards the oldest surplus.
+                val fifo = ArrayDeque<ByteArray>()
+                var fifoBytes = 0
 
                 while (running) {
                     // Drift bound: if more than RESYNC_BYTES piled up while we
                     // were blocked in write(), drop the backlog and jump to live.
-                    var backlog = input.available()
+                    val backlog = input.available()
                     if (backlog > RESYNC_BYTES) {
                         input.skipBytes(backlog - backlog % buf.size)
                         resyncs++
                     }
                     input.readFully(buf)
-                    track.write(buf, 0, buf.size)
+                    fifo.addLast(buf.copyOf())
+                    fifoBytes += buf.size
+
+                    val targetBytes = delayMs * bytesPerMs
+                    while (fifoBytes > targetBytes + 2 * buf.size) {
+                        fifoBytes -= fifo.removeFirst().size  // delay lowered
+                    }
+                    if (fifoBytes > targetBytes) {
+                        val b = fifo.removeFirst()
+                        fifoBytes -= b.size
+                        track.write(b, 0, b.size)
+                    }
                     bufferedBytes = input.available()
                     underruns = track.underrunCount
                 }
