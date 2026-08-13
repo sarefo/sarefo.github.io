@@ -144,7 +144,15 @@ def capture_loop():
             with mic.recorder(samplerate=RATE, channels=CHANNELS,
                               blocksize=BLOCK_FRAMES) as rec:
                 capture_status = "running"
+                blocks = 0
                 while capture_wanted.is_set():
+                    # Follow the Windows default output: if the user switches
+                    # it (e.g. connects BT headphones) while we are capturing,
+                    # reopen on the new device. Checked every ~2 s.
+                    blocks += 1
+                    if blocks % 400 == 0 and capture_device_name is None \
+                            and sc.default_speaker().name != mic.name:
+                        break
                     with lock:
                         if generation != capture_generation:
                             break  # device changed; reopen
