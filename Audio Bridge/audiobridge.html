@@ -106,7 +106,7 @@ $("theme").onclick = () => {
   localStorage.setItem("ab-theme", next);
 };
 
-let devicesKey = "", monitorKey = "", monDelay = 0;
+let devicesKey = "", monitorKey = "", monDelay = 0, pendingDelayWrites = 0;
 
 async function poll() {
   let s;
@@ -157,8 +157,10 @@ async function poll() {
       sel.appendChild(o);
     }
   }
-  monDelay = s.monitor_delay_ms;
-  $("mdelay").textContent = `delay ${monDelay} ms`;
+  if (!pendingDelayWrites) {  // a poll must never clobber a click in flight
+    monDelay = s.monitor_delay_ms;
+    $("mdelay").textContent = `delay ${monDelay} ms`;
+  }
   const ms = s.monitor_status;
   $("mhint").innerHTML = !s.monitor
     ? "off — Windows plays to its default output, which cannot be delayed"
@@ -196,12 +198,19 @@ $("monitor").onchange = () =>
   fetch("/api/monitor", { method: "POST",
     body: JSON.stringify({ device: $("monitor").value }) });
 
+// Send a *step*, not a total: the server applies it to whatever it currently
+// holds, so a stale value here can never undo an earlier adjustment.
 for (const b of document.querySelectorAll(".mnudge")) {
-  b.onclick = () => {
-    monDelay = Math.max(0, Math.min(3000, monDelay + Number(b.dataset.step)));
-    $("mdelay").textContent = `delay ${monDelay} ms`;  // don't wait for poll
-    fetch("/api/monitor", { method: "POST",
-      body: JSON.stringify({ delay_ms: monDelay }) });
+  b.onclick = async () => {
+    pendingDelayWrites++;
+    try {
+      const r = await (await fetch("/api/monitor", { method: "POST",
+        body: JSON.stringify({ delay_step: Number(b.dataset.step) }) })).json();
+      monDelay = r.delay_ms;
+      $("mdelay").textContent = `delay ${monDelay} ms`;
+    } finally {
+      pendingDelayWrites--;
+    }
   };
 }
 

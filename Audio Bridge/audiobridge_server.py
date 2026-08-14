@@ -441,7 +441,14 @@ class Handler(http.server.BaseHTTPRequestHandler):
                     monitor_device_name = body["device"] or None
                     monitor_generation += 1
                     monitor_queue.clear()
-                if "delay_ms" in body:
+                # Prefer relative steps: the server owning the arithmetic is
+                # what keeps a panel's stale cached value (or a second panel)
+                # from silently undoing an earlier adjustment.
+                if "delay_step" in body:
+                    monitor_delay_ms = max(0, min(
+                        monitor_delay_ms + int(body["delay_step"]),
+                        MAX_DELAY_MS))
+                elif "delay_ms" in body:
                     monitor_delay_ms = max(
                         0, min(int(body["delay_ms"]), MAX_DELAY_MS))
                 update_capture_wanted()
