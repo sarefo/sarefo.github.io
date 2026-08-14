@@ -1,10 +1,14 @@
 """Audio Bridge: stream this PC's audio to Android phones over USB.
 
 Captures a Windows output device via WASAPI loopback (soundcard library) and
-fans the raw PCM out to any number of TCP clients on 127.0.0.1:47000. Phones
+fans the raw PCM out to any number of TCP clients on 127.0.0.1:44100. Phones
 reach that port through `adb reverse`, which this server applies automatically
 to every USB-debugging device it sees. Serves audiobridge.html and a small
 control API on 127.0.0.1:8400.
+
+A local monitor can additionally play the same audio on one of this PC's own
+output devices with an adjustable delay, so the laptop's own headphones can be
+lined up with the (slower) phones.
 
 Wire format: 12-byte header ("ABR1", rate u32 LE, channels u8, bits u8,
 reserved u16), then unframed int16 LE interleaved stereo frames forever.
@@ -38,6 +42,12 @@ HEADER = b"ABR1" + struct.pack("<IBBH", RATE, CHANNELS, 16, 0)
 # Per-client buffer cap: 40 blocks = 200 ms. When a client falls behind, the
 # oldest audio is dropped -- the capture thread must never block on a socket.
 QUEUE_BLOCKS = 40
+# Local monitor: plays the captured audio on one of this PC's own output
+# devices, delayed. Needed because audio can only ever be *delayed*, so the
+# fastest listener must wait for the slowest -- and Windows offers no way to
+# delay its own output. Cap the line at 4 s (delay is clamped to 3 s).
+MONITOR_BLOCKS = 800
+MAX_DELAY_MS = 3000
 
 DIR = os.path.dirname(os.path.abspath(__file__))
 SETTINGS_FILE = os.path.join(DIR, "audiobridge_settings.json")
@@ -65,6 +75,13 @@ capture_device_name = None  # None = current default speaker's loopback
 capture_status = "idle"  # idle | running | error: ...
 adb_serials = {}  # serial -> "ok" | error text
 
+monitor_device_name = None  # None = local monitor off
+monitor_delay_ms = 0
+monitor_status = "off"  # off | running | error: ...
+monitor_generation = 0
+monitor_queue = collections.deque(maxlen=MONITOR_BLOCKS)
+monitor_have = threading.Event()
+
 
 class Client:
     def __init__(self, sock, addr):
@@ -78,18 +95,23 @@ class Client:
 
 
 def load_settings():
-    global capture_device_name
+    global capture_device_name, monitor_device_name, monitor_delay_ms
     try:
         with open(SETTINGS_FILE) as f:
-            capture_device_name = json.load(f).get("device") or None
+            s = json.load(f)
     except (OSError, ValueError):
-        pass
+        return
+    capture_device_name = s.get("device") or None
+    monitor_device_name = s.get("monitor") or None
+    monitor_delay_ms = int(s.get("monitor_delay_ms") or 0)
 
 
 def save_settings():
     try:
         with open(SETTINGS_FILE, "w") as f:
-            json.dump({"device": capture_device_name}, f)
+            json.dump({"device": capture_device_name,
+                       "monitor": monitor_device_name,
+                       "monitor_delay_ms": monitor_delay_ms}, f)
     except OSError:
         pass
 
@@ -109,6 +131,18 @@ def run_hidden(args, timeout=10):
 
 def loopback_devices():
     return [m for m in sc.all_microphones(include_loopback=True) if m.isloopback]
+
+
+def effective_capture_name():
+    return capture_device_name or sc.default_speaker().name
+
+
+def update_capture_wanted():
+    """Capture runs while anything consumes it. Call with `lock` held."""
+    if clients or monitor_device_name:
+        capture_wanted.set()
+    else:
+        capture_wanted.clear()
 
 
 def pick_device():
@@ -158,6 +192,9 @@ def capture_loop():
                             break  # device changed; reopen
                         targets = list(clients)
                     data = rec.record(numframes=BLOCK_FRAMES)
+                    if monitor_device_name:
+                        monitor_queue.append(data)
+                        monitor_have.set()
                     block = (np.clip(data, -1.0, 1.0) * 32767.0).astype(
                         "<i2").tobytes()
                     for c in targets:
@@ -168,6 +205,62 @@ def capture_loop():
             capture_status = "idle"
         except Exception as e:  # device unplugged, format refused, ...
             capture_status = f"error: {e}"
+            time.sleep(2)
+
+
+def monitor_loop():
+    """Play the captured audio on one of this PC's outputs, delayed.
+
+    This is how the laptop's own headphones join the sync group. Audio can
+    only ever be delayed, so every listener has to be pushed back to match the
+    slowest one -- and Windows has no delay control for its own output. With
+    the Windows default output on a silent virtual device and the monitor on
+    the real headphones, the laptop becomes just another delayable player.
+    """
+    global monitor_status
+    while True:
+        if not monitor_device_name:
+            monitor_status = "off"
+            monitor_queue.clear()
+            time.sleep(0.3)
+            continue
+        generation = monitor_generation
+        try:
+            spk = next((s for s in sc.all_speakers()
+                        if s.name == monitor_device_name), None)
+            if spk is None:
+                monitor_status = f"error: '{monitor_device_name}' not found"
+                time.sleep(2)
+                continue
+            if monitor_device_name == effective_capture_name():
+                # Capturing the device we play to would feed back on itself.
+                monitor_status = "error: same device as capture (feedback)"
+                time.sleep(2)
+                continue
+            with spk.player(samplerate=RATE, channels=CHANNELS,
+                            blocksize=BLOCK_FRAMES) as player:
+                monitor_status = "running"
+                line = collections.deque()  # the delay line
+                blocks = 0
+                while monitor_device_name and generation == monitor_generation:
+                    blocks += 1
+                    if blocks % 400 == 0 and \
+                            monitor_device_name == effective_capture_name():
+                        break  # default output moved onto us; reopen and warn
+                    if not monitor_queue:
+                        monitor_have.clear()
+                        monitor_have.wait(timeout=0.5)
+                        continue
+                    line.append(monitor_queue.popleft())
+                    target = (min(max(monitor_delay_ms, 0), MAX_DELAY_MS)
+                              * RATE // (1000 * BLOCK_FRAMES))
+                    while len(line) > target + 1:
+                        line.popleft()  # delay lowered: drop the surplus
+                    if len(line) > target:
+                        player.play(line.popleft())
+            monitor_status = "off"
+        except Exception as e:  # device unplugged, format refused, ...
+            monitor_status = f"error: {e}"
             time.sleep(2)
 
 
@@ -196,8 +289,7 @@ def client_writer(c):
         with lock:
             if c in clients:
                 clients.remove(c)
-            if not clients:
-                capture_wanted.clear()
+            update_capture_wanted()
         try:
             c.sock.close()
         except OSError:
@@ -215,7 +307,7 @@ def audio_server():
         c = Client(sock, addr)
         with lock:
             clients.append(c)
-        capture_wanted.set()
+            update_capture_wanted()
         threading.Thread(target=client_writer, args=(c,), daemon=True).start()
 
 
@@ -265,6 +357,10 @@ def get_status():
         "device": capture_device_name or "(default output)",
         "devices": [m.name for m in loopback_devices()],
         "default_output": sc.default_speaker().name,
+        "speakers": [s.name for s in sc.all_speakers()],
+        "monitor": monitor_device_name or "",
+        "monitor_delay_ms": monitor_delay_ms,
+        "monitor_status": monitor_status,
         "clients": cl,
         "adb": adb_serials,
         "audio_port": AUDIO_PORT,
@@ -302,7 +398,8 @@ class Handler(http.server.BaseHTTPRequestHandler):
 
     def do_POST(self):
         global last_request, shutdown_at, capture_device_name, \
-            capture_generation
+            capture_generation, monitor_device_name, monitor_delay_ms, \
+            monitor_generation
         last_request = time.time()
         if self.path == "/api/shutdown":
             shutdown_at = time.time() + SHUTDOWN_GRACE
@@ -319,6 +416,21 @@ class Handler(http.server.BaseHTTPRequestHandler):
                 capture_generation += 1
             save_settings()
             self.send_json({"ok": True})
+        elif self.path == "/api/monitor":
+            n = int(self.headers.get("Content-Length", 0))
+            body = json.loads(self.rfile.read(n))
+            with lock:
+                if "device" in body:
+                    monitor_device_name = body["device"] or None
+                    monitor_generation += 1
+                    monitor_queue.clear()
+                if "delay_ms" in body:
+                    monitor_delay_ms = max(
+                        0, min(int(body["delay_ms"]), MAX_DELAY_MS))
+                update_capture_wanted()
+            save_settings()
+            self.send_json({"ok": True, "monitor": monitor_device_name or "",
+                            "delay_ms": monitor_delay_ms})
         elif self.path == "/api/reverse":
             for serial in list(adb_serials):
                 if serial != "!":
@@ -344,7 +456,10 @@ def main():
                                                  Handler)
     except OSError:
         sys.exit(0)  # already running
+    with lock:
+        update_capture_wanted()  # a saved monitor device runs without clients
     threading.Thread(target=capture_loop, daemon=True).start()
+    threading.Thread(target=monitor_loop, daemon=True).start()
     threading.Thread(target=audio_server, daemon=True).start()
     threading.Thread(target=adb_watcher, daemon=True).start()
     threading.Thread(target=watchdog, daemon=True).start()

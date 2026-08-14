@@ -53,7 +53,7 @@
   }
   .adb-ok { color: var(--ok); }
   .adb-bad { color: var(--bad); }
-  #hint { color: var(--dim); font-size: 11.5px; margin-top: 2px; }
+  #hint, #mhint { color: var(--dim); font-size: 11.5px; margin-top: 2px; }
 </style>
 </head>
 <body>
@@ -64,6 +64,19 @@
   <div class="label">Capture device (pick your silent virtual output)</div>
   <select id="device"></select>
   <div id="hint"></div>
+</section>
+
+<section>
+  <div class="label">Laptop monitor — this PC's own headphones, delayable</div>
+  <select id="monitor"></select>
+  <div class="row" style="margin-top:6px">
+    <span id="mdelay" style="font-variant-numeric:tabular-nums">delay 0 ms</span>
+    <button class="mnudge" data-step="-250">−250</button>
+    <button class="mnudge" data-step="-50">−50</button>
+    <button class="mnudge" data-step="50">+50</button>
+    <button class="mnudge" data-step="250">+250</button>
+  </div>
+  <div id="mhint"></div>
 </section>
 
 <section>
@@ -93,7 +106,7 @@ $("theme").onclick = () => {
   localStorage.setItem("ab-theme", next);
 };
 
-let devicesKey = "";
+let devicesKey = "", monitorKey = "", monDelay = 0;
 
 async function poll() {
   let s;
@@ -131,6 +144,26 @@ async function poll() {
   }
   $("hint").textContent = "Windows default output: " + s.default_output;
 
+  // monitor dropdown (same rebuild-only-on-change rule)
+  const mkey = JSON.stringify([s.speakers, s.monitor]);
+  if (mkey !== monitorKey) {
+    monitorKey = mkey;
+    const sel = $("monitor");
+    sel.innerHTML = '<option value="">off</option>';
+    for (const name of s.speakers) {
+      const o = document.createElement("option");
+      o.textContent = o.value = name;
+      if (name === s.monitor) o.selected = true;
+      sel.appendChild(o);
+    }
+  }
+  monDelay = s.monitor_delay_ms;
+  $("mdelay").textContent = `delay ${monDelay} ms`;
+  const ms = s.monitor_status;
+  $("mhint").innerHTML = !s.monitor
+    ? "off — Windows plays to its default output, which cannot be delayed"
+    : ms.startsWith("error") ? `<span class="adb-bad">${ms}</span>` : ms;
+
   // adb devices
   const serials = Object.entries(s.adb);
   $("adb").innerHTML = serials.length
@@ -157,6 +190,19 @@ function fmtDur(sec) {
 $("device").onchange = () =>
   fetch("/api/device", { method: "POST",
     body: JSON.stringify({ device: $("device").value }) });
+
+$("monitor").onchange = () =>
+  fetch("/api/monitor", { method: "POST",
+    body: JSON.stringify({ device: $("monitor").value }) });
+
+for (const b of document.querySelectorAll(".mnudge")) {
+  b.onclick = () => {
+    monDelay = Math.max(0, Math.min(3000, monDelay + Number(b.dataset.step)));
+    $("mdelay").textContent = `delay ${monDelay} ms`;  // don't wait for poll
+    fetch("/api/monitor", { method: "POST",
+      body: JSON.stringify({ delay_ms: monDelay }) });
+  };
+}
 
 $("reapply").onclick = () => fetch("/api/reverse", { method: "POST" });
 
