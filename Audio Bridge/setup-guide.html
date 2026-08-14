@@ -1,0 +1,786 @@
+<title>Audio Bridge Setup</title>
+<style>
+  /* Light palette is the base; both dark states redefine only these tokens. */
+  :root {
+    --ground: #EFF1EE;
+    --surface: #FFFFFF;
+    --sunk: #E7EAE7;
+    --ink: #16211F;
+    --ink-soft: #55635F;
+    --line: #D2D9D5;
+    --accent: #0B6E61;
+    --accent-soft: #E0EEEA;
+    --warn: #8A5200;
+    --warn-soft: #F7EBD8;
+    --danger: #9E2A22;
+    --danger-soft: #F7E4E2;
+    --shadow: 0 1px 2px rgba(22, 33, 31, .06), 0 6px 18px rgba(22, 33, 31, .05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #101413;
+      --surface: #171D1B;
+      --sunk: #1D2523;
+      --ink: #E7EBE8;
+      --ink-soft: #9AA8A3;
+      --line: #2B3431;
+      --accent: #56D2BA;
+      --accent-soft: #16302B;
+      --warn: #E2A65C;
+      --warn-soft: #2C2317;
+      --danger: #F0918A;
+      --danger-soft: #32201E;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 6px 18px rgba(0, 0, 0, .3);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #101413;
+    --surface: #171D1B;
+    --sunk: #1D2523;
+    --ink: #E7EBE8;
+    --ink-soft: #9AA8A3;
+    --line: #2B3431;
+    --accent: #56D2BA;
+    --accent-soft: #16302B;
+    --warn: #E2A65C;
+    --warn-soft: #2C2317;
+    --danger: #F0918A;
+    --danger-soft: #32201E;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 6px 18px rgba(0, 0, 0, .3);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font: 16.5px/1.65 "Segoe UI Variable Text", "Segoe UI", system-ui,
+          -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 50rem;
+    margin: 0 auto;
+    padding: clamp(2rem, 6vw, 4.5rem) clamp(1.1rem, 4vw, 2rem) 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.25rem;
+  }
+
+  code, kbd, .mono {
+    font-family: Consolas, "Cascadia Mono", ui-monospace, monospace;
+    font-size: .875em;
+  }
+  code {
+    background: var(--sunk);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: .08em .38em;
+    white-space: nowrap;
+  }
+  kbd {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-bottom-width: 2px;
+    border-radius: 5px;
+    padding: .1em .45em;
+    white-space: nowrap;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, .04);
+  }
+  a { color: var(--accent); text-underline-offset: 2px; }
+  a:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  /* --- masthead --- */
+  header { display: flex; flex-direction: column; gap: 1rem; }
+  .eyebrow {
+    font-family: Consolas, "Cascadia Mono", ui-monospace, monospace;
+    font-size: .72rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  h1 {
+    margin: 0;
+    font-size: clamp(2.1rem, 6vw, 3.1rem);
+    line-height: 1.06;
+    letter-spacing: -.028em;
+    font-weight: 700;
+    text-wrap: balance;
+  }
+  .lede {
+    margin: 0;
+    max-width: 34em;
+    font-size: 1.12rem;
+    color: var(--ink-soft);
+  }
+
+  /* --- signal chain diagram --- */
+  .chain-scroll { overflow-x: auto; padding-bottom: .35rem; }
+  .chain {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    align-items: center;
+    gap: .5rem .75rem;
+    min-width: 34rem;
+    font-size: .8rem;
+  }
+  .node {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    padding: .5rem .7rem;
+    line-height: 1.3;
+    box-shadow: var(--shadow);
+  }
+  .node b { display: block; font-weight: 600; }
+  .node span { color: var(--ink-soft); font-size: .92em; }
+  .node.listener { border-left: 3px solid var(--accent); }
+  .arrow { color: var(--accent); font-size: 1.1rem; text-align: center; }
+  .fan { grid-row: span 3; align-self: stretch; display: grid; }
+  .fan-line {
+    border-left: 2px solid var(--accent);
+    border-top: 2px solid var(--accent);
+    border-bottom: 2px solid var(--accent);
+    border-radius: 0 0 0 6px;
+    width: 1rem;
+    margin-left: .4rem;
+    height: 100%;
+  }
+
+  /* --- contents --- */
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 1.1rem 1.25rem;
+    box-shadow: var(--shadow);
+  }
+  .toc h2 {
+    margin: 0 0 .7rem;
+    font-size: .72rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 600;
+  }
+  .toc ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: .4rem;
+  }
+  .toc a { display: flex; gap: .6rem; text-decoration: none; color: var(--ink); }
+  .toc a:hover { color: var(--accent); }
+  .toc .tag {
+    font-family: Consolas, "Cascadia Mono", ui-monospace, monospace;
+    color: var(--accent);
+    font-size: .82rem;
+    min-width: 1.1rem;
+  }
+  .toc .once { margin-left: auto; font-size: .78rem; color: var(--ink-soft); }
+
+  /* --- parts --- */
+  section { display: flex; flex-direction: column; gap: 1.4rem; }
+  .part-head { display: flex; flex-direction: column; gap: .3rem; }
+  .part-head .eyebrow { display: flex; align-items: center; gap: .55rem; }
+  h2.part {
+    margin: 0;
+    font-size: clamp(1.45rem, 3.4vw, 1.85rem);
+    letter-spacing: -.02em;
+    line-height: 1.15;
+    font-weight: 700;
+    text-wrap: balance;
+  }
+  .part-note { margin: 0; color: var(--ink-soft); max-width: 40em; }
+
+  .steps { display: grid; gap: 1.35rem; }
+  .step { display: grid; grid-template-columns: 2rem 1fr; gap: .95rem; }
+  .step > .n {
+    font-family: Consolas, "Cascadia Mono", ui-monospace, monospace;
+    font-size: .82rem;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-radius: 5px;
+    height: 1.65rem;
+    display: grid;
+    place-items: center;
+    font-variant-numeric: tabular-nums;
+  }
+  .step > .body { display: flex; flex-direction: column; gap: .5rem; min-width: 0; }
+  .step p { margin: 0; }
+  .step strong { font-weight: 600; }
+  .step ul { margin: 0; padding-left: 1.15rem; display: grid; gap: .3rem; }
+
+  pre {
+    margin: 0;
+    background: var(--sunk);
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    padding: .7rem .85rem;
+    overflow-x: auto;
+    font-family: Consolas, "Cascadia Mono", ui-monospace, monospace;
+    font-size: .84rem;
+    line-height: 1.5;
+  }
+
+  .note {
+    border-radius: 8px;
+    padding: .8rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+    font-size: .95rem;
+  }
+  .note p { margin: 0; }
+  .note .tag {
+    font-family: Consolas, "Cascadia Mono", ui-monospace, monospace;
+    font-size: .7rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .note.watch { background: var(--warn-soft); color: var(--ink); }
+  .note.watch .tag { color: var(--warn); }
+  .note.check { background: var(--accent-soft); color: var(--ink); }
+  .note.check .tag { color: var(--accent); }
+
+  /* --- troubleshooting --- */
+  .table-scroll { overflow-x: auto; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .93rem;
+    min-width: 33rem;
+  }
+  th, td {
+    text-align: left;
+    vertical-align: top;
+    padding: .7rem .8rem .7rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  th {
+    font-size: .72rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 600;
+    border-bottom-color: var(--ink-soft);
+  }
+  td:first-child { font-weight: 600; width: 30%; }
+  tbody tr:last-child td { border-bottom: none; }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding-top: 1.4rem;
+    color: var(--ink-soft);
+    font-size: .9rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+  }
+
+  @media (max-width: 34rem) {
+    .step { grid-template-columns: 1.7rem 1fr; gap: .7rem; }
+    td:first-child { width: auto; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Windows 11 · Android · USB</div>
+  <h1>Watch one video, hear it on three headsets, all in sync</h1>
+  <p class="lede">Your laptop plays a video. You listen on your own Bluetooth
+  earphones. One or two people listen on their own earphones, through phones
+  plugged into the laptop by USB. Nobody hears an echo and everybody's lips
+  match. Every step is below — no prior knowledge assumed.</p>
+
+  <div class="chain-scroll">
+    <div class="chain">
+      <div class="node"><b>Video player</b><span>PotPlayer or VLC</span></div>
+      <div class="arrow">→</div>
+      <div class="node"><b>Virtual speaker</b><span>silences the laptop</span></div>
+      <div class="arrow">→</div>
+
+      <div class="node" style="grid-column: 1 / -1"><b>Audio Bridge</b>
+        <span>captures that audio and copies it to every listener, each with
+        its own delay</span></div>
+
+      <div class="fan"><div class="fan-line"></div></div>
+      <div class="node listener" style="grid-column: 2 / -1"><b>Your Bluetooth earphones</b><span>played by the laptop</span></div>
+      <div class="node listener" style="grid-column: 2 / -1"><b>Phone 1 → its earphones</b><span>over the USB cable</span></div>
+      <div class="node listener" style="grid-column: 2 / -1"><b>Phone 2 → its earphones</b><span>optional</span></div>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <h2>What you'll do</h2>
+  <ol>
+    <li><a href="#part-a"><span class="tag">A</span> Set up the laptop <span class="once">once</span></a></li>
+    <li><a href="#part-b"><span class="tag">B</span> Set up each phone <span class="once">once per phone</span></a></li>
+    <li><a href="#part-c"><span class="tag">C</span> Sort out the Bluetooth headsets <span class="once">once</span></a></li>
+    <li><a href="#part-d"><span class="tag">D</span> Start everything <span class="once">every time</span></a></li>
+    <li><a href="#part-e"><span class="tag">E</span> Get everyone in sync <span class="once">every time, briefly</span></a></li>
+    <li><a href="#part-f"><span class="tag">F</span> Put it back to normal <span class="once">when you're done</span></a></li>
+    <li><a href="#part-g"><span class="tag">G</span> When something's wrong</a></li>
+  </ol>
+</nav>
+
+<section id="part-a">
+  <div class="part-head">
+    <div class="eyebrow">Part A · one time, about 20 minutes</div>
+    <h2 class="part">Set up the laptop</h2>
+    <p class="part-note">Four installs and a folder. You'll type a few commands
+    into PowerShell — to open it, press <kbd>Win</kbd>, type
+    <span class="mono">powershell</span>, press <kbd>Enter</kbd>.</p>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="n">1</div>
+      <div class="body">
+        <p><strong>Install Python.</strong> Go to
+        <a href="https://www.python.org/downloads/">python.org/downloads</a> and
+        click the big yellow download button. Run the file you downloaded.</p>
+        <p>On the installer's first screen, tick <strong>both boxes at the
+        bottom</strong> — "Use admin privileges when installing py.exe" and "Add
+        python.exe to PATH" — then click <strong>Install Now</strong>.</p>
+        <p>Check it worked: in PowerShell, type this and press <kbd>Enter</kbd>.
+        It should print a version number.</p>
+        <pre>py --version</pre>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="n">2</div>
+      <div class="body">
+        <p><strong>Install the two audio libraries.</strong> In the same
+        PowerShell window:</p>
+        <pre>py -m pip install soundcard numpy</pre>
+        <p>It prints a lot of text and ends with "Successfully installed".</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="n">3</div>
+      <div class="body">
+        <p><strong>Install adb</strong> — the tool that lets the laptop talk to
+        a phone over USB. Download
+        <a href="https://developer.android.com/tools/releases/platform-tools">SDK
+        Platform-Tools for Windows</a> (a ZIP file) and unzip it so the file
+        <span class="mono">adb.exe</span> ends up at exactly this path, creating
+        the folders if they don't exist:</p>
+        <pre>C:\Users\&lt;your name&gt;\AppData\Local\Android\Sdk\platform-tools\adb.exe</pre>
+        <div class="note watch">
+          <p class="tag">Watch out</p>
+          <p>The path has to match. Audio Bridge looks for adb there and
+          nowhere else. <span class="mono">AppData</span> is hidden by default —
+          paste the path into the File Explorer address bar to get there.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="n">4</div>
+      <div class="body">
+        <p><strong>Install a virtual speaker.</strong> This is a fake sound
+        device. Sending the video's sound there instead of to the real speakers
+        is what lets Audio Bridge pick it up and hand it out — and it's why the
+        laptop's own speakers stay quiet.</p>
+        <p>Get <a href="https://vb-audio.com/Cable/">VB-CABLE</a>, unzip it,
+        right-click <span class="mono">VBCABLE_Setup_x64.exe</span> →
+        <strong>Run as administrator</strong> → <strong>Install Driver</strong>,
+        then restart the laptop.</p>
+        <p>Afterwards a device called <span class="mono">CABLE Input</span>
+        appears in your sound settings. That's the one you'll use.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="n">5</div>
+      <div class="body">
+        <p><strong>Put the Audio Bridge folder somewhere permanent</strong> —
+        your Documents folder is fine. Inside it you'll use two files:
+        <span class="mono">audiobridge.bat</span> to start everything, and
+        <span class="mono">build.bat</span> to put the app on a phone.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="part-b">
+  <div class="part-head">
+    <div class="eyebrow">Part B · one time per phone, about 5 minutes</div>
+    <h2 class="part">Set up each phone</h2>
+    <p class="part-note">Android hides the USB connection we need behind a
+    deliberately obscure switch. Steps 1 and 2 reveal it.</p>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="n">1</div>
+      <div class="body">
+        <p><strong>Unlock Developer options.</strong> On the phone open
+        <strong>Settings → About phone</strong>, scroll to the bottom, and tap
+        <strong>Build number</strong> <strong>seven times</strong> in a row.
+        Enter your PIN if asked. A message says "You are now a developer!"</p>
+        <p>On some phones it's <strong>Settings → About phone → Software
+        information → Build number</strong>.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="n">2</div>
+      <div class="body">
+        <p><strong>Turn on USB debugging.</strong> Go to <strong>Settings →
+        System → Developer options</strong> and switch on <strong>USB
+        debugging</strong>. Confirm the warning.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="n">3</div>
+      <div class="body">
+        <p><strong>Plug the phone into the laptop</strong> and unlock its
+        screen. A box appears on the phone: <strong>Allow USB debugging?</strong>
+        Tick <strong>Always allow from this computer</strong>, then tap
+        <strong>Allow</strong>.</p>
+        <div class="note watch">
+          <p class="tag">Watch out</p>
+          <p>Two things silently break this. <strong>Charge-only cables</strong>
+          look identical to data cables and simply never show the box — if
+          nothing appears, try another cable. And on the phone, swipe down and
+          tap the USB notification: the mode must be <strong>File transfer</strong>
+          or <strong>No data transfer</strong>, never <strong>USB
+          tethering</strong>, which hides the phone from the laptop entirely.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="n">4</div>
+      <div class="body">
+        <p><strong>Install the app.</strong> With the phone still plugged in,
+        double-click <span class="mono">build.bat</span> in the Audio Bridge
+        folder. A black window does its work and closes. It installs onto every
+        phone that's plugged in, so you can do both at once.</p>
+        <p>The first run downloads build tools and needs internet. Later runs
+        are quick.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="n">5</div>
+      <div class="body">
+        <p><strong>Open Audio Bridge on the phone</strong> and tap
+        <strong>Allow</strong> when it asks about notifications. It needs that
+        to keep playing while the screen is off.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="part-c">
+  <div class="part-head">
+    <div class="eyebrow">Part C · one time</div>
+    <h2 class="part">Sort out the Bluetooth headsets</h2>
+    <p class="part-note">This one catches everybody, and it doesn't look like a
+    Bluetooth problem when it happens.</p>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="n">1</div>
+      <div class="body">
+        <p><strong>Each headset must be connected to exactly one device.</strong>
+        Good headsets (Sony WH-1000XM4 and similar) are "multipoint" — they
+        happily stay connected to your laptop <em>and</em> a phone at the same
+        time. When two of them send audio at once, the headset picks one and
+        drops the other.</p>
+        <p>You hear this as <strong>a few seconds of sound and then silence</strong>,
+        or crackling — which looks exactly like a broken app, so people spend a
+        long time debugging the wrong thing.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="n">2</div>
+      <div class="body">
+        <p><strong>Check each phone.</strong> On the phone open <strong>Settings
+        → Connected devices</strong>. If <em>your laptop's</em> headset is listed
+        as connected there, tap the gear next to it and choose
+        <strong>Disconnect</strong>. Leave it paired — just not connected.</p>
+        <p>The result you want: your headset talks only to the laptop; each
+        person's earphones talk only to their own phone.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="part-d">
+  <div class="part-head">
+    <div class="eyebrow">Part D · every time, about a minute</div>
+    <h2 class="part">Start everything</h2>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="n">1</div>
+      <div class="body">
+        <p><strong>Double-click <span class="mono">audiobridge.bat</span>.</strong>
+        A small control panel window opens. Leave it open — closing it shuts
+        everything down.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="n">2</div>
+      <div class="body">
+        <p><strong>Send Windows' sound to the virtual speaker.</strong> Click the
+        speaker icon in the taskbar (bottom right), click the arrow next to the
+        volume slider to show the output list, and pick
+        <strong>CABLE Input</strong>.</p>
+        <p>The laptop goes completely silent now. That's correct — keep
+        going.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="n">3</div>
+      <div class="body">
+        <p><strong>In the control panel, set the two dropdowns:</strong></p>
+        <ul>
+          <li><strong>Capture device</strong> → <span class="mono">CABLE Input</span>
+          (the same one you just chose in Windows)</li>
+          <li><strong>Laptop monitor</strong> → your own Bluetooth earphones</li>
+        </ul>
+        <p>Your earphones come back to life. They're now fed by Audio Bridge
+        instead of by Windows directly — which is the whole trick, because it
+        means your earphones can be delayed to line up with everyone else.</p>
+        <div class="note check">
+          <p class="tag">Sanity check</p>
+          <p>The two dropdowns must be <em>different</em> devices. If you pick
+          the same one twice, the panel says "same device as capture" and
+          refuses, because it would record its own output in a loop.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="n">4</div>
+      <div class="body">
+        <p><strong>Plug in the phone(s).</strong> Within a couple of seconds each
+        one appears in the panel under <strong>USB devices</strong> with
+        "tunnel on port 44100". Nothing to click.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="n">5</div>
+      <div class="body">
+        <p><strong>On each phone, open Audio Bridge and tap
+        <strong>Connect</strong>.</strong> The phone shows "playing @ 48 kHz" and
+        the panel lists it under <strong>Connected players</strong>.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="n">6</div>
+      <div class="body">
+        <p><strong>Open your video</strong> in PotPlayer or VLC. Everyone hears
+        it. Now make it line up.</p>
+        <div class="note watch">
+          <p class="tag">Watch out</p>
+          <p>YouTube in a web browser can't be synced — browsers give you no way
+          to shift the sound against the picture. Open the YouTube address in
+          PotPlayer or VLC instead (both accept a pasted URL) and everything
+          below works.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="part-e">
+  <div class="part-head">
+    <div class="eyebrow">Part E · every time, two minutes</div>
+    <h2 class="part">Get everyone in sync</h2>
+    <p class="part-note">One rule explains the whole procedure: <strong>sound can
+    only be held back, never hurried up</strong>. So you slow the fast listeners
+    down to match the slowest one, and then hold the picture back to match
+    them all.</p>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="n">1</div>
+      <div class="body">
+        <p><strong>Round one: make the listeners agree with each other.</strong>
+        Play music with a clear beat. Hold your earphones to one ear and a
+        phone's earphones to the other.</p>
+        <p>You'll hear a slight echo. Whichever side is <strong>earlier</strong>
+        is the one to delay:</p>
+        <ul>
+          <li><strong>Your laptop earphones</strong> → the
+          <kbd>−250</kbd> <kbd>−50</kbd> <kbd>+50</kbd> <kbd>+250</kbd>
+          buttons in the control panel</li>
+          <li><strong>A phone's earphones</strong> → the same buttons in the app
+          on that phone</li>
+        </ul>
+        <p>Use <kbd>+250</kbd> to find the neighborhood, then <kbd>+50</kbd> to
+        finish. The echo collapses into a single sound when you're there. With
+        two phones, do one pair at a time.</p>
+        <div class="note check">
+          <p class="tag">Good to know</p>
+          <p>Each value is remembered — the phone's on the phone, the laptop's on
+          the laptop — so tomorrow you'll only be nudging, not starting over.
+          Typical numbers land between 100 and 400 ms.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="n">2</div>
+      <div class="body">
+        <p><strong>Round two: make the picture agree with the sound.</strong>
+        Everyone now shares one sound timeline, so a single setting in the video
+        player fixes lips for all of you at once.</p>
+        <p>The sound arrives late, so the picture has to wait — that means
+        shifting the audio <strong>earlier</strong>:</p>
+        <ul>
+          <li><strong>PotPlayer:</strong> <kbd>Shift</kbd> + <kbd>&gt;</kbd>
+          earlier, <kbd>Shift</kbd> + <kbd>&lt;</kbd> later,
+          <kbd>Shift</kbd> + <kbd>/</kbd> resets. 50 ms per press.</li>
+          <li><strong>VLC:</strong> <kbd>j</kbd> earlier, <kbd>k</kbd> later.
+          50 ms per press.</li>
+        </ul>
+        <p>Play a scene with someone talking and press the "earlier" key until
+        the lips match — usually six to nine presses. If it gets
+        <em>worse</em> right away you're going the wrong way; press the other key
+        four times and carry on.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="part-f">
+  <div class="part-head">
+    <div class="eyebrow">Part F · when you're done</div>
+    <h2 class="part">Put it back to normal</h2>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="n">1</div>
+      <div class="body">
+        <p>Click the taskbar speaker icon and set the output back to your normal
+        speakers or headphones. Sound behaves normally again immediately.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">2</div>
+      <div class="body">
+        <p>Close the control panel window. Everything stops on its own — there's
+        nothing left running in the background.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">3</div>
+      <div class="body">
+        <p>On each phone, tap <strong>Disconnect</strong> and unplug. Your delay
+        settings stay saved for next time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="part-g">
+  <div class="part-head">
+    <div class="eyebrow">Part G</div>
+    <h2 class="part">When something's wrong</h2>
+    <p class="part-note">Nearly everything here has been hit at least once in
+    practice. Find your symptom on the left.</p>
+  </div>
+
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>What you see</th><th>What's actually happening</th><th>Fix</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Phone says it's playing, but you hear nothing</td>
+          <td>The earphones are connected to two devices at once and picked the
+          other one</td>
+          <td>Part C — disconnect that headset from everything except its own
+          device</td>
+        </tr>
+        <tr>
+          <td>Sound for a few seconds, then silence</td>
+          <td>Same cause. The headset switched sources mid-stream</td>
+          <td>Part C</td>
+        </tr>
+        <tr>
+          <td><span class="mono">build.bat</span> says "no devices/emulators
+          found"</td>
+          <td>The phone is in USB tethering mode, the debugging box was never
+          accepted, or it's a charge-only cable</td>
+          <td>Part B step 3 — check all three, in that order</td>
+        </tr>
+        <tr>
+          <td>Panel says "same device as capture"</td>
+          <td>Capture device and laptop monitor are set to the same thing, which
+          would feed back on itself</td>
+          <td>Set the monitor to your real earphones, capture to the virtual
+          speaker</td>
+        </tr>
+        <tr>
+          <td>Laptop is silent and nothing brings it back</td>
+          <td>Windows is sending sound to the virtual speaker and no monitor is
+          set to play it</td>
+          <td>Part D step 3, or switch Windows' output back to normal</td>
+        </tr>
+        <tr>
+          <td>Phone shows "waiting for PC"</td>
+          <td>The USB link dropped — usually a knocked cable</td>
+          <td>Replug. The tunnel is restored within about two seconds and the
+          phone reconnects itself</td>
+        </tr>
+        <tr>
+          <td>Everything was in sync, now it's slipping</td>
+          <td>The headsets and laptop don't share a clock, so they drift apart
+          over a long session</td>
+          <td>Re-nudge with <kbd>±50</kbd>. The panel's "drift skips" counter
+          shows when this has happened</td>
+        </tr>
+        <tr>
+          <td>Panel says "server unreachable"</td>
+          <td>The background program isn't running</td>
+          <td>Close the window and double-click
+          <span class="mono">audiobridge.bat</span> again</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <p>Sound travels over the USB cable as plain uncompressed audio, so there's no
+  quality loss and no Wi-Fi involved. Each phone gets its own copy — a slow phone
+  can't hold up anyone else.</p>
+  <p>Nothing here reaches the internet: the connection exists only between the
+  laptop and the phones plugged into it.</p>
+</footer>
+
+</div>
