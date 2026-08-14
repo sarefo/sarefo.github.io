@@ -162,7 +162,8 @@ async function poll() {
   const ms = s.monitor_status;
   $("mhint").innerHTML = !s.monitor
     ? "off — Windows plays to its default output, which cannot be delayed"
-    : ms.startsWith("error") ? `<span class="adb-bad">${ms}</span>` : ms;
+    : ms.startsWith("error") ? `<span class="adb-bad">${ms}</span>`
+    : ms + (s.monitor_drops ? ` · ${s.monitor_drops} drift skips` : "");
 
   // adb devices
   const serials = Object.entries(s.adb);

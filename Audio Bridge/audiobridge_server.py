@@ -48,6 +48,12 @@ QUEUE_BLOCKS = 40
 # delay its own output. Cap the line at 4 s (delay is clamped to 3 s).
 MONITOR_BLOCKS = 800
 MAX_DELAY_MS = 3000
+# Write to the monitor in ~40 ms batches. A Bluetooth endpoint cannot service
+# the 5 ms period the capture runs at and distorts audibly if asked to.
+MONITOR_PLAY_FRAMES = 1920
+# The monitor device's clock is not the capture device's, so playback slowly
+# falls behind. Skip ahead past 300 ms rather than let latency creep.
+MONITOR_MAX_BACKLOG = 60
 
 DIR = os.path.dirname(os.path.abspath(__file__))
 SETTINGS_FILE = os.path.join(DIR, "audiobridge_settings.json")
@@ -78,6 +84,7 @@ adb_serials = {}  # serial -> "ok" | error text
 monitor_device_name = None  # None = local monitor off
 monitor_delay_ms = 0
 monitor_status = "off"  # off | running | error: ...
+monitor_drops = 0  # blocks skipped to keep the monitor from drifting late
 monitor_generation = 0
 monitor_queue = collections.deque(maxlen=MONITOR_BLOCKS)
 monitor_have = threading.Event()
@@ -217,7 +224,7 @@ def monitor_loop():
     the Windows default output on a silent virtual device and the monitor on
     the real headphones, the laptop becomes just another delayable player.
     """
-    global monitor_status
+    global monitor_status, monitor_drops
     while True:
         if not monitor_device_name:
             monitor_status = "off"
@@ -238,9 +245,11 @@ def monitor_loop():
                 time.sleep(2)
                 continue
             with spk.player(samplerate=RATE, channels=CHANNELS,
-                            blocksize=BLOCK_FRAMES) as player:
+                            blocksize=MONITOR_PLAY_FRAMES) as player:
                 monitor_status = "running"
+                monitor_drops = 0
                 line = collections.deque()  # the delay line
+                pending, pending_frames = [], 0
                 blocks = 0
                 while monitor_device_name and generation == monitor_generation:
                     blocks += 1
@@ -251,13 +260,20 @@ def monitor_loop():
                         monitor_have.clear()
                         monitor_have.wait(timeout=0.5)
                         continue
+                    while len(monitor_queue) > MONITOR_MAX_BACKLOG:
+                        monitor_queue.popleft()  # clock drift: skip ahead
+                        monitor_drops += 1
                     line.append(monitor_queue.popleft())
                     target = (min(max(monitor_delay_ms, 0), MAX_DELAY_MS)
                               * RATE // (1000 * BLOCK_FRAMES))
                     while len(line) > target + 1:
                         line.popleft()  # delay lowered: drop the surplus
                     if len(line) > target:
-                        player.play(line.popleft())
+                        pending.append(line.popleft())
+                        pending_frames += BLOCK_FRAMES
+                        if pending_frames >= MONITOR_PLAY_FRAMES:
+                            player.play(np.concatenate(pending))
+                            pending, pending_frames = [], 0
             monitor_status = "off"
         except Exception as e:  # device unplugged, format refused, ...
             monitor_status = f"error: {e}"
@@ -361,6 +377,7 @@ def get_status():
         "monitor": monitor_device_name or "",
         "monitor_delay_ms": monitor_delay_ms,
         "monitor_status": monitor_status,
+        "monitor_drops": monitor_drops,
         "clients": cl,
         "adb": adb_serials,
         "audio_port": AUDIO_PORT,
