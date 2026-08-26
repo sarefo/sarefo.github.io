@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hiragana</title>
+<meta name="description" content="Learn to read hiragana with adaptive spaced repetition. Works offline.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#fafaf8">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#131317">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<style>
+:root {
+  --bg: #fafaf8;
+  --surface: #ffffff;
+  --ink: #17171c;
+  --muted: #70707a;
+  --border: #e7e6e1;
+  --border-strong: #d8d7d1;
+  --seal: #d6402f;
+  --seal-ink: #ffffff;
+  --indigo: #4361b2;
+  --indigo-soft: #e4e9f6;
+  --good: #2f9e63;
+  --good-soft: #e2f3ea;
+  --bad-soft: #fbe9e6;
+  --shadow: 0 1px 2px rgba(23,23,28,.04), 0 8px 24px rgba(23,23,28,.06);
+  --shadow-lift: 0 2px 4px rgba(23,23,28,.05), 0 12px 32px rgba(23,23,28,.10);
+}
+[data-theme="dark"] {
+  --bg: #131317;
+  --surface: #1d1d23;
+  --ink: #ededef;
+  --muted: #97979f;
+  --border: #2b2b33;
+  --border-strong: #3a3a44;
+  --seal: #f26b5b;
+  --seal-ink: #1a0d0b;
+  --indigo: #8fa7e8;
+  --indigo-soft: #262c3e;
+  --good: #53c98a;
+  --good-soft: #1c3128;
+  --bad-soft: #3a221f;
+  --shadow: none;
+  --shadow-lift: none;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  min-height: 100dvh;
+  -webkit-tap-highlight-color: transparent;
+}
+.kana-font {
+  font-family: "Hiragino Sans", "Yu Gothic UI", "Meiryo", "Noto Sans JP", system-ui, sans-serif;
+}
+.mono {
+  font-family: ui-monospace, "Cascadia Code", "SF Mono", Consolas, monospace;
+}
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+button:focus-visible, a:focus-visible {
+  outline: 2px solid var(--indigo);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+.view { max-width: 30rem; margin: 0 auto; padding: 1rem 1.25rem 3rem; }
+.hidden { display: none !important; }
+
+/* ---------- home ---------- */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .5rem 0 1.5rem;
+}
+.brand { display: flex; align-items: center; gap: .75rem; }
+.brand-seal {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: .625rem;
+  background: var(--seal);
+  color: var(--seal-ink);
+  display: grid;
+  place-items: center;
+  font-size: 1.35rem;
+  line-height: 1;
+  transform: rotate(-4deg);
+  flex: none;
+}
+.brand h1 { font-size: 1.3rem; font-weight: 700; letter-spacing: -.01em; }
+.brand small { display: block; font-size: .75rem; font-weight: 400; color: var(--muted); letter-spacing: .04em; }
+.toggles { display: flex; gap: .25rem; }
+.icon-btn {
+  width: 3rem;
+  height: 3rem;
+  border-radius: .75rem;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  transition: background .15s, color .15s;
+}
+.icon-btn:hover { background: var(--surface); color: var(--ink); }
+.icon-btn svg { width: 1.25rem; height: 1.25rem; }
+.icon-btn .alt { display: none; }
+[data-sound="off"] #soundBtn .main { display: none; }
+[data-sound="off"] #soundBtn .alt { display: block; }
+[data-theme="dark"] #themeBtn .main { display: none; }
+[data-theme="dark"] #themeBtn .alt { display: block; }
+
+.groups { display: grid; gap: .75rem; list-style: none; }
+.group-card {
+  width: 100%;
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1rem 1.125rem;
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: .625rem;
+  transition: transform .15s, box-shadow .15s, border-color .15s;
+}
+.group-card:hover { transform: translateY(-1px); box-shadow: var(--shadow-lift); border-color: var(--border-strong); }
+.group-card:active { transform: translateY(0); }
+.group-head { display: flex; align-items: baseline; justify-content: space-between; gap: .5rem; }
+.group-name { font-weight: 650; font-size: 1rem; }
+.group-count { font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.group-count b { color: var(--indigo); font-weight: 650; }
+.group-preview {
+  font-size: .95rem;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  letter-spacing: .12em;
+}
+.group-bar { height: .25rem; border-radius: 999px; background: var(--indigo-soft); overflow: hidden; }
+.group-bar > div { height: 100%; background: var(--indigo); border-radius: 999px; transition: width .3s; }
+.home-foot { margin-top: 2rem; font-size: .8rem; color: var(--muted); text-align: center; }
+
+/* ---------- session ---------- */
+.session-bar {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .5rem 0 .25rem;
+}
+.session-bar .icon-btn { margin-left: -.75rem; }
+.session-title { font-weight: 650; font-size: 1rem; flex: 1; }
+.session-stats { font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.level-strip {
+  display: flex;
+  gap: 3px;
+  height: .375rem;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: .75rem 0 0;
+}
+.level-strip span { background: var(--indigo); border-radius: 2px; transition: flex-grow .3s, opacity .3s; min-width: 0; }
+.level-strip .l0 { opacity: .12; }
+.level-strip .l1 { opacity: .32; }
+.level-strip .l2 { opacity: .52; }
+.level-strip .l3 { opacity: .74; }
+.level-strip .l4 { opacity: 1; }
+.strip-caption {
+  display: flex;
+  justify-content: space-between;
+  font-size: .7rem;
+  color: var(--muted);
+  margin-top: .375rem;
+}
+
+.stage {
+  margin-top: 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow);
+  padding: 1.5rem 1.25rem;
+  min-height: 21rem;
+  display: flex;
+  flex-direction: column;
+}
+.prompt-zone {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  position: relative;
+  padding: .5rem 0 1.25rem;
+}
+.kana-big {
+  font-size: clamp(5.5rem, 28vw, 8rem);
+  line-height: 1.1;
+  font-weight: 500;
+  animation: kanaIn .2s ease-out;
+}
+.kana-big.long { font-size: clamp(4rem, 20vw, 6rem); }
+@keyframes kanaIn { from { opacity: 0; transform: scale(.96); } }
+.answers { display: grid; grid-template-columns: 1fr 1fr; gap: .625rem; }
+.answer {
+  min-height: 3.5rem;
+  border-radius: .875rem;
+  border: 1px solid var(--border-strong);
+  background: var(--bg);
+  font-size: 1.2rem;
+  letter-spacing: .06em;
+  transition: background .15s, border-color .15s, transform .1s;
+  position: relative;
+}
+.answer:hover { border-color: var(--indigo); }
+.answer:active { transform: scale(.98); }
+.answer .key {
+  position: absolute;
+  top: .3rem;
+  left: .5rem;
+  font-size: .65rem;
+  color: var(--muted);
+  letter-spacing: 0;
+}
+.answer.correct { background: var(--good-soft); border-color: var(--good); color: var(--good); }
+.answer.wrong { background: var(--bad-soft); border-color: var(--seal); color: var(--seal); animation: shake .3s; }
+.answer:disabled { cursor: default; }
+.answer.dim { opacity: .45; }
+@keyframes shake {
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-2px); }
+}
+
+.reveal {
+  text-align: center;
+  font-size: .9rem;
+  color: var(--muted);
+  padding-top: .875rem;
+  min-height: 2.25rem;
+}
+.reveal b { color: var(--ink); letter-spacing: .06em; }
+.reveal .go { color: var(--good); font-weight: 600; }
+
+/* intro card */
+.intro-card { text-align: center; flex: 1; display: flex; flex-direction: column; animation: introIn .25s ease-out; }
+@keyframes introIn { from { opacity: 0; transform: translateY(8px); } }
+.intro-seal {
+  align-self: center;
+  background: var(--seal);
+  color: var(--seal-ink);
+  font-size: .75rem;
+  font-weight: 650;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: .3rem .65rem;
+  border-radius: .5rem;
+  transform: rotate(-3deg);
+}
+.intro-body { flex: 1; display: grid; place-items: center; padding: 1rem 0; }
+.intro-romaji { font-size: 1.6rem; letter-spacing: .1em; color: var(--muted); margin-top: .25rem; }
+.primary-btn {
+  min-height: 3.25rem;
+  border-radius: .875rem;
+  background: var(--ink);
+  color: var(--bg);
+  font-weight: 600;
+  font-size: 1rem;
+  transition: opacity .15s, transform .1s;
+}
+.primary-btn:hover { opacity: .9; }
+.primary-btn:active { transform: scale(.98); }
+.ghost-btn {
+  min-height: 3.25rem;
+  border-radius: .875rem;
+  border: 1px solid var(--border-strong);
+  font-weight: 600;
+  font-size: 1rem;
+}
+.ghost-btn:hover { border-color: var(--indigo); }
+
+/* mastered */
+.mastered { text-align: center; flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 1rem; animation: introIn .25s ease-out; }
+.mastered .kana-big { font-size: 4rem; }
+.mastered h2 { font-size: 1.3rem; }
+.mastered p { color: var(--muted); font-size: .9rem; }
+.mastered-actions { display: grid; gap: .625rem; margin-top: .5rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<main id="home" class="view">
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-seal kana-font" aria-hidden="true">あ</div>
+      <h1>Hiragana<small>learn to read the kana</small></h1>
+    </div>
+    <div class="toggles">
+      <button id="soundBtn" class="icon-btn" aria-label="Toggle sound">
+        <svg class="main" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+        <svg class="alt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="15" y1="9" x2="21" y2="15"/><line x1="21" y1="9" x2="15" y2="15"/></svg>
+      </button>
+      <button id="themeBtn" class="icon-btn" aria-label="Toggle theme">
+        <svg class="main" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+        <svg class="alt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.2" y1="4.2" x2="5.6" y2="5.6"/><line x1="18.4" y1="18.4" x2="19.8" y2="19.8"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.2" y1="19.8" x2="5.6" y2="18.4"/><line x1="18.4" y1="5.6" x2="19.8" y2="4.2"/></svg>
+      </button>
+    </div>
+  </div>
+  <ul id="groupList" class="groups"></ul>
+  <p class="home-foot">Miss a character and it starts over from zero.<br>Works offline once loaded.</p>
+</main>
+
+<main id="session" class="view hidden">
+  <div class="session-bar">
+    <button id="backBtn" class="icon-btn" aria-label="Back to lessons">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="session-title" id="sessionTitle"></div>
+    <div class="session-stats" id="sessionStats"></div>
+  </div>
+  <div class="level-strip" id="levelStrip" aria-hidden="true"></div>
+  <div class="strip-caption"><span>new</span><span id="masteredCaption"></span></div>
+  <div class="stage" id="stage"></div>
+</main>
+
+<script>
+"use strict";
+const GROUPS = [{"name":"vowels_ks","cards":[{"k":"あ","r":"a"},{"k":"い","r":"i"},{"k":"う","r":"u"},{"k":"え","r":"e"},{"k":"お","r":"o"},{"k":"か","r":"ka"},{"k":"き","r":"ki"},{"k":"く","r":"ku"},{"k":"け","r":"ke"},{"k":"こ","r":"ko"},{"k":"さ","r":"sa"},{"k":"し","r":"shi"},{"k":"す","r":"su"},{"k":"せ","r":"se"},{"k":"そ","r":"so"}]},{"name":"sounds_tnh","cards":[{"k":"た","r":"ta"},{"k":"ち","r":"chi"},{"k":"つ","r":"tsu"},{"k":"て","r":"te"},{"k":"と","r":"to"},{"k":"な","r":"na"},{"k":"に","r":"ni"},{"k":"ぬ","r":"nu"},{"k":"ね","r":"ne"},{"k":"の","r":"no"},{"k":"ん","r":"n"},{"k":"は","r":"ha"},{"k":"ひ","r":"hi"},{"k":"ふ","r":"fu"},{"k":"へ","r":"he"},{"k":"ほ","r":"ho"}]},{"name":"sounds_myrw","cards":[{"k":"ま","r":"ma"},{"k":"み","r":"mi"},{"k":"む","r":"mu"},{"k":"め","r":"me"},{"k":"も","r":"mo"},{"k":"や","r":"ya"},{"k":"ゆ","r":"yu"},{"k":"よ","r":"yo"},{"k":"ら","r":"ra"},{"k":"り","r":"ri"},{"k":"る","r":"ru"},{"k":"れ","r":"re"},{"k":"ろ","r":"ro"},{"k":"わ","r":"wa"},{"k":"を","r":"wo"}]},{"name":"sounds_kgtd","cards":[{"k":"た","r":"ta"},{"k":"ち","r":"chi"},{"k":"つ","r":"tsu"},{"k":"て","r":"te"},{"k":"と","r":"to"},{"k":"か","r":"ka"},{"k":"き","r":"ki"},{"k":"く","r":"ku"},{"k":"け","r":"ke"},{"k":"こ","r":"ko"},{"k":"が","r":"ga"},{"k":"ぎ","r":"gi"},{"k":"ぐ","r":"gu"},{"k":"げ","r":"ge"},{"k":"ご","r":"go"},{"k":"だ","r":"da"},{"k":"ぢ","r":"ji"},{"k":"づ","r":"du"},{"k":"で","r":"de"},{"k":"ど","r":"do"}]},{"name":"sounds_szhbp","cards":[{"k":"は","r":"ha"},{"k":"ひ","r":"hi"},{"k":"ふ","r":"fu"},{"k":"へ","r":"he"},{"k":"ほ","r":"ho"},{"k":"さ","r":"sa"},{"k":"し","r":"shi"},{"k":"す","r":"su"},{"k":"せ","r":"se"},{"k":"そ","r":"so"},{"k":"ざ","r":"za"},{"k":"じ","r":"ji"},{"k":"ず","r":"zu"},{"k":"ぜ","r":"ze"},{"k":"ぞ","r":"zo"},{"k":"ば","r":"ba"},{"k":"び","r":"bi"},{"k":"ぶ","r":"bu"},{"k":"べ","r":"be"},{"k":"ぼ","r":"bo"},{"k":"ぱ","r":"pa"},{"k":"ぴ","r":"pi"},{"k":"ぷ","r":"pu"},{"k":"ぺ","r":"pe"},{"k":"ぽ","r":"po"}]},{"name":"similar","cards":[{"k":"た","r":"ta"},{"k":"ち","r":"chi"},{"k":"な","r":"na"},{"k":"に","r":"ni"},{"k":"ぬ","r":"nu"},{"k":"ね","r":"ne"},{"k":"は","r":"ha"},{"k":"ほ","r":"ho"},{"k":"あ","r":"a"},{"k":"き","r":"ki"},{"k":"さ","r":"sa"},{"k":"ま","r":"ma"},{"k":"め","r":"me"},{"k":"ら","r":"ra"},{"k":"る","r":"ru"},{"k":"れ","r":"re"},{"k":"ろ","r":"ro"},{"k":"わ","r":"wa"}]},{"name":"diphthong_1","cards":[{"k":"きゃ","r":"kya"},{"k":"きゅ","r":"kyu"},{"k":"きょ","r":"kyo"},{"k":"しゃ","r":"sha"},{"k":"しゅ","r":"shu"},{"k":"しょ","r":"sho"},{"k":"ちゃ","r":"cha"},{"k":"ちゅ","r":"chu"},{"k":"ちょ","r":"cho"},{"k":"にゃ","r":"nya"},{"k":"にゅ","r":"nyu"},{"k":"にょ","r":"nyo"},{"k":"ひゃ","r":"hya"},{"k":"ひゅ","r":"hyu"},{"k":"ひょ","r":"hyo"},{"k":"じゃ","r":"ja"},{"k":"じゅ","r":"ju"},{"k":"じょ","r":"jo"}]},{"name":"diphthong_2","cards":[{"k":"みゃ","r":"mya"},{"k":"みゅ","r":"myu"},{"k":"みょ","r":"myo"},{"k":"りゃ","r":"rya"},{"k":"りゅ","r":"ryu"},{"k":"りょ","r":"ryo"},{"k":"ぎゃ","r":"gya"},{"k":"ぎゅ","r":"gyu"},{"k":"ぎょ","r":"gyo"},{"k":"ぢゃ","r":"ja"},{"k":"ぢゅ","r":"ju"},{"k":"ぢょ","r":"jo"},{"k":"びゃ","r":"bya"},{"k":"びゅ","r":"byu"},{"k":"びょ","r":"byo"},{"k":"ぴゃ","r":"pya"},{"k":"ぴゅ","r":"pyu"},{"k":"ぴょ","r":"pyo"}]}];
+
+const DISPLAY = [
+  { title: "Vowels · K · S" },
+  { title: "T · N · H" },
+  { title: "M · Y · R · W" },
+  { title: "Voiced: G · D" },
+  { title: "Voiced: Z · B · P" },
+  { title: "Look-alikes" },
+  { title: "Combos ゃゅょ I" },
+  { title: "Combos ゃゅょ II" },
+];
+
+// Spaced-repetition constants, ported from the original app:
+// a card at level L waits nextByLevel[L] questions before it is due again.
+const NEXT_BY_LEVEL = [0, 1, 5, 10, 20];
+const MAX_LEVEL = NEXT_BY_LEVEL.length; // levels run 0..4
+
+const STORE_KEY = "hiragana-v1";
+
+/* ---------- persistence ---------- */
+function loadStore() {
+  try {
+    const s = JSON.parse(localStorage.getItem(STORE_KEY));
+    if (s && s.groups) return s;
+  } catch (e) { /* corrupted or unavailable storage: start fresh */ }
+  return { groups: {}, settings: {} };
+}
+const store = loadStore();
+function saveStore() {
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch (e) { /* private mode etc. */ }
+}
+function groupState(gi) {
+  const name = GROUPS[gi].name;
+  let arr = store.groups[name];
+  if (!arr || arr.length !== GROUPS[gi].cards.length) {
+    arr = GROUPS[gi].cards.map(() => [0, 0, 0]); // [level, next, introduced]
+    store.groups[name] = arr;
+  }
+  return arr;
+}
+
+/* ---------- settings ---------- */
+function applyTheme() {
+  const t = store.settings.theme ||
+    (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  document.documentElement.dataset.theme = t;
+}
+function applySound() {
+  document.documentElement.dataset.sound = store.settings.sound === false ? "off" : "on";
+}
+applyTheme();
+applySound();
+document.getElementById("themeBtn").addEventListener("click", () => {
+  const cur = document.documentElement.dataset.theme;
+  store.settings.theme = cur === "dark" ? "light" : "dark";
+  saveStore();
+  applyTheme();
+});
+document.getElementById("soundBtn").addEventListener("click", () => {
+  store.settings.sound = store.settings.sound === false;
+  saveStore();
+  applySound();
+});
+
+/* ---------- audio ---------- */
+let jaVoice = null;
+function pickVoice() {
+  const voices = speechSynthesis.getVoices();
+  jaVoice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith("ja")) || null;
+}
+if ("speechSynthesis" in window) {
+  pickVoice();
+  speechSynthesis.addEventListener("voiceschanged", pickVoice);
+}
+function speak(kana) {
+  if (store.settings.sound === false || !("speechSynthesis" in window) || !jaVoice) return;
+  try {
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(kana);
+    u.voice = jaVoice;
+    u.lang = jaVoice.lang;
+    u.rate = 0.85;
+    speechSynthesis.speak(u);
+  } catch (e) { /* audio is optional */ }
+}
+
+/* ---------- home ---------- */
+const homeEl = document.getElementById("home");
+const sessionEl = document.getElementById("session");
+const groupListEl = document.getElementById("groupList");
+
+function renderHome() {
+  groupListEl.innerHTML = "";
+  GROUPS.forEach((g, gi) => {
+    const st = groupState(gi);
+    const mastered = st.filter(c => c[0] >= MAX_LEVEL - 1).length;
+    const li = document.createElement("li");
+    const btn = document.createElement("button");
+    btn.className = "group-card";
+    btn.innerHTML =
+      '<div class="group-head"><span class="group-name">' + (gi + 1) + ". " + DISPLAY[gi].title +
+      '</span><span class="group-count"><b>' + mastered + "</b> / " + g.cards.length + "</span></div>" +
+      '<div class="group-preview kana-font">' + g.cards.map(c => c.k).join(" ") + "</div>" +
+      '<div class="group-bar"><div style="width:' + (100 * mastered / g.cards.length) + '%"></div></div>';
+    btn.addEventListener("click", () => startSession(gi));
+    li.appendChild(btn);
+    groupListEl.appendChild(li);
+  });
+}
+
+/* ---------- session state ---------- */
+const stage = document.getElementById("stage");
+let S = null; // active session
+
+function startSession(gi) {
+  S = {
+    gi,
+    cards: groupState(gi),
+    forced: -1,           // index to re-ask immediately after a miss; -1 = none
+    lastKnown: false,     // true right after a filler question of a mastered card
+    current: -1,
+    failed: false,        // wrong answer given on the current display
+    answered: 0,
+    streak: 0,
+    phase: "question",
+    celebrated: groupState(gi).every(c => c[0] >= MAX_LEVEL - 1),
+    advanceTimer: 0,
+  };
+  document.getElementById("sessionTitle").textContent = DISPLAY[gi].title;
+  homeEl.classList.add("hidden");
+  sessionEl.classList.remove("hidden");
+  showQuestion();
+}
+
+function goHome() {
+  clearTimeout(S && S.advanceTimer);
+  S = null;
+  sessionEl.classList.add("hidden");
+  homeEl.classList.remove("hidden");
+  renderHome();
+}
+document.getElementById("backBtn").addEventListener("click", goHome);
+
+/* ---------- the algorithm (exact port) ---------- */
+function selectQuestion() {
+  const cards = S.cards;
+  if (S.forced !== -1) return S.forced;
+
+  // pass 1: weakest due card among those already introduced (stop at first new one)
+  let best = -1, bestLevel = MAX_LEVEL - 1;
+  for (let i = 0; i < cards.length; i++) {
+    if (cards[i][0] === 0) break;
+    if (cards[i][1] === 0 && cards[i][0] < bestLevel) { bestLevel = cards[i][0]; best = i; }
+  }
+  if (best !== -1) { S.lastKnown = false; return best; }
+
+  // pass 2: introduce the next new card
+  for (let i = 0; i < cards.length; i++) {
+    if (cards[i][0] === 0) { S.lastKnown = false; return i; }
+  }
+
+  // pass 3: nothing due — pull forward the soonest-due unmastered card,
+  // unless the previous question was already filler
+  if (S.lastKnown) {
+    best = -1;
+    let bestNext = 100;
+    for (let i = 0; i < cards.length; i++) {
+      if (cards[i][0] >= MAX_LEVEL - 1) continue;
+      if (cards[i][1] < bestNext) { bestNext = cards[i][1]; best = i; }
+    }
+    if (best !== -1) { S.lastKnown = false; return best; }
+  }
+
+  // pass 4: filler — a random mastered card
+  S.lastKnown = true;
+  const mastered = [];
+  for (let i = 0; i < cards.length; i++) {
+    if (cards[i][0] > MAX_LEVEL - 2) mastered.push(i);
+  }
+  if (mastered.length === 0) return 0;
+  return mastered[Math.floor(Math.random() * mastered.length)];
+}
+
+function showQuestion() {
+  const cards = S.cards;
+  S.failed = false;
+  const isForced = S.forced !== -1;
+  S.current = selectQuestion();
+  // every question shown ticks the whole deck down by one
+  for (let i = 0; i < cards.length; i++) {
+    if (cards[i][1] > 0) cards[i][1]--;
+  }
+  saveStore();
+  renderHud();
+
+  const card = cards[S.current];
+  if (!isForced && !card[2]) {
+    card[2] = 1;
+    saveStore();
+    renderIntro();
+  } else {
+    renderQuestion();
+  }
+}
+
+/* ---------- rendering ---------- */
+function kanaOf(i) { return GROUPS[S.gi].cards[i].k; }
+function romajiOf(i) { return GROUPS[S.gi].cards[i].r; }
+
+function renderHud() {
+  const counts = [0, 0, 0, 0, 0];
+  S.cards.forEach(c => counts[c[0]]++);
+  const strip = document.getElementById("levelStrip");
+  strip.innerHTML = counts
+    .map((n, l) => '<span class="l' + l + '" style="flex-grow:' + n + '"></span>')
+    .join("");
+  document.getElementById("masteredCaption").textContent =
+    counts[4] + " of " + S.cards.length + " mastered";
+  document.getElementById("sessionStats").textContent =
+    S.streak > 1 ? S.answered + " answered · streak " + S.streak : S.answered + " answered";
+}
+
+function renderIntro() {
+  S.phase = "intro";
+  const k = kanaOf(S.current);
+  stage.innerHTML =
+    '<div class="intro-card">' +
+      '<span class="intro-seal">New character</span>' +
+      '<div class="intro-body"><div>' +
+        '<div class="kana-big kana-font' + (k.length > 1 ? " long" : "") + '">' + k + "</div>" +
+        '<div class="intro-romaji mono">' + romajiOf(S.current) + "</div>" +
+      "</div></div>" +
+      '<button class="primary-btn" id="gotIt">Got it</button>' +
+    "</div>";
+  document.getElementById("gotIt").addEventListener("click", dismissIntro);
+  speak(k);
+}
+
+function dismissIntro() {
+  if (S.phase !== "intro") return;
+  renderQuestion();
+}
+
+function renderQuestion() {
+  S.phase = "question";
+  const k = kanaOf(S.current);
+  const correct = romajiOf(S.current);
+
+  // 3 distractors from the same group, all four romaji distinct
+  const pool = GROUPS[S.gi].cards;
+  const options = [correct];
+  let guard = 0;
+  while (options.length < 4 && guard++ < 500) {
+    const r = pool[Math.floor(Math.random() * pool.length)].r;
+    if (!options.includes(r)) options.push(r);
+  }
+  const pos = Math.floor(Math.random() * options.length);
+  [options[0], options[pos]] = [options[pos], options[0]];
+
+  stage.innerHTML =
+    '<div class="prompt-zone"><div class="kana-big kana-font' + (k.length > 1 ? " long" : "") + '">' + k + "</div></div>" +
+    '<div class="answers">' +
+    options.map((r, i) =>
+      '<button class="answer mono" data-r="' + r + '"><span class="key">' + (i + 1) + "</span>" + r + "</button>"
+    ).join("") +
+    "</div>" +
+    '<div class="reveal" id="reveal"></div>';
+  stage.querySelectorAll(".answer").forEach(btn => {
+    btn.addEventListener("click", () => answer(btn));
+  });
+}
+
+function answer(btn) {
+  if (S.phase !== "question") return;
+  const card = S.cards[S.current];
+  const correct = romajiOf(S.current);
+  const chosen = btn.dataset.r;
+  const buttons = stage.querySelectorAll(".answer");
+  buttons.forEach(b => { b.disabled = true; });
+  S.answered++;
+
+  if (chosen !== correct) {
+    // miss: full reset to level 0 and an immediate forced repeat
+    S.failed = true;
+    S.forced = S.current;
+    card[0] = 0;
+    card[1] = 0;
+    S.streak = 0;
+    saveStore();
+    btn.classList.add("wrong");
+    buttons.forEach(b => {
+      if (b.dataset.r === correct) b.classList.add("correct");
+      else if (b !== btn) b.classList.add("dim");
+    });
+    S.phase = "continue";
+    document.getElementById("reveal").innerHTML =
+      kanaOf(S.current) + " is <b>" + correct + "</b> — tap anywhere to try again";
+    speak(kanaOf(S.current));
+    setTimeout(() => {
+      addOnce(document, "pointerdown", continueAfterMiss);
+    }, 350);
+  } else {
+    btn.classList.add("correct");
+    buttons.forEach(b => { if (b !== btn) b.classList.add("dim"); });
+    if (!S.failed) {
+      S.forced = -1;
+      S.streak++;
+      if (card[0] < MAX_LEVEL - 1) {
+        card[0]++;
+        card[1] = NEXT_BY_LEVEL[card[0]];
+      }
+    }
+    saveStore();
+    document.getElementById("reveal").innerHTML = '<span class="go">' + correct + " — correct</span>";
+    speak(kanaOf(S.current));
+    S.phase = "wait";
+    if (!S.celebrated && S.cards.every(c => c[0] >= MAX_LEVEL - 1)) {
+      S.celebrated = true;
+      S.advanceTimer = setTimeout(renderMastered, 700);
+    } else {
+      S.advanceTimer = setTimeout(showQuestion, 650);
+    }
+  }
+  renderHud();
+}
+
+function continueAfterMiss() {
+  if (!S || S.phase !== "continue") return;
+  showQuestion();
+}
+function addOnce(target, ev, fn) {
+  target.addEventListener(ev, fn, { once: true });
+}
+
+function renderMastered() {
+  S.phase = "mastered";
+  stage.innerHTML =
+    '<div class="mastered">' +
+      '<div class="kana-big kana-font">よくできました</div>' +
+      "<h2>Group mastered</h2>" +
+      "<p>All " + S.cards.length + " characters are at the top level.<br>Reviews keep them fresh.</p>" +
+      '<div class="mastered-actions">' +
+        '<button class="primary-btn" id="keepGoing">Keep reviewing</button>' +
+        '<button class="ghost-btn" id="toHome">Back to lessons</button>' +
+      "</div>" +
+    "</div>";
+  document.getElementById("keepGoing").addEventListener("click", showQuestion);
+  document.getElementById("toHome").addEventListener("click", goHome);
+}
+
+/* ---------- keyboard ---------- */
+document.addEventListener("keydown", e => {
+  if (!S) return;
+  if (e.key === "Escape") { goHome(); return; }
+  if (S.phase === "intro" && (e.key === "Enter" || e.key === " ")) {
+    e.preventDefault();
+    dismissIntro();
+    return;
+  }
+  if (S.phase === "continue") {
+    continueAfterMiss();
+    return;
+  }
+  if (S.phase === "question" && e.key >= "1" && e.key <= "4") {
+    const btns = stage.querySelectorAll(".answer");
+    const btn = btns[Number(e.key) - 1];
+    if (btn) answer(btn);
+  }
+});
+
+/* ---------- boot ---------- */
+renderHome();
+if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+  navigator.serviceWorker.register("sw.js").catch(() => { /* offline still works next load */ });
+}
+</script>
+</body>
+</html>
