@@ -28,6 +28,7 @@ const translations = {
         strudelManager: "Strudel File Manager",
         pongGame: "Pong Game",
         ptPhrasesTitle: "PT Phrases",
+        hiraganaTrainer: "Hiragana Trainer",
         waykTitle: "WAYK Language Practice"
     },
     de: {
@@ -59,6 +60,7 @@ const translations = {
         strudelManager: "Strudel Dateimanager",
         pongGame: "Pong-Spiel",
         ptPhrasesTitle: "PT Phrasen",
+        hiraganaTrainer: "Hiragana-Trainer",
         waykTitle: "WAYK Sprachtraining"
     },
     fr: {
@@ -90,6 +92,7 @@ const translations = {
         strudelManager: "Gestionnaire de Fichiers Strudel",
         pongGame: "Jeu Pong",
         ptPhrasesTitle: "Phrases PT",
+        hiraganaTrainer: "Entraîneur de Hiragana",
         waykTitle: "Pratique du Langage WAYK"
     },
     es: {
@@ -121,6 +124,7 @@ const translations = {
         strudelManager: "Gestor de Archivos Strudel",
         pongGame: "Juego Pong",
         ptPhrasesTitle: "Frases PT",
+        hiraganaTrainer: "Entrenador de Hiragana",
         waykTitle: "Práctica de Idioma WAYK"
     },
     pt: {
@@ -152,6 +156,7 @@ const translations = {
         strudelManager: "Gerenciador de Arquivos Strudel",
         pongGame: "Jogo Pong",
         ptPhrasesTitle: "Frases PT",
+        hiraganaTrainer: "Treinador de Hiragana",
         waykTitle: "Prática de Idioma WAYK"
     },
     th: {
@@ -183,6 +188,7 @@ const translations = {
         strudelManager: "ตัวจัดการไฟล์ Strudel",
         pongGame: "เกม Pong",
         ptPhrasesTitle: "วลีภาษาโปรตุเกส",
+        hiraganaTrainer: "โปรแกรมฝึกฮิรางานะ",
         waykTitle: "การฝึกภาษา WAYK"
     },
     id: {
@@ -214,6 +220,7 @@ const translations = {
         strudelManager: "Pengelola File Strudel",
         pongGame: "Game Pong",
         ptPhrasesTitle: "Frasa PT",
+        hiraganaTrainer: "Pelatih Hiragana",
         waykTitle: "Praktik Bahasa WAYK"
     },
     hk: {
@@ -245,6 +252,7 @@ const translations = {
         strudelManager: "Strudel 文件管理器",
         pongGame: "乒乓球遊戲",
         ptPhrasesTitle: "葡文短語",
+        hiraganaTrainer: "平假名訓練器",
         waykTitle: "WAYK 語言練習"
     }
 };
