@@ -203,7 +203,6 @@ button:focus-visible, a:focus-visible {
   font-weight: 500;
   animation: kanaIn .2s ease-out;
 }
-.kana-big.long { font-size: clamp(4rem, 20vw, 6rem); }
 @keyframes kanaIn { from { opacity: 0; transform: scale(.96); } }
 
 /* the reading is the prompt; the kana are the four answers */
@@ -280,23 +279,28 @@ button:focus-visible, a:focus-visible {
   75% { transform: translateX(-2px); }
 }
 
-/* intro card */
-.intro-card { text-align: center; flex: 1; display: flex; flex-direction: column; animation: introIn .25s ease-out; }
-@keyframes introIn { from { opacity: 0; transform: translateY(8px); } }
-.intro-seal {
-  align-self: center;
-  background: var(--seal);
-  color: var(--seal-ink);
-  font-size: .75rem;
-  font-weight: 650;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  padding: .3rem .65rem;
-  border-radius: .5rem;
-  transform: rotate(-3deg);
+@keyframes stageIn { from { opacity: 0; transform: translateY(8px); } }
+
+/* a character's first appearance: marked in place, no separate screen */
+.answer.new {
+  border-color: var(--indigo);
+  background: var(--indigo-soft);
+  color: var(--indigo);
+  animation: newTile .3s ease-out;
 }
-.intro-body { flex: 1; display: grid; place-items: center; padding: 1rem 0; }
-.intro-romaji { font-size: 1.6rem; letter-spacing: .1em; color: var(--muted); margin-top: .25rem; }
+.answer.new::after {
+  content: "new";
+  position: absolute;
+  top: .3rem;
+  right: .55rem;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: .65rem;
+  font-weight: 650;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--indigo);
+}
+@keyframes newTile { from { transform: scale(.94); } }
 .primary-btn {
   min-height: 3.25rem;
   border-radius: .875rem;
@@ -318,7 +322,7 @@ button:focus-visible, a:focus-visible {
 .ghost-btn:hover { border-color: var(--indigo); }
 
 /* mastered */
-.mastered { text-align: center; flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 1rem; animation: introIn .25s ease-out; }
+.mastered { text-align: center; flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 1rem; animation: stageIn .25s ease-out; }
 .mastered .kana-big { font-size: 4rem; }
 .mastered h2 { font-size: 1.3rem; }
 .mastered p { color: var(--muted); font-size: .9rem; }
@@ -563,14 +567,15 @@ function showQuestion() {
   saveStore();
   renderHud();
 
+  // a character never seen before is shown pre-marked among the four rather
+  // than on a card of its own, so the rhythm of the drill never breaks
   const card = cards[S.current];
-  if (!isForced && !card[2]) {
+  const isNew = !isForced && !card[2];
+  if (isNew) {
     card[2] = 1;
     saveStore();
-    renderIntro();
-  } else {
-    renderQuestion();
   }
+  renderQuestion(isNew);
 }
 
 /* ---------- rendering ---------- */
@@ -590,28 +595,7 @@ function renderHud() {
     S.streak > 1 ? S.answered + " answered · streak " + S.streak : S.answered + " answered";
 }
 
-function renderIntro() {
-  S.phase = "intro";
-  const k = kanaOf(S.current);
-  stage.innerHTML =
-    '<div class="intro-card">' +
-      '<span class="intro-seal">New character</span>' +
-      '<div class="intro-body"><div>' +
-        '<div class="kana-big kana-font' + (k.length > 1 ? " long" : "") + '">' + k + "</div>" +
-        '<div class="intro-romaji mono">' + romajiOf(S.current) + "</div>" +
-      "</div></div>" +
-      '<button class="primary-btn" id="gotIt">Got it</button>' +
-    "</div>";
-  document.getElementById("gotIt").addEventListener("click", dismissIntro);
-  speak(k);
-}
-
-function dismissIntro() {
-  if (S.phase !== "intro") return;
-  renderQuestion();
-}
-
-function renderQuestion() {
+function renderQuestion(isNew) {
   S.phase = "question";
   const correct = S.current;
 
@@ -636,6 +620,7 @@ function renderQuestion() {
     '<div class="answers">' +
     picks.map((i, n) =>
       '<button class="answer kana-font' + (kanaOf(i).length > 1 ? " two" : "") +
+      (isNew && i === correct ? " new" : "") +
       '" data-i="' + i + '"><span class="key mono">' + (n + 1) + "</span>" + kanaOf(i) + "</button>"
     ).join("") +
     "</div>";
@@ -710,11 +695,6 @@ function renderMastered() {
 document.addEventListener("keydown", e => {
   if (!S) return;
   if (e.key === "Escape") { goHome(); return; }
-  if (S.phase === "intro" && (e.key === "Enter" || e.key === " ")) {
-    e.preventDefault();
-    dismissIntro();
-    return;
-  }
   if (S.phase === "question" && e.key >= "1" && e.key <= "4") {
     const btns = stage.querySelectorAll(".answer");
     const btn = btns[Number(e.key) - 1];
