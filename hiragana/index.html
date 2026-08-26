@@ -24,6 +24,8 @@
   --good: #2f9e63;
   --good-soft: #e2f3ea;
   --bad-soft: #fbe9e6;
+  --warn: #d99a26;
+  --track: #dedcd6;
   --shadow: 0 1px 2px rgba(23,23,28,.04), 0 8px 24px rgba(23,23,28,.06);
   --shadow-lift: 0 2px 4px rgba(23,23,28,.05), 0 12px 32px rgba(23,23,28,.10);
 }
@@ -41,6 +43,8 @@
   --good: #53c98a;
   --good-soft: #1c3128;
   --bad-soft: #3a221f;
+  --warn: #d9a441;
+  --track: #33333d;
   --shadow: none;
   --shadow-lift: none;
 }
@@ -156,28 +160,6 @@ button:focus-visible, a:focus-visible {
 }
 .session-bar .icon-btn { margin-left: -.75rem; }
 .session-title { font-weight: 650; font-size: 1rem; flex: 1; }
-.session-stats { font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
-.level-strip {
-  display: flex;
-  gap: 3px;
-  height: .375rem;
-  border-radius: 999px;
-  overflow: hidden;
-  margin: .75rem 0 0;
-}
-.level-strip span { background: var(--indigo); border-radius: 2px; transition: flex-grow .3s, opacity .3s; min-width: 0; }
-.level-strip .l0 { opacity: .12; }
-.level-strip .l1 { opacity: .32; }
-.level-strip .l2 { opacity: .52; }
-.level-strip .l3 { opacity: .74; }
-.level-strip .l4 { opacity: 1; }
-.strip-caption {
-  display: flex;
-  justify-content: space-between;
-  font-size: .7rem;
-  color: var(--muted);
-  margin-top: .375rem;
-}
 
 .stage {
   margin-top: 1.25rem;
@@ -235,13 +217,32 @@ button:focus-visible, a:focus-visible {
   grid-template-columns: 1fr 1fr;
   gap: .625rem;
   container-type: inline-size;
+  position: relative;
+}
+/* the original's cake diagram: gray is what's left, amber the progress made,
+   green the share of that progress earned without a miss */
+.pie {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: -1.25rem 0 0 -1.25rem;
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: 0 0 0 1px var(--border), 0 0 0 .3rem var(--surface);
+  background: conic-gradient(
+    var(--good) 0 var(--clean),
+    var(--warn) var(--clean) var(--done),
+    var(--track) var(--done) 100%
+  );
 }
 .answer {
   /* width comes from the grid track; the ratio sets height from it, and on a
      short screen the tiles lose height rather than the grid losing a row */
   width: 100%;
   aspect-ratio: 1 / 1.1;
-  max-height: calc((100dvh - 23rem) / 2);
+  max-height: calc((100dvh - 21rem) / 2);
   min-height: 4.5rem;
   display: grid;
   place-items: center;
@@ -270,6 +271,9 @@ button:focus-visible, a:focus-visible {
   color: var(--muted);
   letter-spacing: 0;
 }
+@media (hover: none) and (pointer: coarse) {
+  .answer .key { display: none; }
+}
 .answer.correct { background: var(--good-soft); border-color: var(--good); color: var(--good); }
 .answer.wrong { background: var(--bad-soft); border-color: var(--seal); color: var(--seal); animation: shake .3s; }
 .answer:disabled { cursor: default; }
@@ -287,18 +291,6 @@ button:focus-visible, a:focus-visible {
   background: var(--indigo-soft);
   color: var(--indigo);
   animation: newTile .3s ease-out;
-}
-.answer.new::after {
-  content: "new";
-  position: absolute;
-  top: .3rem;
-  right: .55rem;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  font-size: .65rem;
-  font-weight: 650;
-  letter-spacing: .09em;
-  text-transform: uppercase;
-  color: var(--indigo);
 }
 @keyframes newTile { from { transform: scale(.94); } }
 .primary-btn {
@@ -362,10 +354,7 @@ button:focus-visible, a:focus-visible {
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
     <div class="session-title" id="sessionTitle"></div>
-    <div class="session-stats" id="sessionStats"></div>
   </div>
-  <div class="level-strip" id="levelStrip" aria-hidden="true"></div>
-  <div class="strip-caption"><span>new</span><span id="masteredCaption"></span></div>
   <div class="stage" id="stage"></div>
 </main>
 
@@ -395,9 +384,9 @@ const STORE_KEY = "hiragana-v1";
 function loadStore() {
   try {
     const s = JSON.parse(localStorage.getItem(STORE_KEY));
-    if (s && s.groups) return s;
+    if (s && s.groups) { s.fails = s.fails || {}; return s; }
   } catch (e) { /* corrupted or unavailable storage: start fresh */ }
-  return { groups: {}, settings: {} };
+  return { groups: {}, settings: {}, fails: {} };
 }
 const store = loadStore();
 function saveStore() {
@@ -495,8 +484,7 @@ function startSession(gi) {
     lastKnown: false,     // true right after a filler question of a mastered card
     current: -1,
     failed: false,        // wrong answer given on the current display
-    answered: 0,
-    streak: 0,
+    fails: store.fails[GROUPS[gi].name] || 0,
     phase: "question",
     celebrated: groupState(gi).every(c => c[0] >= MAX_LEVEL - 1),
     shownAt: 0,
@@ -582,17 +570,26 @@ function showQuestion() {
 function kanaOf(i) { return GROUPS[S.gi].cards[i].k; }
 function romajiOf(i) { return GROUPS[S.gi].cards[i].r; }
 
+// ported from the original's ProgressView: `done` is accumulated levels over
+// the maximum, `clean` the part of it that was not paid for with a miss
+function pieSlices() {
+  let sum = 0;
+  for (let i = 0; i < S.cards.length; i++) sum += S.cards[i][0];
+  const done = Math.round(sum * 100 / (S.cards.length * (MAX_LEVEL - 1)));
+  let failPct = sum > 0 ? Math.round(S.fails * 100 / sum) : 0;
+  if (failPct > 100) failPct = 100;
+  // any miss at all stays visible instead of rounding away to nothing
+  if (failPct > 0 && failPct < 5) failPct = 5;
+  return { done: done, clean: Math.round((100 - failPct) * done / 100) };
+}
+
 function renderHud() {
-  const counts = [0, 0, 0, 0, 0];
-  S.cards.forEach(c => counts[c[0]]++);
-  const strip = document.getElementById("levelStrip");
-  strip.innerHTML = counts
-    .map((n, l) => '<span class="l' + l + '" style="flex-grow:' + n + '"></span>')
-    .join("");
-  document.getElementById("masteredCaption").textContent =
-    counts[4] + " of " + S.cards.length + " mastered";
-  document.getElementById("sessionStats").textContent =
-    S.streak > 1 ? S.answered + " answered · streak " + S.streak : S.answered + " answered";
+  const pie = document.getElementById("pie");
+  if (!pie) return;
+  const p = pieSlices();
+  pie.style.setProperty("--done", p.done + "%");
+  pie.style.setProperty("--clean", p.clean + "%");
+  pie.setAttribute("aria-label", p.done + " percent learned");
 }
 
 function renderQuestion(isNew) {
@@ -609,6 +606,7 @@ function renderQuestion(isNew) {
   }
   const pos = Math.floor(Math.random() * picks.length);
   [picks[0], picks[pos]] = [picks[pos], picks[0]];
+  const p = pieSlices();
 
   stage.innerHTML =
     '<div class="prompt-zone">' +
@@ -623,6 +621,8 @@ function renderQuestion(isNew) {
       (isNew && i === correct ? " new" : "") +
       '" data-i="' + i + '"><span class="key mono">' + (n + 1) + "</span>" + kanaOf(i) + "</button>"
     ).join("") +
+    '<div class="pie" id="pie" role="img" style="--done:' + p.done + "%;--clean:" + p.clean +
+    '%" aria-label="' + p.done + ' percent learned"></div>' +
     "</div>";
   stage.querySelectorAll(".answer").forEach(btn => {
     btn.addEventListener("click", () => answer(btn));
@@ -646,7 +646,8 @@ function answer(btn) {
     S.forced = S.current;
     card[0] = 0;
     card[1] = 0;
-    S.streak = 0;
+    S.fails++;
+    store.fails[GROUPS[S.gi].name] = S.fails;
     saveStore();
     btn.classList.add("wrong");
     btn.disabled = true;
@@ -654,10 +655,8 @@ function answer(btn) {
     return;
   }
 
-  S.answered++;
   if (!S.failed) {
     S.forced = -1;
-    S.streak++;
     if (card[0] < MAX_LEVEL - 1) {
       card[0]++;
       card[1] = NEXT_BY_LEVEL[card[0]];
