@@ -72,7 +72,7 @@ button:focus-visible, a:focus-visible {
   outline-offset: 2px;
   border-radius: 8px;
 }
-.view { max-width: 30rem; margin: 0 auto; padding: 1rem 1.25rem 3rem; }
+.view { max-width: 30rem; margin: 0 auto; padding: 1rem .75rem 3rem; }
 .hidden { display: none !important; }
 
 /* ---------- home ---------- */
@@ -185,8 +185,8 @@ button:focus-visible, a:focus-visible {
   border: 1px solid var(--border);
   border-radius: 1.25rem;
   box-shadow: var(--shadow);
-  padding: 1.5rem 1.25rem;
-  min-height: 23rem;
+  padding: 1rem .75rem;
+  min-height: 22rem;
   display: flex;
   flex-direction: column;
 }
@@ -195,7 +195,7 @@ button:focus-visible, a:focus-visible {
   display: grid;
   place-items: center;
   position: relative;
-  padding: .5rem 0 1.25rem;
+  padding: .25rem 0 1rem;
 }
 .kana-big {
   font-size: clamp(5.5rem, 28vw, 8rem);
@@ -231,18 +231,36 @@ button:focus-visible, a:focus-visible {
 }
 [data-sound="off"] .prompt-hint { visibility: hidden; }
 
-.answers { display: grid; grid-template-columns: 1fr 1fr; gap: .625rem; }
+.answers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .625rem;
+  container-type: inline-size;
+}
 .answer {
-  min-height: 4.75rem;
-  border-radius: .875rem;
+  /* width comes from the grid track; the ratio sets height from it, and on a
+     short screen the tiles lose height rather than the grid losing a row */
+  width: 100%;
+  aspect-ratio: 1 / 1.1;
+  max-height: calc((100dvh - 23rem) / 2);
+  min-height: 4.5rem;
+  display: grid;
+  place-items: center;
+  border-radius: 1.125rem;
   border: 1px solid var(--border-strong);
   background: var(--bg);
-  font-size: 2.4rem;
   line-height: 1;
+  font-size: clamp(3rem, 21vw, 7rem);
   transition: background .15s, border-color .15s, color .15s, transform .1s;
   position: relative;
 }
-.answer.two { font-size: 1.9rem; }
+.answer.two { font-size: clamp(2rem, 13vw, 4.5rem); }
+/* scale the kana against the answer grid itself rather than the viewport,
+   so the tiles stay right once the 30rem container stops growing */
+@supports (font-size: 1cqw) {
+  .answer { font-size: 28cqw; }
+  .answer.two { font-size: 17cqw; }
+}
 .answer:hover:not(:disabled) { border-color: var(--indigo); }
 .answer:active:not(:disabled) { transform: scale(.98); }
 .answer .key {
@@ -425,12 +443,13 @@ if ("speechSynthesis" in window) {
   speechSynthesis.addEventListener("voiceschanged", pickVoice);
 }
 function speak(kana) {
-  if (store.settings.sound === false || !("speechSynthesis" in window) || !jaVoice) return;
+  if (store.settings.sound === false || !("speechSynthesis" in window)) return;
   try {
     speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(kana);
-    u.voice = jaVoice;
-    u.lang = jaVoice.lang;
+    // a ja voice if one is installed, otherwise let the platform choose by language
+    if (jaVoice) u.voice = jaVoice;
+    u.lang = jaVoice ? jaVoice.lang : "ja-JP";
     u.rate = 0.85;
     speechSynthesis.speak(u);
   } catch (e) { /* audio is optional */ }
@@ -476,7 +495,7 @@ function startSession(gi) {
     streak: 0,
     phase: "question",
     celebrated: groupState(gi).every(c => c[0] >= MAX_LEVEL - 1),
-    advanceTimer: 0,
+    shownAt: 0,
   };
   document.getElementById("sessionTitle").textContent = DISPLAY[gi].title;
   homeEl.classList.add("hidden");
@@ -485,7 +504,6 @@ function startSession(gi) {
 }
 
 function goHome() {
-  clearTimeout(S && S.advanceTimer);
   S = null;
   sessionEl.classList.add("hidden");
   homeEl.classList.remove("hidden");
@@ -612,7 +630,7 @@ function renderQuestion() {
     '<div class="prompt-zone">' +
       '<button class="prompt" id="prompt" aria-label="Play the sound again">' +
         '<span class="romaji-big">' + romajiOf(correct) + "</span>" +
-        (jaVoice ? '<span class="prompt-hint">tap to hear it</span>' : "") +
+        ("speechSynthesis" in window ? '<span class="prompt-hint">tap to repeat</span>' : "") +
       "</button>" +
     "</div>" +
     '<div class="answers">' +
@@ -625,11 +643,15 @@ function renderQuestion() {
     btn.addEventListener("click", () => answer(btn));
   });
   document.getElementById("prompt").addEventListener("click", () => speak(kanaOf(S.current)));
+  S.shownAt = performance.now();
   speak(kanaOf(correct));
 }
 
 function answer(btn) {
   if (S.phase !== "question") return;
+  // questions advance the instant one is answered, so swallow the tail of a
+  // double tap instead of letting it answer the question that just appeared
+  if (performance.now() - S.shownAt < 130) return;
   const card = S.cards[S.current];
 
   if (Number(btn.dataset.i) !== S.current) {
@@ -657,15 +679,14 @@ function answer(btn) {
     }
   }
   saveStore();
-  btn.classList.add("correct");
-  stage.querySelectorAll(".answer").forEach(b => { b.disabled = true; });
-  S.phase = "wait";
   renderHud();
+  // advance synchronously: the next question's audio has to be spoken inside
+  // this click, or Chrome on Android drops it for want of a user gesture
   if (!S.celebrated && S.cards.every(c => c[0] >= MAX_LEVEL - 1)) {
     S.celebrated = true;
-    S.advanceTimer = setTimeout(renderMastered, 550);
+    renderMastered();
   } else {
-    S.advanceTimer = setTimeout(showQuestion, 170);
+    showQuestion();
   }
 }
 
