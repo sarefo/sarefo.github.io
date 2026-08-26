@@ -1,5 +1,5 @@
 "use strict";
-const CACHE = "hiragana-v1";
+const CACHE = "hiragana-v2";
 const ASSETS = ["./", "index.html", "manifest.webmanifest", "icon.svg"];
 
 self.addEventListener("install", e => {

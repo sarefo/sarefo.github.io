@@ -186,7 +186,7 @@ button:focus-visible, a:focus-visible {
   border-radius: 1.25rem;
   box-shadow: var(--shadow);
   padding: 1.5rem 1.25rem;
-  min-height: 21rem;
+  min-height: 23rem;
   display: flex;
   flex-direction: column;
 }
@@ -205,19 +205,46 @@ button:focus-visible, a:focus-visible {
 }
 .kana-big.long { font-size: clamp(4rem, 20vw, 6rem); }
 @keyframes kanaIn { from { opacity: 0; transform: scale(.96); } }
+
+/* the reading is the prompt; the kana are the four answers */
+.prompt {
+  display: grid;
+  gap: .4rem;
+  place-items: center;
+  padding: .75rem 1.75rem;
+  border-radius: 1rem;
+  transition: background .15s;
+}
+.prompt:hover { background: var(--bg); }
+.romaji-big {
+  font-size: clamp(3.25rem, 17vw, 4.5rem);
+  line-height: 1.1;
+  font-weight: 500;
+  letter-spacing: .06em;
+  animation: kanaIn .2s ease-out;
+}
+.prompt-hint {
+  font-size: .68rem;
+  color: var(--muted);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+[data-sound="off"] .prompt-hint { visibility: hidden; }
+
 .answers { display: grid; grid-template-columns: 1fr 1fr; gap: .625rem; }
 .answer {
-  min-height: 3.5rem;
+  min-height: 4.75rem;
   border-radius: .875rem;
   border: 1px solid var(--border-strong);
   background: var(--bg);
-  font-size: 1.2rem;
-  letter-spacing: .06em;
-  transition: background .15s, border-color .15s, transform .1s;
+  font-size: 2.4rem;
+  line-height: 1;
+  transition: background .15s, border-color .15s, color .15s, transform .1s;
   position: relative;
 }
-.answer:hover { border-color: var(--indigo); }
-.answer:active { transform: scale(.98); }
+.answer.two { font-size: 1.9rem; }
+.answer:hover:not(:disabled) { border-color: var(--indigo); }
+.answer:active:not(:disabled) { transform: scale(.98); }
 .answer .key {
   position: absolute;
   top: .3rem;
@@ -229,22 +256,11 @@ button:focus-visible, a:focus-visible {
 .answer.correct { background: var(--good-soft); border-color: var(--good); color: var(--good); }
 .answer.wrong { background: var(--bad-soft); border-color: var(--seal); color: var(--seal); animation: shake .3s; }
 .answer:disabled { cursor: default; }
-.answer.dim { opacity: .45; }
 @keyframes shake {
   25% { transform: translateX(-4px); }
   50% { transform: translateX(4px); }
   75% { transform: translateX(-2px); }
 }
-
-.reveal {
-  text-align: center;
-  font-size: .9rem;
-  color: var(--muted);
-  padding-top: .875rem;
-  min-height: 2.25rem;
-}
-.reveal b { color: var(--ink); letter-spacing: .06em; }
-.reveal .go { color: var(--good); font-weight: 600; }
 
 /* intro card */
 .intro-card { text-align: center; flex: 1; display: flex; flex-direction: column; animation: introIn .25s ease-out; }
@@ -579,44 +595,46 @@ function dismissIntro() {
 
 function renderQuestion() {
   S.phase = "question";
-  const k = kanaOf(S.current);
-  const correct = romajiOf(S.current);
+  const correct = S.current;
 
-  // 3 distractors from the same group, all four romaji distinct
+  // 3 distractors: other cards from the same group
   const pool = GROUPS[S.gi].cards;
-  const options = [correct];
+  const picks = [correct];
   let guard = 0;
-  while (options.length < 4 && guard++ < 500) {
-    const r = pool[Math.floor(Math.random() * pool.length)].r;
-    if (!options.includes(r)) options.push(r);
+  while (picks.length < 4 && picks.length < pool.length && guard++ < 500) {
+    const i = Math.floor(Math.random() * pool.length);
+    if (!picks.includes(i)) picks.push(i);
   }
-  const pos = Math.floor(Math.random() * options.length);
-  [options[0], options[pos]] = [options[pos], options[0]];
+  const pos = Math.floor(Math.random() * picks.length);
+  [picks[0], picks[pos]] = [picks[pos], picks[0]];
 
   stage.innerHTML =
-    '<div class="prompt-zone"><div class="kana-big kana-font' + (k.length > 1 ? " long" : "") + '">' + k + "</div></div>" +
-    '<div class="answers">' +
-    options.map((r, i) =>
-      '<button class="answer mono" data-r="' + r + '"><span class="key">' + (i + 1) + "</span>" + r + "</button>"
-    ).join("") +
+    '<div class="prompt-zone">' +
+      '<button class="prompt" id="prompt" aria-label="Play the sound again">' +
+        '<span class="romaji-big">' + romajiOf(correct) + "</span>" +
+        (jaVoice ? '<span class="prompt-hint">tap to hear it</span>' : "") +
+      "</button>" +
     "</div>" +
-    '<div class="reveal" id="reveal"></div>';
+    '<div class="answers">' +
+    picks.map((i, n) =>
+      '<button class="answer kana-font' + (kanaOf(i).length > 1 ? " two" : "") +
+      '" data-i="' + i + '"><span class="key mono">' + (n + 1) + "</span>" + kanaOf(i) + "</button>"
+    ).join("") +
+    "</div>";
   stage.querySelectorAll(".answer").forEach(btn => {
     btn.addEventListener("click", () => answer(btn));
   });
+  document.getElementById("prompt").addEventListener("click", () => speak(kanaOf(S.current)));
+  speak(kanaOf(correct));
 }
 
 function answer(btn) {
   if (S.phase !== "question") return;
   const card = S.cards[S.current];
-  const correct = romajiOf(S.current);
-  const chosen = btn.dataset.r;
-  const buttons = stage.querySelectorAll(".answer");
-  buttons.forEach(b => { b.disabled = true; });
-  S.answered++;
 
-  if (chosen !== correct) {
-    // miss: full reset to level 0 and an immediate forced repeat
+  if (Number(btn.dataset.i) !== S.current) {
+    // miss: the card drops to zero, but the screen stays put — the question is
+    // not over until the right kana is picked. wrong choices just go red.
     S.failed = true;
     S.forced = S.current;
     card[0] = 0;
@@ -624,48 +642,31 @@ function answer(btn) {
     S.streak = 0;
     saveStore();
     btn.classList.add("wrong");
-    buttons.forEach(b => {
-      if (b.dataset.r === correct) b.classList.add("correct");
-      else if (b !== btn) b.classList.add("dim");
-    });
-    S.phase = "continue";
-    document.getElementById("reveal").innerHTML =
-      kanaOf(S.current) + " is <b>" + correct + "</b> — tap anywhere to try again";
-    speak(kanaOf(S.current));
-    setTimeout(() => {
-      addOnce(document, "pointerdown", continueAfterMiss);
-    }, 350);
-  } else {
-    btn.classList.add("correct");
-    buttons.forEach(b => { if (b !== btn) b.classList.add("dim"); });
-    if (!S.failed) {
-      S.forced = -1;
-      S.streak++;
-      if (card[0] < MAX_LEVEL - 1) {
-        card[0]++;
-        card[1] = NEXT_BY_LEVEL[card[0]];
-      }
-    }
-    saveStore();
-    document.getElementById("reveal").innerHTML = '<span class="go">' + correct + " — correct</span>";
-    speak(kanaOf(S.current));
-    S.phase = "wait";
-    if (!S.celebrated && S.cards.every(c => c[0] >= MAX_LEVEL - 1)) {
-      S.celebrated = true;
-      S.advanceTimer = setTimeout(renderMastered, 700);
-    } else {
-      S.advanceTimer = setTimeout(showQuestion, 650);
+    btn.disabled = true;
+    renderHud();
+    return;
+  }
+
+  S.answered++;
+  if (!S.failed) {
+    S.forced = -1;
+    S.streak++;
+    if (card[0] < MAX_LEVEL - 1) {
+      card[0]++;
+      card[1] = NEXT_BY_LEVEL[card[0]];
     }
   }
+  saveStore();
+  btn.classList.add("correct");
+  stage.querySelectorAll(".answer").forEach(b => { b.disabled = true; });
+  S.phase = "wait";
   renderHud();
-}
-
-function continueAfterMiss() {
-  if (!S || S.phase !== "continue") return;
-  showQuestion();
-}
-function addOnce(target, ev, fn) {
-  target.addEventListener(ev, fn, { once: true });
+  if (!S.celebrated && S.cards.every(c => c[0] >= MAX_LEVEL - 1)) {
+    S.celebrated = true;
+    S.advanceTimer = setTimeout(renderMastered, 550);
+  } else {
+    S.advanceTimer = setTimeout(showQuestion, 170);
+  }
 }
 
 function renderMastered() {
@@ -693,14 +694,10 @@ document.addEventListener("keydown", e => {
     dismissIntro();
     return;
   }
-  if (S.phase === "continue") {
-    continueAfterMiss();
-    return;
-  }
   if (S.phase === "question" && e.key >= "1" && e.key <= "4") {
     const btns = stage.querySelectorAll(".answer");
     const btn = btns[Number(e.key) - 1];
-    if (btn) answer(btn);
+    if (btn && !btn.disabled) answer(btn);
   }
 });
 
