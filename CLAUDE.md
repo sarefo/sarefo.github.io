@@ -25,7 +25,6 @@ The main homepage consists of:
 A handful of small apps are committed here and published as part of the site,
 but they are separate projects -- leave them alone when working on the homepage:
 
-- Audio Bridge
 - Claude Pong
 - Network Monitor
 - blood-types
@@ -33,8 +32,9 @@ but they are separate projects -- leave them alone when working on the homepage:
 
 Everything else that used to sit in this repo has moved out to `C:\dev\`, each
 as its own repository. If you are looking for 2048, calendar, DuoNat-Firebase,
-guide, langlearn, mony, Recorder, spider_webb, strudel, thumb-key, wayk or any
-of the others, they are siblings of this repo now, not subdirectories of it.
+guide, langlearn, mony, Recorder, spider_webb, strudel, thumb-key, wayk, Audio
+Bridge or any of the others, they are siblings of this repo now, not
+subdirectories of it.
 
 ## Focus Area
 
