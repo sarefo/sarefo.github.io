@@ -20,23 +20,21 @@ The main homepage consists of:
     - `sea-star-animator.js` - Sea star animations
     - `floral-animator.js` - Floral/plant animations
 
-## Ignore These Project Directories
+## Other Projects In This Repo
 
-The following project directories should be ignored during development:
+A handful of small apps are committed here and published as part of the site,
+but they are separate projects -- leave them alone when working on the homepage:
 
-- 2048
 - Audio Bridge
-- DuoNat-Firebase
-- Recorder
 - Claude Pong
-- DuoNat
 - Network Monitor
-- Language Highlighter
-- Obsidian DuoNat
-- iNat-chrome-extension
-- strudel
-- calendar
-- langlearn
+- blood-types
+- paperclip
+
+Everything else that used to sit in this repo has moved out to `C:\dev\`, each
+as its own repository. If you are looking for 2048, calendar, DuoNat-Firebase,
+guide, langlearn, mony, Recorder, spider_webb, strudel, thumb-key, wayk or any
+of the others, they are siblings of this repo now, not subdirectories of it.
 
 ## Focus Area
 

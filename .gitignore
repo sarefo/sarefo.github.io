@@ -1,89 +1,9 @@
+# Only this site's own build noise belongs here. Sibling projects used to be
+# physically nested in this repo, and every one of them needed a line below to
+# keep git from swallowing it; they now live as siblings under C:\dev.
 
-universal_model/
 *.swp
-DuoTax/code/all_my_code.txt
-DuoTax/code/all_my_code.txt
-DuoNat/code/all_my_code.txt
 *.swo
-DuoNat/data/taxaInfo.json.new
-DuoNat/code/claude_code_listing.txt
-DuoNat/code/file_selection.json
-DuoNat/data/newTaxonSetData.txt
-DuoNat/data/newTaxonInfo.json
-DuoNat/data/newTaxonSets.json
-DuoNat/data/processing/1newTaxonInputSets.txt
-DuoNat/data/processing/5perplexityData.json
-DuoNat/data/processing/6newTaxonInfoWithPerplexity.json
-DuoNat/data/processing/4newTaxonListForPerplexity.txt
-DuoNat/data/processing/3newTaxonSets.json
-DuoNat/data/processing/2newTaxonInfoForPerplexity.json
-DuoNat/data/processing/taxonSets/6newTaxonInfoWithPerplexity.json
-DuoNat/data/processing/taxonSets/5perplexityData.json
-DuoNat/data/processing/taxonSets/4newTaxonListForPerplexity.txt
-DuoNat/data/processing/taxonSets/3newTaxonSets.json
-DuoNat/data/processing/taxonSets/2newTaxonInfoForPerplexity.json
-DuoNat/data/processing/taxonSets/1newTaxonInputSets.txt
-DuoNat/data/processing/taxonSets/old/3newTaxonSets.json
-DuoNat/data/processing/taxonSets/old/2newTaxonInfoForPerplexity.json
-DuoNat/data/processing/taxonSets/old/4newTaxonListForPerplexity.txt
-DuoNat/data/processing/taxonSets/old/5perplexityData.json
-DuoNat/data/processing/taxonSets/old/6newTaxonInfoWithPerplexity.json
-DuoNat/data/processing/taxonSets/4newTaxonInfoWithPerplexity.json
-DuoNat/data/processing/taxonSets/3perplexityData.json
-DuoNat/data/processing/taxonSets/2newTaxonSetsForPerplexity.json
-DuoNat/data/processing/taxonSets/5newTaxonSets.json
-DuoNat/data/taxonHierarchy.json.old
-DuoNat/data/taxonInfo.json.old
-DuoNat/data/taxonSets.json.old
-DuoNat/data/taxonInfo.json.bak
-DuoNat/data/taxonSets.json.bak
-DuoNat/data/processing/data_entry_workflow/old/2newTaxonInfoForPerplexity.json
-DuoNat/data/processing/data_entry_workflow/5newTaxonSets.json
-DuoNat/data/processing/data_entry_workflow/4newTaxonInfoWithPerplexity.json
-DuoNat/data/processing/data_entry_workflow/3perplexityData.json
-DuoNat/data/processing/data_entry_workflow/2newTaxonSetsForPerplexity.json
-DuoNat/data/processing/data_entry_workflow/1newTaxonInputSets.txt
-DuoNat/data/processing/data_entry_workflow/old/3newTaxonSets.json
-DuoNat/data/processing/data_entry_workflow/old/4newTaxonListForPerplexity.txt
-DuoNat/data/processing/data_entry_workflow/old/5perplexityData.json
-DuoNat/data/processing/data_entry_workflow/old/6newTaxonInfoWithPerplexity.json
-DuoNat/code/temp.js
-/DuoNat/node_modules
-DuoNat/code/_file_selection.json
-DuoNat/data/processing/data_entry_workflow/1newTaxonInputPairs.txt
-DuoNat/data/taxonPairs.json.old
-DuoNat/data/processing/data_entry_workflow/2newTaxonPairsForPerplexity.json
-DuoNat/data/processing/data_entry_workflow/5newTaxonPairs.json
-DuoNat/server/.env
-/DuoNat/server/node_modules
+*.old
 /node_modules
 package-lock.json
-DuoNat/tools/127.0.0.1.har
-/DuoNat/data/backup
-DuoNat/data/old/taxonSets.json.old
-*.old
-DuoNat-Firebase/
-/2048
-/Recorder
-Language Highlighter/README.txt
-Language Highlighter/LanguageHighlighter.html
-Language Highlighter/Highlighting Prompt.txt
-/iNat-chrome-extension
-/mcp-obsidian
-/Obsidian DuoNat
-/temp
-Language Highlighter/
-/strudel
-/langlearn
-/calendar
-/Integralism
-/guide
-/spider_webb
-/pt-phrases
-/iNat-ants
-iNat-ants.zip
-/wayk
-/3d-organisms
-/Obsidian Cassandroid
-mony/
-/thumb-key
