@@ -1,6 +1,6 @@
 @echo off
 rem Start the local port-info server (exits by itself if already running,
-rem and shuts down ~90s after the applet window is closed).
+rem and shuts down ~30s after the applet window is closed).
 start "" pyw -3.13 "%~dp0netmon_server.py"
 timeout /t 1 /nobreak >nul
 rem NOTE: Chrome ignores --window-size when a browser session is already running

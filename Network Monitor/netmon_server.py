@@ -2,8 +2,8 @@
 
 Serves netmon.html and a /api/ports endpoint that reports which ports are
 in use (via netstat) and which process owns them (via tasklist).
-Listens on 127.0.0.1 only. Exits by itself once the applet window has been
-closed (no requests for IDLE_TIMEOUT seconds).
+Listens on 127.0.0.1 only. Exits by itself once the applet's Chrome window
+has been closed.
 """
 import csv
 import ctypes
@@ -19,23 +19,30 @@ from ctypes import wintypes
 
 PORT = 8399
 DIR = os.path.dirname(os.path.abspath(__file__))
-# Safety net only: the page explicitly signals shutdown via /api/shutdown when
-# closed. This just catches cases where that signal never arrives (crash,
-# force-kill). Kept long because Chrome throttles background/minimized tabs'
-# timers, which previously made the applet look "dead" after a normal
-# 90s idle timeout even though the window was still open.
-IDLE_TIMEOUT = 1800  # seconds without a request before the server exits
-# The page's /api/shutdown beacon fires on `pagehide`, which Chrome also fires
-# when it merely discards or freezes the tab (common under memory pressure) --
-# not just on a real close. Exiting immediately therefore killed the backend
-# under a still-open window, which showed up as "no port data". So the beacon
-# now only *schedules* an exit; any further request cancels it, which a revived
-# page does on its next 5s poll.
-SHUTDOWN_GRACE = 20  # seconds between the close beacon and actually exiting
 CREATE_NO_WINDOW = 0x08000000
 
-last_request = time.time()
-shutdown_at = None  # timestamp set by /api/shutdown, cleared by any request
+# Lifetime: the server lives exactly as long as the applet's Chrome window does
+# (found via Win32, see find_window). Earlier versions inferred that from
+# request timing -- an idle timeout plus a close beacon sent on `pagehide` --
+# and both misfired under a still-open window, which the page then showed as
+# "no port data" until netmon.bat was run again:
+#   * Chrome freezes or discards the tab under memory pressure (and throttles
+#     its timers when occluded), so the polls stop and pagehide fires even
+#     though the window is still there.
+#   * A laptop sleep longer than the idle timeout made the wall-clock idle
+#     check fire the moment the machine woke, before the page could poll.
+# So the watchdog now asks Windows whether the window exists, and counts time
+# in its own ticks rather than wall clock so a sleep does not look like a long
+# absence on resume.
+TICK = 2               # seconds between watchdog checks
+WINDOW_GONE_TIMEOUT = 30  # seconds the window must be missing before exiting
+STARTUP_GRACE = 90     # seconds allowed for Chrome to bring the window up
+# Fallback for the case where the window never matched (say, Chrome changes
+# how it titles --app windows): fall back to request-based liveness, kept long
+# because a frozen tab sends nothing for a while.
+IDLE_TIMEOUT = 1800    # seconds without a request before exiting
+
+request_count = 0  # bumped by every request; the watchdog watches it move
 
 
 GEOM_FILE = os.path.join(DIR, "netmon_geometry.json")
@@ -188,9 +195,8 @@ class Handler(http.server.BaseHTTPRequestHandler):
         pass  # silent
 
     def do_GET(self):
-        global last_request, shutdown_at
-        last_request = time.time()
-        shutdown_at = None  # the page is alive after all; cancel any pending exit
+        global request_count
+        request_count += 1
         if self.path == "/" or self.path == "/netmon.html":
             with open(os.path.join(DIR, "netmon.html"), "rb") as f:
                 body = f.read()
@@ -209,23 +215,36 @@ class Handler(http.server.BaseHTTPRequestHandler):
         else:
             self.send_error(404)
 
-    def do_POST(self):
-        global shutdown_at
-        if self.path == "/api/shutdown":
-            shutdown_at = time.time() + SHUTDOWN_GRACE
-            self.send_response(204)
-            self.send_header("Content-Length", "0")
-            self.end_headers()
-        else:
-            self.send_error(404)
-
 
 def watchdog():
+    """Exit once the applet window has been gone for WINDOW_GONE_TIMEOUT.
+
+    Requests only matter as a rescue: a window that stops matching while the
+    page is still polling keeps the server up, and if the window never matched
+    at all the plain idle timeout takes over.
+    """
+    uptime = window_gone = idle = 0
+    window_seen = False
+    seen_requests = request_count
     while True:
-        time.sleep(2)
-        if shutdown_at is not None and time.time() > shutdown_at:
-            os._exit(0)
-        if time.time() - last_request > IDLE_TIMEOUT:
+        time.sleep(TICK)
+        uptime += TICK
+        if find_window() is not None:
+            window_seen = True
+            window_gone = 0
+        else:
+            window_gone += TICK
+        if request_count != seen_requests:
+            seen_requests = request_count
+            idle = 0
+        else:
+            idle += TICK
+        if uptime < STARTUP_GRACE:
+            continue
+        if window_seen:
+            if window_gone >= WINDOW_GONE_TIMEOUT and idle >= WINDOW_GONE_TIMEOUT:
+                os._exit(0)
+        elif idle >= IDLE_TIMEOUT:
             os._exit(0)
 
 

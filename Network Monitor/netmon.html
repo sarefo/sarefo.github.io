@@ -324,12 +324,9 @@
         });
         setInterval(saveSize, 2000);
 
-        // --- tell the backend we're closing so it can exit right away,
-        // instead of relying on the idle-timeout safety net ---
-        function notifyShutdown() {
-            try { navigator.sendBeacon('/api/shutdown'); } catch (e) { /* ignore */ }
-        }
-        window.addEventListener('pagehide', notifyShutdown);
+        // No close beacon: netmon_server.py watches for this window itself and
+        // exits once it is gone. A `pagehide` beacon was tried and misfired when
+        // Chrome merely froze or discarded the tab.
 
         // --- keep screen awake while the window is visible (like a video player) ---
         const awakeBtns = [document.getElementById('awakeBtn'),
