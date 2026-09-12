@@ -22,6 +22,7 @@ const translations = {
         categoryLanguage: "Language",
         categoryMusic: "Music",
         categoryGames: "Games",
+        categoryThinking: "Thinking",
         game2048: "2048 Game",
         spanishTrainer: "Spanish Tense Trainer",
         fluteTrainer: "Flute ABC Trainer",
@@ -29,7 +30,8 @@ const translations = {
         pongGame: "Pong Game",
         ptPhrasesTitle: "PT Phrases",
         yomikanaTrainer: "Yomikana Kana Trainer",
-        waykTitle: "WAYK Language Practice"
+        waykTitle: "WAYK Language Practice",
+        commonGroundTitle: "Common Ground"
     },
     de: {
         title: "Sarefo - Natur, Code & Fotografie",
@@ -54,6 +56,7 @@ const translations = {
         categoryLanguage: "Sprache",
         categoryMusic: "Musik",
         categoryGames: "Spiele",
+        categoryThinking: "Denken",
         game2048: "2048-Spiel",
         spanishTrainer: "Spanisch-Zeitformen-Trainer",
         fluteTrainer: "Blockflöten-ABC-Trainer",
@@ -61,7 +64,8 @@ const translations = {
         pongGame: "Pong-Spiel",
         ptPhrasesTitle: "PT Phrasen",
         yomikanaTrainer: "Yomikana Kana-Trainer",
-        waykTitle: "WAYK Sprachtraining"
+        waykTitle: "WAYK Sprachtraining",
+        commonGroundTitle: "Common Ground"
     },
     fr: {
         title: "Sarefo - Nature, Code & Photographie",
@@ -86,6 +90,7 @@ const translations = {
         categoryLanguage: "Langue",
         categoryMusic: "Musique",
         categoryGames: "Jeux",
+        categoryThinking: "Réflexion",
         game2048: "Jeu 2048",
         spanishTrainer: "Entraîneur de Temps Espagnol",
         fluteTrainer: "Entraîneur ABC de Flûte à Bec",
@@ -93,7 +98,8 @@ const translations = {
         pongGame: "Jeu Pong",
         ptPhrasesTitle: "Phrases PT",
         yomikanaTrainer: "Yomikana Entraîneur de Kana",
-        waykTitle: "Pratique du Langage WAYK"
+        waykTitle: "Pratique du Langage WAYK",
+        commonGroundTitle: "Common Ground"
     },
     es: {
         title: "Sarefo - Naturaleza, Código y Fotografía",
@@ -118,6 +124,7 @@ const translations = {
         categoryLanguage: "Idioma",
         categoryMusic: "Música",
         categoryGames: "Juegos",
+        categoryThinking: "Pensamiento",
         game2048: "Juego 2048",
         spanishTrainer: "Entrenador de Tiempos Verbales en Español",
         fluteTrainer: "Entrenador ABC de Flauta Dulce",
@@ -125,7 +132,8 @@ const translations = {
         pongGame: "Juego Pong",
         ptPhrasesTitle: "Frases PT",
         yomikanaTrainer: "Yomikana Entrenador de Kana",
-        waykTitle: "Práctica de Idioma WAYK"
+        waykTitle: "Práctica de Idioma WAYK",
+        commonGroundTitle: "Common Ground"
     },
     pt: {
         title: "Sarefo - Natureza, Código e Fotografia",
@@ -150,6 +158,7 @@ const translations = {
         categoryLanguage: "Idioma",
         categoryMusic: "Música",
         categoryGames: "Jogos",
+        categoryThinking: "Pensamento",
         game2048: "Jogo 2048",
         spanishTrainer: "Treinador de Tempos Verbais em Espanhol",
         fluteTrainer: "Treinador ABC de Flauta Doce",
@@ -157,7 +166,8 @@ const translations = {
         pongGame: "Jogo Pong",
         ptPhrasesTitle: "Frases PT",
         yomikanaTrainer: "Yomikana Treinador de Kana",
-        waykTitle: "Prática de Idioma WAYK"
+        waykTitle: "Prática de Idioma WAYK",
+        commonGroundTitle: "Common Ground"
     },
     th: {
         title: "Sarefo - ธรรมชาติ โค้ด และการถ่ายภาพ",
@@ -182,6 +192,7 @@ const translations = {
         categoryLanguage: "ภาษา",
         categoryMusic: "ดนตรี",
         categoryGames: "เกม",
+        categoryThinking: "การคิด",
         game2048: "เกม 2048",
         spanishTrainer: "โปรแกรมฝึกกาลสเปน",
         fluteTrainer: "โปรแกรมฝึก Flute ABC",
@@ -189,7 +200,8 @@ const translations = {
         pongGame: "เกม Pong",
         ptPhrasesTitle: "วลีภาษาโปรตุเกส",
         yomikanaTrainer: "Yomikana โปรแกรมฝึกคานะ",
-        waykTitle: "การฝึกภาษา WAYK"
+        waykTitle: "การฝึกภาษา WAYK",
+        commonGroundTitle: "Common Ground"
     },
     id: {
         title: "Sarefo - Alam, Kode & Fotografi",
@@ -214,6 +226,7 @@ const translations = {
         categoryLanguage: "Bahasa",
         categoryMusic: "Musik",
         categoryGames: "Game",
+        categoryThinking: "Berpikir",
         game2048: "Game 2048",
         spanishTrainer: "Pelatih Tenses Bahasa Spanyol",
         fluteTrainer: "Pelatih ABC Flute",
@@ -221,7 +234,8 @@ const translations = {
         pongGame: "Game Pong",
         ptPhrasesTitle: "Frasa PT",
         yomikanaTrainer: "Yomikana Pelatih Kana",
-        waykTitle: "Praktik Bahasa WAYK"
+        waykTitle: "Praktik Bahasa WAYK",
+        commonGroundTitle: "Common Ground"
     },
     hk: {
         title: "Sarefo - 自然、編程與攝影",
@@ -246,6 +260,7 @@ const translations = {
         categoryLanguage: "語言",
         categoryMusic: "音樂",
         categoryGames: "遊戲",
+        categoryThinking: "思考",
         game2048: "2048 遊戲",
         spanishTrainer: "西班牙語時態訓練器",
         fluteTrainer: "直笛 ABC 訓練器",
@@ -253,6 +268,7 @@ const translations = {
         pongGame: "乒乓球遊戲",
         ptPhrasesTitle: "葡文短語",
         yomikanaTrainer: "Yomikana 假名訓練器",
-        waykTitle: "WAYK 語言練習"
+        waykTitle: "WAYK 語言練習",
+        commonGroundTitle: "Common Ground"
     }
 };
