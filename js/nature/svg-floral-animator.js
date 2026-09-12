@@ -232,7 +232,18 @@ class SvgFloralAnimator {
             path.setAttribute('mask', 'url(#ornament-grow-mask)');
         }
 
-        group.appendChild(path);
+        // Two nested groups carry the wind sway. Both rotate about the vine's
+        // root, at different periods, so their sum never repeats on a beat the
+        // eye can latch onto. Keeping them separate from the path lets the
+        // unfurl animation stay on the path itself.
+        const swayOuter = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        swayOuter.setAttribute('class', `ornament-sway ornament-sway-${side}`);
+        const swayInner = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        swayInner.setAttribute('class', `ornament-gust ornament-gust-${side}`);
+
+        swayInner.appendChild(path);
+        swayOuter.appendChild(swayInner);
+        group.appendChild(swayOuter);
         this.svg.appendChild(group);
         this.paths.push(path);
     }
@@ -273,10 +284,71 @@ class SvgFloralAnimator {
                 transition: fill 0.3s ease;
             }
 
+            /* Wind sway: transform-only, promoted to its own compositor layer so
+               the ~1000-segment path is rasterized once instead of every frame.
+               The layer is only as wide as the vine, so this stays cheap. */
+            .ornament-sway,
+            .ornament-gust {
+                transform-box: fill-box;
+                transform-origin: 91% 100%;
+                will-change: transform;
+            }
+
+            .ornament-sway-left {
+                animation: ornamentSwayLeft 9s ease-in-out infinite;
+            }
+
+            .ornament-sway-right {
+                animation: ornamentSwayRight 10.5s ease-in-out infinite;
+            }
+
+            .ornament-gust-left {
+                animation: ornamentGustLeft 5.5s ease-in-out infinite;
+            }
+
+            .ornament-gust-right {
+                animation: ornamentGustRight 6.4s ease-in-out infinite;
+            }
+
+            /* The left ornament is mirrored by its parent transform, so its
+               keyframes are negated to make both vines lean the same way
+               on screen, as a single breeze would push them. */
+            @keyframes ornamentSwayLeft {
+                0%   { transform: rotate(0.5deg); }
+                50%  { transform: rotate(-0.62deg); }
+                100% { transform: rotate(0.5deg); }
+            }
+
+            @keyframes ornamentSwayRight {
+                0%   { transform: rotate(-0.5deg); }
+                50%  { transform: rotate(0.62deg); }
+                100% { transform: rotate(-0.5deg); }
+            }
+
+            @keyframes ornamentGustLeft {
+                0%   { transform: rotate(-0.22deg); }
+                35%  { transform: rotate(0.3deg); }
+                70%  { transform: rotate(-0.16deg); }
+                100% { transform: rotate(-0.22deg); }
+            }
+
+            @keyframes ornamentGustRight {
+                0%   { transform: rotate(0.22deg); }
+                35%  { transform: rotate(-0.3deg); }
+                70%  { transform: rotate(0.16deg); }
+                100% { transform: rotate(0.22deg); }
+            }
+
             @media (prefers-reduced-motion: reduce) {
                 .traced-ornament {
                     animation: none;
                     opacity: 1;
+                }
+
+                .ornament-sway,
+                .ornament-gust {
+                    animation: none;
+                    will-change: auto;
                 }
             }
         `;
