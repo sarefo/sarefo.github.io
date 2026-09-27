@@ -1,6 +1,6 @@
 const translations = {
     en: {
-        title: "Sarefo - Nature, Code & Photography",
+        title: "Sarefo",
         description: "Sarefo's projects: nature identification tools, photography, and coding projects focused on biodiversity and learning.",
         ogTitle: "Sarefo - Nature, Code & Photography",
         ogDescription: "Sarefo's projects: nature identification tools, photography, and coding projects focused on biodiversity and learning.",
@@ -36,7 +36,7 @@ const translations = {
         leafhoppersTitle: "3D Leafhoppers"
     },
     de: {
-        title: "Sarefo - Natur, Code & Fotografie",
+        title: "Sarefo",
         description: "Sarefos Projekte: Naturbestimmungstools, Fotografie und Programmierprojekte mit Fokus auf Biodiversität und Lernen.",
         ogTitle: "Sarefo - Natur, Code & Fotografie",
         ogDescription: "Sarefos Projekte: Naturbestimmungstools, Fotografie und Programmierprojekte mit Fokus auf Biodiversität und Lernen.",
@@ -72,7 +72,7 @@ const translations = {
         leafhoppersTitle: "3D-Zikaden"
     },
     fr: {
-        title: "Sarefo - Nature, Code & Photographie",
+        title: "Sarefo",
         description: "Projets de Sarefo : outils d'identification de la nature, photographie et projets de codage axés sur la biodiversité et l'apprentissage.",
         ogTitle: "Sarefo - Nature, Code & Photographie",
         ogDescription: "Projets de Sarefo : outils d'identification de la nature, photographie et projets de codage axés sur la biodiversité et l'apprentissage.",
@@ -108,7 +108,7 @@ const translations = {
         leafhoppersTitle: "Cicadelles en 3D"
     },
     es: {
-        title: "Sarefo - Naturaleza, Código y Fotografía",
+        title: "Sarefo",
         description: "Proyectos de Sarefo: herramientas de identificación de la naturaleza, fotografía y proyectos de programación enfocados en biodiversidad y aprendizaje.",
         ogTitle: "Sarefo - Naturaleza, Código y Fotografía",
         ogDescription: "Proyectos de Sarefo: herramientas de identificación de la naturaleza, fotografía y proyectos de programación enfocados en biodiversidad y aprendizaje.",
@@ -144,7 +144,7 @@ const translations = {
         leafhoppersTitle: "Cicadélidos en 3D"
     },
     pt: {
-        title: "Sarefo - Natureza, Código e Fotografia",
+        title: "Sarefo",
         description: "Projetos do Sarefo: ferramentas de identificação da natureza, fotografia e projetos de programação focados em biodiversidade e aprendizagem.",
         ogTitle: "Sarefo - Natureza, Código e Fotografia",
         ogDescription: "Projetos do Sarefo: ferramentas de identificação da natureza, fotografia e projetos de programação focados em biodiversidade e aprendizagem.",
@@ -180,7 +180,7 @@ const translations = {
         leafhoppersTitle: "Cigarrinhas em 3D"
     },
     th: {
-        title: "Sarefo - ธรรมชาติ โค้ด และการถ่ายภาพ",
+        title: "Sarefo",
         description: "โครงการของ Sarefo: เครื่องมือระบุธรรมชาติ การถ่ายภาพ และโครงการเขียนโค้ดที่เน้นความหลากหลายทางชีวภาพและการเรียนรู้",
         ogTitle: "Sarefo - ธรรมชาติ โค้ด และการถ่ายภาพ",
         ogDescription: "โครงการของ Sarefo: เครื่องมือระบุธรรมชาติ การถ่ายภาพ และโครงการเขียนโค้ดที่เน้นความหลากหลายทางชีวภาพและการเรียนรู้",
@@ -216,7 +216,7 @@ const translations = {
         leafhoppersTitle: "เพลี้ยจักจั่นสามมิติ"
     },
     id: {
-        title: "Sarefo - Alam, Kode & Fotografi",
+        title: "Sarefo",
         description: "Proyek Sarefo: alat identifikasi alam, fotografi, dan proyek coding yang fokus pada keanekaragaman hayati dan pembelajaran.",
         ogTitle: "Sarefo - Alam, Kode & Fotografi",
         ogDescription: "Proyek Sarefo: alat identifikasi alam, fotografi, dan proyek coding yang fokus pada keanekaragaman hayati dan pembelajaran.",
@@ -252,7 +252,7 @@ const translations = {
         leafhoppersTitle: "Wereng Daun 3D"
     },
     hk: {
-        title: "Sarefo - 自然、編程與攝影",
+        title: "Sarefo",
         description: "Sarefo 的項目：自然識別工具、攝影和專注於生物多樣性與學習的編程項目。",
         ogTitle: "Sarefo - 自然、編程與攝影",
         ogDescription: "Sarefo 的項目：自然識別工具、攝影和專注於生物多樣性與學習的編程項目。",
