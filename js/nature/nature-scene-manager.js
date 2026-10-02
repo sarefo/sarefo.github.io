@@ -1,11 +1,18 @@
 // Main coordinator for nature scene background animation
+
+// The simulation advances in fixed 60 Hz steps (the animators move a fixed
+// amount per step), while drawing is capped at ~30 fps to save CPU and battery.
+const SIMULATION_STEP_MS = 1000 / 60;
+const DRAW_INTERVAL_MS = 1000 / 30;
+// Small allowance so a 60 Hz display reliably draws every second frame
+const DRAW_INTERVAL_SLACK_MS = 2;
+
 class NatureSceneManager {
     constructor() {
         this.canvas = null;
         this.animationId = null;
         this.time = 0;
         this.resizeTimeout = null;
-        this.contentBounds = [];
 
         // Cursor tracking for insect swarming
         this.cursorPosition = null;
@@ -16,8 +23,9 @@ class NatureSceneManager {
         this.waterAnimator = null;
         this.insectAnimator = null;
         this.seaStarAnimator = null;
-        this.floralAnimator = null;
+        this.svgFloralAnimator = null;
         this.soundGenerator = null;
+        this.soundGeneratorPromise = null;
         this.soundToggle = null;
 
         this.init();
@@ -30,10 +38,11 @@ class NatureSceneManager {
 
         this.themeHandler = new ThemeHandler();
 
-        // Initialize sound system
-        if (typeof SoundGenerator !== 'undefined') {
-            this.soundGenerator = new SoundGenerator(this.themeHandler);
-            this.soundToggle = new SoundToggle(this.soundGenerator);
+        // Sound system: the toggle is created now, but the 38 KB generator
+        // script is only fetched once the visitor reaches for the toggle
+        this.soundToggle = new SoundToggle(() => this.loadSoundGenerator());
+        if (new URLSearchParams(window.location.search).has('sound-debug')) {
+            this.soundToggle.ensureGenerator();
         }
 
         await this.buildScene();
@@ -59,32 +68,21 @@ class NatureSceneManager {
     }
 
     async buildScene() {
+        this.builtWidth = window.innerWidth;
         this.createCanvas();
         this.setupPaper();
-        this.detectContentBounds();
 
         this.waterAnimator = new WaterAnimator(this.themeHandler, this.waterGroup);
         this.insectAnimator = new InsectAnimator(this.themeHandler, this.insectsGroup);
         this.seaStarAnimator = new SeaStarAnimator(this.themeHandler, this.seaStarsGroup);
-
-        // Use SVG-based floral animator if available, otherwise fall back to Paper.js
-        if (typeof SvgFloralAnimator !== 'undefined') {
-            this.svgFloralAnimator = new SvgFloralAnimator(this.themeHandler);
-            this.floralAnimator = null;
-        } else {
-            this.floralAnimator = new FloralAnimator(this.themeHandler, this.floralGroup, this.contentBounds);
-        }
+        this.svgFloralAnimator = new SvgFloralAnimator(this.themeHandler);
 
         this.waterAnimator.createWaterSection(paper.view.size.width, paper.view.size.height);
 
-        // Create floral ornaments using appropriate animator (async for SVG loading)
-        if (this.svgFloralAnimator) {
-            const svgElement = await this.svgFloralAnimator.createFloralOrnaments(paper.view.size.width, paper.view.size.height);
-            if (svgElement) {
-                document.body.appendChild(svgElement);
-            }
-        } else if (this.floralAnimator) {
-            this.floralAnimator.createFloralOrnaments(paper.view.size.width, paper.view.size.height);
+        // Floral ornaments are an inline SVG layered over the page (async: fetches the SVG)
+        const svgElement = await this.svgFloralAnimator.createFloralOrnaments(paper.view.size.width, paper.view.size.height);
+        if (svgElement) {
+            document.body.appendChild(svgElement);
         }
         this.insectAnimator.createInsects(paper.view.size.width, paper.view.size.height);
         this.seaStarAnimator.createSeaStars(paper.view.size.width, paper.view.size.height);
@@ -100,6 +98,9 @@ class NatureSceneManager {
         this.canvas.style.left = '0';
         this.canvas.style.width = '100%';
         this.canvas.style.height = '100%';
+        // Size to the large viewport so the mobile URL bar showing and hiding
+        // doesn't resize (and stretch) the canvas
+        this.canvas.style.height = '100lvh';
         this.canvas.style.zIndex = '-1';
         this.canvas.style.pointerEvents = 'none';
 
@@ -116,7 +117,6 @@ class NatureSceneManager {
         this.waterGroup = new paper.Group();
         this.insectsGroup = new paper.Group();
         this.seaStarsGroup = new paper.Group();
-        this.floralGroup = new paper.Group();
     }
 
     setupCursorTracking() {
@@ -158,35 +158,16 @@ class NatureSceneManager {
         return this.cursorPosition;
     }
 
-    detectContentBounds() {
-        this.contentBounds = [];
-
-        const selectors = ['.container', '.header', '.hero-section', '.content-sections', '.github-section'];
-        selectors.forEach(selector => {
-            const elements = document.querySelectorAll(selector);
-            elements.forEach(el => {
-                const rect = el.getBoundingClientRect();
-                if (rect.width > 100 && rect.height > 50) {
-                    this.contentBounds.push({
-                        left: rect.left,
-                        top: rect.top,
-                        right: rect.right,
-                        bottom: rect.bottom,
-                        centerX: rect.left + rect.width / 2,
-                        centerY: rect.top + rect.height / 2
-                    });
-                }
-            });
-        });
-    }
-
     startAnimation() {
         // Honor prefers-reduced-motion: render a single static frame instead of looping
         if (this.reducedMotionQuery && this.reducedMotionQuery.matches) {
             this.renderFrame();
             return;
         }
-        this.animate();
+        this.lastFrameTime = null;
+        this.simulationBacklog = 0;
+        this.timeSinceDraw = 0;
+        this.animationId = requestAnimationFrame((now) => this.animate(now));
     }
 
     stopAnimation() {
@@ -196,33 +177,66 @@ class NatureSceneManager {
         }
     }
 
-    renderFrame() {
+    // Advance the simulation by one fixed 60 Hz step
+    step() {
         this.time += 0.01;
-        const deltaTime = 1 / 60;
+        const deltaTime = SIMULATION_STEP_MS / 1000;
 
         const activeCursor = this.getActiveCursorPosition();
         this.waterAnimator.animate(this.time);
         this.insectAnimator.animate(paper.view.size.width, paper.view.size.height, deltaTime, activeCursor);
         this.seaStarAnimator.animate(this.time);
-        if (this.floralAnimator) {
-            this.floralAnimator.animate(deltaTime);
-        }
+    }
 
+    renderFrame() {
+        this.step();
         paper.view.draw();
     }
 
-    animate() {
-        this.renderFrame();
-        this.animationId = requestAnimationFrame(() => this.animate());
+    animate(now) {
+        // Clamp so a long pause (background tab) doesn't trigger a burst of catch-up steps
+        const elapsed = this.lastFrameTime === null ? 0 : Math.min(now - this.lastFrameTime, 100);
+        this.lastFrameTime = now;
+        this.simulationBacklog += elapsed;
+        this.timeSinceDraw += elapsed;
+
+        if (this.timeSinceDraw >= DRAW_INTERVAL_MS - DRAW_INTERVAL_SLACK_MS) {
+            this.timeSinceDraw = 0;
+            while (this.simulationBacklog >= SIMULATION_STEP_MS) {
+                this.step();
+                this.simulationBacklog -= SIMULATION_STEP_MS;
+            }
+            paper.view.draw();
+        }
+
+        this.animationId = requestAnimationFrame((t) => this.animate(t));
+    }
+
+    loadSoundGenerator() {
+        if (!this.soundGeneratorPromise) {
+            this.soundGeneratorPromise = new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = 'js/nature/sound-generator.js';
+                script.onload = () => {
+                    this.soundGenerator = new SoundGenerator(this.themeHandler);
+                    resolve(this.soundGenerator);
+                };
+                script.onerror = () => {
+                    // Allow a retry on the next attempt
+                    this.soundGeneratorPromise = null;
+                    script.remove();
+                    reject(new Error('Failed to load sound-generator.js'));
+                };
+                document.head.appendChild(script);
+            });
+        }
+        return this.soundGeneratorPromise;
     }
 
     updateTheme() {
         this.waterAnimator.updateTheme();
         this.insectAnimator.updateTheme();
         this.seaStarAnimator.updateTheme();
-        if (this.floralAnimator) {
-            this.floralAnimator.updateTheme();
-        }
         if (this.svgFloralAnimator) {
             this.svgFloralAnimator.updateTheme();
         }
@@ -233,6 +247,13 @@ class NatureSceneManager {
     }
 
     handleResize() {
+        // On touch devices a height-only resize is the URL bar showing or
+        // hiding during scroll; the 100lvh canvas absorbs it, so skip the rebuild
+        const widthUnchanged = window.innerWidth === this.builtWidth;
+        if (widthUnchanged && window.matchMedia('(pointer: coarse)').matches) {
+            return;
+        }
+
         if (this.canvas && !this.resizeTimeout) {
             this.canvas.style.opacity = '0';
         }

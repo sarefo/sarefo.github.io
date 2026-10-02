@@ -73,7 +73,7 @@
             <div class="hero-projects">
                 <a href="https://duo-nat.web.app" class="hero-card secondary" target="_blank" rel="noopener">
                     <h3>
-                        <img src="images/duonat-icon.png" alt="DuoNat" class="card-icon">
+                        <img src="images/duonat-icon.png" alt="DuoNat" class="card-icon" width="32" height="32">
                         <span data-i18n="duonatTitle">DuoNat</span>
                     </h3>
                     <p data-i18n="duonatDescription">Enjoy biodiversity with our quiz.</p>
@@ -90,7 +90,7 @@
                 <a href="https://www.inaturalist.org/observations?user_id=portioid&verifiable=any"
                     class="hero-card secondary" target="_blank" rel="noopener">
                     <h3>
-                        <img src="images/inat-icon.svg" alt="iNaturalist" class="card-icon">
+                        <img src="images/inat-icon.svg" alt="iNaturalist" class="card-icon" width="32" height="32">
                         <span data-i18n="inaturalistTitle">My iNaturalist</span>
                     </h3>
                     <p data-i18n="inaturalistDescription">Explore my observations from around the world.</p>
@@ -147,22 +147,22 @@
     </div>
 
     <!-- JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.17/paper-full.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.17/paper-core.min.js"
+        integrity="sha512-IIF8eZ+WaM4V8f8gpiQYnjyGj5/EB/A0YInQOAJ6XLEdBTdaZqOJLehQk/w22UYh7c2qJehy/fHi2MyJ6mlyoQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <!-- Nature Scene Animation Modules -->
-    <script src="js/nature/theme-handler.js"></script>
-    <script src="js/nature/water-animator.js"></script>
-    <script src="js/nature/insect-animator.js"></script>
-    <script src="js/nature/sea-star-animator.js"></script>
-    <script src="js/nature/floral-animator.js"></script>
-    <script src="js/nature/svg-floral-animator.js"></script>
-    <script src="js/nature/sound-generator.js"></script>
-    <script src="js/nature/sound-toggle.js"></script>
-    <script src="js/nature/nature-scene-manager.js"></script>
+    <!-- Nature Scene Animation Modules (sound-generator.js is loaded on demand) -->
+    <script defer src="js/nature/theme-handler.js"></script>
+    <script defer src="js/nature/water-animator.js"></script>
+    <script defer src="js/nature/insect-animator.js"></script>
+    <script defer src="js/nature/sea-star-animator.js"></script>
+    <script defer src="js/nature/svg-floral-animator.js"></script>
+    <script defer src="js/nature/sound-toggle.js"></script>
+    <script defer src="js/nature/nature-scene-manager.js"></script>
 
-    <script src="js/translations.js"></script>
-    <script src="js/i18n.js"></script>
-    <script src="js/main.js"></script>
+    <script defer src="js/translations.js"></script>
+    <script defer src="js/i18n.js"></script>
+    <script defer src="js/main.js"></script>
 </body>
 
 </html>

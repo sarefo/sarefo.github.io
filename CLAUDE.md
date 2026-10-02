@@ -18,7 +18,9 @@ The main homepage consists of:
     - `water-animator.js` - Water/wave animations
     - `insect-animator.js` - Insect animations
     - `sea-star-animator.js` - Sea star animations
-    - `floral-animator.js` - Floral/plant animations
+    - `svg-floral-animator.js` - Jugendstil floral ornaments (inline SVG)
+    - `sound-toggle.js` - Mute/unmute button for nature sounds
+    - `sound-generator.js` - Synthesized nature sounds; loaded on demand when the sound toggle is first used
 
 ## Other Projects In This Repo
 

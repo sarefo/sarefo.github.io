@@ -1,9 +1,24 @@
 // UI control for nature sound mute/unmute toggle
 class SoundToggle {
-    constructor(soundGenerator) {
-        this.soundGenerator = soundGenerator;
+    // loadGenerator returns a promise for the SoundGenerator, which is only
+    // fetched on demand; until then the toggle shows the muted state
+    constructor(loadGenerator) {
+        this.loadGenerator = loadGenerator;
+        this.soundGenerator = null;
+        this.isToggling = false;
         this.toggleButton = null;
         this.createToggleUI();
+    }
+
+    async ensureGenerator() {
+        if (!this.soundGenerator) {
+            this.soundGenerator = await this.loadGenerator();
+        }
+        return this.soundGenerator;
+    }
+
+    prefetchGenerator() {
+        this.ensureGenerator().catch((error) => console.warn(error));
     }
 
     createToggleUI() {
@@ -19,6 +34,12 @@ class SoundToggle {
         // Add event listener
         this.toggleButton.addEventListener('click', () => this.handleToggle());
 
+        // Start fetching the generator as soon as the visitor reaches for the
+        // button, so it is usually ready by the time the click lands
+        ['pointerenter', 'pointerdown', 'focus'].forEach(eventType => {
+            this.toggleButton.addEventListener(eventType, () => this.prefetchGenerator(), { once: true });
+        });
+
         // Add keyboard support
         this.toggleButton.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
@@ -31,14 +52,28 @@ class SoundToggle {
         document.body.appendChild(this.toggleButton);
     }
 
-    handleToggle() {
-        const isMuted = this.soundGenerator.toggleMute();
-        this.updateButtonState();
-        this.announceStateChange(isMuted);
+    async handleToggle() {
+        if (this.isToggling) return;
+        this.isToggling = true;
+        try {
+            const generator = await this.ensureGenerator();
+            const isMuted = generator.toggleMute();
+            // If the script loaded after the click, the AudioContext may have
+            // been created outside the gesture and start suspended
+            if (!isMuted && generator.audioContext && generator.audioContext.state === 'suspended') {
+                generator.audioContext.resume().catch(() => {});
+            }
+            this.updateButtonState();
+            this.announceStateChange(isMuted);
+        } catch (error) {
+            console.warn('Nature sounds unavailable:', error);
+        } finally {
+            this.isToggling = false;
+        }
     }
 
     updateButtonState() {
-        const isMuted = this.soundGenerator.getMuted();
+        const isMuted = this.soundGenerator ? this.soundGenerator.getMuted() : true;
 
         // Update icon
         this.toggleButton.innerHTML = isMuted
