@@ -462,8 +462,13 @@ function home() {
   };
 }
 
+// Back swipe/button inside a drill returns to the menu instead of leaving the page.
+function goHome() { if (history.state?.drill) history.back(); else home(); }
+window.addEventListener("popstate", () => { if (session) home(); });
+
 function start(title, list, exam) {
   session = { title, list: list.map(it => ({ it, opts: optionsFor(it) })), i: 0, exam, answers: [] };
+  if (!history.state?.drill) history.pushState({ drill: 1 }, "");
   card();
   window.scrollTo(0, 0);
 }
@@ -492,7 +497,7 @@ function card() {
       <button class="next" id="next" disabled>Pick an answer</button>
       <span class="hint"><span class="kb">Keys 1–4 answer · ← or Enter next</span><span class="touch">Swipe left for next</span></span>
     </div></div>`}`;
-  app.querySelector("#quit").onclick = home;
+  app.querySelector("#quit").onclick = goHome;
   app.querySelectorAll(".opt").forEach(b => b.onclick = () => answer(+b.dataset.k));
   const next = app.querySelector("#next");
   if (next) next.onclick = advance;
@@ -546,7 +551,7 @@ document.addEventListener("keydown", e => {
   const k = "1234".indexOf(e.key) >= 0 ? "1234".indexOf(e.key) : "abcd".indexOf(e.key.toLowerCase());
   if (e.key.length === 1 && k >= 0 && !session.answered) { e.preventDefault(); answer(k); return; }
   if (["ArrowLeft", "ArrowRight", "Enter", " "].includes(e.key) && session.answered) { e.preventDefault(); advance(); }
-  if (e.key === "Escape") home();
+  if (e.key === "Escape") goHome();
 });
 
 // Touch: swipe left anywhere on the question to go to the next one.
@@ -589,7 +594,7 @@ function result() {
         <span class="y">✗ You chose: ${esc(m.picked)}</span>
         ${m.it.why ? `<span class="foot">${esc(m.it.why)}</span>` : ""}
       </div>`).join("")}</section>` : ""}`;
-  app.querySelector("#quit").onclick = home;
+  app.querySelector("#quit").onclick = goHome;
   app.querySelector("#again").onclick = () => misses.length
     ? start("Missed questions", shuffle(misses.map(m => m.it)), false)
     : start("Smart drill", pickSmart(items, 15), false);
