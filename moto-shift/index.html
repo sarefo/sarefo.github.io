@@ -16,19 +16,21 @@
   }
 }
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
-main { max-width: 980px; margin: 0 auto; padding: 16px; }
-h1 { font-size: 1.4rem; margin: 4px 0 2px; }
-h2 { font-size: 1.05rem; margin: 0 0 8px; }
-p.sub { margin: 0 0 14px; color: var(--muted); }
-.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px; margin-bottom: 14px; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; display: flex; flex-direction: column; }
+header { padding: 8px 14px 6px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; }
+h1 { font-size: 1.15rem; margin: 0; }
+header p { margin: 0; color: var(--muted); font-size: .85rem; }
+main { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr) minmax(0, 1fr); gap: 10px; padding: 0 10px 10px; }
+.col { display: flex; flex-direction: column; gap: 10px; min-height: 0; min-width: 0; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; min-width: 0; }
+.panel.grow { flex: 1; min-height: 0; overflow: auto; }
+h2 { font-size: .95rem; margin: 0 0 6px; }
 canvas { width: 100%; height: auto; display: block; border-radius: 8px; }
-.legend { color: var(--muted); font-size: .9rem; margin: 8px 0 0; }
-.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-@media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
-label { display: block; font-weight: 600; margin: 10px 0 2px; }
-.ends { display: flex; justify-content: space-between; color: var(--muted); font-size: .8rem; }
-input[type=range] { width: 100%; height: 28px; margin: 0; background: transparent; }
+.note { color: var(--muted); font-size: .8rem; margin: 6px 0 0; }
+label { display: block; font-weight: 600; margin: 6px 0 0; }
+.ends { display: flex; justify-content: space-between; color: var(--muted); font-size: .75rem; }
+input[type=range] { width: 100%; height: 26px; margin: 0; background: transparent; }
 input[type=range]::-webkit-slider-runnable-track { height: 12px; border-radius: 6px; background: var(--track); }
 input[type=range]::-moz-range-track { height: 12px; border-radius: 6px; background: var(--track); }
 #clutch::-webkit-slider-runnable-track {
@@ -39,104 +41,134 @@ input[type=range]::-moz-range-track { height: 12px; border-radius: 6px; backgrou
 }
 input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 28px; margin-top: -8px; border-radius: 5px; background: var(--ink); border: 2px solid var(--accent); }
 input[type=range]::-moz-range-thumb { width: 18px; height: 24px; border-radius: 5px; background: var(--ink); border: 2px solid var(--accent); }
-.row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-button { font: inherit; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--track); color: var(--ink); cursor: pointer; touch-action: none; user-select: none; }
+.row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+button { font: inherit; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--track); color: var(--ink); cursor: pointer; touch-action: none; user-select: none; }
 button:hover { border-color: var(--accent); }
 button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
 button.danger { border-color: var(--bad); }
+button.tab.on { background: var(--accent); color: #fff; border-color: var(--accent); }
 kbd { background: var(--track); border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; font-size: .85em; }
-.shifter { display: flex; flex-direction: column-reverse; gap: 3px; width: 64px; }
-.shifter div { text-align: center; padding: 3px 0; border-radius: 6px; background: var(--track); color: var(--muted); font-weight: 700; }
+.shifter { display: flex; gap: 4px; margin-top: 8px; }
+.shifter div { flex: 1; text-align: center; padding: 6px 0; border-radius: 6px; background: var(--track); color: var(--muted); font-weight: 700; }
 .shifter div.on { background: var(--accent); color: #fff; }
 .shifter div.on.n { background: var(--good); }
-.shifter-wrap { display: flex; gap: 14px; align-items: flex-start; }
-.meter { height: 12px; border-radius: 6px; background: var(--track); overflow: hidden; }
+.meter { height: 10px; border-radius: 5px; background: var(--track); overflow: hidden; }
 .meter i { display: block; height: 100%; width: 0; background: var(--good); }
-#shockbar i { background: var(--bad); }
-.stat { display: flex; justify-content: space-between; font-size: .95rem; }
-#live { font-weight: 600; min-height: 3em; }
-#event { min-height: 3em; padding: 8px 10px; border-radius: 8px; background: var(--track); }
+#sbar { background: var(--bad); }
+.stat { display: flex; justify-content: space-between; font-size: .85rem; margin-top: 6px; }
+#live { font-weight: 600; }
+#event { margin-top: 8px; padding: 6px 8px; border-radius: 8px; background: var(--track); min-height: 3.6em; }
 #event.good { border-left: 4px solid var(--good); }
 #event.warn { border-left: 4px solid var(--warn); }
 #event.bad { border-left: 4px solid var(--bad); }
-ol.drills { margin: 0; padding-left: 20px; }
-ol.drills li { margin-bottom: 8px; }
-table { border-collapse: collapse; width: 100%; font-size: .95rem; }
-td { padding: 4px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
-td:first-child { white-space: nowrap; }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+#dtitle { font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+#dtext { min-height: 7.5em; }
+.keys { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px 10px; font-size: .8rem; margin-top: 6px; }
 svg.bike { width: 100%; height: auto; display: block; background: var(--bg); border-radius: 8px; }
-svg.bike text { fill: var(--ink); font: 700 14px system-ui, sans-serif; }
-svg.bike .hint { fill: var(--muted); font-weight: 400; font-size: 13px; }
+svg.bike text { fill: var(--ink); font: 700 20px system-ui, sans-serif; }
 .mk circle { fill: var(--accent); }
-.mk text { fill: #fff; text-anchor: middle; }
-ul.legend2 { margin: 10px 0 0; padding-left: 0; list-style: none; }
-ul.legend2 li { margin-bottom: 4px; }
-ul.legend2 b { display: inline-block; min-width: 1.6em; height: 1.6em; line-height: 1.6em; text-align: center; border-radius: 50%; background: var(--accent); color: #fff; margin-right: 6px; font-size: .85rem; }
+.mk text { fill: #fff; text-anchor: middle; font-size: 24px; }
+ul.legend2 { margin: 8px 0 0; padding-left: 0; list-style: none; font-size: .85rem; }
+ul.legend2 li { margin-bottom: 3px; }
+ul.legend2 b { display: inline-block; min-width: 1.6em; height: 1.6em; line-height: 1.6em; text-align: center; border-radius: 50%; background: var(--accent); color: #fff; margin-right: 6px; font-size: .8rem; }
+.hidden { display: none; }
+@media (max-width: 1000px) {
+  html, body { height: auto; }
+  main { grid-template-columns: 1fr; }
+  .panel.grow { overflow: visible; }
+}
 </style>
 </head>
 <body>
-<main>
+<header>
   <h1>Manual Shift Trainer</h1>
-  <p class="sub">A simple model of a manual motorcycle gearbox and clutch. It shows how the clutch, throttle, and gears work together. It does not simulate balance or steering.</p>
+  <p>A simple model of a manual motorcycle clutch and gearbox. It does not simulate balance or steering.</p>
+</header>
 
-  <div class="panel">
-    <canvas id="view" width="900" height="420"></canvas>
-    <p class="legend">White needle: engine rpm. Cyan mark: the rpm the engine would have if it were locked to the rear wheel in the current gear. Releasing the clutch pulls the needle toward the cyan mark. The bigger the gap, the bigger the lurch.</p>
+<main>
+  <!-- column 1: instruments, drill coach, status -->
+  <div class="col">
+    <div class="panel">
+      <canvas id="view" width="640" height="300"></canvas>
+      <p class="note">White needle: engine rpm. Cyan mark: the engine rpm that would match the rear wheel in this gear. Releasing the clutch pulls the needle toward the mark; a big gap gives a lurch.</p>
+    </div>
+    <div class="pair" style="flex:1; min-height:0">
+      <div class="panel grow">
+        <h2>Drill coach</h2>
+        <div id="dtitle"></div>
+        <div id="dtext"></div>
+        <div class="row">
+          <button id="dprev">&larr; Previous</button>
+          <button id="dnext" class="primary">Next &rarr;</button>
+        </div>
+      </div>
+      <div class="panel grow">
+        <h2>What is happening</h2>
+        <div id="live"></div>
+        <div id="event">Press Start engine (R) to begin.</div>
+      </div>
+    </div>
   </div>
 
-  <div class="grid">
+  <!-- column 2: controls -->
+  <div class="col">
     <div class="panel">
       <h2>Controls</h2>
       <label for="clutch">Clutch lever</label>
       <input id="clutch" type="range" min="0" max="100" value="0">
-      <div class="ends"><span>released (engaged)</span><span>friction zone (orange)</span><span>pulled in</span></div>
+      <div class="ends"><span>released (engaged)</span><span>friction zone</span><span>pulled in</span></div>
 
       <label for="thr">Throttle</label>
       <input id="thr" type="range" min="0" max="100" value="0">
       <div class="ends"><span>closed</span><span>full</span></div>
 
+      <div class="shifter" id="shifter"></div>
       <div class="row">
-        <button id="start" class="primary">Start engine (R)</button>
-        <button id="kill" class="danger">Kill engine (K)</button>
-        <button id="brake">Hold to brake (S / &darr;)</button>
-        <button id="reset">Reset</button>
+        <button id="down">Down (Q)</button>
+        <button id="up">Up (E)</button>
+        <button id="half">Half-click to N (N)</button>
       </div>
-
-      <div class="shifter-wrap" style="margin-top:14px">
-        <div class="shifter" id="shifter"></div>
-        <div>
-          <div class="row" style="margin-top:0">
-            <button id="up">Shift up (E)</button>
-            <button id="down">Shift down (Q)</button>
-            <button id="half">Half-click to N (N)</button>
-          </div>
-          <p class="legend">Neutral sits between 1st and 2nd. From 1st or 2nd, a half-click finds it.</p>
-        </div>
+      <div class="row">
+        <button id="start" class="primary">Start (R)</button>
+        <button id="kill" class="danger">Kill (K)</button>
+        <button id="brake">Hold: brake (S)</button>
+        <button id="reset">Reset</button>
       </div>
     </div>
 
     <div class="panel">
-      <h2>What is happening</h2>
-      <div id="live"></div>
-      <div style="margin-top:10px">
-        <div class="stat"><span>Power reaching the wheel</span><span id="cpct">0%</span></div>
-        <div class="meter"><i id="cbar"></i></div>
+      <div class="stat" style="margin-top:0"><span>Power reaching the wheel</span><span id="cpct">0%</span></div>
+      <div class="meter"><i id="cbar"></i></div>
+      <div class="stat"><span>Clutch shock (lurch)</span><span id="spct">0%</span></div>
+      <div class="meter"><i id="sbar"></i></div>
+      <div class="stat"><span>Stalls: <b id="nstall">0</b></span><span>Clean shifts: <b id="nclean">0</b></span><span>Rough shifts: <b id="nrough">0</b></span></div>
+    </div>
+
+    <div class="panel grow">
+      <h2>Keyboard (hold keys for clutch, throttle, brake)</h2>
+      <div class="keys">
+        <div><kbd>Space</kbd> clutch in</div>
+        <div><kbd>X</kbd> friction zone</div>
+        <div><kbd>&uarr;</kbd> / <kbd>W</kbd> throttle</div>
+        <div><kbd>&darr;</kbd> / <kbd>S</kbd> brake</div>
+        <div><kbd>E</kbd> / <kbd>Q</kbd> up / down</div>
+        <div><kbd>N</kbd> neutral</div>
+        <div><kbd>R</kbd> / <kbd>K</kbd> start / kill</div>
       </div>
-      <div style="margin-top:10px" id="shockbar">
-        <div class="stat"><span>Clutch shock (lurch)</span><span id="spct">0%</span></div>
-        <div class="meter"><i id="sbar"></i></div>
-      </div>
-      <div id="event" style="margin-top:12px">Press Start engine (R) to begin.</div>
-      <div class="stat" style="margin-top:12px"><span>Stalls: <b id="nstall">0</b></span><span>Clean shifts: <b id="nclean">0</b></span><span>Rough shifts: <b id="nrough">0</b></span></div>
     </div>
   </div>
 
-  <div class="panel">
-    <h2>Where the controls are (typical manual 125)</h2>
-    <p class="legend" style="margin-top:0">This is a generic layout of a small manual motorcycle. The flyer does not say which Kawasaki 125 the school uses, so positions and switch details may differ. Check them on the actual bike at your first lesson.</p>
-    <div class="grid">
-      <div>
-        <h2 style="margin-top:8px">Rider's view (handlebar)</h2>
+  <!-- column 3: where the controls are -->
+  <div class="col">
+    <div class="panel grow">
+      <h2>Where the controls are (typical manual 125)</h2>
+      <div class="row" style="margin-top:0">
+        <button class="tab on" id="tabRider">Handlebar</button>
+        <button class="tab" id="tabSide">Left side</button>
+      </div>
+
+      <div id="viewRider" style="margin-top:8px">
         <svg class="bike" viewBox="0 0 720 320" role="img" aria-label="Handlebar as seen by the rider, with the controls numbered">
           <g fill="none" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
             <path d="M40 190 L680 190"/>
@@ -157,39 +189,33 @@ ul.legend2 b { display: inline-block; min-width: 1.6em; height: 1.6em; line-heig
           </g>
           <circle cx="510" cy="198" r="7" fill="var(--good)"/>
           <rect x="522" y="192" width="20" height="12" rx="3" fill="var(--bad)"/>
-          <text x="360" y="125" text-anchor="middle" font-size="20">km/h</text>
+          <text x="360" y="125" text-anchor="middle">km/h</text>
           <rect x="318" y="150" width="22" height="16" rx="3" fill="var(--good)"/>
-          <text x="329" y="163" text-anchor="middle" style="fill:#fff;font-size:12px">N</text>
-          <text x="360" y="268" text-anchor="middle" class="hint">key switch (position varies)</text>
-          <text x="92" y="300" text-anchor="middle" class="hint">pull toward you</text>
-          <text x="628" y="300" text-anchor="middle" class="hint">pull toward you</text>
-          <text x="630" y="165" text-anchor="middle" class="hint">twist toward you = throttle</text>
           <g class="mk">
-            <circle cx="92" cy="255" r="14"/><text x="92" y="260">1</text>
-            <circle cx="628" cy="255" r="14"/><text x="628" y="260">2</text>
-            <circle cx="630" cy="140" r="0"/>
-            <circle cx="600" cy="140" r="14"/><text x="600" y="145">3</text>
-            <circle cx="200" cy="150" r="14"/><text x="200" y="155">4</text>
-            <circle cx="520" cy="150" r="14"/><text x="520" y="155">5</text>
-            <circle cx="360" cy="50" r="14"/><text x="360" y="55">6</text>
-            <circle cx="360" cy="285" r="14"/><text x="360" y="290">7</text>
-            <circle cx="160" cy="40" r="14"/><text x="160" y="45">8</text>
+            <circle cx="92" cy="258" r="20"/><text x="92" y="267">1</text>
+            <circle cx="628" cy="258" r="20"/><text x="628" y="267">2</text>
+            <circle cx="600" cy="136" r="20"/><text x="600" y="145">3</text>
+            <circle cx="200" cy="146" r="20"/><text x="200" y="155">4</text>
+            <circle cx="520" cy="146" r="20"/><text x="520" y="155">5</text>
+            <circle cx="446" cy="108" r="20"/><text x="446" y="117">6</text>
+            <circle cx="360" cy="286" r="20"/><text x="360" y="295">7</text>
+            <circle cx="160" cy="40" r="20"/><text x="160" y="49">8</text>
           </g>
         </svg>
         <ul class="legend2">
           <li><b>1</b>Clutch lever (left hand). Pull in to disconnect the engine.</li>
           <li><b>2</b>Front brake lever (right hand). The strongest brake.</li>
           <li><b>3</b>Throttle (right grip). Twist toward you to rev.</li>
-          <li><b>4</b>Left switch housing: turn signal switch, horn, high/low beam.</li>
-          <li><b>5</b>Right switch housing: starter button and engine kill switch (RUN / OFF).</li>
-          <li><b>6</b>Instrument panel: speedometer, green N neutral light, turn indicators, high beam light.</li>
-          <li><b>7</b>Ignition key (some bikes have it on the tank or near the panel).</li>
+          <li><b>4</b>Left switches: turn signal, horn, high/low beam.</li>
+          <li><b>5</b>Right switches: starter button, engine kill switch (RUN / OFF).</li>
+          <li><b>6</b>Dash: speedometer, green N neutral light, turn indicators.</li>
+          <li><b>7</b>Ignition key (position varies by bike).</li>
           <li><b>8</b>Mirrors. Set them before you ride.</li>
         </ul>
       </div>
-      <div>
-        <h2 style="margin-top:8px">Left side of the bike</h2>
-        <svg class="bike" viewBox="0 0 720 330" role="img" aria-label="Left side of a manual motorcycle, front on the left, with the controls numbered">
+
+      <div id="viewSide" class="hidden" style="margin-top:8px">
+        <svg class="bike" viewBox="0 0 720 340" role="img" aria-label="Left side of a manual motorcycle, front on the left, with the controls numbered">
           <g fill="none" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="150" cy="240" r="62"/><circle cx="150" cy="240" r="8"/>
             <circle cx="560" cy="240" r="62"/><circle cx="560" cy="240" r="8"/>
@@ -213,21 +239,20 @@ ul.legend2 b { display: inline-block; min-width: 1.6em; height: 1.6em; line-heig
           </g>
           <path d="M404 250 L452 278" fill="none" stroke="var(--accent)" stroke-width="6" stroke-linecap="round" stroke-dasharray="3 9"/>
           <circle cx="302" cy="168" r="6" fill="var(--accent)"/>
-          <text x="440" y="322" class="hint">dashed orange = on the far (right) side</text>
           <g class="mk">
-            <circle cx="276" cy="282" r="14"/><text x="276" y="287">1</text>
-            <circle cx="466" cy="290" r="14"/><text x="466" y="295">2</text>
-            <circle cx="340" cy="312" r="14"/><text x="340" y="317">3</text>
-            <circle cx="446" cy="258" r="14"/><text x="446" y="263">4</text>
-            <circle cx="302" cy="112" r="14"/><text x="302" y="117">5</text>
-            <circle cx="470" cy="100" r="14"/><text x="470" y="105">6</text>
-            <circle cx="500" cy="270" r="14"/><text x="500" y="275">7</text>
-            <circle cx="370" cy="230" r="14"/><text x="370" y="235">8</text>
+            <circle cx="268" cy="290" r="20"/><text x="268" y="299">1</text>
+            <circle cx="484" cy="300" r="20"/><text x="484" y="309">2</text>
+            <circle cx="338" cy="318" r="20"/><text x="338" y="327">3</text>
+            <circle cx="452" cy="250" r="20"/><text x="452" y="259">4</text>
+            <circle cx="302" cy="108" r="20"/><text x="302" y="117">5</text>
+            <circle cx="470" cy="96" r="20"/><text x="470" y="105">6</text>
+            <circle cx="530" cy="290" r="20"/><text x="530" y="299">7</text>
+            <circle cx="370" cy="230" r="20"/><text x="370" y="239">8</text>
           </g>
         </svg>
         <ul class="legend2">
           <li><b>1</b>Gear shifter (left foot). Press down for 1st; lift for neutral and the higher gears.</li>
-          <li><b>2</b>Rear brake pedal (right foot, on the far side).</li>
+          <li><b>2</b>Rear brake pedal (right foot, far side of the bike, drawn dashed).</li>
           <li><b>3</b>Side stand (left). Fold it up before moving; many bikes cut the engine if it is down in gear.</li>
           <li><b>4</b>Footpeg. Balls of your feet on the pegs.</li>
           <li><b>5</b>Fuel tank. The fuel valve (small dot) is under it on bikes that have one.</li>
@@ -236,36 +261,8 @@ ul.legend2 b { display: inline-block; min-width: 1.6em; height: 1.6em; line-heig
           <li><b>8</b>Engine and gearbox.</li>
         </ul>
       </div>
-    </div>
-    <p class="legend">Note: many small 125s have 4 gears (1, N, 2, 3, 4), not 5. This simulator has 5.</p>
-  </div>
 
-  <div class="grid">
-    <div class="panel">
-      <h2>Keyboard</h2>
-      <table>
-        <tr><td><kbd>Space</kbd> (hold)</td><td>Pull clutch in. Release to let it out slowly.</td></tr>
-        <tr><td><kbd>X</kbd> (hold)</td><td>Hold the lever in the friction zone</td></tr>
-        <tr><td><kbd>&uarr;</kbd> or <kbd>W</kbd> (hold)</td><td>Throttle</td></tr>
-        <tr><td><kbd>&darr;</kbd> or <kbd>S</kbd> (hold)</td><td>Brake</td></tr>
-        <tr><td><kbd>E</kbd> / <kbd>Q</kbd></td><td>Shift up / down one gear</td></tr>
-        <tr><td><kbd>N</kbd></td><td>Half-click to neutral (from 1st or 2nd)</td></tr>
-        <tr><td><kbd>R</kbd> / <kbd>K</kbd></td><td>Start / kill the engine</td></tr>
-      </table>
-      <p class="legend">The sliders give finer control than the keys. On a phone, use the sliders and buttons.</p>
-    </div>
-
-    <div class="panel">
-      <h2>Drills</h2>
-      <ol class="drills">
-        <li><b>Find the bite.</b> Start the engine in neutral, pull the clutch in, shift down into 1st. Slide the clutch slowly toward released until the bike starts to creep. That spot is the friction zone. Hold it, then pull back in.</li>
-        <li><b>Move off.</b> In 1st, add about 20% throttle, then release the clutch slowly through the orange zone and the rest of the way.</li>
-        <li><b>Stall on purpose.</b> At a standstill in 1st with no throttle, release the clutch quickly. Then repeat with 15 to 20% throttle and a slower release.</li>
-        <li><b>Upshift.</b> At about 15 km/h: ease the throttle, pull the clutch in, shift up, release smoothly while rolling the throttle back on. Watch the needle move toward the cyan mark.</li>
-        <li><b>Stop.</b> Brake, pull the clutch in before the speed drops below about 5 km/h, shift down to 1st, then half-click to neutral when stopped.</li>
-        <li><b>Downshift.</b> From 4th at about 40 km/h: brake, pull the clutch in, shift down twice, and release smoothly. Try releasing early and see the lurch.</li>
-        <li><b>Shift without the clutch.</b> Try an upshift with the lever released. Note the message and the shock bar.</li>
-      </ol>
+      <p class="note">Generic layout. The flyer does not say which Kawasaki 125 the school uses, so check positions on the real bike. Many 125s have 4 gears (1, N, 2, 3, 4); this simulator has 5.</p>
     </div>
   </div>
 </main>
@@ -406,23 +403,24 @@ function step(dt) {
 }
 
 // ---------- drawing ----------
+const W = 640, H = 300;
 const canvas = document.getElementById("view");
 const ctx = canvas.getContext("2d");
 const dpr = Math.min(window.devicePixelRatio || 1, 2);
-canvas.width = 900 * dpr;
-canvas.height = 420 * dpr;
+canvas.width = W * dpr;
+canvas.height = H * dpr;
 
 function colors() {
   const cs = getComputedStyle(document.documentElement);
   const v = (n) => cs.getPropertyValue(n).trim();
-  return { bg: v("--panel"), ink: v("--ink"), muted: v("--muted"), line: v("--line"), accent: v("--accent"), good: v("--good"), bad: v("--bad"), track: v("--track") };
+  return { bg: v("--panel"), ink: v("--ink"), muted: v("--muted"), accent: v("--accent"), good: v("--good"), bad: v("--bad"), track: v("--track") };
 }
 
 function ang(val, max) { return Math.PI * 0.75 + (val / max) * Math.PI * 1.5; }
 
 function drawGauge(col, cx, cy, r, max, step, labelDiv, redFrom, needleVal, needleCol) {
   ctx.lineCap = "butt";
-  ctx.lineWidth = 12;
+  ctx.lineWidth = 10;
   ctx.strokeStyle = col.track;
   ctx.beginPath(); ctx.arc(cx, cy, r, ang(0, max), ang(max, max)); ctx.stroke();
   if (redFrom != null) {
@@ -430,36 +428,36 @@ function drawGauge(col, cx, cy, r, max, step, labelDiv, redFrom, needleVal, need
     ctx.beginPath(); ctx.arc(cx, cy, r, ang(redFrom, max), ang(max, max)); ctx.stroke();
   }
   ctx.fillStyle = col.muted; ctx.strokeStyle = col.muted;
-  ctx.font = "14px system-ui, sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  ctx.font = "13px system-ui, sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
   for (let i = 0; i <= max; i += step) {
     const a = ang(i, max);
     ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.moveTo(cx + Math.cos(a) * (r - 12), cy + Math.sin(a) * (r - 12));
-    ctx.lineTo(cx + Math.cos(a) * (r - 24), cy + Math.sin(a) * (r - 24));
+    ctx.moveTo(cx + Math.cos(a) * (r - 10), cy + Math.sin(a) * (r - 10));
+    ctx.lineTo(cx + Math.cos(a) * (r - 19), cy + Math.sin(a) * (r - 19));
     ctx.stroke();
-    ctx.fillText(String(i / labelDiv), cx + Math.cos(a) * (r - 42), cy + Math.sin(a) * (r - 42));
+    ctx.fillText(String(i / labelDiv), cx + Math.cos(a) * (r - 33), cy + Math.sin(a) * (r - 33));
   }
   const a = ang(Math.max(0, Math.min(max, needleVal)), max);
   ctx.strokeStyle = needleCol; ctx.lineWidth = 4; ctx.lineCap = "round";
-  ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + Math.cos(a) * (r - 18), cy + Math.sin(a) * (r - 18)); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + Math.cos(a) * (r - 14), cy + Math.sin(a) * (r - 14)); ctx.stroke();
   ctx.fillStyle = needleCol;
-  ctx.beginPath(); ctx.arc(cx, cy, 8, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.arc(cx, cy, 7, 0, Math.PI * 2); ctx.fill();
 }
 
-function drawMark(col, cx, cy, r, val, max) {
+function drawMark(cx, cy, r, val, max) {
   const a = ang(Math.max(0, Math.min(max, val)), max);
-  const px = cx + Math.cos(a) * (r + 12), py = cy + Math.sin(a) * (r + 12);
+  const px = cx + Math.cos(a) * (r + 8), py = cy + Math.sin(a) * (r + 8);
   ctx.fillStyle = "#19c4d8";
   ctx.beginPath();
   ctx.moveTo(px, py);
-  ctx.lineTo(px + Math.cos(a + 0.12) * 14, py + Math.sin(a + 0.12) * 14);
-  ctx.lineTo(px + Math.cos(a - 0.12) * 14, py + Math.sin(a - 0.12) * 14);
+  ctx.lineTo(px + Math.cos(a + 0.13) * 13, py + Math.sin(a + 0.13) * 13);
+  ctx.lineTo(px + Math.cos(a - 0.13) * 13, py + Math.sin(a - 0.13) * 13);
   ctx.closePath(); ctx.fill();
 }
 
 function drawWheel(col, x, y, rad) {
-  ctx.strokeStyle = col.ink; ctx.lineWidth = 5;
+  ctx.strokeStyle = col.ink; ctx.lineWidth = 4;
   ctx.beginPath(); ctx.arc(x, y, rad, 0, Math.PI * 2); ctx.stroke();
   ctx.lineWidth = 2;
   for (let i = 0; i < 4; i++) {
@@ -474,43 +472,45 @@ function drawWheel(col, x, y, rad) {
 function draw(dt) {
   const col = colors();
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  ctx.fillStyle = col.bg; ctx.fillRect(0, 0, 900, 420);
+  ctx.fillStyle = col.bg; ctx.fillRect(0, 0, W, H);
   s.shake = Math.max(0, s.shake - 2.5 * dt);
-  const sx = (Math.random() - 0.5) * 8 * s.shake, sy = (Math.random() - 0.5) * 8 * s.shake;
+  const sx = (Math.random() - 0.5) * 7 * s.shake, sy = (Math.random() - 0.5) * 7 * s.shake;
   ctx.save(); ctx.translate(sx, sy);
 
+  const cy = 122, r = 108, tx = 160, px = 480;
   // tachometer
-  drawGauge(col, 240, 175, 140, MAXRPM, 1000, 1000, REDLINE, s.rpm, col.ink);
-  if (s.gear > 0) drawMark(col, 240, 175, 140, s.v / K[s.gear], MAXRPM);
-  ctx.fillStyle = col.muted; ctx.font = "14px system-ui, sans-serif"; ctx.textAlign = "center";
-  ctx.fillText("rpm x1000", 240, 120);
-  ctx.font = "bold 52px system-ui, sans-serif";
+  drawGauge(col, tx, cy, r, MAXRPM, 1000, 1000, REDLINE, s.rpm, col.ink);
+  if (s.gear > 0) drawMark(tx, cy, r, s.v / K[s.gear], MAXRPM);
+  ctx.textAlign = "center"; ctx.textBaseline = "alphabetic";
+  ctx.fillStyle = col.muted; ctx.font = "12px system-ui, sans-serif";
+  ctx.fillText("rpm x1000", tx, cy - 38);
+  ctx.font = "bold 46px system-ui, sans-serif";
   ctx.fillStyle = s.gear === 0 ? col.good : col.accent;
-  ctx.fillText(s.gear === 0 ? "N" : String(s.gear), 240, 235);
-  ctx.font = "16px system-ui, sans-serif";
+  ctx.fillText(s.gear === 0 ? "N" : String(s.gear), tx, cy + 44);
+  ctx.font = "14px system-ui, sans-serif";
   ctx.fillStyle = s.engine ? col.muted : col.bad;
-  ctx.fillText(s.engine ? Math.round(s.rpm / 10) * 10 + " rpm" : "ENGINE OFF", 240, 275);
+  ctx.fillText(s.engine ? Math.round(s.rpm / 10) * 10 + " rpm" : "ENGINE OFF", tx, cy + 80);
 
   // speedometer
-  drawGauge(col, 660, 175, 140, MAXSPEED, 20, 1, null, s.v, col.ink);
-  ctx.fillStyle = col.muted; ctx.font = "14px system-ui, sans-serif";
-  ctx.fillText("km/h", 660, 120);
-  ctx.fillStyle = col.ink; ctx.font = "bold 44px system-ui, sans-serif";
-  ctx.fillText(String(Math.round(s.v)), 660, 235);
+  drawGauge(col, px, cy, r, MAXSPEED, 20, 1, null, s.v, col.ink);
+  ctx.fillStyle = col.muted; ctx.font = "12px system-ui, sans-serif";
+  ctx.fillText("km/h", px, cy - 38);
+  ctx.fillStyle = col.ink; ctx.font = "bold 42px system-ui, sans-serif";
+  ctx.fillText(String(Math.round(s.v)), px, cy + 44);
 
   ctx.restore();
 
   // road strip
-  ctx.fillStyle = col.track; ctx.fillRect(0, 340, 900, 80);
-  roadOffset = (roadOffset + s.v * dt * 14) % 80;
+  ctx.fillStyle = col.track; ctx.fillRect(0, 240, W, 60);
+  roadOffset = (roadOffset + s.v * dt * 10) % 60;
   ctx.fillStyle = col.muted;
-  for (let x = -80 + roadOffset; x < 900; x += 80) ctx.fillRect(x, 392, 40, 5);
+  for (let x = -60 + roadOffset; x < W; x += 60) ctx.fillRect(x, 284, 28, 4);
   wheelAngle += s.v * dt * 0.7;
-  drawWheel(col, 380, 372, 22);
-  drawWheel(col, 480, 372, 22);
-  ctx.strokeStyle = col.accent; ctx.lineWidth = 5; ctx.lineCap = "round";
-  ctx.beginPath(); ctx.moveTo(380, 372); ctx.lineTo(425, 345); ctx.lineTo(470, 345); ctx.lineTo(480, 372); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(450, 345); ctx.lineTo(440, 330); ctx.stroke();
+  drawWheel(col, 290, 266, 17);
+  drawWheel(col, 366, 266, 17);
+  ctx.strokeStyle = col.accent; ctx.lineWidth = 4; ctx.lineCap = "round";
+  ctx.beginPath(); ctx.moveTo(290, 266); ctx.lineTo(324, 246); ctx.lineTo(358, 246); ctx.lineTo(366, 266); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(340, 246); ctx.lineTo(332, 234); ctx.stroke();
 }
 
 // ---------- UI ----------
@@ -518,13 +518,42 @@ const el = (id) => document.getElementById(id);
 const clutchEl = el("clutch"), thrEl = el("thr");
 const shifterEl = el("shifter");
 const cells = {};
-["5", "4", "3", "2", "N", "1"].slice().reverse().forEach((label) => {
+["1", "N", "2", "3", "4", "5"].forEach((label) => {
   const d = document.createElement("div");
   d.textContent = label;
   if (label === "N") d.classList.add("n");
   shifterEl.appendChild(d);
   cells[label] = d;
 });
+
+const DRILLS = [
+  { t: "Find the bite", d: "Start the engine in neutral, pull the clutch in, shift down into 1st. Slide the clutch slowly toward released until the bike starts to creep. That spot is the friction zone. Hold it, then pull back in." },
+  { t: "Move off", d: "In 1st, add about 20% throttle, then release the clutch slowly through the orange zone and the rest of the way." },
+  { t: "Stall on purpose", d: "At a standstill in 1st with no throttle, release the clutch quickly. Then repeat with 15 to 20% throttle and a slower release." },
+  { t: "Upshift", d: "At about 15 km/h: ease the throttle, pull the clutch in, shift up, release smoothly while rolling the throttle back on. Watch the needle move toward the cyan mark." },
+  { t: "Stop", d: "Brake, pull the clutch in before the speed drops below about 5 km/h, shift down to 1st, then half-click to neutral when stopped." },
+  { t: "Downshift", d: "From 4th at about 40 km/h: brake, pull the clutch in, shift down twice, and release smoothly. Try releasing early and see the lurch." },
+  { t: "Shift without the clutch", d: "Try an upshift with the lever released. Note the message and the shock bar." }
+];
+let drill = 0;
+function showDrill() {
+  el("dtitle").textContent = "Drill " + (drill + 1) + " of " + DRILLS.length + ": " + DRILLS[drill].t;
+  el("dtext").textContent = DRILLS[drill].d;
+  el("dprev").disabled = drill === 0;
+  el("dnext").disabled = drill === DRILLS.length - 1;
+}
+el("dprev").addEventListener("click", () => { drill = Math.max(0, drill - 1); showDrill(); });
+el("dnext").addEventListener("click", () => { drill = Math.min(DRILLS.length - 1, drill + 1); showDrill(); });
+showDrill();
+
+function setTab(side) {
+  el("viewRider").classList.toggle("hidden", side);
+  el("viewSide").classList.toggle("hidden", !side);
+  el("tabRider").classList.toggle("on", !side);
+  el("tabSide").classList.toggle("on", side);
+}
+el("tabRider").addEventListener("click", () => setTab(false));
+el("tabSide").addEventListener("click", () => setTab(true));
 
 function liveText() {
   const c = s.c;
