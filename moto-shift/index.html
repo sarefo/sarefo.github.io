@@ -28,19 +28,24 @@ main { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1
 h2 { font-size: .95rem; margin: 0 0 6px; }
 canvas { width: 100%; height: auto; display: block; border-radius: 8px; }
 .note { color: var(--muted); font-size: .8rem; margin: 6px 0 0; }
-label { display: block; font-weight: 600; margin: 6px 0 0; }
-.ends { display: flex; justify-content: space-between; color: var(--muted); font-size: .75rem; }
-input[type=range] { width: 100%; height: 26px; margin: 0; background: transparent; }
-input[type=range]::-webkit-slider-runnable-track { height: 12px; border-radius: 6px; background: var(--track); }
-input[type=range]::-moz-range-track { height: 12px; border-radius: 6px; background: var(--track); }
-#clutch::-webkit-slider-runnable-track {
-  background: linear-gradient(to right, var(--good) 0%, var(--good) 30%, var(--warn) 30%, var(--warn) 70%, var(--track) 70%, var(--track) 100%);
-}
-#clutch::-moz-range-track {
-  background: linear-gradient(to right, var(--good) 0%, var(--good) 30%, var(--warn) 30%, var(--warn) 70%, var(--track) 70%, var(--track) 100%);
-}
-input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 28px; margin-top: -8px; border-radius: 5px; background: var(--ink); border: 2px solid var(--accent); }
-input[type=range]::-moz-range-thumb { width: 18px; height: 24px; border-radius: 5px; background: var(--ink); border: 2px solid var(--accent); }
+.hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.hdr h2 { margin: 0; }
+.hands { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.hand { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.who { font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.hint { font-size: .75rem; color: var(--muted); line-height: 1.3; }
+svg.ctl { width: 100%; height: auto; display: block; background: var(--bg); border-radius: 8px; touch-action: none; user-select: none; cursor: ns-resize; }
+svg.ctl text { font: 700 13px system-ui, sans-serif; fill: var(--muted); }
+svg.ctl .state { font-size: 15px; }
+.foot { display: flex; gap: 8px; align-items: stretch; }
+.gears { display: flex; flex-direction: column; gap: 2px; width: 34px; }
+.gears div { flex: 1; text-align: center; border-radius: 4px; background: var(--track); color: var(--muted); font-weight: 700; font-size: .8rem; line-height: 1.35; }
+.gears div.on { background: var(--accent); color: #fff; }
+.gears div.on.n { background: var(--good); }
+.fbtns { flex: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.fbtns button, .thumb button, #brake { width: 100%; padding: 5px 6px; }
+.thumb { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+button kbd { margin-left: 4px; color: var(--ink); }
 .row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
 button { font: inherit; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--track); color: var(--ink); cursor: pointer; touch-action: none; user-select: none; }
 button:hover { border-color: var(--accent); }
@@ -48,10 +53,6 @@ button.primary { background: var(--accent); color: #fff; border-color: var(--acc
 button.danger { border-color: var(--bad); }
 button.tab.on { background: var(--accent); color: #fff; border-color: var(--accent); }
 kbd { background: var(--track); border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; font-size: .85em; }
-.shifter { display: flex; gap: 4px; margin-top: 8px; }
-.shifter div { flex: 1; text-align: center; padding: 6px 0; border-radius: 6px; background: var(--track); color: var(--muted); font-weight: 700; }
-.shifter div.on { background: var(--accent); color: #fff; }
-.shifter div.on.n { background: var(--good); }
 .meter { height: 10px; border-radius: 5px; background: var(--track); overflow: hidden; }
 .meter i { display: block; height: 100%; width: 0; background: var(--good); }
 #sbar { background: var(--bad); }
@@ -113,27 +114,68 @@ ul.legend2 b { display: inline-block; min-width: 1.6em; height: 1.6em; line-heig
 
   <!-- column 2: controls -->
   <div class="col">
-    <div class="panel">
-      <h2>Controls</h2>
-      <label for="clutch">Clutch lever</label>
-      <input id="clutch" type="range" min="0" max="100" value="0">
-      <div class="ends"><span>released (engaged)</span><span>friction zone</span><span>pulled in</span></div>
+    <div class="panel grow">
+      <div class="hdr"><h2>Controls (as the rider sees them)</h2><button id="reset">Reset</button></div>
+      <div class="hands">
+        <!-- left side of the bike: clutch hand, shift foot -->
+        <div class="hand">
+          <div class="who">Left hand</div>
+          <svg class="ctl" id="lhSvg" viewBox="0 0 220 150" role="slider" aria-label="Clutch lever. Drag down to pull it in." aria-valuemin="0" aria-valuemax="100">
+            <path d="M200 118 L220 118" stroke="var(--muted)" stroke-width="12"/>
+            <path id="cBand" fill="none" stroke-width="9"/>
+            <rect x="40" y="104" width="128" height="28" rx="12" fill="var(--track)" stroke="var(--ink)" stroke-width="2.5"/>
+            <g stroke="var(--muted)" stroke-width="2"><path d="M58 108 V128 M72 108 V128 M86 108 V128 M100 108 V128 M114 108 V128 M128 108 V128 M142 108 V128"/></g>
+            <rect x="164" y="98" width="38" height="40" rx="8" fill="var(--panel)" stroke="var(--ink)" stroke-width="2"/>
+            <rect x="171" y="106" width="18" height="8" rx="4" fill="var(--track)"/><rect x="171" y="120" width="12" height="10" rx="2" fill="var(--track)"/>
+            <g id="cLever">
+              <path d="M172 87 L48 88 Q34 89 34 93 Q34 97 48 98 L172 97 Z" stroke="var(--ink)" stroke-width="1.5"/>
+            </g>
+            <circle cx="172" cy="92" r="7" fill="var(--muted)" stroke="var(--ink)" stroke-width="1.5"/>
+            <text id="cState" class="state" x="214" y="20" text-anchor="end"></text>
+            <text x="8" y="146">pull in &#8595;</text>
+          </svg>
+          <div class="hint">Drag down to pull in. <kbd>Space</kbd> in, <kbd>X</kbd> half. Green = engaged, orange = friction zone.</div>
+          <div class="who" style="margin-top:4px">Left foot: shifter</div>
+          <div class="foot">
+            <div class="gears" id="shifter"></div>
+            <div class="fbtns">
+              <button id="up">&#9650; Up<kbd>E</kbd></button>
+              <button id="half">Half-click N<kbd>N</kbd></button>
+              <button id="down">&#9660; Down<kbd>Q</kbd></button>
+            </div>
+          </div>
+          <div class="hint">Toe under the lever lifts it up, pressing down goes down. 1 is down, the rest are up.</div>
+        </div>
 
-      <label for="thr">Throttle</label>
-      <input id="thr" type="range" min="0" max="100" value="0">
-      <div class="ends"><span>closed</span><span>full</span></div>
-
-      <div class="shifter" id="shifter"></div>
-      <div class="row">
-        <button id="down">Down (Q)</button>
-        <button id="up">Up (E)</button>
-        <button id="half">Half-click to N (N)</button>
-      </div>
-      <div class="row">
-        <button id="start" class="primary">Start (R)</button>
-        <button id="kill" class="danger">Kill (K)</button>
-        <button id="brake">Hold: brake (S)</button>
-        <button id="reset">Reset</button>
+        <!-- right side of the bike: throttle and front brake hand, start and kill thumb, rear brake foot -->
+        <div class="hand">
+          <div class="who">Right hand</div>
+          <svg class="ctl" id="rhSvg" viewBox="0 0 220 150" role="group" aria-label="Throttle grip and front brake lever. Drag the grip down to roll it toward you; drag the lever down to brake.">
+            <path d="M0 118 L20 118" stroke="var(--muted)" stroke-width="12"/>
+            <rect x="52" y="104" width="128" height="28" rx="12" fill="var(--track)" stroke="var(--ink)" stroke-width="2.5"/>
+            <defs><clipPath id="gripClip"><rect x="54" y="106" width="124" height="24" rx="10"/></clipPath></defs>
+            <g id="tRibs" clip-path="url(#gripClip)" stroke="var(--muted)" stroke-width="2"></g>
+            <path id="tMark" d="M60 111 H172" stroke="var(--bad)" stroke-width="3" stroke-linecap="round" clip-path="url(#gripClip)"/>
+            <path d="M188 108 Q200 118 188 130" fill="none" stroke="var(--muted)" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M183 133 L191 125 L194 135 Z" fill="var(--muted)"/>
+            <rect x="18" y="98" width="38" height="40" rx="8" fill="var(--panel)" stroke="var(--ink)" stroke-width="2"/>
+            <rect x="26" y="104" width="22" height="12" rx="3" fill="var(--bad)"/><circle cx="37" cy="127" r="6" fill="var(--track)" stroke="var(--ink)" stroke-width="1.5"/>
+            <g id="bLever">
+              <path d="M48 87 L172 88 Q186 89 186 93 Q186 97 172 98 L48 97 Z" fill="var(--track)" stroke="var(--ink)" stroke-width="1.5"/>
+            </g>
+            <circle cx="48" cy="92" r="7" fill="var(--muted)" stroke="var(--ink)" stroke-width="1.5"/>
+            <text id="bState" class="state" x="8" y="20"></text>
+            <text id="tState" x="212" y="146" text-anchor="end"></text>
+          </svg>
+          <div class="hint">Drag the grip down (or scroll) to roll it toward you. Drag the lever down to brake. <kbd>&uarr;</kbd> throttle, <kbd>&darr;</kbd> brake.</div>
+          <div class="who" style="margin-top:4px">Right thumb</div>
+          <div class="thumb">
+            <button id="start" class="primary">Start<kbd>R</kbd></button>
+            <button id="kill" class="danger">Kill<kbd>K</kbd></button>
+          </div>
+          <div class="who">Right foot</div>
+          <button id="brake">Rear brake (hold)<kbd>S</kbd></button>
+        </div>
       </div>
     </div>
 
@@ -143,19 +185,6 @@ ul.legend2 b { display: inline-block; min-width: 1.6em; height: 1.6em; line-heig
       <div class="stat"><span>Clutch shock (lurch)</span><span id="spct">0%</span></div>
       <div class="meter"><i id="sbar"></i></div>
       <div class="stat"><span>Stalls: <b id="nstall">0</b></span><span>Clean shifts: <b id="nclean">0</b></span><span>Rough shifts: <b id="nrough">0</b></span></div>
-    </div>
-
-    <div class="panel grow">
-      <h2>Keyboard</h2>
-      <div class="keys">
-        <div><kbd>Space</kbd> clutch in</div>
-        <div><kbd>X</kbd> half clutch</div>
-        <div><kbd>&uarr;</kbd> / <kbd>W</kbd> throttle</div>
-        <div><kbd>&darr;</kbd> / <kbd>S</kbd> brake</div>
-        <div><kbd>E</kbd> / <kbd>Q</kbd> shift</div>
-        <div><kbd>N</kbd> neutral</div>
-        <div><kbd>R</kbd> / <kbd>K</kbd> start / kill</div>
-      </div>
     </div>
   </div>
 
@@ -319,7 +348,7 @@ const SHOCK_FULL = 220, LURCH = 110, PHYS_DT = 1 / 480;
 const s = {};
 const stats = { stalls: 0, clean: 0, rough: 0 };
 const keys = {};
-let kbClutch = false, kbThr = false, dragC = false, dragT = false, brakeBtn = false;
+let kbClutch = false, kbThr = false, brakeBtn = false, brakeLever = 0;
 let eventText = "", eventKind = "", roadOffset = 0, wheelAngle = 0;
 
 function reset() {
@@ -406,7 +435,7 @@ function inputs(dt) {
     s.thr = Math.max(0, s.thr - 5 * dt);
     if (s.thr === 0) kbThr = false;
   }
-  s.brake = (keys.ArrowDown || keys.KeyS || brakeBtn) ? 1 : 0;
+  s.brake = Math.max((keys.ArrowDown || keys.KeyS || brakeBtn) ? 1 : 0, brakeLever);
 }
 
 // Torques are expressed as the engine acceleration they cause, in rpm/s (engine inertia = 1).
@@ -746,10 +775,9 @@ function draw(dt) {
 
 // ---------- UI ----------
 const el = (id) => document.getElementById(id);
-const clutchEl = el("clutch"), thrEl = el("thr");
 const shifterEl = el("shifter");
 const cells = {};
-["1", "N", "2", "3", "4", "5"].forEach((label) => {
+["5", "4", "3", "2", "N", "1"].forEach((label) => {
   const d = document.createElement("div");
   d.textContent = label;
   if (label === "N") d.classList.add("n");
@@ -798,8 +826,7 @@ function liveText() {
 }
 
 function updateUI() {
-  if (!dragC) clutchEl.value = Math.round(s.lever * 100);
-  if (!dragT) thrEl.value = Math.round(s.thr * 100);
+  drawControls();
   const on = s.gear === 0 ? "N" : String(s.gear);
   for (const k in cells) cells[k].classList.toggle("on", k === on);
   el("live").textContent = liveText();
@@ -817,12 +844,104 @@ function updateUI() {
   el("nrough").textContent = stats.rough;
 }
 
-clutchEl.addEventListener("input", () => { s.lever = clutchEl.value / 100; kbClutch = false; });
-thrEl.addEventListener("input", () => { s.thr = thrEl.value / 100; kbThr = false; });
-[["pointerdown", true], ["pointerup", false], ["pointercancel", false]].forEach(([ev, v]) => {
-  clutchEl.addEventListener(ev, () => { dragC = v; });
-  thrEl.addEventListener(ev, () => { dragT = v; });
-});
+// ---------- handlebar controls ----------
+// Seen from the saddle: forward is up, the rider is at the bottom. Pulling a lever or rolling the
+// grip toward you is a drag down. Levers swing from 26 degrees (released) to 2 degrees (against the grip).
+const SVGNS = "http://www.w3.org/2000/svg";
+const LEVER_OUT = 26, LEVER_IN = 2;
+const DRAG_PX = 160;              // screen pixels of drag for the full travel, so the bite is easy to hold
+const leverAngle = (x) => LEVER_OUT - (LEVER_OUT - LEVER_IN) * x;
+const lhSvg = el("lhSvg"), rhSvg = el("rhSvg");
+
+(function clutchBand() {
+  // colored track along the lever tip: engaged, friction zone, pulled in
+  const band = el("cBand");
+  [[0, 0.3, "var(--good)"], [0.3, 0.7, "var(--warn)"], [0.7, 1, "var(--line)"]].forEach(([a, b, color]) => {
+    let d = "";
+    for (let i = 0; i <= 12; i++) {
+      const t = (leverAngle(a + (b - a) * i / 12)) * Math.PI / 180;
+      d += (i ? "L" : "M") + (172 - 150 * Math.cos(t)).toFixed(1) + " " + (92 - 150 * Math.sin(t)).toFixed(1);
+    }
+    const p = document.createElementNS(SVGNS, "path");
+    p.setAttribute("d", d);
+    p.setAttribute("fill", "none");
+    p.setAttribute("stroke", color);
+    p.setAttribute("stroke-width", "9");
+    band.before(p);
+  });
+  band.remove();
+})();
+
+const ribEls = [];
+for (let k = 0; k < 12; k++) {
+  const p = document.createElementNS(SVGNS, "path");
+  el("tRibs").appendChild(p);
+  ribEls.push(p);
+}
+
+function drawControls() {
+  const c = coupling(s.lever);
+  const zone = c === 1 ? ["ENGAGED", "var(--good)"] : c > 0 ? ["FRICTION ZONE", "var(--warn)"] : ["PULLED IN", "var(--muted)"];
+  const cl = el("cLever");
+  cl.setAttribute("transform", "rotate(" + leverAngle(s.lever).toFixed(2) + " 172 92)");
+  cl.firstElementChild.setAttribute("fill", zone[1]);
+  const cs = el("cState");
+  cs.textContent = zone[0];
+  cs.style.fill = zone[1];
+  lhSvg.setAttribute("aria-valuenow", Math.round(s.lever * 100));
+
+  const b = s.brake;
+  const bl = el("bLever");
+  bl.setAttribute("transform", "rotate(" + (-leverAngle(brakeLever)).toFixed(2) + " 48 92)");
+  bl.firstElementChild.setAttribute("fill", b > 0 ? "var(--bad)" : "var(--track)");
+  const bs = el("bState");
+  bs.textContent = b > 0 ? "BRAKING" : "";
+  bs.style.fill = "var(--bad)";
+
+  // axial ribs on a 14-unit-radius grip; rolling toward the rider moves them down the screen
+  const roll = s.thr * 80 * Math.PI / 180;
+  ribEls.forEach((p, k) => {
+    const a = k * Math.PI / 6 + roll;
+    const y = 118 - 14 * Math.cos(a);
+    p.setAttribute("d", Math.sin(a) > 0.1 ? "M56 " + y.toFixed(1) + " H176" : "");
+  });
+  // the painted index mark starts on the front of the grip and rolls back over the top
+  el("tMark").setAttribute("d", "M60 " + (118 - 14 * Math.cos(Math.PI / 3 + roll * 0.95)).toFixed(1) + " H172");
+  const ts = el("tState");
+  ts.textContent = "THROTTLE " + Math.round(s.thr * 100) + "%";
+  ts.style.fill = s.thr > 0.02 ? "var(--warn)" : "var(--muted)";
+}
+
+function dragControl(svg, pick) {
+  let drag = null;
+  svg.addEventListener("pointerdown", (e) => {
+    const r = svg.getBoundingClientRect();
+    const target = pick((e.clientY - r.top) / r.height * 150);
+    drag = { id: e.pointerId, y0: e.clientY, v0: target.get(), target };
+    try { svg.setPointerCapture(e.pointerId); } catch (err) { /* synthetic or inactive pointer */ }
+    e.preventDefault();
+  });
+  svg.addEventListener("pointermove", (e) => {
+    if (!drag || e.pointerId !== drag.id) return;
+    drag.target.set(clamp(drag.v0 + (e.clientY - drag.y0) / DRAG_PX, 0, 1));
+  });
+  const end = (e) => {
+    if (!drag || e.pointerId !== drag.id) return;
+    if (drag.target.release) drag.target.release();
+    drag = null;
+  };
+  svg.addEventListener("pointerup", end);
+  svg.addEventListener("pointercancel", end);
+}
+
+const clutchCtl = { get: () => s.lever, set: (v) => { s.lever = v; kbClutch = false; } };
+const thrCtl = { get: () => s.thr, set: (v) => { s.thr = v; kbThr = false; } };
+// the brake lever springs back when you let go; clutch and throttle stay put so one mouse can work both
+const brakeCtl = { get: () => brakeLever, set: (v) => { brakeLever = v; }, release: () => { brakeLever = 0; } };
+dragControl(lhSvg, () => clutchCtl);
+dragControl(rhSvg, (y) => (y < 101 ? brakeCtl : thrCtl));
+lhSvg.addEventListener("wheel", (e) => { e.preventDefault(); clutchCtl.set(clamp(s.lever + e.deltaY / 1000, 0, 1)); }, { passive: false });
+rhSvg.addEventListener("wheel", (e) => { e.preventDefault(); thrCtl.set(clamp(s.thr + e.deltaY / 1000, 0, 1)); }, { passive: false });
 el("start").addEventListener("click", startEngine);
 el("kill").addEventListener("click", killEngine);
 el("reset").addEventListener("click", reset);
