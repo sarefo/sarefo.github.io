@@ -7,12 +7,12 @@
 <style>
 :root {
   --bg: #14171c; --panel: #1d2229; --ink: #e8ecf1; --muted: #97a1ad; --line: #2c343e;
-  --accent: #4fb3ff; --good: #4cd08a; --warn: #ffb347; --bad: #ff5d5d; --track: #2a313a;
+  --accent: #4fb3ff; --mark: #19c4d8; --good: #4cd08a; --warn: #ffb347; --bad: #ff5d5d; --track: #2a313a;
 }
 @media (prefers-color-scheme: light) {
   :root {
     --bg: #f3f5f8; --panel: #ffffff; --ink: #1b2430; --muted: #5b6673; --line: #d5dbe3;
-    --accent: #0a74c9; --good: #14925a; --warn: #c47a00; --bad: #c93030; --track: #e2e7ee;
+    --accent: #0a74c9; --mark: #0b8fa0; --good: #14925a; --warn: #c47a00; --bad: #c93030; --track: #e2e7ee;
   }
 }
 * { box-sizing: border-box; }
@@ -21,7 +21,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.4 syste
 header { padding: 8px 14px 6px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; }
 h1 { font-size: 1.15rem; margin: 0; }
 header p { margin: 0; color: var(--muted); font-size: .85rem; }
-main { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr) minmax(0, 1fr); gap: 10px; padding: 0 10px 10px; }
+main { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, 1fr); gap: 10px; padding: 0 10px 10px; }
 .col { display: flex; flex-direction: column; gap: 10px; min-height: 0; min-width: 0; }
 .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; min-width: 0; }
 .panel.grow { flex: 1; min-height: 0; overflow: auto; }
@@ -64,7 +64,7 @@ kbd { background: var(--track); border: 1px solid var(--line); border-radius: 4p
 .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 #dtitle { font-weight: 700; color: var(--accent); margin-bottom: 4px; }
 #dtext { min-height: 7.5em; }
-.keys { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px 10px; font-size: .8rem; margin-top: 6px; }
+.keys { display: grid; grid-template-columns: repeat(auto-fill, minmax(105px, 1fr)); gap: 3px 10px; font-size: .8rem; margin-top: 6px; }
 svg.bike { width: 100%; height: auto; display: block; background: var(--bg); border-radius: 8px; }
 svg.bike text { fill: var(--ink); font: 700 20px system-ui, sans-serif; }
 .mk circle { fill: var(--accent); }
@@ -90,8 +90,8 @@ ul.legend2 b { display: inline-block; min-width: 1.6em; height: 1.6em; line-heig
   <!-- column 1: instruments, drill coach, status -->
   <div class="col">
     <div class="panel">
-      <canvas id="view" width="640" height="300"></canvas>
-      <p class="note">White needle: engine rpm. Cyan mark: the engine rpm that would match the rear wheel in this gear. Releasing the clutch pulls the needle toward the mark; a big gap gives a lurch.</p>
+      <canvas id="view" width="720" height="330"></canvas>
+      <p class="note">White = engine, cyan = rear wheel. Letting the clutch out presses the plates together until both spin at the same speed. The cyan mark on the tach is the rpm that matches the wheel in this gear.</p>
     </div>
     <div class="pair" style="flex:1; min-height:0">
       <div class="panel grow">
@@ -146,13 +146,13 @@ ul.legend2 b { display: inline-block; min-width: 1.6em; height: 1.6em; line-heig
     </div>
 
     <div class="panel grow">
-      <h2>Keyboard (hold keys for clutch, throttle, brake)</h2>
+      <h2>Keyboard</h2>
       <div class="keys">
         <div><kbd>Space</kbd> clutch in</div>
-        <div><kbd>X</kbd> friction zone</div>
+        <div><kbd>X</kbd> half clutch</div>
         <div><kbd>&uarr;</kbd> / <kbd>W</kbd> throttle</div>
         <div><kbd>&darr;</kbd> / <kbd>S</kbd> brake</div>
-        <div><kbd>E</kbd> / <kbd>Q</kbd> up / down</div>
+        <div><kbd>E</kbd> / <kbd>Q</kbd> shift</div>
         <div><kbd>N</kbd> neutral</div>
         <div><kbd>R</kbd> / <kbd>K</kbd> start / kill</div>
       </div>
@@ -403,70 +403,233 @@ function step(dt) {
 }
 
 // ---------- drawing ----------
-const W = 640, H = 300;
+// Visual language: engine = white (needle, left clutch plate), rear wheel = cyan (tach mark, speedometer, right plate).
+const W = 720, H = 330;
 const canvas = document.getElementById("view");
 const ctx = canvas.getContext("2d");
 const dpr = Math.min(window.devicePixelRatio || 1, 2);
 canvas.width = W * dpr;
 canvas.height = H * dpr;
 
+let engPhase = 0, gbPhase = 0, gbRpm = 0, vPrev = 0, accSm = 0;
+
 function colors() {
   const cs = getComputedStyle(document.documentElement);
   const v = (n) => cs.getPropertyValue(n).trim();
-  return { bg: v("--panel"), ink: v("--ink"), muted: v("--muted"), accent: v("--accent"), good: v("--good"), bad: v("--bad"), track: v("--track") };
+  return { bg: v("--panel"), ink: v("--ink"), muted: v("--muted"), line: v("--line"), accent: v("--accent"), good: v("--good"), warn: v("--warn"), bad: v("--bad"), track: v("--track"), mark: v("--mark") };
 }
 
 function ang(val, max) { return Math.PI * 0.75 + (val / max) * Math.PI * 1.5; }
-
-function drawGauge(col, cx, cy, r, max, step, labelDiv, redFrom, needleVal, needleCol) {
-  ctx.lineCap = "butt";
-  ctx.lineWidth = 10;
-  ctx.strokeStyle = col.track;
-  ctx.beginPath(); ctx.arc(cx, cy, r, ang(0, max), ang(max, max)); ctx.stroke();
-  if (redFrom != null) {
-    ctx.strokeStyle = col.bad;
-    ctx.beginPath(); ctx.arc(cx, cy, r, ang(redFrom, max), ang(max, max)); ctx.stroke();
-  }
-  ctx.fillStyle = col.muted; ctx.strokeStyle = col.muted;
-  ctx.font = "13px system-ui, sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
-  for (let i = 0; i <= max; i += step) {
-    const a = ang(i, max);
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(cx + Math.cos(a) * (r - 10), cy + Math.sin(a) * (r - 10));
-    ctx.lineTo(cx + Math.cos(a) * (r - 19), cy + Math.sin(a) * (r - 19));
-    ctx.stroke();
-    ctx.fillText(String(i / labelDiv), cx + Math.cos(a) * (r - 33), cy + Math.sin(a) * (r - 33));
-  }
-  const a = ang(Math.max(0, Math.min(max, needleVal)), max);
-  ctx.strokeStyle = needleCol; ctx.lineWidth = 4; ctx.lineCap = "round";
-  ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + Math.cos(a) * (r - 14), cy + Math.sin(a) * (r - 14)); ctx.stroke();
-  ctx.fillStyle = needleCol;
-  ctx.beginPath(); ctx.arc(cx, cy, 7, 0, Math.PI * 2); ctx.fill();
+function clamp(x, a, b) { return Math.max(a, Math.min(b, x)); }
+function rr(x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
 }
 
-function drawMark(cx, cy, r, val, max) {
-  const a = ang(Math.max(0, Math.min(max, val)), max);
-  const px = cx + Math.cos(a) * (r + 8), py = cy + Math.sin(a) * (r + 8);
-  ctx.fillStyle = "#19c4d8";
+function drawGauge(col, o) {
+  const { cx, cy, r, max } = o;
+  const v = clamp(o.val, 0, max);
+  ctx.lineCap = "butt";
+  ctx.lineWidth = 8;
+  ctx.strokeStyle = col.track;
+  ctx.beginPath(); ctx.arc(cx, cy, r, ang(0, max), ang(max, max)); ctx.stroke();
+  if (v > max * 0.003) {
+    const top = o.red != null ? Math.min(v, o.red) : v;
+    ctx.strokeStyle = o.arc;
+    ctx.beginPath(); ctx.arc(cx, cy, r, ang(0, max), ang(top, max)); ctx.stroke();
+    if (o.red != null && v > o.red) {
+      ctx.strokeStyle = col.bad;
+      ctx.beginPath(); ctx.arc(cx, cy, r, ang(o.red, max), ang(v, max)); ctx.stroke();
+    }
+  }
+  if (o.red != null) {
+    ctx.lineWidth = 3; ctx.strokeStyle = col.bad;
+    ctx.beginPath(); ctx.arc(cx, cy, r - 10, ang(o.red, max), ang(max, max)); ctx.stroke();
+  }
+  ctx.strokeStyle = col.muted; ctx.fillStyle = col.muted;
+  ctx.font = "14px system-ui, sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  for (let i = 0; i <= max; i += o.minor) {
+    const a = ang(i, max), major = i % o.major === 0;
+    const r1 = r - 13, r2 = r1 - (major ? 9 : 4);
+    ctx.lineWidth = major ? 2 : 1;
+    ctx.beginPath();
+    ctx.moveTo(cx + Math.cos(a) * r1, cy + Math.sin(a) * r1);
+    ctx.lineTo(cx + Math.cos(a) * r2, cy + Math.sin(a) * r2);
+    ctx.stroke();
+    if (major) ctx.fillText(String(i / o.div), cx + Math.cos(a) * (r - 33), cy + Math.sin(a) * (r - 33));
+  }
+  // tapered needle
+  const a = ang(v, max), ux = Math.cos(a), uy = Math.sin(a);
+  ctx.fillStyle = o.needle;
+  ctx.beginPath();
+  ctx.moveTo(cx + ux * (r - 16), cy + uy * (r - 16));
+  ctx.lineTo(cx - ux * 12 - uy * 3.5, cy - uy * 12 + ux * 3.5);
+  ctx.lineTo(cx - ux * 12 + uy * 3.5, cy - uy * 12 - ux * 3.5);
+  ctx.closePath(); ctx.fill();
+  ctx.beginPath(); ctx.arc(cx, cy, 7, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = col.bg;
+  ctx.beginPath(); ctx.arc(cx, cy, 3, 0, Math.PI * 2); ctx.fill();
+}
+
+function drawMark(col, cx, cy, r, val, max) {
+  const a = ang(clamp(val, 0, max), max);
+  const px = cx + Math.cos(a) * (r + 7), py = cy + Math.sin(a) * (r + 7);
+  ctx.fillStyle = col.mark;
   ctx.beginPath();
   ctx.moveTo(px, py);
-  ctx.lineTo(px + Math.cos(a + 0.13) * 13, py + Math.sin(a + 0.13) * 13);
-  ctx.lineTo(px + Math.cos(a - 0.13) * 13, py + Math.sin(a - 0.13) * 13);
+  ctx.lineTo(px + Math.cos(a + 0.14) * 13, py + Math.sin(a + 0.14) * 13);
+  ctx.lineTo(px + Math.cos(a - 0.14) * 13, py + Math.sin(a - 0.14) * 13);
   ctx.closePath(); ctx.fill();
 }
 
-function drawWheel(col, x, y, rad) {
-  ctx.strokeStyle = col.ink; ctx.lineWidth = 4;
-  ctx.beginPath(); ctx.arc(x, y, rad, 0, Math.PI * 2); ctx.stroke();
-  ctx.lineWidth = 2;
-  for (let i = 0; i < 4; i++) {
-    const a = wheelAngle + i * Math.PI / 4;
-    ctx.beginPath();
-    ctx.moveTo(x + Math.cos(a) * rad, y + Math.sin(a) * rad);
-    ctx.lineTo(x - Math.cos(a) * rad, y - Math.sin(a) * rad);
-    ctx.stroke();
+function plate(col, x, y, w, h, phase, stripe) {
+  ctx.save();
+  rr(x, y, w, h, 4);
+  ctx.fillStyle = col.track; ctx.fill();
+  ctx.clip();
+  ctx.strokeStyle = stripe; ctx.lineWidth = 3;
+  const sp = 12, off = phase % sp;
+  for (let yy = y - sp + off; yy < y + h + sp; yy += sp) {
+    ctx.beginPath(); ctx.moveTo(x, yy); ctx.lineTo(x + w, yy - 6); ctx.stroke();
   }
+  ctx.restore();
+  rr(x, y, w, h, 4);
+  ctx.strokeStyle = col.muted; ctx.lineWidth = 1.5; ctx.stroke();
+}
+
+function arrow(col, x1, y, x2) {
+  const d = Math.sign(x2 - x1);
+  ctx.strokeStyle = col.muted; ctx.fillStyle = col.muted; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(x1, y); ctx.lineTo(x2 - d * 5, y); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(x2, y); ctx.lineTo(x2 - d * 7, y - 5); ctx.lineTo(x2 - d * 7, y + 5); ctx.closePath(); ctx.fill();
+}
+
+function drawClutch(col, dt) {
+  const cx = 360, top = 62, h = 104, mid = top + h / 2, pw = 16;
+  const c = s.c, g = s.gear;
+  if (g > 0) gbRpm = s.v / K[g];
+  else if (c > 0) gbRpm += (s.rpm - gbRpm) * Math.min(1, c * 8 * dt);
+  else gbRpm *= 1 - Math.min(1, 0.8 * dt);
+  engPhase = (engPhase + s.rpm * 0.03 * dt) % 1200;
+  gbPhase = (gbPhase + gbRpm * 0.03 * dt) % 1200;
+
+  const gap = s.lever > 0.7 ? 3 + (s.lever - 0.7) / 0.3 * 24 : 0;
+  const lx = cx - gap / 2 - pw, rx = cx + gap / 2;
+
+  let state = "SLIPPING", scol = col.warn;
+  if (c === 0) { state = "OPEN"; scol = col.muted; }
+  else if (c >= 1) { state = "LOCKED"; scol = col.good; }
+
+  ctx.textAlign = "center"; ctx.textBaseline = "alphabetic";
+  ctx.fillStyle = col.muted; ctx.font = "600 13px system-ui, sans-serif";
+  ctx.fillText("CLUTCH", cx, 30);
+  ctx.fillStyle = scol; ctx.font = "bold 16px system-ui, sans-serif";
+  ctx.fillText(state, cx, 49);
+
+  ctx.lineCap = "butt"; ctx.lineWidth = 6;
+  ctx.strokeStyle = col.ink;
+  ctx.beginPath(); ctx.moveTo(lx - 44, mid); ctx.lineTo(lx, mid); ctx.stroke();
+  ctx.strokeStyle = col.mark;
+  ctx.beginPath(); ctx.moveTo(rx + pw, mid); ctx.lineTo(rx + pw + 44, mid); ctx.stroke();
+
+  plate(col, lx, top, pw, h, engPhase, col.ink);
+  plate(col, rx, top, pw, h, gbPhase, col.mark);
+
+  // spring pressure pushing the plates together
+  if (c > 0) {
+    ctx.save(); ctx.globalAlpha = 0.3 + 0.7 * c;
+    const len = 6 + 12 * c;
+    for (const yy of [top + 20, top + h - 20]) {
+      arrow(col, lx - 6 - len, yy, lx - 4);
+      arrow(col, rx + pw + 6 + len, yy, rx + pw + 4);
+    }
+    ctx.restore();
+  }
+
+  // friction heat while slipping
+  const slip = Math.abs(s.rpm - gbRpm);
+  if (c > 0 && c < 1 && slip > 80) {
+    const k = clamp(c * slip / 2500, 0.2, 1);
+    ctx.save();
+    ctx.globalAlpha = k; ctx.fillStyle = col.warn; ctx.shadowColor = col.warn; ctx.shadowBlur = 20 * k;
+    ctx.fillRect(cx - 3, top + 6, 6, h - 12);
+    ctx.restore();
+  }
+
+  ctx.font = "14px system-ui, sans-serif";
+  ctx.textAlign = "right"; ctx.fillStyle = col.ink;
+  ctx.fillText("engine", cx - 8, top + h + 20);
+  ctx.fillText(String(round100(s.rpm)), cx - 8, top + h + 38);
+  ctx.textAlign = "left"; ctx.fillStyle = col.mark;
+  ctx.fillText(g > 0 ? "wheel" : "gearbox (N)", cx + 8, top + h + 20);
+  ctx.fillText(String(round100(gbRpm)), cx + 8, top + h + 38);
+}
+
+function wheel(col, x, y, rad, rot) {
+  ctx.strokeStyle = col.ink; ctx.lineWidth = 5;
+  ctx.beginPath(); ctx.arc(x, y, rad, 0, Math.PI * 2); ctx.stroke();
+  ctx.strokeStyle = col.muted; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.arc(x, y, rad - 6, 0, Math.PI * 2); ctx.stroke();
+  for (let i = 0; i < 3; i++) {
+    const a = rot + i * Math.PI * 2 / 3;
+    ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + Math.cos(a) * (rad - 6), y + Math.sin(a) * (rad - 6)); ctx.stroke();
+  }
+  ctx.fillStyle = col.muted;
+  ctx.beginPath(); ctx.arc(x, y, 3, 0, Math.PI * 2); ctx.fill();
+}
+
+function drawBike(col, dt) {
+  const acc = dt > 0 ? (s.v - vPrev) / dt : 0;
+  vPrev = s.v;
+  accSm += (acc - accSm) * Math.min(1, dt * 6);
+  const pitch = clamp(-accSm * 0.008, -0.09, 0.09) + (Math.random() - 0.5) * 0.05 * s.shake;
+
+  const bx = 322, by = 303, wb = 78;
+  ctx.fillStyle = "rgba(0,0,0,0.25)";
+  ctx.beginPath(); ctx.ellipse(bx + wb / 2, by + 21, 58, 4, 0, 0, Math.PI * 2); ctx.fill();
+  wheelAngle += s.v * dt * 0.15;
+  wheel(col, bx, by, 19, wheelAngle);
+  wheel(col, bx + wb, by, 19, wheelAngle);
+
+  ctx.save();
+  ctx.translate(bx + wb / 2, by - 6); ctx.rotate(pitch); ctx.translate(-(bx + wb / 2), -(by - 6));
+  ctx.translate(bx, by);
+  ctx.lineCap = "round"; ctx.lineJoin = "round";
+  const line = (pts, w, c) => {
+    ctx.strokeStyle = c; ctx.lineWidth = w; ctx.beginPath();
+    ctx.moveTo(pts[0], pts[1]);
+    for (let i = 2; i < pts.length; i += 2) ctx.lineTo(pts[i], pts[i + 1]);
+    ctx.stroke();
+  };
+  line([8, -8, -12, -14], 4, col.muted);                 // exhaust
+  line([0, 0, 32, -10], 4, col.ink);                     // swingarm
+  line([wb, 0, 66, -38], 4, col.ink);                    // fork
+  ctx.strokeStyle = col.muted; ctx.lineWidth = 3;        // front fender
+  ctx.beginPath(); ctx.arc(wb, 0, 24, -Math.PI * 0.92, -Math.PI * 0.38); ctx.stroke();
+  rr(22, -26, 28, 20, 5); ctx.fillStyle = col.muted; ctx.fill();   // engine
+  line([36, -10, 30, -28, 64, -34], 3, col.ink);         // frame
+  ctx.fillStyle = col.accent;                            // tank
+  ctx.beginPath(); ctx.moveTo(36, -30); ctx.quadraticCurveTo(48, -46, 65, -36); ctx.lineTo(60, -26); ctx.lineTo(40, -26); ctx.closePath(); ctx.fill();
+  ctx.fillStyle = col.ink;                               // seat
+  ctx.beginPath(); ctx.moveTo(6, -33); ctx.lineTo(38, -34); ctx.lineTo(40, -28); ctx.lineTo(8, -27); ctx.closePath(); ctx.fill();
+  line([-4, -30, 8, -32], 3, col.ink);                   // tail
+  line([66, -38, 60, -46], 3, col.ink);                  // handlebar
+  ctx.fillStyle = col.warn;                              // headlight
+  ctx.beginPath(); ctx.arc(72, -36, 4.5, 0, Math.PI * 2); ctx.fill();
+  // rider
+  line([26, -36, 44, -29, 40, -13], 6, col.ink);         // leg
+  line([26, -36, 42, -55], 8, col.ink);                  // torso
+  line([42, -53, 53, -48, 60, -46], 5, col.ink);         // arm
+  ctx.fillStyle = col.accent;                            // helmet
+  ctx.beginPath(); ctx.arc(46, -65, 8, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = col.bg;
+  ctx.fillRect(48, -68, 6, 4);                           // visor
+  ctx.restore();
 }
 
 function draw(dt) {
@@ -474,43 +637,43 @@ function draw(dt) {
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   ctx.fillStyle = col.bg; ctx.fillRect(0, 0, W, H);
   s.shake = Math.max(0, s.shake - 2.5 * dt);
-  const sx = (Math.random() - 0.5) * 7 * s.shake, sy = (Math.random() - 0.5) * 7 * s.shake;
-  ctx.save(); ctx.translate(sx, sy);
 
-  const cy = 122, r = 108, tx = 160, px = 480;
-  // tachometer
-  drawGauge(col, tx, cy, r, MAXRPM, 1000, 1000, REDLINE, s.rpm, col.ink);
-  if (s.gear > 0) drawMark(tx, cy, r, s.v / K[s.gear], MAXRPM);
+  // road first, so the bike sits on it
+  ctx.fillStyle = col.track; ctx.fillRect(0, 252, W, H - 252);
+  ctx.fillStyle = col.muted; ctx.fillRect(0, 254, W, 2);
+  roadOffset = (roadOffset + s.v * dt * 10) % 64;
+  ctx.fillStyle = col.muted;
+  ctx.globalAlpha = 0.5; for (let x = -roadOffset; x < W; x += 64) ctx.fillRect(x, 278, 32, 4); ctx.globalAlpha = 1;
+
+  ctx.save();
+  ctx.translate((Math.random() - 0.5) * 7 * s.shake, (Math.random() - 0.5) * 7 * s.shake);
+
+  const cy = 128, r = 100, tx = 150, px = 570;
+  drawGauge(col, { cx: tx, cy, r, max: MAXRPM, major: 1000, minor: 500, div: 1000, red: REDLINE, val: s.rpm, arc: col.accent, needle: col.ink });
+  if (s.gear > 0) drawMark(col, tx, cy, r, s.v / K[s.gear], MAXRPM);
   ctx.textAlign = "center"; ctx.textBaseline = "alphabetic";
-  ctx.fillStyle = col.muted; ctx.font = "12px system-ui, sans-serif";
-  ctx.fillText("rpm x1000", tx, cy - 38);
-  ctx.font = "bold 46px system-ui, sans-serif";
-  ctx.fillStyle = s.gear === 0 ? col.good : col.accent;
-  ctx.fillText(s.gear === 0 ? "N" : String(s.gear), tx, cy + 44);
-  ctx.font = "14px system-ui, sans-serif";
+  ctx.fillStyle = col.muted; ctx.font = "13px system-ui, sans-serif";
+  ctx.fillText("x1000", tx, cy + 28);
+  rr(tx - 26, cy + 38, 52, 46, 8);
+  ctx.fillStyle = col.track; ctx.fill();
+  ctx.strokeStyle = s.gear === 0 ? col.good : col.accent; ctx.lineWidth = 2; ctx.stroke();
+  ctx.fillStyle = s.gear === 0 ? col.good : col.ink; ctx.font = "bold 34px system-ui, sans-serif";
+  ctx.fillText(s.gear === 0 ? "N" : String(s.gear), tx, cy + 74);
+  ctx.font = "600 15px system-ui, sans-serif";
   ctx.fillStyle = s.engine ? col.muted : col.bad;
-  ctx.fillText(s.engine ? Math.round(s.rpm / 10) * 10 + " rpm" : "ENGINE OFF", tx, cy + 80);
+  ctx.fillText(s.engine ? round100(s.rpm) + " rpm" : "ENGINE OFF", tx, cy + 104);
 
-  // speedometer
-  drawGauge(col, px, cy, r, MAXSPEED, 20, 1, null, s.v, col.ink);
-  ctx.fillStyle = col.muted; ctx.font = "12px system-ui, sans-serif";
-  ctx.fillText("km/h", px, cy - 38);
-  ctx.fillStyle = col.ink; ctx.font = "bold 42px system-ui, sans-serif";
-  ctx.fillText(String(Math.round(s.v)), px, cy + 44);
+  drawGauge(col, { cx: px, cy, r, max: MAXSPEED, major: 20, minor: 10, div: 1, red: null, val: s.v, arc: col.mark, needle: col.mark });
+  ctx.textAlign = "center"; ctx.textBaseline = "alphabetic";
+  ctx.fillStyle = col.muted; ctx.font = "13px system-ui, sans-serif";
+  ctx.fillText("km/h", px, cy + 28);
+  ctx.fillStyle = col.ink; ctx.font = "bold 38px system-ui, sans-serif";
+  ctx.fillText(String(Math.round(s.v)), px, cy + 76);
 
+  drawClutch(col, dt);
   ctx.restore();
 
-  // road strip
-  ctx.fillStyle = col.track; ctx.fillRect(0, 240, W, 60);
-  roadOffset = (roadOffset + s.v * dt * 10) % 60;
-  ctx.fillStyle = col.muted;
-  for (let x = -60 + roadOffset; x < W; x += 60) ctx.fillRect(x, 284, 28, 4);
-  wheelAngle += s.v * dt * 0.7;
-  drawWheel(col, 290, 266, 17);
-  drawWheel(col, 366, 266, 17);
-  ctx.strokeStyle = col.accent; ctx.lineWidth = 4; ctx.lineCap = "round";
-  ctx.beginPath(); ctx.moveTo(290, 266); ctx.lineTo(324, 246); ctx.lineTo(358, 246); ctx.lineTo(366, 266); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(340, 246); ctx.lineTo(332, 234); ctx.stroke();
+  drawBike(col, dt);
 }
 
 // ---------- UI ----------
