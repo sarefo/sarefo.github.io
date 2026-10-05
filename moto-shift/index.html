@@ -138,7 +138,7 @@ ul.legend2 b { display: inline-block; min-width: 1.6em; height: 1.6em; line-heig
     </div>
 
     <div class="panel">
-      <div class="stat" style="margin-top:0"><span>Power reaching the wheel</span><span id="cpct">0%</span></div>
+      <div class="stat" style="margin-top:0"><span>Clutch grip</span><span id="cpct">0%</span></div>
       <div class="meter"><i id="cbar"></i></div>
       <div class="stat"><span>Clutch shock (lurch)</span><span id="spct">0%</span></div>
       <div class="meter"><i id="sbar"></i></div>
@@ -169,37 +169,58 @@ ul.legend2 b { display: inline-block; min-width: 1.6em; height: 1.6em; line-heig
       </div>
 
       <div id="viewRider" style="margin-top:8px">
-        <svg class="bike" viewBox="0 0 720 320" role="img" aria-label="Handlebar as seen by the rider, with the controls numbered">
-          <g fill="none" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M40 190 L680 190"/>
-            <rect x="30" y="172" width="120" height="36" rx="16" fill="var(--track)"/>
-            <rect x="570" y="172" width="120" height="36" rx="16" fill="var(--track)"/>
-            <path d="M200 185 L170 60"/>
-            <ellipse cx="160" cy="40" rx="42" ry="26"/>
-            <path d="M520 185 L550 60"/>
-            <ellipse cx="560" cy="40" rx="42" ry="26"/>
-            <circle cx="360" cy="115" r="58" fill="var(--panel)"/>
-            <rect x="170" y="165" width="60" height="50" rx="8" fill="var(--panel)"/>
-            <rect x="490" y="165" width="60" height="50" rx="8" fill="var(--panel)"/>
-            <circle cx="360" cy="235" r="14" fill="var(--panel)"/>
+        <svg class="bike" viewBox="0 0 720 300" role="img" aria-label="Handlebar as seen by the rider, with the controls numbered">
+          <g fill="none" stroke="var(--muted)" stroke-width="5" stroke-linecap="round">
+            <path d="M205 180 L160 72"/><path d="M515 180 L560 72"/>
           </g>
-          <g fill="none" stroke="var(--accent)" stroke-width="7" stroke-linecap="round">
-            <path d="M150 188 C120 205 105 235 92 275"/>
-            <path d="M570 188 C600 205 615 235 628 275"/>
+          <ellipse cx="140" cy="52" rx="52" ry="28" fill="var(--track)" stroke="var(--ink)" stroke-width="4"/>
+          <ellipse cx="580" cy="52" rx="52" ry="28" fill="var(--track)" stroke="var(--ink)" stroke-width="4"/>
+          <path d="M50 206 Q360 176 670 206" fill="none" stroke="var(--muted)" stroke-width="12" stroke-linecap="round"/>
+          <rect x="305" y="182" width="110" height="34" rx="10" fill="var(--track)" stroke="var(--muted)" stroke-width="2"/>
+          <circle cx="360" cy="250" r="20" fill="var(--track)" stroke="var(--ink)" stroke-width="3"/>
+          <rect x="356" y="238" width="8" height="24" rx="2" fill="var(--ink)"/>
+          <rect x="262" y="58" width="196" height="112" rx="22" fill="var(--panel)" stroke="var(--ink)" stroke-width="3"/>
+          <circle cx="318" cy="114" r="40" fill="var(--bg)" stroke="var(--muted)" stroke-width="2"/>
+          <g stroke="var(--muted)" stroke-width="2.5">
+            <path d="M295.4 136.6 L291.1 140.9"/><path d="M286 114 L280 114"/><path d="M295.4 91.4 L291.1 87.1"/><path d="M318 82 L318 76"/>
+            <path d="M340.6 91.4 L344.9 87.1"/><path d="M350 114 L356 114"/><path d="M340.6 136.6 L344.9 140.9"/>
           </g>
-          <circle cx="510" cy="198" r="7" fill="var(--good)"/>
-          <rect x="522" y="192" width="20" height="12" rx="3" fill="var(--bad)"/>
-          <text x="360" y="125" text-anchor="middle">km/h</text>
-          <rect x="318" y="150" width="22" height="16" rx="3" fill="var(--good)"/>
+          <path d="M318 114 L296 100" stroke="var(--mark)" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="318" cy="114" r="4" fill="var(--mark)"/>
+          <rect x="372" y="72" width="30" height="24" rx="5" fill="var(--good)"/>
+          <text x="387" y="91" text-anchor="middle" style="fill:#fff;font-size:17px">N</text>
+          <path d="M410 84 L422 76 L422 92 Z" fill="var(--good)"/><path d="M448 84 L436 76 L436 92 Z" fill="var(--good)"/>
+          <circle cx="387" cy="118" r="8" fill="var(--accent)"/>
+          <g fill="var(--muted)"><rect x="412" y="112" width="7" height="12" rx="1"/><rect x="421" y="112" width="7" height="12" rx="1"/><rect x="430" y="112" width="7" height="12" rx="1"/><rect x="439" y="112" width="7" height="12" rx="1" opacity=".35"/></g>
+          <rect x="372" y="136" width="74" height="20" rx="4" fill="var(--bg)"/>
+          <rect x="40" y="188" width="118" height="36" rx="14" fill="var(--track)" stroke="var(--ink)" stroke-width="3"/>
+          <rect x="562" y="188" width="118" height="36" rx="14" fill="var(--track)" stroke="var(--ink)" stroke-width="3"/>
+          <g stroke="var(--muted)" stroke-width="2"><path d="M62 194 L62 218 M76 194 L76 218 M90 194 L90 218 M104 194 L104 218 M118 194 L118 218 M132 194 L132 218"/><path d="M588 194 L588 218 M602 194 L602 218 M616 194 L616 218 M630 194 L630 218 M644 194 L644 218 M658 194 L658 218"/></g>
+          <rect x="158" y="178" width="70" height="56" rx="12" fill="var(--panel)" stroke="var(--ink)" stroke-width="3"/>
+          <rect x="168" y="190" width="32" height="13" rx="6.5" fill="var(--track)" stroke="var(--muted)" stroke-width="1.5"/>
+          <circle cx="214" cy="196" r="7" fill="var(--track)" stroke="var(--muted)" stroke-width="1.5"/>
+          <rect x="168" y="211" width="20" height="14" rx="3" fill="var(--track)" stroke="var(--muted)" stroke-width="1.5"/>
+          <rect x="492" y="178" width="70" height="56" rx="12" fill="var(--panel)" stroke="var(--ink)" stroke-width="3"/>
+          <rect x="502" y="188" width="26" height="16" rx="4" fill="var(--bad)"/>
+          <circle cx="518" cy="219" r="9" fill="var(--track)" stroke="var(--ink)" stroke-width="2"/>
+          <path d="M168 182 L150 168 L52 158 Q42 160 46 170 L150 184 Z" fill="var(--accent)"/>
+          <path d="M552 182 L570 168 L668 158 Q678 160 674 170 L570 184 Z" fill="var(--accent)"/>
+          <g fill="none" stroke="var(--muted)" stroke-width="2.5" stroke-linecap="round">
+            <path d="M100 128 L100 150"/><path d="M620 128 L620 150"/>
+            <path d="M688 196 Q708 207 688 220"/>
+          </g>
+          <g fill="var(--muted)">
+            <path d="M100 156 L94 146 L106 146 Z"/><path d="M620 156 L614 146 L626 146 Z"/><path d="M684 224 L694 214 L696 226 Z"/>
+          </g>
           <g class="mk">
-            <circle cx="92" cy="258" r="20"/><text x="92" y="267">1</text>
-            <circle cx="628" cy="258" r="20"/><text x="628" y="267">2</text>
-            <circle cx="600" cy="136" r="20"/><text x="600" y="145">3</text>
-            <circle cx="200" cy="146" r="20"/><text x="200" y="155">4</text>
-            <circle cx="520" cy="146" r="20"/><text x="520" y="155">5</text>
-            <circle cx="446" cy="108" r="20"/><text x="446" y="117">6</text>
-            <circle cx="360" cy="286" r="20"/><text x="360" y="295">7</text>
-            <circle cx="160" cy="40" r="20"/><text x="160" y="49">8</text>
+            <circle cx="62" cy="128" r="18"/><text x="62" y="136">1</text>
+            <circle cx="658" cy="128" r="18"/><text x="658" y="136">2</text>
+            <circle cx="640" cy="262" r="18"/><text x="640" y="270">3</text>
+            <circle cx="193" cy="264" r="18"/><text x="193" y="272">4</text>
+            <circle cx="527" cy="264" r="18"/><text x="527" y="272">5</text>
+            <circle cx="484" cy="72" r="18"/><text x="484" y="80">6</text>
+            <circle cx="406" cy="262" r="18"/><text x="406" y="270">7</text>
+            <circle cx="140" cy="52" r="18"/><text x="140" y="60">8</text>
           </g>
         </svg>
         <ul class="legend2">
@@ -209,53 +230,74 @@ ul.legend2 b { display: inline-block; min-width: 1.6em; height: 1.6em; line-heig
           <li><b>4</b>Left switches: turn signal, horn, high/low beam.</li>
           <li><b>5</b>Right switches: starter button, engine kill switch (RUN / OFF).</li>
           <li><b>6</b>Dash: speedometer, green N neutral light, turn indicators.</li>
-          <li><b>7</b>Ignition key (position varies by bike).</li>
+          <li><b>7</b>Ignition key (position varies by bike; some are on the tank).</li>
           <li><b>8</b>Mirrors. Set them before you ride.</li>
         </ul>
       </div>
 
       <div id="viewSide" class="hidden" style="margin-top:8px">
-        <svg class="bike" viewBox="0 0 720 340" role="img" aria-label="Left side of a manual motorcycle, front on the left, with the controls numbered">
-          <g fill="none" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="150" cy="240" r="62"/><circle cx="150" cy="240" r="8"/>
-            <circle cx="560" cy="240" r="62"/><circle cx="560" cy="240" r="8"/>
-            <path d="M150 240 L205 105"/>
-            <path d="M205 105 L238 92"/>
-            <ellipse cx="180" cy="132" rx="13" ry="18"/>
-            <path d="M240 128 Q300 100 380 124 L372 160 L255 160 Z" fill="var(--track)"/>
-            <path d="M380 124 L520 118 Q548 120 542 140 L385 150 Z" fill="var(--track)"/>
-            <path d="M255 160 L330 205 M372 160 L400 205"/>
-            <rect x="320" y="195" width="100" height="70" rx="12" fill="var(--panel)"/>
-            <path d="M410 235 L560 240"/>
-            <path d="M520 152 Q572 150 592 192"/>
-            <path d="M500 142 L474 226"/>
-            <path d="M350 254 L560 250" stroke-dasharray="7 6"/>
-            <rect x="400" y="268" width="32" height="8" rx="3" fill="var(--track)"/>
+        <svg class="bike" viewBox="0 0 720 390" role="img" aria-label="Left side of a manual motorcycle, front on the left, with the controls numbered">
+          <path d="M30 332 L690 332" stroke="var(--line)" stroke-width="3"/>
+          <path d="M470 148 L498 255" stroke="var(--muted)" stroke-width="9" stroke-linecap="round"/>
+          <g fill="none">
+            <circle cx="150" cy="270" r="56" stroke="var(--ink)" stroke-width="12"/>
+            <circle cx="150" cy="270" r="44" stroke="var(--muted)" stroke-width="2"/>
+            <circle cx="150" cy="270" r="24" stroke="var(--muted)" stroke-width="4"/>
+            <circle cx="540" cy="270" r="56" stroke="var(--ink)" stroke-width="12"/>
+            <circle cx="540" cy="270" r="44" stroke="var(--muted)" stroke-width="2"/>
+            <circle cx="540" cy="270" r="20" stroke="var(--muted)" stroke-width="3"/>
+            <g stroke="var(--muted)" stroke-width="3"><path d="M150 270 L150 228 M150 270 L114 291 M150 270 L186 291"/><path d="M540 270 L540 228 M540 270 L504 291 M540 270 L576 291"/></g>
+            <path d="M98 226 A64 64 0 0 1 198 220" stroke="var(--muted)" stroke-width="6" stroke-linecap="round"/>
+            <path d="M492 220 A64 64 0 0 1 598 232" stroke="var(--muted)" stroke-width="6" stroke-linecap="round"/>
           </g>
-          <g fill="none" stroke="var(--accent)" stroke-width="7" stroke-linecap="round">
-            <path d="M352 238 L300 256"/>
-            <path d="M296 252 L284 262"/>
-            <path d="M395 276 L362 304"/>
+          <circle cx="150" cy="270" r="8" fill="var(--muted)"/><circle cx="540" cy="270" r="8" fill="var(--muted)"/>
+          <g stroke="var(--muted)" stroke-width="3" stroke-dasharray="6 5" fill="none"><path d="M398 250 L540 250"/><path d="M398 276 L540 290"/></g>
+          <circle cx="398" cy="263" r="13" fill="var(--track)" stroke="var(--muted)" stroke-width="2"/>
+          <path d="M420 262 L540 270" stroke="var(--ink)" stroke-width="9" stroke-linecap="round"/>
+          <path d="M150 270 L214 118" stroke="var(--ink)" stroke-width="11" stroke-linecap="round"/>
+          <path d="M222 128 L318 205 M232 140 L404 146 L418 238" fill="none" stroke="var(--ink)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M296 205 L346 188 L360 238 L312 254 Z" fill="var(--muted)"/>
+          <g stroke="var(--panel)" stroke-width="3"><path d="M301 214 L349 198"/><path d="M304 224 L352 208"/><path d="M307 234 L355 218"/><path d="M310 244 L358 228"/></g>
+          <rect x="330" y="226" width="96" height="60" rx="16" fill="var(--muted)"/>
+          <path d="M404 150 L470 150 L462 200 L414 200 Z" fill="var(--track)" stroke="var(--muted)" stroke-width="2"/>
+          <path d="M240 150 Q300 104 402 128 L394 176 L262 180 Z" fill="var(--accent)"/>
+          <ellipse cx="345" cy="113" rx="12" ry="4" fill="var(--ink)"/>
+          <path d="M398 130 L548 128 Q566 130 560 150 L398 160 Z" fill="var(--ink)"/>
+          <path d="M548 136 L612 150 L608 162 L552 152 Z" fill="var(--muted)"/>
+          <rect x="606" y="150" width="10" height="10" rx="2" fill="var(--bad)"/>
+          <path d="M196 132 Q176 140 182 164 Q200 168 214 150 Z" fill="var(--warn)"/>
+          <path d="M238 104 L226 60" stroke="var(--muted)" stroke-width="4" stroke-linecap="round"/>
+          <ellipse cx="222" cy="50" rx="18" ry="12" fill="var(--track)" stroke="var(--ink)" stroke-width="3"/>
+          <path d="M214 116 L252 100" stroke="var(--ink)" stroke-width="7" stroke-linecap="round"/>
+          <path d="M248 101 L268 93" stroke="var(--ink)" stroke-width="12" stroke-linecap="round"/>
+          <rect x="392" y="290" width="38" height="10" rx="4" fill="var(--ink)"/>
+          <path d="M362 270 L304 292" stroke="var(--accent)" stroke-width="8" stroke-linecap="round"/>
+          <path d="M300 283 L298 302" stroke="var(--accent)" stroke-width="8" stroke-linecap="round"/>
+          <circle cx="362" cy="270" r="6" fill="var(--accent)"/>
+          <path d="M424 302 L482 308" stroke="var(--accent)" stroke-width="7" stroke-linecap="round" stroke-dasharray="4 9"/>
+          <path d="M404 300 L380 328" stroke="var(--accent)" stroke-width="8" stroke-linecap="round"/>
+          <path d="M370 330 L390 328" stroke="var(--accent)" stroke-width="6" stroke-linecap="round"/>
+          <circle cx="282" cy="190" r="7" fill="var(--accent)"/>
+          <g stroke="var(--muted)" stroke-width="2">
+            <path d="M274 324 L298 304"/><path d="M342 354 L372 332"/><path d="M440 334 L418 302"/><path d="M498 330 L480 312"/><path d="M594 320 L524 288"/>
           </g>
-          <path d="M404 250 L452 278" fill="none" stroke="var(--accent)" stroke-width="6" stroke-linecap="round" stroke-dasharray="3 9"/>
-          <circle cx="302" cy="168" r="6" fill="var(--accent)"/>
           <g class="mk">
-            <circle cx="268" cy="290" r="20"/><text x="268" y="299">1</text>
-            <circle cx="484" cy="300" r="20"/><text x="484" y="309">2</text>
-            <circle cx="338" cy="318" r="20"/><text x="338" y="327">3</text>
-            <circle cx="452" cy="250" r="20"/><text x="452" y="259">4</text>
-            <circle cx="302" cy="108" r="20"/><text x="302" y="117">5</text>
-            <circle cx="470" cy="96" r="20"/><text x="470" y="105">6</text>
-            <circle cx="530" cy="290" r="20"/><text x="530" y="299">7</text>
-            <circle cx="370" cy="230" r="20"/><text x="370" y="239">8</text>
+            <circle cx="262" cy="336" r="18"/><text x="262" y="344">1</text>
+            <circle cx="510" cy="344" r="18"/><text x="510" y="352">2</text>
+            <circle cx="330" cy="366" r="18"/><text x="330" y="374">3</text>
+            <circle cx="446" cy="350" r="18"/><text x="446" y="358">4</text>
+            <circle cx="300" cy="96" r="18"/><text x="300" y="104">5</text>
+            <circle cx="480" cy="104" r="18"/><text x="480" y="112">6</text>
+            <circle cx="608" cy="330" r="18"/><text x="608" y="338">7</text>
+            <circle cx="398" cy="262" r="16"/><text x="398" y="270">8</text>
           </g>
         </svg>
         <ul class="legend2">
-          <li><b>1</b>Gear shifter (left foot). Press down for 1st; lift for neutral and the higher gears.</li>
-          <li><b>2</b>Rear brake pedal (right foot, far side of the bike, drawn dashed).</li>
-          <li><b>3</b>Side stand (left). Fold it up before moving; many bikes cut the engine if it is down in gear.</li>
+          <li><b>1</b>Gear shifter (left foot). Down for 1st, up for N and higher gears.</li>
+          <li><b>2</b>Rear brake pedal (right foot, far side, dashed).</li>
+          <li><b>3</b>Side stand. Fold it up before riding off.</li>
           <li><b>4</b>Footpeg. Balls of your feet on the pegs.</li>
-          <li><b>5</b>Fuel tank. The fuel valve (small dot) is under it on bikes that have one.</li>
+          <li><b>5</b>Fuel tank. Some bikes have a fuel valve (dot) under it.</li>
           <li><b>6</b>Seat.</li>
           <li><b>7</b>Chain and sprockets (check slack and lubrication).</li>
           <li><b>8</b>Engine and gearbox.</li>
@@ -270,9 +312,9 @@ ul.legend2 b { display: inline-block; min-width: 1.6em; height: 1.6em; line-heig
 <script>
 "use strict";
 // Gear ratios as km/h per rpm when the clutch is fully locked. Index 0 is neutral.
-const K = [0, 0.0035, 0.0055, 0.0075, 0.0095, 0.0115];
+const K = [0, 0.0035, 0.0051, 0.0066, 0.0081, 0.0096];
 const IDLE = 1400, STALL = 850, REDLINE = 9500, MAXRPM = 10500, MAXSPEED = 120;
-const SHOCK_FULL = 20000, LURCH = 10000;
+const SHOCK_FULL = 220, LURCH = 110, PHYS_DT = 1 / 480;
 
 const s = {};
 const stats = { stalls: 0, clean: 0, rough: 0 };
@@ -281,7 +323,7 @@ let kbClutch = false, kbThr = false, dragC = false, dragT = false, brakeBtn = fa
 let eventText = "", eventKind = "", roadOffset = 0, wheelAngle = 0;
 
 function reset() {
-  Object.assign(s, { rpm: 0, v: 0, gear: 0, engine: false, lever: 0, thr: 0, brake: 0, c: 1, shock: 0, shake: 0 });
+  Object.assign(s, { rpm: 0, v: 0, gear: 0, engine: false, lever: 0, thr: 0, brake: 0, c: 1, shock: 0, shake: 0, locked: false, accSm: 0 });
   stats.stalls = stats.clean = stats.rough = 0;
   say("Press Start engine (R) to begin.", "");
 }
@@ -289,6 +331,7 @@ function reset() {
 const ordinal = ["N", "1st", "2nd", "3rd", "4th", "5th"];
 function say(text, kind) { eventText = text; eventKind = kind || ""; }
 function round100(x) { return Math.round(x / 100) * 100; }
+function clamp(x, a, b) { return Math.max(a, Math.min(b, x)); }
 
 function coupling(lever) {
   if (lever <= 0.3) return 1;
@@ -326,6 +369,7 @@ function shift(dir) {
   }
   const c = coupling(s.lever);
   s.gear = ng;
+  s.locked = false;
   if (ng === 0) { say("Neutral. The engine is not connected to the wheel.", "good"); return; }
   const wheelRpm = s.v / K[ng];
   if (s.engine && c > 0.3) {
@@ -365,39 +409,64 @@ function inputs(dt) {
   s.brake = (keys.ArrowDown || keys.KeyS || brakeBtn) ? 1 : 0;
 }
 
+// Torques are expressed as the engine acceleration they cause, in rpm/s (engine inertia = 1).
+const TCAP = 20000;               // clutch torque capacity with the lever fully released
+const SLIP_BAND = 150;            // rpm of slip over which friction builds to full capacity
+const A0 = 0.002;                 // bike acceleration (km/h/s) per unit clutch torque in 1st gear
+const IDLE_T = 300 + IDLE * 0.6;  // torque the idle control supplies to hold idle
+
+function engineTorque() {
+  const friction = s.rpm > 0 ? 300 + s.rpm * 0.6 : 0;
+  if (!s.engine) return -friction;
+  const peak = s.rpm < 9000 ? 10000 : Math.max(0, 10000 * (11000 - s.rpm) / 2000);
+  const idle = IDLE_T + Math.max(0, IDLE - s.rpm) * 12;
+  return idle + Math.pow(s.thr, 1.3) * peak - friction;
+}
+
 function step(dt) {
   const c = coupling(s.lever);
   s.c = c;
   const g = s.gear;
+  const v0 = s.v;
+  const Te = engineTorque();
+  const resist = s.v > 0 ? 0.6 + 0.00014 * s.v * s.v : 0;
+  const brakeDecel = s.brake * 14;
 
-  const target = s.engine ? IDLE + Math.pow(s.thr, 1.15) * (MAXRPM - IDLE - 300) : 0;
-  const rate = target > s.rpm ? 5 : 3;
-  s.rpm += (target - s.rpm) * rate * dt;
-
-  let shock = 0;
   if (g > 0 && c > 0) {
-    const w = s.v / K[g];
-    const transfer = c * 6 * (s.rpm - w);
-    s.rpm -= transfer * dt;
-    s.v += transfer * dt * 0.00042 * (K[1] / K[g]);
-    shock = Math.abs(transfer);
+    // Friction grows with slip up to the clutch capacity, which the lever sets.
+    const k = K[g], a = A0 * K[1] / k;
+    const cap = Math.pow(c, 1.6) * TCAP;
+    const slip = s.rpm - s.v / k;
+    const Tc = cap * clamp(slip / SLIP_BAND, -1, 1);
+    s.rpm += (Te - Tc) * dt;
+    s.v = Math.max(0, s.v + (Tc * a - resist - brakeDecel) * dt);
+    s.locked = Math.abs(s.rpm - s.v / k) < SLIP_BAND && Math.abs(Tc) < cap * 0.98;
+  } else {
+    s.locked = false;
+    s.rpm += Te * dt;
+    s.v = Math.max(0, s.v - (resist + brakeDecel) * dt);
   }
-
-  const drag = 0.6 + 0.00012 * s.v * s.v;
-  s.v -= (drag + s.brake * 14) * dt;
-  if (s.v < 0) s.v = 0;
   if (s.rpm < 0) s.rpm = 0;
   if (s.rpm > MAXRPM) s.rpm = MAXRPM;
 
-  s.shock = Math.max(shock, s.shock - SHOCK_FULL * 2 * dt);
-  if (shock > LURCH) s.shake = Math.max(s.shake, Math.min(1, shock / SHOCK_FULL));
+  // A lurch is a fast change in drive acceleration (braking is left out). The filter
+  // stands in for the give in the chain and tires, which spreads out small steps.
+  let jerk = 0;
+  if (s.v > 0 && v0 > 0) {
+    const acc = (s.v - v0) / dt + brakeDecel;
+    const prev = s.accSm;
+    s.accSm += (acc - s.accSm) * Math.min(1, dt / 0.12);
+    jerk = Math.abs(s.accSm - prev) / dt;
+  } else s.accSm = 0;
+  s.shock = Math.max(jerk, s.shock - 400 * dt);
+  if (jerk > LURCH) s.shake = Math.max(s.shake, Math.min(1, jerk / SHOCK_FULL));
 
   if (s.engine && s.rpm < STALL) {
     s.engine = false;
     stats.stalls++;
     s.shake = 1;
     say("Stalled. The clutch came out too fast for the revs. Add a little throttle and release the lever more slowly, or pull the clutch in before stopping.", "bad");
-  } else if (s.engine && shock > LURCH && g > 0) {
+  } else if (s.engine && jerk > LURCH && g > 0) {
     say("Lurch. Engine and wheel speeds did not match when the clutch took up. Release more slowly or match the revs first.", "warn");
   }
 }
@@ -420,7 +489,6 @@ function colors() {
 }
 
 function ang(val, max) { return Math.PI * 0.75 + (val / max) * Math.PI * 1.5; }
-function clamp(x, a, b) { return Math.max(a, Math.min(b, x)); }
 function rr(x, y, w, h, r) {
   ctx.beginPath();
   ctx.moveTo(x + r, y);
@@ -521,9 +589,10 @@ function drawClutch(col, dt) {
   const gap = s.lever > 0.7 ? 3 + (s.lever - 0.7) / 0.3 * 24 : 0;
   const lx = cx - gap / 2 - pw, rx = cx + gap / 2;
 
+  const slip = Math.abs(s.rpm - gbRpm);
   let state = "SLIPPING", scol = col.warn;
   if (c === 0) { state = "OPEN"; scol = col.muted; }
-  else if (c >= 1) { state = "LOCKED"; scol = col.good; }
+  else if (slip < SLIP_BAND) { state = "LOCKED"; scol = col.good; }
 
   ctx.textAlign = "center"; ctx.textBaseline = "alphabetic";
   ctx.fillStyle = col.muted; ctx.font = "600 13px system-ui, sans-serif";
@@ -552,8 +621,7 @@ function drawClutch(col, dt) {
   }
 
   // friction heat while slipping
-  const slip = Math.abs(s.rpm - gbRpm);
-  if (c > 0 && c < 1 && slip > 80) {
+  if (c > 0 && slip >= SLIP_BAND) {
     const k = clamp(c * slip / 2500, 0.2, 1);
     ctx.save();
     ctx.globalAlpha = k; ctx.fillStyle = col.warn; ctx.shadowColor = col.warn; ctx.shadowBlur = 20 * k;
@@ -693,9 +761,10 @@ const DRILLS = [
   { t: "Find the bite", d: "Start the engine in neutral, pull the clutch in, shift down into 1st. Slide the clutch slowly toward released until the bike starts to creep. That spot is the friction zone. Hold it, then pull back in." },
   { t: "Move off", d: "In 1st, add about 20% throttle, then release the clutch slowly through the orange zone and the rest of the way." },
   { t: "Stall on purpose", d: "At a standstill in 1st with no throttle, release the clutch quickly. Then repeat with 15 to 20% throttle and a slower release." },
-  { t: "Upshift", d: "At about 15 km/h: ease the throttle, pull the clutch in, shift up, release smoothly while rolling the throttle back on. Watch the needle move toward the cyan mark." },
+  { t: "Upshift", d: "At about 6000 to 7000 rpm: close the throttle, pull the clutch in, shift up, let the revs drop for a moment toward the cyan mark, then release smoothly while rolling the throttle back on." },
+  { t: "Top speed", d: "Run through all five gears with full throttle, shifting up at about 8000 rpm. Each shift should show no lurch. This 125 tops out at about 90 km/h in 5th." },
   { t: "Stop", d: "Brake, pull the clutch in before the speed drops below about 5 km/h, shift down to 1st, then half-click to neutral when stopped." },
-  { t: "Downshift", d: "From 4th at about 40 km/h: brake, pull the clutch in, shift down twice, and release smoothly. Try releasing early and see the lurch." },
+  { t: "Downshift", d: "From 4th at about 45 km/h: pull the clutch in, shift down twice, blip the throttle until the needle reaches the cyan mark, then release. Try it once without the blip and feel the lurch." },
   { t: "Shift without the clutch", d: "Try an upshift with the lever released. Note the message and the shock bar." }
 ];
 let drill = 0;
@@ -723,8 +792,9 @@ function liveText() {
   if (!s.engine) return "Engine is off. Pull the clutch in or be in neutral, then press Start (R).";
   if (s.gear === 0) return "Neutral: the engine is not connected to the rear wheel. Revving does nothing to the speed.";
   if (c === 0) return "Clutch pulled in: engine and wheel are disconnected. This is the moment to shift.";
-  if (c >= 1) return "Clutch released: engine and wheel are locked together. Engine speed follows wheel speed.";
-  return "Friction zone: the clutch is slipping, so only part of the power reaches the wheel (" + Math.round(c * 100) + "%).";
+  if (!s.locked) return "Clutch slipping: engine and wheel turn at different speeds. The clutch is passing up to " + Math.round(Math.pow(c, 1.6) * 100) + "% of its grip.";
+  if (c < 1) return "Friction zone, but the plates have caught up: engine and wheel turn together. Release the rest of the way.";
+  return "Clutch released: engine and wheel are locked together. Engine speed follows wheel speed.";
 }
 
 function updateUI() {
@@ -733,7 +803,7 @@ function updateUI() {
   const on = s.gear === 0 ? "N" : String(s.gear);
   for (const k in cells) cells[k].classList.toggle("on", k === on);
   el("live").textContent = liveText();
-  const cp = s.gear > 0 ? Math.round(s.c * 100) : 0;
+  const cp = Math.round(Math.pow(s.c, 1.6) * 100);
   el("cpct").textContent = cp + "%";
   el("cbar").style.width = cp + "%";
   const sp = Math.min(100, Math.round(s.shock / SHOCK_FULL * 100));
@@ -784,8 +854,9 @@ function frame(now) {
   const dt = Math.min(0.05, (now - last) / 1000);
   last = now;
   inputs(dt);
-  step(dt / 2);
-  step(dt / 2);
+  // fixed small physics steps keep the stiff clutch friction stable
+  const n = Math.ceil(dt / PHYS_DT);
+  for (let i = 0; i < n; i++) step(dt / n);
   draw(dt);
   updateUI();
   requestAnimationFrame(frame);
