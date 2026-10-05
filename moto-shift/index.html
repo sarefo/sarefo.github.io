@@ -835,6 +835,8 @@ brakeEl.addEventListener("pointerdown", () => { brakeBtn = true; });
 
 const handled = new Set(["Space", "KeyX", "ArrowUp", "ArrowDown", "KeyW", "KeyS", "KeyE", "KeyQ", "KeyN", "KeyR", "KeyK"]);
 window.addEventListener("keydown", (e) => {
+  // leave browser shortcuts (Ctrl+R, Ctrl+Shift+R, Cmd+W, ...) alone
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
   if (!handled.has(e.code)) return;
   e.preventDefault();
   if (e.repeat) return;
