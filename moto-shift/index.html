@@ -88,32 +88,12 @@ ul.legend2 b { display: inline-block; min-width: 1.6em; height: 1.6em; line-heig
 </header>
 
 <main>
-  <!-- column 1: instruments, drill coach, status -->
+  <!-- column 1: dash, then controls -->
   <div class="col">
     <div class="panel">
       <canvas id="view" width="720" height="330"></canvas>
       <p class="note">White = engine, cyan = rear wheel. Letting the clutch out presses the plates together until both spin at the same speed. The cyan mark on the tach is the rpm that matches the wheel in this gear.</p>
     </div>
-    <div class="pair" style="flex:1; min-height:0">
-      <div class="panel grow">
-        <h2>Drill coach</h2>
-        <div id="dtitle"></div>
-        <div id="dtext"></div>
-        <div class="row">
-          <button id="dprev">&larr; Previous</button>
-          <button id="dnext" class="primary">Next &rarr;</button>
-        </div>
-      </div>
-      <div class="panel grow">
-        <h2>What is happening</h2>
-        <div id="live"></div>
-        <div id="event">Press Start engine (R) to begin.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- column 2: controls -->
-  <div class="col">
     <div class="panel grow">
       <div class="hdr"><h2>Controls (as the rider sees them)</h2><button id="reset">Reset</button></div>
       <div class="hands">
@@ -178,7 +158,24 @@ ul.legend2 b { display: inline-block; min-width: 1.6em; height: 1.6em; line-heig
         </div>
       </div>
     </div>
+  </div>
 
+  <!-- column 2: drill coach, status, stats -->
+  <div class="col">
+      <div class="panel grow">
+        <h2>Drill coach</h2>
+        <div id="dtitle"></div>
+        <div id="dtext"></div>
+        <div class="row">
+          <button id="dprev">&larr; Previous</button>
+          <button id="dnext" class="primary">Next &rarr;</button>
+        </div>
+      </div>
+      <div class="panel grow">
+        <h2>What is happening</h2>
+        <div id="live"></div>
+        <div id="event">Press Start engine (R) to begin.</div>
+      </div>
     <div class="panel">
       <div class="stat" style="margin-top:0"><span>Clutch grip</span><span id="cpct">0%</span></div>
       <div class="meter"><i id="cbar"></i></div>
