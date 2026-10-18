@@ -54,16 +54,20 @@ const SOUND_CONFIGS = {
     },
     songbird: {
         enabled: true,
-        volume: 0.012,          // Volume for bird chirp
-        type: 'interval',       // Occasional chirping
-        minInterval: 15000,     // Min 15 seconds between chirps
-        maxInterval: 45000,     // Max 45 seconds between chirps
-        notesPerSong: 5,        // Number of notes in a song
-        noteDuration: 120,      // Duration of each note in ms
-        noteGap: 80,            // Gap between notes in ms
-        minFrequency: 2000,     // Min frequency for sweep (2kHz)
-        maxFrequency: 7000,     // Max frequency for sweep (7kHz)
-        frequencyVariation: 500 // Random variation in sweep range
+        volume: 0.016,          // Peak volume of a single note
+        type: 'interval',       // One bird sings a bout, then a pause
+        minInterval: 15000,     // Min 15 seconds between bouts
+        maxInterval: 45000,     // Max 45 seconds between bouts
+        songsPerBout: [2, 4],   // A bird repeats its song a few times per bout
+        songGap: [1.8, 4.0],    // Seconds of silence between songs in a bout
+        reverbSend: 0.35,       // Base amount of forest reverb (grows with distance)
+        // Resident birds, each with its own species, position and voice.
+        // distance 0 = close and bright, 1 = far, dull and reverberant
+        birds: [
+            { species: 'greatTit',  pan: -0.55, distance: 0.25 },
+            { species: 'chaffinch', pan:  0.45, distance: 0.45 },
+            { species: 'blackbird', pan: -0.15, distance: 0.7 }
+        ]
     },
     owl: {
         enabled: true,
@@ -187,6 +191,8 @@ class SoundGenerator {
             this.masterGain.connect(this.audioContext.destination);
             this.masterGain.gain.value = this.isMuted ? 0 : 0.3; // Default volume 30%
 
+            this.createReverb();
+
             this.isInitialized = true;
 
             // Start sound generation immediately
@@ -197,6 +203,36 @@ class SoundGenerator {
         } catch (error) {
             console.warn('Failed to initialize audio:', error);
         }
+    }
+
+    // Shared forest-air reverb: sounds that want space connect a send to this.reverbBus
+    createReverb() {
+        const ctx = this.audioContext;
+        const rate = ctx.sampleRate;
+        const seconds = 1.8;
+        const length = Math.floor(rate * seconds);
+        const preDelay = Math.floor(rate * 0.018);
+        const impulse = ctx.createBuffer(2, length, rate);
+
+        // Decaying stereo noise that also darkens over time, since air and foliage
+        // absorb high frequencies faster than low ones
+        for (let ch = 0; ch < 2; ch++) {
+            const data = impulse.getChannelData(ch);
+            let lowpassed = 0;
+            for (let i = preDelay; i < length; i++) {
+                const t = (i - preDelay) / rate;
+                const smoothing = 0.85 * Math.exp(-t * 2.5) + 0.08;
+                lowpassed += ((Math.random() * 2 - 1) - lowpassed) * smoothing;
+                data[i] = lowpassed * Math.exp(-t * 3.8);
+            }
+        }
+
+        const convolver = ctx.createConvolver();
+        convolver.buffer = impulse;
+        this.reverbBus = ctx.createGain();
+        this.reverbBus.gain.value = 0.6;
+        this.reverbBus.connect(convolver);
+        convolver.connect(this.masterGain);
     }
 
     startSoundGeneration() {
@@ -603,6 +639,7 @@ class SoundGenerator {
 
         filter.connect(outputGain);
         outputGain.connect(this.masterGain);
+        if (this.reverbBus) outputGain.connect(this.reverbBus);
 
         // Envelope - quick attack, sustain, quick release
         const attackTime = 0.015;
@@ -635,104 +672,212 @@ class SoundGenerator {
         };
     }
 
-    synthesizeSongbird(config) {
-        const now = this.audioContext.currentTime;
+    // --- Songbirds ---
+    // Each resident bird is a fixed individual: its species decides the song
+    // structure, and its own random "voice" (pitches, note counts, motifs) is
+    // drawn once, so the same bird keeps singing recognizably the same song.
+    // Notes are near-pure whistles whose pitch and loudness follow smooth
+    // contours (setValueCurveAtTime), which is what makes them sound sung
+    // rather than beeped.
 
-        // Create a melodic sequence of notes with varying pitch
-        for (let i = 0; i < config.notesPerSong; i++) {
-            const noteStart = now + 0.01 + (i * (config.noteDuration + config.noteGap) / 1000);
-            this.createBirdNote(noteStart, config, i);
+    synthesizeSongbird(config) {
+        if (!this.birds) {
+            this.birds = config.birds.map(bird => ({ ...bird, voice: this.createBirdVoice(bird.species) }));
         }
+        const bird = this.birds[Math.floor(Math.random() * this.birds.length)];
+        const ctx = this.audioContext;
+
+        // Per-bout signal chain: notes -> panner -> distance lowpass -> master (+ reverb send)
+        const busGain = ctx.createGain();
+        busGain.gain.value = config.volume * (1 - bird.distance * 0.45);
+        const panner = ctx.createStereoPanner();
+        panner.pan.value = bird.pan;
+        const airFilter = ctx.createBiquadFilter();
+        airFilter.type = 'lowpass';
+        airFilter.frequency.value = 14000 - bird.distance * 8000;
+        busGain.connect(panner);
+        panner.connect(airFilter);
+        airFilter.connect(this.masterGain);
+
+        let send = null;
+        if (this.reverbBus) {
+            send = ctx.createGain();
+            send.gain.value = config.reverbSend * (0.5 + bird.distance);
+            airFilter.connect(send);
+            send.connect(this.reverbBus);
+        }
+
+        const [minSongs, maxSongs] = config.songsPerBout;
+        const songs = minSongs + Math.floor(Math.random() * (maxSongs - minSongs + 1));
+        let t = ctx.currentTime + 0.05;
+        for (let i = 0; i < songs; i++) {
+            const notes = this.composeBirdSong(bird);
+            notes.forEach(note => this.playBirdNote(t + note.t, note, busGain));
+            const songEnd = Math.max(...notes.map(note => note.t + note.dur));
+            t += songEnd + config.songGap[0] + Math.random() * (config.songGap[1] - config.songGap[0]);
+        }
+
+        // Tear the bus down once the bout and its reverb tail are over
+        const boutMs = (t - ctx.currentTime) * 1000;
+        setTimeout(() => {
+            busGain.disconnect();
+            panner.disconnect();
+            airFilter.disconnect();
+            if (send) send.disconnect();
+        }, boutMs + 3000);
     }
 
-    createBirdNote(startTime, config, noteIndex) {
-        const duration = config.noteDuration / 1000;
+    createBirdVoice(species) {
+        const rand = (min, max) => min + Math.random() * (max - min);
+        const randInt = (min, max) => Math.floor(rand(min, max + 1));
 
-        // Create melodic patterns - rising, falling, or warbling
-        const patterns = [
-            { type: 'rising', startMult: 0.7, endMult: 1.2 },
-            { type: 'falling', startMult: 1.2, endMult: 0.7 },
-            { type: 'warble', startMult: 1.0, endMult: 1.1 }
-        ];
-        const pattern = patterns[noteIndex % patterns.length];
+        switch (species) {
+            case 'greatTit':
+                // "tea-cher tea-cher": a high note, then a lower down-slurred one
+                return {
+                    high: rand(5600, 7000),
+                    low: rand(3300, 4300),
+                    reps: randInt(3, 6),
+                    period: rand(0.22, 0.3)
+                };
+            case 'chaffinch':
+                // Descending, accelerating trill ending in a "chew-ee-oo" flourish
+                return {
+                    trill1: { count: randInt(4, 6), from: rand(5600, 6400), to: rand(4800, 5300), spacing: rand(0.07, 0.085) },
+                    trill2: { count: randInt(5, 8), from: rand(4300, 4700), to: rand(3300, 3700), spacing: rand(0.05, 0.06) },
+                    flourishPeak: rand(4800, 5600)
+                };
+            case 'blackbird': {
+                // Low, fluted phrases from a small personal repertoire, each followed by
+                // a quiet high twitter
+                const motifs = [];
+                for (let m = 0; m < 4; m++) {
+                    const notes = [];
+                    const count = randInt(3, 5);
+                    for (let n = 0; n < count; n++) {
+                        const points = randInt(3, 5);
+                        const contour = [];
+                        let f = rand(1700, 2900);
+                        for (let p = 0; p < points; p++) {
+                            contour.push(f);
+                            f = Math.min(3400, Math.max(1500, f * rand(0.82, 1.2)));
+                        }
+                        notes.push({ dur: rand(0.11, 0.32), gap: rand(0.03, 0.1), contour, gain: rand(0.7, 1) });
+                    }
+                    motifs.push(notes);
+                }
+                return { motifs };
+            }
+        }
+        return null;
+    }
 
-        // Random frequency within songbird range
-        const baseFreq = config.minFrequency +
-            Math.random() * (config.maxFrequency - config.minFrequency);
-        const variation = (Math.random() - 0.5) * config.frequencyVariation;
+    // Returns one song as a list of notes: { t, dur, f: [Hz contour], gain, vibrato? }
+    composeBirdSong(bird) {
+        const voice = bird.voice;
+        const jitter = () => 1 + (Math.random() - 0.5) * 0.03; // Tiny song-to-song variation
+        const notes = [];
 
-        const startFreq = (baseFreq + variation) * pattern.startMult;
-        const endFreq = (baseFreq + variation) * pattern.endMult;
+        switch (bird.species) {
+            case 'greatTit': {
+                const reps = voice.reps + (Math.random() < 0.3 ? 1 : 0);
+                for (let i = 0; i < reps; i++) {
+                    const t = i * voice.period * jitter();
+                    const fade = 1 - (i / reps) * 0.25; // Song tails off slightly
+                    const hi = voice.high * jitter();
+                    const lo = voice.low * jitter();
+                    notes.push({ t, dur: 0.075, f: [hi * 1.02, hi, hi * 0.96], gain: 0.8 * fade });
+                    notes.push({ t: t + 0.095, dur: 0.1, f: [lo * 1.25, lo * 1.02, lo * 0.9], gain: fade });
+                }
+                break;
+            }
+            case 'chaffinch': {
+                let t = 0;
+                [voice.trill1, voice.trill2].forEach((trill, phrase) => {
+                    for (let i = 0; i < trill.count; i++) {
+                        const f = (trill.from + (trill.to - trill.from) * i / (trill.count - 1)) * jitter();
+                        const sweep = phrase === 0 ? [f * 1.12, f, f * 0.86] : [f * 1.3, f * 1.05, f * 0.72];
+                        notes.push({ t, dur: phrase === 0 ? 0.04 : 0.032, f: sweep, gain: 0.75 + phrase * 0.15 });
+                        t += trill.spacing;
+                    }
+                    t += 0.03;
+                });
+                const peak = voice.flourishPeak * jitter();
+                notes.push({ t, dur: 0.26, f: [2600, peak * 0.8, peak, peak * 0.9, 3000], gain: 1 });
+                break;
+            }
+            case 'blackbird': {
+                // One or two fluted motifs, slightly retuned each time
+                let t = 0;
+                const motifCount = Math.random() < 0.4 ? 2 : 1;
+                for (let m = 0; m < motifCount; m++) {
+                    const motif = voice.motifs[Math.floor(Math.random() * voice.motifs.length)];
+                    const tune = jitter();
+                    motif.forEach(note => {
+                        notes.push({ t, dur: note.dur, f: note.contour.map(f => f * tune), gain: note.gain, vibrato: 0.012 });
+                        t += note.dur + note.gap;
+                    });
+                    t += 0.08;
+                }
+                // Twitter: fast, quiet, high squeaks
+                const squeaks = 3 + Math.floor(Math.random() * 5);
+                for (let i = 0; i < squeaks; i++) {
+                    const f = 5500 + Math.random() * 2500;
+                    notes.push({ t, dur: 0.03, f: [f * 0.85, f * 1.1, f * 0.9], gain: 0.35 });
+                    t += 0.045 + Math.random() * 0.02;
+                }
+                break;
+            }
+        }
+        return notes;
+    }
 
-        // Main oscillator - sine wave for pure bird tone
-        const osc = this.audioContext.createOscillator();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(startFreq, startTime);
+    playBirdNote(startTime, note, destination) {
+        const ctx = this.audioContext;
+        const { dur } = note;
 
-        // Smooth FM sweep for natural bird sound
-        if (pattern.type === 'warble') {
-            // Add vibrato for warbling effect
-            const lfo = this.audioContext.createOscillator();
-            const lfoGain = this.audioContext.createGain();
-            lfo.frequency.value = 12; // 12 Hz vibrato
-            lfoGain.gain.value = 30; // ±30 Hz modulation
-            lfo.connect(lfoGain);
-            lfoGain.connect(osc.frequency);
-            lfo.start(startTime);
-            lfo.stop(startTime + duration);
+        // Bird song is close to a pure tone; a faint 2nd/3rd harmonic keeps it from sounding electronic
+        if (!this.birdWave) {
+            this.birdWave = ctx.createPeriodicWave(new Float32Array([0, 0, 0, 0]), new Float32Array([0, 1, 0.05, 0.015]));
         }
 
-        osc.frequency.exponentialRampToValueAtTime(
-            Math.max(100, endFreq), // Prevent frequency from going too low
-            startTime + duration * 0.9
-        );
+        // Pitch contour, smoothly interpolated, with optional fluting vibrato
+        const steps = Math.max(16, Math.ceil(dur * 400));
+        const freqCurve = new Float32Array(steps);
+        const ampCurve = new Float32Array(steps);
+        const points = note.f;
+        for (let i = 0; i < steps; i++) {
+            const x = i / (steps - 1);
+            const pos = x * (points.length - 1);
+            const idx = Math.min(points.length - 2, Math.floor(pos));
+            const frac = pos - idx;
+            const smooth = 0.5 - 0.5 * Math.cos(Math.PI * frac);
+            let f = points[idx] + (points[idx + 1] - points[idx]) * smooth;
+            if (note.vibrato) f *= 1 + note.vibrato * Math.sin(2 * Math.PI * 30 * x * dur);
+            freqCurve[i] = f;
+            // Raised-cosine swell: quicker onset, longer fade, zero level and slope at both ends (no clicks)
+            const attack = 0.3;
+            const env = x < attack
+                ? 0.5 - 0.5 * Math.cos(Math.PI * x / attack)
+                : 0.5 + 0.5 * Math.cos(Math.PI * (x - attack) / (1 - attack));
+            ampCurve[i] = note.gain * env;
+        }
 
-        // Slight harmonic richness with triangle wave
-        const osc2 = this.audioContext.createOscillator();
-        osc2.type = 'triangle';
-        osc2.frequency.setValueAtTime(startFreq * 2, startTime);
-        osc2.frequency.exponentialRampToValueAtTime(
-            Math.max(100, endFreq * 2),
-            startTime + duration * 0.9
-        );
+        const osc = ctx.createOscillator();
+        osc.setPeriodicWave(this.birdWave);
+        osc.frequency.setValueCurveAtTime(freqCurve, startTime, dur);
 
-        // Gain nodes for mixing
-        const oscGain = this.audioContext.createGain();
-        const osc2Gain = this.audioContext.createGain();
-        const outputGain = this.audioContext.createGain();
+        const gain = ctx.createGain();
+        gain.gain.value = 0;
+        gain.gain.setValueCurveAtTime(ampCurve, startTime, dur);
 
-        oscGain.gain.value = 1.0;
-        osc2Gain.gain.value = 0.15; // Subtle harmonic
-
-        // Connect
-        osc.connect(oscGain);
-        osc2.connect(osc2Gain);
-        oscGain.connect(outputGain);
-        osc2Gain.connect(outputGain);
-        outputGain.connect(this.masterGain);
-
-        // Envelope - quick attack, sustain, quick release for chirpy sound
-        const attackTime = 0.005;
-        const releaseTime = 0.02;
-
-        outputGain.gain.setValueAtTime(0, startTime);
-        outputGain.gain.linearRampToValueAtTime(config.volume, startTime + attackTime);
-        outputGain.gain.setValueAtTime(config.volume, startTime + duration - releaseTime);
-        outputGain.gain.linearRampToValueAtTime(0, startTime + duration);
-
-        // Start and stop
+        osc.connect(gain);
+        gain.connect(destination);
         osc.start(startTime);
-        osc2.start(startTime);
-        osc.stop(startTime + duration);
-        osc2.stop(startTime + duration);
-
-        // Cleanup
+        osc.stop(startTime + dur + 0.01);
         osc.onended = () => {
             osc.disconnect();
-            osc2.disconnect();
-            oscGain.disconnect();
-            osc2Gain.disconnect();
-            outputGain.disconnect();
+            gain.disconnect();
         };
     }
 
@@ -829,6 +974,7 @@ class SoundGenerator {
         breathGain.connect(outputGain);
 
         outputGain.connect(this.masterGain);
+        if (this.reverbBus) outputGain.connect(this.reverbBus);
 
         // --- Envelope ---
         const volume = isEmphasis ? config.volume * 1.5 : config.volume;
