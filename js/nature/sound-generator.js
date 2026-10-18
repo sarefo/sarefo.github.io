@@ -1,94 +1,97 @@
 // Nature sound synthesis using Web Audio API
 // Independent from visual animations, lightweight, easily expandable
+//
+// Every creature is an individual with its own voice, position and schedule.
+// Its voice (pitch, rhythm, song) is drawn once, so the same animal stays
+// recognizable. Day creatures are heard in the light theme, night creatures in
+// the dark theme. Positions use pan (-1 left .. 1 right) and distance
+// (0 = close and bright, 1 = far, dull and reverberant).
 
-// Sound type configurations
 const SOUND_CONFIGS = {
-    cricket: {
-        enabled: true,
-        volume: 0.01,           // Volume (0-1)
-        type: 'interval',       // Plays at random intervals
-        minInterval: 2000,      // Min ms between chirps
-        maxInterval: 8000,      // Max ms between chirps
-        chirpsPerBurst: 3,      // Chirps in each burst
-        chirpDuration: 50,      // Duration of each chirp in ms
-        chirpGap: 100,          // Gap between chirps in burst
-        baseFrequency: 4500,    // Base frequency in Hz
-        frequencyVariation: 200 // Random variation
-    },
     rain_background: {
         enabled: true,
-        volume: 0.005,          // Subtle background rain noise (reduced)
-        type: 'continuous',     // Continuous white noise base layer
+        type: 'continuous',     // Stereo pink-noise bed whose intensity drifts slowly
+        volume: 0.018
     },
     rain: {
         enabled: true,
-        volume: 0.05,           // Volume for individual drops
-        type: 'interval',       // Individual raindrops layered on top
-        minInterval: 80,        // Min ms between drops (more frequent)
-        maxInterval: 250,       // Max ms between drops
-        dropDuration: 50,       // Duration of each drop sound in ms
-        baseFrequency: 800,     // Base frequency for drop impact
-        frequencyVariation: 400 // Random variation
+        type: 'interval',       // Individual drops on leaves and water, denser when it rains harder
+        volume: 0.03,
+        minInterval: 60,
+        maxInterval: 260
+    },
+    cricket: {
+        enabled: true,
+        type: 'interval',       // Each cricket sings a bout of pulsed chirps, then rests
+        volume: 0.008,
+        minInterval: 4000,      // Rest between bouts
+        maxInterval: 20000,
+        boutLength: [6, 18],    // Seconds of chirping per bout
+        individuals: [
+            { name: 'Cricket A', pan: -0.6, distance: 0.35 },
+            { name: 'Cricket B', pan: 0.3, distance: 0.6 },
+            { name: 'Cricket C', pan: 0.8, distance: 0.85 }
+        ]
     },
     mosquito: {
         enabled: true,
-        volume: 0.005,          // Subtle buzzing
-        type: 'interval',       // Occasional buzzing
-        minInterval: 30000,     // Min 30 seconds between buzzes
-        maxInterval: 90000,     // Max 1.5 minutes between buzzes
-        duration: 2000,         // 2 second buzz duration
-        baseFrequency: 800,     // Base frequency for wing beat buzz
-        frequencyVariation: 100 // Random variation for natural sound
+        type: 'interval',       // Occasional fly-by past the listener's ear
+        volume: 0.008,
+        minInterval: 30000,
+        maxInterval: 90000,
+        delayFirst: true        // Never greet the listener with a mosquito
     },
     toad: {
         enabled: true,
-        volume: 0.015,          // Volume for toad call
-        type: 'interval',       // Occasional calls
-        minInterval: 20000,     // Min 20 seconds between calls
-        maxInterval: 60000,     // Max 60 seconds between calls
-        croaksPerCall: 3,       // Number of croaks in a sequence
-        croakDuration: 200,     // Duration of each croak in ms
-        croakGap: 150,          // Gap between croaks in ms
-        baseFrequency: 400,     // Starting frequency for croak
-        frequencyDrop: 150      // How much pitch drops during croak
-    },
-    songbird: {
-        enabled: true,
-        volume: 0.016,          // Peak volume of a single note
-        type: 'interval',       // One bird sings a bout, then a pause
-        minInterval: 15000,     // Min 15 seconds between bouts
-        maxInterval: 45000,     // Max 45 seconds between bouts
-        songsPerBout: [2, 4],   // A bird repeats its song a few times per bout
-        songGap: [1.8, 4.0],    // Seconds of silence between songs in a bout
-        reverbSend: 0.35,       // Base amount of forest reverb (grows with distance)
-        // Resident birds, each with its own species, position and voice.
-        // distance 0 = close and bright, 1 = far, dull and reverberant
-        birds: [
-            { species: 'greatTit',  pan: -0.55, distance: 0.25 },
-            { species: 'chaffinch', pan:  0.45, distance: 0.45 },
-            { species: 'blackbird', pan: -0.15, distance: 0.7 }
+        type: 'interval',
+        time: 'night',
+        volume: 0.08,
+        minInterval: 15000,
+        maxInterval: 50000,
+        answerChance: 0.5,      // Chance that another frog answers a call
+        individuals: [
+            { name: 'Common toad A', species: 'commonToad', pan: -0.35, distance: 0.5 },
+            { name: 'Common toad B', species: 'commonToad', pan: 0.5, distance: 0.75 },
+            { name: 'Tree frog', species: 'treeFrog', pan: 0.15, distance: 0.65 }
         ]
     },
     owl: {
         enabled: true,
-        volume: 0.018,          // Volume for owl hoot
-        type: 'interval',       // Occasional hooting
-        minInterval: 40000,     // Min 40 seconds between hoots
-        maxInterval: 120000,    // Max 2 minutes between hoots
-        hootsPerCall: 4,        // Number of hoots (hoo-h'HOO-hoo-hoo pattern)
-        hootDurations: [400, 600, 400, 500], // Duration pattern in ms
-        hootGaps: [300, 150, 350], // Gaps between hoots in ms
-        baseFrequency: 300,     // Fundamental frequency (~Great Horned Owl)
-        emphasisFrequency: 340, // h'HOO is higher-pitched
-        pitchGlide: 0.92,      // Subtle downward pitch bend
-        filterCutoff: 700,      // Lowpass cutoff for mellow tone
-        vibratoRate: 2.5,       // Subtle organic wobble (Hz)
-        vibratoDepth: 3,        // Vibrato depth in cents
-        breathiness: 0.35,      // Breath noise layer gain multiplier
-        breathFilterFreq: 400,  // Bandpass center for breath noise
-        breathFilterQ: 1.2      // Bandwidth of breath filter
+        type: 'interval',
+        time: 'night',
+        volume: 0.04,
+        minInterval: 40000,
+        maxInterval: 120000,
+        answerChance: 0.6,      // Tawny owl pairs call back and forth ("twit-twoo")
+        individuals: [
+            { name: 'Tawny owl (male)', species: 'tawnyMale', pan: -0.4, distance: 0.75 },
+            { name: 'Tawny owl (female)', species: 'tawnyFemale', pan: 0.55, distance: 0.65, level: 0.7 }
+        ]
+    },
+    songbird: {
+        enabled: true,
+        type: 'interval',
+        time: 'day',
+        volume: 0.016,          // Peak volume of a single note
+        minInterval: 25000,     // Pause after a bout (individuals may override)
+        maxInterval: 90000,
+        individuals: [
+            { name: 'Great tit', species: 'greatTit', pan: -0.55, distance: 0.25 },
+            { name: 'Chaffinch', species: 'chaffinch', pan: 0.45, distance: 0.45 },
+            { name: 'Blackbird', species: 'blackbird', pan: -0.15, distance: 0.7 },
+            { name: 'Robin', species: 'robin', pan: 0.2, distance: 0.3, level: 0.8, time: 'any' },
+            { name: 'Chiffchaff', species: 'chiffchaff', pan: 0.75, distance: 0.4, level: 0.85 },
+            { name: 'Wood pigeon', species: 'woodPigeon', pan: -0.75, distance: 0.5, level: 1.1,
+              minInterval: 40000, maxInterval: 120000 },
+            { name: 'Cuckoo', species: 'cuckoo', pan: 0.35, distance: 0.85, level: 1.4,
+              minInterval: 60000, maxInterval: 200000 }
+        ]
     }
 };
+
+const soundRand = (min, max) => min + Math.random() * (max - min);
+const soundRandInt = (min, max) => Math.floor(soundRand(min, max + 1));
+const soundPick = (list) => list[Math.floor(Math.random() * list.length)];
 
 class SoundGenerator {
     constructor(themeHandler) {
@@ -98,9 +101,17 @@ class SoundGenerator {
         this.isMuted = true; // Start muted (audio not initialized yet)
         this.isInitialized = false;
         this.isPageVisible = !document.hidden; // Track page visibility
-        this.scheduledSounds = new Map(); // Track scheduled interval sounds
+        this.scheduledSounds = new Map(); // Next timer per individual
+        this.answerTimers = new Set();    // Pending replies between individuals
         this.continuousSounds = new Map(); // Track continuous sounds
         this.soundConfigs = SOUND_CONFIGS;
+        this.waves = {};
+        this.rainIntensity = 0.6;
+
+        // Every interval sound is a list of individuals; single sounds get one anonymous individual
+        Object.values(this.soundConfigs).forEach(config => {
+            if (config.type === 'interval' && !config.individuals) config.individuals = [{ pan: 0, distance: 0 }];
+        });
 
         // Don't initialize AudioContext yet (autoplay policy)
         this.setupUserInteractionListener();
@@ -114,34 +125,35 @@ class SoundGenerator {
         const panel = document.createElement('div');
         panel.style.cssText = 'position:fixed;bottom:16px;left:16px;background:rgba(0,0,0,0.85);' +
             'color:#fff;padding:12px;border-radius:8px;z-index:99999;font:12px/1.4 monospace;' +
-            'display:flex;flex-wrap:wrap;gap:6px;max-width:260px;align-items:center;';
+            'display:flex;flex-wrap:wrap;gap:6px;max-width:420px;align-items:center;';
 
         const title = document.createElement('div');
         title.textContent = 'Sound Debug';
         title.style.cssText = 'width:100%;font-weight:bold;margin-bottom:4px;';
         panel.appendChild(title);
 
-        const soundTypes = Object.entries(this.soundConfigs)
-            .filter(([, cfg]) => cfg.type === 'interval');
-
-        soundTypes.forEach(([soundType, config]) => {
-            const btn = document.createElement('button');
-            btn.textContent = soundType.charAt(0).toUpperCase() + soundType.slice(1);
-            btn.style.cssText = 'padding:10px 16px;border:1px solid #555;border-radius:4px;' +
-                'background:#333;color:#fff;cursor:pointer;font:14px monospace;min-height:44px;';
-            btn.addEventListener('click', async (e) => {
-                e.stopPropagation();
-                if (!this.isInitialized) this.initializeAudio(false);
-                if (this.audioContext.state === 'suspended') {
-                    await this.audioContext.resume();
-                }
-                this.isMuted = false;
-                this.masterGain.gain.value = 0.3;
-                console.log(`[Sound Debug] Playing: ${soundType}`, config);
-                this.playSound(soundType, config);
+        Object.entries(this.soundConfigs)
+            .filter(([soundType, cfg]) => cfg.type === 'interval' && soundType !== 'rain')
+            .forEach(([soundType, config]) => {
+                config.individuals.forEach(individual => {
+                    const btn = document.createElement('button');
+                    btn.textContent = individual.name || soundType.charAt(0).toUpperCase() + soundType.slice(1);
+                    btn.style.cssText = 'padding:8px 12px;border:1px solid #555;border-radius:4px;' +
+                        'background:#333;color:#fff;cursor:pointer;font:13px monospace;min-height:44px;';
+                    btn.addEventListener('click', async (e) => {
+                        e.stopPropagation();
+                        if (!this.isInitialized) this.initializeAudio(false);
+                        if (this.audioContext.state === 'suspended') {
+                            await this.audioContext.resume();
+                        }
+                        this.isMuted = false;
+                        this.masterGain.gain.value = 0.3;
+                        console.log(`[Sound Debug] Playing: ${btn.textContent}`, individual);
+                        this.playSound(soundType, config, individual, true);
+                    });
+                    panel.appendChild(btn);
+                });
             });
-            panel.appendChild(btn);
-        });
 
         // Prevent any panel clicks from reaching the document listener
         panel.addEventListener('click', (e) => e.stopPropagation());
@@ -170,10 +182,8 @@ class SoundGenerator {
             this.isPageVisible = !document.hidden;
 
             if (this.isPageVisible) {
-                // Page became visible - resume sound scheduling
                 this.resumeSoundGeneration();
             } else {
-                // Page became hidden - stop scheduling new sounds
                 this.pauseSoundGeneration();
             }
         });
@@ -183,10 +193,9 @@ class SoundGenerator {
         if (this.isInitialized) return;
 
         try {
-            // Create AudioContext
             this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
-            // Create master gain node for volume control
+            // Master gain node for volume control
             this.masterGain = this.audioContext.createGain();
             this.masterGain.connect(this.audioContext.destination);
             this.masterGain.gain.value = this.isMuted ? 0 : 0.3; // Default volume 30%
@@ -195,7 +204,6 @@ class SoundGenerator {
 
             this.isInitialized = true;
 
-            // Start sound generation immediately
             // Use setTimeout 0 to ensure AudioContext is fully ready
             if (startSounds) setTimeout(() => {
                 this.startSoundGeneration();
@@ -209,7 +217,7 @@ class SoundGenerator {
     createReverb() {
         const ctx = this.audioContext;
         const rate = ctx.sampleRate;
-        const seconds = 1.8;
+        const seconds = 1.5;
         const length = Math.floor(rate * seconds);
         const preDelay = Math.floor(rate * 0.018);
         const impulse = ctx.createBuffer(2, length, rate);
@@ -229,73 +237,117 @@ class SoundGenerator {
 
         const convolver = ctx.createConvolver();
         convolver.buffer = impulse;
+        // Mono in, stereo out: half the convolution work of a true-stereo reverb
         this.reverbBus = ctx.createGain();
+        this.reverbBus.channelCount = 1;
+        this.reverbBus.channelCountMode = 'explicit';
         this.reverbBus.gain.value = 0.6;
         this.reverbBus.connect(convolver);
         convolver.connect(this.masterGain);
     }
 
+    // --- Scheduling ---
+
     startSoundGeneration() {
-        // Start each enabled sound type
         Object.entries(this.soundConfigs).forEach(([soundType, config]) => {
-            if (config.enabled) {
-                if (config.type === 'interval') {
-                    // Don't play immediately - let each sound start at a random time
-                    this.scheduleNextSound(soundType, config, false);
-                } else if (config.type === 'continuous') {
-                    // Start continuous sounds immediately
-                    this.startContinuousSound(soundType, config);
-                }
+            if (!config.enabled) return;
+            if (config.type === 'continuous') {
+                if (!this.continuousSounds.has(soundType)) this.startContinuousSound(soundType, config);
+            } else {
+                config.individuals.forEach((individual, index) => {
+                    // Stagger the first appearance so the scene fills in gradually
+                    const firstDelay = config.delayFirst
+                        ? this.intervalFor(config, individual)
+                        : soundRand(Math.min(1000, config.minInterval), Math.min(config.minInterval, 15000));
+                    this.scheduleNextSound(`${soundType}:${index}`, soundType, config, individual, firstDelay);
+                });
             }
         });
     }
 
-    scheduleNextSound(soundType, config, playImmediately = false) {
-        if (!this.isInitialized || !this.audioContext) return;
-
-        // Play immediately if this is the first call
-        if (playImmediately) {
-            this.playSound(soundType, config);
-        }
-
-        // Random interval between min and max
-        const interval = config.minInterval +
-            Math.random() * (config.maxInterval - config.minInterval);
-
-        const timeoutId = setTimeout(() => {
-            this.playSound(soundType, config);
-            // Schedule next occurrence
-            this.scheduleNextSound(soundType, config);
-        }, interval);
-
-        // Track timeout for cleanup
-        this.scheduledSounds.set(soundType, timeoutId);
+    stopScheduling() {
+        this.scheduledSounds.forEach(timeoutId => clearTimeout(timeoutId));
+        this.scheduledSounds.clear();
+        this.answerTimers.forEach(timeoutId => clearTimeout(timeoutId));
+        this.answerTimers.clear();
     }
 
-    playSound(soundType, config) {
-        if (!this.audioContext || this.isMuted || !this.isPageVisible) return;
+    intervalFor(config, individual) {
+        const min = individual.minInterval ?? config.minInterval;
+        const max = individual.maxInterval ?? config.maxInterval;
+        const interval = soundRand(min, max);
+        // Rain drops come faster the harder it rains
+        return config === this.soundConfigs.rain ? interval / Math.pow(this.rainIntensity, 1.5) : interval;
+    }
 
-        // Route to appropriate synthesis method
+    scheduleNextSound(key, soundType, config, individual, delay) {
+        if (!this.isInitialized || !this.audioContext) return;
+
+        const timeoutId = setTimeout(() => {
+            const seconds = this.playSound(soundType, config, individual);
+            if (seconds > 0 && config.answerChance && Math.random() < config.answerChance) {
+                this.scheduleAnswer(soundType, config, individual, seconds);
+            }
+            // The rest starts once the bout is over
+            this.scheduleNextSound(key, soundType, config, individual,
+                seconds * 1000 + this.intervalFor(config, individual));
+        }, delay);
+
+        this.scheduledSounds.set(key, timeoutId);
+    }
+
+    // Another individual of the same kind replies shortly after a call ends
+    scheduleAnswer(soundType, config, caller, callSeconds) {
+        const now = this.audioContext.currentTime;
+        const others = config.individuals.filter(other =>
+            other !== caller && this.isActiveNow(config, other) && !(other.busyUntil > now));
+        if (others.length === 0) return;
+
+        const responder = soundPick(others);
+        const timeoutId = setTimeout(() => {
+            this.answerTimers.delete(timeoutId);
+            this.playSound(soundType, config, responder);
+        }, (callSeconds + soundRand(0.4, 1.6)) * 1000);
+        this.answerTimers.add(timeoutId);
+    }
+
+    isActiveNow(config, individual) {
+        const time = individual.time || config.time || 'any';
+        if (time === 'any') return true;
+        const isNight = this.themeHandler?.isDarkTheme?.() ?? false;
+        return time === (isNight ? 'night' : 'day');
+    }
+
+    // Plays one bout of an individual and returns its length in seconds (0 if nothing played)
+    playSound(soundType, config, individual, force = false) {
+        if (!this.audioContext || this.isMuted || !this.isPageVisible) return 0;
+        if (!force && !this.isActiveNow(config, individual)) return 0;
+        // An individual never sings over itself
+        if (!force && individual.busyUntil > this.audioContext.currentTime) return 0;
+
+        let seconds = 0;
         switch (soundType) {
             case 'cricket':
-                this.synthesizeCricket(config);
+                seconds = this.synthesizeCricket(config, individual);
                 break;
             case 'rain':
-                this.synthesizeRain(config);
+                seconds = this.synthesizeRain(config);
                 break;
             case 'mosquito':
-                this.synthesizeMosquito(config);
+                seconds = this.synthesizeMosquito(config);
                 break;
             case 'toad':
-                this.synthesizeToad(config);
+                seconds = this.synthesizeToad(config, individual);
                 break;
             case 'songbird':
-                this.synthesizeSongbird(config);
+                seconds = this.synthesizeSongbird(config, individual);
                 break;
             case 'owl':
-                this.synthesizeOwl(config);
+                seconds = this.synthesizeOwl(config, individual);
                 break;
         }
+        individual.busyUntil = this.audioContext.currentTime + seconds;
+        return seconds;
     }
 
     startContinuousSound(soundType, config) {
@@ -304,7 +356,6 @@ class SoundGenerator {
         // Stop any existing instance first
         this.stopContinuousSound(soundType);
 
-        // Route to appropriate continuous sound method
         switch (soundType) {
             case 'rain_background':
                 this.synthesizeRainBackground(config);
@@ -313,6 +364,8 @@ class SoundGenerator {
     }
 
     stopContinuousSound(soundType) {
+        if (soundType === 'rain_background') clearTimeout(this.weatherTimer);
+
         const soundNodes = this.continuousSounds.get(soundType);
         if (soundNodes) {
             // Stop and disconnect all nodes
@@ -328,424 +381,587 @@ class SoundGenerator {
         }
     }
 
-    synthesizeCricket(config) {
-        const now = this.audioContext.currentTime;
+    // --- Shared building blocks ---
 
-        // Create a burst of chirps
-        for (let i = 0; i < config.chirpsPerBurst; i++) {
-            // Add small buffer (10ms) to ensure sound starts immediately
-            const chirpStartTime = now + 0.01 + (i * (config.chirpDuration + config.chirpGap) / 1000);
-            this.createChirp(chirpStartTime, config);
+    // Signal chain for one individual: notes -> level -> pan -> distance lowpass -> master (+ reverb)
+    createVoiceBus(individual, volume, reverbAmount) {
+        const ctx = this.audioContext;
+        const input = ctx.createGain();
+        input.gain.value = volume * (individual.level ?? 1) * (1 - individual.distance * 0.45);
+        const panner = ctx.createStereoPanner();
+        panner.pan.value = individual.pan;
+        const air = ctx.createBiquadFilter();
+        air.type = 'lowpass';
+        air.frequency.value = 14000 - individual.distance * 8000;
+        input.connect(panner);
+        panner.connect(air);
+        air.connect(this.masterGain);
+        const nodes = [input, panner, air];
+
+        if (this.reverbBus) {
+            const send = ctx.createGain();
+            send.gain.value = reverbAmount * (0.5 + individual.distance);
+            air.connect(send);
+            send.connect(this.reverbBus);
+            nodes.push(send);
+        }
+
+        return {
+            input,
+            // Tear the bus down once everything on it (and the reverb tail) is over
+            releaseAt: (endTime) => {
+                const ms = (endTime - ctx.currentTime) * 1000 + 3000;
+                setTimeout(() => nodes.forEach(node => node.disconnect()), ms);
+            }
+        };
+    }
+
+    getWave(name, harmonics) {
+        if (!this.waves[name]) {
+            const imag = new Float32Array([0, ...harmonics]);
+            this.waves[name] = this.audioContext.createPeriodicWave(new Float32Array(imag.length), imag);
+        }
+        return this.waves[name];
+    }
+
+    getNoiseBuffer() {
+        if (!this.noiseBuffer) {
+            const ctx = this.audioContext;
+            this.noiseBuffer = ctx.createBuffer(1, ctx.sampleRate * 3, ctx.sampleRate);
+            const data = this.noiseBuffer.getChannelData(0);
+            for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+        }
+        return this.noiseBuffer;
+    }
+
+    // Raised-cosine swell: zero level and slope at both ends, so notes never click
+    envelope(x, attack) {
+        return x < attack
+            ? 0.5 - 0.5 * Math.cos(Math.PI * x / attack)
+            : 0.5 + 0.5 * Math.cos(Math.PI * (x - attack) / (1 - attack));
+    }
+
+    // Smoothly interpolates a few contour points into an automation curve
+    smoothCurve(points, steps) {
+        const curve = new Float32Array(steps);
+        if (points.length === 1) return curve.fill(points[0]);
+        for (let i = 0; i < steps; i++) {
+            const pos = i / (steps - 1) * (points.length - 1);
+            const idx = Math.min(points.length - 2, Math.floor(pos));
+            const smooth = 0.5 - 0.5 * Math.cos(Math.PI * (pos - idx));
+            curve[i] = points[idx] + (points[idx + 1] - points[idx]) * smooth;
+        }
+        return curve;
+    }
+
+    // One sung or called note whose pitch and loudness follow smooth contours.
+    // opts: f (pitch points in Hz), gain, attack (share of the note), wave,
+    // vibrato (relative depth) + vibratoRate, tremolo (0-1) + tremoloRate,
+    // breath (amount of band-limited noise riding along with the tone)
+    playTone(start, dur, opts, destination) {
+        const ctx = this.audioContext;
+        const steps = Math.max(16, Math.ceil(dur * 500));
+        const pitch = this.smoothCurve(opts.f, steps);
+        const amp = new Float32Array(steps);
+        const attack = opts.attack ?? 0.3;
+        const gain = opts.gain ?? 1;
+        let pitchSum = 0;
+
+        for (let i = 0; i < steps; i++) {
+            const x = i / (steps - 1);
+            const t = x * dur;
+            if (opts.vibrato) pitch[i] *= 1 + opts.vibrato * Math.sin(2 * Math.PI * (opts.vibratoRate ?? 30) * t);
+            pitchSum += pitch[i];
+            let a = gain * this.envelope(x, attack);
+            if (opts.tremolo) a *= 1 - opts.tremolo * (0.5 - 0.5 * Math.cos(2 * Math.PI * opts.tremoloRate * t));
+            amp[i] = a;
+        }
+
+        const osc = ctx.createOscillator();
+        if (typeof opts.wave === 'string') osc.type = opts.wave;
+        else osc.setPeriodicWave(opts.wave || this.getWave('pure', [1, 0.05, 0.015]));
+        osc.frequency.setValueCurveAtTime(pitch, start, dur);
+
+        const toneGain = ctx.createGain();
+        toneGain.gain.value = 0;
+        toneGain.gain.setValueCurveAtTime(amp, start, dur);
+        osc.connect(toneGain);
+        toneGain.connect(destination);
+        osc.start(start);
+        osc.stop(start + dur + 0.01);
+        osc.onended = () => {
+            osc.disconnect();
+            toneGain.disconnect();
+        };
+
+        if (opts.breath) {
+            const noiseBuffer = this.getNoiseBuffer();
+            const noise = ctx.createBufferSource();
+            noise.buffer = noiseBuffer;
+            const band = ctx.createBiquadFilter();
+            band.type = 'bandpass';
+            band.frequency.value = pitchSum / steps;
+            band.Q.value = opts.breathQ ?? 4;
+            const breathGain = ctx.createGain();
+            breathGain.gain.value = 0;
+            breathGain.gain.setValueCurveAtTime(amp.map(a => a * opts.breath), start, dur);
+            noise.connect(band);
+            band.connect(breathGain);
+            breathGain.connect(destination);
+            noise.start(start, soundRand(0, Math.max(0, noiseBuffer.duration - dur - 0.05)), dur + 0.01);
+            noise.onended = () => {
+                noise.disconnect();
+                band.disconnect();
+                breathGain.disconnect();
+            };
         }
     }
 
-    createChirp(startTime, config) {
-        // Oscillator for the chirp tone
-        const oscillator = this.audioContext.createOscillator();
-        const gainNode = this.audioContext.createGain();
+    // --- Crickets ---
+    // A field cricket chirp is a few rapid pulses of a nearly pure ~4.5 kHz tone,
+    // each pulse sliding slightly down in pitch. Crickets repeat chirps at a
+    // steady rate for a while, then rest.
 
-        // Random frequency variation for natural sound
-        const frequency = config.baseFrequency +
-            (Math.random() - 0.5) * config.frequencyVariation;
+    synthesizeCricket(config, cricket) {
+        if (!cricket.voice) {
+            cricket.voice = {
+                carrier: soundRand(4300, 5000),
+                pulses: soundRandInt(3, 5),
+                pulsePeriod: soundRand(0.028, 0.038),
+                chirpPeriod: soundRand(0.38, 0.6)
+            };
+        }
+        const voice = cricket.voice;
+        const ctx = this.audioContext;
+        const bus = this.createVoiceBus(cricket, config.volume, 0.12);
 
-        oscillator.frequency.value = frequency;
-        oscillator.type = 'sine'; // Pure tone for cricket
+        let t = ctx.currentTime + 0.05;
+        const end = t + soundRand(...config.boutLength);
+        for (let n = 0; t < end; n++) {
+            const warmUp = Math.min(1, 0.4 + n * 0.15); // First chirps are hesitant
+            this.playCricketChirp(t, voice, warmUp * soundRand(0.85, 1), bus.input);
+            t += voice.chirpPeriod * soundRand(0.97, 1.03);
+        }
+        bus.releaseAt(t);
+        return t - ctx.currentTime;
+    }
 
-        // Connect nodes: Oscillator -> Gain -> Master
-        oscillator.connect(gainNode);
-        gainNode.connect(this.masterGain);
+    playCricketChirp(start, voice, level, destination) {
+        const ctx = this.audioContext;
+        const dur = voice.pulses * voice.pulsePeriod;
+        const steps = Math.ceil(dur * 3000);
+        const amp = new Float32Array(steps);
+        const pitch = new Float32Array(steps);
+        const pulseLength = voice.pulsePeriod * 0.65;
 
-        // Envelope: Quick attack, quick release
-        const duration = config.chirpDuration / 1000;
-        const attackTime = 0.002; // 2ms attack
-        const releaseTime = 0.01;  // 10ms release
+        for (let i = 0; i < steps; i++) {
+            const t = i / (steps - 1) * dur;
+            const pulse = Math.floor(t / voice.pulsePeriod);
+            const local = t - pulse * voice.pulsePeriod;
+            const pulseLevel = pulse === 0 ? 0.7 : (pulse === voice.pulses - 1 ? 0.85 : 1);
+            const inPulse = local < pulseLength && pulse < voice.pulses;
+            amp[i] = inPulse ? level * pulseLevel * Math.pow(Math.sin(Math.PI * local / pulseLength), 2) : 0;
+            pitch[i] = voice.carrier * (1.015 - 0.03 * Math.min(1, local / pulseLength));
+        }
 
-        gainNode.gain.setValueAtTime(0, startTime);
-        gainNode.gain.linearRampToValueAtTime(config.volume, startTime + attackTime);
-        gainNode.gain.linearRampToValueAtTime(config.volume, startTime + duration - releaseTime);
-        gainNode.gain.linearRampToValueAtTime(0, startTime + duration);
-
-        // Start and stop
-        oscillator.start(startTime);
-        oscillator.stop(startTime + duration);
-
-        // Cleanup
-        oscillator.onended = () => {
-            oscillator.disconnect();
-            gainNode.disconnect();
+        const osc = ctx.createOscillator();
+        osc.setPeriodicWave(this.getWave('cricket', [1, 0.08, 0.02]));
+        osc.frequency.setValueCurveAtTime(pitch, start, dur);
+        const gain = ctx.createGain();
+        gain.gain.value = 0;
+        gain.gain.setValueCurveAtTime(amp, start, dur);
+        osc.connect(gain);
+        gain.connect(destination);
+        osc.start(start);
+        osc.stop(start + dur + 0.01);
+        osc.onended = () => {
+            osc.disconnect();
+            gain.disconnect();
         };
+    }
+
+    // --- Rain ---
+
+    synthesizeRainBackground(config) {
+        const ctx = this.audioContext;
+
+        // Stereo pink noise (Paul Kellet's filter): softer and fuller than white noise.
+        // Long enough that the loop is not noticeable.
+        if (!this.pinkNoiseBuffer) {
+            this.pinkNoiseBuffer = ctx.createBuffer(2, ctx.sampleRate * 8, ctx.sampleRate);
+            for (let ch = 0; ch < 2; ch++) {
+                const data = this.pinkNoiseBuffer.getChannelData(ch);
+                let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+                for (let i = 0; i < data.length; i++) {
+                    const white = Math.random() * 2 - 1;
+                    b0 = 0.99886 * b0 + white * 0.0555179;
+                    b1 = 0.99332 * b1 + white * 0.0750759;
+                    b2 = 0.96900 * b2 + white * 0.1538520;
+                    b3 = 0.86650 * b3 + white * 0.3104856;
+                    b4 = 0.55000 * b4 + white * 0.5329522;
+                    b5 = -0.7616 * b5 - white * 0.0168980;
+                    data[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.11;
+                    b6 = white * 0.115926;
+                }
+            }
+        }
+
+        const noise = ctx.createBufferSource();
+        noise.buffer = this.pinkNoiseBuffer;
+        noise.loop = true;
+
+        const highpass = ctx.createBiquadFilter();
+        highpass.type = 'highpass';
+        highpass.frequency.value = 250;
+        const lowpass = ctx.createBiquadFilter();
+        lowpass.type = 'lowpass';
+        lowpass.frequency.value = 6000;
+
+        // Faint bright layer: the hiss of many tiny drops on leaves
+        const hissBand = ctx.createBiquadFilter();
+        hissBand.type = 'bandpass';
+        hissBand.frequency.value = 7000;
+        hissBand.Q.value = 0.7;
+        const hissGain = ctx.createGain();
+        hissGain.gain.value = 0.5;
+
+        const bed = ctx.createGain();
+        bed.gain.value = config.volume * this.rainIntensity;
+
+        noise.connect(highpass);
+        highpass.connect(lowpass);
+        lowpass.connect(bed);
+        noise.connect(hissBand);
+        hissBand.connect(hissGain);
+        hissGain.connect(bed);
+        bed.connect(this.masterGain);
+        noise.start();
+
+        this.continuousSounds.set('rain_background', [noise, highpass, lowpass, hissBand, hissGain, bed]);
+        this.driftRainIntensity(config, bed);
+    }
+
+    // The weather wanders between drizzle and a proper shower every half minute or so
+    driftRainIntensity(config, bed) {
+        this.weatherTimer = setTimeout(() => {
+            this.rainIntensity = soundRand(0.25, 1);
+            const now = this.audioContext.currentTime;
+            bed.gain.cancelScheduledValues(now);
+            bed.gain.setValueAtTime(bed.gain.value, now);
+            bed.gain.linearRampToValueAtTime(config.volume * this.rainIntensity, now + 10);
+            this.driftRainIntensity(config, bed);
+        }, soundRand(20000, 45000));
     }
 
     synthesizeRain(config) {
-        const now = this.audioContext.currentTime;
-        // Add small buffer (10ms) to ensure sound starts immediately
-        this.createRaindrop(now + 0.01, config);
-    }
+        const ctx = this.audioContext;
+        const start = ctx.currentTime + 0.01;
+        const nearness = Math.random();
+        const level = config.volume * (0.25 + 0.75 * nearness * nearness);
 
-    createRaindrop(startTime, config) {
-        // Create a short burst of filtered noise for raindrop impact
-        const bufferSize = this.audioContext.sampleRate * 0.1; // 100ms buffer
-        const buffer = this.audioContext.createBuffer(1, bufferSize, this.audioContext.sampleRate);
-        const data = buffer.getChannelData(0);
+        const panner = ctx.createStereoPanner();
+        panner.pan.value = soundRand(-0.9, 0.9);
+        panner.connect(this.masterGain);
 
-        // Fill with white noise
-        for (let i = 0; i < bufferSize; i++) {
-            data[i] = Math.random() * 2 - 1;
-        }
-
-        // Create buffer source
-        const noise = this.audioContext.createBufferSource();
-        noise.buffer = buffer;
-
-        // Random frequency for variation in drop sound
-        const frequency = config.baseFrequency +
-            (Math.random() - 0.5) * config.frequencyVariation;
-
-        // Bandpass filter to shape the drop sound
-        const bandpass = this.audioContext.createBiquadFilter();
-        bandpass.type = 'bandpass';
-        bandpass.frequency.value = frequency;
-        bandpass.Q.value = 5; // Narrow band for distinct drop sound
-
-        // Gain for envelope and volume
-        const gainNode = this.audioContext.createGain();
-
-        // Connect: Noise -> Bandpass -> Gain -> Master
-        noise.connect(bandpass);
-        bandpass.connect(gainNode);
-        gainNode.connect(this.masterGain);
-
-        // Envelope: Sharp attack, quick decay (like a water drop impact)
-        const duration = config.dropDuration / 1000;
-        const attackTime = 0.001; // Very fast attack
-        const decayTime = duration * 0.3; // 30% of duration for decay
-
-        gainNode.gain.setValueAtTime(0, startTime);
-        gainNode.gain.linearRampToValueAtTime(config.volume, startTime + attackTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.001, startTime + decayTime);
-        gainNode.gain.linearRampToValueAtTime(0, startTime + duration);
-
-        // Start and stop
-        noise.start(startTime);
-        noise.stop(startTime + duration);
-
-        // Cleanup
+        // Impact: a short tick of noise, its color set by what the drop hits
+        const noiseBuffer = this.getNoiseBuffer();
+        const decay = soundRand(0.012, 0.04);
+        const noise = ctx.createBufferSource();
+        noise.buffer = noiseBuffer;
+        const band = ctx.createBiquadFilter();
+        band.type = 'bandpass';
+        band.frequency.value = soundRand(1800, 6500);
+        band.Q.value = soundRand(0.8, 2.5);
+        const tickGain = ctx.createGain();
+        tickGain.gain.setValueAtTime(0, start);
+        tickGain.gain.linearRampToValueAtTime(level, start + 0.001);
+        tickGain.gain.exponentialRampToValueAtTime(level * 0.001, start + decay);
+        noise.connect(band);
+        band.connect(tickGain);
+        tickGain.connect(panner);
+        // The tick runs a little past the plip, so its end can clean up the whole drop
+        noise.start(start, soundRand(0, noiseBuffer.duration - 0.1), 0.08);
         noise.onended = () => {
             noise.disconnect();
-            bandpass.disconnect();
-            gainNode.disconnect();
+            band.disconnect();
+            tickGain.disconnect();
+            panner.disconnect();
         };
-    }
 
-    synthesizeRainBackground(config) {
-        // Create continuous white noise for rain background
-        const bufferSize = this.audioContext.sampleRate * 2; // 2 seconds of noise
-        const buffer = this.audioContext.createBuffer(1, bufferSize, this.audioContext.sampleRate);
-        const data = buffer.getChannelData(0);
-
-        // Fill with white noise
-        for (let i = 0; i < bufferSize; i++) {
-            data[i] = Math.random() * 2 - 1;
+        // Some drops fall into water: the trapped air bubble rings with a rising "plip"
+        if (Math.random() < 0.22) {
+            const f0 = soundRand(900, 2400);
+            const plip = ctx.createOscillator();
+            plip.frequency.setValueAtTime(f0, start);
+            plip.frequency.exponentialRampToValueAtTime(f0 * soundRand(1.4, 1.9), start + 0.03);
+            const plipGain = ctx.createGain();
+            plipGain.gain.setValueAtTime(0, start);
+            plipGain.gain.linearRampToValueAtTime(level * 0.5, start + 0.002);
+            plipGain.gain.exponentialRampToValueAtTime(level * 0.0005, start + 0.06);
+            plip.connect(plipGain);
+            plipGain.connect(panner);
+            plip.start(start);
+            plip.stop(start + 0.07);
+            plip.onended = () => {
+                plip.disconnect();
+                plipGain.disconnect();
+            };
         }
 
-        // Create buffer source
-        const noise = this.audioContext.createBufferSource();
-        noise.buffer = buffer;
-        noise.loop = true; // Loop the noise
-
-        // Create filters to shape into rain-like sound
-        const highpass = this.audioContext.createBiquadFilter();
-        highpass.type = 'highpass';
-        highpass.frequency.value = 400; // Cut very low frequencies
-        highpass.Q.value = 0.5;
-
-        const lowpass = this.audioContext.createBiquadFilter();
-        lowpass.type = 'lowpass';
-        lowpass.frequency.value = 3000; // Cut high frequencies
-        lowpass.Q.value = 0.5;
-
-        // Create gain for volume control
-        const rainGain = this.audioContext.createGain();
-        rainGain.gain.value = config.volume;
-
-        // Connect: Noise -> Highpass -> Lowpass -> Gain -> Master
-        noise.connect(highpass);
-        highpass.connect(lowpass);
-        lowpass.connect(rainGain);
-        rainGain.connect(this.masterGain);
-
-        // Start the background rain
-        noise.start();
-
-        // Store nodes for cleanup
-        this.continuousSounds.set('rain_background', [noise, highpass, lowpass, rainGain]);
+        return 0;
     }
+
+    // --- Mosquito ---
+    // A fly-by: the insect drifts past the ear on a wobbly path. Loudness, brightness
+    // and stereo position follow its distance; the whine wavers with its wingbeat.
+    // Now and then it lands mid-flight and the whine stops abruptly.
 
     synthesizeMosquito(config) {
-        const now = this.audioContext.currentTime;
-        const startTime = now + 0.01;
-        const duration = config.duration / 1000;
+        const ctx = this.audioContext;
+        const start = ctx.currentTime + 0.05;
+        const flight = soundRand(3, 6);
+        const lands = Math.random() < 0.3;
+        const dur = lands ? flight * soundRand(0.55, 0.75) : flight;
 
-        // Random base frequency for variation
-        const frequency = config.baseFrequency +
-            (Math.random() - 0.5) * config.frequencyVariation;
+        const side = Math.random() < 0.5 ? -1 : 1;
+        const closestAt = flight * soundRand(0.4, 0.6);
+        const closest = soundRand(0.15, 0.5); // meters
+        const speed = soundRand(0.6, 1.2);    // meters per second
+        const wingbeat = soundRand(480, 640);
+        const phase1 = soundRand(0, 6), phase2 = soundRand(0, 6);
 
-        // Main oscillator - sawtooth for mosquito buzz
-        const oscillator = this.audioContext.createOscillator();
-        oscillator.frequency.value = frequency;
-        oscillator.type = 'sawtooth'; // Best represents mosquito sound
+        const steps = Math.ceil(dur * 100);
+        const gainCurve = new Float32Array(steps);
+        const panCurve = new Float32Array(steps);
+        const pitchCurve = new Float32Array(steps);
+        const cutoffCurve = new Float32Array(steps);
+        const fadeOut = lands ? 0.06 : 0.4;
+        let drift = 0;
 
-        // Frequency modulation - smooth sine wave for closer/further effect
-        const fmOscillator = this.audioContext.createOscillator();
-        const fmGain = this.audioContext.createGain();
-        fmOscillator.frequency.value = 6; // 6 Hz modulation for natural variation
-        fmGain.gain.value = 40; // Subtle frequency wobble
-        fmOscillator.type = 'sine';
-        fmOscillator.connect(fmGain);
-        fmGain.connect(oscillator.detune);
+        for (let i = 0; i < steps; i++) {
+            const t = i / (steps - 1) * dur;
+            const x = side * speed * (t - closestAt) + 0.15 * Math.sin(2 * Math.PI * 0.7 * t + phase1);
+            const y = closest + 0.1 * Math.sin(2 * Math.PI * 0.45 * t + phase2);
+            const distance = Math.hypot(x, y);
+            const nearness = Math.min(1, 0.25 / distance);
+            const edge = Math.min(1, t / 0.3, (dur - t) / fadeOut);
 
-        // Stereo panner for spatial movement
-        const panner = this.audioContext.createStereoPanner();
-
-        // Random wandering pan with bias toward one side
-        const startPan = Math.random() > 0.5 ? -0.8 : 0.8; // Start near left or right
-        const endPan = -startPan; // End on opposite side
-        const wanderPoints = 8; // Number of random direction changes
-
-        panner.pan.setValueAtTime(startPan, startTime);
-
-        // Create random wandering path while trending toward end position
-        for (let i = 1; i <= wanderPoints; i++) {
-            const t = startTime + (duration * i / wanderPoints);
-            const progress = i / wanderPoints;
-
-            // Interpolate between start and end with random variation
-            const targetPan = startPan + (endPan - startPan) * progress;
-            const randomOffset = (Math.random() - 0.5) * 0.4; // Random wander ±0.2
-            const panValue = Math.max(-1, Math.min(1, targetPan + randomOffset));
-
-            panner.pan.linearRampToValueAtTime(panValue, t);
+            gainCurve[i] = config.volume * nearness * Math.max(0, edge);
+            panCurve[i] = Math.max(-0.95, Math.min(0.95, x / (distance + 0.2)));
+            drift = drift * 0.98 + (Math.random() - 0.5) * 0.004;
+            pitchCurve[i] = wingbeat * (1 + drift + 0.01 * Math.sin(2 * Math.PI * 1.3 * t));
+            cutoffCurve[i] = 2500 + 5000 * Math.min(1, 0.3 / distance);
         }
 
-        // Ensure we end at the target
-        panner.pan.linearRampToValueAtTime(endPan, startTime + duration);
-
-        // Gain for envelope and volume with random variation
-        const gainNode = this.audioContext.createGain();
-
-        // Connect: Oscillator -> Panner -> Gain -> Master
-        oscillator.connect(panner);
-        panner.connect(gainNode);
-        gainNode.connect(this.masterGain);
-
-        // Envelope with random volume variation
-        const fadeInTime = 0.3;
-        const fadeOutTime = 0.5;
-
-        gainNode.gain.setValueAtTime(0, startTime);
-        gainNode.gain.linearRampToValueAtTime(config.volume, startTime + fadeInTime);
-
-        // Add random volume fluctuations during the middle section
-        const volumePoints = 6;
-        for (let i = 0; i < volumePoints; i++) {
-            const t = startTime + fadeInTime + ((duration - fadeInTime - fadeOutTime) * i / volumePoints);
-            const volumeVariation = config.volume * (0.85 + Math.random() * 0.3); // ±15% variation
-            gainNode.gain.linearRampToValueAtTime(volumeVariation, t);
-        }
-
-        gainNode.gain.linearRampToValueAtTime(config.volume, startTime + duration - fadeOutTime);
-        gainNode.gain.linearRampToValueAtTime(0, startTime + duration);
-
-        // Start oscillators
-        fmOscillator.start(startTime);
-        oscillator.start(startTime);
-
-        // Stop oscillators
-        fmOscillator.stop(startTime + duration);
-        oscillator.stop(startTime + duration);
-
-        // Cleanup
-        oscillator.onended = () => {
-            fmOscillator.disconnect();
-            fmGain.disconnect();
-            oscillator.disconnect();
-            panner.disconnect();
-            gainNode.disconnect();
-        };
-    }
-
-    synthesizeToad(config) {
-        const now = this.audioContext.currentTime;
-
-        // Create a sequence of individual croaks
-        for (let i = 0; i < config.croaksPerCall; i++) {
-            const croakStart = now + 0.01 + (i * (config.croakDuration + config.croakGap) / 1000);
-            this.createSingleCroak(croakStart, config);
-        }
-    }
-
-    createSingleCroak(startTime, config) {
-        const duration = config.croakDuration / 1000;
-
-        // Random variation for this croak
-        const freqVariation = (Math.random() - 0.5) * 80;
-        const startFreq = config.baseFrequency + freqVariation;
-        const endFreq = startFreq - config.frequencyDrop;
-
-        // Main oscillator - sine wave, cleaner base
-        const osc = this.audioContext.createOscillator();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(startFreq, startTime);
-        osc.frequency.exponentialRampToValueAtTime(endFreq, startTime + duration * 0.8);
-
-        // Second oscillator slightly detuned for thickness
-        const osc2 = this.audioContext.createOscillator();
-        osc2.type = 'sine';
-        osc2.frequency.setValueAtTime(startFreq * 1.01, startTime);
-        osc2.frequency.exponentialRampToValueAtTime(endFreq * 1.01, startTime + duration * 0.8);
-
-        // Third oscillator one octave up for brightness
-        const osc3 = this.audioContext.createOscillator();
-        osc3.type = 'sine';
-        osc3.frequency.setValueAtTime(startFreq * 2, startTime);
-        osc3.frequency.exponentialRampToValueAtTime(endFreq * 2, startTime + duration * 0.8);
-
-        // Resonant filter to shape the tone
-        const filter = this.audioContext.createBiquadFilter();
-        filter.type = 'bandpass';
-        filter.frequency.setValueAtTime(startFreq * 2, startTime);
-        filter.frequency.exponentialRampToValueAtTime(endFreq * 1.5, startTime + duration * 0.8);
-        filter.Q.value = 2;
-
-        // Gain nodes
-        const oscGain = this.audioContext.createGain();
-        const osc2Gain = this.audioContext.createGain();
-        const osc3Gain = this.audioContext.createGain();
-        const outputGain = this.audioContext.createGain();
-
-        // Mix levels
-        oscGain.gain.value = 1.0;
+        // Two slightly detuned buzzes give the whine its shimmer
+        const osc = ctx.createOscillator();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueCurveAtTime(pitchCurve, start, dur);
+        const osc2 = ctx.createOscillator();
+        osc2.type = 'sawtooth';
+        osc2.detune.value = 9;
+        osc2.frequency.setValueCurveAtTime(pitchCurve, start, dur);
+        const osc2Gain = ctx.createGain();
         osc2Gain.gain.value = 0.5;
-        osc3Gain.gain.value = 0.2;
 
-        // Connect oscillators
-        osc.connect(oscGain);
+        const lowpass = ctx.createBiquadFilter();
+        lowpass.type = 'lowpass';
+        lowpass.frequency.setValueCurveAtTime(cutoffCurve, start, dur);
+        const gain = ctx.createGain();
+        gain.gain.value = 0;
+        gain.gain.setValueCurveAtTime(gainCurve, start, dur);
+        const panner = ctx.createStereoPanner();
+        panner.pan.setValueCurveAtTime(panCurve, start, dur);
+
+        osc.connect(lowpass);
         osc2.connect(osc2Gain);
-        osc3.connect(osc3Gain);
+        osc2Gain.connect(lowpass);
+        lowpass.connect(gain);
+        gain.connect(panner);
+        panner.connect(this.masterGain);
 
-        oscGain.connect(filter);
-        osc2Gain.connect(filter);
-        osc3Gain.connect(filter);
-
-        filter.connect(outputGain);
-        outputGain.connect(this.masterGain);
-        if (this.reverbBus) outputGain.connect(this.reverbBus);
-
-        // Envelope - quick attack, sustain, quick release
-        const attackTime = 0.015;
-        const releaseTime = 0.04;
-
-        outputGain.gain.setValueAtTime(0, startTime);
-        outputGain.gain.linearRampToValueAtTime(config.volume, startTime + attackTime);
-        outputGain.gain.setValueAtTime(config.volume, startTime + duration - releaseTime);
-        outputGain.gain.linearRampToValueAtTime(0, startTime + duration);
-
-        // Start and stop
-        osc.start(startTime);
-        osc2.start(startTime);
-        osc3.start(startTime);
-
-        osc.stop(startTime + duration + 0.05);
-        osc2.stop(startTime + duration + 0.05);
-        osc3.stop(startTime + duration + 0.05);
-
-        // Cleanup
+        [osc, osc2].forEach(o => {
+            o.start(start);
+            o.stop(start + dur + 0.01);
+        });
         osc.onended = () => {
-            osc.disconnect();
-            osc2.disconnect();
-            osc3.disconnect();
-            oscGain.disconnect();
-            osc2Gain.disconnect();
-            osc3Gain.disconnect();
-            filter.disconnect();
-            outputGain.disconnect();
+            [osc, osc2, osc2Gain, lowpass, gain, panner].forEach(node => node.disconnect());
         };
+        return dur + 0.05;
+    }
+
+    // --- Toads and frogs ---
+    // A frog call is a train of pulses exciting the resonance of the vocal sac:
+    // modeled as a low sawtooth (one click per pulse) through narrow bandpass
+    // "formants". Common toads give soft, slow "quarr" calls; tree frogs a fast,
+    // bright "krek-krek-krek" series.
+
+    synthesizeToad(config, toad) {
+        if (!toad.voice) {
+            toad.voice = toad.species === 'treeFrog'
+                ? { pulseRate: soundRand(100, 130), formant: soundRand(2000, 2500), callDur: soundRand(0.07, 0.1),
+                    period: soundRand(0.22, 0.28), calls: [8, 20] }
+                : { pulseRate: soundRand(38, 52), formant: soundRand(650, 900), callDur: soundRand(0.14, 0.22),
+                    period: soundRand(0.7, 1.1), calls: [3, 8] };
+        }
+        const voice = toad.voice;
+        const ctx = this.audioContext;
+        const bus = this.createVoiceBus(toad, config.volume, 0.3);
+
+        let t = ctx.currentTime + 0.05;
+        const calls = soundRandInt(...voice.calls);
+        for (let i = 0; i < calls; i++) {
+            this.playFrogCall(t, voice, soundRand(0.8, 1), bus.input);
+            t += voice.period * soundRand(0.9, 1.1);
+        }
+        bus.releaseAt(t);
+        return t - ctx.currentTime;
+    }
+
+    playFrogCall(start, voice, level, destination) {
+        const ctx = this.audioContext;
+        const dur = voice.callDur * soundRand(0.9, 1.1);
+        const rate = voice.pulseRate * soundRand(0.97, 1.03);
+
+        const osc = ctx.createOscillator();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(rate, start);
+        osc.frequency.linearRampToValueAtTime(rate * 0.92, start + dur);
+
+        // Each formant is two bandpasses in series: steep skirts keep the low
+        // pulse-rate fundamental and the upper buzz out of the call
+        const bandpass = (frequency, q) => {
+            const filter = ctx.createBiquadFilter();
+            filter.type = 'bandpass';
+            filter.frequency.value = frequency;
+            filter.Q.value = q;
+            return filter;
+        };
+        const formant1 = bandpass(voice.formant, 5);
+        const formant1b = bandpass(voice.formant, 3);
+        const formant2 = bandpass(voice.formant * 1.9, 6);
+        const formant2b = bandpass(voice.formant * 1.9, 4);
+        const formant2Gain = ctx.createGain();
+        formant2Gain.gain.value = 0.35;
+
+        const steps = 64;
+        const amp = new Float32Array(steps);
+        for (let i = 0; i < steps; i++) amp[i] = level * this.envelope(i / (steps - 1), 0.25);
+        const gain = ctx.createGain();
+        gain.gain.value = 0;
+        gain.gain.setValueCurveAtTime(amp, start, dur);
+
+        osc.connect(formant1);
+        formant1.connect(formant1b);
+        formant1b.connect(gain);
+        osc.connect(formant2);
+        formant2.connect(formant2b);
+        formant2b.connect(formant2Gain);
+        formant2Gain.connect(gain);
+        gain.connect(destination);
+        osc.start(start);
+        osc.stop(start + dur + 0.02);
+        osc.onended = () => {
+            [osc, formant1, formant1b, formant2, formant2b, formant2Gain, gain].forEach(node => node.disconnect());
+        };
+    }
+
+    // --- Owls ---
+    // Tawny owls: the male hoots "hooo ... hu, hu-hu-huuuuu" (a long note, a pause,
+    // then a quavering phrase); the female answers with a sharp "ke-wick".
+
+    synthesizeOwl(config, owl) {
+        if (!owl.voice) {
+            owl.voice = owl.species === 'tawnyFemale'
+                ? { pitch: soundRand(1500, 1800) }
+                : { pitch: soundRand(650, 780), pause: soundRand(2.5, 4) };
+        }
+        const voice = owl.voice;
+        const ctx = this.audioContext;
+        const bus = this.createVoiceBus(owl, config.volume, 0.5);
+        let t = ctx.currentTime + 0.05;
+
+        if (owl.species === 'tawnyFemale') {
+            const harsh = this.getWave('kewick', [1, 0.6, 0.35, 0.18, 0.08, 0.04]);
+            const calls = soundRandInt(1, 3);
+            for (let i = 0; i < calls; i++) {
+                const f = voice.pitch * soundRand(0.97, 1.03);
+                this.playTone(t, 0.06, { f: [f, f * 1.12, f * 0.9], wave: harsh, gain: 0.6, breath: 2 }, bus.input);
+                this.playTone(t + 0.14, 0.32, {
+                    f: [f * 0.85, f * 1.3, f * 1.4, f * 1.15, f * 0.85],
+                    wave: harsh, attack: 0.2, breath: 2
+                }, bus.input);
+                t += 0.46 + (i < calls - 1 ? soundRand(1, 2) : 0);
+            }
+        } else {
+            const f = voice.pitch * soundRand(0.98, 1.02);
+            const hoot = this.getWave('hoot', [1, 0.08, 0.02]);
+            // "hooo"
+            this.playTone(t, 0.8, { f: [f * 0.93, f, f, f * 0.96], wave: hoot, attack: 0.18, breath: 0.8 }, bus.input);
+            t += 0.8 + voice.pause * soundRand(0.9, 1.1);
+            // "hu"
+            this.playTone(t, 0.14, { f: [f * 0.95, f, f * 0.96], wave: hoot, gain: 0.7, breath: 0.8 }, bus.input);
+            t += 0.38;
+            // "hu-hu-hu", stuttering into the long quavering "huuuuu"
+            const stutters = soundRandInt(2, 4);
+            for (let i = 0; i < stutters; i++) {
+                this.playTone(t, 0.08, { f: [f * 0.97, f * 1.01], wave: hoot, gain: 0.55, breath: 0.8 }, bus.input);
+                t += 0.13;
+            }
+            this.playTone(t, 1.0, {
+                f: [f, f * 1.03, f * 1.01, f * 0.95], wave: hoot, attack: 0.1,
+                tremolo: 0.55, tremoloRate: 11, vibrato: 0.015, vibratoRate: 11, breath: 0.8
+            }, bus.input);
+            t += 1.0;
+        }
+
+        bus.releaseAt(t);
+        return t - ctx.currentTime;
     }
 
     // --- Songbirds ---
-    // Each resident bird is a fixed individual: its species decides the song
-    // structure, and its own random "voice" (pitches, note counts, motifs) is
-    // drawn once, so the same bird keeps singing recognizably the same song.
-    // Notes are near-pure whistles whose pitch and loudness follow smooth
-    // contours (setValueCurveAtTime), which is what makes them sound sung
-    // rather than beeped.
+    // The species decides the song structure; the individual's voice (pitches,
+    // note counts, motifs) is drawn once. Notes are near-pure whistles.
 
-    synthesizeSongbird(config) {
-        if (!this.birds) {
-            this.birds = config.birds.map(bird => ({ ...bird, voice: this.createBirdVoice(bird.species) }));
-        }
-        const bird = this.birds[Math.floor(Math.random() * this.birds.length)];
+    synthesizeSongbird(config, bird) {
+        if (!bird.voice) bird.voice = this.createBirdVoice(bird.species);
+        const voice = bird.voice;
         const ctx = this.audioContext;
+        const bus = this.createVoiceBus(bird, config.volume, 0.35);
+        const wave = voice.wave || this.getWave('pure', [1, 0.05, 0.015]);
 
-        // Per-bout signal chain: notes -> panner -> distance lowpass -> master (+ reverb send)
-        const busGain = ctx.createGain();
-        busGain.gain.value = config.volume * (1 - bird.distance * 0.45);
-        const panner = ctx.createStereoPanner();
-        panner.pan.value = bird.pan;
-        const airFilter = ctx.createBiquadFilter();
-        airFilter.type = 'lowpass';
-        airFilter.frequency.value = 14000 - bird.distance * 8000;
-        busGain.connect(panner);
-        panner.connect(airFilter);
-        airFilter.connect(this.masterGain);
-
-        let send = null;
-        if (this.reverbBus) {
-            send = ctx.createGain();
-            send.gain.value = config.reverbSend * (0.5 + bird.distance);
-            airFilter.connect(send);
-            send.connect(this.reverbBus);
-        }
-
-        const [minSongs, maxSongs] = config.songsPerBout;
-        const songs = minSongs + Math.floor(Math.random() * (maxSongs - minSongs + 1));
+        const songs = soundRandInt(...voice.songs);
         let t = ctx.currentTime + 0.05;
+        let end = t;
         for (let i = 0; i < songs; i++) {
-            const notes = this.composeBirdSong(bird);
-            notes.forEach(note => this.playBirdNote(t + note.t, note, busGain));
-            const songEnd = Math.max(...notes.map(note => note.t + note.dur));
-            t += songEnd + config.songGap[0] + Math.random() * (config.songGap[1] - config.songGap[0]);
+            const notes = this.composeBirdSong(bird, i === songs - 1);
+            notes.forEach(note => this.playTone(t + note.t, note.dur, { wave, ...note }, bus.input));
+            end = t + Math.max(...notes.map(note => note.t + note.dur));
+            t = end + soundRand(...voice.gap);
         }
 
-        // Tear the bus down once the bout and its reverb tail are over
-        const boutMs = (t - ctx.currentTime) * 1000;
-        setTimeout(() => {
-            busGain.disconnect();
-            panner.disconnect();
-            airFilter.disconnect();
-            if (send) send.disconnect();
-        }, boutMs + 3000);
+        bus.releaseAt(end);
+        return end - ctx.currentTime;
     }
 
     createBirdVoice(species) {
-        const rand = (min, max) => min + Math.random() * (max - min);
-        const randInt = (min, max) => Math.floor(rand(min, max + 1));
-
         switch (species) {
             case 'greatTit':
                 // "tea-cher tea-cher": a high note, then a lower down-slurred one
                 return {
-                    high: rand(5600, 7000),
-                    low: rand(3300, 4300),
-                    reps: randInt(3, 6),
-                    period: rand(0.22, 0.3)
+                    songs: [3, 6], gap: [1.5, 3.5],
+                    high: soundRand(5600, 7000),
+                    low: soundRand(3300, 4300),
+                    reps: soundRandInt(3, 6),
+                    period: soundRand(0.22, 0.3)
                 };
             case 'chaffinch':
                 // Descending, accelerating trill ending in a "chew-ee-oo" flourish
                 return {
-                    trill1: { count: randInt(4, 6), from: rand(5600, 6400), to: rand(4800, 5300), spacing: rand(0.07, 0.085) },
-                    trill2: { count: randInt(5, 8), from: rand(4300, 4700), to: rand(3300, 3700), spacing: rand(0.05, 0.06) },
-                    flourishPeak: rand(4800, 5600)
+                    songs: [2, 4], gap: [4, 8],
+                    trill1: { count: soundRandInt(4, 6), from: soundRand(5600, 6400), to: soundRand(4800, 5300), spacing: soundRand(0.07, 0.085) },
+                    trill2: { count: soundRandInt(5, 8), from: soundRand(4300, 4700), to: soundRand(3300, 3700), spacing: soundRand(0.05, 0.06) },
+                    flourishPeak: soundRand(4800, 5600)
                 };
             case 'blackbird': {
                 // Low, fluted phrases from a small personal repertoire, each followed by
@@ -753,27 +969,51 @@ class SoundGenerator {
                 const motifs = [];
                 for (let m = 0; m < 4; m++) {
                     const notes = [];
-                    const count = randInt(3, 5);
+                    const count = soundRandInt(3, 5);
                     for (let n = 0; n < count; n++) {
-                        const points = randInt(3, 5);
                         const contour = [];
-                        let f = rand(1700, 2900);
-                        for (let p = 0; p < points; p++) {
+                        let f = soundRand(1700, 2900);
+                        for (let p = soundRandInt(3, 4); p > 0; p--) {
                             contour.push(f);
-                            f = Math.min(3400, Math.max(1500, f * rand(0.82, 1.2)));
+                            f = Math.min(3400, Math.max(1500, f * soundRand(0.85, 1.18)));
                         }
-                        notes.push({ dur: rand(0.11, 0.32), gap: rand(0.03, 0.1), contour, gain: rand(0.7, 1) });
+                        notes.push({ dur: soundRand(0.11, 0.32), gap: soundRand(0.03, 0.1), contour, gain: soundRand(0.7, 1) });
                     }
                     motifs.push(notes);
                 }
-                return { motifs };
+                return { songs: [3, 5], gap: [2, 4], motifs };
             }
+            case 'robin':
+                // Thin, high, ever-changing phrases of whistles, trills and glides
+                return { songs: [3, 6], gap: [2.5, 5], base: soundRand(3500, 4800) };
+            case 'chiffchaff':
+                // "chiff-chaff-chiff-chiff-chaff": two steeply falling notes in loose alternation
+                return {
+                    songs: [2, 4], gap: [3, 6],
+                    high: soundRand(5600, 6400), low: soundRand(4300, 4900),
+                    spacing: soundRand(0.3, 0.38)
+                };
+            case 'woodPigeon':
+                // Soft, breathy "coo-COOO-coo, coo-coo", repeated a few times
+                return {
+                    songs: [2, 4], gap: [0.9, 1.4],
+                    pitch: soundRand(420, 520),
+                    wave: this.getWave('coo', [1, 0.25, 0.08])
+                };
+            case 'cuckoo':
+                // "cu-coo" falling by about a third, repeated in one long series
+                return {
+                    songs: [1, 1], gap: [0, 0],
+                    high: soundRand(640, 720), ratio: soundRand(0.8, 0.85),
+                    period: soundRand(0.75, 0.95), count: [6, 14],
+                    wave: this.getWave('cuckoo', [1, 0.12, 0.03])
+                };
         }
         return null;
     }
 
-    // Returns one song as a list of notes: { t, dur, f: [Hz contour], gain, vibrato? }
-    composeBirdSong(bird) {
+    // Returns one song as a list of notes: { t, dur, f: [Hz contour], gain, ...playTone options }
+    composeBirdSong(bird, isLastSong) {
         const voice = bird.voice;
         const jitter = () => 1 + (Math.random() - 0.5) * 0.03; // Tiny song-to-song variation
         const notes = [];
@@ -811,7 +1051,7 @@ class SoundGenerator {
                 let t = 0;
                 const motifCount = Math.random() < 0.4 ? 2 : 1;
                 for (let m = 0; m < motifCount; m++) {
-                    const motif = voice.motifs[Math.floor(Math.random() * voice.motifs.length)];
+                    const motif = soundPick(voice.motifs);
                     const tune = jitter();
                     motif.forEach(note => {
                         notes.push({ t, dur: note.dur, f: note.contour.map(f => f * tune), gain: note.gain, vibrato: 0.012 });
@@ -820,11 +1060,83 @@ class SoundGenerator {
                     t += 0.08;
                 }
                 // Twitter: fast, quiet, high squeaks
-                const squeaks = 3 + Math.floor(Math.random() * 5);
+                const squeaks = soundRandInt(3, 7);
                 for (let i = 0; i < squeaks; i++) {
-                    const f = 5500 + Math.random() * 2500;
+                    const f = soundRand(5500, 8000);
                     notes.push({ t, dur: 0.03, f: [f * 0.85, f * 1.1, f * 0.9], gain: 0.35 });
-                    t += 0.045 + Math.random() * 0.02;
+                    t += soundRand(0.045, 0.065);
+                }
+                break;
+            }
+            case 'robin': {
+                // Robins rarely repeat a phrase, so every song is improvised from three gestures
+                let t = 0;
+                const base = voice.base;
+                const elements = soundRandInt(6, 11);
+                for (let k = 0; k < elements; k++) {
+                    const gesture = Math.random();
+                    if (gesture < 0.4) {
+                        const dur = soundRand(0.06, 0.18);
+                        const f = Math.min(7500, base * soundRand(0.7, 1.6));
+                        notes.push({ t, dur, f: [f * soundRand(0.9, 1.1), f, f * soundRand(0.85, 1.15)], gain: soundRand(0.5, 1) });
+                        t += dur + soundRand(0.02, 0.06);
+                    } else if (gesture < 0.7) {
+                        const f = Math.min(7500, base * soundRand(0.8, 1.7));
+                        const count = soundRandInt(3, 7);
+                        for (let i = 0; i < count; i++) {
+                            notes.push({ t, dur: 0.025, f: [f * 1.15, f * 0.9], gain: 0.6 });
+                            t += 0.04;
+                        }
+                        t += soundRand(0.02, 0.05);
+                    } else {
+                        const dur = soundRand(0.1, 0.2);
+                        const low = base * soundRand(0.6, 0.9);
+                        const high = Math.min(8000, base * soundRand(1.4, 1.9));
+                        notes.push({ t, dur, f: Math.random() < 0.5 ? [low, high] : [high, low], gain: soundRand(0.6, 0.9) });
+                        t += dur + soundRand(0.03, 0.07);
+                    }
+                }
+                break;
+            }
+            case 'chiffchaff': {
+                const count = soundRandInt(6, 11);
+                let high = Math.random() < 0.5;
+                for (let i = 0; i < count; i++) {
+                    const f = (high ? voice.high : voice.low) * jitter();
+                    notes.push({ t: i * voice.spacing * soundRand(0.92, 1.08), dur: 0.07, f: [f * 1.12, f * 0.88], gain: soundRand(0.75, 1) });
+                    // Mostly alternate, sometimes repeat the same note
+                    if (Math.random() < 0.7) high = !high;
+                }
+                break;
+            }
+            case 'woodPigeon': {
+                // coo-COOO-coo, coo-coo (the bout ends on a single cut-off "coo")
+                const f = voice.pitch * jitter();
+                const rhythm = isLastSong
+                    ? [{ dur: 0.3, gap: 0, accent: false }]
+                    : [
+                        { dur: 0.3, gap: 0.08, accent: false },
+                        { dur: 0.6, gap: 0.1, accent: true },
+                        { dur: 0.3, gap: 0.35, accent: false },
+                        { dur: 0.25, gap: 0.08, accent: false },
+                        { dur: 0.3, gap: 0, accent: false }
+                    ];
+                let t = 0;
+                rhythm.forEach(({ dur, gap, accent }) => {
+                    const p = accent ? f * 1.05 : f;
+                    notes.push({ t, dur, f: [p * 0.92, p * 1.02, p * 0.97], gain: accent ? 1 : 0.75, attack: 0.35, breath: 0.8 });
+                    t += dur + gap;
+                });
+                break;
+            }
+            case 'cuckoo': {
+                const count = soundRandInt(...voice.count);
+                for (let i = 0; i < count; i++) {
+                    const t = i * voice.period * soundRand(0.97, 1.03);
+                    const high = voice.high * jitter();
+                    const low = high * voice.ratio;
+                    notes.push({ t, dur: 0.14, f: [high * 0.98, high, high * 0.99], gain: 1, breath: 0.6 });
+                    notes.push({ t: t + 0.22, dur: 0.24, f: [low, low, low * 0.97], gain: 0.85, attack: 0.2, breath: 0.6 });
                 }
                 break;
             }
@@ -832,199 +1144,8 @@ class SoundGenerator {
         return notes;
     }
 
-    playBirdNote(startTime, note, destination) {
-        const ctx = this.audioContext;
-        const { dur } = note;
+    // --- Public API ---
 
-        // Bird song is close to a pure tone; a faint 2nd/3rd harmonic keeps it from sounding electronic
-        if (!this.birdWave) {
-            this.birdWave = ctx.createPeriodicWave(new Float32Array([0, 0, 0, 0]), new Float32Array([0, 1, 0.05, 0.015]));
-        }
-
-        // Pitch contour, smoothly interpolated, with optional fluting vibrato
-        const steps = Math.max(16, Math.ceil(dur * 400));
-        const freqCurve = new Float32Array(steps);
-        const ampCurve = new Float32Array(steps);
-        const points = note.f;
-        for (let i = 0; i < steps; i++) {
-            const x = i / (steps - 1);
-            const pos = x * (points.length - 1);
-            const idx = Math.min(points.length - 2, Math.floor(pos));
-            const frac = pos - idx;
-            const smooth = 0.5 - 0.5 * Math.cos(Math.PI * frac);
-            let f = points[idx] + (points[idx + 1] - points[idx]) * smooth;
-            if (note.vibrato) f *= 1 + note.vibrato * Math.sin(2 * Math.PI * 30 * x * dur);
-            freqCurve[i] = f;
-            // Raised-cosine swell: quicker onset, longer fade, zero level and slope at both ends (no clicks)
-            const attack = 0.3;
-            const env = x < attack
-                ? 0.5 - 0.5 * Math.cos(Math.PI * x / attack)
-                : 0.5 + 0.5 * Math.cos(Math.PI * (x - attack) / (1 - attack));
-            ampCurve[i] = note.gain * env;
-        }
-
-        const osc = ctx.createOscillator();
-        osc.setPeriodicWave(this.birdWave);
-        osc.frequency.setValueCurveAtTime(freqCurve, startTime, dur);
-
-        const gain = ctx.createGain();
-        gain.gain.value = 0;
-        gain.gain.setValueCurveAtTime(ampCurve, startTime, dur);
-
-        osc.connect(gain);
-        gain.connect(destination);
-        osc.start(startTime);
-        osc.stop(startTime + dur + 0.01);
-        osc.onended = () => {
-            osc.disconnect();
-            gain.disconnect();
-        };
-    }
-
-    synthesizeOwl(config) {
-        const now = this.audioContext.currentTime;
-
-        // Create the hoo-h'HOO-hoo-hoo pattern
-        let currentTime = now + 0.01;
-        for (let i = 0; i < config.hootsPerCall; i++) {
-            const hootDuration = config.hootDurations[i] / 1000;
-            const isEmphasis = i === 1; // Second hoot is emphasized (h'HOO)
-            this.createOwlHoot(currentTime, hootDuration, isEmphasis, config);
-
-            currentTime += hootDuration;
-            if (i < config.hootGaps.length) {
-                currentTime += config.hootGaps[i] / 1000;
-            }
-        }
-    }
-
-    createOwlHoot(startTime, duration, isEmphasis, config) {
-        const baseFreq = isEmphasis ? config.emphasisFrequency : config.baseFrequency;
-        const endFreq = baseFreq * config.pitchGlide;
-
-        // --- Layer 1: Fundamental sine ---
-        const osc = this.audioContext.createOscillator();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(baseFreq, startTime);
-        osc.frequency.exponentialRampToValueAtTime(endFreq, startTime + duration);
-
-        // --- Layer 2: 2nd harmonic (body) ---
-        const osc2 = this.audioContext.createOscillator();
-        osc2.type = 'sine';
-        osc2.frequency.setValueAtTime(baseFreq * 2, startTime);
-        osc2.frequency.exponentialRampToValueAtTime(endFreq * 2, startTime + duration);
-        const osc2Gain = this.audioContext.createGain();
-        osc2Gain.gain.value = 0.08;
-
-        // --- Layer 3: Sub-harmonic (chest resonance) ---
-        const oscSub = this.audioContext.createOscillator();
-        oscSub.type = 'sine';
-        oscSub.frequency.setValueAtTime(baseFreq * 0.5, startTime);
-        oscSub.frequency.exponentialRampToValueAtTime(endFreq * 0.5, startTime + duration);
-        const oscSubGain = this.audioContext.createGain();
-        oscSubGain.gain.value = 0.04;
-
-        // --- Vibrato LFO ---
-        const lfo = this.audioContext.createOscillator();
-        const lfoGain = this.audioContext.createGain();
-        lfo.frequency.value = config.vibratoRate;
-        lfoGain.gain.value = config.vibratoDepth;
-        lfo.connect(lfoGain);
-        lfoGain.connect(osc.detune);
-        lfoGain.connect(osc2.detune);
-        lfoGain.connect(oscSub.detune);
-
-        // --- Layer 4: Breath noise ---
-        const bufferSize = Math.ceil(this.audioContext.sampleRate * (duration + 0.1));
-        const noiseBuffer = this.audioContext.createBuffer(1, bufferSize, this.audioContext.sampleRate);
-        const noiseData = noiseBuffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) {
-            noiseData[i] = Math.random() * 2 - 1;
-        }
-        const noise = this.audioContext.createBufferSource();
-        noise.buffer = noiseBuffer;
-
-        const breathFilter = this.audioContext.createBiquadFilter();
-        breathFilter.type = 'bandpass';
-        breathFilter.frequency.value = config.breathFilterFreq;
-        breathFilter.Q.value = config.breathFilterQ;
-
-        const breathGain = this.audioContext.createGain();
-
-        // --- Lowpass filter for mellow tone ---
-        const lowpass = this.audioContext.createBiquadFilter();
-        lowpass.type = 'lowpass';
-        lowpass.frequency.value = config.filterCutoff;
-        lowpass.Q.value = 0.7;
-
-        // --- Output gain ---
-        const outputGain = this.audioContext.createGain();
-
-        // Connect tonal layers -> lowpass -> output
-        osc.connect(lowpass);
-        osc2.connect(osc2Gain);
-        osc2Gain.connect(lowpass);
-        oscSub.connect(oscSubGain);
-        oscSubGain.connect(lowpass);
-        lowpass.connect(outputGain);
-
-        // Connect breath noise (bypasses lowpass, has its own filter)
-        noise.connect(breathFilter);
-        breathFilter.connect(breathGain);
-        breathGain.connect(outputGain);
-
-        outputGain.connect(this.masterGain);
-        if (this.reverbBus) outputGain.connect(this.reverbBus);
-
-        // --- Envelope ---
-        const volume = isEmphasis ? config.volume * 1.5 : config.volume;
-        const attackTime = 0.08; // Smooth 80ms attack
-        const releaseStart = duration * 0.6;
-
-        outputGain.gain.setValueAtTime(0, startTime);
-        outputGain.gain.linearRampToValueAtTime(volume, startTime + attackTime);
-        outputGain.gain.setValueAtTime(volume * 0.95, startTime + releaseStart);
-        outputGain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
-
-        // Breath envelope follows main but scaled
-        breathGain.gain.setValueAtTime(0, startTime);
-        breathGain.gain.linearRampToValueAtTime(volume * config.breathiness, startTime + attackTime);
-        breathGain.gain.setValueAtTime(volume * config.breathiness * 0.9, startTime + releaseStart);
-        breathGain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
-
-        // --- Start ---
-        osc.start(startTime);
-        osc2.start(startTime);
-        oscSub.start(startTime);
-        lfo.start(startTime);
-        noise.start(startTime);
-
-        // --- Stop ---
-        const stopTime = startTime + duration + 0.01;
-        osc.stop(stopTime);
-        osc2.stop(stopTime);
-        oscSub.stop(stopTime);
-        lfo.stop(stopTime);
-        noise.stop(stopTime);
-
-        // --- Cleanup ---
-        osc.onended = () => {
-            osc.disconnect();
-            osc2.disconnect();
-            oscSub.disconnect();
-            osc2Gain.disconnect();
-            oscSubGain.disconnect();
-            lfo.disconnect();
-            lfoGain.disconnect();
-            noise.disconnect();
-            breathFilter.disconnect();
-            breathGain.disconnect();
-            lowpass.disconnect();
-            outputGain.disconnect();
-        };
-    }
-
-    // Public API for mute control
     toggleMute() {
         // Initialize audio on first unmute if not already initialized
         if (!this.isInitialized && this.isMuted) {
@@ -1059,60 +1180,42 @@ class SoundGenerator {
         return this.isInitialized;
     }
 
-    // Pause sound generation (when page becomes hidden)
+    // Page hidden: stop scheduling and freeze the audio clock, which also halts
+    // the rain bed and any bout in progress
     pauseSoundGeneration() {
-        // Clear all scheduled interval sounds
-        this.scheduledSounds.forEach(timeoutId => clearTimeout(timeoutId));
-        this.scheduledSounds.clear();
-
-        // Stop all continuous sounds
-        Object.entries(this.soundConfigs).forEach(([soundType, config]) => {
-            if (config.type === 'continuous') {
-                this.stopContinuousSound(soundType);
-            }
-        });
+        this.stopScheduling();
+        if (this.audioContext && this.audioContext.state === 'running') {
+            this.audioContext.suspend();
+        }
     }
 
-    // Resume sound generation (when page becomes visible)
+    // Page visible again: unfreeze and let every individual pick up its own schedule
     resumeSoundGeneration() {
         if (!this.isInitialized || !this.audioContext) return;
-
-        // Restart scheduling for all enabled sound types
-        Object.entries(this.soundConfigs).forEach(([soundType, config]) => {
-            if (config.enabled) {
-                if (config.type === 'interval') {
-                    // Play immediately when resuming
-                    this.scheduleNextSound(soundType, config, true);
-                } else if (config.type === 'continuous') {
-                    // Restart continuous sounds
-                    this.startContinuousSound(soundType, config);
-                }
-            }
-        });
+        if (this.audioContext.state === 'suspended') this.audioContext.resume();
+        this.stopScheduling();
+        this.startSoundGeneration();
     }
 
-    // Cleanup method
     destroy() {
-        // Clear all scheduled interval sounds
-        this.scheduledSounds.forEach(timeoutId => clearTimeout(timeoutId));
-        this.scheduledSounds.clear();
+        this.stopScheduling();
 
-        // Stop all continuous sounds
         Object.entries(this.soundConfigs).forEach(([soundType, config]) => {
             if (config.type === 'continuous') {
                 this.stopContinuousSound(soundType);
             }
         });
 
-        // Close audio context
         if (this.audioContext) {
             this.audioContext.close();
         }
     }
 
-    // Theme update (for future use - could adjust sound based on theme)
+    // Day and night have different casts: reshuffle the schedule so the new
+    // cast starts within seconds instead of after a full rest
     updateTheme() {
-        // Could adjust volume or sound characteristics based on theme
-        // Currently no-op, but follows the pattern
+        if (!this.isInitialized || !this.isPageVisible) return;
+        this.stopScheduling();
+        this.startSoundGeneration();
     }
 }
