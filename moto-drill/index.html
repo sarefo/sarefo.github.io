@@ -472,9 +472,17 @@ let store = {};
 try { store = JSON.parse(localStorage.getItem(STORE_KEY) || "{}") || {}; } catch (e) { store = {}; }
 function save() { try { localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch (e) {} }
 const boxOf = id => (store[id] ? store[id].b : -1);   // -1 = never seen
+// Right on the very first try counts as two steps: you likely knew it already.
+const FIRST_RIGHT = 2;
+// One-time upgrade: cards answered right on their only showing so far get the same credit.
+if (!store._v2) {
+  Object.keys(store).forEach(k => { const r = store[k]; if (k[0] !== "_" && r.n === 1 && r.b === 1) r.b = FIRST_RIGHT; });
+  store._v2 = 1; save();
+}
 function record(id, ok) {
+  const fresh = !store[id];
   const r = store[id] || { b: 0, n: 0 };
-  r.b = ok ? Math.min(5, r.b + 1) : 0;
+  r.b = ok ? Math.min(5, fresh ? FIRST_RIGHT : r.b + 1) : 0;
   r.n++; r.t = Date.now();
   store[id] = r;
   const m = store._m || (store._m = { a: 0, c: 0, s: 0, k: 0 });
@@ -483,8 +491,8 @@ function record(id, ok) {
 }
 const MASTER = 3;
 const EXAM_DATE = new Date(2026, 10, 6, 8, 0);   // Friday 6 Nov 2026
-// Estimate the work left. A question is mastered after MASTER right answers in a row, and a
-// wrong answer resets the streak. With accuracy p, the expected number of answers to get k in
+// Estimate the work left. A question is mastered after MASTER right answers in a row (a right
+// first try counts as FIRST_RIGHT), and a wrong answer resets the streak. With accuracy p, the expected number of answers to get k in
 // a row is (p^-k - 1) / (1 - p), so the remaining work from streak j is E(MASTER) - E(j).
 function forecast() {
   const m = store._m || { a: 0, c: 0, s: 0, k: 0 };
@@ -496,8 +504,11 @@ function forecast() {
   items.forEach(it => {
     const b = boxOf(it.id);
     if (b >= MASTER) return;
-    const j = Math.max(0, b);
-    open++; min += MASTER - j; need += E(MASTER) - E(j);
+    open++;
+    if (b < 0) {   // unseen: one answer, then either FIRST_RIGHT credit or a fresh start
+      min += 1 + MASTER - FIRST_RIGHT;
+      need += 1 + p * (E(MASTER) - E(FIRST_RIGHT)) + (1 - p) * E(MASTER);
+    } else { min += MASTER - b; need += E(MASTER) - E(b); }
   });
   // Seconds per answer: measured card-to-card time, or 15 s until there is enough data.
   const sec = m.k >= 10 ? m.s / m.k : 15;
@@ -518,10 +529,26 @@ function optionsFor(it) {
   const wrong = it.wrong ? it.wrong : shuffle(it.pool).slice(0, 3);
   return shuffle([it.a, ...wrong]);
 }
-// Weakest first: unseen and box 0 first, then low boxes; random within a box.
+// Finish what is started before opening new cards. Up to two thirds of a round are cards
+// already in progress (closest to mastered first, so they cross the line), the rest are new.
+// Cards answered in the last few minutes wait, so a repeat is a real recall, not an echo.
+const GAP = 4 * 60e3;
 function pickSmart(list, n) {
-  return shuffle(list).map(it => ({ it, k: (boxOf(it.id) < 0 ? 0.5 : boxOf(it.id)) + Math.random() * 0.9 }))
-    .sort((x, y) => x.k - y.k).slice(0, n).map(x => x.it);
+  const now = Date.now();
+  const learning = [], fresh = [], rest = [];
+  shuffle(list).forEach(it => {
+    const b = boxOf(it.id), r = store[it.id];
+    if (b < 0) fresh.push(it);
+    else if (b < MASTER && now - (r.t || 0) >= GAP) learning.push({ it, k: -b + Math.random() * 1.5 });
+    else rest.push({ it, k: (b < MASTER ? 0 : 10 + b) + Math.random() });
+  });
+  learning.sort((x, y) => x.k - y.k);
+  const take = learning.slice(0, Math.max(Math.round(n * 2 / 3), n - fresh.length)).map(x => x.it);
+  const pick = take.concat(fresh.slice(0, n - take.length));
+  // Not enough? Fill with recently seen learning cards, then the least-solid mastered ones.
+  rest.sort((x, y) => x.k - y.k);
+  for (const x of rest) { if (pick.length >= n) break; pick.push(x.it); }
+  return shuffle(pick);
 }
 function pickMock() {
   // Weighted like the real exams: signs are the largest block.
@@ -566,7 +593,7 @@ function home() {
   const readyMsg = pct >= 85 ? "You look ready. Take a mock exam to confirm."
     : pct >= 50 ? "Good progress. Keep drilling your weakest topics."
     : all.m + all.l === 0 ? "Start with a smart drill. It serves your weakest questions first."
-    : "Keep going. A question counts as mastered after 3 correct answers in a row.";
+    : "Keep going. A question counts as mastered after 3 correct answers in a row. Right on the first try counts as 2.";
   app.innerHTML = `
     <header class="masthead">
       <span class="label">LTO · Non-pro license · Cars and motorcycles</span>
